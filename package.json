@@ -1,0 +1,22 @@
+{
+  "name": "bbangto-ui",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Design System Store - Themeable component library",
+  "scripts": {
+    "dev": "pnpm --filter storybook storybook",
+    "build": "pnpm -r --filter=!storybook run build",
+    "typecheck": "pnpm -r run typecheck",
+    "storybook": "pnpm --filter storybook storybook",
+    "build-storybook": "pnpm --filter storybook build-storybook",
+    "clean": "pnpm -r exec rm -rf dist node_modules"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0"
+  },
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=9"
+  },
+  "packageManager": "pnpm@9.15.0"
+}
