@@ -17,6 +17,9 @@ importers:
       '@bbangto-ui/core':
         specifier: workspace:^
         version: link:../../packages/core
+      '@bbangto-ui/theme-binance':
+        specifier: workspace:^
+        version: link:../../packages/theme-binance
       '@bbangto-ui/theme-dark':
         specifier: workspace:^
         version: link:../../packages/theme-dark
@@ -139,6 +142,19 @@ importers:
       lucide-static:
         specifier: ^1.21.0
         version: 1.21.0
+      tsup:
+        specifier: ^8.0.0
+        version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.7.0
+        version: 5.9.3
+
+  packages/theme-binance:
+    dependencies:
+      '@bbangto-ui/tokens':
+        specifier: workspace:*
+        version: link:../tokens
+    devDependencies:
       tsup:
         specifier: ^8.0.0
         version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
