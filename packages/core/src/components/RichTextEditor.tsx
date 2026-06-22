@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { cssVar } from '@bbangto-ui/tokens';
 import { Button } from './Button';
 
-export interface RichTextEditorProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface RichTextEditorProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   value?: string;
   onChange?: (html: string) => void;
   placeholder?: string;

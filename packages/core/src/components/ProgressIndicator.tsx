@@ -3,10 +3,63 @@ import { cssVar } from '@bbangto-ui/tokens';
 
 export interface ProgressIndicatorProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: 'sm' | 'md' | 'lg';
+  value?: number;
+  showValue?: boolean;
 }
 
 export const ProgressIndicator = React.forwardRef<HTMLDivElement, ProgressIndicatorProps>(
-  ({ size = 'md', style, className, ...props }, ref) => {
+  ({ size = 'md', value, showValue = false, style, className, ...props }, ref) => {
+    if (value !== undefined) {
+      const percentage = Math.min(100, Math.max(0, value));
+      
+      return (
+        <div 
+          ref={ref} 
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: cssVar('spacing', '8'),
+            width: '100%',
+            ...style
+          }}
+          className={className}
+          role="progressbar"
+          aria-valuenow={percentage}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          {...props}
+        >
+          <div style={{
+            flex: 1,
+            height: size === 'sm' ? '4px' : size === 'lg' ? '12px' : '8px',
+            backgroundColor: '#E6E4DF',
+            borderRadius: '999px',
+            overflow: 'hidden'
+          }}>
+            <div style={{
+              width: `${percentage}%`,
+              height: '100%',
+              backgroundColor: cssVar('semantic', 'primary', 'base'),
+              borderRadius: '999px',
+              transition: 'width 0.2s ease-in-out'
+            }} />
+          </div>
+          {showValue && (
+            <span style={{
+              fontFamily: cssVar('typography', 'fontFamily', 'sans'),
+              fontSize: size === 'sm' ? '12px' : '14px',
+              fontWeight: 500,
+              color: cssVar('semantic', 'foreground', 'muted'),
+              minWidth: '36px',
+              textAlign: 'right'
+            }}>
+              {Math.round(percentage)}%
+            </span>
+          )}
+        </div>
+      );
+    }
+
     const getSize = () => {
       switch (size) {
         case 'sm': return '16px';

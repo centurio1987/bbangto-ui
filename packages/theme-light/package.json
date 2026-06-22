@@ -1,6 +1,6 @@
 {
   "name": "@bbangto-ui/theme-light",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Light theme for bbangto-ui",
   "type": "module",
   "main": "./dist/index.js",
@@ -12,7 +12,9 @@
       "import": "./dist/index.js"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "typecheck": "tsc --noEmit",
@@ -25,5 +27,12 @@
     "tsup": "^8.0.0",
     "typescript": "^5.7.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/centurio1987/bbangto-ui.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
 }
