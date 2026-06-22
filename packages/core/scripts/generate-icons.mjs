@@ -10,9 +10,27 @@ const LUCIDE_DIR = path.join(__dirname, '../node_modules/lucide-static/icons');
 const OUT_DIR = path.join(__dirname, '../src/components/atoms/Icon/generated');
 
 const ICONS_TO_GENERATE = [
-  'home', 'user', 'settings', 'search', 'menu', 'x', 
-  'arrow-right', 'check', 'chevron-right', 'chevron-down', 
-  'sun', 'moon', 'alert-circle', 'info'
+  // Phase 1: Navigation & Essential Actions
+  'arrow-left', 'arrow-up', 'arrow-down', 'chevron-left', 'chevron-up', 'chevrons-right', 'chevrons-left', 'chevrons-up', 'chevrons-down',
+  'more-horizontal', 'more-vertical', 'external-link', 'link',
+  'edit', 'pencil', 'trash', 'trash-2', 'copy', 'save', 'download', 'upload', 'share', 'share-2', 'refresh-cw', 'filter',
+  'arrow-right', 'chevron-right', 'chevron-down', 'menu', 'x', 'home', 'search', 'settings',
+
+  // Phase 2: Feedback, Status & Communication
+  'alert-triangle', 'help-circle', 'check-circle', 'x-circle', 'check-square', 'alert-circle', 'info', 'check',
+  'users', 'user-plus', 'user-minus', 'user-check', 'log-in', 'log-out', 'user',
+  'mail', 'message-circle', 'message-square', 'phone', 'bell', 'bell-off', 'send',
+  'lock', 'unlock', 'eye', 'eye-off', 'key',
+
+  // Phase 3: Content, Media & Files
+  'play', 'pause', 'stop-circle', 'image', 'video', 'camera', 'mic', 'mic-off', 'volume-2', 'volume-x',
+  'file', 'file-text', 'folder', 'folder-open', 'folder-plus', 'paperclip', 'archive',
+  'shopping-cart', 'shopping-bag', 'credit-card', 'dollar-sign', 'heart', 'star', 'bookmark', 'tag', 'bar-chart-2', 'pie-chart', 'trending-up',
+
+  // Phase 4: Hardware & Miscellaneous
+  'smartphone', 'monitor', 'laptop', 'tablet', 'printer',
+  'calendar', 'clock', 'map-pin', 'map', 'compass', 'globe',
+  'sliders', 'award', 'gift', 'flag', 'zap', 'coffee', 'sun', 'moon'
 ];
 
 function toPascalCase(str) {
