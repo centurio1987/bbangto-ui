@@ -1,4 +1,4 @@
-import type { BbangtoTheme } from '@bbangto-ui/tokens';
+import type { BbangtoTheme } from '@centurio87/tokens';
 
 const baseBinancePalette = {
   common: {

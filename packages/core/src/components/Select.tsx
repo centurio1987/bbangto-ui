@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { cssVar } from '@bbangto-ui/tokens';
+import { cssVar } from '@centurio87/tokens';
 
 export interface SelectOption {
   label: string;

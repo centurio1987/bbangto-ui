@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { GNB, Button, Avatar } from '@bbangto-ui/core';
+import { GNB, Button, Avatar } from '@centurio87/core';
 
 const meta = {
   title: 'Organisms/GNB',

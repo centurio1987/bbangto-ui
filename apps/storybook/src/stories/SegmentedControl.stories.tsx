@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { SegmentedControl } from '@bbangto-ui/core';
+import { SegmentedControl } from '@centurio87/core';
 
 const meta = {
   title: 'Molecules/SegmentedControl',

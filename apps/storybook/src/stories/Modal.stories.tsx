@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Modal, Button } from '@bbangto-ui/core';
+import { Modal, Button } from '@centurio87/core';
 
 const meta = {
   title: 'Organisms/Modal',

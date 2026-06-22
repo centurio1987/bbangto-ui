@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Avatar } from '@bbangto-ui/core';
+import { Avatar } from '@centurio87/core';
 
 const meta = {
   title: 'Atoms/Avatar',

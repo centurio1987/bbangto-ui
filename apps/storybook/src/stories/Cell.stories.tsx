@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Cell, Avatar, Switch, Badge } from '@bbangto-ui/core';
+import { Cell, Avatar, Switch, Badge } from '@centurio87/core';
 
 const meta = {
   title: 'Molecules/Cell',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { cssVar } from '@bbangto-ui/tokens';
+import { cssVar } from '@centurio87/tokens';
 
 export interface GNBProps extends React.HTMLAttributes<HTMLDivElement> {
   logo: React.ReactNode;

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { EmptyState, Button } from '@bbangto-ui/core';
+import { EmptyState, Button } from '@centurio87/core';
 
 const meta = {
   title: 'Organisms/EmptyState',

@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Tooltip, Button } from '@bbangto-ui/core';
+import { Tooltip, Button } from '@centurio87/core';
 
 const meta = {
   title: 'Atoms/Tooltip',

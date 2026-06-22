@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Divider } from '@bbangto-ui/core';
+import { Divider } from '@centurio87/core';
 
 const meta = {
   title: 'Atoms/Divider',

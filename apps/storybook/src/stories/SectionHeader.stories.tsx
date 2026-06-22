@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { SectionHeader, Button } from '@bbangto-ui/core';
+import { SectionHeader, Button } from '@centurio87/core';
 
 const meta = {
   title: 'Molecules/SectionHeader',

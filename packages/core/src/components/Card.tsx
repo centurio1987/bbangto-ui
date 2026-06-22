@@ -1,5 +1,5 @@
 import React from 'react';
-import { cssVar } from '@bbangto-ui/tokens';
+import { cssVar } from '@centurio87/tokens';
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;

@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Table, TableHead, TableBody, TableRow, TableHeader, TableCell } from '@bbangto-ui/core';
+import { Table, TableHead, TableBody, TableRow, TableHeader, TableCell } from '@centurio87/core';
 
 const meta = {
   title: 'Organisms/Table',

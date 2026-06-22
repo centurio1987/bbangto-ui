@@ -1,5 +1,5 @@
 {
-  "name": "@bbangto-ui/theme-binance",
+  "name": "@centurio87/theme-binance",
   "version": "0.2.0",
   "description": "Binance theme for bbangto-ui",
   "type": "module",
@@ -21,7 +21,7 @@
     "dev": "tsup --watch"
   },
   "dependencies": {
-    "@bbangto-ui/tokens": "workspace:*"
+    "@centurio87/tokens": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.0",

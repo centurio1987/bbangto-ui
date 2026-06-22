@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Input } from '@bbangto-ui/core';
+import { Input } from '@centurio87/core';
 
 const meta = {
   title: 'Atoms/Input',

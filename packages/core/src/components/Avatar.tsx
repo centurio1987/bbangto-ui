@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { cssVar } from '@bbangto-ui/tokens';
+import { cssVar } from '@centurio87/tokens';
 
 export interface AvatarProps extends React.HTMLAttributes<HTMLDivElement> {
   src?: string;

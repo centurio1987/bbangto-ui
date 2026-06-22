@@ -4,8 +4,8 @@ import {
   themeToStyleObject,
   mergeTheme,
   ThemeOverride,
-} from '@bbangto-ui/tokens';
-import { lightTheme } from '@bbangto-ui/theme-light';
+} from '@centurio87/tokens';
+import { lightTheme } from '@centurio87/theme-light';
 
 interface ThemeContextValue {
   theme: BbangtoTheme;

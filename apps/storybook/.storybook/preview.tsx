@@ -1,10 +1,10 @@
 import type { Preview } from '@storybook/react-vite';
 import React from 'react';
-import { ThemeProvider } from '@bbangto-ui/core';
-import { lightTheme } from '@bbangto-ui/theme-light';
-import { darkTheme } from '@bbangto-ui/theme-dark';
-import { highContrastTheme } from '@bbangto-ui/theme-high-contrast';
-import { binanceDarkTheme, binanceLightTheme } from '@bbangto-ui/theme-binance';
+import { ThemeProvider } from '@centurio87/core';
+import { lightTheme } from '@centurio87/theme-light';
+import { darkTheme } from '@centurio87/theme-dark';
+import { highContrastTheme } from '@centurio87/theme-high-contrast';
+import { binanceDarkTheme, binanceLightTheme } from '@centurio87/theme-binance';
 const preview: Preview = {
   parameters: {
     controls: {

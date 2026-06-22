@@ -1,5 +1,5 @@
 import React from 'react';
-import { cssVar } from '@bbangto-ui/tokens';
+import { cssVar } from '@centurio87/tokens';
 
 export interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {
   width?: string | number;

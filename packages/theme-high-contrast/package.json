@@ -1,5 +1,5 @@
 {
-  "name": "@bbangto-ui/theme-high-contrast",
+  "name": "@centurio87/theme-high-contrast",
   "version": "0.2.0",
   "description": "High Contrast theme for bbangto-ui",
   "type": "module",
@@ -21,8 +21,8 @@
     "dev": "tsup --watch"
   },
   "dependencies": {
-    "@bbangto-ui/tokens": "workspace:*",
-    "@bbangto-ui/theme-light": "workspace:*"
+    "@centurio87/tokens": "workspace:*",
+    "@centurio87/theme-light": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.0",

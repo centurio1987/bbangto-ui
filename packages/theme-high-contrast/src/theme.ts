@@ -1,5 +1,5 @@
-import type { BbangtoTheme } from '@bbangto-ui/tokens';
-import { lightTheme } from '@bbangto-ui/theme-light';
+import type { BbangtoTheme } from '@centurio87/tokens';
+import { lightTheme } from '@centurio87/theme-light';
 
 /**
  * High Contrast theme variant for "Serious Work, Joyful Wit"

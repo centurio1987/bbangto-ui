@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { cssVar } from '@bbangto-ui/tokens';
+import { cssVar } from '@centurio87/tokens';
 import { Text } from './Text';
 import { ProgressIndicator } from './ProgressIndicator';
 import { Button } from './Button';

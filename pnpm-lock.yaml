@@ -14,22 +14,22 @@ importers:
 
   apps/storybook:
     dependencies:
-      '@bbangto-ui/core':
+      '@centurio87/core':
         specifier: workspace:^
         version: link:../../packages/core
-      '@bbangto-ui/theme-binance':
+      '@centurio87/theme-binance':
         specifier: workspace:^
         version: link:../../packages/theme-binance
-      '@bbangto-ui/theme-dark':
+      '@centurio87/theme-dark':
         specifier: workspace:^
         version: link:../../packages/theme-dark
-      '@bbangto-ui/theme-high-contrast':
+      '@centurio87/theme-high-contrast':
         specifier: workspace:^
         version: link:../../packages/theme-high-contrast
-      '@bbangto-ui/theme-light':
+      '@centurio87/theme-light':
         specifier: workspace:^
         version: link:../../packages/theme-light
-      '@bbangto-ui/tokens':
+      '@centurio87/tokens':
         specifier: workspace:^
         version: link:../../packages/tokens
       react:
@@ -114,10 +114,10 @@ importers:
 
   packages/core:
     dependencies:
-      '@bbangto-ui/theme-light':
+      '@centurio87/theme-light':
         specifier: workspace:*
         version: link:../theme-light
-      '@bbangto-ui/tokens':
+      '@centurio87/tokens':
         specifier: workspace:*
         version: link:../tokens
       react:
@@ -151,7 +151,7 @@ importers:
 
   packages/theme-binance:
     dependencies:
-      '@bbangto-ui/tokens':
+      '@centurio87/tokens':
         specifier: workspace:*
         version: link:../tokens
     devDependencies:
@@ -164,10 +164,10 @@ importers:
 
   packages/theme-dark:
     dependencies:
-      '@bbangto-ui/theme-light':
+      '@centurio87/theme-light':
         specifier: workspace:*
         version: link:../theme-light
-      '@bbangto-ui/tokens':
+      '@centurio87/tokens':
         specifier: workspace:*
         version: link:../tokens
     devDependencies:
@@ -180,10 +180,10 @@ importers:
 
   packages/theme-high-contrast:
     dependencies:
-      '@bbangto-ui/theme-light':
+      '@centurio87/theme-light':
         specifier: workspace:*
         version: link:../theme-light
-      '@bbangto-ui/tokens':
+      '@centurio87/tokens':
         specifier: workspace:*
         version: link:../tokens
     devDependencies:
@@ -196,7 +196,7 @@ importers:
 
   packages/theme-light:
     dependencies:
-      '@bbangto-ui/tokens':
+      '@centurio87/tokens':
         specifier: workspace:*
         version: link:../tokens
     devDependencies:

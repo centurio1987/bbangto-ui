@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Snackbar } from '@bbangto-ui/core';
+import { Snackbar } from '@centurio87/core';
 
 const meta = {
   title: 'Molecules/Feedback',
