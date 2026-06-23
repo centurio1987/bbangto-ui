@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Button } from '@centurio87/core';
+import { Button } from '@centurio1987/core';
 
 const meta = {
   title: 'Atoms/Button',

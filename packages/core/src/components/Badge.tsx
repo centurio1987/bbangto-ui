@@ -1,5 +1,5 @@
 import React from 'react';
-import { cssVar } from '@centurio87/tokens';
+import { cssVar } from '@centurio1987/tokens';
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   children?: React.ReactNode;

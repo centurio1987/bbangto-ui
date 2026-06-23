@@ -1,5 +1,5 @@
 {
-  "name": "@centurio87/theme-dark",
+  "name": "@centurio1987/theme-dark",
   "version": "0.2.0",
   "description": "Dark theme for bbangto-ui",
   "type": "module",
@@ -21,8 +21,8 @@
     "dev": "tsup --watch"
   },
   "dependencies": {
-    "@centurio87/tokens": "workspace:*",
-    "@centurio87/theme-light": "workspace:*"
+    "@centurio1987/tokens": "workspace:*",
+    "@centurio1987/theme-light": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.0",

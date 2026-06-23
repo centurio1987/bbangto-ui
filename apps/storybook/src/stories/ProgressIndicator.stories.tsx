@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { ProgressIndicator } from '@centurio87/core';
+import { ProgressIndicator } from '@centurio1987/core';
 
 const meta = {
   title: 'Atoms/ProgressIndicator',

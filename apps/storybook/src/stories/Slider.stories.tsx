@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Slider } from '@centurio87/core';
+import { Slider } from '@centurio1987/core';
 
 const meta = {
   title: 'Molecules/Slider',

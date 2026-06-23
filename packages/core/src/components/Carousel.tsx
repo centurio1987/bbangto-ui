@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { cssVar } from '@centurio87/tokens';
+import { cssVar } from '@centurio1987/tokens';
 
 export interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode[];

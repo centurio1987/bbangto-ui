@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Accordion } from '@centurio87/core';
+import { Accordion } from '@centurio1987/core';
 
 const meta = {
   title: 'Molecules/Accordion',

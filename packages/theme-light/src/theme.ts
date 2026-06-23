@@ -1,4 +1,4 @@
-import type { BbangtoTheme } from '@centurio87/tokens';
+import type { BbangtoTheme } from '@centurio1987/tokens';
 
 /**
  * Light theme for Bbangto UI (Design Concept: "Serious Work, Joyful Wit")

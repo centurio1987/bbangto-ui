@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Radio } from '@centurio87/core';
+import { Radio } from '@centurio1987/core';
 
 const meta = {
   title: 'Atoms/Radio',

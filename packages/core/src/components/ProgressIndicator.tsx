@@ -1,5 +1,5 @@
 import React from 'react';
-import { cssVar } from '@centurio87/tokens';
+import { cssVar } from '@centurio1987/tokens';
 
 export interface ProgressIndicatorProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: 'sm' | 'md' | 'lg';

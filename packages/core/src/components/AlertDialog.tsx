@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, ModalProps } from './Modal';
 import { Button } from './Button';
 import { Text } from './Text';
-import { cssVar } from '@centurio87/tokens';
+import { cssVar } from '@centurio1987/tokens';
 
 export interface AlertDialogProps extends Omit<ModalProps, 'children' | 'title' | 'variant'> {
   title: string;

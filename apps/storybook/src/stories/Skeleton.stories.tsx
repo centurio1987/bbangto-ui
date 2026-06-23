@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Skeleton } from '@centurio87/core';
+import { Skeleton } from '@centurio1987/core';
 
 const meta = {
   title: 'Atoms/Skeleton',

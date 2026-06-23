@@ -1,5 +1,5 @@
 {
-  "name": "@centurio87/core",
+  "name": "@centurio1987/core",
   "version": "0.2.0",
   "description": "Core React components for bbangto-ui",
   "type": "module",
@@ -21,8 +21,8 @@
     "dev": "tsup --watch"
   },
   "dependencies": {
-    "@centurio87/theme-light": "workspace:*",
-    "@centurio87/tokens": "workspace:*"
+    "@centurio1987/theme-light": "workspace:*",
+    "@centurio1987/tokens": "workspace:*"
   },
   "peerDependencies": {
     "react": "^18.2.0 || ^19.0.0",

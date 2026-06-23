@@ -1,5 +1,5 @@
 {
-  "name": "@centurio87/theme-amber",
+  "name": "@centurio1987/theme-amber",
   "version": "0.2.0",
   "description": "Amber theme for bbangto-ui",
   "type": "module",
@@ -21,7 +21,7 @@
     "dev": "tsup --watch"
   },
   "dependencies": {
-    "@centurio87/tokens": "workspace:*"
+    "@centurio1987/tokens": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.0",

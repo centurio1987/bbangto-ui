@@ -1,5 +1,5 @@
-import type { BbangtoTheme } from '@centurio87/tokens';
-import { lightTheme } from '@centurio87/theme-light';
+import type { BbangtoTheme } from '@centurio1987/tokens';
+import { lightTheme } from '@centurio1987/theme-light';
 
 /**
  * Dark theme variant for "Serious Work, Joyful Wit"

@@ -9,7 +9,7 @@ import {
   GlobalBanner,
   SectionHeader,
   Chip
-} from '@centurio87/core';
+} from '@centurio1987/core';
 
 const meta = {
   title: 'Templates/LandingPage',

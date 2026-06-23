@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import { cssVar } from '@centurio87/tokens';
+import { cssVar } from '@centurio1987/tokens';
 
 // --- Context ---
 interface TabsContextValue {

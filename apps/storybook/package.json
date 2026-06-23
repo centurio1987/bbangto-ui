@@ -12,12 +12,12 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@centurio87/core": "workspace:^",
-    "@centurio87/theme-light": "workspace:^",
-    "@centurio87/theme-dark": "workspace:^",
-    "@centurio87/theme-high-contrast": "workspace:^",
-    "@centurio87/theme-amber": "workspace:^",
-    "@centurio87/tokens": "workspace:^",
+    "@centurio1987/core": "workspace:^",
+    "@centurio1987/theme-light": "workspace:^",
+    "@centurio1987/theme-dark": "workspace:^",
+    "@centurio1987/theme-high-contrast": "workspace:^",
+    "@centurio1987/theme-amber": "workspace:^",
+    "@centurio1987/tokens": "workspace:^",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"
   },

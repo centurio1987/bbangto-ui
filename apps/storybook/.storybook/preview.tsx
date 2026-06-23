@@ -1,10 +1,10 @@
 import type { Preview } from '@storybook/react-vite';
 import React from 'react';
-import { ThemeProvider } from '@centurio87/core';
-import { lightTheme } from '@centurio87/theme-light';
-import { darkTheme } from '@centurio87/theme-dark';
-import { highContrastTheme } from '@centurio87/theme-high-contrast';
-import { amberDarkTheme, amberLightTheme } from '@centurio87/theme-amber';
+import { ThemeProvider } from '@centurio1987/core';
+import { lightTheme } from '@centurio1987/theme-light';
+import { darkTheme } from '@centurio1987/theme-dark';
+import { highContrastTheme } from '@centurio1987/theme-high-contrast';
+import { amberDarkTheme, amberLightTheme } from '@centurio1987/theme-amber';
 const preview: Preview = {
   parameters: {
     controls: {

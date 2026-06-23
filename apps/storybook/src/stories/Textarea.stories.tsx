@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Textarea } from '@centurio87/core';
+import { Textarea } from '@centurio1987/core';
 
 const meta = {
   title: 'Molecules/Textarea',

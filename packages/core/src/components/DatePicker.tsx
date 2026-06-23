@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { cssVar } from '@centurio87/tokens';
+import { cssVar } from '@centurio1987/tokens';
 import { Button } from './Button';
 import { Popover } from './Popover';
 

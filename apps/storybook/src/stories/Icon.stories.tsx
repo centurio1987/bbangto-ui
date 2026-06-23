@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import * as Icons from '@centurio87/core';
+import * as Icons from '@centurio1987/core';
 
 const iconComponents = Object.entries(Icons)
   .filter(([name]) => name.endsWith('Icon'))

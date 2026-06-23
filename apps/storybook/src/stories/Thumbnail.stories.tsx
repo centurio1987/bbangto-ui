@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Thumbnail } from '@centurio87/core';
+import { Thumbnail } from '@centurio1987/core';
 
 const meta = {
   title: 'Atoms/Thumbnail',

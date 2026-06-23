@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { cssVar } from '@centurio87/tokens';
+import { cssVar } from '@centurio1987/tokens';
 
 export interface SnackbarProps extends React.HTMLAttributes<HTMLDivElement> {
   message: React.ReactNode;

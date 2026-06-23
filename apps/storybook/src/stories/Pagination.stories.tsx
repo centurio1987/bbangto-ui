@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Pagination } from '@centurio87/core';
+import { Pagination } from '@centurio1987/core';
 
 const meta = {
   title: 'Molecules/Pagination',

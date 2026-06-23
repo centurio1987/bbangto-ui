@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { cssVar } from '@centurio87/tokens';
+import { cssVar } from '@centurio1987/tokens';
 
 export interface DrawerProps extends React.HTMLAttributes<HTMLDivElement> {
   isOpen: boolean;

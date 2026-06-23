@@ -14,22 +14,22 @@ importers:
 
   apps/storybook:
     dependencies:
-      '@centurio87/core':
+      '@centurio1987/core':
         specifier: workspace:^
         version: link:../../packages/core
-      '@centurio87/theme-amber':
+      '@centurio1987/theme-amber':
         specifier: workspace:^
         version: link:../../packages/theme-amber
-      '@centurio87/theme-dark':
+      '@centurio1987/theme-dark':
         specifier: workspace:^
         version: link:../../packages/theme-dark
-      '@centurio87/theme-high-contrast':
+      '@centurio1987/theme-high-contrast':
         specifier: workspace:^
         version: link:../../packages/theme-high-contrast
-      '@centurio87/theme-light':
+      '@centurio1987/theme-light':
         specifier: workspace:^
         version: link:../../packages/theme-light
-      '@centurio87/tokens':
+      '@centurio1987/tokens':
         specifier: workspace:^
         version: link:../../packages/tokens
       react:
@@ -114,10 +114,10 @@ importers:
 
   packages/core:
     dependencies:
-      '@centurio87/theme-light':
+      '@centurio1987/theme-light':
         specifier: workspace:*
         version: link:../theme-light
-      '@centurio87/tokens':
+      '@centurio1987/tokens':
         specifier: workspace:*
         version: link:../tokens
       react:
@@ -151,7 +151,7 @@ importers:
 
   packages/theme-amber:
     dependencies:
-      '@centurio87/tokens':
+      '@centurio1987/tokens':
         specifier: workspace:*
         version: link:../tokens
     devDependencies:
@@ -164,10 +164,10 @@ importers:
 
   packages/theme-dark:
     dependencies:
-      '@centurio87/theme-light':
+      '@centurio1987/theme-light':
         specifier: workspace:*
         version: link:../theme-light
-      '@centurio87/tokens':
+      '@centurio1987/tokens':
         specifier: workspace:*
         version: link:../tokens
     devDependencies:
@@ -180,10 +180,10 @@ importers:
 
   packages/theme-high-contrast:
     dependencies:
-      '@centurio87/theme-light':
+      '@centurio1987/theme-light':
         specifier: workspace:*
         version: link:../theme-light
-      '@centurio87/tokens':
+      '@centurio1987/tokens':
         specifier: workspace:*
         version: link:../tokens
     devDependencies:
@@ -196,7 +196,7 @@ importers:
 
   packages/theme-light:
     dependencies:
-      '@centurio87/tokens':
+      '@centurio1987/tokens':
         specifier: workspace:*
         version: link:../tokens
     devDependencies:

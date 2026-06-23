@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Searchfield } from '@centurio87/core';
+import { Searchfield } from '@centurio1987/core';
 
 const meta = {
   title: 'Molecules/Searchfield',

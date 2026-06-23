@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Checkbox } from '@centurio87/core';
+import { Checkbox } from '@centurio1987/core';
 
 const meta = {
   title: 'Atoms/Checkbox',

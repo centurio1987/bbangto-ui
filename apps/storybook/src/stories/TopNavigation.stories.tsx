@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { TopNavigation, Button } from '@centurio87/core';
+import { TopNavigation, Button } from '@centurio1987/core';
 
 const meta = {
   title: 'Organisms/TopNavigation',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { cssVar } from '@centurio87/tokens';
+import { cssVar } from '@centurio1987/tokens';
 
 export type ButtonVariant = 'solid' | 'outline' | 'ghost';
 export type ButtonColor = 'primary' | 'error' | 'success' | 'warning' | 'neutral';
