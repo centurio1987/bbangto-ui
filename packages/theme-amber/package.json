@@ -1,7 +1,7 @@
 {
-  "name": "@centurio87/theme-binance",
+  "name": "@centurio87/theme-amber",
   "version": "0.2.0",
-  "description": "Binance theme for bbangto-ui",
+  "description": "Amber theme for bbangto-ui",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

@@ -1,7 +1,7 @@
 ---
 version: alpha
-name: Binance-design-analysis
-description: A confident financial-platform interface anchored on a deep near-black canvas, where Binance's iconic yellow (#FCD535) carries every primary CTA, brand accent, and value-claim moment. Type runs Binance's custom BinanceNova / BinancePlex stack at modest weights — the system trusts size and yellow voltage over bold weight. Marketing and product surfaces default to the dark theme; transactional surfaces (buy crypto, deposit, exchange) flip to a light theme that shares the same yellow CTAs and gray-blue hairlines. Trading green (up) and red (down) accents thread through both modes for price-direction signals.
+name: Amber-design-analysis
+description: A confident financial-platform interface anchored on a deep near-black canvas, where Amber's iconic yellow (#FCD535) carries every primary CTA, brand accent, and value-claim moment. Type runs Amber's custom AmberNova / AmberPlex stack at modest weights — the system trusts size and yellow voltage over bold weight. Marketing and product surfaces default to the dark theme; transactional surfaces (buy crypto, deposit, exchange) flip to a light theme that shares the same yellow CTAs and gray-blue hairlines. Trading green (up) and red (down) accents thread through both modes for price-direction signals.
 
 colors:
   primary: "#fcd535"
@@ -31,91 +31,91 @@ colors:
 
 typography:
   hero-display:
-    fontFamily: "BinanceNova, -apple-system, BlinkMacSystemFont, sans-serif"
+    fontFamily: "Inter, -apple-system, BlinkMacSystemFont, sans-serif"
     fontSize: 64px
     fontWeight: 700
     lineHeight: 1.1
     letterSpacing: -1px
   display-lg:
-    fontFamily: "BinanceNova, sans-serif"
+    fontFamily: "Inter, sans-serif"
     fontSize: 48px
     fontWeight: 700
     lineHeight: 1.1
     letterSpacing: -0.5px
   display-md:
-    fontFamily: "BinanceNova, sans-serif"
+    fontFamily: "Inter, sans-serif"
     fontSize: 40px
     fontWeight: 600
     lineHeight: 1.15
     letterSpacing: -0.3px
   display-sm:
-    fontFamily: "BinanceNova, sans-serif"
+    fontFamily: "Inter, sans-serif"
     fontSize: 32px
     fontWeight: 600
     lineHeight: 1.2
     letterSpacing: 0
   title-lg:
-    fontFamily: "BinanceNova, sans-serif"
+    fontFamily: "Inter, sans-serif"
     fontSize: 24px
     fontWeight: 600
     lineHeight: 1.3
     letterSpacing: 0
   title-md:
-    fontFamily: "BinanceNova, sans-serif"
+    fontFamily: "Inter, sans-serif"
     fontSize: 20px
     fontWeight: 600
     lineHeight: 1.35
     letterSpacing: 0
   title-sm:
-    fontFamily: "BinanceNova, sans-serif"
+    fontFamily: "Inter, sans-serif"
     fontSize: 16px
     fontWeight: 600
     lineHeight: 1.4
     letterSpacing: 0
   number-display:
-    fontFamily: "BinancePlex, BinanceNova, sans-serif"
+    fontFamily: "JetBrains Mono, Courier New, monospace"
     fontSize: 40px
     fontWeight: 700
     lineHeight: 1.1
     letterSpacing: -0.3px
   number-md:
-    fontFamily: "BinancePlex, BinanceNova, sans-serif"
+    fontFamily: "JetBrains Mono, Courier New, monospace"
     fontSize: 16px
     fontWeight: 500
     lineHeight: 1.4
     letterSpacing: 0
   number-sm:
-    fontFamily: "BinancePlex, BinanceNova, sans-serif"
+    fontFamily: "JetBrains Mono, Courier New, monospace"
     fontSize: 14px
     fontWeight: 500
     lineHeight: 1.4
     letterSpacing: 0
   body-md:
-    fontFamily: "BinanceNova, sans-serif"
+    fontFamily: "Inter, sans-serif"
     fontSize: 14px
     fontWeight: 400
     lineHeight: 1.5
     letterSpacing: 0
   body-sm:
-    fontFamily: "BinanceNova, sans-serif"
+    fontFamily: "Inter, sans-serif"
     fontSize: 13px
     fontWeight: 400
     lineHeight: 1.5
     letterSpacing: 0
   caption:
-    fontFamily: "BinanceNova, sans-serif"
+    fontFamily: "Inter, sans-serif"
     fontSize: 12px
     fontWeight: 500
     lineHeight: 1.4
     letterSpacing: 0
   button:
-    fontFamily: "BinanceNova, sans-serif"
+    fontFamily: "Inter, sans-serif"
     fontSize: 14px
     fontWeight: 600
     lineHeight: 1
     letterSpacing: 0
   nav-link:
-    fontFamily: "BinanceNova, sans-serif"
+    fontFamily: "Inter, sans-serif"
     fontSize: 14px
     fontWeight: 500
     lineHeight: 1.4
@@ -333,15 +333,15 @@ components:
 
 ## Overview
 
-Binance reads like a financial trading platform that wants to feel both authoritative and energetic. The base atmosphere is **deep near-black canvas** (`{colors.canvas-dark}` — #0b0e11) holding white type and a single, ubiquitous accent: **Binance Yellow** (`{colors.primary}` — #FCD535). That yellow does almost all of the brand's heavy lifting — it carries every primary CTA, every value-claim headline ("FUNDS ARE SAFU"), every "Sign Up" pill, every featured tier indicator, and the wordmark itself. There is no secondary brand color. The system trusts the yellow voltage to do the brand work, and it carries it.
+Amber reads like a financial trading platform that wants to feel both authoritative and energetic. The base atmosphere is **deep near-black canvas** (`{colors.canvas-dark}` — #0b0e11) holding white type and a single, ubiquitous accent: **Amber Yellow** (`{colors.primary}` — #FCD535). That yellow does almost all of the brand's heavy lifting — it carries every primary CTA, every value-claim headline ("FUNDS ARE SAFU"), every "Sign Up" pill, every featured tier indicator, and the wordmark itself. There is no secondary brand color. The system trusts the yellow voltage to do the brand work, and it carries it.
 
-Type runs Binance's custom **BinanceNova** (display + body) and **BinancePlex** (numerical / financial display) stack. BinanceNova carries display headlines, section titles, and body copy. BinancePlex appears on price tickers, large stat numbers (transaction volumes, user counts, prize pools) — anywhere a number wants to feel "tabular and reliable." Both run at modest weights — display sizes use weight 600-700 (bolder than typical marketing because trading platforms need numbers to read at a glance), body stays at 400.
+Type runs Amber's custom **AmberNova** (display + body) and **AmberPlex** (numerical / financial display) stack. AmberNova carries display headlines, section titles, and body copy. AmberPlex appears on price tickers, large stat numbers (transaction volumes, user counts, prize pools) — anywhere a number wants to feel "tabular and reliable." Both run at modest weights — display sizes use weight 600-700 (bolder than typical marketing because trading platforms need numbers to read at a glance), body stays at 400.
 
 The product is **multi-theme**: marketing surfaces (homepage, smart-money, futures arena) default to dark, while transactional surfaces (buy crypto, deposit, withdraw) flip to a light theme. The same yellow CTAs and gray-blue hairlines (`{colors.hairline-on-light}` — #eaecef) thread through both — only canvas, surface, and text tones flip. Trading **green** (`{colors.trading-up}` — #0ecb81) and **red** (`{colors.trading-down}` — #f6465d) signal price direction in tables, charts, and price tickers across both modes.
 
 **Key Characteristics:**
 - Single accent color: `{colors.primary}` (#FCD535) does all brand voltage — primary CTAs, hero headlines, brand mark, badges. Used scarcely on dark for emphasis, ubiquitously on transactional dialogs.
-- Custom type stack: `BinanceNova` (display + body) and `BinancePlex` (numbers, prices, financial data). Big stat numbers always render in BinancePlex for tabular consistency.
+- Custom type stack: `AmberNova` (display + body) and `AmberPlex` (numbers, prices, financial data). Big stat numbers always render in AmberPlex for tabular consistency.
 - Multi-theme: marketing pages default dark (`{colors.canvas-dark}`); transactional pages flip light (`{colors.canvas-light}`). Yellow CTAs and trading green/red are shared across both.
 - Light footer on dark body: the homepage uses `{colors.surface-soft-light}` (#fafafa) for the footer even when the body above it is dark — a deliberate inversion that visually closes the page.
 - Trading semantics: green up / red down (`{colors.trading-up}` / `{colors.trading-down}`) for price changes, applied as text color rather than badge background.
@@ -352,9 +352,9 @@ The product is **multi-theme**: marketing surfaces (homepage, smart-money, futur
 ## Colors
 
 ### Brand & Accent
-- **Binance Yellow** (`{colors.primary}` — #FCD535): The single brand color. Used for primary CTA backgrounds, the wordmark, brand-claim headlines ("FUNDS ARE SAFU"), trust badges ("No.1 Trading Volume"), large stat numbers in `{component.stat-callout-card}`, and inline links.
-- **Binance Yellow Active** (`{colors.primary-active}` — #f0b90b): The press / hover-darker variant. Slightly more saturated yellow.
-- **Binance Yellow Disabled** (`{colors.primary-disabled}` — #3a3a1f): A desaturated dark-yellow used on disabled CTAs over dark canvas.
+- **Amber Yellow** (`{colors.primary}` — #FCD535): The single brand color. Used for primary CTA backgrounds, the wordmark, brand-claim headlines ("FUNDS ARE SAFU"), trust badges ("No.1 Trading Volume"), large stat numbers in `{component.stat-callout-card}`, and inline links.
+- **Amber Yellow Active** (`{colors.primary-active}` — #f0b90b): The press / hover-darker variant. Slightly more saturated yellow.
+- **Amber Yellow Disabled** (`{colors.primary-disabled}` — #3a3a1f): A desaturated dark-yellow used on disabled CTAs over dark canvas.
 - **Accent Turquoise** (`{colors.accent-turquoise}` — #2dbdb6): A small secondary accent used very sparingly on Smart Money's "Check Now" CTA over dark surfaces. Treat as a single-product accent, not a system color.
 
 ### Surface
@@ -372,7 +372,7 @@ The system has two canvas modes that map to product context:
 - **Surface Strong Light** (`{colors.surface-strong-light}` — #f5f5f5): Form input backgrounds in muted contexts.
 
 ### Hairlines & Borders
-- **Hairline on Light** (`{colors.hairline-on-light}` — #eaecef): The 1px border tone on light surfaces. Dembrandt's frequency analysis confirms this as the highest-count token (1022 occurrences) — Binance uses hairlines liberally.
+- **Hairline on Light** (`{colors.hairline-on-light}` — #eaecef): The 1px border tone on light surfaces. Dembrandt's frequency analysis confirms this as the highest-count token (1022 occurrences) — Amber uses hairlines liberally.
 - **Hairline on Dark** (`{colors.hairline-on-dark}` — #2b3139): The 1px border tone on dark surfaces. Same hex as `{colors.surface-elevated-dark}` — borders feel like surface steps, not ink lines.
 - **Border Strong** (`{colors.border-strong}` — #cdd1d6): A heavier border tone used on disabled secondary buttons.
 
@@ -395,13 +395,13 @@ The system has two canvas modes that map to product context:
 ## Typography
 
 ### Font Family
-The system runs **BinanceNova** for display and body, and **BinancePlex** for numerical / financial data. Both are licensed Binance custom typefaces. The fallback stack walks `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`.
+The system runs **AmberNova** for display and body, and **AmberPlex** for numerical / financial data. Both are licensed Amber custom typefaces. The fallback stack walks `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`.
 
 The split is functional, not decorative:
-- BinanceNova → editorial type (headlines, paragraphs, button labels, nav)
-- BinancePlex → tabular numerical type (prices, volumes, percentages, stat counters, prize pools)
+- AmberNova → editorial type (headlines, paragraphs, button labels, nav)
+- AmberPlex → tabular numerical type (prices, volumes, percentages, stat counters, prize pools)
 
-Mixing them is not optional — BinanceNova on a price ticker would lose the trading-platform character; BinancePlex on a paragraph would feel monospace-cold.
+Mixing them is not optional — AmberNova on a price ticker would lose the trading-platform character; AmberPlex on a paragraph would feel monospace-cold.
 
 ### Hierarchy
 
@@ -410,14 +410,14 @@ Mixing them is not optional — BinanceNova on a price ticker would lose the tra
 | `{typography.hero-display}` | 64px | 700 | 1.1 | -1px | Homepage h1 ("316,258,026 USERS TRUST US") |
 | `{typography.display-lg}` | 48px | 700 | 1.1 | -0.5px | Brand-claim headlines ("FUNDS ARE SAFU"), prize-pool hero ("Futures Masters Arena") |
 | `{typography.display-md}` | 40px | 600 | 1.15 | -0.3px | Section heads on long-scroll pages |
-| `{typography.display-sm}` | 32px | 600 | 1.2 | 0 | CTA band headlines ("Secure, Low-Fee Trading on Binance") |
+| `{typography.display-sm}` | 32px | 600 | 1.2 | 0 | CTA band headlines ("Secure, Low-Fee Trading on Amber") |
 | `{typography.title-lg}` | 24px | 600 | 1.3 | 0 | Sub-section titles |
 | `{typography.title-md}` | 20px | 600 | 1.35 | 0 | QR-promo cards, feature card titles |
 | `{typography.title-sm}` | 16px | 600 | 1.4 | 0 | Trust badges, FAQ rows, step labels |
-| `{typography.number-display}` | 40px | 700 | 1.1 | -0.3px | Big stat numbers (15,000 BTC, $429,423,449) — BinancePlex |
-| `{typography.number-md}` | 16px | 500 | 1.4 | 0 | Markets table prices, table cells — BinancePlex |
-| `{typography.number-sm}` | 14px | 500 | 1.4 | 0 | Inline prices, %  changes — BinancePlex |
-| `{typography.body-md}` | 14px | 400 | 1.5 | 0 | Default running-text — BinanceNova |
+| `{typography.number-display}` | 40px | 700 | 1.1 | -0.3px | Big stat numbers (15,000 BTC, $429,423,449) — AmberPlex |
+| `{typography.number-md}` | 16px | 500 | 1.4 | 0 | Markets table prices, table cells — AmberPlex |
+| `{typography.number-sm}` | 14px | 500 | 1.4 | 0 | Inline prices, %  changes — AmberPlex |
+| `{typography.body-md}` | 14px | 400 | 1.5 | 0 | Default running-text — AmberNova |
 | `{typography.body-sm}` | 13px | 400 | 1.5 | 0 | Cookie consent text, footer body |
 | `{typography.caption}` | 12px | 500 | 1.4 | 0 | Small meta labels |
 | `{typography.button}` | 14px | 600 | 1 | 0 | Standard CTA button labels |
@@ -426,17 +426,17 @@ Mixing them is not optional — BinanceNova on a price ticker would lose the tra
 ### Principles
 Display sizes use weight 700 — heavier than most marketing systems. This makes sense for a trading platform: numbers need to read at a glance, headlines need to compete with chart visualizations and dense data tables. The system will not soften display weight to 400 the way Airtable or Stripe does.
 
-`{typography.number-display}` and the smaller number variants always use **BinancePlex**, even when surrounding body type uses BinanceNova. Prices, volumes, and stat counters render in BinancePlex regardless of context — it is the system's "trustworthy number" voice.
+`{typography.number-display}` and the smaller number variants always use **AmberPlex**, even when surrounding body type uses AmberNova. Prices, volumes, and stat counters render in AmberPlex regardless of context — it is the system's "trustworthy number" voice.
 
 ### Note on Font Substitutes
-If BinanceNova and BinancePlex are unavailable, **Inter** is the closest open-source substitute for BinanceNova and **JetBrains Mono** or **IBM Plex Sans** is the closest substitute for BinancePlex (depending on whether tabular monospace fidelity matters more than humanist proportions). Adjust display headlines down by ~3% in line-height to match BinanceNova's tighter cap height.
+If AmberNova and AmberPlex are unavailable, **Inter** is the closest open-source substitute for AmberNova and **JetBrains Mono** or **IBM Plex Sans** is the closest substitute for AmberPlex (depending on whether tabular monospace fidelity matters more than humanist proportions). Adjust display headlines down by ~3% in line-height to match AmberNova's tighter cap height.
 
 ## Layout
 
 ### Spacing System
 - **Base unit:** 4px.
 - **Tokens:** `{spacing.xxs}` 4px · `{spacing.xs}` 8px · `{spacing.sm}` 12px · `{spacing.md}` 16px · `{spacing.lg}` 24px · `{spacing.xl}` 32px · `{spacing.xxl}` 48px · `{spacing.section}` 80px.
-- **Section padding (vertical):** `{spacing.section}` (80px) — slightly tighter than airy marketing sites (96px) because Binance pages mix marketing bands with dense product surfaces (markets tables, FAQ accordions).
+- **Section padding (vertical):** `{spacing.section}` (80px) — slightly tighter than airy marketing sites (96px) because Amber pages mix marketing bands with dense product surfaces (markets tables, FAQ accordions).
 - **Card internal padding:** `{spacing.lg}` (24px) for content cards and markets tables; `{spacing.xl}` (32px) for QR-promo cards and CTA bands; `{spacing.md}` (16px) for trust badges and table rows.
 - **Gutters:** `{spacing.lg}` (24px) between cards in 3-up grids; `{spacing.md}` (16px) inside footer column gutters and dense FAQ lists.
 
@@ -447,7 +447,7 @@ If BinanceNova and BinancePlex are unavailable, **Inter** is the closest open-so
 - **Footer:** 6-column link list at desktop, wrapping to 2-up at tablet and 1-up on mobile.
 
 ### Whitespace Philosophy
-Binance is denser than typical marketing sites — long-scroll pages mix hero bands with markets tables, FAQ accordions, and feature grids without much breathing room between them. The system trusts contrast (yellow vs. dark canvas, green vs. red price cells) to do the visual separation work, not whitespace. Where whitespace appears, it's always uniform — `{spacing.section}` between every major band.
+Amber is denser than typical marketing sites — long-scroll pages mix hero bands with markets tables, FAQ accordions, and feature grids without much breathing room between them. The system trusts contrast (yellow vs. dark canvas, green vs. red price cells) to do the visual separation work, not whitespace. Where whitespace appears, it's always uniform — `{spacing.section}` between every major band.
 
 ## Elevation & Depth
 
@@ -459,7 +459,7 @@ Binance is denser than typical marketing sites — long-scroll pages mix hero ba
 | Subtle drop shadow | Faint shadow visible only when a card sits over imagery | Used sparingly on the buy-crypto-amount-card on transactional pages |
 | Focus ring | `0 0 0 2px {colors.info-ring}` at 50% alpha | Input + button keyboard focus state |
 
-The elevation philosophy is **flat surfaces with color-block separation**. Binance does not use heavy drop shadows or glassmorphism — depth comes from the contrast between `{colors.canvas-dark}` and `{colors.surface-card-dark}` (a 12-step lightness jump that reads as a clear elevation boundary).
+The elevation philosophy is **flat surfaces with color-block separation**. Amber does not use heavy drop shadows or glassmorphism — depth comes from the contrast between `{colors.canvas-dark}` and `{colors.surface-card-dark}` (a 12-step lightness jump that reads as a clear elevation boundary).
 
 ### Decorative Depth
 - **Yellow → dark vertical gradient backdrop** on the Futures Arena hero: `{colors.primary}` fading down to `{colors.canvas-dark}`. This is a single-page treatment used for product-launch / event hero surfaces, not a system-wide signature.
@@ -479,7 +479,7 @@ The elevation philosophy is **flat surfaces with color-block separation**. Binan
 | `{rounded.pill}` | 9999px | Prominent feature CTAs ("Sign Up" pill on dark, futures-arena "Join Now") |
 | `{rounded.full}` | 9999px / 50% | Coin icons, avatars |
 
-Binance's radius hierarchy is tighter than typical marketing systems — most surfaces sit at 6-12px. The pill radius is a deliberate exception used to signal "this is a top-of-page action."
+Amber's radius hierarchy is tighter than typical marketing systems — most surfaces sit at 6-12px. The pill radius is a deliberate exception used to signal "this is a top-of-page action."
 
 ### Photography & Iconography
 - Coin icons render as 24×24 or 32×32 rounded glyphs (often 50% radius on circular outline + the coin's brand color inside).
@@ -490,7 +490,7 @@ Binance's radius hierarchy is tighter than typical marketing systems — most su
 
 ### Top Navigation
 
-**`top-nav-dark`** — The marketing top nav on dark canvas. 64px tall, `{colors.canvas-dark}` background. Carries the yellow Binance wordmark at left, primary horizontal menu (Buy Crypto, Markets, Trade, Futures, Earn, Square, Smart Money, Campaigns), right-side cluster with language selector, light/dark toggle, "Log In" text link, "Sign Up" `{component.button-primary}`. The wordmark uses `{colors.primary}` for "BINANCE" type.
+**`top-nav-dark`** — The marketing top nav on dark canvas. 64px tall, `{colors.canvas-dark}` background. Carries the yellow Amber wordmark at left, primary horizontal menu (Buy Crypto, Markets, Trade, Futures, Earn, Square, Smart Money, Campaigns), right-side cluster with language selector, light/dark toggle, "Log In" text link, "Sign Up" `{component.button-primary}`. The wordmark uses `{colors.primary}` for "AMBER" type.
 
 **`top-nav-light`** — The transactional top nav on light canvas (buy crypto, deposit pages). Same layout but `{colors.canvas-light}` background and `{colors.ink}` menu items.
 
@@ -518,17 +518,17 @@ Binance's radius hierarchy is tighter than typical marketing systems — most su
 
 **`hero-band-dark`** — Full-width dark band carrying the homepage h1 + sub-headline + dual CTA pair. Background `{colors.canvas-dark}`, padding `{spacing.section}` (80px). The h1 ("316,258,026 USERS TRUST US") uses `{typography.hero-display}` at 64px / 700 — the system's largest type role.
 
-**`stat-callout-card`** — Inline yellow stat numbers (15,000 BTC, 7,488,223, $429,423,449). Transparent background, text `{colors.primary}`, type `{typography.number-display}` in BinancePlex. Used as a flat layout block, not a card with surface — the yellow text alone carries the visual weight.
+**`stat-callout-card`** — Inline yellow stat numbers (15,000 BTC, 7,488,223, $429,423,449). Transparent background, text `{colors.primary}`, type `{typography.number-display}` in AmberPlex. Used as a flat layout block, not a card with surface — the yellow text alone carries the visual weight.
 
 **`trust-badge`** — Small dark cards holding "No.1 Customer Service" / "No.1 Trading Volume" claims. Background `{colors.surface-card-dark}`, rounded `{rounded.lg}` (8px), padding 16px × 20px. Yellow numeric or word badge ("No.1") sits next to a short label.
 
 **`markets-table-card`** — The right-side markets table on the homepage. Background `{colors.surface-card-dark}`, rounded `{rounded.xl}` (12px), padding `{spacing.lg}` (24px). Carries a tab row (Popular / New listing / Top gainers), then a 5-column row of coin pairs with last price, 24h change %, action button. Each row uses `{component.markets-row}`.
 
-**`markets-row`** — A single row inside the markets table. Transparent background, 12px vertical padding, hairline divider between rows. Coin icon (32×32) + symbol on left; last price in `{typography.number-md}` (BinancePlex); 24h change cell colored by direction (`{component.price-up-cell}` or `{component.price-down-cell}`); right-aligned chevron icon for "view detail."
+**`markets-row`** — A single row inside the markets table. Transparent background, 12px vertical padding, hairline divider between rows. Coin icon (32×32) + symbol on left; last price in `{typography.number-md}` (AmberPlex); 24h change cell colored by direction (`{component.price-up-cell}` or `{component.price-down-cell}`); right-aligned chevron icon for "view detail."
 
-**`price-up-cell`** / **`price-down-cell`** — Colored text cells for price changes. Transparent background, text `{colors.trading-up}` or `{colors.trading-down}`, type `{typography.number-md}` in BinancePlex. Always paired with a small triangle arrow indicating direction.
+**`price-up-cell`** / **`price-down-cell`** — Colored text cells for price changes. Transparent background, text `{colors.trading-up}` or `{colors.trading-down}`, type `{typography.number-md}` in AmberPlex. Always paired with a small triangle arrow indicating direction.
 
-**`feature-photo-card`** — The "Trade on the go" section's photo strip — 3 lifestyle photos showing people using the Binance app. Background `{colors.surface-card-dark}`, rounded `{rounded.xl}`. Photos crop edge-to-edge, no internal padding around the image.
+**`feature-photo-card`** — The "Trade on the go" section's photo strip — 3 lifestyle photos showing people using the Amber app. Background `{colors.surface-card-dark}`, rounded `{rounded.xl}`. Photos crop edge-to-edge, no internal padding around the image.
 
 **`qr-promo-card`** — The "Trade on the go. Anywhere, anytime." card with QR code. Background `{colors.surface-card-dark}`, rounded `{rounded.xl}`, padding `{spacing.xl}` (32px). Contains an h2 in `{typography.title-md}`, a body paragraph, app store badges (iOS / Android), and a centered QR code.
 
@@ -536,11 +536,11 @@ Binance's radius hierarchy is tighter than typical marketing systems — most su
 
 **`faq-row`** — A single FAQ accordion row. Transparent background, padding 20px vertical, hairline divider between rows. Closed state: question in `{typography.title-sm}` + chevron icon at right. Open state: question + answer body in `{typography.body-md}`.
 
-**`cta-band-dark`** — The "Secure, Low-Fee Trading on Binance" pre-footer CTA band. Background `{colors.surface-card-dark}` (one step elevated from canvas), rounded `{rounded.xl}`, padding `{spacing.xxl}` (48px). Carries an h2 in `{typography.display-sm}` and a `{component.button-primary}` aligned right.
+**`cta-band-dark`** — The "Secure, Low-Fee Trading on Amber" pre-footer CTA band. Background `{colors.surface-card-dark}` (one step elevated from canvas), rounded `{rounded.xl}`, padding `{spacing.xxl}` (48px). Carries an h2 in `{typography.display-sm}` and a `{component.button-primary}` aligned right.
 
 ### Light-Mode Transactional Components
 
-**`buy-crypto-amount-card`** — The right-rail card on the Buy BTC page. Background `{colors.canvas-light}`, rounded `{rounded.lg}` (8px), padding `{spacing.lg}` (24px). Carries an editable amount input in `{typography.number-display}` (BinancePlex), a currency selector, and a yellow `{component.button-primary}` for "Continue" / "Confirm Order."
+**`buy-crypto-amount-card`** — The right-rail card on the Buy BTC page. Background `{colors.canvas-light}`, rounded `{rounded.lg}` (8px), padding `{spacing.lg}` (24px). Carries an editable amount input in `{typography.number-display}` (AmberPlex), a currency selector, and a yellow `{component.button-primary}` for "Continue" / "Confirm Order."
 
 **`steps-card`** — The "How to Buy Crypto" 3-up cards (Enter Amount → Confirm Order → Receive Crypto). Background `{colors.canvas-light}`, rounded `{rounded.lg}`, padding `{spacing.lg}`. Each card has a small numbered icon, a `{typography.title-sm}` step name, and a body description.
 
@@ -566,24 +566,24 @@ Binance's radius hierarchy is tighter than typical marketing systems — most su
 
 ### Footer
 
-**`footer-light`** — The light-gray footer that closes every page (including dark-canvas pages). Background `{colors.surface-soft-light}` (#fafafa), text `{colors.body-on-light}`. 6-column link list at desktop covering Community / About Us / Products / Business / Service / Learn columns. Vertical padding 64px. The deliberate light footer on a dark page is one of Binance's most distinctive layout choices — it visually closes the page with a "marketing reset" surface.
+**`footer-light`** — The light-gray footer that closes every page (including dark-canvas pages). Background `{colors.surface-soft-light}` (#fafafa), text `{colors.body-on-light}`. 6-column link list at desktop covering Community / About Us / Products / Business / Service / Learn columns. Vertical padding 64px. The deliberate light footer on a dark page is one of Amber's most distinctive layout choices — it visually closes the page with a "marketing reset" surface.
 
 ## Do's and Don'ts
 
 ### Do
-- Reserve `{colors.primary}` (Binance Yellow) for primary actions, brand-claim headlines, and the wordmark. Never use it for secondary or decorative purposes — yellow's scarcity is what makes it powerful.
+- Reserve `{colors.primary}` (Amber Yellow) for primary actions, brand-claim headlines, and the wordmark. Never use it for secondary or decorative purposes — yellow's scarcity is what makes it powerful.
 - Keep `{component.button-primary}` (yellow with black text) as the universal primary CTA across both dark and light modes. The same button appears identically on `{colors.canvas-dark}` and `{colors.canvas-light}`.
 - Use `{component.button-trading-up}` (green) and `{component.button-trading-down}` (red) only for explicit Buy/Sell or Long/Short actions. Never use them for general "confirm" or "cancel" because they carry semantic price-direction meaning.
-- Use BinancePlex for every number. Prices, volumes, percentages, stat counters — all BinancePlex. Mixing BinanceNova into a number ticker breaks the trading-platform character.
+- Use AmberPlex for every number. Prices, volumes, percentages, stat counters — all AmberPlex. Mixing AmberNova into a number ticker breaks the trading-platform character.
 - Choose canvas mode by surface intent: dark for marketing / product showcase / trading dashboards; light for transactional dialogs (buy / deposit / withdraw / form submission).
-- Anchor every editorial band with `{spacing.section}` (80px). Binance is denser than airy marketing sites — 80px is the right rhythm.
+- Anchor every editorial band with `{spacing.section}` (80px). Amber is denser than airy marketing sites — 80px is the right rhythm.
 
 ### Don't
 - Don't introduce a second brand color. The system has exactly one accent (`{colors.primary}`) and any expansion dilutes the brand identity. The turquoise on Smart Money is a single-product experiment, not a system token.
 - Don't use yellow for body text or large surface fills. It is for focal-point CTAs and headlines only.
 - Don't use `{colors.trading-up}` / `{colors.trading-down}` as background fills on cards. They are price-direction signals, expressed as text color or small badge fill — never as a card surface.
 - Don't soften display weight. `{typography.hero-display}` and `{typography.display-lg}` are intentionally weight 700 — going to 400 reads as design-portfolio, not trading platform.
-- Don't add atmospheric gradients to the canvas (mesh, aurora, glow effects). Binance trusts color-block contrast — adding atmospheric depth muddies the trading-platform feel.
+- Don't add atmospheric gradients to the canvas (mesh, aurora, glow effects). Amber trusts color-block contrast — adding atmospheric depth muddies the trading-platform feel.
 - Don't invert `{component.button-primary}`'s text color. Black on yellow is the system's signature — white text on yellow loses contrast and brand recognition.
 
 ## Responsive Behavior
@@ -605,7 +605,7 @@ Binance's radius hierarchy is tighter than typical marketing systems — most su
 ### Collapsing Strategy
 - Top nav collapses to hamburger at < 768px; the menu opens as a full-screen sheet with the same yellow accent CTAs anchored to the bottom of the sheet.
 - Markets table reflows to a horizontally-scrollable single card per coin pair on mobile.
-- The hero stat numbers ("316M USERS") shrink proportionally rather than wrapping — Binance's biggest claim must always read as a single block.
+- The hero stat numbers ("316M USERS") shrink proportionally rather than wrapping — Amber's biggest claim must always read as a single block.
 - Trading dashboards switch from chart + side-rail to chart-only with a separate "Trade" tab on mobile.
 - The light footer stays full-bleed at every breakpoint — it does not collapse to a separate dark variant.
 
@@ -621,13 +621,13 @@ Binance's radius hierarchy is tighter than typical marketing systems — most su
 3. Variants of an existing component (`-active`, `-disabled`) live as separate entries in `components:` — never as nested state objects.
 4. Use `{token.refs}` everywhere prose mentions a color, a radius, a typography role, or a spacing value.
 5. Never document hover. The system documents Default and Active/Pressed states only.
-6. Numbers always use BinancePlex; copy always uses BinanceNova. Mixing them is a system violation.
+6. Numbers always use AmberPlex; copy always uses AmberNova. Mixing them is a system violation.
 7. Trading green / red are semantic price tokens — never repurpose them for "success" or "error" generic states.
 
 ## Known Gaps
 
 - The dembrandt frequency analyzer captured `#eaecef` (light hairline, count 1022) as the highest-frequency token. The brand-defining `{colors.primary}` (#FCD535) appears far less frequently because it's used scarcely as accent — its system role had to be confirmed from screenshots.
-- BinanceNova and BinancePlex weight-axis values are not formalized as variable-font tokens — only the static weights observed in screenshots are documented.
+- AmberNova and AmberPlex weight-axis values are not formalized as variable-font tokens — only the static weights observed in screenshots are documented.
 - Animation and transition timings (chart redraws, price-change flashes) are not in scope.
 - Form validation states beyond `{component.text-input-on-light}` defaults are not extracted — error / success input variants would need a sign-up or order-confirmation flow to confirm.
 - The trading dashboard surfaces (Spot / Futures / Margin) were not in the analyzed URL set; their order book, candlestick chart configuration, and position-management cards are not documented here.

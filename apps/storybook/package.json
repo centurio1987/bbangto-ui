@@ -16,7 +16,7 @@
     "@centurio87/theme-light": "workspace:^",
     "@centurio87/theme-dark": "workspace:^",
     "@centurio87/theme-high-contrast": "workspace:^",
-    "@centurio87/theme-binance": "workspace:^",
+    "@centurio87/theme-amber": "workspace:^",
     "@centurio87/tokens": "workspace:^",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"

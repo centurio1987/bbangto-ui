@@ -17,9 +17,9 @@ importers:
       '@centurio87/core':
         specifier: workspace:^
         version: link:../../packages/core
-      '@centurio87/theme-binance':
+      '@centurio87/theme-amber':
         specifier: workspace:^
-        version: link:../../packages/theme-binance
+        version: link:../../packages/theme-amber
       '@centurio87/theme-dark':
         specifier: workspace:^
         version: link:../../packages/theme-dark
@@ -149,7 +149,7 @@ importers:
         specifier: ^5.7.0
         version: 5.9.3
 
-  packages/theme-binance:
+  packages/theme-amber:
     dependencies:
       '@centurio87/tokens':
         specifier: workspace:*

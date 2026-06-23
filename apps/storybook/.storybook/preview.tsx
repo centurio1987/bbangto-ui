@@ -4,7 +4,7 @@ import { ThemeProvider } from '@centurio87/core';
 import { lightTheme } from '@centurio87/theme-light';
 import { darkTheme } from '@centurio87/theme-dark';
 import { highContrastTheme } from '@centurio87/theme-high-contrast';
-import { binanceDarkTheme, binanceLightTheme } from '@centurio87/theme-binance';
+import { amberDarkTheme, amberLightTheme } from '@centurio87/theme-amber';
 const preview: Preview = {
   parameters: {
     controls: {
@@ -24,7 +24,7 @@ const preview: Preview = {
       toolbar: {
         title: 'Theme',
         icon: 'circlehollow',
-        items: ['light', 'dark', 'high-contrast', 'binance-dark', 'binance-light'],
+        items: ['light', 'dark', 'high-contrast', 'amber-dark', 'amber-light'],
         dynamicTitle: true,
       },
     },
@@ -37,10 +37,10 @@ const preview: Preview = {
         theme = darkTheme;
       } else if (themeName === 'high-contrast') {
         theme = highContrastTheme;
-      } else if (themeName === 'binance-dark') {
-        theme = binanceDarkTheme;
-      } else if (themeName === 'binance-light') {
-        theme = binanceLightTheme;
+      } else if (themeName === 'amber-dark') {
+        theme = amberDarkTheme;
+      } else if (themeName === 'amber-light') {
+        theme = amberLightTheme;
       }
       
       // We set background color of the canvas explicitly to match the theme's base background

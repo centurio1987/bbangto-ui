@@ -1,6 +1,6 @@
 import type { BbangtoTheme } from '@centurio87/tokens';
 
-const baseBinancePalette = {
+const baseAmberPalette = {
   common: {
     white: '#ffffff',
     black: '#000000',
@@ -39,8 +39,8 @@ const baseBinancePalette = {
 
 const baseTypography = {
   fontFamily: {
-    sans: 'BinanceNova, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-    mono: 'BinancePlex, BinanceNova, sans-serif',
+    sans: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+    mono: 'JetBrains Mono, Courier New, monospace',
   },
   scale: {
     display: { fontSize: '64px', lineHeight: '1.1', letterSpacing: '-1px', fontWeight: 700 }, // hero-display
@@ -115,12 +115,12 @@ const baseZIndex = {
 };
 
 /**
- * Binance Dark Theme (Marketing/Product default)
+ * Amber Dark Theme (Marketing/Product default)
  */
-export const binanceDarkTheme: BbangtoTheme = {
-  name: 'binance-dark',
-  description: 'Binance Default Dark Theme',
-  palette: baseBinancePalette,
+export const amberDarkTheme: BbangtoTheme = {
+  name: 'amber-dark',
+  description: 'Amber Default Dark Theme',
+  palette: baseAmberPalette,
   semantic: {
     background: {
       base: '#0b0e11', // canvas-dark
@@ -193,12 +193,12 @@ export const binanceDarkTheme: BbangtoTheme = {
 };
 
 /**
- * Binance Light Theme (Transactional)
+ * Amber Light Theme (Transactional)
  */
-export const binanceLightTheme: BbangtoTheme = {
-  name: 'binance-light',
-  description: 'Binance Transactional Light Theme',
-  palette: baseBinancePalette,
+export const amberLightTheme: BbangtoTheme = {
+  name: 'amber-light',
+  description: 'Amber Transactional Light Theme',
+  palette: baseAmberPalette,
   semantic: {
     background: {
       base: '#ffffff', // canvas-light
