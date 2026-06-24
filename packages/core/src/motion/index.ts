@@ -25,3 +25,4 @@ export * from './CountUp';
 export * from './Pressable';
 export * from './Ripple';
 export * from './Attention';
+export * from './shaders';

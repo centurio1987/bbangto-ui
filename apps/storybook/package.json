@@ -16,6 +16,7 @@
   "dependencies": {
     "@centurio1987/core": "workspace:^",
     "@centurio1987/diagram": "workspace:^",
+    "@centurio1987/hooks": "workspace:^",
     "@centurio1987/theme-light": "workspace:^",
     "@centurio1987/theme-dark": "workspace:^",
     "@centurio1987/theme-high-contrast": "workspace:^",

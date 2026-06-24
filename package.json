@@ -8,6 +8,7 @@
     "build": "pnpm -r --filter=!storybook run build",
     "typecheck": "pnpm -r run typecheck",
     "test": "pnpm --filter storybook test",
+    "test:unit": "pnpm -r --filter=!storybook run test",
     "storybook": "pnpm --filter storybook storybook",
     "build-storybook": "pnpm --filter storybook build-storybook",
     "clean": "pnpm -r exec rm -rf dist node_modules"
