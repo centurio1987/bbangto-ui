@@ -1,0 +1,30 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "TaskCreate",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '\\n[품질 게이트] 구현 전 apps/storybook/src/stories/<Component>.stories.tsx 에 play 테스트를 먼저 작성하세요. 완료 전 pnpm typecheck && pnpm build && pnpm test 를 실행하세요.'"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash(pnpm*)",
+        "hooks": []
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(pnpm typecheck*)",
+      "Bash(pnpm build*)",
+      "Bash(pnpm test*)",
+      "Bash(pnpm --filter storybook*)",
+      "Bash(pnpm -r*)"
+    ]
+  }
+}
