@@ -201,4 +201,7 @@ Wave 0 (편제·인프라·토큰)
 | shaders 잔여 (WebGL Plasma/Metaballs/Noise 등 ~11) | motion/shader | 3 | TODO | | INFERRED, WebGL 후속 |
 | breakpoint 상수 (tokens) | 인프라 | 4선행 | **DONE** | orchestrator | breakpoints/up/down |
 | **Wave 4 전체** (blocks 13종) | block/section | 4 | **DONE** | workflow | Hero·FeatureGrid·CTA·PricingSection·Testimonials·LogoCloud·Comparison·Dock·Gallery·VideoBlock·MapBlock·MarketingFooter·AnnouncementBar / test 410 |
-| **— Wave 5 (patterns) 진행 —** | | | TODO | | |
+| **Wave 5 전체** (patterns 4종) | pattern | 5 | **DONE** | workflow | SignIn·SignUp·FormLayout(+Section/Row/Field)·AIChat / test 433 |
+| **═══ A/B/C 전 계층 1차 구현 완료 ═══** | | | **DONE** | | components·primitives·hooks·shaders·blocks·patterns |
+| _잔여(후속 batch)_: hooks ~11 (useDarkMode 등), shaders ~11 (WebGL) | | 3 | TODO | | INFERRED 목록 |
+| _Wave 6_: Storybook MDX 문서화, changeset/릴리스 | | 6 | TODO | | 사용자 승인 필요(퍼블리시) |
