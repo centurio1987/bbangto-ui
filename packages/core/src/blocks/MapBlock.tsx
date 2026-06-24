@@ -1,0 +1,266 @@
+import React from 'react';
+import { cssVar, breakpoints } from '@centurio1987/tokens';
+import { Text } from '../components/Text';
+import { Button } from '../components/Button';
+
+export interface MapMarker {
+  /** Display label for the map pin. */
+  label: string;
+  /** Horizontal position as a percentage (0–100) of the map area width. */
+  x: number;
+  /** Vertical position as a percentage (0–100) of the map area height. */
+  y: number;
+}
+
+export interface MapBlockProps extends React.HTMLAttributes<HTMLElement> {
+  /** Section heading displayed above the map. */
+  title?: string;
+  /** Address or location description rendered below the title. */
+  address?: string;
+  /** Array of pin markers to overlay on the placeholder map. */
+  markers?: MapMarker[];
+  /**
+   * URL for embedding a real map (e.g. Google Maps embed URL).
+   * When provided, an <iframe> is rendered instead of the placeholder.
+   */
+  embedSrc?: string;
+}
+
+const BLOCK_ID = 'map-block';
+const MAP_PLACEHOLDER_MIN_HEIGHT = 320;
+
+export const MapBlock = React.forwardRef<HTMLElement, MapBlockProps>(
+  ({ title, address, markers = [], embedSrc, style, className, ...props }, ref) => {
+    const scopeId = BLOCK_ID;
+
+    const sectionStyles: React.CSSProperties = {
+      width: '100%',
+      backgroundColor: cssVar('semantic', 'background', 'base'),
+      padding: `${cssVar('spacing', '64')} ${cssVar('spacing', '24')}`,
+      fontFamily: cssVar('typography', 'fontFamily', 'sans'),
+      boxSizing: 'border-box',
+      ...style,
+    };
+
+    const innerStyles: React.CSSProperties = {
+      maxWidth: '1200px',
+      margin: '0 auto',
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+      gap: cssVar('spacing', '40'),
+      alignItems: 'start',
+    };
+
+    const infoStyles: React.CSSProperties = {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: cssVar('spacing', '16'),
+    };
+
+    const mapAreaStyles: React.CSSProperties = {
+      position: 'relative',
+      width: '100%',
+      minHeight: `${MAP_PLACEHOLDER_MIN_HEIGHT}px`,
+      borderRadius: cssVar('radius', 'lg'),
+      overflow: 'hidden',
+      border: `1px solid ${cssVar('semantic', 'border', 'base')}`,
+    };
+
+    const placeholderStyles: React.CSSProperties = {
+      width: '100%',
+      height: '100%',
+      minHeight: `${MAP_PLACEHOLDER_MIN_HEIGHT}px`,
+      backgroundColor: cssVar('semantic', 'background', 'sunken'),
+      backgroundImage: [
+        `linear-gradient(${cssVar('semantic', 'border', 'base')} 1px, transparent 1px)`,
+        `linear-gradient(90deg, ${cssVar('semantic', 'border', 'base')} 1px, transparent 1px)`,
+      ].join(', '),
+      backgroundSize: '40px 40px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    };
+
+    const iframeStyles: React.CSSProperties = {
+      width: '100%',
+      minHeight: `${MAP_PLACEHOLDER_MIN_HEIGHT}px`,
+      border: 'none',
+      display: 'block',
+    };
+
+    return (
+      <>
+        {/* Scoped responsive style — only emitted once per component family */}
+        <style>{`
+          @media (max-width: ${breakpoints.md - 0.02}px) {
+            [data-block="${scopeId}"] .map-block__inner {
+              grid-template-columns: 1fr;
+            }
+          }
+        `}</style>
+
+        <section
+          ref={ref}
+          aria-labelledby={title ? `${scopeId}-title` : undefined}
+          data-block={scopeId}
+          style={sectionStyles}
+          className={className}
+          {...props}
+        >
+          <div className="map-block__inner" style={innerStyles}>
+            {/* Info column: title + address */}
+            {(title || address) && (
+              <div style={infoStyles}>
+                {title && (
+                  <Text
+                    variant="h2"
+                    id={`${scopeId}-title`}
+                    data-testid="map-block-title"
+                  >
+                    {title}
+                  </Text>
+                )}
+                {address && (
+                  <address
+                    style={{
+                      fontStyle: 'normal',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: cssVar('spacing', '4'),
+                    }}
+                  >
+                    <Text
+                      variant="body"
+                      color="muted"
+                      data-testid="map-block-address"
+                    >
+                      {address}
+                    </Text>
+                  </address>
+                )}
+                {address && (
+                  <Button
+                    variant="outline"
+                    color="primary"
+                    size="md"
+                    aria-label={`길 찾기: ${address}`}
+                    data-testid="map-block-directions-btn"
+                    style={{ alignSelf: 'flex-start', marginTop: cssVar('spacing', '8') }}
+                  >
+                    길 찾기
+                  </Button>
+                )}
+              </div>
+            )}
+
+            {/* Map column: iframe or styled placeholder */}
+            <div style={mapAreaStyles} aria-label={title ? `${title} 지도` : '위치 지도'}>
+              {embedSrc ? (
+                <iframe
+                  src={embedSrc}
+                  title={title ? `${title} 지도` : '위치 지도'}
+                  style={iframeStyles}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  sandbox="allow-scripts allow-same-origin"
+                />
+              ) : (
+                <div
+                  style={placeholderStyles}
+                  role="img"
+                  aria-label={title ? `${title} 지도 플레이스홀더` : '지도 플레이스홀더'}
+                >
+                  <Text variant="meta" color="subtle" aria-hidden="true">
+                    지도
+                  </Text>
+                </div>
+              )}
+
+              {/* Marker pins overlay */}
+              {markers.length > 0 && (
+                <ol
+                  aria-label="지도 마커 목록"
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    margin: 0,
+                    padding: 0,
+                    listStyle: 'none',
+                    pointerEvents: 'none',
+                  }}
+                >
+                  {markers.map((marker, idx) => (
+                    <li
+                      key={idx}
+                      style={{
+                        position: 'absolute',
+                        left: `${marker.x}%`,
+                        top: `${marker.y}%`,
+                        transform: 'translate(-50%, -100%)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        gap: 0,
+                        pointerEvents: 'auto',
+                      }}
+                      title={marker.label}
+                    >
+                      {/* Pin head */}
+                      <span
+                        aria-hidden="true"
+                        style={{
+                          width: '24px',
+                          height: '24px',
+                          borderRadius: cssVar('radius', 'full'),
+                          backgroundColor: cssVar('semantic', 'primary', 'base'),
+                          border: `2px solid ${cssVar('semantic', 'background', 'elevated')}`,
+                          boxShadow: cssVar('shadow', 'md'),
+                          display: 'block',
+                          flexShrink: 0,
+                        }}
+                      />
+                      {/* Pin tail */}
+                      <span
+                        aria-hidden="true"
+                        style={{
+                          width: 0,
+                          height: 0,
+                          borderLeft: '5px solid transparent',
+                          borderRight: '5px solid transparent',
+                          borderTop: `8px solid ${cssVar('semantic', 'primary', 'base')}`,
+                          display: 'block',
+                        }}
+                      />
+                      {/* Label */}
+                      <span
+                        style={{
+                          display: 'block',
+                          marginTop: cssVar('spacing', '4'),
+                          backgroundColor: cssVar('semantic', 'background', 'elevated'),
+                          color: cssVar('semantic', 'foreground', 'base'),
+                          fontSize: cssVar('typography', 'scale', 'meta', 'fontSize'),
+                          fontWeight: cssVar('typography', 'scale', 'meta', 'fontWeight'),
+                          lineHeight: cssVar('typography', 'scale', 'meta', 'lineHeight'),
+                          fontFamily: cssVar('typography', 'fontFamily', 'sans'),
+                          padding: `${cssVar('spacing', '2')} ${cssVar('spacing', '6')}`,
+                          borderRadius: cssVar('radius', 'sm'),
+                          boxShadow: cssVar('shadow', 'sm'),
+                          whiteSpace: 'nowrap',
+                          border: `1px solid ${cssVar('semantic', 'border', 'base')}`,
+                        }}
+                      >
+                        {marker.label}
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+              )}
+            </div>
+          </div>
+        </section>
+      </>
+    );
+  }
+);
+
+MapBlock.displayName = 'MapBlock';

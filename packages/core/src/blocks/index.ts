@@ -9,4 +9,16 @@
 // MarketingFooter, AnnouncementBar
 //
 // 신규 block 추가 시 아래에 re-export 한다.
-export {};
+export * from './Hero';
+export * from './FeatureGrid';
+export * from './CTA';
+export * from './PricingSection';
+export * from './Testimonials';
+export * from './LogoCloud';
+export * from './Comparison';
+export * from './Dock';
+export * from './Gallery';
+export * from './VideoBlock';
+export * from './MapBlock';
+export * from './MarketingFooter';
+export * from './AnnouncementBar';
