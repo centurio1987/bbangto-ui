@@ -265,6 +265,22 @@ importers:
         specifier: ^5.7.0
         version: 5.9.3
 
+  packages/themes-external:
+    dependencies:
+      '@centurio1987/theme-light':
+        specifier: workspace:*
+        version: link:../theme-light
+      '@centurio1987/tokens':
+        specifier: workspace:*
+        version: link:../tokens
+    devDependencies:
+      tsup:
+        specifier: ^8.0.0
+        version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.7.0
+        version: 5.9.3
+
   packages/tokens:
     devDependencies:
       tsup:

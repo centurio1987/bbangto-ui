@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 import { cssVar } from '@centurio1987/tokens';
 
+export type AvatarStatus = 'online' | 'offline' | 'away' | 'busy';
+
 export interface AvatarProps extends React.HTMLAttributes<HTMLDivElement> {
   src?: string;
   alt?: string;
   initials?: string;
   size?: 'sm' | 'md' | 'lg' | 'xl';
   shape?: 'circle' | 'square';
+  /** Presence indicator rendered as a dot at the bottom-right corner. */
+  status?: AvatarStatus;
 }
 
 export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
-  ({ src, alt, initials, size = 'md', shape = 'circle', style, className, ...props }, ref) => {
+  ({ src, alt, initials, size = 'md', shape = 'circle', status, style, className, ...props }, ref) => {
     const [imageError, setImageError] = useState(false);
 
     const sizeMap = {
@@ -18,6 +22,20 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
       md: '32px',
       lg: '40px',
       xl: '48px',
+    };
+
+    const statusDotSizeMap = {
+      sm: '7px',
+      md: '9px',
+      lg: '11px',
+      xl: '13px',
+    };
+
+    const statusColorMap: Record<AvatarStatus, string> = {
+      online: cssVar('semantic', 'success', 'base'),
+      offline: cssVar('semantic', 'foreground', 'muted'),
+      away: cssVar('semantic', 'warning', 'base'),
+      busy: cssVar('semantic', 'error', 'base'),
     };
 
     const containerStyle: React.CSSProperties = {
@@ -43,6 +61,20 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
       objectFit: 'cover',
     };
 
+    const statusDotStyle: React.CSSProperties = status
+      ? {
+          position: 'absolute',
+          bottom: '0',
+          right: '0',
+          width: statusDotSizeMap[size],
+          height: statusDotSizeMap[size],
+          borderRadius: '50%',
+          backgroundColor: statusColorMap[status],
+          boxShadow: `0 0 0 2px ${cssVar('semantic', 'background', 'base')}`,
+          boxSizing: 'border-box',
+        }
+      : {};
+
     return (
       <div ref={ref} style={containerStyle} className={className} {...props}>
         {src && !imageError ? (
@@ -54,6 +86,14 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
           />
         ) : (
           <span>{initials?.slice(0, 2).toUpperCase() || '?'}</span>
+        )}
+        {status && (
+          <span
+            data-avatar-status={status}
+            role="img"
+            aria-label={status}
+            style={statusDotStyle}
+          />
         )}
       </div>
     );
