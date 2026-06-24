@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { cssVar } from '@centurio1987/tokens';
 
 // --- Context ---
@@ -53,15 +53,80 @@ export interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
   ({ children, style, ...props }, ref) => {
+    const { value } = useTabsContext();
+    const listRef = useRef<HTMLDivElement | null>(null);
+    const [indicator, setIndicator] = useState({ left: 0, width: 0, visible: false });
+
+    useEffect(() => {
+      const list = listRef.current;
+      if (!list) return;
+
+      const selected = Array.from(
+        list.querySelectorAll<HTMLElement>('[data-bbangto-tab-trigger]'),
+      ).find((trigger) => trigger.dataset.bbangtoTabTrigger === value);
+      if (!selected) {
+        setIndicator((current) => ({ ...current, visible: false }));
+        return;
+      }
+
+      const updateIndicator = () => {
+        setIndicator({
+          left: selected.offsetLeft,
+          width: selected.offsetWidth,
+          visible: true,
+        });
+      };
+
+      updateIndicator();
+
+      if (typeof ResizeObserver === 'undefined') return;
+      const observer = new ResizeObserver(updateIndicator);
+      observer.observe(list);
+      observer.observe(selected);
+      return () => observer.disconnect();
+    }, [children, value]);
+
     const listStyle: React.CSSProperties = {
+      position: 'relative',
       display: 'flex',
       borderBottom: `1px solid ${cssVar('semantic', 'border', 'muted')}`,
       ...style,
     };
 
+    const indicatorStyle: React.CSSProperties = {
+      position: 'absolute',
+      left: 0,
+      bottom: '-1px',
+      width: indicator.width,
+      height: '2px',
+      borderRadius: cssVar('radius', 'full'),
+      backgroundColor: cssVar('semantic', 'primary', 'base'),
+      opacity: indicator.visible ? 1 : 0,
+      transform: `translateX(${indicator.left}px)`,
+      transition: [
+        `transform ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'inOut')}`,
+        `width ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'inOut')}`,
+        `opacity ${cssVar('motion', 'duration', 'fast')} ${cssVar('motion', 'easing', 'out')}`,
+      ].join(', '),
+      pointerEvents: 'none',
+    };
+
     return (
-      <div ref={ref} role="tablist" style={listStyle} {...props}>
+      <div
+        ref={(node) => {
+          listRef.current = node;
+          if (typeof ref === 'function') {
+            ref(node);
+          } else if (ref) {
+            ref.current = node;
+          }
+        }}
+        role="tablist"
+        style={listStyle}
+        {...props}
+      >
         {children}
+        <div data-bbangto-tabs-indicator style={indicatorStyle} />
       </div>
     );
   }
@@ -87,9 +152,9 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
       fontSize: cssVar('typography', 'scale', 'body', 'fontSize'),
       fontWeight: isSelected ? 'bold' : 'normal',
       color: isSelected ? cssVar('semantic', 'primary', 'base') : cssVar('semantic', 'foreground', 'muted'),
-      borderBottom: isSelected ? `2px solid ${cssVar('semantic', 'primary', 'base')}` : '2px solid transparent',
+      borderBottom: '2px solid transparent',
       marginBottom: '-1px', // overlap the list's bottom border
-      transition: 'color 0.2s, border-color 0.2s',
+      transition: `color ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'default')}`,
       ...style,
     };
 
@@ -98,6 +163,7 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
         ref={ref}
         role="tab"
         aria-selected={isSelected}
+        data-bbangto-tab-trigger={value}
         onClick={() => onValueChange(value)}
         style={triggerStyle}
         {...props}
@@ -124,11 +190,12 @@ export const TabsContent = React.forwardRef<HTMLDivElement, TabsContentProps>(
       padding: `${cssVar('spacing', '16')} 0`,
       fontFamily: cssVar('typography', 'fontFamily', 'sans'),
       color: cssVar('semantic', 'foreground', 'base'),
+      animation: `bbangto-fade-in ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'out')} both`,
       ...style,
     };
 
     return (
-      <div ref={ref} role="tabpanel" style={contentStyle} {...props}>
+      <div ref={ref} role="tabpanel" data-bbangto-tabs-content style={contentStyle} {...props}>
         {children}
       </div>
     );

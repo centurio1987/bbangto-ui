@@ -42,7 +42,7 @@ export function Tooltip({ content, children, position = 'top', style, ...props }
     zIndex: cssVar('zIndex', 'popover'),
     opacity: isVisible ? 1 : 0,
     visibility: isVisible ? 'visible' : 'hidden',
-    transition: 'opacity 0.2s, visibility 0.2s',
+    transition: `opacity ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'default')}, visibility ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'default')}`,
     pointerEvents: 'none',
   };
 

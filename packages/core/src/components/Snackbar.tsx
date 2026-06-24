@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { cssVar } from '@centurio1987/tokens';
+import { KEYFRAME_NAMES, SLIDE_VARS, useAnimatedMount } from '../motion';
 
 export interface SnackbarProps extends React.HTMLAttributes<HTMLDivElement> {
   message: React.ReactNode;
@@ -12,6 +13,9 @@ export interface SnackbarProps extends React.HTMLAttributes<HTMLDivElement> {
 export const Snackbar = React.forwardRef<HTMLDivElement, SnackbarProps>(
   ({ message, actionText, onActionClick, duration = 3000, onClose, style, className, ...props }, ref) => {
     const [visible, setVisible] = useState(true);
+    const { shouldRender, mountState } = useAnimatedMount(visible);
+    const closing = mountState === 'closed';
+    const dur = cssVar('motion', 'duration', 'normal');
 
     useEffect(() => {
       if (duration > 0) {
@@ -23,15 +27,16 @@ export const Snackbar = React.forwardRef<HTMLDivElement, SnackbarProps>(
       }
     }, [duration, onClose]);
 
-    if (!visible) return null;
+    if (!shouldRender) return null;
 
+    // Slide up from below (enter) / slide down out (exit)
     const containerStyle: React.CSSProperties = {
       display: 'inline-flex',
       alignItems: 'center',
       justifyContent: 'space-between',
       minWidth: '320px',
       padding: `${cssVar('spacing', '12')} ${cssVar('spacing', '16')}`,
-      backgroundColor: cssVar('semantic', 'foreground', 'base'), // Snackbars often have dark backgrounds
+      backgroundColor: cssVar('semantic', 'foreground', 'base'),
       color: cssVar('semantic', 'background', 'base'),
       borderRadius: cssVar('radius', 'md'),
       boxShadow: cssVar('shadow', 'lg'),
@@ -42,8 +47,14 @@ export const Snackbar = React.forwardRef<HTMLDivElement, SnackbarProps>(
       left: '50%',
       transform: 'translateX(-50%)',
       zIndex: cssVar('zIndex', 'toast'),
+      [SLIDE_VARS.x]: '0',
+      [SLIDE_VARS.y]: '120%',
+      animationName: closing ? KEYFRAME_NAMES.slideOut : KEYFRAME_NAMES.slideIn,
+      animationDuration: dur,
+      animationTimingFunction: closing ? cssVar('motion', 'easing', 'in') : cssVar('motion', 'easing', 'out'),
+      animationFillMode: 'both',
       ...style,
-    };
+    } as React.CSSProperties;
 
     const actionStyle: React.CSSProperties = {
       color: cssVar('semantic', 'primary', 'base'),

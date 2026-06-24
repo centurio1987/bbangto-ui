@@ -29,7 +29,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
       height: '24px',
       backgroundColor: checked ? cssVar('semantic', 'primary', 'base') : cssVar('semantic', 'background', 'elevated'),
       borderRadius: '12px',
-      transition: 'background-color 0.2s ease',
+      transition: `background-color ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'default')}`,
       border: `1px solid ${checked ? cssVar('semantic', 'primary', 'base') : cssVar('semantic', 'border', 'strong')}`,
     };
 
@@ -41,7 +41,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
       height: '18px',
       backgroundColor: cssVar('common', 'white'),
       borderRadius: '50%',
-      transition: 'left 0.2s ease',
+      transition: `left ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'default')}`,
       boxShadow: cssVar('shadow', 'sm'),
     };
 

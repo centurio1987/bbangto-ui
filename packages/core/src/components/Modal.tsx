@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { cssVar } from '@centurio1987/tokens';
+import { KEYFRAME_NAMES, SLIDE_VARS, useAnimatedMount } from '../motion';
 
 export interface ModalProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
   isOpen: boolean;
@@ -11,8 +12,12 @@ export interface ModalProps extends Omit<React.HTMLAttributes<HTMLDivElement>, '
 
 export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
   ({ isOpen, onClose, title, children, variant = 'popup', style, className, ...props }, ref) => {
-    
-    // Prevent body scroll when modal is open
+    const { shouldRender, mountState } = useAnimatedMount(isOpen);
+    const closing = mountState === 'closed';
+    const dur = cssVar('motion', 'duration', 'normal');
+    const easeOut = cssVar('motion', 'easing', 'out');
+    const easeIn = cssVar('motion', 'easing', 'in');
+
     useEffect(() => {
       if (isOpen) {
         document.body.style.overflow = 'hidden';
@@ -24,7 +29,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
       };
     }, [isOpen]);
 
-    if (!isOpen) return null;
+    if (!shouldRender) return null;
 
     const overlayStyle: React.CSSProperties = {
       position: 'fixed',
@@ -37,6 +42,33 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
       alignItems: variant === 'bottom-sheet' ? 'flex-end' : (variant === 'full' ? 'stretch' : 'center'),
       justifyContent: 'center',
       zIndex: cssVar('zIndex', 'modal'),
+      animationName: closing ? KEYFRAME_NAMES.fadeOut : KEYFRAME_NAMES.fadeIn,
+      animationDuration: dur,
+      animationTimingFunction: closing ? easeIn : easeOut,
+      animationFillMode: 'both',
+    };
+
+    const getPanelAnimation = (): React.CSSProperties => {
+      if (variant === 'full') return {};
+
+      if (variant === 'bottom-sheet') {
+        return {
+          [SLIDE_VARS.x]: '0',
+          [SLIDE_VARS.y]: '100%',
+          animationName: closing ? KEYFRAME_NAMES.slideOut : KEYFRAME_NAMES.slideIn,
+          animationDuration: dur,
+          animationTimingFunction: closing ? easeIn : easeOut,
+          animationFillMode: 'both',
+        } as React.CSSProperties;
+      }
+
+      // popup
+      return {
+        animationName: closing ? KEYFRAME_NAMES.scaleOut : KEYFRAME_NAMES.scaleIn,
+        animationDuration: dur,
+        animationTimingFunction: closing ? easeIn : easeOut,
+        animationFillMode: 'both',
+      };
     };
 
     const getModalStyle = (): React.CSSProperties => {
@@ -47,15 +79,12 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
         display: 'flex',
         flexDirection: 'column',
         position: 'relative',
+        ...getPanelAnimation(),
         ...style,
       };
 
       if (variant === 'full') {
-        return {
-          ...base,
-          width: '100%',
-          height: '100%',
-        };
+        return { ...base, width: '100%', height: '100%' };
       }
 
       if (variant === 'bottom-sheet') {
@@ -69,7 +98,6 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
         };
       }
 
-      // popup
       return {
         ...base,
         width: '90%',
@@ -113,12 +141,12 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
 
     return (
       <div style={overlayStyle} onClick={onClose}>
-        <div 
-          ref={ref} 
-          style={getModalStyle()} 
-          className={className} 
-          onClick={(e) => e.stopPropagation()} 
-          role="dialog" 
+        <div
+          ref={ref}
+          style={getModalStyle()}
+          className={className}
+          onClick={(e) => e.stopPropagation()}
+          role="dialog"
           aria-modal="true"
           {...props}
         >

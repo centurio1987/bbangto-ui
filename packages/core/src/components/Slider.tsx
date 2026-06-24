@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { cssVar } from '@centurio1987/tokens';
 
 export interface SliderProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {
@@ -10,8 +10,25 @@ export interface SliderProps extends Omit<React.InputHTMLAttributes<HTMLInputEle
 }
 
 export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
-  ({ value = 50, min = 0, max = 100, onChange, fullWidth = false, style, className, disabled, ...props }, ref) => {
-    const percentage = ((value - min) / (max - min)) * 100;
+  ({
+    value = 50,
+    min = 0,
+    max = 100,
+    onChange,
+    fullWidth = false,
+    style,
+    className,
+    disabled,
+    onFocus,
+    onBlur,
+    onMouseEnter,
+    onMouseLeave,
+    ...props
+  }, ref) => {
+    const [isFocused, setIsFocused] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
+    const range = max - min;
+    const percentage = range === 0 ? 0 : Math.min(100, Math.max(0, ((value - min) / range) * 100));
 
     const containerStyle: React.CSSProperties = {
       position: 'relative',
@@ -20,6 +37,7 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
       width: fullWidth ? '100%' : '240px',
       height: '24px',
       opacity: disabled ? 0.5 : 1,
+      transition: `opacity ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'default')}`,
       ...style,
     };
 
@@ -37,6 +55,7 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
       width: `${percentage}%`,
       backgroundColor: cssVar('semantic', 'primary', 'base'),
       borderRadius: '2px',
+      transition: `width ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'inOut')}`,
     };
 
     const inputStyle: React.CSSProperties = {
@@ -54,19 +73,31 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
       width: '16px',
       height: '16px',
       backgroundColor: cssVar('common', 'white'),
-      border: `2px solid ${cssVar('semantic', 'primary', 'base')}`,
+      border: `2px solid ${isFocused ? cssVar('semantic', 'border', 'focus') : cssVar('semantic', 'primary', 'base')}`,
       borderRadius: '50%',
-      boxShadow: cssVar('shadow', 'sm'),
+      boxShadow: isFocused ? `0 0 0 4px ${cssVar('semantic', 'primary', 'subtle')}` : cssVar('shadow', 'sm'),
       pointerEvents: 'none',
-      transition: 'box-shadow 0.2s',
+      transform: isHovered && !disabled ? 'scale(1.08)' : 'scale(1)',
+      transition: [
+        `left ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'inOut')}`,
+        `transform ${cssVar('motion', 'duration', 'fast')} ${cssVar('motion', 'easing', 'out')}`,
+        `box-shadow ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'default')}`,
+        `border-color ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'default')}`,
+      ].join(', '),
     };
 
     return (
-      <div style={containerStyle} className={className}>
+      <div
+        style={containerStyle}
+        className={className}
+        data-bbangto-slider
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         <div style={trackStyle}>
-          <div style={fillStyle} />
+          <div data-bbangto-slider-fill style={fillStyle} />
         </div>
-        <div style={knobStyle} />
+        <div data-bbangto-slider-knob style={knobStyle} />
         <input
           ref={ref}
           type="range"
@@ -77,6 +108,22 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
           disabled={disabled}
           style={inputStyle}
           {...props}
+          onFocus={(event) => {
+            setIsFocused(true);
+            onFocus?.(event);
+          }}
+          onBlur={(event) => {
+            setIsFocused(false);
+            onBlur?.(event);
+          }}
+          onMouseEnter={(event) => {
+            setIsHovered(true);
+            onMouseEnter?.(event);
+          }}
+          onMouseLeave={(event) => {
+            setIsHovered(false);
+            onMouseLeave?.(event);
+          }}
         />
       </div>
     );

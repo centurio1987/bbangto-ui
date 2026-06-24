@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { cssVar } from '@centurio1987/tokens';
+import { KEYFRAME_NAMES, SLIDE_VARS, useAnimatedMount } from '../motion';
 
 export interface ToastProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
   title?: React.ReactNode;
@@ -12,6 +13,9 @@ export interface ToastProps extends Omit<React.HTMLAttributes<HTMLDivElement>, '
 export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
   ({ title, message, variant = 'info', duration = 3000, onClose, style, className, ...props }, ref) => {
     const [visible, setVisible] = useState(true);
+    const { shouldRender, mountState } = useAnimatedMount(visible);
+    const closing = mountState === 'closed';
+    const dur = cssVar('motion', 'duration', 'normal');
 
     useEffect(() => {
       if (duration > 0) {
@@ -23,7 +27,7 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
       }
     }, [duration, onClose]);
 
-    if (!visible) return null;
+    if (!shouldRender) return null;
 
     const getVariantColors = () => {
       switch (variant) {
@@ -41,6 +45,7 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
 
     const colors = getVariantColors();
 
+    // Slide in from right (enter) / slide out to right (exit)
     const containerStyle: React.CSSProperties = {
       display: 'inline-flex',
       flexDirection: 'column',
@@ -56,8 +61,14 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
       top: '24px',
       right: '24px',
       zIndex: cssVar('zIndex', 'toast'),
+      [SLIDE_VARS.x]: '120%',
+      [SLIDE_VARS.y]: '0',
+      animationName: closing ? KEYFRAME_NAMES.slideOut : KEYFRAME_NAMES.slideIn,
+      animationDuration: dur,
+      animationTimingFunction: closing ? cssVar('motion', 'easing', 'in') : cssVar('motion', 'easing', 'out'),
+      animationFillMode: 'both',
       ...style,
-    };
+    } as React.CSSProperties;
 
     const titleStyle: React.CSSProperties = {
       fontSize: cssVar('typography', 'scale', 'body', 'fontSize'),

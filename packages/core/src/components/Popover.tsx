@@ -78,7 +78,16 @@ export function Popover({
     zIndex: cssVar('zIndex', 'popover'),
     opacity: isOpen ? 1 : 0,
     visibility: isOpen ? 'visible' : 'hidden',
-    transition: `opacity ${cssVar('motion', 'duration', 'fast')}, visibility ${cssVar('motion', 'duration', 'fast')}`,
+    transform: isOpen ? 'scale(1)' : 'scale(0.95)',
+    transformOrigin: position === 'top' ? 'bottom center'
+      : position === 'bottom' ? 'top center'
+      : position === 'left' ? 'right center'
+      : 'left center',
+    transition: [
+      `opacity ${cssVar('motion', 'duration', 'fast')} ${cssVar('motion', 'easing', 'out')}`,
+      `transform ${cssVar('motion', 'duration', 'fast')} ${cssVar('motion', 'easing', 'out')}`,
+      `visibility ${cssVar('motion', 'duration', 'fast')}`,
+    ].join(', '),
     minWidth: '200px',
   };
 

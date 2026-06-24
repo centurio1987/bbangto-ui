@@ -1,5 +1,6 @@
 import React from 'react';
 import { cssVar } from '@centurio1987/tokens';
+import { KEYFRAME_NAMES } from '../motion';
 
 export interface SectionMessageProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
   title?: React.ReactNode;
@@ -9,7 +10,7 @@ export interface SectionMessageProps extends Omit<React.HTMLAttributes<HTMLDivEl
 
 export const SectionMessage = React.forwardRef<HTMLDivElement, SectionMessageProps>(
   ({ title, message, variant = 'info', style, className, ...props }, ref) => {
-    
+
     const getColors = () => {
       switch (variant) {
         case 'success':
@@ -20,7 +21,7 @@ export const SectionMessage = React.forwardRef<HTMLDivElement, SectionMessagePro
           return { bg: '#FFF8E1', border: cssVar('semantic', 'warning', 'base'), icon: cssVar('semantic', 'warning', 'base') };
         case 'info':
         default:
-          return { bg: '#E3F2FD', border: '#2196F3', icon: '#2196F3' }; // Usually blueish
+          return { bg: '#E3F2FD', border: '#2196F3', icon: '#2196F3' };
       }
     };
 
@@ -35,6 +36,11 @@ export const SectionMessage = React.forwardRef<HTMLDivElement, SectionMessagePro
       borderLeft: `4px solid ${colors.border}`,
       borderRadius: cssVar('radius', 'sm'),
       fontFamily: cssVar('typography', 'fontFamily', 'sans'),
+      // Fade in on mount
+      animationName: KEYFRAME_NAMES.fadeIn,
+      animationDuration: cssVar('motion', 'duration', 'normal'),
+      animationTimingFunction: cssVar('motion', 'easing', 'out'),
+      animationFillMode: 'both',
       ...style,
     };
 

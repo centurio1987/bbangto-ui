@@ -1,6 +1,7 @@
 import React from 'react';
 import { cssVar } from '@centurio1987/tokens';
 import { Text } from './Text';
+import { KEYFRAME_NAMES, SLIDE_VARS, useAnimatedMount } from '../motion';
 
 export interface GlobalBannerProps extends React.HTMLAttributes<HTMLDivElement> {
   isOpen: boolean;
@@ -11,7 +12,11 @@ export interface GlobalBannerProps extends React.HTMLAttributes<HTMLDivElement> 
 
 export const GlobalBanner = React.forwardRef<HTMLDivElement, GlobalBannerProps>(
   ({ isOpen, onClose, color = 'primary', children, style, className, ...props }, ref) => {
-    if (!isOpen) return null;
+    const { shouldRender, mountState } = useAnimatedMount(isOpen);
+    const closing = mountState === 'closed';
+    const dur = cssVar('motion', 'duration', 'normal');
+
+    if (!shouldRender) return null;
 
     const bannerStyle: React.CSSProperties = {
       position: 'relative',
@@ -23,8 +28,15 @@ export const GlobalBanner = React.forwardRef<HTMLDivElement, GlobalBannerProps>(
       alignItems: 'center',
       justifyContent: 'center',
       fontFamily: cssVar('typography', 'fontFamily', 'sans'),
+      // Slide down from top on enter, slide up to top on exit
+      [SLIDE_VARS.x]: '0',
+      [SLIDE_VARS.y]: '-100%',
+      animationName: closing ? KEYFRAME_NAMES.slideOut : KEYFRAME_NAMES.slideIn,
+      animationDuration: dur,
+      animationTimingFunction: closing ? cssVar('motion', 'easing', 'in') : cssVar('motion', 'easing', 'out'),
+      animationFillMode: 'both',
       ...style,
-    };
+    } as React.CSSProperties;
 
     const closeBtnStyle: React.CSSProperties = {
       position: 'absolute',
@@ -38,14 +50,14 @@ export const GlobalBanner = React.forwardRef<HTMLDivElement, GlobalBannerProps>(
       alignItems: 'center',
       justifyContent: 'center',
       opacity: 0.7,
-      transition: 'opacity 0.2s',
+      transition: `opacity ${cssVar('motion', 'duration', 'fast')}`,
     };
 
     return (
-      <div 
-        ref={ref} 
-        style={bannerStyle} 
-        className={className} 
+      <div
+        ref={ref}
+        style={bannerStyle}
+        className={className}
         role="banner"
         {...props}
       >
@@ -54,11 +66,11 @@ export const GlobalBanner = React.forwardRef<HTMLDivElement, GlobalBannerProps>(
             {children}
           </Text>
         </div>
-        
+
         {onClose && (
-          <button 
-            style={closeBtnStyle} 
-            onClick={onClose} 
+          <button
+            style={closeBtnStyle}
+            onClick={onClose}
             aria-label="Close banner"
             onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
             onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}
