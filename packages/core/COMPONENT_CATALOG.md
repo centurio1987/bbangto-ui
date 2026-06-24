@@ -197,4 +197,6 @@ Wave 0 (편제·인프라·토큰)
 | **Wave 2 전체** (7 primitive) | atom/molecule | 2 | **DONE** | workflow | Calendar·Menu/DropdownMenu·Sidebar·TreeView·ScrollArea·ChatBubble/MessageList / test 368 |
 | **Wave 3a** (hooks 16종) | hook | 3 | **DONE** | workflow | viewport/scroll/interaction/utility / test:unit 65 |
 | hooks 잔여 (useDarkMode/useIdle/useGeolocation 등 ~11) | hook | 3 | TODO | | INFERRED 목록, 후속 batch |
-| **— Wave 3b (shaders) 진행 —** | | | TODO | | |
+| **Wave 3b** (shaders 4종) | motion/shader | 3 | **DONE** | workflow | MeshGradient·Aurora·Waves·ParticleField, reduced-motion 폴백 / test 383 |
+| shaders 잔여 (WebGL Plasma/Metaballs/Noise 등 ~11) | motion/shader | 3 | TODO | | INFERRED, WebGL 후속 |
+| **— Wave 4 (blocks) / Wave 5 (patterns) 미착수 —** | | | TODO | | 의존성: 1·2 완료 필요(충족), 별도 착수 대기 |
