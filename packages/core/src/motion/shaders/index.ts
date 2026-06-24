@@ -7,4 +7,7 @@
 // (개별 목록은 COMPONENT_CATALOG.md 레지스트리, JS 렌더 페이지라 INFERRED 상태).
 //
 // 신규 shader 추가 시 아래에 re-export 한다.
-export {};
+export * from './MeshGradient';
+export * from './Aurora';
+export * from './Waves';
+export * from './ParticleField';
