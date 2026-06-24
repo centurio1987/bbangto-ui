@@ -1,10 +1,18 @@
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { cssVar } from '@centurio1987/tokens';
 
+// --- Types ---
+export type TabsVariant = 'underline' | 'pill' | 'enclosed';
+export type TabsSize = 'sm' | 'md' | 'lg';
+export type TabsOrientation = 'horizontal' | 'vertical';
+
 // --- Context ---
 interface TabsContextValue {
   value: string;
   onValueChange: (value: string) => void;
+  variant: TabsVariant;
+  size: TabsSize;
+  orientation: TabsOrientation;
 }
 
 const TabsContext = createContext<TabsContextValue | undefined>(undefined);
@@ -22,10 +30,29 @@ export interface TabsProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'd
   defaultValue?: string;
   value?: string;
   onValueChange?: (value: string) => void;
+  /** Visual style for the tab list. @default 'underline' */
+  variant?: TabsVariant;
+  /** Density / size of tab triggers. @default 'md' */
+  size?: TabsSize;
+  /** Layout direction. @default 'horizontal' */
+  orientation?: TabsOrientation;
 }
 
 export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
-  ({ defaultValue, value, onValueChange, children, style, ...props }, ref) => {
+  (
+    {
+      defaultValue,
+      value,
+      onValueChange,
+      variant = 'underline',
+      size = 'md',
+      orientation = 'horizontal',
+      children,
+      style,
+      ...props
+    },
+    ref
+  ) => {
     const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue || '');
     const isControlled = value !== undefined;
     const currentValue = isControlled ? value : uncontrolledValue;
@@ -37,9 +64,17 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
       onValueChange?.(newValue);
     };
 
+    const rootStyle: React.CSSProperties = {
+      display: 'flex',
+      flexDirection: orientation === 'vertical' ? 'row' : 'column',
+      ...style,
+    };
+
     return (
-      <TabsContext.Provider value={{ value: currentValue, onValueChange: handleValueChange }}>
-        <div ref={ref} style={{ display: 'flex', flexDirection: 'column', ...style }} {...props}>
+      <TabsContext.Provider
+        value={{ value: currentValue, onValueChange: handleValueChange, variant, size, orientation }}
+      >
+        <div ref={ref} style={rootStyle} {...props}>
           {children}
         </div>
       </TabsContext.Provider>
@@ -53,17 +88,20 @@ export interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
   ({ children, style, ...props }, ref) => {
-    const { value } = useTabsContext();
+    const { value, variant, orientation } = useTabsContext();
     const listRef = useRef<HTMLDivElement | null>(null);
-    const [indicator, setIndicator] = useState({ left: 0, width: 0, visible: false });
+    const [indicator, setIndicator] = useState({ left: 0, top: 0, width: 0, height: 0, visible: false });
 
+    // Underline sliding indicator — only for the 'underline' variant.
     useEffect(() => {
+      if (variant !== 'underline') return;
       const list = listRef.current;
       if (!list) return;
 
       const selected = Array.from(
         list.querySelectorAll<HTMLElement>('[data-bbangto-tab-trigger]'),
       ).find((trigger) => trigger.dataset.bbangtoTabTrigger === value);
+
       if (!selected) {
         setIndicator((current) => ({ ...current, visible: false }));
         return;
@@ -72,7 +110,9 @@ export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
       const updateIndicator = () => {
         setIndicator({
           left: selected.offsetLeft,
+          top: selected.offsetTop,
           width: selected.offsetWidth,
+          height: selected.offsetHeight,
           visible: true,
         });
       };
@@ -84,32 +124,74 @@ export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
       observer.observe(list);
       observer.observe(selected);
       return () => observer.disconnect();
-    }, [children, value]);
+    }, [children, value, variant]);
 
-    const listStyle: React.CSSProperties = {
-      position: 'relative',
-      display: 'flex',
-      borderBottom: `1px solid ${cssVar('semantic', 'border', 'muted')}`,
-      ...style,
-    };
+    // ── variant-specific list styles ──
+    let listStyle: React.CSSProperties;
 
-    const indicatorStyle: React.CSSProperties = {
-      position: 'absolute',
-      left: 0,
-      bottom: '-1px',
-      width: indicator.width,
-      height: '2px',
-      borderRadius: cssVar('radius', 'full'),
-      backgroundColor: cssVar('semantic', 'primary', 'base'),
-      opacity: indicator.visible ? 1 : 0,
-      transform: `translateX(${indicator.left}px)`,
-      transition: [
-        `transform ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'inOut')}`,
-        `width ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'inOut')}`,
-        `opacity ${cssVar('motion', 'duration', 'fast')} ${cssVar('motion', 'easing', 'out')}`,
-      ].join(', '),
-      pointerEvents: 'none',
-    };
+    if (variant === 'underline') {
+      listStyle = {
+        position: 'relative',
+        display: 'flex',
+        flexDirection: orientation === 'vertical' ? 'column' : 'row',
+        borderBottom: orientation === 'horizontal'
+          ? `1px solid ${cssVar('semantic', 'border', 'muted')}`
+          : 'none',
+        borderRight: orientation === 'vertical'
+          ? `1px solid ${cssVar('semantic', 'border', 'muted')}`
+          : 'none',
+        ...style,
+      };
+    } else if (variant === 'pill') {
+      listStyle = {
+        display: 'inline-flex',
+        flexDirection: orientation === 'vertical' ? 'column' : 'row',
+        gap: cssVar('spacing', '4'),
+        padding: cssVar('spacing', '4'),
+        borderRadius: cssVar('radius', 'full'),
+        backgroundColor: cssVar('semantic', 'background', 'sunken'),
+        ...style,
+      };
+    } else {
+      // enclosed
+      listStyle = {
+        display: 'flex',
+        flexDirection: orientation === 'vertical' ? 'column' : 'row',
+        borderBottom: orientation === 'horizontal'
+          ? `1px solid ${cssVar('semantic', 'border', 'muted')}`
+          : 'none',
+        borderRight: orientation === 'vertical'
+          ? `1px solid ${cssVar('semantic', 'border', 'muted')}`
+          : 'none',
+        ...style,
+      };
+    }
+
+    const indicatorStyle: React.CSSProperties =
+      variant === 'underline'
+        ? {
+            position: 'absolute',
+            left: orientation === 'vertical' ? 'auto' : 0,
+            right: orientation === 'vertical' ? '-1px' : 'auto',
+            bottom: orientation === 'horizontal' ? '-1px' : 'auto',
+            top: orientation === 'vertical' ? 0 : 'auto',
+            width: orientation === 'vertical' ? '2px' : indicator.width,
+            height: orientation === 'vertical' ? indicator.height : '2px',
+            borderRadius: cssVar('radius', 'full'),
+            backgroundColor: cssVar('semantic', 'primary', 'base'),
+            opacity: indicator.visible ? 1 : 0,
+            transform: orientation === 'vertical'
+              ? `translateY(${indicator.top}px)`
+              : `translateX(${indicator.left}px)`,
+            transition: [
+              `transform ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'inOut')}`,
+              `width ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'inOut')}`,
+              `height ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'inOut')}`,
+              `opacity ${cssVar('motion', 'duration', 'fast')} ${cssVar('motion', 'easing', 'out')}`,
+            ].join(', '),
+            pointerEvents: 'none',
+          }
+        : {};
 
     return (
       <div
@@ -122,11 +204,15 @@ export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
           }
         }}
         role="tablist"
+        aria-orientation={orientation}
+        data-bbangto-tabs-variant={variant}
         style={listStyle}
         {...props}
       >
         {children}
-        <div data-bbangto-tabs-indicator style={indicatorStyle} />
+        {variant === 'underline' && (
+          <div data-bbangto-tabs-indicator style={indicatorStyle} />
+        )}
       </div>
     );
   }
@@ -139,32 +225,117 @@ export interface TabsTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonE
 }
 
 export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>(
-  ({ value, children, style, ...props }, ref) => {
-    const { value: selectedValue, onValueChange } = useTabsContext();
+  ({ value, children, style, disabled, ...props }, ref) => {
+    const { value: selectedValue, onValueChange, variant, size } = useTabsContext();
     const isSelected = selectedValue === value;
+    const isDisabled = disabled === true;
 
-    const triggerStyle: React.CSSProperties = {
-      background: 'none',
-      border: 'none',
-      cursor: 'pointer',
-      padding: `${cssVar('spacing', '12')} ${cssVar('spacing', '16')}`,
-      fontFamily: cssVar('typography', 'fontFamily', 'sans'),
-      fontSize: cssVar('typography', 'scale', 'body', 'fontSize'),
-      fontWeight: isSelected ? 'bold' : 'normal',
-      color: isSelected ? cssVar('semantic', 'primary', 'base') : cssVar('semantic', 'foreground', 'muted'),
-      borderBottom: '2px solid transparent',
-      marginBottom: '-1px', // overlap the list's bottom border
-      transition: `color ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'default')}`,
-      ...style,
-    };
+    // ── padding by size ──
+    const paddingY =
+      size === 'sm'
+        ? cssVar('spacing', '6')
+        : size === 'lg'
+        ? cssVar('spacing', '16')
+        : cssVar('spacing', '12');
+    const paddingX =
+      size === 'sm'
+        ? cssVar('spacing', '10')
+        : size === 'lg'
+        ? cssVar('spacing', '24')
+        : cssVar('spacing', '16');
+    const fontSize =
+      size === 'sm'
+        ? cssVar('typography', 'scale', 'meta', 'fontSize')
+        : size === 'lg'
+        ? cssVar('typography', 'scale', 'h3', 'fontSize')
+        : cssVar('typography', 'scale', 'body', 'fontSize');
+
+    // ── variant-specific trigger styles ──
+    let triggerStyle: React.CSSProperties;
+
+    if (variant === 'underline') {
+      triggerStyle = {
+        background: 'none',
+        border: 'none',
+        cursor: isDisabled ? 'not-allowed' : 'pointer',
+        padding: `${paddingY} ${paddingX}`,
+        fontFamily: cssVar('typography', 'fontFamily', 'sans'),
+        fontSize,
+        fontWeight: isSelected ? 'bold' : 'normal',
+        color: isDisabled
+          ? cssVar('semantic', 'disabled', 'foreground')
+          : isSelected
+          ? cssVar('semantic', 'primary', 'base')
+          : cssVar('semantic', 'foreground', 'muted'),
+        borderBottom: '2px solid transparent',
+        marginBottom: '-1px',
+        opacity: isDisabled ? 0.5 : 1,
+        transition: `color ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'default')}`,
+        ...style,
+      };
+    } else if (variant === 'pill') {
+      triggerStyle = {
+        background: isSelected ? cssVar('semantic', 'background', 'base') : 'none',
+        border: 'none',
+        cursor: isDisabled ? 'not-allowed' : 'pointer',
+        padding: `${paddingY} ${paddingX}`,
+        fontFamily: cssVar('typography', 'fontFamily', 'sans'),
+        fontSize,
+        fontWeight: isSelected ? 'bold' : 'normal',
+        color: isDisabled
+          ? cssVar('semantic', 'disabled', 'foreground')
+          : isSelected
+          ? cssVar('semantic', 'foreground', 'base')
+          : cssVar('semantic', 'foreground', 'muted'),
+        borderRadius: cssVar('radius', 'full'),
+        boxShadow: isSelected ? `0 1px 4px 0 ${cssVar('semantic', 'border', 'muted')}` : 'none',
+        opacity: isDisabled ? 0.5 : 1,
+        transition: [
+          `background ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'default')}`,
+          `color ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'default')}`,
+          `box-shadow ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'default')}`,
+        ].join(', '),
+        ...style,
+      };
+    } else {
+      // enclosed
+      triggerStyle = {
+        background: isSelected ? cssVar('semantic', 'background', 'base') : 'none',
+        border: `1px solid ${isSelected ? cssVar('semantic', 'border', 'muted') : 'transparent'}`,
+        borderBottom: isSelected ? `1px solid ${cssVar('semantic', 'background', 'base')}` : '1px solid transparent',
+        cursor: isDisabled ? 'not-allowed' : 'pointer',
+        padding: `${paddingY} ${paddingX}`,
+        fontFamily: cssVar('typography', 'fontFamily', 'sans'),
+        fontSize,
+        fontWeight: isSelected ? 'bold' : 'normal',
+        color: isDisabled
+          ? cssVar('semantic', 'disabled', 'foreground')
+          : isSelected
+          ? cssVar('semantic', 'foreground', 'base')
+          : cssVar('semantic', 'foreground', 'muted'),
+        borderRadius: `${cssVar('radius', 'md')} ${cssVar('radius', 'md')} 0 0`,
+        marginBottom: isSelected ? '-1px' : '0',
+        opacity: isDisabled ? 0.5 : 1,
+        transition: [
+          `background ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'default')}`,
+          `color ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'default')}`,
+        ].join(', '),
+        ...style,
+      };
+    }
 
     return (
       <button
         ref={ref}
         role="tab"
         aria-selected={isSelected}
+        aria-disabled={isDisabled || undefined}
+        disabled={isDisabled}
         data-bbangto-tab-trigger={value}
-        onClick={() => onValueChange(value)}
+        data-bbangto-tabs-size={size}
+        onClick={() => {
+          if (!isDisabled) onValueChange(value);
+        }}
         style={triggerStyle}
         {...props}
       >

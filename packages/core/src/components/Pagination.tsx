@@ -1,16 +1,53 @@
 import React from 'react';
 import { cssVar } from '@centurio1987/tokens';
 
+export type PaginationSize = 'sm' | 'md' | 'lg';
+
 export interface PaginationProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: 'navigation' | 'dot' | 'counter';
   totalPages?: number;
   currentPage?: number;
   onPageChange?: (page: number) => void;
+  /** Button size scale. Defaults to 'md'. */
+  size?: PaginationSize;
+  /** Disable all interaction. */
+  disabled?: boolean;
+  /** Show first-page / last-page edge buttons (navigation variant only). */
+  showEdges?: boolean;
+  /** Number of sibling pages shown on each side of the current page (navigation variant only). Defaults to 2. */
+  siblings?: number;
 }
 
+// Size token maps
+const BTN_SIZE: Record<PaginationSize, string> = {
+  sm: '24px',
+  md: '32px',
+  lg: '40px',
+};
+
+const FONT_SIZE_MAP: Record<PaginationSize, () => string> = {
+  sm: () => cssVar('typography', 'scale', 'meta', 'fontSize'),
+  md: () => cssVar('typography', 'scale', 'body', 'fontSize'),
+  lg: () => cssVar('typography', 'scale', 'h3', 'fontSize'),
+};
+
 export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
-  ({ variant = 'navigation', totalPages = 10, currentPage = 1, onPageChange, style, className, ...props }, ref) => {
-    
+  (
+    {
+      variant = 'navigation',
+      totalPages = 10,
+      currentPage = 1,
+      onPageChange,
+      size = 'md',
+      disabled = false,
+      showEdges = false,
+      siblings = 2,
+      style,
+      className,
+      ...props
+    },
+    ref
+  ) => {
     const containerStyle: React.CSSProperties = {
       display: 'inline-flex',
       alignItems: 'center',
@@ -20,24 +57,40 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
     };
 
     const handlePrev = () => {
-      if (currentPage > 1 && onPageChange) onPageChange(currentPage - 1);
+      if (!disabled && currentPage > 1 && onPageChange) onPageChange(currentPage - 1);
     };
 
     const handleNext = () => {
-      if (currentPage < totalPages && onPageChange) onPageChange(currentPage + 1);
+      if (!disabled && currentPage < totalPages && onPageChange) onPageChange(currentPage + 1);
     };
 
+    const handleFirst = () => {
+      if (!disabled && currentPage !== 1 && onPageChange) onPageChange(1);
+    };
+
+    const handleLast = () => {
+      if (!disabled && currentPage !== totalPages && onPageChange) onPageChange(totalPages);
+    };
+
+    // ── counter variant ──────────────────────────────────────────────────────
     if (variant === 'counter') {
       return (
         <div ref={ref} style={containerStyle} className={className} {...props}>
-          <span style={{ fontSize: cssVar('typography', 'scale', 'body', 'fontSize') }}>
+          <span
+            style={{
+              fontSize: FONT_SIZE_MAP[size](),
+              color: disabled ? cssVar('semantic', 'disabled', 'foreground') : cssVar('semantic', 'foreground', 'base'),
+            }}
+          >
             <b>{currentPage}</b> / {totalPages}
           </span>
         </div>
       );
     }
 
+    // ── dot variant ──────────────────────────────────────────────────────────
     if (variant === 'dot') {
+      const dotSize = size === 'sm' ? '6px' : size === 'lg' ? '10px' : '8px';
       return (
         <div ref={ref} style={containerStyle} className={className} {...props}>
           {Array.from({ length: totalPages }).map((_, idx) => {
@@ -46,13 +99,18 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
               <div
                 key={idx}
                 style={{
-                  width: '8px',
-                  height: '8px',
+                  width: dotSize,
+                  height: dotSize,
                   borderRadius: '50%',
-                  backgroundColor: isActive ? cssVar('semantic', 'primary', 'base') : cssVar('semantic', 'border', 'base'),
-                  cursor: 'pointer',
+                  backgroundColor: isActive
+                    ? disabled
+                      ? cssVar('semantic', 'disabled', 'foreground')
+                      : cssVar('semantic', 'primary', 'base')
+                    : cssVar('semantic', 'border', 'base'),
+                  cursor: disabled ? 'not-allowed' : 'pointer',
+                  opacity: disabled ? 0.5 : 1,
                 }}
-                onClick={() => onPageChange?.(idx + 1)}
+                onClick={() => !disabled && onPageChange?.(idx + 1)}
               />
             );
           })}
@@ -60,41 +118,61 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
       );
     }
 
-    // Navigation variant
-    const navBtnStyle = (disabled: boolean): React.CSSProperties => ({
+    // ── navigation variant ───────────────────────────────────────────────────
+    const btnSizePx = BTN_SIZE[size];
+
+    const navBtnStyle = (isDisabled: boolean): React.CSSProperties => ({
       display: 'inline-flex',
       alignItems: 'center',
       justifyContent: 'center',
-      width: '32px',
-      height: '32px',
+      width: btnSizePx,
+      height: btnSizePx,
       border: `1px solid ${cssVar('semantic', 'border', 'base')}`,
       borderRadius: cssVar('radius', 'md'),
       backgroundColor: cssVar('semantic', 'background', 'elevated'),
-      cursor: disabled ? 'not-allowed' : 'pointer',
-      opacity: disabled ? 0.5 : 1,
+      cursor: isDisabled ? 'not-allowed' : 'pointer',
+      opacity: isDisabled ? 0.5 : 1,
       color: cssVar('semantic', 'foreground', 'base'),
+      fontSize: FONT_SIZE_MAP[size](),
     });
 
     const pageBtnStyle = (isActive: boolean): React.CSSProperties => ({
       display: 'inline-flex',
       alignItems: 'center',
       justifyContent: 'center',
-      width: '32px',
-      height: '32px',
+      width: btnSizePx,
+      height: btnSizePx,
       borderRadius: cssVar('radius', 'md'),
-      backgroundColor: isActive ? cssVar('semantic', 'primary', 'base') : 'transparent',
-      color: isActive ? cssVar('semantic', 'primary', 'foreground') : cssVar('semantic', 'foreground', 'base'),
-      cursor: 'pointer',
-      fontSize: cssVar('typography', 'scale', 'body', 'fontSize'),
+      backgroundColor: isActive
+        ? disabled
+          ? cssVar('semantic', 'disabled', 'background')
+          : cssVar('semantic', 'primary', 'base')
+        : 'transparent',
+      color: isActive
+        ? disabled
+          ? cssVar('semantic', 'disabled', 'foreground')
+          : cssVar('semantic', 'primary', 'foreground')
+        : disabled
+        ? cssVar('semantic', 'disabled', 'foreground')
+        : cssVar('semantic', 'foreground', 'base'),
+      cursor: disabled ? 'not-allowed' : 'pointer',
+      fontSize: FONT_SIZE_MAP[size](),
+      opacity: disabled ? 0.6 : 1,
     });
 
-    // Simple page windowing logic for demo (shows max 5 pages)
-    const getPages = () => {
-      const pages = [];
-      let start = Math.max(1, currentPage - 2);
-      let end = Math.min(totalPages, start + 4);
-      if (end - start < 4) {
-        start = Math.max(1, end - 4);
+    // Page window logic: respects siblings prop
+    const getPages = (): number[] => {
+      const pages: number[] = [];
+      let start = Math.max(1, currentPage - siblings);
+      let end = Math.min(totalPages, currentPage + siblings);
+      // Clamp window to always show (siblings * 2 + 1) pages when possible
+      const windowSize = siblings * 2;
+      if (end - start < windowSize) {
+        if (start === 1) {
+          end = Math.min(totalPages, start + windowSize);
+        } else {
+          start = Math.max(1, end - windowSize);
+        }
       }
       for (let i = start; i <= end; i++) {
         pages.push(i);
@@ -102,19 +180,62 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
       return pages;
     };
 
+    const isPrevDisabled = disabled || currentPage === 1;
+    const isNextDisabled = disabled || currentPage === totalPages;
+    const isFirstDisabled = disabled || currentPage === 1;
+    const isLastDisabled = disabled || currentPage === totalPages;
+
     return (
       <div ref={ref} style={containerStyle} className={className} {...props}>
-        <button style={navBtnStyle(currentPage === 1)} onClick={handlePrev} disabled={currentPage === 1}>
+        {showEdges && (
+          <button
+            style={navBtnStyle(isFirstDisabled)}
+            onClick={handleFirst}
+            disabled={isFirstDisabled}
+            aria-label="first page"
+          >
+            &laquo;
+          </button>
+        )}
+        <button
+          style={navBtnStyle(isPrevDisabled)}
+          onClick={handlePrev}
+          disabled={isPrevDisabled}
+          aria-label="prev page"
+        >
           &lt;
         </button>
         {getPages().map((page) => (
-          <div key={page} style={pageBtnStyle(page === currentPage)} onClick={() => onPageChange?.(page)}>
+          <div
+            key={page}
+            style={pageBtnStyle(page === currentPage)}
+            onClick={() => !disabled && onPageChange?.(page)}
+            role="button"
+            aria-current={page === currentPage ? 'page' : undefined}
+            aria-disabled={disabled}
+            tabIndex={disabled ? -1 : 0}
+          >
             {page}
           </div>
         ))}
-        <button style={navBtnStyle(currentPage === totalPages)} onClick={handleNext} disabled={currentPage === totalPages}>
+        <button
+          style={navBtnStyle(isNextDisabled)}
+          onClick={handleNext}
+          disabled={isNextDisabled}
+          aria-label="next page"
+        >
           &gt;
         </button>
+        {showEdges && (
+          <button
+            style={navBtnStyle(isLastDisabled)}
+            onClick={handleLast}
+            disabled={isLastDisabled}
+            aria-label="last page"
+          >
+            &raquo;
+          </button>
+        )}
       </div>
     );
   }

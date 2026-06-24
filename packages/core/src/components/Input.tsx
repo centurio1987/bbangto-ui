@@ -1,13 +1,22 @@
 import React from 'react';
 import { cssVar } from '@centurio1987/tokens';
+import { Spinner } from '../motion/Spinner';
 
-export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export type InputSize = 'sm' | 'md' | 'lg';
+
+export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   label?: string;
   error?: string;
   helperText?: string;
   fullWidth?: boolean;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
+  /** Controls padding and font size. Defaults to 'md'. */
+  size?: InputSize;
+  /** Shows a spinner inside the right slot and disables the input. */
+  loading?: boolean;
+  /** Success message rendered below the input (mutually exclusive with error). */
+  success?: string;
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -20,6 +29,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       leftIcon,
       rightIcon,
       disabled,
+      size = 'md',
+      loading = false,
+      success,
       style,
       className,
       ...props
@@ -27,6 +39,39 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     ref
   ) => {
     const wrapperRef = React.useRef<HTMLDivElement>(null);
+
+    // Loading acts like disabled for interaction
+    const isInteractionDisabled = disabled || loading;
+
+    // ── Size tokens ───────────────────────────────────────────────────────────
+    const paddingY =
+      size === 'sm'
+        ? cssVar('spacing', '6')
+        : size === 'lg'
+        ? cssVar('spacing', '16')
+        : cssVar('spacing', '10');
+
+    const fontSize =
+      size === 'sm'
+        ? cssVar('typography', 'scale', 'meta', 'fontSize')
+        : size === 'lg'
+        ? cssVar('typography', 'scale', 'body', 'fontSize')
+        : cssVar('typography', 'scale', 'body', 'fontSize');
+
+    // ── Border color resolution ───────────────────────────────────────────────
+    const borderColorIdle = error
+      ? cssVar('semantic', 'error', 'base')
+      : success && !error
+      ? cssVar('semantic', 'success', 'base')
+      : cssVar('semantic', 'border', 'strong');
+
+    const borderColorFocus = error
+      ? cssVar('semantic', 'error', 'base')
+      : success && !error
+      ? cssVar('semantic', 'success', 'base')
+      : cssVar('semantic', 'border', 'focus');
+
+    // ── Styles ────────────────────────────────────────────────────────────────
     const containerStyles: React.CSSProperties = {
       display: 'flex',
       flexDirection: 'column',
@@ -47,57 +92,92 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       alignItems: 'center',
       gap: cssVar('spacing', '6'),
       padding: `0 ${cssVar('spacing', '16')}`,
-      backgroundColor: disabled ? cssVar('semantic', 'disabled', 'background') : cssVar('semantic', 'background', 'base'),
-      border: `1px solid ${error ? cssVar('semantic', 'error', 'base') : cssVar('semantic', 'border', 'strong')}`,
+      backgroundColor: isInteractionDisabled
+        ? cssVar('semantic', 'disabled', 'background')
+        : cssVar('semantic', 'background', 'base'),
+      border: `1px solid ${borderColorIdle}`,
       borderRadius: cssVar('radius', 'md'),
       transition: `border-color ${cssVar('motion', 'duration', 'fast')}`,
-      cursor: disabled ? 'not-allowed' : 'text',
+      cursor: isInteractionDisabled ? 'not-allowed' : 'text',
       overflow: 'hidden',
     };
 
     const inputStyles: React.CSSProperties = {
       flex: 1,
       minWidth: 0,
-      padding: `${cssVar('spacing', '10')} 0`,
-      fontSize: cssVar('typography', 'scale', 'body', 'fontSize'),
+      padding: `${paddingY} 0`,
+      fontSize,
       lineHeight: cssVar('typography', 'scale', 'body', 'lineHeight'),
-      color: disabled ? cssVar('semantic', 'disabled', 'foreground') : cssVar('semantic', 'foreground', 'base'),
+      color: isInteractionDisabled
+        ? cssVar('semantic', 'disabled', 'foreground')
+        : cssVar('semantic', 'foreground', 'base'),
       backgroundColor: 'transparent',
       border: 'none',
       outline: 'none',
+      cursor: isInteractionDisabled ? 'not-allowed' : undefined,
     };
+
+    // Helper / error / success message
+    const messageColor = error
+      ? cssVar('semantic', 'error', 'base')
+      : success
+      ? cssVar('semantic', 'success', 'base')
+      : cssVar('semantic', 'foreground', 'muted');
 
     const helperStyles: React.CSSProperties = {
       fontSize: cssVar('typography', 'scale', 'meta', 'fontSize'),
-      color: error ? cssVar('semantic', 'error', 'base') : cssVar('semantic', 'foreground', 'muted'),
+      color: messageColor,
     };
+
+    const messageText = error || success || helperText;
+
+    // Spinner color mirrors disabled foreground when fully disabled, else base.
+    const spinnerColor = disabled
+      ? cssVar('semantic', 'disabled', 'foreground')
+      : cssVar('semantic', 'foreground', 'muted');
 
     return (
       <div style={containerStyles} className={className}>
         {label && <label style={labelStyles}>{label}</label>}
-        <div ref={wrapperRef} style={inputWrapperStyles}>
-          {leftIcon && <span style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>{leftIcon}</span>}
+        <div
+          ref={wrapperRef}
+          style={inputWrapperStyles}
+          aria-busy={loading || undefined}
+        >
+          {leftIcon && (
+            <span style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
+              {leftIcon}
+            </span>
+          )}
           <input
             ref={ref}
-            disabled={disabled}
+            disabled={isInteractionDisabled}
             style={inputStyles}
             onFocus={() => {
-              if (!disabled && !error && wrapperRef.current) {
-                wrapperRef.current.style.borderColor = cssVar('semantic', 'border', 'focus');
+              if (!isInteractionDisabled && wrapperRef.current) {
+                wrapperRef.current.style.borderColor = borderColorFocus;
               }
             }}
             onBlur={() => {
-              if (!disabled && !error && wrapperRef.current) {
-                wrapperRef.current.style.borderColor = cssVar('semantic', 'border', 'strong');
+              if (!isInteractionDisabled && wrapperRef.current) {
+                wrapperRef.current.style.borderColor = borderColorIdle;
               }
             }}
             {...props}
           />
-          {rightIcon && <span style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>{rightIcon}</span>}
+          {loading ? (
+            <span style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
+              <Spinner size={16} color={spinnerColor} />
+            </span>
+          ) : (
+            rightIcon && (
+              <span style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
+                {rightIcon}
+              </span>
+            )
+          )}
         </div>
-        {(error || helperText) && (
-          <span style={helperStyles}>{error || helperText}</span>
-        )}
+        {messageText && <span style={helperStyles}>{messageText}</span>}
       </div>
     );
   }

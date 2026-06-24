@@ -1,44 +1,104 @@
 import React from 'react';
 import { cssVar } from '@centurio1987/tokens';
 
-export interface SwitchProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {
+export type SwitchSize = 'sm' | 'md' | 'lg';
+export type SwitchLabelPosition = 'right' | 'left';
+
+export interface SwitchProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'> {
   label?: string;
+  /** Size of the switch track. @default 'md' */
+  size?: SwitchSize;
+  /** Whether the switch is in a loading/pending state. Disables interaction and shows aria-busy. @default false */
+  loading?: boolean;
+  /** Position of the label relative to the track. @default 'right' */
+  labelPosition?: SwitchLabelPosition;
 }
 
+// ── Size tokens ──────────────────────────────────────────────────────────────
+
+interface SwitchDimensions {
+  trackWidth: string;
+  trackHeight: string;
+  knobSize: string;
+  trackRadius: string;
+}
+
+const SIZE_DIMENSIONS: Record<SwitchSize, SwitchDimensions> = {
+  sm: { trackWidth: '28px', trackHeight: '16px', knobSize: '10px', trackRadius: '8px' },
+  md: { trackWidth: '40px', trackHeight: '24px', knobSize: '18px', trackRadius: '12px' },
+  lg: { trackWidth: '52px', trackHeight: '32px', knobSize: '24px', trackRadius: '16px' },
+};
+
+const LABEL_FONT_SIZE: Record<SwitchSize, ReturnType<typeof cssVar>> = {
+  sm: cssVar('typography', 'scale', 'meta', 'fontSize'),
+  md: cssVar('typography', 'scale', 'body', 'fontSize'),
+  lg: cssVar('typography', 'scale', 'h3', 'fontSize'),
+};
+
+// ── Component ────────────────────────────────────────────────────────────────
+
 export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
-  ({ label, style, className, disabled, checked, ...props }, ref) => {
+  (
+    {
+      label,
+      size = 'md',
+      loading = false,
+      labelPosition = 'right',
+      style,
+      className,
+      disabled,
+      checked,
+      ...props
+    },
+    ref
+  ) => {
+    const isInteractionDisabled = disabled || loading;
+
+    const { trackWidth, trackHeight, knobSize, trackRadius } = SIZE_DIMENSIONS[size];
+
+    // Knob offset: positioned 2px from edge regardless of size
+    const knobOffset = '2px';
+    // When checked: knob sits at (trackWidth - knobSize - 2px) from left
+    const knobCheckedLeft = `calc(${trackWidth} - ${knobSize} - ${knobOffset})`;
+
     const containerStyles: React.CSSProperties = {
       display: 'inline-flex',
       alignItems: 'center',
+      flexDirection: labelPosition === 'left' ? 'row-reverse' : 'row',
       gap: cssVar('spacing', '8'),
-      cursor: disabled ? 'not-allowed' : 'pointer',
-      opacity: disabled ? 0.5 : 1,
+      cursor: isInteractionDisabled ? 'not-allowed' : 'pointer',
+      opacity: isInteractionDisabled ? 0.5 : 1,
       fontFamily: cssVar('typography', 'fontFamily', 'sans'),
       ...style,
     };
 
     const labelStyles: React.CSSProperties = {
-      fontSize: cssVar('typography', 'scale', 'body', 'fontSize'),
+      fontSize: LABEL_FONT_SIZE[size],
       color: cssVar('semantic', 'foreground', 'base'),
-      cursor: disabled ? 'not-allowed' : 'pointer',
+      cursor: isInteractionDisabled ? 'not-allowed' : 'pointer',
     };
 
     const trackStyles: React.CSSProperties = {
       position: 'relative',
-      width: '40px',
-      height: '24px',
-      backgroundColor: checked ? cssVar('semantic', 'primary', 'base') : cssVar('semantic', 'background', 'elevated'),
-      borderRadius: '12px',
+      width: trackWidth,
+      height: trackHeight,
+      backgroundColor: checked
+        ? cssVar('semantic', 'primary', 'base')
+        : cssVar('semantic', 'background', 'elevated'),
+      borderRadius: trackRadius,
       transition: `background-color ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'default')}`,
-      border: `1px solid ${checked ? cssVar('semantic', 'primary', 'base') : cssVar('semantic', 'border', 'strong')}`,
+      border: `1px solid ${
+        checked ? cssVar('semantic', 'primary', 'base') : cssVar('semantic', 'border', 'strong')
+      }`,
+      flexShrink: 0,
     };
 
     const knobStyles: React.CSSProperties = {
       position: 'absolute',
-      top: '2px',
-      left: checked ? 'calc(100% - 20px)' : '2px',
-      width: '18px',
-      height: '18px',
+      top: knobOffset,
+      left: checked ? knobCheckedLeft : knobOffset,
+      width: knobSize,
+      height: knobSize,
       backgroundColor: cssVar('common', 'white'),
       borderRadius: '50%',
       transition: `left ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'default')}`,
@@ -46,20 +106,41 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
     };
 
     return (
-      <label style={containerStyles} className={className}>
-        <div style={trackStyles}>
+      <label
+        aria-busy={loading || undefined}
+        style={containerStyles}
+        className={className}
+      >
+        {labelPosition === 'left' && label && (
+          <span style={labelStyles}>{label}</span>
+        )}
+        <div style={trackStyles} data-size={size}>
           <div style={knobStyles} />
         </div>
         <input
           type="checkbox"
           role="switch"
           ref={ref}
-          disabled={disabled}
+          disabled={isInteractionDisabled}
           checked={checked}
-          style={{ display: 'none' }}
+          style={{
+            // Visually hidden but kept in the accessibility tree and focusable
+            // (display:none would remove it from the a11y tree entirely).
+            position: 'absolute',
+            width: '1px',
+            height: '1px',
+            margin: '-1px',
+            padding: 0,
+            border: 0,
+            overflow: 'hidden',
+            clip: 'rect(0 0 0 0)',
+            whiteSpace: 'nowrap',
+          }}
           {...props}
         />
-        {label && <span style={labelStyles}>{label}</span>}
+        {labelPosition !== 'left' && label && (
+          <span style={labelStyles}>{label}</span>
+        )}
       </label>
     );
   }

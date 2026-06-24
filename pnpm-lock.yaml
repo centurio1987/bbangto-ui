@@ -35,6 +35,9 @@ importers:
       '@centurio1987/theme-light':
         specifier: workspace:^
         version: link:../../packages/theme-light
+      '@centurio1987/themes-external':
+        specifier: workspace:^
+        version: link:../../packages/themes-external
       '@centurio1987/tokens':
         specifier: workspace:^
         version: link:../../packages/tokens

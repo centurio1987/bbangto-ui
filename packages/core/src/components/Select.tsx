@@ -1,10 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { cssVar } from '@centurio1987/tokens';
+import { Spinner } from '../motion/Spinner';
 
 export interface SelectOption {
   label: string;
   value: string;
+  /** When true, the option is shown but cannot be selected. */
+  disabled?: boolean;
 }
+
+export type SelectSize = 'sm' | 'md' | 'lg';
 
 export interface SelectProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   options: SelectOption[];
@@ -13,14 +18,56 @@ export interface SelectProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
   placeholder?: string;
   disabled?: boolean;
   fullWidth?: boolean;
+  /** Visual size of the trigger. Defaults to 'md'. */
+  size?: SelectSize;
+  /** Puts the select into an error state with a red border and aria-invalid. */
+  error?: boolean;
+  /** Shows a loading spinner inside the trigger and prevents opening the dropdown. */
+  loading?: boolean;
 }
 
+const SIZE_HEIGHT: Record<SelectSize, string> = {
+  sm: '32px',
+  md: '40px',
+  lg: '48px',
+};
+
+const SIZE_FONT_KEY: Record<SelectSize, string> = {
+  sm: 'meta',
+  md: 'body',
+  lg: 'body',
+};
+
+const SIZE_PADDING_KEY: Record<SelectSize, string> = {
+  sm: '8',
+  md: '12',
+  lg: '16',
+};
+
 export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
-  ({ options, value, onChange, placeholder = 'Select...', disabled, fullWidth = false, style, className, ...props }, ref) => {
+  (
+    {
+      options,
+      value,
+      onChange,
+      placeholder = 'Select...',
+      disabled,
+      fullWidth = false,
+      size = 'md',
+      error = false,
+      loading = false,
+      style,
+      className,
+      ...props
+    },
+    ref,
+  ) => {
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef<HTMLDivElement | null>(null);
 
     const selectedOption = options.find((opt) => opt.value === value);
+
+    const isInteractionDisabled = disabled || loading;
 
     useEffect(() => {
       const handleClickOutside = (event: MouseEvent) => {
@@ -41,19 +88,28 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
       ...style,
     };
 
+    const borderColor = error
+      ? cssVar('semantic', 'error', 'base')
+      : isOpen
+        ? cssVar('semantic', 'primary', 'base')
+        : cssVar('semantic', 'border', 'base');
+
+    const paddingKey = SIZE_PADDING_KEY[size];
+    const fontVariant = SIZE_FONT_KEY[size];
+
     const triggerStyle: React.CSSProperties = {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
       width: '100%',
-      height: '40px',
-      padding: `0 ${cssVar('spacing', '12')}`,
+      height: SIZE_HEIGHT[size],
+      padding: `0 ${cssVar('spacing', paddingKey)}`,
       backgroundColor: cssVar('semantic', 'background', 'elevated'),
-      border: `1px solid ${isOpen ? cssVar('semantic', 'primary', 'base') : cssVar('semantic', 'border', 'base')}`,
+      border: `1px solid ${borderColor}`,
       borderRadius: cssVar('radius', 'md'),
       color: selectedOption ? cssVar('semantic', 'foreground', 'base') : cssVar('semantic', 'foreground', 'subtle'),
-      fontSize: cssVar('typography', 'scale', 'body', 'fontSize'),
-      cursor: disabled ? 'not-allowed' : 'pointer',
+      fontSize: cssVar('typography', 'scale', fontVariant, 'fontSize'),
+      cursor: isInteractionDisabled ? 'not-allowed' : 'pointer',
       transition: 'border-color 0.2s',
     };
 
@@ -73,48 +129,102 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
       padding: `${cssVar('spacing', '4')} 0`,
     };
 
-    const optionStyle = (isSelected: boolean): React.CSSProperties => ({
+    const optionStyle = (isSelected: boolean, isOptionDisabled: boolean): React.CSSProperties => ({
       padding: `${cssVar('spacing', '8')} ${cssVar('spacing', '12')}`,
-      cursor: 'pointer',
+      cursor: isOptionDisabled ? 'not-allowed' : 'pointer',
       backgroundColor: isSelected ? cssVar('semantic', 'background', 'sunken') : 'transparent',
-      color: cssVar('semantic', 'foreground', 'base'),
-      fontSize: cssVar('typography', 'scale', 'body', 'fontSize'),
+      color: isOptionDisabled
+        ? cssVar('semantic', 'foreground', 'subtle')
+        : cssVar('semantic', 'foreground', 'base'),
+      fontSize: cssVar('typography', 'scale', fontVariant, 'fontSize'),
+      opacity: isOptionDisabled ? 0.5 : 1,
     });
 
+    const handleTriggerClick = () => {
+      if (!isInteractionDisabled) {
+        setIsOpen(!isOpen);
+      }
+    };
+
     return (
-      <div ref={(node) => {
-        containerRef.current = node;
-        if (typeof ref === 'function') {
-          ref(node);
-        } else if (ref) {
-          (ref as any).current = node;
-        }
-      }} style={containerStyle} className={className} {...props}>
-        <div style={triggerStyle} onClick={() => !disabled && setIsOpen(!isOpen)}>
+      <div
+        ref={(node) => {
+          containerRef.current = node;
+          if (typeof ref === 'function') {
+            ref(node);
+          } else if (ref) {
+            (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+          }
+        }}
+        style={containerStyle}
+        className={className}
+        aria-invalid={error ? true : undefined}
+        data-size={size}
+        data-loading={loading || undefined}
+        {...props}
+      >
+        <div
+          style={triggerStyle}
+          onClick={handleTriggerClick}
+          role="combobox"
+          aria-expanded={isOpen}
+          aria-haspopup="listbox"
+        >
           <span>{selectedOption ? selectedOption.label : placeholder}</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ transform: isOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>
-            <polyline points="6 9 12 15 18 9"></polyline>
-          </svg>
-        </div>
-        <div style={dropdownStyle}>
-          {options.map((opt) => (
-            <div
-              key={opt.value}
-              style={optionStyle(opt.value === value)}
-              onClick={() => {
-                if (onChange) onChange(opt.value);
-                setIsOpen(false);
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = cssVar('semantic', 'background', 'sunken'))}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = opt.value === value ? cssVar('semantic', 'background', 'sunken') : 'transparent')}
+          {loading ? (
+            <Spinner size={size === 'sm' ? 12 : size === 'lg' ? 20 : 16} color={cssVar('semantic', 'foreground', 'subtle')} />
+          ) : (
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+              style={{ transform: isOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s', flexShrink: 0 }}
             >
-              {opt.label}
-            </div>
-          ))}
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          )}
+        </div>
+        <div style={dropdownStyle} role="listbox">
+          {options.map((opt) => {
+            const isOptionDisabled = opt.disabled === true;
+            return (
+              <div
+                key={opt.value}
+                role="option"
+                aria-selected={opt.value === value}
+                aria-disabled={isOptionDisabled || undefined}
+                style={optionStyle(opt.value === value, isOptionDisabled)}
+                onClick={() => {
+                  if (isOptionDisabled) return;
+                  if (onChange) onChange(opt.value);
+                  setIsOpen(false);
+                }}
+                onMouseEnter={(e) => {
+                  if (!isOptionDisabled) {
+                    e.currentTarget.style.backgroundColor = cssVar('semantic', 'background', 'sunken');
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isOptionDisabled) {
+                    e.currentTarget.style.backgroundColor =
+                      opt.value === value ? cssVar('semantic', 'background', 'sunken') : 'transparent';
+                  }
+                }}
+              >
+                {opt.label}
+              </div>
+            );
+          })}
         </div>
       </div>
     );
-  }
+  },
 );
 
 Select.displayName = 'Select';
