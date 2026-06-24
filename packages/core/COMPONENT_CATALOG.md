@@ -199,4 +199,6 @@ Wave 0 (편제·인프라·토큰)
 | hooks 잔여 (useDarkMode/useIdle/useGeolocation 등 ~11) | hook | 3 | TODO | | INFERRED 목록, 후속 batch |
 | **Wave 3b** (shaders 4종) | motion/shader | 3 | **DONE** | workflow | MeshGradient·Aurora·Waves·ParticleField, reduced-motion 폴백 / test 383 |
 | shaders 잔여 (WebGL Plasma/Metaballs/Noise 등 ~11) | motion/shader | 3 | TODO | | INFERRED, WebGL 후속 |
-| **— Wave 4 (blocks) / Wave 5 (patterns) 미착수 —** | | | TODO | | 의존성: 1·2 완료 필요(충족), 별도 착수 대기 |
+| breakpoint 상수 (tokens) | 인프라 | 4선행 | **DONE** | orchestrator | breakpoints/up/down |
+| **Wave 4 전체** (blocks 13종) | block/section | 4 | **DONE** | workflow | Hero·FeatureGrid·CTA·PricingSection·Testimonials·LogoCloud·Comparison·Dock·Gallery·VideoBlock·MapBlock·MarketingFooter·AnnouncementBar / test 410 |
+| **— Wave 5 (patterns) 진행 —** | | | TODO | | |
