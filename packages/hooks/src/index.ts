@@ -10,3 +10,23 @@ export * from './useIsMounted';
 export * from './useToggle';
 export * from './usePrevious';
 export * from './useDebounce';
+// Wave 3a — viewport
+export * from './useMediaQuery';
+export * from './useWindowSize';
+export * from './useResizeObserver';
+export * from './useElementSize';
+// Wave 3a — scroll
+export * from './useInView';
+export * from './useScrollProgress';
+export * from './useScroll';
+export * from './useMousePosition';
+// Wave 3a — interaction
+export * from './useHover';
+export * from './useClickOutside';
+export * from './useKeyPress';
+export * from './useFocus';
+// Wave 3a — utility
+export * from './useLocalStorage';
+export * from './useCopyToClipboard';
+export * from './useThrottle';
+export * from './useEventListener';
