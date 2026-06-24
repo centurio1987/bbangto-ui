@@ -187,4 +187,10 @@ Wave 0 (편제·인프라·토큰)
 | `blocks`/`patterns`/`motion.shaders` 배럴 | 편제 | 0 | **DONE** | orchestrator | core re-export 배선 |
 | 오서링 템플릿 (`/_templates`) | 인프라 | 0 | **DONE** | orchestrator | component/story/hook/checklist |
 | 토큰 갭 감사 | 인프라 | 0 | **DONE** | orchestrator | breakpoint 등 해당 Wave로 이월 |
-| **— 이하 Wave 1+ 인스턴스화 —** | | | TODO | | |
+| `Button` (loading/soft/pill) | atom | 1 | **DONE** | leaf | 시범 검증 |
+| `Badge` (soft/size/dot) | atom | 1 | **DONE** | leaf | batch 1 |
+| `Avatar` (status dot) | atom | 1 | **DONE** | leaf | batch 1 |
+| `Link` | atom | 2 | **DONE** | leaf | batch 1, 신규 primitive |
+| `NumberField` | molecule | 2 | **DONE** | leaf | batch 1, 신규 primitive |
+| `useToggle` / `usePrevious` / `useDebounce` | hook | 3 | **DONE** | leaf | batch 1, vitest 통과 |
+| **— 이하 batch 2+ —** | | | TODO | | |
