@@ -195,4 +195,6 @@ Wave 0 (편제·인프라·토큰)
 | `useToggle` / `usePrevious` / `useDebounce` | hook | 3 | **DONE** | leaf | batch 1, vitest 통과 |
 | **Wave 1 전체** (26개 컴포넌트 variant 확장) | atom/molecule | 1 | **DONE** | workflow | Accordion·AlertDialog·Card·Carousel·Checkbox·Chip·DatePicker·EmptyState·FileUploader·Input·Modal·Pagination·Popover·Radio·Searchfield·SectionMessage·SegmentedControl·Select·Slider·Snackbar·Switch·Table·Tabs·Textarea·Toast·Tooltip / test 333 |
 | **Wave 2 전체** (7 primitive) | atom/molecule | 2 | **DONE** | workflow | Calendar·Menu/DropdownMenu·Sidebar·TreeView·ScrollArea·ChatBubble/MessageList / test 368 |
-| **— Wave 3 (hooks + shaders) 진행 —** | | | TODO | | |
+| **Wave 3a** (hooks 16종) | hook | 3 | **DONE** | workflow | viewport/scroll/interaction/utility / test:unit 65 |
+| hooks 잔여 (useDarkMode/useIdle/useGeolocation 등 ~11) | hook | 3 | TODO | | INFERRED 목록, 후속 batch |
+| **— Wave 3b (shaders) 진행 —** | | | TODO | | |
