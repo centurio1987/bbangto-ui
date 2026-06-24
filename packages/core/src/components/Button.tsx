@@ -1,15 +1,19 @@
 import React from 'react';
 import { cssVar } from '@centurio1987/tokens';
+import { Spinner } from '../motion/Spinner';
 
-export type ButtonVariant = 'solid' | 'outline' | 'ghost';
+export type ButtonVariant = 'solid' | 'outline' | 'ghost' | 'soft';
 export type ButtonColor = 'primary' | 'error' | 'success' | 'warning' | 'neutral';
 export type ButtonSize = 'sm' | 'md' | 'lg';
+export type ButtonShape = 'rounded' | 'pill';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   color?: ButtonColor;
   size?: ButtonSize;
+  shape?: ButtonShape;
   fullWidth?: boolean;
+  loading?: boolean;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
 }
@@ -20,7 +24,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       variant = 'solid',
       color = 'primary',
       size = 'md',
+      shape = 'rounded',
       fullWidth = false,
+      loading = false,
       leftIcon,
       rightIcon,
       children,
@@ -30,6 +36,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
+    // Loading behaves like disabled for interaction, but stays visually "loading".
+    const isInteractionDisabled = disabled || loading;
     // Determine colors
     let bg = 'transparent';
     let fg = cssVar('semantic', 'foreground', 'base');
@@ -60,6 +68,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       fg = disabled ? cssVar('semantic', 'disabled', 'foreground') : baseColor;
       hoverBg = disabled ? bg : subtleColor;
       hoverFg = disabled ? fg : hoverColor;
+    } else if (variant === 'soft') {
+      // Subtle background + colored foreground, reusing existing tokens.
+      bg = disabled ? cssVar('semantic', 'disabled', 'background') : subtleColor;
+      fg = disabled ? cssVar('semantic', 'disabled', 'foreground') : baseColor;
+      hoverBg = disabled ? bg : subtleColor;
+      hoverFg = disabled ? fg : hoverColor;
     }
 
     // Determine sizes
@@ -80,31 +94,35 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       backgroundColor: bg,
       color: fg,
       border: `1px solid ${border}`,
-      borderRadius: cssVar('radius', 'md'),
+      borderRadius: shape === 'pill' ? cssVar('radius', 'full') : cssVar('radius', 'md'),
       fontSize,
       fontWeight,
       lineHeight,
       fontFamily: cssVar('typography', 'fontFamily', 'sans'),
-      cursor: disabled ? 'not-allowed' : 'pointer',
+      cursor: isInteractionDisabled ? 'not-allowed' : 'pointer',
       transition: `all ${cssVar('motion', 'duration', 'fast')} ${cssVar('motion', 'easing', 'default')}`,
       outline: 'none',
       ...style,
     };
 
+    // Spinner matches the small icon footprint and inherits the foreground color.
+    const spinnerColor = disabled ? cssVar('semantic', 'disabled', 'foreground') : fg;
+
     return (
       <button
         ref={ref}
-        disabled={disabled}
+        disabled={isInteractionDisabled}
+        aria-busy={loading || undefined}
         style={baseStyles}
         onMouseEnter={(e) => {
-          if (!disabled) {
+          if (!isInteractionDisabled) {
             e.currentTarget.style.backgroundColor = hoverBg;
             e.currentTarget.style.borderColor = hoverBorder;
             e.currentTarget.style.color = hoverFg;
           }
         }}
         onMouseLeave={(e) => {
-          if (!disabled) {
+          if (!isInteractionDisabled) {
             e.currentTarget.style.backgroundColor = bg;
             e.currentTarget.style.borderColor = border;
             e.currentTarget.style.color = fg;
@@ -112,7 +130,13 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         }}
         {...props}
       >
-        {leftIcon && <span style={{ display: 'inline-flex', alignItems: 'center', flexShrink: 0 }}>{leftIcon}</span>}
+        {loading ? (
+          <span style={{ display: 'inline-flex', alignItems: 'center', flexShrink: 0 }}>
+            <Spinner size={16} color={spinnerColor} />
+          </span>
+        ) : (
+          leftIcon && <span style={{ display: 'inline-flex', alignItems: 'center', flexShrink: 0 }}>{leftIcon}</span>
+        )}
         {children && <span style={{ display: 'inline-flex', alignItems: 'center', flexShrink: 1 }}>{children}</span>}
         {rightIcon && <span style={{ display: 'inline-flex', alignItems: 'center', flexShrink: 0 }}>{rightIcon}</span>}
       </button>
