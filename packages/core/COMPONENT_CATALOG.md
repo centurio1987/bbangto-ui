@@ -193,4 +193,5 @@ Wave 0 (편제·인프라·토큰)
 | `Link` | atom | 2 | **DONE** | leaf | batch 1, 신규 primitive |
 | `NumberField` | molecule | 2 | **DONE** | leaf | batch 1, 신규 primitive |
 | `useToggle` / `usePrevious` / `useDebounce` | hook | 3 | **DONE** | leaf | batch 1, vitest 통과 |
-| **— 이하 batch 2+ —** | | | TODO | | |
+| **Wave 1 전체** (26개 컴포넌트 variant 확장) | atom/molecule | 1 | **DONE** | workflow | Accordion·AlertDialog·Card·Carousel·Checkbox·Chip·DatePicker·EmptyState·FileUploader·Input·Modal·Pagination·Popover·Radio·Searchfield·SectionMessage·SegmentedControl·Select·Slider·Snackbar·Switch·Table·Tabs·Textarea·Toast·Tooltip / test 333 |
+| **— Wave 2 (primitive) 진행 —** | | | TODO | | |
