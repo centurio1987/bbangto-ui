@@ -5,6 +5,8 @@ import { lightTheme } from '@centurio1987/theme-light';
 import { darkTheme } from '@centurio1987/theme-dark';
 import { highContrastTheme } from '@centurio1987/theme-high-contrast';
 import { amberDarkTheme, amberLightTheme } from '@centurio1987/theme-amber';
+import { DiagramProvider, blueprintTheme } from '@centurio1987/diagram';
+
 const preview: Preview = {
   parameters: {
     controls: {
@@ -42,13 +44,14 @@ const preview: Preview = {
       } else if (themeName === 'amber-light') {
         theme = amberLightTheme;
       }
-      
-      // We set background color of the canvas explicitly to match the theme's base background
+
       const bgColor = theme.semantic.background.base;
-      
+
       return (
         <ThemeProvider theme={theme} style={{ padding: '2rem', minHeight: '100vh', backgroundColor: bgColor, transition: 'background-color 0.3s ease' }}>
-          <Story />
+          <DiagramProvider theme={blueprintTheme}>
+            <Story />
+          </DiagramProvider>
         </ThemeProvider>
       );
     },

@@ -17,6 +17,9 @@ importers:
       '@centurio1987/core':
         specifier: workspace:^
         version: link:../../packages/core
+      '@centurio1987/diagram':
+        specifier: workspace:^
+        version: link:../../packages/diagram
       '@centurio1987/theme-amber':
         specifier: workspace:^
         version: link:../../packages/theme-amber
@@ -142,6 +145,31 @@ importers:
       lucide-static:
         specifier: ^1.21.0
         version: 1.21.0
+      tsup:
+        specifier: ^8.0.0
+        version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.7.0
+        version: 5.9.3
+
+  packages/diagram:
+    dependencies:
+      '@centurio1987/tokens':
+        specifier: workspace:*
+        version: link:../tokens
+      react:
+        specifier: ^18.2.0 || ^19.0.0
+        version: 19.2.7
+      react-dom:
+        specifier: ^18.2.0 || ^19.0.0
+        version: 19.2.7(react@19.2.7)
+    devDependencies:
+      '@types/react':
+        specifier: ^18.2.0
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ^18.2.0
+        version: 18.3.7(@types/react@18.3.31)
       tsup:
         specifier: ^8.0.0
         version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
