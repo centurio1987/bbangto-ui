@@ -48,3 +48,4 @@ export * from './components/FileUploader';
 export * from './components/Stepper';
 export * from './components/RichTextEditor';
 export * from './components/atoms/Icon/generated';
+export * from './motion';

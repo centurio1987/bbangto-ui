@@ -6,6 +6,7 @@ import {
   ThemeOverride,
 } from '@centurio1987/tokens';
 import { lightTheme } from '@centurio1987/theme-light';
+import { useMotionKeyframes } from './motion/keyframes';
 
 interface ThemeContextValue {
   theme: BbangtoTheme;
@@ -45,6 +46,9 @@ export function ThemeProvider({
   const cssVars = useMemo(() => {
     return themeToStyleObject(mergedTheme);
   }, [mergedTheme]);
+
+  // Inject motion keyframes + prefers-reduced-motion reset once per document.
+  useMotionKeyframes();
 
   return (
     <ThemeContext.Provider value={{ theme: mergedTheme }}>
