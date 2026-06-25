@@ -204,4 +204,5 @@ Wave 0 (편제·인프라·토큰)
 | **Wave 5 전체** (patterns 4종) | pattern | 5 | **DONE** | workflow | SignIn·SignUp·FormLayout(+Section/Row/Field)·AIChat / test 433 |
 | **═══ A/B/C 전 계층 1차 구현 완료 ═══** | | | **DONE** | | components·primitives·hooks·shaders·blocks·patterns |
 | _잔여(후속 batch)_: hooks ~11 (useDarkMode 등), shaders ~11 (WebGL) | | 3 | TODO | | INFERRED 목록 |
-| _Wave 6_: Storybook MDX 문서화, changeset/릴리스 | | 6 | TODO | | 사용자 승인 필요(퍼블리시) |
+| Wave 6: Storybook Overview MDX + 사이드바 계층 정렬 | 문서 | 6 | **DONE** | orchestrator | storySort + Overview/Introduction |
+| Wave 6: changeset/버전범프/퍼블리시 | 릴리스 | 6 | TODO | | ⚠️ outward-facing, 사용자 승인 필요 |
