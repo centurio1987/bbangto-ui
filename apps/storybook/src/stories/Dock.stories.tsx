@@ -118,3 +118,85 @@ export const Minimal: Story = {
     ],
   },
 };
+
+// ---------------------------------------------------------------------------
+// VariantAttached — edge-attached, full-width bar (flat radius, no shadow)
+// ---------------------------------------------------------------------------
+
+export const VariantAttached: Story = {
+  args: {
+    variant: 'attached',
+    items: [
+      { icon: <HomeIcon />, label: 'Home', active: true },
+      { icon: <SearchIcon />, label: 'Search' },
+      { icon: <BellIcon />, label: 'Notifications' },
+      { icon: <UserIcon />, label: 'Profile' },
+    ],
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr present + correct
+    const nav = canvasElement.querySelector<HTMLElement>(
+      'nav[data-bbangto-dock-variant="attached"]'
+    );
+    await expect(nav).toBeTruthy();
+
+    // 2. Load-bearing computed style: flat radius (no detached radius) and
+    //    full-width edge-attached bar.
+    const dockStyle = getComputedStyle(nav!);
+    await expect(dockStyle.borderTopLeftRadius).toBe('0px');
+    await expect(dockStyle.borderBottomLeftRadius).toBe('0px');
+    await expect(dockStyle.width).not.toBe('');
+    const navWidth = nav!.getBoundingClientRect().width;
+    const parentWidth = nav!.parentElement!.getBoundingClientRect().width;
+    // Full-width edge-attached bar: fills (at least) its parent. Avoid exact-px
+    // equality — box model / decorator padding makes it fragile.
+    await expect(navWidth).toBeGreaterThanOrEqual(parentWidth * 0.9);
+
+    // 3. Content slots render
+    const home = await canvas.findByRole('button', { name: 'Home' });
+    await expect(home).toBeVisible();
+    await expect(canvas.getByRole('button', { name: 'Search' })).toBeVisible();
+    await expect(
+      canvas.getByRole('button', { name: 'Notifications' })
+    ).toBeVisible();
+    await expect(canvas.getByRole('button', { name: 'Profile' })).toBeVisible();
+  },
+};
+
+// ---------------------------------------------------------------------------
+// VariantLabeled — icons sit beside their text labels (horizontal items)
+// ---------------------------------------------------------------------------
+
+export const VariantLabeled: Story = {
+  args: {
+    variant: 'labeled',
+    items: [
+      { icon: <HomeIcon />, label: 'Home', active: true },
+      { icon: <SearchIcon />, label: 'Search' },
+      { icon: <SettingsIcon />, label: 'Settings' },
+    ],
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr present + correct
+    const nav = canvasElement.querySelector<HTMLElement>(
+      'nav[data-bbangto-dock-variant="labeled"]'
+    );
+    await expect(nav).toBeTruthy();
+
+    // 2. Load-bearing computed style: items lay out horizontally (icon beside
+    //    label) rather than the default stacked column.
+    const home = await canvas.findByRole('button', { name: 'Home' });
+    const homeStyle = getComputedStyle(home);
+    await expect(homeStyle.flexDirection).toBe('row');
+
+    // 3. Content slots render — label text nodes are present
+    await expect(home).toHaveTextContent('Home');
+    await expect(canvas.getByText('Home')).toBeVisible();
+    await expect(canvas.getByText('Search')).toBeVisible();
+    await expect(canvas.getByText('Settings')).toBeVisible();
+  },
+};

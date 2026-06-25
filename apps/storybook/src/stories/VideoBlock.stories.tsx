@@ -73,3 +73,124 @@ export const MinimalSlots: Story = {
     await expect(video!.getAttribute('src')).toContain('mov_bbb');
   },
 };
+
+/**
+ * LayoutSplit: text/content beside the video, 2-column at ≥ lg via scoped style.
+ */
+export const LayoutSplit: Story = {
+  args: {
+    layout: 'split',
+    src: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    poster: 'https://www.w3schools.com/html/pic_trulli.jpg',
+    title: 'Product Walkthrough',
+    content: <p>A short tour of the key features, narrated end to end.</p>,
+    caption: 'Recorded in 1080p.',
+  },
+  parameters: {
+    viewport: { defaultViewport: 'desktop' },
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr present + correct
+    const section = canvasElement.querySelector('section');
+    await expect(section).not.toBeNull();
+    await expect(section!.getAttribute('data-bbangto-videoblock-layout')).toBe('split');
+
+    // 2. load-bearing: scoped 2-col rule emitted at ≥ lg
+    const css = Array.from(canvasElement.querySelectorAll('style'))
+      .map((s) => s.textContent ?? '')
+      .join('\n');
+    await expect(css).toContain('bbangto-videoblock-split');
+    await expect(css).toContain('grid-template-columns: 1fr 1fr');
+
+    // 3. content slots render: heading, supporting content, video player
+    await expect(
+      await canvas.findByRole('heading', { name: /Product Walkthrough/i })
+    ).toBeVisible();
+    await expect(canvas.getByText(/key features/i)).toBeVisible();
+    const video = canvasElement.querySelector('video');
+    await expect(video).not.toBeNull();
+    await expect(video!.hasAttribute('controls')).toBe(true);
+  },
+};
+
+/**
+ * LayoutBackground: video fills the section as a background with an overlay
+ * scrim; text overlaid on top.
+ */
+export const LayoutBackground: Story = {
+  args: {
+    layout: 'background',
+    src: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    title: 'Immersive Background',
+    caption: 'Text reads against the scrim.',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr present + correct
+    const section = canvasElement.querySelector('section');
+    await expect(section).not.toBeNull();
+    await expect(section!.getAttribute('data-bbangto-videoblock-layout')).toBe(
+      'background'
+    );
+
+    // 2. load-bearing: video wrapper is absolutely positioned (full-bleed)
+    const wrapper = canvasElement.querySelector<HTMLElement>(
+      '.bbangto-videoblock-bg-media'
+    );
+    await expect(wrapper).not.toBeNull();
+    await expect(getComputedStyle(wrapper!).position).toBe('absolute');
+
+    // 3. content slots render: heading, caption, video player
+    await expect(
+      await canvas.findByRole('heading', { name: /Immersive Background/i })
+    ).toBeVisible();
+    await expect(canvas.getByText(/reads against the scrim/i)).toBeVisible();
+    const video = canvasElement.querySelector('video');
+    await expect(video).not.toBeNull();
+    await expect(video!.hasAttribute('controls')).toBe(true);
+  },
+};
+
+/**
+ * LayoutFramed: video wrapped in a device / browser frame (border + chrome).
+ */
+export const LayoutFramed: Story = {
+  args: {
+    layout: 'framed',
+    src: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    poster: 'https://www.w3schools.com/html/pic_trulli.jpg',
+    title: 'Framed Demo',
+    caption: 'Shown inside a browser chrome.',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr present + correct
+    const section = canvasElement.querySelector('section');
+    await expect(section).not.toBeNull();
+    await expect(section!.getAttribute('data-bbangto-videoblock-layout')).toBe(
+      'framed'
+    );
+
+    // 2. load-bearing: frame wrapper has a non-zero border
+    const frame = canvasElement.querySelector<HTMLElement>(
+      '.bbangto-videoblock-frame'
+    );
+    await expect(frame).not.toBeNull();
+    const borderWidth = getComputedStyle(frame!).borderTopWidth;
+    await expect(borderWidth).not.toBe('');
+    await expect(borderWidth).not.toBe('0px');
+
+    // 3. content slots render: heading, caption, video player
+    await expect(
+      await canvas.findByRole('heading', { name: /Framed Demo/i })
+    ).toBeVisible();
+    await expect(canvas.getByText(/browser chrome/i)).toBeVisible();
+    const video = canvasElement.querySelector('video');
+    await expect(video).not.toBeNull();
+    await expect(video!.hasAttribute('controls')).toBe(true);
+  },
+};

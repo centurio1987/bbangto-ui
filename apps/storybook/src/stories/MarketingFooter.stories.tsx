@@ -198,3 +198,125 @@ export const Minimal: Story = {
     await expect(copyright).toBeVisible();
   },
 };
+
+/**
+ * `layout="minimal"` — a single compact row of brand, inline links, and
+ * copyright. All link groups are flattened into one inline list.
+ */
+export const LayoutMinimal: Story = {
+  args: {
+    logo: <SampleLogo />,
+    columns: sampleColumns.slice(0, 2),
+    copyright: '© 2026 BBANGTO Inc.',
+    layout: 'minimal',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr present + correct
+    const footer = canvasElement.querySelector('footer');
+    await expect(footer).not.toBeNull();
+    await expect(footer).toHaveAttribute('data-bbangto-marketingfooter-layout', 'minimal');
+
+    // 2. Load-bearing: links container is a single ROW flex
+    const linksRow = canvasElement.querySelector('.bbangto-marketing-footer-minimal-links');
+    await expect(linksRow).not.toBeNull();
+    const rowStyle = getComputedStyle(linksRow as HTMLElement);
+    await expect(rowStyle.display).toBe('flex');
+    await expect(rowStyle.flexDirection).toBe('row');
+
+    // 3. Footer links from multiple groups render in the flattened row
+    const featuresLink = await canvas.findByRole('link', { name: 'Features' });
+    await expect(featuresLink).toBeVisible();
+    await expect(featuresLink).toHaveAttribute('href', '#features');
+    const aboutLink = await canvas.findByRole('link', { name: 'About' });
+    await expect(aboutLink).toBeVisible();
+
+    // Copyright renders in the row
+    const copyright = await canvas.findByText('© 2026 BBANGTO Inc.');
+    await expect(copyright).toBeVisible();
+  },
+};
+
+/**
+ * `layout="centered"` — brand centered on top, link groups centered below.
+ */
+export const LayoutCentered: Story = {
+  args: {
+    logo: <SampleLogo />,
+    columns: sampleColumns.slice(0, 3),
+    copyright: '© 2026 BBANGTO Inc.',
+    layout: 'centered',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr present + correct
+    const footer = canvasElement.querySelector('footer');
+    await expect(footer).not.toBeNull();
+    await expect(footer).toHaveAttribute('data-bbangto-marketingfooter-layout', 'centered');
+
+    // 2. Load-bearing: top row centers its children
+    const logoSlot = canvasElement.querySelector('[aria-label="Site logo"]');
+    await expect(logoSlot).not.toBeNull();
+    const topRow = (logoSlot as HTMLElement).parentElement as HTMLElement;
+    const topRowStyle = getComputedStyle(topRow);
+    await expect(topRowStyle.textAlign).toBe('center');
+    await expect(topRowStyle.alignItems).toBe('center');
+
+    // Load-bearing: groups container is the centered flex variant + its
+    // scoped rule justifies content to center.
+    const groups = canvasElement.querySelector('.bbangto-marketing-footer-centered');
+    await expect(groups).not.toBeNull();
+    const groupsStyle = getComputedStyle(groups as HTMLElement);
+    await expect(groupsStyle.justifyContent).toBe('center');
+
+    const styleText = Array.from(canvasElement.querySelectorAll('style'))
+      .map((s) => s.textContent ?? '')
+      .join('\n');
+    await expect(styleText).toContain('.bbangto-marketing-footer-centered');
+    await expect(styleText).toContain('justify-content: center');
+
+    // 3. Footer links render
+    const productHeading = await canvas.findByText('Product');
+    await expect(productHeading).toBeVisible();
+    const featuresLink = await canvas.findByRole('link', { name: 'Features' });
+    await expect(featuresLink).toBeVisible();
+  },
+};
+
+/**
+ * `layout="stacked"` — groups stacked vertically as a single column always.
+ */
+export const LayoutStacked: Story = {
+  args: {
+    logo: <SampleLogo />,
+    columns: sampleColumns,
+    copyright: '© 2026 BBANGTO Inc.',
+    layout: 'stacked',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr present + correct
+    const footer = canvasElement.querySelector('footer');
+    await expect(footer).not.toBeNull();
+    await expect(footer).toHaveAttribute('data-bbangto-marketingfooter-layout', 'stacked');
+
+    // 2. Load-bearing: groups container is a single COLUMN flex
+    const groups = canvasElement.querySelector('.bbangto-marketing-footer-stacked');
+    await expect(groups).not.toBeNull();
+    const groupsStyle = getComputedStyle(groups as HTMLElement);
+    await expect(groupsStyle.display).toBe('flex');
+    await expect(groupsStyle.flexDirection).toBe('column');
+
+    // 3. Footer links render across stacked groups
+    const productHeading = await canvas.findByText('Product');
+    await expect(productHeading).toBeVisible();
+    const legalHeading = await canvas.findByText('Legal');
+    await expect(legalHeading).toBeVisible();
+    const featuresLink = await canvas.findByRole('link', { name: 'Features' });
+    await expect(featuresLink).toBeVisible();
+    await expect(featuresLink).toHaveAttribute('href', '#features');
+  },
+};

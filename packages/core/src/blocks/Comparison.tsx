@@ -1,8 +1,17 @@
 import React from 'react';
-import { cssVar } from '@centurio1987/tokens';
+import { cssVar, breakpoints } from '@centurio1987/tokens';
 import { Text } from '../components/Text';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
+
+/**
+ * Visual arrangement of the comparison block.
+ * - `table`   (default) — feature comparison table (1 label col + N data cols).
+ * - `columns` — two side-by-side cards (e.g. "Us" vs "Them"); stacks on mobile,
+ *               2-col at ≥ lg breakpoint via a scoped media rule.
+ * - `slider`  — before/after overlay with a draggable / keyboard-operable divider.
+ */
+export type ComparisonLayout = 'table' | 'columns' | 'slider';
 
 export interface ComparisonColumn {
   /** Column header name (e.g. plan or product name). */
@@ -30,7 +39,15 @@ export interface ComparisonProps extends React.HTMLAttributes<HTMLElement> {
   columns: ComparisonColumn[];
   /** Feature rows — each row has a label and one value per column. */
   rows: ComparisonRow[];
+  /**
+   * Visual arrangement of the block. Defaults to `'table'` (existing behavior).
+   * @default 'table'
+   */
+  layout?: ComparisonLayout;
 }
+
+/** Stable class/css-var namespace prefix for scoped <style> rules. */
+const COMPARISON_ID = 'bbangto-comparison';
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -85,10 +102,181 @@ function CellValue({ value }: { value: string | boolean }) {
   );
 }
 
+/**
+ * Renders the feature list for a single column inside a slider panel.
+ */
+function SliderPanel({
+  column,
+  rows,
+  colIdx,
+  variant,
+}: {
+  column: ComparisonColumn;
+  rows: ComparisonRow[];
+  colIdx: number;
+  variant: 'before' | 'after';
+}) {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: cssVar('spacing', '8'),
+        padding: cssVar('spacing', '24'),
+        height: '100%',
+        boxSizing: 'border-box',
+        backgroundColor:
+          variant === 'after'
+            ? cssVar('semantic', 'primary', 'subtle')
+            : cssVar('semantic', 'background', 'sunken'),
+      }}
+    >
+      <Text variant="h3" color={variant === 'after' ? 'primary' : 'base'}>
+        {column.name}
+      </Text>
+      <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+        {rows.map((row, rowIdx) => (
+          <li
+            key={rowIdx}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: cssVar('spacing', '12'),
+              padding: `${cssVar('spacing', '8')} 0`,
+              borderBottom: `1px solid ${cssVar('semantic', 'border', 'muted')}`,
+              whiteSpace: 'nowrap',
+            }}
+          >
+            <Text variant="body">{row.label}</Text>
+            <CellValue value={row.values[colIdx] ?? false} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+interface ComparisonSliderProps extends React.HTMLAttributes<HTMLElement> {
+  title?: string;
+  heading: React.ReactNode;
+  columns: ComparisonColumn[];
+  rows: ComparisonRow[];
+  sectionStyle: React.CSSProperties;
+}
+
+/**
+ * Before/after overlay comparison. The first column is the "before" base panel;
+ * the second column is the "after" panel, clipped from the left to `position`%.
+ * A native range input acts as the draggable + keyboard-operable divider so it
+ * works with pointer drag AND arrow keys out of the box.
+ */
+const ComparisonSlider = React.forwardRef<HTMLElement, ComparisonSliderProps>(
+  ({ title, heading, columns, rows, sectionStyle, ...props }, ref) => {
+    const [position, setPosition] = React.useState(50);
+    const beforeCol = columns[0];
+    const afterCol = columns[1] ?? columns[0];
+    const overlayClass = `${COMPARISON_ID}-slider-overlay`;
+
+    return (
+      <section
+        ref={ref}
+        data-bbangto-comparison-layout="slider"
+        style={sectionStyle}
+        {...props}
+      >
+        <style>{`
+          .${overlayClass} {
+            transition: clip-path 120ms ease-out;
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .${overlayClass} {
+              transition: none !important;
+            }
+          }
+        `}</style>
+        {heading}
+        <div
+          style={{
+            position: 'relative',
+            width: '100%',
+            borderRadius: cssVar('radius', 'lg'),
+            overflow: 'hidden',
+            border: `1px solid ${cssVar('semantic', 'border', 'base')}`,
+          }}
+        >
+          {/* Base ("before") panel — full width underneath. */}
+          <SliderPanel column={beforeCol} rows={rows} colIdx={0} variant="before" />
+
+          {/* Top ("after") panel — clipped from the left edge to `position`%. */}
+          <div
+            className={overlayClass}
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              clipPath: `inset(0 0 0 ${position}%)`,
+            }}
+          >
+            <SliderPanel
+              column={afterCol}
+              rows={rows}
+              colIdx={columns[1] ? 1 : 0}
+              variant="after"
+            />
+          </div>
+
+          {/* Visual divider handle at the split point. */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              top: 0,
+              bottom: 0,
+              left: `${position}%`,
+              width: 2,
+              transform: 'translateX(-1px)',
+              backgroundColor: cssVar('semantic', 'primary', 'base'),
+              pointerEvents: 'none',
+            }}
+          />
+
+          {/* Draggable + keyboard-operable divider control. */}
+          <input
+            type="range"
+            min={0}
+            max={100}
+            step={1}
+            value={position}
+            onChange={(e) => setPosition(Number(e.target.value))}
+            aria-label={
+              title
+                ? `${title} — reveal ${afterCol.name} over ${beforeCol.name}`
+                : `Reveal ${afterCol.name} over ${beforeCol.name}`
+            }
+            aria-valuetext={`${position}%`}
+            style={{
+              position: 'absolute',
+              left: 0,
+              right: 0,
+              bottom: cssVar('spacing', '8'),
+              width: '100%',
+              margin: 0,
+              cursor: 'ew-resize',
+            }}
+          />
+        </div>
+      </section>
+    );
+  }
+);
+
+ComparisonSlider.displayName = 'ComparisonSlider';
+
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export const Comparison = React.forwardRef<HTMLElement, ComparisonProps>(
-  ({ title, columns, rows, style, ...props }, ref) => {
+  ({ title, columns, rows, layout = 'table', style, ...props }, ref) => {
     const colCount = columns.length;
 
     // Grid: 1 label column + N data columns.
@@ -120,7 +308,7 @@ export const Comparison = React.forwardRef<HTMLElement, ComparisonProps>(
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      borderBottom: `1px solid ${cssVar('semantic', 'border', 'subtle')}`,
+      borderBottom: `1px solid ${cssVar('semantic', 'border', 'muted')}`,
     };
 
     const labelCellStyle: React.CSSProperties = {
@@ -129,20 +317,149 @@ export const Comparison = React.forwardRef<HTMLElement, ComparisonProps>(
       paddingLeft: cssVar('spacing', '16'),
     };
 
-    return (
-      <section ref={ref} style={sectionStyle} {...props}>
-        {/* Optional heading */}
-        {title && (
-          <Text
-            variant="h2"
+    const heading = title && (
+      <Text
+        variant="h2"
+        style={{
+          textAlign: 'center',
+          marginBottom: cssVar('spacing', '32'),
+        }}
+      >
+        {title}
+      </Text>
+    );
+
+    // ─── Layout: columns ────────────────────────────────────────────────────
+    // Two side-by-side cards (one per column) — stacks on mobile, becomes a
+    // 2-col grid at ≥ lg via a scoped <style> rule (@media can't be inline).
+    if (layout === 'columns') {
+      const cardsClass = `${COMPARISON_ID}-cards`;
+      return (
+        <section
+          ref={ref}
+          data-bbangto-comparison-layout="columns"
+          style={sectionStyle}
+          {...props}
+        >
+          <style>{`
+            @media (min-width: ${breakpoints.lg}px) {
+              .${cardsClass} {
+                grid-template-columns: repeat(${colCount}, 1fr) !important;
+              }
+            }
+          `}</style>
+          {heading}
+          <div
+            className={cardsClass}
             style={{
-              textAlign: 'center',
-              marginBottom: cssVar('spacing', '32'),
+              display: 'grid',
+              gridTemplateColumns: '1fr',
+              gap: cssVar('spacing', '24'),
+              alignItems: 'start',
             }}
           >
-            {title}
-          </Text>
-        )}
+            {columns.map((col, colIdx) => (
+              <div
+                key={colIdx}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: cssVar('spacing', '12'),
+                  padding: cssVar('spacing', '24'),
+                  borderRadius: cssVar('radius', 'lg'),
+                  border: `${col.highlighted ? '2px' : '1px'} solid ${
+                    col.highlighted
+                      ? cssVar('semantic', 'primary', 'base')
+                      : cssVar('semantic', 'border', 'base')
+                  }`,
+                  backgroundColor: col.highlighted
+                    ? cssVar('semantic', 'primary', 'subtle')
+                    : cssVar('semantic', 'background', 'elevated'),
+                }}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: cssVar('spacing', '8'),
+                  }}
+                >
+                  <Text variant="h3" color={col.highlighted ? 'primary' : 'base'}>
+                    {col.name}
+                  </Text>
+                  {col.highlighted && (
+                    <span
+                      style={{
+                        display: 'inline-block',
+                        padding: `${cssVar('spacing', '2')} ${cssVar('spacing', '8')}`,
+                        borderRadius: cssVar('radius', 'full'),
+                        backgroundColor: cssVar('semantic', 'primary', 'base'),
+                        color: cssVar('semantic', 'primary', 'foreground'),
+                        fontSize: cssVar('typography', 'scale', 'meta', 'fontSize'),
+                        fontWeight: cssVar('typography', 'scale', 'meta', 'fontWeight'),
+                        lineHeight: cssVar('typography', 'scale', 'meta', 'lineHeight'),
+                      }}
+                    >
+                      Recommended
+                    </span>
+                  )}
+                </div>
+                <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+                  {rows.map((row, rowIdx) => {
+                    const val = row.values[colIdx] ?? false;
+                    return (
+                      <li
+                        key={rowIdx}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          gap: cssVar('spacing', '12'),
+                          padding: `${cssVar('spacing', '8')} 0`,
+                          borderBottom: `1px solid ${cssVar('semantic', 'border', 'muted')}`,
+                        }}
+                      >
+                        <Text variant="body">{row.label}</Text>
+                        <CellValue value={val} />
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+      );
+    }
+
+    // ─── Layout: slider ─────────────────────────────────────────────────────
+    // Before/after overlay: two stacked panels, the top ("after") clipped to a
+    // width driven by a range input. Keyboard-operable (arrow keys move the
+    // divider). prefers-reduced-motion disables the clip transition.
+    if (layout === 'slider') {
+      return (
+        <ComparisonSlider
+          ref={ref}
+          title={title}
+          heading={heading}
+          columns={columns}
+          rows={rows}
+          sectionStyle={sectionStyle}
+          {...props}
+        />
+      );
+    }
+
+    // ─── Layout: table (default, unchanged behavior) ────────────────────────
+    return (
+      <section
+        ref={ref}
+        data-bbangto-comparison-layout="table"
+        style={sectionStyle}
+        {...props}
+      >
+        {/* Optional heading */}
+        {heading}
 
         {/* Scrollable wrapper for narrow viewports */}
         <div

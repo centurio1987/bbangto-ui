@@ -17,6 +17,15 @@ export interface MarketingFooterColumn {
   links: MarketingFooterLinkItem[];
 }
 
+/**
+ * Layout axis for the MarketingFooter block.
+ * - `columns` (default): multi-column link groups in a responsive grid.
+ * - `minimal`: single compact row — brand + a few links + copyright.
+ * - `centered`: brand centered on top, link groups centered below.
+ * - `stacked`: mobile-first vertical stack of groups (single column always).
+ */
+export type MarketingFooterLayout = 'columns' | 'minimal' | 'centered' | 'stacked';
+
 export interface MarketingFooterSocialItem {
   label: string;
   href: string;
@@ -33,6 +42,8 @@ export interface MarketingFooterProps extends React.HTMLAttributes<HTMLElement> 
   social?: MarketingFooterSocialItem[];
   /** Copyright text rendered in the bottom bar. */
   copyright?: string;
+  /** Layout variant. Defaults to `columns` (existing behavior). */
+  layout?: MarketingFooterLayout;
 }
 
 // ---------------------------------------------------------------------------
@@ -60,6 +71,32 @@ const scopedStyle = `
     }
   }
 
+  /* minimal: single compact row of inline links */
+  .bbangto-marketing-footer-minimal-links {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* centered: groups centered horizontally */
+  .bbangto-marketing-footer-centered {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* stacked: single column always */
+  .bbangto-marketing-footer-stacked {
+    display: flex;
+    flex-direction: column;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .bbangto-marketing-footer-social-link {
       transition: none !important;
@@ -68,7 +105,11 @@ const scopedStyle = `
 `;
 
 export const MarketingFooter = React.forwardRef<HTMLElement, MarketingFooterProps>(
-  ({ logo, columns, social, copyright, style, ...props }, ref) => {
+  ({ logo, columns, social, copyright, layout = 'columns', style, ...props }, ref) => {
+    const isMinimal = layout === 'minimal';
+    const isCentered = layout === 'centered';
+    const isStacked = layout === 'stacked';
+
     const footerStyle: React.CSSProperties = {
       width: '100%',
       backgroundColor: cssVar('semantic', 'background', 'sunken'),
@@ -89,11 +130,20 @@ export const MarketingFooter = React.forwardRef<HTMLElement, MarketingFooterProp
       flexDirection: 'column',
       gap: cssVar('spacing', '40'),
       marginBottom: cssVar('spacing', '48'),
+      ...(isCentered ? { alignItems: 'center', textAlign: 'center' } : null),
     };
 
     const logoAreaStyle: React.CSSProperties = {
       flexShrink: 0,
     };
+
+    // Class applied to the link-group container, selecting the responsive
+    // layout behavior from the scoped <style> block.
+    const groupsClassName = isCentered
+      ? 'bbangto-marketing-footer-centered'
+      : isStacked
+        ? 'bbangto-marketing-footer-stacked'
+        : 'bbangto-marketing-footer-columns';
 
     const columnHeaderStyle: React.CSSProperties = {
       marginBottom: cssVar('spacing', '16'),
@@ -149,7 +199,12 @@ export const MarketingFooter = React.forwardRef<HTMLElement, MarketingFooterProp
     };
 
     return (
-      <footer ref={ref} style={footerStyle} {...props}>
+      <footer
+        ref={ref}
+        data-bbangto-marketingfooter-layout={layout}
+        style={footerStyle}
+        {...props}
+      >
         {/* Scoped responsive styles — injected once per render tree */}
         <style
           // Deduplicate if rendered multiple times in the same document
@@ -158,6 +213,46 @@ export const MarketingFooter = React.forwardRef<HTMLElement, MarketingFooterProp
         />
 
         <div style={innerStyle}>
+          {isMinimal ? (
+            /* Minimal: single compact row — brand + inline links + copyright */
+            <div style={bottomBarStyle}>
+              {logo && (
+                <div style={logoAreaStyle} aria-label="Site logo">
+                  {logo}
+                </div>
+              )}
+
+              <nav aria-label="Footer navigation" style={{ flex: '1 1 auto' }}>
+                <ul
+                  className="bbangto-marketing-footer-minimal-links"
+                  role="list"
+                  style={{ gap: cssVar('spacing', '24') }}
+                >
+                  {columns.flatMap((column) =>
+                    column.links.map((link) => (
+                      <li key={`${column.title}-${link.label}`}>
+                        <Link
+                          href={link.href}
+                          variant="muted"
+                          size="sm"
+                          underline="none"
+                        >
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))
+                  )}
+                </ul>
+              </nav>
+
+              {copyright && (
+                <Text variant="meta" color="muted">
+                  {copyright}
+                </Text>
+              )}
+            </div>
+          ) : (
+            <>
           {/* Top row: logo + columns */}
           <div style={topRowStyle}>
             {logo && (
@@ -166,9 +261,9 @@ export const MarketingFooter = React.forwardRef<HTMLElement, MarketingFooterProp
               </div>
             )}
 
-            {/* Link columns — intrinsic responsive grid */}
+            {/* Link columns — layout-dependent container */}
             <nav aria-label="Footer navigation">
-              <div className="bbangto-marketing-footer-columns">
+              <div className={groupsClassName}>
                 {columns.map((column) => (
                   <div key={column.title} style={columnItemStyle}>
                     <Text
@@ -206,7 +301,12 @@ export const MarketingFooter = React.forwardRef<HTMLElement, MarketingFooterProp
 
           {/* Bottom bar: copyright + social */}
           <hr style={dividerStyle} aria-hidden="true" />
-          <div style={bottomBarStyle}>
+          <div
+            style={{
+              ...bottomBarStyle,
+              ...(isCentered ? { justifyContent: 'center' } : null),
+            }}
+          >
             {copyright && (
               <Text variant="meta" color="muted">
                 {copyright}
@@ -240,6 +340,8 @@ export const MarketingFooter = React.forwardRef<HTMLElement, MarketingFooterProp
               </ul>
             )}
           </div>
+            </>
+          )}
         </div>
       </footer>
     );

@@ -9,6 +9,15 @@ export interface AnnouncementBarCta {
   onClick?: React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>;
 }
 
+/**
+ * Visual presentation of the announcement.
+ * - `bar` (default): edge-to-edge full-width strip.
+ * - `floating`: a detached rounded pill with margin + shadow (not full-width).
+ * - `inline`: contextual inline block that flows within content (no full-bleed background).
+ * - `centered`: full-width strip with the message + action centered.
+ */
+export type AnnouncementBarVariant = 'bar' | 'floating' | 'inline' | 'centered';
+
 export interface AnnouncementBarProps
   extends React.HTMLAttributes<HTMLElement> {
   /** The main message to display. Accepts a string or any React node. */
@@ -19,6 +28,8 @@ export interface AnnouncementBarProps
   dismissible?: boolean;
   /** Called when the close button is clicked. */
   onDismiss?: React.MouseEventHandler<HTMLButtonElement>;
+  /** Visual presentation. Defaults to `'bar'`. */
+  variant?: AnnouncementBarVariant;
 }
 
 /** Close icon rendered as an inline SVG — no external assets needed. */
@@ -45,9 +56,43 @@ export const AnnouncementBar = React.forwardRef<
   AnnouncementBarProps
 >(
   (
-    { message, cta, dismissible = false, onDismiss, style, children, ...props },
+    {
+      message,
+      cta,
+      dismissible = false,
+      onDismiss,
+      variant = 'bar',
+      style,
+      children,
+      ...props
+    },
     ref
   ) => {
+    // Per-variant overrides layered on top of the shared base below.
+    const variantStyles: Record<AnnouncementBarVariant, React.CSSProperties> = {
+      bar: {},
+      floating: {
+        // Detached rounded pill — not full width, with margin + shadow.
+        width: 'auto',
+        margin: cssVar('spacing', '16'),
+        borderRadius: cssVar('radius', 'lg'),
+        boxShadow: cssVar('shadow', 'lg'),
+      },
+      inline: {
+        // Flows within content: no full-bleed background, intrinsic width.
+        display: 'inline-flex',
+        width: 'auto',
+        backgroundColor: 'transparent',
+        color: cssVar('semantic', 'foreground', 'base'),
+        padding: `${cssVar('spacing', '4')} ${cssVar('spacing', '8')}`,
+      },
+      centered: {
+        // Full-width strip, message + action centered.
+        justifyContent: 'center',
+        textAlign: 'center',
+      },
+    };
+
     const barStyles: React.CSSProperties = {
       display: 'flex',
       alignItems: 'center',
@@ -61,6 +106,7 @@ export const AnnouncementBar = React.forwardRef<
       fontFamily: cssVar('typography', 'fontFamily', 'sans'),
       position: 'relative',
       boxSizing: 'border-box',
+      ...variantStyles[variant],
       ...style,
     };
 
@@ -70,15 +116,23 @@ export const AnnouncementBar = React.forwardRef<
       justifyContent: 'center',
       gap: cssVar('spacing', '12'),
       flexWrap: 'wrap',
-      flex: '1 1 0',
+      // Inline flows intrinsically; other variants stretch to fill the strip.
+      flex: variant === 'inline' ? '0 1 auto' : '1 1 0',
       minWidth: 0,
     };
+
+    // On the inline (transparent) variant, foreground text must use the body
+    // text color instead of the on-primary color so it stays legible.
+    const foregroundColor =
+      variant === 'inline'
+        ? cssVar('semantic', 'foreground', 'base')
+        : cssVar('semantic', 'primary', 'foreground');
 
     const ctaLinkStyles: React.CSSProperties = {
       display: 'inline-flex',
       alignItems: 'center',
       gap: cssVar('spacing', '4'),
-      color: cssVar('semantic', 'primary', 'foreground'),
+      color: foregroundColor,
       fontFamily: cssVar('typography', 'fontFamily', 'sans'),
       fontSize: cssVar('typography', 'scale', 'meta', 'fontSize'),
       fontWeight: cssVar('typography', 'scale', 'meta', 'fontWeight'),
@@ -102,7 +156,7 @@ export const AnnouncementBar = React.forwardRef<
       background: 'none',
       border: 'none',
       padding: cssVar('spacing', '4'),
-      color: cssVar('semantic', 'primary', 'foreground'),
+      color: foregroundColor,
       borderRadius: cssVar('radius', 'sm'),
       transition: `opacity ${cssVar('motion', 'duration', 'fast')} ${cssVar('motion', 'easing', 'default')}`,
       /* Position at the end of the bar without affecting the centered message. */
@@ -155,7 +209,7 @@ export const AnnouncementBar = React.forwardRef<
           size="sm"
           onClick={cta.onClick as React.MouseEventHandler<HTMLButtonElement> | undefined}
           style={{
-            color: cssVar('semantic', 'primary', 'foreground'),
+            color: foregroundColor,
             textDecoration: 'underline',
             textUnderlineOffset: '2px',
             padding: `0 ${cssVar('spacing', '4')}`,
@@ -171,6 +225,7 @@ export const AnnouncementBar = React.forwardRef<
         ref={ref}
         role="region"
         aria-label="Announcement"
+        data-bbangto-announcementbar-variant={variant}
         style={barStyles}
         {...props}
       >
@@ -179,7 +234,7 @@ export const AnnouncementBar = React.forwardRef<
             as="span"
             variant="meta"
             style={{
-              color: cssVar('semantic', 'primary', 'foreground'),
+              color: foregroundColor,
               flexShrink: 1,
             }}
           >

@@ -12,6 +12,14 @@ export interface MapMarker {
   y: number;
 }
 
+/**
+ * Visual arrangement of the map relative to its info content.
+ * - `full`  (default): full-bleed map with info above (existing behavior).
+ * - `split`: map beside an info panel; 2-col at >=lg via scoped style.
+ * - `card`:  map inside a bordered, rounded, elevated card.
+ */
+export type MapBlockLayout = 'full' | 'split' | 'card';
+
 export interface MapBlockProps extends React.HTMLAttributes<HTMLElement> {
   /** Section heading displayed above the map. */
   title?: string;
@@ -24,14 +32,36 @@ export interface MapBlockProps extends React.HTMLAttributes<HTMLElement> {
    * When provided, an <iframe> is rendered instead of the placeholder.
    */
   embedSrc?: string;
+  /** Visual arrangement of the map relative to its info content. */
+  layout?: MapBlockLayout;
+  /**
+   * Custom info panel rendered beside the map in the `split` layout.
+   * Falls back to the default title/address/directions column when omitted.
+   */
+  infoPanel?: React.ReactNode;
 }
 
 const BLOCK_ID = 'map-block';
 const MAP_PLACEHOLDER_MIN_HEIGHT = 320;
 
 export const MapBlock = React.forwardRef<HTMLElement, MapBlockProps>(
-  ({ title, address, markers = [], embedSrc, style, className, ...props }, ref) => {
+  (
+    {
+      title,
+      address,
+      markers = [],
+      embedSrc,
+      layout = 'full',
+      infoPanel,
+      style,
+      className,
+      ...props
+    },
+    ref
+  ) => {
     const scopeId = BLOCK_ID;
+    const isSplit = layout === 'split';
+    const isCard = layout === 'card';
 
     const sectionStyles: React.CSSProperties = {
       width: '100%',
@@ -45,10 +75,20 @@ export const MapBlock = React.forwardRef<HTMLElement, MapBlockProps>(
     const innerStyles: React.CSSProperties = {
       maxWidth: '1200px',
       margin: '0 auto',
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-      gap: cssVar('spacing', '40'),
-      alignItems: 'start',
+      ...(isSplit
+        ? {
+            // Single column on mobile; scoped <style> upgrades to 2-col at >=lg.
+            display: 'grid',
+            gridTemplateColumns: '1fr',
+            gap: cssVar('spacing', '40'),
+            alignItems: 'start',
+          }
+        : {
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: cssVar('spacing', '40'),
+            alignItems: 'start',
+          }),
     };
 
     const infoStyles: React.CSSProperties = {
@@ -61,9 +101,16 @@ export const MapBlock = React.forwardRef<HTMLElement, MapBlockProps>(
       position: 'relative',
       width: '100%',
       minHeight: `${MAP_PLACEHOLDER_MIN_HEIGHT}px`,
-      borderRadius: cssVar('radius', 'lg'),
+      borderRadius: isCard ? cssVar('radius', 'xl') : cssVar('radius', 'lg'),
       overflow: 'hidden',
-      border: `1px solid ${cssVar('semantic', 'border', 'base')}`,
+      border: `1px solid ${cssVar('semantic', 'border', isCard ? 'strong' : 'base')}`,
+      ...(isCard
+        ? {
+            borderStyle: 'solid',
+            backgroundColor: cssVar('semantic', 'background', 'elevated'),
+            boxShadow: cssVar('shadow', 'lg'),
+          }
+        : {}),
     };
 
     const placeholderStyles: React.CSSProperties = {
@@ -97,19 +144,37 @@ export const MapBlock = React.forwardRef<HTMLElement, MapBlockProps>(
               grid-template-columns: 1fr;
             }
           }
+          ${
+            isSplit
+              ? `@media (min-width:${breakpoints.lg}px){.bbangto-mapblock-split{grid-template-columns:minmax(280px,360px) 1fr;}}`
+              : ''
+          }
         `}</style>
 
         <section
           ref={ref}
           aria-labelledby={title ? `${scopeId}-title` : undefined}
           data-block={scopeId}
+          data-bbangto-mapblock-layout={layout}
           style={sectionStyles}
           className={className}
           {...props}
         >
-          <div className="map-block__inner" style={innerStyles}>
+          <div
+            className={
+              isSplit ? 'map-block__inner bbangto-mapblock-split' : 'map-block__inner'
+            }
+            style={innerStyles}
+          >
+            {/* Custom info panel (split layout): caller-supplied content beside the map */}
+            {isSplit && infoPanel !== undefined && (
+              <div style={infoStyles} data-testid="map-block-info-panel">
+                {infoPanel}
+              </div>
+            )}
+
             {/* Info column: title + address */}
-            {(title || address) && (
+            {!(isSplit && infoPanel !== undefined) && (title || address) && (
               <div style={infoStyles}>
                 {title && (
                   <Text

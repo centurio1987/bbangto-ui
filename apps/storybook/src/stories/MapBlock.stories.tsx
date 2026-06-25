@@ -2,6 +2,11 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { MapBlock } from '@centurio1987/core';
 import { expect, userEvent, within } from 'storybook/test';
 
+const collectStyles = (root: HTMLElement): string =>
+  Array.from(root.querySelectorAll('style'))
+    .map((s) => s.textContent ?? '')
+    .join('\n');
+
 const meta = {
   title: 'Blocks/MapBlock',
   component: MapBlock,
@@ -69,5 +74,67 @@ export const WithEmbed: Story = {
     const iframe = canvasElement.querySelector('iframe');
     await expect(iframe).not.toBeNull();
     await expect(iframe?.getAttribute('title')).toBeTruthy();
+  },
+};
+
+/** split 레이아웃: 지도 옆 정보 패널, >=lg에서 2열 (scoped style) */
+export const LayoutSplit: Story = {
+  parameters: { viewport: { defaultViewport: 'desktop' } },
+  args: {
+    layout: 'split',
+    title: '오시는 길',
+    address: '서울특별시 강남구 테헤란로 123',
+    infoPanel: <p data-testid="split-info">영업시간 09:00 - 21:00</p>,
+    markers: [{ label: '빵또 본점', x: 50, y: 45 }],
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr 확인
+    const section = canvasElement.querySelector('[data-block="map-block"]');
+    await expect(section).not.toBeNull();
+    await expect(section?.getAttribute('data-bbangto-mapblock-layout')).toBe('split');
+
+    // 2. load-bearing: scoped >=lg 2열 규칙이 style 태그에 존재
+    const styles = collectStyles(canvasElement);
+    await expect(styles).toMatch(/\.bbangto-mapblock-split\s*\{[^}]*grid-template-columns/);
+    await expect(styles).toMatch(/min-width:\s*\d+px/);
+
+    // 3. 정보 패널 + 지도 영역 렌더 확인
+    const panel = await canvas.findByTestId('map-block-info-panel');
+    await expect(panel).toBeVisible();
+    await expect(await canvas.findByTestId('split-info')).toBeVisible();
+    const mapImg = canvasElement.querySelector('[role="img"]');
+    await expect(mapImg).not.toBeNull();
+  },
+};
+
+/** card 레이아웃: 테두리 + 라운드 + 그림자가 적용된 지도 카드 */
+export const LayoutCard: Story = {
+  args: {
+    layout: 'card',
+    title: '매장 위치',
+    address: '서울특별시 송파구 올림픽로 300',
+    markers: [{ label: '빵또 잠실점', x: 55, y: 50 }],
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr 확인
+    const section = canvasElement.querySelector('[data-block="map-block"]');
+    await expect(section).not.toBeNull();
+    await expect(section?.getAttribute('data-bbangto-mapblock-layout')).toBe('card');
+
+    // 2. load-bearing: 지도 영역에 solid border + borderRadius 적용
+    const mapImg = canvasElement.querySelector('[role="img"]');
+    await expect(mapImg).not.toBeNull();
+    const cardArea = mapImg!.parentElement as HTMLElement;
+    const cs = getComputedStyle(cardArea);
+    await expect(cs.borderStyle).toBe('solid');
+    await expect(cs.borderTopLeftRadius).not.toBe('');
+    await expect(cs.borderTopLeftRadius).not.toBe('0px');
+
+    // 3. 제목/지도 슬롯 렌더 확인
+    await expect(await canvas.findByTestId('map-block-title')).toBeVisible();
   },
 };

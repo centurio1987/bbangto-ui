@@ -13,9 +13,23 @@ export interface DockItem {
   active?: boolean;
 }
 
+/**
+ * Visual presentation axis for the {@link Dock}.
+ *
+ * - `floating` (default): centered floating bar with rounded corners, an
+ *   elevation shadow and frosted-glass backdrop blur.
+ * - `attached`: edge-attached bar that spans the full width with a flat
+ *   bottom edge (no detached margin/radius/shadow on the attached edge).
+ * - `labeled`: each item renders its icon beside its text label (horizontal
+ *   item layout) for a denser, label-forward dock.
+ */
+export type DockVariant = 'floating' | 'attached' | 'labeled';
+
 export interface DockProps extends React.HTMLAttributes<HTMLElement> {
   /** Array of dock items — each item becomes one pressable slot. */
   items: DockItem[];
+  /** Visual presentation of the dock container. Defaults to `'floating'`. */
+  variant?: DockVariant;
 }
 
 /**
@@ -24,29 +38,44 @@ export interface DockProps extends React.HTMLAttributes<HTMLElement> {
  * Renders a horizontal row of icon + label slots inside a frosted-glass
  * container. Hover triggers a subtle scale-up animation that is suppressed
  * for users who prefer reduced motion.
+ *
+ * The {@link DockProps.variant} axis switches between a centered floating bar
+ * (default), an edge-attached full-width bar, and a label-forward layout where
+ * each icon sits beside its text label.
  */
 export const Dock = React.forwardRef<HTMLElement, DockProps>(
-  ({ items, style, ...props }, ref) => {
+  ({ items, variant = 'floating', style, ...props }, ref) => {
+    const isAttached = variant === 'attached';
+    const isLabeled = variant === 'labeled';
+
     const containerStyle: React.CSSProperties = {
-      display: 'inline-flex',
+      display: isAttached ? 'flex' : 'inline-flex',
       flexDirection: 'row',
-      alignItems: 'flex-end',
+      alignItems: isLabeled ? 'stretch' : 'flex-end',
+      justifyContent: isAttached ? 'center' : undefined,
+      width: isAttached ? '100%' : undefined,
       gap: cssVar('spacing', '8'),
       padding: `${cssVar('spacing', '12')} ${cssVar('spacing', '16')}`,
       backgroundColor: cssVar('semantic', 'background', 'elevated'),
       border: `1px solid ${cssVar('semantic', 'border', 'muted')}`,
-      borderRadius: cssVar('radius', 'xl'),
-      boxShadow: cssVar('shadow', 'lg'),
+      borderRadius: isAttached ? '0' : cssVar('radius', 'xl'),
+      boxShadow: isAttached ? 'none' : cssVar('shadow', 'lg'),
       backdropFilter: 'blur(12px)',
       WebkitBackdropFilter: 'blur(12px)',
       ...style,
     };
 
     return (
-      <nav ref={ref} aria-label="Dock" style={containerStyle} {...props}>
+      <nav
+        ref={ref}
+        aria-label="Dock"
+        data-bbangto-dock-variant={variant}
+        style={containerStyle}
+        {...props}
+      >
         <style>{DOCK_STYLES}</style>
         {items.map((item, index) => (
-          <DockButton key={index} item={item} />
+          <DockButton key={index} item={item} labeled={isLabeled} />
         ))}
       </nav>
     );
@@ -61,16 +90,18 @@ Dock.displayName = 'Dock';
 
 interface DockButtonProps {
   item: DockItem;
+  /** When true, the icon sits beside the label (horizontal item layout). */
+  labeled?: boolean;
 }
 
-function DockButton({ item }: DockButtonProps) {
+function DockButton({ item, labeled = false }: DockButtonProps) {
   const [hovered, setHovered] = React.useState(false);
 
   const buttonStyle: React.CSSProperties = {
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: labeled ? 'row' : 'column',
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: labeled ? 'flex-start' : 'flex-end',
     gap: cssVar('spacing', '4'),
     padding: `${cssVar('spacing', '8')} ${cssVar('spacing', '8')}`,
     background: item.active

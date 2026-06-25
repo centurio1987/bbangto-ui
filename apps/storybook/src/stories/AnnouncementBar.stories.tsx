@@ -92,3 +92,110 @@ export const Dismissible: Story = {
     await expect(message).not.toBeVisible();
   },
 };
+
+export const VariantFloating: Story = {
+  args: {
+    message: 'Our holiday sale ends Sunday — save up to 40% storewide.',
+    cta: {
+      label: 'Browse deals',
+      href: '#deals',
+    },
+    variant: 'floating',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. Data-attr present + correct
+    const region = canvasElement.querySelector<HTMLElement>(
+      '[data-bbangto-announcementbar-variant]'
+    );
+    await expect(region).not.toBeNull();
+    await expect(region).toHaveAttribute(
+      'data-bbangto-announcementbar-variant',
+      'floating'
+    );
+
+    // 2. Load-bearing: detached pill => rounded corners, shadow, not full width
+    const styles = getComputedStyle(region!);
+    await expect(styles.borderRadius).not.toBe('');
+    await expect(styles.borderRadius).not.toBe('0px');
+    await expect(styles.boxShadow).not.toBe('');
+    await expect(styles.boxShadow).not.toBe('none');
+    // Margin pulls it in from the edges, so it is narrower than its container.
+    const parentWidth = region!.parentElement!.getBoundingClientRect().width;
+    await expect(region!.getBoundingClientRect().width).toBeLessThan(parentWidth);
+
+    // 3. Content slots render
+    const message = await canvas.findByText(/our holiday sale ends sunday/i);
+    await expect(message).toBeVisible();
+    const ctaLink = await canvas.findByRole('link', { name: /browse deals/i });
+    await expect(ctaLink).toBeVisible();
+  },
+};
+
+export const VariantInline: Story = {
+  args: {
+    message: 'Note: prices shown exclude applicable taxes.',
+    variant: 'inline',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. Data-attr present + correct
+    const region = canvasElement.querySelector<HTMLElement>(
+      '[data-bbangto-announcementbar-variant]'
+    );
+    await expect(region).not.toBeNull();
+    await expect(region).toHaveAttribute(
+      'data-bbangto-announcementbar-variant',
+      'inline'
+    );
+
+    // 2. Load-bearing: flows inline => inline-flex display, no full-bleed bg
+    const styles = getComputedStyle(region!);
+    await expect(styles.display).toBe('inline-flex');
+    // Transparent background resolves to rgba(0, 0, 0, 0) (or "transparent").
+    await expect(
+      ['rgba(0, 0, 0, 0)', 'transparent'].includes(styles.backgroundColor)
+    ).toBe(true);
+
+    // 3. Content slot renders
+    const message = await canvas.findByText(/prices shown exclude/i);
+    await expect(message).toBeVisible();
+  },
+};
+
+export const VariantCentered: Story = {
+  args: {
+    message: 'Welcome to the new dashboard experience.',
+    cta: {
+      label: 'Take the tour',
+      href: '#tour',
+    },
+    variant: 'centered',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. Data-attr present + correct
+    const region = canvasElement.querySelector<HTMLElement>(
+      '[data-bbangto-announcementbar-variant]'
+    );
+    await expect(region).not.toBeNull();
+    await expect(region).toHaveAttribute(
+      'data-bbangto-announcementbar-variant',
+      'centered'
+    );
+
+    // 2. Load-bearing: full-width strip, message + action centered
+    const styles = getComputedStyle(region!);
+    await expect(styles.justifyContent).toBe('center');
+    await expect(styles.textAlign).toBe('center');
+
+    // 3. Content slots render
+    const message = await canvas.findByText(/welcome to the new dashboard/i);
+    await expect(message).toBeVisible();
+    const ctaLink = await canvas.findByRole('link', { name: /take the tour/i });
+    await expect(ctaLink).toBeVisible();
+  },
+};
