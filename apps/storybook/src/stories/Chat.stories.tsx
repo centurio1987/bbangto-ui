@@ -15,6 +15,10 @@ const meta = {
       control: 'select',
       options: ['user', 'assistant', 'system'],
     },
+    variant: {
+      control: 'select',
+      options: ['bubble', 'flat', 'compact', 'card'],
+    },
   },
 } satisfies Meta<typeof ChatBubble>;
 
@@ -107,6 +111,97 @@ export const BubbleWithAvatar: Story = {
         AI
       </span>
     ),
+  },
+};
+
+// ── Variant stories ────────────────────────────────────────────────────────────
+
+export const VariantFlat: Story = {
+  args: {
+    role: 'user',
+    variant: 'flat',
+    children: 'Flat list-style message, left-aligned for everyone.',
+    timestamp: '11:00 AM',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. Data attribute present with the right value on the root.
+    const wrapper = canvasElement.querySelector('[data-role="user"]');
+    await expect(wrapper).not.toBeNull();
+    await expect(wrapper).toHaveAttribute('data-bbangto-chat-variant', 'flat');
+
+    // 2a. Load-bearing: even a USER message is NOT right-aligned in flat mode.
+    const wrapperStyle = getComputedStyle(wrapper as Element);
+    await expect(wrapperStyle.flexDirection).toBe('row');
+    await expect(wrapperStyle.flexDirection).not.toBe('row-reverse');
+
+    // 2b. Load-bearing: no bubble surface fill (transparent background).
+    const bubble = await canvas.findByRole('article', { name: /You:/ });
+    const bubbleStyle = getComputedStyle(bubble);
+    await expect(bubbleStyle.backgroundColor).toBe('rgba(0, 0, 0, 0)');
+
+    // 3. Content + role semantics still render.
+    await expect(bubble).toBeVisible();
+    await expect(bubble).toHaveTextContent('Flat list-style message');
+  },
+};
+
+export const VariantCompact: Story = {
+  args: {
+    role: 'assistant',
+    variant: 'compact',
+    children: 'Compact spacing message.',
+    timestamp: '11:01 AM',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. Data attribute present with the right value on the root.
+    const wrapper = canvasElement.querySelector('[data-role="assistant"]');
+    await expect(wrapper).not.toBeNull();
+    await expect(wrapper).toHaveAttribute('data-bbangto-chat-variant', 'compact');
+
+    // 2. Load-bearing: compact uses the tightened padding (spacing-4 vertical),
+    //    which is strictly smaller than the default bubble's spacing-10 top padding.
+    const bubble = await canvas.findByRole('article', { name: /Assistant:/ });
+    const compactStyle = getComputedStyle(bubble);
+    const compactTop = parseFloat(compactStyle.paddingTop);
+    await expect(Number.isNaN(compactTop)).toBe(false);
+    await expect(compactTop).toBeGreaterThan(0);
+    await expect(compactTop).toBeLessThan(10);
+
+    // 3. Content + role semantics still render (left-aligned assistant).
+    await expect(bubble).toBeVisible();
+    await expect(bubble).toHaveTextContent('Compact spacing message');
+    await expect(canvasElement.querySelector('[data-role="assistant"]')).not.toBeNull();
+  },
+};
+
+export const VariantCard: Story = {
+  args: {
+    role: 'assistant',
+    variant: 'card',
+    children: 'Each message sits in a bordered box card.',
+    timestamp: '11:02 AM',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. Data attribute present with the right value on the root.
+    const wrapper = canvasElement.querySelector('[data-role="assistant"]');
+    await expect(wrapper).not.toBeNull();
+    await expect(wrapper).toHaveAttribute('data-bbangto-chat-variant', 'card');
+
+    // 2. Load-bearing: card always shows a solid box border on the message.
+    const bubble = await canvas.findByRole('article', { name: /Assistant:/ });
+    const bubbleStyle = getComputedStyle(bubble);
+    await expect(bubbleStyle.borderTopStyle).toBe('solid');
+    await expect(bubbleStyle.borderTopWidth).not.toBe('0px');
+
+    // 3. Content + role semantics still render.
+    await expect(bubble).toBeVisible();
+    await expect(bubble).toHaveTextContent('bordered box card');
   },
 };
 

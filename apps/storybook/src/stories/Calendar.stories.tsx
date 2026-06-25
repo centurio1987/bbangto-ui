@@ -147,6 +147,122 @@ export const Disabled: Story = {
   },
 };
 
+// ── LayoutCompact ─────────────────────────────────────────────────────────────
+
+export const LayoutCompact: Story = {
+  name: 'Layout: compact',
+  args: {
+    defaultValue: new Date(2025, 0, 15),
+    layout: 'compact',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr 검증 — root에 layout=compact
+    const root = canvasElement.querySelector('[data-bbangto-calendar-layout]') as HTMLElement;
+    await expect(root).toBeTruthy();
+    await expect(root.getAttribute('data-bbangto-calendar-layout')).toBe('compact');
+
+    // 3. 콘텐츠 렌더 확인 — 헤더 + 그리드
+    const headerLabel = await canvas.findByText(/January 2025/i);
+    await expect(headerLabel).toBeVisible();
+    const grid = await canvas.findByRole('grid');
+    await expect(grid).toBeVisible();
+
+    // 2. load-bearing: compact day-cell fontSize는 month 레이아웃(16px body)보다 작아야 함
+    const dayCells = canvasElement.querySelectorAll('[role="gridcell"] button');
+    const day15Btn = Array.from(dayCells).find(
+      (btn) => btn.textContent?.trim() === '15'
+    ) as HTMLButtonElement | undefined;
+    await expect(day15Btn).toBeTruthy();
+    const compactFontPx = parseFloat(getComputedStyle(day15Btn!).fontSize);
+    await expect(compactFontPx).toBeGreaterThan(0);
+    await expect(compactFontPx).toBeLessThan(16);
+
+    // 클릭하면 여전히 선택이 동작 (SelectDate 패턴)
+    await userEvent.click(day15Btn!);
+    await waitFor(() => {
+      expect(day15Btn!.getAttribute('aria-selected')).toBe('true');
+    });
+  },
+};
+
+// ── LayoutDual ────────────────────────────────────────────────────────────────
+
+export const LayoutDual: Story = {
+  name: 'Layout: dual',
+  args: {
+    defaultValue: new Date(2025, 0, 15),
+    layout: 'dual',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr 검증
+    const root = canvasElement.querySelector('[data-bbangto-calendar-layout]') as HTMLElement;
+    await expect(root).toBeTruthy();
+    await expect(root.getAttribute('data-bbangto-calendar-layout')).toBe('dual');
+
+    // 2. load-bearing: 두 개의 month grid 컨테이너가 존재 (current + next month)
+    const grids = canvasElement.querySelectorAll('[role="grid"]');
+    await expect(grids.length).toBe(2);
+    await expect(canvas.getByRole('grid', { name: /January 2025/i })).toBeVisible();
+    await expect(canvas.getByRole('grid', { name: /February 2025/i })).toBeVisible();
+
+    // 3. 콘텐츠 렌더 확인 — 헤더
+    const headerLabel = await canvas.findByText(/January 2025/i);
+    await expect(headerLabel).toBeVisible();
+
+    // 두 번째(다음 달) 그리드의 날짜를 클릭해도 동일 핸들러로 선택됨
+    const febGrid = canvas.getByRole('grid', { name: /February 2025/i });
+    const febButtons = febGrid.querySelectorAll('[role="gridcell"] button');
+    const feb20Btn = Array.from(febButtons).find(
+      (btn) => btn.textContent?.trim() === '20'
+    ) as HTMLButtonElement | undefined;
+    await expect(feb20Btn).toBeTruthy();
+    await userEvent.click(feb20Btn!);
+    await waitFor(() => {
+      expect(feb20Btn!.getAttribute('aria-selected')).toBe('true');
+    });
+  },
+};
+
+// ── LayoutWeek ────────────────────────────────────────────────────────────────
+
+export const LayoutWeek: Story = {
+  name: 'Layout: week',
+  args: {
+    defaultValue: new Date(2025, 0, 15),
+    layout: 'week',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr 검증
+    const root = canvasElement.querySelector('[data-bbangto-calendar-layout]') as HTMLElement;
+    await expect(root).toBeTruthy();
+    await expect(root.getAttribute('data-bbangto-calendar-layout')).toBe('week');
+
+    // 3. 콘텐츠 렌더 확인 — 그리드
+    const grid = await canvas.findByRole('grid');
+    await expect(grid).toBeVisible();
+
+    // 2. load-bearing: 선택일(15일)이 속한 한 주 = 정확히 7개의 day 버튼만 렌더
+    const dayCells = canvasElement.querySelectorAll('[role="gridcell"] button');
+    await expect(dayCells.length).toBe(7);
+
+    // 클릭하면 여전히 선택 동작
+    const day15Btn = Array.from(dayCells).find(
+      (btn) => btn.textContent?.trim() === '15'
+    ) as HTMLButtonElement | undefined;
+    await expect(day15Btn).toBeTruthy();
+    await userEvent.click(day15Btn!);
+    await waitFor(() => {
+      expect(day15Btn!.getAttribute('aria-selected')).toBe('true');
+    });
+  },
+};
+
 // ── NavigateMonths ────────────────────────────────────────────────────────────
 
 export const NavigateMonths: Story = {

@@ -3,13 +3,39 @@ import { cssVar } from '@centurio1987/tokens';
 
 // ─── Menu ────────────────────────────────────────────────────────────────────
 
+/** Visual treatment of the menu list container. */
+export type MenuVariant = 'default' | 'compact' | 'bordered' | 'floating';
+
 export interface MenuProps extends React.HTMLAttributes<HTMLUListElement> {
   /** Additional inline styles. */
   style?: React.CSSProperties;
+  /** Visual treatment of the menu container. Defaults to 'default'. */
+  variant?: MenuVariant;
 }
 
 export const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
-  ({ children, style, ...props }, ref) => {
+  ({ children, style, variant = 'default', className, ...props }, ref) => {
+    // A stable id is needed only for the compact variant, which scopes a
+    // `<style>` tag to override the inline padding of its child MenuItems.
+    const generatedId = useId();
+    const compactClass = `bbangto-menu-compact-${generatedId.replace(/[^a-zA-Z0-9_-]/g, '')}`;
+
+    const variantStyles: React.CSSProperties =
+      variant === 'compact'
+        ? { padding: `${cssVar('spacing', '2')} 0` }
+        : variant === 'bordered'
+          ? {
+              borderWidth: '1px',
+              borderStyle: 'solid',
+              borderColor: cssVar('semantic', 'border', 'base'),
+            }
+          : variant === 'floating'
+            ? {
+                boxShadow: cssVar('shadow', 'xl'),
+                borderRadius: cssVar('radius', 'lg'),
+              }
+            : {};
+
     const menuStyles: React.CSSProperties = {
       listStyle: 'none',
       margin: 0,
@@ -20,13 +46,36 @@ export const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
       boxShadow: cssVar('shadow', 'lg'),
       minWidth: '160px',
       outline: 'none',
+      ...variantStyles,
       ...style,
     };
 
     return (
-      <ul ref={ref} role="menu" style={menuStyles} {...props}>
-        {children}
-      </ul>
+      <>
+        {variant === 'compact' && (
+          <style>{`
+            .${compactClass} > [role="menuitem"],
+            .${compactClass} [role="group"] > [role="menuitem"] {
+              padding-top: ${cssVar('spacing', '4')} !important;
+              padding-bottom: ${cssVar('spacing', '4')} !important;
+            }
+          `}</style>
+        )}
+        <ul
+          ref={ref}
+          role="menu"
+          data-bbangto-menu-variant={variant}
+          className={
+            variant === 'compact'
+              ? [compactClass, className].filter(Boolean).join(' ')
+              : className
+          }
+          style={menuStyles}
+          {...props}
+        >
+          {children}
+        </ul>
+      </>
     );
   }
 );

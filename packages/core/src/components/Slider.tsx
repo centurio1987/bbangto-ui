@@ -3,17 +3,27 @@ import { cssVar } from '@centurio1987/tokens';
 
 export type SliderSize = 'sm' | 'md' | 'lg';
 export type SliderColor = 'primary' | 'error' | 'success' | 'warning';
+export type SliderVariant = 'solid' | 'minimal' | 'stepped';
 
 export interface SliderProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'> {
   value?: number;
   min?: number;
   max?: number;
+  step?: number;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   fullWidth?: boolean;
   /** Track/knob size variant. Defaults to 'md'. */
   size?: SliderSize;
   /** Fill and knob accent color. Defaults to 'primary'. */
   color?: SliderColor;
+  /**
+   * Visual treatment of the track.
+   * - `solid` (default): standard track/fill thickness.
+   * - `minimal`: thinner track and a smaller, subtler thumb.
+   * - `stepped`: renders tick marks at each `step` interval along the track.
+   * Defaults to 'solid'.
+   */
+  variant?: SliderVariant;
   /** Show the current numeric value above the knob. Defaults to false. */
   showValue?: boolean;
 }
@@ -44,10 +54,12 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
     value = 50,
     min = 0,
     max = 100,
+    step,
     onChange,
     fullWidth = false,
     size = 'md',
     color = 'primary',
+    variant = 'solid',
     showValue = false,
     style,
     className,
@@ -63,9 +75,26 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
     const range = max - min;
     const percentage = range === 0 ? 0 : Math.min(100, Math.max(0, ((value - min) / range) * 100));
 
-    const knobPx = KNOB_SIZE[size];
-    const trackHeight = TRACK_HEIGHT[size];
+    // `minimal` thins the track and shrinks the thumb relative to the size baseline.
+    const baseTrackHeightPx = parseInt(TRACK_HEIGHT[size], 10);
+    const minimalTrackHeightPx = Math.max(1, Math.round(baseTrackHeightPx / 2));
+    const trackHeight = variant === 'minimal' ? `${minimalTrackHeightPx}px` : TRACK_HEIGHT[size];
+    const knobPx = variant === 'minimal'
+      ? Math.max(8, Math.round(KNOB_SIZE[size] * 0.7))
+      : KNOB_SIZE[size];
     const containerHeight = CONTAINER_HEIGHT[size];
+
+    // Tick positions (as percentages) for the `stepped` variant. When `step` is
+    // unknown or non-positive, treat the track as a single segment (no ticks).
+    const tickPercents: number[] = [];
+    if (variant === 'stepped' && typeof step === 'number' && step > 0 && range > 0) {
+      const segments = Math.floor(range / step);
+      if (segments >= 1) {
+        for (let i = 0; i <= segments; i += 1) {
+          tickPercents.push(Math.min(100, ((i * step) / range) * 100));
+        }
+      }
+    }
 
     // Resolve color tokens
     const baseColor = cssVar('semantic', color, 'base');
@@ -102,6 +131,21 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
       borderRadius: cssVar('radius', 'full'),
       transition: `width ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'inOut')}`,
     };
+
+    // Tick marks straddle the track vertically and sit on top of it.
+    const tickHeight = `calc(${trackHeight} + 4px)`;
+    const tickWidth = '2px';
+    const tickStyle = (percent: number): React.CSSProperties => ({
+      position: 'absolute',
+      left: `${percent}%`,
+      top: '50%',
+      width: tickWidth,
+      height: tickHeight,
+      transform: 'translate(-50%, -50%)',
+      backgroundColor: cssVar('semantic', 'border', 'base'),
+      borderRadius: cssVar('radius', 'full'),
+      pointerEvents: 'none',
+    });
 
     const inputStyle: React.CSSProperties = {
       position: 'absolute',
@@ -158,6 +202,7 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
         style={containerStyle}
         className={className}
         data-bbangto-slider
+        data-bbangto-slider-variant={variant}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -168,6 +213,13 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
         )}
         <div style={trackStyle}>
           <div data-bbangto-slider-fill style={fillStyle} />
+          {tickPercents.map((percent, i) => (
+            <div
+              key={i}
+              data-bbangto-slider-tick
+              style={tickStyle(percent)}
+            />
+          ))}
         </div>
         <div data-bbangto-slider-knob style={knobStyle} />
         <input
@@ -176,6 +228,7 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
           value={value}
           min={min}
           max={max}
+          step={step}
           onChange={onChange}
           disabled={disabled}
           style={inputStyle}

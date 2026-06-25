@@ -39,6 +39,8 @@ function isDateDisabled(date: Date, min?: Date, max?: Date): boolean {
 
 // ── types ─────────────────────────────────────────────────────────────────────
 
+export type CalendarLayout = 'month' | 'compact' | 'dual' | 'week';
+
 export interface CalendarProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange' | 'defaultValue'> {
   /** Controlled selected date */
   value?: Date;
@@ -52,6 +54,14 @@ export interface CalendarProps extends Omit<React.HTMLAttributes<HTMLDivElement>
   max?: Date;
   /** Disables all interaction */
   disabled?: boolean;
+  /**
+   * Display layout. DISPLAY-ONLY — does not change selection/navigation behavior.
+   * - `month` (default): standard 7x6 grid.
+   * - `compact`: same grid, denser typography + cell sizing.
+   * - `dual`: current month grid plus the next month grid side by side.
+   * - `week`: only the single week row containing the selected/current date.
+   */
+  layout?: CalendarLayout;
 }
 
 const WEEKDAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'] as const;
@@ -67,11 +77,13 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
       min,
       max,
       disabled = false,
+      layout = 'month',
       style,
       ...props
     },
     ref
   ) => {
+    const isCompact = layout === 'compact';
     // controlled vs uncontrolled selection
     const isControlled = value !== undefined;
     const [internalSelected, setInternalSelected] = useState<Date | undefined>(defaultValue);
@@ -98,6 +110,26 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
       month: 'long',
       year: 'numeric',
     });
+
+    // secondary (next) month — only rendered in the `dual` layout
+    const nextMonthYear = viewMonth === 11 ? viewYear + 1 : viewYear;
+    const nextMonthMonth = viewMonth === 11 ? 0 : viewMonth + 1;
+    const nextMonthLabel = new Date(nextMonthYear, nextMonthMonth, 1).toLocaleString('default', {
+      month: 'long',
+      year: 'numeric',
+    });
+
+    // anchor day for the `week` layout — the day whose week row is shown. Use the
+    // selected date when it falls inside the viewed month, otherwise day 1.
+    const weekAnchorDay =
+      selected &&
+      selected.getFullYear() === viewYear &&
+      selected.getMonth() === viewMonth
+        ? selected.getDate()
+        : 1;
+    // first day-of-grid index (Sun=0) of the anchor's week, within the month
+    const anchorGridIndex = firstDay + (weekAnchorDay - 1);
+    const weekStartGridIndex = anchorGridIndex - (anchorGridIndex % 7);
 
     const handlePrevMonth = () => {
       if (disabled) return;
@@ -135,6 +167,23 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
       [disabled, viewYear, viewMonth, min, max, isControlled, onValueChange]
     );
 
+    // generic selection for arbitrary year/month (used by the secondary grid
+    // in the `dual` layout). Mirrors handleSelectDay's logic exactly so the
+    // existing primary-month handler stays byte-for-byte unchanged.
+    const handleSelectDateAt = useCallback(
+      (year: number, month: number, day: number) => {
+        if (disabled) return;
+        const candidate = new Date(year, month, day);
+        if (isDateDisabled(candidate, min, max)) return;
+        const clamped = clampDate(candidate, min, max);
+        if (!isControlled) {
+          setInternalSelected(clamped);
+        }
+        onValueChange?.(clamped);
+      },
+      [disabled, min, max, isControlled, onValueChange]
+    );
+
     // keyboard navigation within the grid
     const handleDayKeyDown = useCallback(
       (e: React.KeyboardEvent<HTMLButtonElement>, day: number) => {
@@ -165,13 +214,13 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
     const containerStyle: React.CSSProperties = {
       display: 'inline-flex',
       flexDirection: 'column',
-      gap: cssVar('spacing', '8'),
-      padding: cssVar('spacing', '16'),
+      gap: isCompact ? cssVar('spacing', '4') : cssVar('spacing', '8'),
+      padding: isCompact ? cssVar('spacing', '8') : cssVar('spacing', '16'),
       backgroundColor: cssVar('semantic', 'background', 'base'),
       border: `1px solid ${cssVar('semantic', 'border', 'muted')}`,
       borderRadius: cssVar('radius', 'lg'),
       fontFamily: cssVar('typography', 'fontFamily', 'sans'),
-      width: '288px',
+      width: layout === 'dual' ? 'auto' : isCompact ? '232px' : '288px',
       boxSizing: 'border-box',
       ...style,
     };
@@ -217,7 +266,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
       fontSize: cssVar('typography', 'scale', 'meta', 'fontSize'),
       fontWeight: cssVar('typography', 'scale', 'label', 'fontWeight'),
       color: cssVar('semantic', 'foreground', 'muted'),
-      lineHeight: '32px',
+      lineHeight: isCompact ? '24px' : '32px',
     };
 
     const gridStyle: React.CSSProperties = {
@@ -225,6 +274,8 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
       gridTemplateColumns: 'repeat(7, 1fr)',
       gap: cssVar('spacing', '2'),
     };
+
+    const cellSize = isCompact ? '28px' : '36px';
 
     const getDayCellStyle = (
       _day: number,
@@ -234,11 +285,13 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      width: '36px',
-      height: '36px',
+      width: cellSize,
+      height: cellSize,
       border: 'none',
       borderRadius: cssVar('radius', 'full'),
-      fontSize: cssVar('typography', 'scale', 'body', 'fontSize'),
+      fontSize: isCompact
+        ? cssVar('typography', 'scale', 'meta', 'fontSize')
+        : cssVar('typography', 'scale', 'body', 'fontSize'),
       fontWeight: isSelected
         ? cssVar('typography', 'scale', 'label', 'fontWeight')
         : 'normal',
@@ -260,7 +313,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
     // ── render ────────────────────────────────────────────────────────────────
 
     return (
-      <div ref={ref} style={containerStyle} {...props}>
+      <div ref={ref} data-bbangto-calendar-layout={layout} style={containerStyle} {...props}>
         {/* Header */}
         <div style={headerStyle}>
           <button
@@ -290,60 +343,139 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
           </button>
         </div>
 
-        {/* Weekday header row */}
-        <div style={weekdayRowStyle} aria-hidden="true">
-          {WEEKDAYS.map((wd) => (
-            <div key={wd} style={weekdayCellStyle}>
-              {wd}
-            </div>
-          ))}
-        </div>
-
-        {/* Day grid */}
+        {/* Body — single month for month/compact/week, two months for dual */}
         <div
-          role="grid"
-          aria-label={monthLabel}
-          style={gridStyle}
+          style={
+            layout === 'dual'
+              ? {
+                  display: 'flex',
+                  flexDirection: 'row',
+                  gap: cssVar('spacing', '16'),
+                  alignItems: 'flex-start',
+                }
+              : { display: 'contents' }
+          }
         >
-          {/* Leading empty cells */}
-          {Array.from({ length: firstDay }).map((_, i) => (
+          {/* Primary month column */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: isCompact ? cssVar('spacing', '4') : cssVar('spacing', '8') }}>
+            {/* Weekday header row */}
+            <div style={weekdayRowStyle} aria-hidden="true">
+              {WEEKDAYS.map((wd) => (
+                <div key={wd} style={weekdayCellStyle}>
+                  {wd}
+                </div>
+              ))}
+            </div>
+
+            {/* Day grid */}
             <div
-              key={`empty-${i}`}
-              role="gridcell"
-              aria-hidden="true"
-              style={{ width: '36px', height: '36px' }}
-            />
-          ))}
+              role="grid"
+              aria-label={monthLabel}
+              style={gridStyle}
+            >
+              {/* Leading empty cells */}
+              {Array.from({ length: firstDay }).map((_, i) => {
+                // in week layout, only render the empty cells inside the shown week
+                if (layout === 'week' && (i < weekStartGridIndex || i >= weekStartGridIndex + 7)) {
+                  return null;
+                }
+                return (
+                  <div
+                    key={`empty-${i}`}
+                    role="gridcell"
+                    aria-hidden="true"
+                    style={{ width: cellSize, height: cellSize }}
+                  />
+                );
+              })}
 
-          {/* Day cells */}
-          {Array.from({ length: daysInMonth }).map((_, i) => {
-            const day = i + 1;
-            const cellDate = new Date(viewYear, viewMonth, day);
-            const isSelected = selected ? isSameDay(cellDate, selected) : false;
-            const isOutOfRange = isDateDisabled(cellDate, min, max);
-
-            return (
-              <div key={day} role="gridcell">
-                <button
-                  type="button"
-                  aria-selected={isSelected}
-                  aria-disabled={isOutOfRange || disabled || undefined}
-                  tabIndex={
-                    focusedDay !== null
-                      ? focusedDay === day ? 0 : -1
-                      : isSelected ? 0 : day === 1 ? 0 : -1
+              {/* Day cells */}
+              {Array.from({ length: daysInMonth }).map((_, i) => {
+                const day = i + 1;
+                // in week layout, only render cells in the anchor's week row
+                if (layout === 'week') {
+                  const gridIndex = firstDay + i;
+                  if (gridIndex < weekStartGridIndex || gridIndex >= weekStartGridIndex + 7) {
+                    return null;
                   }
-                  disabled={isOutOfRange || disabled}
-                  style={getDayCellStyle(day, isSelected, isOutOfRange)}
-                  onClick={() => handleSelectDay(day)}
-                  onKeyDown={(e) => handleDayKeyDown(e, day)}
-                  onFocus={() => setFocusedDay(day)}
-                >
-                  {day}
-                </button>
+                }
+                const cellDate = new Date(viewYear, viewMonth, day);
+                const isSelected = selected ? isSameDay(cellDate, selected) : false;
+                const isOutOfRange = isDateDisabled(cellDate, min, max);
+
+                return (
+                  <div key={day} role="gridcell">
+                    <button
+                      type="button"
+                      aria-selected={isSelected}
+                      aria-disabled={isOutOfRange || disabled || undefined}
+                      tabIndex={
+                        focusedDay !== null
+                          ? focusedDay === day ? 0 : -1
+                          : isSelected ? 0 : day === 1 ? 0 : -1
+                      }
+                      disabled={isOutOfRange || disabled}
+                      style={getDayCellStyle(day, isSelected, isOutOfRange)}
+                      onClick={() => handleSelectDay(day)}
+                      onKeyDown={(e) => handleDayKeyDown(e, day)}
+                      onFocus={() => setFocusedDay(day)}
+                    >
+                      {day}
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Secondary (next) month column — dual layout only */}
+          {layout === 'dual' && (() => {
+            const nDays = getDaysInMonth(nextMonthYear, nextMonthMonth);
+            const nFirst = getFirstDayOfMonth(nextMonthYear, nextMonthMonth);
+            return (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: cssVar('spacing', '8') }}>
+                <span style={{ ...monthLabelStyle, textAlign: 'center' }}>{nextMonthLabel}</span>
+                <div style={weekdayRowStyle} aria-hidden="true">
+                  {WEEKDAYS.map((wd) => (
+                    <div key={wd} style={weekdayCellStyle}>
+                      {wd}
+                    </div>
+                  ))}
+                </div>
+                <div role="grid" aria-label={nextMonthLabel} style={gridStyle}>
+                  {Array.from({ length: nFirst }).map((_, i) => (
+                    <div
+                      key={`next-empty-${i}`}
+                      role="gridcell"
+                      aria-hidden="true"
+                      style={{ width: cellSize, height: cellSize }}
+                    />
+                  ))}
+                  {Array.from({ length: nDays }).map((_, i) => {
+                    const day = i + 1;
+                    const cellDate = new Date(nextMonthYear, nextMonthMonth, day);
+                    const isSelected = selected ? isSameDay(cellDate, selected) : false;
+                    const isOutOfRange = isDateDisabled(cellDate, min, max);
+                    return (
+                      <div key={`next-${day}`} role="gridcell">
+                        <button
+                          type="button"
+                          aria-selected={isSelected}
+                          aria-disabled={isOutOfRange || disabled || undefined}
+                          tabIndex={-1}
+                          disabled={isOutOfRange || disabled}
+                          style={getDayCellStyle(day, isSelected, isOutOfRange)}
+                          onClick={() => handleSelectDateAt(nextMonthYear, nextMonthMonth, day)}
+                        >
+                          {day}
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             );
-          })}
+          })()}
         </div>
       </div>
     );

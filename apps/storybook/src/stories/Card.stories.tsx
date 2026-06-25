@@ -33,6 +33,10 @@ const meta = {
       control: 'select',
       options: ['none', 'error', 'success', 'warning'],
     },
+    layout: {
+      control: 'select',
+      options: ['vertical', 'horizontal', 'overlay'],
+    },
   },
 } satisfies Meta<typeof Card>;
 
@@ -222,5 +226,99 @@ export const StatusWarning: Story = {
         </Text>
       </div>
     ),
+  },
+};
+
+// ── Layout 축 스토리 ─────────────────────────────────────────────────────────
+
+const mediaBlock = (
+  <div
+    role="img"
+    aria-label="Sample media"
+    style={{
+      width: '100%',
+      height: '100%',
+      minHeight: '140px',
+      backgroundColor: '#6366f1',
+      backgroundImage: 'linear-gradient(135deg, #6366f1, #ec4899)',
+    }}
+  />
+);
+
+export const Horizontal: Story = {
+  name: 'Layout / Horizontal',
+  args: {
+    layout: 'horizontal',
+    variant: 'outlined',
+    padding: 'md',
+    media: mediaBlock,
+    children: (
+      <div style={{ maxWidth: '280px' }}>
+        <Text variant="title3">Horizontal Card</Text>
+        <Text variant="body2" color="muted">
+          Media sits on the left, content flows on the right in a flex row.
+        </Text>
+      </div>
+    ),
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    // 3. content still renders
+    const heading = await canvas.findByText('Horizontal Card');
+    await expect(heading).toBeVisible();
+    // 1. data-attr present with right value on root
+    const card = canvasElement.querySelector(
+      '[data-bbangto-card-layout="horizontal"]'
+    ) as HTMLElement;
+    await expect(card).not.toBeNull();
+    // 2. load-bearing style: flex row container with media on the left
+    const style = getComputedStyle(card);
+    await expect(style.display).toBe('flex');
+    await expect(style.flexDirection).toBe('row');
+    // media slot rendered
+    const mediaEl = card.querySelector('[data-card-media]') as HTMLElement;
+    await expect(mediaEl).not.toBeNull();
+    await expect(canvas.getByRole('img', { name: 'Sample media' })).toBeInTheDocument();
+  },
+};
+
+export const Overlay: Story = {
+  name: 'Layout / Overlay',
+  args: {
+    layout: 'overlay',
+    variant: 'elevated',
+    padding: 'lg',
+    media: mediaBlock,
+    children: (
+      <div style={{ maxWidth: '280px', color: '#ffffff' }}>
+        <Text variant="title3">Overlay Card</Text>
+        <Text variant="body2">
+          Media fills the card; content is overlaid on top of a readable scrim.
+        </Text>
+      </div>
+    ),
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    // 3. content still renders
+    const heading = await canvas.findByText('Overlay Card');
+    await expect(heading).toBeVisible();
+    // 1. data-attr present with right value on root
+    const card = canvasElement.querySelector(
+      '[data-bbangto-card-layout="overlay"]'
+    ) as HTMLElement;
+    await expect(card).not.toBeNull();
+    // root establishes a positioning context for the absolute media
+    const cardStyle = getComputedStyle(card);
+    await expect(cardStyle.position).toBe('relative');
+    // 2. load-bearing style: media is absolutely positioned to fill the card
+    const mediaEl = card.querySelector('[data-card-media]') as HTMLElement;
+    await expect(mediaEl).not.toBeNull();
+    const mediaStyle = getComputedStyle(mediaEl);
+    await expect(mediaStyle.position).toBe('absolute');
+    // scrim present for readability
+    const scrim = card.querySelector('[data-card-scrim]') as HTMLElement;
+    await expect(scrim).not.toBeNull();
+    await expect(canvas.getByRole('img', { name: 'Sample media' })).toBeInTheDocument();
   },
 };

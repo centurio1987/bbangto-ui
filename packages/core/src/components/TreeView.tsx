@@ -10,6 +10,9 @@ export interface TreeNode {
   icon?: React.ReactNode;
 }
 
+/** Visual variant axis for the TreeView. */
+export type TreeViewVariant = 'default' | 'connected' | 'compact' | 'bordered';
+
 export interface TreeViewProps extends Omit<React.HTMLAttributes<HTMLUListElement>, 'onSelect'> {
   nodes: TreeNode[];
   /** IDs expanded by default (uncontrolled). */
@@ -22,6 +25,8 @@ export interface TreeViewProps extends Omit<React.HTMLAttributes<HTMLUListElemen
   onSelect?: (id: string) => void;
   /** Called when the expanded set changes. */
   onExpandedChange?: (expandedIds: string[]) => void;
+  /** Visual variant. Defaults to 'default' (indentation only). */
+  variant?: TreeViewVariant;
 }
 
 // ── Internal flat-item helper ──────────────────────────────────────────────
@@ -60,6 +65,7 @@ export const TreeView = React.forwardRef<HTMLUListElement, TreeViewProps>(
       defaultSelectedId,
       onSelect,
       onExpandedChange,
+      variant = 'default',
       style,
       ...props
     },
@@ -198,6 +204,9 @@ export const TreeView = React.forwardRef<HTMLUListElement, TreeViewProps>(
       [nodes, expandedIds, handleToggle, handleSelect],
     );
 
+    const isBordered = variant === 'bordered';
+    const isConnected = variant === 'connected';
+
     const treeStyles: React.CSSProperties = {
       listStyle: 'none',
       margin: 0,
@@ -205,29 +214,63 @@ export const TreeView = React.forwardRef<HTMLUListElement, TreeViewProps>(
       fontFamily: cssVar('typography', 'fontFamily', 'sans'),
       fontSize: cssVar('typography', 'scale', 'body', 'fontSize'),
       color: cssVar('semantic', 'foreground', 'base'),
+      ...(isBordered
+        ? {
+            borderStyle: 'solid',
+            borderWidth: '1px',
+            borderColor: cssVar('semantic', 'border', 'base'),
+            borderRadius: cssVar('radius', 'md'),
+            padding: cssVar('spacing', '4'),
+          }
+        : null),
       ...style,
     };
 
+    const connectedClass = isConnected ? 'bbangto-treeview-connected' : undefined;
+
     return (
-      <ul
-        ref={setRefs}
-        role="tree"
-        style={treeStyles}
-        onKeyDown={handleKeyDown}
-        {...props}
-      >
-        {nodes.map((node) => (
-          <TreeItem
-            key={node.id}
-            node={node}
-            level={1}
-            expandedIds={expandedIds}
-            selectedId={selectedId}
-            onToggle={handleToggle}
-            onSelect={handleSelect}
-          />
-        ))}
-      </ul>
+      <>
+        {isConnected && (
+          <style>
+            {`
+.bbangto-treeview-connected [role="group"] {
+  position: relative;
+}
+.bbangto-treeview-connected [role="group"]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--bbangto-treeview-guide-left, 16px);
+  width: 1px;
+  background-color: ${cssVar('semantic', 'border', 'base')};
+}
+`}
+          </style>
+        )}
+        <ul
+          ref={setRefs}
+          role="tree"
+          className={connectedClass}
+          data-bbangto-treeview-variant={variant}
+          style={treeStyles}
+          onKeyDown={handleKeyDown}
+          {...props}
+        >
+          {nodes.map((node) => (
+            <TreeItem
+              key={node.id}
+              node={node}
+              level={1}
+              expandedIds={expandedIds}
+              selectedId={selectedId}
+              variant={variant}
+              onToggle={handleToggle}
+              onSelect={handleSelect}
+            />
+          ))}
+        </ul>
+      </>
     );
   },
 );
@@ -241,6 +284,7 @@ interface TreeItemProps {
   level: number;
   expandedIds: Set<string>;
   selectedId: string | undefined;
+  variant: TreeViewVariant;
   onToggle: (id: string) => void;
   onSelect: (id: string) => void;
 }
@@ -263,6 +307,7 @@ const TreeItem: React.FC<TreeItemProps> = ({
   level,
   expandedIds,
   selectedId,
+  variant,
   onToggle,
   onSelect,
 }) => {
@@ -279,13 +324,14 @@ const TreeItem: React.FC<TreeItemProps> = ({
   };
 
   const indent = (level - 1) * 20; // px, layout-only — no spacing token for this depth offset
+  const isCompact = variant === 'compact';
 
   const itemRowStyles: React.CSSProperties = {
     display: 'flex',
     alignItems: 'center',
     gap: cssVar('spacing', '6'),
-    paddingTop: cssVar('spacing', '4'),
-    paddingBottom: cssVar('spacing', '4'),
+    paddingTop: isCompact ? cssVar('spacing', '1') : cssVar('spacing', '4'),
+    paddingBottom: isCompact ? cssVar('spacing', '1') : cssVar('spacing', '4'),
     paddingLeft: `${indent + 8}px`,
     paddingRight: cssVar('spacing', '8'),
     cursor: 'pointer',
@@ -399,6 +445,7 @@ const TreeItem: React.FC<TreeItemProps> = ({
               level={level + 1}
               expandedIds={expandedIds}
               selectedId={selectedId}
+              variant={variant}
               onToggle={onToggle}
               onSelect={onSelect}
             />

@@ -216,6 +216,135 @@ export const KeyboardNavigation: Story = {
   },
 };
 
+// ── Variant: connected — vertical guide lines ──────────────────────────────
+
+export const VariantConnected: Story = {
+  args: {
+    nodes: sampleNodes,
+    variant: 'connected',
+    defaultExpandedIds: ['src', 'components'],
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr present with correct value on root
+    const tree = canvasElement.querySelector('[role="tree"]') as HTMLElement;
+    await expect(tree).toHaveAttribute('data-bbangto-treeview-variant', 'connected');
+
+    // 2. load-bearing: guide-line class on root + scoped <style> block emitted
+    await expect(tree.classList.contains('bbangto-treeview-connected')).toBe(true);
+    // Aggregate ALL <style> tags — the scoped style is not necessarily the first.
+    const styleText = Array.from(canvasElement.querySelectorAll('style'))
+      .map((s) => s.textContent ?? '')
+      .join('\n');
+    await expect(styleText).toContain('bbangto-treeview-connected');
+    await expect(styleText).toContain('::before');
+
+    // 3. content still renders
+    const buttonItem = await canvas.findByText('Button.tsx');
+    await expect(buttonItem).toBeVisible();
+
+    // aria roles intact
+    const srcItem = canvasElement.querySelector('[data-node-id="src"]') as HTMLElement;
+    await expect(srcItem).toHaveAttribute('aria-level', '1');
+    await expect(srcItem).toHaveAttribute('aria-expanded', 'true');
+
+    // keyboard nav still selects (ArrowDown then Enter)
+    srcItem.focus();
+    await userEvent.keyboard('{ArrowDown}');
+    await userEvent.keyboard('{Enter}');
+    await waitFor(async () => {
+      const selected = canvasElement.querySelector('[aria-selected="true"]');
+      await expect(selected).not.toBeNull();
+    });
+  },
+};
+
+// ── Variant: compact — reduced row height ──────────────────────────────────
+
+export const VariantCompact: Story = {
+  args: {
+    nodes: sampleNodes,
+    variant: 'compact',
+    defaultExpandedIds: ['src', 'components'],
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr present with correct value on root
+    const tree = canvasElement.querySelector('[role="tree"]') as HTMLElement;
+    await expect(tree).toHaveAttribute('data-bbangto-treeview-variant', 'compact');
+
+    // 2. load-bearing: compact collapses the row's vertical padding to the
+    //    smallest spacing token (spacing-1) vs the default spacing-4. Assert the
+    //    computed padding directly — total row height is dominated by the label
+    //    line-height (~24px) so an absolute height threshold is not meaningful.
+    const srcItem = canvasElement.querySelector('[data-node-id="src"]') as HTMLElement;
+    const row = srcItem.querySelector('div') as HTMLElement;
+    await expect(row.style.paddingTop).toBe('var(--bbangto-spacing-1)');
+    await expect(row.style.paddingBottom).toBe('var(--bbangto-spacing-1)');
+    // Resolved padding is genuinely small (spacing-1 ≈ 4px, well under spacing-4).
+    const padTop = parseFloat(getComputedStyle(row).paddingTop);
+    await expect(padTop).toBeLessThan(8);
+
+    // 3. content still renders
+    const buttonItem = await canvas.findByText('Button.tsx');
+    await expect(buttonItem).toBeVisible();
+
+    // aria roles intact
+    await expect(srcItem).toHaveAttribute('aria-level', '1');
+    await expect(srcItem).toHaveAttribute('aria-expanded', 'true');
+
+    // keyboard nav still selects (ArrowDown then Enter)
+    srcItem.focus();
+    await userEvent.keyboard('{ArrowDown}');
+    await userEvent.keyboard('{Enter}');
+    await waitFor(async () => {
+      const selected = canvasElement.querySelector('[aria-selected="true"]');
+      await expect(selected).not.toBeNull();
+    });
+  },
+};
+
+// ── Variant: bordered — boxed container ────────────────────────────────────
+
+export const VariantBordered: Story = {
+  args: {
+    nodes: sampleNodes,
+    variant: 'bordered',
+    defaultExpandedIds: ['src', 'components'],
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr present with correct value on root
+    const tree = canvasElement.querySelector('[role="tree"]') as HTMLElement;
+    await expect(tree).toHaveAttribute('data-bbangto-treeview-variant', 'bordered');
+
+    // 2. load-bearing: container has a solid border
+    const computed = getComputedStyle(tree);
+    await expect(computed.borderStyle).toBe('solid');
+
+    // 3. content still renders
+    const buttonItem = await canvas.findByText('Button.tsx');
+    await expect(buttonItem).toBeVisible();
+
+    // aria roles intact
+    const srcItem = canvasElement.querySelector('[data-node-id="src"]') as HTMLElement;
+    await expect(srcItem).toHaveAttribute('aria-level', '1');
+    await expect(srcItem).toHaveAttribute('aria-expanded', 'true');
+
+    // keyboard nav still selects (ArrowDown then Enter)
+    srcItem.focus();
+    await userEvent.keyboard('{ArrowDown}');
+    await userEvent.keyboard('{Enter}');
+    await waitFor(async () => {
+      const selected = canvasElement.querySelector('[aria-selected="true"]');
+      await expect(selected).not.toBeNull();
+    });
+  },
+};
+
 // ── File tree demo ─────────────────────────────────────────────────────────
 
 export const FileTree: Story = {

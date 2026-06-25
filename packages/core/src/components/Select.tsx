@@ -11,6 +11,8 @@ export interface SelectOption {
 
 export type SelectSize = 'sm' | 'md' | 'lg';
 
+export type SelectVariant = 'outline' | 'filled' | 'underline';
+
 export interface SelectProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   options: SelectOption[];
   value?: string;
@@ -24,6 +26,8 @@ export interface SelectProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
   error?: boolean;
   /** Shows a loading spinner inside the trigger and prevents opening the dropdown. */
   loading?: boolean;
+  /** Visual treatment of the trigger. Defaults to 'outline'. */
+  variant?: SelectVariant;
 }
 
 const SIZE_HEIGHT: Record<SelectSize, string> = {
@@ -56,6 +60,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
       size = 'md',
       error = false,
       loading = false,
+      variant = 'outline',
       style,
       className,
       ...props
@@ -97,6 +102,26 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
     const paddingKey = SIZE_PADDING_KEY[size];
     const fontVariant = SIZE_FONT_KEY[size];
 
+    const variantTrigger: React.CSSProperties =
+      variant === 'filled'
+        ? {
+            backgroundColor: cssVar('semantic', 'background', 'sunken'),
+            border: `1px solid ${error || isOpen ? borderColor : 'transparent'}`,
+            borderRadius: cssVar('radius', 'md'),
+          }
+        : variant === 'underline'
+          ? {
+              backgroundColor: 'transparent',
+              border: 'none',
+              borderBottom: `1px solid ${borderColor}`,
+              borderRadius: '0',
+            }
+          : {
+              backgroundColor: cssVar('semantic', 'background', 'elevated'),
+              border: `1px solid ${borderColor}`,
+              borderRadius: cssVar('radius', 'md'),
+            };
+
     const triggerStyle: React.CSSProperties = {
       display: 'flex',
       alignItems: 'center',
@@ -104,13 +129,11 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
       width: '100%',
       height: SIZE_HEIGHT[size],
       padding: `0 ${cssVar('spacing', paddingKey)}`,
-      backgroundColor: cssVar('semantic', 'background', 'elevated'),
-      border: `1px solid ${borderColor}`,
-      borderRadius: cssVar('radius', 'md'),
       color: selectedOption ? cssVar('semantic', 'foreground', 'base') : cssVar('semantic', 'foreground', 'subtle'),
       fontSize: cssVar('typography', 'scale', fontVariant, 'fontSize'),
       cursor: isInteractionDisabled ? 'not-allowed' : 'pointer',
       transition: 'border-color 0.2s',
+      ...variantTrigger,
     };
 
     const dropdownStyle: React.CSSProperties = {
@@ -169,6 +192,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
           role="combobox"
           aria-expanded={isOpen}
           aria-haspopup="listbox"
+          data-bbangto-select-variant={variant}
         >
           <span>{selectedOption ? selectedOption.label : placeholder}</span>
           {loading ? (

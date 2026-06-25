@@ -10,7 +10,7 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {
-    variant: { control: 'select', options: ['bordered', 'flush'] },
+    variant: { control: 'select', options: ['bordered', 'flush', 'separated'] },
     size: { control: 'select', options: ['sm', 'md', 'lg'] },
   },
 } satisfies Meta<typeof Accordion>;
@@ -76,6 +76,43 @@ export const FlushVariant: Story = {
 
     await userEvent.click(trigger);
     await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+  },
+};
+
+export const VariantSeparated: Story = {
+  args: {
+    title: 'Separated variant — detached card',
+    children: 'The separated variant renders each item as its own bordered, rounded card with a trailing gap, so stacked accordions read as visually detached boxes.',
+    variant: 'separated',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = await canvas.findByRole('button', { name: 'Separated variant — detached card' });
+    const container = trigger.closest('[data-bbangto-accordion-variant="separated"]') as HTMLElement | null;
+
+    // (1) New data-attr is present with the right value on the root.
+    await expect(container).not.toBeNull();
+    await expect(container).toHaveAttribute('data-bbangto-accordion-variant', 'separated');
+
+    // (2) Load-bearing styles: each item is a detached card → individual border,
+    //     its own radius, and a trailing gap separating stacked items.
+    const style = getComputedStyle(container!);
+    await expect(style.borderStyle).toBe('solid');
+    await expect(Number.parseFloat(style.borderTopWidth)).toBeGreaterThan(0);
+    await expect(Number.parseFloat(style.borderTopLeftRadius)).toBeGreaterThan(0);
+    await expect(Number.parseFloat(style.marginBottom)).toBeGreaterThan(0);
+
+    // (3) Expand/collapse still works and content renders.
+    const content = canvasElement.querySelector('[data-bbangto-accordion-content]') as HTMLElement | null;
+    await expect(content).not.toBeNull();
+    await expect(content!.style.height).toBe('0px');
+
+    await userEvent.click(trigger);
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    await expect(Number.parseFloat(content!.style.height)).toBeGreaterThan(0);
+
+    await userEvent.click(trigger);
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
   },
 };
 

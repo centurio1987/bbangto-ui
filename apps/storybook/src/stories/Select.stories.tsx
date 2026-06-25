@@ -180,6 +180,61 @@ export const WithDisabledOptions: Story = {
   },
 };
 
+export const VariantFilled: Story = {
+  render: (args) => {
+    const [value, setValue] = useState('');
+    return <Select {...args} variant="filled" options={mockOptions} value={value} onChange={setValue} />;
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = await canvas.findByRole('combobox');
+    await expect(trigger).toBeVisible();
+    // 1. data-attr present with the right value on the trigger
+    await expect(trigger.getAttribute('data-bbangto-select-variant')).toBe('filled');
+    // 2. Load-bearing style: filled trigger has a non-transparent background
+    //    and (in the closed/non-error state) a transparent border.
+    const bg = getComputedStyle(trigger).backgroundColor;
+    await expect(bg).not.toBe('rgba(0, 0, 0, 0)');
+    await expect(bg).not.toBe('transparent');
+    await expect(trigger.style.border).toContain('transparent');
+    // 3. Trigger still renders and opens.
+    await userEvent.click(trigger);
+    const listbox = canvasElement.querySelector('[role="listbox"]') as HTMLElement;
+    await expect(listbox).toBeVisible();
+    const option1 = within(listbox).getByText('Option 1');
+    await userEvent.click(option1);
+    await expect(trigger).toHaveTextContent('Option 1');
+  },
+};
+
+export const VariantUnderline: Story = {
+  render: (args) => {
+    const [value, setValue] = useState('');
+    return <Select {...args} variant="underline" options={mockOptions} value={value} onChange={setValue} />;
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = await canvas.findByRole('combobox');
+    await expect(trigger).toBeVisible();
+    // 1. data-attr present with the right value on the trigger
+    await expect(trigger.getAttribute('data-bbangto-select-variant')).toBe('underline');
+    // 2. Load-bearing style: underline trigger has bottom border only,
+    //    zero radius, and a transparent background.
+    const cs = getComputedStyle(trigger);
+    await expect(cs.borderBottomStyle).toBe('solid');
+    await expect(cs.borderTopStyle).toBe('none');
+    await expect(cs.borderRadius).toBe('0px');
+    await expect(cs.backgroundColor).toBe('rgba(0, 0, 0, 0)');
+    // 3. Trigger still renders and opens.
+    await userEvent.click(trigger);
+    const listbox = canvasElement.querySelector('[role="listbox"]') as HTMLElement;
+    await expect(listbox).toBeVisible();
+    const option2 = within(listbox).getByText('Option 2');
+    await userEvent.click(option2);
+    await expect(trigger).toHaveTextContent('Option 2');
+  },
+};
+
 export const AllSizes: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'flex-start' }}>

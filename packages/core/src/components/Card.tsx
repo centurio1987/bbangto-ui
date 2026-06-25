@@ -3,6 +3,7 @@ import { cssVar } from '@centurio1987/tokens';
 
 export type CardVariant = 'elevated' | 'outlined' | 'filled';
 export type CardStatus = 'none' | 'error' | 'success' | 'warning';
+export type CardLayout = 'vertical' | 'horizontal' | 'overlay';
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
@@ -23,6 +24,14 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
    * Adds a coloured `borderTop` line; does not override the main border.
    */
   status?: CardStatus;
+  /** Arrangement of `media` relative to `children`.
+   * - `vertical` (default): media block (if present) stacked above children. With no media this renders exactly as before.
+   * - `horizontal`: media on the left, children on the right (flex-row).
+   * - `overlay`: media fills the card as an absolutely-positioned background, children overlaid on top with a readable scrim.
+   */
+  layout?: CardLayout;
+  /** Optional media slot (image, video, illustration) positioned according to `layout`. */
+  media?: React.ReactNode;
 }
 
 const STATUS_COLOR: Record<Exclude<CardStatus, 'none'>, string> = {
@@ -41,6 +50,8 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
       variant = 'elevated',
       interactive = false,
       status = 'none',
+      layout = 'vertical',
+      media,
       style,
       role,
       tabIndex,
@@ -84,10 +95,17 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
         ? `3px solid ${STATUS_COLOR[status]}`
         : undefined;
 
+    const hasMedia = media != null && media !== false;
+    const resolvedPadding = paddingMap[padding];
+
+    // Overlay layout clips the absolutely-positioned media to the card radius and
+    // owns its own internal padding (the root keeps padding:0 so media reaches the edges).
+    const isOverlay = layout === 'overlay';
+
     const baseStyles: React.CSSProperties = {
       backgroundColor: resolvedBg,
       borderRadius: cssVar('radius', 'lg'),
-      padding: paddingMap[padding],
+      padding: isOverlay ? '0' : resolvedPadding,
       boxShadow: resolvedShadow,
       border: resolvedBorder,
       ...(statusBorderTop ? { borderTop: statusBorderTop } : {}),
@@ -98,6 +116,11 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
         ? `box-shadow ${cssVar('motion', 'duration', 'fast')} ${cssVar('motion', 'easing', 'default')}, opacity ${cssVar('motion', 'duration', 'fast')} ${cssVar('motion', 'easing', 'default')}`
         : undefined,
       outline: 'none',
+      // Layout-specific container flow.
+      ...(hasMedia && layout === 'horizontal'
+        ? { display: 'flex', flexDirection: 'row', alignItems: 'stretch', gap: resolvedPadding }
+        : {}),
+      ...(isOverlay ? { position: 'relative', overflow: 'hidden' } : {}),
       ...style,
     };
 
@@ -113,6 +136,70 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
       onKeyDown?.(e);
     };
 
+    // Media slot styling per layout.
+    const horizontalMediaStyle: React.CSSProperties = {
+      flex: '0 0 40%',
+      minWidth: 0,
+      overflow: 'hidden',
+    };
+    const overlayMediaStyle: React.CSSProperties = {
+      position: 'absolute',
+      inset: 0,
+      zIndex: 0,
+      overflow: 'hidden',
+    };
+    const overlayScrimStyle: React.CSSProperties = {
+      position: 'absolute',
+      inset: 0,
+      zIndex: 1,
+      backgroundColor: 'rgba(0, 0, 0, 0.45)',
+      pointerEvents: 'none',
+    };
+    const overlayContentStyle: React.CSSProperties = {
+      position: 'relative',
+      zIndex: 2,
+      padding: resolvedPadding,
+    };
+
+    let body: React.ReactNode;
+    if (isOverlay) {
+      body = (
+        <>
+          {hasMedia ? (
+            <div data-card-media style={overlayMediaStyle}>
+              {media}
+            </div>
+          ) : null}
+          {hasMedia ? <div data-card-scrim style={overlayScrimStyle} /> : null}
+          <div data-card-content style={overlayContentStyle}>
+            {children}
+          </div>
+        </>
+      );
+    } else if (hasMedia && layout === 'horizontal') {
+      body = (
+        <>
+          <div data-card-media style={horizontalMediaStyle}>
+            {media}
+          </div>
+          <div data-card-content style={{ flex: '1 1 auto', minWidth: 0 }}>
+            {children}
+          </div>
+        </>
+      );
+    } else if (hasMedia) {
+      // vertical with media — stacked
+      body = (
+        <>
+          <div data-card-media>{media}</div>
+          <div data-card-content>{children}</div>
+        </>
+      );
+    } else {
+      // vertical, no media — exactly as before (backward compat)
+      body = children;
+    }
+
     return (
       <div
         ref={ref}
@@ -122,11 +209,12 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
         data-card-variant={variant}
         data-card-interactive={interactive ? 'true' : undefined}
         data-card-status={status !== 'none' ? status : undefined}
+        data-bbangto-card-layout={layout}
         onClick={onClick}
         onKeyDown={interactive ? handleKeyDown : onKeyDown}
         {...props}
       >
-        {children}
+        {body}
       </div>
     );
   }

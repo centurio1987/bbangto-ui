@@ -12,6 +12,10 @@ const meta = {
       control: 'select',
       options: ['vertical', 'horizontal', 'both'],
     },
+    variant: {
+      control: 'select',
+      options: ['overlay', 'inset', 'always', 'hover'],
+    },
   },
 } satisfies Meta<typeof ScrollArea>;
 
@@ -111,6 +115,145 @@ export const BothAxes: Story = {
     await waitFor(() => {
       expect(scrollEl.scrollHeight).toBeGreaterThan(scrollEl.clientHeight);
     });
+  },
+};
+
+export const VariantInset: Story = {
+  name: 'Variant: Inset',
+  args: {
+    orientation: 'vertical',
+    variant: 'inset',
+    maxHeight: 200,
+    style: { width: 280, border: '1px solid #eee', borderRadius: 6 },
+    children: <TallContent />,
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const scrollEl = canvasElement.querySelector(
+      '[data-bbangto-scrollarea]'
+    ) as HTMLElement;
+    await expect(scrollEl).toBeTruthy();
+
+    // 1. data-attr present with the right value
+    await expect(scrollEl.getAttribute('data-bbangto-scrollarea-variant')).toBe(
+      'inset'
+    );
+
+    // 2. load-bearing: namespaced class present + scrollbar-gutter reserved (stable)
+    await expect(scrollEl.classList.contains('bbangto-scrollarea-inset')).toBe(
+      true
+    );
+    // Aggregate ALL <style> tags in the canvas — the component's scoped style is
+    // not necessarily the first one (a global @import style may precede it).
+    const styleTag = {
+      textContent: Array.from(canvasElement.querySelectorAll('style'))
+        .map((s) => s.textContent ?? '')
+        .join('\n'),
+    };
+    await expect(styleTag.textContent).toContain('.bbangto-scrollarea-inset');
+    await expect(styleTag.textContent).toContain('scrollbar-gutter: stable');
+    const gutter = getComputedStyle(scrollEl).getPropertyValue(
+      'scrollbar-gutter'
+    );
+    // scrollbar-gutter is observable in chromium; assert it reflects the variant.
+    if (gutter) {
+      await expect(gutter).toContain('stable');
+    }
+
+    // 3. content scrolls
+    await waitFor(() => {
+      expect(scrollEl.scrollHeight).toBeGreaterThan(scrollEl.clientHeight);
+    });
+    await expect(canvas.getByText('Item 1 — scroll content line')).toBeVisible();
+  },
+};
+
+export const VariantAlways: Story = {
+  name: 'Variant: Always',
+  args: {
+    orientation: 'vertical',
+    variant: 'always',
+    maxHeight: 200,
+    style: { width: 280, border: '1px solid #eee', borderRadius: 6 },
+    children: <TallContent />,
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const scrollEl = canvasElement.querySelector(
+      '[data-bbangto-scrollarea]'
+    ) as HTMLElement;
+    await expect(scrollEl).toBeTruthy();
+
+    // 1. data-attr present with the right value
+    await expect(scrollEl.getAttribute('data-bbangto-scrollarea-variant')).toBe(
+      'always'
+    );
+
+    // 2. load-bearing: namespaced class present + overflow forced to scroll
+    await expect(scrollEl.classList.contains('bbangto-scrollarea-always')).toBe(
+      true
+    );
+    await expect(getComputedStyle(scrollEl).overflowY).toBe('scroll');
+    // Aggregate ALL <style> tags in the canvas — the component's scoped style is
+    // not necessarily the first one (a global @import style may precede it).
+    const styleTag = {
+      textContent: Array.from(canvasElement.querySelectorAll('style'))
+        .map((s) => s.textContent ?? '')
+        .join('\n'),
+    };
+    await expect(styleTag.textContent).toContain('.bbangto-scrollarea-always');
+    await expect(styleTag.textContent).toContain('scrollbar-width: auto');
+
+    // 3. content scrolls
+    await waitFor(() => {
+      expect(scrollEl.scrollHeight).toBeGreaterThan(scrollEl.clientHeight);
+    });
+    await expect(canvas.getByText('Item 1 — scroll content line')).toBeVisible();
+  },
+};
+
+export const VariantHover: Story = {
+  name: 'Variant: Hover',
+  args: {
+    orientation: 'vertical',
+    variant: 'hover',
+    maxHeight: 200,
+    style: { width: 280, border: '1px solid #eee', borderRadius: 6 },
+    children: <TallContent />,
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const scrollEl = canvasElement.querySelector(
+      '[data-bbangto-scrollarea]'
+    ) as HTMLElement;
+    await expect(scrollEl).toBeTruthy();
+
+    // 1. data-attr present with the right value
+    await expect(scrollEl.getAttribute('data-bbangto-scrollarea-variant')).toBe(
+      'hover'
+    );
+
+    // 2. load-bearing: namespaced class present + scrollbar hidden at rest
+    await expect(scrollEl.classList.contains('bbangto-scrollarea-hover')).toBe(
+      true
+    );
+    // Aggregate ALL <style> tags in the canvas — the component's scoped style is
+    // not necessarily the first one (a global @import style may precede it).
+    const styleTag = {
+      textContent: Array.from(canvasElement.querySelectorAll('style'))
+        .map((s) => s.textContent ?? '')
+        .join('\n'),
+    };
+    await expect(styleTag.textContent).toContain('.bbangto-scrollarea-hover');
+    await expect(styleTag.textContent).toContain('scrollbar-width: none');
+    // ::-webkit-scrollbar collapsed to width 0 at rest
+    await expect(styleTag.textContent).toContain('width: 0');
+
+    // 3. content scrolls (overflow still active even with hidden scrollbar)
+    await waitFor(() => {
+      expect(scrollEl.scrollHeight).toBeGreaterThan(scrollEl.clientHeight);
+    });
+    await expect(canvas.getByText('Item 1 — scroll content line')).toBeVisible();
   },
 };
 

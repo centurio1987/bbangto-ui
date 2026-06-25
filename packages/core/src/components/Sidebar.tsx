@@ -3,6 +3,15 @@ import { cssVar } from '@centurio1987/tokens';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
+/**
+ * Persistent visual style of the sidebar. Independent of the collapsed state.
+ * - `default`: standard panel with labels shown.
+ * - `rail`: icon-only narrow rail — labels are visually hidden and width is reduced.
+ * - `floating`: detached panel with margin, border-radius and box-shadow.
+ * - `bordered`: standard panel with an explicit right-edge divider rule.
+ */
+export type SidebarVariant = 'default' | 'rail' | 'floating' | 'bordered';
+
 export interface SidebarProps extends Omit<React.HTMLAttributes<HTMLElement>, 'role'> {
   /** Controlled collapsed state. */
   collapsed?: boolean;
@@ -12,6 +21,8 @@ export interface SidebarProps extends Omit<React.HTMLAttributes<HTMLElement>, 'r
   onCollapsedChange?: (collapsed: boolean) => void;
   /** Width when expanded. Defaults to 240px. */
   width?: number | string;
+  /** Persistent visual style. Defaults to `default`. */
+  variant?: SidebarVariant;
   children?: React.ReactNode;
 }
 
@@ -42,9 +53,11 @@ export interface SidebarGroupProps extends React.HTMLAttributes<HTMLDivElement> 
 
 interface SidebarContextValue {
   collapsed: boolean;
+  /** Rail variant collapses labels independently of the collapsed state. */
+  rail: boolean;
 }
 
-const SidebarContext = React.createContext<SidebarContextValue>({ collapsed: false });
+const SidebarContext = React.createContext<SidebarContextValue>({ collapsed: false, rail: false });
 
 // ─── Sidebar ─────────────────────────────────────────────────────────────────
 
@@ -58,6 +71,7 @@ export const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
       defaultCollapsed = false,
       onCollapsedChange,
       width = 240,
+      variant = 'default',
       children,
       style,
       ...props
@@ -77,7 +91,21 @@ export const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
       onCollapsedChange?.(next);
     };
 
-    const resolvedWidth = collapsed ? RAIL_WIDTH : (typeof width === 'number' ? width : parseInt(width as string, 10) || 240);
+    // The rail variant is a persistent icon-only style: it collapses labels and
+    // narrows the width regardless of the (independent) collapsed toggle state.
+    const isRail = variant === 'rail';
+    const isFloating = variant === 'floating';
+    const isBordered = variant === 'bordered';
+
+    // Labels hidden when either the toggle collapsed the panel OR rail variant is on.
+    const labelsHidden = collapsed || isRail;
+
+    const resolvedWidth =
+      labelsHidden
+        ? RAIL_WIDTH
+        : typeof width === 'number'
+          ? width
+          : parseInt(width as string, 10) || 240;
 
     const navStyle: React.CSSProperties = {
       display: 'flex',
@@ -85,11 +113,28 @@ export const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
       width: resolvedWidth,
       minHeight: '100%',
       backgroundColor: cssVar('semantic', 'background', 'elevated'),
-      borderRight: `1px solid ${cssVar('semantic', 'border', 'muted')}`,
+      // bordered keeps a solid divider; floating drops the divider in favor of a shadow ring.
+      borderRight: isFloating
+        ? 'none'
+        : `1px solid ${cssVar('semantic', 'border', 'muted')}`,
       fontFamily: cssVar('typography', 'fontFamily', 'sans'),
       transition: `width ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'default')}`,
       overflow: 'hidden',
       boxSizing: 'border-box',
+      ...(isFloating
+        ? {
+            margin: cssVar('spacing', '10'),
+            minHeight: 'auto',
+            borderRadius: cssVar('radius', 'lg'),
+            boxShadow: cssVar('shadow', 'lg'),
+            border: `1px solid ${cssVar('semantic', 'border', 'muted')}`,
+          }
+        : {}),
+      ...(isBordered
+        ? {
+            borderRight: `2px solid ${cssVar('semantic', 'border', 'base')}`,
+          }
+        : {}),
       ...style,
     };
 
@@ -120,8 +165,14 @@ export const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
     };
 
     return (
-      <SidebarContext.Provider value={{ collapsed }}>
-        <nav ref={ref} aria-label="Sidebar navigation" style={navStyle} {...props}>
+      <SidebarContext.Provider value={{ collapsed, rail: isRail }}>
+        <nav
+          ref={ref}
+          aria-label="Sidebar navigation"
+          data-bbangto-sidebar-variant={variant}
+          style={navStyle}
+          {...props}
+        >
           <div
             style={{
               display: 'flex',
@@ -191,7 +242,8 @@ export const SidebarItem = React.forwardRef<HTMLButtonElement | HTMLAnchorElemen
     ref
   ) => {
     const ctx = React.useContext(SidebarContext);
-    const collapsed = _collapsed !== undefined ? _collapsed : ctx.collapsed;
+    // Rail variant hides labels persistently, just like the collapsed toggle does.
+    const collapsed = _collapsed !== undefined ? _collapsed : (ctx.collapsed || ctx.rail);
 
     const activeBg = cssVar('semantic', 'primary', 'subtle');
     const activeColor = cssVar('semantic', 'primary', 'base');
@@ -306,7 +358,7 @@ SidebarItem.displayName = 'SidebarItem';
 export const SidebarGroup = React.forwardRef<HTMLDivElement, SidebarGroupProps>(
   ({ label, children, style, _collapsed, ...props }, ref) => {
     const ctx = React.useContext(SidebarContext);
-    const collapsed = _collapsed !== undefined ? _collapsed : ctx.collapsed;
+    const collapsed = _collapsed !== undefined ? _collapsed : (ctx.collapsed || ctx.rail);
 
     const groupStyle: React.CSSProperties = {
       display: 'flex',

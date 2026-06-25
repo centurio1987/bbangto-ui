@@ -4,6 +4,8 @@ import { Spinner } from '../motion/Spinner';
 
 export type InputSize = 'sm' | 'md' | 'lg';
 
+export type InputVariant = 'outline' | 'filled' | 'underline' | 'ghost';
+
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   label?: string;
   error?: string;
@@ -17,6 +19,8 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   loading?: boolean;
   /** Success message rendered below the input (mutually exclusive with error). */
   success?: string;
+  /** Visual treatment of the bordered wrapper. Defaults to 'outline'. */
+  variant?: InputVariant;
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -32,6 +36,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       size = 'md',
       loading = false,
       success,
+      variant = 'outline',
       style,
       className,
       ...props
@@ -71,6 +76,41 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       ? cssVar('semantic', 'success', 'base')
       : cssVar('semantic', 'border', 'focus');
 
+    // ── Variant treatment of the bordered wrapper ─────────────────────────────
+    // outline: full 1px border (default, unchanged).
+    // filled: filled (sunken) background, transparent border, keep radius.
+    // underline: bottom border only, radius 0, transparent background.
+    // ghost: no border / no background at rest; border + background on focus.
+    const wrapperBaseBackground = isInteractionDisabled
+      ? cssVar('semantic', 'disabled', 'background')
+      : cssVar('semantic', 'background', 'base');
+
+    const filledBackground = isInteractionDisabled
+      ? cssVar('semantic', 'disabled', 'background')
+      : cssVar('semantic', 'background', 'sunken');
+
+    const variantBackground =
+      variant === 'filled'
+        ? filledBackground
+        : variant === 'underline' || variant === 'ghost'
+        ? 'transparent'
+        : wrapperBaseBackground;
+
+    const variantBorder: React.CSSProperties =
+      variant === 'filled'
+        ? { border: '1px solid transparent' }
+        : variant === 'underline'
+        ? {
+            border: 'none',
+            borderBottom: `1px solid ${borderColorIdle}`,
+          }
+        : variant === 'ghost'
+        ? { border: '1px solid transparent' }
+        : { border: `1px solid ${borderColorIdle}` };
+
+    const variantRadius =
+      variant === 'underline' ? '0' : cssVar('radius', 'md');
+
     // ── Styles ────────────────────────────────────────────────────────────────
     const containerStyles: React.CSSProperties = {
       display: 'flex',
@@ -92,12 +132,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       alignItems: 'center',
       gap: cssVar('spacing', '6'),
       padding: `0 ${cssVar('spacing', '16')}`,
-      backgroundColor: isInteractionDisabled
-        ? cssVar('semantic', 'disabled', 'background')
-        : cssVar('semantic', 'background', 'base'),
-      border: `1px solid ${borderColorIdle}`,
-      borderRadius: cssVar('radius', 'md'),
-      transition: `border-color ${cssVar('motion', 'duration', 'fast')}`,
+      backgroundColor: variantBackground,
+      ...variantBorder,
+      borderRadius: variantRadius,
+      transition: `border-color ${cssVar('motion', 'duration', 'fast')}, background-color ${cssVar('motion', 'duration', 'fast')}`,
       cursor: isInteractionDisabled ? 'not-allowed' : 'text',
       overflow: 'hidden',
     };
@@ -142,6 +180,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         <div
           ref={wrapperRef}
           style={inputWrapperStyles}
+          data-bbangto-input-variant={variant}
           aria-busy={loading || undefined}
         >
           {leftIcon && (
@@ -155,12 +194,28 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             style={inputStyles}
             onFocus={() => {
               if (!isInteractionDisabled && wrapperRef.current) {
-                wrapperRef.current.style.borderColor = borderColorFocus;
+                const el = wrapperRef.current;
+                if (variant === 'underline') {
+                  el.style.borderBottomColor = borderColorFocus;
+                } else if (variant === 'ghost') {
+                  el.style.borderColor = borderColorFocus;
+                  el.style.backgroundColor = wrapperBaseBackground;
+                } else {
+                  el.style.borderColor = borderColorFocus;
+                }
               }
             }}
             onBlur={() => {
               if (!isInteractionDisabled && wrapperRef.current) {
-                wrapperRef.current.style.borderColor = borderColorIdle;
+                const el = wrapperRef.current;
+                if (variant === 'underline') {
+                  el.style.borderBottomColor = borderColorIdle;
+                } else if (variant === 'ghost') {
+                  el.style.borderColor = 'transparent';
+                  el.style.backgroundColor = 'transparent';
+                } else {
+                  el.style.borderColor = borderColorIdle;
+                }
               }
             }}
             {...props}

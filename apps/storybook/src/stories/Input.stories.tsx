@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Input } from '@centurio1987/core';
-import { expect, userEvent, within } from 'storybook/test';
+import { expect, userEvent, within, waitFor } from 'storybook/test';
 
 const meta = {
   title: 'Atoms/Input',
@@ -19,6 +19,10 @@ const meta = {
     size: { control: 'select', options: ['sm', 'md', 'lg'] },
     loading: { control: 'boolean' },
     success: { control: 'text' },
+    variant: {
+      control: 'select',
+      options: ['outline', 'filled', 'underline', 'ghost'],
+    },
   },
 } satisfies Meta<typeof Input>;
 
@@ -123,6 +127,94 @@ export const Loading: Story = {
     // 3. aria-busy가 wrapper에 노출됐는지
     const wrapper = input.closest('[aria-busy]');
     await expect(wrapper).not.toBeNull();
+  },
+};
+
+/** variant="filled" — 채워진 배경, 보이는 테두리 없음 */
+export const VariantFilled: Story = {
+  args: {
+    label: 'Filled Input',
+    placeholder: 'filled variant',
+    variant: 'filled',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    // 1. data-attr 확인
+    const wrapper = canvasElement.querySelector(
+      '[data-bbangto-input-variant]'
+    ) as HTMLElement;
+    await expect(wrapper).not.toBeNull();
+    await expect(wrapper).toHaveAttribute(
+      'data-bbangto-input-variant',
+      'filled'
+    );
+    // 2. load-bearing 스타일 — 배경이 칠해져 있어야(transparent 아님)
+    const style = getComputedStyle(wrapper);
+    await expect(style.backgroundColor).not.toBe('transparent');
+    await expect(style.backgroundColor).not.toBe('rgba(0, 0, 0, 0)');
+    // 3. 콘텐츠 렌더링 확인
+    const input = await canvas.findByPlaceholderText('filled variant');
+    await expect(input).toBeVisible();
+  },
+};
+
+/** variant="underline" — 하단 테두리만, radius 0 */
+export const VariantUnderline: Story = {
+  args: {
+    label: 'Underline Input',
+    placeholder: 'underline variant',
+    variant: 'underline',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    // 1. data-attr 확인
+    const wrapper = canvasElement.querySelector(
+      '[data-bbangto-input-variant]'
+    ) as HTMLElement;
+    await expect(wrapper).not.toBeNull();
+    await expect(wrapper).toHaveAttribute(
+      'data-bbangto-input-variant',
+      'underline'
+    );
+    // 2. load-bearing 스타일 — 상/측면 테두리 없음, 하단 테두리만 존재
+    const style = getComputedStyle(wrapper);
+    await expect(style.borderTopStyle).toBe('none');
+    await expect(style.borderBottomStyle).not.toBe('none');
+    // 3. 콘텐츠 렌더링 확인
+    const input = await canvas.findByPlaceholderText('underline variant');
+    await expect(input).toBeVisible();
+  },
+};
+
+/** variant="ghost" — rest 상태에서 테두리/배경 없음, focus 시 노출 */
+export const VariantGhost: Story = {
+  args: {
+    label: 'Ghost Input',
+    placeholder: 'ghost variant',
+    variant: 'ghost',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    // 1. data-attr 확인
+    const wrapper = canvasElement.querySelector(
+      '[data-bbangto-input-variant]'
+    ) as HTMLElement;
+    await expect(wrapper).not.toBeNull();
+    await expect(wrapper).toHaveAttribute(
+      'data-bbangto-input-variant',
+      'ghost'
+    );
+    // 2. load-bearing 스타일 — rest 상태에서 배경 transparent
+    const restStyle = getComputedStyle(wrapper);
+    await expect(restStyle.backgroundColor).toBe('rgba(0, 0, 0, 0)');
+    // 3. 콘텐츠 렌더링 + focus 시 배경 노출
+    const input = await canvas.findByPlaceholderText('ghost variant');
+    await expect(input).toBeVisible();
+    await userEvent.click(input);
+    await waitFor(() => {
+      const focusStyle = getComputedStyle(wrapper);
+      expect(focusStyle.backgroundColor).not.toBe('rgba(0, 0, 0, 0)');
+    });
   },
 };
 

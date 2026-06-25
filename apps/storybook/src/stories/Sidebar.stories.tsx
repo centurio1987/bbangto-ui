@@ -60,6 +60,10 @@ const meta = {
     collapsed: { control: 'boolean' },
     defaultCollapsed: { control: 'boolean' },
     width: { control: 'number' },
+    variant: {
+      control: 'select',
+      options: ['default', 'rail', 'floating', 'bordered'],
+    },
   },
   decorators: [
     (Story: React.ComponentType) => (
@@ -258,6 +262,109 @@ export const NoGroups: Story = {
     const homeBtn = await canvas.findByRole('button', { name: /home/i });
     await expect(homeBtn).toBeVisible();
     await expect(homeBtn).toHaveAttribute('aria-current', 'page');
+  },
+};
+
+/** Rail 변형: 라벨 숨김 + 좁은 폭의 아이콘 전용 모드 (collapsed 토글과 독립). */
+export const VariantRail: Story = {
+  args: {
+    variant: 'rail',
+  },
+  render: (args) => (
+    <Sidebar {...args}>
+      <SidebarGroup label="Main">
+        <SidebarItem icon={<IconHome />} label="Home" active />
+        <SidebarItem icon={<IconSearch />} label="Search" />
+        <SidebarItem icon={<IconSettings />} label="Settings" />
+      </SidebarGroup>
+    </Sidebar>
+  ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    // 1. data-attr
+    const nav = canvasElement.querySelector('nav') as HTMLElement;
+    await expect(nav).not.toBeNull();
+    await expect(nav).toHaveAttribute('data-bbangto-sidebar-variant', 'rail');
+
+    // 2. load-bearing: rail은 폭이 좁은 rail(56px)이고 라벨이 시각적으로 숨겨짐
+    await expect(nav.style.width).toBe('56px');
+
+    // 라벨 span(아이콘 다음 span)은 opacity 0 으로 시각적으로 숨겨짐
+    const homeItem = canvasElement.querySelector('[aria-label="Home"]') as HTMLElement;
+    await expect(homeItem).not.toBeNull();
+    const labelSpan = homeItem.querySelectorAll('span')[1] as HTMLElement;
+    const labelStyle = getComputedStyle(labelSpan);
+    expect(labelStyle.opacity).toBe('0');
+
+    // 3. nav 아이템은 여전히 접근 가능 (aria-label로 노출)
+    const searchItem = canvasElement.querySelector('[aria-label="Search"]');
+    await expect(searchItem).not.toBeNull();
+  },
+};
+
+/** Floating 변형: margin + border-radius + box-shadow가 적용된 분리형 패널. */
+export const VariantFloating: Story = {
+  args: {
+    variant: 'floating',
+  },
+  render: (args) => (
+    <Sidebar {...args}>
+      <SidebarGroup label="Main">
+        <SidebarItem icon={<IconHome />} label="Home" active />
+        <SidebarItem icon={<IconSearch />} label="Search" />
+        <SidebarItem icon={<IconUser />} label="Profile" />
+      </SidebarGroup>
+    </Sidebar>
+  ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr
+    const nav = canvasElement.querySelector('nav') as HTMLElement;
+    await expect(nav).toHaveAttribute('data-bbangto-sidebar-variant', 'floating');
+
+    // 2. load-bearing: box-shadow가 존재하고 border-radius가 0이 아님
+    const style = getComputedStyle(nav);
+    expect(style.boxShadow).not.toBe('none');
+    expect(style.boxShadow).not.toBe('');
+    expect(style.borderTopLeftRadius).not.toBe('0px');
+
+    // 3. nav 아이템 접근 가능
+    const homeBtn = await canvas.findByRole('button', { name: /home/i });
+    await expect(homeBtn).toBeVisible();
+    await expect(homeBtn).toHaveAttribute('aria-current', 'page');
+  },
+};
+
+/** Bordered 변형: 우측 경계에 solid divider rule. */
+export const VariantBordered: Story = {
+  args: {
+    variant: 'bordered',
+  },
+  render: (args) => (
+    <Sidebar {...args}>
+      <SidebarGroup label="Main">
+        <SidebarItem icon={<IconHome />} label="Home" active />
+        <SidebarItem icon={<IconSearch />} label="Search" />
+      </SidebarGroup>
+    </Sidebar>
+  ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr
+    const nav = canvasElement.querySelector('nav') as HTMLElement;
+    await expect(nav).toHaveAttribute('data-bbangto-sidebar-variant', 'bordered');
+
+    // 2. load-bearing: 우측 경계가 solid divider
+    const style = getComputedStyle(nav);
+    expect(style.borderRightStyle).toBe('solid');
+
+    // 3. nav 아이템 접근 가능 + 라벨 보임(라벨 숨김 변형 아님)
+    const homeBtn = await canvas.findByRole('button', { name: /home/i });
+    await expect(homeBtn).toBeVisible();
+    await expect(homeBtn).toHaveAttribute('aria-current', 'page');
+    const searchBtn = await canvas.findByRole('button', { name: /search/i });
+    await expect(searchBtn).toBeVisible();
   },
 };
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useId, useRef, useState } from 'react';
 import { cssVar } from '@centurio1987/tokens';
 
-export type AccordionVariant = 'bordered' | 'flush';
+export type AccordionVariant = 'bordered' | 'flush' | 'separated';
 export type AccordionSize = 'sm' | 'md' | 'lg';
 
 export interface AccordionProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
@@ -9,7 +9,9 @@ export interface AccordionProps extends Omit<React.HTMLAttributes<HTMLDivElement
   children: React.ReactNode;
   defaultExpanded?: boolean;
   /** Visual style. `bordered` (default) renders a border+radius container;
-   *  `flush` removes the border and radius for embedding inside cards/lists. */
+   *  `flush` removes the border and radius for embedding inside cards/lists;
+   *  `separated` renders each item as a detached card with its own border,
+   *  radius, and a trailing gap so stacked items read as separate boxes. */
   variant?: AccordionVariant;
   /** Padding/font density. Defaults to `md`. */
   size?: AccordionSize;
@@ -81,14 +83,24 @@ export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
             fontFamily: cssVar('typography', 'fontFamily', 'sans'),
             ...style,
           }
-        : {
-            border: `1px solid ${cssVar('semantic', 'border', 'muted')}`,
-            borderRadius: cssVar('radius', 'md'),
-            backgroundColor: cssVar('semantic', 'background', 'base'),
-            overflow: 'hidden',
-            fontFamily: cssVar('typography', 'fontFamily', 'sans'),
-            ...style,
-          };
+        : variant === 'separated'
+          ? {
+              border: `1px solid ${cssVar('semantic', 'border', 'muted')}`,
+              borderRadius: cssVar('radius', 'lg'),
+              marginBottom: cssVar('spacing', '12'),
+              backgroundColor: cssVar('semantic', 'background', 'base'),
+              overflow: 'hidden',
+              fontFamily: cssVar('typography', 'fontFamily', 'sans'),
+              ...style,
+            }
+          : {
+              border: `1px solid ${cssVar('semantic', 'border', 'muted')}`,
+              borderRadius: cssVar('radius', 'md'),
+              backgroundColor: cssVar('semantic', 'background', 'base'),
+              overflow: 'hidden',
+              fontFamily: cssVar('typography', 'fontFamily', 'sans'),
+              ...style,
+            };
 
     // ── Header ───────────────────────────────────────────────────────────────
     const disabledFg = cssVar('semantic', 'disabled', 'foreground');

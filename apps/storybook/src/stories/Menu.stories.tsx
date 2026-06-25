@@ -248,6 +248,118 @@ export const StandaloneMenu: Story = {
   },
 };
 
+// ─── Menu variant: compact ───────────────────────────────────────────────────
+
+export const VariantCompact: Story = {
+  render: () => (
+    <Menu variant="compact">
+      <MenuItem onSelect={() => {}}>Cut</MenuItem>
+      <MenuItem onSelect={() => {}}>Copy</MenuItem>
+      <MenuItem onSelect={() => {}}>Paste</MenuItem>
+    </Menu>
+  ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr on the menu root
+    const menu = await canvas.findByRole('menu');
+    await expect(menu).toHaveAttribute('data-bbangto-menu-variant', 'compact');
+
+    // 2. load-bearing: item vertical padding is reduced vs the default 8px
+    const firstItem = canvas.getAllByRole('menuitem')[0];
+    await waitFor(() => {
+      const padTop = parseFloat(getComputedStyle(firstItem).paddingTop);
+      expect(padTop).toBeLessThan(8);
+    });
+
+    // 3. content still renders
+    await expect(canvas.getByText('Copy')).toBeVisible();
+
+    // keyboard model intact: menuitems are focusable, first item takes focus
+    const items = canvas.getAllByRole('menuitem');
+    items[0].focus();
+    await waitFor(() => {
+      expect(document.activeElement).toBe(items[0]);
+    });
+    await userEvent.keyboard('{ArrowDown}');
+  },
+};
+
+// ─── Menu variant: bordered ───────────────────────────────────────────────────
+
+export const VariantBordered: Story = {
+  render: () => (
+    <Menu variant="bordered">
+      <MenuItem onSelect={() => {}}>Rename</MenuItem>
+      <MenuItem onSelect={() => {}}>Duplicate</MenuItem>
+      <MenuItem onSelect={() => {}}>Archive</MenuItem>
+    </Menu>
+  ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr on the menu root
+    const menu = await canvas.findByRole('menu');
+    await expect(menu).toHaveAttribute('data-bbangto-menu-variant', 'bordered');
+
+    // 2. load-bearing: a solid outer border is present
+    await waitFor(() => {
+      const style = getComputedStyle(menu);
+      expect(style.borderTopStyle).toBe('solid');
+      expect(parseFloat(style.borderTopWidth)).toBeGreaterThan(0);
+    });
+
+    // 3. content still renders
+    await expect(canvas.getByText('Duplicate')).toBeVisible();
+
+    // keyboard model intact: menuitems are focusable, first item takes focus
+    const items = canvas.getAllByRole('menuitem');
+    items[0].focus();
+    await waitFor(() => {
+      expect(document.activeElement).toBe(items[0]);
+    });
+    await userEvent.keyboard('{ArrowDown}');
+  },
+};
+
+// ─── Menu variant: floating ───────────────────────────────────────────────────
+
+export const VariantFloating: Story = {
+  render: () => (
+    <Menu variant="floating">
+      <MenuItem onSelect={() => {}}>Share</MenuItem>
+      <MenuItem onSelect={() => {}}>Export</MenuItem>
+      <MenuItem onSelect={() => {}}>Print</MenuItem>
+    </Menu>
+  ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr on the menu root
+    const menu = await canvas.findByRole('menu');
+    await expect(menu).toHaveAttribute('data-bbangto-menu-variant', 'floating');
+
+    // 2. load-bearing: elevation shadow present + larger radius than default (12px)
+    await waitFor(() => {
+      const style = getComputedStyle(menu);
+      expect(style.boxShadow).not.toBe('none');
+      expect(style.boxShadow).not.toBe('');
+      expect(parseFloat(style.borderTopLeftRadius)).toBeGreaterThan(12);
+    });
+
+    // 3. content still renders
+    await expect(canvas.getByText('Export')).toBeVisible();
+
+    // keyboard model intact: menuitems are focusable, first item takes focus
+    const items = canvas.getAllByRole('menuitem');
+    items[0].focus();
+    await waitFor(() => {
+      expect(document.activeElement).toBe(items[0]);
+    });
+    await userEvent.keyboard('{ArrowDown}');
+  },
+};
+
 // ─── Controlled DropdownMenu ─────────────────────────────────────────────────
 
 export const Controlled: Story = {

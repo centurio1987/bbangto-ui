@@ -5,9 +5,20 @@ import { cssVar } from '@centurio1987/tokens';
 
 export type ChatBubbleRole = 'user' | 'assistant' | 'system';
 
+/**
+ * Visual presentation of a chat message.
+ * - `bubble` (default): rounded bubble aligned by role (user right / assistant left).
+ * - `flat`: list/Slack style — left-aligned for every role, no bubble fill, full-width rows.
+ * - `compact`: bubble layout with reduced gap + padding.
+ * - `card`: each message rendered inside a bordered box card.
+ */
+export type ChatBubbleVariant = 'bubble' | 'flat' | 'compact' | 'card';
+
 export interface ChatBubbleProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Who sent this message. Controls alignment and surface color. */
   role: ChatBubbleRole;
+  /** Visual presentation. Defaults to `bubble` (existing behavior). */
+  variant?: ChatBubbleVariant;
   /** Optional ISO timestamp string displayed below the message. */
   timestamp?: string;
   /** Optional avatar element rendered beside the bubble. */
@@ -15,16 +26,24 @@ export interface ChatBubbleProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const ChatBubble = React.forwardRef<HTMLDivElement, ChatBubbleProps>(
-  ({ role, timestamp, avatar, children, style, ...props }, ref) => {
+  ({ role, variant = 'bubble', timestamp, avatar, children, style, ...props }, ref) => {
     const isUser = role === 'user';
     const isSystem = role === 'system';
 
-    // Layout: user aligns right, assistant/system align left
+    const isFlat = variant === 'flat';
+    const isCompact = variant === 'compact';
+    const isCard = variant === 'card';
+
+    // Flat variant aligns every role to the left (Slack/list style).
+    const alignRight = isUser && !isFlat;
+
+    // Layout: user aligns right, assistant/system align left.
+    // Flat forces left alignment for all roles and stretches rows full-width.
     const wrapperStyles: React.CSSProperties = {
       display: 'flex',
-      flexDirection: isUser ? 'row-reverse' : 'row',
-      alignItems: 'flex-end',
-      gap: cssVar('spacing', '8'),
+      flexDirection: alignRight ? 'row-reverse' : 'row',
+      alignItems: isFlat ? 'flex-start' : 'flex-end',
+      gap: isCompact ? cssVar('spacing', '4') : cssVar('spacing', '8'),
       width: '100%',
     };
 
@@ -43,18 +62,41 @@ export const ChatBubble = React.forwardRef<HTMLDivElement, ChatBubbleProps>(
       ? cssVar('semantic', 'primary', 'base')
       : cssVar('semantic', 'border', 'muted');
 
+    // Padding by variant: compact tightens it, others keep the roomy default.
+    const bubblePadding = isCompact
+      ? `${cssVar('spacing', '4')} ${cssVar('spacing', '8')}`
+      : `${cssVar('spacing', '10')} ${cssVar('spacing', '16')}`;
+
+    // Bubble corner radius. Flat/card use a uniform small radius (no chat-tail shape).
+    const bubbleRadius =
+      isFlat || isCard
+        ? cssVar('radius', 'sm')
+        : alignRight
+        ? `${cssVar('radius', 'lg')} ${cssVar('radius', 'lg')} ${cssVar('radius', 'sm')} ${cssVar('radius', 'lg')}`
+        : `${cssVar('radius', 'lg')} ${cssVar('radius', 'lg')} ${cssVar('radius', 'lg')} ${cssVar('radius', 'sm')}`;
+
     const bubbleStyles: React.CSSProperties = {
       display: 'flex',
       flexDirection: 'column',
-      gap: cssVar('spacing', '4'),
-      maxWidth: '75%',
-      padding: `${cssVar('spacing', '10')} ${cssVar('spacing', '16')}`,
-      backgroundColor: bubbleBg,
-      color: bubbleFg,
-      border: `1px solid ${bubbleBorderColor}`,
-      borderRadius: isUser
-        ? `${cssVar('radius', 'lg')} ${cssVar('radius', 'lg')} ${cssVar('radius', 'sm')} ${cssVar('radius', 'lg')}`
-        : `${cssVar('radius', 'lg')} ${cssVar('radius', 'lg')} ${cssVar('radius', 'lg')} ${cssVar('radius', 'sm')}`,
+      gap: isCompact ? cssVar('spacing', '2') : cssVar('spacing', '4'),
+      // Flat rows span the available width; card is roomy; bubble keeps the 75% cap.
+      maxWidth: isFlat ? '100%' : isCard ? '90%' : '75%',
+      width: isFlat ? '100%' : undefined,
+      padding: bubblePadding,
+      // Flat drops the surface fill entirely; card keeps a neutral elevated surface.
+      backgroundColor: isFlat
+        ? 'transparent'
+        : isCard
+        ? cssVar('semantic', 'background', 'elevated')
+        : bubbleBg,
+      color: isFlat ? cssVar('semantic', 'foreground', 'base') : bubbleFg,
+      // Flat has no border; card always shows a solid box; bubble keeps its role border.
+      border: isFlat
+        ? 'none'
+        : isCard
+        ? `1px solid ${cssVar('semantic', 'border', 'base')}`
+        : `1px solid ${bubbleBorderColor}`,
+      borderRadius: bubbleRadius,
       fontFamily: cssVar('typography', 'fontFamily', 'sans'),
       fontSize: cssVar('typography', 'scale', 'body', 'fontSize'),
       lineHeight: cssVar('typography', 'scale', 'body', 'lineHeight'),
@@ -84,7 +126,7 @@ export const ChatBubble = React.forwardRef<HTMLDivElement, ChatBubbleProps>(
     const timestampStyles: React.CSSProperties = {
       fontSize: cssVar('typography', 'scale', 'meta', 'fontSize'),
       color: cssVar('semantic', 'foreground', 'muted'),
-      textAlign: isUser ? 'right' : 'left',
+      textAlign: alignRight ? 'right' : 'left',
     };
 
     const ariaLabel = `${role === 'user' ? 'You' : role === 'assistant' ? 'Assistant' : 'System'}: ${typeof children === 'string' ? children : ''}`;
@@ -97,6 +139,7 @@ export const ChatBubble = React.forwardRef<HTMLDivElement, ChatBubbleProps>(
           role="note"
           aria-label={ariaLabel}
           data-role={role}
+          data-bbangto-chat-variant={variant}
           {...props}
         >
           <span style={systemBubbleStyles}>{children}</span>
@@ -109,6 +152,7 @@ export const ChatBubble = React.forwardRef<HTMLDivElement, ChatBubbleProps>(
         ref={ref}
         style={wrapperStyles}
         data-role={role}
+        data-bbangto-chat-variant={variant}
         {...props}
       >
         {avatar && (
