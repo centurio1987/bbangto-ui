@@ -18,6 +18,23 @@ const preview: Preview = {
     a11y: {
       test: 'todo',
     },
+    options: {
+      // 디자인 시스템 계층 순서대로 사이드바 정렬 (DESIGN_SYSTEM_GUIDE.md)
+      storySort: {
+        order: [
+          'Overview',
+          'Foundations',
+          'Atoms',
+          'Molecules',
+          'Organisms',
+          'Blocks',
+          'Patterns',
+          'Motion',
+          'Hooks',
+          '*',
+        ],
+      },
+    },
   },
   globalTypes: {
     theme: {

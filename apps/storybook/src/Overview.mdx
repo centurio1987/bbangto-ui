@@ -1,0 +1,48 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Overview/Introduction" />
+
+# 🍞 bbangto-ui
+
+테마 가능한(themeable) React 컴포넌트 라이브러리 — **토큰 → 컴포넌트 → 섹션 → 화면**으로
+쌓아 올리는 레이어 디자인 시스템.
+
+> 개념 가이드 전문은 레포 루트의 [`DESIGN_SYSTEM_GUIDE.md`](https://github.com/centurio1987/bbangto-ui/blob/main/DESIGN_SYSTEM_GUIDE.md),
+> 21st.dev 에셋화 분류는 [`packages/core/COMPONENT_CATALOG.md`](https://github.com/centurio1987/bbangto-ui/blob/main/packages/core/COMPONENT_CATALOG.md) 참고.
+
+---
+
+## 레이어 (사이드바 순서)
+
+| 그룹 | 계층 | 한 줄 정의 | 예시 |
+|---|---|---|---|
+| **Atoms** | atom | 더 못 쪼개는 한 조각 | `Button` `Input` `Link` `Badge` |
+| **Molecules** | molecule | atom 몇 개의 작은 묶음 | `SearchField` `Calendar` `Menu` `NumberField` |
+| **Organisms** | organism | 복합 단일 컴포넌트 | `Table` `DataGrid` `GNB` `Footer` |
+| **Blocks** | block(section) | 페이지의 "한 섹션" (콘텐츠 슬롯 보유) | `Hero` `FeatureGrid` `PricingSection` |
+| **Patterns** | template+flow | "한 화면/플로우" 전체 (검증·제출 포함) | `SignIn` `SignUp` `FormLayout` `AIChat` |
+| **Motion** | motion atom | 움직임 그 자체 (`prefers-reduced-motion` 폴백) | `FadeIn` `Spinner` `Marquee`, `Shaders/*` |
+| **Hooks** | hook | UI 없는 로직 (`@centurio1987/hooks`) | `useInView` `useMediaQuery` `useDebounce` |
+
+**핵심 질문 — "이 조각은 자기가 무슨 콘텐츠를 담는지 아는가?"**
+모르면 atom/molecule, 알면(제목/항목/CTA 슬롯) block 이상.
+
+---
+
+## 테마
+
+상단 툴바의 **Theme** 토글로 5개 테마를 전환할 수 있습니다:
+`light` · `dark` · `high-contrast` · `amber-light` · `amber-dark`.
+
+모든 컴포넌트는 색·간격·타이포·모션을 **디자인 토큰(`cssVar()`)** 으로만 참조하므로
+테마를 바꾸면 전체가 일관되게 따라갑니다.
+
+---
+
+## 품질 규약
+
+- 모든 컴포넌트: `forwardRef` + `displayName` + `...props`, 토큰 전용(하드코딩 금지), zero-dep 지향.
+- 모든 스토리: `play` 함수로 렌더·인터랙션·접근성을 실제 chromium 위에서 검증.
+- 모션/셰이더: `prefers-reduced-motion` 정적 폴백 필수.
+
+각 컴포넌트의 변형(variant)과 상태는 좌측 사이드바의 스토리에서 확인하세요.
