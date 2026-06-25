@@ -30,3 +30,16 @@ export * from './useLocalStorage';
 export * from './useCopyToClipboard';
 export * from './useThrottle';
 export * from './useEventListener';
+// Wave 3c — timer/storage
+export * from './useSessionStorage';
+export * from './useInterval';
+export * from './useTimeout';
+// Wave 3c — media/visibility
+export * from './useDarkMode';
+export * from './usePageVisibility';
+export * from './useOrientation';
+// Wave 3c — device/activity
+export * from './useNetworkState';
+export * from './useGeolocation';
+export * from './useIdle';
+export * from './useFullscreen';
