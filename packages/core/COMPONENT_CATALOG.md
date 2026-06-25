@@ -207,3 +207,22 @@ Wave 0 (편제·인프라·토큰)
 | **Wave 3d** (shaders 잔여 6종) | motion/shader | 3 | **DONE** | workflow | Plasma·Noise·Metaballs·RippleBg·DotMatrix·Halftone (canvas) / test 445 |
 | Wave 6: Storybook Overview MDX + 사이드바 계층 정렬 | 문서 | 6 | **DONE** | orchestrator | storySort + Overview/Introduction |
 | Wave 6: changeset/버전범프/퍼블리시 | 릴리스 | 6 | TODO | | ⚠️ outward-facing, 사용자 승인 필요 |
+
+### 레지스트리 — Variant 확장 (아키타입 망라, 2026-06-25)
+
+> **목적**: 1차 구현은 카테고리당 정규 컴포넌트 1개였다. B/C 싱글톤 대부분이 "고정 디자인 1형"이라
+> 레퍼런스의 디자인 아키타입(split SignIn, masonry Gallery 등)을 prop으로 재현할 수 없었다.
+> 이 2차 작업은 싱글톤에 named `variant`/`layout` 축을 추가해 디자인 스페이스를 prop 주도로 망라한다.
+> 계획서: `../../[lovely-whistling-raccoon plan]` · 범위: 표준 밀도(카테고리당 3~6), 신규 variant ~78, prop 주도, default-first 하위호환.
+
+**축 규약**: 구조 reflow=`layout`, chrome/treatment=`variant`. 테스트 훅 = `data-bbangto-<comp-kebab>-<axis>={value}` (루트 요소). 신규 축은 이 attr만 신뢰. 반응형 2-col은 Hero scoped `<style>` + `breakpoints.lg` 패턴, 클래스/CSS변수는 컴포넌트 prefix 네임스페이스. **유효 border 토큰은 base/muted/strong/focus뿐**(`subtle` 미정의 — 사용 금지).
+
+| 산출물 | 계층 | Wave | 상태 | 담당 | 비고 |
+|---|---|---|---|---|---|
+| **V1** A-group 축 | atom/molecule | V1 | **DONE** | workflow | Card `layout`+media, Input/Select/Slider `variant`, Accordion `+separated` / 신규 스토리 10 |
+| **V2** B-primitive variant | primitive | V2 | **DONE** | workflow | ScrollArea·Calendar(표시전용)·Menu·Sidebar·TreeView·Chat / 신규 스토리 18 |
+| **V3** C-block A layout | block | V3 | **DONE** | workflow | Hero·FeatureGrid·CTA·Pricing·Testimonials·Gallery·LogoCloud / carousel·marquee reduced-motion / 신규 스토리 22 |
+| **V4** C-block B layout/variant | block | V4 | **DONE** | workflow | Comparison(slider)·Dock·VideoBlock·MapBlock·MarketingFooter·AnnouncementBar / 신규 스토리 15 |
+| **V5** C-pattern layout | pattern | V5 | **DONE** | workflow | SignIn·SignUp(marketingPanel 대칭)·FormLayout·AIChat / marketingPanel×layout 충돌규칙 / 신규 스토리 12 |
+| **═══ Variant 확장 완료 ═══** | | | **DONE** | | 신규 variant 77종 · 브라우저 test 522 · test:unit 115 · storybook build GREEN |
+| 커밋 | git | V1~V5 | **DONE** | orchestrator | 6505470(V1∥V2)·06b0528(V3)·285fd05(V4)·40d00e5(V5) on feat/asset-integration-wave0 |
