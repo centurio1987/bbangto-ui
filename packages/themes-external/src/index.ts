@@ -1,232 +1,232 @@
 // Auto-generated — do not edit manually
 // Regenerate with: pnpm --filter themes-external generate
-export { airbnbTheme } from './themes/airbnb'
-export { airtableTheme } from './themes/airtable'
-export { appleTheme } from './themes/apple'
-export { binanceTheme } from './themes/binance'
-export { bmwMTheme } from './themes/bmw-m'
-export { bmwTheme } from './themes/bmw'
-export { bugattiTheme } from './themes/bugatti'
-export { calTheme } from './themes/cal'
-export { claudeTheme } from './themes/claude'
-export { clayTheme } from './themes/clay'
-export { clickhouseTheme } from './themes/clickhouse'
-export { cohereTheme } from './themes/cohere'
-export { coinbaseTheme } from './themes/coinbase'
-export { composioTheme } from './themes/composio'
-export { cursorTheme } from './themes/cursor'
-export { dell1996Theme } from './themes/dell-1996'
-export { elevenlabsTheme } from './themes/elevenlabs'
-export { expoTheme } from './themes/expo'
-export { ferrariTheme } from './themes/ferrari'
-export { figmaTheme } from './themes/figma'
-export { framerTheme } from './themes/framer'
-export { hashicorpTheme } from './themes/hashicorp'
-export { hpTheme } from './themes/hp'
-export { ibmTheme } from './themes/ibm'
-export { intercomTheme } from './themes/intercom'
-export { krakenTheme } from './themes/kraken'
-export { lamborghiniTheme } from './themes/lamborghini'
-export { linearAppTheme } from './themes/linear-app'
-export { lovableTheme } from './themes/lovable'
-export { mastercardTheme } from './themes/mastercard'
-export { metaTheme } from './themes/meta'
-export { minimaxTheme } from './themes/minimax'
-export { mintlifyTheme } from './themes/mintlify'
-export { miroTheme } from './themes/miro'
-export { mistralAiTheme } from './themes/mistral-ai'
-export { mongodbTheme } from './themes/mongodb'
-export { nikeTheme } from './themes/nike'
-export { nintendo2001Theme } from './themes/nintendo-2001'
-export { notionTheme } from './themes/notion'
-export { nvidiaTheme } from './themes/nvidia'
-export { ollamaTheme } from './themes/ollama'
-export { opencodeAiTheme } from './themes/opencode-ai'
-export { pinterestTheme } from './themes/pinterest'
-export { playstationTheme } from './themes/playstation'
-export { posthogTheme } from './themes/posthog'
-export { raycastTheme } from './themes/raycast'
-export { renaultTheme } from './themes/renault'
-export { replicateTheme } from './themes/replicate'
-export { resendTheme } from './themes/resend'
-export { revolutTheme } from './themes/revolut'
-export { runwaymlTheme } from './themes/runwayml'
-export { sanityTheme } from './themes/sanity'
-export { sentryTheme } from './themes/sentry'
-export { shopifyTheme } from './themes/shopify'
-export { slackTheme } from './themes/slack'
-export { spacexTheme } from './themes/spacex'
-export { spotifyTheme } from './themes/spotify'
-export { starbucksTheme } from './themes/starbucks'
-export { stripeTheme } from './themes/stripe'
-export { supabaseTheme } from './themes/supabase'
-export { superhumanTheme } from './themes/superhuman'
-export { teslaTheme } from './themes/tesla'
-export { thevergeTheme } from './themes/theverge'
-export { togetherAiTheme } from './themes/together-ai'
-export { uberTheme } from './themes/uber'
-export { vercelTheme } from './themes/vercel'
-export { vodafoneTheme } from './themes/vodafone'
-export { voltagentTheme } from './themes/voltagent'
-export { warpTheme } from './themes/warp'
-export { webflowTheme } from './themes/webflow'
-export { wiredTheme } from './themes/wired'
-export { wiseTheme } from './themes/wise'
-export { xAiTheme } from './themes/x-ai'
-export { zapierTheme } from './themes/zapier'
+export { acidMintTheme } from './themes/acid-mint'
+export { arcticWhiteTheme } from './themes/arctic-white'
+export { aubergineTheme } from './themes/aubergine'
+export { auroraYellowTheme } from './themes/aurora-yellow'
+export { azureCleanTheme } from './themes/azure-clean'
+export { bavarianTheme } from './themes/bavarian'
+export { blueprintTheme } from './themes/blueprint'
+export { broadsheetTheme } from './themes/broadsheet'
+export { carbonNightTheme } from './themes/carbon-night'
+export { carbonTheme } from './themes/carbon'
+export { catalogRedTheme } from './themes/catalog-red'
+export { celluloidTheme } from './themes/celluloid'
+export { charcoalWarmTheme } from './themes/charcoal-warm'
+export { cobaltTheme } from './themes/cobalt'
+export { codeDarkTheme } from './themes/code-dark'
+export { codeIvoryTheme } from './themes/code-ivory'
+export { commerceNoirTheme } from './themes/commerce-noir'
+export { coralTheme } from './themes/coral'
+export { cosmonautTheme } from './themes/cosmonaut'
+export { creamBloomTheme } from './themes/cream-bloom'
+export { darkChromeTheme } from './themes/dark-chrome'
+export { editorialDarkTheme } from './themes/editorial-dark'
+export { electricVoidTheme } from './themes/electric-void'
+export { emberCreamTheme } from './themes/ember-cream'
+export { forestCreamTheme } from './themes/forest-cream'
+export { glacialTheme } from './themes/glacial'
+export { goldRushTheme } from './themes/gold-rush'
+export { gradientVioletTheme } from './themes/gradient-violet'
+export { grandNoirTheme } from './themes/grand-noir'
+export { graphiteTheme } from './themes/graphite'
+export { honeyCreamTheme } from './themes/honey-cream'
+export { indigoNightTheme } from './themes/indigo-night'
+export { ironTheme } from './themes/iron'
+export { ivoryLoftTheme } from './themes/ivory-loft'
+export { jadeLeafTheme } from './themes/jade-leaf'
+export { jungleNightTheme } from './themes/jungle-night'
+export { limeTheme } from './themes/lime'
+export { magazineLightTheme } from './themes/magazine-light'
+export { midnightIndigoTheme } from './themes/midnight-indigo'
+export { midnightInkTheme } from './themes/midnight-ink'
+export { mintCodeTheme } from './themes/mint-code'
+export { mossCleanTheme } from './themes/moss-clean'
+export { motionDarkTheme } from './themes/motion-dark'
+export { navyDarkTheme } from './themes/navy-dark'
+export { neonYellowTheme } from './themes/neon-yellow'
+export { obsidianGoldTheme } from './themes/obsidian-gold'
+export { obsidianVioletTheme } from './themes/obsidian-violet'
+export { onyxTheme } from './themes/onyx'
+export { oxideGreenTheme } from './themes/oxide-green'
+export { periwinkleRetroTheme } from './themes/periwinkle-retro'
+export { pitchTheme } from './themes/pitch'
+export { precisionTheme } from './themes/precision'
+export { prismTheme } from './themes/prism'
+export { raceNightTheme } from './themes/race-night'
+export { raspberryTheme } from './themes/raspberry'
+export { scarletNoirTheme } from './themes/scarlet-noir'
+export { serenityTheme } from './themes/serenity'
+export { signalRedTheme } from './themes/signal-red'
+export { socialBlueTheme } from './themes/social-blue'
+export { starkWhiteTheme } from './themes/stark-white'
+export { sunflowerTheme } from './themes/sunflower'
+export { sunsetTheme } from './themes/sunset'
+export { tangerineTheme } from './themes/tangerine'
+export { terminalTheme } from './themes/terminal'
+export { terracottaTheme } from './themes/terracotta'
+export { urbanMonoTheme } from './themes/urban-mono'
+export { violetDepthTheme } from './themes/violet-depth'
+export { voidTheme } from './themes/void'
+export { voltEmeraldTheme } from './themes/volt-emerald'
+export { warmCanvasTheme } from './themes/warm-canvas'
+export { warmIvoryTheme } from './themes/warm-ivory'
+export { warmLinenTheme } from './themes/warm-linen'
+export { warmParchmentTheme } from './themes/warm-parchment'
+export { webBlueTheme } from './themes/web-blue'
 
 export { default as catalog } from './catalog.json'
 export type { BbangtoTheme } from '@centurio1987/tokens'
 
 import type { BbangtoTheme } from '@centurio1987/tokens'
-import { airbnbTheme } from './themes/airbnb'
-import { airtableTheme } from './themes/airtable'
-import { appleTheme } from './themes/apple'
-import { binanceTheme } from './themes/binance'
-import { bmwMTheme } from './themes/bmw-m'
-import { bmwTheme } from './themes/bmw'
-import { bugattiTheme } from './themes/bugatti'
-import { calTheme } from './themes/cal'
-import { claudeTheme } from './themes/claude'
-import { clayTheme } from './themes/clay'
-import { clickhouseTheme } from './themes/clickhouse'
-import { cohereTheme } from './themes/cohere'
-import { coinbaseTheme } from './themes/coinbase'
-import { composioTheme } from './themes/composio'
-import { cursorTheme } from './themes/cursor'
-import { dell1996Theme } from './themes/dell-1996'
-import { elevenlabsTheme } from './themes/elevenlabs'
-import { expoTheme } from './themes/expo'
-import { ferrariTheme } from './themes/ferrari'
-import { figmaTheme } from './themes/figma'
-import { framerTheme } from './themes/framer'
-import { hashicorpTheme } from './themes/hashicorp'
-import { hpTheme } from './themes/hp'
-import { ibmTheme } from './themes/ibm'
-import { intercomTheme } from './themes/intercom'
-import { krakenTheme } from './themes/kraken'
-import { lamborghiniTheme } from './themes/lamborghini'
-import { linearAppTheme } from './themes/linear-app'
-import { lovableTheme } from './themes/lovable'
-import { mastercardTheme } from './themes/mastercard'
-import { metaTheme } from './themes/meta'
-import { minimaxTheme } from './themes/minimax'
-import { mintlifyTheme } from './themes/mintlify'
-import { miroTheme } from './themes/miro'
-import { mistralAiTheme } from './themes/mistral-ai'
-import { mongodbTheme } from './themes/mongodb'
-import { nikeTheme } from './themes/nike'
-import { nintendo2001Theme } from './themes/nintendo-2001'
-import { notionTheme } from './themes/notion'
-import { nvidiaTheme } from './themes/nvidia'
-import { ollamaTheme } from './themes/ollama'
-import { opencodeAiTheme } from './themes/opencode-ai'
-import { pinterestTheme } from './themes/pinterest'
-import { playstationTheme } from './themes/playstation'
-import { posthogTheme } from './themes/posthog'
-import { raycastTheme } from './themes/raycast'
-import { renaultTheme } from './themes/renault'
-import { replicateTheme } from './themes/replicate'
-import { resendTheme } from './themes/resend'
-import { revolutTheme } from './themes/revolut'
-import { runwaymlTheme } from './themes/runwayml'
-import { sanityTheme } from './themes/sanity'
-import { sentryTheme } from './themes/sentry'
-import { shopifyTheme } from './themes/shopify'
-import { slackTheme } from './themes/slack'
-import { spacexTheme } from './themes/spacex'
-import { spotifyTheme } from './themes/spotify'
-import { starbucksTheme } from './themes/starbucks'
-import { stripeTheme } from './themes/stripe'
-import { supabaseTheme } from './themes/supabase'
-import { superhumanTheme } from './themes/superhuman'
-import { teslaTheme } from './themes/tesla'
-import { thevergeTheme } from './themes/theverge'
-import { togetherAiTheme } from './themes/together-ai'
-import { uberTheme } from './themes/uber'
-import { vercelTheme } from './themes/vercel'
-import { vodafoneTheme } from './themes/vodafone'
-import { voltagentTheme } from './themes/voltagent'
-import { warpTheme } from './themes/warp'
-import { webflowTheme } from './themes/webflow'
-import { wiredTheme } from './themes/wired'
-import { wiseTheme } from './themes/wise'
-import { xAiTheme } from './themes/x-ai'
-import { zapierTheme } from './themes/zapier'
+import { acidMintTheme } from './themes/acid-mint'
+import { arcticWhiteTheme } from './themes/arctic-white'
+import { aubergineTheme } from './themes/aubergine'
+import { auroraYellowTheme } from './themes/aurora-yellow'
+import { azureCleanTheme } from './themes/azure-clean'
+import { bavarianTheme } from './themes/bavarian'
+import { blueprintTheme } from './themes/blueprint'
+import { broadsheetTheme } from './themes/broadsheet'
+import { carbonNightTheme } from './themes/carbon-night'
+import { carbonTheme } from './themes/carbon'
+import { catalogRedTheme } from './themes/catalog-red'
+import { celluloidTheme } from './themes/celluloid'
+import { charcoalWarmTheme } from './themes/charcoal-warm'
+import { cobaltTheme } from './themes/cobalt'
+import { codeDarkTheme } from './themes/code-dark'
+import { codeIvoryTheme } from './themes/code-ivory'
+import { commerceNoirTheme } from './themes/commerce-noir'
+import { coralTheme } from './themes/coral'
+import { cosmonautTheme } from './themes/cosmonaut'
+import { creamBloomTheme } from './themes/cream-bloom'
+import { darkChromeTheme } from './themes/dark-chrome'
+import { editorialDarkTheme } from './themes/editorial-dark'
+import { electricVoidTheme } from './themes/electric-void'
+import { emberCreamTheme } from './themes/ember-cream'
+import { forestCreamTheme } from './themes/forest-cream'
+import { glacialTheme } from './themes/glacial'
+import { goldRushTheme } from './themes/gold-rush'
+import { gradientVioletTheme } from './themes/gradient-violet'
+import { grandNoirTheme } from './themes/grand-noir'
+import { graphiteTheme } from './themes/graphite'
+import { honeyCreamTheme } from './themes/honey-cream'
+import { indigoNightTheme } from './themes/indigo-night'
+import { ironTheme } from './themes/iron'
+import { ivoryLoftTheme } from './themes/ivory-loft'
+import { jadeLeafTheme } from './themes/jade-leaf'
+import { jungleNightTheme } from './themes/jungle-night'
+import { limeTheme } from './themes/lime'
+import { magazineLightTheme } from './themes/magazine-light'
+import { midnightIndigoTheme } from './themes/midnight-indigo'
+import { midnightInkTheme } from './themes/midnight-ink'
+import { mintCodeTheme } from './themes/mint-code'
+import { mossCleanTheme } from './themes/moss-clean'
+import { motionDarkTheme } from './themes/motion-dark'
+import { navyDarkTheme } from './themes/navy-dark'
+import { neonYellowTheme } from './themes/neon-yellow'
+import { obsidianGoldTheme } from './themes/obsidian-gold'
+import { obsidianVioletTheme } from './themes/obsidian-violet'
+import { onyxTheme } from './themes/onyx'
+import { oxideGreenTheme } from './themes/oxide-green'
+import { periwinkleRetroTheme } from './themes/periwinkle-retro'
+import { pitchTheme } from './themes/pitch'
+import { precisionTheme } from './themes/precision'
+import { prismTheme } from './themes/prism'
+import { raceNightTheme } from './themes/race-night'
+import { raspberryTheme } from './themes/raspberry'
+import { scarletNoirTheme } from './themes/scarlet-noir'
+import { serenityTheme } from './themes/serenity'
+import { signalRedTheme } from './themes/signal-red'
+import { socialBlueTheme } from './themes/social-blue'
+import { starkWhiteTheme } from './themes/stark-white'
+import { sunflowerTheme } from './themes/sunflower'
+import { sunsetTheme } from './themes/sunset'
+import { tangerineTheme } from './themes/tangerine'
+import { terminalTheme } from './themes/terminal'
+import { terracottaTheme } from './themes/terracotta'
+import { urbanMonoTheme } from './themes/urban-mono'
+import { violetDepthTheme } from './themes/violet-depth'
+import { voidTheme } from './themes/void'
+import { voltEmeraldTheme } from './themes/volt-emerald'
+import { warmCanvasTheme } from './themes/warm-canvas'
+import { warmIvoryTheme } from './themes/warm-ivory'
+import { warmLinenTheme } from './themes/warm-linen'
+import { warmParchmentTheme } from './themes/warm-parchment'
+import { webBlueTheme } from './themes/web-blue'
 
 export const themeMap: Record<string, BbangtoTheme> = {
-  'airbnb': airbnbTheme,
-  'airtable': airtableTheme,
-  'apple': appleTheme,
-  'binance': binanceTheme,
-  'bmw-m': bmwMTheme,
-  'bmw': bmwTheme,
-  'bugatti': bugattiTheme,
-  'cal': calTheme,
-  'claude': claudeTheme,
-  'clay': clayTheme,
-  'clickhouse': clickhouseTheme,
-  'cohere': cohereTheme,
-  'coinbase': coinbaseTheme,
-  'composio': composioTheme,
-  'cursor': cursorTheme,
-  'dell-1996': dell1996Theme,
-  'elevenlabs': elevenlabsTheme,
-  'expo': expoTheme,
-  'ferrari': ferrariTheme,
-  'figma': figmaTheme,
-  'framer': framerTheme,
-  'hashicorp': hashicorpTheme,
-  'hp': hpTheme,
-  'ibm': ibmTheme,
-  'intercom': intercomTheme,
-  'kraken': krakenTheme,
-  'lamborghini': lamborghiniTheme,
-  'linear.app': linearAppTheme,
-  'lovable': lovableTheme,
-  'mastercard': mastercardTheme,
-  'meta': metaTheme,
-  'minimax': minimaxTheme,
-  'mintlify': mintlifyTheme,
-  'miro': miroTheme,
-  'mistral.ai': mistralAiTheme,
-  'mongodb': mongodbTheme,
-  'nike': nikeTheme,
-  'nintendo-2001': nintendo2001Theme,
-  'notion': notionTheme,
-  'nvidia': nvidiaTheme,
-  'ollama': ollamaTheme,
-  'opencode.ai': opencodeAiTheme,
-  'pinterest': pinterestTheme,
-  'playstation': playstationTheme,
-  'posthog': posthogTheme,
-  'raycast': raycastTheme,
-  'renault': renaultTheme,
-  'replicate': replicateTheme,
-  'resend': resendTheme,
-  'revolut': revolutTheme,
-  'runwayml': runwaymlTheme,
-  'sanity': sanityTheme,
-  'sentry': sentryTheme,
-  'shopify': shopifyTheme,
-  'slack': slackTheme,
-  'spacex': spacexTheme,
-  'spotify': spotifyTheme,
-  'starbucks': starbucksTheme,
-  'stripe': stripeTheme,
-  'supabase': supabaseTheme,
-  'superhuman': superhumanTheme,
-  'tesla': teslaTheme,
-  'theverge': thevergeTheme,
-  'together.ai': togetherAiTheme,
-  'uber': uberTheme,
-  'vercel': vercelTheme,
-  'vodafone': vodafoneTheme,
-  'voltagent': voltagentTheme,
-  'warp': warpTheme,
-  'webflow': webflowTheme,
-  'wired': wiredTheme,
-  'wise': wiseTheme,
-  'x.ai': xAiTheme,
-  'zapier': zapierTheme,
+  'acid-mint': acidMintTheme,
+  'arctic-white': arcticWhiteTheme,
+  'aubergine': aubergineTheme,
+  'aurora-yellow': auroraYellowTheme,
+  'azure-clean': azureCleanTheme,
+  'bavarian': bavarianTheme,
+  'blueprint': blueprintTheme,
+  'broadsheet': broadsheetTheme,
+  'carbon-night': carbonNightTheme,
+  'carbon': carbonTheme,
+  'catalog-red': catalogRedTheme,
+  'celluloid': celluloidTheme,
+  'charcoal-warm': charcoalWarmTheme,
+  'cobalt': cobaltTheme,
+  'code-dark': codeDarkTheme,
+  'code-ivory': codeIvoryTheme,
+  'commerce-noir': commerceNoirTheme,
+  'coral': coralTheme,
+  'cosmonaut': cosmonautTheme,
+  'cream-bloom': creamBloomTheme,
+  'dark-chrome': darkChromeTheme,
+  'editorial-dark': editorialDarkTheme,
+  'electric-void': electricVoidTheme,
+  'ember-cream': emberCreamTheme,
+  'forest-cream': forestCreamTheme,
+  'glacial': glacialTheme,
+  'gold-rush': goldRushTheme,
+  'gradient-violet': gradientVioletTheme,
+  'grand-noir': grandNoirTheme,
+  'graphite': graphiteTheme,
+  'honey-cream': honeyCreamTheme,
+  'indigo-night': indigoNightTheme,
+  'iron': ironTheme,
+  'ivory-loft': ivoryLoftTheme,
+  'jade-leaf': jadeLeafTheme,
+  'jungle-night': jungleNightTheme,
+  'lime': limeTheme,
+  'magazine-light': magazineLightTheme,
+  'midnight-indigo': midnightIndigoTheme,
+  'midnight-ink': midnightInkTheme,
+  'mint-code': mintCodeTheme,
+  'moss-clean': mossCleanTheme,
+  'motion-dark': motionDarkTheme,
+  'navy-dark': navyDarkTheme,
+  'neon-yellow': neonYellowTheme,
+  'obsidian-gold': obsidianGoldTheme,
+  'obsidian-violet': obsidianVioletTheme,
+  'onyx': onyxTheme,
+  'oxide-green': oxideGreenTheme,
+  'periwinkle-retro': periwinkleRetroTheme,
+  'pitch': pitchTheme,
+  'precision': precisionTheme,
+  'prism': prismTheme,
+  'race-night': raceNightTheme,
+  'raspberry': raspberryTheme,
+  'scarlet-noir': scarletNoirTheme,
+  'serenity': serenityTheme,
+  'signal-red': signalRedTheme,
+  'social-blue': socialBlueTheme,
+  'stark-white': starkWhiteTheme,
+  'sunflower': sunflowerTheme,
+  'sunset': sunsetTheme,
+  'tangerine': tangerineTheme,
+  'terminal': terminalTheme,
+  'terracotta': terracottaTheme,
+  'urban-mono': urbanMonoTheme,
+  'violet-depth': violetDepthTheme,
+  'void': voidTheme,
+  'volt-emerald': voltEmeraldTheme,
+  'warm-canvas': warmCanvasTheme,
+  'warm-ivory': warmIvoryTheme,
+  'warm-linen': warmLinenTheme,
+  'warm-parchment': warmParchmentTheme,
+  'web-blue': webBlueTheme,
 }

@@ -1,446 +1,372 @@
 [
   {
-    "id": "airbnb",
-    "label": "Airbnb",
-    "file": "airbnb",
-    "primaryColor": "#FF5A5F"
+    "id": "acid-mint",
+    "label": "Acid Mint",
+    "file": "acid-mint"
   },
   {
-    "id": "airtable",
-    "label": "Airtable",
-    "file": "airtable",
-    "primaryColor": "#2D7FF9"
+    "id": "arctic-white",
+    "label": "Arctic White",
+    "file": "arctic-white"
   },
   {
-    "id": "apple",
-    "label": "Apple",
-    "file": "apple",
-    "primaryColor": "#0071E3"
+    "id": "aubergine",
+    "label": "Aubergine",
+    "file": "aubergine"
   },
   {
-    "id": "binance",
-    "label": "Binance",
-    "file": "binance",
-    "primaryColor": "#F3BA2F"
+    "id": "aurora-yellow",
+    "label": "Aurora Yellow",
+    "file": "aurora-yellow"
   },
   {
-    "id": "bmw-m",
-    "label": "BMW M",
-    "file": "bmw-m",
-    "primaryColor": "#0553A1"
+    "id": "azure-clean",
+    "label": "Azure Clean",
+    "file": "azure-clean"
   },
   {
-    "id": "bmw",
-    "label": "BMW",
-    "file": "bmw",
-    "primaryColor": "#1C69D4"
+    "id": "bavarian",
+    "label": "Bavarian",
+    "file": "bavarian"
   },
   {
-    "id": "bugatti",
-    "label": "Bugatti",
-    "file": "bugatti",
-    "primaryColor": "#7B1FA2"
+    "id": "blueprint",
+    "label": "Blueprint",
+    "file": "blueprint"
   },
   {
-    "id": "cal",
-    "label": "Cal.com",
-    "file": "cal",
-    "primaryColor": "#111827"
+    "id": "broadsheet",
+    "label": "Broadsheet",
+    "file": "broadsheet"
   },
   {
-    "id": "claude",
-    "label": "Claude",
-    "file": "claude",
-    "primaryColor": "#D4734A"
+    "id": "carbon-night",
+    "label": "Carbon Night",
+    "file": "carbon-night"
   },
   {
-    "id": "clay",
-    "label": "Clay",
-    "file": "clay",
-    "primaryColor": "#7C3AED"
+    "id": "carbon",
+    "label": "Carbon",
+    "file": "carbon"
   },
   {
-    "id": "clickhouse",
-    "label": "ClickHouse",
-    "file": "clickhouse",
-    "primaryColor": "#FAFF69"
+    "id": "catalog-red",
+    "label": "Catalog Red",
+    "file": "catalog-red"
   },
   {
-    "id": "cohere",
-    "label": "Cohere",
-    "file": "cohere",
-    "primaryColor": "#39594D"
+    "id": "celluloid",
+    "label": "Celluloid",
+    "file": "celluloid"
   },
   {
-    "id": "coinbase",
-    "label": "Coinbase",
-    "file": "coinbase",
-    "primaryColor": "#0052FF"
+    "id": "charcoal-warm",
+    "label": "Charcoal Warm",
+    "file": "charcoal-warm"
   },
   {
-    "id": "composio",
-    "label": "Composio",
-    "file": "composio",
-    "primaryColor": "#6D28D9"
+    "id": "cobalt",
+    "label": "Cobalt",
+    "file": "cobalt"
   },
   {
-    "id": "cursor",
-    "label": "Cursor",
-    "file": "cursor",
-    "primaryColor": "#2563EB"
+    "id": "code-dark",
+    "label": "Code Dark",
+    "file": "code-dark"
   },
   {
-    "id": "dell-1996",
-    "label": "Dell (1996)",
-    "file": "dell-1996",
-    "primaryColor": "#007DB8"
+    "id": "code-ivory",
+    "label": "Code Ivory",
+    "file": "code-ivory"
   },
   {
-    "id": "elevenlabs",
-    "label": "ElevenLabs",
-    "file": "elevenlabs",
-    "primaryColor": "#F6F600"
+    "id": "commerce-noir",
+    "label": "Commerce Noir",
+    "file": "commerce-noir"
   },
   {
-    "id": "expo",
-    "label": "Expo",
-    "file": "expo",
-    "primaryColor": "#000020"
+    "id": "coral",
+    "label": "Coral",
+    "file": "coral"
   },
   {
-    "id": "ferrari",
-    "label": "Ferrari",
-    "file": "ferrari",
-    "primaryColor": "#DC0000"
+    "id": "cosmonaut",
+    "label": "Cosmonaut",
+    "file": "cosmonaut"
   },
   {
-    "id": "figma",
-    "label": "Figma",
-    "file": "figma",
-    "primaryColor": "#F24E1E"
+    "id": "cream-bloom",
+    "label": "Cream Bloom",
+    "file": "cream-bloom"
   },
   {
-    "id": "framer",
-    "label": "Framer",
-    "file": "framer",
-    "primaryColor": "#0055FF"
+    "id": "dark-chrome",
+    "label": "Dark Chrome",
+    "file": "dark-chrome"
   },
   {
-    "id": "hashicorp",
-    "label": "HashiCorp",
-    "file": "hashicorp",
-    "primaryColor": "#000000"
+    "id": "editorial-dark",
+    "label": "Editorial Dark",
+    "file": "editorial-dark"
   },
   {
-    "id": "hp",
-    "label": "HP",
-    "file": "hp",
-    "primaryColor": "#0096D6"
+    "id": "electric-void",
+    "label": "Electric Void",
+    "file": "electric-void"
   },
   {
-    "id": "ibm",
-    "label": "IBM",
-    "file": "ibm",
-    "primaryColor": "#0F62FE"
+    "id": "ember-cream",
+    "label": "Ember Cream",
+    "file": "ember-cream"
   },
   {
-    "id": "intercom",
-    "label": "Intercom",
-    "file": "intercom",
-    "primaryColor": "#1F8EFA"
+    "id": "forest-cream",
+    "label": "Forest Cream",
+    "file": "forest-cream"
   },
   {
-    "id": "kraken",
-    "label": "Kraken",
-    "file": "kraken",
-    "primaryColor": "#5741D9"
+    "id": "glacial",
+    "label": "Glacial",
+    "file": "glacial"
   },
   {
-    "id": "lamborghini",
-    "label": "Lamborghini",
-    "file": "lamborghini",
-    "primaryColor": "#DAA520"
+    "id": "gold-rush",
+    "label": "Gold Rush",
+    "file": "gold-rush"
   },
   {
-    "id": "linear.app",
-    "label": "Linear",
-    "file": "linear-app",
-    "primaryColor": "#5E6AD2"
+    "id": "gradient-violet",
+    "label": "Gradient Violet",
+    "file": "gradient-violet"
   },
   {
-    "id": "lovable",
-    "label": "Lovable",
-    "file": "lovable",
-    "primaryColor": "#FF6B6B"
+    "id": "grand-noir",
+    "label": "Grand Noir",
+    "file": "grand-noir"
   },
   {
-    "id": "mastercard",
-    "label": "Mastercard",
-    "file": "mastercard",
-    "primaryColor": "#EB001B"
+    "id": "graphite",
+    "label": "Graphite",
+    "file": "graphite"
   },
   {
-    "id": "meta",
-    "label": "Meta",
-    "file": "meta",
-    "primaryColor": "#0081FB"
+    "id": "honey-cream",
+    "label": "Honey Cream",
+    "file": "honey-cream"
   },
   {
-    "id": "minimax",
-    "label": "MiniMax",
-    "file": "minimax",
-    "primaryColor": "#1A1A2E"
+    "id": "indigo-night",
+    "label": "Indigo Night",
+    "file": "indigo-night"
   },
   {
-    "id": "mintlify",
-    "label": "Mintlify",
-    "file": "mintlify",
-    "primaryColor": "#16A34A"
+    "id": "iron",
+    "label": "Iron",
+    "file": "iron"
   },
   {
-    "id": "miro",
-    "label": "Miro",
-    "file": "miro",
-    "primaryColor": "#FFD02F"
+    "id": "ivory-loft",
+    "label": "Ivory Loft",
+    "file": "ivory-loft"
   },
   {
-    "id": "mistral.ai",
-    "label": "Mistral AI",
-    "file": "mistral-ai",
-    "primaryColor": "#FF7000"
+    "id": "jade-leaf",
+    "label": "Jade Leaf",
+    "file": "jade-leaf"
   },
   {
-    "id": "mongodb",
-    "label": "MongoDB",
-    "file": "mongodb",
-    "primaryColor": "#00ED64"
+    "id": "jungle-night",
+    "label": "Jungle Night",
+    "file": "jungle-night"
   },
   {
-    "id": "nike",
-    "label": "Nike",
-    "file": "nike",
-    "primaryColor": "#111111"
+    "id": "lime",
+    "label": "Lime",
+    "file": "lime"
   },
   {
-    "id": "nintendo-2001",
-    "label": "Nintendo (2001)",
-    "file": "nintendo-2001",
-    "primaryColor": "#E4000F"
+    "id": "magazine-light",
+    "label": "Magazine Light",
+    "file": "magazine-light"
   },
   {
-    "id": "notion",
-    "label": "Notion",
-    "file": "notion",
-    "primaryColor": "#000000"
+    "id": "midnight-indigo",
+    "label": "Midnight Indigo",
+    "file": "midnight-indigo"
   },
   {
-    "id": "nvidia",
-    "label": "NVIDIA",
-    "file": "nvidia",
-    "primaryColor": "#76B900"
+    "id": "midnight-ink",
+    "label": "Midnight Ink",
+    "file": "midnight-ink"
   },
   {
-    "id": "ollama",
-    "label": "Ollama",
-    "file": "ollama",
-    "primaryColor": "#000000"
+    "id": "mint-code",
+    "label": "Mint Code",
+    "file": "mint-code"
   },
   {
-    "id": "opencode.ai",
-    "label": "OpenCode AI",
-    "file": "opencode-ai",
-    "primaryColor": "#2563EB"
+    "id": "moss-clean",
+    "label": "Moss Clean",
+    "file": "moss-clean"
   },
   {
-    "id": "pinterest",
-    "label": "Pinterest",
-    "file": "pinterest",
-    "primaryColor": "#E60023"
+    "id": "motion-dark",
+    "label": "Motion Dark",
+    "file": "motion-dark"
   },
   {
-    "id": "playstation",
-    "label": "PlayStation",
-    "file": "playstation",
-    "primaryColor": "#003087"
+    "id": "navy-dark",
+    "label": "Navy Dark",
+    "file": "navy-dark"
   },
   {
-    "id": "posthog",
-    "label": "PostHog",
-    "file": "posthog",
-    "primaryColor": "#F54E00"
+    "id": "neon-yellow",
+    "label": "Neon Yellow",
+    "file": "neon-yellow"
   },
   {
-    "id": "raycast",
-    "label": "Raycast",
-    "file": "raycast",
-    "primaryColor": "#FF6363"
+    "id": "obsidian-gold",
+    "label": "Obsidian Gold",
+    "file": "obsidian-gold"
   },
   {
-    "id": "renault",
-    "label": "Renault",
-    "file": "renault",
-    "primaryColor": "#EFDF00"
+    "id": "obsidian-violet",
+    "label": "Obsidian Violet",
+    "file": "obsidian-violet"
   },
   {
-    "id": "replicate",
-    "label": "Replicate",
-    "file": "replicate",
-    "primaryColor": "#000000"
+    "id": "onyx",
+    "label": "Onyx",
+    "file": "onyx"
   },
   {
-    "id": "resend",
-    "label": "Resend",
-    "file": "resend",
-    "primaryColor": "#000000"
+    "id": "oxide-green",
+    "label": "Oxide Green",
+    "file": "oxide-green"
   },
   {
-    "id": "revolut",
-    "label": "Revolut",
-    "file": "revolut",
-    "primaryColor": "#0666EB"
+    "id": "periwinkle-retro",
+    "label": "Periwinkle Retro",
+    "file": "periwinkle-retro"
   },
   {
-    "id": "runwayml",
-    "label": "Runway ML",
-    "file": "runwayml",
-    "primaryColor": "#00D1B2"
+    "id": "pitch",
+    "label": "Pitch",
+    "file": "pitch"
   },
   {
-    "id": "sanity",
-    "label": "Sanity",
-    "file": "sanity",
-    "primaryColor": "#F03E2F"
+    "id": "precision",
+    "label": "Precision",
+    "file": "precision"
   },
   {
-    "id": "sentry",
-    "label": "Sentry",
-    "file": "sentry",
-    "primaryColor": "#7B5EA7"
+    "id": "prism",
+    "label": "Prism",
+    "file": "prism"
   },
   {
-    "id": "shopify",
-    "label": "Shopify",
-    "file": "shopify",
-    "primaryColor": "#96BF48"
+    "id": "race-night",
+    "label": "Race Night",
+    "file": "race-night"
   },
   {
-    "id": "slack",
-    "label": "Slack",
-    "file": "slack",
-    "primaryColor": "#611F69"
+    "id": "raspberry",
+    "label": "Raspberry",
+    "file": "raspberry"
   },
   {
-    "id": "spacex",
-    "label": "SpaceX",
-    "file": "spacex",
-    "primaryColor": "#FFFFFF"
+    "id": "scarlet-noir",
+    "label": "Scarlet Noir",
+    "file": "scarlet-noir"
   },
   {
-    "id": "spotify",
-    "label": "Spotify",
-    "file": "spotify",
-    "primaryColor": "#1DB954"
+    "id": "serenity",
+    "label": "Serenity",
+    "file": "serenity"
   },
   {
-    "id": "starbucks",
-    "label": "Starbucks",
-    "file": "starbucks",
-    "primaryColor": "#00704A"
+    "id": "signal-red",
+    "label": "Signal Red",
+    "file": "signal-red"
   },
   {
-    "id": "stripe",
-    "label": "Stripe",
-    "file": "stripe",
-    "primaryColor": "#635BFF"
+    "id": "social-blue",
+    "label": "Social Blue",
+    "file": "social-blue"
   },
   {
-    "id": "supabase",
-    "label": "Supabase",
-    "file": "supabase",
-    "primaryColor": "#3ECF8E"
+    "id": "stark-white",
+    "label": "Stark White",
+    "file": "stark-white"
   },
   {
-    "id": "superhuman",
-    "label": "Superhuman",
-    "file": "superhuman",
-    "primaryColor": "#F5A623"
+    "id": "sunflower",
+    "label": "Sunflower",
+    "file": "sunflower"
   },
   {
-    "id": "tesla",
-    "label": "Tesla",
-    "file": "tesla",
-    "primaryColor": "#CC0000"
+    "id": "sunset",
+    "label": "Sunset",
+    "file": "sunset"
   },
   {
-    "id": "theverge",
-    "label": "The Verge",
-    "file": "theverge",
-    "primaryColor": "#FA2C2C"
+    "id": "tangerine",
+    "label": "Tangerine",
+    "file": "tangerine"
   },
   {
-    "id": "together.ai",
-    "label": "Together AI",
-    "file": "together-ai",
-    "primaryColor": "#4F46E5"
+    "id": "terminal",
+    "label": "Terminal",
+    "file": "terminal"
   },
   {
-    "id": "uber",
-    "label": "Uber",
-    "file": "uber",
-    "primaryColor": "#000000"
+    "id": "terracotta",
+    "label": "Terracotta",
+    "file": "terracotta"
   },
   {
-    "id": "vercel",
-    "label": "Vercel",
-    "file": "vercel",
-    "primaryColor": "#000000"
+    "id": "urban-mono",
+    "label": "Urban Mono",
+    "file": "urban-mono"
   },
   {
-    "id": "vodafone",
-    "label": "Vodafone",
-    "file": "vodafone",
-    "primaryColor": "#E60000"
+    "id": "violet-depth",
+    "label": "Violet Depth",
+    "file": "violet-depth"
   },
   {
-    "id": "voltagent",
-    "label": "VoltAgent",
-    "file": "voltagent",
-    "primaryColor": "#F59E0B"
+    "id": "void",
+    "label": "Void",
+    "file": "void"
   },
   {
-    "id": "warp",
-    "label": "Warp",
-    "file": "warp",
-    "primaryColor": "#01A4FF"
+    "id": "volt-emerald",
+    "label": "Volt Emerald",
+    "file": "volt-emerald"
   },
   {
-    "id": "webflow",
-    "label": "Webflow",
-    "file": "webflow",
-    "primaryColor": "#146EF5"
+    "id": "warm-canvas",
+    "label": "Warm Canvas",
+    "file": "warm-canvas"
   },
   {
-    "id": "wired",
-    "label": "WIRED",
-    "file": "wired",
-    "primaryColor": "#000000"
+    "id": "warm-ivory",
+    "label": "Warm Ivory",
+    "file": "warm-ivory"
   },
   {
-    "id": "wise",
-    "label": "Wise",
-    "file": "wise",
-    "primaryColor": "#9FE870"
+    "id": "warm-linen",
+    "label": "Warm Linen",
+    "file": "warm-linen"
   },
   {
-    "id": "x.ai",
-    "label": "xAI",
-    "file": "x-ai",
-    "primaryColor": "#000000"
+    "id": "warm-parchment",
+    "label": "Warm Parchment",
+    "file": "warm-parchment"
   },
   {
-    "id": "zapier",
-    "label": "Zapier",
-    "file": "zapier",
-    "primaryColor": "#FF4A00"
+    "id": "web-blue",
+    "label": "Web Blue",
+    "file": "web-blue"
   }
 ]
