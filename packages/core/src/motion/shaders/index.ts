@@ -11,3 +11,10 @@ export * from './MeshGradient';
 export * from './Aurora';
 export * from './Waves';
 export * from './ParticleField';
+// Wave 3d
+export * from './Plasma';
+export * from './Noise';
+export * from './Metaballs';
+export * from './Ripple';
+export * from './DotMatrix';
+export * from './Halftone';
