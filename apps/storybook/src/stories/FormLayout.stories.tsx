@@ -187,3 +187,156 @@ export const MultiSection: Story = {
     await expect(fieldsets.length).toBeGreaterThanOrEqual(2);
   },
 };
+
+// ─── LayoutHorizontal (label | field 2-col at ≥ lg) ─────────────────────────
+
+export const LayoutHorizontal: Story = {
+  args: {
+    title: '계정 정보',
+    layout: 'horizontal',
+    submitLabel: '저장',
+    error: '저장에 실패했습니다. 다시 시도해 주세요.',
+    onSubmit: fn(),
+  },
+  parameters: { viewport: { defaultViewport: 'desktop' } },
+  render: (args) => (
+    <FormLayout {...args}>
+      <FormRow label="이름" htmlFor="h-name" required>
+        <Input id="h-name" placeholder="홍길동" fullWidth />
+      </FormRow>
+      <FormRow label="이메일" htmlFor="h-email" required hint="업무용 이메일 권장">
+        <Input id="h-email" type="email" placeholder="user@example.com" fullWidth />
+      </FormRow>
+    </FormLayout>
+  ),
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr 확인
+    const form = canvasElement.querySelector('form')!;
+    await expect(form).toHaveAttribute('data-bbangto-formlayout-layout', 'horizontal');
+
+    // 2. load-bearing: scoped label|field 2-col 규칙이 주입되었는지 (집계 조회)
+    const allStyle = Array.from(canvasElement.querySelectorAll('style'))
+      .map((s) => s.textContent ?? '')
+      .join('\n');
+    await expect(allStyle).toContain('data-bbangto-formlayout-row');
+    await expect(allStyle).toContain('grid-template-columns');
+    await expect(allStyle).toContain('min-width');
+
+    // 3. error 배너 렌더 확인
+    const alert = await canvas.findByRole('alert');
+    await waitFor(() => expect(alert).toBeVisible());
+    await expect(alert).toHaveTextContent('저장에 실패했습니다');
+
+    // 4. 폼 동작: 필드 존재 + submit 발화
+    const nameField = canvas.getByPlaceholderText('홍길동');
+    await expect(nameField).toBeVisible();
+    const submitBtn = canvas.getByRole('button', { name: /저장/i });
+    await userEvent.click(submitBtn);
+    await waitFor(() => {
+      expect(args.onSubmit).toHaveBeenCalledTimes(1);
+    });
+  },
+};
+
+// ─── LayoutCard (bordered, rounded, elevated card) ──────────────────────────
+
+export const LayoutCard: Story = {
+  args: {
+    title: '구독 정보',
+    description: '결제 정보를 입력하세요.',
+    layout: 'card',
+    submitLabel: '저장',
+    error: '카드 정보를 확인할 수 없습니다.',
+    onSubmit: fn(),
+  },
+  render: (args) => (
+    <FormLayout {...args}>
+      <FormRow label="카드 번호" htmlFor="c-card" required>
+        <Input id="c-card" placeholder="0000 0000 0000 0000" fullWidth />
+      </FormRow>
+    </FormLayout>
+  ),
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr 확인
+    const form = canvasElement.querySelector('form')!;
+    await expect(form).toHaveAttribute('data-bbangto-formlayout-layout', 'card');
+
+    // 2. load-bearing: 카드 테두리(solid) + 둥근 모서리
+    const cs = getComputedStyle(form);
+    await expect(cs.borderStyle).toBe('solid');
+    await expect(parseFloat(cs.borderTopLeftRadius)).toBeGreaterThan(0);
+
+    // 3. error 배너 렌더 확인
+    const alert = await canvas.findByRole('alert');
+    await waitFor(() => expect(alert).toBeVisible());
+    await expect(alert).toHaveTextContent('카드 정보를 확인할 수 없습니다');
+
+    // 4. 폼 동작: 필드 존재 + submit 발화
+    const cardField = canvas.getByPlaceholderText('0000 0000 0000 0000');
+    await expect(cardField).toBeVisible();
+    const submitBtn = canvas.getByRole('button', { name: /저장/i });
+    await userEvent.click(submitBtn);
+    await waitFor(() => {
+      expect(args.onSubmit).toHaveBeenCalledTimes(1);
+    });
+  },
+};
+
+// ─── LayoutSectioned (grouped sections with dividers) ───────────────────────
+
+export const LayoutSectioned: Story = {
+  args: {
+    title: '계정 설정',
+    layout: 'sectioned',
+    submitLabel: '변경 저장',
+    error: '일부 항목을 다시 확인해 주세요.',
+    onSubmit: fn(),
+  },
+  render: (args) => (
+    <FormLayout {...args}>
+      <FormSection title="개인 정보">
+        <FormRow label="이름" htmlFor="s-name" required>
+          <Input id="s-name" placeholder="홍길동" fullWidth />
+        </FormRow>
+      </FormSection>
+      <FormSection title="알림 설정" description="원하는 알림 유형을 선택하세요.">
+        <FormRow label="이메일 알림" htmlFor="s-email-notify">
+          <Checkbox id="s-email-notify" label="이메일로 알림 받기" />
+        </FormRow>
+      </FormSection>
+    </FormLayout>
+  ),
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr 확인
+    const form = canvasElement.querySelector('form')!;
+    await expect(form).toHaveAttribute('data-bbangto-formlayout-layout', 'sectioned');
+
+    // 2. load-bearing: 섹션 사이 구분선(hr divider)과 섹션 제목 존재
+    const divider = canvasElement.querySelector('.bbangto-formlayout-divider');
+    await expect(divider).not.toBeNull();
+    await expect((divider as HTMLElement).tagName.toLowerCase()).toBe('hr');
+    const personalTitle = await canvas.findByText('개인 정보');
+    await expect(personalTitle).toBeVisible();
+    await expect(canvas.getByText('알림 설정')).toBeVisible();
+
+    // 3. error 배너 렌더 확인
+    const alert = await canvas.findByRole('alert');
+    await waitFor(() => expect(alert).toBeVisible());
+    await expect(alert).toHaveTextContent('일부 항목을 다시 확인');
+
+    // 4. 폼 동작: 필드 존재 + submit 발화
+    const nameField = canvas.getByPlaceholderText('홍길동');
+    await expect(nameField).toBeVisible();
+    const submitBtn = canvas.getByRole('button', { name: /변경 저장/i });
+    await userEvent.click(submitBtn);
+    await waitFor(() => {
+      expect(args.onSubmit).toHaveBeenCalledTimes(1);
+    });
+  },
+};

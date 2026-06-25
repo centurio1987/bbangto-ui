@@ -1,11 +1,15 @@
 import React from 'react';
-import { cssVar } from '@centurio1987/tokens';
+import { cssVar, breakpoints } from '@centurio1987/tokens';
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
 import { Checkbox } from '../components/Checkbox';
 import { Link } from '../components/Link';
 import { SectionMessage } from '../components/SectionMessage';
 import { Text } from '../components/Text';
+
+export type SignInLayout = 'centered' | 'split' | 'minimal' | 'social-first';
+
+const SIGNIN_ID = 'bbangto-signin';
 
 export interface SignInValues {
   email: string;
@@ -19,6 +23,14 @@ export interface SignInProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
   error?: string;
   logo?: React.ReactNode;
   marketingPanel?: React.ReactNode;
+  /**
+   * Page-level layout for the sign-in pattern.
+   * - When omitted, defaults to 'split' if `marketingPanel` is provided, else 'centered'
+   *   (preserving historical behavior).
+   */
+  layout?: SignInLayout;
+  /** Social auth buttons rendered above the form in the 'social-first' layout. */
+  socialButtons?: React.ReactNode;
   forgotHref?: string;
   signUpHref?: string;
 }
@@ -48,6 +60,8 @@ export const SignIn = React.forwardRef<HTMLDivElement, SignInProps>(
       error,
       logo,
       marketingPanel,
+      layout,
+      socialButtons,
       forgotHref = '#',
       signUpHref = '#',
       style,
@@ -56,6 +70,13 @@ export const SignIn = React.forwardRef<HTMLDivElement, SignInProps>(
     },
     ref
   ) => {
+    // Effective layout: explicit prop wins; otherwise preserve historical behavior
+    // where passing a marketingPanel implicitly created a split layout.
+    const effectiveLayout: SignInLayout =
+      layout ?? (marketingPanel ? 'split' : 'centered');
+    const isMinimal = effectiveLayout === 'minimal';
+    const isSplit = effectiveLayout === 'split';
+    const isSocialFirst = effectiveLayout === 'social-first';
     const id = React.useId();
     const emailId = `${id}-email`;
     const passwordId = `${id}-password`;
@@ -112,14 +133,50 @@ export const SignIn = React.forwardRef<HTMLDivElement, SignInProps>(
     const formContainerStyles: React.CSSProperties = {
       display: 'flex',
       flexDirection: 'column',
-      gap: cssVar('spacing', '24'),
+      gap: isMinimal ? cssVar('spacing', '16') : cssVar('spacing', '24'),
       width: '100%',
       maxWidth: '400px',
-      padding: cssVar('spacing', '32'),
-      backgroundColor: cssVar('semantic', 'background', 'base'),
-      borderRadius: cssVar('radius', 'lg'),
+      // 'minimal' is borderless / chromeless: no card background, padding or radius.
+      padding: isMinimal ? '0' : cssVar('spacing', '32'),
+      backgroundColor: isMinimal ? 'transparent' : cssVar('semantic', 'background', 'base'),
+      borderRadius: isMinimal ? '0' : cssVar('radius', 'lg'),
+      boxShadow: isMinimal ? 'none' : undefined,
+      border: isMinimal ? 'none' : undefined,
       fontFamily: cssVar('typography', 'fontFamily', 'sans'),
     };
+
+    const socialDividerStyles: React.CSSProperties = {
+      display: 'flex',
+      alignItems: 'center',
+      gap: cssVar('spacing', '12'),
+      color: cssVar('semantic', 'foreground', 'muted'),
+    };
+
+    const socialDividerLineStyles: React.CSSProperties = {
+      flex: 1,
+      height: '1px',
+      backgroundColor: cssVar('semantic', 'border', 'muted'),
+    };
+
+    const socialFirstBlock = isSocialFirst && socialButtons && (
+      <div
+        data-bbangto-signin-social="true"
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: cssVar('spacing', '12'),
+        }}
+      >
+        {socialButtons}
+        <div style={socialDividerStyles} aria-hidden="true">
+          <span style={socialDividerLineStyles} />
+          <Text variant="meta" color="muted" as="span">
+            또는
+          </Text>
+          <span style={socialDividerLineStyles} />
+        </div>
+      </div>
+    );
 
     const formStyles: React.CSSProperties = {
       display: 'flex',
@@ -164,6 +221,9 @@ export const SignIn = React.forwardRef<HTMLDivElement, SignInProps>(
             aria-live="polite"
           />
         )}
+
+        {/* social-first: social auth buttons rendered ABOVE the form with a divider. */}
+        {socialFirstBlock}
 
         <form
           onSubmit={handleSubmit}
@@ -266,23 +326,51 @@ export const SignIn = React.forwardRef<HTMLDivElement, SignInProps>(
       </div>
     );
 
-    if (marketingPanel) {
+    // Default marketing panel used by the 'split' layout when none is supplied.
+    const defaultMarketingPanel = (
+      <div style={{ maxWidth: 480, color: cssVar('semantic', 'foreground', 'base') }}>
+        <Text variant="h2" style={{ margin: 0 }}>
+          다시 오신 것을 환영합니다
+        </Text>
+        <Text variant="body" color="muted" style={{ marginTop: cssVar('spacing', '8') }}>
+          계정에 로그인하고 모든 기능을 이용하세요.
+        </Text>
+      </div>
+    );
+
+    if (isSplit) {
+      const panelContent = marketingPanel ?? defaultMarketingPanel;
       return (
         <div
           ref={ref}
+          data-bbangto-signin-layout={effectiveLayout}
+          className={
+            className ? `${SIGNIN_ID}-split ${className}` : `${SIGNIN_ID}-split`
+          }
           style={{
-            display: 'flex',
+            // Mobile-first: single column. Desktop 2-col handled by scoped @media below.
+            display: 'grid',
+            gridTemplateColumns: '1fr',
             minHeight: '100vh',
             width: '100%',
             fontFamily: cssVar('typography', 'fontFamily', 'sans'),
             ...style,
           }}
-          className={className}
           {...props}
         >
+          {/*
+            Scoped responsive style: at ≥ lg breakpoint switch to a two-column
+            split (marketing panel + form). @media cannot be expressed inline.
+          */}
+          <style>{`
+            @media (min-width: ${breakpoints.lg}px) {
+              .${SIGNIN_ID}-split {
+                grid-template-columns: 1fr 1fr !important;
+              }
+            }
+          `}</style>
           <div
             style={{
-              flex: 1,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -290,11 +378,10 @@ export const SignIn = React.forwardRef<HTMLDivElement, SignInProps>(
               padding: '48px',
             }}
           >
-            {marketingPanel}
+            {panelContent}
           </div>
           <div
             style={{
-              flex: 1,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -308,22 +395,40 @@ export const SignIn = React.forwardRef<HTMLDivElement, SignInProps>(
       );
     }
 
+    // 'centered' (default), 'minimal', and 'social-first' all render a single
+    // centered column. If an explicit non-split layout is paired with a
+    // marketingPanel, surface it as a secondary block so no data is lost.
     return (
       <div
         ref={ref}
+        data-bbangto-signin-layout={effectiveLayout}
         style={{
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
+          gap: cssVar('spacing', '24'),
           minHeight: '100vh',
           width: '100%',
-          backgroundColor: cssVar('semantic', 'background', 'sunken'),
+          padding: cssVar('spacing', '24'),
+          boxSizing: 'border-box',
+          backgroundColor: isMinimal
+            ? cssVar('semantic', 'background', 'base')
+            : cssVar('semantic', 'background', 'sunken'),
           fontFamily: cssVar('typography', 'fontFamily', 'sans'),
           ...style,
         }}
         className={className}
         {...props}
       >
+        {marketingPanel && (
+          <div
+            data-bbangto-signin-secondary-panel="true"
+            style={{ maxWidth: '400px', width: '100%', textAlign: 'center' }}
+          >
+            {marketingPanel}
+          </div>
+        )}
         {formContent}
       </div>
     );

@@ -13,6 +13,15 @@ export interface AIChatMessage {
   timestamp?: string;
 }
 
+/**
+ * Visual layout for the AIChat pattern.
+ * - `default`: standard message list + composer panel.
+ * - `centered`: narrow centered column, empty-state-first emphasis.
+ * - `sidebar`: docked side panel (narrower fixed width, full-height column).
+ * - `fullscreen`: fills the viewport, edge-to-edge, app-like.
+ */
+export type AIChatLayout = 'default' | 'centered' | 'sidebar' | 'fullscreen';
+
 export interface AIChatProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Array of chat messages to display. */
   messages: AIChatMessage[];
@@ -24,6 +33,8 @@ export interface AIChatProps extends React.HTMLAttributes<HTMLDivElement> {
   placeholder?: string;
   /** Rendered when messages array is empty. */
   emptyState?: React.ReactNode;
+  /** Visual layout. Defaults to `default`. */
+  layout?: AIChatLayout;
 }
 
 // ── TypingIndicator ───────────────────────────────────────────────────────────
@@ -74,11 +85,13 @@ export const AIChat = React.forwardRef<HTMLDivElement, AIChatProps>(
       loading = false,
       placeholder = 'Type a message…',
       emptyState,
+      layout = 'default',
       style,
       ...props
     },
     ref
   ) => {
+    const effectiveLayout: AIChatLayout = layout;
     const [text, setText] = React.useState('');
     const textareaId = React.useId();
     const messageListRef = React.useRef<HTMLDivElement>(null);
@@ -112,6 +125,33 @@ export const AIChat = React.forwardRef<HTMLDivElement, AIChatProps>(
 
     // ── Layout styles ──────────────────────────────────────────────────────────
 
+    // Per-layout container overrides. `default` keeps today's behavior exactly.
+    const layoutContainerStyle: React.CSSProperties =
+      effectiveLayout === 'centered'
+        ? {
+            maxWidth: 560,
+            marginLeft: 'auto',
+            marginRight: 'auto',
+          }
+        : effectiveLayout === 'sidebar'
+          ? {
+              width: 360,
+              maxWidth: '100%',
+              height: '100%',
+            }
+          : effectiveLayout === 'fullscreen'
+            ? {
+                width: '100%',
+                height: '100vh',
+                minHeight: '100vh',
+                borderRadius: 0,
+                borderLeft: 'none',
+                borderRight: 'none',
+                borderTop: 'none',
+                borderBottom: 'none',
+              }
+            : {};
+
     const containerStyle: React.CSSProperties = {
       display: 'flex',
       flexDirection: 'column',
@@ -123,6 +163,7 @@ export const AIChat = React.forwardRef<HTMLDivElement, AIChatProps>(
       border: `1px solid ${cssVar('semantic', 'border', 'muted')}`,
       overflow: 'hidden',
       fontFamily: cssVar('typography', 'fontFamily', 'sans'),
+      ...layoutContainerStyle,
       ...style,
     };
 
@@ -154,7 +195,12 @@ export const AIChat = React.forwardRef<HTMLDivElement, AIChatProps>(
     // ── Render ─────────────────────────────────────────────────────────────────
 
     return (
-      <div ref={ref} style={containerStyle} {...props}>
+      <div
+        ref={ref}
+        data-bbangto-aichat-layout={effectiveLayout}
+        style={containerStyle}
+        {...props}
+      >
         {/* Message area */}
         <div style={messageAreaStyle}>
           {messages.length === 0 && !loading ? (

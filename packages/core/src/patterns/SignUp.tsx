@@ -1,5 +1,5 @@
 import React from 'react';
-import { cssVar } from '@centurio1987/tokens';
+import { cssVar, breakpoints } from '@centurio1987/tokens';
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
 import { Checkbox } from '../components/Checkbox';
@@ -15,6 +15,16 @@ export interface SignUpValues {
   acceptTerms: boolean;
 }
 
+/**
+ * Layout axis for the SignUp pattern. Intentionally MIRRORS `SignInLayout`
+ * for cross-pattern API symmetry (auth surfaces share the same vocabulary).
+ * - `centered` (default): single, centred form card — the historical layout.
+ * - `split`: 2-column (marketing panel | form) at ≥ lg via a scoped `<style>`.
+ * - `minimal`: borderless, compact form with no surrounding card chrome.
+ * - `social-first`: social-provider buttons rendered ABOVE the credential form.
+ */
+export type SignUpLayout = 'centered' | 'split' | 'minimal' | 'social-first';
+
 export interface SignUpProps {
   /** Called with form values once all fields pass validation. */
   onSubmit: (values: SignUpValues) => void | Promise<void>;
@@ -24,6 +34,19 @@ export interface SignUpProps {
   error?: string;
   /** Optional logo node rendered above the heading. */
   logo?: React.ReactNode;
+  /**
+   * Layout variant. When omitted, the effective layout is derived from
+   * `marketingPanel` (split when a panel is present, otherwise centered) —
+   * mirroring `SignIn`'s auto-split behaviour for API symmetry. An explicit
+   * `centered` together with a `marketingPanel` keeps the centered form AND
+   * renders the panel as a secondary block (no data loss).
+   */
+  layout?: SignUpLayout;
+  /**
+   * Optional marketing/brand panel node. Added for symmetry with `SignIn`.
+   * Drives the auto-`split` default and fills the second column in `split`.
+   */
+  marketingPanel?: React.ReactNode;
   /** href for the "Already have an account? Sign in" link. */
   signInHref?: string;
   /** href for the terms-of-service link in the checkbox label. */
@@ -76,12 +99,24 @@ export const SignUp = React.forwardRef<HTMLFormElement, SignUpProps>(
       loading = false,
       error,
       logo,
+      layout,
+      marketingPanel,
       signInHref = '/sign-in',
       termsHref = '/terms',
       ...props
     },
     ref
   ) => {
+    // Effective layout: explicit prop wins; otherwise derive from the marketing
+    // panel (split when present, centered otherwise) — mirroring SignIn so the
+    // two auth patterns share one API. Explicit `centered` + `marketingPanel`
+    // keeps the centered form and renders the panel as a secondary block below.
+    const effectiveLayout: SignUpLayout =
+      layout ?? (marketingPanel ? 'split' : 'centered');
+    const isSplit = effectiveLayout === 'split';
+    const isMinimal = effectiveLayout === 'minimal';
+    const isSocialFirst = effectiveLayout === 'social-first';
+
     const nameId = React.useId();
     const emailId = React.useId();
     const passwordId = React.useId();
@@ -164,7 +199,9 @@ export const SignUp = React.forwardRef<HTMLFormElement, SignUpProps>(
       alignItems: 'center',
       justifyContent: 'center',
       minHeight: '100vh',
-      padding: `${cssVar('spacing', '24')} ${cssVar('spacing', '16')}`,
+      padding: isMinimal
+        ? `${cssVar('spacing', '16')} ${cssVar('spacing', '16')}`
+        : `${cssVar('spacing', '24')} ${cssVar('spacing', '16')}`,
       backgroundColor: cssVar('semantic', 'background', 'base'),
       fontFamily: cssVar('typography', 'fontFamily', 'sans'),
       boxSizing: 'border-box',
@@ -172,10 +209,11 @@ export const SignUp = React.forwardRef<HTMLFormElement, SignUpProps>(
 
     const cardStyles: React.CSSProperties = {
       width: '100%',
-      maxWidth: '440px',
+      // Minimal trims the card to a tighter measure; others keep the wide form.
+      maxWidth: isMinimal ? '380px' : '440px',
       display: 'flex',
       flexDirection: 'column',
-      gap: cssVar('spacing', '24'),
+      gap: isMinimal ? cssVar('spacing', '16') : cssVar('spacing', '24'),
     };
 
     const headerStyles: React.CSSProperties = {
@@ -198,38 +236,117 @@ export const SignUp = React.forwardRef<HTMLFormElement, SignUpProps>(
       gap: cssVar('spacing', '6'),
     };
 
+    // Unique class prefix to scope the responsive split @media rule without a
+    // CSS Module (Hero-style scoped <style>). Stable per instance is fine.
+    const SIGNUP_ID = 'bbangto-signup';
+
+    // Social-provider buttons rendered ABOVE the form in the `social-first`
+    // layout. Self-contained (the pattern owns no social handlers yet) — these
+    // are visual provider affordances with a divider separating them from the
+    // credential form. They do NOT submit the form (type="button").
+    const socialBlock = isSocialFirst ? (
+      <div
+        data-bbangto-signup-social
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: cssVar('spacing', '12'),
+        }}
+      >
+        <Button type="button" variant="outline" color="neutral" fullWidth disabled={loading}>
+          Google로 계속하기
+        </Button>
+        <Button type="button" variant="outline" color="neutral" fullWidth disabled={loading}>
+          GitHub로 계속하기
+        </Button>
+        <div
+          aria-hidden="true"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: cssVar('spacing', '12'),
+            color: cssVar('semantic', 'foreground', 'muted'),
+          }}
+        >
+          <span style={{ flex: 1, height: '1px', backgroundColor: cssVar('semantic', 'border', 'muted') }} />
+          <Text variant="meta" color="muted" as="span">또는</Text>
+          <span style={{ flex: 1, height: '1px', backgroundColor: cssVar('semantic', 'border', 'muted') }} />
+        </div>
+      </div>
+    ) : null;
 
     return (
-      <div style={containerStyles}>
-        <div style={cardStyles}>
-          {/* Header */}
-          <div style={headerStyles}>
-            {logo && <div>{logo}</div>}
-            <Text variant="h2">회원가입</Text>
-            <Text variant="body" color="muted" as="p" style={{ textAlign: 'center', margin: 0 }}>
-              계정을 만들어 시작하세요.
-            </Text>
-          </div>
+      <div
+        style={containerStyles}
+        data-bbangto-signup-layout={effectiveLayout}
+      >
+        {/*
+          Scoped responsive style: on desktop (≥ lg) the split layout becomes a
+          2-column grid (panel | form). @media cannot live in React's style prop,
+          so we emit a Hero-style scoped <style> only when a split is rendered.
+        */}
+        {isSplit && marketingPanel && (
+          <style>{`
+            @media (min-width: ${breakpoints.lg}px) {
+              .${SIGNUP_ID}-split {
+                grid-template-columns: 1fr 1fr !important;
+              }
+            }
+          `}</style>
+        )}
 
-          {/* Server error */}
-          {error && (
-            <SectionMessage
-              id={serverErrorId}
-              variant="error"
-              message={error}
-              aria-live="polite"
-            />
+        <div
+          className={isSplit && marketingPanel ? `${SIGNUP_ID}-split` : undefined}
+          style={
+            isSplit && marketingPanel
+              ? {
+                  width: '100%',
+                  maxWidth: '960px',
+                  display: 'grid',
+                  gridTemplateColumns: '1fr',
+                  gap: cssVar('spacing', '40'),
+                  alignItems: 'center',
+                }
+              : { display: 'contents' }
+          }
+        >
+          {/* Marketing panel column — only in split (the second grid track). */}
+          {isSplit && marketingPanel && (
+            <div data-bbangto-signup-panel>{marketingPanel}</div>
           )}
 
-          {/* Form */}
-          <form
-            ref={ref}
-            onSubmit={handleSubmit}
-            noValidate
-            aria-describedby={error ? serverErrorId : undefined}
-            style={formStyles}
-            {...props}
-          >
+          <div style={cardStyles}>
+            {/* Header */}
+            <div style={headerStyles}>
+              {logo && <div>{logo}</div>}
+              <Text variant="h2">회원가입</Text>
+              <Text variant="body" color="muted" as="p" style={{ textAlign: 'center', margin: 0 }}>
+                계정을 만들어 시작하세요.
+              </Text>
+            </div>
+
+            {/* Server error */}
+            {error && (
+              <SectionMessage
+                id={serverErrorId}
+                variant="error"
+                message={error}
+                aria-live="polite"
+              />
+            )}
+
+            {/* Social-first: provider buttons precede the credential form. */}
+            {socialBlock}
+
+            {/* Form */}
+            <form
+              ref={ref}
+              onSubmit={handleSubmit}
+              noValidate
+              aria-describedby={error ? serverErrorId : undefined}
+              style={formStyles}
+              {...props}
+            >
             {/* Name */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: cssVar('spacing', '4') }}>
               <label htmlFor={nameId} style={labelStyles}>이름</label>
@@ -345,25 +462,37 @@ export const SignUp = React.forwardRef<HTMLFormElement, SignUpProps>(
               )}
             </div>
 
-            {/* Submit */}
-            <Button
-              type="submit"
-              fullWidth
-              loading={loading}
-              disabled={loading}
-            >
-              회원가입
-            </Button>
-          </form>
+              {/* Submit */}
+              <Button
+                type="submit"
+                fullWidth
+                loading={loading}
+                disabled={loading}
+              >
+                회원가입
+              </Button>
+            </form>
 
-          {/* Footer sign-in link */}
-          <div style={footerStyles}>
-            <Text variant="meta" color="muted" as="span">
-              이미 계정이 있으신가요?
-            </Text>
-            <Link href={signInHref} size="sm">
-              로그인
-            </Link>
+            {/* Footer sign-in link */}
+            <div style={footerStyles}>
+              <Text variant="meta" color="muted" as="span">
+                이미 계정이 있으신가요?
+              </Text>
+              <Link href={signInHref} size="sm">
+                로그인
+              </Link>
+            </div>
+
+            {/*
+              Conflict rule (mirrors SignIn): explicit `centered` + marketingPanel
+              keeps the centered form and renders the panel as a secondary block
+              below — no data loss, no 2-column split.
+            */}
+            {!isSplit && marketingPanel && (
+              <div data-bbangto-signup-panel style={{ marginTop: cssVar('spacing', '8') }}>
+                {marketingPanel}
+              </div>
+            )}
           </div>
         </div>
       </div>

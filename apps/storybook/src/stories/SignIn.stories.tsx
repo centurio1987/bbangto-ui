@@ -199,3 +199,160 @@ export const SplitLayout: Story = {
     await expect(marketingText).toBeVisible();
   },
 };
+
+// ─── LayoutSplit: 명시적 layout='split' + 반응형 2-col 스코프 규칙 검증 ──────
+export const LayoutSplit: Story = {
+  args: {
+    onSubmit: fn(),
+    layout: 'split',
+    marketingPanel: (
+      <div style={{ maxWidth: 480, color: '#1e1b4b' }}>
+        <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 16 }}>
+          분할 레이아웃
+        </h2>
+        <p style={{ fontSize: 16, lineHeight: 1.6, opacity: 0.75 }}>
+          마케팅 패널과 폼이 나란히 배치됩니다.
+        </p>
+      </div>
+    ),
+  },
+  parameters: {
+    viewport: { defaultViewport: 'desktop' },
+  },
+  play: async ({ args, canvasElement }: { args: { onSubmit: ReturnType<typeof fn> }; canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr 검증
+    const root = canvasElement.querySelector<HTMLElement>('[data-bbangto-signin-layout]');
+    await expect(root).not.toBeNull();
+    await expect(root!.getAttribute('data-bbangto-signin-layout')).toBe('split');
+
+    // 2. load-bearing: 스코프된 2-col @media 규칙이 존재해야 함
+    const aggregatedStyles = Array.from(canvasElement.querySelectorAll('style'))
+      .map((s) => s.textContent ?? '')
+      .join('\n');
+    await expect(aggregatedStyles).toContain('grid-template-columns: 1fr 1fr');
+    await expect(aggregatedStyles).toContain('bbangto-signin-split');
+    // 루트는 grid display 여야 함
+    await expect(getComputedStyle(root!).display).toBe('grid');
+
+    // 3. 폼 동작: 이메일 필드 + 제출이 여전히 작동해야 함
+    const emailInput = await canvas.findByPlaceholderText('이메일을 입력하세요');
+    const passwordInput = await canvas.findByPlaceholderText('비밀번호를 입력하세요');
+    const submitButton = await canvas.findByRole('button', { name: '로그인' });
+    await expect(emailInput).toBeVisible();
+
+    await userEvent.type(emailInput, 'split@example.com');
+    await userEvent.type(passwordInput, 'securepassword');
+    await userEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(args.onSubmit).toHaveBeenCalledWith({
+        email: 'split@example.com',
+        password: 'securepassword',
+        remember: false,
+      });
+    });
+  },
+};
+
+// ─── LayoutMinimal: 카드 크롬 없는 컴팩트 레이아웃 ──────────────────────────
+export const LayoutMinimal: Story = {
+  args: {
+    onSubmit: fn(),
+    layout: 'minimal',
+  },
+  play: async ({ args, canvasElement }: { args: { onSubmit: ReturnType<typeof fn> }; canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr 검증
+    const root = canvasElement.querySelector<HTMLElement>('[data-bbangto-signin-layout]');
+    await expect(root).not.toBeNull();
+    await expect(root!.getAttribute('data-bbangto-signin-layout')).toBe('minimal');
+
+    // 2. load-bearing: 폼 컨테이너에 카드 보더/섀도가 없어야 함 (chromeless)
+    const emailInput = await canvas.findByPlaceholderText('이메일을 입력하세요');
+    const form = emailInput.closest('form');
+    await expect(form).not.toBeNull();
+    const container = form!.parentElement as HTMLElement;
+    const containerStyle = getComputedStyle(container);
+    // 카드 크롬이 없어야 함: 보더 폭 0, 섀도 none
+    await expect(containerStyle.borderTopWidth).toBe('0px');
+    await expect(containerStyle.boxShadow).toBe('none');
+
+    // 3. 폼 동작: 이메일 필드 + 제출
+    const passwordInput = await canvas.findByPlaceholderText('비밀번호를 입력하세요');
+    const submitButton = await canvas.findByRole('button', { name: '로그인' });
+
+    await userEvent.type(emailInput, 'minimal@example.com');
+    await userEvent.type(passwordInput, 'securepassword');
+    await userEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(args.onSubmit).toHaveBeenCalledWith({
+        email: 'minimal@example.com',
+        password: 'securepassword',
+        remember: false,
+      });
+    });
+  },
+};
+
+// ─── LayoutSocialFirst: 소셜 버튼이 폼 위에 렌더 ────────────────────────────
+export const LayoutSocialFirst: Story = {
+  args: {
+    onSubmit: fn(),
+    layout: 'social-first',
+    socialButtons: (
+      <>
+        <button type="button" data-testid="social-google">
+          Google로 계속하기
+        </button>
+        <button type="button" data-testid="social-github">
+          GitHub로 계속하기
+        </button>
+      </>
+    ),
+  },
+  play: async ({ args, canvasElement }: { args: { onSubmit: ReturnType<typeof fn> }; canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr 검증
+    const root = canvasElement.querySelector<HTMLElement>('[data-bbangto-signin-layout]');
+    await expect(root).not.toBeNull();
+    await expect(root!.getAttribute('data-bbangto-signin-layout')).toBe('social-first');
+
+    // 2. load-bearing: 소셜 버튼이 DOM 순서상 폼 필드보다 먼저 와야 함
+    const googleBtn = await canvas.findByTestId('social-google');
+    const emailInput = await canvas.findByPlaceholderText('이메일을 입력하세요');
+    await expect(googleBtn).toBeVisible();
+    // compareDocumentPosition: FOLLOWING(4) → email이 google 뒤에 옴
+    const position = googleBtn.compareDocumentPosition(emailInput);
+    await expect(position & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+
+    // 소셜 블록이 폼보다 앞에 위치
+    const socialBlock = canvasElement.querySelector<HTMLElement>('[data-bbangto-signin-social]');
+    const form = emailInput.closest('form');
+    await expect(socialBlock).not.toBeNull();
+    await expect(form).not.toBeNull();
+    await expect(
+      socialBlock!.compareDocumentPosition(form!) & Node.DOCUMENT_POSITION_FOLLOWING
+    ).toBeTruthy();
+
+    // 3. 폼 동작: 이메일 필드 + 제출
+    const passwordInput = await canvas.findByPlaceholderText('비밀번호를 입력하세요');
+    const submitButton = await canvas.findByRole('button', { name: '로그인' });
+
+    await userEvent.type(emailInput, 'social@example.com');
+    await userEvent.type(passwordInput, 'securepassword');
+    await userEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(args.onSubmit).toHaveBeenCalledWith({
+        email: 'social@example.com',
+        password: 'securepassword',
+        remember: false,
+      });
+    });
+  },
+};

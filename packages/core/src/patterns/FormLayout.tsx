@@ -1,5 +1,5 @@
 import React from 'react';
-import { cssVar } from '@centurio1987/tokens';
+import { cssVar, breakpoints } from '@centurio1987/tokens';
 import { Button } from '../components/Button';
 import { Text } from '../components/Text';
 import { SectionMessage } from '../components/SectionMessage';
@@ -63,7 +63,7 @@ export const FormRow = React.forwardRef<HTMLDivElement, FormRowProps & React.HTM
 
     return (
       <FormRowDescContext.Provider value={hasDesc ? descId : undefined}>
-        <div ref={ref} style={rowStyles} {...props}>
+        <div ref={ref} data-bbangto-formlayout-row="" style={rowStyles} {...props}>
           <label htmlFor={htmlFor} style={labelStyles}>
             {label}
             {required && (
@@ -153,6 +153,18 @@ FormSection.displayName = 'FormSection';
 
 // ─── FormLayout ─────────────────────────────────────────────────────────────
 
+/**
+ * Layout axis for the form shell.
+ * - `stacked` (default): labels above fields, single column — historical behaviour.
+ * - `horizontal`: label column | field column at ≥ lg (stacks on mobile).
+ * - `card`: the form wrapped in a bordered, rounded, elevated card with padding.
+ * - `sectioned`: child sections separated by dividers / heading rules.
+ */
+export type FormLayoutLayout = 'stacked' | 'horizontal' | 'card' | 'sectioned';
+
+/** Unique class prefix to scope media-query styles without a CSS Module. */
+const FORMLAYOUT_ID = 'bbangto-formlayout';
+
 export interface FormLayoutProps {
   /** Optional form heading. */
   title?: string;
@@ -170,6 +182,12 @@ export interface FormLayoutProps {
   loading?: boolean;
   /** If provided, renders a SectionMessage with variant="error" at the top of the form. */
   error?: string;
+  /**
+   * Form shell layout. When omitted, defaults to `stacked` — preserving the
+   * historical single-column, label-above-field rendering.
+   * @default 'stacked'
+   */
+  layout?: FormLayoutLayout;
   children?: React.ReactNode;
 }
 
@@ -184,12 +202,18 @@ export const FormLayout = React.forwardRef<HTMLFormElement, FormLayoutProps & Om
       onCancel,
       loading = false,
       error,
+      layout = 'stacked',
       children,
       style,
       ...props
     },
     ref
   ) => {
+    const effectiveLayout: FormLayoutLayout = layout;
+    const isHorizontal = effectiveLayout === 'horizontal';
+    const isCard = effectiveLayout === 'card';
+    const isSectioned = effectiveLayout === 'sectioned';
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       onSubmit(e);
@@ -202,8 +226,47 @@ export const FormLayout = React.forwardRef<HTMLFormElement, FormLayoutProps & Om
       width: '100%',
       maxWidth: '560px',
       fontFamily: cssVar('typography', 'fontFamily', 'sans'),
+      // Card layout wraps the whole form in a bordered, elevated surface.
+      ...(isCard
+        ? {
+            border: `1px solid ${cssVar('semantic', 'border', 'base')}`,
+            borderStyle: 'solid',
+            borderRadius: cssVar('radius', 'lg'),
+            boxShadow: cssVar('shadow', 'md'),
+            padding: cssVar('spacing', '32'),
+            backgroundColor: cssVar('semantic', 'background', 'base'),
+          }
+        : null),
       ...style,
     };
+
+    const childrenWrapStyles: React.CSSProperties = {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: cssVar('spacing', '20'),
+    };
+
+    // Sectioned: separate top-level children with light dividers so grouped
+    // sections read distinctly. Falls back gracefully to a single group when
+    // only one child is present.
+    const sectionedChildren = React.Children.toArray(children).filter(Boolean);
+    const renderSectioned = sectionedChildren.map((child, i) => (
+      <React.Fragment key={i}>
+        {i > 0 && (
+          <hr
+            className={`${FORMLAYOUT_ID}-divider`}
+            aria-hidden="true"
+            style={{
+              border: 'none',
+              borderTop: `1px solid ${cssVar('semantic', 'border', 'muted')}`,
+              margin: 0,
+              width: '100%',
+            }}
+          />
+        )}
+        {child}
+      </React.Fragment>
+    ));
 
     const headerStyles: React.CSSProperties = {
       display: 'flex',
@@ -221,7 +284,40 @@ export const FormLayout = React.forwardRef<HTMLFormElement, FormLayoutProps & Om
     };
 
     return (
-      <form ref={ref} onSubmit={handleSubmit} noValidate style={formStyles} {...props}>
+      <form
+        ref={ref}
+        onSubmit={handleSubmit}
+        noValidate
+        data-bbangto-formlayout-layout={effectiveLayout}
+        style={formStyles}
+        {...props}
+      >
+        {/*
+          Horizontal layout: at ≥ lg each FormRow becomes a 2-column grid
+          (label | field). FormRow renders its <label> first then the control,
+          so a simple grid on the row gives label|field. @media cannot be
+          expressed inline, so it lives in a scoped <style> tag.
+        */}
+        {isHorizontal && (
+          <style>{`
+            @media (min-width: ${breakpoints.lg}px) {
+              .${FORMLAYOUT_ID}-children [data-bbangto-formlayout-row] {
+                display: grid;
+                grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
+                align-items: start;
+                column-gap: ${cssVar('spacing', '16')};
+              }
+              .${FORMLAYOUT_ID}-children [data-bbangto-formlayout-row] > label {
+                padding-top: ${cssVar('spacing', '8')};
+              }
+              /* Hint / error span (3rd child) aligns under the field column. */
+              .${FORMLAYOUT_ID}-children [data-bbangto-formlayout-row] > span {
+                grid-column: 2;
+              }
+            }
+          `}</style>
+        )}
+
         {(title || description) && (
           <header style={headerStyles}>
             {title && <Text variant="h2">{title}</Text>}
@@ -241,14 +337,8 @@ export const FormLayout = React.forwardRef<HTMLFormElement, FormLayoutProps & Om
           />
         )}
 
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: cssVar('spacing', '20'),
-          }}
-        >
-          {children}
+        <div className={`${FORMLAYOUT_ID}-children`} style={childrenWrapStyles}>
+          {isSectioned ? renderSectioned : children}
         </div>
 
         <footer style={actionsStyles}>

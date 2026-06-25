@@ -27,6 +27,10 @@ const meta = {
   argTypes: {
     loading: { control: 'boolean' },
     placeholder: { control: 'text' },
+    layout: {
+      control: 'inline-radio',
+      options: ['default', 'centered', 'sidebar', 'fullscreen'],
+    },
   },
 } satisfies Meta<typeof AIChat>;
 
@@ -155,5 +159,126 @@ export const Empty: Story = {
     const textarea = canvas.getByRole('textbox', { name: /Message input/ });
     await expect(textarea).toBeVisible();
     await expect(textarea).not.toBeDisabled();
+  },
+};
+
+// ── Layout: centered ───────────────────────────────────────────────────────────
+
+export const LayoutCentered: Story = {
+  args: {
+    messages: [],
+    onSend: fn(),
+    loading: false,
+    layout: 'centered',
+    emptyState: <span>Ask me anything to get started.</span>,
+    placeholder: 'Type a message…',
+    style: { height: 480 },
+  },
+  play: async ({ canvasElement, args }: { canvasElement: HTMLElement; args: { onSend: ReturnType<typeof fn> } }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr present + correct
+    const root = canvasElement.querySelector('[data-bbangto-aichat-layout]') as HTMLElement;
+    await expect(root).not.toBeNull();
+    await expect(root.getAttribute('data-bbangto-aichat-layout')).toBe('centered');
+
+    // 2. Load-bearing: constrained max-width + centered horizontal margins
+    const cs = getComputedStyle(root);
+    await expect(cs.maxWidth).toBe('560px');
+    await expect(cs.marginLeft).toBe(cs.marginRight);
+    await expect(cs.flexDirection).toBe('column');
+
+    // 3. Composer input present + Enter-to-send still works
+    const textarea = canvas.getByRole('textbox', { name: /Message input/ });
+    await expect(textarea).toBeVisible();
+    await userEvent.click(textarea);
+    await userEvent.type(textarea, 'Centered hello');
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => {
+      expect(args.onSend).toHaveBeenCalledWith('Centered hello');
+    });
+    await waitFor(() => {
+      expect(textarea).toHaveValue('');
+    });
+  },
+};
+
+// ── Layout: sidebar ────────────────────────────────────────────────────────────
+
+export const LayoutSidebar: Story = {
+  args: {
+    messages: sampleMessages,
+    onSend: fn(),
+    loading: false,
+    layout: 'sidebar',
+    placeholder: 'Type a message…',
+    style: { height: 480 },
+  },
+  play: async ({ canvasElement, args }: { canvasElement: HTMLElement; args: { onSend: ReturnType<typeof fn> } }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr present + correct
+    const root = canvasElement.querySelector('[data-bbangto-aichat-layout]') as HTMLElement;
+    await expect(root).not.toBeNull();
+    await expect(root.getAttribute('data-bbangto-aichat-layout')).toBe('sidebar');
+
+    // 2. Load-bearing: narrower fixed width + vertical column
+    const cs = getComputedStyle(root);
+    await expect(cs.width).toBe('360px');
+    await expect(cs.flexDirection).toBe('column');
+
+    // 3. Composer input present + Enter-to-send still works
+    const textarea = canvas.getByRole('textbox', { name: /Message input/ });
+    await expect(textarea).toBeVisible();
+    await userEvent.click(textarea);
+    await userEvent.type(textarea, 'Sidebar hello');
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => {
+      expect(args.onSend).toHaveBeenCalledWith('Sidebar hello');
+    });
+    await waitFor(() => {
+      expect(textarea).toHaveValue('');
+    });
+  },
+};
+
+// ── Layout: fullscreen ─────────────────────────────────────────────────────────
+
+export const LayoutFullscreen: Story = {
+  args: {
+    messages: sampleMessages,
+    onSend: fn(),
+    loading: false,
+    layout: 'fullscreen',
+    placeholder: 'Type a message…',
+  },
+  parameters: {
+    layout: 'fullscreen',
+  },
+  play: async ({ canvasElement, args }: { canvasElement: HTMLElement; args: { onSend: ReturnType<typeof fn> } }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr present + correct
+    const root = canvasElement.querySelector('[data-bbangto-aichat-layout]') as HTMLElement;
+    await expect(root).not.toBeNull();
+    await expect(root.getAttribute('data-bbangto-aichat-layout')).toBe('fullscreen');
+
+    // 2. Load-bearing: height fills the viewport (100vh resolves to a tall pixel height)
+    const cs = getComputedStyle(root);
+    await expect(cs.flexDirection).toBe('column');
+    await expect(root.offsetHeight).toBe(window.innerHeight);
+
+    // 3. Composer input present + Enter-to-send still works
+    const textarea = canvas.getByRole('textbox', { name: /Message input/ });
+    await expect(textarea).toBeVisible();
+    await userEvent.click(textarea);
+    await userEvent.type(textarea, 'Fullscreen hello');
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => {
+      expect(args.onSend).toHaveBeenCalledWith('Fullscreen hello');
+    });
+    await waitFor(() => {
+      expect(textarea).toHaveValue('');
+    });
   },
 };
