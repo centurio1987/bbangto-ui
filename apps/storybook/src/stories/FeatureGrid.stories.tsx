@@ -2,6 +2,12 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { FeatureGrid } from '@centurio1987/core';
 import { expect, within } from 'storybook/test';
 
+/** Aggregate every <style> tag's textContent (avoids grabbing a single global @import style). */
+const collectStyleText = (root: HTMLElement): string =>
+  Array.from(root.querySelectorAll('style'))
+    .map((s) => s.textContent ?? '')
+    .join('\n');
+
 const meta = {
   title: 'Blocks/FeatureGrid',
   component: FeatureGrid,
@@ -213,5 +219,109 @@ export const ItemsOnly: Story = {
 
     const items = canvas.getAllByRole('heading', { level: 3 });
     await expect(items).toHaveLength(3);
+  },
+};
+
+/** alternating: 행마다 아이콘/텍스트가 좌우로 교차하는 지그재그 (≥lg에서 2-col) */
+export const LayoutAlternating: Story = {
+  parameters: {
+    viewport: { defaultViewport: 'desktop' },
+  },
+  args: {
+    layout: 'alternating',
+    title: '교차 레이아웃',
+    items: SAMPLE_ITEMS.slice(0, 4),
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr 가 올바른 값으로 존재
+    const section = canvasElement.querySelector(
+      '[data-bbangto-featuregrid-layout]'
+    ) as HTMLElement | null;
+    await expect(section).not.toBeNull();
+    await expect(section!.getAttribute('data-bbangto-featuregrid-layout')).toBe(
+      'alternating'
+    );
+
+    // 2. load-bearing: scoped 2-col(row-reverse zig-zag) 규칙이 <style>에 존재
+    const styleText = collectStyleText(canvasElement);
+    await expect(styleText).toContain('flex-direction: row');
+    await expect(styleText).toContain('row-reverse');
+    await expect(styleText).toContain('nth-child(even)');
+
+    // 3. 콘텐츠 슬롯 렌더 확인
+    const items = canvas.getAllByRole('heading', { level: 3 });
+    await expect(items).toHaveLength(4);
+    await expect(
+      canvas.getByRole('heading', { name: '빠른 빌드' })
+    ).toBeVisible();
+  },
+};
+
+/** list: 단일 컬럼 세로 스택 */
+export const LayoutList: Story = {
+  args: {
+    layout: 'list',
+    title: '리스트 레이아웃',
+    items: SAMPLE_ITEMS.slice(0, 4),
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr 확인
+    const section = canvasElement.querySelector(
+      '[data-bbangto-featuregrid-layout]'
+    ) as HTMLElement | null;
+    await expect(section).not.toBeNull();
+    await expect(section!.getAttribute('data-bbangto-featuregrid-layout')).toBe(
+      'list'
+    );
+
+    // 2. load-bearing: 컨테이너가 단일 컬럼(flex column)
+    const list = section!.querySelector('ul') as HTMLElement;
+    const listStyle = getComputedStyle(list);
+    await expect(listStyle.display).toBe('flex');
+    await expect(listStyle.flexDirection).toBe('column');
+
+    // 3. 콘텐츠 슬롯 렌더 확인
+    const items = canvas.getAllByRole('heading', { level: 3 });
+    await expect(items).toHaveLength(4);
+  },
+};
+
+/** bento: 일부 아이템이 2칸/2행을 차지하는 혼합 스팬 그리드 (≥lg) */
+export const LayoutBento: Story = {
+  parameters: {
+    viewport: { defaultViewport: 'desktop' },
+  },
+  args: {
+    layout: 'bento',
+    title: '벤토 레이아웃',
+    items: SAMPLE_ITEMS,
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr 확인
+    const section = canvasElement.querySelector(
+      '[data-bbangto-featuregrid-layout]'
+    ) as HTMLElement | null;
+    await expect(section).not.toBeNull();
+    await expect(section!.getAttribute('data-bbangto-featuregrid-layout')).toBe(
+      'bento'
+    );
+
+    // 2. load-bearing: 컨테이너가 grid, scoped 스팬 규칙이 <style>에 존재
+    const list = section!.querySelector('ul') as HTMLElement;
+    await expect(getComputedStyle(list).display).toBe('grid');
+
+    const styleText = collectStyleText(canvasElement);
+    await expect(styleText).toContain('grid-column: span 2');
+    await expect(styleText).toContain('grid-row: span 2');
+
+    // 3. 콘텐츠 슬롯 렌더 확인
+    const items = canvas.getAllByRole('heading', { level: 3 });
+    await expect(items).toHaveLength(SAMPLE_ITEMS.length);
   },
 };

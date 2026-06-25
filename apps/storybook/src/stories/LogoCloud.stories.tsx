@@ -79,3 +79,121 @@ export const WithoutTitle: Story = {
     await expect(items.length).toBe(sampleLogos.length);
   },
 };
+
+/** Aggregate ALL <style> tag text so we never grab a stray global @import sheet. */
+const aggregateStyles = (root: HTMLElement) =>
+  Array.from(root.querySelectorAll('style'))
+    .map((s) => s.textContent ?? '')
+    .join('\n');
+
+export const LayoutMarquee: Story = {
+  args: {
+    title: 'Trusted by industry leaders',
+    logos: sampleLogos,
+    layout: 'marquee',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. Layout data-attribute is present with the right value
+    const section = canvasElement.querySelector(
+      '[data-bbangto-logocloud-layout]'
+    ) as HTMLElement | null;
+    await expect(section).not.toBeNull();
+    await expect(section!.getAttribute('data-bbangto-logocloud-layout')).toBe(
+      'marquee'
+    );
+
+    // 2a. Load-bearing: the scoped animation rule is present in aggregated <style>.
+    const styles = aggregateStyles(canvasElement);
+    await expect(styles).toContain('@keyframes bbangto-logocloud-scroll');
+    await expect(styles).toContain(
+      'animation: bbangto-logocloud-scroll'
+    );
+
+    // 2b. Load-bearing: prefers-reduced-motion fallback disables the animation.
+    await expect(styles).toContain('@media (prefers-reduced-motion: reduce)');
+    await expect(styles).toContain('animation: none');
+
+    // The animated track carries the scoped class.
+    const track = canvasElement.querySelector('.bbangto-logocloud-marquee-track');
+    await expect(track).not.toBeNull();
+
+    // 3. Logos still render (real list track has the named logos).
+    const firstLogo = await canvas.findAllByText('Acme Corp');
+    await expect(firstLogo.length).toBeGreaterThan(0);
+    const list = canvasElement.querySelector('[role="list"]');
+    await expect(list).not.toBeNull();
+    const items = list!.querySelectorAll('[role="listitem"]');
+    await expect(items.length).toBe(sampleLogos.length);
+  },
+};
+
+export const LayoutInline: Story = {
+  args: {
+    title: 'Trusted by industry leaders',
+    logos: sampleLogos,
+    layout: 'inline',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. Layout data-attribute.
+    const section = canvasElement.querySelector(
+      '[data-bbangto-logocloud-layout]'
+    ) as HTMLElement | null;
+    await expect(section).not.toBeNull();
+    await expect(section!.getAttribute('data-bbangto-logocloud-layout')).toBe(
+      'inline'
+    );
+
+    // 2. Load-bearing: single row flex (row, no wrap).
+    const list = canvasElement.querySelector('[role="list"]') as HTMLElement | null;
+    await expect(list).not.toBeNull();
+    const listStyle = getComputedStyle(list!);
+    await expect(listStyle.display).toBe('flex');
+    await expect(listStyle.flexDirection).toBe('row');
+    await expect(listStyle.flexWrap).toBe('nowrap');
+
+    // 3. Logos render.
+    const items = list!.querySelectorAll('[role="listitem"]');
+    await expect(items.length).toBe(sampleLogos.length);
+    const firstLogo = await canvas.findByText('Acme Corp');
+    await expect(firstLogo).toBeVisible();
+  },
+};
+
+export const LayoutBordered: Story = {
+  args: {
+    title: 'Trusted by industry leaders',
+    logos: sampleLogos,
+    layout: 'bordered',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. Layout data-attribute.
+    const section = canvasElement.querySelector(
+      '[data-bbangto-logocloud-layout]'
+    ) as HTMLElement | null;
+    await expect(section).not.toBeNull();
+    await expect(section!.getAttribute('data-bbangto-logocloud-layout')).toBe(
+      'bordered'
+    );
+
+    // 2. Load-bearing: grid container + cells have solid borders (dividers).
+    const list = canvasElement.querySelector('[role="list"]') as HTMLElement | null;
+    await expect(list).not.toBeNull();
+    await expect(getComputedStyle(list!).display).toBe('grid');
+
+    const items = list!.querySelectorAll('[role="listitem"]');
+    await expect(items.length).toBe(sampleLogos.length);
+    const cellStyle = getComputedStyle(items[0] as HTMLElement);
+    await expect(cellStyle.borderRightStyle).toBe('solid');
+    await expect(cellStyle.borderBottomStyle).toBe('solid');
+
+    // 3. Logos render.
+    const firstLogo = await canvas.findByText('Acme Corp');
+    await expect(firstLogo).toBeVisible();
+  },
+};

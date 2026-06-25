@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { PricingSection } from '@centurio1987/core';
-import { expect, userEvent, within } from 'storybook/test';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 
 const meta = {
   title: 'Blocks/PricingSection',
@@ -141,3 +141,146 @@ export const TwoPlans: Story = {
     ],
   },
 };
+
+/**
+ * `table` layout: a feature-comparison table where rows are features and
+ * columns are plans. The play function asserts the layout data-attribute, that
+ * a real <table> (role=table) is rendered with feature rows, and that every
+ * plan name still appears as a column header.
+ */
+export const LayoutTable: Story = {
+  args: {
+    title: 'Compare Plans',
+    layout: 'table',
+    plans: samplePlans,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const section = canvasElement.querySelector(
+      '[data-bbangto-pricingsection-layout]'
+    ) as HTMLElement;
+
+    // 1. data-attr present with the right value
+    await expect(section).not.toBeNull();
+    await expect(section.getAttribute('data-bbangto-pricingsection-layout')).toBe(
+      'table'
+    );
+
+    // 2. Load-bearing: a real comparison table is rendered with feature rows
+    const table = await canvas.findByRole('table');
+    await expect(table).toBeVisible();
+    expect(table.tagName).toBe('TABLE');
+    // Column headers carry the plan names.
+    const colHeaders = canvas.getAllByRole('columnheader');
+    expect(colHeaders.length).toBeGreaterThanOrEqual(plansHeaderCount(samplePlans));
+    // Feature rows exist (row headers in <tbody>).
+    const rowHeaders = canvas.getAllByRole('rowheader');
+    expect(rowHeaders.length).toBeGreaterThan(0);
+
+    // 3. Content slots: plan names + a feature still render
+    await expect(canvas.getByRole('columnheader', { name: /Starter/i })).toBeVisible();
+    await expect(canvas.getByRole('columnheader', { name: /Pro/i })).toBeVisible();
+    await expect(canvas.getByRole('columnheader', { name: /Enterprise/i })).toBeVisible();
+    await expect(canvas.getByText('Up to 3 projects')).toBeVisible();
+  },
+};
+
+/**
+ * `featured` layout: the highlighted plan is enlarged/centered with the others
+ * flanking it. The play function asserts the layout data-attribute, that the
+ * scoped responsive <style> defining the featured (scale 1.06) and flanking
+ * (scale 0.92) treatments is present, and that all plan names render.
+ */
+export const LayoutFeatured: Story = {
+  parameters: {
+    viewport: { defaultViewport: 'responsive' },
+  },
+  args: {
+    title: 'Pick the Right Plan',
+    layout: 'featured',
+    plans: samplePlans,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const section = canvasElement.querySelector(
+      '[data-bbangto-pricingsection-layout]'
+    ) as HTMLElement;
+
+    // 1. data-attr present with the right value
+    await expect(section).not.toBeNull();
+    await expect(section.getAttribute('data-bbangto-pricingsection-layout')).toBe(
+      'featured'
+    );
+
+    // 2. Load-bearing: the featured plan is marked distinct, and the scoped
+    //    style enlarges it (scale 1.06) while flanks shrink (scale 0.92).
+    //    Assert via the scoped <style> rule rather than a resolved pixel value.
+    const featuredWrap = canvasElement.querySelector(
+      '[data-featured]'
+    ) as HTMLElement;
+    await waitFor(() => expect(featuredWrap).not.toBeNull());
+    expect(featuredWrap.className).toContain('bbangto-pricingsection-featured-main');
+
+    const styleText = Array.from(canvasElement.querySelectorAll('style'))
+      .map((s) => s.textContent ?? '')
+      .join('\n');
+    expect(styleText).toContain('bbangto-pricingsection-featured-main');
+    expect(styleText).toContain('scale(1.06)');
+    expect(styleText).toContain('bbangto-pricingsection-featured-flank');
+    expect(styleText).toContain('scale(0.92)');
+
+    // 3. Content slots: all plan names still render
+    await expect(canvas.getByRole('heading', { name: /Starter/i })).toBeVisible();
+    await expect(canvas.getByRole('heading', { name: /Pro/i })).toBeVisible();
+    await expect(canvas.getByRole('heading', { name: /Enterprise/i })).toBeVisible();
+  },
+};
+
+/**
+ * `compact` layout: a condensed card row with reduced padding and smaller
+ * price/feature typography. The play function asserts the layout data-attribute,
+ * that the card padding is visibly smaller than the default `lg` cards, and
+ * that all plan names render.
+ */
+export const LayoutCompact: Story = {
+  args: {
+    title: 'Compact Pricing',
+    layout: 'compact',
+    plans: samplePlans,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const section = canvasElement.querySelector(
+      '[data-bbangto-pricingsection-layout]'
+    ) as HTMLElement;
+
+    // 1. data-attr present with the right value
+    await expect(section).not.toBeNull();
+    await expect(section.getAttribute('data-bbangto-pricingsection-layout')).toBe(
+      'compact'
+    );
+
+    // 2. Load-bearing: compact cards use reduced padding. Default `lg` cards
+    //    use spacing-40; compact uses spacing-12, so the resolved padding must
+    //    be meaningfully smaller. We assert the numeric padding is below the
+    //    default's threshold rather than an exact pixel value.
+    const listItem = canvas.getAllByRole('listitem')[0];
+    const card = listItem.firstElementChild as HTMLElement;
+    await expect(card).not.toBeNull();
+    const padding = parseFloat(getComputedStyle(card).paddingTop);
+    // lg default resolves to 40px-ish; compact to 12px-ish. Assert clearly small.
+    expect(padding).toBeGreaterThan(0);
+    expect(padding).toBeLessThan(24);
+
+    // 3. Content slots: all plan names still render
+    await expect(canvas.getByRole('heading', { name: /Starter/i })).toBeVisible();
+    await expect(canvas.getByRole('heading', { name: /Pro/i })).toBeVisible();
+    await expect(canvas.getByRole('heading', { name: /Enterprise/i })).toBeVisible();
+  },
+};
+
+/** Number of plan columns expected in the comparison table header. */
+function plansHeaderCount(plans: typeof samplePlans): number {
+  // One leading "Features" column header + one per plan.
+  return plans.length + 1;
+}

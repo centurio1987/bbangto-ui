@@ -6,6 +6,15 @@ import { Text } from '../components/Text';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
+/**
+ * Layout axis for the CTA block.
+ * - `centered` (default): centered panel — original behavior.
+ * - `split`: title/description on the left, actions on the right; 2-col at ≥ lg.
+ * - `banner`: full-width strip with strong primary background, compact padding.
+ * - `card`: boxed card with border, radius, and elevation.
+ */
+export type CTALayout = 'centered' | 'split' | 'banner' | 'card';
+
 export interface CTAAction {
   /** Visible label for the button. */
   label: string;
@@ -24,6 +33,8 @@ export interface CTAProps extends React.HTMLAttributes<HTMLElement> {
   primaryCta: CTAAction;
   /** Secondary button configuration (optional). */
   secondaryCta?: CTAAction;
+  /** Visual arrangement of the block. Defaults to `centered`. */
+  layout?: CTALayout;
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -32,28 +43,69 @@ export interface CTAProps extends React.HTMLAttributes<HTMLElement> {
 const SCOPE = 'bbangto-cta-block';
 
 export const CTA = React.forwardRef<HTMLElement, CTAProps>(
-  ({ title, description, primaryCta, secondaryCta, style, className, ...props }, ref) => {
+  (
+    { title, description, primaryCta, secondaryCta, layout = 'centered', style, className, ...props },
+    ref
+  ) => {
+    const isSplit = layout === 'split';
+    const isBanner = layout === 'banner';
+    const isCard = layout === 'card';
+
     const sectionStyles: React.CSSProperties = {
       width: '100%',
       boxSizing: 'border-box',
-      backgroundColor: cssVar('semantic', 'primary', 'subtle'),
-      borderRadius: cssVar('radius', 'xl'),
-      padding: `${cssVar('spacing', '64')} ${cssVar('spacing', '40')}`,
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      textAlign: 'center',
+      // Banner uses a strong primary background; others keep the subtle panel.
+      backgroundColor: isBanner
+        ? cssVar('semantic', 'primary', 'base')
+        : cssVar('semantic', 'primary', 'subtle'),
+      // Banner is a flush full-width strip — no corner radius.
+      borderRadius: isBanner ? '0' : cssVar('radius', 'xl'),
+      // Card gets a visible border + elevation; banner is borderless.
+      ...(isCard
+        ? {
+            borderStyle: 'solid',
+            borderWidth: '1px',
+            borderColor: cssVar('semantic', 'border', 'base'),
+            boxShadow: cssVar('shadow', 'lg'),
+            backgroundColor: cssVar('semantic', 'background', 'base'),
+          }
+        : null),
+      // Banner trims the vertical padding for a compact strip.
+      padding: isBanner
+        ? `${cssVar('spacing', '24')} ${cssVar('spacing', '40')}`
+        : `${cssVar('spacing', '64')} ${cssVar('spacing', '40')}`,
+      display: isSplit ? 'grid' : 'flex',
+      ...(isSplit
+        ? {
+            // Default single column (mobile); desktop split via scoped @media.
+            gridTemplateColumns: '1fr',
+            alignItems: 'center',
+          }
+        : {
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }),
+      textAlign: isSplit ? 'left' : 'center',
       gap: cssVar('spacing', '24'),
       ...style,
+    };
+
+    const contentStyles: React.CSSProperties = {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: cssVar('spacing', '12'),
+      alignItems: isSplit ? 'flex-start' : 'center',
+      textAlign: isSplit ? 'left' : 'center',
     };
 
     const actionsStyles: React.CSSProperties = {
       display: 'flex',
       flexWrap: 'wrap',
-      justifyContent: 'center',
+      justifyContent: isSplit ? 'flex-end' : 'center',
+      alignItems: 'center',
       gap: cssVar('spacing', '12'),
-      marginTop: cssVar('spacing', '8'),
+      marginTop: isSplit ? '0' : cssVar('spacing', '8'),
     };
 
     return (
@@ -66,6 +118,11 @@ export const CTA = React.forwardRef<HTMLElement, CTAProps>(
               padding-right: ${cssVar('spacing', '64')} !important;
             }
           }
+          @media (min-width: ${breakpoints.lg}px) {
+            .${SCOPE}-split {
+              grid-template-columns: 1fr auto !important;
+            }
+          }
           @media (prefers-reduced-motion: reduce) {
             .${SCOPE} * {
               transition: none !important;
@@ -76,20 +133,27 @@ export const CTA = React.forwardRef<HTMLElement, CTAProps>(
 
         <section
           ref={ref}
-          className={[SCOPE, className].filter(Boolean).join(' ')}
+          className={[SCOPE, isSplit && `${SCOPE}-split`, className].filter(Boolean).join(' ')}
+          data-bbangto-cta-layout={layout}
           aria-label={title}
           style={sectionStyles}
           {...props}
         >
-          <Text variant="h2" color="primary">
-            {title}
-          </Text>
-
-          {description && (
-            <Text variant="body" color="muted" style={{ maxWidth: '560px' }}>
-              {description}
+          <div style={contentStyles}>
+            <Text variant="h2" color={isBanner ? 'inverse' : 'primary'}>
+              {title}
             </Text>
-          )}
+
+            {description && (
+              <Text
+                variant="body"
+                color={isBanner ? 'inverse' : 'muted'}
+                style={{ maxWidth: isSplit ? undefined : '560px' }}
+              >
+                {description}
+              </Text>
+            )}
+          </div>
 
           <div style={actionsStyles}>
             <Button

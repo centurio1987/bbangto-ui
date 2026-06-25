@@ -1,9 +1,21 @@
 import React from 'react';
-import { cssVar } from '@centurio1987/tokens';
+import { cssVar, breakpoints } from '@centurio1987/tokens';
 import { Button } from '../components/Button';
 import { Card } from '../components/Card';
 import { Badge } from '../components/Badge';
 import { Text } from '../components/Text';
+
+/**
+ * Visual arrangement of the pricing plans.
+ * - `cards` (default): tier-card row (current behavior).
+ * - `table`: feature comparison table (rows = features, columns = plans).
+ * - `featured`: highlighted plan enlarged/centered, others smaller flanking.
+ * - `compact`: condensed card row with reduced padding / font sizes.
+ */
+export type PricingSectionLayout = 'cards' | 'table' | 'featured' | 'compact';
+
+/** Unique class prefix to scope media query styles without a CSS Module. */
+const PRICING_ID = 'bbangto-pricingsection';
 
 export interface PricingPlan {
   /** Unique plan name (e.g. "Starter", "Pro"). */
@@ -25,10 +37,12 @@ export interface PricingSectionProps extends React.HTMLAttributes<HTMLElement> {
   title?: string;
   /** Array of pricing plan objects to render. */
   plans: PricingPlan[];
+  /** Visual arrangement of the plans. Defaults to `'cards'`. */
+  layout?: PricingSectionLayout;
 }
 
 export const PricingSection = React.forwardRef<HTMLElement, PricingSectionProps>(
-  ({ title, plans, style, ...props }, ref) => {
+  ({ title, plans, layout = 'cards', style, ...props }, ref) => {
     const sectionStyle: React.CSSProperties = {
       width: '100%',
       padding: `${cssVar('spacing', '64')} ${cssVar('spacing', '24')}`,
@@ -47,15 +61,13 @@ export const PricingSection = React.forwardRef<HTMLElement, PricingSectionProps>
       marginBottom: cssVar('spacing', '48'),
     };
 
-    const gridStyle: React.CSSProperties = {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-      gap: cssVar('spacing', '24'),
-      alignItems: 'stretch',
-    };
-
     return (
-      <section ref={ref} style={sectionStyle} {...props}>
+      <section
+        ref={ref}
+        data-bbangto-pricingsection-layout={layout}
+        style={sectionStyle}
+        {...props}
+      >
         <div style={innerStyle}>
           {title && (
             <div style={headerStyle}>
@@ -63,11 +75,14 @@ export const PricingSection = React.forwardRef<HTMLElement, PricingSectionProps>
             </div>
           )}
 
-          <div style={gridStyle} role="list">
-            {plans.map((plan) => (
-              <PlanCard key={plan.name} plan={plan} />
-            ))}
-          </div>
+          {layout === 'table' ? (
+            <PricingTable plans={plans} />
+          ) : layout === 'featured' ? (
+            <FeaturedPlans plans={plans} />
+          ) : (
+            // cards (default) and compact share the card-row body
+            <CardRow plans={plans} compact={layout === 'compact'} />
+          )}
         </div>
       </section>
     );
@@ -77,15 +92,281 @@ export const PricingSection = React.forwardRef<HTMLElement, PricingSectionProps>
 PricingSection.displayName = 'PricingSection';
 
 // ---------------------------------------------------------------------------
+// CardRow — default `cards` row + `compact` variant. Not exported.
+// ---------------------------------------------------------------------------
+
+interface CardRowProps {
+  plans: PricingPlan[];
+  compact?: boolean;
+}
+
+function CardRow({ plans, compact = false }: CardRowProps) {
+  const gridStyle: React.CSSProperties = {
+    display: 'grid',
+    gridTemplateColumns: compact
+      ? 'repeat(auto-fit, minmax(220px, 1fr))'
+      : 'repeat(auto-fit, minmax(280px, 1fr))',
+    gap: compact ? cssVar('spacing', '12') : cssVar('spacing', '24'),
+    alignItems: 'stretch',
+  };
+
+  return (
+    <div style={gridStyle} role="list">
+      {plans.map((plan) => (
+        <PlanCard key={plan.name} plan={plan} compact={compact} />
+      ))}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// FeaturedPlans — one highlighted plan enlarged/centered, others flanking.
+// Not exported.
+// ---------------------------------------------------------------------------
+
+interface FeaturedPlansProps {
+  plans: PricingPlan[];
+}
+
+function FeaturedPlans({ plans }: FeaturedPlansProps) {
+  // The featured plan is the highlighted one, falling back to the middle plan.
+  const highlightedIdx = plans.findIndex((p) => p.highlighted);
+  const featuredIdx =
+    highlightedIdx >= 0 ? highlightedIdx : Math.floor(plans.length / 2);
+
+  const rowStyle: React.CSSProperties = {
+    // Mobile: stack in a single column. Desktop split handled by scoped @media.
+    display: 'flex',
+    flexDirection: 'column',
+    gap: cssVar('spacing', '24'),
+    alignItems: 'center',
+    justifyContent: 'center',
+  };
+
+  return (
+    <>
+      {/*
+        Scoped responsive style: on desktop (≥ lg breakpoint) lay the plans out
+        in a row and visually enlarge the featured plan so the others flank it.
+        @media cannot be expressed inline so we render a scoped <style>.
+      */}
+      <style>{`
+        @media (min-width: ${breakpoints.lg}px) {
+          .${PRICING_ID}-featured-row {
+            flex-direction: row !important;
+            align-items: center !important;
+          }
+          .${PRICING_ID}-featured-flank {
+            flex: 0 1 280px;
+            transform: scale(0.92);
+          }
+          .${PRICING_ID}-featured-main {
+            flex: 0 1 360px;
+            transform: scale(1.06);
+            z-index: 1;
+          }
+        }
+      `}</style>
+
+      <div className={`${PRICING_ID}-featured-row`} style={rowStyle} role="list">
+        {plans.map((plan, idx) => {
+          const isFeatured = idx === featuredIdx;
+          return (
+            <div
+              key={plan.name}
+              className={
+                isFeatured
+                  ? `${PRICING_ID}-featured-main`
+                  : `${PRICING_ID}-featured-flank`
+              }
+              style={{ width: '100%', maxWidth: isFeatured ? '360px' : '280px' }}
+              data-featured={isFeatured || undefined}
+            >
+              <PlanCard plan={plan} forceHighlight={isFeatured} />
+            </div>
+          );
+        })}
+      </div>
+    </>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// PricingTable — feature comparison table. Rows = features, columns = plans.
+// Not exported.
+// ---------------------------------------------------------------------------
+
+interface PricingTableProps {
+  plans: PricingPlan[];
+}
+
+function PricingTable({ plans }: PricingTableProps) {
+  // Union of all feature strings across plans, preserving first-seen order.
+  const allFeatures: string[] = [];
+  for (const plan of plans) {
+    for (const feature of plan.features) {
+      if (!allFeatures.includes(feature)) allFeatures.push(feature);
+    }
+  }
+
+  const tableWrapStyle: React.CSSProperties = {
+    width: '100%',
+    overflowX: 'auto',
+  };
+
+  const tableStyle: React.CSSProperties = {
+    width: '100%',
+    borderCollapse: 'collapse',
+    textAlign: 'left',
+  };
+
+  const cellBase: React.CSSProperties = {
+    padding: `${cssVar('spacing', '12')} ${cssVar('spacing', '16')}`,
+    borderBottom: `1px solid ${cssVar('semantic', 'border', 'base')}`,
+    fontSize: cssVar('typography', 'scale', 'body', 'fontSize'),
+    lineHeight: cssVar('typography', 'scale', 'body', 'lineHeight'),
+    color: cssVar('semantic', 'foreground', 'base'),
+  };
+
+  const headerCellStyle: React.CSSProperties = {
+    ...cellBase,
+    fontWeight: cssVar('typography', 'scale', 'h3', 'fontWeight'),
+    verticalAlign: 'bottom',
+  };
+
+  const rowHeaderStyle: React.CSSProperties = {
+    ...cellBase,
+    fontWeight: cssVar('typography', 'scale', 'meta', 'fontWeight'),
+    color: cssVar('semantic', 'foreground', 'muted'),
+  };
+
+  const planHeaderInnerStyle: React.CSSProperties = {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: cssVar('spacing', '4'),
+  };
+
+  const checkmarkStyle: React.CSSProperties = {
+    color: cssVar('semantic', 'success', 'base'),
+    fontSize: '16px',
+    lineHeight: '1',
+  };
+
+  const dashStyle: React.CSSProperties = {
+    color: cssVar('semantic', 'foreground', 'muted'),
+  };
+
+  return (
+    <div style={tableWrapStyle}>
+      <table style={tableStyle}>
+        <thead>
+          <tr>
+            <th scope="col" style={headerCellStyle}>
+              <Text variant="meta" as="span" color="muted">
+                Features
+              </Text>
+            </th>
+            {plans.map((plan) => (
+              <th key={plan.name} scope="col" style={headerCellStyle}>
+                <div style={planHeaderInnerStyle}>
+                  <span
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: cssVar('spacing', '8'),
+                    }}
+                  >
+                    <Text variant="h3" as="span">
+                      {plan.name}
+                    </Text>
+                    {plan.highlighted && (
+                      <Badge color="primary" variant="soft">
+                        Most Popular
+                      </Badge>
+                    )}
+                  </span>
+                  <span
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'baseline',
+                      gap: cssVar('spacing', '4'),
+                    }}
+                  >
+                    <Text variant="h2" as="span">
+                      {plan.price}
+                    </Text>
+                    {plan.period && (
+                      <Text variant="meta" as="span" color="muted">
+                        {plan.period}
+                      </Text>
+                    )}
+                  </span>
+                </div>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {allFeatures.map((feature) => (
+            <tr key={feature}>
+              <th scope="row" style={rowHeaderStyle}>
+                {feature}
+              </th>
+              {plans.map((plan) => {
+                const has = plan.features.includes(feature);
+                return (
+                  <td key={plan.name} style={cellBase}>
+                    {has ? (
+                      <span style={checkmarkStyle} aria-label="Included">
+                        &#10003;
+                      </span>
+                    ) : (
+                      <span style={dashStyle} aria-label="Not included">
+                        &mdash;
+                      </span>
+                    )}
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+          {/* CTA row */}
+          <tr>
+            <th scope="row" style={rowHeaderStyle} aria-hidden="true" />
+            {plans.map((plan) => (
+              <td key={plan.name} style={cellBase}>
+                <Button
+                  variant={plan.highlighted ? 'solid' : 'outline'}
+                  color="primary"
+                  fullWidth
+                  aria-label={`${plan.cta} — ${plan.name} plan`}
+                >
+                  {plan.cta}
+                </Button>
+              </td>
+            ))}
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Internal PlanCard — not exported
 // ---------------------------------------------------------------------------
 
 interface PlanCardProps {
   plan: PricingPlan;
+  /** Condensed treatment: reduced padding + smaller price/feature font. */
+  compact?: boolean;
+  /** Force the highlighted treatment regardless of `plan.highlighted`. */
+  forceHighlight?: boolean;
 }
 
-function PlanCard({ plan }: PlanCardProps) {
-  const { name, price, period, features, cta, highlighted = false } = plan;
+function PlanCard({ plan, compact = false, forceHighlight = false }: PlanCardProps) {
+  const { name, price, period, features, cta } = plan;
+  const highlighted = forceHighlight || plan.highlighted || false;
 
   const cardStyle: React.CSSProperties = {
     display: 'flex',
@@ -107,7 +388,7 @@ function PlanCard({ plan }: PlanCardProps) {
     display: 'flex',
     flexDirection: 'column',
     gap: cssVar('spacing', '8'),
-    marginBottom: cssVar('spacing', '24'),
+    marginBottom: compact ? cssVar('spacing', '12') : cssVar('spacing', '24'),
   };
 
   const planNameRowStyle: React.CSSProperties = {
@@ -132,9 +413,9 @@ function PlanCard({ plan }: PlanCardProps) {
   const featureListStyle: React.CSSProperties = {
     display: 'flex',
     flexDirection: 'column',
-    gap: cssVar('spacing', '12'),
+    gap: compact ? cssVar('spacing', '8') : cssVar('spacing', '12'),
     flex: 1,
-    margin: `0 0 ${cssVar('spacing', '24')} 0`,
+    margin: `0 0 ${compact ? cssVar('spacing', '12') : cssVar('spacing', '24')} 0`,
     padding: 0,
     listStyle: 'none',
   };
@@ -144,8 +425,12 @@ function PlanCard({ plan }: PlanCardProps) {
     alignItems: 'flex-start',
     gap: cssVar('spacing', '8'),
     color: cssVar('semantic', 'foreground', 'base'),
-    fontSize: cssVar('typography', 'scale', 'body', 'fontSize'),
-    lineHeight: cssVar('typography', 'scale', 'body', 'lineHeight'),
+    fontSize: compact
+      ? cssVar('typography', 'scale', 'meta', 'fontSize')
+      : cssVar('typography', 'scale', 'body', 'fontSize'),
+    lineHeight: compact
+      ? cssVar('typography', 'scale', 'meta', 'lineHeight')
+      : cssVar('typography', 'scale', 'body', 'lineHeight'),
   };
 
   const checkmarkStyle: React.CSSProperties = {
@@ -160,7 +445,7 @@ function PlanCard({ plan }: PlanCardProps) {
     <div role="listitem" style={{ display: 'flex', flexDirection: 'column' }}>
       <Card
         elevation={highlighted ? 'md' : 'sm'}
-        padding="lg"
+        padding={compact ? 'sm' : 'lg'}
         bordered={!highlighted}
         style={cardStyle}
       >
@@ -177,7 +462,7 @@ function PlanCard({ plan }: PlanCardProps) {
 
           {/* Price */}
           <div style={priceRowStyle}>
-            <Text variant="h1" as="span">
+            <Text variant={compact ? 'h2' : 'h1'} as="span">
               {price}
             </Text>
             {period && (

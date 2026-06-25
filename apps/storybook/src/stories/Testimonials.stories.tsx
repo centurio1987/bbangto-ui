@@ -99,3 +99,122 @@ export const WithoutTitle: Story = {
     await expect(headings.length).toBe(0);
   },
 };
+
+export const LayoutCarousel: Story = {
+  name: 'Layout: Carousel',
+  args: {
+    title: 'What our users say',
+    items: sampleItems,
+    layout: 'carousel',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr 확인
+    const section = canvasElement.querySelector(
+      '[data-bbangto-testimonials-layout]'
+    ) as HTMLElement;
+    await expect(section).not.toBeNull();
+    await expect(section.getAttribute('data-bbangto-testimonials-layout')).toBe(
+      'carousel'
+    );
+
+    // 2. load-bearing: 스크롤러가 overflow-x auto/scroll + scroll-snap 적용
+    const scroller = canvasElement.querySelector(
+      '.bbangto-testimonials-carousel'
+    ) as HTMLElement;
+    await expect(scroller).not.toBeNull();
+    const scrollerStyle = getComputedStyle(scroller);
+    await expect(['auto', 'scroll']).toContain(scrollerStyle.overflowX);
+    await expect(scrollerStyle.scrollSnapType).toContain('x');
+
+    // 2b. 스크롤러가 키보드 포커스 가능해야 함 (tabIndex=0)
+    await expect(scroller.getAttribute('tabindex')).toBe('0');
+    scroller.focus();
+    await expect(document.activeElement).toBe(scroller);
+
+    // 2c. prefers-reduced-motion 폴백 규칙이 scoped <style>에 존재
+    const allStyles = Array.from(canvasElement.querySelectorAll('style'))
+      .map((s) => s.textContent ?? '')
+      .join('\n');
+    await expect(allStyles).toContain('prefers-reduced-motion');
+    await expect(allStyles).toContain('scroll-behavior: auto');
+
+    // 3. 인용문/저자 콘텐츠가 여전히 렌더됨
+    for (const item of sampleItems) {
+      const authorEl = await canvas.findByText(item.author);
+      await expect(authorEl).toBeVisible();
+    }
+  },
+};
+
+export const LayoutSingle: Story = {
+  name: 'Layout: Single',
+  args: {
+    title: 'What our users say',
+    items: sampleItems,
+    layout: 'single',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr 확인
+    const section = canvasElement.querySelector(
+      '[data-bbangto-testimonials-layout]'
+    ) as HTMLElement;
+    await expect(section).not.toBeNull();
+    await expect(section.getAttribute('data-bbangto-testimonials-layout')).toBe(
+      'single'
+    );
+
+    // 2. load-bearing: 하나의 prominent 인용문만 렌더 (첫 번째 아이템)
+    const quotes = canvasElement.querySelectorAll('blockquote');
+    await expect(quotes.length).toBe(1);
+    const featured = await canvas.findByText(
+      /The design system saved our team weeks of work/i
+    );
+    await expect(featured).toBeVisible();
+
+    // 첫 번째 저자만 노출, 나머지는 렌더되지 않음
+    await expect(await canvas.findByText('Jisoo Kim')).toBeVisible();
+    await expect(canvas.queryByText('Minho Lee')).toBeNull();
+  },
+};
+
+export const LayoutMasonry: Story = {
+  name: 'Layout: Masonry',
+  parameters: {
+    viewport: { defaultViewport: 'desktop' },
+  },
+  args: {
+    title: 'What our users say',
+    items: sampleItems,
+    layout: 'masonry',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr 확인
+    const section = canvasElement.querySelector(
+      '[data-bbangto-testimonials-layout]'
+    ) as HTMLElement;
+    await expect(section).not.toBeNull();
+    await expect(section.getAttribute('data-bbangto-testimonials-layout')).toBe(
+      'masonry'
+    );
+
+    // 2. load-bearing: column-count masonry (> 1 컬럼)
+    const wall = canvasElement.querySelector(
+      '.bbangto-testimonials-masonry'
+    ) as HTMLElement;
+    await expect(wall).not.toBeNull();
+    const columnCount = Number(getComputedStyle(wall).columnCount);
+    await expect(columnCount).toBeGreaterThan(1);
+
+    // 3. 모든 인용문/저자가 여전히 렌더됨
+    for (const item of sampleItems) {
+      const authorEl = await canvas.findByText(item.author);
+      await expect(authorEl).toBeVisible();
+    }
+  },
+};

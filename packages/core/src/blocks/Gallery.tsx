@@ -8,6 +8,9 @@ export interface GalleryImage {
   caption?: string;
 }
 
+/** Layout variants for the Gallery block. */
+export type GalleryLayout = 'grid' | 'masonry' | 'carousel' | 'featured';
+
 export interface GalleryProps extends React.HTMLAttributes<HTMLElement> {
   /** Array of image items to display in the gallery grid. */
   images: GalleryImage[];
@@ -15,14 +18,28 @@ export interface GalleryProps extends React.HTMLAttributes<HTMLElement> {
    * Number of columns. When omitted the grid uses intrinsic responsiveness
    * (`auto-fit / minmax`) so no media query is needed.
    * When set, a fixed column count is used (still fluid per column width).
+   *
+   * Applies to the `grid` and `masonry` layouts.
    */
   columns?: 1 | 2 | 3 | 4 | 5 | 6;
+  /**
+   * Arrangement of the gallery images.
+   * - `grid` (default): even responsive grid.
+   * - `masonry`: column-count masonry with images flowing into balanced columns.
+   * - `carousel`: horizontal scroll-snap strip, keyboard-operable.
+   * - `featured`: one large lead image with a thumbnail strip of the rest.
+   */
+  layout?: GalleryLayout;
 }
 
 const SCOPE_ATTR = 'data-bbangto-gallery';
+const LAYOUT_ATTR = 'data-bbangto-gallery-layout';
+
+/** Unique class prefix to scope media query / animation styles without a CSS Module. */
+const GALLERY_ID = 'bbangto-gallery';
 
 export const Gallery = React.forwardRef<HTMLElement, GalleryProps>(
-  ({ images, columns, style, className, ...props }, ref) => {
+  ({ images, columns, layout = 'grid', style, className, ...props }, ref) => {
     const gridTemplateColumns = columns
       ? `repeat(${columns}, 1fr)`
       : 'repeat(auto-fit, minmax(240px, 1fr))';
@@ -67,6 +84,202 @@ export const Gallery = React.forwardRef<HTMLElement, GalleryProps>(
       transition: `transform ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'default')}`,
     };
 
+    /** Reusable figure renderer shared by grid / masonry / carousel. */
+    const renderFigure = (
+      image: GalleryImage,
+      index: number,
+      wrapStyle?: React.CSSProperties
+    ) => (
+      <figure key={index} style={figureStyle}>
+        <div style={{ ...imgWrapStyle, ...wrapStyle }}>
+          <img src={image.src} alt={image.alt} style={imgStyle} loading="lazy" />
+        </div>
+        {image.caption && (
+          <figcaption>
+            <Text variant="meta" color="muted" style={{ textAlign: 'center' }}>
+              {image.caption}
+            </Text>
+          </figcaption>
+        )}
+      </figure>
+    );
+
+    // --- Masonry layout -----------------------------------------------------
+    if (layout === 'masonry') {
+      const columnCount = columns ?? 3;
+      const masonryStyle: React.CSSProperties = {
+        columnCount,
+        columnGap: cssVar('spacing', '16'),
+        margin: 0,
+        padding: 0,
+        listStyle: 'none',
+      };
+      const itemStyle: React.CSSProperties = {
+        breakInside: 'avoid',
+        marginBottom: cssVar('spacing', '16'),
+      };
+
+      return (
+        <>
+          <style>{`
+            @media (prefers-reduced-motion: no-preference) {
+              [${SCOPE_ATTR}] figure:hover img {
+                transform: scale(1.04);
+              }
+            }
+          `}</style>
+          <section
+            ref={ref}
+            {...{ [SCOPE_ATTR]: '' }}
+            {...{ [LAYOUT_ATTR]: layout }}
+            style={sectionStyle}
+            className={className}
+            {...props}
+          >
+            <ul role="list" style={masonryStyle}>
+              {images.map((image, index) => (
+                <li key={`${image.src}-${index}`} style={itemStyle}>
+                  {renderFigure(image, index, { aspectRatio: 'auto' })}
+                </li>
+              ))}
+            </ul>
+          </section>
+        </>
+      );
+    }
+
+    // --- Carousel layout ----------------------------------------------------
+    if (layout === 'carousel') {
+      const scrollerStyle: React.CSSProperties = {
+        display: 'flex',
+        gap: cssVar('spacing', '16'),
+        overflowX: 'auto',
+        overflowY: 'hidden',
+        scrollSnapType: 'x mandatory',
+        scrollBehavior: 'smooth',
+        listStyle: 'none',
+        margin: 0,
+        padding: `${cssVar('spacing', '8')} 0`,
+        WebkitOverflowScrolling: 'touch',
+      };
+      const itemStyle: React.CSSProperties = {
+        flex: '0 0 auto',
+        width: 'min(320px, 80%)',
+        scrollSnapAlign: 'start',
+      };
+
+      return (
+        <>
+          <style>{`
+            @media (prefers-reduced-motion: no-preference) {
+              [${SCOPE_ATTR}] figure:hover img {
+                transform: scale(1.04);
+              }
+            }
+            .${GALLERY_ID}-scroller:focus-visible {
+              outline: 2px solid ${cssVar('semantic', 'primary', 'base')};
+              outline-offset: 2px;
+            }
+            @media (prefers-reduced-motion: reduce) {
+              .${GALLERY_ID}-scroller {
+                scroll-behavior: auto !important;
+              }
+              .${GALLERY_ID}-scroller img {
+                animation: none !important;
+                transition: none !important;
+              }
+            }
+          `}</style>
+          <section
+            ref={ref}
+            {...{ [SCOPE_ATTR]: '' }}
+            {...{ [LAYOUT_ATTR]: layout }}
+            style={sectionStyle}
+            className={className}
+            {...props}
+          >
+            <ul
+              role="list"
+              className={`${GALLERY_ID}-scroller`}
+              style={scrollerStyle}
+              tabIndex={0}
+              aria-label="Image carousel — use arrow keys to scroll"
+            >
+              {images.map((image, index) => (
+                <li key={`${image.src}-${index}`} style={itemStyle}>
+                  {renderFigure(image, index)}
+                </li>
+              ))}
+            </ul>
+          </section>
+        </>
+      );
+    }
+
+    // --- Featured layout ----------------------------------------------------
+    if (layout === 'featured') {
+      const [lead, ...rest] = images;
+      const featuredWrapStyle: React.CSSProperties = {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: cssVar('spacing', '16'),
+      };
+      const leadWrapStyle: React.CSSProperties = {
+        ...imgWrapStyle,
+        aspectRatio: '16 / 9',
+      };
+      const stripStyle: React.CSSProperties = {
+        display: 'grid',
+        gridTemplateColumns: `repeat(${Math.max(rest.length, 1)}, 1fr)`,
+        gap: cssVar('spacing', '12'),
+        listStyle: 'none',
+        margin: 0,
+        padding: 0,
+      };
+      const thumbWrapStyle: React.CSSProperties = {
+        ...imgWrapStyle,
+        aspectRatio: '1 / 1',
+      };
+
+      return (
+        <>
+          <style>{`
+            @media (prefers-reduced-motion: no-preference) {
+              [${SCOPE_ATTR}] figure:hover img {
+                transform: scale(1.04);
+              }
+            }
+          `}</style>
+          <section
+            ref={ref}
+            {...{ [SCOPE_ATTR]: '' }}
+            {...{ [LAYOUT_ATTR]: layout }}
+            style={sectionStyle}
+            className={className}
+            {...props}
+          >
+            <div style={featuredWrapStyle}>
+              {lead && (
+                <div className={`${GALLERY_ID}-featured-lead`}>
+                  {renderFigure(lead, 0, leadWrapStyle)}
+                </div>
+              )}
+              {rest.length > 0 && (
+                <ul role="list" style={stripStyle}>
+                  {rest.map((image, index) => (
+                    <li key={`${image.src}-${index + 1}`}>
+                      {renderFigure(image, index + 1, thumbWrapStyle)}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </section>
+        </>
+      );
+    }
+
+    // --- Grid layout (default) ----------------------------------------------
     return (
       <>
         {/* Scoped motion style — respects prefers-reduced-motion */}
@@ -80,6 +293,7 @@ export const Gallery = React.forwardRef<HTMLElement, GalleryProps>(
         <section
           ref={ref}
           {...{ [SCOPE_ATTR]: '' }}
+          {...{ [LAYOUT_ATTR]: layout }}
           style={sectionStyle}
           className={className}
           {...props}
@@ -94,29 +308,7 @@ export const Gallery = React.forwardRef<HTMLElement, GalleryProps>(
             }}
           >
             {images.map((image, index) => (
-              <li key={`${image.src}-${index}`}>
-                <figure style={figureStyle}>
-                  <div style={imgWrapStyle}>
-                    <img
-                      src={image.src}
-                      alt={image.alt}
-                      style={imgStyle}
-                      loading="lazy"
-                    />
-                  </div>
-                  {image.caption && (
-                    <figcaption>
-                      <Text
-                        variant="meta"
-                        color="muted"
-                        style={{ textAlign: 'center' }}
-                      >
-                        {image.caption}
-                      </Text>
-                    </figcaption>
-                  )}
-                </figure>
-              </li>
+              <li key={`${image.src}-${index}`}>{renderFigure(image, index)}</li>
             ))}
           </ul>
         </section>

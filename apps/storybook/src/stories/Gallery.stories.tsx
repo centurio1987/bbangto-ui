@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Gallery } from '@centurio1987/core';
-import { expect, within } from 'storybook/test';
+import { expect, within, waitFor } from 'storybook/test';
 
 const meta = {
   title: 'Blocks/Gallery',
@@ -101,5 +101,113 @@ export const ThreeColumns: Story = {
     const list = canvasElement.querySelector('ul') as HTMLUListElement;
     await expect(list).not.toBeNull();
     await expect(getComputedStyle(list).display).toBe('grid');
+  },
+};
+
+/** Masonry layout — images flow into balanced columns via column-count. */
+export const LayoutMasonry: Story = {
+  args: {
+    images: SAMPLE_IMAGES,
+    layout: 'masonry',
+    columns: 3,
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr reflects the layout
+    const section = canvasElement.querySelector('section') as HTMLElement;
+    await expect(section).not.toBeNull();
+    await expect(section).toHaveAttribute(
+      'data-bbangto-gallery-layout',
+      'masonry'
+    );
+
+    // 2. Load-bearing style: the list is a multi-column masonry container
+    const list = canvasElement.querySelector('ul') as HTMLUListElement;
+    await expect(list).not.toBeNull();
+    const columnCount = getComputedStyle(list).columnCount;
+    await expect(Number(columnCount)).toBeGreaterThan(1);
+
+    // 3. Content slots still render
+    const imgs = canvas.getAllByRole('img');
+    await expect(imgs).toHaveLength(SAMPLE_IMAGES.length);
+  },
+};
+
+/** Carousel layout — horizontal scroll-snap strip, keyboard-operable. */
+export const LayoutCarousel: Story = {
+  args: {
+    images: SAMPLE_IMAGES,
+    layout: 'carousel',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr reflects the layout
+    const section = canvasElement.querySelector('section') as HTMLElement;
+    await expect(section).not.toBeNull();
+    await expect(section).toHaveAttribute(
+      'data-bbangto-gallery-layout',
+      'carousel'
+    );
+
+    // 2. Load-bearing style: scroller overflows horizontally
+    const scroller = canvasElement.querySelector('ul') as HTMLUListElement;
+    await expect(scroller).not.toBeNull();
+    const overflowX = getComputedStyle(scroller).overflowX;
+    await expect(['auto', 'scroll']).toContain(overflowX);
+
+    // 2b. Scroller is keyboard-focusable
+    await expect(scroller).toHaveAttribute('tabindex', '0');
+
+    // 2c. Reduced-motion fallback rule is present in the scoped styles
+    const styleText = Array.from(canvasElement.querySelectorAll('style'))
+      .map((s) => s.textContent ?? '')
+      .join('\n');
+    await expect(styleText).toContain('prefers-reduced-motion: reduce');
+
+    // 3. Content slots still render
+    const imgs = canvas.getAllByRole('img');
+    await expect(imgs).toHaveLength(SAMPLE_IMAGES.length);
+  },
+};
+
+/** Featured layout — one large lead image with a thumbnail strip of the rest. */
+export const LayoutFeatured: Story = {
+  args: {
+    images: SAMPLE_IMAGES,
+    layout: 'featured',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr reflects the layout
+    const section = canvasElement.querySelector('section') as HTMLElement;
+    await expect(section).not.toBeNull();
+    await expect(section).toHaveAttribute(
+      'data-bbangto-gallery-layout',
+      'featured'
+    );
+
+    // 3. Content slots still render
+    const imgs = canvas.getAllByRole('img');
+    await expect(imgs).toHaveLength(SAMPLE_IMAGES.length);
+
+    // 2. Load-bearing: the lead image renders larger than the thumbnails
+    const lead = canvasElement.querySelector(
+      '.bbangto-gallery-featured-lead img'
+    ) as HTMLImageElement;
+    await expect(lead).not.toBeNull();
+
+    const thumbList = canvasElement.querySelector('ul') as HTMLUListElement;
+    await expect(thumbList).not.toBeNull();
+    const firstThumb = thumbList.querySelector('img') as HTMLImageElement;
+    await expect(firstThumb).not.toBeNull();
+
+    await waitFor(async () => {
+      const leadWidth = lead.getBoundingClientRect().width;
+      const thumbWidth = firstThumb.getBoundingClientRect().width;
+      await expect(leadWidth).toBeGreaterThan(thumbWidth);
+    });
   },
 };
