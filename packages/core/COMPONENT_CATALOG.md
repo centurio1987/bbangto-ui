@@ -203,6 +203,7 @@ Wave 0 (편제·인프라·토큰)
 | **Wave 4 전체** (blocks 13종) | block/section | 4 | **DONE** | workflow | Hero·FeatureGrid·CTA·PricingSection·Testimonials·LogoCloud·Comparison·Dock·Gallery·VideoBlock·MapBlock·MarketingFooter·AnnouncementBar / test 410 |
 | **Wave 5 전체** (patterns 4종) | pattern | 5 | **DONE** | workflow | SignIn·SignUp·FormLayout(+Section/Row/Field)·AIChat / test 433 |
 | **═══ A/B/C 전 계층 1차 구현 완료 ═══** | | | **DONE** | | components·primitives·hooks·shaders·blocks·patterns |
-| _잔여(후속 batch)_: hooks ~11 (useDarkMode 등), shaders ~11 (WebGL) | | 3 | TODO | | INFERRED 목록 |
+| **Wave 3c** (hooks 잔여 10종) | hook | 3 | **DONE** | workflow | useSessionStorage·useInterval·useTimeout·useDarkMode·usePageVisibility·useOrientation·useNetworkState·useGeolocation·useIdle·useFullscreen / test:unit 115 |
+| **Wave 3d** (shaders 잔여 6종) | motion/shader | 3 | **DONE** | workflow | Plasma·Noise·Metaballs·RippleBg·DotMatrix·Halftone (canvas) / test 445 |
 | Wave 6: Storybook Overview MDX + 사이드바 계층 정렬 | 문서 | 6 | **DONE** | orchestrator | storySort + Overview/Introduction |
 | Wave 6: changeset/버전범프/퍼블리시 | 릴리스 | 6 | TODO | | ⚠️ outward-facing, 사용자 승인 필요 |
