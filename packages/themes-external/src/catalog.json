@@ -1,0 +1,446 @@
+[
+  {
+    "id": "airbnb",
+    "label": "Airbnb",
+    "file": "airbnb",
+    "primaryColor": "#FF5A5F"
+  },
+  {
+    "id": "airtable",
+    "label": "Airtable",
+    "file": "airtable",
+    "primaryColor": "#2D7FF9"
+  },
+  {
+    "id": "apple",
+    "label": "Apple",
+    "file": "apple",
+    "primaryColor": "#0071E3"
+  },
+  {
+    "id": "binance",
+    "label": "Binance",
+    "file": "binance",
+    "primaryColor": "#F3BA2F"
+  },
+  {
+    "id": "bmw-m",
+    "label": "BMW M",
+    "file": "bmw-m",
+    "primaryColor": "#0553A1"
+  },
+  {
+    "id": "bmw",
+    "label": "BMW",
+    "file": "bmw",
+    "primaryColor": "#1C69D4"
+  },
+  {
+    "id": "bugatti",
+    "label": "Bugatti",
+    "file": "bugatti",
+    "primaryColor": "#7B1FA2"
+  },
+  {
+    "id": "cal",
+    "label": "Cal.com",
+    "file": "cal",
+    "primaryColor": "#111827"
+  },
+  {
+    "id": "claude",
+    "label": "Claude",
+    "file": "claude",
+    "primaryColor": "#D4734A"
+  },
+  {
+    "id": "clay",
+    "label": "Clay",
+    "file": "clay",
+    "primaryColor": "#7C3AED"
+  },
+  {
+    "id": "clickhouse",
+    "label": "ClickHouse",
+    "file": "clickhouse",
+    "primaryColor": "#FAFF69"
+  },
+  {
+    "id": "cohere",
+    "label": "Cohere",
+    "file": "cohere",
+    "primaryColor": "#39594D"
+  },
+  {
+    "id": "coinbase",
+    "label": "Coinbase",
+    "file": "coinbase",
+    "primaryColor": "#0052FF"
+  },
+  {
+    "id": "composio",
+    "label": "Composio",
+    "file": "composio",
+    "primaryColor": "#6D28D9"
+  },
+  {
+    "id": "cursor",
+    "label": "Cursor",
+    "file": "cursor",
+    "primaryColor": "#2563EB"
+  },
+  {
+    "id": "dell-1996",
+    "label": "Dell (1996)",
+    "file": "dell-1996",
+    "primaryColor": "#007DB8"
+  },
+  {
+    "id": "elevenlabs",
+    "label": "ElevenLabs",
+    "file": "elevenlabs",
+    "primaryColor": "#F6F600"
+  },
+  {
+    "id": "expo",
+    "label": "Expo",
+    "file": "expo",
+    "primaryColor": "#000020"
+  },
+  {
+    "id": "ferrari",
+    "label": "Ferrari",
+    "file": "ferrari",
+    "primaryColor": "#DC0000"
+  },
+  {
+    "id": "figma",
+    "label": "Figma",
+    "file": "figma",
+    "primaryColor": "#F24E1E"
+  },
+  {
+    "id": "framer",
+    "label": "Framer",
+    "file": "framer",
+    "primaryColor": "#0055FF"
+  },
+  {
+    "id": "hashicorp",
+    "label": "HashiCorp",
+    "file": "hashicorp",
+    "primaryColor": "#000000"
+  },
+  {
+    "id": "hp",
+    "label": "HP",
+    "file": "hp",
+    "primaryColor": "#0096D6"
+  },
+  {
+    "id": "ibm",
+    "label": "IBM",
+    "file": "ibm",
+    "primaryColor": "#0F62FE"
+  },
+  {
+    "id": "intercom",
+    "label": "Intercom",
+    "file": "intercom",
+    "primaryColor": "#1F8EFA"
+  },
+  {
+    "id": "kraken",
+    "label": "Kraken",
+    "file": "kraken",
+    "primaryColor": "#5741D9"
+  },
+  {
+    "id": "lamborghini",
+    "label": "Lamborghini",
+    "file": "lamborghini",
+    "primaryColor": "#DAA520"
+  },
+  {
+    "id": "linear.app",
+    "label": "Linear",
+    "file": "linear-app",
+    "primaryColor": "#5E6AD2"
+  },
+  {
+    "id": "lovable",
+    "label": "Lovable",
+    "file": "lovable",
+    "primaryColor": "#FF6B6B"
+  },
+  {
+    "id": "mastercard",
+    "label": "Mastercard",
+    "file": "mastercard",
+    "primaryColor": "#EB001B"
+  },
+  {
+    "id": "meta",
+    "label": "Meta",
+    "file": "meta",
+    "primaryColor": "#0081FB"
+  },
+  {
+    "id": "minimax",
+    "label": "MiniMax",
+    "file": "minimax",
+    "primaryColor": "#1A1A2E"
+  },
+  {
+    "id": "mintlify",
+    "label": "Mintlify",
+    "file": "mintlify",
+    "primaryColor": "#16A34A"
+  },
+  {
+    "id": "miro",
+    "label": "Miro",
+    "file": "miro",
+    "primaryColor": "#FFD02F"
+  },
+  {
+    "id": "mistral.ai",
+    "label": "Mistral AI",
+    "file": "mistral-ai",
+    "primaryColor": "#FF7000"
+  },
+  {
+    "id": "mongodb",
+    "label": "MongoDB",
+    "file": "mongodb",
+    "primaryColor": "#00ED64"
+  },
+  {
+    "id": "nike",
+    "label": "Nike",
+    "file": "nike",
+    "primaryColor": "#111111"
+  },
+  {
+    "id": "nintendo-2001",
+    "label": "Nintendo (2001)",
+    "file": "nintendo-2001",
+    "primaryColor": "#E4000F"
+  },
+  {
+    "id": "notion",
+    "label": "Notion",
+    "file": "notion",
+    "primaryColor": "#000000"
+  },
+  {
+    "id": "nvidia",
+    "label": "NVIDIA",
+    "file": "nvidia",
+    "primaryColor": "#76B900"
+  },
+  {
+    "id": "ollama",
+    "label": "Ollama",
+    "file": "ollama",
+    "primaryColor": "#000000"
+  },
+  {
+    "id": "opencode.ai",
+    "label": "OpenCode AI",
+    "file": "opencode-ai",
+    "primaryColor": "#2563EB"
+  },
+  {
+    "id": "pinterest",
+    "label": "Pinterest",
+    "file": "pinterest",
+    "primaryColor": "#E60023"
+  },
+  {
+    "id": "playstation",
+    "label": "PlayStation",
+    "file": "playstation",
+    "primaryColor": "#003087"
+  },
+  {
+    "id": "posthog",
+    "label": "PostHog",
+    "file": "posthog",
+    "primaryColor": "#F54E00"
+  },
+  {
+    "id": "raycast",
+    "label": "Raycast",
+    "file": "raycast",
+    "primaryColor": "#FF6363"
+  },
+  {
+    "id": "renault",
+    "label": "Renault",
+    "file": "renault",
+    "primaryColor": "#EFDF00"
+  },
+  {
+    "id": "replicate",
+    "label": "Replicate",
+    "file": "replicate",
+    "primaryColor": "#000000"
+  },
+  {
+    "id": "resend",
+    "label": "Resend",
+    "file": "resend",
+    "primaryColor": "#000000"
+  },
+  {
+    "id": "revolut",
+    "label": "Revolut",
+    "file": "revolut",
+    "primaryColor": "#0666EB"
+  },
+  {
+    "id": "runwayml",
+    "label": "Runway ML",
+    "file": "runwayml",
+    "primaryColor": "#00D1B2"
+  },
+  {
+    "id": "sanity",
+    "label": "Sanity",
+    "file": "sanity",
+    "primaryColor": "#F03E2F"
+  },
+  {
+    "id": "sentry",
+    "label": "Sentry",
+    "file": "sentry",
+    "primaryColor": "#7B5EA7"
+  },
+  {
+    "id": "shopify",
+    "label": "Shopify",
+    "file": "shopify",
+    "primaryColor": "#96BF48"
+  },
+  {
+    "id": "slack",
+    "label": "Slack",
+    "file": "slack",
+    "primaryColor": "#611F69"
+  },
+  {
+    "id": "spacex",
+    "label": "SpaceX",
+    "file": "spacex",
+    "primaryColor": "#FFFFFF"
+  },
+  {
+    "id": "spotify",
+    "label": "Spotify",
+    "file": "spotify",
+    "primaryColor": "#1DB954"
+  },
+  {
+    "id": "starbucks",
+    "label": "Starbucks",
+    "file": "starbucks",
+    "primaryColor": "#00704A"
+  },
+  {
+    "id": "stripe",
+    "label": "Stripe",
+    "file": "stripe",
+    "primaryColor": "#635BFF"
+  },
+  {
+    "id": "supabase",
+    "label": "Supabase",
+    "file": "supabase",
+    "primaryColor": "#3ECF8E"
+  },
+  {
+    "id": "superhuman",
+    "label": "Superhuman",
+    "file": "superhuman",
+    "primaryColor": "#F5A623"
+  },
+  {
+    "id": "tesla",
+    "label": "Tesla",
+    "file": "tesla",
+    "primaryColor": "#CC0000"
+  },
+  {
+    "id": "theverge",
+    "label": "The Verge",
+    "file": "theverge",
+    "primaryColor": "#FA2C2C"
+  },
+  {
+    "id": "together.ai",
+    "label": "Together AI",
+    "file": "together-ai",
+    "primaryColor": "#4F46E5"
+  },
+  {
+    "id": "uber",
+    "label": "Uber",
+    "file": "uber",
+    "primaryColor": "#000000"
+  },
+  {
+    "id": "vercel",
+    "label": "Vercel",
+    "file": "vercel",
+    "primaryColor": "#000000"
+  },
+  {
+    "id": "vodafone",
+    "label": "Vodafone",
+    "file": "vodafone",
+    "primaryColor": "#E60000"
+  },
+  {
+    "id": "voltagent",
+    "label": "VoltAgent",
+    "file": "voltagent",
+    "primaryColor": "#F59E0B"
+  },
+  {
+    "id": "warp",
+    "label": "Warp",
+    "file": "warp",
+    "primaryColor": "#01A4FF"
+  },
+  {
+    "id": "webflow",
+    "label": "Webflow",
+    "file": "webflow",
+    "primaryColor": "#146EF5"
+  },
+  {
+    "id": "wired",
+    "label": "WIRED",
+    "file": "wired",
+    "primaryColor": "#000000"
+  },
+  {
+    "id": "wise",
+    "label": "Wise",
+    "file": "wise",
+    "primaryColor": "#9FE870"
+  },
+  {
+    "id": "x.ai",
+    "label": "xAI",
+    "file": "x-ai",
+    "primaryColor": "#000000"
+  },
+  {
+    "id": "zapier",
+    "label": "Zapier",
+    "file": "zapier",
+    "primaryColor": "#FF4A00"
+  }
+]
