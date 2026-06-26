@@ -11,7 +11,7 @@ export interface SelectOption {
 
 export type SelectSize = 'sm' | 'md' | 'lg';
 
-export type SelectVariant = 'outline' | 'filled' | 'underline';
+export type SelectVariant = 'outline' | 'filled' | 'underline' | 'glass';
 
 export interface SelectProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   options: SelectOption[];
@@ -116,11 +116,28 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
               borderBottom: `1px solid ${borderColor}`,
               borderRadius: '0',
             }
-          : {
-              backgroundColor: cssVar('semantic', 'background', 'elevated'),
-              border: `1px solid ${borderColor}`,
-              borderRadius: cssVar('radius', 'md'),
-            };
+          : variant === 'glass'
+            ? {
+                // Frosted glass chrome: a translucent surface fill (never an
+                // opaque token) sitting over a backdrop blur, framed by a subtle
+                // translucent border. Solid fill / opaque outline / underline
+                // cannot express this — the blur + alpha is the whole point.
+                // Colors stay token-derived; alpha is composed via color-mix.
+                backgroundColor: `color-mix(in srgb, ${cssVar('semantic', 'background', 'elevated')} 55%, transparent)`,
+                backdropFilter: `blur(${cssVar('spacing', '12')})`,
+                WebkitBackdropFilter: `blur(${cssVar('spacing', '12')})`,
+                border: `1px solid ${
+                  error || isOpen
+                    ? borderColor
+                    : `color-mix(in srgb, ${cssVar('semantic', 'border', 'base')} 45%, transparent)`
+                }`,
+                borderRadius: cssVar('radius', 'md'),
+              }
+            : {
+                backgroundColor: cssVar('semantic', 'background', 'elevated'),
+                border: `1px solid ${borderColor}`,
+                borderRadius: cssVar('radius', 'md'),
+              };
 
     const triggerStyle: React.CSSProperties = {
       display: 'flex',

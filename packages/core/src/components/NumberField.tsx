@@ -3,6 +3,21 @@ import { cssVar } from '@centurio1987/tokens';
 
 export type NumberFieldSize = 'sm' | 'md' | 'lg';
 
+/**
+ * Chrome treatment for the field.
+ *
+ * `outline` (default, default-first) is the original bordered input with
+ * −/+ steppers and a centered editable number — existing call sites and
+ * stories render this and must stay byte-identical.
+ *
+ * `seven-segment` swaps the editable text input for a dark LED-style readout:
+ * fixed-width monospace digit cells where each lit glyph gets an accent glow
+ * (color + text-shadow) over a dim, always-on "8" ghost (the inactive
+ * segments). A still-accessible spinbutton input is kept visually hidden so
+ * keyboard/AT users retain the same semantics.
+ */
+export type NumberFieldVariant = 'outline' | 'seven-segment';
+
 export interface NumberFieldProps
   extends Omit<
     React.InputHTMLAttributes<HTMLInputElement>,
@@ -16,6 +31,7 @@ export interface NumberFieldProps
   step?: number;
   disabled?: boolean;
   size?: NumberFieldSize;
+  variant?: NumberFieldVariant;
 }
 
 const clamp = (value: number, min?: number, max?: number): number => {
@@ -36,6 +52,7 @@ export const NumberField = React.forwardRef<HTMLInputElement, NumberFieldProps>(
       step = 1,
       disabled = false,
       size = 'md',
+      variant = 'outline',
       style,
       className,
       ...props
@@ -94,20 +111,6 @@ export const NumberField = React.forwardRef<HTMLInputElement, NumberFieldProps>(
         ? cssVar('typography', 'scale', 'h3', 'fontSize')
         : cssVar('typography', 'scale', 'body', 'fontSize');
 
-    const containerStyles: React.CSSProperties = {
-      display: 'inline-flex',
-      alignItems: 'stretch',
-      gap: '0',
-      backgroundColor: disabled
-        ? cssVar('semantic', 'disabled', 'background')
-        : cssVar('semantic', 'background', 'base'),
-      border: `1px solid ${cssVar('semantic', 'border', 'strong')}`,
-      borderRadius: cssVar('radius', 'md'),
-      fontFamily: cssVar('typography', 'fontFamily', 'sans'),
-      overflow: 'hidden',
-      ...style,
-    };
-
     const buttonStyles = (enabled: boolean): React.CSSProperties => ({
       display: 'inline-flex',
       alignItems: 'center',
@@ -130,6 +133,165 @@ export const NumberField = React.forwardRef<HTMLInputElement, NumberFieldProps>(
       flexShrink: 0,
     });
 
+    // ── seven-segment readout chrome ──────────────────────────────────────────
+    // A completely different treatment from the outline input: dark screen,
+    // monospace digit cells, accent-glow lit glyphs over dim ghost segments.
+    if (variant === 'seven-segment') {
+      const litColor = disabled
+        ? cssVar('semantic', 'disabled', 'foreground')
+        : cssVar('semantic', 'primary', 'base');
+      const glow = disabled
+        ? undefined
+        : `0 0 2px ${cssVar('semantic', 'primary', 'base')}, 0 0 6px ${cssVar(
+            'semantic',
+            'primary',
+            'base'
+          )}`;
+
+      const panelStyles: React.CSSProperties = {
+        display: 'inline-flex',
+        alignItems: 'stretch',
+        gap: '0',
+        backgroundColor: disabled
+          ? cssVar('semantic', 'disabled', 'background')
+          : cssVar('semantic', 'background', 'sunken'),
+        border: `1px solid ${cssVar('semantic', 'border', 'strong')}`,
+        borderRadius: cssVar('radius', 'md'),
+        fontFamily: cssVar('typography', 'fontFamily', 'mono'),
+        overflow: 'hidden',
+        ...style,
+      };
+
+      // Dark recessed "screen" the digits sit on (composed from the dark
+      // foreground token so the accent glow reads as an LED).
+      const readoutStyles: React.CSSProperties = {
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        gap: cssVar('spacing', '2'),
+        padding: `${paddingY} ${cssVar('spacing', '10')}`,
+        backgroundColor: cssVar('semantic', 'foreground', 'base'),
+        borderLeft: `1px solid ${cssVar('semantic', 'border', 'muted')}`,
+        borderRight: `1px solid ${cssVar('semantic', 'border', 'muted')}`,
+        fontFamily: cssVar('typography', 'fontFamily', 'mono'),
+        fontSize,
+        fontVariantNumeric: 'tabular-nums',
+        lineHeight: '1',
+      };
+
+      const cellStyles: React.CSSProperties = {
+        position: 'relative',
+        display: 'inline-grid',
+        placeItems: 'center',
+        width: '0.85em',
+        lineHeight: '1',
+        fontWeight: 700,
+      };
+      // Inactive segments: the always-on "8" ghost, dimmed.
+      const ghostStyles: React.CSSProperties = {
+        gridArea: '1 / 1',
+        color: cssVar('semantic', 'foreground', 'subtle'),
+        opacity: 0.22,
+      };
+      // Active segments: the real glyph with accent color + glow.
+      const litStyles: React.CSSProperties = {
+        gridArea: '1 / 1',
+        color: litColor,
+        textShadow: glow,
+      };
+
+      const hiddenInputStyles: React.CSSProperties = {
+        position: 'absolute',
+        width: '1px',
+        height: '1px',
+        padding: 0,
+        margin: '-1px',
+        overflow: 'hidden',
+        clipPath: 'inset(50%)',
+        border: 0,
+        whiteSpace: 'nowrap',
+      };
+
+      const chars = String(currentValue).split('');
+
+      return (
+        <div
+          style={panelStyles}
+          className={className}
+          data-bbangto-number-variant={variant}
+        >
+          <button
+            type="button"
+            aria-label="감소"
+            disabled={!canDecrement}
+            onClick={handleDecrement}
+            style={buttonStyles(canDecrement)}
+          >
+            {'−'}
+          </button>
+          <div
+            className="bbangto-number-readout"
+            style={readoutStyles}
+            aria-hidden="true"
+          >
+            {chars.map((char, index) => (
+              <span
+                key={`${index}-${char}`}
+                className="bbangto-number-cell"
+                style={cellStyles}
+              >
+                <span style={ghostStyles}>8</span>
+                <span className="bbangto-number-segment-lit" style={litStyles}>
+                  {char}
+                </span>
+              </span>
+            ))}
+          </div>
+          <input
+            ref={ref}
+            type="number"
+            role="spinbutton"
+            inputMode="numeric"
+            value={currentValue}
+            min={min}
+            max={max}
+            step={step}
+            disabled={disabled}
+            aria-valuenow={currentValue}
+            aria-valuemin={min}
+            aria-valuemax={max}
+            onChange={handleInputChange}
+            style={hiddenInputStyles}
+            {...props}
+          />
+          <button
+            type="button"
+            aria-label="증가"
+            disabled={!canIncrement}
+            onClick={handleIncrement}
+            style={buttonStyles(canIncrement)}
+          >
+            {'+'}
+          </button>
+        </div>
+      );
+    }
+
+    // ── outline (default) ─────────────────────────────────────────────────────
+    const containerStyles: React.CSSProperties = {
+      display: 'inline-flex',
+      alignItems: 'stretch',
+      gap: '0',
+      backgroundColor: disabled
+        ? cssVar('semantic', 'disabled', 'background')
+        : cssVar('semantic', 'background', 'base'),
+      border: `1px solid ${cssVar('semantic', 'border', 'strong')}`,
+      borderRadius: cssVar('radius', 'md'),
+      fontFamily: cssVar('typography', 'fontFamily', 'sans'),
+      overflow: 'hidden',
+      ...style,
+    };
+
     const inputStyles: React.CSSProperties = {
       width: '3.5em',
       minWidth: 0,
@@ -148,7 +310,11 @@ export const NumberField = React.forwardRef<HTMLInputElement, NumberFieldProps>(
     };
 
     return (
-      <div style={containerStyles} className={className}>
+      <div
+        style={containerStyles}
+        className={className}
+        data-bbangto-number-variant={variant}
+      >
         <button
           type="button"
           aria-label="감소"

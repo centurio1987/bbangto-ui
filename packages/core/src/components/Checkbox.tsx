@@ -3,6 +3,17 @@ import { cssVar } from '@centurio1987/tokens';
 
 export type CheckboxSize = 'sm' | 'md' | 'lg';
 
+/**
+ * Visual chrome family for the checkbox box.
+ * - `solid` (default): the native checkbox painted with `accentColor` — the
+ *   historical, unchanged appearance.
+ * - `gradient`: the box fill becomes a token-composited linear-gradient surface
+ *   (no border) and the check glyph is layered over the gradient. A flat
+ *   `accentColor` fill cannot express a multi-stop gradient surface, so the box
+ *   is custom-painted with `appearance: none`.
+ */
+export type CheckboxVariant = 'solid' | 'gradient';
+
 export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   /** Label text displayed next to the checkbox */
   label?: string;
@@ -10,6 +21,8 @@ export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   description?: string;
   /** Size of the checkbox input */
   size?: CheckboxSize;
+  /** Visual chrome family of the box. Defaults to `solid`. */
+  variant?: CheckboxVariant;
   /** Error state — turns accent color to error token and sets aria-invalid */
   error?: boolean;
   /**
@@ -18,6 +31,9 @@ export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
    */
   indeterminate?: boolean;
 }
+
+/** Unique class prefix to scope the gradient glyph styles without a CSS Module. */
+const CHECKBOX_ID = 'bbangto-checkbox';
 
 const CHECKBOX_DIMENSION: Record<CheckboxSize, string> = {
   sm: '14px',
@@ -37,6 +53,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       label,
       description,
       size = 'md',
+      variant = 'solid',
       error = false,
       indeterminate = false,
       style,
@@ -62,9 +79,26 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     );
 
     const dim = CHECKBOX_DIMENSION[size];
+    const isGradient = variant === 'gradient';
     const accentColor = error
       ? cssVar('semantic', 'error', 'base')
       : cssVar('semantic', 'primary', 'base');
+
+    // Gradient chrome is composed from existing color-scale tokens (no gradient
+    // token exists in the contract). base → hover → active gives the multi-stop
+    // surface that a flat accentColor fill cannot express.
+    const gradientBase = error
+      ? cssVar('semantic', 'error', 'base')
+      : cssVar('semantic', 'primary', 'base');
+    const gradientMid = error
+      ? cssVar('semantic', 'error', 'hover')
+      : cssVar('semantic', 'primary', 'hover');
+    const gradientEnd = error
+      ? cssVar('semantic', 'error', 'active')
+      : cssVar('semantic', 'primary', 'active');
+    const gradientImage = `linear-gradient(135deg, ${gradientBase} 0%, ${gradientMid} 50%, ${gradientEnd} 100%)`;
+    const glyphColor = cssVar('semantic', 'foreground', 'inverse');
+    const glyphClass = `${CHECKBOX_ID}-gradient-glyph`;
 
     const containerStyles: React.CSSProperties = {
       display: 'inline-flex',
@@ -97,22 +131,67 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       cursor: disabled ? 'not-allowed' : 'default',
     };
 
+    // Default `solid` keeps the native accentColor box untouched. `gradient`
+    // strips the native chrome (appearance:none + border:none) and paints the
+    // box with the composed gradient surface; the glyph is layered via the
+    // scoped pseudo-element below.
+    const inputStyles: React.CSSProperties = isGradient
+      ? {
+          width: dim,
+          height: dim,
+          appearance: 'none',
+          WebkitAppearance: 'none',
+          backgroundImage: gradientImage,
+          border: 'none',
+          borderRadius: cssVar('radius', 'sm'),
+          margin: 0,
+          cursor: disabled ? 'not-allowed' : 'pointer',
+          flexShrink: 0,
+        }
+      : {
+          width: dim,
+          height: dim,
+          accentColor,
+          cursor: disabled ? 'not-allowed' : 'pointer',
+          flexShrink: 0,
+        };
+
+    // Scoped glyph styling for the gradient box: the check is drawn as a rotated
+    // border and revealed only when :checked, layered over the gradient fill.
+    const gradientCss = `
+.${glyphClass} { position: relative; }
+.${glyphClass}::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  width: 28%;
+  height: 55%;
+  border: solid ${glyphColor};
+  border-width: 0 2px 2px 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+  opacity: 0;
+  pointer-events: none;
+}
+.${glyphClass}:checked::after { opacity: 1; }
+`;
+
     return (
-      <label style={containerStyles} className={className}>
+      <label
+        style={containerStyles}
+        className={className}
+        data-bbangto-checkbox-variant={variant}
+      >
+        {isGradient && <style>{gradientCss}</style>}
         <span style={rowStyles}>
           <input
             type="checkbox"
             ref={callbackRef}
             disabled={disabled}
+            className={isGradient ? glyphClass : undefined}
             aria-invalid={error || undefined}
             aria-checked={indeterminate ? 'mixed' : undefined}
-            style={{
-              width: dim,
-              height: dim,
-              accentColor,
-              cursor: disabled ? 'not-allowed' : 'pointer',
-              flexShrink: 0,
-            }}
+            style={inputStyles}
             {...props}
           />
           {label && <span style={labelStyles}>{label}</span>}

@@ -235,6 +235,36 @@ export const VariantUnderline: Story = {
   },
 };
 
+export const VariantGlass: Story = {
+  render: (args) => {
+    const [value, setValue] = useState('');
+    return <Select {...args} variant="glass" options={mockOptions} value={value} onChange={setValue} />;
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = await canvas.findByRole('combobox');
+    await expect(trigger).toBeVisible();
+    // 1. data-attr present with the right value on the trigger
+    await expect(trigger.getAttribute('data-bbangto-select-variant')).toBe('glass');
+    // 2. Load-bearing style: frosted glass = backdrop blur + a translucent
+    //    (non-opaque, non-transparent) surface fill + a solid 1px border.
+    const cs = getComputedStyle(trigger);
+    const backdrop = cs.backdropFilter || (cs as unknown as { webkitBackdropFilter?: string }).webkitBackdropFilter || '';
+    await expect(backdrop).toContain('blur');
+    // Surface fill is present but not a fully opaque/transparent flat fill.
+    await expect(cs.backgroundColor).not.toBe('rgba(0, 0, 0, 0)');
+    await expect(cs.backgroundColor).not.toBe('transparent');
+    await expect(cs.borderTopStyle).toBe('solid');
+    // 3. Trigger still renders and opens, content slot works.
+    await userEvent.click(trigger);
+    const listbox = canvasElement.querySelector('[role="listbox"]') as HTMLElement;
+    await expect(listbox).toBeVisible();
+    const option3 = within(listbox).getByText('Option 3');
+    await userEvent.click(option3);
+    await expect(trigger).toHaveTextContent('Option 3');
+  },
+};
+
 export const AllSizes: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'flex-start' }}>

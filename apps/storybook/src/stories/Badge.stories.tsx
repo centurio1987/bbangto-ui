@@ -16,7 +16,7 @@ const meta = {
     },
     variant: {
       control: 'select',
-      options: ['solid', 'subtle', 'soft'],
+      options: ['solid', 'subtle', 'soft', 'outline'],
     },
     size: {
       control: 'select',
@@ -72,6 +72,32 @@ export const Soft: Story = {
     await expect(style.backgroundColor).not.toBe('');
     await expect(style.color).not.toBe('');
     await expect(style.borderRadius).not.toBe('');
+  },
+};
+
+export const Outline: Story = {
+  args: {
+    color: 'primary',
+    variant: 'outline',
+    children: 'Outline',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // 1. data-attr 훅 확인
+    const root = canvasElement.querySelector(
+      '[data-bbangto-badge-variant="outline"]'
+    ) as HTMLElement;
+    await expect(root).not.toBeNull();
+    await expect(root.getAttribute('data-bbangto-badge-variant')).toBe('outline');
+    // 2. load-bearing chrome: 채움 없는(transparent) 배경 + 1px solid border.
+    //    solid/subtle/soft 와 달리 border-only treatment 인지 검증.
+    const style = getComputedStyle(root);
+    await expect(style.backgroundColor).toMatch(/rgba\(0, 0, 0, 0\)|transparent/);
+    await expect(style.borderTopStyle).toBe('solid');
+    await expect(parseFloat(style.borderTopWidth)).toBeGreaterThan(0);
+    // 3. 콘텐츠 슬롯 렌더
+    const el = await canvas.findByText('Outline');
+    await expect(el).toBeVisible();
   },
 };
 

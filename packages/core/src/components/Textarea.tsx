@@ -3,6 +3,13 @@ import { cssVar } from '@centurio1987/tokens';
 
 export type TextareaSize = 'sm' | 'md' | 'lg';
 export type TextareaResize = 'none' | 'vertical' | 'horizontal' | 'both';
+/**
+ * Visual treatment of the textarea surface.
+ * - `default` (default-first): bare bordered field on an elevated background.
+ * - `soft`: borderless field that sits flush inside one filled, rounded,
+ *   subtly elevated surface (no outline ring).
+ */
+export type TextareaVariant = 'default' | 'soft';
 
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
@@ -13,6 +20,8 @@ export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextArea
   size?: TextareaSize;
   /** Controls the CSS resize handle. Default: 'vertical' */
   resize?: TextareaResize;
+  /** Visual surface treatment. Default: 'default' */
+  variant?: TextareaVariant;
   /** Shows a spinner-style opacity pulse and disables interaction (like Button loading). */
   loading?: boolean;
 }
@@ -26,6 +35,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       fullWidth = false,
       size = 'md',
       resize = 'vertical',
+      variant = 'default',
       loading = false,
       style,
       className,
@@ -76,13 +86,31 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       color: cssVar('semantic', 'foreground', 'base'),
     };
 
+    // Surface chrome per variant. `default` keeps the original bare bordered
+    // field untouched (default-first). `soft` drops the resting outline ring and
+    // instead sits flush inside one filled, rounded, subtly elevated surface.
+    let surfaceBackground = cssVar('semantic', 'background', 'elevated');
+    let surfaceBorder = `1px solid ${error ? cssVar('semantic', 'error', 'base') : cssVar('semantic', 'border', 'base')}`;
+    let surfaceRadius = cssVar('radius', 'md');
+    let surfaceShadow: string | undefined;
+
+    if (variant === 'soft') {
+      // Filled surface (sunken fill tone) with no outline ring. Error is still
+      // conveyed structurally via a colored border; otherwise borderless.
+      surfaceBackground = cssVar('semantic', 'background', 'sunken');
+      surfaceBorder = error ? `1px solid ${cssVar('semantic', 'error', 'base')}` : 'none';
+      surfaceRadius = cssVar('radius', 'lg');
+      surfaceShadow = cssVar('shadow', 'sm');
+    }
+
     const textareaStyle: React.CSSProperties = {
       width: '100%',
       minHeight,
       padding: `${paddingY} ${paddingX}`,
-      backgroundColor: cssVar('semantic', 'background', 'elevated'),
-      border: `1px solid ${error ? cssVar('semantic', 'error', 'base') : cssVar('semantic', 'border', 'base')}`,
-      borderRadius: cssVar('radius', 'md'),
+      backgroundColor: surfaceBackground,
+      border: surfaceBorder,
+      borderRadius: surfaceRadius,
+      boxShadow: surfaceShadow,
       color: cssVar('semantic', 'foreground', 'base'),
       fontSize,
       fontFamily: cssVar('typography', 'fontFamily', 'sans'),
@@ -98,7 +126,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     };
 
     return (
-      <div style={containerStyle} className={className}>
+      <div style={containerStyle} className={className} data-bbangto-textarea-variant={variant}>
         {label && <label style={labelStyle}>{label}</label>}
         <textarea
           ref={ref}

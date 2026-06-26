@@ -3,6 +3,9 @@ import { cssVar } from '@centurio1987/tokens';
 
 export type SwitchSize = 'sm' | 'md' | 'lg';
 export type SwitchLabelPosition = 'right' | 'left';
+// default-first: 'solid' keeps the legacy filled-pill render untouched.
+// New members append to the end of the union.
+export type SwitchVariant = 'solid' | 'outline';
 
 export interface SwitchProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'> {
   label?: string;
@@ -12,6 +15,8 @@ export interface SwitchProps extends Omit<React.InputHTMLAttributes<HTMLInputEle
   loading?: boolean;
   /** Position of the label relative to the track. @default 'right' */
   labelPosition?: SwitchLabelPosition;
+  /** Chrome treatment of the track. @default 'solid' */
+  variant?: SwitchVariant;
 }
 
 // ── Size tokens ──────────────────────────────────────────────────────────────
@@ -44,6 +49,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
       size = 'md',
       loading = false,
       labelPosition = 'right',
+      variant = 'solid',
       style,
       className,
       disabled,
@@ -78,18 +84,37 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
       cursor: isInteractionDisabled ? 'not-allowed' : 'pointer',
     };
 
+    // Variant cascade. 'solid' is the legacy filled-pill render and stays
+    // byte-for-byte identical so existing callers/stories are untouched.
+    // 'outline' shifts the chrome from fill to border: the track is
+    // transparent (or a subtle color-mix tint when on) and the on-state is
+    // signalled by an accent border-color rather than a full track fill.
+    let trackBackground: string;
+    let trackBorderColor: string;
+    if (variant === 'outline') {
+      trackBackground = checked
+        ? `color-mix(in srgb, ${cssVar('semantic', 'primary', 'base')} 18%, transparent)`
+        : 'transparent';
+      trackBorderColor = checked
+        ? cssVar('semantic', 'primary', 'base')
+        : cssVar('semantic', 'border', 'base');
+    } else {
+      trackBackground = checked
+        ? cssVar('semantic', 'primary', 'base')
+        : cssVar('semantic', 'background', 'elevated');
+      trackBorderColor = checked
+        ? cssVar('semantic', 'primary', 'base')
+        : cssVar('semantic', 'border', 'strong');
+    }
+
     const trackStyles: React.CSSProperties = {
       position: 'relative',
       width: trackWidth,
       height: trackHeight,
-      backgroundColor: checked
-        ? cssVar('semantic', 'primary', 'base')
-        : cssVar('semantic', 'background', 'elevated'),
+      backgroundColor: trackBackground,
       borderRadius: trackRadius,
-      transition: `background-color ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'default')}`,
-      border: `1px solid ${
-        checked ? cssVar('semantic', 'primary', 'base') : cssVar('semantic', 'border', 'strong')
-      }`,
+      transition: `background-color ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'default')}, border-color ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'default')}`,
+      border: `1px solid ${trackBorderColor}`,
       flexShrink: 0,
     };
 
@@ -99,7 +124,9 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
       left: checked ? knobCheckedLeft : knobOffset,
       width: knobSize,
       height: knobSize,
-      backgroundColor: cssVar('common', 'white'),
+      // 'solid' keeps the legacy white knob; 'outline' tints the knob with the
+      // same border accent so it stays visible against the transparent track.
+      backgroundColor: variant === 'outline' ? trackBorderColor : cssVar('common', 'white'),
       borderRadius: '50%',
       transition: `left ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'default')}`,
       boxShadow: cssVar('shadow', 'sm'),
@@ -108,6 +135,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
     return (
       <label
         aria-busy={loading || undefined}
+        data-bbangto-toggle-variant={variant}
         style={containerStyles}
         className={className}
       >

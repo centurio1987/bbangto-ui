@@ -11,6 +11,7 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     size: { control: 'select', options: ['sm', 'md', 'lg'] },
+    variant: { control: 'select', options: ['solid', 'gradient'] },
     error: { control: 'boolean' },
     indeterminate: { control: 'boolean' },
   },
@@ -150,6 +151,39 @@ export const WithDescription: Story = {
     // description text uses muted foreground token
     const style = getComputedStyle(desc);
     await expect(style.color).not.toBe('');
+  },
+};
+
+// ─── 신규 variant 멤버 ─────────────────────────────────────────────────────────
+
+export const Gradient: Story = {
+  args: { label: 'Gradient checkbox', variant: 'gradient', defaultChecked: true },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // ① data-attr 훅 확인
+    const root = canvasElement.querySelector('[data-bbangto-checkbox-variant]');
+    await expect(root?.getAttribute('data-bbangto-checkbox-variant')).toBe('gradient');
+
+    // ② load-bearing chrome: 박스 fill 이 multi-stop linear-gradient 이고 보더 없음
+    const checkbox = (await canvas.findByRole('checkbox')) as HTMLInputElement;
+    const style = getComputedStyle(checkbox);
+    await expect(style.backgroundImage).toContain('gradient');
+    await expect(style.borderStyle).toBe('none');
+
+    // 글리프는 scoped <style> 의 :checked 의사요소로 합성된다 (aggregate 검증)
+    const css = Array.from(canvasElement.querySelectorAll('style'))
+      .map((s) => s.textContent ?? '')
+      .join('\n');
+    await expect(css).toContain('bbangto-checkbox-gradient-glyph');
+    await expect(css).toContain(':checked');
+
+    // ③ 콘텐츠 슬롯 렌더 + 인터랙션
+    const label = await canvas.findByText('Gradient checkbox');
+    await expect(label).toBeVisible();
+    await expect(checkbox).toBeChecked();
+    await userEvent.click(checkbox);
+    await expect(checkbox).not.toBeChecked();
   },
 };
 

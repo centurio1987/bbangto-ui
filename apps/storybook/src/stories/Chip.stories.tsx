@@ -12,7 +12,7 @@ const meta = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['action', 'filter'],
+      options: ['action', 'filter', 'solid', 'outline', 'avatar'],
     },
     selected: {
       control: 'boolean',
@@ -155,5 +155,81 @@ export const RemovableOnRemoveFires: Story = {
     await userEvent.click(removeBtn);
     // After clicking, button remains in DOM (parent controls visibility)
     await expect(removeBtn).toBeTruthy();
+  },
+};
+
+// ── 신규 variant 멤버 (chip-tag variant 축) ──────────────────────────────────
+
+export const Solid: Story = {
+  args: {
+    variant: 'solid',
+    children: 'Featured',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // ① data-attr 훅
+    const root = canvasElement.querySelector(
+      '[data-bbangto-chip-tag-variant]',
+    ) as HTMLElement;
+    await expect(root).not.toBeNull();
+    await expect(root.getAttribute('data-bbangto-chip-tag-variant')).toBe('solid');
+    // ② load-bearing: fill 버킷 = 불투명 배경 + border ring 없음
+    const chip = await canvas.findByRole('button', { name: /featured/i });
+    const style = getComputedStyle(chip);
+    await expect(style.borderStyle).toBe('none');
+    await expect(style.backgroundColor).not.toBe('rgba(0, 0, 0, 0)');
+    // ③ 콘텐츠 슬롯 렌더
+    await expect(chip).toBeVisible();
+  },
+};
+
+export const Outline: Story = {
+  args: {
+    variant: 'outline',
+    children: 'Optional',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // ① data-attr 훅
+    const root = canvasElement.querySelector(
+      '[data-bbangto-chip-tag-variant]',
+    ) as HTMLElement;
+    await expect(root.getAttribute('data-bbangto-chip-tag-variant')).toBe('outline');
+    // ② load-bearing: border 버킷 = 투명 fill + 보이는 solid ring (fill과 명확히 다름)
+    const chip = await canvas.findByRole('button', { name: /optional/i });
+    const style = getComputedStyle(chip);
+    await expect(style.backgroundColor).toBe('rgba(0, 0, 0, 0)');
+    await expect(style.borderStyle).toBe('solid');
+    await expect(parseFloat(style.borderTopWidth)).toBeGreaterThan(0);
+    // ③ 콘텐츠 슬롯 렌더
+    await expect(chip).toBeVisible();
+  },
+};
+
+export const Avatar: Story = {
+  args: {
+    variant: 'avatar',
+    avatar: <span>BT</span>,
+    children: 'Bbangto',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // ① data-attr 훅
+    const root = canvasElement.querySelector(
+      '[data-bbangto-chip-tag-variant]',
+    ) as HTMLElement;
+    await expect(root.getAttribute('data-bbangto-chip-tag-variant')).toBe('avatar');
+    // ② load-bearing: 원형 leading media 슬롯이 inline-start로 bleed
+    const media = canvasElement.querySelector('[data-chip-avatar]') as HTMLElement;
+    await expect(media).not.toBeNull();
+    const mediaStyle = getComputedStyle(media);
+    // 원형: width === height + full radius
+    await expect(mediaStyle.width).toBe(mediaStyle.height);
+    await expect(parseFloat(mediaStyle.borderTopLeftRadius)).toBeGreaterThan(0);
+    // bleed: 음수 inline-start margin
+    await expect(parseFloat(mediaStyle.marginLeft)).toBeLessThan(0);
+    // ③ 콘텐츠 슬롯 렌더: leading media + label 둘 다
+    await expect(media).toHaveTextContent('BT');
+    await expect(canvas.getByText(/bbangto/i)).toBeVisible();
   },
 };

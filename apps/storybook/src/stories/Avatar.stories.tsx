@@ -22,6 +22,10 @@ const meta = {
       control: 'select',
       options: [undefined, 'online', 'offline', 'away', 'busy'],
     },
+    variant: {
+      control: 'select',
+      options: ['plain', 'gradient-ring'],
+    },
     src: { control: 'text' },
     initials: { control: 'text' },
   },
@@ -111,6 +115,41 @@ export const StatusBusy: Story = {
     const dot = canvasElement.querySelector('[data-avatar-status]');
     await expect(dot).not.toBeNull();
     await expect(dot).toHaveAttribute('aria-label', 'busy');
+  },
+};
+
+export const GradientRing: Story = {
+  args: {
+    size: 'xl',
+    variant: 'gradient-ring',
+    initials: 'JD',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // 1. Variant hook is rendered on the root element.
+    const root = canvasElement.querySelector(
+      '[data-bbangto-avatar-variant]'
+    ) as HTMLElement;
+    await expect(root).not.toBeNull();
+    await expect(root).toHaveAttribute(
+      'data-bbangto-avatar-variant',
+      'gradient-ring'
+    );
+    // 2. Load-bearing chrome: the gradient frame is the ring (background-image
+    // carries a gradient), and a background-colored gap separates the ring from
+    // the inner content.
+    const rootStyle = getComputedStyle(root);
+    await expect(rootStyle.backgroundImage).toContain('gradient');
+    const gap = canvasElement.querySelector(
+      '[data-bbangto-avatar-ring-gap]'
+    ) as HTMLElement;
+    await expect(gap).not.toBeNull();
+    const gapStyle = getComputedStyle(gap);
+    // Ring offset gap paints a real background color, not transparent.
+    await expect(gapStyle.backgroundColor).not.toBe('');
+    await expect(gapStyle.backgroundColor).not.toBe('rgba(0, 0, 0, 0)');
+    // 3. Content slot renders.
+    await expect(await canvas.findByText('JD')).toBeVisible();
   },
 };
 

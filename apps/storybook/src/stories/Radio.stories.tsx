@@ -226,3 +226,136 @@ export const GroupWithDisabledItem: Story = {
     await expect(radios[0]).not.toBeDisabled();
   },
 };
+
+// ─── RadioGroup variant 축 ──────────────────────────────────────────────────
+
+export const Card: Story = {
+  render: () => (
+    <div style={{ width: 480 }}>
+      <RadioGroup name="card-plan" legend="Choose a plan" variant="card">
+        <Radio label="Starter" description="For solo makers shipping their first idea." value="starter" />
+        <Radio label="Team" description="Shared workspaces with role-based access." value="team" />
+        <Radio label="Scale" description="SSO, audit logs and priority support." value="scale" />
+        <Radio label="Enterprise" description="Custom contracts and dedicated infra." value="enterprise" />
+      </RadioGroup>
+    </div>
+  ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    // ① data-attr hook
+    const root = canvasElement.querySelector('[data-bbangto-radio-group-variant]');
+    await expect(root?.getAttribute('data-bbangto-radio-group-variant')).toBe('card');
+    // ② load-bearing: grid container + responsive 2-col reflow rule + panel border
+    const inner = canvasElement.querySelector('.bbangto-radio-group-card');
+    await expect(getComputedStyle(inner!).display).toBe('grid');
+    const styleText = Array.from(canvasElement.querySelectorAll('style'))
+      .map((s) => s.textContent ?? '')
+      .join('\n');
+    await expect(styleText).toContain('grid-template-columns: 1fr 1fr');
+    const panel = canvasElement.querySelector('.bbangto-radio-group-card-item');
+    await expect(getComputedStyle(panel!).borderStyle).toBe('solid');
+    // ③ content slot (title + description stacked)
+    await expect(await canvas.findByText('Starter')).toBeVisible();
+    await expect(
+      await canvas.findByText('SSO, audit logs and priority support.')
+    ).toBeVisible();
+  },
+};
+
+export const List: Story = {
+  render: () => (
+    <div style={{ width: 480 }}>
+      <RadioGroup name="list-address" legend="Deliver to" variant="list">
+        <Radio label="Home" description="123 Baker Street" value="home" />
+        <Radio label="Office" description="500 Market Ave, Floor 9" value="office" />
+        <Radio label="Pickup point" description="Locker #42, Central Station" value="pickup" />
+      </RadioGroup>
+    </div>
+  ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    // ① data-attr hook
+    const root = canvasElement.querySelector('[data-bbangto-radio-group-variant]');
+    await expect(root?.getAttribute('data-bbangto-radio-group-variant')).toBe('list');
+    // ② load-bearing: row split-aligns the indicator to the trailing edge
+    const item = canvasElement.querySelector('.bbangto-radio-group-list-item');
+    const row = item!.querySelector('span');
+    const rowStyle = getComputedStyle(row!);
+    await expect(rowStyle.flexDirection).toBe('row-reverse');
+    await expect(rowStyle.justifyContent).toBe('space-between');
+    // divider rule between rows
+    const styleText = Array.from(canvasElement.querySelectorAll('style'))
+      .map((s) => s.textContent ?? '')
+      .join('\n');
+    await expect(styleText).toContain('border-top');
+    // ③ content slot + selection
+    const radios = await canvas.findAllByRole('radio');
+    await expect(radios).toHaveLength(3);
+    await userEvent.click(radios[2]);
+    await expect(radios[2]).toBeChecked();
+  },
+};
+
+export const Segmented: Story = {
+  render: () => (
+    <div style={{ width: 420 }}>
+      <RadioGroup name="segmented-view" legend="View" variant="segmented">
+        <Radio label="Day" value="day" />
+        <Radio label="Week" value="week" />
+        <Radio label="Month" value="month" />
+      </RadioGroup>
+    </div>
+  ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    // ① data-attr hook
+    const root = canvasElement.querySelector('[data-bbangto-radio-group-variant]');
+    await expect(root?.getAttribute('data-bbangto-radio-group-variant')).toBe('segmented');
+    // ② load-bearing: single horizontal track of equal-width segments, dot hidden
+    const track = canvasElement.querySelector('.bbangto-radio-group-segmented');
+    await expect(getComputedStyle(track!).flexDirection).toBe('row');
+    const segment = canvasElement.querySelector('.bbangto-radio-group-segmented-item');
+    await expect(getComputedStyle(segment!).flexGrow).toBe('1');
+    const styleText = Array.from(canvasElement.querySelectorAll('style'))
+      .map((s) => s.textContent ?? '')
+      .join('\n');
+    await expect(styleText).toContain('clip: rect(0 0 0 0)');
+    // ③ content slot + selection (label still toggles the hidden input)
+    const radios = await canvas.findAllByRole('radio');
+    await expect(radios).toHaveLength(3);
+    await userEvent.click(radios[1]);
+    await expect(radios[1]).toBeChecked();
+  },
+};
+
+export const Glass: Story = {
+  render: () => (
+    <div style={{ width: 420, padding: 24, background: '#334155' }}>
+      <RadioGroup name="glass-theme" legend="Accent" variant="glass">
+        <Radio label="Aurora" description="Cool teal gradient." value="aurora" />
+        <Radio label="Sunset" description="Warm amber gradient." value="sunset" />
+        <Radio label="Mono" description="Neutral greyscale." value="mono" />
+      </RadioGroup>
+    </div>
+  ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    // ① data-attr hook
+    const root = canvasElement.querySelector('[data-bbangto-radio-group-variant]');
+    await expect(root?.getAttribute('data-bbangto-radio-group-variant')).toBe('glass');
+    // ② load-bearing: frosted surface — backdrop blur + translucent fill + border
+    const panel = canvasElement.querySelector('.bbangto-radio-group-glass');
+    const ps = getComputedStyle(panel!);
+    const blur =
+      ps.getPropertyValue('backdrop-filter') ||
+      ps.getPropertyValue('-webkit-backdrop-filter');
+    await expect(blur).toContain('blur');
+    await expect(ps.backgroundColor).not.toBe('rgba(0, 0, 0, 0)');
+    await expect(ps.borderTopStyle).toBe('solid');
+    // ③ content slot + selection
+    const radios = await canvas.findAllByRole('radio');
+    await expect(radios).toHaveLength(3);
+    await userEvent.click(radios[0]);
+    await expect(radios[0]).toBeChecked();
+  },
+};

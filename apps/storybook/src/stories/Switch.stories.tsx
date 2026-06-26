@@ -13,6 +13,7 @@ const meta = {
   argTypes: {
     size: { control: 'select', options: ['sm', 'md', 'lg'] },
     labelPosition: { control: 'select', options: ['right', 'left'] },
+    variant: { control: 'select', options: ['solid', 'outline'] },
   },
 } satisfies Meta<typeof Switch>;
 
@@ -163,5 +164,46 @@ export const LabelLeft: Story = {
     const children = label ? Array.from(label.childNodes).filter((n) => n.nodeType === 1) as Element[] : [];
     // 첫 번째 element child가 텍스트를 포함하는 span이어야 함
     await expect(children[0]?.textContent).toBe('Label on left');
+  },
+};
+
+// ──────────────────────────────────────────────
+// 신규: variant — outline
+// ──────────────────────────────────────────────
+
+export const Outline: Story = {
+  render: (args) => {
+    const [checked, setChecked] = useState(false);
+    return (
+      <Switch
+        {...args}
+        variant="outline"
+        label="Outline switch"
+        checked={checked}
+        onChange={(e) => setChecked(e.target.checked)}
+      />
+    );
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // ① data-attr 훅 확인
+    const root = canvasElement.querySelector('[data-bbangto-toggle-variant="outline"]');
+    await expect(root).not.toBeNull();
+
+    // ② load-bearing computed style: chrome가 fill→border로 전환됨.
+    //    track 배경은 투명, border는 solid로 존재해야 한다 (filled-pill과 구별).
+    const track = root?.querySelector('[data-size]') as HTMLElement | null;
+    await expect(track).not.toBeNull();
+    const trackStyle = getComputedStyle(track!);
+    await expect(trackStyle.backgroundColor).toBe('rgba(0, 0, 0, 0)');
+    await expect(trackStyle.borderTopStyle).toBe('solid');
+    await expect(trackStyle.borderTopWidth).not.toBe('0px');
+
+    // ③ 콘텐츠 슬롯 렌더 + 토글 동작
+    const switchEl = await canvas.findByRole('switch');
+    await expect(canvas.getByText('Outline switch')).toBeVisible();
+    await userEvent.click(switchEl.closest('label') ?? switchEl);
+    await expect(switchEl).toBeChecked();
   },
 };

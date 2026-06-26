@@ -15,6 +15,7 @@ const meta = {
     loading: { control: 'boolean' },
     size: { control: 'select', options: ['sm', 'md', 'lg'] },
     resize: { control: 'select', options: ['none', 'vertical', 'horizontal', 'both'] },
+    variant: { control: 'select', options: ['default', 'soft'] },
   },
 } satisfies Meta<typeof Textarea>;
 
@@ -149,6 +150,48 @@ export const Loading: Story = {
     if (container) {
       await expect(container.style.opacity).toBe('0.5');
     }
+  },
+};
+
+/**
+ * variant="soft" — borderless field flush inside one filled, rounded,
+ * subtly elevated surface (no outline ring)
+ */
+export const Soft: Story = {
+  args: {
+    label: 'Soft surface',
+    placeholder: 'Write inside a filled surface...',
+    variant: 'soft',
+    helperText: 'No outline ring — just a filled rounded panel.',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // ① data-attr 확인
+    const root = canvasElement.querySelector('[data-bbangto-textarea-variant]');
+    await expect(root).not.toBeNull();
+    await expect(root).toHaveAttribute('data-bbangto-textarea-variant', 'soft');
+
+    // ③ 콘텐츠 슬롯 렌더
+    const textarea = await canvas.findByPlaceholderText('Write inside a filled surface...');
+    await expect(textarea).toBeVisible();
+
+    // ② load-bearing computed style — 채워진 배경 + 외곽선 링 없음 + 큰 라운드
+    const style = getComputedStyle(textarea);
+    // filled surface: 배경색이 투명하지 않다
+    await expect(style.backgroundColor).not.toBe('');
+    await expect(style.backgroundColor).not.toBe('transparent');
+    await expect(style.backgroundColor).not.toBe('rgba(0, 0, 0, 0)');
+    // no outline ring: 에러가 없으므로 border-style 가 none
+    await expect(style.borderStyle).toBe('none');
+    // subtle elevation: box-shadow 가 존재한다
+    await expect(style.boxShadow).not.toBe('');
+    await expect(style.boxShadow).not.toBe('none');
+
+    // 인터랙션 — 타이핑
+    await userEvent.click(textarea);
+    await userEvent.type(textarea, 'soft variant');
+    await expect(textarea).toHaveValue('soft variant');
   },
 };
 
