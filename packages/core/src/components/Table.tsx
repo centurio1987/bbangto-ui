@@ -5,18 +5,30 @@ import { cssVar } from '@centurio1987/tokens';
 
 export type TableSize = 'sm' | 'md' | 'lg';
 export type SortDirection = 'asc' | 'desc' | 'none';
+/**
+ * Chrome treatment of the table frame.
+ * - `default`  — enclosed card: 1px muted border on all 4 sides, rounded, filled.
+ * - `divided`  — no outer frame / no fill; rows read as thin horizontal rules and
+ *                the header carries a thick underline only.
+ * - `outlined` — card-like enclosure: rounded border frame + background fill in an
+ *                overflow-auto container.
+ * @default 'default'
+ */
+export type TableVariant = 'default' | 'divided' | 'outlined';
 
 // ─── Context ─────────────────────────────────────────────────────────────────
 
 interface TableContextValue {
   size: TableSize;
   striped: boolean;
+  variant: TableVariant;
   rowIndex: React.MutableRefObject<number>;
 }
 
 const TableContext = React.createContext<TableContextValue>({
   size: 'md',
   striped: false,
+  variant: 'default',
   rowIndex: { current: 0 },
 });
 
@@ -34,19 +46,39 @@ export interface TableProps extends React.TableHTMLAttributes<HTMLTableElement> 
    * @default false
    */
   striped?: boolean;
+  /**
+   * Frame chrome of the table. See {@link TableVariant}.
+   * @default 'default'
+   */
+  variant?: TableVariant;
 }
 
 export const Table = React.forwardRef<HTMLTableElement, TableProps>(
-  ({ children, style, className, size = 'md', striped = false, ...props }, ref) => {
+  ({ children, style, className, size = 'md', striped = false, variant = 'default', ...props }, ref) => {
     const rowIndex = React.useRef(0);
 
-    const containerStyle: React.CSSProperties = {
-      width: '100%',
-      overflowX: 'auto',
-      border: `1px solid ${cssVar('semantic', 'border', 'muted')}`,
-      borderRadius: cssVar('radius', 'md'),
-      backgroundColor: cssVar('semantic', 'background', 'base'),
-    };
+    const isDivided = variant === 'divided';
+    const isOutlined = variant === 'outlined';
+
+    // `divided` strips the enclosing card chrome down to bare horizontal rules:
+    // no 4-side frame, no rounded corners, no surface fill. `default` and
+    // `outlined` both enclose the table in a filled, rounded border frame —
+    // `outlined` leans on the stronger `base` border to read as a distinct card.
+    const containerStyle: React.CSSProperties = isDivided
+      ? {
+          width: '100%',
+          overflow: 'auto',
+          border: 'none',
+          borderRadius: 0,
+          backgroundColor: 'transparent',
+        }
+      : {
+          width: '100%',
+          overflow: 'auto',
+          border: `1px solid ${cssVar('semantic', 'border', isOutlined ? 'base' : 'muted')}`,
+          borderRadius: cssVar('radius', 'md'),
+          backgroundColor: cssVar('semantic', 'background', 'base'),
+        };
 
     const tableStyle: React.CSSProperties = {
       width: '100%',
@@ -59,13 +91,14 @@ export const Table = React.forwardRef<HTMLTableElement, TableProps>(
     };
 
     return (
-      <TableContext.Provider value={{ size, striped, rowIndex }}>
+      <TableContext.Provider value={{ size, striped, variant, rowIndex }}>
         <div style={containerStyle}>
           <table
             ref={ref}
             style={tableStyle}
             className={className}
             data-size={size}
+            data-bbangto-table-variant={variant}
             {...props}
           >
             {children}
@@ -82,19 +115,30 @@ Table.displayName = 'Table';
 export const TableHead = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
->(({ children, style, ...props }, ref) => (
-  <thead
-    ref={ref}
-    style={{
-      backgroundColor: cssVar('semantic', 'background', 'elevated'),
-      borderBottom: `1px solid ${cssVar('semantic', 'border', 'base')}`,
-      ...style,
-    }}
-    {...props}
-  >
-    {children}
-  </thead>
-));
+>(({ children, style, ...props }, ref) => {
+  const { variant } = React.useContext(TableContext);
+  const isDivided = variant === 'divided';
+
+  return (
+    <thead
+      ref={ref}
+      style={{
+        // `divided` drops the header fill and leans on a thick underline rule;
+        // enclosed variants keep the elevated surface + hairline separator.
+        backgroundColor: isDivided
+          ? 'transparent'
+          : cssVar('semantic', 'background', 'elevated'),
+        borderBottom: isDivided
+          ? `2px solid ${cssVar('semantic', 'border', 'strong')}`
+          : `1px solid ${cssVar('semantic', 'border', 'base')}`,
+        ...style,
+      }}
+      {...props}
+    >
+      {children}
+    </thead>
+  );
+});
 TableHead.displayName = 'TableHead';
 
 // ─── TableBody ───────────────────────────────────────────────────────────────

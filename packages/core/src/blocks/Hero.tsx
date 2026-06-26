@@ -15,13 +15,22 @@ export interface HeroCta {
  * - `split-reverse`: 2-column (media | text) at ≥ lg.
  * - `background-media`: media fills the section, text overlaid with a scrim.
  * - `minimal`: type-only, condensed; no media column even if `media` is passed.
+ * - `stacked-showcase`: single column — centred text block on top, then a
+ *   dedicated full-width media slot anchored below with rounded corners and a
+ *   soft elevation shadow. Media is composited *below* the copy (not beside it
+ *   like split, nor behind it like background-media).
+ * - `gradient-surface`: pure-chrome treatment — the root is filled with a
+ *   token-composited gradient and the centred copy is composited over it on a
+ *   blurred glass panel. No media/image layer (unlike background-media).
  */
 export type HeroLayout =
   | 'centered'
   | 'split-media'
   | 'background-media'
   | 'minimal'
-  | 'split-reverse';
+  | 'split-reverse'
+  | 'stacked-showcase'
+  | 'gradient-surface';
 
 export interface HeroProps extends Omit<React.HTMLAttributes<HTMLElement>, 'title'> {
   /** Optional small label rendered above the title (e.g. badge / category). */
@@ -73,8 +82,12 @@ export const Hero = React.forwardRef<HTMLElement, HeroProps>(
     const isReverse = effectiveLayout === 'split-reverse';
     const isBackground = effectiveLayout === 'background-media';
     const isMinimal = effectiveLayout === 'minimal';
+    const isStacked = effectiveLayout === 'stacked-showcase';
+    const isGradient = effectiveLayout === 'gradient-surface';
     // Whether a media column is rendered alongside text (split layouts only).
     const hasSplit = isSplit && Boolean(media);
+    // Whether a dedicated full-width media slot is rendered below the copy.
+    const hasStackedMedia = isStacked && Boolean(media);
     // Whether the heading/CTAs are left-aligned (split text columns).
     const leftAligned = hasSplit;
 
@@ -84,6 +97,14 @@ export const Hero = React.forwardRef<HTMLElement, HeroProps>(
       color: cssVar('semantic', 'foreground', 'base'),
       fontFamily: cssVar('typography', 'fontFamily', 'sans'),
       ...(isBackground ? { position: 'relative', overflow: 'hidden' } : null),
+      // Gradient-surface: composite a token-based gradient over the base fill.
+      // No media layer and no border — this is a pure chrome treatment.
+      ...(isGradient
+        ? {
+            backgroundImage: `linear-gradient(135deg, ${cssVar('semantic', 'primary', 'subtle')} 0%, ${cssVar('semantic', 'background', 'base')} 45%, ${cssVar('semantic', 'primary', 'base')} 100%)`,
+            border: 'none',
+          }
+        : null),
       ...style,
     };
 
@@ -112,6 +133,16 @@ export const Hero = React.forwardRef<HTMLElement, HeroProps>(
       // reads against the dark scrim.
       ...(isBackground
         ? { color: cssVar('semantic', 'foreground', 'inverse') }
+        : null),
+      // Gradient-surface: float the copy on a blurred glass panel composited
+      // over the gradient (optional backdrop-filter, token radius + padding).
+      ...(isGradient
+        ? {
+            backdropFilter: `blur(${cssVar('spacing', '8')})`,
+            WebkitBackdropFilter: `blur(${cssVar('spacing', '8')})`,
+            borderRadius: cssVar('radius', 'xl'),
+            padding: cssVar('spacing', '40'),
+          }
         : null),
     };
 
@@ -161,6 +192,18 @@ export const Hero = React.forwardRef<HTMLElement, HeroProps>(
       // In split-reverse the media column is painted first; place it before
       // the text column at the grid level via order.
       ...(isReverse ? { order: -1 } : null),
+    };
+
+    // Dedicated full-width media slot anchored below the copy (stacked-showcase).
+    // Rounded corners + soft elevation; overflow clips the media to the radius.
+    const showcaseMediaStyles: React.CSSProperties = {
+      width: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: cssVar('radius', 'xl'),
+      boxShadow: cssVar('shadow', 'lg'),
+      overflow: 'hidden',
     };
 
     // Absolutely positioned media fill + scrim for the background layout.
@@ -294,6 +337,16 @@ export const Hero = React.forwardRef<HTMLElement, HeroProps>(
             <div
               className={`${HERO_ID}-media`}
               style={mediaStyles}
+            >
+              {media}
+            </div>
+          )}
+
+          {/* Stacked showcase — dedicated full-width media slot below the copy */}
+          {hasStackedMedia && (
+            <div
+              className={`${HERO_ID}-showcase`}
+              style={showcaseMediaStyles}
             >
               {media}
             </div>

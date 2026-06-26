@@ -24,7 +24,7 @@ const meta = {
     },
     variant: {
       control: 'select',
-      options: ['elevated', 'outlined', 'filled'],
+      options: ['elevated', 'outlined', 'filled', 'retro', 'pixel'],
     },
     interactive: {
       control: 'boolean',
@@ -136,6 +136,79 @@ export const VariantFilled: Story = {
     const shadow = style.boxShadow;
     await expect(shadow === 'none' || shadow === '').toBe(true);
     await expect(style.borderStyle === 'none' || style.border === 'none').toBe(true);
+  },
+};
+
+export const Retro: Story = {
+  name: 'Variant / Retro',
+  args: {
+    variant: 'retro',
+    padding: 'md',
+    children: (
+      <div style={{ maxWidth: '280px' }}>
+        <Text variant="title3">Retro Card</Text>
+        <Text variant="body2" color="muted">
+          Thick flat border with a hard offset shadow — no soft elevation.
+        </Text>
+      </div>
+    ),
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    // 3. content slot renders
+    const heading = await canvas.findByText('Retro Card');
+    await expect(heading).toBeVisible();
+    // 1. data-attr on root
+    const card = canvasElement.querySelector(
+      '[data-bbangto-card-variant="retro"]'
+    ) as HTMLElement;
+    await expect(card).not.toBeNull();
+    // 2. load-bearing: thick solid border + hard offset shadow (0 blur / 0 spread)
+    const style = getComputedStyle(card);
+    await expect(style.borderTopStyle).toBe('solid');
+    await expect(parseInt(style.borderTopWidth, 10)).toBeGreaterThanOrEqual(2);
+    // zero radius, hard corners
+    await expect(parseInt(style.borderTopLeftRadius, 10)).toBe(0);
+    // hard offset: shadow present and contains a 0-blur / 0-spread pair
+    await expect(style.boxShadow).not.toBe('none');
+    await expect(style.boxShadow.includes('0px 0px')).toBe(true);
+  },
+};
+
+export const Pixel: Story = {
+  name: 'Variant / Pixel',
+  args: {
+    variant: 'pixel',
+    padding: 'md',
+    children: (
+      <div style={{ maxWidth: '280px' }}>
+        <Text variant="title3">Pixel Card</Text>
+        <Text variant="body2" color="muted">
+          Stepped 8-bit frame built from layered box-shadow steps, zero radius.
+        </Text>
+      </div>
+    ),
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    // 3. content slot renders
+    const heading = await canvas.findByText('Pixel Card');
+    await expect(heading).toBeVisible();
+    // 1. data-attr on root
+    const card = canvasElement.querySelector(
+      '[data-bbangto-card-variant="pixel"]'
+    ) as HTMLElement;
+    await expect(card).not.toBeNull();
+    // 2. load-bearing: frame is drawn by layered box-shadow steps, not a border.
+    const style = getComputedStyle(card);
+    // zero radius — hard pixel corners
+    await expect(parseInt(style.borderTopLeftRadius, 10)).toBe(0);
+    // no smooth border — the outline lives entirely in the box-shadow
+    await expect(style.borderTopStyle).toBe('none');
+    // multiple stepped shadow layers (each layer carries its own colour token)
+    await expect(style.boxShadow).not.toBe('none');
+    const layerCount = (style.boxShadow.match(/rgb/g) ?? []).length;
+    await expect(layerCount).toBeGreaterThanOrEqual(2);
   },
 };
 

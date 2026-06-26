@@ -12,7 +12,7 @@ const meta = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['solid', 'outline', 'ghost', 'soft'],
+      options: ['solid', 'outline', 'ghost', 'soft', 'gradient', 'link', 'neon'],
     },
     color: {
       control: 'select',
@@ -112,6 +112,76 @@ export const Soft: Story = {
     await expect(style.backgroundColor).not.toBe('rgba(0, 0, 0, 0)');
     await expect(style.backgroundColor).not.toBe('transparent');
     await expect(style.color).not.toBe('');
+  },
+};
+
+export const Gradient: Story = {
+  args: {
+    children: 'Gradient',
+    variant: 'gradient',
+    color: 'primary',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // 1. data-attr hook reflects the variant
+    const root = canvasElement.querySelector('[data-bbangto-button-variant]');
+    await expect(root?.getAttribute('data-bbangto-button-variant')).toBe('gradient');
+    // 2. load-bearing chrome: the fill is a multi-stop linear gradient
+    const button = await canvas.findByRole('button', { name: /gradient/i });
+    const style = getComputedStyle(button);
+    await expect(style.backgroundImage).toContain('gradient');
+    await expect(style.boxShadow).not.toBe('');
+    await expect(style.boxShadow).not.toBe('none');
+    // 3. content slot renders
+    await expect(button).toHaveTextContent('Gradient');
+  },
+};
+
+export const Link: Story = {
+  args: {
+    children: 'Link',
+    variant: 'link',
+    color: 'primary',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // 1. data-attr hook reflects the variant
+    const root = canvasElement.querySelector('[data-bbangto-button-variant]');
+    await expect(root?.getAttribute('data-bbangto-button-variant')).toBe('link');
+    // 2. load-bearing chrome: underlined, no fill, no border
+    const button = await canvas.findByRole('button', { name: /link/i });
+    const style = getComputedStyle(button);
+    await expect(style.textDecorationLine).toContain('underline');
+    await expect(style.backgroundColor).toBe('rgba(0, 0, 0, 0)');
+    await expect(style.borderColor).toBe('rgba(0, 0, 0, 0)');
+    // 3. content slot renders
+    await expect(button).toHaveTextContent('Link');
+  },
+};
+
+export const Neon: Story = {
+  args: {
+    children: 'Neon',
+    variant: 'neon',
+    color: 'primary',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // 1. data-attr hook reflects the variant
+    const root = canvasElement.querySelector('[data-bbangto-button-variant]');
+    await expect(root?.getAttribute('data-bbangto-button-variant')).toBe('neon');
+    // 2. load-bearing chrome: solid saturated border + multi-spread glow
+    const button = await canvas.findByRole('button', { name: /neon/i });
+    const style = getComputedStyle(button);
+    await expect(style.borderStyle).toContain('solid');
+    await expect(style.boxShadow).not.toBe('');
+    await expect(style.boxShadow).not.toBe('none');
+    // multi-spread glow => more than one shadow layer. A single layer has at
+    // most 4 length tokens (x/y/blur/spread); three stacked layers have many
+    // more "px" tokens regardless of how the color serializes.
+    await expect((style.boxShadow.match(/px/g) ?? []).length).toBeGreaterThan(4);
+    // 3. content slot renders
+    await expect(button).toHaveTextContent('Neon');
   },
 };
 

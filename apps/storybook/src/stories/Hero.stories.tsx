@@ -304,3 +304,103 @@ export const Minimal: Story = {
     await expect(canvas.getByRole('button', { name: 'Continue' })).toBeVisible();
   },
 };
+
+/**
+ * stacked-showcase layout — centred copy on top, then a dedicated full-width
+ * media slot anchored below with rounded corners and a soft elevation shadow.
+ */
+export const StackedShowcase: Story = {
+  args: {
+    eyebrow: 'Showcase',
+    title: 'See it in action, top to bottom',
+    subtitle:
+      'A centred message leads, then a full-width product band drops in just below it.',
+    primaryCta: { label: 'Take the tour' },
+    secondaryCta: { label: 'See pricing' },
+    media: <MediaPlaceholder />,
+    layout: 'stacked-showcase',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr reflects the explicit layout
+    const section = canvasElement.querySelector(
+      '[data-bbangto-hero-layout]'
+    ) as HTMLElement;
+    await expect(section).toHaveAttribute(
+      'data-bbangto-hero-layout',
+      'stacked-showcase'
+    );
+
+    // 2. Load-bearing: dedicated showcase media slot carries an elevation shadow
+    //    and clips its media to a rounded corner (overflow hidden). It is NOT a
+    //    side-by-side split column.
+    await expect(
+      canvasElement.querySelector('.bbangto-hero-media')
+    ).toBeNull();
+    const showcase = canvasElement.querySelector(
+      '.bbangto-hero-showcase'
+    ) as HTMLElement;
+    await expect(showcase).toBeTruthy();
+    const showcaseStyle = getComputedStyle(showcase);
+    await expect(showcaseStyle.boxShadow).not.toBe('none');
+    await expect(showcaseStyle.overflow).toBe('hidden');
+
+    // 3. Content slots still render, including the media band
+    const heading = await canvas.findByRole('heading', { level: 1 });
+    await expect(heading).toBeVisible();
+    await expect(
+      canvas.getByRole('button', { name: 'Take the tour' })
+    ).toBeVisible();
+    await expect(
+      canvas.getByRole('img', { name: 'Hero illustration placeholder' })
+    ).toBeVisible();
+  },
+};
+
+/**
+ * gradient-surface layout — root filled with a token-composited gradient, the
+ * centred copy floating on a blurred glass panel. No media layer.
+ */
+export const GradientSurface: Story = {
+  args: {
+    eyebrow: 'Surface',
+    title: 'A hero with no image at all',
+    subtitle:
+      'Pure chrome: a token-composited gradient fills the surface while the copy floats above it.',
+    primaryCta: { label: 'Get started' },
+    secondaryCta: { label: 'Learn more' },
+    layout: 'gradient-surface',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr
+    const section = canvasElement.querySelector(
+      '[data-bbangto-hero-layout]'
+    ) as HTMLElement;
+    await expect(section).toHaveAttribute(
+      'data-bbangto-hero-layout',
+      'gradient-surface'
+    );
+
+    // 2. Load-bearing: the root surface paints a gradient and renders no media
+    //    layer (distinct from background-media).
+    await expect(getComputedStyle(section).backgroundImage).toContain(
+      'gradient'
+    );
+    await expect(
+      canvasElement.querySelector('.bbangto-hero-bg-media')
+    ).toBeNull();
+    await expect(
+      canvasElement.querySelector('.bbangto-hero-showcase')
+    ).toBeNull();
+
+    // 3. Content slots still render
+    const heading = await canvas.findByRole('heading', { level: 1 });
+    await expect(heading).toBeVisible();
+    await expect(
+      canvas.getByRole('button', { name: 'Get started' })
+    ).toBeVisible();
+  },
+};

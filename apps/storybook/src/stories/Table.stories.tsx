@@ -308,3 +308,94 @@ export const Combined: Story = {
     await expect(table.getAttribute('data-size')).toBe('sm');
   },
 };
+
+// ─── 신규 스토리: Divided variant ────────────────────────────────────────────
+
+export const Divided: Story = {
+  render: () => (
+    <Table variant="divided">
+      <TableHead>
+        <TableRow>
+          <TableHeader>Name</TableHeader>
+          <TableHeader>Role</TableHeader>
+          <TableHeader>Status</TableHeader>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableCell>John Doe</TableCell>
+          <TableCell>Developer</TableCell>
+          <TableCell>Active</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>Jane Smith</TableCell>
+          <TableCell>Designer</TableCell>
+          <TableCell>Offline</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
+  ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    // ③ 콘텐츠 슬롯 렌더
+    await canvas.findAllByRole('cell');
+    const table = canvasElement.querySelector('table') as HTMLElement;
+    // ① data-attr 확인
+    await expect(table.getAttribute('data-bbangto-table-variant')).toBe('divided');
+    // ② load-bearing: 외곽 frame 없음 (container 4면 border-style none)
+    const container = table.parentElement as HTMLElement;
+    const cStyle = getComputedStyle(container);
+    await expect(cStyle.borderTopStyle).toBe('none');
+    await expect(cStyle.borderBottomStyle).toBe('none');
+    await expect(cStyle.borderLeftStyle).toBe('none');
+    await expect(cStyle.borderRightStyle).toBe('none');
+    // header underline rule 은 유지 (가로줄 chrome)
+    const thead = canvasElement.querySelector('thead') as HTMLElement;
+    await expect(getComputedStyle(thead).borderBottomStyle).toBe('solid');
+  },
+};
+
+// ─── 신규 스토리: Outlined variant ───────────────────────────────────────────
+
+export const Outlined: Story = {
+  render: () => (
+    <Table variant="outlined">
+      <TableHead>
+        <TableRow>
+          <TableHeader>Name</TableHeader>
+          <TableHeader>Role</TableHeader>
+          <TableHeader>Status</TableHeader>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableCell>John Doe</TableCell>
+          <TableCell>Developer</TableCell>
+          <TableCell>Active</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>Jane Smith</TableCell>
+          <TableCell>Designer</TableCell>
+          <TableCell>Offline</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
+  ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    // ③ 콘텐츠 슬롯 렌더
+    await canvas.findAllByRole('cell');
+    const table = canvasElement.querySelector('table') as HTMLElement;
+    // ① data-attr 확인
+    await expect(table.getAttribute('data-bbangto-table-variant')).toBe('outlined');
+    // ② load-bearing: 4면 border frame 으로 카드처럼 enclose
+    const container = table.parentElement as HTMLElement;
+    const cStyle = getComputedStyle(container);
+    await expect(cStyle.borderTopStyle).toBe('solid');
+    await expect(cStyle.borderBottomStyle).toBe('solid');
+    await expect(cStyle.borderLeftStyle).toBe('solid');
+    await expect(cStyle.borderRightStyle).toBe('solid');
+    // overflow-auto 컨테이너
+    await expect(cStyle.overflowX).toBe('auto');
+  },
+};

@@ -1,7 +1,7 @@
 import React from 'react';
 import { cssVar } from '@centurio1987/tokens';
 
-export type CardVariant = 'elevated' | 'outlined' | 'filled';
+export type CardVariant = 'elevated' | 'outlined' | 'filled' | 'retro' | 'pixel';
 export type CardStatus = 'none' | 'error' | 'success' | 'warning';
 export type CardLayout = 'vertical' | 'horizontal' | 'overlay';
 
@@ -14,6 +14,8 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
    * - `elevated` (default): shadow + optional border (existing behaviour)
    * - `outlined`: border only, no shadow
    * - `filled`: sunken background, no border, no shadow
+   * - `retro`: thick flat border + hard offset shadow (0 blur/0 spread), zero radius
+   * - `pixel`: stepped 8-bit frame drawn from layered box-shadow steps, zero radius
    */
   variant?: CardVariant;
   /** When true, the card responds to hover/focus as a clickable surface.
@@ -68,9 +70,39 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
       lg: cssVar('spacing', '40'),
     };
 
-    // Resolve shadow: outlined/filled suppress it; elevated uses the elevation prop.
-    const resolvedShadow =
-      variant === 'elevated' ? cssVar('shadow', elevation) : cssVar('shadow', 'none');
+    // Flat outline colour shared by the hard-edged retro/pixel treatments.
+    const inkColor = cssVar('semantic', 'border', 'strong');
+    // Hard offset shadow: 0 blur / 0 spread — a flat drop with no soft elevation.
+    const hardOffset = `${cssVar('spacing', '4')} ${cssVar('spacing', '4')} 0 0 ${inkColor}`;
+    // Stepped 8-bit frame: layered box-shadow steps with stair-stepped corners
+    // (negative spread carves the corner pixels) instead of a smooth 1px border.
+    const px2 = cssVar('spacing', '2');
+    const px4 = cssVar('spacing', '4');
+    const negPx2 = `calc(-1 * ${px2})`;
+    const negPx4 = `calc(-1 * ${px4})`;
+    const pixelFrame = [
+      `${px2} 0 0 0 ${inkColor}`,
+      `${negPx2} 0 0 0 ${inkColor}`,
+      `0 ${px2} 0 0 ${inkColor}`,
+      `0 ${negPx2} 0 0 ${inkColor}`,
+      `${px4} ${px4} 0 ${negPx2} ${inkColor}`,
+      `${negPx4} ${negPx4} 0 ${negPx2} ${inkColor}`,
+      `${px4} ${negPx4} 0 ${negPx2} ${inkColor}`,
+      `${negPx4} ${px4} 0 ${negPx2} ${inkColor}`,
+    ].join(', ');
+
+    // Resolve shadow: outlined/filled suppress it; elevated uses the elevation prop;
+    // retro uses the hard offset; pixel uses the stepped frame.
+    let resolvedShadow: string;
+    if (variant === 'elevated') {
+      resolvedShadow = cssVar('shadow', elevation);
+    } else if (variant === 'retro') {
+      resolvedShadow = hardOffset;
+    } else if (variant === 'pixel') {
+      resolvedShadow = pixelFrame;
+    } else {
+      resolvedShadow = cssVar('shadow', 'none');
+    }
 
     // Resolve border.
     let resolvedBorder: string;
@@ -78,16 +110,28 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
       resolvedBorder = `1px solid ${cssVar('semantic', 'border', 'base')}`;
     } else if (variant === 'filled') {
       resolvedBorder = 'none';
+    } else if (variant === 'retro') {
+      // Thick flat border (no soft edges) — the defining retro outline.
+      resolvedBorder = `${cssVar('spacing', '3')} solid ${inkColor}`;
+    } else if (variant === 'pixel') {
+      // The frame is drawn entirely by the layered box-shadow steps above.
+      resolvedBorder = 'none';
     } else {
       // elevated — honour the existing `bordered` prop
       resolvedBorder = bordered ? `1px solid ${cssVar('semantic', 'border', 'base')}` : 'none';
     }
 
-    // Resolve background.
+    // Resolve background — flat single-colour fill for retro/pixel.
     const resolvedBg =
       variant === 'filled'
         ? cssVar('semantic', 'background', 'sunken')
         : cssVar('semantic', 'background', 'elevated');
+
+    // Hard-edged variants drop the rounded corners.
+    const resolvedRadius =
+      variant === 'retro' || variant === 'pixel'
+        ? cssVar('radius', 'none')
+        : cssVar('radius', 'lg');
 
     // Status accent — override borderTop when status is set.
     const statusBorderTop =
@@ -104,7 +148,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
 
     const baseStyles: React.CSSProperties = {
       backgroundColor: resolvedBg,
-      borderRadius: cssVar('radius', 'lg'),
+      borderRadius: resolvedRadius,
       padding: isOverlay ? '0' : resolvedPadding,
       boxShadow: resolvedShadow,
       border: resolvedBorder,
@@ -207,6 +251,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
         tabIndex={resolvedTabIndex}
         style={baseStyles}
         data-card-variant={variant}
+        data-bbangto-card-variant={variant}
         data-card-interactive={interactive ? 'true' : undefined}
         data-card-status={status !== 'none' ? status : undefined}
         data-bbangto-card-layout={layout}

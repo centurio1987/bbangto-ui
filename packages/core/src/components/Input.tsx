@@ -4,7 +4,12 @@ import { Spinner } from '../motion/Spinner';
 
 export type InputSize = 'sm' | 'md' | 'lg';
 
-export type InputVariant = 'outline' | 'filled' | 'underline' | 'ghost';
+export type InputVariant =
+  | 'outline'
+  | 'filled'
+  | 'underline'
+  | 'ghost'
+  | 'composer-panel';
 
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   label?: string;
@@ -111,6 +116,74 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const variantRadius =
       variant === 'underline' ? '0' : cssVar('radius', 'md');
 
+    // composer-panel: a layout reflow. Instead of a single-line track the root
+    // becomes an elevated, rounded panel that stacks a borderless field above a
+    // trailing-aligned action row holding a circular icon button.
+    const isComposer = variant === 'composer-panel';
+
+    // Panel border honours error/success feedback, else a subtle resting border.
+    const composerBorderColor = error
+      ? cssVar('semantic', 'error', 'base')
+      : success && !error
+      ? cssVar('semantic', 'success', 'base')
+      : cssVar('semantic', 'border', 'base');
+
+    const composerWrapperStyles: React.CSSProperties = {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'stretch',
+      gap: cssVar('spacing', '10'),
+      padding: cssVar('spacing', '12'),
+      backgroundColor: isInteractionDisabled
+        ? cssVar('semantic', 'disabled', 'background')
+        : cssVar('semantic', 'background', 'elevated'),
+      border: `1px solid ${composerBorderColor}`,
+      borderRadius: cssVar('radius', 'lg'),
+      boxShadow: cssVar('shadow', 'md'),
+      transition: `border-color ${cssVar('motion', 'duration', 'fast')}, box-shadow ${cssVar('motion', 'duration', 'fast')}`,
+      cursor: isInteractionDisabled ? 'not-allowed' : 'text',
+    };
+
+    const composerInputStyles: React.CSSProperties = {
+      width: '100%',
+      minWidth: 0,
+      padding: `${cssVar('spacing', '4')} 0`,
+      fontSize,
+      lineHeight: cssVar('typography', 'scale', 'body', 'lineHeight'),
+      color: isInteractionDisabled
+        ? cssVar('semantic', 'disabled', 'foreground')
+        : cssVar('semantic', 'foreground', 'base'),
+      backgroundColor: 'transparent',
+      border: 'none',
+      outline: 'none',
+      cursor: isInteractionDisabled ? 'not-allowed' : undefined,
+    };
+
+    const composerActionRowStyles: React.CSSProperties = {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+      gap: cssVar('spacing', '8'),
+    };
+
+    const composerActionButtonStyles: React.CSSProperties = {
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexShrink: 0,
+      width: cssVar('spacing', '32'),
+      height: cssVar('spacing', '32'),
+      borderRadius: cssVar('radius', 'full'),
+      border: '1px solid transparent',
+      backgroundColor: isInteractionDisabled
+        ? cssVar('semantic', 'disabled', 'background')
+        : cssVar('semantic', 'primary', 'base'),
+      color: isInteractionDisabled
+        ? cssVar('semantic', 'disabled', 'foreground')
+        : cssVar('semantic', 'primary', 'foreground'),
+      cursor: isInteractionDisabled ? 'not-allowed' : 'pointer',
+    };
+
     // ── Styles ────────────────────────────────────────────────────────────────
     const containerStyles: React.CSSProperties = {
       display: 'flex',
@@ -173,6 +246,52 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const spinnerColor = disabled
       ? cssVar('semantic', 'disabled', 'foreground')
       : cssVar('semantic', 'foreground', 'muted');
+
+    if (isComposer) {
+      return (
+        <div style={containerStyles} className={className}>
+          {label && <label style={labelStyles}>{label}</label>}
+          <div
+            ref={wrapperRef}
+            style={composerWrapperStyles}
+            data-bbangto-input-variant={variant}
+            aria-busy={loading || undefined}
+          >
+            <input
+              ref={ref}
+              disabled={isInteractionDisabled}
+              style={composerInputStyles}
+              onFocus={() => {
+                if (!isInteractionDisabled && wrapperRef.current) {
+                  wrapperRef.current.style.borderColor = borderColorFocus;
+                }
+              }}
+              onBlur={() => {
+                if (!isInteractionDisabled && wrapperRef.current) {
+                  wrapperRef.current.style.borderColor = composerBorderColor;
+                }
+              }}
+              {...props}
+            />
+            <div style={composerActionRowStyles}>
+              <button
+                type="button"
+                disabled={isInteractionDisabled}
+                aria-label="Send"
+                style={composerActionButtonStyles}
+              >
+                {loading ? (
+                  <Spinner size={16} color={spinnerColor} />
+                ) : (
+                  rightIcon ?? <span aria-hidden="true">↑</span>
+                )}
+              </button>
+            </div>
+          </div>
+          {messageText && <span style={helperStyles}>{messageText}</span>}
+        </div>
+      );
+    }
 
     return (
       <div style={containerStyles} className={className}>

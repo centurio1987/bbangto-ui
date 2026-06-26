@@ -21,7 +21,7 @@ const meta = {
     success: { control: 'text' },
     variant: {
       control: 'select',
-      options: ['outline', 'filled', 'underline', 'ghost'],
+      options: ['outline', 'filled', 'underline', 'ghost', 'composer-panel'],
     },
   },
 } satisfies Meta<typeof Input>;
@@ -215,6 +215,44 @@ export const VariantGhost: Story = {
       const focusStyle = getComputedStyle(wrapper);
       expect(focusStyle.backgroundColor).not.toBe('rgba(0, 0, 0, 0)');
     });
+  },
+};
+
+/** variant="composer-panel" — 단일 라인 트랙이 2-row 패널로 reflow */
+export const ComposerPanel: Story = {
+  args: {
+    label: 'Prompt',
+    placeholder: 'Ask anything...',
+    variant: 'composer-panel',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    // 1. data-attr 확인
+    const wrapper = canvasElement.querySelector(
+      '[data-bbangto-input-variant]'
+    ) as HTMLElement;
+    await expect(wrapper).not.toBeNull();
+    await expect(wrapper).toHaveAttribute(
+      'data-bbangto-input-variant',
+      'composer-panel'
+    );
+    // 2. load-bearing 스타일 — 단일 라인 트랙이 flex-column 2-row 패널로 reflow.
+    //    elevation(box-shadow) 존재 + 정확히 2개 row.
+    const style = getComputedStyle(wrapper);
+    await expect(style.flexDirection).toBe('column');
+    await expect(style.boxShadow).not.toBe('none');
+    await expect(wrapper.children.length).toBe(2);
+    // 원형 액션 버튼이 trailing 정렬 + radius(원형) 적용됐는지.
+    const button = await canvas.findByRole('button', { name: /send/i });
+    const buttonStyle = getComputedStyle(button);
+    await expect(buttonStyle.borderTopLeftRadius).not.toBe('0px');
+    const actionRow = button.parentElement as HTMLElement;
+    await expect(getComputedStyle(actionRow).justifyContent).toBe('flex-end');
+    // 3. 콘텐츠 슬롯 렌더링 — borderless multiline 필드 + 타이핑.
+    const input = await canvas.findByPlaceholderText('Ask anything...');
+    await expect(input).toBeVisible();
+    await userEvent.type(input, 'draft a poem');
+    await expect(input).toHaveValue('draft a poem');
   },
 };
 
