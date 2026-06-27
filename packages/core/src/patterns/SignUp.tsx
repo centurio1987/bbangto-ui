@@ -22,8 +22,19 @@ export interface SignUpValues {
  * - `split`: 2-column (marketing panel | form) at ≥ lg via a scoped `<style>`.
  * - `minimal`: borderless, compact form with no surrounding card chrome.
  * - `social-first`: social-provider buttons rendered ABOVE the credential form.
+ * - `frosted`: glass-chrome card — the root fills with a token-composited
+ *   gradient backdrop and the form card floats above it on a translucent,
+ *   `backdrop-filter: blur` glass panel with a hairline translucent border. The
+ *   sense of float comes from the blur (NOT a `box-shadow` elevation), so this
+ *   is a chrome treatment that lives outside the usual border/fill/elevation
+ *   vocabulary used by the other layouts.
  */
-export type SignUpLayout = 'centered' | 'split' | 'minimal' | 'social-first';
+export type SignUpLayout =
+  | 'centered'
+  | 'split'
+  | 'minimal'
+  | 'social-first'
+  | 'frosted';
 
 export interface SignUpProps {
   /** Called with form values once all fields pass validation. */
@@ -116,6 +127,7 @@ export const SignUp = React.forwardRef<HTMLFormElement, SignUpProps>(
     const isSplit = effectiveLayout === 'split';
     const isMinimal = effectiveLayout === 'minimal';
     const isSocialFirst = effectiveLayout === 'social-first';
+    const isFrosted = effectiveLayout === 'frosted';
 
     const nameId = React.useId();
     const emailId = React.useId();
@@ -205,6 +217,14 @@ export const SignUp = React.forwardRef<HTMLFormElement, SignUpProps>(
       backgroundColor: cssVar('semantic', 'background', 'base'),
       fontFamily: cssVar('typography', 'fontFamily', 'sans'),
       boxSizing: 'border-box',
+      // Frosted: paint a token-composited gradient backdrop so the glass card
+      // has something to float above. No gradient token exists, so the stops
+      // are synthesized inline — every colour is a cssVar() reference.
+      ...(isFrosted
+        ? {
+            backgroundImage: `linear-gradient(135deg, ${cssVar('semantic', 'primary', 'subtle')} 0%, ${cssVar('semantic', 'background', 'base')} 50%, ${cssVar('semantic', 'primary', 'base')} 100%)`,
+          }
+        : null),
     };
 
     const cardStyles: React.CSSProperties = {
@@ -214,6 +234,21 @@ export const SignUp = React.forwardRef<HTMLFormElement, SignUpProps>(
       display: 'flex',
       flexDirection: 'column',
       gap: isMinimal ? cssVar('spacing', '16') : cssVar('spacing', '24'),
+      // Frosted: translucent glass panel. The card reads as floating purely via
+      // the backdrop blur — NOT a box-shadow elevation. Background and hairline
+      // border are composited from cssVar() colours via color-mix (no glass
+      // token exists); blur radius and corner radius are token lengths.
+      ...(isFrosted
+        ? {
+            backgroundColor: `color-mix(in srgb, ${cssVar('semantic', 'background', 'base')} 62%, transparent)`,
+            backdropFilter: `blur(${cssVar('spacing', '12')})`,
+            WebkitBackdropFilter: `blur(${cssVar('spacing', '12')})`,
+            border: `1px solid color-mix(in srgb, ${cssVar('semantic', 'border', 'base')} 45%, transparent)`,
+            borderRadius: cssVar('radius', 'xl'),
+            padding: cssVar('spacing', '32'),
+            boxShadow: 'none',
+          }
+        : null),
     };
 
     const headerStyles: React.CSSProperties = {
@@ -315,7 +350,10 @@ export const SignUp = React.forwardRef<HTMLFormElement, SignUpProps>(
             <div data-bbangto-signup-panel>{marketingPanel}</div>
           )}
 
-          <div style={cardStyles}>
+          <div
+            className={isFrosted ? `${SIGNUP_ID}-frosted` : undefined}
+            style={cardStyles}
+          >
             {/* Header */}
             <div style={headerStyles}>
               {logo && <div>{logo}</div>}

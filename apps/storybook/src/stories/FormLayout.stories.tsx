@@ -4,6 +4,9 @@ import { Input } from '@centurio1987/core';
 import { Checkbox } from '@centurio1987/core';
 import { expect, userEvent, within, waitFor, fn } from 'storybook/test';
 
+const isTransparent = (c: string) =>
+  c === '' || c === 'transparent' || c === 'rgba(0, 0, 0, 0)';
+
 const meta = {
   title: 'Patterns/FormLayout',
   component: FormLayout,
@@ -334,6 +337,193 @@ export const LayoutSectioned: Story = {
     const nameField = canvas.getByPlaceholderText('홍길동');
     await expect(nameField).toBeVisible();
     const submitBtn = canvas.getByRole('button', { name: /변경 저장/i });
+    await userEvent.click(submitBtn);
+    await waitFor(() => {
+      expect(args.onSubmit).toHaveBeenCalledTimes(1);
+    });
+  },
+};
+
+// ─── LayoutPopover (floating, out-of-flow anchored panel) ───────────────────
+
+export const Popover: Story = {
+  args: {
+    title: '빠른 메모',
+    layout: 'popover',
+    submitLabel: '저장',
+    onSubmit: fn(),
+  },
+  render: (args) => (
+    <FormLayout {...args}>
+      <FormRow label="메모" htmlFor="pop-note" required>
+        <Input id="pop-note" placeholder="한 줄 메모" fullWidth />
+      </FormRow>
+    </FormLayout>
+  ),
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr 확인
+    const form = canvasElement.querySelector('form')!;
+    await expect(form).toHaveAttribute('data-bbangto-formlayout-layout', 'popover');
+
+    // 2. load-bearing: 문서 흐름 밖 floating(absolute) + elevation + rounded
+    const cs = getComputedStyle(form);
+    await expect(cs.position).toBe('absolute');
+    await expect(cs.boxShadow).not.toBe('none');
+    await expect(parseFloat(cs.borderTopLeftRadius)).toBeGreaterThan(0);
+
+    // 3. 콘텐츠 슬롯 + a11y: label 연관된 입력 + submit 발화
+    const note = canvas.getByPlaceholderText('한 줄 메모');
+    await expect(note).toBeVisible();
+    await expect(canvas.getByText('메모')).toBeVisible();
+    const submitBtn = canvas.getByRole('button', { name: /저장/i });
+    await userEvent.click(submitBtn);
+    await waitFor(() => {
+      expect(args.onSubmit).toHaveBeenCalledTimes(1);
+    });
+  },
+};
+
+// ─── LayoutDrawer (edge-anchored fixed panel over a scrim) ──────────────────
+
+export const Drawer: Story = {
+  args: {
+    title: '필터',
+    description: '조건을 선택하세요.',
+    layout: 'drawer',
+    submitLabel: '적용',
+    cancelLabel: '닫기',
+    onCancel: fn(),
+    onSubmit: fn(),
+  },
+  render: (args) => (
+    <FormLayout {...args}>
+      <FormRow label="키워드" htmlFor="dr-keyword">
+        <Input id="dr-keyword" placeholder="검색어" fullWidth />
+      </FormRow>
+    </FormLayout>
+  ),
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr 확인
+    const form = canvasElement.querySelector('form')!;
+    await expect(form).toHaveAttribute('data-bbangto-formlayout-layout', 'drawer');
+
+    // 2. load-bearing: 루트는 fixed scrim, 내부 패널도 fixed(엣지 핀)
+    const formCs = getComputedStyle(form);
+    await expect(formCs.position).toBe('fixed');
+    await expect(isTransparent(formCs.backgroundColor)).toBe(false); // 반투명 scrim
+    const panel = canvasElement.querySelector('[data-bbangto-formlayout-panel]');
+    await expect(panel).not.toBeNull();
+    await expect(getComputedStyle(panel as HTMLElement).position).toBe('fixed');
+
+    // 3. 콘텐츠 슬롯 + 폼 동작
+    const keyword = canvas.getByPlaceholderText('검색어');
+    await expect(keyword).toBeVisible();
+    const submitBtn = canvas.getByRole('button', { name: /적용/i });
+    await userEvent.click(submitBtn);
+    await waitFor(() => {
+      expect(args.onSubmit).toHaveBeenCalledTimes(1);
+    });
+  },
+};
+
+// ─── LayoutDialog (centred modal card over a scrim) ─────────────────────────
+
+export const Dialog: Story = {
+  args: {
+    title: '삭제 확인',
+    description: '이 작업은 되돌릴 수 없습니다.',
+    layout: 'dialog',
+    submitLabel: '삭제',
+    cancelLabel: '취소',
+    onCancel: fn(),
+    onSubmit: fn(),
+  },
+  render: (args) => (
+    <FormLayout {...args}>
+      <FormRow label="확인 문구" htmlFor="dlg-confirm" required>
+        <Input id="dlg-confirm" placeholder="DELETE 입력" fullWidth />
+      </FormRow>
+    </FormLayout>
+  ),
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr 확인
+    const form = canvasElement.querySelector('form')!;
+    await expect(form).toHaveAttribute('data-bbangto-formlayout-layout', 'dialog');
+
+    // 2. load-bearing: fixed scrim + 중앙 modal 패널(elevation·border·max-width)
+    const formCs = getComputedStyle(form);
+    await expect(formCs.position).toBe('fixed');
+    await expect(isTransparent(formCs.backgroundColor)).toBe(false); // scrim backdrop
+    const panel = canvasElement.querySelector('[data-bbangto-formlayout-panel]') as HTMLElement;
+    await expect(panel).not.toBeNull();
+    const panelCs = getComputedStyle(panel);
+    await expect(panelCs.position).toBe('fixed');
+    await expect(panelCs.borderStyle).toBe('solid');
+    await expect(panelCs.boxShadow).not.toBe('none');
+    await expect(panelCs.maxWidth).not.toBe('none');
+
+    // 3. 콘텐츠 슬롯 + 폼 동작
+    const confirm = canvas.getByPlaceholderText('DELETE 입력');
+    await expect(confirm).toBeVisible();
+    const submitBtn = canvas.getByRole('button', { name: /삭제/i });
+    await userEvent.click(submitBtn);
+    await waitFor(() => {
+      expect(args.onSubmit).toHaveBeenCalledTimes(1);
+    });
+  },
+};
+
+// ─── LayoutSplit (2-track grid: info panel | form fields) ───────────────────
+
+export const Split: Story = {
+  args: {
+    title: '워크스페이스 만들기',
+    description: '팀과 함께 사용할 공간입니다.',
+    layout: 'split',
+    submitLabel: '생성',
+    onSubmit: fn(),
+  },
+  parameters: { viewport: { defaultViewport: 'desktop' } },
+  render: (args) => (
+    <FormLayout {...args}>
+      <FormRow label="이름" htmlFor="sp-name" required>
+        <Input id="sp-name" placeholder="팀 이름" fullWidth />
+      </FormRow>
+      <FormRow label="슬러그" htmlFor="sp-slug" required hint="URL에 사용됩니다.">
+        <Input id="sp-slug" placeholder="my-team" fullWidth />
+      </FormRow>
+    </FormLayout>
+  ),
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr 확인
+    const form = canvasElement.querySelector('form')!;
+    await expect(form).toHaveAttribute('data-bbangto-formlayout-layout', 'split');
+
+    // 2. load-bearing: 좌우 split = grid 2 track (집계 style + computed)
+    const allStyle = Array.from(canvasElement.querySelectorAll('style'))
+      .map((s) => s.textContent ?? '')
+      .join('\n');
+    await expect(allStyle).toContain('grid-template-columns');
+    const cs = getComputedStyle(form);
+    await expect(cs.display).toBe('grid');
+    const tracks = cs.gridTemplateColumns.split(' ').filter((t) => t.trim() !== '');
+    await expect(tracks.length).toBe(2);
+
+    // 3. 콘텐츠 슬롯: 정보 패널(title) + 폼 필드 컬럼 + 동작
+    const infoPanel = canvasElement.querySelector('[data-bbangto-formlayout-info]');
+    await expect(infoPanel).not.toBeNull();
+    await expect(within(infoPanel as HTMLElement).getByText('워크스페이스 만들기')).toBeVisible();
+    const nameField = canvas.getByPlaceholderText('팀 이름');
+    await expect(nameField).toBeVisible();
+    const submitBtn = canvas.getByRole('button', { name: /생성/i });
     await userEvent.click(submitBtn);
     await waitFor(() => {
       expect(args.onSubmit).toHaveBeenCalledTimes(1);

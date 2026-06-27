@@ -29,7 +29,7 @@ const meta = {
     placeholder: { control: 'text' },
     layout: {
       control: 'inline-radio',
-      options: ['default', 'centered', 'sidebar', 'fullscreen'],
+      options: ['default', 'centered', 'sidebar', 'fullscreen', 'frosted'],
     },
   },
 } satisfies Meta<typeof AIChat>;
@@ -276,6 +276,55 @@ export const LayoutFullscreen: Story = {
     await userEvent.keyboard('{Enter}');
     await waitFor(() => {
       expect(args.onSend).toHaveBeenCalledWith('Fullscreen hello');
+    });
+    await waitFor(() => {
+      expect(textarea).toHaveValue('');
+    });
+  },
+};
+
+// ── Layout: frosted ────────────────────────────────────────────────────────────
+
+export const Frosted: Story = {
+  args: {
+    messages: sampleMessages,
+    onSend: fn(),
+    loading: false,
+    layout: 'frosted',
+    placeholder: 'Type a message…',
+    style: { height: 480 },
+  },
+  play: async ({ canvasElement, args }: { canvasElement: HTMLElement; args: { onSend: ReturnType<typeof fn> } }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr present + correct
+    const root = canvasElement.querySelector('[data-bbangto-aichat-layout]') as HTMLElement;
+    await expect(root).not.toBeNull();
+    await expect(root.getAttribute('data-bbangto-aichat-layout')).toBe('frosted');
+
+    // 2. Load-bearing chrome: composer panel becomes a glass plate —
+    //    backdrop-filter blur present (default composer has 'none') and the
+    //    surface fill is translucent (color-mix → alpha < 1), distinct from the
+    //    opaque elevated fill of every other layout.
+    const composer = canvasElement.querySelector('form') as HTMLElement;
+    await expect(composer).not.toBeNull();
+    const cs = getComputedStyle(composer);
+    const blur = cs.backdropFilter || cs.webkitBackdropFilter || '';
+    await expect(blur).toContain('blur');
+    // Translucent surface: serialized backgroundColor carries an alpha channel
+    // (rgba(... / a) or color(srgb ... / a)) rather than a fully opaque colour.
+    await expect(cs.backgroundColor).toMatch(/rgba|\/\s*0?\.|srgb/);
+
+    // 3. a11y contract intact — message log + composer focus/Enter-to-send.
+    const log = await canvas.findByRole('log', { name: /Message list/ });
+    await expect(log).toBeVisible();
+    const textarea = canvas.getByRole('textbox', { name: /Message input/ });
+    await expect(textarea).toBeVisible();
+    await userEvent.click(textarea);
+    await userEvent.type(textarea, 'Frosted hello');
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => {
+      expect(args.onSend).toHaveBeenCalledWith('Frosted hello');
     });
     await waitFor(() => {
       expect(textarea).toHaveValue('');

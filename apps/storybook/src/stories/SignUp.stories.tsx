@@ -325,3 +325,60 @@ export const LayoutSocialFirst: Story = {
     await expect(args.onSubmit).not.toHaveBeenCalled();
   },
 };
+
+// ── LayoutFrosted ─────────────────────────────────────────────────────────────
+
+/**
+ * layout="frosted" — glass-chrome 카드. 루트는 토큰 합성 그라디언트 backdrop을
+ * 깔고, 폼 카드는 그 위에 반투명 + backdrop-blur 글래스 패널로 떠 있다. 부유감은
+ * box-shadow elevation이 아니라 blur로 표현되며, 1px 반투명 border가 있다.
+ * 폼 검증/제출과 label·aria-invalid·tab order a11y 계약은 그대로 유지돼야 한다.
+ */
+export const LayoutFrosted: Story = {
+  args: {
+    layout: 'frosted',
+  },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr 확인
+    const root = canvasElement.querySelector<HTMLElement>('[data-bbangto-signup-layout]');
+    await expect(root).not.toBeNull();
+    await expect(root!.getAttribute('data-bbangto-signup-layout')).toBe('frosted');
+
+    // 2-a. load-bearing(backdrop): 루트에 그라디언트 backdrop이 합성돼 있어야 한다.
+    const rootStyle = getComputedStyle(root!);
+    await expect(rootStyle.backgroundImage).toMatch(/gradient/);
+
+    // 2-b. load-bearing(glass chrome): 글래스 패널은 backdrop blur로 떠 있고
+    //      (box-shadow elevation 아님), 1px 반투명 border가 있어야 한다.
+    const panel = canvasElement.querySelector<HTMLElement>('.bbangto-signup-frosted');
+    await expect(panel).not.toBeNull();
+    const panelStyle = getComputedStyle(panel!);
+    const backdrop =
+      panelStyle.getPropertyValue('backdrop-filter') ||
+      panelStyle.getPropertyValue('-webkit-backdrop-filter');
+    await expect(backdrop).toMatch(/blur/);
+    // elevation 대신 blur: box-shadow가 없어야 한다.
+    await expect(panelStyle.boxShadow === 'none' || panelStyle.boxShadow === '').toBe(true);
+    // 은은한 1px 반투명 border (solid + 폭 존재).
+    await expect(panelStyle.borderTopStyle).toBe('solid');
+    await expect(parseFloat(panelStyle.borderTopWidth)).toBeGreaterThan(0);
+
+    // 3. 콘텐츠 슬롯 + a11y 계약: label 연관/aria-invalid/제출 플로우 유지.
+    const nameInput = canvas.getByLabelText('이름');
+    await expect(nameInput).toBeVisible();
+
+    // 빈 제출 → 검증 에러 + aria-invalid + onSubmit 미호출
+    await userEvent.click(await canvas.findByRole('button', { name: /회원가입/i }));
+    await waitFor(async () => {
+      await expect(canvas.getByText(/이름을 입력해 주세요/)).toBeVisible();
+    });
+    await expect(nameInput).toHaveAttribute('aria-invalid', 'true');
+    await expect(args.onSubmit).not.toHaveBeenCalled();
+
+    // tab order 유지: name 입력이 포커스를 받을 수 있어야 한다.
+    nameInput.focus();
+    await expect(nameInput).toHaveFocus();
+  },
+};

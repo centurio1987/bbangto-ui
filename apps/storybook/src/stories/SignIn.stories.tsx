@@ -356,3 +356,74 @@ export const LayoutSocialFirst: Story = {
     });
   },
 };
+
+// ─── LayoutMediaBackdrop: 전면 media backdrop + frosted overlay 카드 ─────────
+export const LayoutMediaBackdrop: Story = {
+  args: {
+    onSubmit: fn(),
+    layout: 'media-backdrop',
+    marketingPanel: (
+      <img
+        data-testid="backdrop-image"
+        src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%274%27%20height%3D%274%27%3E%3Crect%20width%3D%274%27%20height%3D%274%27%20fill%3D%27%236366f1%27%2F%3E%3C%2Fsvg%3E"
+        alt=""
+        style={{ display: 'block' }}
+      />
+    ),
+  },
+  play: async ({ args, canvasElement }: { args: { onSubmit: ReturnType<typeof fn> }; canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr 검증
+    const root = canvasElement.querySelector<HTMLElement>('[data-bbangto-signin-layout]');
+    await expect(root).not.toBeNull();
+    await expect(root!.getAttribute('data-bbangto-signin-layout')).toBe('media-backdrop');
+
+    // 2a. load-bearing: media layer는 컬럼이 아니라 전면 backdrop —
+    //     absolute + inset 0 으로 깔리고 object-fit: cover 규칙이 적용되어야 함.
+    const backdrop = canvasElement.querySelector<HTMLElement>('[data-bbangto-signin-backdrop]');
+    await expect(backdrop).not.toBeNull();
+    const backdropStyle = getComputedStyle(backdrop!);
+    await expect(backdropStyle.position).toBe('absolute');
+
+    const aggregatedStyles = Array.from(canvasElement.querySelectorAll('style'))
+      .map((s) => s.textContent ?? '')
+      .join('\n');
+    await expect(aggregatedStyles).toContain('object-fit: cover');
+    await expect(aggregatedStyles).toContain('bbangto-signin-backdrop-media');
+
+    // 2b. load-bearing: 폼 카드는 frosted overlay — backdrop-filter blur +
+    //     1px hairline border + z-stack 위에 떠 있어야 함 (동어반복 금지).
+    const emailInput = await canvas.findByPlaceholderText('이메일을 입력하세요');
+    const form = emailInput.closest('form');
+    await expect(form).not.toBeNull();
+    const card = form!.parentElement as HTMLElement;
+    const cardStyle = getComputedStyle(card);
+    const cardFilter =
+      cardStyle.backdropFilter ||
+      (cardStyle as unknown as { webkitBackdropFilter?: string }).webkitBackdropFilter ||
+      '';
+    await expect(cardFilter).toContain('blur');
+    await expect(cardStyle.borderTopStyle).toBe('solid');
+    await expect(cardStyle.borderTopWidth).toBe('1px');
+    // 카드가 backdrop 위 z-layer로 합성됨
+    await expect(card.compareDocumentPosition(backdrop!) & Node.DOCUMENT_POSITION_PRECEDING).toBeTruthy();
+
+    // 3. 콘텐츠 슬롯 + a11y 계약: label 연관 + submit 유지
+    await expect(emailInput).toBeVisible();
+    const passwordInput = await canvas.findByPlaceholderText('비밀번호를 입력하세요');
+    const submitButton = await canvas.findByRole('button', { name: '로그인' });
+
+    await userEvent.type(emailInput, 'backdrop@example.com');
+    await userEvent.type(passwordInput, 'securepassword');
+    await userEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(args.onSubmit).toHaveBeenCalledWith({
+        email: 'backdrop@example.com',
+        password: 'securepassword',
+        remember: false,
+      });
+    });
+  },
+};

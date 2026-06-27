@@ -19,8 +19,17 @@ export interface AIChatMessage {
  * - `centered`: narrow centered column, empty-state-first emphasis.
  * - `sidebar`: docked side panel (narrower fixed width, full-height column).
  * - `fullscreen`: fills the viewport, edge-to-edge, app-like.
+ * - `frosted`: pure-chrome treatment — the composer panel surface becomes a
+ *   translucent glass plate (`backdrop-filter: blur` + ~65% surface fill) with a
+ *   1px hairline border instead of the default opaque fill + solid border. Only
+ *   the composer chrome changes; container skeleton matches `default`.
  */
-export type AIChatLayout = 'default' | 'centered' | 'sidebar' | 'fullscreen';
+export type AIChatLayout =
+  | 'default'
+  | 'centered'
+  | 'sidebar'
+  | 'fullscreen'
+  | 'frosted';
 
 export interface AIChatProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Array of chat messages to display. */
@@ -183,6 +192,19 @@ export const AIChat = React.forwardRef<HTMLDivElement, AIChatProps>(
       fontSize: cssVar('typography', 'scale', 'body', 'fontSize'),
     };
 
+    // Frosted: swap the composer's opaque fill + solid border for a translucent
+    // glass plate. Colours are synthesized from cssVar() tokens via color-mix
+    // (no glass/alpha tokens exist); blur length is the spacing.16 token.
+    const frostedComposerStyle: React.CSSProperties =
+      effectiveLayout === 'frosted'
+        ? {
+            backgroundColor: `color-mix(in srgb, ${cssVar('semantic', 'background', 'elevated')} 65%, transparent)`,
+            borderTop: `1px solid color-mix(in srgb, ${cssVar('semantic', 'border', 'base')} 12%, transparent)`,
+            backdropFilter: `blur(${cssVar('spacing', '16')})`,
+            WebkitBackdropFilter: `blur(${cssVar('spacing', '16')})`,
+          }
+        : {};
+
     const composerStyle: React.CSSProperties = {
       display: 'flex',
       alignItems: 'flex-end',
@@ -190,6 +212,7 @@ export const AIChat = React.forwardRef<HTMLDivElement, AIChatProps>(
       padding: `${cssVar('spacing', '12')} ${cssVar('spacing', '16')}`,
       borderTop: `1px solid ${cssVar('semantic', 'border', 'muted')}`,
       backgroundColor: cssVar('semantic', 'background', 'elevated'),
+      ...frostedComposerStyle,
     };
 
     // ── Render ─────────────────────────────────────────────────────────────────

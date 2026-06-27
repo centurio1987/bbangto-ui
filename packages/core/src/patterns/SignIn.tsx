@@ -7,7 +7,25 @@ import { Link } from '../components/Link';
 import { SectionMessage } from '../components/SectionMessage';
 import { Text } from '../components/Text';
 
-export type SignInLayout = 'centered' | 'split' | 'minimal' | 'social-first';
+/**
+ * Page-level layout for the sign-in pattern.
+ * - `centered` (default): single centred card column.
+ * - `split`: 2-track grid (marketing column | form column) at ≥ lg.
+ * - `minimal`: chromeless / borderless form.
+ * - `social-first`: social auth buttons above the form with a divider.
+ * - `media-backdrop`: the `marketingPanel` (or a default) is promoted to a
+ *   full-bleed media layer that fills the root (position:absolute; inset:0;
+ *   object-fit:cover). The form floats over it as a centred *frosted* card
+ *   composited on a z-stack (backdrop-filter blur, a translucent token-based
+ *   surface and a 1px hairline border). Unlike `split` the media is NOT a grid
+ *   column — it is a front backdrop and the form is overlaid above it.
+ */
+export type SignInLayout =
+  | 'centered'
+  | 'split'
+  | 'minimal'
+  | 'social-first'
+  | 'media-backdrop';
 
 const SIGNIN_ID = 'bbangto-signin';
 
@@ -77,6 +95,7 @@ export const SignIn = React.forwardRef<HTMLDivElement, SignInProps>(
     const isMinimal = effectiveLayout === 'minimal';
     const isSplit = effectiveLayout === 'split';
     const isSocialFirst = effectiveLayout === 'social-first';
+    const isMediaBackdrop = effectiveLayout === 'media-backdrop';
     const id = React.useId();
     const emailId = `${id}-email`;
     const passwordId = `${id}-password`;
@@ -138,10 +157,33 @@ export const SignIn = React.forwardRef<HTMLDivElement, SignInProps>(
       maxWidth: '400px',
       // 'minimal' is borderless / chromeless: no card background, padding or radius.
       padding: isMinimal ? '0' : cssVar('spacing', '32'),
-      backgroundColor: isMinimal ? 'transparent' : cssVar('semantic', 'background', 'base'),
+      // 'media-backdrop' floats a frosted card over the full-bleed media: a
+      // translucent token-based surface (color-mix keeps the colour tokenised)
+      // rather than the opaque base fill of the other layouts.
+      backgroundColor: isMinimal
+        ? 'transparent'
+        : isMediaBackdrop
+          ? `color-mix(in srgb, ${cssVar('semantic', 'background', 'base')} 70%, transparent)`
+          : cssVar('semantic', 'background', 'base'),
       borderRadius: isMinimal ? '0' : cssVar('radius', 'lg'),
-      boxShadow: isMinimal ? 'none' : undefined,
-      border: isMinimal ? 'none' : undefined,
+      boxShadow: isMinimal ? 'none' : isMediaBackdrop ? cssVar('shadow', 'lg') : undefined,
+      // 1px hairline border for the frosted card; other non-minimal layouts
+      // keep the default (undefined) border.
+      border: isMinimal
+        ? 'none'
+        : isMediaBackdrop
+          ? `1px solid ${cssVar('semantic', 'border', 'base')}`
+          : undefined,
+      // Frosted glass: blur whatever media sits behind the card, and lift the
+      // card onto the overlay z-layer above the absolutely positioned backdrop.
+      ...(isMediaBackdrop
+        ? {
+            backdropFilter: `blur(${cssVar('spacing', '12')})`,
+            WebkitBackdropFilter: `blur(${cssVar('spacing', '12')})`,
+            position: 'relative',
+            zIndex: 1,
+          }
+        : null),
       fontFamily: cssVar('typography', 'fontFamily', 'sans'),
     };
 
@@ -337,6 +379,72 @@ export const SignIn = React.forwardRef<HTMLDivElement, SignInProps>(
         </Text>
       </div>
     );
+
+    if (isMediaBackdrop) {
+      // Promote the marketing panel (or a default) to a full-bleed backdrop.
+      const backdropContent = marketingPanel ?? defaultMarketingPanel;
+      return (
+        <div
+          ref={ref}
+          data-bbangto-signin-layout={effectiveLayout}
+          className={
+            className
+              ? `${SIGNIN_ID}-media-backdrop ${className}`
+              : `${SIGNIN_ID}-media-backdrop`
+          }
+          style={{
+            position: 'relative',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: '100vh',
+            width: '100%',
+            padding: cssVar('spacing', '24'),
+            boxSizing: 'border-box',
+            overflow: 'hidden',
+            backgroundColor: cssVar('semantic', 'background', 'sunken'),
+            fontFamily: cssVar('typography', 'fontFamily', 'sans'),
+            ...style,
+          }}
+          {...props}
+        >
+          {/*
+            Scoped style: the media node fills the backdrop layer with
+            object-fit: cover. object-fit cannot be expressed on the wrapper
+            inline, so it is applied to the slotted child here.
+          */}
+          <style>{`
+            .${SIGNIN_ID}-backdrop-media > * {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          `}</style>
+
+          {/*
+            Full-bleed media layer — a front backdrop (NOT a grid column). It is
+            absolutely positioned behind the form and marked aria-hidden so the
+            decorative backdrop is not announced.
+          */}
+          <div
+            className={`${SIGNIN_ID}-backdrop-media`}
+            data-bbangto-signin-backdrop="true"
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              zIndex: 0,
+              overflow: 'hidden',
+            }}
+          >
+            {backdropContent}
+          </div>
+
+          {/* Frosted form card composited above the backdrop on the z-stack. */}
+          {formContent}
+        </div>
+      );
+    }
 
     if (isSplit) {
       const panelContent = marketingPanel ?? defaultMarketingPanel;
