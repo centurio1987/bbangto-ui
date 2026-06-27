@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Radio, RadioGroup } from '@centurio1987/core';
+import { Radio, RadioGroup } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within } from 'storybook/test';
 
 const meta = {

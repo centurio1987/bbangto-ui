@@ -1,4 +1,4 @@
-import { flattenToCSSVars } from '@centurio1987/tokens';
+import { flattenToCSSVars } from '@centurio1987/bbangto-ui-tokens';
 import type { DiagramTheme } from './types';
 
 const PREFIX = '--bbangto-diagram';

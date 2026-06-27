@@ -1,5 +1,5 @@
 import React from 'react';
-import { cssVar, breakpoints } from '@centurio1987/tokens';
+import { cssVar, breakpoints } from '@centurio1987/bbangto-ui-tokens';
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
 import { Checkbox } from '../components/Checkbox';

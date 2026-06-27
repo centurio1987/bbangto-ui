@@ -26,7 +26,7 @@ import {
   Pressable,
   Ripple,
   Attention,
-} from '@centurio1987/core';
+} from '@centurio1987/bbangto-ui-core';
 import { within, expect, userEvent, waitFor } from 'storybook/test';
 
 /**

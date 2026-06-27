@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Popover, Button } from '@centurio1987/core';
+import { Popover, Button } from '@centurio1987/bbangto-ui-core';
 import { expect, fireEvent, userEvent, waitFor, within } from 'storybook/test';
 
 const meta = {

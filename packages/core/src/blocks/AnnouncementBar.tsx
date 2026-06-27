@@ -1,5 +1,5 @@
 import React from 'react';
-import { cssVar } from '@centurio1987/tokens';
+import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 import { Button } from '../components/Button';
 import { Text } from '../components/Text';
 

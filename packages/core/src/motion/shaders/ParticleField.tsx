@@ -1,5 +1,5 @@
 import React from 'react';
-import { cssVar } from '@centurio1987/tokens';
+import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 
 export interface ParticleFieldProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Particle/line colors. Defaults to semantic primary tokens. */

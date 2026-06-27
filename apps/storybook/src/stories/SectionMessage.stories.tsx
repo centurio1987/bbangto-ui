@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { SectionMessage } from '@centurio1987/core';
+import { SectionMessage } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 
 const meta = {

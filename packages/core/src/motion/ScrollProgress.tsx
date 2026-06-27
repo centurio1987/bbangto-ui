@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { cssVar } from '@centurio1987/tokens';
+import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 
 export interface ScrollProgressProps extends React.HTMLAttributes<HTMLDivElement> {
   position?: 'top' | 'bottom' | 'inline';

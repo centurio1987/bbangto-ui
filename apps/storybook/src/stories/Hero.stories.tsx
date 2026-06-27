@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Hero } from '@centurio1987/core';
+import { Hero } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 
 const meta = {

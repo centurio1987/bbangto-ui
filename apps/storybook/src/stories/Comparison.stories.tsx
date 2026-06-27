@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Comparison } from '@centurio1987/core';
+import { Comparison } from '@centurio1987/bbangto-ui-core';
 import { expect, within, userEvent, fireEvent } from 'storybook/test';
 
 const meta = {

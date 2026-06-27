@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Gallery } from '@centurio1987/core';
+import { Gallery } from '@centurio1987/bbangto-ui-core';
 import { expect, within, waitFor } from 'storybook/test';
 
 const meta = {

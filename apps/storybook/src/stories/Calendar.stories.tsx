@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Calendar } from '@centurio1987/core';
+import { Calendar } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within, waitFor } from 'storybook/test';
 
 const meta = {

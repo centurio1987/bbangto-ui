@@ -1,5 +1,5 @@
 import React from 'react';
-import { cssVar } from '@centurio1987/tokens';
+import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 
 export type EmptyStateSize = 'sm' | 'md' | 'lg';
 export type EmptyStateAlign = 'center' | 'start';

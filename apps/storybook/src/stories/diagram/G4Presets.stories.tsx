@@ -10,7 +10,7 @@ import {
   ArchiMateApplicationDiagram,
   ArchiMateTechnologyDiagram,
   SysMLBlockDiagram,
-} from '@centurio1987/diagram';
+} from '@centurio1987/bbangto-ui-diagram';
 import { expect } from 'storybook/test';
 
 const meta = {

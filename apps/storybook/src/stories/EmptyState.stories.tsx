@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { EmptyState, Button } from '@centurio1987/core';
+import { EmptyState, Button } from '@centurio1987/bbangto-ui-core';
 import { expect, within, userEvent } from 'storybook/test';
 
 const meta = {

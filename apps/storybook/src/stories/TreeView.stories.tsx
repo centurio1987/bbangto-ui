@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { TreeView } from '@centurio1987/core';
+import { TreeView } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within, waitFor } from 'storybook/test';
 
 const sampleNodes = [

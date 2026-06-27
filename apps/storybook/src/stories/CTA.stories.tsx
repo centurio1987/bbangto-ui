@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { CTA } from '@centurio1987/core';
+import { CTA } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within } from 'storybook/test';
 
 const meta = {

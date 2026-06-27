@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { AlertDialog, Button } from '@centurio1987/core';
+import { AlertDialog, Button } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 
 const meta = {

@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Waves } from '@centurio1987/core';
+import { Waves } from '@centurio1987/bbangto-ui-core';
 import { expect } from 'storybook/test';
 
 const meta = {

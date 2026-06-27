@@ -11,7 +11,7 @@ import {
   TimelineDiagram,
   RequirementDiagram,
   KanbanBoard,
-} from '@centurio1987/diagram';
+} from '@centurio1987/bbangto-ui-diagram';
 import { expect } from 'storybook/test';
 
 const meta = {

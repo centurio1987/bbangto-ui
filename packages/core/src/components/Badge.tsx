@@ -1,5 +1,5 @@
 import React from 'react';
-import { cssVar } from '@centurio1987/tokens';
+import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 
 export type BadgeColor = 'primary' | 'error' | 'success' | 'warning' | 'neutral';
 // 'subtle' and 'soft' are siblings: subtle background + colored foreground.

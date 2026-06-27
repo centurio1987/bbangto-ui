@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { cssVar } from '@centurio1987/tokens';
+import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 import { KEYFRAME_NAMES, SLIDE_VARS, useAnimatedMount } from '../motion';
 
 export type SnackbarSeverity = 'neutral' | 'info' | 'success' | 'error' | 'warning';

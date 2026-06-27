@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { cssVar } from '@centurio1987/tokens';
+import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 
 export type CarouselSize = 'sm' | 'md' | 'lg';
 export type CarouselIndicatorVariant = 'dots' | 'numbers';

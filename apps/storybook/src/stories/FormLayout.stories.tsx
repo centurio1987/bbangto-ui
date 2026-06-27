@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { FormLayout, FormSection, FormRow } from '@centurio1987/core';
-import { Input } from '@centurio1987/core';
-import { Checkbox } from '@centurio1987/core';
+import { FormLayout, FormSection, FormRow } from '@centurio1987/bbangto-ui-core';
+import { Input } from '@centurio1987/bbangto-ui-core';
+import { Checkbox } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within, waitFor, fn } from 'storybook/test';
 
 const isTransparent = (c: string) =>

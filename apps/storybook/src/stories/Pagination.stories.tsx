@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Pagination } from '@centurio1987/core';
+import { Pagination } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within } from 'storybook/test';
 
 const meta = {

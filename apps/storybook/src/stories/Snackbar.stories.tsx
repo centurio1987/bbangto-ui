@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Snackbar } from '@centurio1987/core';
+import { Snackbar } from '@centurio1987/bbangto-ui-core';
 import { expect, waitFor, within } from 'storybook/test';
 
 const meta = {

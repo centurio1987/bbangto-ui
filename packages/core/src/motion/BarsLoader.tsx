@@ -1,5 +1,5 @@
 import React from 'react';
-import { cssVar } from '@centurio1987/tokens';
+import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 
 export interface BarsLoaderProps extends React.HTMLAttributes<HTMLSpanElement> {
   /** Preset size, or a custom pixel height. Defaults to `md` (24px). */

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Avatar } from '@centurio1987/core';
+import { Avatar } from '@centurio1987/bbangto-ui-core';
 import { expect, within } from 'storybook/test';
 
 const meta = {

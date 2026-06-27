@@ -17,31 +17,19 @@ importers:
 
   apps/storybook:
     dependencies:
-      '@centurio1987/core':
+      '@centurio1987/bbangto-ui-core':
         specifier: workspace:^
         version: link:../../packages/core
-      '@centurio1987/diagram':
+      '@centurio1987/bbangto-ui-diagram':
         specifier: workspace:^
         version: link:../../packages/diagram
-      '@centurio1987/hooks':
+      '@centurio1987/bbangto-ui-hooks':
         specifier: workspace:^
         version: link:../../packages/hooks
-      '@centurio1987/theme-amber':
+      '@centurio1987/bbangto-ui-themes':
         specifier: workspace:^
-        version: link:../../packages/theme-amber
-      '@centurio1987/theme-dark':
-        specifier: workspace:^
-        version: link:../../packages/theme-dark
-      '@centurio1987/theme-high-contrast':
-        specifier: workspace:^
-        version: link:../../packages/theme-high-contrast
-      '@centurio1987/theme-light':
-        specifier: workspace:^
-        version: link:../../packages/theme-light
-      '@centurio1987/themes-external':
-        specifier: workspace:^
-        version: link:../../packages/themes-external
-      '@centurio1987/tokens':
+        version: link:../../packages/themes
+      '@centurio1987/bbangto-ui-tokens':
         specifier: workspace:^
         version: link:../../packages/tokens
       react:
@@ -126,10 +114,10 @@ importers:
 
   packages/core:
     dependencies:
-      '@centurio1987/theme-light':
+      '@centurio1987/bbangto-ui-themes':
         specifier: workspace:*
-        version: link:../theme-light
-      '@centurio1987/tokens':
+        version: link:../themes
+      '@centurio1987/bbangto-ui-tokens':
         specifier: workspace:*
         version: link:../tokens
       react:
@@ -163,7 +151,7 @@ importers:
 
   packages/diagram:
     dependencies:
-      '@centurio1987/tokens':
+      '@centurio1987/bbangto-ui-tokens':
         specifier: workspace:*
         version: link:../tokens
       react:
@@ -213,70 +201,9 @@ importers:
         specifier: ^4.1.9
         version: 4.1.9(@types/node@24.13.2)(@vitest/browser-playwright@4.1.9)(@vitest/coverage-v8@4.1.9)(jsdom@25.0.1)(vite@8.0.16(@types/node@24.13.2)(esbuild@0.27.7))
 
-  packages/theme-amber:
+  packages/themes:
     dependencies:
-      '@centurio1987/tokens':
-        specifier: workspace:*
-        version: link:../tokens
-    devDependencies:
-      tsup:
-        specifier: ^8.0.0
-        version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
-      typescript:
-        specifier: ^5.7.0
-        version: 5.9.3
-
-  packages/theme-dark:
-    dependencies:
-      '@centurio1987/theme-light':
-        specifier: workspace:*
-        version: link:../theme-light
-      '@centurio1987/tokens':
-        specifier: workspace:*
-        version: link:../tokens
-    devDependencies:
-      tsup:
-        specifier: ^8.0.0
-        version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
-      typescript:
-        specifier: ^5.7.0
-        version: 5.9.3
-
-  packages/theme-high-contrast:
-    dependencies:
-      '@centurio1987/theme-light':
-        specifier: workspace:*
-        version: link:../theme-light
-      '@centurio1987/tokens':
-        specifier: workspace:*
-        version: link:../tokens
-    devDependencies:
-      tsup:
-        specifier: ^8.0.0
-        version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
-      typescript:
-        specifier: ^5.7.0
-        version: 5.9.3
-
-  packages/theme-light:
-    dependencies:
-      '@centurio1987/tokens':
-        specifier: workspace:*
-        version: link:../tokens
-    devDependencies:
-      tsup:
-        specifier: ^8.0.0
-        version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
-      typescript:
-        specifier: ^5.7.0
-        version: 5.9.3
-
-  packages/themes-external:
-    dependencies:
-      '@centurio1987/theme-light':
-        specifier: workspace:*
-        version: link:../theme-light
-      '@centurio1987/tokens':
+      '@centurio1987/bbangto-ui-tokens':
         specifier: workspace:*
         version: link:../tokens
     devDependencies:
@@ -1647,10 +1574,6 @@ packages:
   aria-query@5.3.0:
     resolution: {integrity: sha512-b0P0sZPKtyu8HkeRAfCq0IfURZK+SuwMjY1UXGBU27wpAiTwQAIlq56IbIO+ytk/JjS1fMR14ee5WBBfKi5J6A==}
 
-  aria-query@5.3.2:
-    resolution: {integrity: sha512-COROpnaoap1E2F000S62r6A60uHZnmlvomhfyT2DlTcrY1OrBKn2UhH7qn5wTC9zMvD0AY7csdPSNwKP+7WiQw==}
-    engines: {node: '>= 0.4'}
-
   array-union@2.1.0:
     resolution: {integrity: sha512-HGyxoOTYUyCM6stUe6EJgnd4EoewAI7zMdfqO+kGjnlZmBDz/cR5pf8r/cR4Wq60sL/p0IkcjUEEPwS3GFrIyw==}
     engines: {node: '>=8'}
@@ -2725,8 +2648,8 @@ packages:
     resolution: {integrity: sha512-GDhwkLfywWL2s6vEjyhri+eXmfH6j1L7JE27WhqLeYzoh/A3DBaYGEj2H/HFZCn/kMfim73FXxEJTw06WtxQwg==}
     engines: {node: '>= 14.18.0'}
 
-  recast@0.23.11:
-    resolution: {integrity: sha512-YTUo+Flmw4ZXiWfQKGcwwc11KnoRAYgzAE2E7mXKCjSviTKShtxBsN6YUUBB2gtaBzKzeKunxhUwNHQuRryhWA==}
+  recast@0.23.12:
+    resolution: {integrity: sha512-dEWRjcINDu/F4l2dYx57ugBtD7HV9KXESyxhzw/MqWLeglJrsjJKqACPyUPg+6AF8mIgm+Zi0dZ3ACoIg+QtpA==}
     engines: {node: '>= 4'}
 
   redent@3.0.0:
@@ -4203,7 +4126,7 @@ snapshots:
   '@testing-library/jest-dom@6.9.1':
     dependencies:
       '@adobe/css-tools': 4.5.0
-      aria-query: 5.3.2
+      aria-query: 5.3.0
       css.escape: 1.5.1
       dom-accessibility-api: 0.6.3
       picocolors: 1.1.1
@@ -4562,8 +4485,6 @@ snapshots:
   aria-query@5.3.0:
     dependencies:
       dequal: 2.0.3
-
-  aria-query@5.3.2: {}
 
   array-union@2.1.0: {}
 
@@ -5636,7 +5557,7 @@ snapshots:
 
   readdirp@4.1.2: {}
 
-  recast@0.23.11:
+  recast@0.23.12:
     dependencies:
       ast-types: 0.16.1
       esprima: 4.0.1
@@ -5784,7 +5705,7 @@ snapshots:
       open: 10.2.0
       oxc-parser: 0.127.0
       oxc-resolver: 11.21.3
-      recast: 0.23.11
+      recast: 0.23.12
       semver: 7.8.4
       use-sync-external-store: 1.6.0(react@19.2.7)
       ws: 8.21.0

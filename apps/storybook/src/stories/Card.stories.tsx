@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Card, Text, Button } from '@centurio1987/core';
+import { Card, Text, Button } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within } from 'storybook/test';
 
 const meta = {

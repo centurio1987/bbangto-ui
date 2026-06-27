@@ -1,5 +1,5 @@
 import React from 'react';
-import { cssVar } from '@centurio1987/tokens';
+import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 import { usePrefersReducedMotion, visuallyHiddenStyle } from './textA11y';
 
 export interface MarqueeProps extends React.HTMLAttributes<HTMLDivElement> {

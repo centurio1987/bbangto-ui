@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Slider, type SliderProps } from '@centurio1987/core';
+import { Slider, type SliderProps } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within, waitFor, fireEvent } from 'storybook/test';
 
 const meta = {

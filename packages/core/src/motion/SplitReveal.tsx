@@ -1,5 +1,5 @@
 import React from 'react';
-import { cssVar } from '@centurio1987/tokens';
+import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 import { visuallyHiddenStyle } from './textA11y';
 
 export interface SplitRevealProps extends React.HTMLAttributes<HTMLSpanElement> {

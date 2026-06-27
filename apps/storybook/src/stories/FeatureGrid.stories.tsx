@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { FeatureGrid } from '@centurio1987/core';
+import { FeatureGrid } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within } from 'storybook/test';
 
 /** Aggregate every <style> tag's textContent (avoids grabbing a single global @import style). */

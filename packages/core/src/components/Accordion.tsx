@@ -1,5 +1,5 @@
 import React, { useEffect, useId, useRef, useState } from 'react';
-import { cssVar, breakpoints } from '@centurio1987/tokens';
+import { cssVar, breakpoints } from '@centurio1987/bbangto-ui-tokens';
 
 /** `split-media`: at-active the root reflows to a 2-track grid (accordion | media-panel). */
 export type AccordionVariantSplitMedia = 'split-media';

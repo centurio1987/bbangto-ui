@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, ModalProps } from './Modal';
 import { Button } from './Button';
 import { Text } from './Text';
-import { cssVar } from '@centurio1987/tokens';
+import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 
 export type AlertDialogSize = 'sm' | 'md' | 'lg';
 export type AlertDialogActionsAlign = 'left' | 'right';
