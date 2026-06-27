@@ -320,3 +320,128 @@ export const LayoutStacked: Story = {
     await expect(featuresLink).toHaveAttribute('href', '#features');
   },
 };
+
+/**
+ * `layout="wordmark"` — link groups stacked above an OVERSIZED full-width brand
+ * wordmark band (its own root track), with the social + copyright bottom bar
+ * below. The brand IS the band — distinct from the small inline logo slot.
+ */
+export const Wordmark: Story = {
+  args: {
+    wordmark: 'bbangto',
+    columns: sampleColumns.slice(0, 3),
+    social: sampleSocial,
+    copyright: '© 2026 BBANGTO Inc.',
+    layout: 'wordmark',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr present + correct
+    const footer = canvasElement.querySelector('footer');
+    await expect(footer).not.toBeNull();
+    await expect(footer).toHaveAttribute('data-bbangto-marketingfooter-layout', 'wordmark');
+
+    // a11y contract: contentinfo landmark preserved
+    const contentinfo = canvas.getByRole('contentinfo');
+    await expect(contentinfo).not.toBeNull();
+
+    // 2. Load-bearing: the oversized brand band is its own full-width track.
+    //    It is clipped (overflow hidden), uppercased, and floored at 6rem
+    //    (96px) by the clamp() — far larger than the inline logo slot.
+    const band = canvasElement.querySelector('.bbangto-marketing-footer-wordmark');
+    await expect(band).not.toBeNull();
+    await expect(band).toHaveTextContent('bbangto');
+    const bandStyle = getComputedStyle(band as HTMLElement);
+    await expect(bandStyle.overflow).toBe('hidden');
+    await expect(bandStyle.textTransform).toBe('uppercase');
+    await expect(parseFloat(bandStyle.fontSize)).toBeGreaterThanOrEqual(90);
+
+    // Scoped style asserts the band is a full-width nowrap track.
+    const styleText = Array.from(canvasElement.querySelectorAll('style'))
+      .map((s) => s.textContent ?? '')
+      .join('\n');
+    await expect(styleText).toContain('.bbangto-marketing-footer-wordmark');
+    await expect(styleText).toContain('white-space: nowrap');
+
+    // 3. Content slots: link groups above the band, social/copyright below.
+    const productHeading = await canvas.findByText('Product');
+    await expect(productHeading).toBeVisible();
+    const featuresLink = await canvas.findByRole('link', { name: 'Features' });
+    await expect(featuresLink).toBeVisible();
+    await expect(featuresLink).toHaveAttribute('href', '#features');
+    // a11y contract: link stays keyboard-focusable
+    (featuresLink as HTMLElement).focus();
+    await expect(featuresLink).toHaveFocus();
+
+    const githubLink = await canvas.findByRole('link', { name: 'GitHub' });
+    await expect(githubLink).toBeVisible();
+    const copyright = await canvas.findByText('© 2026 BBANGTO Inc.');
+    await expect(copyright).toBeVisible();
+  },
+};
+
+/**
+ * `layout="gradient"` — the columns skeleton over a multi-stop token gradient
+ * surface (no flat fill) with an overlaid dot/grid pattern layer behind the
+ * content and a top divider border on the bottom bar.
+ */
+export const Gradient: Story = {
+  args: {
+    logo: <SampleLogo />,
+    columns: sampleColumns,
+    social: sampleSocial,
+    copyright: '© 2026 BBANGTO Inc. All rights reserved.',
+    layout: 'gradient',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr present + correct
+    const footer = canvasElement.querySelector('footer');
+    await expect(footer).not.toBeNull();
+    await expect(footer).toHaveAttribute('data-bbangto-marketingfooter-layout', 'gradient');
+
+    // a11y contract: contentinfo landmark preserved
+    const contentinfo = canvas.getByRole('contentinfo');
+    await expect(contentinfo).not.toBeNull();
+
+    // 2. Load-bearing: root surface is a gradient (no flat fill).
+    const footerStyle = getComputedStyle(footer as HTMLElement);
+    await expect(footerStyle.backgroundImage).toContain('gradient');
+    await expect(footerStyle.position).toBe('relative');
+
+    // The dot/grid pattern is an absolute, overflow-clipped radial-gradient
+    // layer behind the content.
+    const pattern = canvasElement.querySelector('.bbangto-marketing-footer-gradient-pattern');
+    await expect(pattern).not.toBeNull();
+    const patternStyle = getComputedStyle(pattern as HTMLElement);
+    await expect(patternStyle.position).toBe('absolute');
+    await expect(patternStyle.overflow).toBe('hidden');
+    await expect(patternStyle.backgroundImage).toContain('radial-gradient');
+
+    const styleText = Array.from(canvasElement.querySelectorAll('style'))
+      .map((s) => s.textContent ?? '')
+      .join('\n');
+    await expect(styleText).toContain('.bbangto-marketing-footer-gradient-pattern');
+
+    // Top divider border on the bottom bar (the social list lives there).
+    const socialList = canvasElement.querySelector('[aria-label="Social links"]');
+    await expect(socialList).not.toBeNull();
+    const bottomBar = (socialList as HTMLElement).parentElement as HTMLElement;
+    const bottomBarStyle = getComputedStyle(bottomBar);
+    await expect(bottomBarStyle.borderTopStyle).toBe('solid');
+
+    // 3. Content slots render unchanged from the columns skeleton.
+    const productHeading = await canvas.findByText('Product');
+    await expect(productHeading).toBeVisible();
+    const featuresLink = await canvas.findByRole('link', { name: 'Features' });
+    await expect(featuresLink).toBeVisible();
+    await expect(featuresLink).toHaveAttribute('href', '#features');
+    // a11y contract: link stays keyboard-focusable
+    (featuresLink as HTMLElement).focus();
+    await expect(featuresLink).toHaveFocus();
+    const copyright = await canvas.findByText('© 2026 BBANGTO Inc. All rights reserved.');
+    await expect(copyright).toBeVisible();
+  },
+};

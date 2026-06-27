@@ -211,3 +211,54 @@ export const LayoutFeatured: Story = {
     });
   },
 };
+
+/** Split-panel layout — a text/CTA panel beside a 2x2 media cluster. */
+export const LayoutSplitPanel: Story = {
+  args: {
+    images: SAMPLE_IMAGES.slice(0, 4),
+    layout: 'split-panel',
+    panel: (
+      <div>
+        <h2>Curated collection</h2>
+        <p>A handpicked set of landscapes paired with a call to action.</p>
+        <button type="button">View all</button>
+      </div>
+    ),
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr reflects the layout
+    const section = canvasElement.querySelector('section') as HTMLElement;
+    await expect(section).not.toBeNull();
+    await expect(section).toHaveAttribute(
+      'data-bbangto-gallery-layout',
+      'split-panel'
+    );
+
+    // 2. Load-bearing style: the media cluster is a 2-track grid (2x2 cells)
+    const cluster = canvasElement.querySelector('ul') as HTMLUListElement;
+    await expect(cluster).not.toBeNull();
+    await expect(getComputedStyle(cluster).display).toBe('grid');
+    const tracks = getComputedStyle(cluster)
+      .gridTemplateColumns.trim()
+      .split(/\s+/);
+    await expect(tracks).toHaveLength(2);
+
+    // 2b. Responsive 2-col split rule is present in the scoped styles
+    const styleText = Array.from(canvasElement.querySelectorAll('style'))
+      .map((s) => s.textContent ?? '')
+      .join('\n');
+    await expect(styleText).toContain('grid-template-columns: 1fr 1fr');
+
+    // 3. Content slots render — panel CTA + media cells (alt preserved)
+    const cta = await canvas.findByRole('button', { name: /view all/i });
+    await expect(cta).toBeVisible();
+
+    const imgs = canvas.getAllByRole('img');
+    await expect(imgs).toHaveLength(4);
+    for (const img of imgs) {
+      await expect(img.getAttribute('alt')).not.toBe('');
+    }
+  },
+};

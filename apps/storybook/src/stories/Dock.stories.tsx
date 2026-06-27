@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Dock } from '@centurio1987/core';
-import { expect, userEvent, within } from 'storybook/test';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 
 // ---------------------------------------------------------------------------
 // Sample SVG icons
@@ -198,5 +198,117 @@ export const VariantLabeled: Story = {
     await expect(canvas.getByText('Home')).toBeVisible();
     await expect(canvas.getByText('Search')).toBeVisible();
     await expect(canvas.getByText('Settings')).toBeVisible();
+  },
+};
+
+// ---------------------------------------------------------------------------
+// Glass — translucent frosted pane (no solid fill, inset highlight rim)
+// ---------------------------------------------------------------------------
+
+export const Glass: Story = {
+  args: {
+    variant: 'glass',
+    items: [
+      { icon: <HomeIcon />, label: 'Home', active: true },
+      { icon: <SearchIcon />, label: 'Search' },
+      { icon: <BellIcon />, label: 'Notifications' },
+      { icon: <SettingsIcon />, label: 'Settings' },
+      { icon: <UserIcon />, label: 'Profile' },
+    ],
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr present + correct
+    const nav = canvasElement.querySelector<HTMLElement>(
+      'nav[data-bbangto-dock-variant="glass"]'
+    );
+    await expect(nav).toBeTruthy();
+
+    // 2. Load-bearing computed style: frosted glass treatment — translucent
+    //    fill (rgba, not an opaque rgb solid), a thin INSET highlight rim (no
+    //    border box), and a backdrop blur. Distinct from floating's opaque
+    //    elevated fill + drop shadow.
+    const dockStyle = getComputedStyle(nav!);
+    // color-mix() serializes to `color(srgb … / α)` in modern chromium; accept both.
+    await expect(dockStyle.backgroundColor).toMatch(/rgba\(|color\(/);
+    await expect(dockStyle.boxShadow).toContain('inset');
+    await expect(dockStyle.borderStyle).toBe('none');
+    await expect(dockStyle.backdropFilter || dockStyle.webkitBackdropFilter).toContain(
+      'blur'
+    );
+
+    // 3. Content slots render
+    const home = await canvas.findByRole('button', { name: 'Home' });
+    await expect(home).toBeVisible();
+    await expect(canvas.getByRole('button', { name: 'Search' })).toBeVisible();
+    await expect(
+      canvas.getByRole('button', { name: 'Notifications' })
+    ).toBeVisible();
+    await expect(canvas.getByRole('button', { name: 'Settings' })).toBeVisible();
+    await expect(canvas.getByRole('button', { name: 'Profile' })).toBeVisible();
+
+    // a11y contract: nav landmark + active button state preserved
+    await expect(home).toHaveAttribute('aria-pressed', 'true');
+  },
+};
+
+// ---------------------------------------------------------------------------
+// Spotlight — glow limelight beam on the active item; near-invisible bar
+// ---------------------------------------------------------------------------
+
+export const Spotlight: Story = {
+  args: {
+    variant: 'spotlight',
+    items: [
+      { icon: <HomeIcon />, label: 'Home', active: true },
+      { icon: <SearchIcon />, label: 'Search' },
+      { icon: <BellIcon />, label: 'Notifications' },
+      { icon: <UserIcon />, label: 'Profile' },
+    ],
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr present + correct
+    const nav = canvasElement.querySelector<HTMLElement>(
+      'nav[data-bbangto-dock-variant="spotlight"]'
+    );
+    await expect(nav).toBeTruthy();
+
+    // 2a. Container chrome is near-invisible: transparent fill + no border.
+    const dockStyle = getComputedStyle(nav!);
+    await expect(dockStyle.backgroundColor).toBe('rgba(0, 0, 0, 0)');
+    await expect(dockStyle.borderStyle).toBe('none');
+
+    // 2b. Load-bearing indicator: the active item carries a blurred gradient
+    //     limelight beam (background-image is an actual gradient, not a flat
+    //     pill/underline/border).
+    const home = await canvas.findByRole('button', { name: 'Home' });
+    const beam = await waitFor(() => {
+      const el = home.querySelector<HTMLElement>('.bbangto-dock-spotlight-beam');
+      if (!el) throw new Error('spotlight beam not yet rendered');
+      return el;
+    });
+    const beamStyle = getComputedStyle(beam);
+    await expect(beamStyle.backgroundImage).toContain('gradient');
+    await expect(beamStyle.position).toBe('absolute');
+    await expect(beamStyle.filter).toContain('blur');
+
+    // Inactive items get no beam (glow is the active-only indicator).
+    const search = canvas.getByRole('button', { name: 'Search' });
+    await expect(
+      search.querySelector('.bbangto-dock-spotlight-beam')
+    ).toBeNull();
+
+    // 3. Content slots render + a11y contract preserved
+    await expect(home).toBeVisible();
+    await expect(search).toBeVisible();
+    await expect(
+      canvas.getByRole('button', { name: 'Notifications' })
+    ).toBeVisible();
+    await expect(canvas.getByRole('button', { name: 'Profile' })).toBeVisible();
+    await expect(home).toHaveAttribute('aria-pressed', 'true');
+    await expect(search).toHaveAttribute('aria-pressed', 'false');
   },
 };

@@ -17,8 +17,13 @@ export interface MapMarker {
  * - `full`  (default): full-bleed map with info above (existing behavior).
  * - `split`: map beside an info panel; 2-col at >=lg via scoped style.
  * - `card`:  map inside a bordered, rounded, elevated card.
+ * - `stacked`: 2-row vertical grid (`grid-template-rows: auto 1fr`). A centred
+ *   text header band (title + muted description) sits on top, with a full-bleed
+ *   map media region anchored below. The map carries NO card chrome — no border,
+ *   no rounded corners, no elevation (distinct from `card`) — and is never placed
+ *   side-by-side with the copy (distinct from `split`).
  */
-export type MapBlockLayout = 'full' | 'split' | 'card';
+export type MapBlockLayout = 'full' | 'split' | 'card' | 'stacked';
 
 export interface MapBlockProps extends React.HTMLAttributes<HTMLElement> {
   /** Section heading displayed above the map. */
@@ -62,6 +67,7 @@ export const MapBlock = React.forwardRef<HTMLElement, MapBlockProps>(
     const scopeId = BLOCK_ID;
     const isSplit = layout === 'split';
     const isCard = layout === 'card';
+    const isStacked = layout === 'stacked';
 
     const sectionStyles: React.CSSProperties = {
       width: '100%',
@@ -75,7 +81,17 @@ export const MapBlock = React.forwardRef<HTMLElement, MapBlockProps>(
     const innerStyles: React.CSSProperties = {
       maxWidth: '1200px',
       margin: '0 auto',
-      ...(isSplit
+      ...(isStacked
+        ? {
+            // Vertical 2-row grid: header band (auto) over a full-bleed map (1fr).
+            // Single column — copy is never beside the map (unlike split).
+            display: 'grid',
+            gridTemplateRows: 'auto 1fr',
+            gridTemplateColumns: '1fr',
+            gap: cssVar('spacing', '40'),
+            alignItems: 'stretch',
+          }
+        : isSplit
         ? {
             // Single column on mobile; scoped <style> upgrades to 2-col at >=lg.
             display: 'grid',
@@ -95,22 +111,33 @@ export const MapBlock = React.forwardRef<HTMLElement, MapBlockProps>(
       display: 'flex',
       flexDirection: 'column',
       gap: cssVar('spacing', '16'),
+      // Stacked: centre the header band over the map media region.
+      ...(isStacked ? { textAlign: 'center', alignItems: 'center' } : null),
     };
 
     const mapAreaStyles: React.CSSProperties = {
       position: 'relative',
       width: '100%',
       minHeight: `${MAP_PLACEHOLDER_MIN_HEIGHT}px`,
-      borderRadius: isCard ? cssVar('radius', 'xl') : cssVar('radius', 'lg'),
       overflow: 'hidden',
-      border: `1px solid ${cssVar('semantic', 'border', isCard ? 'strong' : 'base')}`,
-      ...(isCard
+      ...(isStacked
         ? {
-            borderStyle: 'solid',
-            backgroundColor: cssVar('semantic', 'background', 'elevated'),
-            boxShadow: cssVar('shadow', 'lg'),
+            // Full-bleed map media region: no card chrome — no border, no rounded
+            // corners, no elevation (this is what distinguishes it from `card`).
+            border: 'none',
+            borderRadius: '0',
           }
-        : {}),
+        : {
+            borderRadius: isCard ? cssVar('radius', 'xl') : cssVar('radius', 'lg'),
+            border: `1px solid ${cssVar('semantic', 'border', isCard ? 'strong' : 'base')}`,
+            ...(isCard
+              ? {
+                  borderStyle: 'solid',
+                  backgroundColor: cssVar('semantic', 'background', 'elevated'),
+                  boxShadow: cssVar('shadow', 'lg'),
+                }
+              : {}),
+          }),
     };
 
     const placeholderStyles: React.CSSProperties = {

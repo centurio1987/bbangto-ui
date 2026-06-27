@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Testimonials } from '@centurio1987/core';
-import { expect, within } from 'storybook/test';
+import { expect, userEvent, within } from 'storybook/test';
 
 const meta = {
   title: 'Blocks/Testimonials',
@@ -212,6 +212,101 @@ export const LayoutMasonry: Story = {
     await expect(columnCount).toBeGreaterThan(1);
 
     // 3. 모든 인용문/저자가 여전히 렌더됨
+    for (const item of sampleItems) {
+      const authorEl = await canvas.findByText(item.author);
+      await expect(authorEl).toBeVisible();
+    }
+  },
+};
+
+export const LayoutSplitMedia: Story = {
+  name: 'Layout: Split Media',
+  parameters: {
+    viewport: { defaultViewport: 'desktop' },
+  },
+  args: {
+    title: 'What our users say',
+    items: sampleItems,
+    layout: 'split-media',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr 확인
+    const section = canvasElement.querySelector(
+      '[data-bbangto-testimonials-layout]'
+    ) as HTMLElement;
+    await expect(section).not.toBeNull();
+    await expect(section.getAttribute('data-bbangto-testimonials-layout')).toBe(
+      'split-media'
+    );
+
+    // 2. load-bearing (a): scoped 2-track 규칙이 aggregate <style>에 존재
+    const allStyles = Array.from(canvasElement.querySelectorAll('style'))
+      .map((s) => s.textContent ?? '')
+      .join('\n');
+    await expect(allStyles).toContain('grid-template-columns: 5fr 4fr');
+
+    // 2. load-bearing (b): dominant 미디어 패널이 portrait aspect-ratio를 가짐
+    //    (뷰포트와 무관한 안정 inline 속성)
+    const mediaPanel = canvasElement.querySelector(
+      '.bbangto-testimonials-media'
+    ) as HTMLElement;
+    await expect(mediaPanel).not.toBeNull();
+    const aspect = getComputedStyle(mediaPanel).aspectRatio;
+    await expect(aspect).not.toBe('auto');
+    await expect(aspect).toContain('/');
+
+    // 2. load-bearing (c): 한 번에 testimonial 하나만 in view (단일 카드/인용문)
+    await expect(canvasElement.querySelectorAll('blockquote').length).toBe(1);
+
+    // 3. 콘텐츠 슬롯 + prev/next 인터랙션: next 클릭 시 다음 저자로 전환
+    await expect(await canvas.findByText('Jisoo Kim')).toBeVisible();
+    const next = canvas.getByRole('button', { name: 'Next testimonial' });
+    await expect(canvas.getByRole('button', { name: 'Previous testimonial' })).toBeVisible();
+    await userEvent.click(next);
+    await expect(await canvas.findByText('Minho Lee')).toBeVisible();
+    // 여전히 단일 인용문만 in view
+    await expect(canvasElement.querySelectorAll('blockquote').length).toBe(1);
+  },
+};
+
+export const LayoutStackedDeck: Story = {
+  name: 'Layout: Stacked Deck',
+  args: {
+    title: 'What our users say',
+    items: sampleItems,
+    layout: 'stacked-deck',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr 확인
+    const section = canvasElement.querySelector(
+      '[data-bbangto-testimonials-layout]'
+    ) as HTMLElement;
+    await expect(section).not.toBeNull();
+    await expect(section.getAttribute('data-bbangto-testimonials-layout')).toBe(
+      'stacked-deck'
+    );
+
+    // 2. load-bearing: 카드들이 position:absolute로 겹쳐 쌓이고 z-index가 내림차순
+    const cards = Array.from(
+      canvasElement.querySelectorAll('.bbangto-testimonials-deck-card')
+    ) as HTMLElement[];
+    await expect(cards.length).toBeGreaterThan(1);
+    const zIndexes = cards.map((c) => {
+      const cs = getComputedStyle(c);
+      // 모든 deck 카드는 absolute 포지셔닝이어야 함
+      expect(cs.position).toBe('absolute');
+      return Number(cs.zIndex);
+    });
+    // front → back 으로 갈수록 z-index가 엄격히 감소
+    for (let i = 1; i < zIndexes.length; i++) {
+      await expect(zIndexes[i]).toBeLessThan(zIndexes[i - 1]);
+    }
+
+    // 3. 콘텐츠 슬롯: 스택을 구성하는 testimonial 저자들이 렌더됨
     for (const item of sampleItems) {
       const authorEl = await canvas.findByText(item.author);
       await expect(authorEl).toBeVisible();

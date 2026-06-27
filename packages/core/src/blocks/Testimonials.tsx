@@ -3,6 +3,7 @@ import { cssVar, breakpoints } from '@centurio1987/tokens';
 import { Card } from '../components/Card';
 import { Text } from '../components/Text';
 import { Avatar } from '../components/Avatar';
+import { Button } from '../components/Button';
 
 export interface TestimonialItem {
   /** The testimonial quote text. */
@@ -22,8 +23,22 @@ export interface TestimonialItem {
  *   prefers-reduced-motion fallback that disables smooth scrolling.
  * - `single`: one large featured quote (first item).
  * - `masonry`: column-count masonry wall of quote cards.
+ * - `split-media`: a 2-track layout (single column on mobile, two tracks at the
+ *   `lg` breakpoint) pairing a dominant portrait media panel with a stacked
+ *   column of the active quote, author meta and prev/next controls. Exactly one
+ *   testimonial is in view — a single-item showcase, not a multi-card grid.
+ * - `stacked-deck`: a single fixed-size relative container holding the leading
+ *   testimonials as `position:absolute` cards that overlap as a depth stack
+ *   (front / middle / back) via `translateY` + `scale` offsets and a descending
+ *   `z-index` — not a horizontal track.
  */
-export type TestimonialsLayout = 'grid' | 'carousel' | 'single' | 'masonry';
+export type TestimonialsLayout =
+  | 'grid'
+  | 'carousel'
+  | 'single'
+  | 'masonry'
+  | 'split-media'
+  | 'stacked-deck';
 
 export interface TestimonialsProps extends React.HTMLAttributes<HTMLElement> {
   /** Optional section heading. */
@@ -38,6 +53,10 @@ const SECTION_ID = 'bbangto-testimonials';
 
 export const Testimonials = React.forwardRef<HTMLElement, TestimonialsProps>(
   ({ title, items, layout = 'grid', style, ...props }, ref) => {
+    // Drives the single testimonial in view for the `split-media` layout. Other
+    // layouts never read this, so existing renders are untouched.
+    const [activeIndex, setActiveIndex] = React.useState(0);
+
     const sectionStyle: React.CSSProperties = {
       width: '100%',
       padding: `${cssVar('spacing', '64')} ${cssVar('spacing', '24')}`,
@@ -108,6 +127,76 @@ export const Testimonials = React.forwardRef<HTMLElement, TestimonialsProps>(
       fontWeight: cssVar('typography', 'scale', 'h3', 'fontWeight'),
       lineHeight: cssVar('typography', 'scale', 'h3', 'lineHeight'),
     };
+
+    // split-media: 2-track grid. Single column on mobile; the scoped <style>
+    // below promotes it to two media-dominant tracks at the `lg` breakpoint.
+    const splitStyle: React.CSSProperties = {
+      display: 'grid',
+      gridTemplateColumns: '1fr',
+      gap: cssVar('spacing', '32'),
+      alignItems: 'center',
+    };
+
+    // Dominant portrait media panel. Portrait aspect-ratio + rounded clip; the
+    // backing surface is composited from tokens so it reads even with no image.
+    const splitMediaStyle: React.CSSProperties = {
+      position: 'relative',
+      width: '100%',
+      aspectRatio: '4 / 5',
+      borderRadius: cssVar('radius', 'xl'),
+      overflow: 'hidden',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: cssVar('semantic', 'background', 'sunken'),
+      backgroundImage: `linear-gradient(160deg, ${cssVar('semantic', 'primary', 'subtle')} 0%, ${cssVar('semantic', 'background', 'sunken')} 100%)`,
+      border: `1px solid ${cssVar('semantic', 'border', 'muted')}`,
+    };
+
+    const splitMediaImgStyle: React.CSSProperties = {
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover',
+    };
+
+    const splitMediaInitialStyle: React.CSSProperties = {
+      fontSize: cssVar('typography', 'scale', 'display', 'fontSize'),
+      fontWeight: cssVar('typography', 'scale', 'display', 'fontWeight'),
+      color: cssVar('semantic', 'foreground', 'muted'),
+    };
+
+    const splitColumnStyle: React.CSSProperties = {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: cssVar('spacing', '20'),
+    };
+
+    const splitControlsStyle: React.CSSProperties = {
+      display: 'flex',
+      gap: cssVar('spacing', '8'),
+      marginTop: cssVar('spacing', '8'),
+    };
+
+    // stacked-deck: fixed-size relative container; cards are absolutely
+    // positioned and overlap as a depth stack.
+    const deckStyle: React.CSSProperties = {
+      position: 'relative',
+      width: 'min(520px, 100%)',
+      minHeight: '340px',
+      margin: '0 auto',
+    };
+
+    // Per-card depth: receding cards translate down + scale down with a
+    // descending z-index so the front card sits on top.
+    const deckCardStyle = (depth: number): React.CSSProperties => ({
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      transform: `translateY(${depth * 18}px) scale(${1 - depth * 0.05})`,
+      transformOrigin: 'top center',
+      zIndex: 30 - depth * 10,
+    });
 
     const cardInnerStyle: React.CSSProperties = {
       display: 'flex',
@@ -224,6 +313,78 @@ export const Testimonials = React.forwardRef<HTMLElement, TestimonialsProps>(
         );
       }
 
+      if (layout === 'split-media') {
+        if (items.length === 0) return null;
+        const count = items.length;
+        const idx = ((activeIndex % count) + count) % count;
+        const active = items[idx];
+        const go = (delta: number) =>
+          setActiveIndex((i) => (((i + delta) % count) + count) % count);
+        return (
+          <div className={`${SECTION_ID}-split`} style={splitStyle}>
+            {/* Dominant portrait media panel — decorative; the author is
+                already announced inside the quote card's footer. */}
+            <div
+              className={`${SECTION_ID}-media`}
+              style={splitMediaStyle}
+              aria-hidden="true"
+            >
+              {active.avatar ? (
+                <img src={active.avatar} alt="" style={splitMediaImgStyle} />
+              ) : (
+                <span style={splitMediaInitialStyle}>
+                  {active.author.charAt(0)}
+                </span>
+              )}
+            </div>
+            {/* Stacked column: active quote card + prev/next controls. A single
+                testimonial is in view at a time. */}
+            <div style={splitColumnStyle}>
+              {renderCard(active, { quoteStyle: singleQuoteStyle })}
+              <div style={splitControlsStyle}>
+                <Button
+                  variant="outline"
+                  color="neutral"
+                  size="sm"
+                  aria-label="Previous testimonial"
+                  onClick={() => go(-1)}
+                >
+                  &lsaquo;
+                </Button>
+                <Button
+                  variant="outline"
+                  color="neutral"
+                  size="sm"
+                  aria-label="Next testimonial"
+                  onClick={() => go(1)}
+                >
+                  &rsaquo;
+                </Button>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      if (layout === 'stacked-deck') {
+        if (items.length === 0) return null;
+        // The leading testimonials form the depth stack (front → back).
+        const deck = items.slice(0, 3);
+        return (
+          <div className={`${SECTION_ID}-deck`} style={deckStyle}>
+            {deck.map((item, depth) => (
+              <div
+                key={depth}
+                className={`${SECTION_ID}-deck-card`}
+                style={deckCardStyle(depth)}
+              >
+                {renderCard(item)}
+              </div>
+            ))}
+          </div>
+        );
+      }
+
       if (layout === 'masonry') {
         return (
           <div className={`${SECTION_ID}-masonry`} style={masonryStyle}>
@@ -293,6 +454,23 @@ export const Testimonials = React.forwardRef<HTMLElement, TestimonialsProps>(
                 scroll-behavior: auto !important;
               }
               .${SECTION_ID}-carousel * {
+                animation: none !important;
+                transition: none !important;
+              }
+            }
+          `}</style>
+        )}
+
+        {layout === 'split-media' && (
+          <style>{`
+            @media (min-width: ${breakpoints.lg}px) {
+              .${SECTION_ID}-split {
+                grid-template-columns: 5fr 4fr !important;
+                align-items: center;
+              }
+            }
+            @media (prefers-reduced-motion: reduce) {
+              .${SECTION_ID}-split * {
                 animation: none !important;
                 transition: none !important;
               }

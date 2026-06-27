@@ -15,8 +15,21 @@ export interface AnnouncementBarCta {
  * - `floating`: a detached rounded pill with margin + shadow (not full-width).
  * - `inline`: contextual inline block that flows within content (no full-bleed background).
  * - `centered`: full-width strip with the message + action centered.
+ * - `gradient`: pure-chrome treatment — the strip is filled with a
+ *   token-composited multi-stop gradient (no border) and carries an optional
+ *   grid/lattice overlay. The icon·text·controls track is preserved; only the
+ *   fill treatment is swapped (unlike the opaque solid `bar` fill).
+ * - `glass`: frosted surface — a translucent fill plus a `backdrop-filter`
+ *   blur, a 1px hairline ring border and a light elevation shadow. Reads as a
+ *   distinct material from the opaque fills / solid borders of other variants.
  */
-export type AnnouncementBarVariant = 'bar' | 'floating' | 'inline' | 'centered';
+export type AnnouncementBarVariant =
+  | 'bar'
+  | 'floating'
+  | 'inline'
+  | 'centered'
+  | 'gradient'
+  | 'glass';
 
 export interface AnnouncementBarProps
   extends React.HTMLAttributes<HTMLElement> {
@@ -91,6 +104,26 @@ export const AnnouncementBar = React.forwardRef<
         justifyContent: 'center',
         textAlign: 'center',
       },
+      gradient: {
+        // Pure chrome: composite a token-based multi-stop gradient over the
+        // strip and drop the solid fill / border. `isolate` opens a local
+        // stacking context so the negative-z grid overlay sits above the fill
+        // but below the content track.
+        backgroundColor: 'transparent',
+        backgroundImage: `linear-gradient(120deg, ${cssVar('semantic', 'primary', 'active')} 0%, ${cssVar('semantic', 'primary', 'base')} 50%, ${cssVar('semantic', 'primary', 'hover')} 100%)`,
+        border: 'none',
+        isolation: 'isolate',
+      },
+      glass: {
+        // Frosted material: translucent fill + backdrop blur, a 1px hairline
+        // ring border and a light elevation shadow.
+        backgroundColor: `color-mix(in srgb, ${cssVar('semantic', 'background', 'elevated')} 62%, transparent)`,
+        color: cssVar('semantic', 'foreground', 'base'),
+        backdropFilter: `blur(${cssVar('spacing', '8')})`,
+        WebkitBackdropFilter: `blur(${cssVar('spacing', '8')})`,
+        border: `1px solid ${cssVar('semantic', 'border', 'muted')}`,
+        boxShadow: cssVar('shadow', 'sm'),
+      },
     };
 
     const barStyles: React.CSSProperties = {
@@ -121,10 +154,11 @@ export const AnnouncementBar = React.forwardRef<
       minWidth: 0,
     };
 
-    // On the inline (transparent) variant, foreground text must use the body
-    // text color instead of the on-primary color so it stays legible.
+    // On the inline (transparent) and glass (translucent light) variants,
+    // foreground text must use the body text color instead of the on-primary
+    // color so it stays legible against the non-primary surface.
     const foregroundColor =
-      variant === 'inline'
+      variant === 'inline' || variant === 'glass'
         ? cssVar('semantic', 'foreground', 'base')
         : cssVar('semantic', 'primary', 'foreground');
 
@@ -164,6 +198,18 @@ export const AnnouncementBar = React.forwardRef<
       insetInlineEnd: cssVar('spacing', '16'),
       top: '50%',
       transform: 'translateY(-50%)',
+    };
+
+    // Optional lattice/grid overlay for the gradient variant. Composited on a
+    // negative-z layer (above the gradient fill, below the content track) using
+    // a token-derived translucent line color — pure decoration, hidden from AT.
+    const gridLine = `color-mix(in srgb, ${cssVar('semantic', 'primary', 'foreground')} 14%, transparent)`;
+    const gridOverlayStyles: React.CSSProperties = {
+      position: 'absolute',
+      inset: 0,
+      zIndex: -1,
+      pointerEvents: 'none',
+      backgroundImage: `repeating-linear-gradient(0deg, ${gridLine} 0, ${gridLine} 1px, transparent 1px, transparent ${cssVar('spacing', '24')}), repeating-linear-gradient(90deg, ${gridLine} 0, ${gridLine} 1px, transparent 1px, transparent ${cssVar('spacing', '24')})`,
     };
 
     const renderCta = () => {
@@ -229,6 +275,13 @@ export const AnnouncementBar = React.forwardRef<
         style={barStyles}
         {...props}
       >
+        {variant === 'gradient' && (
+          <div
+            className="bbangto-announcement-grid"
+            style={gridOverlayStyles}
+            aria-hidden="true"
+          />
+        )}
         <div style={innerStyles}>
           <Text
             as="span"

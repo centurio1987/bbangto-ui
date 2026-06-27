@@ -199,3 +199,94 @@ export const VariantCentered: Story = {
     await expect(ctaLink).toBeVisible();
   },
 };
+
+export const Gradient: Story = {
+  args: {
+    message: 'Early access is now open — join the private beta today.',
+    cta: {
+      label: 'Request access',
+      href: '#beta',
+    },
+    variant: 'gradient',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. Data-attr present + correct
+    const region = canvasElement.querySelector<HTMLElement>(
+      '[data-bbangto-announcementbar-variant]'
+    );
+    await expect(region).not.toBeNull();
+    await expect(region).toHaveAttribute(
+      'data-bbangto-announcementbar-variant',
+      'gradient'
+    );
+
+    // 2a. Load-bearing: gradient fill => backgroundImage carries a gradient,
+    // and the solid border is dropped (pure chrome).
+    const styles = getComputedStyle(region!);
+    await expect(styles.backgroundImage).toContain('gradient');
+    await expect(styles.borderStyle).toBe('none');
+
+    // 2b. Optional lattice overlay is composited as an absolutely-positioned,
+    // decorative (aria-hidden) layer behind the content track.
+    const overlay = region!.querySelector<HTMLElement>(
+      '.bbangto-announcement-grid'
+    );
+    await expect(overlay).not.toBeNull();
+    await expect(overlay).toHaveAttribute('aria-hidden', 'true');
+    await expect(getComputedStyle(overlay!).position).toBe('absolute');
+
+    // 3. Content slots render
+    const message = await canvas.findByText(/early access is now open/i);
+    await expect(message).toBeVisible();
+    const ctaLink = await canvas.findByRole('link', { name: /request access/i });
+    await expect(ctaLink).toBeVisible();
+  },
+};
+
+export const Glass: Story = {
+  args: {
+    message: 'Maintenance scheduled for Saturday at 2am UTC.',
+    cta: {
+      label: 'View status',
+      href: '#status',
+    },
+    variant: 'glass',
+    dismissible: true,
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. Data-attr present + correct
+    const region = canvasElement.querySelector<HTMLElement>(
+      '[data-bbangto-announcementbar-variant]'
+    );
+    await expect(region).not.toBeNull();
+    await expect(region).toHaveAttribute(
+      'data-bbangto-announcementbar-variant',
+      'glass'
+    );
+
+    // 2. Load-bearing: frosted surface => hairline ring border (solid, not the
+    // borderless gradient/bar), a light elevation shadow and a backdrop blur.
+    const styles = getComputedStyle(region!);
+    await expect(styles.borderStyle).toBe('solid');
+    await expect(styles.boxShadow).not.toBe('');
+    await expect(styles.boxShadow).not.toBe('none');
+    await expect(styles.backdropFilter).toContain('blur');
+
+    // 3. Content slots render + a11y contract (region landmark + accessible,
+    // focusable dismiss control) survives the new surface treatment.
+    const message = await canvas.findByText(/maintenance scheduled/i);
+    await expect(message).toBeVisible();
+    const ctaLink = await canvas.findByRole('link', { name: /view status/i });
+    await expect(ctaLink).toBeVisible();
+    await expect(region).toHaveAttribute('role', 'region');
+    const dismissBtn = await canvas.findByRole('button', {
+      name: /dismiss announcement/i,
+    });
+    dismissBtn.focus();
+    await expect(dismissBtn).toHaveFocus();
+  },
+};

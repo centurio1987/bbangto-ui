@@ -1,5 +1,5 @@
 import React from 'react';
-import { cssVar } from '@centurio1987/tokens';
+import { cssVar, breakpoints } from '@centurio1987/tokens';
 import { Text } from '../components/Text';
 
 export interface GalleryImage {
@@ -9,7 +9,12 @@ export interface GalleryImage {
 }
 
 /** Layout variants for the Gallery block. */
-export type GalleryLayout = 'grid' | 'masonry' | 'carousel' | 'featured';
+export type GalleryLayout =
+  | 'grid'
+  | 'masonry'
+  | 'carousel'
+  | 'featured'
+  | 'split-panel';
 
 export interface GalleryProps extends React.HTMLAttributes<HTMLElement> {
   /** Array of image items to display in the gallery grid. */
@@ -28,8 +33,16 @@ export interface GalleryProps extends React.HTMLAttributes<HTMLElement> {
    * - `masonry`: column-count masonry with images flowing into balanced columns.
    * - `carousel`: horizontal scroll-snap strip, keyboard-operable.
    * - `featured`: one large lead image with a thumbnail strip of the rest.
+   * - `split-panel`: a two-track split — a text/CTA panel slot beside a
+   *   media cluster (2x2 grid of bare full-cover cells). Single column on
+   *   mobile, two columns at ≥ lg. Use the `panel` prop for the copy track.
    */
   layout?: GalleryLayout;
+  /**
+   * Content for the text/CTA panel track of the `split-panel` layout
+   * (e.g. heading, copy, call-to-action). Ignored by other layouts.
+   */
+  panel?: React.ReactNode;
 }
 
 const SCOPE_ATTR = 'data-bbangto-gallery';
@@ -39,7 +52,10 @@ const LAYOUT_ATTR = 'data-bbangto-gallery-layout';
 const GALLERY_ID = 'bbangto-gallery';
 
 export const Gallery = React.forwardRef<HTMLElement, GalleryProps>(
-  ({ images, columns, layout = 'grid', style, className, ...props }, ref) => {
+  (
+    { images, columns, layout = 'grid', panel, style, className, ...props },
+    ref
+  ) => {
     const gridTemplateColumns = columns
       ? `repeat(${columns}, 1fr)`
       : 'repeat(auto-fit, minmax(240px, 1fr))';
@@ -273,6 +289,91 @@ export const Gallery = React.forwardRef<HTMLElement, GalleryProps>(
                   ))}
                 </ul>
               )}
+            </div>
+          </section>
+        </>
+      );
+    }
+
+    // --- Split-panel layout -------------------------------------------------
+    if (layout === 'split-panel') {
+      // Inner split: single column on mobile; two tracks at >= lg via scoped
+      // media query. Column gap + centred alignment hold the two tracks level.
+      const splitInnerStyle: React.CSSProperties = {
+        display: 'grid',
+        gridTemplateColumns: '1fr',
+        gap: cssVar('spacing', '40'),
+        alignItems: 'center',
+        maxWidth: '1280px',
+        margin: '0 auto',
+      };
+
+      const panelStyle: React.CSSProperties = {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        gap: cssVar('spacing', '16'),
+        color: cssVar('semantic', 'foreground', 'base'),
+      };
+
+      // Media cluster: a 2-track grid (2x2 for four cells) — always two
+      // columns regardless of breakpoint, independent of the outer split.
+      const clusterStyle: React.CSSProperties = {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(2, 1fr)',
+        gap: cssVar('spacing', '12'),
+        listStyle: 'none',
+        margin: 0,
+        padding: 0,
+      };
+
+      // Bare full-cover cell — no card border, no elevation shadow.
+      const cellWrapStyle: React.CSSProperties = {
+        ...imgWrapStyle,
+        aspectRatio: '1 / 1',
+        borderRadius: cssVar('radius', 'md'),
+        border: 'none',
+        boxShadow: 'none',
+      };
+
+      return (
+        <>
+          <style>{`
+            @media (prefers-reduced-motion: no-preference) {
+              [${SCOPE_ATTR}] figure:hover img {
+                transform: scale(1.04);
+              }
+            }
+            @media (min-width: ${breakpoints.lg}px) {
+              .${GALLERY_ID}-split-inner {
+                grid-template-columns: 1fr 1fr !important;
+              }
+            }
+          `}</style>
+          <section
+            ref={ref}
+            {...{ [SCOPE_ATTR]: '' }}
+            {...{ [LAYOUT_ATTR]: layout }}
+            style={sectionStyle}
+            className={className}
+            {...props}
+          >
+            <div className={`${GALLERY_ID}-split-inner`} style={splitInnerStyle}>
+              {panel && (
+                <div
+                  className={`${GALLERY_ID}-split-panel`}
+                  style={panelStyle}
+                >
+                  {panel}
+                </div>
+              )}
+              <ul role="list" style={clusterStyle}>
+                {images.map((image, index) => (
+                  <li key={`${image.src}-${index}`}>
+                    {renderFigure(image, index, cellWrapStyle)}
+                  </li>
+                ))}
+              </ul>
             </div>
           </section>
         </>

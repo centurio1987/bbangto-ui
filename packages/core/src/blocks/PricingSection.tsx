@@ -11,8 +11,22 @@ import { Text } from '../components/Text';
  * - `table`: feature comparison table (rows = features, columns = plans).
  * - `featured`: highlighted plan enlarged/centered, others smaller flanking.
  * - `compact`: condensed card row with reduced padding / font sizes.
+ * - `single-panel`: a single centered, self-contained panel (max-width
+ *   constrained, `margin: 0 auto`) — NOT a repeat-tier grid track. One plan
+ *   (the highlighted one, falling back to the first) is rendered as a vertical
+ *   stack of slots: header → price → grouped feature list → CTA pinned at base.
+ * - `frosted-gradient`: card-row variant whose chrome is a backdrop-blurred,
+ *   translucent (semi-transparent) fill floated over a token-composited
+ *   `linear-gradient` root surface, with NO solid border — elevation comes from
+ *   the blur/translucency rather than a border or flat fill.
  */
-export type PricingSectionLayout = 'cards' | 'table' | 'featured' | 'compact';
+export type PricingSectionLayout =
+  | 'cards'
+  | 'table'
+  | 'featured'
+  | 'compact'
+  | 'single-panel'
+  | 'frosted-gradient';
 
 /** Unique class prefix to scope media query styles without a CSS Module. */
 const PRICING_ID = 'bbangto-pricingsection';
@@ -43,11 +57,23 @@ export interface PricingSectionProps extends React.HTMLAttributes<HTMLElement> {
 
 export const PricingSection = React.forwardRef<HTMLElement, PricingSectionProps>(
   ({ title, plans, layout = 'cards', style, ...props }, ref) => {
+    const isFrosted = layout === 'frosted-gradient';
+
     const sectionStyle: React.CSSProperties = {
       width: '100%',
       padding: `${cssVar('spacing', '64')} ${cssVar('spacing', '24')}`,
       fontFamily: cssVar('typography', 'fontFamily', 'sans'),
       boxSizing: 'border-box',
+      // Frosted-gradient: composite a token-based gradient onto the root surface
+      // so the translucent cards float over it. No border — the chrome is the
+      // gradient + the cards' backdrop blur. Synthesized inline because no
+      // gradient token exists, but every colour stop is a cssVar reference.
+      ...(isFrosted
+        ? {
+            backgroundImage: `linear-gradient(135deg, ${cssVar('semantic', 'primary', 'subtle')} 0%, ${cssVar('semantic', 'background', 'base')} 50%, ${cssVar('semantic', 'primary', 'base')} 100%)`,
+            border: 'none',
+          }
+        : null),
       ...style,
     };
 
@@ -79,9 +105,15 @@ export const PricingSection = React.forwardRef<HTMLElement, PricingSectionProps>
             <PricingTable plans={plans} />
           ) : layout === 'featured' ? (
             <FeaturedPlans plans={plans} />
+          ) : layout === 'single-panel' ? (
+            <SinglePanel plans={plans} />
           ) : (
-            // cards (default) and compact share the card-row body
-            <CardRow plans={plans} compact={layout === 'compact'} />
+            // cards (default), compact and frosted-gradient share the card-row body
+            <CardRow
+              plans={plans}
+              compact={layout === 'compact'}
+              frosted={isFrosted}
+            />
           )}
         </div>
       </section>
@@ -98,9 +130,11 @@ PricingSection.displayName = 'PricingSection';
 interface CardRowProps {
   plans: PricingPlan[];
   compact?: boolean;
+  /** Frosted-gradient chrome: translucent + backdrop blur + no border. */
+  frosted?: boolean;
 }
 
-function CardRow({ plans, compact = false }: CardRowProps) {
+function CardRow({ plans, compact = false, frosted = false }: CardRowProps) {
   const gridStyle: React.CSSProperties = {
     display: 'grid',
     gridTemplateColumns: compact
@@ -113,8 +147,42 @@ function CardRow({ plans, compact = false }: CardRowProps) {
   return (
     <div style={gridStyle} role="list">
       {plans.map((plan) => (
-        <PlanCard key={plan.name} plan={plan} compact={compact} />
+        <PlanCard key={plan.name} plan={plan} compact={compact} frosted={frosted} />
       ))}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// SinglePanel — one self-contained, centered, max-width-constrained panel.
+// Renders a single plan (highlighted, falling back to the first) as a vertical
+// stack of slots (header → price → feature list → CTA). NOT a repeat-tier grid.
+// Not exported.
+// ---------------------------------------------------------------------------
+
+interface SinglePanelProps {
+  plans: PricingPlan[];
+}
+
+function SinglePanel({ plans }: SinglePanelProps) {
+  const highlightedIdx = plans.findIndex((p) => p.highlighted);
+  const plan = plans[highlightedIdx >= 0 ? highlightedIdx : 0];
+
+  // A single centered panel — constrained width + auto horizontal margins.
+  // Deliberately a block (not a grid) so there is no repeat-tier track.
+  const panelStyle: React.CSSProperties = {
+    maxWidth: '420px',
+    margin: '0 auto',
+    width: '100%',
+  };
+
+  return (
+    <div
+      className={`${PRICING_ID}-single-panel`}
+      style={panelStyle}
+      role="list"
+    >
+      <PlanCard plan={plan} forceHighlight={Boolean(plan?.highlighted)} />
     </div>
   );
 }
@@ -362,9 +430,16 @@ interface PlanCardProps {
   compact?: boolean;
   /** Force the highlighted treatment regardless of `plan.highlighted`. */
   forceHighlight?: boolean;
+  /** Frosted-gradient chrome: translucent fill + backdrop blur + no border. */
+  frosted?: boolean;
 }
 
-function PlanCard({ plan, compact = false, forceHighlight = false }: PlanCardProps) {
+function PlanCard({
+  plan,
+  compact = false,
+  forceHighlight = false,
+  frosted = false,
+}: PlanCardProps) {
   const { name, price, period, features, cta } = plan;
   const highlighted = forceHighlight || plan.highlighted || false;
 
@@ -380,6 +455,21 @@ function PlanCard({ plan, compact = false, forceHighlight = false }: PlanCardPro
           borderStyle: 'solid',
           // Override the default border set by Card so we only apply our own.
           border: `2px solid ${cssVar('semantic', 'primary', 'base')}`,
+        }
+      : {}),
+    // Frosted chrome wins over any border (highlighted included): the elevation
+    // comes from the backdrop blur + translucency, not a border or flat fill.
+    // Translucency is synthesized from a token colour via color-mix (no opaque
+    // background token would read as glass), and the blur radius is a spacing
+    // token. No solid border.
+    ...(frosted
+      ? {
+          backgroundColor: `color-mix(in srgb, ${cssVar('semantic', 'background', 'elevated')} 60%, transparent)`,
+          backgroundImage: 'none',
+          border: 'none',
+          backdropFilter: `blur(${cssVar('spacing', '12')})`,
+          WebkitBackdropFilter: `blur(${cssVar('spacing', '12')})`,
+          boxShadow: cssVar('shadow', 'lg'),
         }
       : {}),
   };
@@ -444,9 +534,9 @@ function PlanCard({ plan, compact = false, forceHighlight = false }: PlanCardPro
   return (
     <div role="listitem" style={{ display: 'flex', flexDirection: 'column' }}>
       <Card
-        elevation={highlighted ? 'md' : 'sm'}
+        elevation={frosted ? 'lg' : highlighted ? 'md' : 'sm'}
         padding={compact ? 'sm' : 'lg'}
-        bordered={!highlighted}
+        bordered={!highlighted && !frosted}
         style={cardStyle}
       >
         {/* Plan name + "Most Popular" badge */}

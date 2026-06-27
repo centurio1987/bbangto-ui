@@ -9,8 +9,18 @@ import { Text } from '../components/Text';
  * - `background`: video fills the section as a background with an overlay scrim;
  *   text overlaid on top.
  * - `framed`: video wrapped in a device / browser frame (border + chrome bar).
+ * - `grid-gallery`: multi-tile gallery — the root lays out N square media tiles
+ *   in a uniform CSS grid that reflows (2-col → 3-col at ≥ lg). Unlike the
+ *   single-media axes (centered/split/background/framed) which place exactly one
+ *   video, this member tiles several videos inside one container.
  */
-export type VideoBlockLayout = 'centered' | 'split' | 'background' | 'framed';
+export type VideoBlockGalleryLayout = 'grid-gallery';
+export type VideoBlockLayout =
+  | 'centered'
+  | 'split'
+  | 'background'
+  | 'framed'
+  | VideoBlockGalleryLayout;
 
 export interface VideoBlockProps extends Omit<React.HTMLAttributes<HTMLElement>, 'content'> {
   /** URL of the video source (e.g. mp4, webm). */
@@ -29,6 +39,13 @@ export interface VideoBlockProps extends Omit<React.HTMLAttributes<HTMLElement>,
    * callers are unaffected.
    */
   content?: React.ReactNode;
+  /**
+   * Source URLs for the `grid-gallery` layout's media tiles. Each entry renders
+   * its own controlled `<video>` tile inside the gallery grid. Ignored by every
+   * other layout. When omitted, the gallery falls back to a single `src` tile so
+   * existing callers stay unaffected.
+   */
+  tiles?: string[];
 }
 
 /** Unique class prefix to scope media-query / frame styles without a CSS Module. */
@@ -48,12 +65,13 @@ const VIDEOBLOCK_ID = 'bbangto-videoblock';
  */
 export const VideoBlock = React.forwardRef<HTMLElement, VideoBlockProps>(
   (
-    { src, poster, title, caption, layout = 'centered', content, style, ...props },
+    { src, poster, title, caption, layout = 'centered', content, tiles, style, ...props },
     ref
   ) => {
     const isSplit = layout === 'split';
     const isBackground = layout === 'background';
     const isFramed = layout === 'framed';
+    const isGallery = layout === 'grid-gallery';
 
     const sectionStyles: React.CSSProperties = {
       display: 'flex',
@@ -149,6 +167,84 @@ export const VideoBlock = React.forwardRef<HTMLElement, VideoBlockProps>(
               </Text>
             )}
           </div>
+        </section>
+      );
+    }
+
+    // ── Grid-gallery layout ──────────────────────────────────────────────
+    if (isGallery) {
+      const galleryTiles = tiles && tiles.length > 0 ? tiles : [src];
+      return (
+        <section
+          ref={ref}
+          aria-label={title ?? 'Video gallery'}
+          data-bbangto-videoblock-layout={layout}
+          style={sectionStyles}
+          {...props}
+        >
+          {/*
+            Scoped responsive style: tiles reflow from a 2-column grid (mobile)
+            to a 3-column grid at ≥ lg. @media cannot be expressed in React's
+            style prop, so a scoped <style> tag is used.
+          */}
+          <style>{`
+            @media (min-width: ${breakpoints.lg}px) {
+              .${VIDEOBLOCK_ID}-gallery {
+                grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+              }
+            }
+          `}</style>
+          {title && (
+            <Text variant="h2" as="h2" style={{ margin: 0 }}>
+              {title}
+            </Text>
+          )}
+          <div
+            className={`${VIDEOBLOCK_ID}-gallery`}
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+              gap: cssVar('spacing', '16'),
+            }}
+          >
+            {galleryTiles.map((tileSrc, i) => (
+              <div
+                key={`${tileSrc}-${i}`}
+                style={{
+                  position: 'relative',
+                  aspectRatio: '1 / 1',
+                  borderRadius: cssVar('radius', 'lg'),
+                  overflow: 'hidden',
+                  backgroundColor: cssVar('semantic', 'background', 'sunken'),
+                }}
+              >
+                <video
+                  src={tileSrc}
+                  poster={poster}
+                  controls
+                  playsInline
+                  aria-label={`${title ?? 'Video'} tile ${i + 1}`}
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    display: 'block',
+                  }}
+                >
+                  {/* Captions track placeholder — consumers should supply a real src */}
+                  <track kind="captions" srcLang="en" label="English captions" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            ))}
+          </div>
+          {caption && (
+            <Text variant="meta" as="figcaption" color="muted" style={{ margin: 0 }}>
+              {caption}
+            </Text>
+          )}
         </section>
       );
     }

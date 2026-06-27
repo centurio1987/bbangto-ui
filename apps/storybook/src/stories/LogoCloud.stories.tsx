@@ -197,3 +197,65 @@ export const LayoutBordered: Story = {
     await expect(firstLogo).toBeVisible();
   },
 };
+
+export const ScrollColumns: Story = {
+  args: {
+    title: 'Trusted by industry leaders',
+    logos: sampleLogos,
+    layout: 'scroll-columns',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. Layout data-attribute is present with the right value.
+    const section = canvasElement.querySelector(
+      '[data-bbangto-logocloud-layout]'
+    ) as HTMLElement | null;
+    await expect(section).not.toBeNull();
+    await expect(section!.getAttribute('data-bbangto-logocloud-layout')).toBe(
+      'scroll-columns'
+    );
+
+    // 2a. Load-bearing: BOTH vertical scroll keyframes + reduced-motion fallback
+    //     are present in the aggregated <style> text.
+    const styles = aggregateStyles(canvasElement);
+    await expect(styles).toContain('@keyframes bbangto-logocloud-scroll-up');
+    await expect(styles).toContain('@keyframes bbangto-logocloud-scroll-down');
+    await expect(styles).toContain('@media (prefers-reduced-motion: reduce)');
+    await expect(styles).toContain('animation: none');
+
+    // 2b. Load-bearing: viewport is a horizontal flex of multiple VERTICAL
+    //     tracks, clipped, with a vertical mask-image edge fade and no border.
+    const viewport = canvasElement.querySelector(
+      '.bbangto-logocloud-scroll-viewport'
+    ) as HTMLElement | null;
+    await expect(viewport).not.toBeNull();
+    const viewportStyle = getComputedStyle(viewport!);
+    await expect(viewportStyle.flexDirection).toBe('row');
+    await expect(viewportStyle.overflow).toBe('hidden');
+    await expect(viewportStyle.borderTopStyle).toBe('none');
+    const mask =
+      viewportStyle.maskImage ||
+      viewportStyle.getPropertyValue('-webkit-mask-image');
+    await expect(mask).toContain('linear-gradient');
+
+    // Multiple columns, each laid out as a vertical track.
+    const columns = canvasElement.querySelectorAll(
+      '.bbangto-logocloud-column'
+    );
+    await expect(columns.length).toBe(3);
+    const track = canvasElement.querySelector(
+      '.bbangto-logocloud-column-track'
+    ) as HTMLElement | null;
+    await expect(track).not.toBeNull();
+    await expect(getComputedStyle(track!).flexDirection).toBe('column');
+
+    // 3. Logos render: the real (non-clone) listitems are the sample logos.
+    const list = canvasElement.querySelector('[role="list"]');
+    await expect(list).not.toBeNull();
+    const items = list!.querySelectorAll('[role="listitem"]');
+    await expect(items.length).toBe(sampleLogos.length);
+    const firstLogo = await canvas.findAllByText('Acme Corp');
+    await expect(firstLogo.length).toBeGreaterThan(0);
+  },
+};

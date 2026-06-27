@@ -138,3 +138,40 @@ export const LayoutCard: Story = {
     await expect(await canvas.findByTestId('map-block-title')).toBeVisible();
   },
 };
+
+/** stacked 레이아웃: 중앙 정렬 헤더 밴드 위에 카드 크롬 없는 풀블리드 지도 (auto 1fr 2행 그리드) */
+export const LayoutStacked: Story = {
+  args: {
+    layout: 'stacked',
+    title: '찾아오시는 길',
+    address: '서울특별시 종로구 종로 1\n빵또 광화문점',
+    markers: [{ label: '빵또 광화문점', x: 50, y: 50 }],
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr 확인
+    const section = canvasElement.querySelector('[data-block="map-block"]');
+    await expect(section).not.toBeNull();
+    await expect(section?.getAttribute('data-bbangto-mapblock-layout')).toBe('stacked');
+
+    // 2a. load-bearing: inner가 2행 그리드(auto 1fr → 트랙 2개)
+    const inner = canvasElement.querySelector('.map-block__inner') as HTMLElement;
+    await expect(inner).not.toBeNull();
+    const innerCs = getComputedStyle(inner);
+    await expect(innerCs.display).toBe('grid');
+    const rowTracks = innerCs.gridTemplateRows.trim().split(/\s+/).filter(Boolean);
+    await expect(rowTracks.length).toBeGreaterThanOrEqual(2);
+
+    // 2b. load-bearing: 지도 영역에 카드 크롬 없음 (border none — card와 구분)
+    const mapImg = canvasElement.querySelector('[role="img"]');
+    await expect(mapImg).not.toBeNull();
+    const mapArea = mapImg!.parentElement as HTMLElement;
+    const areaCs = getComputedStyle(mapArea);
+    await expect(areaCs.borderStyle).toBe('none');
+
+    // 3. 헤더 밴드(제목 + muted 주소) 슬롯 렌더 확인
+    await expect(await canvas.findByTestId('map-block-title')).toBeVisible();
+    await expect(await canvas.findByTestId('map-block-address')).toBeVisible();
+  },
+};

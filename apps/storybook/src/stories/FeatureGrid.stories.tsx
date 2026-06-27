@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { FeatureGrid } from '@centurio1987/core';
-import { expect, within } from 'storybook/test';
+import { expect, userEvent, within } from 'storybook/test';
 
 /** Aggregate every <style> tag's textContent (avoids grabbing a single global @import style). */
 const collectStyleText = (root: HTMLElement): string =>
@@ -323,5 +323,119 @@ export const LayoutBento: Story = {
     // 3. 콘텐츠 슬롯 렌더 확인
     const items = canvas.getAllByRole('heading', { level: 3 });
     await expect(items).toHaveLength(SAMPLE_ITEMS.length);
+  },
+};
+
+/**
+ * panel-showcase: 선택 가능한 헤더 행 스택 + 선택에 동기화되는 단일 공유 패널.
+ * (≥lg에서 rows | panel 2-track split)
+ */
+export const PanelShowcase: Story = {
+  parameters: {
+    viewport: { defaultViewport: 'desktop' },
+  },
+  args: {
+    layout: 'panel-showcase',
+    title: '패널 쇼케이스',
+    items: SAMPLE_ITEMS.slice(0, 4),
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr 확인
+    const section = canvasElement.querySelector(
+      '[data-bbangto-featuregrid-layout]'
+    ) as HTMLElement | null;
+    await expect(section).not.toBeNull();
+    await expect(section!.getAttribute('data-bbangto-featuregrid-layout')).toBe(
+      'panel-showcase'
+    );
+
+    // 2-a. load-bearing: scoped 2-track split(rows | panel) 규칙이 <style>에 존재
+    const styleText = collectStyleText(canvasElement);
+    await expect(styleText).toContain('grid-template-columns: 1fr 1.6fr');
+
+    // 2-b. load-bearing: 공유 패널은 정확히 1개만 존재(선택에 동기화되는 단일 슬롯)
+    const panels = canvasElement.querySelectorAll(
+      '[data-bbangto-featuregrid-panel]'
+    );
+    await expect(panels).toHaveLength(1);
+
+    // 3. 콘텐츠 슬롯: 선택 가능한 행이 tab 으로 렌더, 단일 패널이 선택에 동기화
+    const tabs = canvas.getAllByRole('tab');
+    await expect(tabs).toHaveLength(4);
+
+    // 기본 선택(첫 행) → 패널이 첫 항목 헤딩을 표시
+    await expect(tabs[0]).toHaveAttribute('aria-selected', 'true');
+    await expect(
+      canvas.getByRole('heading', { level: 3, name: '빠른 빌드' })
+    ).toBeVisible();
+
+    // 다른 행 선택 → 단일 공유 패널이 해당 항목으로 스왑
+    await userEvent.click(tabs[1]);
+    await expect(tabs[1]).toHaveAttribute('aria-selected', 'true');
+    await expect(tabs[0]).toHaveAttribute('aria-selected', 'false');
+    await expect(
+      await canvas.findByRole('heading', { level: 3, name: '타입 안전' })
+    ).toBeVisible();
+    // 여전히 헤딩은 패널 1개분만 존재(공유 슬롯)
+    await expect(canvas.getAllByRole('heading', { level: 3 })).toHaveLength(1);
+  },
+};
+
+/**
+ * stacked-deck: 카드들이 하나의 grid 셀을 공유하며 translate 오프셋 + z-index로
+ * 부채꼴처럼 겹쳐 쌓인다. (flow grid 아님 — 같은 셀에서 오버랩)
+ */
+export const StackedDeck: Story = {
+  args: {
+    layout: 'stacked-deck',
+    title: '스택 덱',
+    items: SAMPLE_ITEMS.slice(0, 4),
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr 확인
+    const section = canvasElement.querySelector(
+      '[data-bbangto-featuregrid-layout]'
+    ) as HTMLElement | null;
+    await expect(section).not.toBeNull();
+    await expect(section!.getAttribute('data-bbangto-featuregrid-layout')).toBe(
+      'stacked-deck'
+    );
+
+    // 2-a. load-bearing: 컨테이너가 grid
+    const list = section!.querySelector('ul') as HTMLElement;
+    await expect(getComputedStyle(list).display).toBe('grid');
+
+    const cards = Array.from(list.querySelectorAll('li')) as HTMLElement[];
+    await expect(cards).toHaveLength(4);
+
+    // 2-b. load-bearing: 모든 카드가 동일한 셀(grid-area 1 / 1)을 점유 → 오버랩
+    const first = getComputedStyle(cards[0]);
+    const second = getComputedStyle(cards[1]);
+    await expect(first.gridColumnStart).toBe('1');
+    await expect(first.gridRowStart).toBe('1');
+    await expect(second.gridColumnStart).toBe('1');
+    await expect(second.gridRowStart).toBe('1');
+
+    // 2-c. load-bearing: 증분 translate 오프셋 + z-index 레이어링
+    await expect(second.transform).not.toBe('none');
+    await expect(getComputedStyle(cards[2]).zIndex).not.toBe(
+      getComputedStyle(cards[0]).zIndex
+    );
+
+    // 2-d. load-bearing: 반투명 surface(alpha<1 → rgba) + 둥근 테두리
+    const surface = cards[2].firstElementChild as HTMLElement;
+    const ss = getComputedStyle(surface);
+    // color-mix() serializes to `color(srgb … / α)` in modern chromium.
+    await expect(ss.backgroundColor).toMatch(/rgba|color-mix|color\(/);
+    await expect(ss.borderStyle).toBe('solid');
+    await expect(ss.borderRadius).not.toBe('0px');
+
+    // 3. 콘텐츠 슬롯 렌더 확인
+    const items = canvas.getAllByRole('heading', { level: 3 });
+    await expect(items).toHaveLength(4);
   },
 };

@@ -23,8 +23,23 @@ export interface MarketingFooterColumn {
  * - `minimal`: single compact row — brand + a few links + copyright.
  * - `centered`: brand centered on top, link groups centered below.
  * - `stacked`: mobile-first vertical stack of groups (single column always).
+ * - `wordmark`: an OVERSIZED full-bleed brand wordmark band rendered as its own
+ *   full-width root track; link groups are stacked above it and the social /
+ *   copyright bottom bar below it. The brand IS the band — distinct from the
+ *   small inline logo slot the columns layout uses. Band content comes from the
+ *   `wordmark` prop (falls back to `logo`).
+ * - `gradient`: a chrome variant of the columns skeleton. The root surface is a
+ *   multi-stop token-composited gradient (no flat fill) with an overlaid
+ *   grid/dot pattern painted in an absolutely-positioned, overflow-clipped
+ *   wrapper behind the content, plus a top divider border on the bottom bar.
  */
-export type MarketingFooterLayout = 'columns' | 'minimal' | 'centered' | 'stacked';
+export type MarketingFooterLayout =
+  | 'columns'
+  | 'minimal'
+  | 'centered'
+  | 'stacked'
+  | 'wordmark'
+  | 'gradient';
 
 export interface MarketingFooterSocialItem {
   label: string;
@@ -36,6 +51,11 @@ export interface MarketingFooterSocialItem {
 export interface MarketingFooterProps extends React.HTMLAttributes<HTMLElement> {
   /** Optional logo slot rendered top-left of the footer. */
   logo?: React.ReactNode;
+  /**
+   * Oversized brand wordmark rendered as a full-width band when
+   * `layout="wordmark"`. Falls back to `logo` when omitted.
+   */
+  wordmark?: React.ReactNode;
   /** Link columns, each with a heading and a list of links. */
   columns: MarketingFooterColumn[];
   /** Optional social icon links rendered in the bottom bar. */
@@ -97,6 +117,30 @@ const scopedStyle = `
     flex-direction: column;
   }
 
+  /* wordmark: oversized full-bleed brand band as its own root track */
+  .bbangto-marketing-footer-wordmark {
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: ${breakpoints.md - 0.02}px) {
+    .bbangto-marketing-footer-wordmark {
+      white-space: normal;
+    }
+  }
+
+  /* gradient: dot/grid pattern layer behind the content */
+  .bbangto-marketing-footer-gradient-pattern {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .bbangto-marketing-footer-social-link {
       transition: none !important;
@@ -105,10 +149,12 @@ const scopedStyle = `
 `;
 
 export const MarketingFooter = React.forwardRef<HTMLElement, MarketingFooterProps>(
-  ({ logo, columns, social, copyright, layout = 'columns', style, ...props }, ref) => {
+  ({ logo, wordmark, columns, social, copyright, layout = 'columns', style, ...props }, ref) => {
     const isMinimal = layout === 'minimal';
     const isCentered = layout === 'centered';
     const isStacked = layout === 'stacked';
+    const isWordmark = layout === 'wordmark';
+    const isGradient = layout === 'gradient';
 
     const footerStyle: React.CSSProperties = {
       width: '100%',
@@ -116,6 +162,17 @@ export const MarketingFooter = React.forwardRef<HTMLElement, MarketingFooterProp
       color: cssVar('semantic', 'foreground', 'base'),
       fontFamily: cssVar('typography', 'fontFamily', 'sans'),
       borderTop: `1px solid ${cssVar('semantic', 'border', 'muted')}`,
+      // Gradient variant: replace the flat sunken fill with a multi-stop
+      // token-composited gradient over a base fallback. Position relative +
+      // overflow hidden anchors and clips the absolute pattern layer.
+      ...(isGradient
+        ? {
+            backgroundColor: cssVar('semantic', 'background', 'base'),
+            backgroundImage: `linear-gradient(135deg, ${cssVar('semantic', 'background', 'sunken')} 0%, ${cssVar('semantic', 'primary', 'subtle')} 50%, ${cssVar('semantic', 'background', 'elevated')} 100%)`,
+            position: 'relative',
+            overflow: 'hidden',
+          }
+        : null),
       ...style,
     };
 
@@ -123,6 +180,24 @@ export const MarketingFooter = React.forwardRef<HTMLElement, MarketingFooterProp
       maxWidth: '1280px',
       margin: '0 auto',
       padding: `${cssVar('spacing', '64')} ${cssVar('spacing', '40')} ${cssVar('spacing', '40')}`,
+      // Lift the content above the gradient pattern layer.
+      ...(isGradient ? { position: 'relative', zIndex: 1 } : null),
+    };
+
+    // Oversized brand band — its own full-width root track (wordmark layout).
+    const wordmarkBandStyle: React.CSSProperties = {
+      margin: `${cssVar('spacing', '48')} 0`,
+      fontSize: 'clamp(6rem, 12vw, 16rem)',
+      fontWeight: cssVar('typography', 'scale', 'display', 'fontWeight'),
+      lineHeight: cssVar('typography', 'scale', 'display', 'lineHeight'),
+      letterSpacing: cssVar('typography', 'scale', 'display', 'letterSpacing'),
+      color: cssVar('semantic', 'foreground', 'base'),
+    };
+
+    // Dot/grid pattern field overlaid on the gradient surface.
+    const gradientPatternStyle: React.CSSProperties = {
+      backgroundImage: `radial-gradient(${cssVar('semantic', 'border', 'muted')} 1px, transparent 1px)`,
+      backgroundSize: `${cssVar('spacing', '24')} ${cssVar('spacing', '24')}`,
     };
 
     const topRowStyle: React.CSSProperties = {
@@ -212,6 +287,15 @@ export const MarketingFooter = React.forwardRef<HTMLElement, MarketingFooterProp
           dangerouslySetInnerHTML={{ __html: scopedStyle }}
         />
 
+        {/* Gradient variant: dot/grid pattern layer behind the content. */}
+        {isGradient && (
+          <div
+            className="bbangto-marketing-footer-gradient-pattern"
+            style={gradientPatternStyle}
+            aria-hidden="true"
+          />
+        )}
+
         <div style={innerStyle}>
           {isMinimal ? (
             /* Minimal: single compact row — brand + inline links + copyright */
@@ -251,6 +335,90 @@ export const MarketingFooter = React.forwardRef<HTMLElement, MarketingFooterProp
                 </Text>
               )}
             </div>
+          ) : isWordmark ? (
+            /* Wordmark: link groups above an oversized full-width brand band,
+               social + copyright bottom bar below. */
+            <>
+              <nav aria-label="Footer navigation">
+                <div className="bbangto-marketing-footer-columns">
+                  {columns.map((column) => (
+                    <div key={column.title} style={columnItemStyle}>
+                      <Text
+                        variant="meta"
+                        as="h3"
+                        style={{
+                          ...columnHeaderStyle,
+                          fontWeight: cssVar('typography', 'scale', 'h3', 'fontWeight'),
+                          color: cssVar('semantic', 'foreground', 'base'),
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.08em',
+                        }}
+                      >
+                        {column.title}
+                      </Text>
+                      <ul style={columnLinkListStyle} role="list">
+                        {column.links.map((link) => (
+                          <li key={link.label}>
+                            <Link
+                              href={link.href}
+                              variant="muted"
+                              size="sm"
+                              underline="none"
+                            >
+                              {link.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </nav>
+
+              {/* Oversized brand wordmark band — its own full-width track. */}
+              <div
+                className="bbangto-marketing-footer-wordmark"
+                style={wordmarkBandStyle}
+              >
+                {wordmark ?? logo}
+              </div>
+
+              <hr style={dividerStyle} aria-hidden="true" />
+              <div style={bottomBarStyle}>
+                {copyright && (
+                  <Text variant="meta" color="muted">
+                    {copyright}
+                  </Text>
+                )}
+
+                {social && social.length > 0 && (
+                  <ul style={socialListStyle} role="list" aria-label="Social links">
+                    {social.map((item) => (
+                      <li key={item.label}>
+                        <a
+                          href={item.href}
+                          aria-label={item.label}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="bbangto-marketing-footer-social-link"
+                          style={socialLinkStyle}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.color = cssVar('semantic', 'foreground', 'base');
+                            e.currentTarget.style.backgroundColor = cssVar('semantic', 'background', 'elevated');
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.color = cssVar('semantic', 'foreground', 'muted');
+                            e.currentTarget.style.backgroundColor = 'transparent';
+                          }}
+                        >
+                          {item.icon}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </>
           ) : (
             <>
           {/* Top row: logo + columns */}
@@ -305,6 +473,10 @@ export const MarketingFooter = React.forwardRef<HTMLElement, MarketingFooterProp
             style={{
               ...bottomBarStyle,
               ...(isCentered ? { justifyContent: 'center' } : null),
+              // Gradient variant: top divider border on the bottom bar.
+              ...(isGradient
+                ? { borderTop: `1px solid ${cssVar('semantic', 'border', 'muted')}` }
+                : null),
             }}
           >
             {copyright && (
