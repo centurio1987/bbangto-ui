@@ -1,6 +1,6 @@
 {
   "name": "@centurio1987/bbangto-ui-themes",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "All themes for bbangto-ui — built-in (light/dark/high-contrast/amber) + 74 brand presets",
   "type": "module",
   "main": "./dist/index.js",
