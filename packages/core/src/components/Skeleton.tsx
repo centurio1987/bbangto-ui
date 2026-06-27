@@ -23,20 +23,9 @@ export function Skeleton({ width, height, variant = 'text', style, ...props }: S
     height: height || (variant === 'text' ? '1em' : '50px'),
     backgroundColor: cssVar('semantic', 'border', 'muted'),
     borderRadius: getRadius(),
-    animation: 'pulse 1.5s ease-in-out infinite',
+    animation: cssVar('motion', 'preset', 'pulse'),
     ...style,
   };
 
-  return (
-    <>
-      <style>{`
-        @keyframes pulse {
-          0% { opacity: 1; }
-          50% { opacity: 0.4; }
-          100% { opacity: 1; }
-        }
-      `}</style>
-      <div style={baseStyles} {...props} />
-    </>
-  );
+  return <div style={baseStyles} {...props} />;
 }

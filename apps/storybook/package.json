@@ -5,18 +5,23 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "storybook build",
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "test": "vitest --run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@centurio1987/core": "workspace:^",
+    "@centurio1987/diagram": "workspace:^",
+    "@centurio1987/hooks": "workspace:^",
     "@centurio1987/theme-light": "workspace:^",
     "@centurio1987/theme-dark": "workspace:^",
     "@centurio1987/theme-high-contrast": "workspace:^",
     "@centurio1987/theme-amber": "workspace:^",
+    "@centurio1987/themes-external": "workspace:^",
     "@centurio1987/tokens": "workspace:^",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"

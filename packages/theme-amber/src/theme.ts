@@ -103,6 +103,28 @@ const baseMotion = {
     out: 'cubic-bezier(0, 0, 0.2, 1)',
     inOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
   },
+  distance: {
+    sm: '4px',
+    md: '8px',
+    lg: '16px',
+  },
+  preset: {
+    spin: 'bbangto-spin 1s linear infinite',
+    pulse: 'bbangto-pulse 1.5s ease-in-out infinite',
+    wave: 'bbangto-wave 1.2s ease-in-out infinite',
+    bars: 'bbangto-bars 1s ease-in-out infinite',
+    ring: 'bbangto-ring 1.4s ease-in-out infinite',
+    shimmer: 'bbangto-shimmer 1.6s ease-in-out infinite',
+    animatedGradient: 'bbangto-animated-gradient 8s ease-in-out infinite',
+    gridDrift: 'bbangto-grid-drift 12s linear infinite',
+    gradientText: 'bbangto-gradient-text 4s ease-in-out infinite',
+    splitReveal: 'bbangto-split-reveal 300ms cubic-bezier(0, 0, 0.2, 1) both',
+    marquee: 'bbangto-marquee 12s linear infinite',
+    borderBeam: 'bbangto-border-beam 3s linear infinite',
+    glow: 'bbangto-glow 2.4s ease-in-out infinite',
+    attentionShake: 'bbangto-attention-shake 480ms cubic-bezier(0.4, 0, 0.2, 1) both',
+    attentionBounce: 'bbangto-attention-bounce 620ms cubic-bezier(0.4, 0, 0.2, 1) both',
+  },
 };
 
 const baseZIndex = {

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { cssVar } from '@centurio1987/tokens';
+import { KEYFRAME_NAMES, SLIDE_VARS, useAnimatedMount } from '../motion';
 
 export interface DrawerProps extends React.HTMLAttributes<HTMLDivElement> {
   isOpen: boolean;
@@ -11,8 +12,12 @@ export interface DrawerProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
   ({ isOpen, onClose, position = 'right', size = 'md', children, style, className, ...props }, ref) => {
-    
-    // Prevent body scroll when drawer is open
+    const { shouldRender, mountState } = useAnimatedMount(isOpen);
+    const closing = mountState === 'closed';
+    const dur = cssVar('motion', 'duration', 'normal');
+    const easeOut = cssVar('motion', 'easing', 'out');
+    const easeIn = cssVar('motion', 'easing', 'in');
+
     useEffect(() => {
       if (isOpen) {
         document.body.style.overflow = 'hidden';
@@ -24,7 +29,7 @@ export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
       };
     }, [isOpen]);
 
-    if (!isOpen) return null;
+    if (!shouldRender) return null;
 
     const overlayStyle: React.CSSProperties = {
       position: 'fixed',
@@ -34,6 +39,10 @@ export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
       bottom: 0,
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
       zIndex: cssVar('zIndex', 'modal'),
+      animationName: closing ? KEYFRAME_NAMES.fadeOut : KEYFRAME_NAMES.fadeIn,
+      animationDuration: dur,
+      animationTimingFunction: closing ? easeIn : easeOut,
+      animationFillMode: 'both',
     };
 
     const getWidth = () => {
@@ -46,6 +55,9 @@ export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
           return '400px';
       }
     };
+
+    // Slide in from position edge (100% = full panel width off-screen)
+    const slideX = position === 'right' ? '100%' : '-100%';
 
     const drawerStyle: React.CSSProperties = {
       position: 'fixed',
@@ -61,17 +73,23 @@ export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
       zIndex: cssVar('zIndex', 'modal'),
       display: 'flex',
       flexDirection: 'column',
+      [SLIDE_VARS.x]: slideX,
+      [SLIDE_VARS.y]: '0',
+      animationName: closing ? KEYFRAME_NAMES.slideOut : KEYFRAME_NAMES.slideIn,
+      animationDuration: dur,
+      animationTimingFunction: closing ? easeIn : easeOut,
+      animationFillMode: 'both',
       ...style,
-    };
+    } as React.CSSProperties;
 
     return (
       <div style={overlayStyle} onClick={onClose}>
-        <div 
-          ref={ref} 
-          style={drawerStyle} 
-          className={className} 
-          onClick={(e) => e.stopPropagation()} 
-          role="dialog" 
+        <div
+          ref={ref}
+          style={drawerStyle}
+          className={className}
+          onClick={(e) => e.stopPropagation()}
+          role="dialog"
           aria-modal="true"
           {...props}
         >

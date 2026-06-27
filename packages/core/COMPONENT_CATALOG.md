@@ -1,0 +1,271 @@
+# Component Catalog — 21st.dev → bbangto-ui 에셋화 카탈로그
+
+> **목적**: [21st.dev/community/components](https://21st.dev/community/components)의 전체 컴포넌트 카테고리를
+> bbangto-ui 디자인 시스템으로 흡수하기 위한 단일 분류 기준(SSOT).
+> `motion-catalog.md`의 컴포넌트 버전이며, 사전 맥락이 없는 에이전트가 단독으로 읽고 작업할 수 있도록 자족적으로 작성한다.
+
+- **작성일**: 2026-06-24
+- **출처 스냅샷**: 21st.dev community — UI Components 40개 카테고리 + Marketing Blocks 20개 카테고리 (총 ~1,900개 개별 컴포넌트)
+- **에셋화 단위**: 개별 컴포넌트(1,900개)가 아니라 **카테고리/패턴**. 개별 흡수는 각 카테고리 작업 내부에서 variant로 처리한다.
+
+---
+
+## 분류 코드
+
+| 코드 | 의미 | 작업 성격 |
+|---|---|---|
+| **A** | 기존 컴포넌트에 즉시 편입 | variant/prop 확장 (신규 파일 없음) |
+| **A▲** | 기존 컴포넌트로 일부만 커버 | 기존 확장 + 일부 신규 검토 |
+| **B** | 같은 평면 계층에 신규 primitive 필요 | `packages/core/src/components`에 신규 파일 |
+| **C** | 새로운 편제 필요 | `blocks` / `patterns` / `hooks` 신설 |
+
+---
+
+## 계층 정의 (편제)
+
+```
+tokens (packages/tokens)
+  └─ themes (theme-light/dark/amber/high-contrast)
+       └─ atoms / molecules  →  packages/core/src/components   [현존]
+            └─ blocks (sections)  →  packages/core/src/blocks   [신설]
+                 └─ patterns (templates/flows)  →  packages/core/src/patterns  [신설]
+motion (packages/core/src/motion)            [현존, shaders 하위 신설]
+hooks  (packages/hooks)                        [신설]
+```
+
+**blocks 판별 기준**: ① 페이지의 한 "섹션" 입도 ② 콘텐츠 슬롯 보유(`title`/`items[]`/`cta`) ③ 레이아웃 강제 ④ 동작/상태 플로우 없음(있으면 pattern).
+
+**pattern 정의 (실용 정의 채택)**: pattern = **template(정적 페이지 골격) + 그 화면 유형의 상호작용 플로우**.
+순수 atomic design은 template(정적)과 page(콘텐츠/동작)를 나누지만, 본 시스템은 이를 하나로 묶어 "pattern"으로 다룬다.
+즉 pattern은 block들을 페이지 레벨로 배치하고 + 검증/제출/포커스 같은 화면 단위 상호작용까지 책임진다(`SignIn`/`SignUp` 등).
+
+> 개념 정의 전체는 사용자용 가이드 [`DESIGN_SYSTEM_GUIDE.md`](../../DESIGN_SYSTEM_GUIDE.md) 참조.
+
+---
+
+## 1. UI Components (40 카테고리)
+
+| 21st 카테고리 | 개수 | 분류 | bbangto-ui 대응 / 작업 |
+|---|---:|:---:|---|
+| Accordions | 40 | A | `Accordion` variant 확장 |
+| Avatars | 17 | A | `Avatar` (group/status/fallback) |
+| Badges | 25 | A | `Badge` |
+| Buttons | 130 | A | `Button` (variant 대량 흡수) |
+| Cards | 79 | A | `Card` |
+| Carousels | 16 | A | `Carousel` |
+| Checkboxes | 19 | A | `Checkbox` |
+| Date Pickers | 12 | A | `DatePicker` |
+| Dialogs/Modals | 37 | A | `Modal` / `AlertDialog` |
+| Empty States | 1 | A | `EmptyState` |
+| File Uploads | 7 | A | `FileUploader` |
+| Icons | 10 | A | `atoms/Icon` (107개) |
+| Inputs | 102 | A | `Input` / `Searchfield` |
+| Notifications | 5 | A | `Snackbar` / `Toast` |
+| Paginations | 20 | A | `Pagination` |
+| Popovers | 23 | A | `Popover` |
+| Radio Groups | 22 | A | `Radio` |
+| Selects | 62 | A | `Select` |
+| Sliders | 45 | A | `Slider` |
+| Spinner Loaders | 21 | A | `Spinner` + motion(Wave/Bars/Ring/Pulse) |
+| Tables | 30 | A | `Table` / `DataGrid` |
+| Tabs | 38 | A | `Tabs` |
+| Tags | 6 | A | `Chip` (Tag≈Chip) |
+| Text Areas | 22 | A | `Textarea` / `RichTextEditor` |
+| Toasts | 2 | A | `Toast` |
+| Toggles | 12 | A | `Switch` / `SegmentedControl` |
+| Tooltips | 28 | A | `Tooltip` |
+| Alerts | 23 | A▲ | `SectionMessage`(인라인) variant 확장 |
+| Forms | 23 | A▲ | 필드는 기존 입력 컴포넌트 / **레이아웃은 pattern(C)** |
+| Calendars | 34 | **B** | 신규 `Calendar` (독립 월/범위 뷰; `DatePicker`가 내부 사용) |
+| Dropdowns | 25 | **B** | 신규 `DropdownMenu` (+`MenuItem`) |
+| Menus | 18 | **B** | 신규 `Menu` (context/dropdown primitive) |
+| Links | 13 | **B** | 신규 `Link` atom (현재 `Text`로 대체 중) |
+| Numbers | 18 | **B** | 신규 `NumberField` (숫자 입력+스텝; `CountUp`은 표시용 모션) |
+| Sidebars | 10 | **B** | 신규 `Sidebar` (영속 collapsible 레이아웃; `Drawer`와 별개) |
+| File Trees | 2 | **B** | 신규 `TreeView` |
+| AI Chats | 30 | **B+C** | primitive `ChatBubble`/`MessageList`(B) + 조립은 pattern(C) |
+| Sign Ins | 4 | **C** | pattern `SignIn` |
+| Sign Ups | 4 | **C** | pattern `SignUp` |
+
+**소계**: A/A▲ 29 · B 8 · C 3 (AI Chat은 B/C 양쪽 집계)
+
+---
+
+## 2. Marketing Blocks (20 카테고리)
+
+| 21st 카테고리 | 개수 | 분류 | bbangto-ui 대응 / 작업 |
+|---|---:|:---:|---|
+| Backgrounds | 33 | A | motion `AnimatedGradientBg`/`GridDriftBg` 확장 |
+| Borders | 12 | A | motion `BorderBeam`/`Glow` |
+| Texts | 58 | A▲ | motion `GradientText`/`TypingText`/`SplitReveal`/`Marquee` 확장 |
+| Footers | 14 | A▲ | `Footer` 확장 + 대형 마케팅 푸터는 block |
+| Navigation Menus | 11 | A▲ | `GNB`/`TopNavigation`/`BottomNavigation` 확장 |
+| Announcements | 10 | A▲ | `GlobalBanner` 확장 (block형은 `AnnouncementBar`) |
+| Scroll Areas | 24 | A▲/B | motion `ScrollReveal`/`ScrollProgress`/`Parallax` + primitive `ScrollArea`(B) |
+| **Hooks** | 31 | **C** | ⚠️ 컴포넌트 아님 → `packages/hooks` 신설 |
+| **Shaders** | 15 | **C** | WebGL/canvas → `motion/shaders` 하위 신설 |
+| **Heroes** | 73 | **C** | block `Hero` |
+| **Features** | 36 | **C** | block `FeatureGrid` |
+| **Calls to Action** | 34 | **C** | block `CTA` |
+| **Pricing Sections** | 17 | **C** | block `PricingSection` |
+| **Testimonials** | 15 | **C** | block `Testimonials` |
+| **Clients** | 16 | **C** | block `LogoCloud` |
+| **Comparisons** | 6 | **C** | block `Comparison` |
+| **Docks** | 6 | **C** | block `Dock` |
+| **Images** | 26 | **C** | block `Gallery` (+ `Thumbnail` 확장) |
+| **Videos** | 9 | **C** | block `VideoBlock` |
+| **Maps** | 2 | **C** | block `MapBlock` |
+
+---
+
+## 3. 신규 산출물 마스터 리스트 ("전부 다" 대상)
+
+### B — 신규 primitive (8개) → `packages/core/src/components`
+1. `Calendar` — 독립 월/주/범위 캘린더 뷰
+2. `Menu` — context/dropdown 메뉴 primitive (+ `MenuItem`, `MenuGroup`, `MenuSeparator`)
+3. `DropdownMenu` — 트리거 결합형 (Menu 위 합성)
+4. `Link` — 앵커 atom (variant: default/muted/inline/standalone, external 표시)
+5. `NumberField` — 숫자 입력 + 증감 스텝퍼 + min/max/step
+6. `Sidebar` — 영속/접이식 네비 레이아웃 (collapsible, rail)
+7. `TreeView` — 계층 트리 (file tree 포함)
+8. `ScrollArea` — 커스텀 스크롤바 컨테이너
+9. `ChatBubble` + `MessageList` — AI 챗 primitive
+
+### C-blocks — 섹션 (12개) → `packages/core/src/blocks`
+`Hero`, `FeatureGrid`, `CTA`, `PricingSection`, `Testimonials`, `LogoCloud`, `Comparison`, `Dock`, `Gallery`, `VideoBlock`, `MapBlock`, `MarketingFooter`, `AnnouncementBar`
+
+### C-patterns — 템플릿/플로우 (4개) → `packages/core/src/patterns`
+`SignIn`, `SignUp`, `FormLayout`, `AIChat`(조립)
+
+### C-hooks — `packages/hooks` (신설 패키지)
+21st.dev Hooks(31) 대응. **개별 목록은 Wave 0에서 페이지 크롤로 확정**(예상: `useMediaQuery`, `useInView`, `useScrollProgress`, `useCopyToClipboard`, `useDebounce`, `useLocalStorage`, `useClickOutside`, `useHover`, `useWindowSize`, …).
+
+### C-motion 확장 — `packages/core/src/motion/shaders`
+Shaders(15) 대응. WebGL/canvas 기반 배경/이펙트.
+
+---
+
+## 4. 작업 의존성 그래프
+
+```
+Wave 0 (편제·인프라·토큰)
+   ├──> Wave 1 (A 그룹 variant 확장)      ┐
+   ├──> Wave 2 (B 그룹 primitive)         ├─ 병렬
+   └──> Wave 3 (hooks + shaders)          ┘
+                  │
+                  ▼
+            Wave 4 (blocks)   ← Wave 1·2 결과를 합성
+                  │
+                  ▼
+          Wave 5 (patterns)   ← blocks·components 조립
+                  │
+                  ▼
+   Wave 6 (통합·Storybook·릴리스)
+```
+
+---
+
+## 5. 상태 추적 (Status Legend)
+
+| 상태 | 표기 |
+|---|---|
+| 미착수 | `TODO` |
+| 테스트 작성됨(red) | `RED` |
+| 구현 완료(green) | `GREEN` |
+| 품질 게이트 통과 | `DONE` |
+
+> 각 산출물의 진행 상태는 구현 시작 시 이 문서 하단 레지스트리에 행을 추가해 추적한다.
+
+### 레지스트리 (구현 진행 시 갱신)
+
+> Wave 0(편제·인프라) 완료 — 상세 `../../WAVE0_REPORT.md`.
+
+| 산출물 | 계층 | Wave | 상태 | 담당 에이전트 | 비고 |
+|---|---|---|---|---|---|
+| `@centurio1987/hooks` 패키지 | hooks | 0 | **DONE** | orchestrator | 4 게이트 GREEN |
+| `useIsMounted` | hook | 0 | **DONE** | orchestrator | 레퍼런스 훅 |
+| `blocks`/`patterns`/`motion.shaders` 배럴 | 편제 | 0 | **DONE** | orchestrator | core re-export 배선 |
+| 오서링 템플릿 (`/_templates`) | 인프라 | 0 | **DONE** | orchestrator | component/story/hook/checklist |
+| 토큰 갭 감사 | 인프라 | 0 | **DONE** | orchestrator | breakpoint 등 해당 Wave로 이월 |
+| `Button` (loading/soft/pill) | atom | 1 | **DONE** | leaf | 시범 검증 |
+| `Badge` (soft/size/dot) | atom | 1 | **DONE** | leaf | batch 1 |
+| `Avatar` (status dot) | atom | 1 | **DONE** | leaf | batch 1 |
+| `Link` | atom | 2 | **DONE** | leaf | batch 1, 신규 primitive |
+| `NumberField` | molecule | 2 | **DONE** | leaf | batch 1, 신규 primitive |
+| `useToggle` / `usePrevious` / `useDebounce` | hook | 3 | **DONE** | leaf | batch 1, vitest 통과 |
+| **Wave 1 전체** (26개 컴포넌트 variant 확장) | atom/molecule | 1 | **DONE** | workflow | Accordion·AlertDialog·Card·Carousel·Checkbox·Chip·DatePicker·EmptyState·FileUploader·Input·Modal·Pagination·Popover·Radio·Searchfield·SectionMessage·SegmentedControl·Select·Slider·Snackbar·Switch·Table·Tabs·Textarea·Toast·Tooltip / test 333 |
+| **Wave 2 전체** (7 primitive) | atom/molecule | 2 | **DONE** | workflow | Calendar·Menu/DropdownMenu·Sidebar·TreeView·ScrollArea·ChatBubble/MessageList / test 368 |
+| **Wave 3a** (hooks 16종) | hook | 3 | **DONE** | workflow | viewport/scroll/interaction/utility / test:unit 65 |
+| hooks 잔여 (useDarkMode/useIdle/useGeolocation 등 ~11) | hook | 3 | TODO | | INFERRED 목록, 후속 batch |
+| **Wave 3b** (shaders 4종) | motion/shader | 3 | **DONE** | workflow | MeshGradient·Aurora·Waves·ParticleField, reduced-motion 폴백 / test 383 |
+| shaders 잔여 (WebGL Plasma/Metaballs/Noise 등 ~11) | motion/shader | 3 | TODO | | INFERRED, WebGL 후속 |
+| breakpoint 상수 (tokens) | 인프라 | 4선행 | **DONE** | orchestrator | breakpoints/up/down |
+| **Wave 4 전체** (blocks 13종) | block/section | 4 | **DONE** | workflow | Hero·FeatureGrid·CTA·PricingSection·Testimonials·LogoCloud·Comparison·Dock·Gallery·VideoBlock·MapBlock·MarketingFooter·AnnouncementBar / test 410 |
+| **Wave 5 전체** (patterns 4종) | pattern | 5 | **DONE** | workflow | SignIn·SignUp·FormLayout(+Section/Row/Field)·AIChat / test 433 |
+| **═══ A/B/C 전 계층 1차 구현 완료 ═══** | | | **DONE** | | components·primitives·hooks·shaders·blocks·patterns |
+| **Wave 3c** (hooks 잔여 10종) | hook | 3 | **DONE** | workflow | useSessionStorage·useInterval·useTimeout·useDarkMode·usePageVisibility·useOrientation·useNetworkState·useGeolocation·useIdle·useFullscreen / test:unit 115 |
+| **Wave 3d** (shaders 잔여 6종) | motion/shader | 3 | **DONE** | workflow | Plasma·Noise·Metaballs·RippleBg·DotMatrix·Halftone (canvas) / test 445 |
+| Wave 6: Storybook Overview MDX + 사이드바 계층 정렬 | 문서 | 6 | **DONE** | orchestrator | storySort + Overview/Introduction |
+| Wave 6: changeset/버전범프/퍼블리시 | 릴리스 | 6 | TODO | | ⚠️ outward-facing, 사용자 승인 필요 |
+
+### 레지스트리 — Variant 확장 (아키타입 망라, 2026-06-25)
+
+> **목적**: 1차 구현은 카테고리당 정규 컴포넌트 1개였다. B/C 싱글톤 대부분이 "고정 디자인 1형"이라
+> 레퍼런스의 디자인 아키타입(split SignIn, masonry Gallery 등)을 prop으로 재현할 수 없었다.
+> 이 2차 작업은 싱글톤에 named `variant`/`layout` 축을 추가해 디자인 스페이스를 prop 주도로 망라한다.
+> 계획서: `../../[lovely-whistling-raccoon plan]` · 범위: 표준 밀도(카테고리당 3~6), 신규 variant ~78, prop 주도, default-first 하위호환.
+
+**축 규약**: 구조 reflow=`layout`, chrome/treatment=`variant`. 테스트 훅 = `data-bbangto-<comp-kebab>-<axis>={value}` (루트 요소). 신규 축은 이 attr만 신뢰. 반응형 2-col은 Hero scoped `<style>` + `breakpoints.lg` 패턴, 클래스/CSS변수는 컴포넌트 prefix 네임스페이스. **유효 border 토큰은 base/muted/strong/focus뿐**(`subtle` 미정의 — 사용 금지).
+
+| 산출물 | 계층 | Wave | 상태 | 담당 | 비고 |
+|---|---|---|---|---|---|
+| **V1** A-group 축 | atom/molecule | V1 | **DONE** | workflow | Card `layout`+media, Input/Select/Slider `variant`, Accordion `+separated` / 신규 스토리 10 |
+| **V2** B-primitive variant | primitive | V2 | **DONE** | workflow | ScrollArea·Calendar(표시전용)·Menu·Sidebar·TreeView·Chat / 신규 스토리 18 |
+| **V3** C-block A layout | block | V3 | **DONE** | workflow | Hero·FeatureGrid·CTA·Pricing·Testimonials·Gallery·LogoCloud / carousel·marquee reduced-motion / 신규 스토리 22 |
+| **V4** C-block B layout/variant | block | V4 | **DONE** | workflow | Comparison(slider)·Dock·VideoBlock·MapBlock·MarketingFooter·AnnouncementBar / 신규 스토리 15 |
+| **V5** C-pattern layout | pattern | V5 | **DONE** | workflow | SignIn·SignUp(marketingPanel 대칭)·FormLayout·AIChat / marketingPanel×layout 충돌규칙 / 신규 스토리 12 |
+| **═══ Variant 확장 완료 ═══** | | | **DONE** | | 신규 variant 77종 · 브라우저 test 522 · test:unit 115 · storybook build GREEN |
+| 커밋 | git | V1~V5 | **DONE** | orchestrator | 6505470(V1∥V2)·06b0528(V3)·285fd05(V4)·40d00e5(V5) on feat/asset-integration-wave0 |
+
+### 레지스트리 — 아키타입 **포화** (2026-06-27)
+
+> **동기**: 위 78종은 카테고리당 3~6개의 *샘플*이었다. 실측(`sitemap.xml`) 결과 21st.dev에는 개별 디자인 ≈ 6,866개(공식 ~60 카테고리 헤드라인 ≈ 1,483)가 있고, 이는 극히 일부였다.
+> **목표(사용자 확정)** = 카테고리별 아키타입 **소진**: 각 UI 카테고리의 레퍼런스 디자인을 실제 열람(공개 `/community/components/<user>/<slug>` 페이지) → 구조적으로 구별되는 아키타입으로 클러스터링 → 기존 `variant×color×size×layout`로 표현되는 것 제외(dedupe) → 진짜 새 유형만 named 멤버로 추가. 1:1 복제·중복·비-UI 아트팩트는 제외.
+> **방법론**: discover(`/s/<slug>` RSC 파싱) → harvest(공개 JSX 열람, 코드 미복사) → cluster(객관 판정기준) → gap-analysis(API 경계: 상태/슬롯/모드 prop은 variant 아님) → implement(leaf 2파일 + 감사 매니페스트). opus orchestrator 중앙 게이트, sonnet leaf 병렬(Workflow). 카테고리별 정량 감사 = `packages/core/catalog/<category>.audit.md`.
+
+**축 규약·테스트 계약은 위 78-variant 섹션과 동일.** 추가 규칙: 신규 축 default-first 첫 멤버는 *기존 렌더를 byte-identical 재현*. 모든 색/그림자/반경은 `cssVar()` 토큰(raw 값 금지; `color-mix`/`backdrop-filter` 합성만 인라인 허용, 색은 토큰 파생). `color-mix()`는 최신 chromium에서 `color(srgb …)`로 직렬화됨(테스트 정규식 주의).
+
+| Wave | 계층 | 카테고리(수) | 신규 멤버 | 신규 스토리 | 커밋 |
+|---|---|---|---|---|---|
+| **W0** 파일럿 | 대표 5 | Button·Input·Hero·Card·Table | 10 | 10 | `7dc320d` |
+| **W1** | form atoms | Select·Checkbox·Radio·Switch·NumberField·Textarea·Chip·Badge·Avatar (+Slider 포화) | 14 | 14 | `7691830` |
+| **W2** | interactive | Accordion·Calendar·Menu·Tabs·Pagination·Popover·Tooltip·Link·DatePicker·ProgressIndicator (+ScrollArea·Sidebar·TreeView 포화) | 26 | 26 | `75ea091` |
+| **W3** | composite | Carousel·Modal·Snackbar·EmptyState·FileUploader·TopNavigation (+Text 포화) | 13 | 13 | `38a8988` |
+| **W4** | blocks | FeatureGrid·PricingSection·Testimonials·Gallery·LogoCloud·Dock·VideoBlock·MapBlock·MarketingFooter·AnnouncementBar (+CTA·Comparison 포화) | 16 | 16 | `0624f37` |
+| **W5** | patterns | SignIn·SignUp·FormLayout·AIChat | 7 | 7 | `8e8e4ba` |
+| **═══ 포화 완료 ═══** | | 43 카테고리 | **86종** | **86** | 브라우저 test **608** · test:unit **115** · storybook build GREEN |
+
+**채택 멤버 전체** (호스트 → 신규 멤버; 감사 매니페스트는 `catalog/<category>.audit.md`):
+- Button: gradient·link·neon · Input: composer-panel · Hero: stacked-showcase·gradient-surface · Card: retro·pixel · Table: divided·outlined *(신규 축)*
+- Select: glass · Checkbox: gradient *(신규축)* · Radio: card·list·segmented·glass *(신규축)* · Switch: outline *(신규축)* · NumberField: seven-segment *(신규축)* · Textarea: soft *(신규축)* · Chip: solid·outline·avatar · Badge: outline · Avatar: gradient-ring *(신규축)*
+- Accordion: split-media·neobrutalist·horizontal-panels · Calendar: fullscreen·scheduler-split · Menu: dock·segmented·glow · Tabs: segmented · Pagination: segmented·outlined·pixel · Popover: sheet·arrow·elevated · Tooltip: elevated · Link: outline·solid·ghost · DatePicker: inline-week-strip·wheel·ghost *(신규축)* · ProgressIndicator: ring·spokes·dots·bars *(신규축)*
+- Carousel: edge-fade·media-overlay·elevated *(신규축)* · Modal: side-sheet · Snackbar: pixel·elevated *(신규축)* · EmptyState: gradient·outlined·pixel *(신규축)* · FileUploader: avatar · TopNavigation: bordered·glass·floating-pill *(신규축)*
+- FeatureGrid: panel-showcase·stacked-deck · PricingSection: single-panel·frosted-gradient · Testimonials: split-media·stacked-deck · Gallery: split-panel · LogoCloud: scroll-columns · Dock: glass·spotlight · VideoBlock: grid-gallery · MapBlock: stacked · MarketingFooter: wordmark·gradient · AnnouncementBar: gradient·glass
+- SignIn: media-backdrop · SignUp: frosted · FormLayout: popover·drawer·dialog·split · AIChat: frosted
+
+**기존 prop으로 포화(=+0, 추가 없음)**: Slider · ScrollArea · Sidebar · TreeView · Text · CTA · Comparison — 이미 `variant×color×size×layout` 조합이 디자인 스페이스를 덮어 새 아키타입 없음(각 감사 매니페스트에 흡수 사유 기록).
+
+#### Out-of-scope (이번 포화 미구현 — 별도 트랙)
+
+21st.dev의 다음 카테고리는 **디자인시스템 primitive의 variant가 아니므로** 이번 프로그램에서 제외(사용자 확정):
+
+| 카테고리(21st count) | 성격 | 미구현 사유 |
+|---|---|---|
+| Backgrounds (33) | 장식 배경 효과 | UI primitive의 variant 아님 — 독립 효과 컴포넌트 영역 |
+| Shaders (15) | WebGL/GLSL 셰이더 | 일회성 창작 아트팩트, 토큰 기반 chrome 아님 (별도 `motion/shaders` 트랙 존재) |
+| Hooks (31) | React 훅 | 컴포넌트 variant 아님 (별도 `packages/hooks` 트랙 존재) |
+| Icons (10) | 아이콘 세트 | 디자인 토큰/컴포넌트 축 아님 |
+| Borders (12) | 장식 보더 효과 | treatment 효과, primitive variant 아님 |
+| 롱테일 태그(3d·webgl·cursor·distortion·ascii 등) | 창작 데모 | 중복·잡음, 아키타입 아님 |
+
+→ 향후 별도 트랙으로 다룰 수 있음(이번 스코프 밖).
