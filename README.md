@@ -6,86 +6,143 @@
 
 > **Serious Work, Joyful Wit.**
 
-BBANGTO UI는 진지한 엔지니어링 기반 위에 즐겁고 위트 있는 사용자 경험을 제공하는 모던 리액트 디자인 시스템(Design System)입니다. 무광택(Matte), 플랫(Flat), 그리고 손그림 느낌의 블랍(Blob) 스타일 아이콘 100여 종을 포함하고 있으며, 확장 가능한 테마(Theme)와 디자인 토큰(Tokens) 구조를 제공합니다.
+BBANGTO UI는 진지한 엔지니어링 기반 위에 즐겁고 위트 있는 사용자 경험을 제공하는 모던 리액트 디자인 시스템입니다.
 
 ---
 
 ## 📦 Packages
 
-본 레포지토리는 Monorepo 구조로 설계되었으며, 주요 패키지 구성은 다음과 같습니다:
+본 레포지토리는 Monorepo 구조로 설계되어 있으며, pnpm workspace로 관리됩니다.
 
-- **`@centurio1987/core`**: UI 컴포넌트 라이브러리 및 커스텀 생성 아이콘
-- **`@centurio1987/tokens`**: 디자인 토큰 시스템 (Colors, Spacing, Typography 등)
-- **`apps/storybook`**: 컴포넌트 카탈로그 및 문서화를 위한 Storybook 환경
+| 패키지 | 버전 | 설명 |
+|--------|------|------|
+| `@centurio1987/bbangto-ui-core` | 0.4.0 | 56종 UI 컴포넌트 + 모션 레이어 + 패턴 |
+| `@centurio1987/bbangto-ui-tokens` | 0.3.0 | 디자인 토큰 타입 정의 (Colors, Spacing, Typography, Motion 등) |
+| `@centurio1987/bbangto-ui-themes` | 0.2.0 | 내장 테마 4종 + 브랜드 프리셋 74종 |
+| `@centurio1987/bbangto-ui-hooks` | 0.3.0 | Headless React 훅 31종 |
+| `@centurio1987/bbangto-ui-diagram` | 0.2.0 | 시스템 아키텍처 다이어그램 컴포넌트 |
+| `apps/storybook` | — | 컴포넌트 카탈로그 및 브라우저 테스트 환경 |
+
+---
 
 ## 🚀 Getting Started
 
 ### 1. Installation
 
-이 패키지를 프로젝트에 설치하려면, 패키지 매니저(예: pnpm)를 통해 `@centurio1987/core`와 `@centurio1987/tokens`를 추가하세요. (추후 npm 배포 시 사용 가능)
-
 ```bash
-pnpm install @centurio1987/core @centurio1987/tokens
+pnpm add @centurio1987/bbangto-ui-core @centurio1987/bbangto-ui-tokens @centurio1987/bbangto-ui-themes
 ```
 
 ### 2. Theme Provider Setup
 
-애플리케이션의 최상단에서 `ThemeProvider`를 사용하여 디자인 토큰과 테마를 주입합니다.
-
 ```tsx
-import React from 'react';
-import { ThemeProvider } from '@centurio1987/core';
-import App from './App';
+import { ThemeProvider } from '@centurio1987/bbangto-ui-core';
+import { lightTheme } from '@centurio1987/bbangto-ui-themes';
 
 export default function Root() {
   return (
-    <ThemeProvider theme="light">
+    <ThemeProvider theme={lightTheme}>
       <App />
     </ThemeProvider>
   );
 }
 ```
 
-### 3. Usage (Components & Icons)
-
-BBANGTO UI는 위트 있고 개성 넘치는 수많은 컴포넌트와 100여 종의 커스텀 아이콘을 제공합니다. 사용법은 매우 직관적입니다.
+### 3. Component & Motion Usage
 
 ```tsx
-import { Button, HomeIcon, SettingsIcon } from '@centurio1987/core';
+import { Button } from '@centurio1987/bbangto-ui-core';
+import { FadeIn, Spinner } from '@centurio1987/bbangto-ui-core';
 
 export default function Dashboard() {
   return (
-    <div style={{ display: 'flex', gap: '16px' }}>
-      <Button variant="primary" leftIcon={<HomeIcon />}>
-        Home
-      </Button>
-      <Button variant="outline" rightIcon={<SettingsIcon />}>
-        Settings
-      </Button>
-    </div>
+    <FadeIn>
+      <Button variant="primary">시작하기</Button>
+      <Spinner size="md" />
+    </FadeIn>
   );
 }
 ```
 
-## 🎨 Custom Icon Pipeline
+### 4. Hooks
 
-BBANGTO UI의 가장 큰 특징 중 하나는 **무광택(Matte), 블랍(Blob) 스타일의 자체 아이콘 생성 파이프라인**을 내장하고 있다는 점입니다. 
+```tsx
+import { useDebounce, useDarkMode, useClickOutside } from '@centurio1987/bbangto-ui-hooks';
+```
 
-Lucide 아이콘의 구조적 뼈대를 가져와, 프로젝트의 `scripts/generate-icons.mjs`를 통해 두꺼운 둥근 테두리(`strokeWidth`)와 위트 있는 질감의 SVG 리액트 컴포넌트로 자동 변환합니다. 카탈로그에 새로운 아이콘을 추가하고 싶다면 이 스크립트를 활용해 무한히 확장할 수 있습니다!
+---
+
+## 🎨 Theme System
+
+내장 테마 4종과 브랜드 프리셋 74종을 제공합니다.
+
+```tsx
+import { lightTheme, darkTheme, amberTheme, highContrastTheme } from '@centurio1987/bbangto-ui-themes';
+
+// 브랜드 프리셋 사용
+import catalog from '@centurio1987/bbangto-ui-themes/catalog';
+const brandTheme = catalog['ocean-breeze'];
+```
+
+---
+
+## 🎬 Motion Layer
+
+`@centurio1987/bbangto-ui-core`의 모션 레이어는 **토큰 기반 제로 런타임 의존성** 애니메이션 시스템입니다. framer-motion, emotion 없이 순수 CSS Custom Properties만 사용합니다.
+
+**모션 Atom (26종)**
+
+| 카테고리 | 컴포넌트 |
+|----------|----------|
+| 전환 래퍼 | `FadeIn`, `SlideIn`, `ScaleIn`, `ScrollReveal`, `Stagger` |
+| 텍스트 | `TypingText`, `SplitReveal`, `GradientText`, `CountUp` |
+| 로딩 | `Spinner`, `Pulse`, `BarsLoader`, `RingLoader`, `Shimmer` |
+| 배경 | `AnimatedGradientBg`, `GridDriftBg`, `BorderBeam` |
+| 인터랙션 | `Pressable`, `Ripple`, `Attention`, `Glow` |
+| 스크롤 | `Parallax`, `ScrollProgress`, `Marquee`, `Wave` |
+
+`prefers-reduced-motion`을 전역으로 적용하며, 필수 상태 전달 요소(`data-bbangto-motion="essential"`)는 예외 처리합니다.
+
+---
+
+## 🏗 Diagram Package
+
+시스템 아키텍처 다이어그램을 리액트 컴포넌트로 작성할 수 있는 전용 패키지입니다.
+
+```tsx
+import { DiagramProvider, Node, Edge } from '@centurio1987/bbangto-ui-diagram';
+```
+
+---
 
 ## 🛠 Development
-
-이 레포지토리를 직접 개발하거나 수정하시려면 아래 명령어를 사용하세요.
 
 ```bash
 # 의존성 설치
 pnpm install
 
-# 전체 패키지 빌드
+# 전체 패키지 빌드 (storybook 제외)
 pnpm build
 
-# Storybook 실행 (컴포넌트 및 아이콘 카탈로그 확인)
+# Storybook 개발 서버 (포트 6006)
 pnpm dev
+
+# 타입 검사
+pnpm typecheck
+
+# 브라우저 테스트 (Playwright + chromium)
+pnpm test
+```
+
+### Quality Gate
+
+모든 PR은 아래 게이트를 통과해야 합니다.
+
+```bash
+pnpm typecheck
+pnpm build
+pnpm test
+pnpm --filter storybook build
 ```
 
 ---
