@@ -1,6 +1,6 @@
 {
   "name": "@centurio1987/core",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Core React components for bbangto-ui",
   "type": "module",
   "main": "./dist/index.js",
