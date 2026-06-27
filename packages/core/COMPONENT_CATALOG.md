@@ -226,3 +226,46 @@ Wave 0 (편제·인프라·토큰)
 | **V5** C-pattern layout | pattern | V5 | **DONE** | workflow | SignIn·SignUp(marketingPanel 대칭)·FormLayout·AIChat / marketingPanel×layout 충돌규칙 / 신규 스토리 12 |
 | **═══ Variant 확장 완료 ═══** | | | **DONE** | | 신규 variant 77종 · 브라우저 test 522 · test:unit 115 · storybook build GREEN |
 | 커밋 | git | V1~V5 | **DONE** | orchestrator | 6505470(V1∥V2)·06b0528(V3)·285fd05(V4)·40d00e5(V5) on feat/asset-integration-wave0 |
+
+### 레지스트리 — 아키타입 **포화** (2026-06-27)
+
+> **동기**: 위 78종은 카테고리당 3~6개의 *샘플*이었다. 실측(`sitemap.xml`) 결과 21st.dev에는 개별 디자인 ≈ 6,866개(공식 ~60 카테고리 헤드라인 ≈ 1,483)가 있고, 이는 극히 일부였다.
+> **목표(사용자 확정)** = 카테고리별 아키타입 **소진**: 각 UI 카테고리의 레퍼런스 디자인을 실제 열람(공개 `/community/components/<user>/<slug>` 페이지) → 구조적으로 구별되는 아키타입으로 클러스터링 → 기존 `variant×color×size×layout`로 표현되는 것 제외(dedupe) → 진짜 새 유형만 named 멤버로 추가. 1:1 복제·중복·비-UI 아트팩트는 제외.
+> **방법론**: discover(`/s/<slug>` RSC 파싱) → harvest(공개 JSX 열람, 코드 미복사) → cluster(객관 판정기준) → gap-analysis(API 경계: 상태/슬롯/모드 prop은 variant 아님) → implement(leaf 2파일 + 감사 매니페스트). opus orchestrator 중앙 게이트, sonnet leaf 병렬(Workflow). 카테고리별 정량 감사 = `packages/core/catalog/<category>.audit.md`.
+
+**축 규약·테스트 계약은 위 78-variant 섹션과 동일.** 추가 규칙: 신규 축 default-first 첫 멤버는 *기존 렌더를 byte-identical 재현*. 모든 색/그림자/반경은 `cssVar()` 토큰(raw 값 금지; `color-mix`/`backdrop-filter` 합성만 인라인 허용, 색은 토큰 파생). `color-mix()`는 최신 chromium에서 `color(srgb …)`로 직렬화됨(테스트 정규식 주의).
+
+| Wave | 계층 | 카테고리(수) | 신규 멤버 | 신규 스토리 | 커밋 |
+|---|---|---|---|---|---|
+| **W0** 파일럿 | 대표 5 | Button·Input·Hero·Card·Table | 10 | 10 | `7dc320d` |
+| **W1** | form atoms | Select·Checkbox·Radio·Switch·NumberField·Textarea·Chip·Badge·Avatar (+Slider 포화) | 14 | 14 | `7691830` |
+| **W2** | interactive | Accordion·Calendar·Menu·Tabs·Pagination·Popover·Tooltip·Link·DatePicker·ProgressIndicator (+ScrollArea·Sidebar·TreeView 포화) | 26 | 26 | `75ea091` |
+| **W3** | composite | Carousel·Modal·Snackbar·EmptyState·FileUploader·TopNavigation (+Text 포화) | 13 | 13 | `38a8988` |
+| **W4** | blocks | FeatureGrid·PricingSection·Testimonials·Gallery·LogoCloud·Dock·VideoBlock·MapBlock·MarketingFooter·AnnouncementBar (+CTA·Comparison 포화) | 16 | 16 | `0624f37` |
+| **W5** | patterns | SignIn·SignUp·FormLayout·AIChat | 7 | 7 | `8e8e4ba` |
+| **═══ 포화 완료 ═══** | | 43 카테고리 | **86종** | **86** | 브라우저 test **608** · test:unit **115** · storybook build GREEN |
+
+**채택 멤버 전체** (호스트 → 신규 멤버; 감사 매니페스트는 `catalog/<category>.audit.md`):
+- Button: gradient·link·neon · Input: composer-panel · Hero: stacked-showcase·gradient-surface · Card: retro·pixel · Table: divided·outlined *(신규 축)*
+- Select: glass · Checkbox: gradient *(신규축)* · Radio: card·list·segmented·glass *(신규축)* · Switch: outline *(신규축)* · NumberField: seven-segment *(신규축)* · Textarea: soft *(신규축)* · Chip: solid·outline·avatar · Badge: outline · Avatar: gradient-ring *(신규축)*
+- Accordion: split-media·neobrutalist·horizontal-panels · Calendar: fullscreen·scheduler-split · Menu: dock·segmented·glow · Tabs: segmented · Pagination: segmented·outlined·pixel · Popover: sheet·arrow·elevated · Tooltip: elevated · Link: outline·solid·ghost · DatePicker: inline-week-strip·wheel·ghost *(신규축)* · ProgressIndicator: ring·spokes·dots·bars *(신규축)*
+- Carousel: edge-fade·media-overlay·elevated *(신규축)* · Modal: side-sheet · Snackbar: pixel·elevated *(신규축)* · EmptyState: gradient·outlined·pixel *(신규축)* · FileUploader: avatar · TopNavigation: bordered·glass·floating-pill *(신규축)*
+- FeatureGrid: panel-showcase·stacked-deck · PricingSection: single-panel·frosted-gradient · Testimonials: split-media·stacked-deck · Gallery: split-panel · LogoCloud: scroll-columns · Dock: glass·spotlight · VideoBlock: grid-gallery · MapBlock: stacked · MarketingFooter: wordmark·gradient · AnnouncementBar: gradient·glass
+- SignIn: media-backdrop · SignUp: frosted · FormLayout: popover·drawer·dialog·split · AIChat: frosted
+
+**기존 prop으로 포화(=+0, 추가 없음)**: Slider · ScrollArea · Sidebar · TreeView · Text · CTA · Comparison — 이미 `variant×color×size×layout` 조합이 디자인 스페이스를 덮어 새 아키타입 없음(각 감사 매니페스트에 흡수 사유 기록).
+
+#### Out-of-scope (이번 포화 미구현 — 별도 트랙)
+
+21st.dev의 다음 카테고리는 **디자인시스템 primitive의 variant가 아니므로** 이번 프로그램에서 제외(사용자 확정):
+
+| 카테고리(21st count) | 성격 | 미구현 사유 |
+|---|---|---|
+| Backgrounds (33) | 장식 배경 효과 | UI primitive의 variant 아님 — 독립 효과 컴포넌트 영역 |
+| Shaders (15) | WebGL/GLSL 셰이더 | 일회성 창작 아트팩트, 토큰 기반 chrome 아님 (별도 `motion/shaders` 트랙 존재) |
+| Hooks (31) | React 훅 | 컴포넌트 variant 아님 (별도 `packages/hooks` 트랙 존재) |
+| Icons (10) | 아이콘 세트 | 디자인 토큰/컴포넌트 축 아님 |
+| Borders (12) | 장식 보더 효과 | treatment 효과, primitive variant 아님 |
+| 롱테일 태그(3d·webgl·cursor·distortion·ascii 등) | 창작 데모 | 중복·잡음, 아키타입 아님 |
+
+→ 향후 별도 트랙으로 다룰 수 있음(이번 스코프 밖).
