@@ -15,7 +15,7 @@ const meta = {
     accept: { control: 'text' },
     disabled: { control: 'boolean' },
     loading: { control: 'boolean' },
-    variant: { control: 'select', options: ['default', 'compact'] },
+    variant: { control: 'select', options: ['default', 'compact', 'avatar'] },
     externalError: { control: 'text' },
   },
 } satisfies Meta<typeof FileUploader>;
@@ -147,5 +147,45 @@ export const CompactDisabled: Story = {
     const btn = await canvas.findByRole('button', { name: /Choose file/i });
     await expect(btn).toBeVisible();
     await expect(btn).toBeDisabled();
+  },
+};
+
+/**
+ * avatar: 원형 미디어 슬롯 자체가 업로드 타깃 — 대시 사각 드롭존 chrome 제거,
+ * 얇은 solid border + 원형(radius full) 처리. 이미지가 슬롯을 채우고 hover 시 dim.
+ */
+export const Avatar: Story = {
+  args: { variant: 'avatar' },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // ① data-attr: 루트에 avatar 훅이 렌더돼야 한다
+    const root = canvasElement.querySelector('[data-bbangto-file-upload-variant]');
+    await expect(root).not.toBeNull();
+    await expect(root!.getAttribute('data-bbangto-file-upload-variant')).toBe('avatar');
+
+    // ② load-bearing computed style: 대시 사각 chrome이 사라지고 원형 + solid border.
+    // (default/compact는 borderStyle 'dashed' — avatar는 'solid'여야 한다)
+    const target = canvasElement.querySelector(
+      '[data-testid="file-uploader-dropzone"]'
+    ) as HTMLElement;
+    await expect(target).not.toBeNull();
+    const style = getComputedStyle(target);
+    await expect(style.borderTopStyle).toBe('solid');
+    await expect(style.borderTopStyle).not.toBe('dashed');
+    // 원형 슬롯: border-radius가 0이 아니어야 한다 (radius.full)
+    await expect(style.borderTopLeftRadius).not.toBe('0px');
+    await expect(style.borderTopLeftRadius).not.toBe('');
+    // 이미지가 슬롯을 채우는 처리 (background-size: cover)
+    await expect(style.backgroundSize).toBe('cover');
+    await expect(style.position).toBe('relative');
+
+    // ③ 콘텐츠 슬롯 + a11y 계약: 키보드 접근 가능한 업로드 타깃(role=button) +
+    //    hidden file input 접근 유지
+    const slot = await canvas.findByRole('button', { name: /avatar image/i });
+    await expect(slot).toBeVisible();
+    await expect(slot).toHaveAttribute('tabindex', '0');
+    const fileInput = canvasElement.querySelector('input[type="file"]');
+    await expect(fileInput).not.toBeNull();
   },
 };

@@ -4,6 +4,13 @@ import { KEYFRAME_NAMES, SLIDE_VARS, useAnimatedMount } from '../motion';
 
 export type SnackbarSeverity = 'neutral' | 'info' | 'success' | 'error' | 'warning';
 export type SnackbarPlacement = 'bottom-center' | 'bottom-left' | 'bottom-right' | 'top-center';
+/**
+ * Chrome treatment of the surface. 'standard' (first = default) keeps the original
+ * rounded + soft-elevation look and is fully backward compatible. New members swap
+ * the chrome axis: 'pixel' replaces radius/soft-shadow with a hard-edge stepped
+ * pixel border; 'elevated' drops the outline in favor of layered drop-shadow.
+ */
+export type SnackbarVariant = 'standard' | 'pixel' | 'elevated';
 
 export interface SnackbarProps extends React.HTMLAttributes<HTMLDivElement> {
   message: React.ReactNode;
@@ -20,6 +27,8 @@ export interface SnackbarProps extends React.HTMLAttributes<HTMLDivElement> {
   dismissible?: boolean;
   /** Where the snackbar anchors on the viewport. Default: 'bottom-center'. */
   placement?: SnackbarPlacement;
+  /** Surface chrome treatment. Default: 'standard' (original rounded + soft shadow). */
+  variant?: SnackbarVariant;
 }
 
 // Severity → semantic token key (maps to SemanticColors keys)
@@ -58,6 +67,7 @@ export const Snackbar = React.forwardRef<HTMLDivElement, SnackbarProps>(
       icon,
       dismissible = false,
       placement = 'bottom-center',
+      variant = 'standard',
       style,
       className,
       ...props
@@ -98,6 +108,23 @@ export const Snackbar = React.forwardRef<HTMLDivElement, SnackbarProps>(
     const isTopPlacement = placement === 'top-center';
     const slideY = isTopPlacement ? '-120%' : '120%';
 
+    // Variant chrome: swaps the surface treatment (radius / border / elevation).
+    // 'standard' leaves the base cascade untouched (backward-compatible default).
+    // Composed purely from existing tokens; spread last over the base chrome.
+    const variantChrome: React.CSSProperties = {};
+    if (variant === 'pixel') {
+      // Hard-edge stepped pixel border: stacked zero-blur box-shadows produce a
+      // staircase outline. Drop the smooth radius and soft elevation entirely.
+      const px = cssVar('semantic', 'border', 'strong');
+      variantChrome.borderRadius = cssVar('radius', 'none');
+      variantChrome.boxShadow = `2px 0 0 0 ${px}, -2px 0 0 0 ${px}, 0 2px 0 0 ${px}, 0 -2px 0 0 ${px}, 4px 4px 0 0 ${px}, -4px 4px 0 0 ${px}`;
+    } else if (variant === 'elevated') {
+      // Outline removed; the surface floats on layered drop-shadows instead.
+      variantChrome.border = 'none';
+      variantChrome.borderLeft = undefined;
+      variantChrome.boxShadow = `${cssVar('shadow', 'sm')}, ${cssVar('shadow', 'md')}, ${cssVar('shadow', 'lg')}, ${cssVar('shadow', 'xl')}`;
+    }
+
     const containerStyle: React.CSSProperties = {
       display: 'inline-flex',
       alignItems: 'center',
@@ -120,6 +147,8 @@ export const Snackbar = React.forwardRef<HTMLDivElement, SnackbarProps>(
       animationDuration: dur,
       animationTimingFunction: closing ? cssVar('motion', 'easing', 'in') : cssVar('motion', 'easing', 'out'),
       animationFillMode: 'both',
+      // Variant chrome overrides the base radius/border/elevation cascade.
+      ...variantChrome,
       // Apply placement — spread last so caller style can still override
       ...placementStyles(placement),
       ...style,
@@ -175,7 +204,15 @@ export const Snackbar = React.forwardRef<HTMLDivElement, SnackbarProps>(
     };
 
     return (
-      <div ref={ref} style={containerStyle} className={className} role="alert" {...props}>
+      <div
+        ref={ref}
+        style={containerStyle}
+        className={className}
+        role="alert"
+        aria-live="assertive"
+        data-bbangto-notification-variant={variant}
+        {...props}
+      >
         <span style={contentStyle}>
           {icon && <span style={iconStyle}>{icon}</span>}
           <span>{message}</span>

@@ -5,7 +5,7 @@ import { ProgressIndicator } from './ProgressIndicator';
 import { Button } from './Button';
 import { Spinner } from '../motion/Spinner';
 
-export type FileUploaderVariant = 'default' | 'compact';
+export type FileUploaderVariant = 'default' | 'compact' | 'avatar';
 
 export interface FileUploaderProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange' | 'onDrop'> {
   onFilesSelected?: (files: File[]) => void;
@@ -21,6 +21,9 @@ export interface FileUploaderProps extends Omit<React.HTMLAttributes<HTMLDivElem
    * Layout variant.
    * - `'default'` (original): full drag-and-drop dropzone with cloud icon.
    * - `'compact'`: condensed inline layout with a small "Choose file" button.
+   * - `'avatar'`: round media slot — the avatar itself is the upload target.
+   *   The dashed rectangular dropzone chrome is removed and replaced by a
+   *   circular, thin-bordered slot filled by the chosen image (hover dims it).
    */
   variant?: FileUploaderVariant;
   /** Error message injected from outside (e.g. server validation). */
@@ -105,6 +108,15 @@ export const FileUploader = React.forwardRef<HTMLDivElement, FileUploaderProps>(
       if (!isInteractionDisabled) fileInputRef.current?.click();
     };
 
+    // Keyboard parity for non-native click targets (keeps the dropzone reachable
+    // and operable without a pointer — required by the a11y contract).
+    const handleZoneKeyDown = (e: React.KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleZoneClick();
+      }
+    };
+
     // ── Shared hidden input ────────────────────────────────────────
     const hiddenInput = (
       <input
@@ -116,6 +128,124 @@ export const FileUploader = React.forwardRef<HTMLDivElement, FileUploaderProps>(
         style={{ display: 'none' }}
       />
     );
+
+    // ── Variant: avatar ───────────────────────────────────────────
+    // The round media slot IS the upload target. There is no dashed
+    // rectangular dropzone here — the circular, thin-solid-bordered slot is
+    // filled by the chosen image and dims on hover. All chrome uses tokens.
+    if (variant === 'avatar') {
+      const previewFile = selectedFiles[0];
+      const previewUrl = previewFile ? URL.createObjectURL(previewFile) : null;
+      const avatarSize = cssVar('spacing', '64');
+
+      const avatarTargetStyle: React.CSSProperties = {
+        position: 'relative',
+        boxSizing: 'border-box',
+        width: avatarSize,
+        height: avatarSize,
+        flexShrink: 0,
+        padding: 0,
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+        // Circular slot — solid (not dashed) thin border distinguishes this
+        // avatar-as-target treatment from the rectangular dropzone variants.
+        borderRadius: cssVar('radius', 'full'),
+        borderWidth: '1px',
+        borderStyle: 'solid',
+        borderColor: isDragging ? cssVar('semantic', 'border', 'focus') : cssVar('semantic', 'border', 'base'),
+        backgroundColor: disabled
+          ? cssVar('semantic', 'disabled', 'background')
+          : cssVar('semantic', 'background', 'sunken'),
+        backgroundImage: previewUrl ? `url(${previewUrl})` : undefined,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        color: cssVar('semantic', 'foreground', 'muted'),
+        cursor: isInteractionDisabled ? 'not-allowed' : 'pointer',
+        opacity: disabled ? 0.5 : 1,
+        transition: `opacity ${cssVar('motion', 'duration', 'fast')} ${cssVar('motion', 'easing', 'default')}`,
+        fontFamily: cssVar('typography', 'fontFamily', 'sans'),
+        ...style,
+      };
+
+      const displayError = internalError ?? externalError ?? null;
+
+      return (
+        <div
+          data-bbangto-file-upload-variant={variant}
+          style={{ display: 'flex', flexDirection: 'column', gap: cssVar('spacing', '8'), alignItems: 'flex-start' }}
+        >
+          <div
+            ref={ref}
+            data-testid="file-uploader-dropzone"
+            role="button"
+            tabIndex={isInteractionDisabled ? -1 : 0}
+            aria-label={previewFile ? `Change avatar image (${previewFile.name})` : 'Upload avatar image'}
+            aria-disabled={isInteractionDisabled || undefined}
+            style={avatarTargetStyle}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+            onClick={handleZoneClick}
+            onKeyDown={handleZoneKeyDown}
+            onMouseEnter={(e) => {
+              if (!isInteractionDisabled) e.currentTarget.style.opacity = '0.8';
+            }}
+            onMouseLeave={(e) => {
+              if (!isInteractionDisabled) e.currentTarget.style.opacity = '1';
+            }}
+            {...props}
+          >
+            {hiddenInput}
+            {!previewFile && (
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke={isDragging ? cssVar('semantic', 'border', 'focus') : cssVar('semantic', 'foreground', 'muted')}
+                strokeWidth="1.5"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="8" r="4"></circle>
+                <path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"></path>
+              </svg>
+            )}
+
+            {loading && (
+              <div
+                aria-live="polite"
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: cssVar('radius', 'full'),
+                  backgroundColor: cssVar('semantic', 'background', 'sunken'),
+                  opacity: 0.92,
+                }}
+              >
+                <Spinner size={20} color={cssVar('semantic', 'primary', 'base')} />
+              </div>
+            )}
+          </div>
+
+          {previewFile && (
+            <Text variant="meta" color="muted" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: avatarSize }}>
+              {previewFile.name}
+            </Text>
+          )}
+
+          {displayError && (
+            <Text variant="meta" color="error">
+              {displayError}
+            </Text>
+          )}
+        </div>
+      );
+    }
 
     // ── Variant: compact ──────────────────────────────────────────
     if (variant === 'compact') {
@@ -139,7 +269,7 @@ export const FileUploader = React.forwardRef<HTMLDivElement, FileUploaderProps>(
       };
 
       return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: cssVar('spacing', '8') }}>
+        <div data-bbangto-file-upload-variant={variant} style={{ display: 'flex', flexDirection: 'column', gap: cssVar('spacing', '8') }}>
           <div
             ref={ref}
             data-testid="file-uploader-dropzone"
@@ -262,7 +392,7 @@ export const FileUploader = React.forwardRef<HTMLDivElement, FileUploaderProps>(
     const displayError = internalError ?? externalError ?? null;
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: cssVar('spacing', '16') }}>
+      <div data-bbangto-file-upload-variant={variant} style={{ display: 'flex', flexDirection: 'column', gap: cssVar('spacing', '16') }}>
         <div
           ref={ref}
           data-testid="file-uploader-dropzone"

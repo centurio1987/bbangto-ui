@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { EmptyState, Button } from '@centurio1987/core';
-import { expect, within } from 'storybook/test';
+import { expect, within, userEvent } from 'storybook/test';
 
 const meta = {
   title: 'Organisms/EmptyState',
@@ -161,5 +161,112 @@ export const LoadingWithSize: Story = {
     const canvas = within(canvasElement);
     const skeleton = await canvas.findByRole('status');
     await expect(skeleton).toBeVisible();
+  },
+};
+
+// ── 신규 스토리: variant ──────────────────────────────────────
+
+export const Gradient: Story = {
+  args: {
+    variant: 'gradient',
+    icon: <InboxIcon />,
+    title: 'Your inbox is empty',
+    description: 'New conversations will land here as a vibrant gradient panel.',
+    action: <Button variant="solid" color="primary">Compose</Button>,
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // ① data-attr 확인
+    const container = canvasElement.querySelector(
+      '[data-bbangto-empty-state-variant]'
+    ) as HTMLElement | null;
+    await expect(container).not.toBeNull();
+    await expect(container).toHaveAttribute(
+      'data-bbangto-empty-state-variant',
+      'gradient'
+    );
+
+    // ② load-bearing computed style: 멀티스톱 gradient fill
+    const style = getComputedStyle(container!);
+    await expect(style.backgroundImage).toContain('gradient');
+
+    // ③ 콘텐츠 슬롯 + a11y: heading 텍스트와 focus 가능한 액션
+    const heading = await canvas.findByText('Your inbox is empty');
+    await expect(heading).toBeVisible();
+    const action = await canvas.findByRole('button', { name: /compose/i });
+    action.focus();
+    await expect(action).toHaveFocus();
+  },
+};
+
+export const Outlined: Story = {
+  args: {
+    variant: 'outlined',
+    icon: <SearchIcon />,
+    title: 'No matching files',
+    description: 'This card is framed by a pure 1px outline with no fill.',
+    action: <Button variant="outline">Clear filters</Button>,
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // ① data-attr 확인
+    const container = canvasElement.querySelector(
+      '[data-bbangto-empty-state-variant]'
+    ) as HTMLElement | null;
+    await expect(container).not.toBeNull();
+    await expect(container).toHaveAttribute(
+      'data-bbangto-empty-state-variant',
+      'outlined'
+    );
+
+    // ② load-bearing computed style: solid 보더 + fill/elevation 없음
+    const style = getComputedStyle(container!);
+    await expect(style.borderStyle).toBe('solid');
+    await expect(style.boxShadow).toBe('none');
+
+    // ③ 콘텐츠 슬롯 + a11y
+    const heading = await canvas.findByText('No matching files');
+    await expect(heading).toBeVisible();
+    const action = await canvas.findByRole('button', { name: /clear filters/i });
+    await userEvent.tab();
+    await expect(action).toHaveFocus();
+  },
+};
+
+export const Pixel: Story = {
+  args: {
+    variant: 'pixel',
+    icon: <FolderIcon />,
+    title: 'Nothing here yet',
+    description: 'A retro 8-bit frame with a stepped hard shadow and no rounding.',
+    action: <Button variant="solid" color="primary">Add item</Button>,
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // ① data-attr 확인
+    const container = canvasElement.querySelector(
+      '[data-bbangto-empty-state-variant]'
+    ) as HTMLElement | null;
+    await expect(container).not.toBeNull();
+    await expect(container).toHaveAttribute(
+      'data-bbangto-empty-state-variant',
+      'pixel'
+    );
+
+    // ② load-bearing computed style: radius 0 + 계단형 hard shadow 존재
+    const style = getComputedStyle(container!);
+    await expect(style.borderRadius).toBe('0px');
+    await expect(style.boxShadow).not.toBe('none');
+    await expect(style.borderStyle).toBe('solid');
+
+    // ③ 콘텐츠 슬롯 + a11y
+    const heading = await canvas.findByText('Nothing here yet');
+    await expect(heading).toBeVisible();
+    const action = await canvas.findByRole('button', { name: /add item/i });
+    action.focus();
+    await expect(action).toHaveFocus();
   },
 };

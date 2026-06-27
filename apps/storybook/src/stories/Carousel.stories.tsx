@@ -18,6 +18,7 @@ const meta = {
     fade: { control: 'boolean' },
     loop: { control: 'boolean' },
     indicatorVariant: { control: 'select', options: ['dots', 'numbers'] },
+    variant: { control: 'select', options: ['flat', 'edge-fade', 'media-overlay', 'elevated'] },
   },
 } satisfies Meta<typeof Carousel>;
 
@@ -215,5 +216,142 @@ export const NumberIndicator: Story = {
     const activeBadge = canvasElement.querySelector('[data-bbangto-carousel-number="active"]') as HTMLElement | null;
     const style = getComputedStyle(activeBadge!);
     await expect(style.backgroundColor).not.toBe('');
+  },
+};
+
+// ──────────────────────────────────────────────
+// New stories: variant axis (edge-fade / media-overlay / elevated)
+// ──────────────────────────────────────────────
+
+export const EdgeFade: Story = {
+  name: 'Variant / Edge Fade',
+  args: {
+    variant: 'edge-fade',
+    children: [
+      <Slide key="one" tone="var(--bbangto-semantic-background-elevated)">Edge slide 1</Slide>,
+      <Slide key="two" tone="var(--bbangto-semantic-primary-subtle)">Edge slide 2</Slide>,
+      <Slide key="three" tone="var(--bbangto-semantic-warning-subtle)">Edge slide 3</Slide>,
+    ],
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    // 1. data-attr hook
+    const root = canvasElement.querySelector('[data-bbangto-carousel-variant]') as HTMLElement | null;
+    await expect(root).not.toBeNull();
+    await expect(root!.getAttribute('data-bbangto-carousel-variant')).toBe('edge-fade');
+
+    // 2. load-bearing style: track carries a mask-image gradient (not tautological)
+    const track = canvasElement.querySelector('[data-bbangto-carousel-track]') as HTMLElement | null;
+    const cs = getComputedStyle(track!);
+    const mask = cs.maskImage || (cs as unknown as { webkitMaskImage?: string }).webkitMaskImage || '';
+    await expect(mask).toContain('gradient');
+
+    // 3. a11y contract preserved + content slot + keyboard navigation
+    const region = canvas.getByRole('region');
+    await expect(region).toHaveAttribute('aria-roledescription', 'carousel');
+    await expect(canvas.getByText('Edge slide 1')).toBeVisible();
+    const next = canvas.getByRole('button', { name: 'Next slide' });
+    next.focus();
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(canvas.getByRole('button', { name: 'Go to slide 2' })).toHaveAttribute(
+      'data-bbangto-carousel-dot',
+      'active',
+    );
+  },
+};
+
+const MediaSlide = ({ label }: { label: string }) => (
+  <div style={{ position: 'relative', width: '100%', height: '100%', minHeight: 'inherit' }}>
+    <img
+      src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100' height='100' fill='%23888888'/%3E%3C/svg%3E"
+      alt=""
+      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+    />
+    <div
+      style={{
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 1,
+        padding: 'var(--bbangto-spacing-16)',
+        color: 'var(--bbangto-semantic-foreground-inverse)',
+        fontFamily: 'var(--bbangto-typography-font-family-sans)',
+      }}
+    >
+      {label}
+    </div>
+  </div>
+);
+
+export const MediaOverlay: Story = {
+  name: 'Variant / Media Overlay',
+  args: {
+    variant: 'media-overlay',
+    children: [
+      <MediaSlide key="one" label="Overlay caption 1" />,
+      <MediaSlide key="two" label="Overlay caption 2" />,
+      <MediaSlide key="three" label="Overlay caption 3" />,
+    ],
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    // 1. data-attr hook
+    const root = canvasElement.querySelector('[data-bbangto-carousel-variant]') as HTMLElement | null;
+    await expect(root!.getAttribute('data-bbangto-carousel-variant')).toBe('media-overlay');
+
+    // 2. load-bearing style: scrim is an absolutely-positioned gradient; slide is a
+    //    positioned (relative) bleed container.
+    const scrim = canvasElement.querySelector('[data-bbangto-carousel-scrim]') as HTMLElement | null;
+    await expect(scrim).not.toBeNull();
+    const scrimCs = getComputedStyle(scrim!);
+    await expect(scrimCs.backgroundImage).toContain('gradient');
+    await expect(scrimCs.position).toBe('absolute');
+    const slide = canvasElement.querySelector('[data-bbangto-carousel-slide]') as HTMLElement | null;
+    await expect(getComputedStyle(slide!).position).toBe('relative');
+
+    // 3. a11y contract preserved + content slot
+    const region = canvas.getByRole('region');
+    await expect(region).toHaveAttribute('aria-roledescription', 'carousel');
+    await expect(canvas.getByText('Overlay caption 1')).toBeVisible();
+  },
+};
+
+export const Elevated: Story = {
+  name: 'Variant / Elevated',
+  args: {
+    variant: 'elevated',
+    children: [
+      <Slide key="one" tone="var(--bbangto-semantic-background-elevated)">Lifted card 1</Slide>,
+      <Slide key="two" tone="var(--bbangto-semantic-primary-subtle)">Lifted card 2</Slide>,
+      <Slide key="three" tone="var(--bbangto-semantic-success-subtle)">Lifted card 3</Slide>,
+    ],
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    // 1. data-attr hook
+    const root = canvasElement.querySelector('[data-bbangto-carousel-variant]') as HTMLElement | null;
+    await expect(root!.getAttribute('data-bbangto-carousel-variant')).toBe('elevated');
+
+    // 2. load-bearing style: slide cards carry a box-shadow elevation AND a filled
+    //    (non-transparent) background.
+    const slide = canvasElement.querySelector('[data-bbangto-carousel-slide]') as HTMLElement | null;
+    const cs = getComputedStyle(slide!);
+    await expect(cs.boxShadow).not.toBe('none');
+    await expect(cs.boxShadow).not.toBe('');
+    await expect(cs.backgroundColor).not.toBe('rgba(0, 0, 0, 0)');
+    await expect(cs.backgroundColor).not.toBe('transparent');
+
+    // 3. a11y contract preserved + content slot + keyboard navigation
+    const region = canvas.getByRole('region');
+    await expect(region).toHaveAttribute('aria-roledescription', 'carousel');
+    await expect(canvas.getByText('Lifted card 1')).toBeVisible();
+    const next = canvas.getByRole('button', { name: 'Next slide' });
+    next.focus();
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(canvas.getByRole('button', { name: 'Go to slide 2' })).toHaveAttribute(
+      'data-bbangto-carousel-dot',
+      'active',
+    );
   },
 };

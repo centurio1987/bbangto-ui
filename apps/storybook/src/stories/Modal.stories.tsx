@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Modal, Button } from '@centurio1987/core';
-import { expect, userEvent, waitFor, within } from 'storybook/test';
+import { expect, fireEvent, userEvent, waitFor, within } from 'storybook/test';
 
 const meta = {
   title: 'Organisms/Modal',
@@ -13,7 +13,7 @@ const meta = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['popup', 'full', 'bottom-sheet'],
+      options: ['popup', 'full', 'bottom-sheet', 'side-sheet'],
     },
     size: {
       control: 'select',
@@ -295,6 +295,68 @@ export const NoOverlayClose: Story = {
     // X 버튼으로는 닫힘
     const closeBtn = canvas.getByRole('button', { name: /Close modal/i });
     await userEvent.click(closeBtn);
+    await waitFor(() => expect(canvas.queryByRole('dialog')).toBeNull());
+  },
+};
+
+/**
+ * variant="side-sheet" — inline-end(우측) 뷰포트 엣지에 도킹되는 사이드 시트.
+ * 전체 높이(block-size:100vh) + max-inline-size 토큰으로 폭 제한 + translateX 진입.
+ * bottom-sheet(block-end 도킹, full inline-size, translateY)와 앵커·슬라이드 축이 다르다.
+ */
+export const SideSheet: Story = {
+  name: 'Side Sheet',
+  render: (args) => {
+    const [isOpen, setIsOpen] = useState(false);
+    return (
+      <>
+        <Button onClick={() => setIsOpen(true)}>Open Side Sheet</Button>
+        <Modal
+          {...args}
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          title="Filters"
+          variant="side-sheet"
+          size="sm"
+        >
+          <p>Apply filters to narrow the result list.</p>
+        </Modal>
+      </>
+    );
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = await canvas.findByRole('button', { name: /Open Side Sheet/i });
+    await userEvent.click(trigger);
+
+    const dialog = await canvas.findByRole('dialog');
+    await waitFor(() => expect(dialog).toBeVisible());
+
+    // ① data-attr 훅 검증
+    const root = canvasElement.querySelector('[data-bbangto-dialog-variant]');
+    await expect(root).not.toBeNull();
+    await expect(root).toHaveAttribute('data-bbangto-dialog-variant', 'side-sheet');
+    await expect(root).toBe(dialog);
+
+    // ② load-bearing 스타일: 슬라이드 축이 X(translateX) — bottom-sheet의 Y축과 구분되는 핵심.
+    await waitFor(() => {
+      const cs = getComputedStyle(dialog);
+      expect(cs.getPropertyValue('--bbangto-slide-x').trim()).toBe('100%');
+      expect(cs.getPropertyValue('--bbangto-slide-y').trim()).toBe('0');
+    });
+    // inline-size가 max-inline-size 토큰(sm)으로 제한됨 — full-width 아님.
+    await expect(dialog.style.maxWidth).toBe('320px');
+    // 루트가 inline-end(우측) 엣지에 도킹됨 (popup/bottom-sheet의 center와 구분).
+    const overlay = dialog.parentElement as HTMLElement;
+    await expect(getComputedStyle(overlay).justifyContent).toBe('flex-end');
+
+    // ③ 콘텐츠 슬롯 렌더 + a11y 계약 유지
+    await expect(dialog).toHaveAttribute('aria-modal', 'true');
+    await expect(canvas.getByRole('heading', { name: /Filters/i })).toBeVisible();
+    await expect(canvas.getByText(/Apply filters to narrow the result list/i)).toBeVisible();
+
+    // 키보드 계약: Escape 로 닫힘 (focus trap + Esc 유지 확인)
+    fireEvent.keyDown(dialog, { key: 'Escape' });
     await waitFor(() => expect(canvas.queryByRole('dialog')).toBeNull());
   },
 };

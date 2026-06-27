@@ -3,6 +3,14 @@ import { cssVar } from '@centurio1987/tokens';
 
 export type CarouselSize = 'sm' | 'md' | 'lg';
 export type CarouselIndicatorVariant = 'dots' | 'numbers';
+/**
+ * Visual treatment of the track/slides.
+ * - `flat`          (default) legacy render: plain single track, no extra chrome.
+ * - `edge-fade`     borderless continuous track with a left/right mask fade.
+ * - `media-overlay` full-bleed media slides with a bottom readability scrim.
+ * - `elevated`      filled slide cards lifted with a box-shadow elevation.
+ */
+export type CarouselVariant = 'flat' | 'edge-fade' | 'media-overlay' | 'elevated';
 
 export interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode[];
@@ -18,6 +26,8 @@ export interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
   loop?: boolean;
   /** Visual style of the pagination indicator. @default 'dots' */
   indicatorVariant?: CarouselIndicatorVariant;
+  /** Visual treatment of the track/slides. @default 'flat' */
+  variant?: CarouselVariant;
 }
 
 const SLIDE_HEIGHT: Record<CarouselSize, string> = {
@@ -37,7 +47,9 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
     fade = false,
     loop = true,
     indicatorVariant = 'dots',
+    variant = 'flat',
     style,
+    onKeyDown,
     onMouseEnter,
     onMouseLeave,
     onFocus,
@@ -117,6 +129,49 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
             flexShrink: 0,
             minHeight: SLIDE_HEIGHT[size],
           };
+
+    // --- Variant chrome (default 'flat' adds nothing, so legacy render is untouched) ---
+    // edge-fade: mask the track so its left/right edges dissolve. mask-image only
+    // reads alpha, so the opaque stops are composed from an opaque color token.
+    const edgeFadeMask =
+      variant === 'edge-fade'
+        ? (() => {
+            const opaque = cssVar('semantic', 'foreground', 'base');
+            return `linear-gradient(to right, transparent 0%, ${opaque} 8%, ${opaque} 92%, transparent 100%)`;
+          })()
+        : undefined;
+
+    const variantTrackStyle: React.CSSProperties = edgeFadeMask
+      ? { maskImage: edgeFadeMask, WebkitMaskImage: edgeFadeMask }
+      : {};
+
+    const variantSlideStyle: React.CSSProperties =
+      variant === 'edge-fade'
+        ? { border: 'none' }
+        : variant === 'media-overlay'
+          ? { position: 'relative', overflow: 'hidden', border: 'none' }
+          : variant === 'elevated'
+            ? {
+                backgroundColor: cssVar('semantic', 'background', 'elevated'),
+                boxShadow: cssVar('shadow', 'lg'),
+                borderRadius: cssVar('radius', 'md'),
+                overflow: 'hidden',
+              }
+            : {};
+
+    // Bottom scrim for media-overlay: a vertical gradient from an opaque color
+    // token (dimmed) up to transparent, giving panels readable contrast over media.
+    const scrimStyle: React.CSSProperties = {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      bottom: 0,
+      height: '55%',
+      zIndex: 0,
+      pointerEvents: 'none',
+      opacity: 0.6,
+      backgroundImage: `linear-gradient(to top, ${cssVar('semantic', 'foreground', 'base')} 0%, transparent 100%)`,
+    };
 
     const arrowStyle = (direction: 'left' | 'right'): React.CSSProperties => ({
       position: 'absolute',
@@ -208,10 +263,24 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
     return (
       <div
         ref={ref}
+        role="region"
+        aria-roledescription="carousel"
+        aria-label="Carousel"
         data-bbangto-carousel-size={size}
         data-bbangto-carousel-fade={fade ? 'true' : undefined}
+        data-bbangto-carousel-variant={variant}
         style={containerStyle}
         {...props}
+        onKeyDown={(event) => {
+          if (count > 1) {
+            if (event.key === 'ArrowLeft') {
+              prevSlide();
+            } else if (event.key === 'ArrowRight') {
+              nextSlide();
+            }
+          }
+          onKeyDown?.(event);
+        }}
         onMouseEnter={(event) => {
           setIsPaused(true);
           onMouseEnter?.(event);
@@ -258,10 +327,18 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
           onPointerCancel?.(event);
         }}
       >
-        <div data-bbangto-carousel-track style={trackStyle}>
+        <div data-bbangto-carousel-track style={{ ...trackStyle, ...variantTrackStyle }}>
           {React.Children.map(children, (child, idx) => (
-            <div key={idx} style={slideBaseStyle(idx)} aria-hidden={idx !== currentIndex}>
+            <div
+              key={idx}
+              data-bbangto-carousel-slide
+              style={{ ...slideBaseStyle(idx), ...variantSlideStyle }}
+              aria-hidden={idx !== currentIndex}
+            >
               {child}
+              {variant === 'media-overlay' && (
+                <div data-bbangto-carousel-scrim style={scrimStyle} aria-hidden="true" />
+              )}
             </div>
           ))}
         </div>

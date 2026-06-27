@@ -12,6 +12,7 @@ const meta = {
   argTypes: {
     severity: { control: 'select', options: ['neutral', 'info', 'success', 'error', 'warning'] },
     placement: { control: 'select', options: ['bottom-center', 'bottom-left', 'bottom-right', 'top-center'] },
+    variant: { control: 'select', options: ['standard', 'pixel', 'elevated'] },
   },
 } satisfies Meta<typeof Snackbar>;
 
@@ -241,5 +242,87 @@ export const PlacementBottomLeft: Story = {
     const el = await canvas.findByRole('alert');
     await waitFor(() => expect(el).toBeVisible());
     await expect(canvas.getByText('Aligned to bottom-left')).toBeVisible();
+  },
+};
+
+// ─── New: variant (surface chrome) ───────────────────────────────────────────
+
+export const Pixel: Story = {
+  name: 'Variant / Pixel',
+  args: {
+    message: 'Achievement unlocked',
+    variant: 'pixel',
+    duration: 0,
+  },
+  render: (args) => (
+    <div style={{ position: 'relative', height: '100px' }}>
+      <Snackbar {...args} style={{ position: 'absolute', bottom: 0, left: '50%', transform: 'translateX(-50%)' }} />
+    </div>
+  ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    // 1. data-attr hook reflects the variant
+    const root = canvasElement.querySelector('[data-bbangto-notification-variant]');
+    await expect(root).not.toBeNull();
+    await expect(root!.getAttribute('data-bbangto-notification-variant')).toBe('pixel');
+    // 2. load-bearing chrome: radius collapsed to 0 + stepped (multi-offset) box-shadow
+    const el = await canvas.findByRole('alert');
+    await waitFor(() => expect(el).toBeVisible());
+    const style = getComputedStyle(el);
+    await expect(style.borderTopLeftRadius).toBe('0px');
+    await expect(style.boxShadow).not.toBe('none');
+    // multiple shadow layers → at least two "0px 0px" hard-edge steps (zero blur)
+    await expect((style.boxShadow.match(/0px 0px/g) ?? []).length).toBeGreaterThan(1);
+    // a11y contract preserved
+    await expect(el.getAttribute('aria-live')).toBe('assertive');
+    // 3. content slot renders
+    await expect(canvas.getByText('Achievement unlocked')).toBeVisible();
+  },
+};
+
+export const Elevated: Story = {
+  name: 'Variant / Elevated',
+  args: {
+    message: 'Synced across devices',
+    variant: 'elevated',
+    actionText: 'Details',
+    duration: 0,
+  },
+  render: (args) => (
+    <div style={{ position: 'relative', height: '100px' }}>
+      <Snackbar {...args} style={{ position: 'absolute', bottom: 0, left: '50%', transform: 'translateX(-50%)' }} />
+    </div>
+  ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    // 1. data-attr hook reflects the variant
+    const root = canvasElement.querySelector('[data-bbangto-notification-variant]');
+    await expect(root).not.toBeNull();
+    await expect(root!.getAttribute('data-bbangto-notification-variant')).toBe('elevated');
+    // 2. load-bearing chrome: outline dropped (border:none) + layered drop-shadow
+    const el = await canvas.findByRole('alert');
+    await waitFor(() => expect(el).toBeVisible());
+    const style = getComputedStyle(el);
+    await expect(style.borderStyle).toBe('none');
+    await expect(style.boxShadow).not.toBe('none');
+    // multiple stacked elevation layers → more than one top-level shadow.
+    // Count comma separators outside parens (robust to rgba()/hex color formats).
+    const countLayers = (s: string) => {
+      let depth = 0;
+      let layers = 1;
+      for (const ch of s) {
+        if (ch === '(') depth++;
+        else if (ch === ')') depth--;
+        else if (ch === ',' && depth === 0) layers++;
+      }
+      return layers;
+    };
+    await expect(countLayers(style.boxShadow)).toBeGreaterThan(1);
+    // a11y contract preserved
+    await expect(el.getAttribute('role')).toBe('alert');
+    await expect(el.getAttribute('aria-live')).toBe('assertive');
+    // 3. content + action slots render
+    await expect(canvas.getByText('Synced across devices')).toBeVisible();
+    await expect(canvas.getByText('Details')).toBeVisible();
   },
 };

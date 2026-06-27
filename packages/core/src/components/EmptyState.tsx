@@ -3,6 +3,15 @@ import { cssVar } from '@centurio1987/tokens';
 
 export type EmptyStateSize = 'sm' | 'md' | 'lg';
 export type EmptyStateAlign = 'center' | 'start';
+/**
+ * Chrome treatment for the empty-state panel. `plain` (default-first) keeps the
+ * original chrome-less render untouched. The remaining members frame the
+ * centered stack differently:
+ * - `gradient`: multi-stop gradient fill, no border, inverse-friendly text.
+ * - `outlined`: 1px token border + radius, no fill/elevation (pure outline).
+ * - `pixel`: zero radius + stepped hard (blur-0) shadow, retro 8-bit border.
+ */
+export type EmptyStateVariant = 'plain' | 'gradient' | 'outlined' | 'pixel';
 
 export interface EmptyStateProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
   icon?: React.ReactNode;
@@ -13,6 +22,8 @@ export interface EmptyStateProps extends Omit<React.HTMLAttributes<HTMLDivElemen
   size?: EmptyStateSize;
   /** Text and icon alignment. Defaults to 'center'. */
   align?: EmptyStateAlign;
+  /** Panel chrome treatment. Defaults to 'plain' (original chrome-less render). */
+  variant?: EmptyStateVariant;
   /** When true, renders a loading skeleton instead of content. */
   loading?: boolean;
 }
@@ -72,6 +83,7 @@ export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
       action,
       size = 'md',
       align = 'center',
+      variant = 'plain',
       loading = false,
       style,
       className,
@@ -81,6 +93,40 @@ export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
   ) => {
     const isStart = align === 'start';
 
+    // Variant chrome. `plain` adds nothing so the legacy render is byte-identical.
+    // Each extra member is composed exclusively from existing tokens; text colors
+    // are overridden only where the panel fill would otherwise harm contrast.
+    let variantStyle: React.CSSProperties = {};
+    let titleColor = cssVar('semantic', 'foreground', 'base');
+    let descColor = cssVar('semantic', 'foreground', 'muted');
+
+    if (variant === 'gradient') {
+      // Multi-stop gradient fill, no border. A flat backgroundColor cannot
+      // express this, so the gradient is synthesized from the primary scale.
+      variantStyle = {
+        backgroundImage: `linear-gradient(135deg, ${cssVar('semantic', 'primary', 'base')} 0%, ${cssVar('semantic', 'primary', 'hover')} 60%, ${cssVar('semantic', 'primary', 'active')} 100%)`,
+        border: 'none',
+        borderRadius: cssVar('radius', 'lg'),
+      };
+      titleColor = cssVar('semantic', 'primary', 'foreground');
+      descColor = cssVar('semantic', 'primary', 'foreground');
+    } else if (variant === 'outlined') {
+      // Pure outline: 1px token border + radius, no fill, no elevation.
+      variantStyle = {
+        backgroundColor: 'transparent',
+        border: `1px solid ${cssVar('semantic', 'border', 'base')}`,
+        borderRadius: cssVar('radius', 'lg'),
+      };
+    } else if (variant === 'pixel') {
+      // Retro 8-bit chrome: zero radius + stepped hard (blur-0) box shadows.
+      variantStyle = {
+        backgroundColor: cssVar('semantic', 'background', 'base'),
+        border: `2px solid ${cssVar('semantic', 'border', 'strong')}`,
+        borderRadius: cssVar('radius', 'none'),
+        boxShadow: `4px 4px 0 0 ${cssVar('semantic', 'border', 'strong')}, 8px 8px 0 0 ${cssVar('semantic', 'border', 'muted')}`,
+      };
+    }
+
     const containerStyle: React.CSSProperties = {
       display: 'flex',
       flexDirection: 'column',
@@ -89,6 +135,7 @@ export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
       padding: `${PADDING_Y[size]} ${PADDING_X[size]}`,
       textAlign: isStart ? 'start' : 'center',
       fontFamily: cssVar('typography', 'fontFamily', 'sans'),
+      ...variantStyle,
       ...style,
     };
 
@@ -100,13 +147,13 @@ export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
     const titleStyle: React.CSSProperties = {
       fontSize: TITLE_FONT_SIZE[size],
       fontWeight: 'bold',
-      color: cssVar('semantic', 'foreground', 'base'),
+      color: titleColor,
       marginBottom: cssVar('spacing', '8'),
     };
 
     const descriptionStyle: React.CSSProperties = {
       fontSize: cssVar('typography', 'scale', 'body', 'fontSize'),
-      color: cssVar('semantic', 'foreground', 'muted'),
+      color: descColor,
       marginBottom: action ? cssVar('spacing', '24') : 0,
       maxWidth: '400px',
     };
@@ -118,6 +165,7 @@ export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
           style={containerStyle}
           className={className}
           data-empty-state
+          data-bbangto-empty-state-variant={variant}
           {...props}
         >
           <div
@@ -154,6 +202,7 @@ export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
         style={containerStyle}
         className={className}
         data-empty-state
+        data-bbangto-empty-state-variant={variant}
         {...props}
       >
         {icon && <div style={iconContainerStyle}>{icon}</div>}
