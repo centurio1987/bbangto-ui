@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { cssVar } from '@centurio1987/tokens';
+import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 
 export type PopoverSize = 'sm' | 'md' | 'lg';
 /**

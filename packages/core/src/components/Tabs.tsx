@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
-import { cssVar } from '@centurio1987/tokens';
+import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 
 // --- Types ---
 export type TabsVariant = 'underline' | 'pill' | 'enclosed' | 'segmented';

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Text } from '@centurio1987/core';
+import { Text } from '@centurio1987/bbangto-ui-core';
 
 const meta = {
   title: 'Atoms/Text',

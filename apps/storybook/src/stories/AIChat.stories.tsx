@@ -1,8 +1,8 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { AIChat } from '@centurio1987/core';
+import { AIChat } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within, waitFor, fn } from 'storybook/test';
-import type { AIChatMessage } from '@centurio1987/core';
+import type { AIChatMessage } from '@centurio1987/bbangto-ui-core';
 
 const sampleMessages: AIChatMessage[] = [
   { id: '1', role: 'system', content: 'Conversation started' },

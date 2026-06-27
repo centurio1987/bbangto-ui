@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { cssVar, breakpoints } from '@centurio1987/tokens';
+import { cssVar, breakpoints } from '@centurio1987/bbangto-ui-tokens';
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 

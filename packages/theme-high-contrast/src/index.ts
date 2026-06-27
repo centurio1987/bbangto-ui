@@ -1,1 +1,0 @@
-export { highContrastTheme } from './theme';

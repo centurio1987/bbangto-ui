@@ -9,7 +9,7 @@ import {
   GlobalBanner,
   SectionHeader,
   Chip
-} from '@centurio1987/core';
+} from '@centurio1987/bbangto-ui-core';
 
 const meta = {
   title: 'Templates/LandingPage',

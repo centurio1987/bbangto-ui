@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Sidebar, SidebarItem, SidebarGroup } from '@centurio1987/core';
+import { Sidebar, SidebarItem, SidebarGroup } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within, waitFor } from 'storybook/test';
 
 // ─── Minimal icon components (no external deps) ──────────────────────────────

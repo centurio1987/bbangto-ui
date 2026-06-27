@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { BottomNavigation, BottomNavigationItem } from '@centurio1987/core';
+import { BottomNavigation, BottomNavigationItem } from '@centurio1987/bbangto-ui-core';
 
 const meta = {
   title: 'Organisms/BottomNavigation',

@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { within, expect } from 'storybook/test'
 import React from 'react'
-import { ThemeProvider } from '@centurio1987/core'
-import { themeMap } from '@centurio1987/themes-external'
-import type { BbangtoTheme } from '@centurio1987/tokens'
+import { ThemeProvider } from '@centurio1987/bbangto-ui-core'
+import { themeMap } from '@centurio1987/bbangto-ui-themes'
+import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
 
 // ──────────────────────────────────────────
 // ColorSwatch helper

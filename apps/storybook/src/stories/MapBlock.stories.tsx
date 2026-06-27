@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { MapBlock } from '@centurio1987/core';
+import { MapBlock } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within } from 'storybook/test';
 
 const collectStyles = (root: HTMLElement): string =>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { cssVar } from '@centurio1987/tokens';
+import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 
 export type SliderSize = 'sm' | 'md' | 'lg';
 export type SliderColor = 'primary' | 'error' | 'success' | 'warning';

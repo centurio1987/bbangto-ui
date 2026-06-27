@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { SignIn } from '@centurio1987/core';
+import { SignIn } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within, waitFor, fn } from 'storybook/test';
 
 const meta = {

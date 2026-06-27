@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { ParticleField } from '@centurio1987/core';
+import { ParticleField } from '@centurio1987/bbangto-ui-core';
 import { expect, within } from 'storybook/test';
 
 /**

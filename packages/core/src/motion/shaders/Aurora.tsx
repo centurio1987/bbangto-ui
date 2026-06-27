@@ -1,5 +1,5 @@
 import React from 'react';
-import { cssVar } from '@centurio1987/tokens';
+import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 
 export interface AuroraProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Band colors. Defaults to semantic primary/warning/success subtle tokens. */

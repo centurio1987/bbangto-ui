@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { cssVar } from '@centurio1987/tokens';
+import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 import { Table, TableHead, TableBody, TableRow, TableHeader, TableCell } from './Table';
 import { Pagination } from './Pagination';
 

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { cssVar } from '@centurio1987/tokens';
+import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 import { KEYFRAME_NAMES, SLIDE_VARS, useAnimatedMount } from '../motion';
 
 export interface DrawerProps extends React.HTMLAttributes<HTMLDivElement> {

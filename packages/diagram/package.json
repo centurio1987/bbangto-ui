@@ -1,6 +1,6 @@
 {
-  "name": "@centurio1987/diagram",
-  "version": "0.1.0",
+  "name": "@centurio1987/bbangto-ui-diagram",
+  "version": "0.2.0",
   "description": "Diagram + System Architecture Design System for bbangto-ui",
   "type": "module",
   "main": "./dist/index.js",
@@ -21,7 +21,7 @@
     "dev": "tsup --watch"
   },
   "dependencies": {
-    "@centurio1987/tokens": "workspace:*"
+    "@centurio1987/bbangto-ui-tokens": "workspace:*"
   },
   "peerDependencies": {
     "react": "^18.2.0 || ^19.0.0",

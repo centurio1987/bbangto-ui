@@ -1,0 +1,40 @@
+{
+  "name": "@centurio1987/bbangto-ui-themes",
+  "version": "0.2.0",
+  "description": "All themes for bbangto-ui — built-in (light/dark/high-contrast/amber) + 74 brand presets",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./catalog": "./src/catalog.json"
+  },
+  "files": [
+    "dist",
+    "src/catalog.json"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "dev": "tsup --watch"
+  },
+  "dependencies": {
+    "@centurio1987/bbangto-ui-tokens": "workspace:*"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.7.0"
+  },
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/centurio1987/bbangto-ui.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
+}

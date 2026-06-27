@@ -1,5 +1,5 @@
 import React from 'react';
-import { cssVar } from '@centurio1987/tokens';
+import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 import { Spinner } from '../motion/Spinner';
 
 export type InputSize = 'sm' | 'md' | 'lg';

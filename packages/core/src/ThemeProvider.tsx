@@ -4,8 +4,8 @@ import {
   themeToStyleObject,
   mergeTheme,
   ThemeOverride,
-} from '@centurio1987/tokens';
-import { lightTheme } from '@centurio1987/theme-light';
+} from '@centurio1987/bbangto-ui-tokens';
+import { lightTheme } from '@centurio1987/bbangto-ui-themes';
 import { useMotionKeyframes } from './motion/keyframes';
 
 interface ThemeContextValue {

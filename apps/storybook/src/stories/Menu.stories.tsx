@@ -7,7 +7,7 @@ import {
   MenuSeparator,
   DropdownMenu,
   Button,
-} from '@centurio1987/core';
+} from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within, waitFor } from 'storybook/test';
 
 const meta = {
