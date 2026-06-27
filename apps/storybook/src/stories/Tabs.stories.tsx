@@ -12,7 +12,7 @@ const meta = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['underline', 'pill', 'enclosed'],
+      options: ['underline', 'pill', 'enclosed', 'segmented'],
     },
     size: {
       control: 'select',
@@ -130,6 +130,65 @@ export const EnclosedVariant: Story = {
     await userEvent.click(settingsTab);
     const panel = await canvas.findByRole('tabpanel');
     await expect(panel).toHaveTextContent('Settings content — enclosed style.');
+  },
+};
+
+// ─── New: Segmented variant ─────────────────────────────────────────────────
+
+export const SegmentedVariant: Story = {
+  render: () => (
+    <Tabs defaultValue="overview" variant="segmented" style={{ maxWidth: 520 }}>
+      <TabsList>
+        <TabsTrigger value="overview">Overview</TabsTrigger>
+        <TabsTrigger value="analytics">Analytics</TabsTrigger>
+        <TabsTrigger value="settings">Settings</TabsTrigger>
+      </TabsList>
+      <TabsContent value="overview">Overview content — segmented style.</TabsContent>
+      <TabsContent value="analytics">Analytics content — segmented style.</TabsContent>
+      <TabsContent value="settings">Settings content — segmented style.</TabsContent>
+    </Tabs>
+  ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // ① data-attr hook on the tablist
+    const list = canvasElement.querySelector('[role="tablist"]') as HTMLElement;
+    await expect(list.dataset.bbangtoTabsVariant).toBe('segmented');
+
+    // ② load-bearing chrome: a single rounded outer border wraps the group
+    //    (distinguishes segmented from pill's border-less bg + gap, and from
+    //    underline's bottom-rule-only list).
+    const listStyle = getComputedStyle(list);
+    await expect(listStyle.borderTopStyle).toBe('solid');
+    await expect(parseFloat(listStyle.borderTopLeftRadius)).toBeGreaterThan(0);
+    // No underline sliding indicator for this variant.
+    await expect(canvasElement.querySelector('[data-bbangto-tabs-indicator]')).toBeNull();
+
+    // Between-cell divider: the non-first cell carries a leading border.
+    const triggers = canvasElement.querySelectorAll('[data-bbangto-tab-trigger]');
+    await expect(getComputedStyle(triggers[1] as HTMLElement).borderLeftStyle).toBe('solid');
+
+    // Only the active cell paints a fill; the track/inactive cell is transparent.
+    const overviewTab = await canvas.findByRole('tab', { name: 'Overview' });
+    await expect(overviewTab).toHaveAttribute('aria-selected', 'true');
+    const activeBg = getComputedStyle(overviewTab).backgroundColor;
+    await expect(activeBg).not.toBe('rgba(0, 0, 0, 0)');
+    await expect(activeBg).not.toBe('transparent');
+    const analyticsTab = await canvas.findByRole('tab', { name: 'Analytics' });
+    await expect(['rgba(0, 0, 0, 0)', 'transparent']).toContain(
+      getComputedStyle(analyticsTab).backgroundColor,
+    );
+
+    // a11y contract maintained: role=tab + aria-selected + keyboard activation.
+    analyticsTab.focus();
+    await expect(analyticsTab).toHaveFocus();
+    await userEvent.keyboard('{Enter}');
+    await expect(analyticsTab).toHaveAttribute('aria-selected', 'true');
+    await expect(overviewTab).toHaveAttribute('aria-selected', 'false');
+
+    // ③ content slot renders for the now-active tab
+    const panel = await canvas.findByRole('tabpanel');
+    await expect(panel).toHaveTextContent('Analytics content — segmented style.');
   },
 };
 

@@ -17,7 +17,7 @@ const meta = {
     },
     variant: {
       control: 'select',
-      options: ['dark', 'light', 'error'],
+      options: ['dark', 'light', 'error', 'elevated'],
     },
     size: {
       control: 'select',
@@ -123,6 +123,49 @@ export const VariantError: Story = {
     await expect(tooltip).toBeVisible();
     await expect(tooltip).toHaveTextContent('Something went wrong');
     await userEvent.unhover(trigger);
+  },
+};
+
+export const Elevated: Story = {
+  name: 'Variant / Elevated',
+  args: {
+    content: 'Elevated tooltip',
+    children: <Button>Hover for elevated</Button>,
+    variant: 'elevated',
+    position: 'top',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // (3) content slot renders + a11y trigger
+    const trigger = await canvas.findByRole('button', { name: /hover for elevated/i });
+    await expect(trigger).toBeVisible();
+
+    // (1) data-attr hook carries the variant value
+    const root = canvasElement.querySelector('[data-bbangto-tooltip-variant="elevated"]');
+    await expect(root).not.toBeNull();
+
+    // a11y contract: hover reveals the role=tooltip overlay
+    await userEvent.hover(trigger);
+    const tooltip = await canvas.findByRole('tooltip');
+    await expect(tooltip).toBeVisible();
+    await expect(tooltip).toHaveTextContent('Elevated tooltip');
+
+    // (2) load-bearing chrome: floating-card = drop-shadow elevation present AND
+    //     the hairline border removed (distinct from dark|light|error which keep
+    //     a solid 1px border with no shadow).
+    const style = getComputedStyle(tooltip);
+    await expect(style.boxShadow).not.toBe('none');
+    await expect(style.boxShadow).not.toBe('');
+    await expect(style.borderStyle).toBe('none');
+
+    await userEvent.unhover(trigger);
+
+    // a11y contract: focus/hover parity — keyboard focus also reveals the tooltip
+    trigger.focus();
+    const focusTooltip = await canvas.findByRole('tooltip');
+    await expect(focusTooltip).toBeVisible();
+    trigger.blur();
   },
 };
 

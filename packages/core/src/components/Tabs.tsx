@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useRef, useState } from 'r
 import { cssVar } from '@centurio1987/tokens';
 
 // --- Types ---
-export type TabsVariant = 'underline' | 'pill' | 'enclosed';
+export type TabsVariant = 'underline' | 'pill' | 'enclosed' | 'segmented';
 export type TabsSize = 'sm' | 'md' | 'lg';
 export type TabsOrientation = 'horizontal' | 'vertical';
 
@@ -152,6 +152,22 @@ export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
         backgroundColor: cssVar('semantic', 'background', 'sunken'),
         ...style,
       };
+    } else if (variant === 'segmented') {
+      // segmented: one outer hairline border + radius wrapping the whole
+      // group, a sunken track, and `overflow:hidden` so the equal-width
+      // rectangular cells clip to the rounded chrome. Cell dividers are drawn
+      // by each trigger's leading border (collapsed via a -1px margin), not by
+      // a per-cell box — that keeps it distinct from pill (gapped pills on a
+      // bare bg) and enclosed (per-tab open-bottom panels).
+      listStyle = {
+        display: 'inline-flex',
+        flexDirection: orientation === 'vertical' ? 'column' : 'row',
+        border: `1px solid ${cssVar('semantic', 'border', 'muted')}`,
+        borderRadius: cssVar('radius', 'md'),
+        backgroundColor: cssVar('semantic', 'background', 'sunken'),
+        overflow: 'hidden',
+        ...style,
+      };
     } else {
       // enclosed
       listStyle = {
@@ -226,7 +242,7 @@ export interface TabsTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonE
 
 export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>(
   ({ value, children, style, disabled, ...props }, ref) => {
-    const { value: selectedValue, onValueChange, variant, size } = useTabsContext();
+    const { value: selectedValue, onValueChange, variant, size, orientation } = useTabsContext();
     const isSelected = selectedValue === value;
     const isDisabled = disabled === true;
 
@@ -294,6 +310,41 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
           `background ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'default')}`,
           `color ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'default')}`,
           `box-shadow ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'default')}`,
+        ].join(', '),
+        ...style,
+      };
+    } else if (variant === 'segmented') {
+      // Equal-width rectangular cell. Only the active cell paints a `base`
+      // fill (the track itself stays sunken/transparent). The leading
+      // divider is a 1px border collapsed onto the previous cell with a -1px
+      // margin; the first cell's divider slides under the container border and
+      // is clipped by the list's `overflow:hidden`, so only between-cell
+      // dividers remain visible.
+      const divider = `1px solid ${cssVar('semantic', 'border', 'muted')}`;
+      triggerStyle = {
+        flex: '1 0 0%',
+        background: isSelected ? cssVar('semantic', 'background', 'base') : 'transparent',
+        border: 'none',
+        borderLeft: orientation === 'vertical' ? 'none' : divider,
+        borderTop: orientation === 'vertical' ? divider : 'none',
+        marginLeft: orientation === 'vertical' ? '0' : '-1px',
+        marginTop: orientation === 'vertical' ? '-1px' : '0',
+        borderRadius: '0',
+        cursor: isDisabled ? 'not-allowed' : 'pointer',
+        padding: `${paddingY} ${paddingX}`,
+        fontFamily: cssVar('typography', 'fontFamily', 'sans'),
+        fontSize,
+        fontWeight: isSelected ? 'bold' : 'normal',
+        textAlign: 'center',
+        color: isDisabled
+          ? cssVar('semantic', 'disabled', 'foreground')
+          : isSelected
+          ? cssVar('semantic', 'foreground', 'base')
+          : cssVar('semantic', 'foreground', 'muted'),
+        opacity: isDisabled ? 0.5 : 1,
+        transition: [
+          `background ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'default')}`,
+          `color ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'default')}`,
         ].join(', '),
         ...style,
       };

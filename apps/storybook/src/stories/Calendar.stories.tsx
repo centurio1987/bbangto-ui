@@ -15,6 +15,12 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+/** Aggregate every <style> tag's text so scoped @media rules can be asserted. */
+const collectStyleText = (root: HTMLElement) =>
+  Array.from(root.querySelectorAll('style'))
+    .map((s) => s.textContent ?? '')
+    .join('\n');
+
 // ── Default ─────────────────────────────────────────────────────────────────
 
 export const Default: Story = {
@@ -252,6 +258,118 @@ export const LayoutWeek: Story = {
     await expect(dayCells.length).toBe(7);
 
     // 클릭하면 여전히 선택 동작
+    const day15Btn = Array.from(dayCells).find(
+      (btn) => btn.textContent?.trim() === '15'
+    ) as HTMLButtonElement | undefined;
+    await expect(day15Btn).toBeTruthy();
+    await userEvent.click(day15Btn!);
+    await waitFor(() => {
+      expect(day15Btn!.getAttribute('aria-selected')).toBe('true');
+    });
+  },
+};
+
+// ── Fullscreen ────────────────────────────────────────────────────────────────
+
+export const Fullscreen: Story = {
+  name: 'Layout: fullscreen',
+  args: {
+    defaultValue: new Date(2025, 0, 15),
+    layout: 'fullscreen',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr 검증 — root layout=fullscreen
+    const root = canvasElement.querySelector('[data-bbangto-calendar-layout]') as HTMLElement;
+    await expect(root).toBeTruthy();
+    await expect(root.getAttribute('data-bbangto-calendar-layout')).toBe('fullscreen');
+
+    // 2. load-bearing: full-bleed surface strips the card chrome — the root
+    //    border is removed (default month layout has a solid border) and the
+    //    container lays out as a vertical flex column.
+    const rootStyle = getComputedStyle(root);
+    await expect(rootStyle.borderTopStyle).toBe('none');
+    await expect(rootStyle.display).toBe('flex');
+    await expect(rootStyle.flexDirection).toBe('column');
+
+    // top toolbar track present, separated from the grid by a bottom divider
+    const toolbar = canvasElement.querySelector('[data-bbangto-calendar-toolbar]') as HTMLElement;
+    await expect(toolbar).toBeTruthy();
+    await expect(getComputedStyle(toolbar).borderBottomStyle).toBe('solid');
+
+    // enlarged day cells become vertical content containers (default cells are
+    // centred pills — i.e. row-direction)
+    const dayCells = canvasElement.querySelectorAll('[role="gridcell"] button');
+    const day15Btn = Array.from(dayCells).find(
+      (btn) => btn.textContent?.trim() === '15'
+    ) as HTMLButtonElement | undefined;
+    await expect(day15Btn).toBeTruthy();
+    await expect(getComputedStyle(day15Btn!).flexDirection).toBe('column');
+
+    // 3. 콘텐츠 슬롯 렌더 — 각 날짜 셀이 stacked event-entry 호스트를 가진다
+    const eventSlots = canvasElement.querySelectorAll('[data-bbangto-calendar-events]');
+    await expect(eventSlots.length).toBeGreaterThan(0);
+    const grid = await canvas.findByRole('grid');
+    await expect(grid).toBeVisible();
+
+    // a11y/behavior 불변: 날짜 선택은 여전히 동작 (aria-selected 토글)
+    await userEvent.click(day15Btn!);
+    await waitFor(() => {
+      expect(day15Btn!.getAttribute('aria-selected')).toBe('true');
+    });
+
+    // 월 이동도 불변
+    const nextBtn = canvas.getByRole('button', { name: '다음 달' });
+    await userEvent.click(nextBtn);
+    await waitFor(() => {
+      expect(canvas.getByText(/February 2025/i)).toBeVisible();
+    });
+  },
+};
+
+// ── SchedulerSplit ────────────────────────────────────────────────────────────
+
+export const SchedulerSplit: Story = {
+  name: 'Layout: scheduler-split',
+  args: {
+    defaultValue: new Date(2025, 0, 15),
+    layout: 'scheduler-split',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr 검증
+    const root = canvasElement.querySelector('[data-bbangto-calendar-layout]') as HTMLElement;
+    await expect(root).toBeTruthy();
+    await expect(root.getAttribute('data-bbangto-calendar-layout')).toBe('scheduler-split');
+
+    // 2. load-bearing: 2-track grid (calendar | time-slots) declared via a
+    //    scoped @media rule at the lg breakpoint. Asserted on the aggregated
+    //    <style> text (viewport-independent) plus the wrapper's grid display.
+    const styleText = collectStyleText(canvasElement);
+    await expect(styleText).toContain('grid-template-columns: 1fr 240px');
+    const wrapper = canvasElement.querySelector('.bbangto-calendar-scheduler') as HTMLElement;
+    await expect(wrapper).toBeTruthy();
+    await expect(getComputedStyle(wrapper).display).toBe('grid');
+
+    // bordered card chrome retained on the root (unlike fullscreen)
+    await expect(getComputedStyle(root).borderTopStyle).toBe('solid');
+
+    // 3. 콘텐츠 슬롯 렌더 — 캘린더 옆 수직 time-slot 리스트
+    const list = await canvas.findByRole('list', { name: /time slots/i });
+    await expect(list).toBeVisible();
+    const items = within(list).getAllByRole('listitem');
+    await expect(items.length).toBeGreaterThan(1);
+
+    // time-slot 컬럼이 두 트랙을 가르는 좌측 디바이더를 가진다
+    const timeColumn = list.parentElement as HTMLElement;
+    await expect(getComputedStyle(timeColumn).borderLeftStyle).toBe('solid');
+
+    // a11y/behavior 불변: 월 그리드 + 날짜 선택 유지
+    const grid = await canvas.findByRole('grid');
+    await expect(grid).toBeVisible();
+    const dayCells = canvasElement.querySelectorAll('[role="gridcell"] button');
     const day15Btn = Array.from(dayCells).find(
       (btn) => btn.textContent?.trim() === '15'
     ) as HTMLButtonElement | undefined;

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Link } from '@centurio1987/core';
-import { expect, within } from 'storybook/test';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 
 const meta = {
   title: 'Atoms/Link',
@@ -10,7 +10,15 @@ const meta = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['default', 'muted', 'standalone', 'inline'],
+      options: [
+        'default',
+        'muted',
+        'standalone',
+        'inline',
+        'outline',
+        'solid',
+        'ghost',
+      ],
     },
     size: { control: 'select', options: ['sm', 'md', 'lg'] },
     underline: { control: 'select', options: ['always', 'hover', 'none'] },
@@ -84,4 +92,89 @@ export const Inline: Story = {
       text and stays underlined by default.
     </p>
   ),
+};
+
+export const Outline: Story = {
+  args: {
+    children: 'Bordered link',
+    href: '#outline',
+    variant: 'outline',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // 1. data-attr hook
+    const root = canvasElement.querySelector('[data-bbangto-link-variant]');
+    await expect(root?.getAttribute('data-bbangto-link-variant')).toBe(
+      'outline'
+    );
+    // 2. load-bearing chrome: a 1px solid border surface, no underline.
+    const style = getComputedStyle(root as HTMLElement);
+    await expect(style.borderTopStyle).toBe('solid');
+    await expect(style.borderTopWidth).toBe('1px');
+    await expect(style.textDecorationLine).toBe('none');
+    await expect((root as HTMLAnchorElement).style.backgroundColor).toBe(
+      'transparent'
+    );
+    // 3. content slot + a11y: stays a focusable link.
+    const link = await canvas.findByRole('link', { name: /bordered link/i });
+    await expect(link).toBeVisible();
+    await expect(link).toHaveAttribute('href', '#outline');
+    link.focus();
+    await expect(document.activeElement).toBe(link);
+  },
+};
+
+export const Solid: Story = {
+  args: {
+    children: 'Filled link',
+    href: '#solid',
+    variant: 'solid',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // 1. data-attr hook
+    const root = canvasElement.querySelector('[data-bbangto-link-variant]');
+    await expect(root?.getAttribute('data-bbangto-link-variant')).toBe('solid');
+    // 2. load-bearing chrome: solid accent fill at rest, no border, no underline.
+    const el = root as HTMLAnchorElement;
+    const style = getComputedStyle(el);
+    await expect(el.style.backgroundColor).toContain('primary');
+    await expect(style.borderTopStyle).toBe('none');
+    await expect(style.textDecorationLine).toBe('none');
+    // 3. content slot + a11y: stays a focusable link.
+    const link = await canvas.findByRole('link', { name: /filled link/i });
+    await expect(link).toBeVisible();
+    await expect(link).toHaveAttribute('href', '#solid');
+    link.focus();
+    await expect(document.activeElement).toBe(link);
+  },
+};
+
+export const Ghost: Story = {
+  args: {
+    children: 'Hover-fill link',
+    href: '#ghost',
+    variant: 'ghost',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // 1. data-attr hook
+    const root = canvasElement.querySelector('[data-bbangto-link-variant]');
+    await expect(root?.getAttribute('data-bbangto-link-variant')).toBe('ghost');
+    // 2. load-bearing chrome: transparent + no border at rest, fills on hover.
+    const el = root as HTMLAnchorElement;
+    const style = getComputedStyle(el);
+    await expect(style.borderTopStyle).toBe('none');
+    await expect(el.style.backgroundColor).toBe('transparent');
+    const link = await canvas.findByRole('link', { name: /hover-fill link/i });
+    await userEvent.hover(link);
+    await waitFor(async () => {
+      await expect(el.style.backgroundColor).toContain('sunken');
+    });
+    // 3. content slot + a11y: stays a focusable link.
+    await expect(link).toBeVisible();
+    await expect(link).toHaveAttribute('href', '#ghost');
+    link.focus();
+    await expect(document.activeElement).toBe(link);
+  },
 };

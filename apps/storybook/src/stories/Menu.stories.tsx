@@ -360,6 +360,138 @@ export const VariantFloating: Story = {
   },
 };
 
+// ─── Menu variant: dock ───────────────────────────────────────────────────────
+
+export const Dock: Story = {
+  render: () => (
+    <Menu variant="dock" style={{ minWidth: '320px' }}>
+      <MenuItem leftIcon={<span>🏠</span>} onSelect={() => {}}>Home</MenuItem>
+      <MenuItem leftIcon={<span>🔍</span>} onSelect={() => {}}>Search</MenuItem>
+      <MenuItem leftIcon={<span>🔔</span>} onSelect={() => {}}>Alerts</MenuItem>
+      <MenuItem leftIcon={<span>👤</span>} onSelect={() => {}}>Profile</MenuItem>
+    </Menu>
+  ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr on the menu root
+    const menu = await canvas.findByRole('menu');
+    await expect(menu).toHaveAttribute('data-bbangto-menu-variant', 'dock');
+
+    // 2. load-bearing: container is a horizontal flex track and each item slot
+    //    reflows to a stacked (column) cell — not the default horizontal row.
+    await waitFor(() => {
+      const menuStyle = getComputedStyle(menu);
+      expect(menuStyle.display).toBe('flex');
+      expect(menuStyle.flexDirection).toBe('row');
+      expect(menuStyle.justifyContent).toBe('space-between');
+
+      const firstItem = canvas.getAllByRole('menuitem')[0];
+      const itemStyle = getComputedStyle(firstItem);
+      expect(itemStyle.flexDirection).toBe('column');
+    });
+
+    // 3. content slot still renders
+    await expect(canvas.getByText('Search')).toBeVisible();
+
+    // keyboard model intact: menuitems are focusable, first item takes focus
+    const items = canvas.getAllByRole('menuitem');
+    items[0].focus();
+    await waitFor(() => {
+      expect(document.activeElement).toBe(items[0]);
+    });
+    await userEvent.keyboard('{ArrowDown}');
+  },
+};
+
+// ─── Menu variant: segmented ──────────────────────────────────────────────────
+
+export const Segmented: Story = {
+  render: () => (
+    <Menu variant="segmented">
+      <MenuItem onSelect={() => {}}>Day</MenuItem>
+      <MenuItem onSelect={() => {}}>Week</MenuItem>
+      <MenuItem onSelect={() => {}}>Month</MenuItem>
+    </Menu>
+  ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr on the menu root
+    const menu = await canvas.findByRole('menu');
+    await expect(menu).toHaveAttribute('data-bbangto-menu-variant', 'segmented');
+
+    // 2. load-bearing: inset filled track with NO border outline; active-cell
+    //    elevation is declared via the scoped style tag.
+    await waitFor(() => {
+      const style = getComputedStyle(menu);
+      expect(style.borderTopStyle).toBe('none');
+      expect(style.backgroundColor).not.toBe('rgba(0, 0, 0, 0)');
+      expect(style.backgroundColor).not.toBe('transparent');
+    });
+
+    const styleText = Array.from(canvasElement.querySelectorAll('style'))
+      .map((s) => s.textContent ?? '')
+      .join('\n');
+    expect(styleText).toContain('box-shadow');
+    expect(styleText).toContain(':hover');
+
+    // 3. content slot still renders
+    await expect(canvas.getByText('Week')).toBeVisible();
+
+    // keyboard model intact: menuitems are focusable, first item takes focus
+    const items = canvas.getAllByRole('menuitem');
+    items[0].focus();
+    await waitFor(() => {
+      expect(document.activeElement).toBe(items[0]);
+    });
+    await userEvent.keyboard('{ArrowDown}');
+  },
+};
+
+// ─── Menu variant: glow ───────────────────────────────────────────────────────
+
+export const Glow: Story = {
+  render: () => (
+    <Menu variant="glow">
+      <MenuItem onSelect={() => {}}>Spark</MenuItem>
+      <MenuItem onSelect={() => {}}>Pulse</MenuItem>
+      <MenuItem onSelect={() => {}}>Beam</MenuItem>
+    </Menu>
+  ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. data-attr on the menu root
+    const menu = await canvas.findByRole('menu');
+    await expect(menu).toHaveAttribute('data-bbangto-menu-variant', 'glow');
+
+    // 2. load-bearing: base container is borderless; the active/hover chrome is
+    //    a radial-gradient halo + box-shadow glow declared in the scoped style.
+    await waitFor(() => {
+      const style = getComputedStyle(menu);
+      expect(style.borderTopStyle).toBe('none');
+    });
+
+    const styleText = Array.from(canvasElement.querySelectorAll('style'))
+      .map((s) => s.textContent ?? '')
+      .join('\n');
+    expect(styleText).toContain('radial-gradient');
+    expect(styleText).toContain('box-shadow');
+
+    // 3. content slot still renders
+    await expect(canvas.getByText('Pulse')).toBeVisible();
+
+    // keyboard model intact: menuitems are focusable, first item takes focus
+    const items = canvas.getAllByRole('menuitem');
+    items[0].focus();
+    await waitFor(() => {
+      expect(document.activeElement).toBe(items[0]);
+    });
+    await userEvent.keyboard('{ArrowDown}');
+  },
+};
+
 // ─── Controlled DropdownMenu ─────────────────────────────────────────────────
 
 export const Controlled: Story = {

@@ -13,6 +13,7 @@ const meta = {
     error: { control: 'text' },
     label: { control: 'text' },
     size: { control: 'select', options: ['sm', 'md', 'lg'] },
+    variant: { control: 'select', options: ['default', 'inline-week-strip', 'wheel', 'ghost'] },
   },
 } satisfies Meta<typeof DatePicker>;
 
@@ -130,6 +131,103 @@ export const SizeSm: Story = {
     const trigger = canvasElement.querySelector('[data-datepicker-trigger]') as HTMLElement;
     const style = getComputedStyle(trigger);
     await expect(style.fontSize).not.toBe('');
+  },
+};
+
+// ── 신규 variant 멤버 스토리 (멤버당 1개) ────────────────────────────
+
+export const InlineWeekStrip: Story = {
+  name: 'Variant / inline-week-strip',
+  args: {
+    variant: 'inline-week-strip',
+    label: 'Week',
+    value: new Date(2025, 0, 15),
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    // ① data-attr 훅 확인
+    const root = canvasElement.querySelector('[data-bbangto-date-picker-variant]') as HTMLElement;
+    await expect(root.getAttribute('data-bbangto-date-picker-variant')).toBe('inline-week-strip');
+    // ② load-bearing: rail은 [prev | track | next] = 3-track 그리드 (auto 1fr auto)
+    const rail = canvasElement.querySelector('.bbangto-date-picker-rail') as HTMLElement;
+    const railCols = getComputedStyle(rail).gridTemplateColumns.split(' ').filter(Boolean);
+    await expect(railCols.length).toBe(3);
+    // 선택된 날짜 = solid fill pill (배경이 투명이 아님) + a11y aria-selected 유지
+    const selected = canvasElement.querySelector('[role="gridcell"][aria-selected="true"]') as HTMLElement;
+    await expect(selected).not.toBeNull();
+    const bg = getComputedStyle(selected).backgroundColor;
+    await expect(bg).not.toBe('rgba(0, 0, 0, 0)');
+    await expect(bg).not.toBe('transparent');
+    // 키보드 roving 유지: 선택 셀 포커스 후 ArrowRight → 인접 gridcell로 포커스 이동
+    selected.focus();
+    await userEvent.keyboard('{ArrowRight}');
+    await waitFor(() =>
+      expect(document.activeElement?.getAttribute('role')).toBe('gridcell')
+    );
+    // ③ 콘텐츠 슬롯: prev 셰브런 + 정확히 7개의 day 셀
+    const prev = await canvas.findByRole('button', { name: /previous week/i });
+    await expect(prev).toBeVisible();
+    const cells = canvasElement.querySelectorAll('[role="gridcell"]');
+    await expect(cells.length).toBe(7);
+  },
+};
+
+export const Wheel: Story = {
+  name: 'Variant / wheel',
+  args: {
+    variant: 'wheel',
+    label: 'Spin',
+    value: new Date(2025, 5, 15),
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    // ① data-attr 훅 확인
+    const root = canvasElement.querySelector('[data-bbangto-date-picker-variant]') as HTMLElement;
+    await expect(root.getAttribute('data-bbangto-date-picker-variant')).toBe('wheel');
+    // ② load-bearing: drum은 day/month/year = 3컬럼 그리드
+    const drum = canvasElement.querySelector('.bbangto-date-picker-wheel-drum') as HTMLElement;
+    const cols = getComputedStyle(drum).gridTemplateColumns.split(' ').filter(Boolean);
+    await expect(cols.length).toBe(3);
+    // 중앙 선택 밴드 = border-y (top border solid)
+    const band = canvasElement.querySelector('.bbangto-date-picker-wheel-band') as HTMLElement;
+    await expect(getComputedStyle(band).borderTopStyle).toBe('solid');
+    // edge fade는 scoped <style> 내 mask 그라디언트 — style 태그 aggregate로 검증
+    const styleText = Array.from(canvasElement.querySelectorAll('style'))
+      .map((s) => s.textContent ?? '')
+      .join('\n');
+    await expect(styleText).toContain('mask-image');
+    await expect(styleText).toContain('linear-gradient');
+    // ③ 콘텐츠 슬롯: option들이 렌더되고 컬럼당 aria-selected 유지
+    const options = await canvas.findAllByRole('option');
+    await expect(options.length).toBeGreaterThan(0);
+    const selectedOpts = canvasElement.querySelectorAll('[role="option"][aria-selected="true"]');
+    await expect(selectedOpts.length).toBeGreaterThan(0);
+  },
+};
+
+export const Ghost: Story = {
+  name: 'Variant / ghost',
+  args: {
+    variant: 'ghost',
+    label: 'When',
+    placeholder: 'Ghost date',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    // ① data-attr 훅 확인
+    const root = canvasElement.querySelector('[data-bbangto-date-picker-variant]') as HTMLElement;
+    await expect(root.getAttribute('data-bbangto-date-picker-variant')).toBe('ghost');
+    // ② load-bearing: 트리거에 border 박스 없음 + 투명 배경
+    const trigger = canvasElement.querySelector('[data-datepicker-trigger]') as HTMLElement;
+    const ts = getComputedStyle(trigger);
+    await expect(ts.borderTopStyle).toBe('none');
+    await expect(ts.backgroundColor).toBe('rgba(0, 0, 0, 0)');
+    // ③ 콘텐츠 슬롯: 트레일링 캘린더 아이콘 버튼만 존재 + 클릭 시 캘린더 오픈
+    const iconBtn = await canvas.findByRole('button', { name: /open calendar/i });
+    await expect(iconBtn).toBeVisible();
+    await userEvent.click(iconBtn);
+    const suLabel = await canvas.findByText('Su');
+    await waitFor(() => expect(suLabel).toBeVisible());
   },
 };
 

@@ -3,8 +3,29 @@ import { cssVar } from '@centurio1987/tokens';
 
 // ─── Menu ────────────────────────────────────────────────────────────────────
 
-/** Visual treatment of the menu list container. */
-export type MenuVariant = 'default' | 'compact' | 'bordered' | 'floating';
+/**
+ * Visual treatment of the menu list container.
+ *
+ * Default-first: `default` stays the implicit value so existing call sites and
+ * stories render unchanged. New members are appended to the union.
+ *
+ * - `dock`: per-item 2-row vertical stack (icon top / label bottom, centred) on
+ *   an equal-width flex track — reflows each item slot from the horizontal
+ *   icon+label row into a stacked cell.
+ * - `segmented`: an inset track (muted/sunken fill + radius, no border) wrapping
+ *   all items; the active/hovered cell becomes a filled, elevated chip.
+ * - `glow`: borderless transparent base items whose active/hover state is a
+ *   radial-gradient halo + outer box-shadow glow — glow is the chrome, not a
+ *   border or flat fill.
+ */
+export type MenuVariant =
+  | 'default'
+  | 'compact'
+  | 'bordered'
+  | 'floating'
+  | 'dock'
+  | 'segmented'
+  | 'glow';
 
 export interface MenuProps extends React.HTMLAttributes<HTMLUListElement> {
   /** Additional inline styles. */
@@ -15,26 +36,105 @@ export interface MenuProps extends React.HTMLAttributes<HTMLUListElement> {
 
 export const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
   ({ children, style, variant = 'default', className, ...props }, ref) => {
-    // A stable id is needed only for the compact variant, which scopes a
-    // `<style>` tag to override the inline padding of its child MenuItems.
+    // A stable id scopes a `<style>` tag for the variants that have to reach
+    // into their child MenuItems (override inline padding/layout or paint a
+    // hover/focus chrome that React's inline style prop cannot express).
     const generatedId = useId();
-    const compactClass = `bbangto-menu-compact-${generatedId.replace(/[^a-zA-Z0-9_-]/g, '')}`;
+    const sanitizedId = generatedId.replace(/[^a-zA-Z0-9_-]/g, '');
+    const scopeClass = `bbangto-menu-${variant}-${sanitizedId}`;
+    const needsScopedStyle =
+      variant === 'compact' ||
+      variant === 'dock' ||
+      variant === 'segmented' ||
+      variant === 'glow';
 
-    const variantStyles: React.CSSProperties =
+    let variantStyles: React.CSSProperties = {};
+    if (variant === 'compact') {
+      variantStyles = { padding: `${cssVar('spacing', '2')} 0` };
+    } else if (variant === 'bordered') {
+      variantStyles = {
+        borderWidth: '1px',
+        borderStyle: 'solid',
+        borderColor: cssVar('semantic', 'border', 'base'),
+      };
+    } else if (variant === 'floating') {
+      variantStyles = {
+        boxShadow: cssVar('shadow', 'xl'),
+        borderRadius: cssVar('radius', 'lg'),
+      };
+    } else if (variant === 'dock') {
+      // Lay items out on an equal-width horizontal flex track; the per-item
+      // column reflow (icon over label) is applied by the scoped style below.
+      variantStyles = {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'stretch',
+        gap: cssVar('spacing', '4'),
+      };
+    } else if (variant === 'segmented') {
+      // Inset track: a sunken (muted) filled container with radius and no
+      // border. Active cells are elevated chips, applied via the scoped style.
+      variantStyles = {
+        backgroundColor: cssVar('semantic', 'background', 'sunken'),
+        border: 'none',
+        borderRadius: cssVar('radius', 'lg'),
+        padding: cssVar('spacing', '4'),
+      };
+    } else if (variant === 'glow') {
+      // Borderless, transparent base — the glow chrome (radial halo + outer
+      // box-shadow) is painted on hover/focus by the scoped style below.
+      variantStyles = {
+        backgroundColor: 'transparent',
+        border: 'none',
+        boxShadow: 'none',
+      };
+    }
+
+    // Scoped CSS for variants that style their child MenuItems. Inline style on
+    // MenuItem wins over a stylesheet, so hover/focus overrides use !important.
+    const scopedCss =
       variant === 'compact'
-        ? { padding: `${cssVar('spacing', '2')} 0` }
-        : variant === 'bordered'
-          ? {
-              borderWidth: '1px',
-              borderStyle: 'solid',
-              borderColor: cssVar('semantic', 'border', 'base'),
-            }
-          : variant === 'floating'
-            ? {
-                boxShadow: cssVar('shadow', 'xl'),
-                borderRadius: cssVar('radius', 'lg'),
-              }
-            : {};
+        ? `
+          .${scopeClass} > [role="menuitem"],
+          .${scopeClass} [role="group"] > [role="menuitem"] {
+            padding-top: ${cssVar('spacing', '4')} !important;
+            padding-bottom: ${cssVar('spacing', '4')} !important;
+          }`
+        : variant === 'dock'
+          ? `
+          .${scopeClass} > [role="menuitem"],
+          .${scopeClass} [role="group"] > [role="menuitem"] {
+            flex: 1 1 0 !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            text-align: center !important;
+            gap: ${cssVar('spacing', '4')} !important;
+          }`
+          : variant === 'segmented'
+            ? `
+          .${scopeClass} [role="menuitem"] {
+            border-radius: ${cssVar('radius', 'md')} !important;
+          }
+          .${scopeClass} [role="menuitem"]:hover,
+          .${scopeClass} [role="menuitem"]:focus {
+            background-color: ${cssVar('semantic', 'background', 'elevated')} !important;
+            box-shadow: ${cssVar('shadow', 'md')} !important;
+          }`
+            : variant === 'glow'
+              ? `
+          .${scopeClass} [role="menuitem"] {
+            background-color: transparent !important;
+            border: none !important;
+            border-radius: ${cssVar('radius', 'md')} !important;
+            position: relative;
+          }
+          .${scopeClass} [role="menuitem"]:hover,
+          .${scopeClass} [role="menuitem"]:focus {
+            background-image: radial-gradient(circle at center, ${cssVar('semantic', 'primary', 'subtle')} 0%, transparent 70%) !important;
+            box-shadow: 0 0 16px ${cssVar('semantic', 'primary', 'subtle')}, 0 0 32px ${cssVar('semantic', 'primary', 'base')} !important;
+          }`
+              : '';
 
     const menuStyles: React.CSSProperties = {
       listStyle: 'none',
@@ -52,22 +152,14 @@ export const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
 
     return (
       <>
-        {variant === 'compact' && (
-          <style>{`
-            .${compactClass} > [role="menuitem"],
-            .${compactClass} [role="group"] > [role="menuitem"] {
-              padding-top: ${cssVar('spacing', '4')} !important;
-              padding-bottom: ${cssVar('spacing', '4')} !important;
-            }
-          `}</style>
-        )}
+        {needsScopedStyle && <style>{scopedCss}</style>}
         <ul
           ref={ref}
           role="menu"
           data-bbangto-menu-variant={variant}
           className={
-            variant === 'compact'
-              ? [compactClass, className].filter(Boolean).join(' ')
+            needsScopedStyle
+              ? [scopeClass, className].filter(Boolean).join(' ')
               : className
           }
           style={menuStyles}

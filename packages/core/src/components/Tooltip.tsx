@@ -1,7 +1,7 @@
 import React from 'react';
 import { cssVar } from '@centurio1987/tokens';
 
-export type TooltipVariant = 'dark' | 'light' | 'error';
+export type TooltipVariant = 'dark' | 'light' | 'error' | 'elevated';
 export type TooltipSize = 'sm' | 'md' | 'lg';
 
 export interface TooltipProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'content'> {
@@ -71,8 +71,16 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
       lg: cssVar('typography', 'scale', 'body', 'fontSize'),
     };
 
-    // Colors by variant
-    const variantStyles = (): Pick<React.CSSProperties, 'backgroundColor' | 'color' | 'border'> => {
+    // Colors by variant.
+    // dark|light|error share a flat fill + 1px hairline-border chrome. `elevated`
+    // swaps that hairline for a floating-card treatment: surface fill, NO border,
+    // and a soft drop-shadow elevation token — a chrome the border-based members
+    // cannot express. `boxShadow` stays undefined for the legacy members so their
+    // render is untouched.
+    const variantStyles = (): Pick<
+      React.CSSProperties,
+      'backgroundColor' | 'color' | 'border' | 'boxShadow'
+    > => {
       switch (variant) {
         case 'light':
           return {
@@ -85,6 +93,13 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
             backgroundColor: cssVar('semantic', 'error', 'subtle'),
             color: cssVar('semantic', 'error', 'base'),
             border: `1px solid ${cssVar('semantic', 'error', 'base')}`,
+          };
+        case 'elevated':
+          return {
+            backgroundColor: cssVar('semantic', 'background', 'elevated'),
+            color: cssVar('semantic', 'foreground', 'base'),
+            border: 'none',
+            boxShadow: cssVar('shadow', 'lg'),
           };
         case 'dark':
         default:
@@ -115,6 +130,7 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
       <div
         ref={ref}
         style={containerStyle}
+        data-bbangto-tooltip-variant={variant}
         onMouseEnter={show}
         onMouseLeave={hide}
         onFocus={show}
