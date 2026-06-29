@@ -59,3 +59,52 @@ export function StyleGuideProvider({
 export function useStyleGuide(): StyleGuide | undefined {
   return useContext(StyleGuideContext);
 }
+
+type WrapperKind = 'wrapperComponents' | 'wrapperBlocks' | 'wrapperPatterns';
+
+/**
+ * 현재 StyleGuide에서 주어진 wrapper 종류/이름의 wrapping 컴포넌트를 찾아 반환한다.
+ * 정의돼 있으면 wrapper를, 없으면(혹은 provider 밖이면) fallback(원형)을 반환한다.
+ */
+function resolveWrapper<P>(
+  styleGuide: StyleGuide | undefined,
+  kind: WrapperKind,
+  name: string,
+  fallback: React.ComponentType<P>,
+): React.ComponentType<P> {
+  const wrapper = styleGuide?.[kind]?.[name];
+  return (wrapper as React.ComponentType<P> | undefined) ?? fallback;
+}
+
+/**
+ * 원형 atom 컴포넌트를 style guide의 wrapper로 resolve 한다.
+ * wrapper 미정의 시 `fallback`(원형 컴포넌트)을 그대로 반환한다.
+ */
+export function useWrapperComponent<P>(
+  name: string,
+  fallback: React.ComponentType<P>,
+): React.ComponentType<P> {
+  return resolveWrapper(useContext(StyleGuideContext), 'wrapperComponents', name, fallback);
+}
+
+/**
+ * 원형 block("한 섹션" 단위)을 style guide의 wrapper로 resolve 한다.
+ * wrapper 미정의 시 `fallback`(원형 block)을 그대로 반환한다.
+ */
+export function useWrapperBlock<P>(
+  name: string,
+  fallback: React.ComponentType<P>,
+): React.ComponentType<P> {
+  return resolveWrapper(useContext(StyleGuideContext), 'wrapperBlocks', name, fallback);
+}
+
+/**
+ * 원형 pattern("한 화면/플로우" 단위)을 style guide의 wrapper로 resolve 한다.
+ * wrapper 미정의 시 `fallback`(원형 pattern)을 그대로 반환한다.
+ */
+export function useWrapperPattern<P>(
+  name: string,
+  fallback: React.ComponentType<P>,
+): React.ComponentType<P> {
+  return resolveWrapper(useContext(StyleGuideContext), 'wrapperPatterns', name, fallback);
+}

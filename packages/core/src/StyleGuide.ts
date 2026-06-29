@@ -34,9 +34,19 @@ export interface VisualMotif {
  * StyleGuideTokens(프레임워크 독립)를 확장해 React 의존 레이어를 추가한다.
  */
 export interface StyleGuide extends StyleGuideTokens {
-  /** 선택. 원형 컴포넌트를 감싸 visual motif를 적용한 wrapper component 맵. */
+  /** 선택. 원형 atom 컴포넌트(Button/Card/Tag 등)를 감싸 visual motif를 적용한 wrapper 맵. */
   readonly wrapperComponents?: WrapperComponents;
-  /** 선택. 반복 사용되는 UI 조합(폼, 테이블 등)을 조립한 패턴 레이아웃 맵. */
+  /**
+   * 선택. 원형 block(Hero/FeatureGrid 등 "한 섹션" 단위)을 감싸 visual motif를
+   * 적용한 wrapper 맵. 키: block 이름. `useWrapperBlock`으로 resolve 한다.
+   */
+  readonly wrapperBlocks?: WrapperComponents;
+  /**
+   * 선택. 원형 pattern(SignIn/AIChat 등 "한 화면/플로우" 단위)을 감싸 visual
+   * motif를 적용한 wrapper 맵. 키: pattern 이름. `useWrapperPattern`으로 resolve 한다.
+   */
+  readonly wrapperPatterns?: WrapperComponents;
+  /** 선택. 반복 사용되는 UI 조합(폼, 테이블 등)을 조립한 패턴 레이아웃 맵(쇼케이스). */
   readonly patterns?: Patterns;
   /** 선택. 시각 문법(visual motif) 문서 — 컴포넌트별 스펙 + 구현 예시. */
   readonly visualMotif?: VisualMotif;
