@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const terracottaTheme: BbangtoTheme = {
+export const terracottaTheme: BbangtoFoundation = {
   name: 'terracotta',
   description: 'Warm terracotta accent on cream canvas, editorial humanist serif headlines',
 

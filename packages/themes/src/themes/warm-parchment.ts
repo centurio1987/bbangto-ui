@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const warmParchmentTheme: BbangtoTheme = {
+export const warmParchmentTheme: BbangtoFoundation = {
   name: 'warm-parchment',
   description: 'Warm parchment canvas, humanist Camera Plain typography, AI builder warmth',
 

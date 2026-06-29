@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const prismTheme: BbangtoTheme = {
+export const prismTheme: BbangtoFoundation = {
   name: 'prism',
   description: 'Vibrant multi-color playful blocks on monochrome editorial frame',
 

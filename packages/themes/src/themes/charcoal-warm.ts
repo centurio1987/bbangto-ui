@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const charcoalWarmTheme: BbangtoTheme = {
+export const charcoalWarmTheme: BbangtoFoundation = {
   name: 'charcoal-warm',
   description: 'Modern terminal, warm near-charcoal canvas, block-based command UI',
 

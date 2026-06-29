@@ -185,9 +185,9 @@ const KEYFRAMES_CSS = `
  */
 const REDUCED_MOTION_CSS = `
 @media (prefers-reduced-motion: reduce) {
-  [data-bbangto-theme] *:not([data-bbangto-motion="essential"]),
-  [data-bbangto-theme] *:not([data-bbangto-motion="essential"])::before,
-  [data-bbangto-theme] *:not([data-bbangto-motion="essential"])::after {
+  [data-bbangto-foundation] *:not([data-bbangto-motion="essential"]),
+  [data-bbangto-foundation] *:not([data-bbangto-motion="essential"])::before,
+  [data-bbangto-foundation] *:not([data-bbangto-motion="essential"])::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -207,7 +207,7 @@ const STYLE_ELEMENT_ID = 'bbangto-motion-keyframes';
  * `useInsertionEffect` runs before layout effects on the client and never on
  * the server, so there is no hydration mismatch and no FOUC from render-time
  * `<style>` thrash. The element is keyed by a stable id so multiple
- * ThemeProviders share a single injection.
+ * FoundationProviders share a single injection.
  */
 export function useMotionKeyframes(): void {
   useInsertionEffect(() => {
@@ -219,6 +219,6 @@ export function useMotionKeyframes(): void {
     style.textContent = MOTION_CSS;
     document.head.appendChild(style);
     // Intentionally not removed on unmount: the sheet is global and shared
-    // across every ThemeProvider instance; removing it would break siblings.
+    // across every FoundationProvider instance; removing it would break siblings.
   }, []);
 }

@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const midnightInkTheme: BbangtoTheme = {
+export const midnightInkTheme: BbangtoFoundation = {
   name: 'midnight-ink',
   description: 'Premium dark keyboard-first UI, deep indigo email productivity',
 

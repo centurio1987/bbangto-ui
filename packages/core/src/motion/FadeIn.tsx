@@ -15,7 +15,7 @@ export interface FadeInProps extends React.HTMLAttributes<HTMLDivElement> {
  * Motion wrapper that fades its children in on mount.
  *
  * Fully tokenized: duration/easing default to motion tokens. Respects
- * `prefers-reduced-motion` via the global reset injected by ThemeProvider.
+ * `prefers-reduced-motion` via the global reset injected by FoundationProvider.
  */
 export const FadeIn = React.forwardRef<HTMLDivElement, FadeInProps>(
   ({ duration, easing, delay, style, children, ...props }, ref) => {

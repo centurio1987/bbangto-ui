@@ -1,5 +1,5 @@
 import type React from 'react';
-import type { BbangtoTheme, StyleGuideTokens } from '@centurio1987/bbangto-ui-tokens';
+import type { BbangtoFoundation, StyleGuideTokens } from '@centurio1987/bbangto-ui-tokens';
 
 /** 원형 컴포넌트를 감싸는 wrapper component 맵. 키: 컴포넌트 이름 (e.g. "Button"). */
 export type WrapperComponents = Record<string, React.ComponentType<any>>;
@@ -53,10 +53,10 @@ export interface StyleGuide extends StyleGuideTokens {
 }
 
 /**
- * BbangtoTheme을 foundations-only StyleGuide로 변환하는 헬퍼.
+ * BbangtoFoundation을 foundations-only StyleGuide로 변환하는 헬퍼.
  * 기존 테마를 StyleGuide 체계로 마이그레이션할 때 사용한다.
  */
-export function themeToStyleGuide(theme: BbangtoTheme): StyleGuide {
+export function foundationToStyleGuide(theme: BbangtoFoundation): StyleGuide {
   return {
     name: theme.name,
     description: theme.description,

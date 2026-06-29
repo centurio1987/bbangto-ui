@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const goldRushTheme: BbangtoTheme = {
+export const goldRushTheme: BbangtoFoundation = {
   name: 'gold-rush',
   description: 'Bold yellow on deep black, high-contrast trading-floor urgency',
 

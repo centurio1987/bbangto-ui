@@ -1,15 +1,15 @@
 export type {
-  BbangtoTheme,
+  BbangtoFoundation,
   ColorScale,
   SemanticColors,
   TypographyStyle,
   TypographyScale,
   DeepPartial,
-  ThemeOverride,
+  FoundationOverride,
   StyleGuideTokens,
 } from './types';
 
-export { flattenToCSSVars, themeToCSSString, themeToStyleObject, cssVar } from './contract';
-export { mergeTheme } from './utils';
+export { flattenToCSSVars, foundationToCSSString, foundationToStyleObject, cssVar } from './contract';
+export { mergeFoundation } from './utils';
 export { breakpoints, up, down } from './breakpoints';
 export type { Breakpoint } from './breakpoints';

@@ -1,7 +1,7 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens';
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens';
 import { lightTheme } from './light';
 
-export const darkTheme: BbangtoTheme = {
+export const darkTheme: BbangtoFoundation = {
   ...lightTheme,
   name: 'dark',
   description: 'Serious Work, Joyful Wit - Dark Mode',

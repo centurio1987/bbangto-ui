@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const mintCodeTheme: BbangtoTheme = {
+export const mintCodeTheme: BbangtoFoundation = {
   name: 'mint-code',
   description: 'Open-source mint-emerald accent on white, dark code-first backend platform',
 

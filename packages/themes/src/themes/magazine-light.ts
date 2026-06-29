@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const magazineLightTheme: BbangtoTheme = {
+export const magazineLightTheme: BbangtoFoundation = {
   name: 'magazine-light',
   description: 'Voice AI editorial print-magazine aesthetic, atmospheric light surfaces',
 

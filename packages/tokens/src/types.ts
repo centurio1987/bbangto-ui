@@ -123,7 +123,7 @@ export interface TypographyScale {
 /**
  * The complete Bbangto UI theme interface.
  */
-export interface BbangtoTheme {
+export interface BbangtoFoundation {
   readonly name: string;
   readonly description?: string;
 
@@ -264,8 +264,8 @@ export interface BbangtoTheme {
 export interface StyleGuideTokens {
   readonly name: string;
   readonly description?: string;
-  /** 필수. 기존 BbangtoTheme 토큰 (CSS 변수로 주입된다). */
-  readonly foundations: BbangtoTheme;
+  /** 필수. 기존 BbangtoFoundation 토큰 (CSS 변수로 주입된다). */
+  readonly foundations: BbangtoFoundation;
   /** 선택. visual motif 구현을 위한 확장 CSS 변수. --bbangto-ext-* 네임스페이스 권장. */
   readonly extendedFoundations?: Record<string, string>;
   /** 선택. 컴포넌트 사용 가이드라인 (JSON 객체). 키: 가이드라인 이름, 값: 구조화된 데이터. */
@@ -277,4 +277,4 @@ export type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
 };
 
-export type ThemeOverride = DeepPartial<BbangtoTheme>;
+export type FoundationOverride = DeepPartial<BbangtoFoundation>;

@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const periwinkleRetroTheme: BbangtoTheme = {
+export const periwinkleRetroTheme: BbangtoFoundation = {
   name: 'periwinkle-retro',
   description: 'Y2K brushed-periwinkle beveled panels, halftone-dotted carbon nav, retro web',
 

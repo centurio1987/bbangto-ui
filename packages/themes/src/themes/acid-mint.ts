@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const acidMintTheme: BbangtoTheme = {
+export const acidMintTheme: BbangtoFoundation = {
   name: 'acid-mint',
   description: 'Acid-mint and ultraviolet accents on dark, Manuka display type, tech editorial',
 

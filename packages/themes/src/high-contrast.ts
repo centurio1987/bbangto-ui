@@ -1,7 +1,7 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens';
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens';
 import { lightTheme } from './light';
 
-export const highContrastTheme: BbangtoTheme = {
+export const highContrastTheme: BbangtoFoundation = {
   ...lightTheme,
   name: 'high-contrast',
   description: 'Serious Work, Joyful Wit - High Contrast',

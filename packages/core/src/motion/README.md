@@ -13,7 +13,7 @@ to port lives in `packages/core/motion-catalog.md` (the SSOT); this file is the
    custom properties cannot hold a CSS rule.
 2. **Keyframes → `keyframes.ts`** (this folder): every `@keyframes` rule, named
    `bbangto-*`, plus the global `prefers-reduced-motion` reset. Injected once
-   per document by `ThemeProvider` via `useMotionKeyframes()` (SSR-safe,
+   per document by `FoundationProvider` via `useMotionKeyframes()` (SSR-safe,
    `useInsertionEffect`, deduped by element id).
 3. **Atoms → `*.tsx`** (this folder): React components consuming the above.
 
@@ -57,7 +57,7 @@ In short:
 ## `prefers-reduced-motion` policy
 
 The global reset (in `keyframes.ts`) neutralizes animation/transition for every
-element **inside a `[data-bbangto-theme]` subtree**. Exempt an element only when
+element **inside a `[data-bbangto-foundation]` subtree**. Exempt an element only when
 its motion conveys essential state (e.g. a progress spinner) by setting
 `data-bbangto-motion="essential"` — see `Spinner.tsx`. Default = honour the reset.
 

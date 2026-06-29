@@ -1,4 +1,4 @@
-export * from './ThemeProvider';
+export * from './FoundationProvider';
 export * from './StyleGuide';
 export * from './StyleGuideProvider';
 export * from './styleGuides';

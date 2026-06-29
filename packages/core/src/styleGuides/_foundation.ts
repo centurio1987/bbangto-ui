@@ -1,5 +1,5 @@
 import type {
-  BbangtoTheme,
+  BbangtoFoundation,
   ColorScale,
   SemanticColors,
   TypographyScale,
@@ -10,12 +10,12 @@ import type {
  *
  * 모든 preset이 공유하는 boilerplate(motion 파라미터 / spacing / zIndex / 빈 팔레트
  * 스캐폴드)를 한 곳에 모으고, preset별로 실제 달라지는 값(semantic 색 · 타이포 ·
- * radius · shadow)만 인자로 받아 완전한 BbangtoTheme을 조립한다. 같은 값을
+ * radius · shadow)만 인자로 받아 완전한 BbangtoFoundation을 조립한다. 같은 값을
  * 6개 파일에 반복 작성하지 않으므로 drift가 발생하지 않는다.
  */
 
 /** 모든 preset 공통 motion 파라미터 (keyframes 본체는 core motion 레이어 소유). */
-const MOTION: BbangtoTheme['motion'] = {
+const MOTION: BbangtoFoundation['motion'] = {
   duration: { instant: '0ms', fast: '120ms', normal: '200ms', slow: '320ms' },
   easing: {
     default: 'cubic-bezier(0.4, 0, 0.2, 1)',
@@ -44,7 +44,7 @@ const MOTION: BbangtoTheme['motion'] = {
 };
 
 /** 공통 spacing 스케일 (px). */
-const SPACING: BbangtoTheme['spacing'] = {
+const SPACING: BbangtoFoundation['spacing'] = {
   0: '0px', 1: '1px', 2: '2px', 3: '3px', 4: '4px',
   5: '5px', 6: '6px', 8: '8px', 10: '10px', 12: '12px',
   16: '16px', 20: '20px', 24: '24px', 32: '32px', 40: '40px',
@@ -52,7 +52,7 @@ const SPACING: BbangtoTheme['spacing'] = {
 };
 
 /** 공통 zIndex 레이어. */
-const ZINDEX: BbangtoTheme['zIndex'] = {
+const ZINDEX: BbangtoFoundation['zIndex'] = {
   dropdown: 1000, sticky: 1100, overlay: 1200,
   modal: 1300, popover: 1400, toast: 1500,
 };
@@ -132,16 +132,16 @@ export interface FoundationInput {
   semantic: SemanticColors;
   fontSans: string;
   fontMono: string;
-  radius: BbangtoTheme['radius'];
-  shadow: BbangtoTheme['shadow'];
+  radius: BbangtoFoundation['radius'];
+  shadow: BbangtoFoundation['shadow'];
   /** 부분 덮어쓰기. 미지정 항목은 DEFAULT_TYPE_SCALE 사용. */
   typeScale?: Partial<TypographyScale>;
   /** 미지정 시 DEFAULT_NEUTRAL. */
   neutral?: Partial<ColorScale>;
 }
 
-/** 공통 boilerplate + preset 고유값을 합쳐 완전한 BbangtoTheme을 만든다. */
-export function makeFoundations(input: FoundationInput): BbangtoTheme {
+/** 공통 boilerplate + preset 고유값을 합쳐 완전한 BbangtoFoundation을 만든다. */
+export function makeFoundations(input: FoundationInput): BbangtoFoundation {
   return {
     name: input.name,
     description: input.description,

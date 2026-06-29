@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const carbonNightTheme: BbangtoTheme = {
+export const carbonNightTheme: BbangtoFoundation = {
   name: 'carbon-night',
   description: 'Minimal carbon-black dark theme, monospace accents, developer email API',
 

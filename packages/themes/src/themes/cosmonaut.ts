@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const cosmonautTheme: BbangtoTheme = {
+export const cosmonautTheme: BbangtoFoundation = {
   name: 'cosmonaut',
   description: 'Stark black and white, full-bleed futuristic imagery, space technology',
 

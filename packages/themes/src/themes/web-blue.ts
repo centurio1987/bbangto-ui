@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const webBlueTheme: BbangtoTheme = {
+export const webBlueTheme: BbangtoFoundation = {
   name: 'web-blue',
   description: 'Blue-accented polished white, visual no-code web builder aesthetic',
 

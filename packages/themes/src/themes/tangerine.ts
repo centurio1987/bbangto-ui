@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const tangerineTheme: BbangtoTheme = {
+export const tangerineTheme: BbangtoFoundation = {
   name: 'tangerine',
   description: 'Warm tangerine-orange, friendly cream canvas, workflow automation',
 

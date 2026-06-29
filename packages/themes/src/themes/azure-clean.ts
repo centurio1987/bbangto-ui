@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const azureCleanTheme: BbangtoTheme = {
+export const azureCleanTheme: BbangtoFoundation = {
   name: 'azure-clean',
   description: 'Pure white canvas, electric-azure CTA, geometric precision type',
 

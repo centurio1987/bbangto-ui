@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const starkWhiteTheme: BbangtoTheme = {
+export const starkWhiteTheme: BbangtoFoundation = {
   name: 'stark-white',
   description: 'Enterprise AI stark-white editorial, deep green-black product bands',
 

@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const precisionTheme: BbangtoTheme = {
+export const precisionTheme: BbangtoFoundation = {
   name: 'precision',
   description: 'Black and white precision, Geist font, frontend deployment platform',
 

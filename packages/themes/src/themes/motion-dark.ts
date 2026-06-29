@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const motionDarkTheme: BbangtoTheme = {
+export const motionDarkTheme: BbangtoFoundation = {
   name: 'motion-dark',
   description: 'Bold dark artboard, motion-first, electric-blue on void-black',
 

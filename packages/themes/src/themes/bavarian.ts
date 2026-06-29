@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const bavarianTheme: BbangtoTheme = {
+export const bavarianTheme: BbangtoFoundation = {
   name: 'bavarian',
   description: 'Corporate sapphire blue on warm white, premium automotive editorial',
 

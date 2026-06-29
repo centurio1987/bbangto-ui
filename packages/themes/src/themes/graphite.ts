@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const graphiteTheme: BbangtoTheme = {
+export const graphiteTheme: BbangtoFoundation = {
   name: 'graphite',
   description: 'Bold dark interface with gradient product cards, graphite-black AI platform',
 

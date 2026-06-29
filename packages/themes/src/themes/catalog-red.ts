@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const catalogRedTheme: BbangtoTheme = {
+export const catalogRedTheme: BbangtoFoundation = {
   name: 'catalog-red',
   description: 'Catalog-era enterprise web, flat color ribbon cards, chunky Helvetica',
 

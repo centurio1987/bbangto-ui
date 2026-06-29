@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const voltEmeraldTheme: BbangtoTheme = {
+export const voltEmeraldTheme: BbangtoFoundation = {
   name: 'volt-emerald',
   description: 'Void-black canvas, volt-emerald accent, terminal-native AI agent framework',
 

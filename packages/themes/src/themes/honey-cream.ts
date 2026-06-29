@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const honeyCreamTheme: BbangtoTheme = {
+export const honeyCreamTheme: BbangtoFoundation = {
   name: 'honey-cream',
   description: 'Warm honey-cream canvas, playful analytics product, amber accent',
 

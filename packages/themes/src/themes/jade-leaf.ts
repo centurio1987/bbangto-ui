@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const jadeLeafTheme: BbangtoTheme = {
+export const jadeLeafTheme: BbangtoFoundation = {
   name: 'jade-leaf',
   description: 'Jade-green leaf branding, developer documentation focus, dark teal hero bands',
 

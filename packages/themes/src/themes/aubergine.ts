@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const aubergineTheme: BbangtoTheme = {
+export const aubergineTheme: BbangtoFoundation = {
   name: 'aubergine',
   description: 'Deep aubergine primary, cream-lavender hero gradients, workplace messaging',
 

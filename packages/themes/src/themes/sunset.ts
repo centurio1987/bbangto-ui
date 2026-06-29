@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const sunsetTheme: BbangtoTheme = {
+export const sunsetTheme: BbangtoFoundation = {
   name: 'sunset',
   description: 'French-engineered minimalism, orange-sunset warmth on white, open-weight AI',
 

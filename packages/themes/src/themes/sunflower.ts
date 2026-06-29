@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const sunflowerTheme: BbangtoTheme = {
+export const sunflowerTheme: BbangtoFoundation = {
   name: 'sunflower',
   description: 'Bright sunflower-yellow accent on white, infinite canvas visual collaboration',
 

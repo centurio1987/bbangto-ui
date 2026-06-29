@@ -59,7 +59,7 @@ const H3: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 );
 
 // ────────────────────────────────────────────────────────────
-// 1) Referenced Foundations — 참조하는 design token(BbangtoTheme) specimen.
+// 1) Referenced Foundations — 참조하는 design token(BbangtoFoundation) specimen.
 function Swatch({ label, varName }: { label: string; varName: string }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>

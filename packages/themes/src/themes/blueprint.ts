@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const blueprintTheme: BbangtoTheme = {
+export const blueprintTheme: BbangtoFoundation = {
   name: 'blueprint',
   description: 'Open-source AI infrastructure, technical blueprint-white design, minimal',
 

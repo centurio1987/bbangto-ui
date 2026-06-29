@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const warmIvoryTheme: BbangtoTheme = {
+export const warmIvoryTheme: BbangtoFoundation = {
   name: 'warm-ivory',
   description: 'Warm cream-ivory canvas, orbital pill shapes, global editorial warmth',
 

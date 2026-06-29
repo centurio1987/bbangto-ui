@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const terminalTheme: BbangtoTheme = {
+export const terminalTheme: BbangtoFoundation = {
   name: 'terminal',
   description: 'Terminal-first monochrome simplicity, pure black on white, local AI',
 

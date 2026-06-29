@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const midnightIndigoTheme: BbangtoTheme = {
+export const midnightIndigoTheme: BbangtoFoundation = {
   name: 'midnight-indigo',
   description: 'Ultra-minimal near-void dark, precise periwinkle-indigo accent for engineers',
 

@@ -1,4 +1,4 @@
-import type { BbangtoTheme } from './types';
+import type { BbangtoFoundation } from './types';
 
 const PREFIX = '--bbangto';
 
@@ -38,7 +38,7 @@ export function flattenToCSSVars(
 /**
  * Generates a CSS string with all custom properties from a theme.
  */
-export function themeToCSSString(theme: BbangtoTheme): string {
+export function foundationToCSSString(theme: BbangtoFoundation): string {
   const vars = flattenToCSSVars(theme as unknown as Record<string, unknown>);
   const lines = Object.entries(vars)
     .map(([key, value]) => `  ${key}: ${value};`)
@@ -49,7 +49,7 @@ export function themeToCSSString(theme: BbangtoTheme): string {
 /**
  * Generates a React-compatible style object from a theme.
  */
-export function themeToStyleObject(theme: BbangtoTheme): Record<string, string> {
+export function foundationToStyleObject(theme: BbangtoFoundation): Record<string, string> {
   return flattenToCSSVars(theme as unknown as Record<string, unknown>);
 }
 

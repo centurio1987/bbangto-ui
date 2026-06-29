@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const urbanMonoTheme: BbangtoTheme = {
+export const urbanMonoTheme: BbangtoFoundation = {
   name: 'urban-mono',
   description: 'Bold black and white mono, tight type, urban mobility editorial energy',
 

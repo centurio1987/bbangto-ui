@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const cobaltTheme: BbangtoTheme = {
+export const cobaltTheme: BbangtoFoundation = {
   name: 'cobalt',
   description: 'Clean cobalt blue identity, institutional trust, minimal crypto exchange',
 

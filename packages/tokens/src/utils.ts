@@ -1,12 +1,12 @@
-import type { BbangtoTheme, DeepPartial } from './types';
+import type { BbangtoFoundation, DeepPartial } from './types';
 
 /**
  * Deep merges a partial theme override into a base theme.
  */
-export function mergeTheme(
-  base: BbangtoTheme,
-  overrides: DeepPartial<BbangtoTheme>,
-): BbangtoTheme {
+export function mergeFoundation(
+  base: BbangtoFoundation,
+  overrides: DeepPartial<BbangtoFoundation>,
+): BbangtoFoundation {
   function deepMerge<T extends Record<string, unknown>>(
     target: T,
     source: Record<string, unknown>,
@@ -42,5 +42,5 @@ export function mergeTheme(
   return deepMerge(
     base as unknown as Record<string, unknown>,
     overrides as unknown as Record<string, unknown>,
-  ) as unknown as BbangtoTheme;
+  ) as unknown as BbangtoFoundation;
 }

@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const obsidianGoldTheme: BbangtoTheme = {
+export const obsidianGoldTheme: BbangtoFoundation = {
   name: 'obsidian-gold',
   description: 'True black cathedral canvas, gold accent, custom Neo-Grotesk display',
 

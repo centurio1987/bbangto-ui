@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const forestCreamTheme: BbangtoTheme = {
+export const forestCreamTheme: BbangtoFoundation = {
   name: 'forest-cream',
   description: 'Four-tier earth-green system on warm cream canvas, artisan coffee aesthetic',
 

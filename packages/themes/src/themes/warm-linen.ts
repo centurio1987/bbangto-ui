@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const warmLinenTheme: BbangtoTheme = {
+export const warmLinenTheme: BbangtoFoundation = {
   name: 'warm-linen',
   description: 'Friendly cream-linen surface, warm messaging product, soft orange AI accent',
 

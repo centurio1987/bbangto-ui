@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const signalRedTheme: BbangtoTheme = {
+export const signalRedTheme: BbangtoFoundation = {
   name: 'signal-red',
   description: 'Monumental uppercase display, signal-red chapter bands, global telecom',
 

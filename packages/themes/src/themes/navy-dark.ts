@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const navyDarkTheme: BbangtoTheme = {
+export const navyDarkTheme: BbangtoFoundation = {
   name: 'navy-dark',
   description: 'Three-surface dark layout, deep navy-blue CTAs, cyan hover-scale',
 

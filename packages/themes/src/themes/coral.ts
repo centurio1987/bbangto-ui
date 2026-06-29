@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const coralTheme: BbangtoTheme = {
+export const coralTheme: BbangtoFoundation = {
   name: 'coral',
   description: 'Warm coral primary, clean white editorial layout with generous whitespace',
 

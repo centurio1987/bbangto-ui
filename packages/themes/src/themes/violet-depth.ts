@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const violetDepthTheme: BbangtoTheme = {
+export const violetDepthTheme: BbangtoFoundation = {
   name: 'violet-depth',
   description: 'Purple-accented white UI, data-dense crypto dashboards, deep violet primary',
 

@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const codeDarkTheme: BbangtoTheme = {
+export const codeDarkTheme: BbangtoFoundation = {
   name: 'code-dark',
   description: 'Dark developer platform, tight letter-spacing, code-centric minimal',
 

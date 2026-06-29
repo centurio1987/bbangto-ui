@@ -1,10 +1,10 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens';
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens';
 
 /**
  * Neobrutalism_Editorial_01 — 단일 출처 모티프 상수.
  *
  * gold/ink/paper/offset-shadow 같은 핵심 값을 한 곳에서 선언해
- * foundations(BbangtoTheme)와 extendedFoundations(CSS 변수) 양쪽에서 참조한다.
+ * foundations(BbangtoFoundation)와 extendedFoundations(CSS 변수) 양쪽에서 참조한다.
  * 같은 값을 두 군데 하드코딩하지 않으므로 색을 바꿀 때 drift가 발생하지 않는다.
  */
 export const BAKERY = {
@@ -45,7 +45,7 @@ export const BAKERY_OFFSET_SHADOW = `3px 3px 0 ${BAKERY.gold}`;
  * - 각진 모서리(radius 0) + 잉크 실선 테두리 + 하드 오프셋 그림자
  * - IBM Plex Sans KR(본문) / IBM Plex Mono(라벨·수치)
  */
-export const bakeryFoundations: BbangtoTheme = {
+export const bakeryFoundations: BbangtoFoundation = {
   name: 'bakery',
   description: '네오브루탈리즘 소프트웨어 베이커리 — 크림·잉크·골드, 각진 모서리, 하드 오프셋 그림자',
 

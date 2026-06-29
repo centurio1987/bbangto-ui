@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const carbonTheme: BbangtoTheme = {
+export const carbonTheme: BbangtoFoundation = {
   name: 'carbon',
   description: 'Carbon design system, structured sapphire blue palette, enterprise gravitas',
 

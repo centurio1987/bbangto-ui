@@ -34,7 +34,7 @@ import { within, expect, userEvent, waitFor } from 'storybook/test';
  *
  * Motion *parameters* (duration, easing, distance, presets) live in the token
  * layer; `@keyframes` + the `prefers-reduced-motion` reset are injected once by
- * ThemeProvider. The atoms below consume those tokens. Zero runtime deps.
+ * FoundationProvider. The atoms below consume those tokens. Zero runtime deps.
  */
 const meta = {
   title: 'ARCHETYPE/Foundations/Motion',
@@ -147,7 +147,7 @@ export const FadeInDemo: Story = {
     const fadeWrapper = text.parentElement as HTMLElement;
     // Atom applies the tokenized keyframe...
     await expect(getComputedStyle(fadeWrapper).animationName).toBe('bbangto-fade-in');
-    // ...and ThemeProvider injected the global keyframe stylesheet exactly once.
+    // ...and FoundationProvider injected the global keyframe stylesheet exactly once.
     await expect(document.getElementById('bbangto-motion-keyframes')).not.toBeNull();
   },
 };

@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const arcticWhiteTheme: BbangtoTheme = {
+export const arcticWhiteTheme: BbangtoFoundation = {
   name: 'arctic-white',
   description: 'Radical white subtraction, cinematic full-viewport photography, electric blue',
 

@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const socialBlueTheme: BbangtoTheme = {
+export const socialBlueTheme: BbangtoFoundation = {
   name: 'social-blue',
   description: 'Photography-first clean white, cobalt-blue CTAs, binary light surfaces',
 

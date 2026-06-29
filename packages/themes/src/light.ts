@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens';
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens';
 
-export const lightTheme: BbangtoTheme = {
+export const lightTheme: BbangtoFoundation = {
   name: 'light',
   description: 'Serious Work, Joyful Wit (빵관 토니)',
 

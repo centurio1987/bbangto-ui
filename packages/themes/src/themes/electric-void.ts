@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const electricVoidTheme: BbangtoTheme = {
+export const electricVoidTheme: BbangtoFoundation = {
   name: 'electric-void',
   description: 'Deep electric-blue on near-black, terminal-style developer tooling',
 

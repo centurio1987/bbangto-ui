@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const pitchTheme: BbangtoTheme = {
+export const pitchTheme: BbangtoFoundation = {
   name: 'pitch',
   description: 'Monochrome pitch-black on white, massive uppercase type, athletic photography',
 

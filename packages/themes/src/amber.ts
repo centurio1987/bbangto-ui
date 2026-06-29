@@ -1,4 +1,4 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens';
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens';
 
 const baseAmberPalette = {
   common: { white: '#ffffff', black: '#000000' },
@@ -75,7 +75,7 @@ const baseMotion = {
 
 const baseZIndex = { dropdown: 1000, sticky: 1100, overlay: 1200, modal: 1300, popover: 1400, toast: 1500 };
 
-export const amberDarkTheme: BbangtoTheme = {
+export const amberDarkTheme: BbangtoFoundation = {
   name: 'amber-dark',
   description: 'Amber Default Dark Theme',
   palette: baseAmberPalette,
@@ -115,7 +115,7 @@ export const amberDarkTheme: BbangtoTheme = {
   zIndex: baseZIndex,
 };
 
-export const amberLightTheme: BbangtoTheme = {
+export const amberLightTheme: BbangtoFoundation = {
   name: 'amber-light',
   description: 'Amber Transactional Light Theme',
   palette: baseAmberPalette,

@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const voidTheme: BbangtoTheme = {
+export const voidTheme: BbangtoFoundation = {
   name: 'void',
   description: 'Stark monochrome void, futuristic minimalism, frontier AI company',
 

@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const gradientVioletTheme: BbangtoTheme = {
+export const gradientVioletTheme: BbangtoFoundation = {
   name: 'gradient-violet',
   description: 'Signature violet gradients, weight-300 elegance, payment infrastructure',
 

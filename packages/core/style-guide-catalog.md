@@ -10,7 +10,7 @@
 
 | 요소 | 양식 | 필수 | 채우는 것 |
 |------|------|------|-----------|
-| `foundations` | `BbangtoTheme`(css variable로 주입) | O | palette / typography / spacing / radius / shadow / motion / zIndex |
+| `foundations` | `BbangtoFoundation`(css variable로 주입) | O | palette / typography / spacing / radius / shadow / motion / zIndex |
 | `extendedFoundations` | `Record<string,string>` (`--bbangto-ext-*`) | X | visual motif 전용 확장 토큰 (offset-shadow, blur, glow 등) |
 | `wrapperComponents` | `Record<string, React.ComponentType>` | X | 원형 컴포넌트를 모티프로 감싼 래퍼 (Button/Card/Tag…) |
 | `patterns` | `Record<string, React.ComponentType>` | X | 반복 UI 조합(폼/테이블/Hero/Menu…) 템플릿 |

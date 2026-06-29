@@ -81,9 +81,9 @@ export { warmParchmentTheme } from './themes/warm-parchment'
 export { webBlueTheme } from './themes/web-blue'
 
 export { default as catalog } from './catalog.json'
-export type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+export type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 import { acidMintTheme } from './themes/acid-mint'
 import { arcticWhiteTheme } from './themes/arctic-white'
 import { aubergineTheme } from './themes/aubergine'
@@ -159,7 +159,7 @@ import { warmLinenTheme } from './themes/warm-linen'
 import { warmParchmentTheme } from './themes/warm-parchment'
 import { webBlueTheme } from './themes/web-blue'
 
-export const themeMap: Record<string, BbangtoTheme> = {
+export const themeMap: Record<string, BbangtoFoundation> = {
   'acid-mint': acidMintTheme,
   'arctic-white': arcticWhiteTheme,
   'aubergine': aubergineTheme,

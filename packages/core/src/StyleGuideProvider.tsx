@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useMemo, ReactNode } from 'react';
-import { themeToStyleObject } from '@centurio1987/bbangto-ui-tokens';
+import { foundationToStyleObject } from '@centurio1987/bbangto-ui-tokens';
 import { useMotionKeyframes } from './motion/keyframes';
 import type { StyleGuide } from './StyleGuide';
 
@@ -29,7 +29,7 @@ export function StyleGuideProvider({
   style,
 }: StyleGuideProviderProps) {
   const cssVars = useMemo(() => ({
-    ...themeToStyleObject(styleGuide.foundations),
+    ...foundationToStyleObject(styleGuide.foundations),
     ...(styleGuide.extendedFoundations ?? {}),
   }), [styleGuide]);
 

@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const raceNightTheme: BbangtoTheme = {
+export const raceNightTheme: BbangtoFoundation = {
   name: 'race-night',
   description: 'Motorsport-precision dark canvas, tricolor M accent, zero-margin intensity',
 

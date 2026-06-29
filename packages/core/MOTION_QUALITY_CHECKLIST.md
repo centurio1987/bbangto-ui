@@ -48,7 +48,7 @@ Each animation item's story MUST have a `play` function asserting, as applicable
   (e.g. `getComputedStyle(el).animationName === 'bbangto-<name>'`, or a slide
   offset CSS var is set). See `FadeInDemo`/`SlideInDemo`.
 - **Global injection**: `document.getElementById('bbangto-motion-keyframes')`
-  is present (proves ThemeProvider injected the sheet).
+  is present (proves FoundationProvider injected the sheet).
 - **Accessibility role/label**: loading atoms expose `role="status"` +
   `aria-label`; see `SpinnerDemo`.
 - **Reduced-motion policy**: essential elements carry
@@ -84,7 +84,7 @@ Each animation item's story MUST have a `play` function asserting, as applicable
 
 ### SSR / robustness
 - [ ] No render-time DOM/`document` access; injection only via
-      `useInsertionEffect` (already centralized in ThemeProvider).
+      `useInsertionEffect` (already centralized in FoundationProvider).
 - [ ] No hydration-mismatch risk (no `Math.random`/`Date.now` in render output).
 
 ### Constraints

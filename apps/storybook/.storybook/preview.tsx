@@ -1,6 +1,6 @@
 import type { Preview } from '@storybook/react-vite';
 import React from 'react';
-import { ThemeProvider } from '@centurio1987/bbangto-ui-core';
+import { FoundationProvider } from '@centurio1987/bbangto-ui-core';
 import { lightTheme, darkTheme, highContrastTheme, amberDarkTheme, amberLightTheme } from '@centurio1987/bbangto-ui-themes';
 import { DiagramProvider, blueprintTheme } from '@centurio1987/bbangto-ui-diagram';
 
@@ -75,26 +75,26 @@ const preview: Preview = {
   },
   decorators: [
     (Story, context) => {
-      const themeName = context.globals.theme;
-      let theme = lightTheme;
-      if (themeName === 'dark') {
-        theme = darkTheme;
-      } else if (themeName === 'high-contrast') {
-        theme = highContrastTheme;
-      } else if (themeName === 'amber-dark') {
-        theme = amberDarkTheme;
-      } else if (themeName === 'amber-light') {
-        theme = amberLightTheme;
+      const foundationName = context.globals.theme;
+      let foundation = lightTheme;
+      if (foundationName === 'dark') {
+        foundation = darkTheme;
+      } else if (foundationName === 'high-contrast') {
+        foundation = highContrastTheme;
+      } else if (foundationName === 'amber-dark') {
+        foundation = amberDarkTheme;
+      } else if (foundationName === 'amber-light') {
+        foundation = amberLightTheme;
       }
 
-      const bgColor = theme.semantic.background.base;
+      const bgColor = foundation.semantic.background.base;
 
       return (
-        <ThemeProvider theme={theme} style={{ padding: '2rem', minHeight: '100vh', backgroundColor: bgColor, transition: 'background-color 0.3s ease' }}>
+        <FoundationProvider foundation={foundation} style={{ padding: '2rem', minHeight: '100vh', backgroundColor: bgColor, transition: 'background-color 0.3s ease' }}>
           <DiagramProvider theme={blueprintTheme}>
             <Story />
           </DiagramProvider>
-        </ThemeProvider>
+        </FoundationProvider>
       );
     },
   ],

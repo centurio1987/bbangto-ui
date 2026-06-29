@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const editorialDarkTheme: BbangtoTheme = {
+export const editorialDarkTheme: BbangtoFoundation = {
   name: 'editorial-dark',
   description: 'Dark editorial marketing, 112px display type, coral-red accent on black',
 

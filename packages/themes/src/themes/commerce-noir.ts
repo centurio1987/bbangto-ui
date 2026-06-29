@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const commerceNoirTheme: BbangtoTheme = {
+export const commerceNoirTheme: BbangtoFoundation = {
   name: 'commerce-noir',
   description: 'Dark cinematic commerce, neon-green accent on near-black, ultra-light type',
 

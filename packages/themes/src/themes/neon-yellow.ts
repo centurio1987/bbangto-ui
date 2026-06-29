@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const neonYellowTheme: BbangtoTheme = {
+export const neonYellowTheme: BbangtoFoundation = {
   name: 'neon-yellow',
   description: 'Electric yellow-black analytics database, high-voltage technical documentation',
 

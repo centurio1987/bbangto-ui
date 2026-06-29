@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { within, expect } from 'storybook/test'
 import React from 'react'
-import { ThemeProvider } from '@centurio1987/bbangto-ui-core'
+import { FoundationProvider } from '@centurio1987/bbangto-ui-core'
 import { themeMap } from '@centurio1987/bbangto-ui-themes'
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
 // ──────────────────────────────────────────
 // ColorSwatch helper
@@ -32,7 +32,7 @@ interface ThemeStyleGuideProps {
 }
 
 function ThemeStyleGuide({ theme: slug, section }: ThemeStyleGuideProps) {
-  const theme = themeMap[slug] as BbangtoTheme | undefined
+  const theme = themeMap[slug] as BbangtoFoundation | undefined
 
   if (!theme) {
     return <div style={{ padding: 32, color: 'red' }}>Theme not found: {slug}</div>
@@ -50,7 +50,7 @@ function ThemeStyleGuide({ theme: slug, section }: ThemeStyleGuideProps) {
   }
 
   return (
-    <ThemeProvider theme={theme}>
+    <FoundationProvider foundation={theme}>
       <div style={containerStyle} data-testid="style-guide-root">
         {section === 'Overview' && (
           <div>
@@ -203,7 +203,7 @@ function ThemeStyleGuide({ theme: slug, section }: ThemeStyleGuideProps) {
           </div>
         )}
       </div>
-    </ThemeProvider>
+    </FoundationProvider>
   )
 }
 
@@ -238,6 +238,11 @@ export const Default: Story = {
     const canvas = within(canvasElement)
     const root = await canvas.findByTestId('style-guide-root')
     await expect(root).toBeTruthy()
+    // ORD-006 P2 회귀 가드: FoundationProvider가 data-bbangto-foundation DOM attr를
+    // 주입하는지 확인(theme→foundation 명칭 치환 시 attr rename 회귀 방지).
+    const fp = canvasElement.querySelector('[data-bbangto-foundation]')
+    await expect(fp).not.toBeNull()
+    await expect(fp!.getAttribute('data-bbangto-foundation')).toBeTruthy()
   },
 }
 

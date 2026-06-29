@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const scarletNoirTheme: BbangtoTheme = {
+export const scarletNoirTheme: BbangtoFoundation = {
   name: 'scarlet-noir',
   description: 'Chiaroscuro dark canvas, scarlet red on near-black, extreme sparseness',
 

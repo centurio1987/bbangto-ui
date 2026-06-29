@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const onyxTheme: BbangtoTheme = {
+export const onyxTheme: BbangtoFoundation = {
   name: 'onyx',
   description: 'Clean near-black primary on white, developer-oriented scheduling simplicity',
 

@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const serenityTheme: BbangtoTheme = {
+export const serenityTheme: BbangtoFoundation = {
   name: 'serenity',
   description: 'Warm minimalism, violet-tinted serif headings, soft cream surfaces',
 

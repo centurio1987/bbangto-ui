@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const broadsheetTheme: BbangtoTheme = {
+export const broadsheetTheme: BbangtoFoundation = {
   name: 'broadsheet',
   description: 'Paper-white broadsheet density, custom serif, ink-blue links, tech magazine',
 

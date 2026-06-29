@@ -1,6 +1,6 @@
-import type { BbangtoTheme } from '@centurio1987/bbangto-ui-tokens'
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
-export const jungleNightTheme: BbangtoTheme = {
+export const jungleNightTheme: BbangtoFoundation = {
   name: 'jungle-night',
   description: 'Vibrant jungle-green on dark void, bold type, album-art-driven streaming',
 
