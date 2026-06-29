@@ -11,7 +11,7 @@ import { expect, within } from 'storybook/test';
  * Both container and canvas are `aria-hidden="true"` (purely decorative).
  */
 const meta = {
-  title: 'Motion/Shaders/Aurora',
+  title: 'ARCHETYPE/Foundations/Motion/Shaders/Aurora',
   component: Aurora,
   tags: ['autodocs'],
   parameters: {

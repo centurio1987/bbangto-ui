@@ -3,7 +3,7 @@ import { Accordion } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 
 const meta = {
-  title: 'Molecules/Accordion',
+  title: 'ARCHETYPE/Components/Molecules/Accordion',
   component: Accordion,
   parameters: {
     layout: 'padded',

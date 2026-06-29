@@ -4,7 +4,7 @@ import { Tooltip, Button } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within } from 'storybook/test';
 
 const meta = {
-  title: 'Atoms/Tooltip',
+  title: 'ARCHETYPE/Components/Atoms/Tooltip',
   component: Tooltip,
   parameters: {
     layout: 'centered',

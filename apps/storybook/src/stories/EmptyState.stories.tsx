@@ -4,7 +4,7 @@ import { EmptyState, Button } from '@centurio1987/bbangto-ui-core';
 import { expect, within, userEvent } from 'storybook/test';
 
 const meta = {
-  title: 'Organisms/EmptyState',
+  title: 'ARCHETYPE/Components/Organisms/EmptyState',
   component: EmptyState,
   parameters: {
     layout: 'padded',

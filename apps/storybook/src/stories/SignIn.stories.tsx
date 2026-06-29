@@ -3,7 +3,7 @@ import { SignIn } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within, waitFor, fn } from 'storybook/test';
 
 const meta = {
-  title: 'Patterns/SignIn',
+  title: 'ARCHETYPE/Patterns/SignIn',
   component: SignIn,
   parameters: {
     layout: 'fullscreen',

@@ -6,3 +6,6 @@ dist/
 .figma-images/
 coverage/
 *.log
+
+# Obsidian vault config (local editor state)
+.obsidian/

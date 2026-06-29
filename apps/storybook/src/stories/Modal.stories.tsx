@@ -4,7 +4,7 @@ import { Modal, Button } from '@centurio1987/bbangto-ui-core';
 import { expect, fireEvent, userEvent, waitFor, within } from 'storybook/test';
 
 const meta = {
-  title: 'Organisms/Modal',
+  title: 'ARCHETYPE/Components/Organisms/Modal',
   component: Modal,
   parameters: {
     layout: 'centered',

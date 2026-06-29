@@ -6,6 +6,7 @@ export type {
   TypographyScale,
   DeepPartial,
   ThemeOverride,
+  StyleGuideTokens,
 } from './types';
 
 export { flattenToCSSVars, themeToCSSString, themeToStyleObject, cssVar } from './contract';

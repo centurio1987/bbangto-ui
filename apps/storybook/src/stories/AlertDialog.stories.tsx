@@ -4,7 +4,7 @@ import { AlertDialog, Button } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 
 const meta = {
-  title: 'Molecules/AlertDialog',
+  title: 'ARCHETYPE/Components/Molecules/AlertDialog',
   component: AlertDialog,
   parameters: {
     layout: 'centered',

@@ -46,7 +46,7 @@ const UserIcon = () => (
 // ---------------------------------------------------------------------------
 
 const meta = {
-  title: 'Blocks/Dock',
+  title: 'ARCHETYPE/Blocks/Dock',
   component: Dock,
   parameters: {
     layout: 'centered',

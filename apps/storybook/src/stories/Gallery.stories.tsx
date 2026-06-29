@@ -3,7 +3,7 @@ import { Gallery } from '@centurio1987/bbangto-ui-core';
 import { expect, within, waitFor } from 'storybook/test';
 
 const meta = {
-  title: 'Blocks/Gallery',
+  title: 'ARCHETYPE/Blocks/Gallery',
   component: Gallery,
   parameters: { layout: 'fullscreen' },
   tags: ['autodocs'],

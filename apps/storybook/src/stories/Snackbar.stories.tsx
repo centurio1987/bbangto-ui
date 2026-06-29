@@ -3,7 +3,7 @@ import { Snackbar } from '@centurio1987/bbangto-ui-core';
 import { expect, waitFor, within } from 'storybook/test';
 
 const meta = {
-  title: 'Molecules/Feedback',
+  title: 'ARCHETYPE/Components/Molecules/Feedback',
   component: Snackbar,
   parameters: {
     layout: 'padded',

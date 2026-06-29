@@ -4,7 +4,7 @@ import { Testimonials } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within } from 'storybook/test';
 
 const meta = {
-  title: 'Blocks/Testimonials',
+  title: 'ARCHETYPE/Blocks/Testimonials',
   component: Testimonials,
   parameters: {
     layout: 'fullscreen',

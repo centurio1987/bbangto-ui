@@ -3,7 +3,7 @@ import { Avatar } from '@centurio1987/bbangto-ui-core';
 import { expect, within } from 'storybook/test';
 
 const meta = {
-  title: 'Atoms/Avatar',
+  title: 'ARCHETYPE/Components/Atoms/Avatar',
   component: Avatar,
   parameters: {
     layout: 'centered',

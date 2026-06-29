@@ -14,7 +14,7 @@ import {
 import { expect } from 'storybook/test';
 
 const meta = {
-  title: 'Diagram/Presets/G4',
+  title: 'DIAGRAM/Presets/G4',
   component: DiagramCanvas,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },

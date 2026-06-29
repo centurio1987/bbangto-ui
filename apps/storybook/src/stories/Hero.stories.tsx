@@ -4,7 +4,7 @@ import { Hero } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 
 const meta = {
-  title: 'Blocks/Hero',
+  title: 'ARCHETYPE/Blocks/Hero',
   component: Hero,
   parameters: {
     layout: 'fullscreen',

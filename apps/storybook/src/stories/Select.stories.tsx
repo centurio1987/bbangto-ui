@@ -4,7 +4,7 @@ import { Select } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within } from 'storybook/test';
 
 const meta = {
-  title: 'Molecules/Select',
+  title: 'ARCHETYPE/Components/Molecules/Select',
   component: Select,
   parameters: {
     layout: 'centered',

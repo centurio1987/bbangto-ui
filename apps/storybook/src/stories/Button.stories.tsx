@@ -3,7 +3,7 @@ import { Button } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within } from 'storybook/test';
 
 const meta = {
-  title: 'Atoms/Button',
+  title: 'ARCHETYPE/Components/Atoms/Button',
   component: Button,
   parameters: {
     layout: 'centered',

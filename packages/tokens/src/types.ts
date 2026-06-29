@@ -257,6 +257,21 @@ export interface BbangtoTheme {
   readonly components?: Record<string, Record<string, string>>;
 }
 
+/**
+ * StyleGuide의 토큰 레이어. React 의존 없이 프레임워크 독립적으로 사용 가능.
+ * foundations(필수) + extendedFoundations + guidelines로 구성된다.
+ */
+export interface StyleGuideTokens {
+  readonly name: string;
+  readonly description?: string;
+  /** 필수. 기존 BbangtoTheme 토큰 (CSS 변수로 주입된다). */
+  readonly foundations: BbangtoTheme;
+  /** 선택. visual motif 구현을 위한 확장 CSS 변수. --bbangto-ext-* 네임스페이스 권장. */
+  readonly extendedFoundations?: Record<string, string>;
+  /** 선택. 컴포넌트 사용 가이드라인 (JSON 객체). 키: 가이드라인 이름, 값: 구조화된 데이터. */
+  readonly guidelines?: Record<string, Record<string, unknown>>;
+}
+
 /** Utility type for partial theme overrides */
 export type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];

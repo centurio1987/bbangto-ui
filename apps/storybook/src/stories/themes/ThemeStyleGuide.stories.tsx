@@ -209,7 +209,7 @@ function ThemeStyleGuide({ theme: slug, section }: ThemeStyleGuideProps) {
 
 // ──────────────────────────────────────────
 const meta: Meta<typeof ThemeStyleGuide> = {
-  title: 'Themes/Style Guide',
+  title: 'ARCHETYPE/Foundations/Themes',
   component: ThemeStyleGuide,
   parameters: { layout: 'fullscreen' },
   tags: ['autodocs'],

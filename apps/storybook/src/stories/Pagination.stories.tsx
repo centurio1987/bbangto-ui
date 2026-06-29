@@ -4,7 +4,7 @@ import { Pagination } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within } from 'storybook/test';
 
 const meta = {
-  title: 'Molecules/Pagination',
+  title: 'ARCHETYPE/Components/Molecules/Pagination',
   component: Pagination,
   parameters: {
     layout: 'centered',

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Skeleton } from '@centurio1987/bbangto-ui-core';
 
 const meta = {
-  title: 'Atoms/Skeleton',
+  title: 'ARCHETYPE/Components/Atoms/Skeleton',
   component: Skeleton,
   parameters: {
     layout: 'padded',

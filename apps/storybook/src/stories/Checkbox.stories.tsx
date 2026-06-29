@@ -3,7 +3,7 @@ import { Checkbox } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within } from 'storybook/test';
 
 const meta = {
-  title: 'Atoms/Checkbox',
+  title: 'ARCHETYPE/Components/Atoms/Checkbox',
   component: Checkbox,
   parameters: {
     layout: 'centered',

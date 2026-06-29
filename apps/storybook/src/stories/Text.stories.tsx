@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Text } from '@centurio1987/bbangto-ui-core';
 
 const meta = {
-  title: 'Atoms/Text',
+  title: 'ARCHETYPE/Components/Atoms/Text',
   component: Text,
   parameters: {
     layout: 'centered',

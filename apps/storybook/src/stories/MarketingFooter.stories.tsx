@@ -109,7 +109,7 @@ const SampleLogo = () => (
 // ---------------------------------------------------------------------------
 
 const meta = {
-  title: 'Blocks/MarketingFooter',
+  title: 'ARCHETYPE/Blocks/MarketingFooter',
   component: MarketingFooter,
   parameters: { layout: 'fullscreen' },
   tags: ['autodocs'],

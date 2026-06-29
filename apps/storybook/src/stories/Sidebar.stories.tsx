@@ -50,7 +50,7 @@ const IconUser = () => (
 // ─── Meta ─────────────────────────────────────────────────────────────────────
 
 const meta = {
-  title: 'Molecules/Sidebar',
+  title: 'ARCHETYPE/Components/Molecules/Sidebar',
   component: Sidebar,
   parameters: {
     layout: 'fullscreen',

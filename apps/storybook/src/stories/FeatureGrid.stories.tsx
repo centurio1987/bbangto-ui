@@ -9,7 +9,7 @@ const collectStyleText = (root: HTMLElement): string =>
     .join('\n');
 
 const meta = {
-  title: 'Blocks/FeatureGrid',
+  title: 'ARCHETYPE/Blocks/FeatureGrid',
   component: FeatureGrid,
   parameters: { layout: 'fullscreen' },
   tags: ['autodocs'],

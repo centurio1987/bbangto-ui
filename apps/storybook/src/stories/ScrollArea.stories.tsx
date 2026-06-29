@@ -3,7 +3,7 @@ import { ScrollArea } from '@centurio1987/bbangto-ui-core';
 import { expect, within, waitFor } from 'storybook/test';
 
 const meta = {
-  title: 'Atoms/ScrollArea',
+  title: 'ARCHETYPE/Components/Atoms/ScrollArea',
   component: ScrollArea,
   parameters: { layout: 'centered' },
   tags: ['autodocs'],

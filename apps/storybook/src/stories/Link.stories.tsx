@@ -3,7 +3,7 @@ import { Link } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 
 const meta = {
-  title: 'Atoms/Link',
+  title: 'ARCHETYPE/Components/Atoms/Link',
   component: Link,
   parameters: { layout: 'centered' },
   tags: ['autodocs'],

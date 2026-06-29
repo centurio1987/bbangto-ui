@@ -4,7 +4,7 @@ import { ChatBubble, MessageList } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within, waitFor } from 'storybook/test';
 
 const meta = {
-  title: 'Molecules/Chat',
+  title: 'ARCHETYPE/Components/Molecules/Chat',
   component: ChatBubble,
   parameters: {
     layout: 'padded',

@@ -3,7 +3,7 @@ import { Badge } from '@centurio1987/bbangto-ui-core';
 import { expect, within } from 'storybook/test';
 
 const meta = {
-  title: 'Atoms/Badge',
+  title: 'ARCHETYPE/Components/Atoms/Badge',
   component: Badge,
   parameters: {
     layout: 'centered',

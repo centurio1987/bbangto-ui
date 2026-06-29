@@ -11,7 +11,7 @@ import {
 import { expect, userEvent, within, waitFor } from 'storybook/test';
 
 const meta = {
-  title: 'Molecules/Menu',
+  title: 'ARCHETYPE/Components/Molecules/Menu',
   component: DropdownMenu,
   parameters: { layout: 'centered' },
   tags: ['autodocs'],

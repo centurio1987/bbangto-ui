@@ -3,7 +3,7 @@ import { Comparison } from '@centurio1987/bbangto-ui-core';
 import { expect, within, userEvent, fireEvent } from 'storybook/test';
 
 const meta = {
-  title: 'Blocks/Comparison',
+  title: 'ARCHETYPE/Blocks/Comparison',
   component: Comparison,
   parameters: { layout: 'padded' },
   tags: ['autodocs'],

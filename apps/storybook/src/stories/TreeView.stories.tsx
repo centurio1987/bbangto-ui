@@ -40,7 +40,7 @@ const sampleNodes = [
 ];
 
 const meta = {
-  title: 'Molecules/TreeView',
+  title: 'ARCHETYPE/Components/Molecules/TreeView',
   component: TreeView,
   parameters: {
     layout: 'padded',

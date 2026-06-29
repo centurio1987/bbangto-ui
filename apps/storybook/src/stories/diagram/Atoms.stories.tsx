@@ -12,7 +12,7 @@ import {
 import { expect, within } from 'storybook/test';
 
 const meta = {
-  title: 'Diagram/Atoms',
+  title: 'DIAGRAM/Atoms',
   component: DiagramCanvas,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },

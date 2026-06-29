@@ -4,7 +4,7 @@ import { TopNavigation, Button } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within } from 'storybook/test';
 
 const meta = {
-  title: 'Organisms/TopNavigation',
+  title: 'ARCHETYPE/Components/Organisms/TopNavigation',
   component: TopNavigation,
   parameters: {
     layout: 'padded',

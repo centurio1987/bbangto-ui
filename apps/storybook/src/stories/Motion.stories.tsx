@@ -37,7 +37,7 @@ import { within, expect, userEvent, waitFor } from 'storybook/test';
  * ThemeProvider. The atoms below consume those tokens. Zero runtime deps.
  */
 const meta = {
-  title: 'Foundations/Motion',
+  title: 'ARCHETYPE/Foundations/Motion',
   parameters: {
     layout: 'padded',
   },

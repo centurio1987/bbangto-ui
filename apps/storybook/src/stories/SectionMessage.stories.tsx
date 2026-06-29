@@ -3,7 +3,7 @@ import { SectionMessage } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 
 const meta = {
-  title: 'Molecules/SectionMessage',
+  title: 'ARCHETYPE/Components/Molecules/SectionMessage',
   component: SectionMessage,
   parameters: {
     layout: 'padded',

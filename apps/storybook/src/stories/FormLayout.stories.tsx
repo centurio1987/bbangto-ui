@@ -8,7 +8,7 @@ const isTransparent = (c: string) =>
   c === '' || c === 'transparent' || c === 'rgba(0, 0, 0, 0)';
 
 const meta = {
-  title: 'Patterns/FormLayout',
+  title: 'ARCHETYPE/Patterns/FormLayout',
   component: FormLayout,
   parameters: { layout: 'padded' },
   tags: ['autodocs'],

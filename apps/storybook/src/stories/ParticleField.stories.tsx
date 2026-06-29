@@ -16,7 +16,7 @@ import { expect, within } from 'storybook/test';
  * technology.
  */
 const meta = {
-  title: 'Motion/Shaders/ParticleField',
+  title: 'ARCHETYPE/Foundations/Motion/Shaders/ParticleField',
   component: ParticleField,
   tags: ['autodocs'],
   parameters: {

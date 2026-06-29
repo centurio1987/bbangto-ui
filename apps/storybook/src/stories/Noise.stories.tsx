@@ -4,7 +4,7 @@ import { Noise } from '@centurio1987/bbangto-ui-core';
 import { expect, within } from 'storybook/test';
 
 const meta = {
-  title: 'Motion/Shaders/Noise',
+  title: 'ARCHETYPE/Foundations/Motion/Shaders/Noise',
   component: Noise,
   tags: ['autodocs'],
   parameters: {

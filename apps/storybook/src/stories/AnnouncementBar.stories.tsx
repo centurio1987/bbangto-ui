@@ -4,7 +4,7 @@ import { AnnouncementBar } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within } from 'storybook/test';
 
 const meta = {
-  title: 'Blocks/AnnouncementBar',
+  title: 'ARCHETYPE/Blocks/AnnouncementBar',
   component: AnnouncementBar,
   parameters: { layout: 'fullscreen' },
   tags: ['autodocs'],

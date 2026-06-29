@@ -4,7 +4,7 @@ import { Switch } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within } from 'storybook/test';
 
 const meta = {
-  title: 'Atoms/Switch',
+  title: 'ARCHETYPE/Components/Atoms/Switch',
   component: Switch,
   parameters: {
     layout: 'centered',

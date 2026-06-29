@@ -4,7 +4,7 @@ import { VideoBlock } from '@centurio1987/bbangto-ui-core';
 import { expect, within } from 'storybook/test';
 
 const meta = {
-  title: 'Blocks/VideoBlock',
+  title: 'ARCHETYPE/Blocks/VideoBlock',
   component: VideoBlock,
   parameters: {
     layout: 'padded',

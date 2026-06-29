@@ -1,4 +1,7 @@
 export * from './ThemeProvider';
+export * from './StyleGuide';
+export * from './StyleGuideProvider';
+export * from './styleGuides';
 export * from './components/Button';
 export * from './components/Text';
 export * from './components/Input';

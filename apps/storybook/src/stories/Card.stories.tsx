@@ -4,7 +4,7 @@ import { Card, Text, Button } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within } from 'storybook/test';
 
 const meta = {
-  title: 'Molecules/Card',
+  title: 'ARCHETYPE/Components/Molecules/Card',
   component: Card,
   parameters: {
     layout: 'centered',

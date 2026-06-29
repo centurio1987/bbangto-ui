@@ -13,7 +13,7 @@ import { expect, within } from 'storybook/test';
  * static frame is drawn with no rAF loop.
  */
 const meta = {
-  title: 'Motion/Shaders/Ripple',
+  title: 'ARCHETYPE/Foundations/Motion/Shaders/Ripple',
   component: RippleBg,
   tags: ['autodocs'],
   parameters: {

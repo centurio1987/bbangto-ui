@@ -18,7 +18,7 @@ import {
 import { expect } from 'storybook/test';
 
 const meta = {
-  title: 'Diagram/Nodes',
+  title: 'DIAGRAM/Nodes',
   component: DiagramCanvas,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },

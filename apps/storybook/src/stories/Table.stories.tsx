@@ -4,7 +4,7 @@ import { Table, TableHead, TableBody, TableRow, TableHeader, TableCell } from '@
 import { expect, within } from 'storybook/test';
 
 const meta = {
-  title: 'Organisms/Table',
+  title: 'ARCHETYPE/Components/Organisms/Table',
   component: Table,
   parameters: {
     layout: 'padded',

@@ -16,18 +16,46 @@ const preview: Preview = {
       test: 'todo',
     },
     options: {
-      // 디자인 시스템 계층 순서대로 사이드바 정렬 (DESIGN_SYSTEM_GUIDE.md)
+      // 사이드바 3대 최상위: ARCHETYPE(원형 디자인 시스템) / DIAGRAM / STYLE GUIDE CATALOG.
+      // Overview(.mdx)는 단일 진입 안내 문서로 최상단 고정.
       storySort: {
         order: [
           'Overview',
-          'Foundations',
-          'Atoms',
-          'Molecules',
-          'Organisms',
-          'Blocks',
-          'Patterns',
-          'Motion',
-          'Hooks',
+          'ARCHETYPE', [
+            'Foundations', ['Motion', ['Shaders'], 'Themes'],
+            'Components', ['Atoms', 'Molecules', 'Organisms'],
+            'Blocks',
+            'Patterns',
+          ],
+          'DIAGRAM',
+          // 카탈로그: preset 표시명 순서 + 각 preset마다 동일한 6-leaf 순서(CATALOG_LEAVES)를 짝지음.
+          // storySort는 Storybook이 정적 파싱하므로 leaf 순서를 inline으로 둔다(const 참조 불가).
+          'STYLE GUIDE CATALOG', [
+            'Neobrutalism_Editorial_01', ['Referenced Foundations', 'Extended Foundations', 'Wrapper Components', 'Patterns', 'Guideline', 'Visual Motif'],
+            'Glassmorphism_Aurora_01', ['Referenced Foundations', 'Extended Foundations', 'Wrapper Components', 'Patterns', 'Guideline', 'Visual Motif'],
+            'Neumorphism_Soft_01', ['Referenced Foundations', 'Extended Foundations', 'Wrapper Components', 'Patterns', 'Guideline', 'Visual Motif'],
+            'Flat_Material_01', ['Referenced Foundations', 'Extended Foundations', 'Wrapper Components', 'Patterns', 'Guideline', 'Visual Motif'],
+            'Minimal_Saas_01', ['Referenced Foundations', 'Extended Foundations', 'Wrapper Components', 'Patterns', 'Guideline', 'Visual Motif'],
+            'Swiss_International_01', ['Referenced Foundations', 'Extended Foundations', 'Wrapper Components', 'Patterns', 'Guideline', 'Visual Motif'],
+            'Terminal_Mono_01', ['Referenced Foundations', 'Extended Foundations', 'Wrapper Components', 'Patterns', 'Guideline', 'Visual Motif'],
+            'Claymorphism_Playful_01', ['Referenced Foundations', 'Extended Foundations', 'Wrapper Components', 'Patterns', 'Guideline', 'Visual Motif'],
+            'Editorial_Magazine_01', ['Referenced Foundations', 'Extended Foundations', 'Wrapper Components', 'Patterns', 'Guideline', 'Visual Motif'],
+            'Bauhaus_Geometric_01', ['Referenced Foundations', 'Extended Foundations', 'Wrapper Components', 'Patterns', 'Guideline', 'Visual Motif'],
+            'Y2K_Futurism_01', ['Referenced Foundations', 'Extended Foundations', 'Wrapper Components', 'Patterns', 'Guideline', 'Visual Motif'],
+            'Vaporwave_Synth_01', ['Referenced Foundations', 'Extended Foundations', 'Wrapper Components', 'Patterns', 'Guideline', 'Visual Motif'],
+            'Maximalism_Dopamine_01', ['Referenced Foundations', 'Extended Foundations', 'Wrapper Components', 'Patterns', 'Guideline', 'Visual Motif'],
+            'Cyberpunk_Hud_01', ['Referenced Foundations', 'Extended Foundations', 'Wrapper Components', 'Patterns', 'Guideline', 'Visual Motif'],
+            'Aurora_Gradient_01', ['Referenced Foundations', 'Extended Foundations', 'Wrapper Components', 'Patterns', 'Guideline', 'Visual Motif'],
+            'Scandi_Warm_01', ['Referenced Foundations', 'Extended Foundations', 'Wrapper Components', 'Patterns', 'Guideline', 'Visual Motif'],
+            'DarkLuxe_Editorial_01', ['Referenced Foundations', 'Extended Foundations', 'Wrapper Components', 'Patterns', 'Guideline', 'Visual Motif'],
+            'Skeuomorphism_Tactile_01', ['Referenced Foundations', 'Extended Foundations', 'Wrapper Components', 'Patterns', 'Guideline', 'Visual Motif'],
+            'Memphis_Postmodern_01', ['Referenced Foundations', 'Extended Foundations', 'Wrapper Components', 'Patterns', 'Guideline', 'Visual Motif'],
+            'FrutigerAero_Glossy_01', ['Referenced Foundations', 'Extended Foundations', 'Wrapper Components', 'Patterns', 'Guideline', 'Visual Motif'],
+            'Retro70s_Warm_01', ['Referenced Foundations', 'Extended Foundations', 'Wrapper Components', 'Patterns', 'Guideline', 'Visual Motif'],
+            'Collage_Scrapbook_01', ['Referenced Foundations', 'Extended Foundations', 'Wrapper Components', 'Patterns', 'Guideline', 'Visual Motif'],
+            'Kawaii_Pastel_01', ['Referenced Foundations', 'Extended Foundations', 'Wrapper Components', 'Patterns', 'Guideline', 'Visual Motif'],
+            'ArtDeco_Luxe_01', ['Referenced Foundations', 'Extended Foundations', 'Wrapper Components', 'Patterns', 'Guideline', 'Visual Motif'],
+          ],
           '*',
         ],
       },

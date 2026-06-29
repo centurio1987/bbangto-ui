@@ -3,7 +3,7 @@ import { Textarea } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within } from 'storybook/test';
 
 const meta = {
-  title: 'Molecules/Textarea',
+  title: 'ARCHETYPE/Components/Molecules/Textarea',
   component: Textarea,
   parameters: {
     layout: 'centered',

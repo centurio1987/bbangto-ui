@@ -3,7 +3,7 @@ import { CTA } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within } from 'storybook/test';
 
 const meta = {
-  title: 'Blocks/CTA',
+  title: 'ARCHETYPE/Blocks/CTA',
   component: CTA,
   parameters: { layout: 'padded' },
   tags: ['autodocs'],

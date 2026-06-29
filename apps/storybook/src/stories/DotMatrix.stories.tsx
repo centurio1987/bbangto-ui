@@ -14,7 +14,7 @@ import { expect, within } from 'storybook/test';
  * static frame is drawn with no rAF loop.
  */
 const meta = {
-  title: 'Motion/Shaders/DotMatrix',
+  title: 'ARCHETYPE/Foundations/Motion/Shaders/DotMatrix',
   component: DotMatrix,
   tags: ['autodocs'],
   parameters: {

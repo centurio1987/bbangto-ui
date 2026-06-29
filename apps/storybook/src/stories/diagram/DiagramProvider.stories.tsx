@@ -8,7 +8,7 @@ import {
 import { expect, within } from 'storybook/test';
 
 const meta = {
-  title: 'Diagram/Provider',
+  title: 'DIAGRAM/Provider',
   component: DiagramProvider,
   tags: ['autodocs'],
   parameters: {

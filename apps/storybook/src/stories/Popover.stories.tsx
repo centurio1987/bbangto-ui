@@ -4,7 +4,7 @@ import { Popover, Button } from '@centurio1987/bbangto-ui-core';
 import { expect, fireEvent, userEvent, waitFor, within } from 'storybook/test';
 
 const meta = {
-  title: 'Molecules/Popover',
+  title: 'ARCHETYPE/Components/Molecules/Popover',
   component: Popover,
   parameters: {
     layout: 'centered',

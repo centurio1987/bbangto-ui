@@ -14,7 +14,7 @@ import { expect, within } from 'storybook/test';
  * static frame is drawn at t = 0 with no rAF loop.
  */
 const meta = {
-  title: 'Motion/Shaders/Plasma',
+  title: 'ARCHETYPE/Foundations/Motion/Shaders/Plasma',
   component: Plasma,
   tags: ['autodocs'],
   parameters: {

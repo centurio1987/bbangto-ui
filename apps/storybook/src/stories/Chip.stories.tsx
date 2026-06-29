@@ -3,7 +3,7 @@ import { Chip } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within } from 'storybook/test';
 
 const meta = {
-  title: 'Atoms/Chip',
+  title: 'ARCHETYPE/Components/Atoms/Chip',
   component: Chip,
   parameters: {
     layout: 'centered',

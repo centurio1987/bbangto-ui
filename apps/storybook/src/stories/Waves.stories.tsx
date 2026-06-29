@@ -4,7 +4,7 @@ import { Waves } from '@centurio1987/bbangto-ui-core';
 import { expect } from 'storybook/test';
 
 const meta = {
-  title: 'Motion/Shaders/Waves',
+  title: 'ARCHETYPE/Foundations/Motion/Shaders/Waves',
   component: Waves,
   tags: ['autodocs'],
   parameters: {

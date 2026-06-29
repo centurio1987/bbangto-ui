@@ -3,7 +3,7 @@ import { PricingSection } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 
 const meta = {
-  title: 'Blocks/PricingSection',
+  title: 'ARCHETYPE/Blocks/PricingSection',
   component: PricingSection,
   parameters: { layout: 'fullscreen' },
   tags: ['autodocs'],

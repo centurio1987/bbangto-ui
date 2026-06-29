@@ -3,7 +3,7 @@ import { Calendar } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within, waitFor } from 'storybook/test';
 
 const meta = {
-  title: 'Molecules/Calendar',
+  title: 'ARCHETYPE/Components/Molecules/Calendar',
   component: Calendar,
   parameters: { layout: 'centered' },
   tags: ['autodocs'],

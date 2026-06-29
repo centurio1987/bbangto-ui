@@ -3,7 +3,7 @@ import { Radio, RadioGroup } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within } from 'storybook/test';
 
 const meta = {
-  title: 'Atoms/Radio',
+  title: 'ARCHETYPE/Components/Atoms/Radio',
   component: Radio,
   parameters: {
     layout: 'centered',

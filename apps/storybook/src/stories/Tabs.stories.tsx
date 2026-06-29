@@ -3,7 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@centurio1987/bbangto-
 import { expect, userEvent, within } from 'storybook/test';
 
 const meta = {
-  title: 'Molecules/Tabs',
+  title: 'ARCHETYPE/Components/Molecules/Tabs',
   component: Tabs,
   parameters: {
     layout: 'padded',

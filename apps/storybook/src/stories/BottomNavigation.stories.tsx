@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { BottomNavigation, BottomNavigationItem } from '@centurio1987/bbangto-ui-core';
 
 const meta = {
-  title: 'Organisms/BottomNavigation',
+  title: 'ARCHETYPE/Components/Organisms/BottomNavigation',
   component: BottomNavigation,
   parameters: {
     layout: 'padded',

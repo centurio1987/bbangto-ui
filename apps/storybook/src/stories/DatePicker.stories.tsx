@@ -3,7 +3,7 @@ import { DatePicker } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 
 const meta = {
-  title: 'Molecules/DatePicker',
+  title: 'ARCHETYPE/Components/Molecules/DatePicker',
   component: DatePicker,
   parameters: { layout: 'centered' },
   tags: ['autodocs'],

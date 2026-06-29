@@ -4,7 +4,7 @@ import { Carousel } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within } from 'storybook/test';
 
 const meta = {
-  title: 'Molecules/Carousel',
+  title: 'ARCHETYPE/Components/Molecules/Carousel',
   component: Carousel,
   parameters: {
     layout: 'padded',

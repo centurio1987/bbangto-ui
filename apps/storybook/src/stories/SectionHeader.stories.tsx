@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { SectionHeader, Button } from '@centurio1987/bbangto-ui-core';
 
 const meta = {
-  title: 'Molecules/SectionHeader',
+  title: 'ARCHETYPE/Components/Molecules/SectionHeader',
   component: SectionHeader,
   parameters: {
     layout: 'padded',

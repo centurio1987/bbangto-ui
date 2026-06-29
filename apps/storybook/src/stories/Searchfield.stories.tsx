@@ -3,7 +3,7 @@ import { Searchfield } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within } from 'storybook/test';
 
 const meta = {
-  title: 'Molecules/Searchfield',
+  title: 'ARCHETYPE/Components/Molecules/Searchfield',
   component: Searchfield,
   parameters: {
     layout: 'centered',

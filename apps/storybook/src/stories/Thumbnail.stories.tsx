@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Thumbnail } from '@centurio1987/bbangto-ui-core';
 
 const meta = {
-  title: 'Atoms/Thumbnail',
+  title: 'ARCHETYPE/Components/Atoms/Thumbnail',
   component: Thumbnail,
   parameters: {
     layout: 'padded',

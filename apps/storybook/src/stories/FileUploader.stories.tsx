@@ -4,7 +4,7 @@ import { FileUploader } from '@centurio1987/bbangto-ui-core';
 import { expect, within } from 'storybook/test';
 
 const meta = {
-  title: 'Molecules/FileUploader',
+  title: 'ARCHETYPE/Components/Molecules/FileUploader',
   component: FileUploader,
   parameters: {
     layout: 'padded',

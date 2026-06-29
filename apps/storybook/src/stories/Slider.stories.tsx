@@ -4,7 +4,7 @@ import { Slider, type SliderProps } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within, waitFor, fireEvent } from 'storybook/test';
 
 const meta = {
-  title: 'Molecules/Slider',
+  title: 'ARCHETYPE/Components/Molecules/Slider',
   component: Slider,
   parameters: {
     layout: 'centered',

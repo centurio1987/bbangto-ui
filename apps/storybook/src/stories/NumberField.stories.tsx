@@ -3,7 +3,7 @@ import { NumberField } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within } from 'storybook/test';
 
 const meta = {
-  title: 'Molecules/NumberField',
+  title: 'ARCHETYPE/Components/Molecules/NumberField',
   component: NumberField,
   parameters: { layout: 'centered' },
   tags: ['autodocs'],

@@ -4,7 +4,7 @@ import { ProgressIndicator } from '@centurio1987/bbangto-ui-core';
 import { expect, within, waitFor } from 'storybook/test';
 
 const meta = {
-  title: 'Atoms/ProgressIndicator',
+  title: 'ARCHETYPE/Components/Atoms/ProgressIndicator',
   component: ProgressIndicator,
   parameters: {
     layout: 'centered',

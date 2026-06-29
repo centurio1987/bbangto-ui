@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Cell, Avatar, Switch, Badge } from '@centurio1987/bbangto-ui-core';
 
 const meta = {
-  title: 'Molecules/Cell',
+  title: 'ARCHETYPE/Components/Molecules/Cell',
   component: Cell,
   parameters: {
     layout: 'padded',

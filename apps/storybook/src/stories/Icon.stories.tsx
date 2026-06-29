@@ -7,7 +7,7 @@ const iconComponents = Object.entries(Icons)
   .sort(([a], [b]) => a.localeCompare(b));
 
 const meta: Meta = {
-  title: 'Atoms/Icon',
+  title: 'ARCHETYPE/Components/Atoms/Icon',
   parameters: {
     layout: 'padded',
   },

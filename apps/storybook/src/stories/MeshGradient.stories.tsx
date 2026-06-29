@@ -12,7 +12,7 @@ import { expect } from 'storybook/test';
  * static frame is drawn with no rAF loop.
  */
 const meta = {
-  title: 'Motion/Shaders/MeshGradient',
+  title: 'ARCHETYPE/Foundations/Motion/Shaders/MeshGradient',
   component: MeshGradient,
   tags: ['autodocs'],
   parameters: {

@@ -8,7 +8,7 @@ const collectStyles = (root: HTMLElement): string =>
     .join('\n');
 
 const meta = {
-  title: 'Blocks/MapBlock',
+  title: 'ARCHETYPE/Blocks/MapBlock',
   component: MapBlock,
   parameters: { layout: 'fullscreen' },
   tags: ['autodocs'],

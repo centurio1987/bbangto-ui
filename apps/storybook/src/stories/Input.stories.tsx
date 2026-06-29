@@ -3,7 +3,7 @@ import { Input } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within, waitFor } from 'storybook/test';
 
 const meta = {
-  title: 'Atoms/Input',
+  title: 'ARCHETYPE/Components/Atoms/Input',
   component: Input,
   parameters: {
     layout: 'padded',

@@ -18,7 +18,7 @@ const sampleMessages: AIChatMessage[] = [
 ];
 
 const meta = {
-  title: 'Patterns/AIChat',
+  title: 'ARCHETYPE/Patterns/AIChat',
   component: AIChat,
   parameters: {
     layout: 'padded',

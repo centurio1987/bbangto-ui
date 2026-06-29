@@ -15,7 +15,7 @@ import { expect, within } from 'storybook/test';
  * prop is set, a single static frame is rendered with no rAF loop.
  */
 const meta = {
-  title: 'Motion/Shaders/Metaballs',
+  title: 'ARCHETYPE/Foundations/Motion/Shaders/Metaballs',
   component: Metaballs,
   tags: ['autodocs'],
   parameters: {

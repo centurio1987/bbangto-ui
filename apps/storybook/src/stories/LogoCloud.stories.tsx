@@ -4,7 +4,7 @@ import { LogoCloud } from '@centurio1987/bbangto-ui-core';
 import { expect, within } from 'storybook/test';
 
 const meta = {
-  title: 'Blocks/LogoCloud',
+  title: 'ARCHETYPE/Blocks/LogoCloud',
   component: LogoCloud,
   parameters: {
     layout: 'fullscreen',
