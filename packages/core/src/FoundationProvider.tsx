@@ -5,7 +5,7 @@ import {
   mergeFoundation,
   FoundationOverride,
 } from '@centurio1987/bbangto-ui-tokens';
-import { lightTheme } from '@centurio1987/bbangto-ui-themes';
+import { lightFoundation } from './foundations';
 import { useMotionKeyframes } from './motion/keyframes';
 
 interface FoundationContextValue {
@@ -33,7 +33,7 @@ export interface FoundationProviderProps {
  */
 export function FoundationProvider({
   children,
-  foundation = lightTheme,
+  foundation = lightFoundation,
   overrides,
   as: Component = 'div',
   className,
@@ -74,7 +74,7 @@ export function useFoundation(): BbangtoFoundation {
   const context = useContext(FoundationContext);
   if (context === undefined) {
     // Return default foundation if used outside provider, though wrapping is recommended.
-    return lightTheme;
+    return lightFoundation;
   }
   return context.foundation;
 }

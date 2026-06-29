@@ -23,12 +23,12 @@ importers:
       '@centurio1987/bbangto-ui-diagram':
         specifier: workspace:^
         version: link:../../packages/diagram
+      '@centurio1987/bbangto-ui-foundations':
+        specifier: workspace:^
+        version: link:../../packages/foundations
       '@centurio1987/bbangto-ui-hooks':
         specifier: workspace:^
         version: link:../../packages/hooks
-      '@centurio1987/bbangto-ui-themes':
-        specifier: workspace:^
-        version: link:../../packages/themes
       '@centurio1987/bbangto-ui-tokens':
         specifier: workspace:^
         version: link:../../packages/tokens
@@ -114,9 +114,6 @@ importers:
 
   packages/core:
     dependencies:
-      '@centurio1987/bbangto-ui-themes':
-        specifier: workspace:*
-        version: link:../themes
       '@centurio1987/bbangto-ui-tokens':
         specifier: workspace:*
         version: link:../tokens
@@ -174,6 +171,19 @@ importers:
         specifier: ^5.7.0
         version: 5.9.3
 
+  packages/foundations:
+    dependencies:
+      '@centurio1987/bbangto-ui-tokens':
+        specifier: workspace:*
+        version: link:../tokens
+    devDependencies:
+      tsup:
+        specifier: ^8.0.0
+        version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.7.0
+        version: 5.9.3
+
   packages/hooks:
     devDependencies:
       '@testing-library/react':
@@ -200,19 +210,6 @@ importers:
       vitest:
         specifier: ^4.1.9
         version: 4.1.9(@types/node@24.13.2)(@vitest/browser-playwright@4.1.9)(@vitest/coverage-v8@4.1.9)(jsdom@25.0.1)(vite@8.0.16(@types/node@24.13.2)(esbuild@0.27.7))
-
-  packages/themes:
-    dependencies:
-      '@centurio1987/bbangto-ui-tokens':
-        specifier: workspace:*
-        version: link:../tokens
-    devDependencies:
-      tsup:
-        specifier: ^8.0.0
-        version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
-      typescript:
-        specifier: ^5.7.0
-        version: 5.9.3
 
   packages/tokens:
     devDependencies:

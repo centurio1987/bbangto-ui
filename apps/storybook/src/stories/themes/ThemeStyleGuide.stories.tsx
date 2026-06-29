@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { within, expect } from 'storybook/test'
 import React from 'react'
 import { FoundationProvider } from '@centurio1987/bbangto-ui-core'
-import { themeMap } from '@centurio1987/bbangto-ui-themes'
+import { foundationCatalog } from '@centurio1987/bbangto-ui-foundations'
 import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens'
 
 // ──────────────────────────────────────────
@@ -32,7 +32,7 @@ interface ThemeStyleGuideProps {
 }
 
 function ThemeStyleGuide({ theme: slug, section }: ThemeStyleGuideProps) {
-  const theme = themeMap[slug] as BbangtoFoundation | undefined
+  const theme = foundationCatalog[slug] as BbangtoFoundation | undefined
 
   if (!theme) {
     return <div style={{ padding: 32, color: 'red' }}>Theme not found: {slug}</div>

@@ -1,7 +1,7 @@
 import type { Preview } from '@storybook/react-vite';
 import React from 'react';
-import { FoundationProvider } from '@centurio1987/bbangto-ui-core';
-import { lightTheme, darkTheme, highContrastTheme, amberDarkTheme, amberLightTheme } from '@centurio1987/bbangto-ui-themes';
+import { FoundationProvider, lightFoundation, darkFoundation, highContrastFoundation } from '@centurio1987/bbangto-ui-core';
+import { amberDarkFoundation, amberLightFoundation } from '@centurio1987/bbangto-ui-foundations';
 import { DiagramProvider, blueprintTheme } from '@centurio1987/bbangto-ui-diagram';
 
 const preview: Preview = {
@@ -76,15 +76,15 @@ const preview: Preview = {
   decorators: [
     (Story, context) => {
       const foundationName = context.globals.theme;
-      let foundation = lightTheme;
+      let foundation = lightFoundation;
       if (foundationName === 'dark') {
-        foundation = darkTheme;
+        foundation = darkFoundation;
       } else if (foundationName === 'high-contrast') {
-        foundation = highContrastTheme;
+        foundation = highContrastFoundation;
       } else if (foundationName === 'amber-dark') {
-        foundation = amberDarkTheme;
+        foundation = amberDarkFoundation;
       } else if (foundationName === 'amber-light') {
-        foundation = amberLightTheme;
+        foundation = amberLightFoundation;
       }
 
       const bgColor = foundation.semantic.background.base;

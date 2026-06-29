@@ -1,3 +1,4 @@
+export * from './foundations';
 export * from './FoundationProvider';
 export * from './StyleGuide';
 export * from './StyleGuideProvider';
