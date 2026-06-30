@@ -49,6 +49,13 @@ export { collageScrapbookStyleGuide, CollageShowcase, collageScrapbookWrappers }
 export { kawaiiPastelStyleGuide, KawaiiShowcase, kawaiiPastelWrappers } from './kawaiiPastel';
 export { artDecoLuxeStyleGuide, ArtDecoShowcase, artDecoLuxeWrappers } from './artDecoLuxe';
 
+// 신규 후보(2026 트렌드 리서치 §C — design-trends-2020-2026.md) presets.
+export { bentoModularStyleGuide, BentoShowcase, bentoModularWrappers } from './bentoModular';
+export { kineticTypographyStyleGuide, KineticShowcase, kineticTypographyWrappers } from './kineticTypography';
+export { spatial3dStyleGuide, Spatial3DShowcase, spatial3dWrappers } from './spatial3d';
+export { humanistImperfectStyleGuide, HumanistShowcase, humanistImperfectWrappers } from './humanistImperfect';
+export { tactileTextureStyleGuide, TactileShowcase, tactileTextureWrappers } from './tactileTexture';
+
 import { glassmorphismAuroraStyleGuide } from './glassmorphismAurora';
 import { neumorphismSoftStyleGuide } from './neumorphismSoft';
 import { flatMaterialStyleGuide } from './flatMaterial';
@@ -72,6 +79,11 @@ import { retro70sWarmStyleGuide } from './retro70sWarm';
 import { collageScrapbookStyleGuide } from './collageScrapbook';
 import { kawaiiPastelStyleGuide } from './kawaiiPastel';
 import { artDecoLuxeStyleGuide } from './artDecoLuxe';
+import { bentoModularStyleGuide } from './bentoModular';
+import { kineticTypographyStyleGuide } from './kineticTypography';
+import { spatial3dStyleGuide } from './spatial3d';
+import { humanistImperfectStyleGuide } from './humanistImperfect';
+import { tactileTextureStyleGuide } from './tactileTexture';
 
 /**
  * Style Guide Catalog — bbangto-ui가 제공하는 대표 디자인 스타일 preset 집합.
@@ -105,6 +117,12 @@ export const styleGuideCatalog: readonly StyleGuide[] = [
   collageScrapbookStyleGuide,
   kawaiiPastelStyleGuide,
   artDecoLuxeStyleGuide,
+  // 신규 후보(2026 트렌드 리서치 §C)
+  bentoModularStyleGuide,
+  kineticTypographyStyleGuide,
+  spatial3dStyleGuide,
+  humanistImperfectStyleGuide,
+  tactileTextureStyleGuide,
 ];
 
 /** name → StyleGuide 조회 맵. styleGuideCatalog에서 파생. */

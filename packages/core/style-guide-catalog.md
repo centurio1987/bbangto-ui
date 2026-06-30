@@ -2,7 +2,7 @@
 
 > 목적: Style Guide Catalog를 **일괄 생성**하기 위한 후보 디자인 트렌드 수집·목록.
 > 각 항목은 bbangto-ui의 `StyleGuide` 6요소(아래)로 곧장 인스턴스화할 수 있도록 명세화한다.
-> 현재 구현된 preset은 `Neobrutalism_Editorial_01`(= `neobrutalism-editorial-01`) **하나**다.
+> 현재 `@centurio1987/bbangto-ui-style-guide-catalog` 패키지에 **29개 preset이 구현**되어 있다(#0–28 전부, `styleGuideCatalog`/`styleGuideMap` 등재).
 
 ## StyleGuide 6요소 (생성 대상 스키마)
 
@@ -55,6 +55,13 @@ slug = kebab-case (`name` / `data-bbangto-style-guide` / `styleGuideMap` 키).
 | 21 | ArtDeco_Luxe_01 | `artdeco-luxe-01` | 정제/럭셔리 | 골드 라인·대칭·기하 장식·세리프 디스플레이 | P3 |
 | 22 | Scandi_Warm_01 | `scandi-warm-01` | 정제/럭셔리 | 따뜻한 오프화이트 + 우드톤 + 절제된 라운드 | P2 |
 | 23 | DarkLuxe_Editorial_01 | `darkluxe-editorial-01` | 정제/럭셔리 | 흑·금 고대비 + 대형 세리프 + 시네마틱 여백 | P2 |
+| 24 | **Bento_Modular_01** | `bento-modular-01` | 평면/체계 | 도시락형 모듈·비대칭·균형 그리드 (레이아웃 중심) *(구현됨)* | P1 |
+| 25 | **Kinetic_Typography_01** | `kinetic-typography-01` | 타이포/편집 | 커서 반응·가변 모션 텍스트, 움직이는 헤드라인 *(구현됨)* | P2 |
+| 26 | **Spatial_3D_01** | `spatial-3d-01` | 깊이/material | WebGL/3D·공간 UI, 스크롤 트리거 깊이·시차 *(구현됨)* | P3 |
+| 27 | **Humanist_Imperfect_01** | `humanist-imperfect-01` | 표현/에너지 | 손그림·유기 곡선·의도적 결함 레터폼, 감성 주도 *(구현됨)* | P2 |
+| 28 | **Tactile_Texture_01** | `tactile-texture-01` | 표현/에너지 | 퍼피·스퀴시·하이퍼리얼 질감, 촉각 모사 *(구현됨)* | P2 |
+
+> #24–28은 [`design-trends-2020-2026.md`](./design-trends-2020-2026.md) §C(2020–2026 시간축 리서치)에서 도출한 신규 후보. 기존 #1–23이 커버하지 못한 트렌드를 보강한다.
 
 ---
 
@@ -246,6 +253,46 @@ slug = kebab-case (`name` / `data-bbangto-style-guide` / `styleGuideMap` 키).
 - **PT**: 패션/브랜드 룩북, 시네마틱 Hero, 케이스 스터디.
 - **VM**: 다크 편집 럭셔리 — 고대비 세리프·넓은 여백·시네마틱 리듬.
 - **G**: 다크 본문 가독성(밝기/행간), 등장 모션 reduce 옵션.
+
+### 24. Bento_Modular_01
+- **F**: 중립 배경 + 1~2 액센트(콘텐츠 컬러는 타일별 가변). radius `lg`(16–20px, 도시락 셀). spacing 균일 gap, soft elevation. 타이포 산세리프.
+- **EF**: `--bbangto-ext-bento-gap`, `--bbangto-ext-bento-radius`, `--bbangto-ext-tile-elevation`, `--bbangto-ext-tile-span`(grid-area 헬퍼).
+- **W**: Card → BentoTile(다양한 span: 1×1/2×1/2×2). GNB/Section은 그리드 컨테이너 래퍼. Button은 타일 내 인라인.
+- **PT**: **핵심** — 대시보드, 랜딩 Hero(피처 타일 군집), 프로필/포트폴리오, Pricing. 비대칭·균형 모듈 배치.
+- **VM**: 일본 도시락 메타포 — 크기 다른 모듈을 비대칭·균형으로 채운 그리드가 곧 레이아웃 언어. (정적 → 호버 시 타일 확장 옵션)
+- **G**: 컴포넌트보다 **레이아웃/패턴 중심** 카탈로그. 반응형 셀 재배치(모바일 단일 컬럼) 규칙, 타일 내 콘텐츠 대비·터치 타깃, 호버 확장 시 reduce-motion 분기.
+
+### 25. Kinetic_Typography_01
+- **F**: 미니멀 배경(흑/백 또는 단색) + 단일 강조. 초대형 가변 폰트(variable font) 전제. radius `none~sm`.
+- **EF**: `--bbangto-ext-kinetic-duration`, `--bbangto-ext-kinetic-stagger`, `--bbangto-ext-text-weight-range`(가변축), `--bbangto-ext-marquee-speed`.
+- **W**: Heading/Display → KineticText(커서·스크롤 반응 스트레치/트위스트/웨이트 변화), Marquee, SplitText(글자 단위 stagger). Button은 호버 시 자간/웨이트 모핑.
+- **PT**: 랜딩 Hero, 아젠다/섹션 전환, 타이포 포스터, 인트로 시퀀스.
+- **VM**: 텍스트가 수동 요소가 아닌 **능동 인터랙션 포인트** — 색/크기/투명도/웨이트가 입력에 반응.
+- **G**: ⚠ **모션 의존** → `prefers-reduced-motion: reduce` 시 정적 폴백 필수(story `play`에서 검증). 가변폰트 미지원 폴백, 모션 중 가독성(과한 왜곡 금지), 발작 위험 빠른 깜빡임 회피.
+
+### 26. Spatial_3D_01
+- **F**: 딥/뉴트럴 배경 + 라이팅 기반 음영. radius `md~lg`. 깊이 표현용 perspective. 산세리프.
+- **EF**: `--bbangto-ext-perspective`, `--bbangto-ext-depth-z`(레이어 z), `--bbangto-ext-tilt`(마우스 시차), `--bbangto-ext-3d-shadow`, `--bbangto-ext-fallback-img`(정적 폴백).
+- **W**: Card → TiltCard(마우스 시차 3D 회전), HeroScene(WebGL/`<model-viewer>` 슬롯), Button은 깊이 press. 3D 캔버스는 lazy 슬롯.
+- **PT**: 제품 쇼케이스, 랜딩 Hero(3D 오브젝트), AR 프리뷰, 인터랙티브 스토리.
+- **VM**: 스크롤·포인터에 반응하는 공간 깊이 — 시차·틸트·라이팅으로 평면을 입체로.
+- **G**: ⚠ **구현 난도·성능 비용 큼(P3)** — WebGL 미지원/저사양 폴백(정적 이미지) 필수, lazy-load·메모리 관리, reduce-motion 시 시차/회전 정지, 3D 콘텐츠 대체텍스트.
+
+### 27. Humanist_Imperfect_01
+- **F**: 웜 페이퍼/오프화이트 배경 + 어스/잉크 톤. **손글씨·휴머니스트 산세리프 혼합**. radius 불규칙(손그림). 미세 그레인.
+- **EF**: `--bbangto-ext-ink-stroke`(손그림 보더), `--bbangto-ext-wobble`(미세 비틀림), `--bbangto-ext-grain`, `--bbangto-ext-underline-sketch`.
+- **W**: Button/Card/Tag에 손그림 보더·약간 어긋난 정렬·유기 곡선. Heading은 핸드드로운 강조(밑줄/동그라미).
+- **PT**: 브랜드 어바웃, 포트폴리오, 커뮤니티/뉴스레터, 일러스트 Hero.
+- **VM**: 의도적 불완전함 — 손그림 형태·유기 곡선·미세 결함으로 따뜻함·진정성(감성 주도).
+- **G**: 손그림 요소 이미지화 시 대체텍스트, 비틀림·정렬 어긋남이 가독성/터치 타깃 해치지 않도록 한계 명시, 본문은 가독 폰트 유지(손글씨는 강조에만).
+
+### 28. Tactile_Texture_01
+- **F**: 파스텔/소프트 톤 + 밝은 배경. radius `xl`(두툼·말랑). 큰 spacing. 부드러운 그림자.
+- **EF**: `--bbangto-ext-puffy-shadow`(이중 소프트), `--bbangto-ext-squish`(press 시 눌림 트랜지션), `--bbangto-ext-noise-texture`, `--bbangto-ext-hyperreal-gloss`.
+- **W**: Button/Card/Avatar에 퍼피·스퀴시 질감(눌리는 인터랙션), 하이퍼리얼 오브젝트 + 장난스런 왜곡.
+- **PT**: 온보딩, 굿즈/커머스, 게임화 UI, 일러스트 Hero.
+- **VM**: 촉각 모사 — 만짐/눌림을 시각화한 퍼피·소프트·스퀴시 질감 + 하이퍼리얼 디테일.
+- **G**: 과한 그림자/질감의 시각 소음 주의, squish 모션 reduce-motion 분기, 텍스처 위 텍스트 대비 보강, 정보 밀도 높은 화면엔 부적합 명시.
 
 ---
 
