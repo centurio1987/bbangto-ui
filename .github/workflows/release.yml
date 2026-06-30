@@ -1,0 +1,62 @@
+name: Release
+
+# main에 push될 때마다 실행.
+# - .changeset/*.md 가 있으면 → "Version Packages" PR 생성/갱신(버전 범프 + CHANGELOG).
+# - 그 PR이 머지되어 changeset이 모두 소진되면 → GitHub Packages로 publish.
+on:
+  push:
+    branches: [main]
+
+# changesets/action 이 PR을 만들고 패키지를 publish 하려면 아래 권한이 필요하다.
+# (추가로 repo Settings → Actions → General 에서
+#  "Allow GitHub Actions to create and approve pull requests" 를 켜야 PR 생성이 된다.)
+permissions:
+  contents: write       # 버전 커밋/태그 push, GitHub Release 생성
+  pull-requests: write  # "Version Packages" PR 생성/갱신
+  packages: write       # GitHub Packages publish
+
+concurrency:
+  group: release-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4 # 버전은 package.json 의 packageManager 필드를 따름
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build packages
+        run: pnpm build
+
+      # 인증 토큰은 user-level ~/.npmrc 에 둔다. project .npmrc 에는 인증 라인이 없어
+      # (pnpm 은 보안상 project .npmrc 의 ${ENV} 인증값을 전개하지 않으므로) 가려지지 않는다.
+      # GITHUB_TOKEN 은 이 워크플로 실행 동안만 유효한 임시 토큰 — 개인 PAT 불필요.
+      - name: Configure GitHub Packages auth
+        run: printf '//npm.pkg.github.com/:_authToken=%s\n' "$NODE_AUTH_TOKEN" >> ~/.npmrc
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Release PR or Publish
+        uses: changesets/action@v1
+        with:
+          version: pnpm run version-packages   # changeset version + storybook devDep 복구
+          publish: pnpm run release            # pnpm -r publish --no-git-checks
+          commit: "chore(release): version packages"
+          title: "chore(release): version packages"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

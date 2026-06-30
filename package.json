@@ -11,6 +11,8 @@
     "test:unit": "pnpm -r --filter=!storybook run test",
     "storybook": "pnpm --filter storybook storybook",
     "build-storybook": "pnpm --filter storybook build-storybook",
+    "version-packages": "changeset version && node scripts/postversion-fix.mjs",
+    "release": "pnpm -r publish --no-git-checks",
     "clean": "pnpm -r exec rm -rf dist node_modules"
   },
   "devDependencies": {
