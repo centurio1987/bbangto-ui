@@ -1,4 +1,6 @@
-# @centurio1987/bbangto-ui-themes
+# @centurio1987/bbangto-ui-foundations
+
+> 구 `@centurio1987/bbangto-ui-themes`에서 rename됨 (ORD-006). 아래는 이전 이름 시절의 이력.
 
 ## 0.2.0
 
