@@ -1,6 +1,6 @@
 {
   "name": "@centurio1987/bbangto-ui-foundations",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "Foundation catalog for bbangto-ui — amber + 74 brand presets (base light/dark/high-contrast live in core)",
   "type": "module",
   "main": "./dist/index.js",

@@ -1,6 +1,6 @@
 {
   "name": "@centurio1987/bbangto-ui-style-guide-catalog",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Style guide preset catalog for bbangto-ui — 24 ready-made style guides built on core",
   "type": "module",
   "main": "./dist/index.js",
