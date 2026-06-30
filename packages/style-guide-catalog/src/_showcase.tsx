@@ -1,5 +1,5 @@
 import React from 'react';
-import type { WrapperComponents } from '../StyleGuide';
+import type { WrapperComponents } from '@centurio1987/bbangto-ui-core';
 
 /*
  * Style Guide Catalog — 공통 Showcase(구현 예시) 빌더.

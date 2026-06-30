@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/react';
-import { swissInternationalStyleGuide } from '@centurio1987/bbangto-ui-core';
+import { swissInternationalStyleGuide } from '@centurio1987/bbangto-ui-style-guide-catalog';
 import { makeCatalogStories } from './_catalogStory';
 
 /**

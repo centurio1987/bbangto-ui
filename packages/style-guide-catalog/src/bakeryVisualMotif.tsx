@@ -1,5 +1,5 @@
 import React from 'react';
-import type { VisualMotif } from '../StyleGuide';
+import type { VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { BakeryHero, BakeryMenu, BakeryCraft } from './bakeryPatterns';
 
 /*

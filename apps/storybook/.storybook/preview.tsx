@@ -1,7 +1,6 @@
 import type { Preview } from '@storybook/react-vite';
 import React from 'react';
 import { FoundationProvider, lightFoundation, darkFoundation, highContrastFoundation } from '@centurio1987/bbangto-ui-core';
-import { amberDarkFoundation, amberLightFoundation } from '@centurio1987/bbangto-ui-foundations';
 import { DiagramProvider, blueprintTheme } from '@centurio1987/bbangto-ui-diagram';
 
 const preview: Preview = {
@@ -22,12 +21,15 @@ const preview: Preview = {
         order: [
           'Overview',
           'ARCHETYPE', [
-            'Foundations', ['Motion', ['Shaders'], 'Themes'],
+            'Foundations', ['Motion', ['Shaders']],
             'Components', ['Atoms', 'Molecules', 'Organisms'],
             'Blocks',
             'Patterns',
           ],
           'DIAGRAM',
+          // 기본 foundation(light/dark/high-contrast)은 전역 툴바로 전환. 그 외
+          // 확장 foundation(amber + external 74)은 FOUNDATION CATALOG로 분리.
+          'FOUNDATION CATALOG',
           // 카탈로그: preset 표시명 순서 + 각 preset마다 동일한 6-leaf 순서(CATALOG_LEAVES)를 짝지음.
           // storySort는 Storybook이 정적 파싱하므로 leaf 순서를 inline으로 둔다(const 참조 불가).
           'STYLE GUIDE CATALOG', [
@@ -62,29 +64,26 @@ const preview: Preview = {
     },
   },
   globalTypes: {
-    theme: {
-      description: 'Global theme for components',
+    // 전역 base foundation 전환기. 확장 foundation(amber/catalog)은 FOUNDATION CATALOG에서 본다.
+    foundation: {
+      description: 'Global base foundation for components',
       defaultValue: 'light',
       toolbar: {
-        title: 'Theme',
+        title: 'Foundation',
         icon: 'circlehollow',
-        items: ['light', 'dark', 'high-contrast', 'amber-dark', 'amber-light'],
+        items: ['light', 'dark', 'high-contrast'],
         dynamicTitle: true,
       },
     },
   },
   decorators: [
     (Story, context) => {
-      const foundationName = context.globals.theme;
+      const foundationName = context.globals.foundation;
       let foundation = lightFoundation;
       if (foundationName === 'dark') {
         foundation = darkFoundation;
       } else if (foundationName === 'high-contrast') {
         foundation = highContrastFoundation;
-      } else if (foundationName === 'amber-dark') {
-        foundation = amberDarkFoundation;
-      } else if (foundationName === 'amber-light') {
-        foundation = amberLightFoundation;
       }
 
       const bgColor = foundation.semantic.background.base;

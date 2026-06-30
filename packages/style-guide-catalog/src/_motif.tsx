@@ -1,8 +1,8 @@
 import React from 'react';
 // 자기 패키지가 아니라 상대경로로 원형 컴포넌트를 import 한다(같은 패키지 내부 순환참조 회피).
-import { Button, type ButtonProps } from '../components/Button';
-import { Card, type CardProps } from '../components/Card';
-import type { WrapperComponents } from '../StyleGuide';
+import { Button, type ButtonProps } from '@centurio1987/bbangto-ui-core';
+import { Card, type CardProps } from '@centurio1987/bbangto-ui-core';
+import type { WrapperComponents } from '@centurio1987/bbangto-ui-core';
 
 /*
  * Style Guide Catalog — 공통 모티프 래퍼 빌더.

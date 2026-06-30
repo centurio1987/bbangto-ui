@@ -1,8 +1,8 @@
 import React from 'react';
 // 자기 패키지(@centurio1987/bbangto-ui-core)가 아니라 상대경로로 원형 컴포넌트를
 // import 한다 — 같은 패키지 내부이므로 순환참조를 만들지 않기 위해서다.
-import { Button, type ButtonProps } from '../components/Button';
-import { Card, type CardProps } from '../components/Card';
+import { Button, type ButtonProps } from '@centurio1987/bbangto-ui-core';
+import { Card, type CardProps } from '@centurio1987/bbangto-ui-core';
 
 /**
  * Neobrutalism_Editorial_01 모티프 스타일시트.

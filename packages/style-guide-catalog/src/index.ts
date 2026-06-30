@@ -1,4 +1,4 @@
-import type { StyleGuide } from '../StyleGuide';
+import type { StyleGuide } from '@centurio1987/bbangto-ui-core';
 import { bakeryStyleGuide } from './bakery';
 
 export { bakeryStyleGuide } from './bakery';

@@ -20,7 +20,8 @@
     "@centurio1987/bbangto-ui-tokens": "workspace:^",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
-    "@centurio1987/bbangto-ui-foundations": "workspace:^"
+    "@centurio1987/bbangto-ui-foundations": "workspace:^",
+    "@centurio1987/bbangto-ui-style-guide-catalog": "workspace:^"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, within } from 'storybook/test';
 import React from 'react';
+import { StyleGuideProvider } from '@centurio1987/bbangto-ui-core';
 import {
-  StyleGuideProvider,
   bakeryStyleGuide,
   styleGuideMap,
   BakeryButton,
@@ -12,7 +12,7 @@ import {
   BakeryMenu,
   BakeryCraft,
   BakeryShowcase,
-} from '@centurio1987/bbangto-ui-core';
+} from '@centurio1987/bbangto-ui-style-guide-catalog';
 
 /**
  * Neobrutalism_Editorial_01 — Style Guide Catalog의 첫 preset.

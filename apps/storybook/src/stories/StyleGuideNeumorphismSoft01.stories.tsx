@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/react';
-import { neumorphismSoftStyleGuide } from '@centurio1987/bbangto-ui-core';
+import { neumorphismSoftStyleGuide } from '@centurio1987/bbangto-ui-style-guide-catalog';
 import { makeCatalogStories } from './_catalogStory';
 
 /**

@@ -1,4 +1,4 @@
-import type { StyleGuide } from '../StyleGuide';
+import type { StyleGuide } from '@centurio1987/bbangto-ui-core';
 import { bakeryFoundations, bakeryExtendedFoundations } from './bakeryFoundations';
 import { bakeryWrapperComponents } from './bakeryWrappers';
 import { bakeryPatterns } from './bakeryPatterns';

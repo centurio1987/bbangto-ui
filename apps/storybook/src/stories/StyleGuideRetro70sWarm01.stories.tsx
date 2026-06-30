@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/react';
-import { retro70sWarmStyleGuide } from '@centurio1987/bbangto-ui-core';
+import { retro70sWarmStyleGuide } from '@centurio1987/bbangto-ui-style-guide-catalog';
 import { makeCatalogStories } from './_catalogStory';
 
 /**

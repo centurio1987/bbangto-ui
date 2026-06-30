@@ -209,15 +209,15 @@ function ThemeStyleGuide({ theme: slug, section }: ThemeStyleGuideProps) {
 
 // ──────────────────────────────────────────
 const meta: Meta<typeof ThemeStyleGuide> = {
-  title: 'ARCHETYPE/Foundations/Themes',
+  title: 'FOUNDATION CATALOG/Catalog',
   component: ThemeStyleGuide,
   parameters: { layout: 'fullscreen' },
   tags: ['autodocs'],
   argTypes: {
     theme: {
       control: 'select',
-      options: ["acid-mint","arctic-white","aubergine","aurora-yellow","azure-clean","bavarian","blueprint","broadsheet","carbon-night","carbon","catalog-red","celluloid","charcoal-warm","cobalt","code-dark","code-ivory","commerce-noir","coral","cosmonaut","cream-bloom","dark-chrome","editorial-dark","electric-void","ember-cream","forest-cream","glacial","gold-rush","gradient-violet","grand-noir","graphite","honey-cream","indigo-night","iron","ivory-loft","jade-leaf","jungle-night","lime","magazine-light","midnight-indigo","midnight-ink","mint-code","moss-clean","motion-dark","navy-dark","neon-yellow","obsidian-gold","obsidian-violet","onyx","oxide-green","periwinkle-retro","pitch","precision","prism","race-night","raspberry","scarlet-noir","serenity","signal-red","social-blue","stark-white","sunflower","sunset","tangerine","terminal","terracotta","urban-mono","violet-depth","void","volt-emerald","warm-canvas","warm-ivory","warm-linen","warm-parchment","web-blue"],
-      description: 'Theme to preview',
+      options: ["amber-dark","amber-light","acid-mint","arctic-white","aubergine","aurora-yellow","azure-clean","bavarian","blueprint","broadsheet","carbon-night","carbon","catalog-red","celluloid","charcoal-warm","cobalt","code-dark","code-ivory","commerce-noir","coral","cosmonaut","cream-bloom","dark-chrome","editorial-dark","electric-void","ember-cream","forest-cream","glacial","gold-rush","gradient-violet","grand-noir","graphite","honey-cream","indigo-night","iron","ivory-loft","jade-leaf","jungle-night","lime","magazine-light","midnight-indigo","midnight-ink","mint-code","moss-clean","motion-dark","navy-dark","neon-yellow","obsidian-gold","obsidian-violet","onyx","oxide-green","periwinkle-retro","pitch","precision","prism","race-night","raspberry","scarlet-noir","serenity","signal-red","social-blue","stark-white","sunflower","sunset","tangerine","terminal","terracotta","urban-mono","violet-depth","void","volt-emerald","warm-canvas","warm-ivory","warm-linen","warm-parchment","web-blue"],
+      description: 'Foundation to preview',
     },
     section: {
       control: 'select',

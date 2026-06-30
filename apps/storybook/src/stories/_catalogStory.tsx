@@ -1,8 +1,9 @@
 import type { StoryObj } from '@storybook/react';
 import { expect, within } from 'storybook/test';
 import React from 'react';
-import { StyleGuideProvider, styleGuideMap } from '@centurio1987/bbangto-ui-core';
+import { StyleGuideProvider } from '@centurio1987/bbangto-ui-core';
 import type { StyleGuide } from '@centurio1987/bbangto-ui-core';
+import { styleGuideMap } from '@centurio1987/bbangto-ui-style-guide-catalog';
 
 /*
  * Style Guide Catalog — 공통 스토리 팩토리.
