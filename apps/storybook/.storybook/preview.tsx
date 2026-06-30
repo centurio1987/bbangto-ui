@@ -21,7 +21,7 @@ const preview: Preview = {
         order: [
           'Overview',
           'ARCHETYPE', [
-            'Foundations', ['Motion', ['Shaders']],
+            'Foundations', ['Base', 'Motion', ['Shaders']],
             'Components', ['Atoms', 'Molecules', 'Organisms'],
             'Blocks',
             'Patterns',

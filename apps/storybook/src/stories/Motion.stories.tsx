@@ -137,7 +137,7 @@ const Card = ({ children }: { children: React.ReactNode }) => (
 );
 
 export const FadeInDemo: Story = {
-  name: 'Atom · FadeIn',
+  name: 'FadeIn',
   render: () => (
     <ReplayBox>{() => <FadeIn><Card>I faded in.</Card></FadeIn>}</ReplayBox>
   ),
@@ -153,7 +153,7 @@ export const FadeInDemo: Story = {
 };
 
 export const SlideInDemo: Story = {
-  name: 'Atom · SlideIn',
+  name: 'SlideIn',
   render: () => (
     <ReplayBox>
       {() => (
@@ -183,14 +183,14 @@ export const SlideInDemo: Story = {
 };
 
 export const ScaleInDemo: Story = {
-  name: 'Atom · ScaleIn',
+  name: 'ScaleIn',
   render: () => (
     <ReplayBox>{() => <ScaleIn><Card>I popped in.</Card></ScaleIn>}</ReplayBox>
   ),
 };
 
 export const SpinnerDemo: Story = {
-  name: 'Atom · Spinner',
+  name: 'Spinner',
   render: () => (
     <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
       <Spinner size="sm" />
@@ -210,7 +210,7 @@ export const SpinnerDemo: Story = {
 };
 
 export const PulseDemo: Story = {
-  name: 'Atom · Pulse',
+  name: 'Pulse',
   render: () => (
     <Pulse>
       <Card>Loading placeholder…</Card>
@@ -219,7 +219,7 @@ export const PulseDemo: Story = {
 };
 
 export const StaggerDemo: Story = {
-  name: 'Atom · Stagger',
+  name: 'Stagger',
   render: () => (
     <ReplayBox>
       {() => (
@@ -244,7 +244,7 @@ export const StaggerDemo: Story = {
 };
 
 export const WaveDemo: Story = {
-  name: 'Atom · Wave',
+  name: 'Wave',
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 24, alignItems: 'flex-start' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
@@ -268,7 +268,7 @@ export const WaveDemo: Story = {
 };
 
 export const BarsLoaderDemo: Story = {
-  name: 'Atom · BarsLoader',
+  name: 'BarsLoader',
   render: () => (
     <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
       <BarsLoader size="sm" />
@@ -290,7 +290,7 @@ export const BarsLoaderDemo: Story = {
 };
 
 export const RingLoaderDemo: Story = {
-  name: 'Atom · RingLoader',
+  name: 'RingLoader',
   render: () => (
     <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
       <RingLoader size="sm" />
@@ -312,7 +312,7 @@ export const RingLoaderDemo: Story = {
 };
 
 export const ShimmerDemo: Story = {
-  name: 'Atom · Shimmer',
+  name: 'Shimmer',
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: 320 }}>
       <Shimmer height={18} />
@@ -333,7 +333,7 @@ export const ShimmerDemo: Story = {
 };
 
 export const ScrollRevealDemo: Story = {
-  name: 'Atom · ScrollReveal',
+  name: 'ScrollReveal',
   render: () => (
     <ScrollReveal initialVisible>
       <Card>Revealed content</Card>
@@ -350,7 +350,7 @@ export const ScrollRevealDemo: Story = {
 };
 
 export const ScrollProgressDemo: Story = {
-  name: 'Atom · ScrollProgress',
+  name: 'ScrollProgress',
   render: () => (
     <div style={{ width: 360 }}>
       <ScrollProgress position="inline" />
@@ -366,7 +366,7 @@ export const ScrollProgressDemo: Story = {
 };
 
 export const ParallaxDemo: Story = {
-  name: 'Atom · Parallax',
+  name: 'Parallax',
   render: () => (
     <Parallax disabled>
       <Card>Parallax layer</Card>
@@ -382,7 +382,7 @@ export const ParallaxDemo: Story = {
 };
 
 export const BackgroundMotionDemo: Story = {
-  name: 'Atom · Background motion',
+  name: 'Background motion',
   render: () => (
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, maxWidth: 720 }}>
       <AnimatedGradientBg
@@ -418,7 +418,7 @@ export const BackgroundMotionDemo: Story = {
 };
 
 export const BorderGlowDemo: Story = {
-  name: 'Atom · BorderBeam / Glow',
+  name: 'BorderBeam / Glow',
   render: () => (
     <div style={{ display: 'flex', gap: 24, alignItems: 'center' }}>
       <BorderBeam style={{ width: 220 }}>
@@ -438,7 +438,7 @@ export const BorderGlowDemo: Story = {
 };
 
 export const CountUpDemo: Story = {
-  name: 'Atom · CountUp',
+  name: 'CountUp',
   render: () => (
     <Card>
       <CountUp from={0} to={1280} duration={0} />
@@ -457,7 +457,7 @@ export const CountUpDemo: Story = {
 };
 
 export const GradientTextDemo: Story = {
-  name: 'Atom · GradientText',
+  name: 'GradientText',
   render: () => (
     <Card>
       <GradientText style={{ fontSize: 28, fontWeight: 800 }}>Gradient headline</GradientText>
@@ -474,7 +474,7 @@ export const GradientTextDemo: Story = {
 };
 
 export const SplitRevealDemo: Story = {
-  name: 'Atom · SplitReveal',
+  name: 'SplitReveal',
   render: () => (
     <Card>
       <SplitReveal text="Split reveal text" by="word" />
@@ -494,7 +494,7 @@ export const SplitRevealDemo: Story = {
 };
 
 export const TypingTextDemo: Story = {
-  name: 'Atom · TypingText',
+  name: 'TypingText',
   render: () => (
     <Card>
       <TypingText text="Typed without screen reader spam" speed={0} />
@@ -512,7 +512,7 @@ export const TypingTextDemo: Story = {
 };
 
 export const MarqueeDemo: Story = {
-  name: 'Atom · Marquee',
+  name: 'Marquee',
   render: () => (
     <Card>
       <Marquee text="Shipping motion with static accessible text" tabIndex={0} />
@@ -536,7 +536,7 @@ export const MarqueeDemo: Story = {
 };
 
 export const InteractionMotionDemo: Story = {
-  name: 'Atom · Pressable / Ripple',
+  name: 'Pressable / Ripple',
   render: () => (
     <div style={{ display: 'flex', gap: 24, alignItems: 'center' }}>
       <Pressable>
@@ -582,7 +582,7 @@ export const InteractionMotionDemo: Story = {
 };
 
 export const AttentionDemo: Story = {
-  name: 'Atom · Attention',
+  name: 'Attention',
   render: () => (
     <div style={{ display: 'flex', gap: 24, alignItems: 'center' }}>
       <Attention variant="shake">
