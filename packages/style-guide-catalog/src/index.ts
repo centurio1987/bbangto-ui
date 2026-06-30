@@ -56,6 +56,30 @@ export { spatial3dStyleGuide, Spatial3DShowcase, spatial3dWrappers } from './spa
 export { humanistImperfectStyleGuide, HumanistShowcase, humanistImperfectWrappers } from './humanistImperfect';
 export { tactileTextureStyleGuide, TactileShowcase, tactileTextureWrappers } from './tactileTexture';
 
+// 이미지 레퍼런스 마이닝 신규 후보(#29–#50 — style-guide-catalog.md) presets.
+export { risographPrintStyleGuide, RisographPrintShowcase, risographPrintWrappers } from './risographPrint';
+export { blueprintTechnicalStyleGuide, BlueprintTechnicalShowcase, blueprintTechnicalWrappers } from './blueprintTechnical';
+export { grainyBlurDreamyStyleGuide, GrainyBlurDreamyShowcase, grainyBlurDreamyWrappers } from './grainyBlurDreamy';
+export { gothicMedievalDigitalStyleGuide, GothicMedievalDigitalShowcase, gothicMedievalDigitalWrappers } from './gothicMedievalDigital';
+export { glitchDistortionStyleGuide, GlitchDistortionShowcase, glitchDistortionWrappers } from './glitchDistortion';
+export { organicFluidBlobStyleGuide, OrganicFluidBlobShowcase, organicFluidBlobWrappers } from './organicFluidBlob';
+export { radiantGlowDarkStyleGuide, RadiantGlowDarkShowcase, radiantGlowDarkWrappers } from './radiantGlowDark';
+export { halftoneDotPrintStyleGuide, HalftoneDotPrintShowcase, halftoneDotPrintWrappers } from './halftoneDotPrint';
+export { ukiyoeWoodblockStyleGuide, UkiyoeWoodblockShowcase, ukiyoeWoodblockWrappers } from './ukiyoeWoodblock';
+export { punkGrungeGraffitiStyleGuide, PunkGrungeGraffitiShowcase, punkGrungeGraffitiWrappers } from './punkGrungeGraffiti';
+export { aiSurrealGradient3dStyleGuide, AiSurrealGradient3dShowcase, aiSurrealGradient3dWrappers } from './aiSurrealGradient3d';
+export { shatteredGlassCinematicStyleGuide, ShatteredGlassCinematicShowcase, shatteredGlassCinematicWrappers } from './shatteredGlassCinematic';
+export { pixelArtRetroStyleGuide, PixelArtRetroShowcase, pixelArtRetroWrappers } from './pixelArtRetro';
+export { halftoneGlitchColorsepStyleGuide, HalftoneGlitchColorsepShowcase, halftoneGlitchColorsepWrappers } from './halftoneGlitchColorsep';
+export { mixedMediaCollageStyleGuide, MixedMediaCollageShowcase, mixedMediaCollageWrappers } from './mixedMediaCollage';
+export { photoTypeEditorialStyleGuide, PhotoTypeEditorialShowcase, photoTypeEditorialWrappers } from './photoTypeEditorial';
+export { opArtKineticStyleGuide, OpArtKineticShowcase, opArtKineticWrappers } from './opArtKinetic';
+export { warpedCheckerboardStyleGuide, WarpedCheckerboardShowcase, warpedCheckerboardWrappers } from './warpedCheckerboard';
+export { iridescentChromeStyleGuide, IridescentChromeShowcase, iridescentChromeWrappers } from './iridescentChrome';
+export { romanticBotanicalStyleGuide, RomanticBotanicalShowcase, romanticBotanicalWrappers } from './romanticBotanical';
+export { heritageFolkOrnamentStyleGuide, HeritageFolkOrnamentShowcase, heritageFolkOrnamentWrappers } from './heritageFolkOrnament';
+export { naiveDoodleStyleGuide, NaiveDoodleShowcase, naiveDoodleWrappers } from './naiveDoodle';
+
 import { glassmorphismAuroraStyleGuide } from './glassmorphismAurora';
 import { neumorphismSoftStyleGuide } from './neumorphismSoft';
 import { flatMaterialStyleGuide } from './flatMaterial';
@@ -84,6 +108,28 @@ import { kineticTypographyStyleGuide } from './kineticTypography';
 import { spatial3dStyleGuide } from './spatial3d';
 import { humanistImperfectStyleGuide } from './humanistImperfect';
 import { tactileTextureStyleGuide } from './tactileTexture';
+import { risographPrintStyleGuide } from './risographPrint';
+import { blueprintTechnicalStyleGuide } from './blueprintTechnical';
+import { grainyBlurDreamyStyleGuide } from './grainyBlurDreamy';
+import { gothicMedievalDigitalStyleGuide } from './gothicMedievalDigital';
+import { glitchDistortionStyleGuide } from './glitchDistortion';
+import { organicFluidBlobStyleGuide } from './organicFluidBlob';
+import { radiantGlowDarkStyleGuide } from './radiantGlowDark';
+import { halftoneDotPrintStyleGuide } from './halftoneDotPrint';
+import { ukiyoeWoodblockStyleGuide } from './ukiyoeWoodblock';
+import { punkGrungeGraffitiStyleGuide } from './punkGrungeGraffiti';
+import { aiSurrealGradient3dStyleGuide } from './aiSurrealGradient3d';
+import { shatteredGlassCinematicStyleGuide } from './shatteredGlassCinematic';
+import { pixelArtRetroStyleGuide } from './pixelArtRetro';
+import { halftoneGlitchColorsepStyleGuide } from './halftoneGlitchColorsep';
+import { mixedMediaCollageStyleGuide } from './mixedMediaCollage';
+import { photoTypeEditorialStyleGuide } from './photoTypeEditorial';
+import { opArtKineticStyleGuide } from './opArtKinetic';
+import { warpedCheckerboardStyleGuide } from './warpedCheckerboard';
+import { iridescentChromeStyleGuide } from './iridescentChrome';
+import { romanticBotanicalStyleGuide } from './romanticBotanical';
+import { heritageFolkOrnamentStyleGuide } from './heritageFolkOrnament';
+import { naiveDoodleStyleGuide } from './naiveDoodle';
 
 /**
  * Style Guide Catalog — bbangto-ui가 제공하는 대표 디자인 스타일 preset 집합.
@@ -123,6 +169,29 @@ export const styleGuideCatalog: readonly StyleGuide[] = [
   spatial3dStyleGuide,
   humanistImperfectStyleGuide,
   tactileTextureStyleGuide,
+  // 이미지 레퍼런스 마이닝 신규 후보(#29–#50)
+  risographPrintStyleGuide,
+  blueprintTechnicalStyleGuide,
+  grainyBlurDreamyStyleGuide,
+  gothicMedievalDigitalStyleGuide,
+  glitchDistortionStyleGuide,
+  organicFluidBlobStyleGuide,
+  radiantGlowDarkStyleGuide,
+  halftoneDotPrintStyleGuide,
+  ukiyoeWoodblockStyleGuide,
+  punkGrungeGraffitiStyleGuide,
+  aiSurrealGradient3dStyleGuide,
+  shatteredGlassCinematicStyleGuide,
+  pixelArtRetroStyleGuide,
+  halftoneGlitchColorsepStyleGuide,
+  mixedMediaCollageStyleGuide,
+  photoTypeEditorialStyleGuide,
+  opArtKineticStyleGuide,
+  warpedCheckerboardStyleGuide,
+  iridescentChromeStyleGuide,
+  romanticBotanicalStyleGuide,
+  heritageFolkOrnamentStyleGuide,
+  naiveDoodleStyleGuide,
 ];
 
 /** name → StyleGuide 조회 맵. styleGuideCatalog에서 파생. */
