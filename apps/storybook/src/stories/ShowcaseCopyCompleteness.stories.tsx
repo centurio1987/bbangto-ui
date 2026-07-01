@@ -12,7 +12,7 @@ import { styleGuideCatalog, SHOWCASE_COPY_EXT } from '@centurio1987/bbangto-ui-s
  * Phase 3(콘텐츠 조립) 완료 시 REQUIRE_FULL_COVERAGE를 true로 올려 전 카탈로그 displayName
  * 커버를 강제한다. 그 전까지는 기본값 degrade로 빌드가 초록이므로 존재 엔트리만 검사한다.
  */
-const REQUIRE_FULL_COVERAGE = false;
+const REQUIRE_FULL_COVERAGE = true;
 
 const REAL_EMAIL = /@(?!example\.invalid)[a-z0-9.-]+\.[a-z]{2,}/i;
 const REAL_URL = /(https?:\/\/|www\.)/i;
