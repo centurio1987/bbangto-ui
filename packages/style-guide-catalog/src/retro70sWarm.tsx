@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -63,6 +63,53 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-olive': OLIVE,
 };
 
+/*
+ * 색 스킴 변형(colorway) — 아치 카드·알약 버튼·필름 그레인 모티프는 base에서 상속.
+ * radius/shadow/typography/spacing 등 비색상 토큰은 makeColorway가 base에서 복사한다.
+ */
+
+/* 다크: 짙은 에스프레소 베이스 위 크림 본문 + 밝힌 어스톤(따뜻한 야간 레트로). */
+const darkFoundations = makeColorway(foundations, {
+  name: 'retro70s-warm-01-dark',
+  description: '짙은 에스프레소 베이스 위 크림 본문 + 밝힌 머스타드·테라코타·올리브의 야간 레트로',
+  semantic: makeSemantic({
+    bg: '#241A10', bgElevated: '#2F2416', bgSunken: '#1A120A', overlay: 'rgba(0,0,0,0.55)',
+    fg: '#F2E6CE', fgMuted: 'rgba(242,230,206,0.74)', fgSubtle: 'rgba(242,230,206,0.55)', fgInverse: '#241A10',
+    border: 'rgba(242,230,206,0.24)', borderMuted: 'rgba(242,230,206,0.14)', borderStrong: 'rgba(242,230,206,0.40)', focus: '#5FD6BC',
+    primaryBase: '#E07A52', primaryHover: '#EC8A63', primaryActive: '#F29A75', primarySubtle: 'rgba(224,122,82,0.20)', primaryFg: '#241A10',
+    accent: '#F0C05A', accent2: '#9FA85C', accent3: '#E07A52',
+  }),
+});
+const darkExt: Record<string, string> = {
+  '--bbangto-ext-arch': '36px 36px 0 0',
+  '--bbangto-ext-grain': 'radial-gradient(rgba(242,230,206,0.10) 1px, transparent 1.4px)',
+  '--bbangto-ext-grain-size': '4px 4px',
+  '--bbangto-ext-mustard': '#F0C05A',
+  '--bbangto-ext-terracotta': '#E07A52',
+  '--bbangto-ext-olive': '#9FA85C',
+};
+
+/* 올리브: 라이트 유지 + 강조색을 테라코타→올리브 그린으로 전환(포커스는 테라코타). */
+const oliveFoundations = makeColorway(foundations, {
+  name: 'retro70s-warm-01-olive',
+  description: '따뜻한 크림 베이스 위 올리브 그린 강조 전환 레트로(포커스 테라코타)',
+  semantic: makeSemantic({
+    bg: '#F5ECD6', bgElevated: '#FCF5E4', bgSunken: '#EADCBE', overlay: 'rgba(46,42,22,0.50)',
+    fg: '#2E2A16', fgMuted: 'rgba(46,42,22,0.74)', fgSubtle: 'rgba(46,42,22,0.55)', fgInverse: '#FCF5E4',
+    border: 'rgba(46,42,22,0.26)', borderMuted: 'rgba(46,42,22,0.14)', borderStrong: 'rgba(46,42,22,0.42)', focus: '#B14D2D',
+    primaryBase: OLIVE, primaryHover: '#5A6029', primaryActive: '#4A4F1F', primarySubtle: 'rgba(107,114,51,0.18)', primaryFg: '#FCF5E4',
+    accent: MUSTARD, accent2: TERRACOTTA, accent3: OLIVE,
+  }),
+});
+const oliveExt: Record<string, string> = {
+  '--bbangto-ext-arch': '36px 36px 0 0',
+  '--bbangto-ext-grain': 'radial-gradient(rgba(46,42,22,0.10) 1px, transparent 1.4px)',
+  '--bbangto-ext-grain-size': '4px 4px',
+  '--bbangto-ext-mustard': MUSTARD,
+  '--bbangto-ext-terracotta': TERRACOTTA,
+  '--bbangto-ext-olive': OLIVE,
+};
+
 const STYLE_ID = 'bbangto-retro70s-warm-01-motif';
 const CSS = `
 .bbangto-ret-btn {
@@ -115,10 +162,23 @@ const wrapperComponents = makeMotifWrappers({
       fontWeight: 700, letterSpacing: '0.06em', lineHeight: 1.6, whiteSpace: 'nowrap',
       textTransform: 'uppercase',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { backgroundColor: 'rgba(224,165,38,0.22)', color: '#6E4D08', border: '2px solid rgba(224,165,38,0.60)' },
-      muted: { backgroundColor: 'rgba(107,114,51,0.16)', color: '#3F4517', border: '2px solid rgba(107,114,51,0.45)' },
-      solid: { backgroundColor: TERRACOTTA, color: '#FBF3E2', border: '2px solid rgba(58,42,26,0.30)' },
+      accent: {
+        backgroundColor: 'var(--bbangto-semantic-primary-subtle, rgba(224,165,38,0.22))',
+        color: 'var(--bbangto-semantic-primary-active, #6E4D08)',
+        border: '2px solid var(--bbangto-semantic-border-strong, rgba(224,165,38,0.60))',
+      },
+      muted: {
+        backgroundColor: 'var(--bbangto-semantic-background-sunken, rgba(107,114,51,0.16))',
+        color: 'var(--bbangto-semantic-foreground-muted, #3F4517)',
+        border: '2px solid var(--bbangto-semantic-border-base, rgba(107,114,51,0.45))',
+      },
+      solid: {
+        backgroundColor: 'var(--bbangto-semantic-primary-base, #C75D3A)',
+        color: 'var(--bbangto-semantic-primary-foreground, #FBF3E2)',
+        border: '2px solid var(--bbangto-semantic-border-strong, rgba(58,42,26,0.30))',
+      },
     },
   },
 });
@@ -189,6 +249,12 @@ export const retro70sWarmStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (크림·테라코타)', foundations, extendedFoundations },
+    { key: 'dark', label: '다크 (에스프레소·야간 어스톤)', foundations: darkFoundations, extendedFoundations: darkExt },
+    { key: 'olive', label: '올리브 강조 전환', foundations: oliveFoundations, extendedFoundations: oliveExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { RetroShowcase: Showcase },
   guidelines,

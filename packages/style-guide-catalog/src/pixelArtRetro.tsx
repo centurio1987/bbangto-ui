@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -73,6 +73,60 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-palette-index': '#2D5BFF, #FF4D4D, #3FCF6A, #FFD23F',
 };
 
+/* 색 스킴 변형 — 픽셀 그리드·계단형 직각·하드 도트 그림자 모티프는 base에서 상속, 색만 교체. */
+
+/* Light: 아케이드 오락실 종이/스티커 미감 — 크림 페이퍼 위 잉크 도트, 코발트 유지, 레드 포커스. */
+const arcadePaperFoundations = makeColorway(foundations, {
+  name: 'pixel-art-retro-01-arcade-paper',
+  description: '8비트 라이트 — 크림 페이퍼 위 잉크 도트, 코발트 원색 + 레드 포커스',
+  semantic: makeSemantic({
+    bg: '#F4F1E8', bgElevated: '#FFFFFF', bgSunken: '#E7E2D2', overlay: 'rgba(20,18,10,0.45)',
+    fg: '#1A1710', fgMuted: '#4A4535', fgSubtle: '#7A7460', fgInverse: '#F4F1E8',
+    border: '#C7BFA8', borderMuted: '#DED7C4', borderStrong: '#8A836B', focus: '#FF4D4D',
+    primaryBase: COBALT, primaryHover: '#1A47E6', primaryActive: '#1238C0',
+    primarySubtle: '#D6DEFF', primaryFg: '#FFFFFF',
+    accent: COBALT, accent2: '#2E9E52', accent3: '#E23B3B',
+  }),
+});
+const arcadePaperExt: Record<string, string> = {
+  '--bbangto-ext-pixel-size': '4px',
+  '--bbangto-ext-pixel-grid':
+    'repeating-linear-gradient(0deg, rgba(0,0,0,0.055) 0 1px, transparent 1px 16px), repeating-linear-gradient(90deg, rgba(0,0,0,0.055) 0 1px, transparent 1px 16px)',
+  '--bbangto-ext-dither':
+    'repeating-conic-gradient(#FFFFFF 0% 25%, #E7E2D2 0% 50%) 50% / 4px 4px',
+  '--bbangto-ext-pixel-shadow': '4px 4px 0 0 #1A1710',
+  '--bbangto-ext-pixel-border': '3px solid #8A836B',
+  '--bbangto-ext-scanline':
+    'repeating-linear-gradient(0deg, rgba(0,0,0,0.08) 0 1px, transparent 1px 3px)',
+  '--bbangto-ext-palette-index': '#2D5BFF, #E23B3B, #2E9E52, #FF4D4D',
+};
+
+/* Accent: 신스웨이브 아케이드 — 딥 퍼플 CRT 베이스에 핫 마젠타 원색 + 그린 포커스. */
+const synthwaveFoundations = makeColorway(foundations, {
+  name: 'pixel-art-retro-01-synthwave',
+  description: '8비트 다크 액센트 — 딥 퍼플 CRT + 핫 마젠타 원색 + 그린 포커스',
+  semantic: makeSemantic({
+    bg: '#17101E', bgElevated: '#221630', bgSunken: '#0E0914', overlay: 'rgba(0,0,0,0.62)',
+    fg: '#F8ECFF', fgMuted: '#C9AEDC', fgSubtle: '#9179A6', fgInverse: '#17101E',
+    border: '#4A3560', borderMuted: '#2C2038', borderStrong: '#6E4F8A', focus: '#3FCF6A',
+    primaryBase: '#FF3DAE', primaryHover: '#E62698', primaryActive: '#C01880',
+    primarySubtle: '#3A1030', primaryFg: '#FFFFFF',
+    accent: '#FF3DAE', accent2: COBALT, accent3: '#FFD23F',
+  }),
+});
+const synthwaveExt: Record<string, string> = {
+  '--bbangto-ext-pixel-size': '4px',
+  '--bbangto-ext-pixel-grid':
+    'repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0 1px, transparent 1px 16px), repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0 1px, transparent 1px 16px)',
+  '--bbangto-ext-dither':
+    'repeating-conic-gradient(#221630 0% 25%, #17101E 0% 50%) 50% / 4px 4px',
+  '--bbangto-ext-pixel-shadow': '4px 4px 0 0 #000000',
+  '--bbangto-ext-pixel-border': '3px solid #6E4F8A',
+  '--bbangto-ext-scanline':
+    'repeating-linear-gradient(0deg, rgba(0,0,0,0.20) 0 1px, transparent 1px 3px)',
+  '--bbangto-ext-palette-index': '#FF3DAE, #2D5BFF, #3FCF6A, #FFD23F',
+};
+
 const STYLE_ID = 'bbangto-pixel-art-retro-motif';
 const CSS = `
 .bbangto-pixel-art-retro-card {
@@ -131,10 +185,20 @@ const wrapperComponents = makeMotifWrappers({
       fontSize: 9, fontWeight: 400, letterSpacing: '0.04em', lineHeight: 1.6,
       whiteSpace: 'nowrap', textTransform: 'uppercase',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: '#1A2240', color: '#8FA8FF' },
-      muted: { background: '#262B40', color: '#AEB6DC' },
-      solid: { background: '#3FCF6A', color: '#08120A' },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-subtle, #1A2240)',
+        color: 'var(--bbangto-semantic-foreground-muted, #8FA8FF)',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-border-muted, #262B40)',
+        color: 'var(--bbangto-semantic-foreground-muted, #AEB6DC)',
+      },
+      solid: {
+        background: 'var(--bbangto-semantic-primary-base, #3FCF6A)',
+        color: 'var(--bbangto-semantic-primary-foreground, #08120A)',
+      },
     },
   },
 });
@@ -213,6 +277,12 @@ export const pixelArtRetroStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (코발트 CRT)', foundations, extendedFoundations },
+    { key: 'arcade-paper', label: '아케이드 페이퍼 (라이트)', foundations: arcadePaperFoundations, extendedFoundations: arcadePaperExt },
+    { key: 'synthwave', label: '신스웨이브 (마젠타)', foundations: synthwaveFoundations, extendedFoundations: synthwaveExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { PixelArtRetroShowcase: Showcase },
   guidelines,

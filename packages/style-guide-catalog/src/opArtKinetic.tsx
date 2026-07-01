@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -71,6 +71,62 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-op-radius': '2px',
 };
 
+/* 색 스킴 변형(colorway) — 줄무늬·위상 드리프트 모티프는 base에서 상속, 색만 교체. */
+
+// 반전 다크 — 흑판 위 백색 줄무늬, 밝아진 코발트 액센트.
+const DARK_FG = '#F5F5F5';
+const DARK_BG = '#0B0B0B';
+const DARK_COBALT = '#5C7BFF';
+const darkFoundations = makeColorway(foundations, {
+  name: 'op-art-kinetic-01-dark',
+  description: '옵아트 키네틱 다크 — 흑판 위 백색 줄무늬 + 밝아진 코발트 액센트',
+  semantic: makeSemantic({
+    bg: DARK_BG, bgElevated: '#141414', bgSunken: '#050505', overlay: 'rgba(0,0,0,0.72)',
+    fg: DARK_FG, fgMuted: '#C9C9C9', fgSubtle: '#8F8F8F', fgInverse: DARK_BG,
+    border: DARK_FG, borderMuted: '#333333', borderStrong: '#FFFFFF', focus: DARK_COBALT,
+    primaryBase: DARK_FG, primaryHover: DARK_COBALT, primaryActive: '#FFFFFF',
+    primarySubtle: '#1A2440', primaryFg: DARK_BG,
+    accent: DARK_COBALT, accent2: '#FF4D5E', accent3: '#FFC94D',
+  }),
+});
+const darkExt: Record<string, string> = {
+  '--bbangto-ext-stripe-width': '4px',
+  '--bbangto-ext-stripe-gap': '4px',
+  '--bbangto-ext-stripe-angle': '90deg',
+  '--bbangto-ext-op-pattern': `repeating-linear-gradient(90deg, ${DARK_FG} 0 4px, transparent 4px 8px)`,
+  '--bbangto-ext-moire-shift': '8px',
+  '--bbangto-ext-warp': '0',
+  '--bbangto-ext-op-fg': DARK_FG,
+  '--bbangto-ext-op-bg': DARK_BG,
+  '--bbangto-ext-op-radius': '2px',
+};
+
+// 스칼렛 액센트 전환 — 라이트 기조 유지, 코발트를 강렬한 스칼렛으로 교체.
+const SCARLET = '#E0142B';
+const scarletFoundations = makeColorway(foundations, {
+  name: 'op-art-kinetic-01-scarlet',
+  description: '옵아트 키네틱 스칼렛 — 라이트 기조 + 코발트 대신 강렬한 스칼렛 액센트/줄무늬',
+  semantic: makeSemantic({
+    bg: OP_BG, bgElevated: OP_BG, bgSunken: '#FBF1F1', overlay: 'rgba(11,11,11,0.60)',
+    fg: OP_FG, fgMuted: '#3A3A3A', fgSubtle: '#6B6B6B', fgInverse: '#FFFFFF',
+    border: OP_FG, borderMuted: '#E4CFCF', borderStrong: '#000000', focus: SCARLET,
+    primaryBase: SCARLET, primaryHover: '#B10D20', primaryActive: '#8C0A19',
+    primarySubtle: '#FFE1E5', primaryFg: '#FFFFFF',
+    accent: SCARLET, accent2: '#1B3FD9', accent3: '#E0A800',
+  }),
+});
+const scarletExt: Record<string, string> = {
+  '--bbangto-ext-stripe-width': '4px',
+  '--bbangto-ext-stripe-gap': '4px',
+  '--bbangto-ext-stripe-angle': '90deg',
+  '--bbangto-ext-op-pattern': `repeating-linear-gradient(90deg, ${SCARLET} 0 4px, transparent 4px 8px)`,
+  '--bbangto-ext-moire-shift': '8px',
+  '--bbangto-ext-warp': '0',
+  '--bbangto-ext-op-fg': SCARLET,
+  '--bbangto-ext-op-bg': OP_BG,
+  '--bbangto-ext-op-radius': '2px',
+};
+
 const STYLE_ID = 'bbangto-op-art-kinetic-motif';
 const CSS = `
 .bbangto-op-art-kinetic-card {
@@ -134,10 +190,20 @@ const wrapperComponents = makeMotifWrappers({
       fontWeight: 800, letterSpacing: '0.1em', lineHeight: 1.4, whiteSpace: 'nowrap',
       textTransform: 'uppercase',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: COBALT, color: '#FFFFFF' },
-      muted: { background: '#EDEDED', color: OP_FG },
-      solid: { background: OP_FG, color: '#FFFFFF' },
+      accent: {
+        background: `var(--bbangto-semantic-border-focus, ${COBALT})`,
+        color: 'var(--bbangto-semantic-primary-foreground, #FFFFFF)',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-background-sunken, #EDEDED)',
+        color: `var(--bbangto-semantic-foreground-base, ${OP_FG})`,
+      },
+      solid: {
+        background: `var(--bbangto-semantic-primary-base, ${OP_FG})`,
+        color: 'var(--bbangto-semantic-primary-foreground, #FFFFFF)',
+      },
     },
   },
 });
@@ -216,6 +282,12 @@ export const opArtKineticStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (흑백 + 코발트)', foundations, extendedFoundations },
+    { key: 'dark', label: '다크 (반전 흑판 + 코발트)', foundations: darkFoundations, extendedFoundations: darkExt },
+    { key: 'scarlet', label: '스칼렛 액센트', foundations: scarletFoundations, extendedFoundations: scarletExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { OpArtKineticShowcase: Showcase },
   guidelines,

@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -63,6 +63,50 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-paper-grain': 'rgba(166,121,79,0.05)',
 };
 
+/* 색 스킴 변형(tweak) — 종이 결·soft divider·radius·shadow 모티프는 base에서 상속. */
+
+// 다크 — 따뜻한 에스프레소 표면 위 밝은 카라멜/우드톤. 라이트 base와 명확히 구분.
+const darkFoundations = makeColorway(foundations, {
+  name: 'scandi-warm-01-dark',
+  description: '따뜻한 에스프레소 다크 표면 위 밝은 카라멜 우드톤 + 라이트 세이지 액센트',
+  semantic: makeSemantic({
+    bg: '#26221C', bgElevated: '#302A22', bgSunken: '#1C1813', overlay: 'rgba(0,0,0,0.50)',
+    fg: '#EDE6DA', fgMuted: '#C3B7A5', fgSubtle: '#8F8272', fgInverse: '#26221C',
+    border: '#453D31', borderMuted: '#332E25', borderStrong: '#5E5544', focus: '#D9B37A',
+    primaryBase: '#C99B63', primaryHover: '#D9AD75', primaryActive: '#E3BC8A',
+    primarySubtle: 'rgba(201,155,99,0.20)', primaryFg: '#2A2018',
+    accent: '#A6B58F', accent2: '#8B9A76', accent3: '#E0B878',
+  }),
+});
+const darkExt: Record<string, string> = {
+  '--bbangto-ext-paper-warm': '#302A22',
+  '--bbangto-ext-soft-divider': '#453D31',
+  '--bbangto-ext-wood': '#A6794F',
+  '--bbangto-ext-sage': '#A6B58F',
+  '--bbangto-ext-paper-grain': 'rgba(201,155,99,0.06)',
+};
+
+// 세이지 액센트 — 라이트 warm-neutral 종이 위에 주조를 우드→세이지로 전환한 변형.
+const sageFoundations = makeColorway(foundations, {
+  name: 'scandi-warm-01-sage',
+  description: '따뜻한 warm-neutral 종이 위 세이지 주조 + 우드톤 액센트로 전환한 라이트 변형',
+  semantic: makeSemantic({
+    bg: '#F1EFE7', bgElevated: '#F9F7F0', bgSunken: '#E6E5D8', overlay: 'rgba(40,44,36,0.40)',
+    fg: '#262A22', fgMuted: '#4F5647', fgSubtle: '#82897A', fgInverse: '#F9F7F0',
+    border: '#D5D6C6', borderMuted: '#E3E2D5', borderStrong: '#BEC0AC', focus: '#47603E',
+    primaryBase: '#5F7355', primaryHover: '#536648', primaryActive: '#45543C',
+    primarySubtle: 'rgba(95,115,85,0.16)', primaryFg: '#FFFFFF',
+    accent: '#A6794F', accent2: '#C9A36A', accent3: '#9AA888',
+  }),
+});
+const sageExt: Record<string, string> = {
+  '--bbangto-ext-paper-warm': '#F1EFE7',
+  '--bbangto-ext-soft-divider': '#D9DACB',
+  '--bbangto-ext-wood': '#5F7355',
+  '--bbangto-ext-sage': '#5F7355',
+  '--bbangto-ext-paper-grain': 'rgba(95,115,85,0.05)',
+};
+
 const STYLE_ID = 'bbangto-scandi-warm-01-motif';
 const CSS = `
 .bbangto-sca-btn {
@@ -103,10 +147,23 @@ const wrapperComponents = makeMotifWrappers({
       borderRadius: 999, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11,
       fontWeight: 600, letterSpacing: '0.04em', lineHeight: 1.6, whiteSpace: 'nowrap',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: 'rgba(124,139,111,0.16)', color: '#43503A', border: '1px solid rgba(124,139,111,0.45)' },
-      muted: { background: '#EBE3D6', color: '#5C5346', border: '1px solid #DDD3C2' },
-      solid: { background: WOOD, color: '#fff', border: '1px solid transparent' },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-subtle, rgba(124,139,111,0.16))',
+        color: 'var(--bbangto-semantic-primary-active, #43503A)',
+        border: '1px solid var(--bbangto-semantic-border-strong, rgba(124,139,111,0.45))',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-background-sunken, #EBE3D6)',
+        color: 'var(--bbangto-semantic-foreground-muted, #5C5346)',
+        border: '1px solid var(--bbangto-semantic-border, #DDD3C2)',
+      },
+      solid: {
+        background: 'var(--bbangto-semantic-primary-base, #A6794F)',
+        color: 'var(--bbangto-semantic-primary-foreground, #fff)',
+        border: '1px solid transparent',
+      },
     },
   },
 });
@@ -177,6 +234,12 @@ export const scandiWarmStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (우드 · 라이트)', foundations, extendedFoundations },
+    { key: 'dark', label: '다크 (에스프레소 · 카라멜)', foundations: darkFoundations, extendedFoundations: darkExt },
+    { key: 'sage', label: '세이지 액센트 (라이트)', foundations: sageFoundations, extendedFoundations: sageExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { ScandiShowcase: Showcase },
   guidelines,

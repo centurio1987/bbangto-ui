@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -70,6 +70,58 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-glow-intensity': '1',
 };
 
+/* 색 스킴 변형(colorway) — radial glow·grain·bloom 모티프(wrapper/shape)는 base에서 상속. */
+
+// 라이트: 핑크빛 화이트 표면 위 딥 마젠타 발광(base 다크의 라이트 대응).
+const lightFoundations = makeColorway(foundations, {
+  name: 'radiant-glow-dark-01-light',
+  description: '라이트 라디언트 글로우 — 핑크빛 화이트 표면 + 딥 마젠타 발광',
+  semantic: makeSemantic({
+    bg: '#FDF2F8', bgElevated: '#FFFFFF', bgSunken: '#F5E1EC', overlay: 'rgba(0,0,0,0.35)',
+    fg: '#1A0810', fgMuted: '#5A3444', fgSubtle: '#8A6474', fgInverse: '#FFFFFF',
+    border: '#E9C4D6', borderMuted: '#F2DCE7', borderStrong: '#C9899F', focus: '#D6197A',
+    primaryBase: '#D6197A', primaryHover: '#B81368', primaryActive: '#990F56',
+    primarySubtle: '#FBD9E8', primaryFg: '#FFFFFF',
+    accent: '#D6197A', accent2: '#FFB020', accent3: '#8A6474',
+  }),
+});
+const lightExt: Record<string, string> = {
+  '--bbangto-ext-radial-glow':
+    'radial-gradient(circle at 50% 12%, rgba(214,25,122,0.22) 0%, rgba(214,25,122,0.06) 32%, transparent 66%)',
+  '--bbangto-ext-light-ray':
+    'conic-gradient(from 210deg at 50% 50%, transparent 0deg, rgba(255,176,32,0.12) 28deg, transparent 56deg)',
+  '--bbangto-ext-glow-color': '#D6197A',
+  '--bbangto-ext-bloom-blur': '40px',
+  '--bbangto-ext-grain': extendedFoundations['--bbangto-ext-grain'],
+  '--bbangto-ext-silhouette-mask': 'linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.85) 100%)',
+  '--bbangto-ext-glow-intensity': '0.7',
+};
+
+// 시안 액센트: 다크 유지, 발광색을 핫핑크→일렉트릭 시안(+바이올렛 광선)으로 전환.
+const cyanFoundations = makeColorway(foundations, {
+  name: 'radiant-glow-dark-01-cyan',
+  description: '다크 라디언트 글로우 — 일렉트릭 시안 발광 + 바이올렛 광선 액센트',
+  semantic: makeSemantic({
+    bg: '#05080C', bgElevated: '#0C141C', bgSunken: '#03060A', overlay: 'rgba(0,0,0,0.62)',
+    fg: '#F2FBFF', fgMuted: '#B8CCD6', fgSubtle: '#7C929C', fgInverse: '#05080C',
+    border: '#1E2E38', borderMuted: '#142129', borderStrong: '#2E4250', focus: '#22D3EE',
+    primaryBase: '#22D3EE', primaryHover: '#4FE0F5', primaryActive: '#0FA8C0',
+    primarySubtle: '#06232B', primaryFg: '#04141A',
+    accent: '#22D3EE', accent2: '#A78BFA', accent3: '#7C929C',
+  }),
+});
+const cyanExt: Record<string, string> = {
+  '--bbangto-ext-radial-glow':
+    'radial-gradient(circle at 50% 12%, rgba(34,211,238,0.42) 0%, rgba(34,211,238,0.12) 32%, transparent 66%)',
+  '--bbangto-ext-light-ray':
+    'conic-gradient(from 210deg at 50% 50%, transparent 0deg, rgba(167,139,250,0.16) 28deg, transparent 56deg)',
+  '--bbangto-ext-glow-color': '#22D3EE',
+  '--bbangto-ext-bloom-blur': '48px',
+  '--bbangto-ext-grain': extendedFoundations['--bbangto-ext-grain'],
+  '--bbangto-ext-silhouette-mask': 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.85) 100%)',
+  '--bbangto-ext-glow-intensity': '1',
+};
+
 const STYLE_ID = 'bbangto-radiant-glow-dark-motif';
 const CSS = `
 .bbangto-radiant-glow-dark-card {
@@ -131,10 +183,25 @@ const wrapperComponents = makeMotifWrappers({
       fontWeight: 700, letterSpacing: '0.1em', lineHeight: 1.5, whiteSpace: 'nowrap',
       textTransform: 'uppercase',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: '#1A0A12', color: '#FF77B4', border: '1px solid rgba(255,45,142,0.55)', boxShadow: '0 0 12px rgba(255,45,142,0.35)' },
-      muted: { background: '#1A1622', color: '#C9C2D4', border: '1px solid #3D3648' },
-      solid: { background: GLOW, color: '#14060C', border: '1px solid transparent', boxShadow: '0 0 14px rgba(255,45,142,0.5)' },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-subtle, #1A0A12)',
+        color: 'var(--bbangto-semantic-primary-hover, #FF77B4)',
+        border: '1px solid var(--bbangto-semantic-primary-base, rgba(255,45,142,0.55))',
+        boxShadow: '0 0 12px rgba(255,45,142,0.35)',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-background-sunken, #1A1622)',
+        color: 'var(--bbangto-semantic-foreground-muted, #C9C2D4)',
+        border: '1px solid var(--bbangto-semantic-border-strong, #3D3648)',
+      },
+      solid: {
+        background: 'var(--bbangto-semantic-primary-base, #FF2D8E)',
+        color: 'var(--bbangto-semantic-primary-foreground, #14060C)',
+        border: '1px solid transparent',
+        boxShadow: '0 0 14px rgba(255,45,142,0.5)',
+      },
     },
   },
 });
@@ -214,6 +281,12 @@ export const radiantGlowDarkStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (핫핑크 다크 글로우)', foundations, extendedFoundations },
+    { key: 'light', label: '라이트 (핑크 화이트 표면)', foundations: lightFoundations, extendedFoundations: lightExt },
+    { key: 'cyan', label: '시안 액센트 (일렉트릭 시안 발광)', foundations: cyanFoundations, extendedFoundations: cyanExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { RadiantGlowDarkShowcase: Showcase },
   guidelines,

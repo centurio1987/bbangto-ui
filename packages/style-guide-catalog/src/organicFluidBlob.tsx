@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -72,6 +72,54 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-squircle': '46% 54% 52% 48% / 56% 48% 52% 44%',
 };
 
+/*
+ * 색 스킴 변형(색 스킴 기호선택) — 블롭·리본 모티프(래퍼 CSS·shape·morph)는
+ * base에서 상속하고 semantic 색 + 유체 그라디언트 색면만 교체한다.
+ * shape/path/duration/squircle은 색이 아니므로 각 preset에서 동일하게 유지한다.
+ */
+
+// 다크 — 잉크빛 자수정 바탕 위 네온 유체(비비드 시안·핑크·코랄) 그라디언트.
+const darkFoundations = makeColorway(foundations, {
+  name: 'organic-fluid-blob-01-dark',
+  description: '잉크빛 자수정 다크 바탕 + 네온 시안/핑크/코랄 유체 그라디언트',
+  semantic: makeSemantic({
+    bg: '#14101F', bgElevated: '#1E1830', bgSunken: '#0D0A16', overlay: 'rgba(10,8,20,0.62)',
+    fg: '#F5F1FF', fgMuted: '#C4BCE0', fgSubtle: '#948CB5', fgInverse: '#14101F',
+    border: '#33294D', borderMuted: '#241C38', borderStrong: '#4A3D6B', focus: '#F472B6',
+    primaryBase: '#F472B6', primaryHover: '#F9A8D4', primaryActive: '#FBCFE5',
+    primarySubtle: '#3B1F35', primaryFg: '#2A0A1A',
+    accent: '#22D3EE', accent2: '#A3E635', accent3: '#FB7185',
+  }),
+});
+const darkExt: Record<string, string> = {
+  '--bbangto-ext-blob-path': extendedFoundations['--bbangto-ext-blob-path'],
+  '--bbangto-ext-blob-gradient': 'linear-gradient(135deg, #22D3EE 0%, #F472B6 52%, #FB7185 100%)',
+  '--bbangto-ext-ribbon-curve': extendedFoundations['--bbangto-ext-ribbon-curve'],
+  '--bbangto-ext-morph-duration': '600ms',
+  '--bbangto-ext-squircle': '46% 54% 52% 48% / 56% 48% 52% 44%',
+};
+
+// 아쿠아 — 시안/티일을 주액센트로 전환한 라이트 변형(마젠타는 보조 강조로).
+const aquaFoundations = makeColorway(foundations, {
+  name: 'organic-fluid-blob-01-aqua',
+  description: '민트빛 라이트 바탕 + 시안/티일 주액센트 유체 그라디언트',
+  semantic: makeSemantic({
+    bg: '#F5FCFD', bgElevated: '#FFFFFF', bgSunken: '#E3F6F9', overlay: 'rgba(8,30,36,0.55)',
+    fg: '#0A2E33', fgMuted: '#35595E', fgSubtle: '#6A8B90', fgInverse: '#FFFFFF',
+    border: '#C4E8ED', borderMuted: '#E0F4F7', borderStrong: '#A0D6DE', focus: '#0891B2',
+    primaryBase: '#0891B2', primaryHover: '#0E7490', primaryActive: '#155E75',
+    primarySubtle: '#CFFAFE', primaryFg: '#FFFFFF',
+    accent: '#DB2777', accent2: '#84CC16', accent3: '#FB7185',
+  }),
+});
+const aquaExt: Record<string, string> = {
+  '--bbangto-ext-blob-path': extendedFoundations['--bbangto-ext-blob-path'],
+  '--bbangto-ext-blob-gradient': 'linear-gradient(135deg, #06B6D4 0%, #0891B2 52%, #DB2777 100%)',
+  '--bbangto-ext-ribbon-curve': extendedFoundations['--bbangto-ext-ribbon-curve'],
+  '--bbangto-ext-morph-duration': '600ms',
+  '--bbangto-ext-squircle': '46% 54% 52% 48% / 56% 48% 52% 44%',
+};
+
 const STYLE_ID = 'bbangto-organic-fluid-blob-motif';
 const CSS = `
 .bbangto-organic-fluid-blob-card {
@@ -131,10 +179,20 @@ const wrapperComponents = makeMotifWrappers({
       borderRadius: 9999, fontFamily: "'Poppins', system-ui, sans-serif", fontSize: 11,
       fontWeight: 600, letterSpacing: '0.06em', lineHeight: 1.5, whiteSpace: 'nowrap',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: '#CFFAFE', color: '#0E7490' },
-      muted: { background: '#F2EEFB', color: '#4A4565' },
-      solid: { background: MAGENTA, color: '#fff' },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-subtle, #CFFAFE)',
+        color: 'var(--bbangto-semantic-primary-active, #0E7490)',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-background-sunken, #F2EEFB)',
+        color: 'var(--bbangto-semantic-foreground-muted, #4A4565)',
+      },
+      solid: {
+        background: `var(--bbangto-semantic-primary-base, ${MAGENTA})`,
+        color: 'var(--bbangto-semantic-primary-foreground, #fff)',
+      },
     },
   },
 });
@@ -216,6 +274,12 @@ export const organicFluidBlobStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (마젠타 라이트)', foundations, extendedFoundations },
+    { key: 'dark', label: '다크 (네온 자수정)', foundations: darkFoundations, extendedFoundations: darkExt },
+    { key: 'aqua', label: '아쿠아 (시안 액센트)', foundations: aquaFoundations, extendedFoundations: aquaExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { OrganicFluidBlobShowcase: Showcase },
   guidelines,

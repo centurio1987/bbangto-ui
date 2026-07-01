@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -72,6 +72,64 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-warp-speed': '14s',
 };
 
+/* 색 스킴 변형(colorway) — 액화 왜곡 체크/보더/shape 모티프는 base에서 상속하고 색만 교체한다. */
+
+// 다크: 잉크 나이트 위에 흐르는 딥 마룬 × 비비드 핑크 체크. (base는 라이트 → 다크 대비 변형)
+const DARK_RED = '#FF4D6D';
+const DARK_PINK = '#3A0E1A';
+const darkFoundations = makeColorway(foundations, {
+  name: 'warped-checkerboard-01-dark',
+  description: '액화 왜곡 체크 다크 — 잉크 나이트 배경 위 딥 마룬×비비드 핑크 격자 + 라이트 패널',
+  semantic: makeSemantic({
+    bg: '#1A0A0E', bgElevated: '#2A121A', bgSunken: '#120609', overlay: 'rgba(0,0,0,0.62)',
+    fg: '#FDE7EC', fgMuted: '#E0A9B6', fgSubtle: '#B07C88', fgInverse: '#1A0A0E',
+    border: '#4A1E2A', borderMuted: '#2A121A', borderStrong: DARK_RED, focus: DARK_RED,
+    primaryBase: DARK_RED, primaryHover: '#FF7088', primaryActive: '#FF98A8',
+    primarySubtle: DARK_PINK, primaryFg: '#1A0A0E',
+    accent: DARK_RED, accent2: '#F2A6B8', accent3: '#FDE7EC',
+  }),
+});
+const darkExt: Record<string, string> = {
+  '--bbangto-ext-warp-cell': '44px',
+  '--bbangto-ext-warp-color-a': DARK_RED,
+  '--bbangto-ext-warp-color-b': DARK_PINK,
+  '--bbangto-ext-warp-amplitude': '12px',
+  '--bbangto-ext-warp-frequency': '0.04',
+  '--bbangto-ext-warp-pattern':
+    'repeating-conic-gradient(var(--bbangto-ext-warp-color-a, #FF4D6D) 0% 25%, var(--bbangto-ext-warp-color-b, #3A0E1A) 0% 50%) 0 0 / var(--bbangto-ext-warp-cell, 44px) var(--bbangto-ext-warp-cell, 44px)',
+  '--bbangto-ext-warp-svg':
+    "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='warp'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.02' numOctaves='2' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='28' xChannelSelector='R' yChannelSelector='G'/%3E%3C/filter%3E%3C/svg%3E#warp\")",
+  '--bbangto-ext-warp-speed': '14s',
+};
+
+// 코발트: 붉은 계열을 코발트×하늘색 체크로 전환한 라이트 액센트 변형. (강조색 전환)
+const COBALT = '#1E50C8';
+const COBALT_SKY = '#8FB4EE';
+const cobaltFoundations = makeColorway(foundations, {
+  name: 'warped-checkerboard-01-cobalt',
+  description: '액화 왜곡 체크 코발트 — 코발트×스카이 블루 격자 라이트 액센트 변형',
+  semantic: makeSemantic({
+    bg: '#EEF4FD', bgElevated: '#FFFFFF', bgSunken: '#DFE9F8', overlay: 'rgba(10,18,31,0.55)',
+    fg: '#0A121F', fgMuted: '#3A4457', fgSubtle: '#6A7488', fgInverse: '#FFFFFF',
+    border: '#A9C4F0', borderMuted: '#DFE9F8', borderStrong: COBALT, focus: COBALT,
+    primaryBase: COBALT, primaryHover: '#1740A6', primaryActive: '#102F7D',
+    primarySubtle: '#D6E3FA', primaryFg: '#FFFFFF',
+    accent: COBALT, accent2: COBALT_SKY, accent3: '#0A121F',
+  }),
+});
+const cobaltExt: Record<string, string> = {
+  '--bbangto-ext-warp-cell': '44px',
+  '--bbangto-ext-warp-color-a': COBALT,
+  '--bbangto-ext-warp-color-b': COBALT_SKY,
+  '--bbangto-ext-warp-amplitude': '12px',
+  '--bbangto-ext-warp-frequency': '0.04',
+  '--bbangto-ext-warp-pattern':
+    'repeating-conic-gradient(var(--bbangto-ext-warp-color-a, #1E50C8) 0% 25%, var(--bbangto-ext-warp-color-b, #8FB4EE) 0% 50%) 0 0 / var(--bbangto-ext-warp-cell, 44px) var(--bbangto-ext-warp-cell, 44px)',
+  '--bbangto-ext-warp-svg':
+    "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='warp'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.02' numOctaves='2' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='28' xChannelSelector='R' yChannelSelector='G'/%3E%3C/filter%3E%3C/svg%3E#warp\")",
+  '--bbangto-ext-warp-speed': '14s',
+};
+
 const STYLE_ID = 'bbangto-warped-checkerboard-motif';
 const CSS = `
 .bbangto-warped-checkerboard-card {
@@ -128,10 +186,20 @@ const wrapperComponents = makeMotifWrappers({
       borderRadius: 9999, fontFamily: "'Fredoka', 'Clash Display', system-ui, sans-serif",
       fontSize: 11, fontWeight: 600, letterSpacing: '0.06em', lineHeight: 1.5, whiteSpace: 'nowrap',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: RED, color: '#FFFFFF' },
-      muted: { background: '#FBE4EA', color: '#5A3A42' },
-      solid: { background: INK, color: '#FFFFFF' },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-base, #B3122B)',
+        color: 'var(--bbangto-semantic-primary-foreground, #FFFFFF)',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-primary-subtle, #FBE4EA)',
+        color: 'var(--bbangto-semantic-foreground-muted, #5A3A42)',
+      },
+      solid: {
+        background: 'var(--bbangto-semantic-foreground-base, #1A0A0E)',
+        color: 'var(--bbangto-semantic-foreground-inverse, #FFFFFF)',
+      },
     },
   },
 });
@@ -211,6 +279,12 @@ export const warpedCheckerboardStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (레드×핑크)', foundations, extendedFoundations },
+    { key: 'dark', label: '다크 (잉크 나이트)', foundations: darkFoundations, extendedFoundations: darkExt },
+    { key: 'cobalt', label: '코발트 액센트', foundations: cobaltFoundations, extendedFoundations: cobaltExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { WarpedCheckerboardShowcase: Showcase },
   guidelines,

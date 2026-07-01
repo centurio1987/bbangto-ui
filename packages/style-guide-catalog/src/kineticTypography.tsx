@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -61,6 +61,55 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-kinetic-stagger': '60ms',
   '--bbangto-ext-marquee-speed': '12s',
   '--bbangto-ext-text-weight-range': '400 900',
+  '--bbangto-ext-kinetic-accent': ELECTRIC,
+};
+
+/*
+ * 색 스킴 변형(foundation preset) — kinetic 모티프(각진 shape·kinetic 트랜지션·
+ * reduced-motion 폴백)는 base에서 상속하고, 색(semantic + ext accent)만 교체한다.
+ * base가 다크이므로 하나는 라이트(페이퍼)로, 하나는 accent를 시안으로 전환한다.
+ */
+
+const CYAN = '#00E5FF';
+
+const cyanFoundations = makeColorway(foundations, {
+  name: 'kinetic-typography-01-cyan',
+  description: '움직이는 타이포 다크 — 일렉트릭 시안 강조 전환',
+  semantic: makeSemantic({
+    bg: BASE, bgElevated: '#141414', bgSunken: '#1C1C1C', overlay: 'rgba(0,0,0,0.72)',
+    fg: FG, fgMuted: '#A3A3A3', fgSubtle: '#6E6E6E', fgInverse: BASE,
+    border: '#2A2A2A', borderMuted: '#1F1F1F', borderStrong: '#3A3A3A', focus: CYAN,
+    primaryBase: CYAN, primaryHover: '#5CEFFF', primaryActive: '#00B2C7',
+    primarySubtle: '#052A30', primaryFg: '#0A0A0A',
+    accent: CYAN, accent2: YELLOW, accent3: '#A3A3A3',
+  }),
+});
+const cyanExt: Record<string, string> = {
+  '--bbangto-ext-kinetic-duration': '600ms',
+  '--bbangto-ext-kinetic-stagger': '60ms',
+  '--bbangto-ext-marquee-speed': '12s',
+  '--bbangto-ext-text-weight-range': '400 900',
+  '--bbangto-ext-kinetic-accent': CYAN,
+};
+
+const lightFoundations = makeColorway(foundations, {
+  name: 'kinetic-typography-01-light',
+  description: '움직이는 타이포 라이트 — 페이퍼 화이트 배경 + 일렉트릭 오렌지',
+  semantic: makeSemantic({
+    bg: '#FAFAF7', bgElevated: '#FFFFFF', bgSunken: '#F0EFEA', overlay: 'rgba(10,10,10,0.55)',
+    fg: '#0A0A0A', fgMuted: '#525252', fgSubtle: '#737373', fgInverse: '#FAFAFA',
+    border: '#D6D3CC', borderMuted: '#E7E4DD', borderStrong: '#9C988F', focus: ELECTRIC,
+    primaryBase: ELECTRIC, primaryHover: '#E64400', primaryActive: '#C23A00',
+    primarySubtle: '#FFE7DC', primaryFg: '#FFFFFF',
+    accent: ELECTRIC, accent2: '#92400E', accent3: '#525252',
+  }),
+});
+const lightExt: Record<string, string> = {
+  '--bbangto-ext-kinetic-duration': '600ms',
+  '--bbangto-ext-kinetic-stagger': '60ms',
+  '--bbangto-ext-marquee-speed': '12s',
+  '--bbangto-ext-text-weight-range': '400 900',
+  '--bbangto-ext-kinetic-accent': ELECTRIC,
 };
 
 const STYLE_ID = 'bbangto-kinetic-typography-motif';
@@ -126,10 +175,21 @@ const wrapperComponents = makeMotifWrappers({
       fontWeight: 700, letterSpacing: '0.14em', lineHeight: 1.6, whiteSpace: 'nowrap',
       textTransform: 'uppercase',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: ELECTRIC, color: '#0A0A0A' },
-      muted: { background: 'transparent', color: FG, border: '1px solid #3A3A3A' },
-      solid: { background: YELLOW, color: '#0A0A0A' },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-base, #FF4D00)',
+        color: 'var(--bbangto-semantic-primary-foreground, #0A0A0A)',
+      },
+      muted: {
+        background: 'transparent',
+        color: 'var(--bbangto-semantic-foreground-base, #FAFAFA)',
+        border: '1px solid var(--bbangto-semantic-border-strong, #3A3A3A)',
+      },
+      solid: {
+        background: 'var(--bbangto-semantic-category-planning, #FFE600)',
+        color: 'var(--bbangto-semantic-primary-foreground, #0A0A0A)',
+      },
     },
   },
 });
@@ -202,6 +262,12 @@ export const kineticTypographyStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (일렉트릭 오렌지 · 다크)', foundations, extendedFoundations },
+    { key: 'light', label: '라이트 (페이퍼 화이트 · 오렌지)', foundations: lightFoundations, extendedFoundations: lightExt },
+    { key: 'cyan', label: '일렉트릭 시안 (다크 · 강조 전환)', foundations: cyanFoundations, extendedFoundations: cyanExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { KineticShowcase: Showcase },
   guidelines,

@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -77,6 +77,92 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-corner-ornament': `radial-gradient(circle, ${MUSTARD} 0 3px, transparent 4px)`,
 };
 
+/* 색 스킴 변형(colorway) — 모티프(래퍼 CSS·shape)는 base에서 상속, 색만 교체. */
+
+// 다크: 심야 인디고 그라운드 + 크림/코랄 등불 — 밝은 fg + 어두운 bg.
+const nightFoundations = makeColorway(foundations, {
+  name: 'heritage-folk-ornament-01-night',
+  description: '심야 인디고 그라운드 + 크림·코랄 등불 오너먼트, 다크 공예 패널',
+  semantic: makeSemantic({
+    bg: '#1E1A2E',
+    bgElevated: '#2A2540',
+    bgSunken: '#14111F',
+    overlay: 'rgba(0,0,0,0.60)',
+    fg: '#FBF3E4',
+    fgMuted: '#C9BBA8',
+    fgSubtle: '#9A8D7C',
+    fgInverse: '#1F1A17',
+    border: '#46405C',
+    borderMuted: '#2E2A42',
+    borderStrong: '#6B6288',
+    focus: '#E0A52E',
+    primaryBase: '#E86B47',
+    primaryHover: '#F07E5C',
+    primaryActive: '#D2542E',
+    primarySubtle: '#3A2620',
+    primaryFg: '#FFFFFF',
+    accent: '#8C97D9',
+    accent2: '#3FBFB0',
+    accent3: '#E0A52E',
+  }),
+});
+const nightExt: Record<string, string> = {
+  '--bbangto-ext-folk-fill': '#E86B47',
+  '--bbangto-ext-folk-radius': '14px',
+  '--bbangto-ext-folk-border':
+    'repeating-linear-gradient(45deg, #E86B47 0 6px, #E0A52E 6px 12px, #8C97D9 12px 18px, #3FBFB0 18px 24px)',
+  '--bbangto-ext-floral-motif':
+    "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg fill='%23E86B47'%3E%3Ccircle cx='12' cy='6' r='3'/%3E%3Ccircle cx='12' cy='18' r='3'/%3E%3Ccircle cx='6' cy='12' r='3'/%3E%3Ccircle cx='18' cy='12' r='3'/%3E%3C/g%3E%3Ccircle cx='12' cy='12' r='3' fill='%23E0A52E'/%3E%3C/svg%3E\")",
+  '--bbangto-ext-motif-accent-1': '#8C97D9',
+  '--bbangto-ext-motif-accent-2': '#3FBFB0',
+  '--bbangto-ext-motif-accent-3': '#E0A52E',
+  '--bbangto-ext-motif-accent-4': '#FBF3E4',
+  '--bbangto-ext-symmetry-mirror': 'scaleX(-1)',
+  '--bbangto-ext-corner-ornament': 'radial-gradient(circle, #E0A52E 0 3px, transparent 4px)',
+};
+
+// 액센트 전환: 쿨 파인/틸 그라운드 + 틸 primary, 인디고 focus — 어두운 fg + 밝은 bg.
+const pineFoundations = makeColorway(foundations, {
+  name: 'heritage-folk-ornament-01-pine',
+  description: '쿨 민트-크림 그라운드 + 틸 primary·인디고 focus, 쪽빛 공예 오너먼트',
+  semantic: makeSemantic({
+    bg: '#F4F7F5',
+    bgElevated: '#FFFFFF',
+    bgSunken: '#E6EEEA',
+    overlay: 'rgba(20,30,28,0.50)',
+    fg: '#14231F',
+    fgMuted: '#3F5049',
+    fgSubtle: '#6E7F78',
+    fgInverse: '#F4F7F5',
+    border: '#C2D4CD',
+    borderMuted: '#DCE7E2',
+    borderStrong: '#8FA69E',
+    focus: '#2E3A8C',
+    primaryBase: '#0E8C7F',
+    primaryHover: '#0B7A6E',
+    primaryActive: '#086559',
+    primarySubtle: '#C7EAE4',
+    primaryFg: '#FFFFFF',
+    accent: '#2E3A8C',
+    accent2: '#D24E2E',
+    accent3: '#E0A52E',
+  }),
+});
+const pineExt: Record<string, string> = {
+  '--bbangto-ext-folk-fill': '#0E8C7F',
+  '--bbangto-ext-folk-radius': '14px',
+  '--bbangto-ext-folk-border':
+    'repeating-linear-gradient(45deg, #0E8C7F 0 6px, #E0A52E 6px 12px, #2E3A8C 12px 18px, #D24E2E 18px 24px)',
+  '--bbangto-ext-floral-motif':
+    "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg fill='%230E8C7F'%3E%3Ccircle cx='12' cy='6' r='3'/%3E%3Ccircle cx='12' cy='18' r='3'/%3E%3Ccircle cx='6' cy='12' r='3'/%3E%3Ccircle cx='18' cy='12' r='3'/%3E%3C/g%3E%3Ccircle cx='12' cy='12' r='3' fill='%23E0A52E'/%3E%3C/svg%3E\")",
+  '--bbangto-ext-motif-accent-1': '#2E3A8C',
+  '--bbangto-ext-motif-accent-2': '#D24E2E',
+  '--bbangto-ext-motif-accent-3': '#E0A52E',
+  '--bbangto-ext-motif-accent-4': '#FFFFFF',
+  '--bbangto-ext-symmetry-mirror': 'scaleX(-1)',
+  '--bbangto-ext-corner-ornament': 'radial-gradient(circle, #E0A52E 0 3px, transparent 4px)',
+};
+
 const STYLE_ID = 'bbangto-heritage-folk-ornament-motif';
 const CSS = `
 .bbangto-heritage-folk-ornament-card {
@@ -144,12 +230,25 @@ const wrapperComponents = makeMotifWrappers({
       display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 12px',
       borderRadius: 999, fontFamily: "'Mulish', 'Nunito', system-ui, sans-serif", fontSize: 11,
       fontWeight: 700, letterSpacing: '0.06em', lineHeight: 1.5, whiteSpace: 'nowrap',
-      border: `1px solid ${INDIGO}`,
+      border: `1px solid var(--bbangto-semantic-border-strong, ${INDIGO})`,
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: '#E7E8F4', color: INDIGO, borderColor: INDIGO },
-      muted: { background: '#EFE4CF', color: INK, borderColor: '#C9A876' },
-      solid: { background: TEAL, color: '#FFFFFF', borderColor: TEAL },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-subtle, #E7E8F4)',
+        color: `var(--bbangto-semantic-primary-active, ${INDIGO})`,
+        borderColor: `var(--bbangto-semantic-primary-active, ${INDIGO})`,
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-background-sunken, #EFE4CF)',
+        color: `var(--bbangto-semantic-foreground-base, ${INK})`,
+        borderColor: 'var(--bbangto-semantic-border-strong, #C9A876)',
+      },
+      solid: {
+        background: `var(--bbangto-semantic-primary-base, ${TEAL})`,
+        color: 'var(--bbangto-semantic-primary-foreground, #FFFFFF)',
+        borderColor: `var(--bbangto-semantic-primary-base, ${TEAL})`,
+      },
     },
   },
 });
@@ -230,6 +329,12 @@ export const heritageFolkOrnamentStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (코랄 흙빛)', foundations, extendedFoundations },
+    { key: 'night', label: '다크 (심야 인디고)', foundations: nightFoundations, extendedFoundations: nightExt },
+    { key: 'pine', label: '틸 액센트 (쿨 파인)', foundations: pineFoundations, extendedFoundations: pineExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { HeritageFolkOrnamentShowcase: Showcase },
   guidelines,

@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -72,6 +72,52 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-layer-rotate': ROTATE,
 };
 
+/* 색 스킴 변형(colorway) — 컷아웃/그레인/미세회전 모티프는 base에서 상속, 색만 교체. */
+
+const darkFoundations = makeColorway(foundations, {
+  name: 'mixed-media-collage-01-dark',
+  description: '다크룸 콜라주 — 딥 차콜 페이퍼 위 코랄/세이지 컷아웃, 스크린 블렌드',
+  semantic: makeSemantic({
+    bg: '#1C1915', bgElevated: '#262119', bgSunken: '#14110D', overlay: 'rgba(0,0,0,0.62)',
+    fg: '#F1EBDD', fgMuted: '#C7BEAC', fgSubtle: '#948B78', fgInverse: '#1C1915',
+    border: '#3D372C', borderMuted: '#2A251D', borderStrong: '#6B6350', focus: CORAL,
+    primaryBase: '#EDE3D2', primaryHover: '#DDD1BC', primaryActive: '#C9BBA1',
+    primarySubtle: '#3A342A', primaryFg: '#201C15',
+    accent: CORAL, accent2: '#9DAE73', accent3: '#F07A63',
+  }),
+});
+const darkExt: Record<string, string> = {
+  '--bbangto-ext-layer-z': '3',
+  '--bbangto-ext-cutout-shadow': '0 6px 18px rgba(0,0,0,0.50), 0 1px 2px rgba(0,0,0,0.42)',
+  '--bbangto-ext-blend-mode': 'screen',
+  '--bbangto-ext-grain-vintage': '0.12',
+  '--bbangto-ext-ink-doodle': '#F1EBDD',
+  '--bbangto-ext-duotone': 'sepia(0.45) contrast(1.10) saturate(0.80) brightness(0.85)',
+  '--bbangto-ext-layer-rotate': ROTATE,
+};
+
+const cobaltFoundations = makeColorway(foundations, {
+  name: 'mixed-media-collage-01-cobalt',
+  description: '코발트 콜라주 — 쿨 페이퍼 위 인디고/번트앰버 컷아웃, 코발트 강조',
+  semantic: makeSemantic({
+    bg: '#F2F0EB', bgElevated: '#FBFAF6', bgSunken: '#E4E2DA', overlay: 'rgba(26,27,34,0.55)',
+    fg: '#1A1B22', fgMuted: '#43454F', fgSubtle: '#71737E', fgInverse: '#FBFAF6',
+    border: '#D2D1CA', borderMuted: '#E4E2DA', borderStrong: '#B4B3AA', focus: '#2F4CDB',
+    primaryBase: '#1E3A8A', primaryHover: '#2947A5', primaryActive: '#15296B',
+    primarySubtle: '#DDE3F7', primaryFg: '#FBFAF6',
+    accent: '#2F4CDB', accent2: '#C2703D', accent3: '#15296B',
+  }),
+});
+const cobaltExt: Record<string, string> = {
+  '--bbangto-ext-layer-z': '3',
+  '--bbangto-ext-cutout-shadow': '0 6px 18px rgba(26,27,34,0.18), 0 1px 2px rgba(26,27,34,0.12)',
+  '--bbangto-ext-blend-mode': 'multiply',
+  '--bbangto-ext-grain-vintage': '0.08',
+  '--bbangto-ext-ink-doodle': '#1A1B22',
+  '--bbangto-ext-duotone': 'saturate(1.05) contrast(1.05) hue-rotate(-10deg)',
+  '--bbangto-ext-layer-rotate': ROTATE,
+};
+
 const STYLE_ID = 'bbangto-mixed-media-collage-motif';
 const CSS = `
 .bbangto-mixed-media-collage-card {
@@ -125,10 +171,23 @@ const wrapperComponents = makeMotifWrappers({
       letterSpacing: '0.06em', lineHeight: 1.4, whiteSpace: 'nowrap', textTransform: 'uppercase',
       transform: 'rotate(-1.5deg)',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: '#FBE3DD', color: '#B23A26', borderColor: CORAL },
-      muted: { background: '#E8E3D8', color: '#4A453C', borderColor: '#CFC7B6' },
-      solid: { background: '#41502A', color: '#FCFAF5', borderColor: '#41502A' },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-subtle, #FBE3DD)',
+        color: 'var(--bbangto-semantic-primary-active, #B23A26)',
+        borderColor: 'var(--bbangto-semantic-border-focus, #E5573F)',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-background-sunken, #E8E3D8)',
+        color: 'var(--bbangto-semantic-foreground-muted, #4A453C)',
+        borderColor: 'var(--bbangto-semantic-border-base, #CFC7B6)',
+      },
+      solid: {
+        background: 'var(--bbangto-semantic-primary-base, #41502A)',
+        color: 'var(--bbangto-semantic-primary-foreground, #FCFAF5)',
+        borderColor: 'var(--bbangto-semantic-primary-base, #41502A)',
+      },
     },
   },
 });
@@ -208,6 +267,12 @@ export const mixedMediaCollageStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (페이퍼 + 코랄)', foundations, extendedFoundations },
+    { key: 'dark', label: '다크룸 (딥 차콜 + 코랄)', foundations: darkFoundations, extendedFoundations: darkExt },
+    { key: 'cobalt', label: '코발트 (쿨 페이퍼 + 인디고)', foundations: cobaltFoundations, extendedFoundations: cobaltExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { MixedMediaCollageShowcase: Showcase },
   guidelines,

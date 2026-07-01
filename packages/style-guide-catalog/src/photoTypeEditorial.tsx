@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -70,6 +70,55 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-cutout-edge': '2px solid #FFFFFF',
 };
 
+/* 색 스킴 변형(tweak) — 포토·타입 융합/각진 프레임/hard-offset 모티프는 base에서 상속. */
+
+// 다크 — 차콜 지면 반전, 크림 활자·오렌지/옐로 accent 유지.
+const CREAM = '#F5F2EC';
+const darkFoundations = makeColorway(foundations, {
+  name: 'photo-type-editorial-01-dark',
+  description: '포토·타입 에디토리얼 다크 — 차콜 지면에 크림 활자, 오렌지/옐로 accent 유지',
+  semantic: makeSemantic({
+    bg: CHARCOAL, bgElevated: '#1E1B18', bgSunken: '#0C0B0A', overlay: 'rgba(0,0,0,0.60)',
+    fg: CREAM, fgMuted: '#C9C2B6', fgSubtle: '#8E877B', fgInverse: CHARCOAL,
+    border: '#3A352E', borderMuted: '#26221C', borderStrong: CREAM, focus: ORANGE,
+    primaryBase: CREAM, primaryHover: '#FFFFFF', primaryActive: '#E5DFD4',
+    primarySubtle: '#2A251F', primaryFg: CHARCOAL,
+    accent: ORANGE, accent2: YELLOW, accent3: CREAM,
+  }),
+});
+const darkExt: Record<string, string> = {
+  '--bbangto-ext-text-image': `linear-gradient(135deg, ${ORANGE} 0%, ${YELLOW} 100%)`,
+  '--bbangto-ext-text-stroke': `2px ${CREAM}`,
+  '--bbangto-ext-photo-mask': 'polygon(0 0, 100% 0, 100% 86%, 0 100%)',
+  '--bbangto-ext-frame-rect': `3px solid ${CREAM}`,
+  '--bbangto-ext-headline-overlap': '-24px',
+  '--bbangto-ext-cutout-edge': `2px solid ${CHARCOAL}`,
+};
+
+// 코발트 — 쿨한 프레스 지면 + 코발트블루 액센트 전환(옐로 pop 유지).
+const COBALT = '#1D4ED8';
+const INK = '#12151A';
+const cobaltFoundations = makeColorway(foundations, {
+  name: 'photo-type-editorial-01-cobalt',
+  description: '포토·타입 에디토리얼 코발트 — 쿨 그레이 지면 + 코발트블루 액센트 전환',
+  semantic: makeSemantic({
+    bg: '#EEF1F5', bgElevated: '#FFFFFF', bgSunken: '#E0E5EC', overlay: 'rgba(18,21,26,0.55)',
+    fg: INK, fgMuted: '#363B44', fgSubtle: '#626873', fgInverse: '#FFFFFF',
+    border: '#CBD2DC', borderMuted: '#E0E5EC', borderStrong: INK, focus: COBALT,
+    primaryBase: COBALT, primaryHover: '#1E40AF', primaryActive: '#1E3A8A',
+    primarySubtle: '#DBE4FB', primaryFg: '#FFFFFF',
+    accent: COBALT, accent2: YELLOW, accent3: INK,
+  }),
+});
+const cobaltExt: Record<string, string> = {
+  '--bbangto-ext-text-image': `linear-gradient(135deg, ${COBALT} 0%, ${YELLOW} 100%)`,
+  '--bbangto-ext-text-stroke': `2px ${INK}`,
+  '--bbangto-ext-photo-mask': 'polygon(0 0, 100% 0, 100% 86%, 0 100%)',
+  '--bbangto-ext-frame-rect': `3px solid ${INK}`,
+  '--bbangto-ext-headline-overlap': '-24px',
+  '--bbangto-ext-cutout-edge': '2px solid #FFFFFF',
+};
+
 const STYLE_ID = 'bbangto-photo-type-editorial-motif';
 const CSS = `
 .bbangto-photo-type-editorial-card {
@@ -119,9 +168,18 @@ const wrapperComponents = makeMotifWrappers({
       textTransform: 'uppercase',
     },
     tones: {
-      accent: { background: CHARCOAL, color: YELLOW },
-      muted: { background: '#EAE6DD', color: '#403B34' },
-      solid: { background: ORANGE, color: '#FFFFFF' },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-base, #141210)',
+        color: 'var(--bbangto-semantic-primary-foreground, #F5B70A)',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-background-sunken, #EAE6DD)',
+        color: 'var(--bbangto-semantic-foreground-muted, #403B34)',
+      },
+      solid: {
+        background: 'var(--bbangto-semantic-border-focus, #E8540C)',
+        color: 'var(--bbangto-semantic-primary-foreground, #FFFFFF)',
+      },
     },
   },
 });
@@ -204,6 +262,12 @@ export const photoTypeEditorialStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (차콜/크림 · 오렌지)', foundations, extendedFoundations },
+    { key: 'dark', label: '다크 (차콜 지면 · 크림 활자)', foundations: darkFoundations, extendedFoundations: darkExt },
+    { key: 'cobalt', label: '코발트 액센트 (쿨 지면 · 블루)', foundations: cobaltFoundations, extendedFoundations: cobaltExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { PhotoTypeEditorialShowcase: Showcase },
   guidelines,

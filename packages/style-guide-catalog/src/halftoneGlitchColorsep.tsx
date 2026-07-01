@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -72,6 +72,58 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-paper-noise': 'rgba(244,241,233,0.04)',
 };
 
+/* 색 스킴 변형(tweak) — 망점·색분해·오정합 모티프(래퍼 CSS/shape)는 base에서 상속하고 색만 교체. */
+
+// 라이트: 뉴스프린트 페이퍼 화이트 베이스 + 잉크 레드(다크 base의 명확한 라이트 대응).
+const paperFoundations = makeColorway(foundations, {
+  name: 'halftone-glitch-colorsep-01-paper',
+  description: 'CMYK 망점 글리치 라이트 — 뉴스프린트 페이퍼 화이트 베이스 + 잉크 레드/그린 한정 잉크',
+  semantic: makeSemantic({
+    bg: '#F4F1E9', bgElevated: '#FFFFFF', bgSunken: '#E7E2D6', overlay: 'rgba(14,14,16,0.55)',
+    fg: '#141414', fgMuted: '#3A3A3E', fgSubtle: '#6E6B63', fgInverse: '#F4F1E9',
+    border: '#C9C4B8', borderMuted: '#DED9CD', borderStrong: '#A8A399', focus: '#0077A3',
+    primaryBase: INK_RED, primaryHover: '#A50D26', primaryActive: '#85091E',
+    primarySubtle: '#F6D9DE', primaryFg: '#FFFFFF',
+    accent: INK_RED, accent2: INK_GREEN, accent3: '#0077A3',
+  }),
+});
+const paperExt: Record<string, string> = {
+  '--bbangto-ext-halftone-dot': 'rgba(14,14,16,0.14)',
+  '--bbangto-ext-halftone-size': '8px',
+  '--bbangto-ext-halftone-angle': '45deg',
+  '--bbangto-ext-colorsep-offset': '3px',
+  '--bbangto-ext-channel-r': INK_RED,
+  '--bbangto-ext-channel-g': INK_GREEN,
+  '--bbangto-ext-glitch-slice': '4px',
+  '--bbangto-ext-misregister': 'rotate(-0.6deg) translate(2px, -1px)',
+  '--bbangto-ext-paper-noise': 'rgba(14,14,16,0.05)',
+};
+
+// 액센트: 다크 베이스 유지 + 잉크 레드 → 시안 채널로 강조색 전환.
+const cyanFoundations = makeColorway(foundations, {
+  name: 'halftone-glitch-colorsep-01-cyan',
+  description: 'CMYK 망점 글리치 다크 — 시안 잉크 전환(강조 채널 = 시안, focus = 잉크 레드)',
+  semantic: makeSemantic({
+    bg: '#0E0E10', bgElevated: '#18181B', bgSunken: '#08080A', overlay: 'rgba(8,8,10,0.66)',
+    fg: PAPER, fgMuted: '#C9C5BC', fgSubtle: '#8E8B83', fgInverse: '#04141B',
+    border: '#243036', borderMuted: '#18242A', borderStrong: '#33454E', focus: INK_RED,
+    primaryBase: CYAN, primaryHover: '#0090C4', primaryActive: '#00729B',
+    primarySubtle: '#0A2530', primaryFg: '#04141B',
+    accent: CYAN, accent2: INK_GREEN, accent3: INK_RED,
+  }),
+});
+const cyanExt: Record<string, string> = {
+  '--bbangto-ext-halftone-dot': 'rgba(244,241,233,0.12)',
+  '--bbangto-ext-halftone-size': '8px',
+  '--bbangto-ext-halftone-angle': '45deg',
+  '--bbangto-ext-colorsep-offset': '3px',
+  '--bbangto-ext-channel-r': CYAN,
+  '--bbangto-ext-channel-g': INK_GREEN,
+  '--bbangto-ext-glitch-slice': '4px',
+  '--bbangto-ext-misregister': 'rotate(-0.6deg) translate(2px, -1px)',
+  '--bbangto-ext-paper-noise': 'rgba(244,241,233,0.04)',
+};
+
 const STYLE_ID = 'bbangto-halftone-glitch-colorsep-motif';
 const CSS = `
 .bbangto-halftone-glitch-colorsep-card {
@@ -132,10 +184,20 @@ const wrapperComponents = makeMotifWrappers({
       fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase',
       lineHeight: 1.4, whiteSpace: 'nowrap',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: INK_RED, color: '#FFFFFF' },
-      muted: { background: '#1F1F23', color: '#C9C5BC' },
-      solid: { background: CYAN, color: '#0E0E10' },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-base, #C8102E)',
+        color: 'var(--bbangto-semantic-primary-foreground, #FFFFFF)',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-border-muted, #1F1F23)',
+        color: 'var(--bbangto-semantic-foreground-muted, #C9C5BC)',
+      },
+      solid: {
+        background: 'var(--bbangto-semantic-border-focus, #00AEEF)',
+        color: 'var(--bbangto-semantic-foreground-inverse, #0E0E10)',
+      },
     },
   },
 });
@@ -213,6 +275,12 @@ export const halftoneGlitchColorsepStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (Near-black + 잉크 레드)', foundations, extendedFoundations },
+    { key: 'paper', label: '페이퍼 (뉴스프린트 라이트)', foundations: paperFoundations, extendedFoundations: paperExt },
+    { key: 'cyan', label: '시안 액센트 (다크)', foundations: cyanFoundations, extendedFoundations: cyanExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { HalftoneGlitchColorsepShowcase: Showcase },
   guidelines,

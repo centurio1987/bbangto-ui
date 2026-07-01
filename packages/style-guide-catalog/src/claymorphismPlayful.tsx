@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -62,6 +62,48 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-clay-highlight': 'rgba(255,255,255,0.9)',
 };
 
+/* 색 스킴 변형(colorway) — 점토 압출·radius·그림자 모티프는 base에서 상속하고 색만 교체. */
+
+const darkFoundations = makeColorway(foundations, {
+  name: 'claymorphism-playful-01-dark',
+  description: '어두운 자수정 점토 — 짙은 보라 표면 위 밝은 라벤더 텍스트',
+  semantic: makeSemantic({
+    bg: '#1E1A2E', bgElevated: '#2A2440', bgSunken: '#14111F', overlay: 'rgba(0,0,0,0.50)',
+    fg: '#ECE9FF', fgMuted: '#B9B2D8', fgSubtle: '#8B84A8', fgInverse: '#241C40',
+    border: '#3A3352', borderMuted: '#2A2440', borderStrong: '#574E75', focus: '#B9A8FF',
+    primaryBase: '#B9A8FF', primaryHover: '#C9BCFF', primaryActive: '#A594F0',
+    primarySubtle: 'rgba(185,168,255,0.20)', primaryFg: '#241C40',
+    accent: '#FF9EC4', accent2: '#7EE0C8', accent3: '#FFD27E',
+  }),
+});
+const darkExt: Record<string, string> = {
+  '--bbangto-ext-clay-shadow-out': '12px 12px 28px rgba(0,0,0,0.55)',
+  '--bbangto-ext-clay-shadow-in': 'inset 0 3px 6px rgba(255,255,255,0.06), inset 0 -5px 10px rgba(0,0,0,0.40)',
+  '--bbangto-ext-clay-radius': '28px',
+  '--bbangto-ext-clay-surface': '#2A2440',
+  '--bbangto-ext-clay-highlight': 'rgba(255,255,255,0.08)',
+};
+
+const candyFoundations = makeColorway(foundations, {
+  name: 'claymorphism-playful-01-candy',
+  description: '캔디 코랄 점토 — 라이트 크림핑크 베이스 위 코랄 핑크 키컬러',
+  semantic: makeSemantic({
+    bg: '#FFF0F5', bgElevated: '#FFFAFC', bgSunken: '#FCE0EA', overlay: 'rgba(90,40,60,0.32)',
+    fg: '#4A1E33', fgMuted: '#7A5064', fgSubtle: '#A78494', fgInverse: '#FFFFFF',
+    border: '#F7C9DB', borderMuted: '#FCE0EA', borderStrong: '#EFA9C4', focus: '#E0478F',
+    primaryBase: '#FF6FA5', primaryHover: '#F25C95', primaryActive: '#E0478F',
+    primarySubtle: 'rgba(255,111,165,0.18)', primaryFg: '#FFFFFF',
+    accent: '#7EE0C8', accent2: '#FFD27E', accent3: '#7C6CF0',
+  }),
+});
+const candyExt: Record<string, string> = {
+  '--bbangto-ext-clay-shadow-out': '12px 12px 28px rgba(224,71,143,0.26)',
+  '--bbangto-ext-clay-shadow-in': 'inset 0 3px 6px rgba(255,255,255,0.85), inset 0 -5px 10px rgba(224,71,143,0.20)',
+  '--bbangto-ext-clay-radius': '28px',
+  '--bbangto-ext-clay-surface': '#FFFAFC',
+  '--bbangto-ext-clay-highlight': 'rgba(255,255,255,0.9)',
+};
+
 const STYLE_ID = 'bbangto-claymorphism-playful-01-motif';
 const CSS = `
 .bbangto-clay-btn {
@@ -106,10 +148,23 @@ const wrapperComponents = makeMotifWrappers({
       fontWeight: 700, letterSpacing: '0.04em', lineHeight: 1.6, whiteSpace: 'nowrap',
       boxShadow: 'inset 0 1px 2px rgba(255,255,255,0.8), 2px 2px 6px rgba(124,108,240,0.18)',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: '#FFE2EE', color: '#A03867', border: '1px solid #FFC7DD' },
-      muted: { background: '#E8E4FB', color: '#5A5180', border: '1px solid #D6CFFA' },
-      solid: { background: PRIMARY, color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.4)' },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-subtle, #FFE2EE)',
+        color: 'var(--bbangto-semantic-primary-active, #A03867)',
+        border: '1px solid var(--bbangto-semantic-border-muted, #FFC7DD)',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-background-sunken, #E8E4FB)',
+        color: 'var(--bbangto-semantic-foreground-muted, #5A5180)',
+        border: '1px solid var(--bbangto-semantic-border-base, #D6CFFA)',
+      },
+      solid: {
+        background: 'var(--bbangto-semantic-primary-base, #7C6CF0)',
+        color: 'var(--bbangto-semantic-primary-foreground, #FFFFFF)',
+        border: '1px solid rgba(255,255,255,0.4)',
+      },
     },
   },
 });
@@ -179,6 +234,12 @@ export const claymorphismPlayfulStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (라벤더 파스텔)', foundations, extendedFoundations },
+    { key: 'dark', label: '다크 (자수정)', foundations: darkFoundations, extendedFoundations: darkExt },
+    { key: 'candy', label: '캔디 코랄', foundations: candyFoundations, extendedFoundations: candyExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { ClayShowcase: Showcase },
   guidelines,

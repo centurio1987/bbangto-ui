@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -65,6 +65,42 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-tile-elevation': TILE_ELEVATION,
 };
 
+/*
+ * 색 스킴 변형(tweak) — 도시락 타일 모티프(둥근 타일·soft elevation·bento gap/radius)는
+ * base에서 그대로 상속하고 semantic 색만 교체한다. extendedFoundations는 dimension/shadow
+ * 값뿐(색 없음)이라 base 값을 그대로 유지한다.
+ */
+
+// 다크 — 어두운 슬레이트 판 위 밝은 인디고 타일.
+const darkFoundations = makeColorway(foundations, {
+  name: 'bento-modular-01-dark',
+  description: '도시락 모듈 — 다크 슬레이트 배경 + 밝은 인디고 액센트',
+  semantic: makeSemantic({
+    bg: '#14161B', bgElevated: '#1D2027', bgSunken: '#0E1014', overlay: 'rgba(8,10,16,0.55)',
+    fg: '#ECEEF3', fgMuted: '#B7BCC7', fgSubtle: '#838996', fgInverse: '#14161B',
+    border: '#2C303A', borderMuted: '#20242C', borderStrong: '#434A57', focus: '#818CF8',
+    primaryBase: '#818CF8', primaryHover: '#A5B4FC', primaryActive: '#6366F1',
+    primarySubtle: '#2A2F52', primaryFg: '#101322',
+    accent: '#818CF8', accent2: '#2DD4BF', accent3: '#838996',
+  }),
+});
+const darkExt: Record<string, string> = { ...extendedFoundations };
+
+// 틸 액센트 — 라이트 판을 유지하되 키컬러를 인디고→틸로 전환.
+const tealFoundations = makeColorway(foundations, {
+  name: 'bento-modular-01-teal',
+  description: '도시락 모듈 — 라이트 배경 + 틸 키컬러 전환',
+  semantic: makeSemantic({
+    bg: '#F5FAF9', bgElevated: '#FFFFFF', bgSunken: '#E7F1EF', overlay: 'rgba(6,26,24,0.50)',
+    fg: '#12201D', fgMuted: '#3C4A47', fgSubtle: '#6B7A76', fgInverse: '#FFFFFF',
+    border: '#D3E2DE', borderMuted: '#E7F1EF', borderStrong: '#B4C7C2', focus: '#0D9488',
+    primaryBase: '#0D9488', primaryHover: '#0F766E', primaryActive: '#115E59',
+    primarySubtle: '#D6F3EF', primaryFg: '#FFFFFF',
+    accent: '#0D9488', accent2: '#4F46E5', accent3: '#6B7A76',
+  }),
+});
+const tealExt: Record<string, string> = { ...extendedFoundations };
+
 const STYLE_ID = 'bbangto-bento-modular-motif';
 const CSS = `
 .bbangto-bento-card {
@@ -109,10 +145,20 @@ const wrapperComponents = makeMotifWrappers({
       borderRadius: 999, fontFamily: "'Inter', system-ui, sans-serif", fontSize: 11,
       fontWeight: 600, letterSpacing: '0.04em', lineHeight: 1.5, whiteSpace: 'nowrap',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: '#EEF0FF', color: INDIGO },
-      muted: { background: '#EEF0F3', color: '#4A4E58' },
-      solid: { background: TEAL, color: '#fff' },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-subtle, #EEF0FF)',
+        color: 'var(--bbangto-semantic-primary-base, #4F46E5)',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-background-sunken, #EEF0F3)',
+        color: 'var(--bbangto-semantic-foreground-muted, #4A4E58)',
+      },
+      solid: {
+        background: 'var(--bbangto-semantic-primary-base, #0D9488)',
+        color: 'var(--bbangto-semantic-primary-foreground, #fff)',
+      },
     },
   },
 });
@@ -189,6 +235,12 @@ export const bentoModularStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (인디고)', foundations, extendedFoundations },
+    { key: 'dark', label: '다크 (슬레이트)', foundations: darkFoundations, extendedFoundations: darkExt },
+    { key: 'teal', label: '틸 액센트', foundations: tealFoundations, extendedFoundations: tealExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { BentoShowcase: Showcase },
   guidelines,

@@ -19,3 +19,4 @@ export const WrapperComponents = s.WrapperComponents;
 export const Patterns = s.Patterns;
 export const Guideline = s.Guideline;
 export const VisualMotif = s.VisualMotif;
+export const FoundationPresets = s.FoundationPresets;

@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -69,6 +69,56 @@ const foundations = makeFoundations({
 
 const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-iridescent': IRIDESCENT,
+  '--bbangto-ext-holo-noise': NOISE,
+  '--bbangto-ext-chrome-specular': SPECULAR,
+  '--bbangto-ext-liquid-blob': '38% 62% 63% 37% / 41% 44% 56% 59%',
+  '--bbangto-ext-foil-shift': '420ms cubic-bezier(0.4, 0, 0.2, 1)',
+  '--bbangto-ext-sheen-angle': '125deg',
+};
+
+/* 색 스킴 변형(tweak) — 홀로그래픽 포일/크롬 모티프(래퍼 CSS·liquid blob shape·foil-shift 타이밍)는
+ * base에서 상속하고 색(semantic + 이리데센트 그라디언트)만 교체한다. base가 근흑 다크이므로
+ * 한 변형은 밝은 진주 라이트, 다른 하나는 시안/민트 액센트 전환으로 명확히 구분한다. */
+
+// 라이트: 진주빛(pearl) 크롬 — 밝은 무대 위 딥-톤 홀로그래픽 포일.
+const LIGHT_IRIDESCENT = 'linear-gradient(125deg, #8B6FE8 0%, #2FB8A0 30%, #E89B6F 55%, #3BB0D8 80%, #8B6FE8 100%)';
+const lightFoundations = makeColorway(foundations, {
+  name: 'iridescent-chrome-01-light',
+  description: '진주빛 라이트 크롬 — 밝은 무대 위 딥-톤 홀로그래픽 포일',
+  semantic: makeSemantic({
+    bg: '#F4F2F8', bgElevated: '#FFFFFF', bgSunken: '#E7E3F0', overlay: 'rgba(0,0,0,0.35)',
+    fg: '#1A1826', fgMuted: '#4A4660', fgSubtle: '#7A7690', fgInverse: '#F4F2F8',
+    border: '#D4CFE2', borderMuted: '#E7E3F0', borderStrong: '#8A85A0', focus: '#2AA9C9',
+    primaryBase: '#6A4FD0', primaryHover: '#5A40C0', primaryActive: '#4A32A8',
+    primarySubtle: '#E4DCFA', primaryFg: '#FFFFFF',
+    accent: '#6A4FD0', accent2: '#1F9E8A', accent3: '#2AA9C9',
+  }),
+});
+const lightExt: Record<string, string> = {
+  '--bbangto-ext-iridescent': LIGHT_IRIDESCENT,
+  '--bbangto-ext-holo-noise': NOISE,
+  '--bbangto-ext-chrome-specular': SPECULAR,
+  '--bbangto-ext-liquid-blob': '38% 62% 63% 37% / 41% 44% 56% 59%',
+  '--bbangto-ext-foil-shift': '420ms cubic-bezier(0.4, 0, 0.2, 1)',
+  '--bbangto-ext-sheen-angle': '125deg',
+};
+
+// 시안 액센트: 근흑 무대는 유지하되 키컬러를 라일락 → 민트/시안 리퀴드 크롬으로 전환.
+const CYAN_IRIDESCENT = `linear-gradient(125deg, ${MINT} 0%, ${CYAN} 30%, ${LILAC} 55%, ${MINT} 80%, ${CYAN} 100%)`;
+const cyanFoundations = makeColorway(foundations, {
+  name: 'iridescent-chrome-01-cyan',
+  description: '시안/민트 크롬 액센트 — 근흑 무대 위 리퀴드 시안 키컬러',
+  semantic: makeSemantic({
+    bg: '#0B0F12', bgElevated: '#14191E', bgSunken: '#060809', overlay: 'rgba(0,0,0,0.62)',
+    fg: '#EAF6F8', fgMuted: '#A8BEC4', fgSubtle: '#7A8E94', fgInverse: '#0B0F12',
+    border: '#263038', borderMuted: '#1A2228', borderStrong: '#37454E', focus: LILAC,
+    primaryBase: '#6FE6D4', primaryHover: MINT, primaryActive: '#52C7B6',
+    primarySubtle: '#103029', primaryFg: '#05201B',
+    accent: CYAN, accent2: MINT, accent3: PEACH,
+  }),
+});
+const cyanExt: Record<string, string> = {
+  '--bbangto-ext-iridescent': CYAN_IRIDESCENT,
   '--bbangto-ext-holo-noise': NOISE,
   '--bbangto-ext-chrome-specular': SPECULAR,
   '--bbangto-ext-liquid-blob': '38% 62% 63% 37% / 41% 44% 56% 59%',
@@ -154,10 +204,21 @@ const wrapperComponents = makeMotifWrappers({
       borderRadius: 999, fontFamily: "'Sora', 'Inter', system-ui, sans-serif", fontSize: 11,
       fontWeight: 700, letterSpacing: '0.06em', lineHeight: 1.5, whiteSpace: 'nowrap',
     },
+    // 색 결합 해소 — semantic/ext CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: '#241F3A', color: LILAC, border: `1px solid ${MINT}33` },
-      muted: { background: '#1E2027', color: '#B9BDC9' },
-      solid: { background: IRIDESCENT, color: '#14121F' },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-subtle, #241F3A)',
+        color: 'var(--bbangto-semantic-primary-base, #B7A6FF)',
+        border: `1px solid ${MINT}33`,
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-background-elevated, #1E2027)',
+        color: 'var(--bbangto-semantic-foreground-muted, #B9BDC9)',
+      },
+      solid: {
+        background: `var(--bbangto-ext-iridescent, ${IRIDESCENT})`,
+        color: 'var(--bbangto-semantic-primary-foreground, #14121F)',
+      },
     },
   },
 });
@@ -235,6 +296,12 @@ export const iridescentChromeStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (근흑 라일락 크롬)', foundations, extendedFoundations },
+    { key: 'light', label: '라이트 (진주 크롬)', foundations: lightFoundations, extendedFoundations: lightExt },
+    { key: 'cyan', label: '시안 액센트 (민트 크롬)', foundations: cyanFoundations, extendedFoundations: cyanExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { IridescentChromeShowcase: Showcase },
   guidelines,

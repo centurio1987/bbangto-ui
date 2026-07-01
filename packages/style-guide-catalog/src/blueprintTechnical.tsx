@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -66,6 +66,57 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-iso-skew': '30deg',
 };
 
+/* 색 스킴 변형(colorway) — 모눈·1px 라인·화살촉 치수선 모티프는 base에서 상속하고 색만 교체.
+ * grid-size / draft-stroke / iso-skew 같은 비색상 ext 키는 그대로 두고 색 키만 대응한다. */
+
+/* whiteprint — 다이아조(diazo) 화이트프린트: 크림 용지 위 딥 블루 라인(base 다크 보드의 라이트 반전). */
+const whiteprintFoundations = makeColorway(foundations, {
+  name: 'blueprint-technical-01-whiteprint',
+  description: '화이트프린트(diazo) — 크림 용지 위 딥 블루 1px 라인 드로잉, 그림자 없음',
+  semantic: makeSemantic({
+    bg: '#F3EFE4', bgElevated: '#FBF8F0', bgSunken: '#E7E1D2', overlay: 'rgba(11,31,70,0.35)',
+    fg: '#0B3D91', fgMuted: '#2E55A8', fgSubtle: '#5C7FC0', fgInverse: '#F3EFE4',
+    border: '#4A6BAE', borderMuted: '#BFC8DC', borderStrong: '#0B3D91', focus: '#C2410C',
+    primaryBase: '#0B3D91', primaryHover: '#082E6E', primaryActive: '#061F52',
+    primarySubtle: 'rgba(11,61,145,0.10)', primaryFg: '#FBF8F0',
+    accent: '#C2410C', accent2: '#B45309', accent3: '#5C7FC0',
+  }),
+});
+const whiteprintExt: Record<string, string> = {
+  '--bbangto-ext-blueprint-bg': '#F3EFE4',
+  '--bbangto-ext-grid-line': 'rgba(11,61,145,0.12)',
+  '--bbangto-ext-grid-size': '8px',
+  '--bbangto-ext-draft-stroke': '1px',
+  '--bbangto-ext-draft-ink': '#0B3D91',
+  '--bbangto-ext-dim-line': '#C2410C',
+  '--bbangto-ext-callout': '#B45309',
+  '--bbangto-ext-iso-skew': '30deg',
+};
+
+/* graphite-cyan — 그래파이트 CAD 다크 보드 위 시안 라인 + 마젠타 치수선(액센트 전환 변형). */
+const cyanFoundations = makeColorway(foundations, {
+  name: 'blueprint-technical-01-cyan',
+  description: '그래파이트 CAD 다크 — 시안 1px 라인 + 마젠타 치수선 콜아웃',
+  semantic: makeSemantic({
+    bg: '#12161C', bgElevated: '#1A2029', bgSunken: '#0C0F14', overlay: 'rgba(5,8,12,0.62)',
+    fg: '#CFE8F5', fgMuted: '#92B4C4', fgSubtle: '#5E7A88', fgInverse: '#12161C',
+    border: '#2C3A44', borderMuted: '#1C262E', borderStrong: '#5A7788', focus: '#FF5C8A',
+    primaryBase: '#7DE2FF', primaryHover: '#A5ECFF', primaryActive: '#5CC6E8',
+    primarySubtle: 'rgba(125,226,255,0.12)', primaryFg: '#0C1A20',
+    accent: '#FF5C8A', accent2: '#FFC24B', accent3: '#7DE2FF',
+  }),
+});
+const cyanExt: Record<string, string> = {
+  '--bbangto-ext-blueprint-bg': '#12161C',
+  '--bbangto-ext-grid-line': 'rgba(125,226,255,0.10)',
+  '--bbangto-ext-grid-size': '8px',
+  '--bbangto-ext-draft-stroke': '1px',
+  '--bbangto-ext-draft-ink': '#7DE2FF',
+  '--bbangto-ext-dim-line': '#FF5C8A',
+  '--bbangto-ext-callout': '#FFC24B',
+  '--bbangto-ext-iso-skew': '30deg',
+};
+
 const STYLE_ID = 'bbangto-blueprint-technical-motif';
 const CSS = `
 .bbangto-blueprint-technical-card {
@@ -126,12 +177,25 @@ const wrapperComponents = makeMotifWrappers({
       display: 'inline-flex', alignItems: 'center', gap: 6, padding: '2px 9px',
       borderRadius: 2, fontFamily: "'JetBrains Mono', 'IBM Plex Mono', monospace", fontSize: 11,
       fontWeight: 600, letterSpacing: '0.14em', lineHeight: 1.5, whiteSpace: 'nowrap',
-      textTransform: 'uppercase', border: `1px solid ${INK}`,
+      textTransform: 'uppercase', border: `1px solid var(--bbangto-semantic-foreground-base, ${INK})`,
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: 'transparent', color: AMBER, borderColor: AMBER },
-      muted: { background: 'transparent', color: '#C7D4EE', borderColor: '#2E55A8' },
-      solid: { background: VERMILION, color: '#FFFFFF', borderColor: VERMILION },
+      accent: {
+        background: 'transparent',
+        color: `var(--bbangto-semantic-border-focus, ${AMBER})`,
+        borderColor: `var(--bbangto-semantic-border-focus, ${AMBER})`,
+      },
+      muted: {
+        background: 'transparent',
+        color: 'var(--bbangto-semantic-foreground-muted, #C7D4EE)',
+        borderColor: 'var(--bbangto-semantic-border-base, #2E55A8)',
+      },
+      solid: {
+        background: `var(--bbangto-semantic-primary-base, ${VERMILION})`,
+        color: 'var(--bbangto-semantic-primary-foreground, #FFFFFF)',
+        borderColor: `var(--bbangto-semantic-primary-base, ${VERMILION})`,
+      },
     },
   },
 });
@@ -212,6 +276,12 @@ export const blueprintTechnicalStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (딥 블루 청사진)', foundations, extendedFoundations },
+    { key: 'whiteprint', label: '화이트프린트 (크림 용지 + 블루 라인)', foundations: whiteprintFoundations, extendedFoundations: whiteprintExt },
+    { key: 'cyan', label: '그래파이트 시안 (다크 CAD)', foundations: cyanFoundations, extendedFoundations: cyanExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { BlueprintTechnicalShowcase: Showcase },
   guidelines,

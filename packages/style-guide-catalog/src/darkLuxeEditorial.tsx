@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -64,6 +64,50 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-serif': "'Playfair Display', Georgia, serif",
 };
 
+/* 색 스킴 변형(colorway) — 헤어라인/리빌/각진 편집 모티프는 base에서 상속, 색만 교체. */
+
+/* 라이트 에디토리얼 — 아이보리 페이퍼 위 딥 앤티크 골드. base가 다크이므로 하나는 라이트로 명확히 구분. */
+const lightFoundations = makeColorway(foundations, {
+  name: 'darkluxe-editorial-01-light',
+  description: '아이보리 페이퍼 위 딥 앤티크 골드의 라이트 편집 럭셔리',
+  semantic: makeSemantic({
+    bg: '#F4F0E8', bgElevated: '#FBF9F4', bgSunken: '#E8E2D6', overlay: 'rgba(20,18,14,0.42)',
+    fg: '#141210', fgMuted: 'rgba(20,18,16,0.70)', fgSubtle: 'rgba(20,18,16,0.48)', fgInverse: '#F4F0E8',
+    border: 'rgba(138,109,52,0.42)', borderMuted: 'rgba(20,18,16,0.14)', borderStrong: 'rgba(138,109,52,0.66)', focus: '#8A6D34',
+    primaryBase: '#8A6D34', primaryHover: '#755B29', primaryActive: '#5F4A20',
+    primarySubtle: 'rgba(138,109,52,0.16)', primaryFg: '#FBF9F4',
+    accent: '#8A6D34', accent2: '#6E7A66', accent3: '#9A5A5E',
+  }),
+});
+const lightExt: Record<string, string> = {
+  '--bbangto-ext-hairline': '1px solid rgba(138,109,52,0.42)',
+  '--bbangto-ext-letter-wide': '0.24em',
+  '--bbangto-ext-reveal': '720ms cubic-bezier(0.16,1,0.3,1)',
+  '--bbangto-ext-gold': '#8A6D34',
+  '--bbangto-ext-serif': "'Playfair Display', Georgia, serif",
+};
+
+/* 플래티넘 — 다크 베이스 유지, 골드 대신 은빛 플래티넘 강조로 전환한 accent 변형. */
+const platinumFoundations = makeColorway(foundations, {
+  name: 'darkluxe-editorial-01-platinum',
+  description: '차콜 베이스 위 은빛 플래티넘 강조의 쿨 다크 편집 럭셔리',
+  semantic: makeSemantic({
+    bg: '#0C0C0E', bgElevated: '#16171A', bgSunken: '#070708', overlay: 'rgba(5,6,8,0.72)',
+    fg: '#EDEFF2', fgMuted: 'rgba(237,239,242,0.74)', fgSubtle: 'rgba(237,239,242,0.52)', fgInverse: '#0C0C0E',
+    border: 'rgba(199,205,214,0.34)', borderMuted: 'rgba(237,239,242,0.14)', borderStrong: 'rgba(199,205,214,0.58)', focus: '#D8DEE6',
+    primaryBase: '#C7CDD6', primaryHover: '#D6DBE2', primaryActive: '#A9B0BB',
+    primarySubtle: 'rgba(199,205,214,0.16)', primaryFg: '#0C0C0E',
+    accent: '#C7CDD6', accent2: '#9AA0A8', accent3: '#B0A0C0',
+  }),
+});
+const platinumExt: Record<string, string> = {
+  '--bbangto-ext-hairline': '1px solid rgba(199,205,214,0.40)',
+  '--bbangto-ext-letter-wide': '0.24em',
+  '--bbangto-ext-reveal': '720ms cubic-bezier(0.16,1,0.3,1)',
+  '--bbangto-ext-gold': '#C7CDD6',
+  '--bbangto-ext-serif': "'Playfair Display', Georgia, serif",
+};
+
 const STYLE_ID = 'bbangto-darkluxe-editorial-01-motif';
 const CSS = `
 .bbangto-dlx-btn {
@@ -123,10 +167,23 @@ const wrapperComponents = makeMotifWrappers({
       fontWeight: 600, letterSpacing: '0.18em', lineHeight: 1.6, whiteSpace: 'nowrap',
       textTransform: 'uppercase',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: 'rgba(201,168,106,0.14)', color: '#E6C988', border: '1px solid rgba(201,168,106,0.45)' },
-      muted: { background: 'rgba(244,240,232,0.06)', color: 'rgba(244,240,232,0.74)', border: '1px solid rgba(244,240,232,0.16)' },
-      solid: { background: GOLD, color: INK, border: '1px solid rgba(201,168,106,0.70)' },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-subtle, rgba(201,168,106,0.14))',
+        color: 'var(--bbangto-semantic-primary-active, #E6C988)',
+        border: '1px solid var(--bbangto-semantic-border-base, rgba(201,168,106,0.45))',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-background-sunken, rgba(244,240,232,0.06))',
+        color: 'var(--bbangto-semantic-foreground-muted, rgba(244,240,232,0.74))',
+        border: '1px solid var(--bbangto-semantic-border-muted, rgba(244,240,232,0.16))',
+      },
+      solid: {
+        background: 'var(--bbangto-semantic-primary-base, #C9A86A)',
+        color: 'var(--bbangto-semantic-primary-foreground, #0B0B0C)',
+        border: '1px solid var(--bbangto-semantic-border-strong, rgba(201,168,106,0.70))',
+      },
     },
   },
 });
@@ -196,6 +253,12 @@ export const darkLuxeEditorialStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (다크 골드)', foundations, extendedFoundations },
+    { key: 'light', label: '라이트 (아이보리 페이퍼)', foundations: lightFoundations, extendedFoundations: lightExt },
+    { key: 'platinum', label: '플래티넘 (은빛 강조)', foundations: platinumFoundations, extendedFoundations: platinumExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { DarkLuxeShowcase: Showcase },
   guidelines,

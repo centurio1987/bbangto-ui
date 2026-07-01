@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -67,6 +67,48 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-tape': 'linear-gradient(135deg, rgba(228,210,150,0.72), rgba(208,186,120,0.55))',
   '--bbangto-ext-torn-edge': 'rgba(46,34,24,0.14)',
   '--bbangto-ext-sticker': STICKER,
+  '--bbangto-ext-rotate': '-1.5deg',
+};
+
+/* 색 스킴 변형(colorway) — 손그림 보더·테이프·스티커 모티프(래퍼 CSS·shape)는 base에서 상속. */
+
+// 밤 스크랩북 — 어두운 크라프트/차콜 종이 위 크림 잉크, 따뜻한 코럴 마커.
+const darkFoundations = makeColorway(foundations, {
+  name: 'collage-scrapbook-01-dark',
+  description: '밤 스크랩북 — 어두운 크라프트 종이 + 크림 잉크 본문 + 코럴 마커(다크 베이스)',
+  semantic: makeSemantic({
+    bg: '#2A241C', bgElevated: '#3A332A', bgSunken: '#1F1A14', overlay: 'rgba(0,0,0,0.55)',
+    fg: '#F2E8D5', fgMuted: '#C9BCA5', fgSubtle: '#9C8E78', fgInverse: '#2A241C',
+    border: '#6B5B45', borderMuted: 'rgba(230,215,180,0.20)', borderStrong: '#8A7659', focus: '#7FA7FF',
+    primaryBase: '#E8705E', primaryHover: '#F08472', primaryActive: '#D65A47',
+    primarySubtle: 'rgba(232,112,94,0.22)', primaryFg: '#2A1410',
+    accent: '#F2C84B', accent2: '#4FB3A6', accent3: '#E87BA0',
+  }),
+});
+const darkExt: Record<string, string> = {
+  '--bbangto-ext-tape': 'linear-gradient(135deg, rgba(110,95,70,0.72), rgba(85,72,52,0.55))',
+  '--bbangto-ext-torn-edge': 'rgba(0,0,0,0.30)',
+  '--bbangto-ext-sticker': '#F2C84B',
+  '--bbangto-ext-rotate': '-1.5deg',
+};
+
+// 압화(押花) 식물 스크랩북 — 차가운 크림 종이 + 올리브 잉크 + 포레스트 그린 마커(강조색 전환).
+const botanicalFoundations = makeColorway(foundations, {
+  name: 'collage-scrapbook-01-botanical',
+  description: '압화 식물 스크랩북 — 차가운 크림 종이 + 올리브 잉크 + 포레스트 그린 마커(라이트, 강조색 전환)',
+  semantic: makeSemantic({
+    bg: '#EDE7D6', bgElevated: '#FBF7EC', bgSunken: '#DCD3BC', overlay: 'rgba(40,42,30,0.46)',
+    fg: '#26281E', fgMuted: '#52543F', fgSubtle: '#7C7C63', fgInverse: '#FBF7EC',
+    border: '#3F4A2E', borderMuted: 'rgba(63,74,46,0.30)', borderStrong: '#262E18', focus: '#B85C9E',
+    primaryBase: '#2E7D5B', primaryHover: '#266B4D', primaryActive: '#1E573E',
+    primarySubtle: 'rgba(46,125,91,0.16)', primaryFg: '#F3FAF5',
+    accent: '#E8A93B', accent2: '#C0587E', accent3: '#4C7BB0',
+  }),
+});
+const botanicalExt: Record<string, string> = {
+  '--bbangto-ext-tape': 'linear-gradient(135deg, rgba(210,200,160,0.72), rgba(190,180,130,0.55))',
+  '--bbangto-ext-torn-edge': 'rgba(38,40,30,0.16)',
+  '--bbangto-ext-sticker': '#E8A93B',
   '--bbangto-ext-rotate': '-1.5deg',
 };
 
@@ -152,10 +194,23 @@ const wrapperComponents = makeMotifWrappers({
       boxShadow: '1px 1px 3px rgba(46,34,24,0.22)',
       transform: 'rotate(-1.5deg)',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { backgroundColor: STICKER, color: '#3A2E12', border: '1.5px solid #B98A1E' },
-      muted: { backgroundColor: '#F4ECD8', color: '#5C4F42', border: '1.5px dashed #9C8A72' },
-      solid: { backgroundColor: MARKER, color: '#FFF7F2', border: '1.5px solid #8E2A20' },
+      accent: {
+        backgroundColor: 'var(--bbangto-semantic-primary-subtle, #F2C84B)',
+        color: 'var(--bbangto-semantic-primary-active, #3A2E12)',
+        border: '1.5px solid var(--bbangto-semantic-primary-base, #B98A1E)',
+      },
+      muted: {
+        backgroundColor: 'var(--bbangto-semantic-background-sunken, #F4ECD8)',
+        color: 'var(--bbangto-semantic-foreground-muted, #5C4F42)',
+        border: '1.5px dashed var(--bbangto-semantic-border-muted, #9C8A72)',
+      },
+      solid: {
+        backgroundColor: 'var(--bbangto-semantic-primary-base, #C0392B)',
+        color: 'var(--bbangto-semantic-primary-foreground, #FFF7F2)',
+        border: '1.5px solid var(--bbangto-semantic-primary-active, #8E2A20)',
+      },
     },
   },
 });
@@ -250,6 +305,12 @@ export const collageScrapbookStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (크라프트 · 마커 레드)', foundations, extendedFoundations },
+    { key: 'dark', label: '다크 (밤 스크랩북 · 코럴)', foundations: darkFoundations, extendedFoundations: darkExt },
+    { key: 'botanical', label: '압화 식물 (포레스트 그린)', foundations: botanicalFoundations, extendedFoundations: botanicalExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { CollageShowcase: Showcase },
   guidelines,

@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -72,6 +72,95 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-grain-opacity': '0.12',
   '--bbangto-ext-soft-focus-blur': '20px',
   '--bbangto-ext-haze-gradient': HAZE_GRADIENT,
+  '--bbangto-ext-blend-mode': 'soft-light',
+  '--bbangto-ext-defocus-radius': '14px',
+};
+
+/*
+ * 색 스킴 변형(tweak) — 그레인/블러/헤이즈 모티프(래퍼 CSS·shape)는 base에서 상속하고,
+ * semantic 색과 헤이즈 그라디언트 색만 preset별로 교체한다.
+ */
+
+/* 다크 — 심야 인디고 헤이즈. 밝은 오프화이트 텍스트 + 어두운 보랏빛 종이, 코랄 글로우. */
+const DARK_HAZE =
+  'radial-gradient(120% 90% at 12% 8%, rgba(255,126,107,0.30) 0%, rgba(255,126,107,0) 55%), ' +
+  'radial-gradient(110% 95% at 88% 18%, rgba(155,140,255,0.34) 0%, rgba(155,140,255,0) 60%), ' +
+  'radial-gradient(130% 110% at 70% 95%, rgba(94,160,255,0.30) 0%, rgba(94,160,255,0) 62%), ' +
+  'radial-gradient(120% 120% at 30% 88%, rgba(120,90,220,0.28) 0%, rgba(120,90,220,0) 60%)';
+
+const darkFoundations = makeColorway(foundations, {
+  name: 'grainy-blur-dreamy-01-dark',
+  description: '심야 인디고 헤이즈 — 어두운 보랏빛 종이 위 코랄/라벤더 글로우, 또렷한 오프화이트 헤드라인',
+  semantic: makeSemantic({
+    bg: '#14121F',
+    bgElevated: '#1D1A2B',
+    bgSunken: '#0E0C16',
+    overlay: 'rgba(0,0,0,0.55)',
+    fg: '#F3EEF7',
+    fgMuted: '#C3BBD4',
+    fgSubtle: '#8E86A3',
+    fgInverse: '#14121F',
+    border: '#3A3550',
+    borderMuted: '#262137',
+    borderStrong: '#55507A',
+    focus: '#9DB4FF',
+    primaryBase: '#FF8E7B',
+    primaryHover: '#FF7E6B',
+    primaryActive: '#F26450',
+    primarySubtle: '#3A2A2E',
+    primaryFg: '#26120D',
+    accent: '#FF8E7B',
+    accent2: '#B3A6FF',
+    accent3: '#7FB0FF',
+  }),
+});
+const darkExt: Record<string, string> = {
+  '--bbangto-ext-grain': GRAIN_SVG,
+  '--bbangto-ext-grain-opacity': '0.12',
+  '--bbangto-ext-soft-focus-blur': '20px',
+  '--bbangto-ext-haze-gradient': DARK_HAZE,
+  '--bbangto-ext-blend-mode': 'screen',
+  '--bbangto-ext-defocus-radius': '14px',
+};
+
+/* 라벤더 — 쿨 라일락 종이 위 바이올렛 강조로 전환한 accent 변형(base는 코랄, 여긴 라벤더/인디고). */
+const LAVENDER_HAZE =
+  'radial-gradient(120% 90% at 12% 8%, rgba(123,107,240,0.36) 0%, rgba(123,107,240,0) 55%), ' +
+  'radial-gradient(110% 95% at 88% 18%, rgba(94,160,255,0.32) 0%, rgba(94,160,255,0) 60%), ' +
+  'radial-gradient(130% 110% at 70% 95%, rgba(180,120,255,0.28) 0%, rgba(180,120,255,0) 62%), ' +
+  'radial-gradient(120% 120% at 30% 88%, rgba(126,176,255,0.26) 0%, rgba(126,176,255,0) 60%)';
+
+const lavenderFoundations = makeColorway(foundations, {
+  name: 'grainy-blur-dreamy-01-lavender',
+  description: '라일락 헤이즈 — 쿨 라벤더 종이 위 바이올렛/인디고 강조, 페리윙클 저대비 그라디언트',
+  semantic: makeSemantic({
+    bg: '#F6F4FB',
+    bgElevated: '#FCFBFF',
+    bgSunken: '#ECE8F5',
+    overlay: 'rgba(24,20,38,0.46)',
+    fg: '#1B1630',
+    fgMuted: '#453F63',
+    fgSubtle: '#7B7599',
+    fgInverse: '#FCFBFF',
+    border: '#E0DAF0',
+    borderMuted: '#EDE9F7',
+    borderStrong: '#C7BFDF',
+    focus: '#6D4BD6',
+    primaryBase: '#6D4BD6',
+    primaryHover: '#5C3CC2',
+    primaryActive: '#4B2FAB',
+    primarySubtle: '#EBE7FF',
+    primaryFg: '#FFFFFF',
+    accent: '#6D4BD6',
+    accent2: '#5EA0FF',
+    accent3: '#B478FF',
+  }),
+});
+const lavenderExt: Record<string, string> = {
+  '--bbangto-ext-grain': GRAIN_SVG,
+  '--bbangto-ext-grain-opacity': '0.12',
+  '--bbangto-ext-soft-focus-blur': '20px',
+  '--bbangto-ext-haze-gradient': LAVENDER_HAZE,
   '--bbangto-ext-blend-mode': 'soft-light',
   '--bbangto-ext-defocus-radius': '14px',
 };
@@ -157,10 +246,20 @@ const wrapperComponents = makeMotifWrappers({
       fontWeight: 700, letterSpacing: '0.1em', lineHeight: 1.5, whiteSpace: 'nowrap',
       backdropFilter: 'blur(6px)',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: 'rgba(255,126,107,0.18)', color: '#B43A28' },
-      muted: { background: 'rgba(155,140,255,0.18)', color: '#4A3DA8' },
-      solid: { background: DEEP_BLUE, color: '#FFFDFA' },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-subtle, rgba(255,126,107,0.18))',
+        color: 'var(--bbangto-semantic-primary-active, #B43A28)',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-background-sunken, rgba(155,140,255,0.18))',
+        color: 'var(--bbangto-semantic-foreground-muted, #4A3DA8)',
+      },
+      solid: {
+        background: `var(--bbangto-semantic-border-focus, ${DEEP_BLUE})`,
+        color: 'var(--bbangto-semantic-foreground-inverse, #FFFDFA)',
+      },
     },
   },
 });
@@ -240,6 +339,12 @@ export const grainyBlurDreamyStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (코랄 헤이즈 · 웜 오프화이트)', foundations, extendedFoundations },
+    { key: 'dark', label: '다크 (심야 인디고 헤이즈)', foundations: darkFoundations, extendedFoundations: darkExt },
+    { key: 'lavender', label: '라벤더 액센트 (바이올렛 라일락)', foundations: lavenderFoundations, extendedFoundations: lavenderExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { GrainyBlurDreamyShowcase: Showcase },
   guidelines,

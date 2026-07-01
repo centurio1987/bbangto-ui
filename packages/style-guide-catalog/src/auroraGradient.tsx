@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -66,6 +66,82 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-glow': 'rgba(162,75,255,0.45)',
 };
 
+/* 색 스킴 변형(colorway) — 오로라 메시·글래스 표면·그라디언트 버튼 모티프는 base에서 상속하고 색만 교체. */
+
+// Dawn Aurora(라이트) — 창백한 캔버스 위로 번지는 옅은 오로라, 어두운 본문색.
+const lightFoundations = makeColorway(foundations, {
+  name: 'aurora-gradient-01-light',
+  description: '라이트 오로라 — 페일 캔버스 위 옅은 보라·틸·핑크 메시, 어두운 본문색',
+  semantic: makeSemantic({
+    bg: 'radial-gradient(90% 80% at 12% 8%, #EFE4FF 0%, rgba(247,249,255,0) 55%), radial-gradient(80% 70% at 88% 18%, #DFF6F1 0%, rgba(247,249,255,0) 50%), radial-gradient(90% 90% at 50% 100%, #FCE4F1 0%, rgba(247,249,255,0) 55%), #F7F9FF',
+    bgElevated: '#FFFFFF',
+    bgSunken: '#EEF1FA',
+    overlay: 'rgba(20,24,40,0.40)',
+    fg: '#16193A',
+    fgMuted: 'rgba(22,25,58,0.72)',
+    fgSubtle: 'rgba(22,25,58,0.50)',
+    fgInverse: '#FFFFFF',
+    border: 'rgba(22,25,58,0.16)',
+    borderMuted: 'rgba(22,25,58,0.08)',
+    borderStrong: 'rgba(22,25,58,0.30)',
+    focus: '#6A2CD0',
+    primaryBase: '#8A2BE6',
+    primaryHover: '#7A1FD6',
+    primaryActive: '#6A17BE',
+    primarySubtle: 'rgba(138,43,230,0.14)',
+    primaryFg: '#FFFFFF',
+    accent: '#0F9E88',
+    accent2: '#E0559A',
+    accent3: '#2FA8D8',
+  }),
+});
+const lightExt: Record<string, string> = {
+  '--bbangto-ext-mesh':
+    'radial-gradient(60% 50% at 15% 10%, rgba(138,43,230,0.20), transparent 60%), radial-gradient(55% 45% at 85% 20%, rgba(15,158,136,0.18), transparent 60%), radial-gradient(70% 60% at 50% 100%, rgba(224,85,154,0.16), transparent 60%)',
+  '--bbangto-ext-glow-orb':
+    'radial-gradient(circle at 50% 50%, rgba(47,168,216,0.30), rgba(47,168,216,0) 70%)',
+  '--bbangto-ext-noise': extendedFoundations['--bbangto-ext-noise'],
+  '--bbangto-ext-btn-gradient': 'linear-gradient(135deg, #8A2BE6 0%, #E0559A 55%, #0F9E88 100%)',
+  '--bbangto-ext-glow': 'rgba(138,43,230,0.30)',
+};
+
+// Aqua Aurora(액센트) — 딥 다크는 유지하되 키컬러를 보라→아쿠아 틸로 전환, 핑크 포커스.
+const tealFoundations = makeColorway(foundations, {
+  name: 'aurora-gradient-01-teal',
+  description: '아쿠아 오로라 — 딥 다크 위 틸·시안·핑크 메시, 아쿠아 키컬러',
+  semantic: makeSemantic({
+    bg: 'radial-gradient(90% 80% at 12% 8%, #103A4A 0%, rgba(6,17,15,0) 55%), radial-gradient(80% 70% at 88% 18%, #0B4038 0%, rgba(6,17,15,0) 50%), radial-gradient(90% 90% at 50% 100%, #123A2A 0%, rgba(6,17,15,0) 55%), #06110F',
+    bgElevated: 'rgba(255,255,255,0.06)',
+    bgSunken: 'rgba(255,255,255,0.03)',
+    overlay: 'rgba(4,12,10,0.66)',
+    fg: '#E6FFF8',
+    fgMuted: 'rgba(224,255,246,0.78)',
+    fgSubtle: 'rgba(224,255,246,0.52)',
+    fgInverse: '#06110F',
+    border: 'rgba(255,255,255,0.16)',
+    borderMuted: 'rgba(255,255,255,0.08)',
+    borderStrong: 'rgba(255,255,255,0.30)',
+    focus: '#FF7BC8',
+    primaryBase: '#2FE3B8',
+    primaryHover: '#22CFA6',
+    primaryActive: '#17B590',
+    primarySubtle: 'rgba(47,227,184,0.16)',
+    primaryFg: '#06251E',
+    accent: '#7DE3FF',
+    accent2: '#FF7BC8',
+    accent3: '#A24BFF',
+  }),
+});
+const tealExt: Record<string, string> = {
+  '--bbangto-ext-mesh':
+    'radial-gradient(60% 50% at 15% 10%, rgba(47,227,184,0.55), transparent 60%), radial-gradient(55% 45% at 85% 20%, rgba(125,227,255,0.45), transparent 60%), radial-gradient(70% 60% at 50% 100%, rgba(255,123,200,0.40), transparent 60%)',
+  '--bbangto-ext-glow-orb':
+    'radial-gradient(circle at 50% 50%, rgba(47,227,184,0.55), rgba(47,227,184,0) 70%)',
+  '--bbangto-ext-noise': extendedFoundations['--bbangto-ext-noise'],
+  '--bbangto-ext-btn-gradient': 'linear-gradient(135deg, #2FE3B8 0%, #7DE3FF 55%, #FF7BC8 100%)',
+  '--bbangto-ext-glow': 'rgba(47,227,184,0.45)',
+};
+
 const STYLE_ID = 'bbangto-aurora-gradient-01-motif';
 const CSS = `
 .bbangto-aur-btn {
@@ -118,10 +194,23 @@ const wrapperComponents = makeMotifWrappers({
       borderRadius: 999, fontFamily: "'JetBrains Mono', monospace", fontSize: 11,
       fontWeight: 600, letterSpacing: '0.04em', lineHeight: 1.6, whiteSpace: 'nowrap',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: 'rgba(52,224,200,0.16)', color: '#9CF6E6', border: '1px solid rgba(52,224,200,0.50)' },
-      muted: { background: 'rgba(255,255,255,0.07)', color: 'rgba(226,233,255,0.80)', border: '1px solid rgba(255,255,255,0.16)' },
-      solid: { background: PURPLE, color: '#fff', border: '1px solid rgba(255,255,255,0.28)' },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-subtle, rgba(52,224,200,0.16))',
+        color: 'var(--bbangto-semantic-primary-active, #9CF6E6)',
+        border: '1px solid var(--bbangto-semantic-primary-base, rgba(52,224,200,0.50))',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-background-sunken, rgba(255,255,255,0.07))',
+        color: 'var(--bbangto-semantic-foreground-muted, rgba(226,233,255,0.80))',
+        border: '1px solid var(--bbangto-semantic-border-muted, rgba(255,255,255,0.16))',
+      },
+      solid: {
+        background: 'var(--bbangto-semantic-primary-base, #A24BFF)',
+        color: 'var(--bbangto-semantic-primary-foreground, #fff)',
+        border: '1px solid var(--bbangto-semantic-border-strong, rgba(255,255,255,0.28))',
+      },
     },
   },
 });
@@ -191,6 +280,12 @@ export const auroraGradientStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (딥 다크 · 퍼플)', foundations, extendedFoundations },
+    { key: 'light', label: '라이트 (Dawn Aurora)', foundations: lightFoundations, extendedFoundations: lightExt },
+    { key: 'teal', label: '아쿠아 액센트 (Aqua Aurora)', foundations: tealFoundations, extendedFoundations: tealExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { AuroraShowcase: Showcase },
   guidelines,

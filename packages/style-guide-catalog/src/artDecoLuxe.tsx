@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -61,6 +61,50 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-deco-frame': '2px solid rgba(200,162,75,0.7)',
   '--bbangto-ext-fan': 'repeating-conic-gradient(from 90deg at 50% 100%, rgba(200,162,75,0.22) 0deg 6deg, transparent 6deg 12deg)',
   '--bbangto-ext-gold-bright': GOLD_BRIGHT,
+};
+
+/* 색 스킴 변형(tweak) — 대칭 골드 프레임·부채꼴 모티프는 base에서 상속, 색만 교체. */
+
+// 라이트: 샴페인/아이보리 지면 위 앤티크 골드 라인, 딥그린 잉크 본문.
+const ANTIQUE_GOLD = '#A8842F';
+const ivoryFoundations = makeColorway(foundations, {
+  name: 'artdeco-luxe-01-ivory',
+  description: '샴페인·아이보리 지면 위 앤티크 골드 라인의 라이트 아르데코(딥그린 잉크 본문)',
+  semantic: makeSemantic({
+    bg: '#F5EEDC', bgElevated: '#FBF6E9', bgSunken: '#EAE0C7', overlay: 'rgba(20,26,22,0.45)',
+    fg: '#14201B', fgMuted: 'rgba(20,32,27,0.72)', fgSubtle: 'rgba(20,32,27,0.50)', fgInverse: '#FBF6E9',
+    border: 'rgba(168,132,47,0.55)', borderMuted: 'rgba(168,132,47,0.28)', borderStrong: 'rgba(168,132,47,0.85)', focus: ANTIQUE_GOLD,
+    primaryBase: ANTIQUE_GOLD, primaryHover: '#8F6E22', primaryActive: '#75591A',
+    primarySubtle: 'rgba(168,132,47,0.16)', primaryFg: '#FBF6E9',
+    accent: ANTIQUE_GOLD, accent2: GOLD, accent3: '#2C4A3E',
+  }),
+});
+const ivoryExt: Record<string, string> = {
+  '--bbangto-ext-gold-line': ANTIQUE_GOLD,
+  '--bbangto-ext-deco-frame': '2px solid rgba(168,132,47,0.7)',
+  '--bbangto-ext-fan': 'repeating-conic-gradient(from 90deg at 50% 100%, rgba(168,132,47,0.22) 0deg 6deg, transparent 6deg 12deg)',
+  '--bbangto-ext-gold-bright': GOLD,
+};
+
+// 액센트: 오닉스 지면 위 제이드/에메랄드 + 플래티넘 라인의 다크 아르데코.
+const JADE = '#3FB98B';
+const jadeFoundations = makeColorway(foundations, {
+  name: 'artdeco-luxe-01-jade',
+  description: '오닉스 지면 위 제이드·에메랄드 + 플래티넘 라인의 다크 아르데코',
+  semantic: makeSemantic({
+    bg: 'linear-gradient(160deg, #0B1210 0%, #123A31 100%)', bgElevated: '#122822', bgSunken: '#080E0C', overlay: 'rgba(6,12,10,0.72)',
+    fg: '#EAF3EC', fgMuted: 'rgba(234,243,236,0.78)', fgSubtle: 'rgba(234,243,236,0.52)', fgInverse: '#0B1210',
+    border: 'rgba(63,185,139,0.50)', borderMuted: 'rgba(63,185,139,0.24)', borderStrong: 'rgba(63,185,139,0.82)', focus: '#7FE3C0',
+    primaryBase: JADE, primaryHover: '#5ACFA1', primaryActive: '#2E9B72',
+    primarySubtle: 'rgba(63,185,139,0.16)', primaryFg: '#06120D',
+    accent: JADE, accent2: '#C9D6CC', accent3: GOLD,
+  }),
+});
+const jadeExt: Record<string, string> = {
+  '--bbangto-ext-gold-line': JADE,
+  '--bbangto-ext-deco-frame': '2px solid rgba(63,185,139,0.7)',
+  '--bbangto-ext-fan': 'repeating-conic-gradient(from 90deg at 50% 100%, rgba(63,185,139,0.22) 0deg 6deg, transparent 6deg 12deg)',
+  '--bbangto-ext-gold-bright': '#7FE3C0',
 };
 
 const STYLE_ID = 'bbangto-artdeco-luxe-01-motif';
@@ -145,10 +189,23 @@ const wrapperComponents = makeMotifWrappers({
       fontWeight: 600, letterSpacing: '0.18em', lineHeight: 1.6,
       whiteSpace: 'nowrap', textTransform: 'uppercase',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { backgroundColor: 'rgba(200,162,75,0.14)', color: GOLD_BRIGHT, border: `1px solid ${GOLD}` },
-      muted: { backgroundColor: 'rgba(243,236,219,0.06)', color: 'rgba(243,236,219,0.78)', border: '1px solid rgba(200,162,75,0.30)' },
-      solid: { backgroundColor: GOLD, color: INK, border: `1px solid ${GOLD_BRIGHT}` },
+      accent: {
+        backgroundColor: 'var(--bbangto-semantic-primary-subtle, rgba(200,162,75,0.14))',
+        color: 'var(--bbangto-semantic-primary-active, #E6C878)',
+        border: '1px solid var(--bbangto-semantic-primary-base, #C8A24B)',
+      },
+      muted: {
+        backgroundColor: 'var(--bbangto-semantic-background-sunken, rgba(243,236,219,0.06))',
+        color: 'var(--bbangto-semantic-foreground-muted, rgba(243,236,219,0.78))',
+        border: '1px solid var(--bbangto-semantic-border-muted, rgba(200,162,75,0.30))',
+      },
+      solid: {
+        backgroundColor: 'var(--bbangto-semantic-primary-base, #C8A24B)',
+        color: 'var(--bbangto-semantic-primary-foreground, #0E1411)',
+        border: '1px solid var(--bbangto-semantic-primary-hover, #E6C878)',
+      },
     },
   },
 });
@@ -219,6 +276,12 @@ export const artDecoLuxeStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (흑·딥그린 + 골드)', foundations, extendedFoundations },
+    { key: 'ivory', label: '아이보리 (샴페인 + 앤티크 골드)', foundations: ivoryFoundations, extendedFoundations: ivoryExt },
+    { key: 'jade', label: '제이드 (오닉스 + 에메랄드)', foundations: jadeFoundations, extendedFoundations: jadeExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { ArtDecoShowcase: Showcase },
   guidelines,

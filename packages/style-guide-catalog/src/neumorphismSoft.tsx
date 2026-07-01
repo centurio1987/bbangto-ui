@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -65,6 +65,50 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-neu-distance': '6px',
 };
 
+/* 색 스킴 변형(tweak) — 단색 표면 + 이중 그림자 압출 모티프는 base에서 상속. */
+
+/* 다크 — 어두운 슬레이트 표면을 이중 그림자로 압출한 소프트 UI. */
+const darkFoundations = makeColorway(foundations, {
+  name: 'neumorphism-soft-01-dark',
+  description: '어두운 슬레이트 단색 표면 + 이중 그림자 압출감(다크 소프트 UI)',
+  semantic: makeSemantic({
+    bg: '#2A303C', bgElevated: '#2A303C', bgSunken: '#22272F', overlay: 'rgba(0,0,0,0.55)',
+    fg: '#E4E9F2', fgMuted: '#AEB6C6', fgSubtle: '#7C8598', fgInverse: '#1A1F2B',
+    border: 'rgba(228,233,242,0.10)', borderMuted: 'rgba(228,233,242,0.06)',
+    borderStrong: 'rgba(228,233,242,0.20)', focus: '#7FA9F5',
+    primaryBase: '#7FA9F5', primaryHover: '#93B7F7', primaryActive: '#6B99EF',
+    primarySubtle: '#38445C', primaryFg: '#10192B',
+    accent: '#7FA9F5', accent2: '#67C7A8', accent3: '#E0A458',
+  }),
+});
+const darkExt: Record<string, string> = {
+  '--bbangto-ext-neu-surface': '#2A303C',
+  '--bbangto-ext-neu-light': '#353C4A',
+  '--bbangto-ext-neu-dark': '#1E232C',
+  '--bbangto-ext-neu-distance': '6px',
+};
+
+/* 세이지 — 따뜻한 세이지 그레이 표면 + 그린 액센트로 전환한 라이트 소프트 UI. */
+const sageFoundations = makeColorway(foundations, {
+  name: 'neumorphism-soft-01-sage',
+  description: '세이지 그레이 단색 표면 + 그린 액센트(라이트 소프트 UI)',
+  semantic: makeSemantic({
+    bg: '#E9ECE4', bgElevated: '#E9ECE4', bgSunken: '#DEE1D8', overlay: 'rgba(40,48,40,0.45)',
+    fg: '#3B4238', fgMuted: '#5B6155', fgSubtle: '#868C80', fgInverse: '#FFFFFF',
+    border: 'rgba(59,66,56,0.10)', borderMuted: 'rgba(59,66,56,0.06)',
+    borderStrong: 'rgba(59,66,56,0.18)', focus: '#4E7A4A',
+    primaryBase: '#6FA368', primaryHover: '#5F9358', primaryActive: '#4E7A4A',
+    primarySubtle: '#DCE7D6', primaryFg: '#FFFFFF',
+    accent: '#6FA368', accent2: '#67C7A8', accent3: '#E0A458',
+  }),
+});
+const sageExt: Record<string, string> = {
+  '--bbangto-ext-neu-surface': '#E9ECE4',
+  '--bbangto-ext-neu-light': '#FFFFFF',
+  '--bbangto-ext-neu-dark': '#CBCFC4',
+  '--bbangto-ext-neu-distance': '6px',
+};
+
 const STYLE_ID = 'bbangto-neumorphism-soft-motif';
 const CSS = `
 .bbangto-neu-btn {
@@ -104,12 +148,19 @@ const wrapperComponents = makeMotifWrappers({
       display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 12px',
       borderRadius: 999, fontFamily: "'JetBrains Mono', monospace", fontSize: 11,
       fontWeight: 600, letterSpacing: '0.04em', lineHeight: 1.6, whiteSpace: 'nowrap',
-      background: SURFACE, boxShadow: `3px 3px 6px ${SH_DARK}, -3px -3px 6px ${SH_LIGHT}`,
+      background: 'var(--bbangto-ext-neu-surface, #E4E9F2)',
+      boxShadow:
+        '3px 3px 6px var(--bbangto-ext-neu-dark, #C4C9D4), -3px -3px 6px var(--bbangto-ext-neu-light, #FFFFFF)',
     },
+    // 색 결합 해소 — semantic/ext CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { color: PRIMARY },
-      muted: { color: '#858CA0' },
-      solid: { background: PRIMARY, color: '#fff', boxShadow: `2px 2px 5px ${SH_DARK}` },
+      accent: { color: 'var(--bbangto-semantic-primary-base, #5B8DEF)' },
+      muted: { color: 'var(--bbangto-semantic-foreground-subtle, #858CA0)' },
+      solid: {
+        background: 'var(--bbangto-semantic-primary-base, #5B8DEF)',
+        color: 'var(--bbangto-semantic-primary-foreground, #fff)',
+        boxShadow: '2px 2px 5px var(--bbangto-ext-neu-dark, #C4C9D4)',
+      },
     },
   },
 });
@@ -179,6 +230,12 @@ export const neumorphismSoftStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (라이트 그레이)', foundations, extendedFoundations },
+    { key: 'dark', label: '다크 (슬레이트)', foundations: darkFoundations, extendedFoundations: darkExt },
+    { key: 'sage', label: '세이지 (그린 액센트)', foundations: sageFoundations, extendedFoundations: sageExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { NeumorphismShowcase: Showcase },
   guidelines,

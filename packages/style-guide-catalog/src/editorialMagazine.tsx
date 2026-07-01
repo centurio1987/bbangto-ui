@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -64,6 +64,48 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-measure': '34rem',
 };
 
+/* 색 스킴 변형(tweak) — 헤어라인 규칙선/세리프/dropcap 모티프는 base에서 상속, 색만 교체. */
+
+const darkFoundations = makeColorway(foundations, {
+  name: 'editorial-magazine-01-dark',
+  description: '나이트 에디션 — 다크 잉크 지면 위 warm cream 세리프(밝은 활자 온 다크 페이퍼)',
+  semantic: makeSemantic({
+    bg: '#1B1712', bgElevated: '#241F19', bgSunken: '#120F0B', overlay: 'rgba(0,0,0,0.55)',
+    fg: '#F1E8D9', fgMuted: 'rgba(241,232,217,0.72)', fgSubtle: 'rgba(241,232,217,0.50)', fgInverse: '#1B1712',
+    border: '#3D362C', borderMuted: 'rgba(61,54,44,0.55)', borderStrong: '#5A5040', focus: '#E4785E',
+    primaryBase: '#F1E8D9', primaryHover: '#FFFFFF', primaryActive: '#D9CEBB',
+    primarySubtle: 'rgba(241,232,217,0.10)', primaryFg: '#1B1712',
+    accent: '#E4785E', accent2: '#7FA39B', accent3: '#D6A93F',
+  }),
+});
+const darkExt: Record<string, string> = {
+  '--bbangto-ext-dropcap': '600 3.4em/0.82 ' + fontSerif,
+  '--bbangto-ext-column-rule': '1px solid #3D362C',
+  '--bbangto-ext-pull-quote': '500 italic 1.35em/1.45 ' + fontSerif,
+  '--bbangto-ext-hairline': '#3D362C',
+  '--bbangto-ext-measure': '34rem',
+};
+
+const indigoFoundations = makeColorway(foundations, {
+  name: 'editorial-magazine-01-indigo',
+  description: '쿨 페이퍼 위 딥 인디고 액센트 — 붉은 잉크 대신 편집 블루로 강조를 전환',
+  semantic: makeSemantic({
+    bg: '#F7F5F0', bgElevated: '#FFFFFF', bgSunken: '#ECE9E1', overlay: 'rgba(20,22,30,0.45)',
+    fg: '#16181F', fgMuted: 'rgba(22,24,31,0.72)', fgSubtle: 'rgba(22,24,31,0.52)', fgInverse: '#F7F5F0',
+    border: '#D2CEC4', borderMuted: 'rgba(210,206,196,0.55)', borderStrong: '#B0AB9E', focus: '#1F4E79',
+    primaryBase: '#16181F', primaryHover: '#000000', primaryActive: '#2A2D36',
+    primarySubtle: 'rgba(31,78,121,0.10)', primaryFg: '#F7F5F0',
+    accent: '#1F4E79', accent2: '#3F5B57', accent3: '#9A6B12',
+  }),
+});
+const indigoExt: Record<string, string> = {
+  '--bbangto-ext-dropcap': '600 3.4em/0.82 ' + fontSerif,
+  '--bbangto-ext-column-rule': '1px solid #D2CEC4',
+  '--bbangto-ext-pull-quote': '500 italic 1.35em/1.45 ' + fontSerif,
+  '--bbangto-ext-hairline': '#D2CEC4',
+  '--bbangto-ext-measure': '34rem',
+};
+
 const STYLE_ID = 'bbangto-editorial-magazine-01-motif';
 const CSS = `
 .bbangto-edi-btn {
@@ -115,10 +157,23 @@ const wrapperComponents = makeMotifWrappers({
       fontWeight: 600, letterSpacing: '0.10em', lineHeight: 1.6,
       textTransform: 'uppercase', whiteSpace: 'nowrap',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { backgroundColor: 'transparent', color: '#8C2F1D', border: '1px solid #8C2F1D' },
-      muted: { backgroundColor: 'transparent', color: 'rgba(26,23,20,0.72)', border: '1px solid #D8CFC0' },
-      solid: { backgroundColor: INK, color: PAPER, border: '1px solid #1A1714' },
+      accent: {
+        backgroundColor: 'transparent',
+        color: 'var(--bbangto-semantic-border-focus, #8C2F1D)',
+        border: '1px solid var(--bbangto-semantic-border-focus, #8C2F1D)',
+      },
+      muted: {
+        backgroundColor: 'transparent',
+        color: 'var(--bbangto-semantic-foreground-muted, rgba(26,23,20,0.72))',
+        border: '1px solid var(--bbangto-semantic-border-base, #D8CFC0)',
+      },
+      solid: {
+        backgroundColor: 'var(--bbangto-semantic-primary-base, #1A1714)',
+        color: 'var(--bbangto-semantic-primary-foreground, #FBF7F0)',
+        border: '1px solid var(--bbangto-semantic-primary-base, #1A1714)',
+      },
     },
   },
 });
@@ -194,6 +249,12 @@ export const editorialMagazineStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (잉크 온 페이퍼)', foundations, extendedFoundations },
+    { key: 'dark', label: '다크 (나이트 에디션)', foundations: darkFoundations, extendedFoundations: darkExt },
+    { key: 'indigo', label: '인디고 액센트', foundations: indigoFoundations, extendedFoundations: indigoExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { EditorialShowcase: Showcase },
   guidelines,

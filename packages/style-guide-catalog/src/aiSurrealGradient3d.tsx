@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -74,6 +74,52 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-fallback-img': 'radial-gradient(120% 120% at 30% 20%, #1E1B33 0%, #0A0B14 70%)',
 };
 
+/* 색 스킴 변형(colorway) — 이리데센트 렌더/글로스 모티프는 base에서 상속, 색만 교체. */
+
+// 라이트 렌더룸 — 밝은 라벤더 무대 위 이리데센트(base 다크의 명확한 대비 파트너).
+const lightFoundations = makeColorway(foundations, {
+  name: 'ai-surreal-gradient3d-01-light',
+  description: '라이트 렌더룸 — 밝은 라벤더 무대 위 이리데센트 3D 렌더, 어두운 본문으로 대비 확보',
+  semantic: makeSemantic({
+    bg: '#F4F2FB', bgElevated: '#FFFFFF', bgSunken: '#E9E5F5', overlay: 'rgba(20,16,32,0.28)',
+    fg: '#141020', fgMuted: '#4A4560', fgSubtle: '#7C7794', fgInverse: '#F4F2FB',
+    border: '#D8D2EC', borderMuted: '#E9E5F5', borderStrong: '#B3ABD0', focus: '#0EA5C4',
+    primaryBase: '#7C3AED', primaryHover: '#6D28D9', primaryActive: '#5B21B6',
+    primarySubtle: '#E9E2FB', primaryFg: '#FFFFFF',
+    accent: '#0EA5C4', accent2: '#DB2777', accent3: '#65A30D',
+  }),
+});
+const lightExt: Record<string, string> = {
+  '--bbangto-ext-iridescent': 'linear-gradient(135deg, #22D3EE 0%, #7C3AED 38%, #DB2777 70%, #65A30D 100%)',
+  '--bbangto-ext-chroma-shift': 'conic-gradient(from 210deg at 50% 50%, #22D3EE, #7C3AED, #DB2777, #65A30D, #22D3EE)',
+  '--bbangto-ext-spec-highlight': 'inset 0 1px 0 rgba(255,255,255,0.7), inset 0 0 24px rgba(124,58,237,0.10)',
+  '--bbangto-ext-render-shadow': '0 18px 40px rgba(80,60,140,0.18), 0 2px 8px rgba(80,60,140,0.12)',
+  '--bbangto-ext-render-frame': '1px solid rgba(124,58,237,0.28)',
+  '--bbangto-ext-fallback-img': 'radial-gradient(120% 120% at 30% 20%, #EDE7FB 0%, #F4F2FB 70%)',
+};
+
+// 마젠타 홀로 — 딥 다크 유지하되 키컬러를 바이올렛→핫핑크로, 포커스를 라임으로 전환한 액센트 변형.
+const magentaFoundations = makeColorway(foundations, {
+  name: 'ai-surreal-gradient3d-01-magenta',
+  description: '마젠타 홀로 — 딥 다크 무대 위 핫핑크 키컬러 + 라임 포커스 이리데센트',
+  semantic: makeSemantic({
+    bg: '#0E0916', bgElevated: '#1A1122', bgSunken: '#080410', overlay: 'rgba(8,4,16,0.66)',
+    fg: '#F6F0FA', fgMuted: '#B8A6C4', fgSubtle: '#7C6E88', fgInverse: '#0E0916',
+    border: '#2E2338', borderMuted: '#1F1728', borderStrong: '#463652', focus: '#B6FF5B',
+    primaryBase: '#EC4899', primaryHover: '#DB2777', primaryActive: '#BE185D',
+    primarySubtle: '#2A1020', primaryFg: '#FFFFFF',
+    accent: '#B6FF5B', accent2: '#5BE1FF', accent3: '#C084FC',
+  }),
+});
+const magentaExt: Record<string, string> = {
+  '--bbangto-ext-iridescent': 'linear-gradient(135deg, #B6FF5B 0%, #EC4899 38%, #5BE1FF 70%, #C084FC 100%)',
+  '--bbangto-ext-chroma-shift': 'conic-gradient(from 210deg at 50% 50%, #B6FF5B, #EC4899, #5BE1FF, #C084FC, #B6FF5B)',
+  '--bbangto-ext-spec-highlight': 'inset 0 1px 0 rgba(255,255,255,0.28), inset 0 0 24px rgba(236,72,153,0.20)',
+  '--bbangto-ext-render-shadow': '0 18px 40px rgba(0,0,0,0.55), 0 2px 8px rgba(0,0,0,0.4)',
+  '--bbangto-ext-render-frame': '1px solid rgba(236,72,153,0.38)',
+  '--bbangto-ext-fallback-img': 'radial-gradient(120% 120% at 30% 20%, #2A1020 0%, #0E0916 70%)',
+};
+
 const STYLE_ID = 'bbangto-ai-surreal-gradient3d-motif';
 const CSS = `
 .bbangto-ai-surreal-gradient3d-card {
@@ -146,10 +192,22 @@ const wrapperComponents = makeMotifWrappers({
       fontWeight: 600, letterSpacing: '0.12em', lineHeight: 1.5, whiteSpace: 'nowrap',
       textTransform: 'uppercase',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: 'rgba(91,225,255,0.12)', color: CYAN, border: `1px solid ${CYAN}` },
-      muted: { background: '#1B1E2A', color: '#A8ABB8', border: '1px solid #3A3E4F' },
-      solid: { background: VIOLET, color: '#fff' },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-subtle, rgba(91,225,255,0.12))',
+        color: 'var(--bbangto-semantic-focus, #5BE1FF)',
+        border: '1px solid var(--bbangto-semantic-focus, #5BE1FF)',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-background-sunken, #1B1E2A)',
+        color: 'var(--bbangto-semantic-foreground-muted, #A8ABB8)',
+        border: '1px solid var(--bbangto-semantic-border-strong, #3A3E4F)',
+      },
+      solid: {
+        background: 'var(--bbangto-semantic-primary-base, #8B5CF6)',
+        color: 'var(--bbangto-semantic-primary-foreground, #fff)',
+      },
     },
   },
 });
@@ -227,6 +285,12 @@ export const aiSurrealGradient3dStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (딥 다크 · 바이올렛 이리데센트)', foundations, extendedFoundations },
+    { key: 'light', label: '라이트 렌더룸 (라벤더 무대)', foundations: lightFoundations, extendedFoundations: lightExt },
+    { key: 'magenta', label: '마젠타 홀로 (핫핑크 · 라임 포커스)', foundations: magentaFoundations, extendedFoundations: magentaExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { AiSurrealGradient3dShowcase: Showcase },
   guidelines,

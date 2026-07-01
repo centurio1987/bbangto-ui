@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -60,6 +60,78 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-leaf-green': GREEN,
 };
 
+/* 색 스킴 변형(tweak) — 아쿠아 글로스·글라스 카드·물/잎/하늘 모티프는 base에서 상속. */
+
+// 다크: 미드나잇 아쿠아 — 심해/밤하늘 위 밝은 아쿠아 광택.
+const darkFoundations = makeColorway(foundations, {
+  name: 'frutiger-aero-glossy-01-dark',
+  description: '심해·밤하늘 위 밝은 아쿠아 글로스(다크 베이스)',
+  semantic: makeSemantic({
+    bg: 'linear-gradient(180deg, #071A2A 0%, #0A2436 52%, #08201C 100%)',
+    bgElevated: 'rgba(18,44,64,0.78)',
+    bgSunken: 'rgba(6,20,32,0.55)',
+    overlay: 'rgba(0,0,0,0.55)',
+    fg: '#DCF3FF',
+    fgMuted: 'rgba(220,243,255,0.78)',
+    fgSubtle: 'rgba(220,243,255,0.55)',
+    fgInverse: '#06202E',
+    border: 'rgba(110,200,255,0.42)',
+    borderMuted: 'rgba(110,200,255,0.20)',
+    borderStrong: 'rgba(138,213,255,0.60)',
+    focus: '#6EC8FF',
+    primaryBase: '#6EC8FF',
+    primaryHover: '#8AD5FF',
+    primaryActive: '#4FB3F0',
+    primarySubtle: 'rgba(110,200,255,0.20)',
+    primaryFg: '#04263A',
+    accent: '#A0E66B',
+    accent2: '#46C7E8',
+    accent3: '#7ED957',
+  }),
+});
+const darkExt: Record<string, string> = {
+  '--bbangto-ext-aqua-gloss': 'linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(180,225,255,0.20) 46%, rgba(78,179,240,0.55) 47%, rgba(20,80,130,0.92) 100%)',
+  '--bbangto-ext-bubble': 'radial-gradient(circle at 32% 28%, rgba(255,255,255,0.65), rgba(255,255,255,0.05) 60%)',
+  '--bbangto-ext-sky-gradient': 'linear-gradient(180deg, rgba(18,44,64,0.85) 0%, rgba(10,32,28,0.78) 100%)',
+  '--bbangto-ext-gloss-highlight': 'rgba(255,255,255,0.55)',
+  '--bbangto-ext-leaf-green': '#A0E66B',
+};
+
+// 메도우: 잎·풀 그린을 키컬러로 올린 라이트 변형(강조색 전환).
+const meadowFoundations = makeColorway(foundations, {
+  name: 'frutiger-aero-glossy-01-meadow',
+  description: '잎·풀 그린 키컬러 아쿠아 글로스(라이트 베이스)',
+  semantic: makeSemantic({
+    bg: 'linear-gradient(180deg, #EDFBF0 0%, #F4FBFF 52%, #EAF7FF 100%)',
+    bgElevated: 'rgba(255,255,255,0.78)',
+    bgSunken: 'rgba(214,240,220,0.55)',
+    overlay: 'rgba(20,70,40,0.45)',
+    fg: '#14432A',
+    fgMuted: 'rgba(20,67,42,0.78)',
+    fgSubtle: 'rgba(20,67,42,0.56)',
+    fgInverse: '#FFFFFF',
+    border: 'rgba(126,217,87,0.45)',
+    borderMuted: 'rgba(126,217,87,0.22)',
+    borderStrong: 'rgba(70,150,40,0.60)',
+    focus: '#2E8B3F',
+    primaryBase: '#5FBF3F',
+    primaryHover: '#52AC34',
+    primaryActive: '#3E8F26',
+    primarySubtle: 'rgba(126,217,87,0.20)',
+    primaryFg: '#0C3316',
+    accent: '#46C7E8',
+    accent2: '#7ED957',
+    accent3: '#A0E66B',
+  }),
+});
+const meadowExt: Record<string, string> = {
+  '--bbangto-ext-aqua-gloss': 'linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.30) 46%, rgba(126,217,87,0.55) 47%, rgba(70,150,40,0.85) 100%)',
+  '--bbangto-ext-bubble': 'radial-gradient(circle at 32% 28%, rgba(255,255,255,0.95), rgba(255,255,255,0.10) 60%)',
+  '--bbangto-ext-sky-gradient': 'linear-gradient(180deg, rgba(237,251,240,0.85) 0%, rgba(222,242,226,0.78) 100%)',
+  '--bbangto-ext-gloss-highlight': 'rgba(255,255,255,0.85)',
+  '--bbangto-ext-leaf-green': GREEN,
+};
+
 const STYLE_ID = 'bbangto-frutiger-aero-glossy-01-motif';
 const CSS = `
 .bbangto-aero-btn {
@@ -105,10 +177,23 @@ const wrapperComponents = makeMotifWrappers({
       fontWeight: 700, letterSpacing: '0.04em', lineHeight: 1.6, whiteSpace: 'nowrap',
       boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.7)',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: 'rgba(126,217,87,0.22)', color: '#2E6B16', border: '1px solid rgba(126,217,87,0.65)' },
-      muted: { background: 'rgba(214,238,252,0.70)', color: 'rgba(16,55,79,0.78)', border: '1px solid rgba(91,184,240,0.40)' },
-      solid: { background: SKY, color: '#063A5C', border: '1px solid rgba(46,134,200,0.55)' },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-subtle, rgba(126,217,87,0.22))',
+        color: 'var(--bbangto-semantic-primary-active, #2E6B16)',
+        border: '1px solid var(--bbangto-semantic-border-base, rgba(126,217,87,0.65))',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-background-sunken, rgba(214,238,252,0.70))',
+        color: 'var(--bbangto-semantic-foreground-muted, rgba(16,55,79,0.78))',
+        border: '1px solid var(--bbangto-semantic-border-muted, rgba(91,184,240,0.40))',
+      },
+      solid: {
+        background: 'var(--bbangto-semantic-primary-base, #5BB8F0)',
+        color: 'var(--bbangto-semantic-primary-foreground, #063A5C)',
+        border: '1px solid var(--bbangto-semantic-border-strong, rgba(46,134,200,0.55))',
+      },
     },
   },
 });
@@ -178,6 +263,12 @@ export const frutigerAeroGlossyStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (아쿠아 스카이)', foundations, extendedFoundations },
+    { key: 'dark', label: '다크 (미드나잇 아쿠아)', foundations: darkFoundations, extendedFoundations: darkExt },
+    { key: 'meadow', label: '메도우 (잎 그린 액센트)', foundations: meadowFoundations, extendedFoundations: meadowExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { AeroShowcase: Showcase },
   guidelines,

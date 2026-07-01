@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -68,6 +68,58 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-ma-gap': '40px',
 };
 
+/* 색 스킴 변형(tweak) — washi 색면·먹빛 keyline·bokashi 띠·낙관 도장 모티프는 base에서 상속. */
+
+// 야반(夜半) — 먹빛 밤 판화: 어두운 sumi 지면 위에 밝은 washi 전경, 옅게 튼 인디고 색면.
+const nightFoundations = makeColorway(foundations, {
+  name: 'ukiyoe-woodblock-01-night',
+  description: '먹빛 밤(夜半) — 어두운 sumi 지면 + 밝은 washi 전경, 옅게 튼 인디고/적갈 색면의 다크 목판화',
+  semantic: makeSemantic({
+    bg: '#1F1B16', bgElevated: '#2A251E', bgSunken: '#15120E', overlay: 'rgba(0,0,0,0.62)',
+    fg: '#F4EFE3', fgMuted: '#D8CFBC', fgSubtle: '#A89B82', fgInverse: '#1F1B16',
+    border: '#C9BFA8', borderMuted: '#4A4135', borderStrong: '#F4EFE3', focus: '#8FA6D6',
+    primaryBase: '#7C93C4', primaryHover: '#93A7D2', primaryActive: '#A9B9DC',
+    primarySubtle: '#2C3A5A', primaryFg: '#15120E',
+    accent: '#D9736A', accent2: '#9FB072', accent3: '#D9AE5E',
+  }),
+});
+const nightExt: Record<string, string> = {
+  '--bbangto-ext-sumi-keyline': '1.5px solid #C9BFA8',
+  '--bbangto-ext-washi-grain': 'rgba(244,239,227,0.05)',
+  '--bbangto-ext-flat-fill-indigo': '#7C93C4',
+  '--bbangto-ext-flat-fill-beni': '#D9736A',
+  '--bbangto-ext-flat-fill-moss': '#9FB072',
+  '--bbangto-ext-flat-fill-ochre': '#D9AE5E',
+  '--bbangto-ext-bokashi': 'linear-gradient(180deg, #7C93C4 0%, #3A4C74 100%)',
+  '--bbangto-ext-hanko-seal': '#D9736A',
+  '--bbangto-ext-ma-gap': '40px',
+};
+
+// 주판(朱版) — 붉은 낙관 판화: washi 지면은 유지, primary를 적갈 朱(beni)로 전환하고 인디고를 보조 액센트로.
+const beniFoundations = makeColorway(foundations, {
+  name: 'ukiyoe-woodblock-01-beni',
+  description: '붉은 낙관(朱版) — washi 지면 유지 + primary를 적갈 朱로 전환, 인디고를 보조 액센트로 돌린 강조 변형',
+  semantic: makeSemantic({
+    bg: '#F7F0E1', bgElevated: '#FCF8EF', bgSunken: '#ECE2CE', overlay: 'rgba(31,27,22,0.55)',
+    fg: SUMI, fgMuted: '#4A4135', fgSubtle: '#7A6F5C', fgInverse: '#FCF8EF',
+    border: SUMI, borderMuted: '#C9BFA8', borderStrong: '#1A1712', focus: BENI,
+    primaryBase: BENI, primaryHover: '#8A3227', primaryActive: '#74291F',
+    primarySubtle: '#F0D9D2', primaryFg: '#FCF8EF',
+    accent: INDIGO, accent2: MOSS, accent3: OCHRE,
+  }),
+});
+const beniExt: Record<string, string> = {
+  '--bbangto-ext-sumi-keyline': `1.5px solid ${SUMI}`,
+  '--bbangto-ext-washi-grain': 'rgba(31,27,22,0.04)',
+  '--bbangto-ext-flat-fill-indigo': INDIGO,
+  '--bbangto-ext-flat-fill-beni': BENI,
+  '--bbangto-ext-flat-fill-moss': MOSS,
+  '--bbangto-ext-flat-fill-ochre': OCHRE,
+  '--bbangto-ext-bokashi': `linear-gradient(180deg, ${BENI} 0%, #C4776C 100%)`,
+  '--bbangto-ext-hanko-seal': INDIGO,
+  '--bbangto-ext-ma-gap': '40px',
+};
+
 const STYLE_ID = 'bbangto-ukiyoe-woodblock-motif';
 const CSS = `
 .bbangto-ukiyoe-woodblock-card {
@@ -117,10 +169,22 @@ const wrapperComponents = makeMotifWrappers({
       fontSize: 11, fontWeight: 600, letterSpacing: '0.04em', lineHeight: 1.5,
       whiteSpace: 'nowrap', border: `1.5px solid ${SUMI}`,
     },
+    // 색 결합 해소 — 낙관 도장/색면 tone을 semantic CSS 변수 + 기존 hex fallback으로 색 스킴에 묶는다.
     tones: {
-      accent: { background: BENI, color: '#FBF8F0', borderColor: BENI },
-      muted: { background: 'transparent', color: SUMI },
-      solid: { background: INDIGO, color: '#FBF8F0', borderColor: INDIGO },
+      accent: {
+        background: `var(--bbangto-ext-hanko-seal, ${BENI})`,
+        color: 'var(--bbangto-semantic-primary-foreground, #FBF8F0)',
+        borderColor: `var(--bbangto-ext-hanko-seal, ${BENI})`,
+      },
+      muted: {
+        background: 'transparent',
+        color: `var(--bbangto-semantic-foreground-base, ${SUMI})`,
+      },
+      solid: {
+        background: `var(--bbangto-semantic-primary-base, ${INDIGO})`,
+        color: 'var(--bbangto-semantic-primary-foreground, #FBF8F0)',
+        borderColor: `var(--bbangto-semantic-primary-base, ${INDIGO})`,
+      },
     },
   },
 });
@@ -198,6 +262,12 @@ export const ukiyoeWoodblockStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (Washi·Indigo)', foundations, extendedFoundations },
+    { key: 'night', label: '먹빛 밤 (夜半 Dark)', foundations: nightFoundations, extendedFoundations: nightExt },
+    { key: 'beni', label: '붉은 낙관 (朱版 Accent)', foundations: beniFoundations, extendedFoundations: beniExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { UkiyoeWoodblockShowcase: Showcase },
   guidelines,

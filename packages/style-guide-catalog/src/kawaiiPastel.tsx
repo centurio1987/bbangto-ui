@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -60,6 +60,78 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-soft-shadow': '0 10px 26px rgba(255,138,193,0.26)',
   '--bbangto-ext-mint-glow': 'radial-gradient(circle at 50% 50%, rgba(200,244,224,0.55) 0%, rgba(200,244,224,0) 72%)',
   '--bbangto-ext-lavender-veil': 'rgba(226,213,255,0.55)',
+};
+
+/* 색 스킴 변형(tweak) — 볼터치 글로우/둥근 마스코트/캡슐 모티프는 base에서 상속. */
+
+// 문라이트 파스텔 나이트 — 어두운 플럼 배경 위 밝은 블러시/라벤더.
+const darkFoundations = makeColorway(foundations, {
+  name: 'kawaii-pastel-01-dark',
+  description: '어두운 플럼 나이트 베이스 위 밝은 블러시·민트·라벤더 파스텔(다크 베이스)',
+  semantic: makeSemantic({
+    bg: 'linear-gradient(160deg, #241B2E 0%, #2A2033 55%, #1F2630 100%)',
+    bgElevated: '#2E2438',
+    bgSunken: '#1C1526',
+    overlay: 'rgba(0,0,0,0.45)',
+    fg: '#FCE8F3',
+    fgMuted: '#D9C3DE',
+    fgSubtle: '#A891B0',
+    fgInverse: '#241B2E',
+    border: '#4A3A55',
+    borderMuted: '#33283D',
+    borderStrong: '#6E5A7A',
+    focus: '#C4B0FF',
+    primaryBase: '#FF9ECE',
+    primaryHover: '#FFB0D8',
+    primaryActive: '#F58CC0',
+    primarySubtle: 'rgba(255,158,206,0.22)',
+    primaryFg: '#3A1E2E',
+    accent: '#8FE6C4',
+    accent2: '#C4B0FF',
+    accent3: '#FF9ECE',
+  }),
+});
+const darkExt: Record<string, string> = {
+  '--bbangto-ext-blush': 'radial-gradient(circle at 50% 50%, rgba(255,158,206,0.40) 0%, rgba(255,158,206,0) 70%)',
+  '--bbangto-ext-mascot': 'rgba(255,158,206,0.30)',
+  '--bbangto-ext-soft-shadow': '0 10px 26px rgba(0,0,0,0.45)',
+  '--bbangto-ext-mint-glow': 'radial-gradient(circle at 50% 50%, rgba(143,230,196,0.35) 0%, rgba(143,230,196,0) 72%)',
+  '--bbangto-ext-lavender-veil': 'rgba(196,176,255,0.30)',
+};
+
+// 라벤더 드림 — 라이트 베이스 유지, 강조를 핑크→라벤더 퍼플로 전환.
+const lavenderFoundations = makeColorway(foundations, {
+  name: 'kawaii-pastel-01-lavender',
+  description: '라벤더 화이트 베이스 위 라벤더 퍼플 강조 + 핑크 포커스(라이트 베이스, 액센트 전환)',
+  semantic: makeSemantic({
+    bg: 'linear-gradient(160deg, #FFFFFF 0%, #F7F3FF 55%, #F3F7FF 100%)',
+    bgElevated: '#FFFFFF',
+    bgSunken: '#F3ECFF',
+    overlay: 'rgba(58,46,82,0.28)',
+    fg: '#3A2E52',
+    fgMuted: '#5E4E77',
+    fgSubtle: '#8E7EA3',
+    fgInverse: '#FFFFFF',
+    border: '#D9C9F4',
+    borderMuted: '#EDE3FB',
+    borderStrong: '#B9A2EA',
+    focus: '#FF7FB6',
+    primaryBase: '#9B7DE8',
+    primaryHover: '#8A6ADB',
+    primaryActive: '#7A58CE',
+    primarySubtle: 'rgba(226,213,255,0.60)',
+    primaryFg: '#FFFFFF',
+    accent: '#C8F4E0',
+    accent2: '#FFD1E8',
+    accent3: '#E2D5FF',
+  }),
+});
+const lavenderExt: Record<string, string> = {
+  '--bbangto-ext-blush': 'radial-gradient(circle at 50% 50%, rgba(155,125,232,0.40) 0%, rgba(155,125,232,0) 70%)',
+  '--bbangto-ext-mascot': 'rgba(226,213,255,0.70)',
+  '--bbangto-ext-soft-shadow': '0 10px 26px rgba(155,125,232,0.26)',
+  '--bbangto-ext-mint-glow': 'radial-gradient(circle at 50% 50%, rgba(200,244,224,0.55) 0%, rgba(200,244,224,0) 72%)',
+  '--bbangto-ext-lavender-veil': 'rgba(226,213,255,0.60)',
 };
 
 const STYLE_ID = 'bbangto-kawaii-pastel-01-motif';
@@ -127,10 +199,23 @@ const wrapperComponents = makeMotifWrappers({
       borderRadius: 999, fontFamily: "'Fredoka', 'JetBrains Mono', monospace", fontSize: 11,
       fontWeight: 700, letterSpacing: '0.03em', lineHeight: 1.6, whiteSpace: 'nowrap',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: MINT, color: '#1E6B4E', border: '1.5px solid #A8E6CC' },
-      muted: { background: LAVENDER, color: '#4A3270', border: '1.5px solid #CDB8FF' },
-      solid: { background: PRIMARY, color: '#fff', border: '1.5px solid #fff' },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-subtle, #C8F4E0)',
+        color: 'var(--bbangto-semantic-primary-active, #1E6B4E)',
+        border: '1.5px solid var(--bbangto-semantic-border-base, #A8E6CC)',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-background-sunken, #E2D5FF)',
+        color: 'var(--bbangto-semantic-foreground-muted, #4A3270)',
+        border: '1.5px solid var(--bbangto-semantic-border-muted, #CDB8FF)',
+      },
+      solid: {
+        background: 'var(--bbangto-semantic-primary-base, #FF7FB6)',
+        color: 'var(--bbangto-semantic-primary-foreground, #fff)',
+        border: '1.5px solid var(--bbangto-semantic-primary-foreground, #fff)',
+      },
     },
   },
 });
@@ -201,6 +286,12 @@ export const kawaiiPastelStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (베이비핑크)', foundations, extendedFoundations },
+    { key: 'dark', label: '다크 (문라이트 플럼)', foundations: darkFoundations, extendedFoundations: darkExt },
+    { key: 'lavender', label: '라벤더 (퍼플 강조)', foundations: lavenderFoundations, extendedFoundations: lavenderExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { KawaiiShowcase: Showcase },
   guidelines,

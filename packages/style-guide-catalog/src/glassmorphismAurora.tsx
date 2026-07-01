@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -58,6 +58,78 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-aurora': 'conic-gradient(from 120deg, #7C5CFF, #5BE0E6, #FF8AC7, #7C5CFF)',
 };
 
+/* 색 스킴 변형(colorway) — 유리 표면·블러·1px 하이라이트 모티프는 base에서 상속. */
+
+/* light — 밝은 라벤더 캔버스 위 프로스트 글래스(base 다크의 반전 명도). */
+const lightFoundations = makeColorway(foundations, {
+  name: 'glassmorphism-aurora-01-light',
+  description: '밝은 라벤더 캔버스 위 프로스트 글래스 — 어두운 본문 대비 확보',
+  semantic: makeSemantic({
+    bg: '#F5F3FF',
+    bgElevated: 'rgba(255,255,255,0.72)',
+    bgSunken: 'rgba(124,92,255,0.06)',
+    overlay: 'rgba(20,16,50,0.35)',
+    fg: '#201A46',
+    fgMuted: 'rgba(32,26,70,0.72)',
+    fgSubtle: 'rgba(32,26,70,0.50)',
+    fgInverse: '#F5F3FF',
+    border: 'rgba(124,92,255,0.30)',
+    borderMuted: 'rgba(124,92,255,0.16)',
+    borderStrong: 'rgba(90,61,216,0.45)',
+    focus: '#5A3DD8',
+    primaryBase: '#6B4AF0',
+    primaryHover: '#5A3DD8',
+    primaryActive: '#4A2FC0',
+    primarySubtle: 'rgba(124,92,255,0.14)',
+    primaryFg: '#FFFFFF',
+    accent: '#0FB5BD',
+    accent2: '#8A5CFF',
+    accent3: '#E0559E',
+  }),
+});
+const lightExt: Record<string, string> = {
+  '--bbangto-ext-glass-bg': 'rgba(255,255,255,0.55)',
+  '--bbangto-ext-glass-border': 'rgba(124,92,255,0.28)',
+  '--bbangto-ext-glass-blur': '16px',
+  '--bbangto-ext-glass-highlight': 'rgba(255,255,255,0.85)',
+  '--bbangto-ext-aurora': 'conic-gradient(from 120deg, #6B4AF0, #0FB5BD, #E0559E, #6B4AF0)',
+};
+
+/* jade — 다크 베이스 유지 + 강조색을 에메랄드·민트 오로라로 전환. */
+const jadeFoundations = makeColorway(foundations, {
+  name: 'glassmorphism-aurora-01-jade',
+  description: '깊은 청록 캔버스 위 프로스트 글래스 — 에메랄드·민트 오로라 강조',
+  semantic: makeSemantic({
+    bg: 'radial-gradient(125% 125% at 8% 0%, #10403C 0%, #071A18 58%)',
+    bgElevated: 'rgba(255,255,255,0.08)',
+    bgSunken: 'rgba(255,255,255,0.04)',
+    overlay: 'rgba(4,16,14,0.60)',
+    fg: '#EEFCF7',
+    fgMuted: 'rgba(224,255,246,0.80)',
+    fgSubtle: 'rgba(224,255,246,0.55)',
+    fgInverse: '#06201C',
+    border: 'rgba(255,255,255,0.28)',
+    borderMuted: 'rgba(255,255,255,0.14)',
+    borderStrong: 'rgba(255,255,255,0.40)',
+    focus: '#6EE7C7',
+    primaryBase: '#2DD4A8',
+    primaryHover: '#22C29A',
+    primaryActive: '#17A583',
+    primarySubtle: 'rgba(45,212,168,0.18)',
+    primaryFg: '#04211B',
+    accent: '#7CF0D8',
+    accent2: '#9BE38B',
+    accent3: '#FFD66B',
+  }),
+});
+const jadeExt: Record<string, string> = {
+  '--bbangto-ext-glass-bg': 'rgba(255,255,255,0.10)',
+  '--bbangto-ext-glass-border': 'rgba(255,255,255,0.30)',
+  '--bbangto-ext-glass-blur': '16px',
+  '--bbangto-ext-glass-highlight': 'rgba(255,255,255,0.55)',
+  '--bbangto-ext-aurora': 'conic-gradient(from 120deg, #2DD4A8, #7CF0D8, #FFD66B, #2DD4A8)',
+};
+
 const STYLE_ID = 'bbangto-glassmorphism-aurora-motif';
 const CSS = `
 .bbangto-glass-btn {
@@ -101,10 +173,23 @@ const wrapperComponents = makeMotifWrappers({
       fontWeight: 600, letterSpacing: '0.04em', lineHeight: 1.6, whiteSpace: 'nowrap',
       WebkitBackdropFilter: 'blur(6px)', backdropFilter: 'blur(6px)',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 색 fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: 'rgba(91,224,230,0.16)', color: '#BEFBFF', border: '1px solid rgba(91,224,230,0.50)' },
-      muted: { background: 'rgba(255,255,255,0.08)', color: 'rgba(232,236,255,0.80)', border: '1px solid rgba(255,255,255,0.18)' },
-      solid: { background: PRIMARY, color: '#fff', border: '1px solid rgba(255,255,255,0.30)' },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-subtle, rgba(91,224,230,0.16))',
+        color: 'var(--bbangto-semantic-foreground-base, #BEFBFF)',
+        border: '1px solid var(--bbangto-semantic-border-base, rgba(91,224,230,0.50))',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-background-sunken, rgba(255,255,255,0.08))',
+        color: 'var(--bbangto-semantic-foreground-muted, rgba(232,236,255,0.80))',
+        border: '1px solid var(--bbangto-semantic-border-muted, rgba(255,255,255,0.18))',
+      },
+      solid: {
+        background: 'var(--bbangto-semantic-primary-base, #7C5CFF)',
+        color: 'var(--bbangto-semantic-primary-foreground, #fff)',
+        border: '1px solid var(--bbangto-semantic-border-base, rgba(255,255,255,0.30))',
+      },
     },
   },
 });
@@ -174,6 +259,12 @@ export const glassmorphismAuroraStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (인디고 오로라)', foundations, extendedFoundations },
+    { key: 'light', label: '라이트 (프로스트 글래스)', foundations: lightFoundations, extendedFoundations: lightExt },
+    { key: 'jade', label: '제이드 오로라 (강조 전환)', foundations: jadeFoundations, extendedFoundations: jadeExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { GlassmorphismShowcase: Showcase },
   guidelines,

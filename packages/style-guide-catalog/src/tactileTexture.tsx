@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -65,6 +65,46 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-hyperreal-gloss': 'rgba(255,255,255,0.6)',
 };
 
+/* 색 스킴 변형(tweak) — 말랑한 puffy/squish/hyperreal 모티프는 base에서 상속, 색만 교체. */
+
+const darkFoundations = makeColorway(foundations, {
+  name: 'tactile-texture-01-dark',
+  description: '촉각 질감 다크 — 딥 플럼 표면 위 캔디 핑크 스퀴시',
+  semantic: makeSemantic({
+    bg: '#241B20', bgElevated: '#2F2329', bgSunken: '#1B1418', overlay: 'rgba(0,0,0,0.55)',
+    fg: '#FDECF2', fgMuted: '#D3B9C4', fgSubtle: '#A88E9A', fgInverse: '#241B20',
+    border: '#4A3A42', borderMuted: '#362A30', borderStrong: '#6B5560', focus: '#FF8FBB',
+    primaryBase: '#FF8FBB', primaryHover: '#FFA5CA', primaryActive: '#FFBBD8',
+    primarySubtle: '#4A2E3C', primaryFg: '#2A1620',
+    accent: '#FF8FBB', accent2: '#6FB7FF', accent3: '#FFB36F',
+  }),
+});
+const darkExt: Record<string, string> = {
+  '--bbangto-ext-puffy-shadow': '0 10px 24px rgba(0,0,0,0.45), inset 0 2px 4px rgba(255,255,255,0.08)',
+  '--bbangto-ext-squish': 'scale(0.96)',
+  '--bbangto-ext-noise-texture': 'rgba(255,255,255,0.04)',
+  '--bbangto-ext-hyperreal-gloss': 'rgba(255,255,255,0.10)',
+};
+
+const skyFoundations = makeColorway(foundations, {
+  name: 'tactile-texture-01-sky',
+  description: '촉각 질감 라이트 — 블루베리 스카이 파스텔 스퀴시',
+  semantic: makeSemantic({
+    bg: '#F2F8FF', bgElevated: '#FFFFFF', bgSunken: '#E4F0FB', overlay: 'rgba(30,42,58,0.45)',
+    fg: '#26323F', fgMuted: '#5E6E7E', fgSubtle: '#8C9AA8', fgInverse: '#FFFFFF',
+    border: '#CFE2F3', borderMuted: '#E2EDF7', borderStrong: '#A9CBE8', focus: '#3B92E8',
+    primaryBase: '#3B92E8', primaryHover: '#2B80D6', primaryActive: '#1E6EC0',
+    primarySubtle: '#D6E9FB', primaryFg: '#FFFFFF',
+    accent: '#3B92E8', accent2: '#FF6FA5', accent3: '#FFB36F',
+  }),
+});
+const skyExt: Record<string, string> = {
+  '--bbangto-ext-puffy-shadow': '0 10px 24px rgba(59,146,232,0.28), inset 0 2px 4px rgba(255,255,255,0.7)',
+  '--bbangto-ext-squish': 'scale(0.96)',
+  '--bbangto-ext-noise-texture': 'rgba(38,50,63,0.03)',
+  '--bbangto-ext-hyperreal-gloss': 'rgba(255,255,255,0.6)',
+};
+
 const STYLE_ID = 'bbangto-tactile-texture-motif';
 const CSS = `
 .bbangto-tactile-card {
@@ -100,10 +140,21 @@ const wrapperComponents = makeMotifWrappers({
       borderRadius: 9999, fontFamily: "'Quicksand', sans-serif", fontSize: 11,
       fontWeight: 700, letterSpacing: '0.04em', lineHeight: 1.6, whiteSpace: 'nowrap',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: '#FFE0EC', color: '#F0427F' },
-      muted: { background: '#FFFFFF', color: INK, border: '1px solid #F3D3DD' },
-      solid: { background: CANDY, color: '#fff' },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-subtle, #FFE0EC)',
+        color: 'var(--bbangto-semantic-primary-active, #F0427F)',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-background-elevated, #FFFFFF)',
+        color: 'var(--bbangto-semantic-foreground-base, #3A2E33)',
+        border: '1px solid var(--bbangto-semantic-border-base, #F3D3DD)',
+      },
+      solid: {
+        background: 'var(--bbangto-semantic-primary-base, #FF6FA5)',
+        color: 'var(--bbangto-semantic-primary-foreground, #fff)',
+      },
     },
   },
 });
@@ -173,6 +224,12 @@ export const tactileTextureStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (Candy Pink)', foundations, extendedFoundations },
+    { key: 'dark', label: '다크 (Deep Plum)', foundations: darkFoundations, extendedFoundations: darkExt },
+    { key: 'sky', label: '스카이 (Blueberry)', foundations: skyFoundations, extendedFoundations: skyExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { TactileShowcase: Showcase },
   guidelines,

@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -73,6 +73,60 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-channel-shadow': CHANNEL_SHADOW,
 };
 
+/* 색 스킴 변형(colorway) — 채널 오프셋·슬라이스·픽셀 모티프는 base에서 상속하고 색만 교체. */
+
+/* light — 종이/표백 글리치: 화이트 지면 위 딥 마젠타/틸 시안 듀오톤. */
+const LIGHT_MAGENTA = '#C6009A';
+const LIGHT_CYAN = '#0092A8';
+const lightFoundations = makeColorway(foundations, {
+  name: 'glitch-distortion-01-light',
+  description: '표백 글리치 — 화이트 지면 위 딥 마젠타/틸 시안 채널 오프셋',
+  semantic: makeSemantic({
+    bg: '#F4F4F7', bgElevated: '#FFFFFF', bgSunken: '#E6E6EC', overlay: 'rgba(0,0,0,0.35)',
+    fg: '#0E0E14', fgMuted: '#3A3A44', fgSubtle: '#6A6A78', fgInverse: '#F4F4F7',
+    border: '#C8C8D2', borderMuted: '#DEDEE6', borderStrong: '#9A9AA6', focus: LIGHT_CYAN,
+    primaryBase: LIGHT_MAGENTA, primaryHover: '#A80083', primaryActive: '#8A006C',
+    primarySubtle: '#FBD9F1', primaryFg: '#FFFFFF',
+    accent: LIGHT_MAGENTA, accent2: LIGHT_CYAN, accent3: '#B38F00',
+  }),
+});
+const lightExt: Record<string, string> = {
+  '--bbangto-ext-rgb-shift': '3px',
+  '--bbangto-ext-glitch-magenta': LIGHT_MAGENTA,
+  '--bbangto-ext-glitch-cyan': LIGHT_CYAN,
+  '--bbangto-ext-pixel-size': '4px',
+  '--bbangto-ext-slice-offset': '8px',
+  '--bbangto-ext-datamosh': 'repeating-linear-gradient(135deg, rgba(198,0,154,0.08) 0 6px, rgba(0,146,168,0.08) 6px 12px)',
+  '--bbangto-ext-colorbar': `linear-gradient(90deg, ${LIGHT_MAGENTA} 0 33%, ${LIGHT_CYAN} 33% 66%, #B38F00 66% 100%)`,
+  '--bbangto-ext-scanline': 'repeating-linear-gradient(0deg, rgba(0,0,0,0.08) 0px, rgba(0,0,0,0.08) 1px, transparent 1px, transparent 3px)',
+  '--bbangto-ext-channel-shadow': '1px 0 0 rgba(198,0,154,0.55), -1px 0 0 rgba(0,146,168,0.55)',
+};
+
+/* cyan — 액센트 전환: near-black 유지, 리드 액센트를 시안으로, 포커스를 마젠타로 뒤집는다. */
+const cyanFoundations = makeColorway(foundations, {
+  name: 'glitch-distortion-01-cyan',
+  description: '시안 채널 리드 — 딥 틸-블랙 위 시안 primary + 마젠타 포커스',
+  semantic: makeSemantic({
+    bg: '#05090C', bgElevated: '#0E161B', bgSunken: '#020507', overlay: 'rgba(0,0,0,0.62)',
+    fg: '#EAFBFF', fgMuted: '#A8C4CC', fgSubtle: '#6E8890', fgInverse: '#05090C',
+    border: '#1E3038', borderMuted: '#142228', borderStrong: '#2E4650', focus: MAGENTA,
+    primaryBase: CYAN, primaryHover: '#00CFEA', primaryActive: '#00B4CC',
+    primarySubtle: '#05323A', primaryFg: '#04121A',
+    accent: CYAN, accent2: MAGENTA, accent3: YELLOW,
+  }),
+});
+const cyanExt: Record<string, string> = {
+  '--bbangto-ext-rgb-shift': '3px',
+  '--bbangto-ext-glitch-magenta': CYAN,
+  '--bbangto-ext-glitch-cyan': MAGENTA,
+  '--bbangto-ext-pixel-size': '4px',
+  '--bbangto-ext-slice-offset': '8px',
+  '--bbangto-ext-datamosh': 'repeating-linear-gradient(135deg, rgba(0,229,255,0.08) 0 6px, rgba(255,0,200,0.08) 6px 12px)',
+  '--bbangto-ext-colorbar': `linear-gradient(90deg, ${CYAN} 0 33%, ${MAGENTA} 33% 66%, ${YELLOW} 66% 100%)`,
+  '--bbangto-ext-scanline': 'repeating-linear-gradient(0deg, rgba(0,0,0,0.25) 0px, rgba(0,0,0,0.25) 1px, transparent 1px, transparent 3px)',
+  '--bbangto-ext-channel-shadow': '1px 0 0 rgba(0,229,255,0.55), -1px 0 0 rgba(255,0,200,0.55)',
+};
+
 const STYLE_ID = 'bbangto-glitch-distortion-motif';
 const CSS = `
 .bbangto-glitch-distortion-card {
@@ -130,10 +184,20 @@ const wrapperComponents = makeMotifWrappers({
       fontWeight: 700, letterSpacing: '0.1em', lineHeight: 1.4, whiteSpace: 'nowrap',
       textTransform: 'uppercase',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: 'rgba(0,229,255,0.14)', color: CYAN },
-      muted: { background: '#1C1C24', color: '#B8B8C2' },
-      solid: { background: MAGENTA, color: '#fff' },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-subtle, rgba(0,229,255,0.14))',
+        color: 'var(--bbangto-semantic-primary-active, #00E5FF)',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-background-sunken, #1C1C24)',
+        color: 'var(--bbangto-semantic-foreground-muted, #B8B8C2)',
+      },
+      solid: {
+        background: 'var(--bbangto-semantic-primary-base, #FF00C8)',
+        color: 'var(--bbangto-semantic-primary-foreground, #fff)',
+      },
     },
   },
 });
@@ -212,6 +276,12 @@ export const glitchDistortionStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (near-black · 마젠타)', foundations, extendedFoundations },
+    { key: 'light', label: '표백 라이트 (딥 마젠타/틸)', foundations: lightFoundations, extendedFoundations: lightExt },
+    { key: 'cyan', label: '시안 액센트 (틸-블랙)', foundations: cyanFoundations, extendedFoundations: cyanExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { GlitchDistortionShowcase: Showcase },
   guidelines,

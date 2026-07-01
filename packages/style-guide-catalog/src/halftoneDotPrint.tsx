@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -75,6 +75,86 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-screen-tone': SCREEN_TONE,
 };
 
+/* 색 스킴 변형(colorway) — 망점 스크린·키라인 모티프(래퍼 CSS/shape)는 base에서 상속하고 색만 교체. */
+
+/* dark — 야간 프레스(암실 인쇄): 어두운 잉크지 위에 형광 CMYK 망점, 밝은 페이퍼 텍스트. */
+const darkFoundations = makeColorway(foundations, {
+  name: 'halftone-dot-print-01-dark',
+  description: 'Halftone 다크 — 어두운 잉크지 위 형광 CMYK 망점, 밝은 페이퍼 잉크 텍스트',
+  semantic: makeSemantic({
+    bg: '#14110D',
+    bgElevated: '#221E17',
+    bgSunken: '#0C0A07',
+    overlay: 'rgba(0,0,0,0.6)',
+    fg: '#F4EFE3',
+    fgMuted: '#C4BDAE',
+    fgSubtle: '#928B7C',
+    fgInverse: '#14110D',
+    border: '#3A352B',
+    borderMuted: '#221E17',
+    borderStrong: '#C4BDAE',
+    focus: '#35C4F0',
+    primaryBase: '#EC008C',
+    primaryHover: '#FF3DA6',
+    primaryActive: '#C8006E',
+    primarySubtle: '#5A1038',
+    primaryFg: '#FFFFFF',
+    accent: '#EC008C',
+    accent2: '#35C4F0',
+    accent3: '#F4C400',
+  }),
+});
+const darkExt: Record<string, string> = {
+  '--bbangto-ext-halftone-dot-size': '6px',
+  '--bbangto-ext-halftone-cell': '8px',
+  '--bbangto-ext-halftone-angle': '45deg',
+  '--bbangto-ext-halftone-cyan': '#35C4F0',
+  '--bbangto-ext-halftone-magenta': '#FF2FA4',
+  '--bbangto-ext-halftone-yellow': '#FFD62E',
+  '--bbangto-ext-halftone-key': '#F4EFE3',
+  '--bbangto-ext-halftone-gradient-stop': '60%',
+  '--bbangto-ext-screen-tone': 'radial-gradient(#FF2FA4 1.6px, transparent 1.8px)',
+};
+
+/* cyan — 시안 색분해(cyan separation): 쿨 페이퍼 위 시안을 키컬러로, 마젠타는 포커스로 전환. */
+const cyanFoundations = makeColorway(foundations, {
+  name: 'halftone-dot-print-01-cyan',
+  description: 'Halftone 라이트 — 쿨 페이퍼 위 시안 색분해 키컬러, 마젠타 포커스',
+  semantic: makeSemantic({
+    bg: '#EEF4F6',
+    bgElevated: '#FFFFFF',
+    bgSunken: '#DCE7EB',
+    overlay: 'rgba(20,23,26,0.55)',
+    fg: '#14171A',
+    fgMuted: '#41484D',
+    fgSubtle: '#727A80',
+    fgInverse: '#FFFFFF',
+    border: '#C6D2D7',
+    borderMuted: '#DCE7EB',
+    borderStrong: '#14171A',
+    focus: '#C8006E',
+    primaryBase: '#0079A8',
+    primaryHover: '#005F86',
+    primaryActive: '#004A69',
+    primarySubtle: '#CDECF7',
+    primaryFg: '#FFFFFF',
+    accent: '#0079A8',
+    accent2: '#C8006E',
+    accent3: '#14171A',
+  }),
+});
+const cyanExt: Record<string, string> = {
+  '--bbangto-ext-halftone-dot-size': '6px',
+  '--bbangto-ext-halftone-cell': '8px',
+  '--bbangto-ext-halftone-angle': '45deg',
+  '--bbangto-ext-halftone-cyan': '#0098D4',
+  '--bbangto-ext-halftone-magenta': '#EC008C',
+  '--bbangto-ext-halftone-yellow': '#F4C400',
+  '--bbangto-ext-halftone-key': '#14171A',
+  '--bbangto-ext-halftone-gradient-stop': '60%',
+  '--bbangto-ext-screen-tone': 'radial-gradient(#0098D4 1.6px, transparent 1.8px)',
+};
+
 const STYLE_ID = 'bbangto-halftone-dot-print-motif';
 const CSS = `
 .bbangto-halftone-dot-print-card {
@@ -144,10 +224,20 @@ const wrapperComponents = makeMotifWrappers({
       fontWeight: 700, letterSpacing: '0.12em', lineHeight: 1.5, textTransform: 'uppercase',
       whiteSpace: 'nowrap',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: '#FBE2EF', color: '#A3005A' },
-      muted: { background: '#ECE8DD', color: '#4A4742' },
-      solid: { background: KEY, color: '#fff' },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-subtle, #FBE2EF)',
+        color: 'var(--bbangto-semantic-primary-active, #A3005A)',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-background-sunken, #ECE8DD)',
+        color: 'var(--bbangto-semantic-foreground-muted, #4A4742)',
+      },
+      solid: {
+        background: 'var(--bbangto-semantic-primary-base, #1A1A1A)',
+        color: 'var(--bbangto-semantic-primary-foreground, #fff)',
+      },
     },
   },
 });
@@ -227,6 +317,12 @@ export const halftoneDotPrintStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (페이퍼 + 마젠타)', foundations, extendedFoundations },
+    { key: 'dark', label: '다크 (잉크지 + 형광 CMYK)', foundations: darkFoundations, extendedFoundations: darkExt },
+    { key: 'cyan', label: '시안 색분해', foundations: cyanFoundations, extendedFoundations: cyanExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { HalftoneDotPrintShowcase: Showcase },
   guidelines,

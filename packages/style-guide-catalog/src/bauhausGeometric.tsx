@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -58,6 +58,50 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-shape-circle': RED,
   '--bbangto-ext-shape-triangle': YELLOW,
   '--bbangto-ext-shape-square': BLUE,
+  '--bbangto-ext-grid-line': INK,
+  '--bbangto-ext-block-divide': '4px',
+};
+
+/* 색 스킴 변형(color scheme) — 면 분할·원형 장식·굵은 윤곽선 모티프는 base에서 상속. */
+
+/* 다크: 검은 캔버스 위 종이색 텍스트, 노랑을 키컬러로 전환한 바우하우스 야간 구성. */
+const darkFoundations = makeColorway(foundations, {
+  name: 'bauhaus-geometric-01-dark',
+  description: '바우하우스 다크 — 흑색 캔버스 + 종이색 텍스트, 노랑 키컬러',
+  semantic: makeSemantic({
+    bg: '#1A1A1A', bgElevated: '#262626', bgSunken: '#0F0F0F', overlay: 'rgba(0,0,0,0.60)',
+    fg: '#F4F1EA', fgMuted: '#C9C4B8', fgSubtle: '#8F8B80', fgInverse: '#1A1A1A',
+    border: '#F4F1EA', borderMuted: 'rgba(244,241,234,0.30)', borderStrong: '#FFFFFF', focus: '#FFCA3A',
+    primaryBase: '#FFCA3A', primaryHover: '#E6B22F', primaryActive: '#CC9E29',
+    primarySubtle: 'rgba(255,202,58,0.18)', primaryFg: '#1A1A1A',
+    accent: RED, accent2: YELLOW, accent3: BLUE,
+  }),
+});
+const darkExt: Record<string, string> = {
+  '--bbangto-ext-shape-circle': RED,
+  '--bbangto-ext-shape-triangle': YELLOW,
+  '--bbangto-ext-shape-square': '#5B84B1',
+  '--bbangto-ext-grid-line': '#F4F1EA',
+  '--bbangto-ext-block-divide': '4px',
+};
+
+/* 레드 액센트: 종이 캔버스는 유지하되 키컬러를 파랑→빨강으로 전환한 강조 변형. */
+const redFoundations = makeColorway(foundations, {
+  name: 'bauhaus-geometric-01-red',
+  description: '바우하우스 레드 — 종이 캔버스 + 빨강 키컬러 강조',
+  semantic: makeSemantic({
+    bg: PAPER, bgElevated: '#FFFFFF', bgSunken: '#E7E2D6', overlay: 'rgba(26,26,26,0.55)',
+    fg: INK, fgMuted: '#3D3D3D', fgSubtle: '#6B6B6B', fgInverse: '#FFFFFF',
+    border: INK, borderMuted: 'rgba(26,26,26,0.30)', borderStrong: '#000000', focus: RED,
+    primaryBase: RED, primaryHover: '#C92D3B', primaryActive: '#A81F2C',
+    primarySubtle: 'rgba(230,57,70,0.14)', primaryFg: '#FFFFFF',
+    accent: BLUE, accent2: YELLOW, accent3: RED,
+  }),
+});
+const redExt: Record<string, string> = {
+  '--bbangto-ext-shape-circle': BLUE,
+  '--bbangto-ext-shape-triangle': YELLOW,
+  '--bbangto-ext-shape-square': RED,
   '--bbangto-ext-grid-line': INK,
   '--bbangto-ext-block-divide': '4px',
 };
@@ -133,10 +177,20 @@ const wrapperComponents = makeMotifWrappers({
       fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', lineHeight: 1.6,
       textTransform: 'uppercase', whiteSpace: 'nowrap', border: '2px solid #1A1A1A',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: RED, color: '#FFFFFF' },
-      muted: { background: PAPER, color: INK },
-      solid: { background: BLUE, color: '#FFFFFF' },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-subtle, #E63946)',
+        color: 'var(--bbangto-semantic-primary-active, #FFFFFF)',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-background-sunken, #F4F1EA)',
+        color: 'var(--bbangto-semantic-foreground-muted, #1A1A1A)',
+      },
+      solid: {
+        background: 'var(--bbangto-semantic-primary-base, #1D3557)',
+        color: 'var(--bbangto-semantic-primary-foreground, #FFFFFF)',
+      },
     },
   },
 });
@@ -206,6 +260,12 @@ export const bauhausGeometricStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (Blue / Paper)', foundations, extendedFoundations },
+    { key: 'dark', label: '다크 (Yellow / Ink)', foundations: darkFoundations, extendedFoundations: darkExt },
+    { key: 'red', label: '레드 액센트 (Red / Paper)', foundations: redFoundations, extendedFoundations: redExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { BauhausShowcase: Showcase },
   guidelines,

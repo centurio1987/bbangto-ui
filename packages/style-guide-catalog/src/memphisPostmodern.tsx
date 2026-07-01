@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -59,6 +59,50 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-squiggle': `repeating-linear-gradient(135deg, ${CYAN} 0 6px, transparent 6px 12px)`,
   '--bbangto-ext-terrazzo': `radial-gradient(circle at 20% 30%, ${PINK} 0 4px, transparent 5px), radial-gradient(circle at 72% 58%, ${YELLOW} 0 5px, transparent 6px), radial-gradient(circle at 45% 82%, ${CYAN} 0 3px, transparent 4px)`,
   '--bbangto-ext-confetti': `radial-gradient(circle, ${PINK} 2px, transparent 3px)`,
+  '--bbangto-ext-ink': INK,
+  '--bbangto-ext-border-width': '3px',
+};
+
+/* 색 스킴 변형(tweak) — 지그재그·물방울·테리조 패턴, 굵은 윤곽·하드 그림자 모티프는 base에서 상속. */
+
+/* 다크: 자정의 플럼-차콜 캔버스 위에 형광 핑크·시안, 윤곽은 크림색(라이트 잉크)으로 반전, 옐로 포커스. */
+const darkFoundations = makeColorway(foundations, {
+  name: 'memphis-postmodern-01-dark',
+  description: '멤피스 다크 — 자정 플럼-차콜 위 형광 핑크·시안, 크림 윤곽 반전, 옐로 포커스',
+  semantic: makeSemantic({
+    bg: '#17141A', bgElevated: '#221E28', bgSunken: '#0F0D12', overlay: 'rgba(0,0,0,0.6)',
+    fg: '#F5EFEA', fgMuted: '#C9C2CC', fgSubtle: '#948E99', fgInverse: '#17141A',
+    border: '#F5EFEA', borderMuted: 'rgba(245,239,234,0.25)', borderStrong: '#FFFFFF', focus: '#FFD23F',
+    primaryBase: '#FF7AB6', primaryHover: '#FF5CA2', primaryActive: '#E83477',
+    primarySubtle: 'rgba(255,122,182,0.22)', primaryFg: '#1A1A1A',
+    accent: '#3DD6D0', accent2: '#FFD23F', accent3: '#B49BFF',
+  }),
+});
+const darkExt: Record<string, string> = {
+  '--bbangto-ext-squiggle': `repeating-linear-gradient(135deg, ${CYAN} 0 6px, transparent 6px 12px)`,
+  '--bbangto-ext-terrazzo': `radial-gradient(circle at 20% 30%, #FF7AB6 0 4px, transparent 5px), radial-gradient(circle at 72% 58%, ${YELLOW} 0 5px, transparent 6px), radial-gradient(circle at 45% 82%, ${CYAN} 0 3px, transparent 4px)`,
+  '--bbangto-ext-confetti': `radial-gradient(circle, #FF7AB6 2px, transparent 3px)`,
+  '--bbangto-ext-ink': '#F5EFEA',
+  '--bbangto-ext-border-width': '3px',
+};
+
+/* 시안 액센트: 라이트 유지, 히어로를 핑크→일렉트릭 시안으로 전환하고 핑크는 조연 액센트로. */
+const cyanFoundations = makeColorway(foundations, {
+  name: 'memphis-postmodern-01-cyan',
+  description: '멤피스 일렉트릭 시안 — 쿨 크림 위 시안 히어로, 핑크·노랑 조연',
+  semantic: makeSemantic({
+    bg: '#F4FBFB', bgElevated: '#FFFFFF', bgSunken: '#E4F3F2', overlay: 'rgba(26,26,26,0.55)',
+    fg: INK, fgMuted: '#3F4A49', fgSubtle: '#6E7A79', fgInverse: '#FFFFFF',
+    border: INK, borderMuted: 'rgba(26,26,26,0.25)', borderStrong: '#000000', focus: INK,
+    primaryBase: '#12B0C4', primaryHover: '#0E97A9', primaryActive: '#0B7E8D',
+    primarySubtle: 'rgba(18,176,196,0.18)', primaryFg: INK,
+    accent: PINK, accent2: YELLOW, accent3: PASTEL,
+  }),
+});
+const cyanExt: Record<string, string> = {
+  '--bbangto-ext-squiggle': `repeating-linear-gradient(135deg, ${PINK} 0 6px, transparent 6px 12px)`,
+  '--bbangto-ext-terrazzo': `radial-gradient(circle at 20% 30%, #12B0C4 0 4px, transparent 5px), radial-gradient(circle at 72% 58%, ${YELLOW} 0 5px, transparent 6px), radial-gradient(circle at 45% 82%, ${PINK} 0 3px, transparent 4px)`,
+  '--bbangto-ext-confetti': `radial-gradient(circle, #12B0C4 2px, transparent 3px)`,
   '--bbangto-ext-ink': INK,
   '--bbangto-ext-border-width': '3px',
 };
@@ -128,10 +172,20 @@ const wrapperComponents = makeMotifWrappers({
       fontWeight: 700, letterSpacing: '0.04em', lineHeight: 1.6, whiteSpace: 'nowrap',
       border: `2px solid ${INK}`,
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { backgroundColor: CYAN, color: '#0E2B2A' },
-      muted: { backgroundColor: '#FFF1C2', color: '#4A3A00' },
-      solid: { backgroundColor: PINK, color: INK },
+      accent: {
+        backgroundColor: 'var(--bbangto-semantic-primary-subtle, #3DD6D0)',
+        color: 'var(--bbangto-semantic-primary-active, #0E2B2A)',
+      },
+      muted: {
+        backgroundColor: 'var(--bbangto-semantic-background-sunken, #FFF1C2)',
+        color: 'var(--bbangto-semantic-foreground-muted, #4A3A00)',
+      },
+      solid: {
+        backgroundColor: 'var(--bbangto-semantic-primary-base, #FF5CA2)',
+        color: 'var(--bbangto-semantic-primary-foreground, #1A1A1A)',
+      },
     },
   },
 });
@@ -208,6 +262,12 @@ export const memphisPostmodernStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (크림·핑크)', foundations, extendedFoundations },
+    { key: 'dark', label: '다크 (형광 핑크·시안)', foundations: darkFoundations, extendedFoundations: darkExt },
+    { key: 'cyan', label: '일렉트릭 시안', foundations: cyanFoundations, extendedFoundations: cyanExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { MemphisShowcase: Showcase },
   guidelines,

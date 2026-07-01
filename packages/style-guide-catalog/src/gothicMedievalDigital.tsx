@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -75,6 +75,60 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-relic-glow': RELIC_GLOW,
 };
 
+/*
+ * 색 스킴 변형(색만 교체) — 블랙레터/문장/아치/왁스 인장 모티프(래퍼 CSS·shape)는
+ * makeColorway로 base에서 그대로 상속하고, semantic 색 + extendedFoundations 색만 바꾼다.
+ * base가 다크 신비주의이므로 (1) light = 조명 필사본 양피지, (2) accent = 자수정+시안 릴릭.
+ */
+
+/* Light — Illuminated Vellum: 양피지 위 잉크·골드 리프. 단일 충돌 블록은 골드 리프로. */
+const vellumFoundations = makeColorway(foundations, {
+  name: 'gothic-medieval-digital-01-light',
+  description: '조명 필사본(illuminated vellum) — 양피지 위 잉크·뮤트 골드, 단일 골드 리프 블록',
+  semantic: makeSemantic({
+    bg: '#EFE6D2', bgElevated: '#F7F0DF', bgSunken: '#E2D6BC', overlay: 'rgba(38,28,18,0.35)',
+    fg: '#241C15', fgMuted: '#4A3D2E', fgSubtle: '#7A6A52', fgInverse: BONE,
+    border: '#C9B892', borderMuted: '#DED0AF', borderStrong: GOLD, focus: '#3E5A00',
+    primaryBase: OXBLOOD, primaryHover: '#9A2A22', primaryActive: '#5E1612',
+    primarySubtle: '#E8D2CC', primaryFg: BONE,
+    accent: '#8A6E2E', accent2: '#3E5A00', accent3: '#6B5B45',
+  }),
+});
+const vellumExt: Record<string, string> = {
+  '--bbangto-ext-blackletter-tracking': '0.04em',
+  '--bbangto-ext-crest-frame': `1px solid ${GOLD}`,
+  '--bbangto-ext-arch': '14px 14px 2px 2px',
+  '--bbangto-ext-seal': '9999px',
+  '--bbangto-ext-sunburst': 'radial-gradient(120% 80% at 50% 0%, rgba(232,194,90,0.16), transparent 60%)',
+  '--bbangto-ext-neon-block': '#E8C25A',
+  '--bbangto-ext-grain': 'repeating-linear-gradient(0deg, rgba(0,0,0,0.022) 0 1px, transparent 1px 3px)',
+  '--bbangto-ext-relic-glow': '0 0 0 1px rgba(110,92,58,0.55), 0 0 26px rgba(232,194,90,0.30)',
+};
+
+/* Accent — Midnight Amethyst: 자수정 성소 + 단일 시안 릴릭(옥스블러드→애머시스트, 네온→시안). */
+const amethystFoundations = makeColorway(foundations, {
+  name: 'gothic-medieval-digital-01-amethyst',
+  description: '미드나잇 애머시스트 — 자수정 성소 위 단 하나의 시안 릴릭 블록',
+  semantic: makeSemantic({
+    bg: '#0C0A12', bgElevated: '#171325', bgSunken: '#070510', overlay: 'rgba(8,6,14,0.72)',
+    fg: '#ECE6F5', fgMuted: '#C4BAD6', fgSubtle: '#857A9C', fgInverse: '#0C0A12',
+    border: '#2E2440', borderMuted: '#1E1830', borderStrong: '#8A78C0', focus: '#3DE6FF',
+    primaryBase: '#5A2E8C', primaryHover: '#6E3AA8', primaryActive: '#431F6E',
+    primarySubtle: '#241636', primaryFg: '#ECE6F5',
+    accent: '#C9B8F0', accent2: '#3DE6FF', accent3: '#B9BCC4',
+  }),
+});
+const amethystExt: Record<string, string> = {
+  '--bbangto-ext-blackletter-tracking': '0.04em',
+  '--bbangto-ext-crest-frame': '1px solid #8A78C0',
+  '--bbangto-ext-arch': '14px 14px 2px 2px',
+  '--bbangto-ext-seal': '9999px',
+  '--bbangto-ext-sunburst': 'radial-gradient(120% 80% at 50% 0%, rgba(61,230,255,0.12), transparent 60%)',
+  '--bbangto-ext-neon-block': '#3DE6FF',
+  '--bbangto-ext-grain': GRAIN,
+  '--bbangto-ext-relic-glow': '0 0 0 1px rgba(138,120,192,0.55), 0 0 26px rgba(61,230,255,0.22)',
+};
+
 const STYLE_ID = 'bbangto-gothic-medieval-digital-motif';
 const CSS = `
 .bbangto-gothic-medieval-digital-card {
@@ -130,10 +184,25 @@ const wrapperComponents = makeMotifWrappers({
       fontWeight: 700, letterSpacing: '0.12em', lineHeight: 1.5, whiteSpace: 'nowrap',
       border: `1px solid ${GOLD}`, textTransform: 'uppercase',
     },
+    // 색 결합 해소 — semantic/ext CSS 변수로 색 스킴을 따라가되 기존 hex는 fallback으로 유지.
     tones: {
-      accent: { background: '#2A1B12', color: GOLD_TEXT, borderColor: GOLD },
-      muted: { background: '#1E1A22', color: '#CFC6B4', borderColor: '#3A2A2C' },
-      solid: { background: NEON, color: NEAR_BLACK, borderColor: NEON },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-subtle, #2A1B12)',
+        color: 'var(--bbangto-semantic-foreground-muted, #D8B860)',
+        borderColor: 'var(--bbangto-semantic-border-strong, #6E5C3A)',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-background-sunken, #1E1A22)',
+        color: 'var(--bbangto-semantic-foreground-muted, #CFC6B4)',
+        borderColor: 'var(--bbangto-semantic-border-base, #3A2A2C)',
+      },
+      // solid = 단일 충돌 릴릭 블록: 배경/보더는 ext-neon-block으로 스킴을 따라가고,
+      // 밝은 블록 위 텍스트는 근-블랙으로 고정(모든 스킴에서 neon-block은 밝은 색).
+      solid: {
+        background: 'var(--bbangto-ext-neon-block, #C6FF3D)',
+        color: NEAR_BLACK,
+        borderColor: 'var(--bbangto-ext-neon-block, #C6FF3D)',
+      },
     },
   },
 });
@@ -213,6 +282,12 @@ export const gothicMedievalDigitalStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (근-블랙 · 옥스블러드 · 네온)', foundations, extendedFoundations },
+    { key: 'light', label: '조명 필사본 (양피지 · 잉크 · 골드 리프)', foundations: vellumFoundations, extendedFoundations: vellumExt },
+    { key: 'amethyst', label: '미드나잇 애머시스트 (자수정 · 시안 릴릭)', foundations: amethystFoundations, extendedFoundations: amethystExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { GothicMedievalDigitalShowcase: Showcase },
   guidelines,

@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -76,6 +76,88 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-misregister': `2px 0 0 ${MAGENTA}, -2px 0 0 ${ALARM_RED}`,
 };
 
+/* 색 스킴 변형(tweak) — 하프톤·찢긴 가장자리·스프레이 모티프는 base에서 상속하고 색만 바꾼다. */
+
+// 다크 그라임: 콘크리트 오프블랙 벽 + 형광 옐로 primary가 튀어나오는 야간 스프레이.
+const darkFoundations = makeColorway(foundations, {
+  name: 'punk-grunge-graffiti-01-dark',
+  description: '펑크 그래피티 다크 — 콘크리트 오프블랙 벽 + 형광 옐로 스프레이 스폿',
+  semantic: makeSemantic({
+    bg: '#1C1815',
+    bgElevated: '#26221D',
+    bgSunken: '#100D0A',
+    overlay: 'rgba(0,0,0,0.66)',
+    fg: PHOTOCOPY,
+    fgMuted: '#C9C4B9',
+    fgSubtle: '#8F897E',
+    fgInverse: INK,
+    border: '#3A352F',
+    borderMuted: '#2A2621',
+    borderStrong: PHOTOCOPY,
+    focus: SPOT_YELLOW,
+    primaryBase: SPOT_YELLOW,
+    primaryHover: '#F2FF4D',
+    primaryActive: '#CDE000',
+    primarySubtle: '#2E2E0A',
+    primaryFg: INK,
+    accent: SPOT_YELLOW,
+    accent2: MAGENTA,
+    accent3: ALARM_RED,
+  }),
+});
+const darkExt: Record<string, string> = {
+  '--bbangto-ext-halftone': 'radial-gradient(circle, rgba(244,242,236,0.14) 1px, transparent 1.4px)',
+  '--bbangto-ext-photocopy-grain': 'contrast(1.18) grayscale(0.15) brightness(0.98)',
+  '--bbangto-ext-torn-edge': extendedFoundations['--bbangto-ext-torn-edge'],
+  '--bbangto-ext-spray': `radial-gradient(circle at 20% 30%, ${MAGENTA} 0 2px, transparent 3px), radial-gradient(circle at 72% 64%, ${SPOT_YELLOW} 0 1.5px, transparent 2.5px)`,
+  '--bbangto-ext-scribble': `repeating-linear-gradient(135deg, ${PHOTOCOPY} 0 2px, transparent 2px 5px)`,
+  '--bbangto-ext-tape-grunge': 'rgba(232,255,0,0.42)',
+  '--bbangto-ext-marker-stroke': `linear-gradient(${SPOT_YELLOW}, ${SPOT_YELLOW})`,
+  '--bbangto-ext-rotate-jitter': '-1.5deg',
+  '--bbangto-ext-spot-color': SPOT_YELLOW,
+  '--bbangto-ext-misregister': `2px 0 0 ${MAGENTA}, -2px 0 0 ${ALARM_RED}`,
+};
+
+// 라이엇 마젠타: 복사기 화이트 위에 핫 마젠타 primary + 알람 레드 포커스로 충돌시키는 포스터.
+const riotFoundations = makeColorway(foundations, {
+  name: 'punk-grunge-graffiti-01-riot',
+  description: '펑크 그래피티 라이엇 — 복사기 화이트 위 핫 마젠타 스폿 + 알람 레드 포커스',
+  semantic: makeSemantic({
+    bg: PHOTOCOPY,
+    bgElevated: '#FFFFFF',
+    bgSunken: '#E4DFD5',
+    overlay: 'rgba(20,17,15,0.62)',
+    fg: INK,
+    fgMuted: '#3A352F',
+    fgSubtle: '#6B655C',
+    fgInverse: '#FFFFFF',
+    border: '#1A1714',
+    borderMuted: '#C9C3B7',
+    borderStrong: MAGENTA,
+    focus: ALARM_RED,
+    primaryBase: MAGENTA,
+    primaryHover: '#E01F63',
+    primaryActive: '#C01351',
+    primarySubtle: '#FFE0EC',
+    primaryFg: INK,
+    accent: MAGENTA,
+    accent2: SPOT_YELLOW,
+    accent3: ALARM_RED,
+  }),
+});
+const riotExt: Record<string, string> = {
+  '--bbangto-ext-halftone': extendedFoundations['--bbangto-ext-halftone'],
+  '--bbangto-ext-photocopy-grain': extendedFoundations['--bbangto-ext-photocopy-grain'],
+  '--bbangto-ext-torn-edge': extendedFoundations['--bbangto-ext-torn-edge'],
+  '--bbangto-ext-spray': `radial-gradient(circle at 20% 30%, ${MAGENTA} 0 2px, transparent 3px), radial-gradient(circle at 72% 64%, ${ALARM_RED} 0 1.5px, transparent 2.5px)`,
+  '--bbangto-ext-scribble': `repeating-linear-gradient(135deg, ${INK} 0 2px, transparent 2px 5px)`,
+  '--bbangto-ext-tape-grunge': 'rgba(255,45,120,0.45)',
+  '--bbangto-ext-marker-stroke': `linear-gradient(${MAGENTA}, ${MAGENTA})`,
+  '--bbangto-ext-rotate-jitter': '-1.5deg',
+  '--bbangto-ext-spot-color': MAGENTA,
+  '--bbangto-ext-misregister': `2px 0 0 ${MAGENTA}, -2px 0 0 ${ALARM_RED}`,
+};
+
 const STYLE_ID = 'bbangto-punk-grunge-graffiti-motif';
 const CSS = `
 .bbangto-punk-grunge-graffiti-card {
@@ -142,10 +224,20 @@ const wrapperComponents = makeMotifWrappers({
       fontSize: 11, fontWeight: 800, letterSpacing: '0.08em', lineHeight: 1.4,
       textTransform: 'uppercase', whiteSpace: 'nowrap', transform: 'rotate(-2deg)',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: INK, color: SPOT_YELLOW },
-      muted: { background: NEWSPRINT, color: INK },
-      solid: { background: MAGENTA, color: INK },
+      accent: {
+        background: `var(--bbangto-semantic-primary-base, ${INK})`,
+        color: `var(--bbangto-semantic-primary-foreground, ${SPOT_YELLOW})`,
+      },
+      muted: {
+        background: `var(--bbangto-semantic-background-sunken, ${NEWSPRINT})`,
+        color: `var(--bbangto-semantic-foreground-base, ${INK})`,
+      },
+      solid: {
+        background: `var(--bbangto-semantic-border-focus, ${MAGENTA})`,
+        color: `var(--bbangto-semantic-foreground-base, ${INK})`,
+      },
     },
   },
 });
@@ -225,6 +317,12 @@ export const punkGrungeGraffitiStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (뉴스프린트 + 오프블랙)', foundations, extendedFoundations },
+    { key: 'dark', label: '다크 (콘크리트 벽 + 형광 옐로)', foundations: darkFoundations, extendedFoundations: darkExt },
+    { key: 'riot', label: '라이엇 (핫 마젠타 + 알람 레드)', foundations: riotFoundations, extendedFoundations: riotExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { PunkGrungeGraffitiShowcase: Showcase },
   guidelines,

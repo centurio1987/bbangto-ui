@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -77,6 +77,60 @@ const extendedFoundations: Record<string, string> = {
     'radial-gradient(var(--bbangto-ext-riso-ink-1, #EC008C) 1px, transparent 1.5px)',
 };
 
+/* 색 스킴 변형(tweak) — 종이/그레인/망점/미스레지스트레이션 모티프는 base에서 상속하고 잉크·종이 색만 교체. */
+
+const darkFoundations = makeColorway(foundations, {
+  name: 'risograph-print-01-dark',
+  description: '리소 나이트 인쇄 — 검푸른 잉크 종이 위에 형광 스팟 잉크를 screen으로 올린 다크 스킴',
+  semantic: makeSemantic({
+    bg: '#1A1424', bgElevated: '#241A33', bgSunken: '#100C18', overlay: 'rgba(0,0,0,0.55)',
+    fg: '#F4F0E6', fgMuted: '#C7BEDA', fgSubtle: '#948BAA', fgInverse: '#241A33',
+    border: '#3D3352', borderMuted: '#2A2238', borderStrong: '#5E5278', focus: '#FF3FA8',
+    primaryBase: '#4E6ACB', primaryHover: '#6580D8', primaryActive: '#B9C7F2',
+    primarySubtle: '#2A2E5C', primaryFg: '#FFFFFF',
+    accent: '#FF3FA8', accent2: '#6E8FE0', accent3: '#FFE800',
+  }),
+});
+const darkExt: Record<string, string> = {
+  '--bbangto-ext-riso-paper': '#1A1424',
+  '--bbangto-ext-riso-ink-1': '#FF3FA8',
+  '--bbangto-ext-riso-ink-2': '#6E8FE0',
+  '--bbangto-ext-riso-ink-3': '#FFE800',
+  '--bbangto-ext-riso-blend': 'screen',
+  '--bbangto-ext-riso-ink-opacity': '0.85',
+  '--bbangto-ext-riso-misregister-x': '2px',
+  '--bbangto-ext-riso-misregister-y': '3px',
+  '--bbangto-ext-riso-grain': 'radial-gradient(rgba(244,240,230,0.10) 0.6px, transparent 0.7px)',
+  '--bbangto-ext-riso-halftone':
+    'radial-gradient(var(--bbangto-ext-riso-ink-1, #FF3FA8) 1px, transparent 1.5px)',
+};
+
+const fluoroFoundations = makeColorway(foundations, {
+  name: 'risograph-print-01-fluoro',
+  description: '리소 플루오 — 크림 종이 위 primary 잉크를 형광 마젠타로, 강조를 블루로 뒤집은 라이트 스킴',
+  semantic: makeSemantic({
+    bg: '#F4F0E6', bgElevated: '#FAF7EF', bgSunken: '#ECE6D6', overlay: 'rgba(36,26,51,0.55)',
+    fg: '#241A33', fgMuted: '#4A3F63', fgSubtle: '#6E6450', fgInverse: '#FAF7EF',
+    border: '#D8CFB8', borderMuted: '#E6DECB', borderStrong: '#BCAF8E', focus: '#2D4DA7',
+    primaryBase: '#EC008C', primaryHover: '#CE0079', primaryActive: '#8F004F',
+    primarySubtle: '#FBD6EA', primaryFg: '#FFFFFF',
+    accent: '#2D4DA7', accent2: '#EC008C', accent3: '#FFE800',
+  }),
+});
+const fluoroExt: Record<string, string> = {
+  '--bbangto-ext-riso-paper': '#F4F0E6',
+  '--bbangto-ext-riso-ink-1': '#2D4DA7',
+  '--bbangto-ext-riso-ink-2': '#EC008C',
+  '--bbangto-ext-riso-ink-3': '#FFE800',
+  '--bbangto-ext-riso-blend': 'multiply',
+  '--bbangto-ext-riso-ink-opacity': '0.85',
+  '--bbangto-ext-riso-misregister-x': '2px',
+  '--bbangto-ext-riso-misregister-y': '3px',
+  '--bbangto-ext-riso-grain': 'radial-gradient(rgba(36,26,51,0.10) 0.6px, transparent 0.7px)',
+  '--bbangto-ext-riso-halftone':
+    'radial-gradient(var(--bbangto-ext-riso-ink-1, #2D4DA7) 1px, transparent 1.5px)',
+};
+
 const STYLE_ID = 'bbangto-risograph-print-motif';
 const CSS = `
 .bbangto-risograph-print-card {
@@ -149,11 +203,22 @@ const wrapperComponents = makeMotifWrappers({
       fontWeight: 700, letterSpacing: '0.1em', lineHeight: 1.5, whiteSpace: 'nowrap',
       textTransform: 'uppercase',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
       // 스탬프형 잉크 라벨: 단색 잉크 면 또는 outline.
-      accent: { background: MAGENTA, color: '#FFFFFF' },
-      muted: { background: 'transparent', color: BLUE, boxShadow: `inset 0 0 0 1.5px ${BLUE}` },
-      solid: { background: YELLOW, color: INK },
+      accent: {
+        background: `var(--bbangto-semantic-primary-base, ${MAGENTA})`,
+        color: 'var(--bbangto-semantic-primary-foreground, #FFFFFF)',
+      },
+      muted: {
+        background: 'transparent',
+        color: `var(--bbangto-semantic-primary-base, ${BLUE})`,
+        boxShadow: `inset 0 0 0 1.5px var(--bbangto-semantic-primary-base, ${BLUE})`,
+      },
+      solid: {
+        background: `var(--bbangto-semantic-primary-subtle, ${YELLOW})`,
+        color: `var(--bbangto-semantic-primary-active, ${INK})`,
+      },
     },
   },
 });
@@ -233,6 +298,12 @@ export const risographPrintStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (크림 종이 · 블루 잉크)', foundations, extendedFoundations },
+    { key: 'dark', label: '나이트 (검푸른 잉크지 · 형광 스팟)', foundations: darkFoundations, extendedFoundations: darkExt },
+    { key: 'fluoro', label: '플루오 (마젠타 primary · 블루 강조)', foundations: fluoroFoundations, extendedFoundations: fluoroExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { RisographPrintShowcase: Showcase },
   guidelines,

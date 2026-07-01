@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -70,6 +70,52 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-bloom-glow': '0 0 24px rgba(247,231,238,0.85)',
 };
 
+/* 색 스킴 변형(tweak) — 꽃잎 radius·라인아트·petal 카드/pill 버튼 모티프는 base에서 상속. */
+
+// 문라이트 나이트 가든 — 딥 플럼 페이퍼 위 밝은 블러시 로즈, 흰 라인아트가 은은히 빛난다.
+const nightFoundations = makeColorway(foundations, {
+  name: 'romantic-botanical-01-night',
+  description: '문라이트 나이트 가든 — 딥 플럼 배경 + 밝은 블러시 로즈, 달빛 세이지/라일락 라인아트',
+  semantic: makeSemantic({
+    bg: '#1E1A22', bgElevated: '#29232F', bgSunken: '#16131A', overlay: 'rgba(0,0,0,0.55)',
+    fg: '#F2ECEF', fgMuted: '#C6BCC6', fgSubtle: '#948C97', fgInverse: '#1E1A22',
+    border: '#3D3543', borderMuted: '#2A2430', borderStrong: '#5A4F60', focus: '#E9A6C0',
+    primaryBase: '#E58AAB', primaryHover: '#EFA0BD', primaryActive: '#F2B4CB',
+    primarySubtle: '#43304A', primaryFg: '#2A1520',
+    accent: '#9FC49A', accent2: '#B9A6DE', accent3: '#8FB6D6',
+  }),
+});
+const nightExt: Record<string, string> = {
+  '--bbangto-ext-botanical-line': 'rgba(255,255,255,0.85)',
+  '--bbangto-ext-leaf-outline': '1.5px solid rgba(159,196,154,0.55)',
+  '--bbangto-ext-butterfly': '#B9A6DE',
+  '--bbangto-ext-petal-radius': '24px 32px 24px 32px',
+  '--bbangto-ext-garden-gradient': 'linear-gradient(180deg, #241C2E 0%, #2A1E2C 48%, #1C2620 100%)',
+  '--bbangto-ext-bloom-glow': '0 0 24px rgba(229,138,171,0.35)',
+};
+
+// 세이지 가든 액센트 — 크림-그린 페이퍼 위 딥 세이지 primary(로즈는 accent로 전환).
+const sageFoundations = makeColorway(foundations, {
+  name: 'romantic-botanical-01-sage',
+  description: '세이지 가든 — 크림-그린 페이퍼 + 딥 세이지 primary, 로즈/라일락 accent 라인아트',
+  semantic: makeSemantic({
+    bg: '#F6F8F2', bgElevated: '#FFFFFF', bgSunken: '#EBF0E4', overlay: 'rgba(50,60,45,0.42)',
+    fg: '#232A20', fgMuted: '#4F5849', fgSubtle: '#7C846F', fgInverse: '#FFFFFF',
+    border: '#DCE5D2', borderMuted: '#EAF0E2', borderStrong: '#C3D0B4', focus: '#3E5A38',
+    primaryBase: '#4C6B47', primaryHover: '#405C3C', primaryActive: '#34492F',
+    primarySubtle: '#E1EDD8', primaryFg: '#FFFFFF',
+    accent: ROSE, accent2: LILAC, accent3: '#6A93B0',
+  }),
+});
+const sageExt: Record<string, string> = {
+  '--bbangto-ext-botanical-line': 'rgba(255,255,255,0.92)',
+  '--bbangto-ext-leaf-outline': '1.5px solid rgba(76,107,71,0.55)',
+  '--bbangto-ext-butterfly': LILAC,
+  '--bbangto-ext-petal-radius': '24px 32px 24px 32px',
+  '--bbangto-ext-garden-gradient': 'linear-gradient(180deg, #E4F0EC 0%, #EFF3E7 48%, #E9F1DE 100%)',
+  '--bbangto-ext-bloom-glow': '0 0 24px rgba(225,237,216,0.85)',
+};
+
 const STYLE_ID = 'bbangto-romantic-botanical-motif';
 const CSS = `
 .bbangto-romantic-botanical-card {
@@ -116,10 +162,20 @@ const wrapperComponents = makeMotifWrappers({
       borderRadius: 999, fontFamily: "'Nunito Sans', system-ui, sans-serif", fontSize: 11,
       fontWeight: 600, letterSpacing: '0.05em', lineHeight: 1.5, whiteSpace: 'nowrap',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: '#F7E7EE', color: ROSE },
-      muted: { background: '#F1EAEF', color: '#5A5560' },
-      solid: { background: SAGE, color: '#fff' },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-subtle, #F7E7EE)',
+        color: 'var(--bbangto-semantic-primary-base, #9E3F63)',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-background-sunken, #F1EAEF)',
+        color: 'var(--bbangto-semantic-foreground-muted, #5A5560)',
+      },
+      solid: {
+        background: 'var(--bbangto-semantic-primary-base, #5E7A5A)',
+        color: 'var(--bbangto-semantic-primary-foreground, #fff)',
+      },
     },
   },
 });
@@ -198,6 +254,12 @@ export const romanticBotanicalStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (파스텔 가든 · 로즈)', foundations, extendedFoundations },
+    { key: 'night', label: '문라이트 나이트 가든 (다크)', foundations: nightFoundations, extendedFoundations: nightExt },
+    { key: 'sage', label: '세이지 가든 액센트', foundations: sageFoundations, extendedFoundations: sageExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { RomanticBotanicalShowcase: Showcase },
   guidelines,

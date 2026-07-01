@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -57,6 +57,53 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-chrome': 'linear-gradient(150deg, #FBFCFE 0%, #C7D0DE 28%, #8E99AE 52%, #C7D0DE 74%, #FBFCFE 100%)',
   '--bbangto-ext-gloss': 'linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.28) 46%, rgba(255,255,255,0) 60%)',
   '--bbangto-ext-glow': '0 0 0 2px rgba(255,79,216,0.45), 0 0 22px rgba(79,224,255,0.55)',
+  '--bbangto-ext-neon-pink': NEON_PINK,
+  '--bbangto-ext-neon-cyan': NEON_CYAN,
+  '--bbangto-ext-neon-lime': NEON_LIME,
+};
+
+/* 색 스킴 변형(colorway) — 크롬·글로시·버블 모티프(래퍼 CSS/shape)는 base에서 상속. */
+
+// 다크 — 미드나이트 스페이스 크롬 위 핑크·시안 네온(밝은 fg + 어두운 bg).
+const darkFoundations = makeColorway(foundations, {
+  name: 'y2k-futurism-01-dark',
+  description: 'Y2K 다크 — 미드나이트 스페이스 크롬 + 핑크·시안 네온 글로우',
+  semantic: makeSemantic({
+    bg: '#0B0A1F', bgElevated: '#16132E', bgSunken: '#070610', overlay: 'rgba(0,0,0,0.6)',
+    fg: '#EAF0FF', fgMuted: '#B9C0E0', fgSubtle: '#8A90B8', fgInverse: '#0B0A1F',
+    border: '#322C55', borderMuted: '#211D3D', borderStrong: '#5A5290', focus: '#B98CFF',
+    primaryBase: '#FF6FE0', primaryHover: '#FF52D4', primaryActive: '#E635BE',
+    primarySubtle: 'rgba(255,111,224,0.20)', primaryFg: '#240C20',
+    accent: NEON_CYAN, accent2: NEON_LIME, accent3: '#FF6FE0',
+  }),
+});
+const darkExt: Record<string, string> = {
+  '--bbangto-ext-chrome': 'linear-gradient(150deg, #3A3660 0%, #14122B 28%, #4B4780 52%, #14122B 74%, #3A3660 100%)',
+  '--bbangto-ext-gloss': 'linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.06) 46%, rgba(255,255,255,0) 60%)',
+  '--bbangto-ext-glow': '0 0 0 2px rgba(255,111,224,0.55), 0 0 24px rgba(79,224,255,0.65)',
+  '--bbangto-ext-neon-pink': '#FF6FE0',
+  '--bbangto-ext-neon-cyan': NEON_CYAN,
+  '--bbangto-ext-neon-lime': NEON_LIME,
+};
+
+// 시안 — 라이트 실버 베이스 유지, 강조색(primary)을 네온 핑크→네온 시안으로 전환(accent 변형).
+const cyanFoundations = makeColorway(foundations, {
+  name: 'y2k-futurism-01-cyan',
+  description: 'Y2K 시안 액센트 — 라이트 실버 베이스 + 네온 시안 강조 전환',
+  semantic: makeSemantic({
+    bg: 'linear-gradient(160deg, #EEF2F8 0%, #DCE3EE 52%, #E7ECF4 100%)',
+    bgElevated: '#FBFCFE', bgSunken: '#E2E7F0', overlay: 'rgba(23,20,48,0.42)',
+    fg: INK, fgMuted: '#4A4770', fgSubtle: '#6E6B92', fgInverse: '#FFFFFF',
+    border: '#C2CAD9', borderMuted: '#D9DEE9', borderStrong: '#9AA4BA', focus: '#0E7C99',
+    primaryBase: NEON_CYAN, primaryHover: '#33D4F5', primaryActive: '#16B8D9',
+    primarySubtle: 'rgba(79,224,255,0.18)', primaryFg: '#043440',
+    accent: NEON_PINK, accent2: NEON_LIME, accent3: NEON_CYAN,
+  }),
+});
+const cyanExt: Record<string, string> = {
+  '--bbangto-ext-chrome': 'linear-gradient(150deg, #FBFCFE 0%, #C7D0DE 28%, #8E99AE 52%, #C7D0DE 74%, #FBFCFE 100%)',
+  '--bbangto-ext-gloss': 'linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.28) 46%, rgba(255,255,255,0) 60%)',
+  '--bbangto-ext-glow': '0 0 0 2px rgba(79,224,255,0.50), 0 0 22px rgba(79,224,255,0.6)',
   '--bbangto-ext-neon-pink': NEON_PINK,
   '--bbangto-ext-neon-cyan': NEON_CYAN,
   '--bbangto-ext-neon-lime': NEON_LIME,
@@ -132,10 +179,23 @@ const wrapperComponents = makeMotifWrappers({
       fontWeight: 700, letterSpacing: '0.06em', lineHeight: 1.6, whiteSpace: 'nowrap',
       boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.7)',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { backgroundColor: 'rgba(79,224,255,0.20)', color: '#063743', border: '1px solid rgba(79,224,255,0.65)' },
-      muted: { backgroundColor: 'rgba(23,20,48,0.06)', color: '#4A4770', border: '1px solid #C2CAD9' },
-      solid: { backgroundColor: NEON_PINK, color: '#240C20', border: '1px solid rgba(255,255,255,0.7)' },
+      accent: {
+        backgroundColor: 'var(--bbangto-semantic-primary-subtle, rgba(79,224,255,0.20))',
+        color: 'var(--bbangto-semantic-primary-active, #063743)',
+        border: '1px solid rgba(79,224,255,0.65)',
+      },
+      muted: {
+        backgroundColor: 'var(--bbangto-semantic-background-sunken, rgba(23,20,48,0.06))',
+        color: 'var(--bbangto-semantic-foreground-muted, #4A4770)',
+        border: '1px solid var(--bbangto-semantic-border-base, #C2CAD9)',
+      },
+      solid: {
+        backgroundColor: 'var(--bbangto-semantic-primary-base, #FF4FD8)',
+        color: 'var(--bbangto-semantic-primary-foreground, #240C20)',
+        border: '1px solid rgba(255,255,255,0.7)',
+      },
     },
   },
 });
@@ -205,6 +265,12 @@ export const y2kFuturismStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (라이트 실버 + 핑크 네온)', foundations, extendedFoundations },
+    { key: 'dark', label: '다크 (미드나이트 크롬)', foundations: darkFoundations, extendedFoundations: darkExt },
+    { key: 'cyan', label: '시안 액센트 (강조 전환)', foundations: cyanFoundations, extendedFoundations: cyanExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { Y2KShowcase: Showcase },
   guidelines,

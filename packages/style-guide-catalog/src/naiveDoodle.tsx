@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -72,6 +72,54 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-marker-palette': `${CRAYON_RED}, ${MARKER_BLUE}, ${MARKER_YELLOW}, ${MARKER_PINK}, ${MARKER_GREEN}`,
 };
 
+/* 색 스킴 변형(colorway) — 낙서 모티프(wobble radius·오프셋 그림자·회전)는 base에서 상속, 색만 교체. */
+
+const CHALK = '#F5F1E6';
+
+const darkFoundations = makeColorway(foundations, {
+  name: 'naive-doodle-01-dark',
+  description: '크레용 낙서 다크 — 칠판(잉크 슬레이트) 배경 위 분필 오프화이트 윤곽선과 형광 마커 다색',
+  semantic: makeSemantic({
+    bg: '#22252E', bgElevated: '#2A2E3A', bgSunken: '#191C24', overlay: 'rgba(0,0,0,0.55)',
+    fg: CHALK, fgMuted: '#C4C0B4', fgSubtle: '#918D83', fgInverse: '#1F2430',
+    border: CHALK, borderMuted: '#4A4F5C', borderStrong: '#FFFFFF', focus: '#6FA8FF',
+    primaryBase: '#FF6B6B', primaryHover: '#FF8585', primaryActive: '#E05252',
+    primarySubtle: '#4A2A2A', primaryFg: '#22252E',
+    accent: '#6FA8FF', accent2: '#FFD23F', accent3: '#5BD98A',
+  }),
+});
+const darkExt: Record<string, string> = {
+  '--bbangto-ext-scribble-stroke': `2.5px solid ${CHALK}`,
+  '--bbangto-ext-scribble-fill': `radial-gradient(circle at 30% 20%, rgba(255,210,63,0.20), transparent 60%), radial-gradient(circle at 80% 70%, rgba(111,168,255,0.18), transparent 55%)`,
+  '--bbangto-ext-doodle-arrow': `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 24'%3E%3Cpath d='M2 14 C14 4 30 4 44 12' fill='none' stroke='%23F5F1E6' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M44 12 L36 8 M44 12 L38 18' fill='none' stroke='%23F5F1E6' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E")`,
+  '--bbangto-ext-wobble-path': WOBBLE_RADIUS,
+  '--bbangto-ext-crayon-texture': `repeating-linear-gradient(48deg, rgba(245,241,230,0.06) 0 2px, transparent 2px 5px)`,
+  '--bbangto-ext-marker-palette': `#FF6B6B, #6FA8FF, #FFD23F, #FF8AC6, #5BD98A`,
+};
+
+const NAVY = '#17233A';
+
+const blueFoundations = makeColorway(foundations, {
+  name: 'naive-doodle-01-blue',
+  description: '크레용 낙서 블루 — 쿨 오프화이트 종이 위 마커 블루 주색과 핑크 포커스로 전환한 강조 변형',
+  semantic: makeSemantic({
+    bg: '#F7FBFF', bgElevated: '#FFFFFF', bgSunken: '#E8F0FA', overlay: 'rgba(23,35,58,0.45)',
+    fg: NAVY, fgMuted: '#46536B', fgSubtle: '#78829A', fgInverse: '#FFFFFF',
+    border: NAVY, borderMuted: '#BFCBDD', borderStrong: '#0C1526', focus: '#E5559B',
+    primaryBase: '#2D6FE0', primaryHover: '#205BC4', primaryActive: '#184AA0',
+    primarySubtle: '#DCEAFC', primaryFg: '#FFFFFF',
+    accent: '#E5559B', accent2: '#F2B705', accent3: '#2E9E5B',
+  }),
+});
+const blueExt: Record<string, string> = {
+  '--bbangto-ext-scribble-stroke': `2.5px solid ${NAVY}`,
+  '--bbangto-ext-scribble-fill': `radial-gradient(circle at 30% 20%, rgba(242,183,5,0.16), transparent 60%), radial-gradient(circle at 80% 70%, rgba(45,111,224,0.20), transparent 55%)`,
+  '--bbangto-ext-doodle-arrow': `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 24'%3E%3Cpath d='M2 14 C14 4 30 4 44 12' fill='none' stroke='%2317233A' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M44 12 L36 8 M44 12 L38 18' fill='none' stroke='%2317233A' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E")`,
+  '--bbangto-ext-wobble-path': WOBBLE_RADIUS,
+  '--bbangto-ext-crayon-texture': `repeating-linear-gradient(48deg, rgba(23,35,58,0.06) 0 2px, transparent 2px 5px)`,
+  '--bbangto-ext-marker-palette': `#2D6FE0, #E5559B, #F2B705, #2E9E5B, #D62828`,
+};
+
 const STYLE_ID = 'bbangto-naive-doodle-motif';
 const CSS = `
 .bbangto-naive-doodle-card {
@@ -134,10 +182,20 @@ const wrapperComponents = makeMotifWrappers({
       fontWeight: 700, letterSpacing: '0.04em', lineHeight: 1.5, whiteSpace: 'nowrap',
       transform: 'rotate(-1.5deg)',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: '#E7F0FD', color: MARKER_BLUE },
-      muted: { background: '#F4F1E8', color: '#4A4F5C' },
-      solid: { background: CRAYON_RED, color: '#fff' },
+      accent: {
+        background: `var(--bbangto-semantic-primary-subtle, #E7F0FD)`,
+        color: `var(--bbangto-semantic-primary-active, ${MARKER_BLUE})`,
+      },
+      muted: {
+        background: `var(--bbangto-semantic-background-sunken, #F4F1E8)`,
+        color: `var(--bbangto-semantic-foreground-muted, #4A4F5C)`,
+      },
+      solid: {
+        background: `var(--bbangto-semantic-primary-base, ${CRAYON_RED})`,
+        color: `var(--bbangto-semantic-primary-foreground, #fff)`,
+      },
     },
   },
 });
@@ -218,6 +276,12 @@ export const naiveDoodleStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (크레용 레드 · 오프화이트 노트)', foundations, extendedFoundations },
+    { key: 'dark', label: '다크 (칠판 · 분필 윤곽선)', foundations: darkFoundations, extendedFoundations: darkExt },
+    { key: 'blue', label: '마커 블루 액센트 (쿨 종이)', foundations: blueFoundations, extendedFoundations: blueExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { NaiveDoodleShowcase: Showcase },
   guidelines,

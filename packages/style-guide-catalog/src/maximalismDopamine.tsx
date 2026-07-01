@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -64,6 +64,52 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-clash-violet': VIOLET,
 };
 
+/* 색 스킴 변형(colorway) — 겹침·보더·오프셋 그림자 모티프는 base에서 상속, 색만 교체. */
+
+const darkFoundations = makeColorway(foundations, {
+  name: 'maximalism-dopamine-01-dark',
+  description: '도파민 다크 — 칠흑 캔버스 위 네온 마젠타·시안 충돌색',
+  semantic: makeSemantic({
+    bg: '#120A16', bgElevated: '#1C1122', bgSunken: '#0A050D', overlay: 'rgba(0,0,0,0.60)',
+    fg: '#FDF3E7', fgMuted: 'rgba(253,243,231,0.72)', fgSubtle: 'rgba(253,243,231,0.50)', fgInverse: '#120A16',
+    border: '#FDF3E7', borderMuted: 'rgba(253,243,231,0.28)', borderStrong: '#FFFFFF', focus: '#C4A0FF',
+    primaryBase: '#FF4FA8', primaryHover: '#FF6BB6', primaryActive: '#FF2E97',
+    primarySubtle: 'rgba(255,79,168,0.22)', primaryFg: '#FFFFFF',
+    accent: CYAN, accent2: '#C4A0FF', accent3: YELLOW,
+  }),
+});
+const darkExt: Record<string, string> = {
+  '--bbangto-ext-overlap': '-28px',
+  '--bbangto-ext-outline-text': '#FDF3E7',
+  '--bbangto-ext-pattern':
+    'repeating-linear-gradient(45deg, rgba(255,79,168,0.22) 0 10px, rgba(0,229,255,0.22) 10px 20px)',
+  '--bbangto-ext-clash-cyan': CYAN,
+  '--bbangto-ext-clash-yellow': YELLOW,
+  '--bbangto-ext-clash-violet': '#C4A0FF',
+};
+
+const voltageFoundations = makeColorway(foundations, {
+  name: 'maximalism-dopamine-01-voltage',
+  description: '도파민 볼티지 — 라벤더 라이트 캔버스, 바이올렛 primary + 옐로/마젠타 강조 전환',
+  semantic: makeSemantic({
+    bg: '#F2F0FF', bgElevated: '#FFFFFF', bgSunken: '#E6E1FF', overlay: 'rgba(22,16,31,0.55)',
+    fg: '#16101F', fgMuted: 'rgba(22,16,31,0.72)', fgSubtle: 'rgba(22,16,31,0.52)', fgInverse: '#FFFFFF',
+    border: '#16101F', borderMuted: 'rgba(22,16,31,0.28)', borderStrong: '#000000', focus: MAGENTA,
+    primaryBase: VIOLET, primaryHover: '#6A3FE6', primaryActive: '#5A32C8',
+    primarySubtle: 'rgba(122,77,255,0.16)', primaryFg: '#FFFFFF',
+    accent: MAGENTA, accent2: CYAN, accent3: YELLOW,
+  }),
+});
+const voltageExt: Record<string, string> = {
+  '--bbangto-ext-overlap': '-28px',
+  '--bbangto-ext-outline-text': '#16101F',
+  '--bbangto-ext-pattern':
+    'repeating-linear-gradient(45deg, rgba(122,77,255,0.18) 0 10px, rgba(255,230,0,0.18) 10px 20px)',
+  '--bbangto-ext-clash-cyan': CYAN,
+  '--bbangto-ext-clash-yellow': YELLOW,
+  '--bbangto-ext-clash-violet': VIOLET,
+};
+
 const STYLE_ID = 'bbangto-maximalism-dopamine-01-motif';
 const CSS = `
 .bbangto-max-btn {
@@ -122,10 +168,20 @@ const wrapperComponents = makeMotifWrappers({
       fontWeight: 800, letterSpacing: '0.06em', lineHeight: 1.5, whiteSpace: 'nowrap',
       textTransform: 'uppercase', border: `2px solid ${INK}`,
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { backgroundColor: CYAN, color: INK },
-      muted: { backgroundColor: '#FFFFFF', color: INK },
-      solid: { backgroundColor: VIOLET, color: '#FFFFFF' },
+      accent: {
+        backgroundColor: `var(--bbangto-semantic-primary-subtle, ${CYAN})`,
+        color: `var(--bbangto-semantic-primary-active, ${INK})`,
+      },
+      muted: {
+        backgroundColor: 'var(--bbangto-semantic-background-sunken, #FFFFFF)',
+        color: `var(--bbangto-semantic-foreground-muted, ${INK})`,
+      },
+      solid: {
+        backgroundColor: `var(--bbangto-semantic-primary-base, ${VIOLET})`,
+        color: 'var(--bbangto-semantic-primary-foreground, #FFFFFF)',
+      },
     },
   },
 });
@@ -195,6 +251,12 @@ export const maximalismDopamineStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (라이트 도파민)', foundations, extendedFoundations },
+    { key: 'dark', label: '다크 (네온 나이트)', foundations: darkFoundations, extendedFoundations: darkExt },
+    { key: 'voltage', label: '볼티지 (바이올렛 액센트)', foundations: voltageFoundations, extendedFoundations: voltageExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { MaxShowcase: Showcase },
   guidelines,

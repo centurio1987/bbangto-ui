@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -65,6 +65,48 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-underline-sketch': TERRACOTTA,
 };
 
+/* 색 스킴 변형(colorway) — 손그림·비틀림·그레인 모티프는 base에서 상속, 색만 교체. */
+
+/* 다크: 어두운 잉크-브라운 종이 + 웜 크림 잉크. 밝은 테라코타 강조. */
+const darkFoundations = makeColorway(foundations, {
+  name: 'humanist-imperfect-01-dark',
+  description: '손그림 다크 — 어두운 잉크-브라운 종이 + 웜 크림 잉크, 밝은 테라코타 강조',
+  semantic: makeSemantic({
+    bg: '#211C18', bgElevated: '#2B2420', bgSunken: '#17130F', overlay: 'rgba(0,0,0,0.55)',
+    fg: '#F3E9DA', fgMuted: '#C9BBA8', fgSubtle: '#9C8E7C', fgInverse: '#211C18',
+    border: '#4A4038', borderMuted: '#352D26', borderStrong: '#6B5E50', focus: '#E8703A',
+    primaryBase: '#E8703A', primaryHover: '#F08650', primaryActive: '#C25A28',
+    primarySubtle: '#3A2A1F', primaryFg: '#211C18',
+    accent: '#E8703A', accent2: '#A8B45C', accent3: '#C9BBA8',
+  }),
+});
+const darkExt: Record<string, string> = {
+  '--bbangto-ext-ink-stroke': '#F3E9DA',
+  '--bbangto-ext-wobble': '0.6deg',
+  '--bbangto-ext-grain': 'rgba(243,233,218,0.05)',
+  '--bbangto-ext-underline-sketch': '#E8703A',
+};
+
+/* 올리브: 라이트 유지, 강조색을 테라코타 → 딥 올리브로 전환한 accent 변형. */
+const oliveFoundations = makeColorway(foundations, {
+  name: 'humanist-imperfect-01-olive',
+  description: '손그림 라이트 — 딥 올리브 강조로 전환한 어스 accent 변형',
+  semantic: makeSemantic({
+    bg: '#F7F6EE', bgElevated: '#FDFCF6', bgSunken: '#EBEADD', overlay: 'rgba(35,38,28,0.50)',
+    fg: '#23261C', fgMuted: '#5A5E48', fgSubtle: '#82866E', fgInverse: '#F7F6EE',
+    border: '#23261C', borderMuted: '#CFCFBB', borderStrong: '#23261C', focus: '#556021',
+    primaryBase: '#556021', primaryHover: '#454E1A', primaryActive: '#363D14',
+    primarySubtle: '#E6E9CF', primaryFg: '#FDFCF6',
+    accent: '#556021', accent2: '#B45309', accent3: '#5A5E48',
+  }),
+});
+const oliveExt: Record<string, string> = {
+  '--bbangto-ext-ink-stroke': '#23261C',
+  '--bbangto-ext-wobble': '0.6deg',
+  '--bbangto-ext-grain': 'rgba(35,38,28,0.04)',
+  '--bbangto-ext-underline-sketch': '#556021',
+};
+
 const STYLE_ID = 'bbangto-humanist-imperfect-motif';
 const CSS = `
 .bbangto-humanist-card {
@@ -127,10 +169,22 @@ const wrapperComponents = makeMotifWrappers({
       borderRadius: '9px 11px 8px 10px', fontFamily: "'Pretendard', 'Inter', system-ui, sans-serif",
       fontSize: 12, fontWeight: 600, letterSpacing: '0.02em', lineHeight: 1.5, whiteSpace: 'nowrap',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: '#F6E5D8', color: TERRACOTTA, border: `1.5px solid ${TERRACOTTA}` },
-      muted: { background: '#FFFDF8', color: INK, border: `1.5px solid ${INK}` },
-      solid: { background: INK, color: '#FBF7EF' },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-subtle, #F6E5D8)',
+        color: 'var(--bbangto-semantic-primary-base, #C2410C)',
+        border: '1.5px solid var(--bbangto-semantic-primary-base, #C2410C)',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-background-elevated, #FFFDF8)',
+        color: 'var(--bbangto-semantic-foreground-base, #2B2420)',
+        border: '1.5px solid var(--bbangto-semantic-border-strong, #2B2420)',
+      },
+      solid: {
+        background: 'var(--bbangto-semantic-foreground-base, #2B2420)',
+        color: 'var(--bbangto-semantic-background-base, #FBF7EF)',
+      },
     },
   },
 });
@@ -207,6 +261,12 @@ export const humanistImperfectStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (테라코타/웜 페이퍼)', foundations, extendedFoundations },
+    { key: 'dark', label: '다크 (잉크-브라운 종이)', foundations: darkFoundations, extendedFoundations: darkExt },
+    { key: 'olive', label: '올리브 강조', foundations: oliveFoundations, extendedFoundations: oliveExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { HumanistShowcase: Showcase },
   guidelines,

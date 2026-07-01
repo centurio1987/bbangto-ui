@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -57,6 +57,51 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-scanline': 'repeating-linear-gradient(0deg, rgba(0,255,209,0.06) 0px, rgba(0,255,209,0.06) 1px, transparent 1px, transparent 3px)',
   '--bbangto-ext-hud-frame': 'rgba(0,255,209,0.70)',
   '--bbangto-ext-glitch': 'rgba(255,42,109,0.65)',
+};
+
+/* 색 스킴 변형 — 클립 모서리·코너 브래킷·스캔라인 모티프는 base에서 상속하고 색만 교체. */
+
+/* daylight HUD — 밝은 콘솔 위 티일 시안 신호(다크 base와 명확히 구분되는 라이트 스킴). */
+const lightFoundations = makeColorway(foundations, {
+  name: 'cyberpunk-hud-01-light',
+  description: 'daylight HUD — 밝은 콘솔 표면 + 티일 시안 신호(라이트)',
+  semantic: makeSemantic({
+    bg: '#EAF4F2', bgElevated: '#FFFFFF', bgSunken: '#DCE9E6', overlay: 'rgba(6,20,18,0.55)',
+    fg: '#06131A', fgMuted: 'rgba(6,19,26,0.72)', fgSubtle: 'rgba(6,19,26,0.50)', fgInverse: '#EAF4F2',
+    border: 'rgba(0,140,122,0.40)', borderMuted: 'rgba(0,140,122,0.18)', borderStrong: 'rgba(0,140,122,0.65)',
+    focus: '#B26A00',
+    primaryBase: '#008C7A', primaryHover: '#00786A', primaryActive: '#00655A',
+    primarySubtle: 'rgba(0,140,122,0.14)', primaryFg: '#FFFFFF',
+    accent: '#008C7A', accent2: '#C2185B', accent3: '#B26A00',
+  }),
+});
+const lightExt: Record<string, string> = {
+  '--bbangto-ext-neon-edge': '0 0 4px rgba(0,140,122,0.45), 0 0 12px rgba(0,140,122,0.22)',
+  '--bbangto-ext-scanline': 'repeating-linear-gradient(0deg, rgba(0,140,122,0.05) 0px, rgba(0,140,122,0.05) 1px, transparent 1px, transparent 3px)',
+  '--bbangto-ext-hud-frame': 'rgba(0,140,122,0.65)',
+  '--bbangto-ext-glitch': 'rgba(194,24,91,0.60)',
+};
+
+/* magenta signal — near-black base 유지, 네온을 시안→마젠타로 전환한 강조 변형. */
+const magentaFoundations = makeColorway(foundations, {
+  name: 'cyberpunk-hud-01-magenta',
+  description: 'magenta signal — near-black + 마젠타 네온 엣지(시안 포커스 강조 변형)',
+  semantic: makeSemantic({
+    bg: 'radial-gradient(120% 120% at 50% 0%, #1A0A14 0%, #0A050B 60%)',
+    bgElevated: 'rgba(255,42,109,0.06)', bgSunken: 'rgba(0,0,0,0.42)', overlay: 'rgba(10,3,8,0.80)',
+    fg: '#FFE9F2', fgMuted: 'rgba(240,200,216,0.82)', fgSubtle: 'rgba(210,160,182,0.60)', fgInverse: '#0A050B',
+    border: 'rgba(255,42,109,0.45)', borderMuted: 'rgba(255,42,109,0.20)', borderStrong: 'rgba(255,42,109,0.72)',
+    focus: NEON_CYAN,
+    primaryBase: NEON_MAGENTA, primaryHover: '#FF5488', primaryActive: '#D91E58',
+    primarySubtle: 'rgba(255,42,109,0.16)', primaryFg: '#160208',
+    accent: NEON_MAGENTA, accent2: NEON_CYAN, accent3: NEON_YELLOW,
+  }),
+});
+const magentaExt: Record<string, string> = {
+  '--bbangto-ext-neon-edge': '0 0 4px rgba(255,42,109,0.80), 0 0 12px rgba(255,42,109,0.45)',
+  '--bbangto-ext-scanline': 'repeating-linear-gradient(0deg, rgba(255,42,109,0.06) 0px, rgba(255,42,109,0.06) 1px, transparent 1px, transparent 3px)',
+  '--bbangto-ext-hud-frame': 'rgba(255,42,109,0.70)',
+  '--bbangto-ext-glitch': 'rgba(0,255,209,0.65)',
 };
 
 const STYLE_ID = 'bbangto-cyberpunk-hud-01-motif';
@@ -150,10 +195,23 @@ const wrapperComponents = makeMotifWrappers({
       textTransform: 'uppercase',
       clipPath: 'polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px))',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: 'rgba(0,255,209,0.14)', color: '#9CFFEC', border: '1px solid rgba(0,255,209,0.55)' },
-      muted: { background: 'rgba(150,184,196,0.10)', color: 'rgba(196,224,232,0.82)', border: '1px solid rgba(150,184,196,0.32)' },
-      solid: { background: NEON_MAGENTA, color: '#0B0207', border: '1px solid rgba(255,42,109,0.70)' },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-subtle, rgba(0,255,209,0.14))',
+        color: 'var(--bbangto-semantic-primary-hover, #9CFFEC)',
+        border: '1px solid var(--bbangto-semantic-primary-base, rgba(0,255,209,0.55))',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-background-sunken, rgba(150,184,196,0.10))',
+        color: 'var(--bbangto-semantic-foreground-muted, rgba(196,224,232,0.82))',
+        border: '1px solid var(--bbangto-semantic-border-muted, rgba(150,184,196,0.32))',
+      },
+      solid: {
+        background: 'var(--bbangto-semantic-primary-base, ' + NEON_MAGENTA + ')',
+        color: 'var(--bbangto-semantic-primary-foreground, #0B0207)',
+        border: '1px solid var(--bbangto-semantic-primary-base, rgba(255,42,109,0.70))',
+      },
     },
   },
 });
@@ -223,6 +281,12 @@ export const cyberpunkHudStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (시안 네온 · near-black)', foundations, extendedFoundations },
+    { key: 'light', label: '데이라이트 HUD (티일 · 라이트)', foundations: lightFoundations, extendedFoundations: lightExt },
+    { key: 'magenta', label: '마젠타 시그널 (강조)', foundations: magentaFoundations, extendedFoundations: magentaExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { CyberShowcase: Showcase },
   guidelines,

@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -62,6 +62,46 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-depth-z': '24px',
   '--bbangto-ext-tilt': '6deg',
   '--bbangto-ext-3d-shadow': '0 18px 40px rgba(0,0,0,0.45)',
+};
+
+/* 색 스킴 변형 — 3D transform·라이팅 모티프는 base에서 상속하고 색만 바꾼다. */
+
+const lightFoundations = makeColorway(foundations, {
+  name: 'spatial-3d-01-light',
+  description: 'Spatial 3D 라이트 — 밝은 스튜디오 배경 + blue 라이팅 강조',
+  semantic: makeSemantic({
+    bg: '#F4F6FB', bgElevated: '#FFFFFF', bgSunken: '#E8ECF4', overlay: 'rgba(15,23,42,0.30)',
+    fg: '#0E1117', fgMuted: '#475569', fgSubtle: '#64748B', fgInverse: '#FFFFFF',
+    border: '#CBD5E1', borderMuted: '#E2E8F0', borderStrong: '#94A3B8', focus: '#2563EB',
+    primaryBase: '#2563EB', primaryHover: '#1D4ED8', primaryActive: '#1E40AF',
+    primarySubtle: 'rgba(37,99,235,0.14)', primaryFg: '#FFFFFF',
+    accent: '#2563EB', accent2: '#7C3AED', accent3: '#64748B',
+  }),
+});
+const lightExt: Record<string, string> = {
+  '--bbangto-ext-perspective': '800px',
+  '--bbangto-ext-depth-z': '24px',
+  '--bbangto-ext-tilt': '6deg',
+  '--bbangto-ext-3d-shadow': '0 18px 40px rgba(15,23,42,0.18)',
+};
+
+const violetFoundations = makeColorway(foundations, {
+  name: 'spatial-3d-01-violet',
+  description: 'Spatial 3D 다크 — violet/magenta 라이팅 강조 변형',
+  semantic: makeSemantic({
+    bg: '#12101A', bgElevated: '#1B1826', bgSunken: '#0D0B14', overlay: 'rgba(0,0,0,0.66)',
+    fg: '#EDE9F4', fgMuted: '#ADA3BE', fgSubtle: '#7C7290', fgInverse: '#12101A',
+    border: '#322B41', borderMuted: '#241F30', borderStrong: '#453B58', focus: '#A855F7',
+    primaryBase: '#8B5CF6', primaryHover: '#7C3AED', primaryActive: '#6D28D9',
+    primarySubtle: 'rgba(139,92,246,0.18)', primaryFg: '#FFFFFF',
+    accent: '#8B5CF6', accent2: '#EC4899', accent3: '#ADA3BE',
+  }),
+});
+const violetExt: Record<string, string> = {
+  '--bbangto-ext-perspective': '800px',
+  '--bbangto-ext-depth-z': '24px',
+  '--bbangto-ext-tilt': '6deg',
+  '--bbangto-ext-3d-shadow': '0 18px 40px rgba(0,0,0,0.48)',
 };
 
 const STYLE_ID = 'bbangto-spatial-3d-motif';
@@ -131,10 +171,22 @@ const wrapperComponents = makeMotifWrappers({
       borderRadius: 999, fontFamily: "'JetBrains Mono', monospace", fontSize: 11,
       fontWeight: 600, letterSpacing: '0.06em', lineHeight: 1.6, whiteSpace: 'nowrap',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: 'rgba(59,130,246,0.16)', color: BLUE, border: '1px solid rgba(59,130,246,0.34)' },
-      muted: { background: 'rgba(154,167,180,0.12)', color: '#9AA7B4', border: '1px solid rgba(154,167,180,0.26)' },
-      solid: { background: `linear-gradient(180deg, ${BLUE}, ${VIOLET})`, color: '#fff' },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-subtle, rgba(59,130,246,0.16))',
+        color: 'var(--bbangto-semantic-primary-base, #3B82F6)',
+        border: '1px solid var(--bbangto-semantic-border-strong, rgba(59,130,246,0.34))',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-background-sunken, rgba(154,167,180,0.12))',
+        color: 'var(--bbangto-semantic-foreground-muted, #9AA7B4)',
+        border: '1px solid var(--bbangto-semantic-border, rgba(154,167,180,0.26))',
+      },
+      solid: {
+        background: `linear-gradient(180deg, var(--bbangto-semantic-primary-base, ${BLUE}), ${VIOLET})`,
+        color: 'var(--bbangto-semantic-primary-foreground, #fff)',
+      },
     },
   },
 });
@@ -205,6 +257,12 @@ export const spatial3dStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (딥 다크 · Blue)', foundations, extendedFoundations },
+    { key: 'light', label: '라이트 (스튜디오 · Blue)', foundations: lightFoundations, extendedFoundations: lightExt },
+    { key: 'violet', label: '바이올렛 액센트 (다크)', foundations: violetFoundations, extendedFoundations: violetExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { Spatial3DShowcase: Showcase },
   guidelines,

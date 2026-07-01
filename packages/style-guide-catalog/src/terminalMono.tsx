@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -64,6 +64,48 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-scanline': 'rgba(63,185,80,0.04)',
 };
 
+/* 색 스킴 변형(tweak) — 모노스페이스·박스보더·각진 콘솔 모티프는 base에서 상속, 색만 교체. */
+
+/* light: 종이 터미널 — 밝은 페이퍼 배경 + 짙은 잉크 그린. base(다크)와 명확히 구분. */
+const PAPER_GREEN = '#1A7F37';
+const paperFoundations = makeColorway(foundations, {
+  name: 'terminal-mono-01-light',
+  description: '종이 터미널 — 밝은 페이퍼 배경 + 짙은 잉크 그린(라이트)',
+  semantic: makeSemantic({
+    bg: '#F4F6F2', bgElevated: '#FFFFFF', bgSunken: '#E7EBE4', overlay: 'rgba(15,26,16,0.35)',
+    fg: '#0F1A10', fgMuted: '#3C4A3C', fgSubtle: '#647063', fgInverse: '#F4F6F2',
+    border: '#C6CEC2', borderMuted: '#DDE3D8', borderStrong: PAPER_GREEN, focus: PAPER_GREEN,
+    primaryBase: PAPER_GREEN, primaryHover: '#166B2E', primaryActive: '#0F5624',
+    primarySubtle: 'rgba(26,127,55,0.12)', primaryFg: '#FFFFFF',
+    accent: PAPER_GREEN, accent2: '#0969DA', accent3: '#9A6700',
+  }),
+});
+const paperExt: Record<string, string> = {
+  '--bbangto-ext-cursor': PAPER_GREEN,
+  '--bbangto-ext-prompt-green': PAPER_GREEN,
+  '--bbangto-ext-scanline': 'rgba(26,127,55,0.05)',
+};
+
+/* amber: 앰버 CRT — 다크 배경 + 앰버 포스포. accent(강조색) 전환 변형. */
+const AMBER = '#E3B341';
+const amberFoundations = makeColorway(foundations, {
+  name: 'terminal-mono-01-amber',
+  description: '앰버 CRT — 다크 콘솔 + 앰버 포스포 강조',
+  semantic: makeSemantic({
+    bg: '#0E0B06', bgElevated: '#161009', bgSunken: '#0A0804', overlay: 'rgba(0,0,0,0.70)',
+    fg: '#F2D3A0', fgMuted: '#C7A56E', fgSubtle: '#8A754C', fgInverse: '#0E0B06',
+    border: '#3A2E17', borderMuted: '#241C0E', borderStrong: AMBER, focus: AMBER,
+    primaryBase: AMBER, primaryHover: '#F0C25A', primaryActive: '#C79A2E',
+    primarySubtle: 'rgba(227,179,65,0.15)', primaryFg: '#0E0B06',
+    accent: AMBER, accent2: '#E8843C', accent3: '#D97757',
+  }),
+});
+const amberExt: Record<string, string> = {
+  '--bbangto-ext-cursor': AMBER,
+  '--bbangto-ext-prompt-green': AMBER,
+  '--bbangto-ext-scanline': 'rgba(227,179,65,0.05)',
+};
+
 const STYLE_ID = 'bbangto-terminal-mono-motif';
 const CSS = `
 .bbangto-term-btn {
@@ -100,12 +142,23 @@ const wrapperComponents = makeMotifWrappers({
       display: 'inline-flex', alignItems: 'center', gap: 6, padding: '2px 9px',
       borderRadius: 0, fontFamily: "'JetBrains Mono', monospace", fontSize: 11,
       fontWeight: 600, letterSpacing: '0.04em', lineHeight: 1.6, whiteSpace: 'nowrap',
-      background: 'transparent', border: `1px solid ${GREEN}`,
+      background: 'transparent', border: `1px solid var(--bbangto-semantic-primary-base, ${GREEN})`,
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { color: GREEN, border: `1px solid ${GREEN}` },
-      muted: { color: '#9DB39A', border: '1px solid #2A332A' },
-      solid: { background: GREEN, color: BG, border: `1px solid ${GREEN}` },
+      accent: {
+        color: 'var(--bbangto-semantic-primary-base, #3FB950)',
+        border: '1px solid var(--bbangto-semantic-primary-base, #3FB950)',
+      },
+      muted: {
+        color: 'var(--bbangto-semantic-foreground-muted, #9DB39A)',
+        border: '1px solid var(--bbangto-semantic-border-base, #2A332A)',
+      },
+      solid: {
+        background: 'var(--bbangto-semantic-primary-base, #3FB950)',
+        color: 'var(--bbangto-semantic-primary-foreground, #0C0E0C)',
+        border: '1px solid var(--bbangto-semantic-primary-base, #3FB950)',
+      },
     },
   },
 });
@@ -171,6 +224,12 @@ export const terminalMonoStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (포스포 그린)', foundations, extendedFoundations },
+    { key: 'light', label: '라이트 (종이 터미널)', foundations: paperFoundations, extendedFoundations: paperExt },
+    { key: 'amber', label: '앰버 CRT', foundations: amberFoundations, extendedFoundations: amberExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { TerminalShowcase: Showcase },
   guidelines,

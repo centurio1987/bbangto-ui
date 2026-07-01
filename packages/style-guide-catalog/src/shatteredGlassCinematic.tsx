@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -72,6 +72,68 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-iridescent': IRIDESCENT,
   '--bbangto-ext-refraction-blur': '10px',
   '--bbangto-ext-glass-edge-glow': `0 0 0 1px rgba(34,211,238,0.45), 0 0 22px rgba(232,84,197,0.28)`,
+  '--bbangto-ext-fluted':
+    'repeating-linear-gradient(90deg, rgba(255,255,255,0.045) 0 2px, transparent 2px 9px)',
+  '--bbangto-ext-shard-shadow': SHARD_SHADOW,
+};
+
+/*
+ * 색 스킴 변형(colorway) — 균열/굴절/파편 clip 모티프(래퍼 CSS·shape)는 base에서
+ * 상속하고 semantic 색 + extendedFoundations 색만 교체한다.
+ * base가 딥 잉크 다크이므로 alt 하나는 명확한 라이트(주광 프로스티드 글라스),
+ * 나머지 하나는 accent 전환(마젠타/로즈 프리즘) 변형이다.
+ */
+
+// 라이트 — 주광 프로스티드 글라스: 서늘한 실버 배경 + 딥 잉크 텍스트 + 딥 프리즘 톤
+const LIGHT_IRIDESCENT = 'linear-gradient(120deg, #0E7C8B 0%, #B4358F 50%, #5E8A0E 100%)';
+const LIGHT_SHARD_SHADOW = '0 24px 60px rgba(30,40,60,0.20)';
+const lightFoundations = makeColorway(foundations, {
+  name: 'shattered-glass-cinematic-01-light',
+  description: '깨진 유리 라이트 — 주광 프로스티드 글라스: 서늘한 실버 배경 + 딥 잉크 텍스트 + 딥 프리즘 굴절',
+  semantic: makeSemantic({
+    bg: '#EEF2F7', bgElevated: '#FFFFFF', bgSunken: '#DDE3EC', overlay: 'rgba(15,20,30,0.35)',
+    fg: '#14171F', fgMuted: '#4A515F', fgSubtle: '#79808E', fgInverse: '#FFFFFF',
+    border: '#C4CCD8', borderMuted: '#DCE2EB', borderStrong: '#9AA3B2', focus: '#B26A00',
+    primaryBase: '#0E7C8B', primaryHover: '#0A6675', primaryActive: '#084F5A',
+    primarySubtle: '#CDEEF2', primaryFg: '#FFFFFF',
+    accent: '#0E7C8B', accent2: '#B4358F', accent3: '#5E8A0E',
+  }),
+});
+const lightExt: Record<string, string> = {
+  '--bbangto-ext-crack-overlay':
+    'conic-gradient(from 210deg at 50% 50%, rgba(20,25,35,0.10), transparent 18%, rgba(20,25,35,0.06) 40%, transparent 62%, rgba(20,25,35,0.08) 84%, transparent)',
+  '--bbangto-ext-shard-clip':
+    'polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px))',
+  '--bbangto-ext-iridescent': LIGHT_IRIDESCENT,
+  '--bbangto-ext-refraction-blur': '10px',
+  '--bbangto-ext-glass-edge-glow': '0 0 0 1px rgba(14,124,139,0.45), 0 0 22px rgba(180,53,143,0.28)',
+  '--bbangto-ext-fluted':
+    'repeating-linear-gradient(90deg, rgba(20,25,35,0.05) 0 2px, transparent 2px 9px)',
+  '--bbangto-ext-shard-shadow': LIGHT_SHARD_SHADOW,
+};
+
+// 로즈 — accent 전환: 딥 플럼-잉크 다크 유지, primary를 마젠타/로즈 프리즘으로 전환
+const ROSE_IRIDESCENT = `linear-gradient(120deg, ${MAGENTA} 0%, ${CYAN} 50%, ${LIME} 100%)`;
+const roseFoundations = makeColorway(foundations, {
+  name: 'shattered-glass-cinematic-01-rose',
+  description: '깨진 유리 로즈 — 딥 플럼-잉크 다크 + 마젠타/로즈 프리즘 굴절 accent 전환',
+  semantic: makeSemantic({
+    bg: '#100A11', bgElevated: '#1A1220', bgSunken: '#0A060B', overlay: 'rgba(8,4,10,0.72)',
+    fg: '#F7F0FB', fgMuted: '#C0AECB', fgSubtle: '#8A7E92', fgInverse: '#100A11',
+    border: '#352A3A', borderMuted: '#201826', borderStrong: '#4A3C50', focus: '#34E5FF',
+    primaryBase: MAGENTA, primaryHover: '#F06FD3', primaryActive: '#C23BA3',
+    primarySubtle: '#2A1226', primaryFg: '#150912',
+    accent: MAGENTA, accent2: CYAN, accent3: LIME,
+  }),
+});
+const roseExt: Record<string, string> = {
+  '--bbangto-ext-crack-overlay':
+    'conic-gradient(from 210deg at 50% 50%, rgba(255,255,255,0.10), transparent 18%, rgba(255,255,255,0.06) 40%, transparent 62%, rgba(255,255,255,0.08) 84%, transparent)',
+  '--bbangto-ext-shard-clip':
+    'polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px))',
+  '--bbangto-ext-iridescent': ROSE_IRIDESCENT,
+  '--bbangto-ext-refraction-blur': '10px',
+  '--bbangto-ext-glass-edge-glow': `0 0 0 1px rgba(232,84,197,0.45), 0 0 22px rgba(34,211,238,0.28)`,
   '--bbangto-ext-fluted':
     'repeating-linear-gradient(90deg, rgba(255,255,255,0.045) 0 2px, transparent 2px 9px)',
   '--bbangto-ext-shard-shadow': SHARD_SHADOW,
@@ -162,10 +224,20 @@ const wrapperComponents = makeMotifWrappers({
       whiteSpace: 'nowrap',
       clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%)',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: 'rgba(34,211,238,0.16)', color: '#7DE9F5' },
-      muted: { background: 'rgba(255,255,255,0.07)', color: '#AEB5C3' },
-      solid: { background: MAGENTA, color: INK },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-subtle, rgba(34,211,238,0.16))',
+        color: 'var(--bbangto-semantic-primary-hover, #7DE9F5)',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-background-sunken, rgba(255,255,255,0.07))',
+        color: 'var(--bbangto-semantic-foreground-muted, #AEB5C3)',
+      },
+      solid: {
+        background: `var(--bbangto-semantic-primary-base, ${MAGENTA})`,
+        color: `var(--bbangto-semantic-primary-foreground, ${INK})`,
+      },
     },
   },
 });
@@ -244,6 +316,12 @@ export const shatteredGlassCinematicStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (딥 잉크 + 시안 프리즘)', foundations, extendedFoundations },
+    { key: 'light', label: '라이트 (주광 프로스티드 글라스)', foundations: lightFoundations, extendedFoundations: lightExt },
+    { key: 'rose', label: '로즈 (마젠타 프리즘 accent)', foundations: roseFoundations, extendedFoundations: roseExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { ShatteredGlassCinematicShowcase: Showcase },
   guidelines,

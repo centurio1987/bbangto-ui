@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -59,6 +59,50 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-stitch': 'rgba(110,86,53,0.55)',
 };
 
+/* 색 스킴 변형(tweak) — 베벨·스티치·질감 모티프는 base에서 상속, 색만 교체. */
+
+/* 다크 에스프레소 가죽 — 짙게 태닝된 가죽 위 캐러멜 하이라이트. */
+const darkFoundations = makeColorway(foundations, {
+  name: 'skeuomorphism-tactile-01-dark',
+  description: '짙은 에스프레소 가죽 표면 + 캐러멜 하이라이트로 빚은 다크 스큐어모피즘',
+  semantic: makeSemantic({
+    bg: '#241C15', bgElevated: '#332820', bgSunken: '#1A140E', overlay: 'rgba(10,6,2,0.60)',
+    fg: '#F4ECDA', fgMuted: '#CBB894', fgSubtle: '#9C8A68', fgInverse: '#241C15',
+    border: '#5A4630', borderMuted: 'rgba(244,236,218,0.14)', borderStrong: '#836644', focus: '#5FA8E0',
+    primaryBase: '#C79055', primaryHover: '#D6A268', primaryActive: '#B37E44',
+    primarySubtle: 'rgba(199,144,85,0.22)', primaryFg: '#241C15',
+    accent: '#D2A15E', accent2: '#9DB878', accent3: '#D07E5E',
+  }),
+});
+const darkExt: Record<string, string> = {
+  '--bbangto-ext-bevel': 'inset 0 1px 0 rgba(255,240,210,0.18), inset 0 -2px 3px rgba(0,0,0,0.45)',
+  '--bbangto-ext-texture': 'repeating-linear-gradient(135deg, rgba(0,0,0,0.14) 0px, rgba(0,0,0,0.14) 1px, transparent 1px, transparent 4px)',
+  '--bbangto-ext-inner-glow': 'inset 0 0 18px rgba(60,44,26,0.45)',
+  '--bbangto-ext-leather': 'radial-gradient(circle at 30% 20%, #3A2C1E 0%, #241C15 70%)',
+  '--bbangto-ext-stitch': 'rgba(199,144,85,0.55)',
+};
+
+/* 그린 라이브러리 가죽 — 세이지 베이지 표면 위 포레스트 그린 강조(accent 전환). */
+const greenFoundations = makeColorway(foundations, {
+  name: 'skeuomorphism-tactile-01-green',
+  description: '세이지 베이지 가죽 위 포레스트 그린 강조 + 골드 스티치의 라이트 변형',
+  semantic: makeSemantic({
+    bg: 'linear-gradient(180deg, #D6D3B0 0%, #C3C298 100%)', bgElevated: '#E8E7C8', bgSunken: '#B0AF85', overlay: 'rgba(28,32,16,0.55)',
+    fg: '#2C3320', fgMuted: '#4C5636', fgSubtle: '#6B7550', fgInverse: '#F4F4E4',
+    border: '#93A06A', borderMuted: 'rgba(44,51,32,0.22)', borderStrong: '#5C6B38', focus: '#B4762B',
+    primaryBase: '#4E7A44', primaryHover: '#436B3A', primaryActive: '#385C31',
+    primarySubtle: 'rgba(78,122,68,0.16)', primaryFg: '#F4F4E4',
+    accent: '#5C8A4E', accent2: '#8A7A47', accent3: '#A85A3C',
+  }),
+});
+const greenExt: Record<string, string> = {
+  '--bbangto-ext-bevel': 'inset 0 1px 0 rgba(255,250,235,0.70), inset 0 -2px 3px rgba(30,40,22,0.30)',
+  '--bbangto-ext-texture': 'repeating-linear-gradient(135deg, rgba(30,40,22,0.05) 0px, rgba(30,40,22,0.05) 1px, transparent 1px, transparent 4px)',
+  '--bbangto-ext-inner-glow': 'inset 0 0 18px rgba(240,246,225,0.35)',
+  '--bbangto-ext-leather': 'radial-gradient(circle at 30% 20%, #C9CFA6 0%, #B2BC8B 70%)',
+  '--bbangto-ext-stitch': 'rgba(78,90,53,0.55)',
+};
+
 const STYLE_ID = 'bbangto-skeuomorphism-tactile-01-motif';
 const CSS = `
 .bbangto-ske-btn {
@@ -113,10 +157,23 @@ const wrapperComponents = makeMotifWrappers({
       boxShadow: 'inset 0 1px 0 rgba(255,250,235,0.55), inset 0 -1px 2px rgba(58,46,32,0.25)',
       textShadow: '0 1px 0 rgba(255,250,235,0.40)',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: 'linear-gradient(180deg, #C79A52, #A8762F)', color: '#3A2E20', border: '1px solid #8A5A2B' },
-      muted: { background: 'linear-gradient(180deg, #E2D4B6, #CDBC98)', color: '#5C4A33', border: '1px solid #A48A60' },
-      solid: { background: 'linear-gradient(180deg, #6E8B4F, #566E3E)', color: '#FBF4E6', border: '1px solid #3F5230' },
+      accent: {
+        background: 'linear-gradient(180deg, var(--bbangto-semantic-primary-subtle, #C79A52), var(--bbangto-semantic-primary-base, #A8762F))',
+        color: 'var(--bbangto-semantic-primary-active, #3A2E20)',
+        border: '1px solid var(--bbangto-semantic-primary-base, #8A5A2B)',
+      },
+      muted: {
+        background: 'linear-gradient(180deg, var(--bbangto-semantic-background-elevated, #E2D4B6), var(--bbangto-semantic-background-sunken, #CDBC98))',
+        color: 'var(--bbangto-semantic-foreground-muted, #5C4A33)',
+        border: '1px solid var(--bbangto-semantic-border-base, #A48A60)',
+      },
+      solid: {
+        background: 'linear-gradient(180deg, var(--bbangto-semantic-primary-base, #6E8B4F), var(--bbangto-semantic-primary-active, #566E3E))',
+        color: 'var(--bbangto-semantic-primary-foreground, #FBF4E6)',
+        border: '1px solid var(--bbangto-semantic-primary-active, #3F5230)',
+      },
     },
   },
 });
@@ -186,6 +243,12 @@ export const skeuomorphismTactileStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (Tactile Leather)', foundations, extendedFoundations },
+    { key: 'dark', label: '다크 (Espresso Leather)', foundations: darkFoundations, extendedFoundations: darkExt },
+    { key: 'green', label: '그린 라이브러리 (Sage Accent)', foundations: greenFoundations, extendedFoundations: greenExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { SkeuoShowcase: Showcase },
   guidelines,
