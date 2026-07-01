@@ -15,10 +15,13 @@ import { styleGuideMap } from '@centurio1987/bbangto-ui-style-guide-catalog';
  */
 
 // 개인정보 회귀 가드 — DOM 텍스트/href에 절대 나타나면 안 되는 토큰.
-const FORBIDDEN = [
+const FORBIDDEN_PRIVACY = [
   'centurio', 'ghkdldjwls', 'gmail.com', 'naver.com', 'github.io',
   '+82', '1026411626', 'lync', '크로노', '풀무간',
 ];
+// bakery 레거시 브랜드 카피 — factory 편입 후 재생성 콘텐츠엔 등장하면 안 됨(오탐 범위 분리).
+const FORBIDDEN_LEGACY = ['빵토', 'bbangto bakery', 'est. 2019'];
+const FORBIDDEN = [...FORBIDDEN_PRIVACY, ...FORBIDDEN_LEGACY];
 
 type Story = StoryObj<{ foundationKey?: string }>;
 
@@ -82,6 +85,28 @@ function parseHex(c: string): [number, number, number] | null {
 function contrastRatio(a: string, b: string): number | null {
   const ca = parseHex(a);
   const cb = parseHex(b);
+  if (!ca || !cb) return null;
+  const lum = ([r, g, b]: [number, number, number]) => {
+    const f = (v: number) => {
+      const x = v / 255;
+      return x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4;
+    };
+    return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b);
+  };
+  const l1 = lum(ca);
+  const l2 = lum(cb);
+  return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+}
+
+/** `rgb()/rgba()`(getComputedStyle 반환형) 또는 hex → 대비비. 파싱 불가 시 null. */
+function contrastRatioRGB(a: string, b: string): number | null {
+  const parse = (c: string): [number, number, number] | null => {
+    const m = c.match(/rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)/i);
+    if (m) return [Number(m[1]), Number(m[2]), Number(m[3])];
+    return parseHex(c);
+  };
+  const ca = parse(a);
+  const cb = parse(b);
   if (!ca || !cb) return null;
   const lum = ([r, g, b]: [number, number, number]) => {
     const f = (v: number) => {
@@ -312,6 +337,27 @@ export function makeCatalogStories(sg: StyleGuide): Record<string, Story> {
         await expect(sg.wrapperComponents?.[key]).toBeTruthy();
         await expect(sg.visualMotif?.components[key]).toBeTruthy();
       }
+
+      // 3b) 에디토리얼 3섹션(Hero/Menu/Craft) 구조 렌더 확인.
+      await expect(headings.length).toBeGreaterThanOrEqual(3);
+      for (const s of ['hero', 'menu', 'craft']) {
+        await expect(canvasElement.querySelector(`[data-section="${s}"]`)).not.toBeNull();
+      }
+      await expect(
+        canvasElement.querySelectorAll('[data-section="menu"] [data-menu-card]').length,
+      ).toBeGreaterThan(0);
+      await expect(
+        canvasElement.querySelectorAll('[data-philosophy-card]').length,
+      ).toBeGreaterThanOrEqual(1);
+      await expect(canvasElement.querySelector('[data-testid="showcase-contact"]')).not.toBeNull();
+      await expect(canvasElement.querySelector('[data-testid="showcase-footer"]')).not.toBeNull();
+
+      // 3c) 반전 Craft 존 — 배경/전경 대비 4.5:1 이상(computed rgb).
+      const craft = canvasElement.querySelector<HTMLElement>('[data-section="craft"]');
+      await expect(craft).not.toBeNull();
+      const craftStyle = getComputedStyle(craft!);
+      const craftRatio = contrastRatioRGB(craftStyle.backgroundColor, craftStyle.color);
+      if (craftRatio != null) await expect(craftRatio).toBeGreaterThanOrEqual(4.5);
 
       // 4) 개인정보 회귀 가드 — DOM 텍스트/href에 금지 토큰 부재.
       const text = (canvasElement.textContent ?? '').toLowerCase();

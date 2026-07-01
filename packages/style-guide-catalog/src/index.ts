@@ -18,7 +18,15 @@ export { BakeryShowcase, bakeryVisualMotif } from './bakeryVisualMotif';
 // 공통 빌더(다른 preset 작성/소비 시 재사용).
 export { makeFoundations, makeSemantic, makeColorway, type SemanticInput, type FoundationInput } from './_foundation';
 export { makeMotifWrappers, cx, useMotifStyle, type MotifConfig, type TagConfig } from './_motif';
-export { makeShowcase, type ShowcaseCopy, type ShowcaseItem } from './_showcase';
+export {
+  makeShowcase,
+  type ShowcaseCopy,
+  type ShowcaseItem,
+  type PhilosophyCard,
+  type ShowcaseContact,
+  type ShowcaseCopyExt,
+} from './_showcase';
+export { SHOWCASE_COPY_EXT } from './_showcaseCopy.generated';
 
 // P1 카탈로그 presets.
 export { glassmorphismAuroraStyleGuide, GlassmorphismShowcase, glassmorphismAuroraWrappers } from './glassmorphismAurora';
