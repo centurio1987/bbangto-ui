@@ -89,17 +89,8 @@ const CONTACT_DEFAULT: Required<ShowcaseContact> = {
   blog: 'blog.example.invalid',
 };
 
-/* 조건부 스크롤스냅 + 섹션 높이 — 저해상도/줌/모션 민감 환경에선 비활성(a11y).
-   .bbangto-showcase가 스크롤 컨테이너가 아니면 스냅은 무해하게 무시된다. */
-const SHOWCASE_CSS = `
-.bbangto-showcase > section { scroll-snap-align: start; }
-@media (min-height: 720px) and (prefers-reduced-motion: no-preference) {
-  .bbangto-showcase { scroll-snap-type: y proximity; }
-  .bbangto-showcase > section { min-height: 100vh; min-height: 100dvh; }
-}
-`;
-
-/** wrapper 세트 + 카피로 3섹션 에디토리얼 Showcase 컴포넌트를 만든다. */
+/** wrapper 세트 + 카피로 3섹션 에디토리얼 Showcase 컴포넌트를 만든다.
+    섹션은 콘텐츠 높이 + 넉넉한 패딩으로 그린다 — 100vh 강제 금지(짧은 카피에서 빈 화면 방지). */
 export function makeShowcase(
   W: WrapperComponents,
   copy: ShowcaseCopy,
@@ -129,22 +120,19 @@ export function makeShowcase(
   const Showcase: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ style, className, ...props }) => (
     <div
       {...props}
-      className={['bbangto-showcase', className].filter(Boolean).join(' ')}
+      className={className}
       style={{ fontFamily: SANS, color: FG, background: BG, boxSizing: 'border-box', ...style }}
     >
-      <style>{SHOWCASE_CSS}</style>
-
       {/* ── 1) HERO ── */}
       <section
         data-section="hero"
         aria-label="소개"
         style={{
-          padding: 'clamp(48px,8vw,112px) clamp(20px,5vw,64px)',
+          padding: 'clamp(56px,9vw,128px) clamp(20px,5vw,64px)',
           display: 'flex',
           flexDirection: 'column',
           gap: 20,
           alignItems: 'flex-start',
-          justifyContent: 'center',
         }}
       >
         <Tag tone="accent" style={{ fontFamily: MONO }}>{c.badge}</Tag>
@@ -161,7 +149,7 @@ export function makeShowcase(
           <Button color="primary">{c.ctaPrimary}</Button>
           <Button variant="outline" color="neutral">{c.ctaSecondary}</Button>
         </div>
-        <div aria-hidden style={{ marginTop: 'auto', paddingTop: 32, fontFamily: MONO, fontSize: 12, letterSpacing: '0.14em', color: SUBTLE }}>
+        <div aria-hidden style={{ marginTop: 16, fontFamily: MONO, fontSize: 12, letterSpacing: '0.14em', color: SUBTLE }}>
           {scrollLabel} · 01 / 03
         </div>
       </section>
