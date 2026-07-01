@@ -1,19 +1,8 @@
 import type { StyleGuide } from '@centurio1987/bbangto-ui-core';
 import { bakeryStyleGuide } from './bakery';
 
-export { bakeryStyleGuide } from './bakery';
-export { bakeryFoundations, bakeryExtendedFoundations, BAKERY } from './bakeryFoundations';
-export { bakeryGuidelines } from './bakeryGuidelines';
-export {
-  BakeryButton,
-  BakeryCard,
-  BakeryTag,
-  bakeryWrapperComponents,
-  type BakeryTagProps,
-  type BakeryTagTone,
-} from './bakeryWrappers';
-export { BakeryHero, BakeryMenu, BakeryCraft, bakeryPatterns } from './bakeryPatterns';
-export { BakeryShowcase, bakeryVisualMotif } from './bakeryVisualMotif';
+// Neobrutalism_Editorial_01 — 다른 49종과 동일한 3-export 트리오(factory 편입).
+export { bakeryStyleGuide, NeobrutalismShowcase, neobrutalismEditorialWrappers } from './bakery';
 
 // 공통 빌더(다른 preset 작성/소비 시 재사용).
 export { makeFoundations, makeSemantic, makeColorway, type SemanticInput, type FoundationInput } from './_foundation';

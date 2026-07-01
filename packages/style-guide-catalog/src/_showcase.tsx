@@ -261,7 +261,10 @@ export function makeShowcase(
           }}
         >
           <p style={{ margin: 0, fontSize: 'clamp(20px,2.6vw,28px)', fontWeight: 700, lineHeight: 1.3, maxWidth: 520 }}>{c.bandTitle}</p>
-          <Button color="primary">{c.ctaPrimary}</Button>
+          {/* accent/accent-fg는 검증된 대비 쌍 → primary-base 밴드 위 primary 버튼 중복(예: 잉크 위 잉크) 회피. */}
+          <span style={{ fontFamily: MONO, fontSize: 13, fontWeight: 700, border: `2px solid ${ACCENT_FG}`, padding: '10px 20px', whiteSpace: 'nowrap' }}>
+            {c.ctaPrimary} →
+          </span>
         </div>
 
         <div
