@@ -1,5 +1,12 @@
 # @centurio1987/bbangto-ui-diagram
 
+## 0.2.2
+
+### Patch Changes
+
+- Updated dependencies [7db914f]
+  - @centurio1987/bbangto-ui-tokens@1.1.0
+
 ## 0.2.1
 
 ### Patch Changes

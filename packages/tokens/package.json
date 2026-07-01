@@ -1,6 +1,6 @@
 {
   "name": "@centurio1987/bbangto-ui-tokens",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Design tokens and theme types for bbangto-ui",
   "type": "module",
   "main": "./dist/index.js",
