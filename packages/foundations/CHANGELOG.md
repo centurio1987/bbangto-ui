@@ -1,5 +1,12 @@
 # @centurio1987/bbangto-ui-foundations
 
+## 1.0.1
+
+### Patch Changes
+
+- Updated dependencies [7db914f]
+  - @centurio1987/bbangto-ui-tokens@1.1.0
+
 ## 1.0.0
 
 ### Major Changes
