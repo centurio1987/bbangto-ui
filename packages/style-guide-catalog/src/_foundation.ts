@@ -140,6 +140,25 @@ export interface FoundationInput {
   neutral?: Partial<ColorScale>;
 }
 
+/**
+ * base foundation의 비색상 토큰(typography·radius·shadow·spacing·motion·zIndex)을 그대로 유지하고
+ * 색(semantic·neutral)만 교체해 색 스킴 변형(tweak)을 만든다. 비색상 토큰을 base에서 복사하므로
+ * "색 스킴만" 제약이 구조적으로 강제된다.
+ */
+export function makeColorway(
+  base: BbangtoFoundation,
+  over: { name: string; description?: string; semantic: SemanticColors; neutral?: Partial<ColorScale> },
+): BbangtoFoundation {
+  return {
+    ...base,
+    name: over.name,
+    description: over.description ?? base.description,
+    semantic: over.semantic,
+    // neutral은 base와 병합(필수 단계 누락 방지).
+    palette: { ...base.palette, neutral: { ...base.palette.neutral, ...over.neutral } },
+  };
+}
+
 /** 공통 boilerplate + preset 고유값을 합쳐 완전한 BbangtoFoundation을 만든다. */
 export function makeFoundations(input: FoundationInput): BbangtoFoundation {
   return {

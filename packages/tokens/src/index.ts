@@ -7,6 +7,7 @@ export type {
   DeepPartial,
   FoundationOverride,
   StyleGuideTokens,
+  FoundationPreset,
 } from './types';
 
 export { flattenToCSSVars, foundationToCSSString, foundationToStyleObject, cssVar } from './contract';

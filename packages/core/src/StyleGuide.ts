@@ -63,3 +63,36 @@ export function foundationToStyleGuide(theme: BbangtoFoundation): StyleGuide {
     foundations: theme,
   };
 }
+
+/** 안정 참조 — 매 렌더 새 객체 생성으로 인한 useMemo 무효화 방지. */
+const EMPTY_EXT: Record<string, string> = {};
+
+/**
+ * StyleGuide + 선택한 foundationKey로부터 활성 색 스킴(foundations + extendedFoundations)을 해석한다.
+ * Provider와 Storybook이 이 순수함수를 공유해 fallback 규칙 중복을 막는다.
+ *
+ * - foundationPresets가 없으면 base foundations/extendedFoundations 사용(기존 동작).
+ * - 잘못된 key는 dev 모드에서 console.warn 후 기본 preset으로 fallback(사일런트 오류 방지).
+ * - 활성 preset의 ext만 사용한다(base ext와 섞지 않음). preset ext가 없으면 EMPTY_EXT.
+ */
+export function resolveFoundationPreset(
+  sg: StyleGuideTokens,
+  key?: string,
+): { foundations: BbangtoFoundation; extendedFoundations: Record<string, string>; activeKey?: string } {
+  const presets = sg.foundationPresets;
+  if (!presets?.length) {
+    return { foundations: sg.foundations, extendedFoundations: sg.extendedFoundations ?? EMPTY_EXT };
+  }
+  const found = key != null ? presets.find((p) => p.key === key) : undefined;
+  const nodeEnv = (globalThis as { process?: { env?: { NODE_ENV?: string } } }).process?.env?.NODE_ENV;
+  if (key != null && !found && nodeEnv !== 'production') {
+    // eslint-disable-next-line no-console
+    console.warn(`[bbangto] unknown foundationKey "${key}" on "${sg.name}"; using default.`);
+  }
+  const active = found ?? presets.find((p) => p.key === sg.defaultFoundationKey) ?? presets[0];
+  return {
+    foundations: active.foundations,
+    extendedFoundations: active.extendedFoundations ?? EMPTY_EXT,
+    activeKey: active.key,
+  };
+}

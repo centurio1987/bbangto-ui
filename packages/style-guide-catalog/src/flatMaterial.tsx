@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -49,11 +49,54 @@ const foundations = makeFoundations({
   }),
 });
 
+const ELEVATION_1 = '0 1px 2px rgba(0,0,0,0.30), 0 1px 3px 1px rgba(0,0,0,0.15)';
+const ELEVATION_2 = '0 1px 2px rgba(0,0,0,0.30), 0 2px 6px 2px rgba(0,0,0,0.15)';
+
 const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-state-layer': 'rgba(103,80,164,0.08)',
   '--bbangto-ext-state-layer-strong': 'rgba(103,80,164,0.12)',
-  '--bbangto-ext-elevation-1': '0 1px 2px rgba(0,0,0,0.30), 0 1px 3px 1px rgba(0,0,0,0.15)',
-  '--bbangto-ext-elevation-2': '0 1px 2px rgba(0,0,0,0.30), 0 2px 6px 2px rgba(0,0,0,0.15)',
+  '--bbangto-ext-elevation-1': ELEVATION_1,
+  '--bbangto-ext-elevation-2': ELEVATION_2,
+};
+
+/* 색 스킴 변형(tweak) — pill/elevation/상태 레이어 모티프는 base에서 상속. */
+
+const darkFoundations = makeColorway(foundations, {
+  name: 'flat-material-01-dark',
+  description: 'Material You 다크 — 라일락 키컬러 톤',
+  semantic: makeSemantic({
+    bg: '#141218', bgElevated: '#1D1B20', bgSunken: '#0F0D13', overlay: 'rgba(0,0,0,0.50)',
+    fg: '#E6E0E9', fgMuted: '#CAC4D0', fgSubtle: '#938F99', fgInverse: '#1D1B20',
+    border: '#49454F', borderMuted: '#2B2930', borderStrong: '#938F99', focus: '#D0BCFF',
+    primaryBase: '#D0BCFF', primaryHover: '#B69DF8', primaryActive: '#9A7FE0',
+    primarySubtle: '#4F378B', primaryFg: '#381E72',
+    accent: '#D0BCFF', accent2: '#EFB8C8', accent3: '#B8F397',
+  }),
+});
+const darkExt: Record<string, string> = {
+  '--bbangto-ext-state-layer': 'rgba(208,188,255,0.08)',
+  '--bbangto-ext-state-layer-strong': 'rgba(208,188,255,0.12)',
+  '--bbangto-ext-elevation-1': ELEVATION_1,
+  '--bbangto-ext-elevation-2': ELEVATION_2,
+};
+
+const tealFoundations = makeColorway(foundations, {
+  name: 'flat-material-01-teal',
+  description: 'Material You 라이트 — 티일 키컬러 톤',
+  semantic: makeSemantic({
+    bg: '#FBFDFC', bgElevated: '#FFFFFF', bgSunken: '#EDF5F3', overlay: 'rgba(0,0,0,0.40)',
+    fg: '#191C1B', fgMuted: '#3F4947', fgSubtle: '#6F7977', fgInverse: '#ECF5F3',
+    border: '#BEC9C6', borderMuted: '#DDE4E2', borderStrong: '#6F7977', focus: '#00696D',
+    primaryBase: '#00696D', primaryHover: '#005457', primaryActive: '#00413F',
+    primarySubtle: '#9CF1EA', primaryFg: '#FFFFFF',
+    accent: '#00696D', accent2: '#4A6363', accent3: '#4C6600',
+  }),
+});
+const tealExt: Record<string, string> = {
+  '--bbangto-ext-state-layer': 'rgba(0,105,109,0.08)',
+  '--bbangto-ext-state-layer-strong': 'rgba(0,105,109,0.12)',
+  '--bbangto-ext-elevation-1': ELEVATION_1,
+  '--bbangto-ext-elevation-2': ELEVATION_2,
 };
 
 const STYLE_ID = 'bbangto-flat-material-motif';
@@ -91,10 +134,20 @@ const wrapperComponents = makeMotifWrappers({
       borderRadius: 8, fontFamily: "'JetBrains Mono', monospace", fontSize: 11,
       fontWeight: 600, letterSpacing: '0.02em', lineHeight: 1.6, whiteSpace: 'nowrap',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: '#EADDFF', color: '#21005D' },
-      muted: { background: '#E7E0EC', color: '#49454F' },
-      solid: { background: PRIMARY, color: '#fff' },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-subtle, #EADDFF)',
+        color: 'var(--bbangto-semantic-primary-active, #21005D)',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-background-sunken, #E7E0EC)',
+        color: 'var(--bbangto-semantic-foreground-muted, #49454F)',
+      },
+      solid: {
+        background: 'var(--bbangto-semantic-primary-base, #6750A4)',
+        color: 'var(--bbangto-semantic-primary-foreground, #fff)',
+      },
     },
   },
 });
@@ -160,6 +213,12 @@ export const flatMaterialStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (Purple)', foundations, extendedFoundations },
+    { key: 'dark', label: '다크 (Lilac)', foundations: darkFoundations, extendedFoundations: darkExt },
+    { key: 'teal', label: '티일 액센트', foundations: tealFoundations, extendedFoundations: tealExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { FlatMaterialShowcase: Showcase },
   guidelines,

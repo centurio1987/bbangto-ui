@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -58,6 +58,42 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-divider': '#E5E7EB',
 };
 
+/* 색 스킴 변형(tweak) — 모티프(radius·shadow·type·CSS)는 base에서 그대로 상속. */
+
+const darkFoundations = makeColorway(foundations, {
+  name: 'minimal-saas-01-dark',
+  description: '다크 슬레이트 배경 + 인디고 액센트',
+  semantic: makeSemantic({
+    bg: '#0F172A', bgElevated: '#1E293B', bgSunken: '#0B1220', overlay: 'rgba(0,0,0,0.60)',
+    fg: '#F1F5F9', fgMuted: '#CBD5E1', fgSubtle: '#94A3B8', fgInverse: '#0F172A',
+    border: '#334155', borderMuted: '#1E293B', borderStrong: '#475569', focus: '#818CF8',
+    primaryBase: '#818CF8', primaryHover: '#A5B4FC', primaryActive: '#C7D2FE',
+    primarySubtle: '#312E81', primaryFg: '#0F172A',
+    accent: '#818CF8', accent2: '#38BDF8', accent3: '#34D399',
+  }),
+});
+const darkExt: Record<string, string> = {
+  '--bbangto-ext-ring': 'rgba(129,140,248,0.45)',
+  '--bbangto-ext-divider': '#334155',
+};
+
+const warmFoundations = makeColorway(foundations, {
+  name: 'minimal-saas-01-warm',
+  description: '아이보리 배경 + 앰버 액센트',
+  semantic: makeSemantic({
+    bg: '#FDFBF7', bgElevated: '#FFFFFF', bgSunken: '#F5F0E6', overlay: 'rgba(60,40,20,0.50)',
+    fg: '#3B2F2A', fgMuted: '#6B5D52', fgSubtle: '#9C8A7A', fgInverse: '#FFFFFF',
+    border: '#E8DFCF', borderMuted: '#F0E9DB', borderStrong: '#D4C6AE', focus: '#B45309',
+    primaryBase: '#B45309', primaryHover: '#92400E', primaryActive: '#78350F',
+    primarySubtle: '#FEF3C7', primaryFg: '#FFFFFF',
+    accent: '#B45309', accent2: '#0F766E', accent3: '#9333EA',
+  }),
+});
+const warmExt: Record<string, string> = {
+  '--bbangto-ext-ring': 'rgba(180,83,9,0.35)',
+  '--bbangto-ext-divider': '#E8DFCF',
+};
+
 const STYLE_ID = 'bbangto-minimal-saas-motif';
 const CSS = `
 .bbangto-saas-btn {
@@ -97,10 +133,22 @@ const wrapperComponents = makeMotifWrappers({
       fontWeight: 600, letterSpacing: '0.02em', lineHeight: 1.6, whiteSpace: 'nowrap',
       border: '1px solid transparent',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: '#EEF2FF', color: '#3730A3', border: '1px solid #C7D2FE' },
-      muted: { background: '#F3F4F6', color: '#4B5563', border: '1px solid #E5E7EB' },
-      solid: { background: PRIMARY, color: '#fff' },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-subtle, #EEF2FF)',
+        color: 'var(--bbangto-semantic-primary-active, #3730A3)',
+        border: '1px solid var(--bbangto-semantic-border-base, #C7D2FE)',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-background-sunken, #F3F4F6)',
+        color: 'var(--bbangto-semantic-foreground-muted, #4B5563)',
+        border: '1px solid var(--bbangto-semantic-border-base, #E5E7EB)',
+      },
+      solid: {
+        background: 'var(--bbangto-semantic-primary-base, #4F46E5)',
+        color: 'var(--bbangto-semantic-primary-foreground, #fff)',
+      },
     },
   },
 });
@@ -166,6 +214,12 @@ export const minimalSaasStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (Light)', foundations, extendedFoundations },
+    { key: 'dark', label: '다크 (Slate)', foundations: darkFoundations, extendedFoundations: darkExt },
+    { key: 'warm', label: '웜 (Ivory)', foundations: warmFoundations, extendedFoundations: warmExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { MinimalSaasShowcase: Showcase },
   guidelines,

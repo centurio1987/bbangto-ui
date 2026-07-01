@@ -1,5 +1,5 @@
 import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
-import { makeFoundations, makeSemantic } from './_foundation';
+import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
 
@@ -56,6 +56,46 @@ const extendedFoundations: Record<string, string> = {
   '--bbangto-ext-grid-gap': '16px',
 };
 
+/* 색 스킴 변형(tweak) — 그리드/각진 모서리/무그림자 모티프는 base에서 상속. */
+
+const DARK_INK = '#FFFFFF';
+const darkFoundations = makeColorway(foundations, {
+  name: 'swiss-international-01-dark',
+  description: '반전 — 검정 배경 + 흰 규칙선 + 단일 빨강',
+  semantic: makeSemantic({
+    bg: '#0A0A0A', bgElevated: '#141414', bgSunken: '#000000', overlay: 'rgba(0,0,0,0.70)',
+    fg: '#FFFFFF', fgMuted: '#C4C4C4', fgSubtle: '#8A8A8A', fgInverse: '#0A0A0A',
+    border: DARK_INK, borderMuted: '#3A3A3A', borderStrong: DARK_INK, focus: RED,
+    primaryBase: DARK_INK, primaryHover: '#F0F0F0', primaryActive: '#E0E0E0',
+    primarySubtle: RED, primaryFg: '#0A0A0A',
+    accent: RED, accent2: DARK_INK, accent3: '#8A8A8A',
+  }),
+});
+const darkExt: Record<string, string> = {
+  '--bbangto-ext-rule': DARK_INK,
+  '--bbangto-ext-accent-red': RED,
+  '--bbangto-ext-grid-gap': '16px',
+};
+
+const BLUE = '#0057B8';
+const blueFoundations = makeColorway(foundations, {
+  name: 'swiss-international-01-blue',
+  description: '흑/백 유지, 강조를 단일 빨강 대신 단일 파랑으로',
+  semantic: makeSemantic({
+    bg: '#FFFFFF', bgElevated: '#FFFFFF', bgSunken: '#F2F2F2', overlay: 'rgba(0,0,0,0.60)',
+    fg: INK, fgMuted: '#3D3D3D', fgSubtle: '#6E6E6E', fgInverse: '#FFFFFF',
+    border: INK, borderMuted: '#CFCFCF', borderStrong: INK, focus: BLUE,
+    primaryBase: INK, primaryHover: '#000000', primaryActive: '#000000',
+    primarySubtle: BLUE, primaryFg: '#FFFFFF',
+    accent: BLUE, accent2: INK, accent3: '#6E6E6E',
+  }),
+});
+const blueExt: Record<string, string> = {
+  '--bbangto-ext-rule': INK,
+  '--bbangto-ext-accent-red': BLUE,
+  '--bbangto-ext-grid-gap': '16px',
+};
+
 const STYLE_ID = 'bbangto-swiss-international-motif';
 const CSS = `
 .bbangto-swiss-btn {
@@ -92,10 +132,21 @@ const wrapperComponents = makeMotifWrappers({
       fontWeight: 700, letterSpacing: '0.10em', lineHeight: 1.6, whiteSpace: 'nowrap',
       textTransform: 'uppercase',
     },
+    // 색 결합 해소 — semantic CSS 변수 + 기존 hex fallback으로 색 스킴을 따라간다.
     tones: {
-      accent: { background: RED, color: '#fff' },
-      muted: { background: '#fff', color: INK, border: `1.5px solid ${INK}` },
-      solid: { background: INK, color: '#fff' },
+      accent: {
+        background: 'var(--bbangto-semantic-primary-subtle, #E2231A)',
+        color: 'var(--bbangto-semantic-primary-foreground, #fff)',
+      },
+      muted: {
+        background: 'var(--bbangto-semantic-background-base, #fff)',
+        color: 'var(--bbangto-semantic-foreground-base, #111111)',
+        border: '1.5px solid var(--bbangto-semantic-border-base, #111111)',
+      },
+      solid: {
+        background: 'var(--bbangto-semantic-primary-base, #111111)',
+        color: 'var(--bbangto-semantic-primary-foreground, #fff)',
+      },
     },
   },
 });
@@ -161,6 +212,12 @@ export const swissInternationalStyleGuide: StyleGuide = {
   description: foundations.description,
   foundations,
   extendedFoundations,
+  foundationPresets: [
+    { key: 'default', label: '기본 (Red)', foundations, extendedFoundations },
+    { key: 'dark', label: '다크 (Invert)', foundations: darkFoundations, extendedFoundations: darkExt },
+    { key: 'blue', label: '블루 액센트', foundations: blueFoundations, extendedFoundations: blueExt },
+  ],
+  defaultFoundationKey: 'default',
   wrapperComponents,
   patterns: { SwissShowcase: Showcase },
   guidelines,

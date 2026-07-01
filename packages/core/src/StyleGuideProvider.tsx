@@ -2,12 +2,18 @@ import React, { createContext, useContext, useMemo, ReactNode } from 'react';
 import { foundationToStyleObject } from '@centurio1987/bbangto-ui-tokens';
 import { useMotionKeyframes } from './motion/keyframes';
 import type { StyleGuide } from './StyleGuide';
+import { resolveFoundationPreset } from './StyleGuide';
 
 const StyleGuideContext = createContext<StyleGuide | undefined>(undefined);
 
 export interface StyleGuideProviderProps {
   children: ReactNode;
   styleGuide: StyleGuide;
+  /**
+   * 선택. styleGuide.foundationPresets 중 적용할 색 스킴 key.
+   * 미지정/미매칭 시 defaultFoundationKey → 첫 preset → base foundations 순으로 fallback.
+   */
+  foundationKey?: string;
   /** HTML tag for the wrapper. Defaults to 'div'. */
   as?: keyof React.JSX.IntrinsicElements;
   /** Additional CSS classes for the wrapper. */
@@ -24,14 +30,17 @@ export interface StyleGuideProviderProps {
 export function StyleGuideProvider({
   children,
   styleGuide,
+  foundationKey,
   as: Component = 'div',
   className,
   style,
 }: StyleGuideProviderProps) {
+  const { foundations, extendedFoundations, activeKey } = resolveFoundationPreset(styleGuide, foundationKey);
+
   const cssVars = useMemo(() => ({
-    ...foundationToStyleObject(styleGuide.foundations),
-    ...(styleGuide.extendedFoundations ?? {}),
-  }), [styleGuide]);
+    ...foundationToStyleObject(foundations),
+    ...extendedFoundations,
+  }), [foundations, extendedFoundations]);
 
   useMotionKeyframes();
 
@@ -45,6 +54,7 @@ export function StyleGuideProvider({
         className={className}
         style={{ ...cssVars, ...style } as React.CSSProperties}
         data-bbangto-style-guide={styleGuide.name}
+        data-bbangto-foundation={activeKey}
       >
         {children}
       </Component>

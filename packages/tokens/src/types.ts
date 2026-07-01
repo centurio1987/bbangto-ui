@@ -258,6 +258,21 @@ export interface BbangtoFoundation {
 }
 
 /**
+ * 하나의 StyleGuide(모티프) 위에서 기호선택 가능한 색 스킴 변형.
+ * 모티프(래퍼 CSS·shape)는 공유하고 foundation 색만 갈아끼운다.
+ */
+export interface FoundationPreset {
+  /** 안정 id: 'default' | 'dark' | 'warm' ... (data-bbangto-foundation 값). */
+  readonly key: string;
+  /** 표시명: '기본 (Light)' 등. */
+  readonly label: string;
+  /** 이 preset의 완성된 foundation 토큰. */
+  readonly foundations: BbangtoFoundation;
+  /** 선택. preset별 --bbangto-ext-* 확장 CSS 변수(색 결합값). */
+  readonly extendedFoundations?: Record<string, string>;
+}
+
+/**
  * StyleGuide의 토큰 레이어. React 의존 없이 프레임워크 독립적으로 사용 가능.
  * foundations(필수) + extendedFoundations + guidelines로 구성된다.
  */
@@ -268,6 +283,13 @@ export interface StyleGuideTokens {
   readonly foundations: BbangtoFoundation;
   /** 선택. visual motif 구현을 위한 확장 CSS 변수. --bbangto-ext-* 네임스페이스 권장. */
   readonly extendedFoundations?: Record<string, string>;
+  /**
+   * 선택. 기호선택 가능한 색 스킴 목록. 없으면 foundations 단일 사용(기존 동작).
+   * 첫 항목의 foundations는 base foundations와 동일 객체를 참조해 drift를 방지한다.
+   */
+  readonly foundationPresets?: readonly FoundationPreset[];
+  /** 선택. 기본 preset key. 미지정 시 foundationPresets[0].key. */
+  readonly defaultFoundationKey?: string;
   /** 선택. 컴포넌트 사용 가이드라인 (JSON 객체). 키: 가이드라인 이름, 값: 구조화된 데이터. */
   readonly guidelines?: Record<string, Record<string, unknown>>;
 }
