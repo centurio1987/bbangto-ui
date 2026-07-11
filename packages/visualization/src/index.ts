@@ -23,3 +23,4 @@ export * from './geometry';
 export * from './atoms';
 export * from './molecules';
 export * from './templates';
+export * from './patterns';

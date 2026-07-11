@@ -21,3 +21,10 @@ export { EntityTable } from './EntityTable';
 export type { EntityTableProps, EntityAttribute } from './EntityTable';
 export { C4Box } from './C4Box';
 export type { C4BoxProps, C4Level } from './C4Box';
+
+export { StepConnector } from './StepConnector';
+export type { StepConnectorProps, StepConnectorVariant } from './StepConnector';
+export { CalloutLeader } from './CalloutLeader';
+export type { CalloutLeaderProps } from './CalloutLeader';
+export { StatCard } from './StatCard';
+export type { StatCardProps } from './StatCard';

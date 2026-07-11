@@ -30,3 +30,22 @@ export type { LifelineProps } from './Lifeline';
 
 export { GridLayer } from './GridLayer';
 export type { GridLayerProps } from './GridLayer';
+
+export { StatNumber } from './StatNumber';
+export type { StatNumberProps } from './StatNumber';
+export { IndexBadge } from './IndexBadge';
+export type { IndexBadgeProps, IndexBadgeVariant } from './IndexBadge';
+export { IconBadge } from './IconBadge';
+export type { IconBadgeProps } from './IconBadge';
+export { RingSegment } from './RingSegment';
+export type { RingSegmentProps } from './RingSegment';
+export { ProportionBlock } from './ProportionBlock';
+export type { ProportionBlockProps } from './ProportionBlock';
+export { PictographUnit } from './PictographUnit';
+export type { PictographUnitProps } from './PictographUnit';
+export { MilestoneMarker } from './MilestoneMarker';
+export type { MilestoneMarkerProps } from './MilestoneMarker';
+export { PyramidLayer } from './PyramidLayer';
+export type { PyramidLayerProps } from './PyramidLayer';
+export { VsDivider } from './VsDivider';
+export type { VsDividerProps } from './VsDivider';
