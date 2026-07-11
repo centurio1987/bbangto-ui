@@ -25,7 +25,7 @@ export const QueueNode = React.forwardRef<SVGGElement, QueueNodeProps>(
   ({ id, x, y, width, height, title, subtitle, tag = 'queue', fill, stroke, strokeWidth, strokeDasharray, children }, ref) => {
     const effectiveFill = fill ?? vvar('node', 'queue', 'fill');
     const effectiveStroke = stroke ?? vvar('node', 'queue', 'keyline');
-    const effectiveStrokeWidth = strokeWidth ?? 2.5;
+    const effectiveStrokeWidth = strokeWidth ?? vvar('node', 'queue', 'keylineWidth');
 
     const glyphSize = 22;
     const glyphLeft = x + (width - glyphSize) / 2;
@@ -59,8 +59,8 @@ export const QueueNode = React.forwardRef<SVGGElement, QueueNodeProps>(
           overflow="visible"
         >
           <BarsGlyph
-            fill={typeof effectiveStroke === 'string' ? effectiveStroke : '#111111'}
-            stroke={typeof effectiveStroke === 'string' ? effectiveStroke : '#111111'}
+            fill={effectiveStroke}
+            stroke={effectiveStroke}
           />
         </svg>
         <NodeLabel x={x} y={labelY} width={width} title={title} subtitle={subtitle} fontSize={12} />

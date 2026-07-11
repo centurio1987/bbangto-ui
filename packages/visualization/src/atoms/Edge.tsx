@@ -1,5 +1,6 @@
 import React from 'react';
 import { useCanvasContext } from '../context/CanvasContext';
+import { useVizFoundation } from '../styleGuide/VisualizationStyleGuideProvider';
 import type { Point } from '../geometry/anchors';
 import { nearestAnchors, getAnchor, type AnchorSide } from '../geometry/anchors';
 import { buildPath, type EdgeRouting } from '../geometry/routing';
@@ -62,10 +63,10 @@ export const Edge = React.forwardRef<SVGPathElement, EdgeProps>(
       routing = 'orthogonal',
       markerEnd = 'arrow',
       markerStart,
-      stroke = '#111111',
-      strokeWidth = 2.5,
+      stroke,
+      strokeWidth,
       strokeDasharray,
-      cornerRadius = 4,
+      cornerRadius,
       waypoints,
       label: _label,
       style,
@@ -74,7 +75,10 @@ export const Edge = React.forwardRef<SVGPathElement, EdgeProps>(
     ref,
   ) => {
     const { registry, uid } = useCanvasContext();
-    const kw = typeof strokeWidth === 'number' ? strokeWidth : 2.5;
+    const foundation = useVizFoundation();
+    // 앵커/라우팅 기하는 실제 선 두께 값이 필요 — prop 미지정 시 foundation 값 사용.
+    const kw = typeof strokeWidth === 'number' ? strokeWidth : foundation.edge.width;
+    const effectiveCornerRadius = cornerRadius ?? foundation.edge.cornerRadius;
 
     const fromPt = resolvePoint(from, registry, fromSide, to, registry, kw);
     const toPt = resolvePoint(to, registry, toSide, from, registry, kw);
@@ -96,7 +100,13 @@ export const Edge = React.forwardRef<SVGPathElement, EdgeProps>(
       }
     }
 
-    const d = buildPath(fromPt, resolvedTo, routing, cornerRadius, waypoints);
+    const d = buildPath(fromPt, resolvedTo, routing, effectiveCornerRadius, waypoints);
+
+    // headless: stroke 기본값은 계약 스타일시트([data-bbangto-viz-edge])가 공급한다.
+    // 명시적 prop만 인라인 style로 렌더(사용자 오버라이드 우선 보장).
+    const paintStyle = Object.fromEntries(
+      Object.entries({ stroke, strokeWidth, strokeDasharray }).filter(([, v]) => v !== undefined),
+    );
 
     return (
       <path
@@ -108,9 +118,7 @@ export const Edge = React.forwardRef<SVGPathElement, EdgeProps>(
         markerStart={markerStart && markerStart !== 'none' ? markerRef(uid, markerStart) : undefined}
         style={{
           fill: 'none',
-          stroke,
-          strokeWidth,
-          strokeDasharray,
+          ...paintStyle,
           ...style,
         }}
         {...props}

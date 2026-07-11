@@ -8,6 +8,7 @@ import {
 } from '@centurio1987/bbangto-ui-visualization';
 import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visualization-style-guide-catalog';
 import { expect } from 'storybook/test';
+import { expectVizPaintResolved } from './_paintGate';
 
 const meta = {
   title: 'VISUALIZATION/Templates/G3',
@@ -59,6 +60,7 @@ export const ClassDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
     // 3 class boxes
     const boxes = canvasElement.querySelectorAll('[data-bbangto-viz-class-box]');
     await expect(boxes.length).toBe(3);
@@ -103,6 +105,7 @@ export const StateDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
     const start = canvasElement.querySelector('[data-bbangto-viz-state="start"]');
     await expect(start).not.toBeNull();
 
@@ -153,6 +156,7 @@ export const ERDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
     // 2 entity tables
     const tables = canvasElement.querySelectorAll('[data-bbangto-viz-entity-table]');
     await expect(tables.length).toBe(2);

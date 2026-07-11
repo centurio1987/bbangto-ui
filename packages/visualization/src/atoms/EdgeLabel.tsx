@@ -21,7 +21,7 @@ export const EdgeLabel = React.forwardRef<SVGGElement, EdgeLabelProps>(
       fontSize = 11,
       fontFamily,
       fill,
-      bgFill = 'white',
+      bgFill = vvar('canvas', 'bg'),
       padding = 3,
     },
     ref,
@@ -38,8 +38,7 @@ export const EdgeLabel = React.forwardRef<SVGGElement, EdgeLabelProps>(
           y={y - fontSize / 2 - padding}
           width={approxWidth}
           height={fontSize + padding * 2}
-          fill={bgFill}
-          stroke="none"
+          style={{ fill: bgFill, stroke: 'none' }}
           rx={2}
         />
         <text
@@ -49,7 +48,7 @@ export const EdgeLabel = React.forwardRef<SVGGElement, EdgeLabelProps>(
           dominantBaseline="central"
           fontFamily={effectiveFont}
           fontSize={fontSize}
-          fill={effectiveFill}
+          style={{ fill: effectiveFill }}
         >
           {label}
         </text>

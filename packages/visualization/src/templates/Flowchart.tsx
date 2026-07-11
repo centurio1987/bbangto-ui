@@ -93,9 +93,9 @@ export function Flowchart({
             width={n.width}
             height={n.height}
             shape={n.shape ?? 'rect'}
-            fill={n.fill ?? '#FFFFFF'}
-            stroke={n.stroke ?? '#111111'}
-            strokeWidth={n.strokeWidth ?? 2.5}
+            fill={n.fill}
+            stroke={n.stroke}
+            strokeWidth={n.strokeWidth}
             strokeDasharray={n.strokeDasharray}
           />
           {n.label && (

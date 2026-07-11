@@ -33,7 +33,7 @@ export const ClassBox = React.forwardRef<SVGGElement, ClassBoxProps>(
       stereotype,
       attributes = [],
       methods = [],
-      fill = '#FFFFFF',
+      fill = vvar('shape', 'fill'),
       stroke,
       strokeWidth = 2,
       children,
@@ -82,7 +82,7 @@ export const ClassBox = React.forwardRef<SVGGElement, ClassBoxProps>(
               dominantBaseline="central"
               fontFamily={monoFont}
               fontSize={9}
-              fill={textColor}
+              style={{ fill: textColor }}
             >
               {`«${stereotype}»`}
             </text>
@@ -95,7 +95,7 @@ export const ClassBox = React.forwardRef<SVGGElement, ClassBoxProps>(
             fontFamily={titleFont}
             fontSize={13}
             fontWeight={700}
-            fill={textColor}
+            style={{ fill: textColor }}
           >
             {name}
           </text>
@@ -115,7 +115,7 @@ export const ClassBox = React.forwardRef<SVGGElement, ClassBoxProps>(
               dominantBaseline="central"
               fontFamily={monoFont}
               fontSize={10}
-              fill={textColor}
+              style={{ fill: textColor }}
             >
               {attr}
             </text>
@@ -136,7 +136,7 @@ export const ClassBox = React.forwardRef<SVGGElement, ClassBoxProps>(
               dominantBaseline="central"
               fontFamily={monoFont}
               fontSize={10}
-              fill={textColor}
+              style={{ fill: textColor }}
             >
               {method}
             </text>

@@ -73,7 +73,7 @@ export const Boundary = React.forwardRef<SVGGElement, BoundaryProps>(
             dominantBaseline="central"
             fontFamily={effectiveFont}
             fontSize={labelFontSize}
-            fill={effectiveLabelColor}
+            style={{ fill: effectiveLabelColor }}
           >
             {label}
           </text>

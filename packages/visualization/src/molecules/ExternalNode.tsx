@@ -42,7 +42,7 @@ export const ExternalNode = React.forwardRef<SVGGElement, ExternalNodeProps>(
   ) => {
     const effectiveFill = fill ?? vvar('node', 'external', 'fill');
     const effectiveStroke = stroke ?? vvar('node', 'external', 'keyline');
-    const effectiveStrokeWidth = strokeWidth ?? 2.5;
+    const effectiveStrokeWidth = strokeWidth ?? vvar('node', 'external', 'keylineWidth');
 
     const glyphSize = 22;
     const glyphLeft = x + (width - glyphSize) / 2;
@@ -75,7 +75,7 @@ export const ExternalNode = React.forwardRef<SVGGElement, ExternalNodeProps>(
           aria-hidden="true"
           overflow="visible"
         >
-          <ArrowOutGlyph stroke={typeof effectiveStroke === 'string' ? effectiveStroke : '#111111'} />
+          <ArrowOutGlyph stroke={effectiveStroke} />
         </svg>
         <NodeLabel x={x} y={labelY} width={width} title={title} subtitle={subtitle} fontSize={12} />
         <Tag x={x + width / 2} y={tagY} label={tag} />

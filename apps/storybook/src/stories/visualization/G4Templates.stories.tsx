@@ -12,6 +12,7 @@ import {
 } from '@centurio1987/bbangto-ui-visualization';
 import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visualization-style-guide-catalog';
 import { expect } from 'storybook/test';
+import { expectVizPaintResolved } from './_paintGate';
 
 const meta = {
   title: 'VISUALIZATION/Templates/G4',
@@ -60,6 +61,7 @@ export const SequenceDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
     const lifelines = canvasElement.querySelectorAll('[data-bbangto-viz-lifeline]');
     await expect(lifelines.length).toBe(3);
 
@@ -99,6 +101,7 @@ export const ZenUMLDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
     const lifelines = canvasElement.querySelectorAll('[data-bbangto-viz-lifeline]');
     await expect(lifelines.length).toBe(2);
 
@@ -143,6 +146,7 @@ export const BPMNDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
     const lanes = canvasElement.querySelectorAll('[data-bbangto-viz-lane]');
     await expect(lanes.length).toBe(2);
 
@@ -184,6 +188,7 @@ export const ArchiMateBusinessDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
     const layer = canvasElement.querySelector('[data-bbangto-viz-archimate-layer="business"]');
     await expect(layer).not.toBeNull();
 
@@ -217,6 +222,7 @@ export const ArchiMateApplicationDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
     const layer = canvasElement.querySelector('[data-bbangto-viz-archimate-layer="application"]');
     await expect(layer).not.toBeNull();
 
@@ -247,6 +253,7 @@ export const ArchiMateTechnologyDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
     const layer = canvasElement.querySelector('[data-bbangto-viz-archimate-layer="technology"]');
     await expect(layer).not.toBeNull();
 
@@ -287,6 +294,7 @@ export const SysMLBlockDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
     const boxes = canvasElement.querySelectorAll('[data-bbangto-viz-class-box]');
     await expect(boxes.length).toBe(2);
 

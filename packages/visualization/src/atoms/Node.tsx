@@ -29,6 +29,15 @@ export interface NodeProps extends React.SVGAttributes<SVGGElement> {
   strokeDasharray?: string;
 }
 
+// headless: paint 기본값은 계약 스타일시트([data-viz-part="shape"])가 공급한다.
+// 명시적 prop만 인라인 style로 렌더 — SVG presentation attribute는 author stylesheet에
+// 지므로 반드시 style로 매핑해 사용자 오버라이드가 계약 시트를 이기게 한다.
+function definedStyle(entries: React.CSSProperties): React.CSSProperties {
+  return Object.fromEntries(
+    Object.entries(entries).filter(([, v]) => v !== undefined),
+  ) as React.CSSProperties;
+}
+
 function renderShapeElements(
   shape: NodeShape,
   bbox: BBox,
@@ -41,6 +50,7 @@ function renderShapeElements(
       return (
         <rect
           data-bbangto-viz-node-shape="rect"
+          data-viz-part="shape"
           x={x}
           y={y}
           width={width}
@@ -53,6 +63,7 @@ function renderShapeElements(
       return (
         <path
           data-bbangto-viz-node-shape="rounded"
+          data-viz-part="shape"
           d={roundedPath(bbox)}
           style={shapeStyle}
         />
@@ -62,6 +73,7 @@ function renderShapeElements(
       return (
         <path
           data-bbangto-viz-node-shape="stadium"
+          data-viz-part="shape"
           d={stadiumPath(bbox)}
           style={shapeStyle}
         />
@@ -72,6 +84,7 @@ function renderShapeElements(
       return (
         <circle
           data-bbangto-viz-node-shape="circle"
+          data-viz-part="shape"
           cx={x + width / 2}
           cy={y + height / 2}
           r={r}
@@ -84,6 +97,7 @@ function renderShapeElements(
       return (
         <ellipse
           data-bbangto-viz-node-shape="ellipse"
+          data-viz-part="shape"
           cx={x + width / 2}
           cy={y + height / 2}
           rx={width / 2}
@@ -96,6 +110,7 @@ function renderShapeElements(
       return (
         <path
           data-bbangto-viz-node-shape="diamond"
+          data-viz-part="shape"
           d={diamondPath(bbox)}
           style={shapeStyle}
         />
@@ -105,6 +120,7 @@ function renderShapeElements(
       return (
         <path
           data-bbangto-viz-node-shape="hexagon"
+          data-viz-part="shape"
           d={hexagonPath(bbox)}
           style={shapeStyle}
         />
@@ -114,6 +130,7 @@ function renderShapeElements(
       return (
         <path
           data-bbangto-viz-node-shape="parallelogram"
+          data-viz-part="shape"
           d={parallelogramPath(bbox)}
           style={shapeStyle}
         />
@@ -123,6 +140,7 @@ function renderShapeElements(
       return (
         <path
           data-bbangto-viz-node-shape="trapezoid"
+          data-viz-part="shape"
           d={trapezoidPath(bbox)}
           style={shapeStyle}
         />
@@ -130,27 +148,21 @@ function renderShapeElements(
 
     case 'subroutine': {
       const indent = Math.min(14, width / 6);
+      const lineStyle = definedStyle({
+        stroke: shapeStyle.stroke,
+        strokeWidth: shapeStyle.strokeWidth,
+        fill: 'none',
+      });
       return (
         <>
           <path
             data-bbangto-viz-node-shape="subroutine"
+            data-viz-part="shape"
             d={subroutinePath(bbox)}
             style={shapeStyle}
           />
-          <line
-            x1={x + indent}
-            y1={y}
-            x2={x + indent}
-            y2={y + height}
-            style={{ stroke: shapeStyle.stroke, strokeWidth: shapeStyle.strokeWidth }}
-          />
-          <line
-            x1={x + width - indent}
-            y1={y}
-            x2={x + width - indent}
-            y2={y + height}
-            style={{ stroke: shapeStyle.stroke, strokeWidth: shapeStyle.strokeWidth }}
-          />
+          <line data-viz-part="shape" x1={x + indent} y1={y} x2={x + indent} y2={y + height} style={lineStyle} />
+          <line data-viz-part="shape" x1={x + width - indent} y1={y} x2={x + width - indent} y2={y + height} style={lineStyle} />
         </>
       );
     }
@@ -161,13 +173,11 @@ function renderShapeElements(
         <>
           <path
             data-bbangto-viz-node-shape="cylinder"
+            data-viz-part="shape"
             d={body}
             style={shapeStyle}
           />
-          <path
-            d={topArc}
-            style={{ ...shapeStyle, fill: 'none' }}
-          />
+          <path data-viz-part="shape" d={topArc} style={{ ...shapeStyle, fill: 'none' }} />
         </>
       );
     }
@@ -181,12 +191,19 @@ function renderShapeElements(
         <>
           <circle
             data-bbangto-viz-node-shape="doubleCircle"
+            data-viz-part="shape"
             cx={cx}
             cy={cy}
             r={r}
             style={shapeStyle}
           />
-          <circle cx={cx} cy={cy} r={innerR > 0 ? innerR : r * 0.7} style={{ ...shapeStyle, fill: 'none' }} />
+          <circle
+            data-viz-part="shape"
+            cx={cx}
+            cy={cy}
+            r={innerR > 0 ? innerR : r * 0.7}
+            style={{ ...shapeStyle, fill: 'none' }}
+          />
         </>
       );
     }
@@ -194,13 +211,15 @@ function renderShapeElements(
     case 'cube': {
       const depth = Math.min(14, width / 4, height / 4);
       const { front, top, right } = cubePaths(bbox, depth);
-      const faceStyle = { ...shapeStyle };
-      const dimStyle = { ...shapeStyle, fill: shapeStyle.fill ? adjustBrightness(shapeStyle.fill as string, -15) : '#ddd' };
+      // paint 무관 음영: 면색 위 검정 오버레이(fillOpacity)로 top/right 면을 어둡게 한다.
+      // (hex 연산은 var() 기반 fill과 비호환이라 사용하지 않는다.)
       return (
         <>
-          <path data-bbangto-viz-node-shape="cube" d={front} style={faceStyle} />
-          <path d={top} style={dimStyle} />
-          <path d={right} style={{ ...dimStyle, fill: shapeStyle.fill ? adjustBrightness(shapeStyle.fill as string, -30) : '#bbb' }} />
+          <path data-bbangto-viz-node-shape="cube" data-viz-part="shape" d={front} style={shapeStyle} />
+          <path data-viz-part="shape" d={top} style={shapeStyle} />
+          <path d={top} style={{ fill: '#000000', fillOpacity: 0.12, stroke: 'none' }} />
+          <path data-viz-part="shape" d={right} style={shapeStyle} />
+          <path d={right} style={{ fill: '#000000', fillOpacity: 0.24, stroke: 'none' }} />
         </>
       );
     }
@@ -215,39 +234,20 @@ function renderShapeElements(
         <>
           <path
             data-bbangto-viz-node-shape="component"
+            data-viz-part="shape"
             d={rectPath(bbox)}
             style={shapeStyle}
           />
-          <rect
-            x={notchX}
-            y={notch1Y}
-            width={notchW}
-            height={notchH}
-            style={{ ...shapeStyle }}
-          />
-          <rect
-            x={notchX}
-            y={notch2Y}
-            width={notchW}
-            height={notchH}
-            style={{ ...shapeStyle }}
-          />
+          <rect data-viz-part="shape" x={notchX} y={notch1Y} width={notchW} height={notchH} style={shapeStyle} />
+          <rect data-viz-part="shape" x={notchX} y={notch2Y} width={notchW} height={notchH} style={shapeStyle} />
         </>
       );
     }
 
     default: {
       const d = rectPath(bbox);
-      return <path data-bbangto-viz-node-shape="unknown" d={d} style={shapeStyle} />;
+      return <path data-bbangto-viz-node-shape="unknown" data-viz-part="shape" d={d} style={shapeStyle} />;
     }
-  }
-
-  function adjustBrightness(color: string, amount: number): string {
-    if (!color.startsWith('#') || color.length < 7) return color;
-    const r = Math.max(0, Math.min(255, parseInt(color.slice(1, 3), 16) + amount));
-    const g = Math.max(0, Math.min(255, parseInt(color.slice(3, 5), 16) + amount));
-    const b = Math.max(0, Math.min(255, parseInt(color.slice(5, 7), 16) + amount));
-    return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
   }
 }
 
@@ -260,9 +260,9 @@ export const Node = React.forwardRef<SVGGElement, NodeProps>(
       width,
       height,
       shape = 'rect',
-      fill = 'white',
-      stroke = '#111111',
-      strokeWidth = 2.5,
+      fill,
+      stroke,
+      strokeWidth,
       strokeDasharray,
       children,
       style,
@@ -271,12 +271,7 @@ export const Node = React.forwardRef<SVGGElement, NodeProps>(
     ref,
   ) => {
     const bbox: BBox = { x, y, width, height };
-    const shapeStyle: React.CSSProperties = {
-      fill,
-      stroke,
-      strokeWidth,
-      strokeDasharray,
-    };
+    const shapeStyle = definedStyle({ fill, stroke, strokeWidth, strokeDasharray });
 
     return (
       <g

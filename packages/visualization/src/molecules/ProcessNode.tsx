@@ -25,7 +25,7 @@ export const ProcessNode = React.forwardRef<SVGGElement, ProcessNodeProps>(
   ({ id, x, y, width, height, title, subtitle, tag = 'process', fill, stroke, strokeWidth, strokeDasharray, children }, ref) => {
     const effectiveFill = fill ?? vvar('node', 'process', 'fill');
     const effectiveStroke = stroke ?? vvar('node', 'process', 'keyline');
-    const effectiveStrokeWidth = strokeWidth ?? 2.5;
+    const effectiveStrokeWidth = strokeWidth ?? vvar('node', 'process', 'keylineWidth');
 
     const glyphSize = 22;
     const glyphLeft = x + (width - glyphSize) / 2;
@@ -58,7 +58,7 @@ export const ProcessNode = React.forwardRef<SVGGElement, ProcessNodeProps>(
           aria-hidden="true"
           overflow="visible"
         >
-          <ProcessGlyph stroke={typeof effectiveStroke === 'string' ? effectiveStroke : '#111111'} />
+          <ProcessGlyph stroke={effectiveStroke} />
         </svg>
         <NodeLabel x={x} y={labelY} width={width} title={title} subtitle={subtitle} fontSize={12} />
         <Tag x={x + width / 2} y={tagY} label={tag} />

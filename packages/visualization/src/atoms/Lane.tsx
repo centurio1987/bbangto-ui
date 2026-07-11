@@ -81,7 +81,7 @@ export const Lane = React.forwardRef<SVGGElement, LaneProps>(
             dominantBaseline="central"
             fontFamily={effectiveFont}
             fontSize={labelFontSize}
-            fill={effectiveLabelColor}
+            style={{ fill: effectiveLabelColor }}
             transform={rotate !== 0 ? `rotate(${rotate}, ${lx}, ${ly})` : undefined}
           >
             {label}

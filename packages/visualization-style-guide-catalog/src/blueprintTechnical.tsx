@@ -32,6 +32,13 @@ const foundations: VisualizationFoundation = {
     p8: '#9CAFE7',
   },
 
+  // 일반 도형 기본 paint — 구 Node atom 리터럴 기본값(white/#111111/2.5)과 동일(시각 무회귀).
+  shape: {
+    fill: '#FFFFFF',
+    stroke: KEYLINE,
+    strokeWidth: KEYLINE_WIDTH,
+  },
+
   node: {
     person: { fill: '#C5B6EE', keyline: KEYLINE, keylineWidth: KEYLINE_WIDTH, tagColor: KEYLINE, glyph: 'user' },
     external: { fill: '#EE7B4D', keyline: KEYLINE, keylineWidth: KEYLINE_WIDTH, tagColor: KEYLINE, dashed: true, glyph: 'arrowOut' },
@@ -102,6 +109,7 @@ const whiteprintFoundations: VisualizationFoundation = {
   ...foundations,
   name: 'blueprint-technical-01-whiteprint',
   canvas: { ...foundations.canvas, bg: '#152238', grid: '#243550' },
+  shape: { ...foundations.shape, stroke: WHITE_INK },
   node: Object.fromEntries(
     Object.entries(foundations.node).map(([kind, style]) => [
       kind,

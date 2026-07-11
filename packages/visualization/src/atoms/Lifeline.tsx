@@ -27,7 +27,7 @@ export const Lifeline = React.forwardRef<SVGGElement, LifelineProps>(
       headHeight = 32,
       stroke,
       strokeWidth = 1.5,
-      headFill = 'white',
+      headFill = vvar('canvas', 'bg'),
       labelFontSize = 12,
       labelFontFamily,
       labelColor,
@@ -76,7 +76,7 @@ export const Lifeline = React.forwardRef<SVGGElement, LifelineProps>(
             dominantBaseline="central"
             fontFamily={effectiveFont}
             fontSize={labelFontSize}
-            fill={effectiveLabelColor}
+            style={{ fill: effectiveLabelColor }}
           >
             {label}
           </text>

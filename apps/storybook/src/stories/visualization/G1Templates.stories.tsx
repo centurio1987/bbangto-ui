@@ -13,6 +13,7 @@ import {
 } from '@centurio1987/bbangto-ui-visualization';
 import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visualization-style-guide-catalog';
 import { expect } from 'storybook/test';
+import { expectVizPaintResolved } from './_paintGate';
 
 const meta = {
   title: 'VISUALIZATION/Templates/G1',
@@ -56,6 +57,7 @@ export const FlowchartDataMode: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
     const nodes = canvasElement.querySelectorAll('[data-bbangto-viz-node]');
     await expect(nodes.length).toBe(3);
 
@@ -84,6 +86,7 @@ export const FlowchartChildrenMode: Story = {
     </Flowchart>
   ),
   play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
     const nodes = canvasElement.querySelectorAll('[data-bbangto-viz-node]');
     await expect(nodes.length).toBe(3);
 
@@ -121,6 +124,7 @@ export const BlockDiagramDataMode: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
     const nodes = canvasElement.querySelectorAll('[data-bbangto-viz-node]');
     await expect(nodes.length).toBe(3);
 
@@ -161,6 +165,7 @@ export const MindmapDataMode: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
     const nodes = canvasElement.querySelectorAll('[data-bbangto-viz-node]');
     await expect(nodes.length).toBe(5);
 
@@ -195,6 +200,7 @@ export const TimelineDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
     const axis = canvasElement.querySelector('[data-bbangto-viz-timeline-axis]');
     await expect(axis).not.toBeNull();
 
@@ -227,6 +233,7 @@ export const RequirementDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
     const reqs = canvasElement.querySelectorAll('[data-bbangto-viz-requirement]');
     await expect(reqs.length).toBe(3);
 
@@ -266,6 +273,7 @@ export const KanbanBoardBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
     const lanes = canvasElement.querySelectorAll('[data-bbangto-viz-lane]');
     await expect(lanes.length).toBe(3);
 

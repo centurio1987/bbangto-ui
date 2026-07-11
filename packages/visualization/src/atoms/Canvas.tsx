@@ -61,8 +61,8 @@ export const Canvas = React.forwardRef<SVGSVGElement, CanvasProps>(
       title,
       desc,
       accessible = 'img',
-      markerStroke = '#111111',
-      markerFill = '#111111',
+      markerStroke,
+      markerFill,
       markerSize = 8,
       style,
       ...props

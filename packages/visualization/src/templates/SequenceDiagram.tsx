@@ -126,7 +126,7 @@ export function SequenceDiagram({
             label={p.name}
             headWidth={headWidth}
             headHeight={HEAD_HEIGHT}
-            headFill={p.fill ?? (typeof headFill === 'string' ? headFill : '#FFFFFF')}
+            headFill={p.fill ?? headFill}
             stroke={p.stroke}
             labelFontFamily={monoFont ? vvar('typography', 'monoFont') : undefined}
           />
@@ -147,7 +147,7 @@ export function SequenceDiagram({
             y={act.startY}
             width={barW}
             height={act.endY - act.startY}
-            style={{ fill: '#FFFFFF', stroke: '#111111', strokeWidth: 1.5 }}
+            style={{ fill: vvar('canvas', 'bg'), stroke: vvar('edge', 'stroke'), strokeWidth: 1.5 }}
           />
         );
       })}
@@ -182,7 +182,7 @@ export function SequenceDiagram({
                 textAnchor="middle"
                 fontSize={10}
                 fontFamily={monoFont ? vvar('typography', 'monoFont') : vvar('typography', 'titleFont')}
-                fill="#333333"
+                style={{ fill: vvar('boundary', 'labelColor') }}
               >
                 {msg.label}
               </text>

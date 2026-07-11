@@ -35,7 +35,7 @@ export const Tag = React.forwardRef<SVGTextElement, TagProps>(
         dominantBaseline="central"
         fontFamily={effectiveFont}
         fontSize={fontSize}
-        fill={effectiveFill}
+        style={{ fill: effectiveFill }}
       >
         {`[${label}]`}
       </text>

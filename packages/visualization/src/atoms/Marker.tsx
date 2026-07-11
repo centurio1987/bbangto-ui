@@ -1,3 +1,4 @@
+import { vvar } from '../tokens/contract';
 
 export type MarkerVariant =
   | 'arrow'
@@ -21,16 +22,24 @@ export interface MarkersProps {
   size?: number;
 }
 
+// headless: paint 기본값은 vvar() 참조 — Provider의 CSS 변수 스코프에서 해석된다.
+// SVG presentation attribute는 var()를 지원하지 않으므로 반드시 style로 적용한다.
+
 function mkId(uid: string, variant: string): string {
   return `${uid}-${variant}`;
 }
 
 export function Markers({
   uid,
-  stroke = '#111111',
-  fill = '#111111',
+  stroke,
+  fill,
   size = 8,
 }: MarkersProps) {
+  const lineStroke = stroke ?? vvar('edge', 'stroke');
+  const arrowFill = fill ?? vvar('edge', 'marker', 'arrow');
+  const diamondFill = fill ?? vvar('edge', 'marker', 'diamond');
+  const circleFill = fill ?? vvar('edge', 'marker', 'circle');
+  const crossStroke = stroke ?? vvar('edge', 'marker', 'cross');
   const hw = size / 2;
   const erW = 14;
   const erH = 10;
@@ -50,8 +59,7 @@ export function Markers({
       >
         <path
           d={`M 0 0 L ${size} ${hw} L 0 ${size} Z`}
-          fill={fill}
-          stroke="none"
+          style={{ fill: arrowFill, stroke: 'none' }}
         />
       </marker>
 
@@ -67,9 +75,7 @@ export function Markers({
       >
         <path
           d={`M 0 1 L ${size - 1} ${hw} L 0 ${size - 1}`}
-          fill="none"
-          stroke={stroke}
-          strokeWidth={1.5}
+          style={{ fill: 'none', stroke: lineStroke, strokeWidth: 1.5 }}
         />
       </marker>
 
@@ -85,8 +91,7 @@ export function Markers({
       >
         <path
           d={`M 0 ${hw} L ${hw} 0 L ${size} ${hw} L ${hw} ${size} Z`}
-          fill={fill}
-          stroke="none"
+          style={{ fill: diamondFill, stroke: 'none' }}
         />
       </marker>
 
@@ -102,9 +107,7 @@ export function Markers({
       >
         <path
           d={`M 0 ${hw} L ${hw} 0 L ${size} ${hw} L ${hw} ${size} Z`}
-          fill="none"
-          stroke={stroke}
-          strokeWidth={1.5}
+          style={{ fill: 'none', stroke: lineStroke, strokeWidth: 1.5 }}
         />
       </marker>
 
@@ -118,7 +121,7 @@ export function Markers({
         orient="auto"
         markerUnits="userSpaceOnUse"
       >
-        <circle cx={hw} cy={hw} r={hw - 1} fill={fill} stroke="none" />
+        <circle cx={hw} cy={hw} r={hw - 1} style={{ fill: circleFill, stroke: 'none' }} />
       </marker>
 
       {/* Cross (×) */}
@@ -133,9 +136,7 @@ export function Markers({
       >
         <path
           d={`M 1 1 L ${size - 1} ${size - 1} M 1 ${size - 1} L ${size - 1} 1`}
-          fill="none"
-          stroke={stroke}
-          strokeWidth={1.5}
+          style={{ fill: 'none', stroke: crossStroke, strokeWidth: 1.5 }}
         />
       </marker>
 
@@ -151,9 +152,7 @@ export function Markers({
       >
         <path
           d={`M 0 0 L ${size} ${hw} L 0 ${size} Z`}
-          fill="none"
-          stroke={stroke}
-          strokeWidth={1.5}
+          style={{ fill: 'none', stroke: lineStroke, strokeWidth: 1.5 }}
         />
       </marker>
 
@@ -167,8 +166,8 @@ export function Markers({
         orient="auto"
         markerUnits="userSpaceOnUse"
       >
-        <line x1={6} y1={0} x2={6} y2={erH} stroke={stroke} strokeWidth={1.5} />
-        <line x1={10} y1={0} x2={10} y2={erH} stroke={stroke} strokeWidth={1.5} />
+        <line x1={6} y1={0} x2={6} y2={erH} style={{ stroke: lineStroke, strokeWidth: 1.5 }} />
+        <line x1={10} y1={0} x2={10} y2={erH} style={{ stroke: lineStroke, strokeWidth: 1.5 }} />
       </marker>
 
       {/* ER: many (crow's-foot) */}
@@ -183,9 +182,7 @@ export function Markers({
       >
         <path
           d={`M ${erW} ${erHw} L 0 0 M ${erW} ${erHw} L 0 ${erHw} M ${erW} ${erHw} L 0 ${erH}`}
-          fill="none"
-          stroke={stroke}
-          strokeWidth={1.5}
+          style={{ fill: 'none', stroke: lineStroke, strokeWidth: 1.5 }}
         />
       </marker>
 
@@ -199,8 +196,8 @@ export function Markers({
         orient="auto"
         markerUnits="userSpaceOnUse"
       >
-        <circle cx={3} cy={erHw} r={3} fill="none" stroke={stroke} strokeWidth={1.5} />
-        <line x1={9} y1={0} x2={9} y2={erH} stroke={stroke} strokeWidth={1.5} />
+        <circle cx={3} cy={erHw} r={3} fill="none" style={{ stroke: lineStroke, strokeWidth: 1.5 }} />
+        <line x1={9} y1={0} x2={9} y2={erH} style={{ stroke: lineStroke, strokeWidth: 1.5 }} />
       </marker>
 
       {/* ER: one or many (crow's-foot + bar) */}
@@ -213,12 +210,10 @@ export function Markers({
         orient="auto"
         markerUnits="userSpaceOnUse"
       >
-        <line x1={4} y1={0} x2={4} y2={erH} stroke={stroke} strokeWidth={1.5} />
+        <line x1={4} y1={0} x2={4} y2={erH} style={{ stroke: lineStroke, strokeWidth: 1.5 }} />
         <path
           d={`M ${erW} ${erHw} L 4 0 M ${erW} ${erHw} L 4 ${erHw} M ${erW} ${erHw} L 4 ${erH}`}
-          fill="none"
-          stroke={stroke}
-          strokeWidth={1.5}
+          style={{ fill: 'none', stroke: lineStroke, strokeWidth: 1.5 }}
         />
       </marker>
 
@@ -232,12 +227,10 @@ export function Markers({
         orient="auto"
         markerUnits="userSpaceOnUse"
       >
-        <circle cx={3} cy={erHw} r={3} fill="none" stroke={stroke} strokeWidth={1.5} />
+        <circle cx={3} cy={erHw} r={3} fill="none" style={{ stroke: lineStroke, strokeWidth: 1.5 }} />
         <path
           d={`M ${erW} ${erHw} L 6 0 M ${erW} ${erHw} L 6 ${erHw} M ${erW} ${erHw} L 6 ${erH}`}
-          fill="none"
-          stroke={stroke}
-          strokeWidth={1.5}
+          style={{ fill: 'none', stroke: lineStroke, strokeWidth: 1.5 }}
         />
       </marker>
     </>

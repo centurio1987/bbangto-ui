@@ -25,7 +25,7 @@ export const DatabaseNode = React.forwardRef<SVGGElement, DatabaseNodeProps>(
   ({ id, x, y, width, height, title, subtitle, tag = 'database', fill, stroke, strokeWidth, strokeDasharray, children }, ref) => {
     const effectiveFill = fill ?? vvar('node', 'database', 'fill');
     const effectiveStroke = stroke ?? vvar('node', 'database', 'keyline');
-    const effectiveStrokeWidth = strokeWidth ?? 2.5;
+    const effectiveStrokeWidth = strokeWidth ?? vvar('node', 'database', 'keylineWidth');
 
     const glyphSize = 22;
     const glyphLeft = x + (width - glyphSize) / 2;
@@ -58,7 +58,7 @@ export const DatabaseNode = React.forwardRef<SVGGElement, DatabaseNodeProps>(
           aria-hidden="true"
           overflow="visible"
         >
-          <CylinderGlyph stroke={typeof effectiveStroke === 'string' ? effectiveStroke : '#111111'} />
+          <CylinderGlyph stroke={effectiveStroke} />
         </svg>
         <NodeLabel x={x} y={labelY} width={width} title={title} subtitle={subtitle} fontSize={12} />
         <Tag x={x + width / 2} y={tagY} label={tag} />

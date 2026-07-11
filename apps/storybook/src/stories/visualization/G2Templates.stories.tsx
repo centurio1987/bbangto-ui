@@ -13,6 +13,7 @@ import {
 } from '@centurio1987/bbangto-ui-visualization';
 import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visualization-style-guide-catalog';
 import { expect } from 'storybook/test';
+import { expectVizPaintResolved } from './_paintGate';
 
 const meta = {
   title: 'VISUALIZATION/Templates/G2',
@@ -56,6 +57,7 @@ export const C4ContextDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
     // boundary label text
     const boundary = canvasElement.querySelector('[data-bbangto-viz-boundary]');
     await expect(boundary).not.toBeNull();
@@ -105,6 +107,7 @@ export const C4ContainerDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
     // Boundary label present — key assertion
     const boundary = canvasElement.querySelector('[data-bbangto-viz-boundary]');
     await expect(boundary).not.toBeNull();
@@ -147,6 +150,7 @@ export const C4ComponentDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
     const boundary = canvasElement.querySelector('[data-bbangto-viz-boundary]');
     await expect(boundary).not.toBeNull();
     await expect(boundary?.querySelector('text')?.textContent).toBe('API Server');
@@ -190,6 +194,7 @@ export const C4CodeDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
     const boxes = canvasElement.querySelectorAll('[data-bbangto-viz-class-box]');
     await expect(boxes.length).toBe(2);
 
@@ -229,6 +234,7 @@ export const ArchitectureDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
     const groups = canvasElement.querySelectorAll('[data-bbangto-viz-boundary]');
     await expect(groups.length).toBe(2);
 
@@ -265,6 +271,7 @@ export const UMLComponentDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
     // component shape nodes
     const compShapes = canvasElement.querySelectorAll('[data-bbangto-viz-node-shape="component"]');
     await expect(compShapes.length).toBe(2);
@@ -303,6 +310,7 @@ export const UMLDeploymentDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
     const envBoundary = canvasElement.querySelector('[data-bbangto-viz-boundary]');
     await expect(envBoundary).not.toBeNull();
 
@@ -342,6 +350,7 @@ export const UMLSequenceDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
     const lifelines = canvasElement.querySelectorAll('[data-bbangto-viz-lifeline]');
     await expect(lifelines.length).toBe(3);
 

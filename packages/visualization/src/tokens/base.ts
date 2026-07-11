@@ -22,6 +22,12 @@ export const baseVisualizationFoundation: VisualizationFoundation = {
     gridUnit: 8,
   },
 
+  shape: {
+    fill: '#FFFFFF',
+    stroke: '#333333',
+    strokeWidth: 1.5,
+  },
+
   palette: {
     p1: '#DDDDDD',
     p2: '#CCCCCC',

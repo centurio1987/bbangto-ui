@@ -24,7 +24,7 @@ export const DecisionNode = React.forwardRef<SVGGElement, DecisionNodeProps>(
   ({ id, x, y, width, height, title, subtitle, tag = 'decision', fill, stroke, strokeWidth, strokeDasharray, children }, ref) => {
     const effectiveFill = fill ?? vvar('node', 'decision', 'fill');
     const effectiveStroke = stroke ?? vvar('node', 'decision', 'keyline');
-    const effectiveStrokeWidth = strokeWidth ?? 2.5;
+    const effectiveStrokeWidth = strokeWidth ?? vvar('node', 'decision', 'keylineWidth');
 
     // Diamond: text goes to the center, tag near bottom half
     const labelY = y + height * 0.42;

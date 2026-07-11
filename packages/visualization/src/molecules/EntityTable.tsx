@@ -34,7 +34,7 @@ export const EntityTable = React.forwardRef<SVGGElement, EntityTableProps>(
       width,
       name,
       attributes = [],
-      fill = '#FFFFFF',
+      fill = vvar('shape', 'fill'),
       headerFill,
       stroke,
       strokeWidth = 1.5,
@@ -82,7 +82,7 @@ export const EntityTable = React.forwardRef<SVGGElement, EntityTableProps>(
             fontFamily={titleFont}
             fontSize={13}
             fontWeight={700}
-            fill={textColor}
+            style={{ fill: textColor }}
           >
             {name}
           </text>
@@ -103,7 +103,7 @@ export const EntityTable = React.forwardRef<SVGGElement, EntityTableProps>(
                   fontFamily={monoFont}
                   fontSize={9}
                   fontWeight={700}
-                  fill={textColor}
+                  style={{ fill: textColor }}
                 >
                   {attr.key}
                 </text>
@@ -115,7 +115,7 @@ export const EntityTable = React.forwardRef<SVGGElement, EntityTableProps>(
                 dominantBaseline="central"
                 fontFamily={monoFont}
                 fontSize={10}
-                fill={textColor}
+                style={{ fill: textColor }}
               >
                 {attr.name}
               </text>
@@ -126,7 +126,7 @@ export const EntityTable = React.forwardRef<SVGGElement, EntityTableProps>(
                 dominantBaseline="central"
                 fontFamily={monoFont}
                 fontSize={10}
-                fill={textColor}
+                style={{ fill: textColor }}
                 opacity={0.6}
               >
                 {attr.type}

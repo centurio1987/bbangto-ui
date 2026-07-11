@@ -46,7 +46,7 @@ export const StateNode = React.forwardRef<SVGGElement, StateNodeProps>(
       const cy = y + PSEUDO_RADIUS;
       return (
         <g ref={ref} data-bbangto-viz-state="start" data-bbangto-viz-state-id={id}>
-          <circle cx={cx} cy={cy} r={PSEUDO_RADIUS} style={{ fill: '#111111' }} />
+          <circle cx={cx} cy={cy} r={PSEUDO_RADIUS} style={{ fill: effectiveStroke }} />
           {children}
         </g>
       );
@@ -63,7 +63,7 @@ export const StateNode = React.forwardRef<SVGGElement, StateNodeProps>(
             r={PSEUDO_RADIUS}
             style={{ fill: 'none', stroke: effectiveStroke, strokeWidth }}
           />
-          <circle cx={cx} cy={cy} r={PSEUDO_RADIUS * 0.55} style={{ fill: '#111111' }} />
+          <circle cx={cx} cy={cy} r={PSEUDO_RADIUS * 0.55} style={{ fill: effectiveStroke }} />
           {children}
         </g>
       );
@@ -92,7 +92,7 @@ export const StateNode = React.forwardRef<SVGGElement, StateNodeProps>(
             fontFamily={titleFont}
             fontSize={12}
             fontWeight={600}
-            fill={textColor}
+            style={{ fill: textColor }}
           >
             {title}
           </text>

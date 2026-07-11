@@ -67,7 +67,7 @@ export const NodeLabel = React.forwardRef<SVGGElement, NodeLabelProps>(
             fontFamily={effectiveFont}
             fontSize={fontSize}
             fontWeight={fontWeight}
-            fill={effectiveFill}
+            style={{ fill: effectiveFill }}
             {...(mode === 'fit'
               ? {
                   textLength: estimateWidth(line, fontSize) > width - 8 ? width - 8 : undefined,
@@ -87,7 +87,7 @@ export const NodeLabel = React.forwardRef<SVGGElement, NodeLabelProps>(
             fontFamily={effectiveFont}
             fontSize={fontSize - 2}
             fontWeight={400}
-            fill={effectiveFill}
+            style={{ fill: effectiveFill }}
             opacity={0.7}
           >
             {subtitle}

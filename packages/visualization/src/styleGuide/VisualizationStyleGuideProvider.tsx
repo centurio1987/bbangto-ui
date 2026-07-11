@@ -3,6 +3,7 @@ import type { VisualizationFoundation } from '../tokens/types';
 import { visualizationFoundationToStyleObject } from '../tokens/contract';
 import { baseVisualizationFoundation } from '../tokens/base';
 import { useVizDefs } from '../provider/defs';
+import { useVizContractCss } from '../provider/contractCss';
 import type { VisualizationStyleGuide } from './VisualizationStyleGuide';
 import { resolveVizFoundationPreset } from './VisualizationStyleGuide';
 
@@ -59,6 +60,7 @@ export function VisualizationStyleGuideProvider({
   const defsPrefix = useMemo(() => `viz-${rawId.replace(/[^a-zA-Z0-9_-]/g, '')}`, [rawId]);
 
   useVizDefs();
+  useVizContractCss();
 
   const ctx = useMemo(
     () => ({ styleGuide, foundations, defsPrefix }),

@@ -25,7 +25,7 @@ export const ContainerNode = React.forwardRef<SVGGElement, ContainerNodeProps>(
   ({ id, x, y, width, height, title, subtitle, tag = 'container', fill, stroke, strokeWidth, strokeDasharray, children }, ref) => {
     const effectiveFill = fill ?? vvar('node', 'container', 'fill');
     const effectiveStroke = stroke ?? vvar('node', 'container', 'keyline');
-    const effectiveStrokeWidth = strokeWidth ?? 2.5;
+    const effectiveStrokeWidth = strokeWidth ?? vvar('node', 'container', 'keylineWidth');
 
     const glyphSize = 22;
     const glyphLeft = x + (width - glyphSize) / 2;
@@ -58,7 +58,7 @@ export const ContainerNode = React.forwardRef<SVGGElement, ContainerNodeProps>(
           aria-hidden="true"
           overflow="visible"
         >
-          <StackedRectGlyph stroke={typeof effectiveStroke === 'string' ? effectiveStroke : '#111111'} />
+          <StackedRectGlyph stroke={effectiveStroke} />
         </svg>
         <NodeLabel x={x} y={labelY} width={width} title={title} subtitle={subtitle} fontSize={12} />
         <Tag x={x + width / 2} y={tagY} label={tag} />

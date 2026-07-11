@@ -49,6 +49,13 @@ export interface VisualizationFoundation {
     readonly p8: string;
   };
 
+  /** 시맨틱 kind가 지정되지 않은 일반 도형(Node atom 기본값)의 paint. 계약 스타일시트가 바인딩한다. */
+  readonly shape: {
+    readonly fill: string;
+    readonly stroke: string;
+    readonly strokeWidth: number;
+  };
+
   readonly node: Record<VizNodeSemanticKind, VizNodeSemanticStyle>;
 
   readonly edge: {
