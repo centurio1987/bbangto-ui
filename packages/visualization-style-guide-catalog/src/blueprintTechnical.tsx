@@ -2,7 +2,18 @@ import type {
   VisualizationFoundation,
   VizFoundationPreset,
 } from '@centurio1987/bbangto-ui-tokens';
-import type { VisualizationStyleGuide } from '@centurio1987/bbangto-ui-visualization';
+import {
+  Node,
+  Tag,
+  EdgeLabel,
+  vvar,
+  type NodeProps,
+  type TagProps,
+  type EdgeLabelProps,
+  type VisualizationStyleGuide,
+  type VizWrapperComponents,
+} from '@centurio1987/bbangto-ui-visualization';
+import { makeVizShowcase } from './_showcase';
 
 /**
  * Blueprint_Technical_01 — 기존 diagram 패키지의 blueprintTheme 시각 언어를
@@ -129,17 +140,125 @@ const whiteprintFoundations: VisualizationFoundation = {
   boundary: { ...foundations.boundary, stroke: WHITE_INK, labelColor: '#B9C6DE' },
 };
 
+const whiteprintExt: Record<string, string> = {
+  '--bbangto-viz-ext-ghost': '#5C6E8E',
+  '--bbangto-viz-ext-ghost-dash': '3 3',
+};
+
 const foundationPresets: readonly VizFoundationPreset[] = [
   // 카탈로그 불변식: 첫 preset의 foundations는 base foundations와 동일 객체 참조.
-  { key: 'default', label: 'Paper', foundations },
-  { key: 'whiteprint', label: 'Whiteprint (Inverted Navy)', foundations: whiteprintFoundations },
+  {
+    key: 'default',
+    label: 'Paper',
+    foundations,
+    extendedFoundations: {
+      '--bbangto-viz-ext-ghost': '#8B857B',
+      '--bbangto-viz-ext-ghost-dash': '3 3',
+    },
+  },
+  {
+    key: 'whiteprint',
+    label: 'Whiteprint (Inverted Navy)',
+    foundations: whiteprintFoundations,
+    extendedFoundations: whiteprintExt,
+  },
 ];
+
+const extendedFoundations: Record<string, string> = {
+  '--bbangto-viz-ext-ghost': '#8B857B',
+  '--bbangto-viz-ext-ghost-dash': '3 3',
+};
+
+/** 제도(drafting) 고스트 — 본 도형 뒤에 점선 오프셋 윤곽을 겹쳐 청사진 인상을 만든다. */
+function BlueprintNode(props: NodeProps) {
+  return (
+    <>
+      <Node
+        {...props}
+        id={undefined}
+        x={props.x + 4}
+        y={props.y + 4}
+        fill="none"
+        stroke={vvar('ext', 'ghost')}
+        strokeWidth={1}
+        strokeDasharray="3 3"
+        data-viz-wrapper-ghost=""
+      />
+      <Node {...props} />
+    </>
+  );
+}
+BlueprintNode.displayName = 'BlueprintNode';
+
+function BlueprintTag(props: TagProps) {
+  return <Tag {...props} label={`[${props.label.toUpperCase()}]`} />;
+}
+BlueprintTag.displayName = 'BlueprintTag';
+
+function BlueprintEdgeLabel(props: EdgeLabelProps) {
+  return <EdgeLabel {...props} bgFill={vvar('canvas', 'grid')} />;
+}
+BlueprintEdgeLabel.displayName = 'BlueprintEdgeLabel';
+
+const wrapperComponents: VizWrapperComponents = {
+  Node: BlueprintNode,
+  Tag: BlueprintTag,
+  EdgeLabel: BlueprintEdgeLabel,
+};
+
+const Showcase = makeVizShowcase({ displayName: 'BlueprintTechnicalShowcase' });
+
+const guidelines: Record<string, Record<string, unknown>> = {
+  surface: {
+    summary: '따뜻한 종이 캔버스 위 굵은 2.5px keyline. 면은 파스텔 시맨틱 채움.',
+    dos: ['시맨틱 kind별 파스텔 fill 사용', '8px 그리드 단위 정렬', 'mono 폰트 태그 [type] 표기'],
+    donts: ['그라디언트/광택 금지', 'keyline 두께 임의 변경 금지'],
+  },
+  color: {
+    summary: '잉크(#111111) 단일 스트로크 + p1~p8 파스텔 팔레트.',
+    dos: ['잉크는 스트로크·텍스트 전용', '팔레트는 시맨틱 kind 구분 전용'],
+    donts: ['잉크를 면 채움으로 사용 금지', '팔레트 색을 텍스트에 사용 금지'],
+  },
+  typography: {
+    summary: 'Helvetica 제목 + JetBrains Mono 태그/수치.',
+    dos: ['태그·수치·기간은 mono', '제목은 700 이상'],
+    donts: ['본문 크기 11px 미만 금지'],
+  },
+  accessibility: {
+    summary: '비텍스트 요소 3:1, 텍스트 4.5:1 대비 준수.',
+    dos: ['라벨-캔버스 대비 4.5:1 이상 유지', '값 인코딩(크기/아크)은 텍스트 병기'],
+    donts: ['색 단독으로 의미 구분 금지', 'whiteprint에서 저대비 파스텔 텍스트 금지'],
+  },
+};
 
 export const blueprintTechnical01VizStyleGuide: VisualizationStyleGuide = {
   name: 'blueprint-technical-01',
   description:
     'Precision drafting look — warm paper canvas, bold 2.5px keylines, pastel semantic fills, mono tags. Promoted from the original blueprint theme.',
   foundations,
+  extendedFoundations,
   foundationPresets,
   defaultFoundationKey: 'default',
+  wrapperComponents,
+  patterns: { BlueprintTechnicalShowcase: Showcase },
+  guidelines,
+  visualMotif: {
+    summary:
+      '정밀 제도(drafting) 모티프 — 굵은 잉크 keyline, 점선 고스트 오프셋, 종이 질감 캔버스, mono 태그.',
+    components: {
+      Node: {
+        description: '본 도형 뒤에 3px 점선 고스트 윤곽이 겹쳐 설계 도면의 초안선을 연상시킨다.',
+        specs: ['keyline 2.5px #111111', '고스트: +4,+4 오프셋, 1px dashed', 'radius 8px 이하'],
+      },
+      Tag: {
+        description: '타입 태그는 대괄호 mono 대문자 — 도면 주기(annotation) 문법.',
+        specs: ['[PERSON] 형식', 'JetBrains Mono 10px', '잉크 단색'],
+      },
+      EdgeLabel: {
+        description: '연결선 라벨은 그리드 톤 배경 칩 위 mono 텍스트.',
+        specs: ['bg = canvas.grid', 'mono 11px', '패딩 3px'],
+      },
+    },
+    example: Showcase,
+  },
 };

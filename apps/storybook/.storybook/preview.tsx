@@ -28,7 +28,7 @@ const preview: Preview = {
             'Blocks',
             'Patterns',
           ],
-          'VISUALIZATION', ['Provider', 'Atoms', 'Molecules', 'Patterns', 'Templates'],
+          'VISUALIZATION', ['Provider', 'Headless', 'Atoms', 'Molecules', 'Patterns', 'Templates', ['G1', 'G2', 'G3', 'G4', 'Style Matrix']],
           // 기본 foundation(light/dark/high-contrast)은 전역 툴바로 전환. 그 외
           // 확장 foundation(amber + external 74)은 FOUNDATION CATALOG로 분리.
           'FOUNDATION CATALOG',
@@ -86,6 +86,12 @@ const preview: Preview = {
             'Romantic_Botanical_01', ['Referenced Foundations', 'Extended Foundations', 'Wrapper Components', 'Patterns', 'Guideline', 'Visual Motif'],
             'Heritage_Folk_Ornament_01', ['Referenced Foundations', 'Extended Foundations', 'Wrapper Components', 'Patterns', 'Guideline', 'Visual Motif'],
             'Naive_Doodle_01', ['Referenced Foundations', 'Extended Foundations', 'Wrapper Components', 'Patterns', 'Guideline', 'Visual Motif'],
+          ],
+          // visualization 카탈로그: ORDER 요구 5-leaf. storySort 정적 파싱 — inline 리터럴 필수.
+          'VISUALIZATION STYLE GUIDE CATALOG', [
+            'Blueprint_Technical_01', ['Foundations', 'Wrapper Components', 'Guideline', 'Visual Motif', 'Foundation Presets'],
+            'Minimal_Line_01', ['Foundations', 'Wrapper Components', 'Guideline', 'Visual Motif', 'Foundation Presets'],
+            'Colorful_Flat_01', ['Foundations', 'Wrapper Components', 'Guideline', 'Visual Motif', 'Foundation Presets'],
           ],
           '*',
         ],

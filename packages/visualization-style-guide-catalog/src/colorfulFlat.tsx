@@ -1,0 +1,254 @@
+import type {
+  VisualizationFoundation,
+  VizFoundationPreset,
+} from '@centurio1987/bbangto-ui-tokens';
+import {
+  Node,
+  Tag,
+  EdgeLabel,
+  vvar,
+  type NodeProps,
+  type TagProps,
+  type EdgeLabelProps,
+  type VisualizationStyleGuide,
+  type VizWrapperComponents,
+} from '@centurio1987/bbangto-ui-visualization';
+import { makeVizColorway } from './_foundation';
+import { makeVizShowcase } from './_showcase';
+
+/**
+ * Colorful_Flat_01 — 고채도 flat 다색 + 두꺼운 navy 아웃라인.
+ * 근거: diagram-references 각 카테고리 colorful 폴더 23장(visualization-catalog.md §4-c).
+ * 채운 도형 라벨은 navy 잉크(4.5:1 확보 위해 fill은 밝은 톤으로 보정 — 카탈로그 접근성 주의 반영).
+ */
+
+const NAVY = '#1B2A4A';
+const THICK = 3;
+
+const node = (fill: string, glyph: string, dashed?: boolean) => ({
+  fill,
+  keyline: NAVY,
+  keylineWidth: THICK,
+  tagColor: NAVY,
+  ...(dashed ? { dashed: true } : {}),
+  glyph,
+});
+
+const foundations: VisualizationFoundation = {
+  name: 'colorful-flat-01',
+
+  canvas: {
+    bg: '#FDF8F1',
+    grid: '#F3E9DC',
+    gridUnit: 8,
+  },
+
+  // 고채도 flat 팔레트 — ring/dot 등 외부 라벨 요소 전용(면 위 텍스트 없음).
+  palette: {
+    p1: '#E8443B',
+    p2: '#F5B841',
+    p3: '#1FB6A6',
+    p4: '#3FBF6F',
+    p5: '#D9418C',
+    p6: '#6C3FBF',
+    p7: '#F08A5B',
+    p8: '#2E73B8',
+  },
+
+  shape: {
+    fill: '#FFFFFF',
+    stroke: NAVY,
+    strokeWidth: THICK,
+  },
+
+  // navy 텍스트 4.5:1 확보를 위해 시맨틱 fill은 밝은 파스텔-스트롱 톤.
+  node: {
+    person: node('#F7C868', 'user'),
+    external: node('#F4A97F', 'arrowOut', true),
+    container: node('#9FE0BE', 'stackedRect'),
+    database: node('#A3D4EE', 'cylinder'),
+    queue: node('#F6E9A0', 'bars'),
+    decision: node('#F5B8D0', 'diamond'),
+    process: node('#B7C9F4', 'process'),
+  },
+
+  edge: {
+    stroke: NAVY,
+    width: THICK,
+    dashPattern: '',
+    cornerRadius: 8,
+    marker: {
+      size: 9,
+      arrow: NAVY,
+      diamond: NAVY,
+      circle: NAVY,
+      cross: NAVY,
+    },
+  },
+
+  c4: {
+    l1: { borderWidth: 3.5, bgTint: 'rgba(27,42,74,0.05)', labelColor: NAVY },
+    l2: { borderWidth: 2.5, bgTint: 'rgba(27,42,74,0.03)', labelColor: NAVY },
+    l3: { borderWidth: 1.8, bgTint: 'transparent', labelColor: NAVY },
+  },
+
+  boundary: {
+    stroke: NAVY,
+    width: 2,
+    dashPattern: '10 6',
+    radius: 12,
+    labelColor: '#44547A',
+  },
+
+  typography: {
+    titleFont: "'Helvetica Neue', Helvetica, Arial, sans-serif",
+    monoFont: "'JetBrains Mono', 'Courier New', monospace",
+    titleWeight: 800,
+    sizes: {
+      title: '14px',
+      label: '12px',
+      tag: '10px',
+      mono: '11px',
+    },
+  },
+
+  iconStyle: 'fill',
+
+  spacing: {
+    nodePad: 12,
+    laneGap: 24,
+  },
+
+  motion: {
+    duration: '200ms',
+    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+  },
+};
+
+/** candy — 마젠타/퍼플 듀오톤 colorway (관측: mermaid colorful_03 퍼플 듀오톤). */
+const candyFoundations = makeVizColorway(foundations, {
+  name: 'colorful-flat-01-candy',
+  canvas: { bg: '#FBF3FA', grid: '#F0E2EF' },
+  ink: '#3A2140',
+  tagColor: '#3A2140',
+  nodeFills: {
+    person: '#F0C4EC',
+    external: '#F5B8D0',
+    container: '#D6C2F2',
+    database: '#C4CDF6',
+    queue: '#F6DFA8',
+    decision: '#F4BBE0',
+    process: '#CBB8F0',
+  },
+  palette: { p1: '#D9418C', p2: '#6C3FBF', p3: '#B0338F', p4: '#8A4FD8', p7: '#E06AAE', p8: '#5B3FA8' },
+  boundaryLabelColor: '#5F4270',
+  c4Tints: ['rgba(58,33,64,0.05)', 'rgba(58,33,64,0.03)', 'transparent'],
+});
+
+const foundationPresets: readonly VizFoundationPreset[] = [
+  {
+    key: 'default',
+    label: 'Warm Pop',
+    foundations,
+    extendedFoundations: { '--bbangto-viz-ext-offset-shadow': '#1B2A4A' },
+  },
+  {
+    key: 'candy',
+    label: 'Candy (Magenta/Purple)',
+    foundations: candyFoundations,
+    extendedFoundations: { '--bbangto-viz-ext-offset-shadow': '#3A2140' },
+  },
+];
+
+/** faux-3D 오프셋 솔리드 섀도 — 본 도형 뒤에 잉크색 오프셋 실루엣(관측: colorful_07). */
+function ColorfulNode(props: NodeProps) {
+  return (
+    <>
+      <Node
+        {...props}
+        id={undefined}
+        x={props.x + 5}
+        y={props.y + 5}
+        fill={vvar('ext', 'offsetShadow')}
+        stroke="none"
+        strokeWidth={0}
+        data-viz-wrapper-shadow=""
+      />
+      <Node {...props} />
+    </>
+  );
+}
+ColorfulNode.displayName = 'ColorfulNode';
+
+function ColorfulTag(props: TagProps) {
+  return <Tag {...props} label={props.label.toUpperCase()} fontSize={10} />;
+}
+ColorfulTag.displayName = 'ColorfulTag';
+
+function ColorfulEdgeLabel(props: EdgeLabelProps) {
+  return <EdgeLabel {...props} bgFill={vvar('canvas', 'grid')} padding={5} />;
+}
+ColorfulEdgeLabel.displayName = 'ColorfulEdgeLabel';
+
+const wrapperComponents: VizWrapperComponents = {
+  Node: ColorfulNode,
+  Tag: ColorfulTag,
+  EdgeLabel: ColorfulEdgeLabel,
+};
+
+const Showcase = makeVizShowcase({ displayName: 'ColorfulFlatShowcase' });
+
+const guidelines: Record<string, Record<string, unknown>> = {
+  surface: {
+    summary: '크림 캔버스 위 두꺼운 navy 아웃라인 + 밝은 flat 채움. 오프셋 솔리드 섀도로 faux-3D.',
+    dos: ['도형은 flat 단색 채움', '아웃라인 3px navy 유지', '오프셋 섀도는 잉크 단색'],
+    donts: ['그라디언트/블러 섀도 금지', '아웃라인 없는 채움 도형 금지'],
+  },
+  color: {
+    summary: '시맨틱 kind별 밝은 파스텔-스트롱 fill + 고채도 p1~p8(외부 라벨 요소 전용).',
+    dos: ['면 위 텍스트는 navy 잉크', '고채도 팔레트는 링/도트 등 외부 라벨 요소에만'],
+    donts: ['채도 높은 fill 위 흰 텍스트 금지(4.5:1 미달)', '색 단독 의미 구분 금지'],
+  },
+  typography: {
+    summary: '두꺼운(800) 산세리프 제목 — 팝 인상.',
+    dos: ['제목 800, 라벨 700', '수치는 mono'],
+    donts: ['얇은 웨이트(400 미만) 제목 금지'],
+  },
+  accessibility: {
+    summary: '모든 fill은 navy 잉크와 4.5:1 이상이 되도록 밝기 보정되어 있다.',
+    dos: ['fill 신규 추가 시 navy 대비 4.5:1 검증', '값 인코딩 텍스트 병기'],
+    donts: ['amber/teal 원색 위 흰 텍스트 금지'],
+  },
+};
+
+export const colorfulFlat01VizStyleGuide: VisualizationStyleGuide = {
+  name: 'colorful-flat-01',
+  description:
+    'Saturated flat pop — cream canvas, thick navy keylines, bright semantic fills, offset solid shadows.',
+  foundations,
+  extendedFoundations: { '--bbangto-viz-ext-offset-shadow': '#1B2A4A' },
+  foundationPresets,
+  defaultFoundationKey: 'default',
+  wrapperComponents,
+  patterns: { ColorfulFlatShowcase: Showcase },
+  guidelines,
+  visualMotif: {
+    summary:
+      '컬러풀 flat 팝 모티프 — 두꺼운 navy 아웃라인, 밝은 flat 채움, 잉크색 오프셋 솔리드 섀도, 큰 radius.',
+    components: {
+      Node: {
+        description: '본 도형 뒤 +5,+5 잉크색 실루엣이 flat 일러스트의 faux-3D 입체감을 만든다.',
+        specs: ['keyline 3px navy', '오프셋 섀도: +5,+5 잉크 단색', 'radius 8~12px'],
+      },
+      Tag: {
+        description: '타입 태그는 대문자 — 포스터 헤드라인 문법.',
+        specs: ['PERSON 형식', 'mono 10px', 'navy 단색'],
+      },
+      EdgeLabel: {
+        description: '연결선 라벨은 그리드 톤 칩 + 넉넉한 패딩.',
+        specs: ['bg = canvas.grid', '패딩 5px', 'navy 단색'],
+      },
+    },
+    example: Showcase,
+  },
+};
