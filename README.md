@@ -21,7 +21,8 @@ BBANGTO UI는 진지한 엔지니어링 기반 위에 즐겁고 위트 있는 �
 | `@centurio1987/bbangto-ui-foundations` | 확장 foundation 카탈로그 — amber + 브랜드 프리셋 74종 (base는 core 내장) |
 | `@centurio1987/bbangto-ui-style-guide-catalog` | 사전 정의 style guide preset 24종 (core 기반) |
 | `@centurio1987/bbangto-ui-hooks` | Headless React 훅 31종 |
-| `@centurio1987/bbangto-ui-visualization` | 시스템 아키텍처 다이어그램 컴포넌트 |
+| `@centurio1987/bbangto-ui-visualization` | headless 시각화 디자인 시스템 (diagram/infographic — atoms·molecules·patterns·templates) |
+| `@centurio1987/bbangto-ui-visualization-style-guide-catalog` | visualization 스타일 가이드 preset 카탈로그 (Blueprint_Technical_01 등) |
 | `apps/storybook` | 컴포넌트 카탈로그 및 브라우저 테스트 환경 |
 
 ---
@@ -120,12 +121,18 @@ import { glassmorphismAuroraStyleGuide } from '@centurio1987/bbangto-ui-style-gu
 
 ---
 
-## 🏗 Diagram Package
+## 🏗 Visualization Package
 
-시스템 아키텍처 다이어그램을 리액트 컴포넌트로 작성할 수 있는 전용 패키지입니다.
+다이어그램/인포그래픽을 리액트 컴포넌트로 작성하는 headless 시각화 디자인 시스템입니다.
+구조(geometry)만 방출하는 원형에 스타일 가이드를 주입해 구상 디자인을 완성합니다.
 
 ```tsx
-import { DiagramProvider, Node, Edge } from '@centurio1987/bbangto-ui-visualization';
+import { VisualizationStyleGuideProvider, Flowchart, ProcessSteps } from '@centurio1987/bbangto-ui-visualization';
+import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visualization-style-guide-catalog';
+
+<VisualizationStyleGuideProvider styleGuide={blueprintTechnical01VizStyleGuide}>
+  <Flowchart data={{ nodes, edges }} viewBox="0 0 500 280" title="Flow" />
+</VisualizationStyleGuideProvider>
 ```
 
 ---

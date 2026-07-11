@@ -1,6 +1,39 @@
-# PLAN — `@centurio1987/diagram` 패키지
+# PLAN — `@centurio1987/bbangto-ui-visualization` 패키지
 
-> Diagram + System Architecture 컴포넌트 시스템. 독자적 atomic system · 독자적 토큰 네임스페이스 · 모든 다이어그램 타입의 **완성된 프리셋 컴포넌트**. **third-party 런타임 의존 0** (workspace `@centurio1987/tokens` 의존만 허용 — core와 동일 정책), ESM tsup 빌드, inline-style + inline-SVG — 기존 레포 규약을 그대로 따른다.
+> Headless 시각화 디자인 시스템(diagram/infographic). 독자적 atomic system · 독자적 토큰 네임스페이스 · **구조(geometry)와 paint의 분리** · 스타일 가이드 주입으로 구상 디자인 완성. third-party 런타임 의존 0, ESM tsup 빌드 — 기존 레포 규약을 그대로 따른다.
+
+---
+
+## ⚡ ORD-008 개편 (2026-07-12) — diagram → visualization, headless 아키텍처
+
+이 문서의 아래 본문(§Context~§F)은 **개편 전(diagram 패키지) 설계 이력**이다. 현재 아키텍처는 이 절이 우선한다.
+레퍼런스 전수 분석·목록화는 [`visualization-catalog.md`](./visualization-catalog.md)가 단일 출처다.
+
+### 현재 아키텍처
+- **Headless 원칙**: SVG에서 geometry는 구조라 컴포넌트에 남고, paint는 스타일 레이어로 이동.
+  컴포넌트는 시맨틱 data 속성(`data-viz-part="shape"`, `data-bbangto-viz-edge`, `data-viz-pattern` 등)만 방출하고,
+  **계약 스타일시트**(`src/provider/contractCss.ts`)가 속성→`--bbangto-viz-*` 토큰 바인딩을 공급한다.
+  명시적 사용자 prop은 인라인 `style`로 렌더되어 계약 시트를 항상 이긴다(SVG presentation attribute는
+  author stylesheet에 지므로 attribute 금지 — `var()`도 attribute에서 무효).
+- **토큰 계층**: `VisualizationFoundation`(tokens 패키지, 구 DiagramTheme) → `vvar()` 계약(`--bbangto-viz-*`) →
+  `VisualizationStyleGuideProvider`가 CSS 변수 주입. Provider 밖 폴백은 무채색 `baseVisualizationFoundation`.
+- **스타일 가이드 레이어**: `VisualizationStyleGuide`(foundations/extendedFoundations/foundationPresets/
+  wrapperComponents/guidelines/visualMotif) — core StyleGuide의 구조 미러(core 비의존).
+  카탈로그는 별도 패키지 `@centurio1987/bbangto-ui-visualization-style-guide-catalog`
+  (Blueprint_Technical_01 = 구 blueprintTheme 승격 / Minimal_Line_01 / Colorful_Flat_01).
+- **아토믹 재매핑**: `atoms/`(+ StatNumber·IndexBadge·IconBadge·RingSegment·ProportionBlock·PictographUnit·
+  MilestoneMarker·PyramidLayer·VsDivider) · `molecules/`(구 nodes/ + StepConnector·CalloutLeader·StatCard) ·
+  **`patterns/`(신설: ProcessSteps·Comparison·TimelineRoadmap·Hierarchy·Cycle·Statistics)** ·
+  `templates/`(구 presets/ — diagram/infographic 유형 = 아토믹 템플릿).
+- **defs id**: Canvas가 `useId` 기반 uid로 마커 id를 네임스페이스(다중 Provider/Canvas 공존 안전).
+  Provider도 `useVizDefsPrefix()`를 제공한다.
+- **명칭**: `DiagramCanvas`→`Canvas`, `DiagramMarkers`→`Markers`, `DiagramProvider`→`VisualizationStyleGuideProvider`,
+  `dvar`→`vvar`, `data-bbangto-diagram-*`→`data-bbangto-viz-*`.
+
+### 이연(후속 ORDER)
+- Isometric_Prism_01 / HandDrawn_Marker_01 스타일 가이드 구현(스펙은 visualization-catalog.md §4-d/e).
+- 파일럿(Flowchart/SequenceDiagram/C4Container) 외 23개 템플릿의 리터럴 paint 제거·3-스타일 검증.
+- Timeline/Hierarchy 외 추가 패턴 유형, G5 차트/G6 메타 프레임(아래 §D), 신규 템플릿 갭(카탈로그 §1-b).
 
 ---
 
