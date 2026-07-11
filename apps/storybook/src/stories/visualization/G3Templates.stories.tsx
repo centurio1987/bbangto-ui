@@ -1,27 +1,27 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import {
-  DiagramCanvas,
-  DiagramProvider,
-  blueprintTheme,
+  Canvas,
+  VisualizationStyleGuideProvider,
   ClassDiagram,
   StateDiagram,
   ERDiagram,
 } from '@centurio1987/bbangto-ui-visualization';
+import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visualization-style-guide-catalog';
 import { expect } from 'storybook/test';
 
 const meta = {
   title: 'VISUALIZATION/Templates/G3',
-  component: DiagramCanvas,
+  component: Canvas,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },
   decorators: [
     (Story: React.ComponentType) => (
-      <DiagramProvider theme={blueprintTheme}>
+      <VisualizationStyleGuideProvider styleGuide={blueprintTechnical01VizStyleGuide}>
         <Story />
-      </DiagramProvider>
+      </VisualizationStyleGuideProvider>
     ),
   ],
-} satisfies Meta<typeof DiagramCanvas>;
+} satisfies Meta<typeof Canvas>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -60,15 +60,15 @@ export const ClassDiagramBasic: Story = {
   ),
   play: async ({ canvasElement }) => {
     // 3 class boxes
-    const boxes = canvasElement.querySelectorAll('[data-bbangto-diagram-class-box]');
+    const boxes = canvasElement.querySelectorAll('[data-bbangto-viz-class-box]');
     await expect(boxes.length).toBe(3);
 
     // Each box has 3 sections
-    const sections = canvasElement.querySelectorAll('[data-bbangto-diagram-class-section]');
+    const sections = canvasElement.querySelectorAll('[data-bbangto-viz-class-section]');
     await expect(sections.length).toBe(9); // 3 × 3
 
     // 2 edges
-    const edges = canvasElement.querySelectorAll('[data-bbangto-diagram-edge]');
+    const edges = canvasElement.querySelectorAll('[data-bbangto-viz-edge]');
     await expect(edges.length).toBe(2);
 
     // inheritance edge has triangleOpen marker
@@ -103,16 +103,16 @@ export const StateDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
-    const start = canvasElement.querySelector('[data-bbangto-diagram-state="start"]');
+    const start = canvasElement.querySelector('[data-bbangto-viz-state="start"]');
     await expect(start).not.toBeNull();
 
-    const end = canvasElement.querySelector('[data-bbangto-diagram-state="end"]');
+    const end = canvasElement.querySelector('[data-bbangto-viz-state="end"]');
     await expect(end).not.toBeNull();
 
-    const normals = canvasElement.querySelectorAll('[data-bbangto-diagram-state="normal"]');
+    const normals = canvasElement.querySelectorAll('[data-bbangto-viz-state="normal"]');
     await expect(normals.length).toBe(2);
 
-    const edges = canvasElement.querySelectorAll('[data-bbangto-diagram-edge]');
+    const edges = canvasElement.querySelectorAll('[data-bbangto-viz-edge]');
     await expect(edges.length).toBe(3);
   },
 };
@@ -154,15 +154,15 @@ export const ERDiagramBasic: Story = {
   ),
   play: async ({ canvasElement }) => {
     // 2 entity tables
-    const tables = canvasElement.querySelectorAll('[data-bbangto-diagram-entity-table]');
+    const tables = canvasElement.querySelectorAll('[data-bbangto-viz-entity-table]');
     await expect(tables.length).toBe(2);
 
     // entity rows exist
-    const rows = canvasElement.querySelectorAll('[data-bbangto-diagram-entity-row]');
+    const rows = canvasElement.querySelectorAll('[data-bbangto-viz-entity-row]');
     await expect(rows.length).toBeGreaterThan(0);
 
     // relationship edge
-    const edge = canvasElement.querySelector('[data-bbangto-diagram-edge]');
+    const edge = canvasElement.querySelector('[data-bbangto-viz-edge]');
     await expect(edge).not.toBeNull();
 
     // crow's-foot marker on edge

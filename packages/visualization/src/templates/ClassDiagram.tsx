@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
-import { DiagramCanvas } from '../atoms/DiagramCanvas';
-import type { DiagramCanvasProps } from '../atoms/DiagramCanvas';
+import { Canvas } from '../atoms/Canvas';
+import type { CanvasProps } from '../atoms/Canvas';
 import { Edge } from '../atoms/Edge';
 import type { MarkerVariant } from '../atoms/Marker';
 import { ClassBox } from '../molecules/ClassBox';
@@ -42,7 +42,7 @@ export interface ClassDiagramData {
   relationships?: ClassRelationshipSpec[];
 }
 
-export interface ClassDiagramProps extends Omit<DiagramCanvasProps, 'data' | 'children'> {
+export interface ClassDiagramProps extends Omit<CanvasProps, 'data' | 'children'> {
   children?: ReactNode;
   data?: ClassDiagramData;
 }
@@ -76,9 +76,9 @@ export function ClassDiagram({
 }: ClassDiagramProps) {
   if (children) {
     return (
-      <DiagramCanvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
+      <Canvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
         {children}
-      </DiagramCanvas>
+      </Canvas>
     );
   }
 
@@ -95,7 +95,7 @@ export function ClassDiagram({
   })();
 
   return (
-    <DiagramCanvas
+    <Canvas
       data={{ nodes: allNodes }}
       viewBox={autoViewBox}
       width={width}
@@ -132,7 +132,7 @@ export function ClassDiagram({
           />
         );
       })}
-    </DiagramCanvas>
+    </Canvas>
   );
 }
 

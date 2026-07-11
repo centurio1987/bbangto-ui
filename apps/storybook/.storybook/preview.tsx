@@ -1,7 +1,8 @@
 import type { Preview } from '@storybook/react-vite';
 import React from 'react';
 import { FoundationProvider, lightFoundation, darkFoundation, highContrastFoundation } from '@centurio1987/bbangto-ui-core';
-import { DiagramProvider, blueprintTheme } from '@centurio1987/bbangto-ui-visualization';
+import { VisualizationStyleGuideProvider } from '@centurio1987/bbangto-ui-visualization';
+import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visualization-style-guide-catalog';
 
 const preview: Preview = {
   parameters: {
@@ -118,9 +119,9 @@ const preview: Preview = {
 
       return (
         <FoundationProvider foundation={foundation} style={{ padding: '2rem', minHeight: '100vh', backgroundColor: bgColor, transition: 'background-color 0.3s ease' }}>
-          <DiagramProvider theme={blueprintTheme}>
+          <VisualizationStyleGuideProvider styleGuide={blueprintTechnical01VizStyleGuide}>
             <Story />
-          </DiagramProvider>
+          </VisualizationStyleGuideProvider>
         </FoundationProvider>
       );
     },

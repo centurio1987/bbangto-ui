@@ -2,7 +2,7 @@ import React, { type ReactNode } from 'react';
 import { Node } from '../atoms/Node';
 import { NodeLabel } from '../atoms/NodeLabel';
 import { Tag } from '../atoms/Tag';
-import { dvar } from '../tokens/contract';
+import { vvar } from '../tokens/contract';
 import { ProcessGlyph } from './glyphs/ProcessGlyph';
 
 export interface ProcessNodeProps {
@@ -23,8 +23,8 @@ export interface ProcessNodeProps {
 
 export const ProcessNode = React.forwardRef<SVGGElement, ProcessNodeProps>(
   ({ id, x, y, width, height, title, subtitle, tag = 'process', fill, stroke, strokeWidth, strokeDasharray, children }, ref) => {
-    const effectiveFill = fill ?? dvar('node', 'process', 'fill');
-    const effectiveStroke = stroke ?? dvar('node', 'process', 'keyline');
+    const effectiveFill = fill ?? vvar('node', 'process', 'fill');
+    const effectiveStroke = stroke ?? vvar('node', 'process', 'keyline');
     const effectiveStrokeWidth = strokeWidth ?? 2.5;
 
     const glyphSize = 22;
@@ -35,7 +35,7 @@ export const ProcessNode = React.forwardRef<SVGGElement, ProcessNodeProps>(
     const labelY = (glyphBottom + 6 + tagY - 8) / 2;
 
     return (
-      <g ref={ref} data-bbangto-diagram-molecule="process" data-bbangto-diagram-molecule-id={id}>
+      <g ref={ref} data-bbangto-viz-molecule="process" data-bbangto-viz-molecule-id={id}>
         <Node
           id={id}
           x={x}
@@ -49,7 +49,7 @@ export const ProcessNode = React.forwardRef<SVGGElement, ProcessNodeProps>(
           strokeDasharray={strokeDasharray}
         />
         <svg
-          data-bbangto-diagram-glyph="process"
+          data-bbangto-viz-glyph="process"
           x={glyphLeft}
           y={glyphTop}
           width={glyphSize}

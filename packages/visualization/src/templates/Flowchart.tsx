@@ -1,6 +1,6 @@
 import React, { type ReactNode } from 'react';
-import { DiagramCanvas } from '../atoms/DiagramCanvas';
-import type { DiagramCanvasProps } from '../atoms/DiagramCanvas';
+import { Canvas } from '../atoms/Canvas';
+import type { CanvasProps } from '../atoms/Canvas';
 import { Node } from '../atoms/Node';
 import { Edge } from '../atoms/Edge';
 import { NodeLabel } from '../atoms/NodeLabel';
@@ -33,7 +33,7 @@ export interface FlowchartEdgeSpec {
   markerEnd?: MarkerVariant;
 }
 
-export interface FlowchartProps extends Omit<DiagramCanvasProps, 'data' | 'children'> {
+export interface FlowchartProps extends Omit<CanvasProps, 'data' | 'children'> {
   children?: ReactNode;
   data?: {
     nodes: FlowchartNodeSpec[];
@@ -54,9 +54,9 @@ export function Flowchart({
 }: FlowchartProps) {
   if (children) {
     return (
-      <DiagramCanvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
+      <Canvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
         {children}
-      </DiagramCanvas>
+      </Canvas>
     );
   }
 
@@ -75,7 +75,7 @@ export function Flowchart({
   const vbH = vbParts[3] ?? 300;
 
   return (
-    <DiagramCanvas
+    <Canvas
       data={{ nodes }}
       viewBox={autoViewBox}
       width={width}
@@ -119,7 +119,7 @@ export function Flowchart({
           strokeDasharray={e.dashed ? '6 4' : undefined}
         />
       ))}
-    </DiagramCanvas>
+    </Canvas>
   );
 }
 

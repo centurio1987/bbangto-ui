@@ -1,5 +1,5 @@
 import React from 'react';
-import { dvar } from '../tokens/contract';
+import { vvar } from '../tokens/contract';
 
 export type BoundaryVariant = 'system' | 'group' | 'container';
 
@@ -40,15 +40,15 @@ export const Boundary = React.forwardRef<SVGGElement, BoundaryProps>(
     },
     ref,
   ) => {
-    const effectiveStroke = stroke ?? dvar('boundary', 'stroke');
-    const effectiveLabelColor = labelColor ?? dvar('boundary', 'labelColor');
-    const effectiveFont = labelFontFamily ?? dvar('typography', 'monoFont');
+    const effectiveStroke = stroke ?? vvar('boundary', 'stroke');
+    const effectiveLabelColor = labelColor ?? vvar('boundary', 'labelColor');
+    const effectiveFont = labelFontFamily ?? vvar('typography', 'monoFont');
 
     return (
       <g
         ref={ref}
-        data-bbangto-diagram-boundary
-        data-bbangto-diagram-boundary-variant={variant}
+        data-bbangto-viz-boundary
+        data-bbangto-viz-boundary-variant={variant}
         style={style}
         {...props}
       >

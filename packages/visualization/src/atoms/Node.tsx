@@ -40,7 +40,7 @@ function renderShapeElements(
     case 'rect':
       return (
         <rect
-          data-bbangto-diagram-node-shape="rect"
+          data-bbangto-viz-node-shape="rect"
           x={x}
           y={y}
           width={width}
@@ -52,7 +52,7 @@ function renderShapeElements(
     case 'rounded':
       return (
         <path
-          data-bbangto-diagram-node-shape="rounded"
+          data-bbangto-viz-node-shape="rounded"
           d={roundedPath(bbox)}
           style={shapeStyle}
         />
@@ -61,7 +61,7 @@ function renderShapeElements(
     case 'stadium':
       return (
         <path
-          data-bbangto-diagram-node-shape="stadium"
+          data-bbangto-viz-node-shape="stadium"
           d={stadiumPath(bbox)}
           style={shapeStyle}
         />
@@ -71,7 +71,7 @@ function renderShapeElements(
       const r = Math.min(width, height) / 2;
       return (
         <circle
-          data-bbangto-diagram-node-shape="circle"
+          data-bbangto-viz-node-shape="circle"
           cx={x + width / 2}
           cy={y + height / 2}
           r={r}
@@ -83,7 +83,7 @@ function renderShapeElements(
     case 'ellipse':
       return (
         <ellipse
-          data-bbangto-diagram-node-shape="ellipse"
+          data-bbangto-viz-node-shape="ellipse"
           cx={x + width / 2}
           cy={y + height / 2}
           rx={width / 2}
@@ -95,7 +95,7 @@ function renderShapeElements(
     case 'diamond':
       return (
         <path
-          data-bbangto-diagram-node-shape="diamond"
+          data-bbangto-viz-node-shape="diamond"
           d={diamondPath(bbox)}
           style={shapeStyle}
         />
@@ -104,7 +104,7 @@ function renderShapeElements(
     case 'hexagon':
       return (
         <path
-          data-bbangto-diagram-node-shape="hexagon"
+          data-bbangto-viz-node-shape="hexagon"
           d={hexagonPath(bbox)}
           style={shapeStyle}
         />
@@ -113,7 +113,7 @@ function renderShapeElements(
     case 'parallelogram':
       return (
         <path
-          data-bbangto-diagram-node-shape="parallelogram"
+          data-bbangto-viz-node-shape="parallelogram"
           d={parallelogramPath(bbox)}
           style={shapeStyle}
         />
@@ -122,7 +122,7 @@ function renderShapeElements(
     case 'trapezoid':
       return (
         <path
-          data-bbangto-diagram-node-shape="trapezoid"
+          data-bbangto-viz-node-shape="trapezoid"
           d={trapezoidPath(bbox)}
           style={shapeStyle}
         />
@@ -133,7 +133,7 @@ function renderShapeElements(
       return (
         <>
           <path
-            data-bbangto-diagram-node-shape="subroutine"
+            data-bbangto-viz-node-shape="subroutine"
             d={subroutinePath(bbox)}
             style={shapeStyle}
           />
@@ -160,7 +160,7 @@ function renderShapeElements(
       return (
         <>
           <path
-            data-bbangto-diagram-node-shape="cylinder"
+            data-bbangto-viz-node-shape="cylinder"
             d={body}
             style={shapeStyle}
           />
@@ -180,7 +180,7 @@ function renderShapeElements(
       return (
         <>
           <circle
-            data-bbangto-diagram-node-shape="doubleCircle"
+            data-bbangto-viz-node-shape="doubleCircle"
             cx={cx}
             cy={cy}
             r={r}
@@ -198,7 +198,7 @@ function renderShapeElements(
       const dimStyle = { ...shapeStyle, fill: shapeStyle.fill ? adjustBrightness(shapeStyle.fill as string, -15) : '#ddd' };
       return (
         <>
-          <path data-bbangto-diagram-node-shape="cube" d={front} style={faceStyle} />
+          <path data-bbangto-viz-node-shape="cube" d={front} style={faceStyle} />
           <path d={top} style={dimStyle} />
           <path d={right} style={{ ...dimStyle, fill: shapeStyle.fill ? adjustBrightness(shapeStyle.fill as string, -30) : '#bbb' }} />
         </>
@@ -214,7 +214,7 @@ function renderShapeElements(
       return (
         <>
           <path
-            data-bbangto-diagram-node-shape="component"
+            data-bbangto-viz-node-shape="component"
             d={rectPath(bbox)}
             style={shapeStyle}
           />
@@ -238,7 +238,7 @@ function renderShapeElements(
 
     default: {
       const d = rectPath(bbox);
-      return <path data-bbangto-diagram-node-shape="unknown" d={d} style={shapeStyle} />;
+      return <path data-bbangto-viz-node-shape="unknown" d={d} style={shapeStyle} />;
     }
   }
 
@@ -281,8 +281,8 @@ export const Node = React.forwardRef<SVGGElement, NodeProps>(
     return (
       <g
         ref={ref}
-        data-bbangto-diagram-node
-        data-bbangto-diagram-node-id={id}
+        data-bbangto-viz-node
+        data-bbangto-viz-node-id={id}
         style={style}
         {...props}
       >

@@ -1,7 +1,21 @@
-export type { DiagramTheme, NodeSemanticKind, NodeSemanticStyle } from './tokens/types';
-export { dvar, diagramThemeToStyleObject, blueprintTheme } from './tokens';
-export { DiagramProvider, useDiagramTheme } from './provider';
-export type { DiagramProviderProps } from './provider';
+export type { VisualizationFoundation, NodeSemanticKind, NodeSemanticStyle } from './tokens/types';
+export { vvar, visualizationFoundationToStyleObject, baseVisualizationFoundation } from './tokens';
+export type {
+  VisualizationStyleGuide,
+  VizWrapperComponents,
+  VizPatterns,
+  VizVisualMotif,
+  VizVisualMotifComponentSpec,
+} from './styleGuide/VisualizationStyleGuide';
+export { resolveVizFoundationPreset } from './styleGuide/VisualizationStyleGuide';
+export {
+  VisualizationStyleGuideProvider,
+  useVisualizationStyleGuide,
+  useVizFoundation,
+  useVizDefsPrefix,
+  useVizWrapperComponent,
+} from './styleGuide/VisualizationStyleGuideProvider';
+export type { VisualizationStyleGuideProviderProps } from './styleGuide/VisualizationStyleGuideProvider';
 export { CanvasContext, useCanvasContext } from './context/CanvasContext';
 export type { CanvasContextValue } from './context/CanvasContext';
 export type { BBox, NodeSpec, EdgeSpec } from './types/data';

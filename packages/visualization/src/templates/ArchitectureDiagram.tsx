@@ -1,6 +1,6 @@
 import React, { type ReactNode } from 'react';
-import { DiagramCanvas } from '../atoms/DiagramCanvas';
-import type { DiagramCanvasProps } from '../atoms/DiagramCanvas';
+import { Canvas } from '../atoms/Canvas';
+import type { CanvasProps } from '../atoms/Canvas';
 import { Node } from '../atoms/Node';
 import { Edge } from '../atoms/Edge';
 import { NodeLabel } from '../atoms/NodeLabel';
@@ -42,7 +42,7 @@ export interface ArchitectureDiagramData {
   edges?: ArchEdgeSpec[];
 }
 
-export interface ArchitectureDiagramProps extends Omit<DiagramCanvasProps, 'data' | 'children'> {
+export interface ArchitectureDiagramProps extends Omit<CanvasProps, 'data' | 'children'> {
   children?: ReactNode;
   data?: ArchitectureDiagramData;
 }
@@ -58,9 +58,9 @@ export function ArchitectureDiagram({
 }: ArchitectureDiagramProps) {
   if (children) {
     return (
-      <DiagramCanvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
+      <Canvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
         {children}
-      </DiagramCanvas>
+      </Canvas>
     );
   }
 
@@ -79,7 +79,7 @@ export function ArchitectureDiagram({
   })();
 
   return (
-    <DiagramCanvas
+    <Canvas
       data={{ nodes: allNodes }}
       viewBox={autoViewBox}
       width={width}
@@ -118,7 +118,7 @@ export function ArchitectureDiagram({
       {edges.map((e) => (
         <Edge key={e.id} from={e.from} to={e.to} routing={e.routing ?? 'orthogonal'} markerEnd="arrow" />
       ))}
-    </DiagramCanvas>
+    </Canvas>
   );
 }
 

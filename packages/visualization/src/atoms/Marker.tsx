@@ -14,7 +14,7 @@ export type MarkerVariant =
   | 'erZeroOrMany'
   | 'none';
 
-export interface DiagramMarkersProps {
+export interface MarkersProps {
   uid: string;
   stroke?: string;
   fill?: string;
@@ -25,12 +25,12 @@ function mkId(uid: string, variant: string): string {
   return `${uid}-${variant}`;
 }
 
-export function DiagramMarkers({
+export function Markers({
   uid,
   stroke = '#111111',
   fill = '#111111',
   size = 8,
-}: DiagramMarkersProps) {
+}: MarkersProps) {
   const hw = size / 2;
   const erW = 14;
   const erH = 10;
@@ -244,7 +244,7 @@ export function DiagramMarkers({
   );
 }
 
-DiagramMarkers.displayName = 'DiagramMarkers';
+Markers.displayName = 'Markers';
 
 export function markerRef(uid: string, variant: MarkerVariant): string {
   if (variant === 'none') return 'none';

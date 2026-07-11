@@ -1,5 +1,5 @@
 import React, { type ReactNode } from 'react';
-import { dvar } from '../tokens/contract';
+import { vvar } from '../tokens/contract';
 
 export type StateVariant = 'start' | 'end' | 'normal';
 
@@ -36,16 +36,16 @@ export const StateNode = React.forwardRef<SVGGElement, StateNodeProps>(
     },
     ref,
   ) => {
-    const effectiveStroke = stroke ?? dvar('edge', 'stroke');
-    const effectiveFill = fill ?? dvar('canvas', 'bg');
-    const titleFont = dvar('typography', 'titleFont');
-    const textColor = dvar('edge', 'stroke');
+    const effectiveStroke = stroke ?? vvar('edge', 'stroke');
+    const effectiveFill = fill ?? vvar('canvas', 'bg');
+    const titleFont = vvar('typography', 'titleFont');
+    const textColor = vvar('edge', 'stroke');
 
     if (variant === 'start') {
       const cx = x + PSEUDO_RADIUS;
       const cy = y + PSEUDO_RADIUS;
       return (
-        <g ref={ref} data-bbangto-diagram-state="start" data-bbangto-diagram-state-id={id}>
+        <g ref={ref} data-bbangto-viz-state="start" data-bbangto-viz-state-id={id}>
           <circle cx={cx} cy={cy} r={PSEUDO_RADIUS} style={{ fill: '#111111' }} />
           {children}
         </g>
@@ -56,7 +56,7 @@ export const StateNode = React.forwardRef<SVGGElement, StateNodeProps>(
       const cx = x + PSEUDO_RADIUS;
       const cy = y + PSEUDO_RADIUS;
       return (
-        <g ref={ref} data-bbangto-diagram-state="end" data-bbangto-diagram-state-id={id}>
+        <g ref={ref} data-bbangto-viz-state="end" data-bbangto-viz-state-id={id}>
           <circle
             cx={cx}
             cy={cy}
@@ -78,7 +78,7 @@ export const StateNode = React.forwardRef<SVGGElement, StateNodeProps>(
         : `M ${x + width / 2} ${y} A ${r} ${r} 0 1 1 ${x + width / 2} ${y + height} A ${r} ${r} 0 1 1 ${x + width / 2} ${y} Z`;
 
     return (
-      <g ref={ref} data-bbangto-diagram-state="normal" data-bbangto-diagram-state-id={id}>
+      <g ref={ref} data-bbangto-viz-state="normal" data-bbangto-viz-state-id={id}>
         <path
           d={d}
           style={{ fill: effectiveFill, stroke: effectiveStroke, strokeWidth }}

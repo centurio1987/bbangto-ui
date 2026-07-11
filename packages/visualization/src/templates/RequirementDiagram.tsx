@@ -1,8 +1,8 @@
 import { type ReactNode } from 'react';
-import { DiagramCanvas } from '../atoms/DiagramCanvas';
-import type { DiagramCanvasProps } from '../atoms/DiagramCanvas';
+import { Canvas } from '../atoms/Canvas';
+import type { CanvasProps } from '../atoms/Canvas';
 import { Edge } from '../atoms/Edge';
-import { dvar } from '../tokens/contract';
+import { vvar } from '../tokens/contract';
 
 export interface RequirementNodeSpec {
   id: string;
@@ -24,7 +24,7 @@ export interface RequirementEdgeSpec {
   kind?: 'contains' | 'copies' | 'derives' | 'satisfies' | 'verifies' | 'refines' | 'traces';
 }
 
-export interface RequirementDiagramProps extends Omit<DiagramCanvasProps, 'data' | 'children'> {
+export interface RequirementDiagramProps extends Omit<CanvasProps, 'data' | 'children'> {
   children?: ReactNode;
   data?: {
     requirements: RequirementNodeSpec[];
@@ -41,10 +41,10 @@ interface ReqNodeProps {
 }
 
 function ReqNode({ req }: ReqNodeProps) {
-  const stroke = dvar('edge', 'stroke');
-  const titleFont = dvar('typography', 'titleFont');
-  const monoFont = dvar('typography', 'monoFont');
-  const textColor = dvar('edge', 'stroke');
+  const stroke = vvar('edge', 'stroke');
+  const titleFont = vvar('typography', 'titleFont');
+  const monoFont = vvar('typography', 'monoFont');
+  const textColor = vvar('edge', 'stroke');
   const headerFill = 'rgba(0,0,0,0.06)';
 
   const { x, y, width, height, name, text, risk, verifyMethod, kind = 'requirement' } = req;
@@ -55,7 +55,7 @@ function ReqNode({ req }: ReqNodeProps) {
   if (verifyMethod) lines.push(`verify: ${verifyMethod}`);
 
   return (
-    <g data-bbangto-diagram-requirement data-bbangto-diagram-requirement-id={req.id}>
+    <g data-bbangto-viz-requirement data-bbangto-viz-requirement-id={req.id}>
       {/* outer box */}
       <rect x={x} y={y} width={width} height={height} style={{ fill: '#FFFFFF', stroke, strokeWidth: 1.5 }} />
       {/* header background */}
@@ -75,7 +75,7 @@ function ReqNode({ req }: ReqNodeProps) {
       </text>
       {/* name */}
       <text
-        data-bbangto-diagram-requirement-name
+        data-bbangto-viz-requirement-name
         x={x + width / 2}
         y={y + 26}
         textAnchor="middle"
@@ -120,9 +120,9 @@ export function RequirementDiagram({
 }: RequirementDiagramProps) {
   if (children) {
     return (
-      <DiagramCanvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
+      <Canvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
         {children}
-      </DiagramCanvas>
+      </Canvas>
     );
   }
 
@@ -137,7 +137,7 @@ export function RequirementDiagram({
   })();
 
   return (
-    <DiagramCanvas
+    <Canvas
       data={{ nodes: reqs.map((r) => ({ id: r.id, x: r.x, y: r.y, width: r.width, height: r.height })) }}
       viewBox={autoViewBox}
       width={width}
@@ -159,7 +159,7 @@ export function RequirementDiagram({
           strokeDasharray="5 3"
         />
       ))}
-    </DiagramCanvas>
+    </Canvas>
   );
 }
 

@@ -1,4 +1,4 @@
-import { dvar } from '../tokens/contract';
+import { vvar } from '../tokens/contract';
 
 export interface GridLayerProps {
   x?: number;
@@ -21,12 +21,12 @@ export function GridLayer({
   strokeWidth = 0.5,
   opacity = 1,
 }: GridLayerProps) {
-  const effectiveStroke = stroke ?? dvar('canvas', 'grid');
+  const effectiveStroke = stroke ?? vvar('canvas', 'grid');
   const cols = Math.ceil(width / gridUnit);
   const rows = Math.ceil(height / gridUnit);
 
   return (
-    <g data-bbangto-diagram-grid opacity={opacity} aria-hidden="true">
+    <g data-bbangto-viz-grid opacity={opacity} aria-hidden="true">
       {Array.from({ length: cols + 1 }, (_, i) => (
         <line
           key={`v${i}`}

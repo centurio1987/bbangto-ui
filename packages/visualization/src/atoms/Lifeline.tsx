@@ -1,5 +1,5 @@
 import React from 'react';
-import { dvar } from '../tokens/contract';
+import { vvar } from '../tokens/contract';
 
 export interface LifelineProps extends React.SVGAttributes<SVGGElement> {
   x: number;
@@ -36,15 +36,15 @@ export const Lifeline = React.forwardRef<SVGGElement, LifelineProps>(
     },
     ref,
   ) => {
-    const effectiveStroke = stroke ?? dvar('edge', 'stroke');
-    const effectiveLabelColor = labelColor ?? dvar('edge', 'stroke');
-    const effectiveFont = labelFontFamily ?? dvar('typography', 'titleFont');
+    const effectiveStroke = stroke ?? vvar('edge', 'stroke');
+    const effectiveLabelColor = labelColor ?? vvar('edge', 'stroke');
+    const effectiveFont = labelFontFamily ?? vvar('typography', 'titleFont');
     const cx = x;
 
     return (
       <g
         ref={ref}
-        data-bbangto-diagram-lifeline
+        data-bbangto-viz-lifeline
         style={style}
         {...props}
       >

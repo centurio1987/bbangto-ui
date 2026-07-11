@@ -1,6 +1,6 @@
 import React, { type ReactNode } from 'react';
-import { DiagramCanvas } from '../atoms/DiagramCanvas';
-import type { DiagramCanvasProps } from '../atoms/DiagramCanvas';
+import { Canvas } from '../atoms/Canvas';
+import type { CanvasProps } from '../atoms/Canvas';
 import { Node } from '../atoms/Node';
 import { Lane } from '../atoms/Lane';
 import { NodeLabel } from '../atoms/NodeLabel';
@@ -27,7 +27,7 @@ export interface KanbanCardSpec {
   stroke?: string;
 }
 
-export interface KanbanBoardProps extends Omit<DiagramCanvasProps, 'data' | 'children'> {
+export interface KanbanBoardProps extends Omit<CanvasProps, 'data' | 'children'> {
   children?: ReactNode;
   data?: {
     columns: KanbanColumnSpec[];
@@ -46,9 +46,9 @@ export function KanbanBoard({
 }: KanbanBoardProps) {
   if (children) {
     return (
-      <DiagramCanvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
+      <Canvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
         {children}
-      </DiagramCanvas>
+      </Canvas>
     );
   }
 
@@ -63,7 +63,7 @@ export function KanbanBoard({
   })();
 
   return (
-    <DiagramCanvas
+    <Canvas
       data={{ nodes: cards }}
       viewBox={autoViewBox}
       width={width}
@@ -108,7 +108,7 @@ export function KanbanBoard({
           />
         </React.Fragment>
       ))}
-    </DiagramCanvas>
+    </Canvas>
   );
 }
 

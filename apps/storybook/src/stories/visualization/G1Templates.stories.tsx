@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import {
-  DiagramCanvas,
-  DiagramProvider,
-  blueprintTheme,
+  Canvas,
+  VisualizationStyleGuideProvider,
   Node,
   Edge,
   Flowchart,
@@ -12,21 +11,22 @@ import {
   RequirementDiagram,
   KanbanBoard,
 } from '@centurio1987/bbangto-ui-visualization';
+import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visualization-style-guide-catalog';
 import { expect } from 'storybook/test';
 
 const meta = {
   title: 'VISUALIZATION/Templates/G1',
-  component: DiagramCanvas,
+  component: Canvas,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },
   decorators: [
     (Story: React.ComponentType) => (
-      <DiagramProvider theme={blueprintTheme}>
+      <VisualizationStyleGuideProvider styleGuide={blueprintTechnical01VizStyleGuide}>
         <Story />
-      </DiagramProvider>
+      </VisualizationStyleGuideProvider>
     ),
   ],
-} satisfies Meta<typeof DiagramCanvas>;
+} satisfies Meta<typeof Canvas>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -56,10 +56,10 @@ export const FlowchartDataMode: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
-    const nodes = canvasElement.querySelectorAll('[data-bbangto-diagram-node]');
+    const nodes = canvasElement.querySelectorAll('[data-bbangto-viz-node]');
     await expect(nodes.length).toBe(3);
 
-    const edges = canvasElement.querySelectorAll('[data-bbangto-diagram-edge]');
+    const edges = canvasElement.querySelectorAll('[data-bbangto-viz-edge]');
     await expect(edges.length).toBe(2);
 
     // edge d attribute must not be empty
@@ -84,10 +84,10 @@ export const FlowchartChildrenMode: Story = {
     </Flowchart>
   ),
   play: async ({ canvasElement }) => {
-    const nodes = canvasElement.querySelectorAll('[data-bbangto-diagram-node]');
+    const nodes = canvasElement.querySelectorAll('[data-bbangto-viz-node]');
     await expect(nodes.length).toBe(3);
 
-    const edges = canvasElement.querySelectorAll('[data-bbangto-diagram-edge]');
+    const edges = canvasElement.querySelectorAll('[data-bbangto-viz-edge]');
     await expect(edges.length).toBe(2);
 
     const firstEdge = edges[0] as SVGPathElement;
@@ -121,14 +121,14 @@ export const BlockDiagramDataMode: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
-    const nodes = canvasElement.querySelectorAll('[data-bbangto-diagram-node]');
+    const nodes = canvasElement.querySelectorAll('[data-bbangto-viz-node]');
     await expect(nodes.length).toBe(3);
 
     // All shapes are rect in BlockDiagram
-    const rectShapes = canvasElement.querySelectorAll('[data-bbangto-diagram-node-shape="rect"]');
+    const rectShapes = canvasElement.querySelectorAll('[data-bbangto-viz-node-shape="rect"]');
     await expect(rectShapes.length).toBe(3);
 
-    const edges = canvasElement.querySelectorAll('[data-bbangto-diagram-edge]');
+    const edges = canvasElement.querySelectorAll('[data-bbangto-viz-edge]');
     await expect(edges.length).toBe(2);
   },
 };
@@ -161,10 +161,10 @@ export const MindmapDataMode: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
-    const nodes = canvasElement.querySelectorAll('[data-bbangto-diagram-node]');
+    const nodes = canvasElement.querySelectorAll('[data-bbangto-viz-node]');
     await expect(nodes.length).toBe(5);
 
-    const edges = canvasElement.querySelectorAll('[data-bbangto-diagram-edge]');
+    const edges = canvasElement.querySelectorAll('[data-bbangto-viz-edge]');
     await expect(edges.length).toBe(4);
 
     // Mindmap edges have no arrowhead marker-end
@@ -195,10 +195,10 @@ export const TimelineDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
-    const axis = canvasElement.querySelector('[data-bbangto-diagram-timeline-axis]');
+    const axis = canvasElement.querySelector('[data-bbangto-viz-timeline-axis]');
     await expect(axis).not.toBeNull();
 
-    const nodes = canvasElement.querySelectorAll('[data-bbangto-diagram-node]');
+    const nodes = canvasElement.querySelectorAll('[data-bbangto-viz-node]');
     await expect(nodes.length).toBe(3);
   },
 };
@@ -227,14 +227,14 @@ export const RequirementDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
-    const reqs = canvasElement.querySelectorAll('[data-bbangto-diagram-requirement]');
+    const reqs = canvasElement.querySelectorAll('[data-bbangto-viz-requirement]');
     await expect(reqs.length).toBe(3);
 
-    const edges = canvasElement.querySelectorAll('[data-bbangto-diagram-edge]');
+    const edges = canvasElement.querySelectorAll('[data-bbangto-viz-edge]');
     await expect(edges.length).toBe(2);
 
     // requirement name text is present
-    const firstName = reqs[0]?.querySelector('[data-bbangto-diagram-requirement-name]');
+    const firstName = reqs[0]?.querySelector('[data-bbangto-viz-requirement-name]');
     await expect(firstName).not.toBeNull();
     await expect(firstName?.textContent).toBe('Authenticate');
   },
@@ -266,10 +266,10 @@ export const KanbanBoardBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
-    const lanes = canvasElement.querySelectorAll('[data-bbangto-diagram-lane]');
+    const lanes = canvasElement.querySelectorAll('[data-bbangto-viz-lane]');
     await expect(lanes.length).toBe(3);
 
-    const cards = canvasElement.querySelectorAll('[data-bbangto-diagram-node]');
+    const cards = canvasElement.querySelectorAll('[data-bbangto-viz-node]');
     await expect(cards.length).toBe(4);
   },
 };

@@ -2,7 +2,7 @@ import React, { type ReactNode } from 'react';
 import { Node } from '../atoms/Node';
 import { NodeLabel } from '../atoms/NodeLabel';
 import { Tag } from '../atoms/Tag';
-import { dvar } from '../tokens/contract';
+import { vvar } from '../tokens/contract';
 import { CylinderGlyph } from './glyphs/CylinderGlyph';
 
 export interface DatabaseNodeProps {
@@ -23,8 +23,8 @@ export interface DatabaseNodeProps {
 
 export const DatabaseNode = React.forwardRef<SVGGElement, DatabaseNodeProps>(
   ({ id, x, y, width, height, title, subtitle, tag = 'database', fill, stroke, strokeWidth, strokeDasharray, children }, ref) => {
-    const effectiveFill = fill ?? dvar('node', 'database', 'fill');
-    const effectiveStroke = stroke ?? dvar('node', 'database', 'keyline');
+    const effectiveFill = fill ?? vvar('node', 'database', 'fill');
+    const effectiveStroke = stroke ?? vvar('node', 'database', 'keyline');
     const effectiveStrokeWidth = strokeWidth ?? 2.5;
 
     const glyphSize = 22;
@@ -35,7 +35,7 @@ export const DatabaseNode = React.forwardRef<SVGGElement, DatabaseNodeProps>(
     const labelY = (glyphBottom + 6 + tagY - 8) / 2;
 
     return (
-      <g ref={ref} data-bbangto-diagram-molecule="database" data-bbangto-diagram-molecule-id={id}>
+      <g ref={ref} data-bbangto-viz-molecule="database" data-bbangto-viz-molecule-id={id}>
         <Node
           id={id}
           x={x}
@@ -49,7 +49,7 @@ export const DatabaseNode = React.forwardRef<SVGGElement, DatabaseNodeProps>(
           strokeDasharray={strokeDasharray}
         />
         <svg
-          data-bbangto-diagram-glyph="cylinder"
+          data-bbangto-viz-glyph="cylinder"
           x={glyphLeft}
           y={glyphTop}
           width={glyphSize}

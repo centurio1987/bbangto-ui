@@ -1,5 +1,5 @@
 import React from 'react';
-import { dvar } from '../tokens/contract';
+import { vvar } from '../tokens/contract';
 
 export interface TagProps {
   x: number;
@@ -22,13 +22,13 @@ export const Tag = React.forwardRef<SVGTextElement, TagProps>(
     },
     ref,
   ) => {
-    const effectiveFill = fill ?? dvar('edge', 'stroke');
-    const effectiveFont = fontFamily ?? dvar('typography', 'monoFont');
+    const effectiveFill = fill ?? vvar('edge', 'stroke');
+    const effectiveFont = fontFamily ?? vvar('typography', 'monoFont');
 
     return (
       <text
         ref={ref}
-        data-bbangto-diagram-tag
+        data-bbangto-viz-tag
         x={x}
         y={y}
         textAnchor="middle"

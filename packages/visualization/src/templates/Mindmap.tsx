@@ -1,10 +1,10 @@
 import React, { type ReactNode } from 'react';
-import { DiagramCanvas } from '../atoms/DiagramCanvas';
-import type { DiagramCanvasProps } from '../atoms/DiagramCanvas';
+import { Canvas } from '../atoms/Canvas';
+import type { CanvasProps } from '../atoms/Canvas';
 import { Node } from '../atoms/Node';
 import { Edge } from '../atoms/Edge';
 import { NodeLabel } from '../atoms/NodeLabel';
-import { dvar } from '../tokens/contract';
+import { vvar } from '../tokens/contract';
 
 export interface MindmapNodeSpec {
   id: string;
@@ -24,7 +24,7 @@ export interface MindmapEdgeSpec {
   to: string;
 }
 
-export interface MindmapProps extends Omit<DiagramCanvasProps, 'data' | 'children'> {
+export interface MindmapProps extends Omit<CanvasProps, 'data' | 'children'> {
   children?: ReactNode;
   data?: {
     nodes: MindmapNodeSpec[];
@@ -33,10 +33,10 @@ export interface MindmapProps extends Omit<DiagramCanvasProps, 'data' | 'childre
 }
 
 const LEVEL_FILLS = [
-  dvar('palette', 'p2'),
-  dvar('palette', 'p5'),
-  dvar('palette', 'p6'),
-  dvar('palette', 'p4'),
+  vvar('palette', 'p2'),
+  vvar('palette', 'p5'),
+  vvar('palette', 'p6'),
+  vvar('palette', 'p4'),
 ];
 
 function levelFill(level: number, overrideFill?: string): string {
@@ -54,9 +54,9 @@ export function Mindmap({
 }: MindmapProps) {
   if (children) {
     return (
-      <DiagramCanvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
+      <Canvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
         {children}
-      </DiagramCanvas>
+      </Canvas>
     );
   }
 
@@ -71,7 +71,7 @@ export function Mindmap({
   })();
 
   return (
-    <DiagramCanvas
+    <Canvas
       data={{ nodes }}
       viewBox={autoViewBox}
       width={width}
@@ -113,7 +113,7 @@ export function Mindmap({
           strokeWidth={1.5}
         />
       ))}
-    </DiagramCanvas>
+    </Canvas>
   );
 }
 

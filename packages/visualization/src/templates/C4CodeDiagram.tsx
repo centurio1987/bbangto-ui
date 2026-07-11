@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
-import { DiagramCanvas } from '../atoms/DiagramCanvas';
-import type { DiagramCanvasProps } from '../atoms/DiagramCanvas';
+import { Canvas } from '../atoms/Canvas';
+import type { CanvasProps } from '../atoms/Canvas';
 import { Edge } from '../atoms/Edge';
 import { ClassBox } from '../molecules/ClassBox';
 import { EntityTable } from '../molecules/EntityTable';
@@ -29,7 +29,7 @@ export interface C4CodeDiagramData {
   relationships?: C4RelationshipSpec[];
 }
 
-export interface C4CodeDiagramProps extends Omit<DiagramCanvasProps, 'data' | 'children'> {
+export interface C4CodeDiagramProps extends Omit<CanvasProps, 'data' | 'children'> {
   children?: ReactNode;
   data?: C4CodeDiagramData;
 }
@@ -45,9 +45,9 @@ export function C4CodeDiagram({
 }: C4CodeDiagramProps) {
   if (children) {
     return (
-      <DiagramCanvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
+      <Canvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
         {children}
-      </DiagramCanvas>
+      </Canvas>
     );
   }
 
@@ -64,7 +64,7 @@ export function C4CodeDiagram({
   })();
 
   return (
-    <DiagramCanvas
+    <Canvas
       data={{ nodes: allNodes }}
       viewBox={autoViewBox}
       width={width}
@@ -104,7 +104,7 @@ export function C4CodeDiagram({
       {relationships.map((r) => (
         <Edge key={r.id} from={r.from} to={r.to} markerEnd="triangleOpen" stroke="#555555" strokeWidth={1.5} />
       ))}
-    </DiagramCanvas>
+    </Canvas>
   );
 }
 

@@ -11,7 +11,7 @@ export const CanvasContext = createContext<CanvasContextValue | null>(null);
 export function useCanvasContext(): CanvasContextValue {
   const ctx = useContext(CanvasContext);
   if (!ctx) {
-    throw new Error('[bbangto/diagram] useCanvasContext must be called inside DiagramCanvas');
+    throw new Error('[bbangto/diagram] useCanvasContext must be called inside Canvas');
   }
   return ctx;
 }

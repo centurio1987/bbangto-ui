@@ -1,12 +1,12 @@
 import { useInsertionEffect } from 'react';
 
-const STYLE_ELEMENT_ID = 'bbangto-diagram-reduced-motion';
+const STYLE_ELEMENT_ID = 'bbangto-viz-reduced-motion';
 
 const REDUCED_MOTION_CSS = `
 @media (prefers-reduced-motion: reduce) {
-  [data-bbangto-diagram-theme] *:not([data-bbangto-diagram-animate="essential"]),
-  [data-bbangto-diagram-theme] *:not([data-bbangto-diagram-animate="essential"])::before,
-  [data-bbangto-diagram-theme] *:not([data-bbangto-diagram-animate="essential"])::after {
+  [data-bbangto-viz-style-guide] *:not([data-bbangto-viz-animate="essential"]),
+  [data-bbangto-viz-style-guide] *:not([data-bbangto-viz-animate="essential"])::before,
+  [data-bbangto-viz-style-guide] *:not([data-bbangto-viz-animate="essential"])::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -15,7 +15,7 @@ const REDUCED_MOTION_CSS = `
 }
 `;
 
-export function useDiagramDefs(): void {
+export function useVizDefs(): void {
   useInsertionEffect(() => {
     if (typeof document === 'undefined') return;
     if (document.getElementById(STYLE_ELEMENT_ID)) return;

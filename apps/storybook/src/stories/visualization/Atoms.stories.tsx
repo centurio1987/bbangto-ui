@@ -1,29 +1,29 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import {
-  DiagramCanvas,
-  DiagramProvider,
+  Canvas,
+  VisualizationStyleGuideProvider,
   Node,
   Edge,
   NodeLabel,
   Boundary,
-  blueprintTheme,
   type NodeShape,
 } from '@centurio1987/bbangto-ui-visualization';
+import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visualization-style-guide-catalog';
 import { expect, within } from 'storybook/test';
 
 const meta = {
   title: 'VISUALIZATION/Atoms',
-  component: DiagramCanvas,
+  component: Canvas,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },
   decorators: [
     (Story) => (
-      <DiagramProvider theme={blueprintTheme}>
+      <VisualizationStyleGuideProvider styleGuide={blueprintTechnical01VizStyleGuide}>
         <Story />
-      </DiagramProvider>
+      </VisualizationStyleGuideProvider>
     ),
   ],
-} satisfies Meta<typeof DiagramCanvas>;
+} satisfies Meta<typeof Canvas>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -33,7 +33,7 @@ type Story = StoryObj<typeof meta>;
 // ──────────────────────────────────────────────
 export const CanvasBasic: Story = {
   render: () => (
-    <DiagramCanvas
+    <Canvas
       viewBox="0 0 400 200"
       width={400}
       height={200}
@@ -41,12 +41,12 @@ export const CanvasBasic: Story = {
       desc="A diagram canvas for testing"
     >
       <Node id="a" x={40} y={60} width={120} height={60} shape="rect" fill="#C5B6EE" stroke="#111" />
-    </DiagramCanvas>
+    </Canvas>
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     // role="img"
-    const svg = canvasElement.querySelector('[data-bbangto-diagram-canvas]');
+    const svg = canvasElement.querySelector('[data-bbangto-viz-canvas]');
     await expect(svg).not.toBeNull();
     await expect(svg?.getAttribute('role')).toBe('img');
 
@@ -87,7 +87,7 @@ export const NodeShapes: Story = {
     const totalH = rows * (H + GAP);
 
     return (
-      <DiagramCanvas viewBox={`0 0 ${totalW} ${totalH}`} width={totalW} height={totalH}>
+      <Canvas viewBox={`0 0 ${totalW} ${totalH}`} width={totalW} height={totalH}>
         {ALL_SHAPES.map((shape, i) => {
           const col = i % cols;
           const row = Math.floor(i / cols);
@@ -108,12 +108,12 @@ export const NodeShapes: Story = {
             />
           );
         })}
-      </DiagramCanvas>
+      </Canvas>
     );
   },
   play: async ({ canvasElement }) => {
-    // Every shape must produce at least one SVG element with data-bbangto-diagram-node-shape
-    const shapeEls = canvasElement.querySelectorAll('[data-bbangto-diagram-node-shape]');
+    // Every shape must produce at least one SVG element with data-bbangto-viz-node-shape
+    const shapeEls = canvasElement.querySelectorAll('[data-bbangto-viz-node-shape]');
     await expect(shapeEls.length).toBeGreaterThanOrEqual(ALL_SHAPES.length);
 
     // stroke-width === 2.5 on the first shape element
@@ -128,16 +128,16 @@ export const NodeShapes: Story = {
 // ──────────────────────────────────────────────
 export const EdgeBasic: Story = {
   render: () => (
-    <DiagramCanvas viewBox="0 0 400 200" width={400} height={200} title="Edge test">
+    <Canvas viewBox="0 0 400 200" width={400} height={200} title="Edge test">
       <Node id="n1" x={20} y={70} width={120} height={60} shape="rect" fill="#C5B6EE" stroke="#111" />
       <Node id="n2" x={260} y={70} width={120} height={60} shape="rounded" fill="#87B79A" stroke="#111" />
       <Edge from="n1" to="n2" markerEnd="arrow" stroke="#111111" strokeWidth={2.5} />
-    </DiagramCanvas>
+    </Canvas>
   ),
   play: async ({ canvasElement }) => {
-    const svg = canvasElement.querySelector('[data-bbangto-diagram-canvas]') as SVGSVGElement;
+    const svg = canvasElement.querySelector('[data-bbangto-viz-canvas]') as SVGSVGElement;
 
-    const edge = svg?.querySelector('[data-bbangto-diagram-edge]');
+    const edge = svg?.querySelector('[data-bbangto-viz-edge]');
     await expect(edge).not.toBeNull();
 
     // d attribute is not empty
@@ -161,7 +161,7 @@ export const EdgeBasic: Story = {
 // ──────────────────────────────────────────────
 export const NodeLabelModes: Story = {
   render: () => (
-    <DiagramCanvas viewBox="0 0 540 200" width={540} height={200} title="NodeLabel modes">
+    <Canvas viewBox="0 0 540 200" width={540} height={200} title="NodeLabel modes">
       {/* wrap */}
       <Node id="wrap" x={10} y={20} width={140} height={80} shape="rect" fill="#EEE" stroke="#111" />
       <NodeLabel x={10} y={60} width={140} title="This is a very long title that should wrap" mode="wrap" maxLines={3} />
@@ -171,10 +171,10 @@ export const NodeLabelModes: Story = {
       {/* fit */}
       <Node id="fit" x={350} y={20} width={140} height={80} shape="rect" fill="#EEE" stroke="#111" />
       <NodeLabel x={350} y={60} width={140} title="Fit mode label" mode="fit" />
-    </DiagramCanvas>
+    </Canvas>
   ),
   play: async ({ canvasElement }) => {
-    const labels = canvasElement.querySelectorAll('[data-bbangto-diagram-node-label]');
+    const labels = canvasElement.querySelectorAll('[data-bbangto-viz-node-label]');
     await expect(labels.length).toBe(3);
 
     // wrap: multiple <text> elements
@@ -201,7 +201,7 @@ export const NodeLabelModes: Story = {
 // ──────────────────────────────────────────────
 export const BoundaryBasic: Story = {
   render: () => (
-    <DiagramCanvas viewBox="0 0 400 260" width={400} height={260} title="Boundary test">
+    <Canvas viewBox="0 0 400 260" width={400} height={260} title="Boundary test">
       <Boundary
         x={20}
         y={30}
@@ -211,10 +211,10 @@ export const BoundaryBasic: Story = {
         dashPattern="8 6"
         stroke="#111111"
       />
-    </DiagramCanvas>
+    </Canvas>
   ),
   play: async ({ canvasElement }) => {
-    const boundary = canvasElement.querySelector('[data-bbangto-diagram-boundary]');
+    const boundary = canvasElement.querySelector('[data-bbangto-viz-boundary]');
     await expect(boundary).not.toBeNull();
 
     // rect inside boundary has stroke-dasharray
@@ -255,7 +255,7 @@ export const LargeCanvas: Story = {
     const totalH = Math.ceil(LARGE_NODE_COUNT / COLS) * (NH + GAP) + 20;
 
     return (
-      <DiagramCanvas
+      <Canvas
         viewBox={`0 0 ${totalW} ${totalH}`}
         width={totalW}
         height={totalH}
@@ -284,14 +284,14 @@ export const LargeCanvas: Story = {
             markerEnd="arrow"
           />
         ))}
-      </DiagramCanvas>
+      </Canvas>
     );
   },
   play: async ({ canvasElement }) => {
-    const nodes = canvasElement.querySelectorAll('[data-bbangto-diagram-node]');
+    const nodes = canvasElement.querySelectorAll('[data-bbangto-viz-node]');
     await expect(nodes.length).toBe(LARGE_NODE_COUNT);
 
-    const edges = canvasElement.querySelectorAll('[data-bbangto-diagram-edge]');
+    const edges = canvasElement.querySelectorAll('[data-bbangto-viz-edge]');
     await expect(edges.length).toBe(LARGE_EDGE_COUNT);
   },
 };

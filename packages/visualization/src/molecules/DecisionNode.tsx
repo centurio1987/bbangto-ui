@@ -2,7 +2,7 @@ import React, { type ReactNode } from 'react';
 import { Node } from '../atoms/Node';
 import { NodeLabel } from '../atoms/NodeLabel';
 import { Tag } from '../atoms/Tag';
-import { dvar } from '../tokens/contract';
+import { vvar } from '../tokens/contract';
 
 export interface DecisionNodeProps {
   id?: string;
@@ -22,8 +22,8 @@ export interface DecisionNodeProps {
 
 export const DecisionNode = React.forwardRef<SVGGElement, DecisionNodeProps>(
   ({ id, x, y, width, height, title, subtitle, tag = 'decision', fill, stroke, strokeWidth, strokeDasharray, children }, ref) => {
-    const effectiveFill = fill ?? dvar('node', 'decision', 'fill');
-    const effectiveStroke = stroke ?? dvar('node', 'decision', 'keyline');
+    const effectiveFill = fill ?? vvar('node', 'decision', 'fill');
+    const effectiveStroke = stroke ?? vvar('node', 'decision', 'keyline');
     const effectiveStrokeWidth = strokeWidth ?? 2.5;
 
     // Diamond: text goes to the center, tag near bottom half
@@ -31,7 +31,7 @@ export const DecisionNode = React.forwardRef<SVGGElement, DecisionNodeProps>(
     const tagY = y + height * 0.74;
 
     return (
-      <g ref={ref} data-bbangto-diagram-molecule="decision" data-bbangto-diagram-molecule-id={id}>
+      <g ref={ref} data-bbangto-viz-molecule="decision" data-bbangto-viz-molecule-id={id}>
         <Node
           id={id}
           x={x}

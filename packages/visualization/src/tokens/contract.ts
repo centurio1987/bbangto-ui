@@ -1,10 +1,12 @@
 import { flattenToCSSVars } from '@centurio1987/bbangto-ui-tokens';
-import type { DiagramTheme } from './types';
+import type { VisualizationFoundation } from './types';
 
-const PREFIX = '--bbangto-diagram';
+const PREFIX = '--bbangto-viz';
 
-export const dvar = (...p: string[]): string =>
+/** `vvar('node', 'person', 'fill')` → `var(--bbangto-viz-node-person-fill)` */
+export const vvar = (...p: string[]): string =>
   `var(${PREFIX}-${p.map((s) => s.replace(/([A-Z])/g, '-$1').toLowerCase()).join('-')})`;
 
-export const diagramThemeToStyleObject = (t: DiagramTheme): Record<string, string> =>
-  flattenToCSSVars(t as unknown as Record<string, unknown>, PREFIX);
+export const visualizationFoundationToStyleObject = (
+  f: VisualizationFoundation,
+): Record<string, string> => flattenToCSSVars(f as unknown as Record<string, unknown>, PREFIX);

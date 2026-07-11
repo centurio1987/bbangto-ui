@@ -1,10 +1,10 @@
 import React, { type ReactNode } from 'react';
-import { DiagramCanvas } from '../atoms/DiagramCanvas';
-import type { DiagramCanvasProps } from '../atoms/DiagramCanvas';
+import { Canvas } from '../atoms/Canvas';
+import type { CanvasProps } from '../atoms/Canvas';
 import { Node } from '../atoms/Node';
 import { Edge } from '../atoms/Edge';
 import { NodeLabel } from '../atoms/NodeLabel';
-import { dvar } from '../tokens/contract';
+import { vvar } from '../tokens/contract';
 
 export interface UMLInterfaceSpec {
   name: string;
@@ -37,7 +37,7 @@ export interface UMLComponentDiagramData {
   dependencies?: UMLDependencySpec[];
 }
 
-export interface UMLComponentDiagramProps extends Omit<DiagramCanvasProps, 'data' | 'children'> {
+export interface UMLComponentDiagramProps extends Omit<CanvasProps, 'data' | 'children'> {
   children?: ReactNode;
   data?: UMLComponentDiagramData;
 }
@@ -64,7 +64,7 @@ function Lollipop({ x, y, lineLen = 18, radius = 5, direction = 'right', stroke 
     <>
       <line x1={x} y1={y} x2={endX} y2={endY} stroke={stroke} strokeWidth={1.5} />
       <circle
-        data-bbangto-diagram-uml-lollipop
+        data-bbangto-viz-uml-lollipop
         cx={cx}
         cy={cy}
         r={radius}
@@ -96,7 +96,7 @@ function Socket({ x, y, lineLen = 18, radius = 5, direction = 'right', stroke = 
     <>
       <line x1={x} y1={y} x2={endX} y2={y} stroke={stroke} strokeWidth={1.5} />
       <path
-        data-bbangto-diagram-uml-socket
+        data-bbangto-viz-uml-socket
         d={d}
         fill="none"
         stroke={stroke}
@@ -117,9 +117,9 @@ export function UMLComponentDiagram({
 }: UMLComponentDiagramProps) {
   if (children) {
     return (
-      <DiagramCanvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
+      <Canvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
         {children}
-      </DiagramCanvas>
+      </Canvas>
     );
   }
 
@@ -135,10 +135,10 @@ export function UMLComponentDiagram({
     return `0 0 ${maxX} ${maxY}`;
   })();
 
-  const stroke = dvar('edge', 'stroke');
+  const stroke = vvar('edge', 'stroke');
 
   return (
-    <DiagramCanvas
+    <Canvas
       data={{ nodes: allNodes }}
       viewBox={autoViewBox}
       width={width}
@@ -183,7 +183,7 @@ export function UMLComponentDiagram({
       {dependencies.map((d) => (
         <Edge key={d.id} from={d.from} to={d.to} markerEnd="arrow" strokeDasharray="5 3" strokeWidth={1.5} />
       ))}
-    </DiagramCanvas>
+    </Canvas>
   );
 }
 

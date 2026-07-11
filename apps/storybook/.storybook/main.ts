@@ -28,6 +28,7 @@ const config: StorybookConfig = {
           '@centurio1987/bbangto-ui-visualization',
           '@centurio1987/bbangto-ui-foundations',
           '@centurio1987/bbangto-ui-style-guide-catalog',
+          '@centurio1987/bbangto-ui-visualization-style-guide-catalog',
         ],
       },
     });

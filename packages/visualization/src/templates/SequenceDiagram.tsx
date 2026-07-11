@@ -1,10 +1,10 @@
 import React, { type ReactNode } from 'react';
-import { DiagramCanvas } from '../atoms/DiagramCanvas';
-import type { DiagramCanvasProps } from '../atoms/DiagramCanvas';
+import { Canvas } from '../atoms/Canvas';
+import type { CanvasProps } from '../atoms/Canvas';
 import { Edge } from '../atoms/Edge';
 import { Lifeline } from '../atoms/Lifeline';
 import { Boundary } from '../atoms/Boundary';
-import { dvar } from '../tokens/contract';
+import { vvar } from '../tokens/contract';
 
 export type SeqMessageKind = 'sync' | 'async' | 'return' | 'create' | 'destroy';
 export type SeqFragmentKind = 'loop' | 'alt' | 'opt' | 'ref' | 'par';
@@ -51,7 +51,7 @@ export interface SequenceDiagramData {
   fragments?: SeqFragmentSpec[];
 }
 
-export interface SequenceDiagramProps extends Omit<DiagramCanvasProps, 'data' | 'children'> {
+export interface SequenceDiagramProps extends Omit<CanvasProps, 'data' | 'children'> {
   children?: ReactNode;
   data?: SequenceDiagramData;
   lifelineHeight?: number;
@@ -75,9 +75,9 @@ export function SequenceDiagram({
 }: SequenceDiagramProps) {
   if (children) {
     return (
-      <DiagramCanvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
+      <Canvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
         {children}
-      </DiagramCanvas>
+      </Canvas>
     );
   }
 
@@ -95,10 +95,10 @@ export function SequenceDiagram({
     return `0 0 ${maxX} ${maxY}`;
   })();
 
-  const headFill = dvar('canvas', 'bg');
+  const headFill = vvar('canvas', 'bg');
 
   return (
-    <DiagramCanvas viewBox={autoViewBox} width={width} height={height} title={title} {...props}>
+    <Canvas viewBox={autoViewBox} width={width} height={height} title={title} {...props}>
       {/* Fragments (behind lifelines) */}
       {fragments.map((f) => (
         <React.Fragment key={f.id}>
@@ -128,7 +128,7 @@ export function SequenceDiagram({
             headHeight={HEAD_HEIGHT}
             headFill={p.fill ?? (typeof headFill === 'string' ? headFill : '#FFFFFF')}
             stroke={p.stroke}
-            labelFontFamily={monoFont ? dvar('typography', 'monoFont') : undefined}
+            labelFontFamily={monoFont ? vvar('typography', 'monoFont') : undefined}
           />
         );
       })}
@@ -142,7 +142,7 @@ export function SequenceDiagram({
         return (
           <rect
             key={i}
-            data-bbangto-diagram-activation
+            data-bbangto-viz-activation
             x={cx - barW / 2}
             y={act.startY}
             width={barW}
@@ -181,7 +181,7 @@ export function SequenceDiagram({
                 y={y - 5}
                 textAnchor="middle"
                 fontSize={10}
-                fontFamily={monoFont ? dvar('typography', 'monoFont') : dvar('typography', 'titleFont')}
+                fontFamily={monoFont ? vvar('typography', 'monoFont') : vvar('typography', 'titleFont')}
                 fill="#333333"
               >
                 {msg.label}
@@ -190,7 +190,7 @@ export function SequenceDiagram({
           </React.Fragment>
         );
       })}
-    </DiagramCanvas>
+    </Canvas>
   );
 }
 

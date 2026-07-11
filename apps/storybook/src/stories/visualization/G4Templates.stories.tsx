@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import {
-  DiagramCanvas,
-  DiagramProvider,
-  blueprintTheme,
+  Canvas,
+  VisualizationStyleGuideProvider,
   SequenceDiagram,
   ZenUMLDiagram,
   BPMNDiagram,
@@ -11,21 +10,22 @@ import {
   ArchiMateTechnologyDiagram,
   SysMLBlockDiagram,
 } from '@centurio1987/bbangto-ui-visualization';
+import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visualization-style-guide-catalog';
 import { expect } from 'storybook/test';
 
 const meta = {
   title: 'VISUALIZATION/Templates/G4',
-  component: DiagramCanvas,
+  component: Canvas,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },
   decorators: [
     (Story: React.ComponentType) => (
-      <DiagramProvider theme={blueprintTheme}>
+      <VisualizationStyleGuideProvider styleGuide={blueprintTechnical01VizStyleGuide}>
         <Story />
-      </DiagramProvider>
+      </VisualizationStyleGuideProvider>
     ),
   ],
-} satisfies Meta<typeof DiagramCanvas>;
+} satisfies Meta<typeof Canvas>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -60,13 +60,13 @@ export const SequenceDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
-    const lifelines = canvasElement.querySelectorAll('[data-bbangto-diagram-lifeline]');
+    const lifelines = canvasElement.querySelectorAll('[data-bbangto-viz-lifeline]');
     await expect(lifelines.length).toBe(3);
 
-    const messages = canvasElement.querySelectorAll('[data-bbangto-diagram-edge]');
+    const messages = canvasElement.querySelectorAll('[data-bbangto-viz-edge]');
     await expect(messages.length).toBe(4);
 
-    const activations = canvasElement.querySelectorAll('[data-bbangto-diagram-activation]');
+    const activations = canvasElement.querySelectorAll('[data-bbangto-viz-activation]');
     await expect(activations.length).toBe(1);
 
     // messages ordered by y
@@ -99,10 +99,10 @@ export const ZenUMLDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
-    const lifelines = canvasElement.querySelectorAll('[data-bbangto-diagram-lifeline]');
+    const lifelines = canvasElement.querySelectorAll('[data-bbangto-viz-lifeline]');
     await expect(lifelines.length).toBe(2);
 
-    const messages = canvasElement.querySelectorAll('[data-bbangto-diagram-edge]');
+    const messages = canvasElement.querySelectorAll('[data-bbangto-viz-edge]');
     await expect(messages.length).toBe(2);
   },
 };
@@ -143,19 +143,19 @@ export const BPMNDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
-    const lanes = canvasElement.querySelectorAll('[data-bbangto-diagram-lane]');
+    const lanes = canvasElement.querySelectorAll('[data-bbangto-viz-lane]');
     await expect(lanes.length).toBe(2);
 
-    const events = canvasElement.querySelectorAll('[data-bbangto-diagram-bpmn-event]');
+    const events = canvasElement.querySelectorAll('[data-bbangto-viz-bpmn-event]');
     await expect(events.length).toBe(2);
 
-    const tasks = canvasElement.querySelectorAll('[data-bbangto-diagram-bpmn-task]');
+    const tasks = canvasElement.querySelectorAll('[data-bbangto-viz-bpmn-task]');
     await expect(tasks.length).toBe(2);
 
-    const gateways = canvasElement.querySelectorAll('[data-bbangto-diagram-bpmn-gateway]');
+    const gateways = canvasElement.querySelectorAll('[data-bbangto-viz-bpmn-gateway]');
     await expect(gateways.length).toBe(1);
 
-    const flows = canvasElement.querySelectorAll('[data-bbangto-diagram-edge]');
+    const flows = canvasElement.querySelectorAll('[data-bbangto-viz-edge]');
     await expect(flows.length).toBe(4);
   },
 };
@@ -184,13 +184,13 @@ export const ArchiMateBusinessDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
-    const layer = canvasElement.querySelector('[data-bbangto-diagram-archimate-layer="business"]');
+    const layer = canvasElement.querySelector('[data-bbangto-viz-archimate-layer="business"]');
     await expect(layer).not.toBeNull();
 
-    const elements = canvasElement.querySelectorAll('[data-bbangto-diagram-archimate-element]');
+    const elements = canvasElement.querySelectorAll('[data-bbangto-viz-archimate-element]');
     await expect(elements.length).toBe(3);
 
-    const edges = canvasElement.querySelectorAll('[data-bbangto-diagram-edge]');
+    const edges = canvasElement.querySelectorAll('[data-bbangto-viz-edge]');
     await expect(edges.length).toBe(2);
   },
 };
@@ -217,10 +217,10 @@ export const ArchiMateApplicationDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
-    const layer = canvasElement.querySelector('[data-bbangto-diagram-archimate-layer="application"]');
+    const layer = canvasElement.querySelector('[data-bbangto-viz-archimate-layer="application"]');
     await expect(layer).not.toBeNull();
 
-    const elements = canvasElement.querySelectorAll('[data-bbangto-diagram-archimate-element]');
+    const elements = canvasElement.querySelectorAll('[data-bbangto-viz-archimate-element]');
     await expect(elements.length).toBe(2);
   },
 };
@@ -247,10 +247,10 @@ export const ArchiMateTechnologyDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
-    const layer = canvasElement.querySelector('[data-bbangto-diagram-archimate-layer="technology"]');
+    const layer = canvasElement.querySelector('[data-bbangto-viz-archimate-layer="technology"]');
     await expect(layer).not.toBeNull();
 
-    const elements = canvasElement.querySelectorAll('[data-bbangto-diagram-archimate-element]');
+    const elements = canvasElement.querySelectorAll('[data-bbangto-viz-archimate-element]');
     await expect(elements.length).toBe(2);
   },
 };
@@ -287,14 +287,14 @@ export const SysMLBlockDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
-    const boxes = canvasElement.querySelectorAll('[data-bbangto-diagram-class-box]');
+    const boxes = canvasElement.querySelectorAll('[data-bbangto-viz-class-box]');
     await expect(boxes.length).toBe(2);
 
-    const stereotypes = canvasElement.querySelectorAll('[data-bbangto-diagram-sysml-stereotype]');
+    const stereotypes = canvasElement.querySelectorAll('[data-bbangto-viz-sysml-stereotype]');
     await expect(stereotypes.length).toBe(2);
     await expect((stereotypes[0] as SVGTextElement).textContent).toContain('block');
 
-    const edges = canvasElement.querySelectorAll('[data-bbangto-diagram-edge]');
+    const edges = canvasElement.querySelectorAll('[data-bbangto-viz-edge]');
     await expect(edges.length).toBe(1);
   },
 };

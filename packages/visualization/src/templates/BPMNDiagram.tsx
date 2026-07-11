@@ -1,11 +1,11 @@
 import React, { type ReactNode } from 'react';
-import { DiagramCanvas } from '../atoms/DiagramCanvas';
-import type { DiagramCanvasProps } from '../atoms/DiagramCanvas';
+import { Canvas } from '../atoms/Canvas';
+import type { CanvasProps } from '../atoms/Canvas';
 import { Node } from '../atoms/Node';
 import { Edge } from '../atoms/Edge';
 import { NodeLabel } from '../atoms/NodeLabel';
 import { Lane } from '../atoms/Lane';
-import { dvar } from '../tokens/contract';
+import { vvar } from '../tokens/contract';
 
 export type BPMNEventKind = 'start' | 'end' | 'intermediate';
 export type BPMNGatewayKind = 'exclusive' | 'parallel' | 'inclusive' | 'event';
@@ -61,7 +61,7 @@ export interface BPMNDiagramData {
   flows?: BPMNFlowSpec[];
 }
 
-export interface BPMNDiagramProps extends Omit<DiagramCanvasProps, 'data' | 'children'> {
+export interface BPMNDiagramProps extends Omit<CanvasProps, 'data' | 'children'> {
   children?: ReactNode;
   data?: BPMNDiagramData;
 }
@@ -73,12 +73,12 @@ interface BPMNEventRendProps {
 function BPMNEvent({ spec }: BPMNEventRendProps) {
   const r = spec.r ?? 16;
   const { x: cx, y: cy } = spec;
-  const stroke = dvar('edge', 'stroke');
+  const stroke = vvar('edge', 'stroke');
   const strokeW = spec.kind === 'end' ? 3 : 1.5;
   const fill = spec.kind === 'end' ? '#FFCCBC' : '#FFFFFF';
 
   return (
-    <g data-bbangto-diagram-bpmn-event data-bbangto-diagram-bpmn-event-kind={spec.kind ?? 'start'}>
+    <g data-bbangto-viz-bpmn-event data-bbangto-viz-bpmn-event-kind={spec.kind ?? 'start'}>
       <circle cx={cx} cy={cy} r={r} style={{ fill, stroke, strokeWidth: strokeW }} />
       {spec.kind === 'intermediate' && (
         <circle cx={cx} cy={cy} r={r - 3} style={{ fill: 'none', stroke, strokeWidth: 1.5 }} />
@@ -100,7 +100,7 @@ function BPMNGateway({ spec }: BPMNGatewayRendProps) {
   const size = spec.size ?? 36;
   const half = size / 2;
   const { x: cx, y: cy } = spec;
-  const stroke = dvar('edge', 'stroke');
+  const stroke = vvar('edge', 'stroke');
 
   const d = `M ${cx} ${cy - half} L ${cx + half} ${cy} L ${cx} ${cy + half} L ${cx - half} ${cy} Z`;
 
@@ -122,7 +122,7 @@ function BPMNGateway({ spec }: BPMNGatewayRendProps) {
   }
 
   return (
-    <g data-bbangto-diagram-bpmn-gateway data-bbangto-diagram-bpmn-gateway-kind={spec.kind ?? 'exclusive'}>
+    <g data-bbangto-viz-bpmn-gateway data-bbangto-viz-bpmn-gateway-kind={spec.kind ?? 'exclusive'}>
       <path d={d} style={{ fill: '#FFF9C4', stroke, strokeWidth: 1.5 }} />
       {symbol}
       {spec.label && (
@@ -145,9 +145,9 @@ export function BPMNDiagram({
 }: BPMNDiagramProps) {
   if (children) {
     return (
-      <DiagramCanvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
+      <Canvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
         {children}
-      </DiagramCanvas>
+      </Canvas>
     );
   }
 
@@ -179,7 +179,7 @@ export function BPMNDiagram({
   })();
 
   return (
-    <DiagramCanvas
+    <Canvas
       data={{ nodes: allNodes }}
       viewBox={autoViewBox}
       width={width}
@@ -213,7 +213,7 @@ export function BPMNDiagram({
             shape="rounded"
             fill={t.fill ?? '#FFFFFF'}
             strokeWidth={1.5}
-            data-bbangto-diagram-bpmn-task
+            data-bbangto-viz-bpmn-task
           />
           <NodeLabel x={t.x} y={t.y + t.height / 2} width={t.width} title={t.label} fontSize={10} />
         </React.Fragment>
@@ -233,7 +233,7 @@ export function BPMNDiagram({
       {flows.map((f) => (
         <Edge key={f.id} from={f.from} to={f.to} markerEnd="arrow" strokeWidth={1.5} />
       ))}
-    </DiagramCanvas>
+    </Canvas>
   );
 }
 

@@ -1,5 +1,5 @@
 import React, { type ReactNode } from 'react';
-import { dvar } from '../tokens/contract';
+import { vvar } from '../tokens/contract';
 
 export interface EntityAttribute {
   name: string;
@@ -42,11 +42,11 @@ export const EntityTable = React.forwardRef<SVGGElement, EntityTableProps>(
     },
     ref,
   ) => {
-    const effectiveStroke = stroke ?? dvar('edge', 'stroke');
-    const effectiveHeaderFill = headerFill ?? dvar('canvas', 'grid');
-    const monoFont = dvar('typography', 'monoFont');
-    const titleFont = dvar('typography', 'titleFont');
-    const textColor = dvar('edge', 'stroke');
+    const effectiveStroke = stroke ?? vvar('edge', 'stroke');
+    const effectiveHeaderFill = headerFill ?? vvar('canvas', 'grid');
+    const monoFont = vvar('typography', 'monoFont');
+    const titleFont = vvar('typography', 'titleFont');
+    const textColor = vvar('edge', 'stroke');
 
     const totalH = HEADER_H + attributes.length * ROW_H;
     const lineStyle: React.CSSProperties = {
@@ -55,7 +55,7 @@ export const EntityTable = React.forwardRef<SVGGElement, EntityTableProps>(
     };
 
     return (
-      <g ref={ref} data-bbangto-diagram-entity-table data-bbangto-diagram-entity-table-id={id}>
+      <g ref={ref} data-bbangto-viz-entity-table data-bbangto-viz-entity-table-id={id}>
         {/* outer border */}
         <rect
           x={x}
@@ -66,7 +66,7 @@ export const EntityTable = React.forwardRef<SVGGElement, EntityTableProps>(
         />
 
         {/* header */}
-        <g data-bbangto-diagram-entity-header>
+        <g data-bbangto-viz-entity-header>
           <rect
             x={x}
             y={y}
@@ -92,7 +92,7 @@ export const EntityTable = React.forwardRef<SVGGElement, EntityTableProps>(
         {attributes.map((attr, i) => {
           const rowY = y + HEADER_H + i * ROW_H;
           return (
-            <g key={i} data-bbangto-diagram-entity-row>
+            <g key={i} data-bbangto-viz-entity-row>
               <line x1={x} y1={rowY} x2={x + width} y2={rowY} style={lineStyle} />
               {attr.key && (
                 <text

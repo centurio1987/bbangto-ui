@@ -1,8 +1,8 @@
 import React, { type ReactNode } from 'react';
-import { DiagramCanvas } from '../atoms/DiagramCanvas';
-import type { DiagramCanvasProps } from '../atoms/DiagramCanvas';
+import { Canvas } from '../atoms/Canvas';
+import type { CanvasProps } from '../atoms/Canvas';
 import { Edge } from '../atoms/Edge';
-import { dvar } from '../tokens/contract';
+import { vvar } from '../tokens/contract';
 
 export interface SequenceParticipantSpec {
   id: string;
@@ -29,7 +29,7 @@ export interface UMLSequenceDiagramData {
   messages: SequenceMessageSpec[];
 }
 
-export interface UMLSequenceDiagramProps extends Omit<DiagramCanvasProps, 'data' | 'children'> {
+export interface UMLSequenceDiagramProps extends Omit<CanvasProps, 'data' | 'children'> {
   children?: ReactNode;
   data?: UMLSequenceDiagramData;
   lifelineHeight?: number;
@@ -47,11 +47,11 @@ interface LifelineProps {
 function Lifeline({ participant, lifelineHeight }: LifelineProps) {
   const { x, width, name, fill, stroke } = participant;
   const cx = x + width / 2;
-  const headFill = fill ?? dvar('palette', 'p2');
+  const headFill = fill ?? vvar('palette', 'p2');
   const headStroke = stroke ?? '#111111';
 
   return (
-    <g data-bbangto-diagram-lifeline data-bbangto-diagram-lifeline-id={participant.id}>
+    <g data-bbangto-viz-lifeline data-bbangto-viz-lifeline-id={participant.id}>
       {/* header box */}
       <rect
         x={x}
@@ -98,9 +98,9 @@ export function UMLSequenceDiagram({
 }: UMLSequenceDiagramProps) {
   if (children) {
     return (
-      <DiagramCanvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
+      <Canvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
         {children}
-      </DiagramCanvas>
+      </Canvas>
     );
   }
 
@@ -117,7 +117,7 @@ export function UMLSequenceDiagram({
   })();
 
   return (
-    <DiagramCanvas viewBox={autoViewBox} width={width} height={height} title={title} {...props}>
+    <Canvas viewBox={autoViewBox} width={width} height={height} title={title} {...props}>
       {participants.map((p) => (
         <Lifeline key={p.id} participant={p} lifelineHeight={lifelineHeight} />
       ))}
@@ -158,7 +158,7 @@ export function UMLSequenceDiagram({
           </React.Fragment>
         );
       })}
-    </DiagramCanvas>
+    </Canvas>
   );
 }
 

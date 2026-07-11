@@ -1,6 +1,6 @@
 import React, { type ReactNode } from 'react';
-import { DiagramCanvas } from '../atoms/DiagramCanvas';
-import type { DiagramCanvasProps } from '../atoms/DiagramCanvas';
+import { Canvas } from '../atoms/Canvas';
+import type { CanvasProps } from '../atoms/Canvas';
 import { Node } from '../atoms/Node';
 import { Edge } from '../atoms/Edge';
 import { NodeLabel } from '../atoms/NodeLabel';
@@ -41,7 +41,7 @@ export interface ArchiMateDiagramData {
   relationships?: ArchiMateRelationshipSpec[];
 }
 
-export interface ArchiMateDiagramProps extends Omit<DiagramCanvasProps, 'data' | 'children'> {
+export interface ArchiMateDiagramProps extends Omit<CanvasProps, 'data' | 'children'> {
   children?: ReactNode;
   data?: ArchiMateDiagramData;
   layer: ArchiMateLayer;
@@ -78,9 +78,9 @@ export function ArchiMateDiagram({
 }: ArchiMateDiagramProps) {
   if (children) {
     return (
-      <DiagramCanvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
+      <Canvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
         {children}
-      </DiagramCanvas>
+      </Canvas>
     );
   }
 
@@ -100,7 +100,7 @@ export function ArchiMateDiagram({
   const tagY = (e: ArchiMateElementSpec) => e.y + e.height - 8;
 
   return (
-    <DiagramCanvas
+    <Canvas
       data={{ nodes: allNodes }}
       viewBox={autoViewBox}
       width={width}
@@ -108,7 +108,7 @@ export function ArchiMateDiagram({
       title={title}
       {...props}
     >
-      <g data-bbangto-diagram-archimate-layer={layer}>
+      <g data-bbangto-viz-archimate-layer={layer}>
         {elements.map((e) => (
           <React.Fragment key={e.id}>
             <Node
@@ -121,7 +121,7 @@ export function ArchiMateDiagram({
               fill={e.fill ?? layerFill}
               stroke="#111111"
               strokeWidth={1.5}
-              data-bbangto-diagram-archimate-element
+              data-bbangto-viz-archimate-element
             />
             <NodeLabel
               x={e.x}
@@ -146,7 +146,7 @@ export function ArchiMateDiagram({
           />
         ))}
       </g>
-    </DiagramCanvas>
+    </Canvas>
   );
 }
 

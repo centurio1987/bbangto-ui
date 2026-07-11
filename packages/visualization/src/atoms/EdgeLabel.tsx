@@ -1,5 +1,5 @@
 import React from 'react';
-import { dvar } from '../tokens/contract';
+import { vvar } from '../tokens/contract';
 
 export interface EdgeLabelProps {
   x: number;
@@ -26,13 +26,13 @@ export const EdgeLabel = React.forwardRef<SVGGElement, EdgeLabelProps>(
     },
     ref,
   ) => {
-    const effectiveFill = fill ?? dvar('edge', 'stroke');
-    const effectiveFont = fontFamily ?? dvar('typography', 'monoFont');
+    const effectiveFill = fill ?? vvar('edge', 'stroke');
+    const effectiveFont = fontFamily ?? vvar('typography', 'monoFont');
     const charWidth = fontSize * 0.6;
     const approxWidth = label.length * charWidth + padding * 2;
 
     return (
-      <g ref={ref} data-bbangto-diagram-edge-label>
+      <g ref={ref} data-bbangto-viz-edge-label>
         <rect
           x={x - approxWidth / 2}
           y={y - fontSize / 2 - padding}

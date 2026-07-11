@@ -101,8 +101,8 @@ export const Edge = React.forwardRef<SVGPathElement, EdgeProps>(
     return (
       <path
         ref={ref}
-        data-bbangto-diagram-edge
-        data-bbangto-diagram-edge-id={id}
+        data-bbangto-viz-edge
+        data-bbangto-viz-edge-id={id}
         d={d}
         markerEnd={markerEnd && markerEnd !== 'none' ? markerRef(uid, markerEnd) : undefined}
         markerStart={markerStart && markerStart !== 'none' ? markerRef(uid, markerStart) : undefined}

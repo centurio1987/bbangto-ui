@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
-import { DiagramCanvas } from '../atoms/DiagramCanvas';
-import type { DiagramCanvasProps } from '../atoms/DiagramCanvas';
+import { Canvas } from '../atoms/Canvas';
+import type { CanvasProps } from '../atoms/Canvas';
 import { Edge } from '../atoms/Edge';
 import { Boundary } from '../atoms/Boundary';
 import { C4Box } from '../molecules/C4Box';
@@ -14,7 +14,7 @@ export interface C4ComponentDiagramData {
   relationships?: C4RelationshipSpec[];
 }
 
-export interface C4ComponentDiagramProps extends Omit<DiagramCanvasProps, 'data' | 'children'> {
+export interface C4ComponentDiagramProps extends Omit<CanvasProps, 'data' | 'children'> {
   children?: ReactNode;
   data?: C4ComponentDiagramData;
 }
@@ -30,9 +30,9 @@ export function C4ComponentDiagram({
 }: C4ComponentDiagramProps) {
   if (children) {
     return (
-      <DiagramCanvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
+      <Canvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
         {children}
-      </DiagramCanvas>
+      </Canvas>
     );
   }
 
@@ -49,7 +49,7 @@ export function C4ComponentDiagram({
   })();
 
   return (
-    <DiagramCanvas
+    <Canvas
       data={{ nodes: allNodes }}
       viewBox={autoViewBox}
       width={width}
@@ -83,7 +83,7 @@ export function C4ComponentDiagram({
       {relationships.map((r) => (
         <Edge key={r.id} from={r.from} to={r.to} />
       ))}
-    </DiagramCanvas>
+    </Canvas>
   );
 }
 

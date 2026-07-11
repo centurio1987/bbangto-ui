@@ -1,5 +1,5 @@
-export { DiagramCanvas } from './DiagramCanvas';
-export type { DiagramCanvasProps } from './DiagramCanvas';
+export { Canvas } from './Canvas';
+export type { CanvasProps } from './Canvas';
 
 export { Node } from './Node';
 export type { NodeProps, NodeShape } from './Node';
@@ -7,8 +7,8 @@ export type { NodeProps, NodeShape } from './Node';
 export { Edge } from './Edge';
 export type { EdgeProps, EdgeRouting, MarkerVariant, AnchorSide } from './Edge';
 
-export { DiagramMarkers, markerRef } from './Marker';
-export type { DiagramMarkersProps } from './Marker';
+export { Markers, markerRef } from './Marker';
+export type { MarkersProps } from './Marker';
 
 export { NodeLabel } from './NodeLabel';
 export type { NodeLabelProps, NodeLabelMode } from './NodeLabel';

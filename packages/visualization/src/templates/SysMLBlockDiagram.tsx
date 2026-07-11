@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
-import { DiagramCanvas } from '../atoms/DiagramCanvas';
-import type { DiagramCanvasProps } from '../atoms/DiagramCanvas';
+import { Canvas } from '../atoms/Canvas';
+import type { CanvasProps } from '../atoms/Canvas';
 import { Edge } from '../atoms/Edge';
 import type { MarkerVariant } from '../atoms/Marker';
 import { ClassBox } from '../molecules/ClassBox';
@@ -33,7 +33,7 @@ export interface SysMLBlockDiagramData {
   relationships?: SysMLRelationshipSpec[];
 }
 
-export interface SysMLBlockDiagramProps extends Omit<DiagramCanvasProps, 'data' | 'children'> {
+export interface SysMLBlockDiagramProps extends Omit<CanvasProps, 'data' | 'children'> {
   children?: ReactNode;
   data?: SysMLBlockDiagramData;
 }
@@ -59,9 +59,9 @@ export function SysMLBlockDiagram({
 }: SysMLBlockDiagramProps) {
   if (children) {
     return (
-      <DiagramCanvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
+      <Canvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
         {children}
-      </DiagramCanvas>
+      </Canvas>
     );
   }
 
@@ -78,7 +78,7 @@ export function SysMLBlockDiagram({
   })();
 
   return (
-    <DiagramCanvas
+    <Canvas
       data={{ nodes: allNodes }}
       viewBox={autoViewBox}
       width={width}
@@ -116,7 +116,7 @@ export function SysMLBlockDiagram({
           />
         );
       })}
-    </DiagramCanvas>
+    </Canvas>
   );
 }
 

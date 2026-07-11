@@ -1,9 +1,9 @@
 import React, { type ReactNode } from 'react';
-import { DiagramCanvas } from '../atoms/DiagramCanvas';
-import type { DiagramCanvasProps } from '../atoms/DiagramCanvas';
+import { Canvas } from '../atoms/Canvas';
+import type { CanvasProps } from '../atoms/Canvas';
 import { Node } from '../atoms/Node';
 import { NodeLabel } from '../atoms/NodeLabel';
-import { dvar } from '../tokens/contract';
+import { vvar } from '../tokens/contract';
 
 export interface TimelineEventSpec {
   id: string;
@@ -22,7 +22,7 @@ export interface TimelineDiagramData {
   axisX1?: number;
 }
 
-export interface TimelineDiagramProps extends Omit<DiagramCanvasProps, 'data' | 'children'> {
+export interface TimelineDiagramProps extends Omit<CanvasProps, 'data' | 'children'> {
   children?: ReactNode;
   data?: TimelineDiagramData;
 }
@@ -38,9 +38,9 @@ export function TimelineDiagram({
 }: TimelineDiagramProps) {
   if (children) {
     return (
-      <DiagramCanvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
+      <Canvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
         {children}
-      </DiagramCanvas>
+      </Canvas>
     );
   }
 
@@ -58,12 +58,12 @@ export function TimelineDiagram({
     return `0 ${minY > 0 ? 0 : minY} ${maxX - minX} ${maxY - Math.min(0, minY)}`;
   })();
 
-  const stroke = dvar('edge', 'stroke');
-  const monoFont = dvar('typography', 'monoFont');
-  const textColor = dvar('boundary', 'labelColor');
+  const stroke = vvar('edge', 'stroke');
+  const monoFont = vvar('typography', 'monoFont');
+  const textColor = vvar('boundary', 'labelColor');
 
   return (
-    <DiagramCanvas
+    <Canvas
       data={{ nodes: events.map((e) => ({ id: e.id, x: e.x - e.width / 2, y: e.y, width: e.width, height: e.height })) }}
       viewBox={autoViewBox}
       width={width}
@@ -73,7 +73,7 @@ export function TimelineDiagram({
     >
       {/* Axis */}
       <line
-        data-bbangto-diagram-timeline-axis
+        data-bbangto-viz-timeline-axis
         x1={axisX0}
         y1={axisY}
         x2={axisX1}
@@ -134,7 +134,7 @@ export function TimelineDiagram({
           </React.Fragment>
         );
       })}
-    </DiagramCanvas>
+    </Canvas>
   );
 }
 

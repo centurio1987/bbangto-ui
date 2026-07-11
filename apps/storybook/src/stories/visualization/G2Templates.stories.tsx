@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import {
-  DiagramCanvas,
-  DiagramProvider,
-  blueprintTheme,
+  Canvas,
+  VisualizationStyleGuideProvider,
   C4ContextDiagram,
   C4ContainerDiagram,
   C4ComponentDiagram,
@@ -12,21 +11,22 @@ import {
   UMLDeploymentDiagram,
   UMLSequenceDiagram,
 } from '@centurio1987/bbangto-ui-visualization';
+import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visualization-style-guide-catalog';
 import { expect } from 'storybook/test';
 
 const meta = {
   title: 'VISUALIZATION/Templates/G2',
-  component: DiagramCanvas,
+  component: Canvas,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },
   decorators: [
     (Story: React.ComponentType) => (
-      <DiagramProvider theme={blueprintTheme}>
+      <VisualizationStyleGuideProvider styleGuide={blueprintTechnical01VizStyleGuide}>
         <Story />
-      </DiagramProvider>
+      </VisualizationStyleGuideProvider>
     ),
   ],
-} satisfies Meta<typeof DiagramCanvas>;
+} satisfies Meta<typeof Canvas>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -57,23 +57,23 @@ export const C4ContextDiagramBasic: Story = {
   ),
   play: async ({ canvasElement }) => {
     // boundary label text
-    const boundary = canvasElement.querySelector('[data-bbangto-diagram-boundary]');
+    const boundary = canvasElement.querySelector('[data-bbangto-viz-boundary]');
     await expect(boundary).not.toBeNull();
     const boundaryText = boundary?.querySelector('text');
     await expect(boundaryText?.textContent).toBe('Internet Banking System');
 
     // person molecule exists
-    const person = canvasElement.querySelector('[data-bbangto-diagram-molecule="person"]');
+    const person = canvasElement.querySelector('[data-bbangto-viz-molecule="person"]');
     await expect(person).not.toBeNull();
 
     // l1 C4Box exists with strokeWidth=3
-    const l1box = canvasElement.querySelector('[data-bbangto-diagram-c4-box="l1"]');
+    const l1box = canvasElement.querySelector('[data-bbangto-viz-c4-box="l1"]');
     await expect(l1box).not.toBeNull();
-    const l1shape = l1box?.querySelector('[data-bbangto-diagram-node-shape]') as SVGElement | null;
+    const l1shape = l1box?.querySelector('[data-bbangto-viz-node-shape]') as SVGElement | null;
     await expect(parseFloat(getComputedStyle(l1shape!).strokeWidth)).toBe(3);
 
     // edge connects person to system
-    const edge = canvasElement.querySelector('[data-bbangto-diagram-edge]');
+    const edge = canvasElement.querySelector('[data-bbangto-viz-edge]');
     await expect(edge).not.toBeNull();
   },
 };
@@ -106,18 +106,18 @@ export const C4ContainerDiagramBasic: Story = {
   ),
   play: async ({ canvasElement }) => {
     // Boundary label present — key assertion
-    const boundary = canvasElement.querySelector('[data-bbangto-diagram-boundary]');
+    const boundary = canvasElement.querySelector('[data-bbangto-viz-boundary]');
     await expect(boundary).not.toBeNull();
     const label = boundary?.querySelector('text');
     await expect(label?.textContent).toBe('My System');
 
     // l2 boxes have strokeWidth === 2 (border hierarchy)
-    const l2boxes = canvasElement.querySelectorAll('[data-bbangto-diagram-c4-box="l2"]');
+    const l2boxes = canvasElement.querySelectorAll('[data-bbangto-viz-c4-box="l2"]');
     await expect(l2boxes.length).toBe(2);
-    const l2shape = l2boxes[0]?.querySelector('[data-bbangto-diagram-node-shape]') as SVGElement | null;
+    const l2shape = l2boxes[0]?.querySelector('[data-bbangto-viz-node-shape]') as SVGElement | null;
     await expect(parseFloat(getComputedStyle(l2shape!).strokeWidth)).toBe(2);
 
-    const edges = canvasElement.querySelectorAll('[data-bbangto-diagram-edge]');
+    const edges = canvasElement.querySelectorAll('[data-bbangto-viz-edge]');
     await expect(edges.length).toBe(2);
   },
 };
@@ -147,17 +147,17 @@ export const C4ComponentDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
-    const boundary = canvasElement.querySelector('[data-bbangto-diagram-boundary]');
+    const boundary = canvasElement.querySelector('[data-bbangto-viz-boundary]');
     await expect(boundary).not.toBeNull();
     await expect(boundary?.querySelector('text')?.textContent).toBe('API Server');
 
     // l3 boxes have strokeWidth ≈ 1.4
-    const l3boxes = canvasElement.querySelectorAll('[data-bbangto-diagram-c4-box="l3"]');
+    const l3boxes = canvasElement.querySelectorAll('[data-bbangto-viz-c4-box="l3"]');
     await expect(l3boxes.length).toBe(3);
-    const l3shape = l3boxes[0]?.querySelector('[data-bbangto-diagram-node-shape]') as SVGElement | null;
+    const l3shape = l3boxes[0]?.querySelector('[data-bbangto-viz-node-shape]') as SVGElement | null;
     await expect(parseFloat(getComputedStyle(l3shape!).strokeWidth)).toBeCloseTo(1.4, 1);
 
-    const edges = canvasElement.querySelectorAll('[data-bbangto-diagram-edge]');
+    const edges = canvasElement.querySelectorAll('[data-bbangto-viz-edge]');
     await expect(edges.length).toBe(2);
   },
 };
@@ -190,13 +190,13 @@ export const C4CodeDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
-    const boxes = canvasElement.querySelectorAll('[data-bbangto-diagram-class-box]');
+    const boxes = canvasElement.querySelectorAll('[data-bbangto-viz-class-box]');
     await expect(boxes.length).toBe(2);
 
-    const sections = canvasElement.querySelectorAll('[data-bbangto-diagram-class-section]');
+    const sections = canvasElement.querySelectorAll('[data-bbangto-viz-class-section]');
     await expect(sections.length).toBe(6); // 3 sections × 2 boxes
 
-    const edge = canvasElement.querySelector('[data-bbangto-diagram-edge]');
+    const edge = canvasElement.querySelector('[data-bbangto-viz-edge]');
     await expect(edge).not.toBeNull();
   },
 };
@@ -229,13 +229,13 @@ export const ArchitectureDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
-    const groups = canvasElement.querySelectorAll('[data-bbangto-diagram-boundary]');
+    const groups = canvasElement.querySelectorAll('[data-bbangto-viz-boundary]');
     await expect(groups.length).toBe(2);
 
-    const services = canvasElement.querySelectorAll('[data-bbangto-diagram-node]');
+    const services = canvasElement.querySelectorAll('[data-bbangto-viz-node]');
     await expect(services.length).toBe(3);
 
-    const edges = canvasElement.querySelectorAll('[data-bbangto-diagram-edge]');
+    const edges = canvasElement.querySelectorAll('[data-bbangto-viz-edge]');
     await expect(edges.length).toBe(2);
   },
 };
@@ -266,14 +266,14 @@ export const UMLComponentDiagramBasic: Story = {
   ),
   play: async ({ canvasElement }) => {
     // component shape nodes
-    const compShapes = canvasElement.querySelectorAll('[data-bbangto-diagram-node-shape="component"]');
+    const compShapes = canvasElement.querySelectorAll('[data-bbangto-viz-node-shape="component"]');
     await expect(compShapes.length).toBe(2);
 
     // lollipop (provided interface circle)
-    const lollipop = canvasElement.querySelector('[data-bbangto-diagram-uml-lollipop]');
+    const lollipop = canvasElement.querySelector('[data-bbangto-viz-uml-lollipop]');
     await expect(lollipop).not.toBeNull();
 
-    const edge = canvasElement.querySelector('[data-bbangto-diagram-edge]');
+    const edge = canvasElement.querySelector('[data-bbangto-viz-edge]');
     await expect(edge).not.toBeNull();
   },
 };
@@ -303,14 +303,14 @@ export const UMLDeploymentDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
-    const envBoundary = canvasElement.querySelector('[data-bbangto-diagram-boundary]');
+    const envBoundary = canvasElement.querySelector('[data-bbangto-viz-boundary]');
     await expect(envBoundary).not.toBeNull();
 
     // cube-shaped nodes
-    const cubeShapes = canvasElement.querySelectorAll('[data-bbangto-diagram-node-shape="cube"]');
+    const cubeShapes = canvasElement.querySelectorAll('[data-bbangto-viz-node-shape="cube"]');
     await expect(cubeShapes.length).toBe(2);
 
-    const edge = canvasElement.querySelector('[data-bbangto-diagram-edge]');
+    const edge = canvasElement.querySelector('[data-bbangto-viz-edge]');
     await expect(edge).not.toBeNull();
   },
 };
@@ -342,10 +342,10 @@ export const UMLSequenceDiagramBasic: Story = {
     />
   ),
   play: async ({ canvasElement }) => {
-    const lifelines = canvasElement.querySelectorAll('[data-bbangto-diagram-lifeline]');
+    const lifelines = canvasElement.querySelectorAll('[data-bbangto-viz-lifeline]');
     await expect(lifelines.length).toBe(3);
 
-    const messages = canvasElement.querySelectorAll('[data-bbangto-diagram-edge]');
+    const messages = canvasElement.querySelectorAll('[data-bbangto-viz-edge]');
     await expect(messages.length).toBe(4);
 
     // message d attribute not empty

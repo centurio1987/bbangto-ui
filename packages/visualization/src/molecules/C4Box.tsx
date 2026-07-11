@@ -2,7 +2,7 @@ import React, { type ReactNode } from 'react';
 import { Node } from '../atoms/Node';
 import { NodeLabel } from '../atoms/NodeLabel';
 import { Tag } from '../atoms/Tag';
-import { dvar } from '../tokens/contract';
+import { vvar } from '../tokens/contract';
 
 export type C4Level = 'l1' | 'l2' | 'l3';
 
@@ -45,8 +45,8 @@ export const C4Box = React.forwardRef<SVGGElement, C4BoxProps>(
     },
     ref,
   ) => {
-    const effectiveFill = fill ?? dvar('c4', level, 'bgTint');
-    const effectiveStroke = stroke ?? dvar('edge', 'stroke');
+    const effectiveFill = fill ?? vvar('c4', level, 'bgTint');
+    const effectiveStroke = stroke ?? vvar('edge', 'stroke');
     const borderWidth = LEVEL_BORDER_WIDTH[level];
     const effectiveTag = tag ?? level;
 
@@ -56,8 +56,8 @@ export const C4Box = React.forwardRef<SVGGElement, C4BoxProps>(
     return (
       <g
         ref={ref}
-        data-bbangto-diagram-c4-box={level}
-        data-bbangto-diagram-c4-box-id={id}
+        data-bbangto-viz-c4-box={level}
+        data-bbangto-viz-c4-box-id={id}
       >
         <Node
           id={id}

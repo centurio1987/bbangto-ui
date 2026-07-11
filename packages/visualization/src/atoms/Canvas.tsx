@@ -1,10 +1,10 @@
 import React, { useId, useMemo, type ReactNode } from 'react';
 import { CanvasContext } from '../context/CanvasContext';
 import type { BBox, NodeSpec, EdgeSpec } from '../types/data';
-import { dvar } from '../tokens/contract';
-import { DiagramMarkers } from './Marker';
+import { vvar } from '../tokens/contract';
+import { Markers } from './Marker';
 
-export interface DiagramCanvasProps extends Omit<React.SVGAttributes<SVGSVGElement>, 'role'> {
+export interface CanvasProps extends Omit<React.SVGAttributes<SVGSVGElement>, 'role'> {
   children?: ReactNode;
   data?: { nodes: NodeSpec[]; edges?: EdgeSpec[] };
   viewBox?: string;
@@ -50,7 +50,7 @@ function scanChildRegistry(children: ReactNode): Record<string, BBox> {
   return reg;
 }
 
-export const DiagramCanvas = React.forwardRef<SVGSVGElement, DiagramCanvasProps>(
+export const Canvas = React.forwardRef<SVGSVGElement, CanvasProps>(
   (
     {
       children,
@@ -83,7 +83,7 @@ export const DiagramCanvas = React.forwardRef<SVGSVGElement, DiagramCanvasProps>
     const hasTitle = Boolean(title);
     const hasDesc = Boolean(desc);
 
-    const effectiveBg = dvar('canvas', 'bg');
+    const effectiveBg = vvar('canvas', 'bg');
 
     return (
       <CanvasContext.Provider value={ctxValue}>
@@ -99,14 +99,14 @@ export const DiagramCanvas = React.forwardRef<SVGSVGElement, DiagramCanvasProps>
           width={width}
           height={height}
           style={{ overflow: 'visible', background: effectiveBg, ...style }}
-          data-bbangto-diagram-canvas
-          data-bbangto-diagram-canvas-uid={uid}
+          data-bbangto-viz-canvas
+          data-bbangto-viz-canvas-uid={uid}
           {...props}
         >
           {hasTitle && <title id={titleId}>{title}</title>}
           {hasDesc && <desc id={descId}>{desc}</desc>}
           <defs>
-            <DiagramMarkers
+            <Markers
               uid={uid}
               stroke={markerStroke}
               fill={markerFill}
@@ -120,4 +120,4 @@ export const DiagramCanvas = React.forwardRef<SVGSVGElement, DiagramCanvasProps>
   },
 );
 
-DiagramCanvas.displayName = 'DiagramCanvas';
+Canvas.displayName = 'Canvas';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { wrapText, truncateText, estimateWidth } from '../geometry/text';
-import { dvar } from '../tokens/contract';
+import { vvar } from '../tokens/contract';
 
 export type NodeLabelMode = 'wrap' | 'truncate' | 'fit';
 
@@ -37,8 +37,8 @@ export const NodeLabel = React.forwardRef<SVGGElement, NodeLabelProps>(
     },
     ref,
   ) => {
-    const effectiveFill = fill ?? dvar('edge', 'stroke');
-    const effectiveFont = fontFamily ?? dvar('typography', 'titleFont');
+    const effectiveFill = fill ?? vvar('edge', 'stroke');
+    const effectiveFont = fontFamily ?? vvar('typography', 'titleFont');
     const cx = textAnchor === 'middle' ? x + width / 2 : textAnchor === 'end' ? x + width : x;
     const lineHeight = fontSize * 1.25;
 
@@ -56,7 +56,7 @@ export const NodeLabel = React.forwardRef<SVGGElement, NodeLabelProps>(
     const startY = y - totalH / 2 + lineHeight / 2;
 
     return (
-      <g ref={ref} data-bbangto-diagram-node-label>
+      <g ref={ref} data-bbangto-viz-node-label>
         {titleLines.map((line, i) => (
           <text
             key={i}

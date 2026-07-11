@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
-import { DiagramCanvas } from '../atoms/DiagramCanvas';
-import type { DiagramCanvasProps } from '../atoms/DiagramCanvas';
+import { Canvas } from '../atoms/Canvas';
+import type { CanvasProps } from '../atoms/Canvas';
 import { Edge } from '../atoms/Edge';
 import { StateNode } from '../molecules/StateNode';
 import type { StateVariant } from '../molecules/StateNode';
@@ -33,7 +33,7 @@ export interface StateDiagramData {
   transitions?: TransitionSpec[];
 }
 
-export interface StateDiagramProps extends Omit<DiagramCanvasProps, 'data' | 'children'> {
+export interface StateDiagramProps extends Omit<CanvasProps, 'data' | 'children'> {
   children?: ReactNode;
   data?: StateDiagramData;
 }
@@ -59,9 +59,9 @@ export function StateDiagram({
 }: StateDiagramProps) {
   if (children) {
     return (
-      <DiagramCanvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
+      <Canvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
         {children}
-      </DiagramCanvas>
+      </Canvas>
     );
   }
 
@@ -84,7 +84,7 @@ export function StateDiagram({
   })();
 
   return (
-    <DiagramCanvas
+    <Canvas
       data={{ nodes: allNodes }}
       viewBox={autoViewBox}
       width={width}
@@ -109,7 +109,7 @@ export function StateDiagram({
       {transitions.map((t) => (
         <Edge key={t.id} from={t.from} to={t.to} markerEnd="arrow" strokeWidth={1.5} />
       ))}
-    </DiagramCanvas>
+    </Canvas>
   );
 }
 

@@ -2,7 +2,7 @@ import React, { type ReactNode } from 'react';
 import { Node } from '../atoms/Node';
 import { NodeLabel } from '../atoms/NodeLabel';
 import { Tag } from '../atoms/Tag';
-import { dvar } from '../tokens/contract';
+import { vvar } from '../tokens/contract';
 import { StackedRectGlyph } from './glyphs/StackedRectGlyph';
 
 export interface ContainerNodeProps {
@@ -23,8 +23,8 @@ export interface ContainerNodeProps {
 
 export const ContainerNode = React.forwardRef<SVGGElement, ContainerNodeProps>(
   ({ id, x, y, width, height, title, subtitle, tag = 'container', fill, stroke, strokeWidth, strokeDasharray, children }, ref) => {
-    const effectiveFill = fill ?? dvar('node', 'container', 'fill');
-    const effectiveStroke = stroke ?? dvar('node', 'container', 'keyline');
+    const effectiveFill = fill ?? vvar('node', 'container', 'fill');
+    const effectiveStroke = stroke ?? vvar('node', 'container', 'keyline');
     const effectiveStrokeWidth = strokeWidth ?? 2.5;
 
     const glyphSize = 22;
@@ -35,7 +35,7 @@ export const ContainerNode = React.forwardRef<SVGGElement, ContainerNodeProps>(
     const labelY = (glyphBottom + 6 + tagY - 8) / 2;
 
     return (
-      <g ref={ref} data-bbangto-diagram-molecule="container" data-bbangto-diagram-molecule-id={id}>
+      <g ref={ref} data-bbangto-viz-molecule="container" data-bbangto-viz-molecule-id={id}>
         <Node
           id={id}
           x={x}
@@ -49,7 +49,7 @@ export const ContainerNode = React.forwardRef<SVGGElement, ContainerNodeProps>(
           strokeDasharray={strokeDasharray}
         />
         <svg
-          data-bbangto-diagram-glyph="stackedRect"
+          data-bbangto-viz-glyph="stackedRect"
           x={glyphLeft}
           y={glyphTop}
           width={glyphSize}

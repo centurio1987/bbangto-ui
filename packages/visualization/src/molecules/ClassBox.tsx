@@ -1,5 +1,5 @@
 import React, { type ReactNode } from 'react';
-import { dvar } from '../tokens/contract';
+import { vvar } from '../tokens/contract';
 
 export interface ClassBoxProps {
   id?: string;
@@ -40,10 +40,10 @@ export const ClassBox = React.forwardRef<SVGGElement, ClassBoxProps>(
     },
     ref,
   ) => {
-    const effectiveStroke = stroke ?? dvar('edge', 'stroke');
-    const monoFont = dvar('typography', 'monoFont');
-    const titleFont = dvar('typography', 'titleFont');
-    const textColor = dvar('edge', 'stroke');
+    const effectiveStroke = stroke ?? vvar('edge', 'stroke');
+    const monoFont = vvar('typography', 'monoFont');
+    const titleFont = vvar('typography', 'titleFont');
+    const textColor = vvar('edge', 'stroke');
 
     // Distribute height into 3 sections
     const attrH = Math.max(HEADER_H, attributes.length * ROW_H + PAD * 2);
@@ -61,7 +61,7 @@ export const ClassBox = React.forwardRef<SVGGElement, ClassBoxProps>(
     };
 
     return (
-      <g ref={ref} data-bbangto-diagram-class-box data-bbangto-diagram-class-box-id={id}>
+      <g ref={ref} data-bbangto-viz-class-box data-bbangto-viz-class-box-id={id}>
         {/* outer rect */}
         <rect
           x={x}
@@ -72,10 +72,10 @@ export const ClassBox = React.forwardRef<SVGGElement, ClassBoxProps>(
         />
 
         {/* section 1: name */}
-        <g data-bbangto-diagram-class-section="name">
+        <g data-bbangto-viz-class-section="name">
           {stereotype && (
             <text
-              data-bbangto-diagram-sysml-stereotype
+              data-bbangto-viz-sysml-stereotype
               x={x + width / 2}
               y={y + nameH2 / 2 - 9}
               textAnchor="middle"
@@ -105,7 +105,7 @@ export const ClassBox = React.forwardRef<SVGGElement, ClassBoxProps>(
         <line x1={x} y1={attrY} x2={x + width} y2={attrY} style={lineStyle} />
 
         {/* section 2: attributes */}
-        <g data-bbangto-diagram-class-section="attributes">
+        <g data-bbangto-viz-class-section="attributes">
           {attributes.map((attr, i) => (
             <text
               key={i}
@@ -126,7 +126,7 @@ export const ClassBox = React.forwardRef<SVGGElement, ClassBoxProps>(
         <line x1={x} y1={methodY} x2={x + width} y2={methodY} style={lineStyle} />
 
         {/* section 3: methods */}
-        <g data-bbangto-diagram-class-section="methods">
+        <g data-bbangto-viz-class-section="methods">
           {methods.map((method, i) => (
             <text
               key={i}

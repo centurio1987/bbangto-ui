@@ -1,3 +1,3 @@
-export type { DiagramTheme, NodeSemanticKind, NodeSemanticStyle } from './types';
-export { dvar, diagramThemeToStyleObject } from './contract';
-export { blueprintTheme } from './blueprint';
+export type { VisualizationFoundation, NodeSemanticKind, NodeSemanticStyle } from './types';
+export { vvar, visualizationFoundationToStyleObject } from './contract';
+export { baseVisualizationFoundation } from './base';

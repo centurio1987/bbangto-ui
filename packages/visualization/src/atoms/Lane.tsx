@@ -1,5 +1,5 @@
 import React from 'react';
-import { dvar } from '../tokens/contract';
+import { vvar } from '../tokens/contract';
 
 export type LaneOrientation = 'horizontal' | 'vertical';
 
@@ -40,9 +40,9 @@ export const Lane = React.forwardRef<SVGGElement, LaneProps>(
     },
     ref,
   ) => {
-    const effectiveStroke = stroke ?? dvar('boundary', 'stroke');
-    const effectiveLabelColor = labelColor ?? dvar('boundary', 'labelColor');
-    const effectiveFont = labelFontFamily ?? dvar('typography', 'monoFont');
+    const effectiveStroke = stroke ?? vvar('boundary', 'stroke');
+    const effectiveLabelColor = labelColor ?? vvar('boundary', 'labelColor');
+    const effectiveFont = labelFontFamily ?? vvar('typography', 'monoFont');
 
     const isH = orientation === 'horizontal';
     const hw = isH ? headerWidth : width;
@@ -54,8 +54,8 @@ export const Lane = React.forwardRef<SVGGElement, LaneProps>(
     return (
       <g
         ref={ref}
-        data-bbangto-diagram-lane
-        data-bbangto-diagram-lane-orientation={orientation}
+        data-bbangto-viz-lane
+        data-bbangto-viz-lane-orientation={orientation}
         style={style}
         {...props}
       >

@@ -2,7 +2,7 @@ import React, { type ReactNode } from 'react';
 import { Node } from '../atoms/Node';
 import { NodeLabel } from '../atoms/NodeLabel';
 import { Tag } from '../atoms/Tag';
-import { dvar } from '../tokens/contract';
+import { vvar } from '../tokens/contract';
 import { UserGlyph } from './glyphs/UserGlyph';
 
 export interface PersonNodeProps {
@@ -23,8 +23,8 @@ export interface PersonNodeProps {
 
 export const PersonNode = React.forwardRef<SVGGElement, PersonNodeProps>(
   ({ id, x, y, width, height, title, subtitle, tag = 'person', fill, stroke, strokeWidth, strokeDasharray, children }, ref) => {
-    const effectiveFill = fill ?? dvar('node', 'person', 'fill');
-    const effectiveStroke = stroke ?? dvar('node', 'person', 'keyline');
+    const effectiveFill = fill ?? vvar('node', 'person', 'fill');
+    const effectiveStroke = stroke ?? vvar('node', 'person', 'keyline');
     const effectiveStrokeWidth = strokeWidth ?? 2.5;
 
     const glyphSize = 22;
@@ -35,7 +35,7 @@ export const PersonNode = React.forwardRef<SVGGElement, PersonNodeProps>(
     const labelY = (glyphBottom + 6 + tagY - 8) / 2;
 
     return (
-      <g ref={ref} data-bbangto-diagram-molecule="person" data-bbangto-diagram-molecule-id={id}>
+      <g ref={ref} data-bbangto-viz-molecule="person" data-bbangto-viz-molecule-id={id}>
         <Node
           id={id}
           x={x}
@@ -49,7 +49,7 @@ export const PersonNode = React.forwardRef<SVGGElement, PersonNodeProps>(
           strokeDasharray={strokeDasharray}
         />
         <svg
-          data-bbangto-diagram-glyph="user"
+          data-bbangto-viz-glyph="user"
           x={glyphLeft}
           y={glyphTop}
           width={glyphSize}

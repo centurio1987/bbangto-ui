@@ -2,7 +2,7 @@ import React, { type ReactNode } from 'react';
 import { Node } from '../atoms/Node';
 import { NodeLabel } from '../atoms/NodeLabel';
 import { Tag } from '../atoms/Tag';
-import { dvar } from '../tokens/contract';
+import { vvar } from '../tokens/contract';
 import { BarsGlyph } from './glyphs/BarsGlyph';
 
 export interface QueueNodeProps {
@@ -23,8 +23,8 @@ export interface QueueNodeProps {
 
 export const QueueNode = React.forwardRef<SVGGElement, QueueNodeProps>(
   ({ id, x, y, width, height, title, subtitle, tag = 'queue', fill, stroke, strokeWidth, strokeDasharray, children }, ref) => {
-    const effectiveFill = fill ?? dvar('node', 'queue', 'fill');
-    const effectiveStroke = stroke ?? dvar('node', 'queue', 'keyline');
+    const effectiveFill = fill ?? vvar('node', 'queue', 'fill');
+    const effectiveStroke = stroke ?? vvar('node', 'queue', 'keyline');
     const effectiveStrokeWidth = strokeWidth ?? 2.5;
 
     const glyphSize = 22;
@@ -35,7 +35,7 @@ export const QueueNode = React.forwardRef<SVGGElement, QueueNodeProps>(
     const labelY = (glyphBottom + 6 + tagY - 8) / 2;
 
     return (
-      <g ref={ref} data-bbangto-diagram-molecule="queue" data-bbangto-diagram-molecule-id={id}>
+      <g ref={ref} data-bbangto-viz-molecule="queue" data-bbangto-viz-molecule-id={id}>
         <Node
           id={id}
           x={x}
@@ -49,7 +49,7 @@ export const QueueNode = React.forwardRef<SVGGElement, QueueNodeProps>(
           strokeDasharray={strokeDasharray}
         />
         <svg
-          data-bbangto-diagram-glyph="bars"
+          data-bbangto-viz-glyph="bars"
           x={glyphLeft}
           y={glyphTop}
           width={glyphSize}

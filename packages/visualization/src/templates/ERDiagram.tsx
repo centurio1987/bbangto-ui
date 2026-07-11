@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
-import { DiagramCanvas } from '../atoms/DiagramCanvas';
-import type { DiagramCanvasProps } from '../atoms/DiagramCanvas';
+import { Canvas } from '../atoms/Canvas';
+import type { CanvasProps } from '../atoms/Canvas';
 import { Edge } from '../atoms/Edge';
 import type { MarkerVariant } from '../atoms/Marker';
 import { EntityTable } from '../molecules/EntityTable';
@@ -49,7 +49,7 @@ export interface ERDiagramData {
   relationships?: ERRelationshipSpec[];
 }
 
-export interface ERDiagramProps extends Omit<DiagramCanvasProps, 'data' | 'children'> {
+export interface ERDiagramProps extends Omit<CanvasProps, 'data' | 'children'> {
   children?: ReactNode;
   data?: ERDiagramData;
 }
@@ -69,9 +69,9 @@ export function ERDiagram({
 }: ERDiagramProps) {
   if (children) {
     return (
-      <DiagramCanvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
+      <Canvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
         {children}
-      </DiagramCanvas>
+      </Canvas>
     );
   }
 
@@ -94,7 +94,7 @@ export function ERDiagram({
   })();
 
   return (
-    <DiagramCanvas
+    <Canvas
       data={{ nodes: allNodes }}
       viewBox={autoViewBox}
       width={width}
@@ -130,7 +130,7 @@ export function ERDiagram({
           />
         );
       })}
-    </DiagramCanvas>
+    </Canvas>
   );
 }
 
