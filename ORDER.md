@@ -202,18 +202,34 @@ https://www.adobe.com/express/learn/blog/design-trends-2026
 - 결과: `packages/core/design-trends-2020-2026.md` 신규 생성([`style-guide-catalog.md`](packages/core/style-guide-catalog.md)의 시간축 보강 문서). **A. 2026 트렌드** — 제공 링크 3종(Figma 16 / Behance 10 / Adobe 5)을 병합·중복제거하여 22개 항목으로 정리(시각특징 + 출처[F/B/A] + 기존 카탈로그 slug 매핑). **B. 2020–2025 연도별** — 연도별 웹 리서치로 2020(8)·2021(4)·2022(3)·2023(4)·2024(4)·2025(7) 트렌드를 최초/정점 연도 기준 목록화(지속 여부 비고). **C. 카탈로그 갱신 요약** — 기존 23후보로 커버되는 트렌드 매핑 + 신규 후보 5종(`Bento_Modular_01`/`Kinetic_Typography_01`/`Spatial_3D_01`/`Humanist_Imperfect_01`/`Tactile_Texture_01`) + 횡단 관심사(지속가능·접근성·AI/대화·게이미피케이션)는 컴포넌트 스타일이 아니라 패턴(PT)/가이드라인(G)으로 흡수 권고. 16개 출처 링크 첨부. (문서 전용 산출물 → 빌드 그래프 무변경, 코드 품질 게이트 비대상 — ORD-005 선례 동일.) 참고: Adobe Express 링크는 WebFetch 2회 타임아웃 → 동일 도메인 WebSearch로 내용 수집·반영.
 <!-- /ORDER:COMMITTED id=ORD-007 -->
 
-# ORDER
-<!-- status=processing id=ORD-008 -->
-현재 diagram으로 단독 디자인 시스템으로 존재하는 영역을 visualization으로 명명하고 구조를 개편하려고 한다.
+<!-- ORDER:COMMITTED id=ORD-008 status=done committed=2026-07-12 -->
+<!-- 봉인 구획: 편집 금지. 철회하려면 신규 지시에 reverts=ORD-008 항목을 추가하세요. -->
+### ORD-008 — DIAGRAM → VISUALIZATION 개편 (headless 아토믹 + 스타일 가이드 주입)
 
-## 구조
-- 구조는 archetype처럼 **아토믹 디자인 시스템**을 사용한다. **diagram**이나 **infographic** 유형을 **아토믹 디자인 시스템**의 **템플릿**으로 구조화 한다.
-- **diagram-references**를 참고하여 **pattern**도 파악한 후, 구현한다.
-- **아토믹 디자인 시스템**과 **pattern**에 포함되는 구현물은 **headless component**로 구현한다.
-- 구상 디자인 시스템은 **archetype design system**에 **스타일 가이드**를 주입하여 구현한다.
-- **스타일 가이드**는 기존에 존재하는 **스타일 가이드**처럼, **foundations**, **guideline**, **wrapper components**를 구현해야 한다.
-- **스타일 가이드 카탈로그**는 스토리 북에, 기존의 **스타일 가이드 카탈로그**처럼 **foundations**, **guideline**, **wrapper components**, **visual motif**, **foundation preset**을 구현해야 한다.
+<!-- 원문(verbatim): 아래 블록은 신규 지시 영역의 원본을 그대로 보존한다. 수정 금지. -->
+> # ORDER
+> 현재 diagram으로 단독 디자인 시스템으로 존재하는 영역을 visualization으로 명명하고 구조를 개편하려고 한다.
+>
+> ## 구조
+> - 구조는 archetype처럼 **아토믹 디자인 시스템**을 사용한다. **diagram**이나 **infographic** 유형을 **아토믹 디자인 시스템**의 **템플릿**으로 구조화 한다.
+> - **diagram-references**를 참고하여 **pattern**도 파악한 후, 구현한다.
+> - **아토믹 디자인 시스템**과 **pattern**에 포함되는 구현물은 **headless component**로 구현한다.
+> - 구상 디자인 시스템은 **archetype design system**에 **스타일 가이드**를 주입하여 구현한다.
+> - **스타일 가이드**는 기존에 존재하는 **스타일 가이드**처럼, **foundations**, **guideline**, **wrapper components**를 구현해야 한다.
+> - **스타일 가이드 카탈로그**는 스토리 북에, 기존의 **스타일 가이드 카탈로그**처럼 **foundations**, **guideline**, **wrapper components**, **visual motif**, **foundation preset**을 구현해야 한다.
+>
+> ## 아토믹 디자인 시스템을 구성할 컴포넌트를 정의, 설계 구현하고, 스타일 가이드 카탈로그 정의, 설계 구현하기 위한 방법
+> - **diagram-references**를 참고하여, 계획을 세운다. 하나의 diagram과 infographic을 하나의 템플릿이나 pattern 단위로 삼고, 그를 구성하는 컴포넌트를 원자, 분자 단위로 구성한다.
+> - 디자인 스타일 단위로 스타일 가이드를 정의, 설계, 구현한다.
 
-## 아토믹 디자인 시스템을 구성할 컴포넌트를 정의, 설계 구현하고, 스타일 가이드 카탈로그 정의, 설계 구현하기 위한 방법
-- **diagram-references**를 참고하여, 계획을 세운다. 하나의 diagram과 infographic을 하나의 템플릿이나 pattern 단위로 삼고, 그를 구성하는 컴포넌트를 원자, 분자 단위로 구성한다.
-- 디자인 스타일 단위로 스타일 가이드를 정의, 설계, 구현한다.
+- 결과: 사용자 확정(파일럿 우선 · minimal+colorful 우선 · Blueprint 승격 · core 비의존 자체 Provider) + 외부 검토 2회(Gemini) 반영 후 Phase R~5로 구현. 커밋 7개(298f353/66f1b69/9f165b8/8c8941c/2bddaa8/4fa2a01 + 봉인 커밋).
+  1. **Phase R 목록화**: `diagram-references/` 88장 전수 분석 → [`packages/visualization/visualization-catalog.md`](packages/visualization/visualization-catalog.md) — 템플릿 매핑+갭 / 패턴 인벤토리+원자·분자 분해표 / 신규 컴포넌트 후보 / 스타일 가이드 4종 스펙(isometric·hand-drawn은 구현 이연). 이 목록이 정의→설계→구현의 단일 출처.
+  2. **rename**: `packages/diagram` → `packages/visualization`(`@centurio1987/bbangto-ui-visualization` 0.1.0, 클린 rename — ORD-006 선례), `nodes/`→`molecules/`, `presets/`→`templates/`, 스토리북 `DIAGRAM`→`VISUALIZATION` 계층.
+  3. **headless 전환**: atoms/molecules 전량 — 리터럴 paint 제거, 계약 스타일시트(`contractCss.ts`)가 시맨틱 속성(`data-viz-part` 등)→`--bbangto-viz-*` 토큰 바인딩, 명시 prop만 인라인 style(오버라이드 우선). cube 음영은 검정 오버레이+fillOpacity로 교체. Provider 부재 시 구조만 렌더(headless 증명 테스트), blueprint 하 computed 값은 구 리터럴과 동일(시각 무회귀 실측).
+  4. **스타일 가이드 인프라**: tokens에 `VisualizationFoundation`(+`shape` 그룹)/`VizFoundationPreset`/`VisualizationStyleGuideTokens`, visualization에 `VisualizationStyleGuide`+`VisualizationStyleGuideProvider`(+`useVizFoundation`/`useVizWrapperComponent`/`useVizDefsPrefix`) — core StyleGuide 구조 미러, core 비의존 유지. 다중 Provider 공존+defs id 고유성 테스트 포함.
+  5. **패턴 6종 구현**(스필오버 금지 규칙 준수): ProcessSteps/Comparison/TimelineRoadmap/Hierarchy/Cycle/Statistics + 신규 atoms 9종(StatNumber·IndexBadge·IconBadge·RingSegment·ProportionBlock·PictographUnit·MilestoneMarker·PyramidLayer·VsDivider) + molecules 3종(StepConnector·CalloutLeader·StatCard) + `geometry/layout.ts`. 값 텍스트 병기·DOM 순서 일치 등 접근성 규칙 반영.
+  6. **카탈로그 분리 배포**: 신규 `@centurio1987/bbangto-ui-visualization-style-guide-catalog`(0.1.0) — **Blueprint_Technical_01**(blueprintTheme verbatim 승격, paper/whiteprint preset) · **Minimal_Line_01**(hairline 라인아트, default/slate) · **Colorful_Flat_01**(navy 아웃라인+flat fill, default/candy). 각각 foundations/foundation presets(≥2)/wrapper components(Node·Tag·EdgeLabel)/guidelines(접근성 포함)/visual motif(스펙+합성 쇼케이스) 완비.
+  7. **스토리북**: `VISUALIZATION STYLE GUIDE CATALOG` 5-leaf(Foundations/Wrapper Components/Guideline/Visual Motif/Foundation Presets) 팩토리 `_vizCatalogStory.tsx` + play 게이트(FORBIDDEN·대비 4.5:1/3:1·preset 불변식) + TemplateStyleMatrix(파일럿 3 템플릿 × 3 가이드 var 해석 상이 실측) + 26개 템플릿 전 스토리 paint 해석 게이트.
+  - 검증: 게이트 4종 전부 green — typecheck/build/test **1006개**(기존 974→+32)/storybook build, 신규·rename 패키지 publint All good. changeset 추가(tokens·visualization·viz-catalog minor, diagram 삭제 기록).
+  - 이연(후속 ORDER): isometric/hand-drawn 스타일 가이드 구현, 파일럿 외 23개 템플릿 리터럴 제거·3-스타일 검증, 신규 템플릿 갭(SitemapTree 등), G5 차트/G6 메타 프레임.
+<!-- /ORDER:COMMITTED id=ORD-008 -->
