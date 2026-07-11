@@ -1,7 +1,7 @@
 import type { Preview } from '@storybook/react-vite';
 import React from 'react';
 import { FoundationProvider, lightFoundation, darkFoundation, highContrastFoundation } from '@centurio1987/bbangto-ui-core';
-import { DiagramProvider, blueprintTheme } from '@centurio1987/bbangto-ui-diagram';
+import { DiagramProvider, blueprintTheme } from '@centurio1987/bbangto-ui-visualization';
 
 const preview: Preview = {
   parameters: {
@@ -15,7 +15,8 @@ const preview: Preview = {
       test: 'todo',
     },
     options: {
-      // 사이드바 3대 최상위: ARCHETYPE(원형 디자인 시스템) / DIAGRAM / STYLE GUIDE CATALOG.
+      // 사이드바 최상위: ARCHETYPE(원형 디자인 시스템) / VISUALIZATION(headless 시각화 시스템)
+      // / FOUNDATION CATALOG / STYLE GUIDE CATALOG / VISUALIZATION STYLE GUIDE CATALOG.
       // Overview(.mdx)는 단일 진입 안내 문서로 최상단 고정.
       storySort: {
         order: [
@@ -26,7 +27,7 @@ const preview: Preview = {
             'Blocks',
             'Patterns',
           ],
-          'DIAGRAM',
+          'VISUALIZATION', ['Provider', 'Atoms', 'Molecules', 'Patterns', 'Templates'],
           // 기본 foundation(light/dark/high-contrast)은 전역 툴바로 전환. 그 외
           // 확장 foundation(amber + external 74)은 FOUNDATION CATALOG로 분리.
           'FOUNDATION CATALOG',

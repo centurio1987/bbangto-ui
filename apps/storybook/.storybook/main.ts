@@ -25,7 +25,7 @@ const config: StorybookConfig = {
           '@centurio1987/bbangto-ui-core',
           '@centurio1987/bbangto-ui-tokens',
           '@centurio1987/bbangto-ui-hooks',
-          '@centurio1987/bbangto-ui-diagram',
+          '@centurio1987/bbangto-ui-visualization',
           '@centurio1987/bbangto-ui-foundations',
           '@centurio1987/bbangto-ui-style-guide-catalog',
         ],

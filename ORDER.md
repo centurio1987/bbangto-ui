@@ -201,3 +201,19 @@ https://www.adobe.com/express/learn/blog/design-trends-2026
 
 - 결과: `packages/core/design-trends-2020-2026.md` 신규 생성([`style-guide-catalog.md`](packages/core/style-guide-catalog.md)의 시간축 보강 문서). **A. 2026 트렌드** — 제공 링크 3종(Figma 16 / Behance 10 / Adobe 5)을 병합·중복제거하여 22개 항목으로 정리(시각특징 + 출처[F/B/A] + 기존 카탈로그 slug 매핑). **B. 2020–2025 연도별** — 연도별 웹 리서치로 2020(8)·2021(4)·2022(3)·2023(4)·2024(4)·2025(7) 트렌드를 최초/정점 연도 기준 목록화(지속 여부 비고). **C. 카탈로그 갱신 요약** — 기존 23후보로 커버되는 트렌드 매핑 + 신규 후보 5종(`Bento_Modular_01`/`Kinetic_Typography_01`/`Spatial_3D_01`/`Humanist_Imperfect_01`/`Tactile_Texture_01`) + 횡단 관심사(지속가능·접근성·AI/대화·게이미피케이션)는 컴포넌트 스타일이 아니라 패턴(PT)/가이드라인(G)으로 흡수 권고. 16개 출처 링크 첨부. (문서 전용 산출물 → 빌드 그래프 무변경, 코드 품질 게이트 비대상 — ORD-005 선례 동일.) 참고: Adobe Express 링크는 WebFetch 2회 타임아웃 → 동일 도메인 WebSearch로 내용 수집·반영.
 <!-- /ORDER:COMMITTED id=ORD-007 -->
+
+# ORDER
+<!-- status=processing id=ORD-008 -->
+현재 diagram으로 단독 디자인 시스템으로 존재하는 영역을 visualization으로 명명하고 구조를 개편하려고 한다.
+
+## 구조
+- 구조는 archetype처럼 **아토믹 디자인 시스템**을 사용한다. **diagram**이나 **infographic** 유형을 **아토믹 디자인 시스템**의 **템플릿**으로 구조화 한다.
+- **diagram-references**를 참고하여 **pattern**도 파악한 후, 구현한다.
+- **아토믹 디자인 시스템**과 **pattern**에 포함되는 구현물은 **headless component**로 구현한다.
+- 구상 디자인 시스템은 **archetype design system**에 **스타일 가이드**를 주입하여 구현한다.
+- **스타일 가이드**는 기존에 존재하는 **스타일 가이드**처럼, **foundations**, **guideline**, **wrapper components**를 구현해야 한다.
+- **스타일 가이드 카탈로그**는 스토리 북에, 기존의 **스타일 가이드 카탈로그**처럼 **foundations**, **guideline**, **wrapper components**, **visual motif**, **foundation preset**을 구현해야 한다.
+
+## 아토믹 디자인 시스템을 구성할 컴포넌트를 정의, 설계 구현하고, 스타일 가이드 카탈로그 정의, 설계 구현하기 위한 방법
+- **diagram-references**를 참고하여, 계획을 세운다. 하나의 diagram과 infographic을 하나의 템플릿이나 pattern 단위로 삼고, 그를 구성하는 컴포넌트를 원자, 분자 단위로 구성한다.
+- 디자인 스타일 단위로 스타일 가이드를 정의, 설계, 구현한다.

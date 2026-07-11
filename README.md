@@ -21,7 +21,7 @@ BBANGTO UI는 진지한 엔지니어링 기반 위에 즐겁고 위트 있는 �
 | `@centurio1987/bbangto-ui-foundations` | 확장 foundation 카탈로그 — amber + 브랜드 프리셋 74종 (base는 core 내장) |
 | `@centurio1987/bbangto-ui-style-guide-catalog` | 사전 정의 style guide preset 24종 (core 기반) |
 | `@centurio1987/bbangto-ui-hooks` | Headless React 훅 31종 |
-| `@centurio1987/bbangto-ui-diagram` | 시스템 아키텍처 다이어그램 컴포넌트 |
+| `@centurio1987/bbangto-ui-visualization` | 시스템 아키텍처 다이어그램 컴포넌트 |
 | `apps/storybook` | 컴포넌트 카탈로그 및 브라우저 테스트 환경 |
 
 ---
@@ -125,7 +125,7 @@ import { glassmorphismAuroraStyleGuide } from '@centurio1987/bbangto-ui-style-gu
 시스템 아키텍처 다이어그램을 리액트 컴포넌트로 작성할 수 있는 전용 패키지입니다.
 
 ```tsx
-import { DiagramProvider, Node, Edge } from '@centurio1987/bbangto-ui-diagram';
+import { DiagramProvider, Node, Edge } from '@centurio1987/bbangto-ui-visualization';
 ```
 
 ---
