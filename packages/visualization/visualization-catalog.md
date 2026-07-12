@@ -7,7 +7,7 @@
 - 분석 대상: `01-mermaid-diagram-types`(30장) · `02-system-concept`(31장) · `03-infographic-patterns`(27장)
 - 스타일 축: minimal / colorful / isometric / hand-drawn
 - 이번 ORD-008 구현 범위(스필오버 방지 규칙): 패턴 6종 + 그 구성 atom/molecule + 스타일 가이드 3종(Blueprint_Technical_01 / Minimal_Line_01 / Colorful_Flat_01). **여기 목록에만 있고 구현 대상 표기가 없는 항목은 전부 후속 ORDER 이연.**
-- 참고: 레퍼런스 2장은 판독 불가/무관(`infographic_colorful_01` 60px 썸네일, `infographic_minimal_03` 제품 광고). 나머지 86장 반영.
+- 참고: 무관 이미지 2장 제외(`infographic_minimal_03`·`infographic_colorful_06` — 광고 사진; `infographic_colorful_01`은 저신뢰 썸네일이나 차트 콜라주로 잠정 반영). 사진별 전수 분석·스타일 재분류는 `style-classification.md` 참조.
 
 ---
 
@@ -114,9 +114,27 @@ ChartPrimitives(순수 차트), Sketchnote 컴포지션, Bento/콜라주 그리�
 
 ---
 
-## 4. 스타일 가이드 인벤토리 (4종 전부 — 구현은 3종, isometric/hand-drawn은 스펙만)
+## 4. 스타일 가이드 인벤토리
+
+> **⚠️ 분류 체계 교체 (2026-07-12)**: 최초 작성 시 폴더 분류(minimal/colorful/isometric/hand-drawn)를 스타일 경계로
+> 차용했으나, 이는 수집 시점의 러프 분류일 뿐 스타일이 아니다. 88장을 **사진별 개별 분석 → 시각 속성 군집화**로
+> 재분류한 결과가 `style-classification.md`에 있으며, 스타일 인벤토리는 그 문서의 **패밀리 7종**(F1~F7)을 정본으로 한다.
+> 요지: 최대 패밀리는 미구현 F2 Corporate_Schematic(24장)이고, 폴더 기준으로는 보이지 않던 F5 Ink_Line_Duotone /
+> F7 Neon_Gradient_Dark 두 패밀리가 신규 발견됐다. 아이소메트릭 투영은 스타일이 아니라 geometry로 분리한다.
+
+| 패밀리 (관측 장수) | 스타일 가이드 | 상태 |
+|---|---|---|
+| F2 Corporate_Schematic (24) | Corporate_Schematic_01 | **미구현 — 1순위 갭** (정의 초안: style-classification.md) |
+| F1 Editorial_Accent (16) | Minimal_Line_01 | 구현 ✓ (라인아트 서브모드) — `editorial` 솔리드 레드 preset 보강 필요 |
+| F4 Marker_Sketchnote (16) | HandDrawn_Marker_01 | 스펙만 — 옐로 하이라이트 최빈·darkboard colorway 보강 |
+| F6 Iso_ColorBlock (8) | Iso_ColorBlock_01 (구 Isometric_Prism_01 재정의) | 스펙만 — 그라디언트 조항은 F7로 분리 |
+| F7 Neon_Gradient_Dark (7) | Neon_Gradient_Dark_01 | **미구현 신규** (그라디언트 defs 페인트 — iso 없이도 적용 가능) |
+| F3 Flat_Pop (6) | Colorful_Flat_01 | 구현 ✓ — `bento-dark` preset 보강 필요 |
+| F5 Ink_Line_Duotone (6) | Ink_Line_Duotone_01 | **미구현 신규** — 지터 불요, 현 인프라로 즉시 구현 가능 |
+| (별도) | Blueprint_Technical_01 | 구현 ✓ — 레퍼런스 유래가 아닌 기존 blueprintTheme 승격(사용자 결정 ③) |
 
 명명 규칙은 기존 카탈로그(트렌드+인덱스, 예: Neobrutalism_Editorial_01)를 따른다. 개인정보 금지.
+아래 4-a~4-e는 최초 작성분(폴더 기준 근거 문구 포함) — 근거·경계는 style-classification.md가 우선한다.
 
 ### 4-a. Blueprint_Technical_01 (구현 — 기존 blueprintTheme 승격)
 - slug `blueprint-technical-01`. foundations = 기존 `blueprintTheme` 값 verbatim.
