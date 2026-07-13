@@ -33,7 +33,18 @@ theme을 지정하지 않았을 때 기본 theme을 사용한다.
 
 ## 신규 지시
 
-_처리할 신규 지시가 없습니다._
+<!-- ORDER:PROCESSING id=ORD-009 status=processing started=2026-07-13 -->
+### ORD-009 — 신규 파악 preset들 visualization style guide catalog 추가
+
+<!-- 원문(verbatim): 수정 금지. -->
+```text
+# ORDER
+
+새로 파악한 preset들 visualization의 style guide catalog에 추가해
+```
+
+- 해석: `packages/visualization/style-classification.md`(88장 사진별 재분류)에서 새로 파악된 preset들을 카탈로그에 구현 — 신규 스타일 가이드 3종(Corporate_Schematic_01 / Ink_Line_Duotone_01 / Neon_Gradient_Dark_01) + 기존 가이드 foundation preset 보강 2건(Minimal_Line_01 `editorial`, Colorful_Flat_01 `bento-dark`). F4/F6은 기술 블로커(지터 렌더·iso geometry)로 이연 유지.
+<!-- /ORDER:PROCESSING id=ORD-009 -->
 
 ## 처리 완료 (COMMITTED)
 
