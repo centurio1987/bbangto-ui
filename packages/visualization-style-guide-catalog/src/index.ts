@@ -3,11 +3,13 @@ import { blueprintTechnical01VizStyleGuide } from './blueprintTechnical';
 import { minimalLine01VizStyleGuide } from './minimalLine';
 import { colorfulFlat01VizStyleGuide } from './colorfulFlat';
 import { inkLineDuotone01VizStyleGuide } from './inkLineDuotone';
+import { corporateSchematic01VizStyleGuide } from './corporateSchematic';
 
 export { blueprintTechnical01VizStyleGuide } from './blueprintTechnical';
 export { minimalLine01VizStyleGuide } from './minimalLine';
 export { colorfulFlat01VizStyleGuide } from './colorfulFlat';
 export { inkLineDuotone01VizStyleGuide } from './inkLineDuotone';
+export { corporateSchematic01VizStyleGuide } from './corporateSchematic';
 export { makeVizColorway } from './_foundation';
 export type { VizColorwayOverride } from './_foundation';
 export { useVizMotifStyle } from './_motif';
@@ -20,6 +22,7 @@ export const vizStyleGuideCatalog: readonly VisualizationStyleGuide[] = [
   minimalLine01VizStyleGuide,
   colorfulFlat01VizStyleGuide,
   inkLineDuotone01VizStyleGuide,
+  corporateSchematic01VizStyleGuide,
 ];
 
 /** slug(name) → style guide 조회 맵. */
