@@ -134,7 +134,15 @@ const SNAPSHOT_PATHS = (f: VisualizationStyleGuide['foundations']) => [
   f.boundary.stroke,
 ];
 
-export function makeVizCatalogStories(sg: VisualizationStyleGuide): Record<string, Story> {
+export interface VizCatalogStoryOptions {
+  /** WrapperComponents play 말미에 실행되는 가이드 전용 추가 게이트 (예: Neon 그라디언트 defs 검증). */
+  wrapperExtraPlay?: (canvasElement: HTMLElement) => Promise<void>;
+}
+
+export function makeVizCatalogStories(
+  sg: VisualizationStyleGuide,
+  opts?: VizCatalogStoryOptions,
+): Record<string, Story> {
   const kinds = Object.keys(sg.foundations.node) as Array<keyof typeof sg.foundations.node>;
 
   const Foundations: Story = {
@@ -222,6 +230,9 @@ export function makeVizCatalogStories(sg: VisualizationStyleGuide): Record<strin
       await expect(wrapperKeys).toEqual(motifKeys);
       // 렌더 확인
       await expect(canvasElement.querySelectorAll('[data-bbangto-viz-node]').length).toBeGreaterThanOrEqual(2);
+      if (opts?.wrapperExtraPlay) {
+        await opts.wrapperExtraPlay(canvasElement);
+      }
       await expectNoForbiddenTokens(canvasElement);
     },
   };
