@@ -22,13 +22,13 @@
 
 | # | 패밀리 | 장수 | 시그니처 | 구현 상태 |
 |---|---|---|---|---|
-| F2 | Corporate_Schematic | 24 | 흰 바탕·헤어라인 중립선·브랜드 액센트 타일·대시 경계·orthogonal+소형 화살촉 | **미구현 (최대 갭)** |
-| F1 | Editorial_Accent | 16 | 웜 뉴트럴 바탕·잉크·절제된 단일 액센트·초대형 숫자↔미세 캡션·무그림자 | Minimal_Line_01이 부분 커버 |
-| F4 | Marker_Sketchnote | 16 | 진짜 지터 잉크·손글씨·형광 하이라이트(노랑 최빈)·종이/보드 질감 | 스펙만 (구 HandDrawn_Marker_01) |
-| F6 | Iso_ColorBlock | 8 | 면별 3단 플랫 명암(그라디언트 없음)·뮤트 단일 색족·샤프 프리즘 | 스펙만 (구 Isometric_Prism_01 일부) |
-| F7 | Neon_Gradient_Dark | 7 | 다크 그라운드·광택 멀티휴 그라디언트·흰 헤어라인 엣지·글로우 | **미구현 신규 발견** |
-| F3 | Flat_Pop | 6 | 고채도 플랫 채움·굵은 네이비 아웃라인·오프셋 솔리드 섀도·스타디움 필 | Colorful_Flat_01 ✓ |
-| F5 | Ink_Line_Duotone | 6 | 지터 없는 균일 모노라인·블랙+블루 듀오톤·채움 없음/라이트 틴트 | **미구현 신규 발견** (폴더 분류가 숨김) |
+| F2 | Corporate_Schematic | 24 | 흰 바탕·헤어라인 중립선·브랜드 액센트 타일·대시 경계·orthogonal+소형 화살촉 | **Corporate_Schematic_01 ✓ (ORD-009)** |
+| F1 | Editorial_Accent | 16 | 웜 뉴트럴 바탕·잉크·절제된 단일 액센트·초대형 숫자↔미세 캡션·무그림자 | Minimal_Line_01 ✓ (`editorial` preset 추가 — ORD-009) |
+| F4 | Marker_Sketchnote | 16 | 진짜 지터 잉크·손글씨·형광 하이라이트(노랑 최빈)·종이/보드 질감 | 스펙만 (구 HandDrawn_Marker_01 — 지터 렌더 블로커) |
+| F6 | Iso_ColorBlock | 8 | 면별 3단 플랫 명암(그라디언트 없음)·뮤트 단일 색족·샤프 프리즘 | 스펙만 (구 Isometric_Prism_01 일부 — iso geometry 블로커) |
+| F7 | Neon_Gradient_Dark | 7 | 다크 그라운드·광택 멀티휴 그라디언트·흰 헤어라인 엣지·글로우 | **Neon_Gradient_Dark_01 ✓ (ORD-009)** |
+| F3 | Flat_Pop | 6 | 고채도 플랫 채움·굵은 네이비 아웃라인·오프셋 솔리드 섀도·스타디움 필 | Colorful_Flat_01 ✓ (`bento-dark` preset 추가 — ORD-009) |
+| F5 | Ink_Line_Duotone | 6 | 지터 없는 균일 모노라인·블랙+블루 듀오톤·채움 없음/라이트 틴트 | **Ink_Line_Duotone_01 ✓ (ORD-009)** |
 | — | 아웃라이어 | 3 | 단독 스타일 (블롭 마인드맵, 프린트 콜라주, 맥시멀 콜라주) | 대상 아님 |
 | — | 제외 | 2 | 다이어그램이 아님 (광고 사진 2장) | — |
 
@@ -62,7 +62,7 @@
 **공통 시그니처**: 웜 오프화이트/크림 그라운드(#F0ECE2~#F7F7F6) · 잉크 #1A1A1A · 절제된 1~2 액센트(레드 #E8321F/#C0392B 최빈, 러스트·틸·블루 대체) ·
 초대형 디스플레이 숫자 ↔ 미세 캡션의 극단 타이포 대비 · 그림자 없음 · 완전 플랫. 서브모드: (a) 모노라인 라인아트, (b) 솔리드 액센트 블록, (c) 데이터 저널리즘 다색.
 
-### F2. Corporate_Schematic — 24장 (최대 패밀리, 미구현)
+### F2. Corporate_Schematic — 24장 (최대 패밀리, Corporate_Schematic_01 구현 ✓)
 
 | 이미지 | 근거 요약 |
 |---|---|
@@ -93,7 +93,7 @@
 
 **공통 시그니처**: 흰/라이트 그라운드(#FFFFFF/#F7F8FA) · 중립 헤어라인 1px(#999/#231F20) · 시맨틱은 **플랫 브랜드 액센트 타일**(오렌지 #ED7100, 애저 블루 #0078D4, 블루 #4472C4 계열) ·
 대시 존 경계 · orthogonal-elbow + 소형 화살촉 · 균일 휴머니스트 산스 · 컨테이너는 옅은 파스텔 틴트 · 그림자 없음/최소.
-**미구현 최대 갭** — 레포의 템플릿 자산(Architecture/C4/UML/BPMN 계열)과 가장 궁합이 좋은 페인트 언어인데 대응 스타일 가이드가 없다.
+최대 갭이었으나 ORD-009에서 `Corporate_Schematic_01`로 구현 — 레포의 템플릿 자산(Architecture/C4/UML/BPMN 계열)과 가장 궁합이 좋은 페인트 언어.
 
 ### F3. Flat_Pop — 6장 (Colorful_Flat_01 ✓)
 
@@ -202,15 +202,15 @@
 
 | 패밀리 | 대응 가이드 | 상태 · 조치 |
 |---|---|---|
-| F2 Corporate_Schematic | — | **1순위 갭.** 24/86장 최대 패밀리 + 레포 템플릿(아키텍처/C4/UML)과 직결. 신규 `Corporate_Schematic_01` 정의 필요. 브랜드 아이콘 배제 규칙(§5-6) 하에 중립 액센트 타일로. |
-| F1 Editorial_Accent | Minimal_Line_01 | 부분 커버. 구현은 라인아트 서브모드(a) 기준 — 관측 최빈은 **솔리드 액센트 블록(b)**. `editorial`(솔리드 레드 블록) colorway/preset 추가로 정합. 액센트 최빈은 coral보다 **레드 #E8321F 계열**이 우세(코랄은 mermaid_minimal_04·iso_04 등 소수). |
-| F3 Flat_Pop | Colorful_Flat_01 | 커버 ✓ (mermaid_colorful_07 아키타입 일치). **다크 그라운드 벤토/캔디 preset** 갭(관측 6장 중 2장이 다크). |
-| F4 Marker_Sketchnote | HandDrawn_Marker_01 (스펙) | 스펙 유효. 보강: 하이라이트 최빈 옐로 #F2C230, **다크보드 colorway**, 크로스해치 음영 토큰. |
-| F5 Ink_Line_Duotone | — | **신규.** `Ink_Line_Duotone_01` 정의 필요 — 클린 모노라인 + 블랙/블루 듀오톤. 지터 불필요라 F4와 달리 **현 인프라로 즉시 구현 가능**. |
-| F6 Iso_ColorBlock | Isometric_Prism_01 (스펙 일부) | 구 스펙에서 그라디언트 요소를 F7로 분리하고 순수 면분할 3단 토큰으로 재정의. geometry 이연 유지. |
-| F7 Neon_Gradient_Dark | — | **신규 분리.** `Neon_Gradient_Dark_01` — 그라디언트 defs 페인트라 iso geometry 없이도(플랫 차트/패턴에) 적용 가능. |
+| F2 Corporate_Schematic | Corporate_Schematic_01 | **구현 ✓ (ORD-009).** 24장 최대 패밀리 — 브랜드 아이콘 배제 규칙(§5-6) 하에 중립 액센트 타일, kind별 tagColor 혼용(오렌지·그린=다크 텍스트), colorway `default`/`slide-dark`. |
+| F1 Editorial_Accent | Minimal_Line_01 | **정합 완료 (ORD-009).** 라인아트 서브모드(a) = default/slate + **`editorial` preset(b)** 추가. 레드 #E8321F는 텍스트 대비 미달(4.07/4.28 실측)이라 그래픽 블록 전용 — guidelines에 금지 규칙 + 다크 레드 #B3271A 대안 명시. |
+| F3 Flat_Pop | Colorful_Flat_01 | 커버 ✓ + **`bento-dark` preset 추가 (ORD-009)** — 블랙 그라운드 + 피치/오렌지 램프(infographic_colorful_05). |
+| F4 Marker_Sketchnote | HandDrawn_Marker_01 (스펙) | 스펙 유효, **구현 이연 유지**(지터 seeded 렌더·손글씨 폰트·질감 토큰화 블로커). 보강: 하이라이트 최빈 옐로 #F2C230, **다크보드 colorway**, 크로스해치 음영 토큰. |
+| F5 Ink_Line_Duotone | Ink_Line_Duotone_01 | **구현 ✓ (ORD-009).** 클린 모노라인 1.75px + 블랙/블루 2잉크 역할 분리(도형/흐름), colorway `default`/`slate`. `makeVizColorway` edge.stroke override가 이 가이드로 추가됨. |
+| F6 Iso_ColorBlock | Isometric_Prism_01 (스펙 일부) | 구 스펙에서 그라디언트 요소를 F7로 분리하고 순수 면분할 3단 토큰으로 재정의. **geometry 이연 유지**. |
+| F7 Neon_Gradient_Dark | Neon_Gradient_Dark_01 | **구현 ✓ (ORD-009).** wrapper 레벨 `<defs><linearGradient>`(defsPrefix+useId 유일 id, stop=ext var) — iso geometry 없이 플랫 차트/패턴에 적용. 외부 라벨+리더 틱 규칙 구현. colorway `default`/`aurora`. |
 
-## 스타일 가이드 정의 초안 (신규/보정분)
+## 스타일 가이드 정의 초안 (신규/보정분) — ORD-009에서 구현 완료 (F4/F6 스펙 보강분 제외)
 
 ### Corporate_Schematic_01 (신규 — 1순위)
 - slug `corporate-schematic-01`. 근거 24장 (F2 배정표).

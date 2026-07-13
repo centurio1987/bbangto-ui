@@ -124,17 +124,18 @@ ChartPrimitives(순수 차트), Sketchnote 컴포지션, Bento/콜라주 그리�
 
 | 패밀리 (관측 장수) | 스타일 가이드 | 상태 |
 |---|---|---|
-| F2 Corporate_Schematic (24) | Corporate_Schematic_01 | **미구현 — 1순위 갭** (정의 초안: style-classification.md) |
-| F1 Editorial_Accent (16) | Minimal_Line_01 | 구현 ✓ (라인아트 서브모드) — `editorial` 솔리드 레드 preset 보강 필요 |
-| F4 Marker_Sketchnote (16) | HandDrawn_Marker_01 | 스펙만 — 옐로 하이라이트 최빈·darkboard colorway 보강 |
-| F6 Iso_ColorBlock (8) | Iso_ColorBlock_01 (구 Isometric_Prism_01 재정의) | 스펙만 — 그라디언트 조항은 F7로 분리 |
-| F7 Neon_Gradient_Dark (7) | Neon_Gradient_Dark_01 | **미구현 신규** (그라디언트 defs 페인트 — iso 없이도 적용 가능) |
-| F3 Flat_Pop (6) | Colorful_Flat_01 | 구현 ✓ — `bento-dark` preset 보강 필요 |
-| F5 Ink_Line_Duotone (6) | Ink_Line_Duotone_01 | **미구현 신규** — 지터 불요, 현 인프라로 즉시 구현 가능 |
+| F2 Corporate_Schematic (24) | Corporate_Schematic_01 | **구현 ✓ (ORD-009)** — colorway `default`/`slide-dark` (§4-f) |
+| F1 Editorial_Accent (16) | Minimal_Line_01 | 구현 ✓ — `editorial` 솔리드 레드 preset 추가 완료 (ORD-009) |
+| F4 Marker_Sketchnote (16) | HandDrawn_Marker_01 | 스펙만 — 옐로 하이라이트 최빈·darkboard colorway 보강 (지터 렌더 블로커로 이연) |
+| F6 Iso_ColorBlock (8) | Iso_ColorBlock_01 (구 Isometric_Prism_01 재정의) | 스펙만 — 그라디언트 조항은 F7로 분리 (iso geometry 블로커로 이연) |
+| F7 Neon_Gradient_Dark (7) | Neon_Gradient_Dark_01 | **구현 ✓ (ORD-009)** — wrapper 레벨 그라디언트 defs, colorway `default`/`aurora` (§4-h) |
+| F3 Flat_Pop (6) | Colorful_Flat_01 | 구현 ✓ — `bento-dark` preset 추가 완료 (ORD-009) |
+| F5 Ink_Line_Duotone (6) | Ink_Line_Duotone_01 | **구현 ✓ (ORD-009)** — colorway `default`/`slate` (§4-g) |
 | (별도) | Blueprint_Technical_01 | 구현 ✓ — 레퍼런스 유래가 아닌 기존 blueprintTheme 승격(사용자 결정 ③) |
 
 명명 규칙은 기존 카탈로그(트렌드+인덱스, 예: Neobrutalism_Editorial_01)를 따른다. 개인정보 금지.
 아래 4-a~4-e는 최초 작성분(폴더 기준 근거 문구 포함) — 근거·경계는 style-classification.md가 우선한다.
+4-f~4-h는 ORD-009 구현분(패밀리 분류 기준 근거).
 
 ### 4-a. Blueprint_Technical_01 (구현 — 기존 blueprintTheme 승격)
 - slug `blueprint-technical-01`. foundations = 기존 `blueprintTheme` 값 verbatim.
@@ -174,6 +175,31 @@ ChartPrimitives(순수 차트), Sketchnote 컴포지션, Bento/콜라주 그리�
   seeded jitter(roughness/bowing) 라인, 손글씨 웹폰트, grid/paper/whiteboard 배경 텍스처, 형광 하이라이트 스워시.
 - 구현 난점(이연 사유): rough 렌더(필터 or path 변형)의 seeded 결정론 보장, 손글씨 폰트 라이선스,
   텍스처 배경 토큰화. 저대비 마커(화이트보드 노랑/연두) 사용 금지 규칙 필요.
+
+### 4-f. Corporate_Schematic_01 (구현 — ORD-009)
+- slug `corporate-schematic-01`. 근거: F2 배정 24장(style-classification.md — 최대 패밀리).
+- foundations: 흰 그라운드 `#FFFFFF` / 중립 헤어라인 1.25px `#4A4A4A` / kind별 플랫 액센트 타일
+  (오렌지 `#E07A1F`·블루 `#2D6FD1`·그린 `#2E9E4A`·퍼플 `#6B3FD1` — 브랜드 무관 중립 조정값) /
+  대시 존 경계 `6 4` / 소형 화살촉(marker 6).
+- **kind별 tagColor 혼용**: 오렌지·그린 타일 위 흰 텍스트는 4.5:1 미달 실측(3.01/3.44) → 다크 `#1F1F1F`,
+  블루·퍼플은 흰 텍스트. colorway `default` + `slide-dark`(`#1B1B3A`, tagColor 유지·다크-태그 kind fill만 상향).
+- wrapper: 카드+좌상단 14×14 액센트 타일 Node / 회색 소형 Tag / 캔버스 칩 EdgeLabel.
+
+### 4-g. Ink_Line_Duotone_01 (구현 — ORD-009)
+- slug `ink-line-duotone-01`. 근거: F5 배정 6장(폴더 분류가 숨겼던 신규 발견 패밀리).
+- foundations: 균일 1.75px 클린 모노라인(지터 없음 — F4와의 경계) / 블랙 도형 잉크 `#111111` +
+  블루 엣지 잉크 `#2B44E0` 2잉크 역할 분리 / fill none 기본(container만 라이트 틴트 `#D6E4F7`) /
+  도트 리더선 경계 `2 5` / mono 대괄호 태그. colorway `default` + `slate`(그레이 잉크+퍼플 엣지 `#6B3FD1`).
+- `makeVizColorway`에 `edge.stroke` override가 이 가이드를 위해 추가됨(잉크≠엣지색, 색 전용 불변식 유지).
+
+### 4-h. Neon_Gradient_Dark_01 (구현 — ORD-009)
+- slug `neon-gradient-dark-01`. 근거: F7 배정 7장(구 iso 스펙에서 분리된 그라디언트 페인트 패밀리).
+- foundations: 다크 그라운드 `#1E1A3D`(쇼케이스는 모티프 CSS로 `→#4A1A6B` 그라디언트) / 흰 헤어라인 1px /
+  node fill은 램프 세그먼트 시작 stop의 대표 hex(게이트/headless 호환), 실제 그라디언트는 wrapper가
+  `<defs><linearGradient>`로 주입(id = defsPrefix+useId 이중 유일, stop-color = `--bbangto-viz-ext-grad-*` var
+  → colorway 전환 반응). 글로우는 `drop-shadow` 모티프 CSS. colorway `default`(퍼플 램프) + `aurora`(네온 그린).
+- 접근성: 그라디언트 면 위 텍스트 금지 — NeonTag가 외부 순백 라벨+리더 틱으로 구현. 대규모(수백 노드)에선
+  defs가 노드 수만큼 생성됨을 guidelines에 명시.
 
 ---
 
