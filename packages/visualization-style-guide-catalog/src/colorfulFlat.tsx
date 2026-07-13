@@ -18,8 +18,9 @@ import { makeVizShowcase } from './_showcase';
 
 /**
  * Colorful_Flat_01 — 고채도 flat 다색 + 두꺼운 navy 아웃라인.
- * 근거: diagram-references 각 카테고리 colorful 폴더 23장(visualization-catalog.md §4-c).
- * 채운 도형 라벨은 navy 잉크(4.5:1 확보 위해 fill은 밝은 톤으로 보정 — 카탈로그 접근성 주의 반영).
+ * 근거: F3 Flat_Pop 배정 6장(style-classification.md — 구 "colorful 폴더 23장" 분류를 대체,
+ * 아키타입 mermaid_colorful_07). 채운 도형 라벨은 잉크 단색(4.5:1 확보 위해 fill은 밝은 톤 보정).
+ * 관측 6장 중 2장이 다크 그라운드(벤토/캔디 차트 UI) → bento-dark preset이 커버.
  */
 
 const NAVY = '#1B2A4A';
@@ -145,6 +146,31 @@ const candyFoundations = makeVizColorway(foundations, {
   c4Tints: ['rgba(58,33,64,0.05)', 'rgba(58,33,64,0.03)', 'transparent'],
 });
 
+/**
+ * bento-dark — 블랙 그라운드 + 피치/오렌지 램프 colorway
+ * (관측: infographic_colorful_05 벤토 스탯 모자이크 — style-classification.md F3).
+ * 램프 위 텍스트는 다크 브라운(#241505) 단일 잉크 — 전 kind 4.5:1 실측(6.49~12.11).
+ */
+const bentoDarkFoundations = makeVizColorway(foundations, {
+  name: 'colorful-flat-01-bento-dark',
+  canvas: { bg: '#121212', grid: '#242018' },
+  ink: '#F4E8D8',
+  tagColor: '#241505',
+  shape: { fill: '#1E1912' },
+  nodeFills: {
+    person: '#E8823C',
+    external: '#F2A65A',
+    container: '#F5C77E',
+    database: '#E8975A',
+    queue: '#F7D08A',
+    decision: '#EFA06B',
+    process: '#F3B26B',
+  },
+  palette: { p1: '#E8823C', p2: '#F2A65A', p5: '#D9622A', p7: '#F5C77E', p8: '#3A2E20' },
+  boundaryLabelColor: '#E8C9A8',
+  c4Tints: ['rgba(244,232,216,0.06)', 'rgba(244,232,216,0.04)', 'transparent'],
+});
+
 const foundationPresets: readonly VizFoundationPreset[] = [
   {
     key: 'default',
@@ -157,6 +183,12 @@ const foundationPresets: readonly VizFoundationPreset[] = [
     label: 'Candy (Magenta/Purple)',
     foundations: candyFoundations,
     extendedFoundations: { '--bbangto-viz-ext-offset-shadow': '#3A2140' },
+  },
+  {
+    key: 'bento-dark',
+    label: 'Bento Dark (Black + Peach)',
+    foundations: bentoDarkFoundations,
+    extendedFoundations: { '--bbangto-viz-ext-offset-shadow': '#F4E8D8' },
   },
 ];
 
@@ -215,9 +247,13 @@ const guidelines: Record<string, Record<string, unknown>> = {
     donts: ['얇은 웨이트(400 미만) 제목 금지'],
   },
   accessibility: {
-    summary: '모든 fill은 navy 잉크와 4.5:1 이상이 되도록 밝기 보정되어 있다.',
-    dos: ['fill 신규 추가 시 navy 대비 4.5:1 검증', '값 인코딩 텍스트 병기'],
-    donts: ['amber/teal 원색 위 흰 텍스트 금지'],
+    summary: '모든 fill은 해당 colorway 잉크와 4.5:1 이상이 되도록 밝기 보정되어 있다.',
+    dos: [
+      'fill 신규 추가 시 잉크 대비 4.5:1 검증',
+      '값 인코딩 텍스트 병기',
+      'bento-dark에서는 램프 fill 위 텍스트를 다크 브라운(#241505)으로',
+    ],
+    donts: ['amber/teal 원색 위 흰 텍스트 금지', 'bento-dark 램프 fill 위 크림/흰 텍스트 금지'],
   },
 };
 

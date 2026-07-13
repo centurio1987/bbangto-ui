@@ -17,8 +17,9 @@ import { makeVizShowcase } from './_showcase';
 
 /**
  * Minimal_Line_01 — 모노크롬 잉크 라인아트.
- * 근거: diagram-references 각 카테고리 minimal 폴더 23장(visualization-catalog.md §4-b).
+ * 근거: F1 Editorial_Accent 배정 16장(style-classification.md — 구 "minimal 폴더 23장" 분류를 대체).
  * warm off-white 캔버스, 1.25px hairline, 무채움 도형, 절제된 coral 단일 액센트.
+ * F1 서브모드: (a) 모노라인 라인아트 = default/slate, (b) 솔리드 레드 블록 = editorial preset.
  */
 
 const INK = '#1A1A1A';
@@ -134,6 +135,18 @@ const slateFoundations = makeVizColorway(foundations, {
   c4Tints: ['rgba(22,24,29,0.04)', 'rgba(22,24,29,0.02)', 'transparent'],
 });
 
+/**
+ * editorial — F1 최빈 서브모드(b) 솔리드 레드 블록 색 스킴
+ * (관측: infographic_minimal_01/04/05, mermaid_minimal_04 — style-classification.md).
+ * red #E8321F 위 텍스트는 잉크 4.07·흰색 4.28로 4.5:1 미달 → 도형 fill은 red로 채우지 않고,
+ * 레드 블록은 p1/ext-accent를 통해 Statistics 등 그래픽 요소(≥3:1 대형 그래픽)로만 흐른다.
+ */
+const editorialFoundations = makeVizColorway(foundations, {
+  name: 'minimal-line-01-editorial',
+  canvas: { bg: '#F0ECE2', grid: '#E3DECF' },
+  palette: { p1: '#E8321F', p8: '#DAD4C4' },
+});
+
 const foundationPresets: readonly VizFoundationPreset[] = [
   {
     key: 'default',
@@ -146,6 +159,12 @@ const foundationPresets: readonly VizFoundationPreset[] = [
     label: 'Cool Slate + Cobalt',
     foundations: slateFoundations,
     extendedFoundations: { '--bbangto-viz-ext-accent': '#2C5BF2' },
+  },
+  {
+    key: 'editorial',
+    label: 'Editorial Red Blocks',
+    foundations: editorialFoundations,
+    extendedFoundations: { '--bbangto-viz-ext-accent': '#E8321F' },
   },
 ];
 
@@ -180,7 +199,7 @@ const guidelines: Record<string, Record<string, unknown>> = {
     donts: ['그림자/그라디언트 금지', '2px 초과 스트로크 금지'],
   },
   color: {
-    summary: '모노크롬 램프 + 단일 액센트(coral/cobalt). 액센트는 강조 1곳에만.',
+    summary: '모노크롬 램프 + 단일 액센트(coral/cobalt/editorial red). 액센트는 강조 1곳에만.',
     dos: ['액센트는 화면당 한 계열만', '위계는 색이 아니라 굵기·크기로'],
     donts: ['다색 팔레트 동시 사용 금지', '저대비 회색(#9AA0A6급) 캡션 금지 — 캡션도 4.5:1'],
   },
@@ -191,8 +210,15 @@ const guidelines: Record<string, Record<string, unknown>> = {
   },
   accessibility: {
     summary: 'hairline이라도 의미선은 3:1, 텍스트는 4.5:1 대비 확보.',
-    dos: ['의미 전달선은 잉크 단색', '값 인코딩은 텍스트 병기'],
-    donts: ['장식선과 의미선의 대비 혼용 금지'],
+    dos: [
+      '의미 전달선은 잉크 단색',
+      '값 인코딩은 텍스트 병기',
+      'editorial 레드 위 텍스트가 불가피하면 다크 레드 #B3271A(흰 텍스트 4.5:1 이상)로 전환',
+    ],
+    donts: [
+      '장식선과 의미선의 대비 혼용 금지',
+      'editorial 레드 블록(#E8321F) 위 텍스트 금지 — 잉크 4.07·흰색 4.28로 미달, 그래픽 전용(≥3:1)',
+    ],
   },
 };
 

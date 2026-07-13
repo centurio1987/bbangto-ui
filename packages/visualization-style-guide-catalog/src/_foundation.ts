@@ -15,6 +15,8 @@ export interface VizColorwayOverride {
   ink?: string;
   nodeFills?: Partial<Record<VizNodeSemanticKind, string>>;
   tagColor?: string;
+  /** 잉크와 별도의 엣지(커넥터+마커) 색 — 듀오톤 계열용. 미지정 시 ink를 따른다. */
+  edge?: { stroke?: string };
   palette?: Partial<VisualizationFoundation['palette']>;
   boundaryLabelColor?: string;
   c4LabelColor?: string;
@@ -56,10 +58,13 @@ export function makeVizColorway(
     ) as VisualizationFoundation['node'],
     edge: {
       ...base.edge,
-      ...(ink ? { stroke: ink } : {}),
+      ...(o.edge?.stroke ?? ink ? { stroke: o.edge?.stroke ?? ink! } : {}),
       marker: {
         ...base.edge.marker,
-        ...(ink ? { arrow: ink, diamond: ink, circle: ink, cross: ink } : {}),
+        ...((): Partial<VisualizationFoundation['edge']['marker']> => {
+          const m = o.edge?.stroke ?? ink;
+          return m ? { arrow: m, diamond: m, circle: m, cross: m } : {};
+        })(),
       },
     },
     c4: {
