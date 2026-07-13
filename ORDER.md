@@ -33,20 +33,32 @@ theme을 지정하지 않았을 때 기본 theme을 사용한다.
 
 ## 신규 지시
 
-<!-- ORDER:PROCESSING id=ORD-009 status=processing started=2026-07-13 -->
+_처리할 신규 지시가 없습니다._
+
+## 처리 완료 (COMMITTED)
+
+<!-- ORDER:COMMITTED id=ORD-009 status=done committed=2026-07-13 -->
+<!-- 봉인 구획: 편집 금지. 철회하려면 신규 지시에 reverts=ORD-009 항목을 추가하세요. -->
 ### ORD-009 — 신규 파악 preset들 visualization style guide catalog 추가
 
-<!-- 원문(verbatim): 수정 금지. -->
+<!-- 원문(verbatim): 아래 블록은 신규 지시 영역의 원본을 그대로 보존한다. 수정 금지. -->
 ```text
 # ORDER
 
 새로 파악한 preset들 visualization의 style guide catalog에 추가해
 ```
 
-- 해석: `packages/visualization/style-classification.md`(88장 사진별 재분류)에서 새로 파악된 preset들을 카탈로그에 구현 — 신규 스타일 가이드 3종(Corporate_Schematic_01 / Ink_Line_Duotone_01 / Neon_Gradient_Dark_01) + 기존 가이드 foundation preset 보강 2건(Minimal_Line_01 `editorial`, Colorful_Flat_01 `bento-dark`). F4/F6은 기술 블로커(지터 렌더·iso geometry)로 이연 유지.
-<!-- /ORDER:PROCESSING id=ORD-009 -->
-
-## 처리 완료 (COMMITTED)
+- 결과: `style-classification.md`(88장 사진별 재분류, ORD-008 후속)에서 새로 파악된 preset들을 외부 검토(Gemini 2회) 반영 플랜으로 구현. 커밋 6개(f616bf2/9b3fce2/1da9ebf/391a5e1/d8958d4/ea0263b + 봉인 커밋). TDD — RED(MISSING_EXPORT 3건 실측) → GREEN.
+  1. **신규 스타일 가이드 3종** (`@centurio1987/bbangto-ui-visualization-style-guide-catalog`):
+     - **Corporate_Schematic_01** (F2, 24장 최대 갭 해소) — 흰 그라운드 + 중립 헤어라인 1.25px + kind별 플랫 액센트 타일(브랜드 hex/아이콘 금지 — 중립 조정값) + 대시 존 경계. **kind별 tagColor 혼용**(오렌지·그린 타일 위 흰 텍스트 4.5:1 미달 실측 → 다크 텍스트). colorway `default`/`slide-dark`.
+     - **Ink_Line_Duotone_01** (F5, 신규 발견 패밀리) — 균일 1.75px 클린 모노라인, 블랙 도형 잉크 + 블루 엣지 잉크 2잉크 역할 분리, container만 라이트 틴트. colorway `default`/`slate`. `makeVizColorway`에 `edge.stroke` override 추가(색 전용 불변식 유지).
+     - **Neon_Gradient_Dark_01** (F7, 신규 분리 패밀리) — 코어 무변경: wrapper가 `<defs><linearGradient>`를 인라인 주입(defsPrefix+useId 이중 유일 id, stop-color=CSS var → colorway 반응), 글로우/다크 그라디언트 그라운드는 `useVizMotifStyle` 스코프 CSS, 그라디언트 면 위 텍스트 금지 → 외부 라벨+리더 틱 NeonTag. colorway `default`/`aurora`. foundation fill은 램프 대표 hex 유지 → 기존 게이트 전부 호환.
+  2. **기존 가이드 preset 보강**: Minimal_Line_01 `editorial`(F1 최빈 서브모드 — 레드 #E8321F는 텍스트 대비 미달 실측이라 그래픽 전용 + #B3271A 대안 명시) · Colorful_Flat_01 `bento-dark`(블랙+피치/오렌지 램프, 단일 다크브라운 tagColor 전 kind 4.5:1 실측).
+  3. **스토리북**: 신규 thin 스토리 3파일(5-leaf × 3 = 15 스토리), `makeVizCatalogStories`에 `wrapperExtraPlay` 옵션 — Neon 전용 그라디언트 게이트(defs 부모·id 유일성 Set·url(#id) 참조 무결성). storySort inline 리터럴 3행 추가. 카탈로그 6종 × 5-leaf.
+  4. **모든 신규 hex는 WCAG 대비 산술 검증 후 확정**(ink 4.5/edge 3.0/tagColor-vs-fill 4.5) — 플랜 단계 계산값이 play 게이트 실측으로 재확인됨.
+  - 검증: 게이트 4종 전부 green — typecheck/build/test **1021개**(기존 1006→+15)/storybook build. changeset(viz-catalog minor — 코어 패키지 무변경) 추가. 문서 갱신: `style-classification.md` 매핑 표 구현✓, `visualization-catalog.md` §4 표 + 4-f/4-g/4-h.
+  - 이연 유지(기술 블로커): F4 Marker_Sketchnote(지터 seeded 렌더·손글씨 폰트·질감 토큰화), F6 Iso_ColorBlock(iso geometry).
+<!-- /ORDER:COMMITTED id=ORD-009 -->
 
 <!-- ORDER:COMMITTED id=ORD-001 status=done committed=2026-06-29 -->
 <!-- 봉인 구획: 편집 금지. 철회하려면 신규 지시에 reverts=ORD-001 항목을 추가하세요. -->
