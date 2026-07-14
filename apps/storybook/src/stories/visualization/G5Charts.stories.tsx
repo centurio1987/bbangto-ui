@@ -8,6 +8,8 @@ import {
   PieChart,
   RadarChart,
   RadialGauge,
+  Treemap,
+  SankeyDiagram,
   linearScale,
   bandScale,
 } from '@centurio1987/bbangto-ui-visualization';
@@ -215,6 +217,71 @@ export const RadialGaugeBasic: Story = {
     // 값 텍스트 병기(StatNumber)
     const val = canvasElement.querySelector('[data-viz-stat-value]');
     await expect(val?.textContent).toContain('72');
+  },
+};
+
+// ── Treemap ───────────────────────────────────────────────────────────
+export const TreemapBasic: Story = {
+  render: () => (
+    <Treemap
+      data={{
+        items: [
+          { id: 'a', label: 'Eng', value: 42 },
+          { id: 'b', label: 'Sales', value: 28 },
+          { id: 'c', label: 'Ops', value: 16 },
+          { id: 'd', label: 'HR', value: 9 },
+          { id: 'e', label: 'Legal', value: 5 },
+        ],
+      }}
+      viewBox="0 0 480 320"
+      width={480}
+      height={320}
+      title="Treemap"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const cells = canvasElement.querySelectorAll('[data-bbangto-viz-treemap-cell]');
+    await expect(cells.length).toBe(5);
+    // 값 텍스트 병기
+    await expect(canvasElement.querySelectorAll('[data-bbangto-viz-treemap-value]').length).toBe(5);
+    // 최대(Eng) 셀 면적 > 최소(Legal) 셀 면적
+    const area = (el: Element) => parseFloat(el.getAttribute('width') || '0') * parseFloat(el.getAttribute('height') || '0');
+    const rects = Array.from(cells).map((c) => c.querySelector('rect')!);
+    await expect(area(rects[0])).toBeGreaterThan(area(rects[4]));
+  },
+};
+
+// ── SankeyDiagram ─────────────────────────────────────────────────────
+export const SankeyBasic: Story = {
+  render: () => (
+    <SankeyDiagram
+      data={{
+        nodes: [
+          { id: 'src', label: 'Traffic', x: 20, y: 40 },
+          { id: 'signup', label: 'Signup', x: 240, y: 20 },
+          { id: 'bounce', label: 'Bounce', x: 240, y: 160 },
+          { id: 'paid', label: 'Paid', x: 440, y: 20 },
+        ],
+        links: [
+          { source: 'src', target: 'signup', value: 60 },
+          { source: 'src', target: 'bounce', value: 40 },
+          { source: 'signup', target: 'paid', value: 35 },
+        ],
+      }}
+      scale={1.6}
+      viewBox="0 0 520 260"
+      width={520}
+      height={260}
+      title="Sankey"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const bands = canvasElement.querySelectorAll('[data-bbangto-viz-band-edge]');
+    await expect(bands.length).toBe(3);
+    const nodes = canvasElement.querySelectorAll('[data-bbangto-viz-sankey-node]');
+    await expect(nodes.length).toBe(4);
   },
 };
 

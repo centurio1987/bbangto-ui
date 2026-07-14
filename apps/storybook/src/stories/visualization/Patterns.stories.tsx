@@ -6,6 +6,7 @@ import {
   Hierarchy,
   Cycle,
   Statistics,
+  Venn,
 } from '@centurio1987/bbangto-ui-visualization';
 import { expect } from 'storybook/test';
 import { expectVizPaintResolved } from './_paintGate';
@@ -392,5 +393,34 @@ export const StatisticsIsotype: Story = {
     await expect(root.textContent).toContain('Seoul');
     await expect(root.textContent).toContain('7');
     await expectVizPaintResolved(canvasElement);
+  },
+};
+
+// ──────────────────────────────────────────────────────────────────────
+// Venn — 집합 겹침 (VT-306). 2원 정밀 + 3원 대칭 근사, 교집합 라벨 텍스트 병기
+// ──────────────────────────────────────────────────────────────────────
+export const VennThreeSets: Story = {
+  render: () => (
+    <Venn
+      data={{
+        sets: [
+          { id: 'a', label: 'Design', size: 10 },
+          { id: 'b', label: 'Eng', size: 10 },
+          { id: 'c', label: 'Product', size: 10 },
+        ],
+        intersections: [{ ids: ['a', 'b', 'c'], label: 'MVP' }],
+      }}
+      viewBox="0 0 420 360"
+      width={420}
+      height={360}
+      title="Venn"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const circles = canvasElement.querySelectorAll('[data-bbangto-viz-venn-circle]');
+    await expect(circles.length).toBe(3);
+    const root = canvasElement.querySelector('[data-bbangto-viz-pattern="venn"]')!;
+    await expect(root.textContent).toContain('MVP');
   },
 };
