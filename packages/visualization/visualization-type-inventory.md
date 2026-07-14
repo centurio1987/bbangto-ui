@@ -113,9 +113,9 @@
 | VT-122 | BPMN Process Diagram | orchestration, private process | 단일 참여자 업무 절차 모델 | 프로세스 자동화 | node,edge,lane | X04(T1) | ✅ | `BPMNDiagram`(template) | — | — |
 | VT-123 | BPMN Collaboration | choreography, conversation | 풀 간 메시지 교환 모델 | 조직 간 협업 | node,edge,lane(pool) | X04(T1) | 🔶 | `BPMNDiagram`(Lane/pool 조합) 근사 | — | P3 |
 | VT-124 | DMN Decision Requirements | DRD, DRG | 의사결정-입력-지식 요구 관계 | 비즈니스 룰 | node,edge | X05(T1) | 📋 | (→template) | — | P3 |
-| VT-125 | Network Topology | nwdiag, network diagram | 네트워크 세그먼트·장비 토폴로지 | 망 구성/보안 경계 | node,edge,lane(세그먼트),icon | X07(T1)·X17(T3)·catalog §1-b(내부) | 📋 | (→template) | 존/방화벽/서버 시맨틱 | P1 |
+| VT-125 | Network Topology | nwdiag, network diagram | 네트워크 세그먼트·장비 토폴로지 | 망 구성/보안 경계 | node,edge,lane(세그먼트),icon | X07(T1)·X17(T3)·catalog §1-b(내부) | ✅ | `NetworkTopology`(template) | 존 경계+장비 노드 | — |
 | VT-126 | Data-Flow Diagram | DFD, threat-model DFD | 데이터 이동·변환·저장 흐름 | 위협 모델링 | node,edge,boundary | X17(T3) | 📋 | (→template) | related:VT-127 | P2 |
-| VT-127 | Data Lineage | 확장 노드카드 lineage | 데이터 계보·파이프라인 추적 | 데이터 엔지니어링 | node(card),edge(named) | catalog §1-b(내부) | 📋 | (→template) | DetailCard/Sparkline 필요 | P1 |
+| VT-127 | Data Lineage | 확장 노드카드 lineage | 데이터 계보·파이프라인 추적 | 데이터 엔지니어링 | node(card),edge(named) | catalog §1-b(내부) | ✅ | `DataLineage`(template) | 카드 노드+named edge | — |
 | VT-128 | Packet Diagram | packet(Mermaid) | 프로토콜 패킷 비트 필드 배치 | 프로토콜 문서화 | grid,axis | X06(T1)·PLAN §D G5(내부) | ✅ | `PacketDiagram`(template) | — | — |
 | VT-129 | Git Graph | gitGraph | 브랜치·커밋·머지 이력 | Git 전략 설명 | node,edge,lane,axis | X06(T1)·PLAN §D G5(내부) | ✅ | `GitGraph`(template) | tags:time·직선 merge | — |
 
@@ -139,8 +139,8 @@
 | VT-301 | Mindmap | mind map, Buzan map, radial map | 중심 주제 방사형 위계 확장 | 브레인스토밍 | radial,tree,edge | X06(T1)·X12(T2) | ✅ | `Mindmap`(template) | related:VT-302 | — |
 | VT-302 | Concept Map | Novak map, knowledge map | 라벨 붙은 연결선의 개념 관계망 | 지식 구조화 | node,edge(labeled) | X12(T2) | 🔶 | `Mindmap`+EdgeLabel 근사 | — | P2 |
 | VT-303 | Hierarchy / Tree | org chart, tree diagram, TreeView, hierarchical infographic | 루트-자식 재귀 트리 | 조직/분류 구조 | tree,node,edge | catalog §2(내부)·X06(T1)·X14(T3) | ✅ | `Hierarchy`(pattern) | pyramid 모드는 VT-701 | — |
-| VT-304 | Sitemap Tree | IA tree, sitemap | 사이트 IA 전용 트리(elbow) | 정보 구조 설계 | tree,edge(elbow) | catalog §1-b(내부) | 📋 | (→template) | — | P1 |
-| VT-305 | Network Graph | node-link, force graph, semantic network, 방사형 노드링크 | 노드·엣지 관계망(비계층) | 관계 분석 | node,edge,radial | X09(T2)·catalog §2-a(내부) | 📋 | (→template) | — | P1 |
+| VT-304 | Sitemap Tree | IA tree, sitemap | 사이트 IA 전용 트리(elbow) | 정보 구조 설계 | tree,edge(elbow) | catalog §1-b(내부) | ✅ | `SitemapTree`(template) | tidyTreeLayout | — |
+| VT-305 | Network Graph | node-link, force graph, semantic network, 방사형 노드링크 | 노드·엣지 관계망(비계층) | 관계 분석 | node,edge,radial | X09(T2)·catalog §2-a(내부) | ✅ | `NetworkGraph`(template) | 수동 좌표+허브 강조 | — |
 | VT-306 | Venn Diagram | Euler diagram, set diagram | 집합 겹침 원 교차 | 교집합/개념 비교 | area(원 교차) | X09·X11·X13(T2)·catalog §1-b(내부) | ✅ | `Venn`(pattern) | tags:chart,framework | — |
 | VT-307 | Work Breakdown Structure | WBS | 산출물 중심 작업 분해 트리 | 범위 분해 | tree,node | X07(T1) | 🔶 | `Hierarchy`(tree) 근사 | — | P3 |
 

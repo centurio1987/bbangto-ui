@@ -6,3 +6,4 @@ export * from './scale';
 export * from './treemap';
 export * from './venn';
 export * from './sankey';
+export * from './tree';
