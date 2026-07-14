@@ -8,6 +8,7 @@ import {
   DataLineage,
   SitemapTree,
   NetworkGraph,
+  ScreenFlow,
 } from '@centurio1987/bbangto-ui-visualization';
 import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visualization-style-guide-catalog';
 import { expect } from 'storybook/test';
@@ -213,5 +214,34 @@ export const NetworkGraphBasic: Story = {
     await expectVizPaintResolved(canvasElement);
     await expect(canvasElement.querySelectorAll('[data-bbangto-viz-node]').length).toBe(5);
     await expect(canvasElement.querySelectorAll('[data-bbangto-viz-edge]').length).toBe(4);
+  },
+};
+
+// ── ScreenFlow ────────────────────────────────────────────────────────
+export const ScreenFlowBasic: Story = {
+  render: () => (
+    <ScreenFlow
+      data={{
+        screens: [
+          { id: 'login', title: 'Login', x: 20, y: 60 },
+          { id: 'home', title: 'Home', x: 240, y: 60 },
+          { id: 'detail', title: 'Detail', x: 460, y: 60 },
+        ],
+        flows: [
+          { from: 'login', to: 'home', label: 'sign in' },
+          { from: 'home', to: 'detail', label: 'select' },
+        ],
+      }}
+      viewBox="0 0 640 260"
+      width={640}
+      height={260}
+      title="Screen flow"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const screens = canvasElement.querySelectorAll('[data-bbangto-viz-mockup-node]');
+    await expect(screens.length).toBe(3);
+    await expect(canvasElement.querySelectorAll('[data-bbangto-viz-edge]').length).toBe(2);
   },
 };

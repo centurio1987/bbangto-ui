@@ -8,6 +8,11 @@ import {
   Statistics,
   Venn,
   Pathways,
+  GeoMap,
+  BentoGrid,
+  Sketchnote,
+  PosterEditorial,
+  SpectrumSlider,
 } from '@centurio1987/bbangto-ui-visualization';
 import { expect } from 'storybook/test';
 import { expectVizPaintResolved } from './_paintGate';
@@ -479,5 +484,172 @@ export const PathwaysBasic: Story = {
     await expect(badges[0].textContent).toContain('01');
     await expect(badges[3].textContent).toContain('04');
     await expectVizPaintResolved(canvasElement);
+  },
+};
+
+// ──────────────────────────────────────────────────────────────────────
+// GeoMap — 지도 인포그래픽 (VT-605). caller-supplied region path + pins
+// ──────────────────────────────────────────────────────────────────────
+export const GeoMapBasic: Story = {
+  render: () => (
+    <GeoMap
+      data={{
+        regions: [
+          { id: 'r1', d: 'M40 40 L200 30 L220 160 L60 180 Z', label: 'West', value: 42 },
+          { id: 'r2', d: 'M220 30 L400 50 L380 170 L230 160 Z', label: 'East', value: 68 },
+        ],
+        pins: [
+          { id: 'c1', x: 120, y: 110, label: 'HQ', value: 12 },
+          { id: 'c2', x: 300, y: 100, label: 'Branch' },
+        ],
+      }}
+      viewBox="0 0 440 220"
+      width={440}
+      height={220}
+      title="Geo map"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const regions = canvasElement.querySelectorAll('[data-bbangto-viz-geo-region]');
+    await expect(regions.length).toBe(2);
+    const pins = canvasElement.querySelectorAll('[data-bbangto-viz-geo-pin]');
+    await expect(pins.length).toBe(2);
+    const root = canvasElement.querySelector('[data-bbangto-viz-pattern="geo-map"]')!;
+    await expect(root.textContent).toContain('HQ');
+  },
+};
+
+// ──────────────────────────────────────────────────────────────────────
+// BentoGrid — 비대칭 모듈 격자 (VT-607)
+// ──────────────────────────────────────────────────────────────────────
+export const BentoGridBasic: Story = {
+  render: () => (
+    <BentoGrid
+      data={{
+        cols: 4,
+        rows: 3,
+        cells: [
+          { id: 'a', col: 0, row: 0, colSpan: 2, rowSpan: 2, title: 'Hero', value: '2.4M' },
+          { id: 'b', col: 2, row: 0, colSpan: 2, rowSpan: 1, title: 'Growth', value: '+18%' },
+          { id: 'c', col: 2, row: 1, colSpan: 1, rowSpan: 1, title: 'Users' },
+          { id: 'd', col: 3, row: 1, colSpan: 1, rowSpan: 2, title: 'Retention' },
+          { id: 'e', col: 0, row: 2, colSpan: 3, rowSpan: 1, title: 'Timeline' },
+        ],
+      }}
+      viewBox="0 0 480 360"
+      width={480}
+      height={360}
+      title="Bento grid"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const cells = canvasElement.querySelectorAll('[data-bbangto-viz-bento-cell]');
+    await expect(cells.length).toBe(5);
+    // 셀 겹침 없음: 각 rect의 경계 상자가 서로 교차하지 않음
+    const rects = Array.from(cells).map((c) => {
+      const r = c.querySelector('rect')!;
+      return {
+        x: parseFloat(r.getAttribute('x')!),
+        y: parseFloat(r.getAttribute('y')!),
+        w: parseFloat(r.getAttribute('width')!),
+        h: parseFloat(r.getAttribute('height')!),
+      };
+    });
+    const overlap = (a: typeof rects[0], b: typeof rects[0]) =>
+      a.x < b.x + b.w - 1 && a.x + a.w - 1 > b.x && a.y < b.y + b.h - 1 && a.y + a.h - 1 > b.y;
+    for (let i = 0; i < rects.length; i++)
+      for (let j = i + 1; j < rects.length; j++)
+        await expect(overlap(rects[i], rects[j])).toBe(false);
+  },
+};
+
+// ──────────────────────────────────────────────────────────────────────
+// Sketchnote — 손그림형 구성 (VT-608, 지터 없음 — 구조만)
+// ──────────────────────────────────────────────────────────────────────
+export const SketchnoteBasic: Story = {
+  render: () => (
+    <Sketchnote
+      data={{
+        nodes: [
+          { id: 'idea', label: 'Idea', x: 80, y: 80 },
+          { id: 'plan', label: 'Plan', x: 300, y: 60 },
+          { id: 'ship', label: 'Ship', x: 520, y: 120 },
+        ],
+        connectors: [
+          { from: 'idea', to: 'plan' },
+          { from: 'plan', to: 'ship' },
+        ],
+      }}
+      viewBox="0 0 640 240"
+      width={640}
+      height={240}
+      title="Sketchnote"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const nodes = canvasElement.querySelectorAll('[data-bbangto-viz-sketch-node]');
+    await expect(nodes.length).toBe(3);
+    await expect(canvasElement.querySelectorAll('[data-bbangto-viz-edge]').length).toBe(2);
+  },
+};
+
+// ──────────────────────────────────────────────────────────────────────
+// PosterEditorial — 타이포 위계 지면 (VT-609)
+// ──────────────────────────────────────────────────────────────────────
+export const PosterEditorialBasic: Story = {
+  render: () => (
+    <PosterEditorial
+      data={{
+        eyebrow: 'DESIGN SYSTEM',
+        title: 'Visualization',
+        subtitle: 'Headless charts and diagrams',
+        items: ['26 new types', 'Zero runtime deps', '6 style guides'],
+      }}
+      viewBox="0 0 520 360"
+      width={520}
+      height={360}
+      title="Poster editorial"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const root = canvasElement.querySelector('[data-bbangto-viz-pattern="poster-editorial"]')!;
+    await expect(root).not.toBeNull();
+    const heading = canvasElement.querySelector('[data-bbangto-viz-poster-title]');
+    await expect(heading?.textContent).toContain('Visualization');
+  },
+};
+
+// ──────────────────────────────────────────────────────────────────────
+// SpectrumSlider — 대립축 다축 척도 (VT-710)
+// ──────────────────────────────────────────────────────────────────────
+export const SpectrumSliderBasic: Story = {
+  render: () => (
+    <SpectrumSlider
+      data={{
+        axes: [
+          { id: 'a1', leftLabel: 'Simple', rightLabel: 'Complex', value: 30 },
+          { id: 'a2', leftLabel: 'Manual', rightLabel: 'Automated', value: 75 },
+          { id: 'a3', leftLabel: 'Local', rightLabel: 'Global', value: 50 },
+        ],
+      }}
+      viewBox="0 0 560 260"
+      width={560}
+      height={260}
+      title="Spectrum slider"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const axes = canvasElement.querySelectorAll('[data-bbangto-viz-spectrum-axis]');
+    await expect(axes.length).toBe(3);
+    const dots = canvasElement.querySelectorAll('[data-bbangto-viz-spectrum-dot]');
+    await expect(dots.length).toBe(3);
+    // 값 텍스트 병기
+    const root = canvasElement.querySelector('[data-bbangto-viz-pattern="spectrum-slider"]')!;
+    await expect(root.textContent).toContain('75');
   },
 };

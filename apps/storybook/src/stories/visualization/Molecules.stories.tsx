@@ -13,6 +13,7 @@ import {
   StateNode,
   EntityTable,
   C4Box,
+  MockupNode,
 } from '@centurio1987/bbangto-ui-visualization';
 import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visualization-style-guide-catalog';
 import { expect } from 'storybook/test';
@@ -235,5 +236,20 @@ export const EntityTableBasic: Story = {
 
     const rows = canvasElement.querySelectorAll('[data-bbangto-viz-entity-row]');
     await expect(rows.length).toBe(3);
+  },
+};
+
+// ── MockupNode (ScreenFlow용 프레임 노드) ──────────────────────────────
+export const MockupNodeVariants: Story = {
+  render: () => (
+    <Canvas viewBox="0 0 460 240" width={460} height={240} title="Mockup nodes">
+      <MockupNode id="m1" x={20} y={30} width={180} height={160} title="Home" variant="browser" />
+      <MockupNode id="m2" x={260} y={30} width={110} height={180} title="App" variant="mobile" />
+    </Canvas>
+  ),
+  play: async ({ canvasElement }) => {
+    const mocks = canvasElement.querySelectorAll('[data-bbangto-viz-mockup-node]');
+    await expect(mocks.length).toBe(2);
+    await expect(canvasElement.textContent).toContain('Home');
   },
 };
