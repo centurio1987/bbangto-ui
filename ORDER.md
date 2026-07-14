@@ -33,7 +33,17 @@ theme을 지정하지 않았을 때 기본 theme을 사용한다.
 
 ## 신규 지시
 
-_처리할 신규 지시가 없습니다._
+### ORD-010 — visualization 유형 인벤토리 P1 26건 구현
+
+<!-- 원문(verbatim) -->
+```text
+# ORDER
+P1 구현을 위한 계획을 세우고 실행해
+```
+
+- 대상: `visualization-type-inventory.md` §5의 P1 항목 26건(§7의 "27/E=8"은 집계 오기 — E 대역 P1은 7건, 실측 26건).
+- 접근: 7 웨이브(RED→GREEN) + 공통 계약 선고정 + geometry 순수 함수 vitest 단위 테스트 이원화. 외부 검토(codex gpt-5.5 / Gemini) 반영 플랜.
+- 진행 중 — 완료 시 봉인.
 
 ## 처리 완료 (COMMITTED)
 
