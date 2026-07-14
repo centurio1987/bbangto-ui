@@ -31,6 +31,9 @@ export type { LifelineProps } from './Lifeline';
 export { GridLayer } from './GridLayer';
 export type { GridLayerProps } from './GridLayer';
 
+export { Axis } from './Axis';
+export type { AxisProps, AxisTick } from './Axis';
+
 export { StatNumber } from './StatNumber';
 export type { StatNumberProps } from './StatNumber';
 export { IndexBadge } from './IndexBadge';

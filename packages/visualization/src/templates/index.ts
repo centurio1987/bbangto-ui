@@ -48,3 +48,11 @@ export { ArchiMateDiagram, ArchiMateBusinessDiagram, ArchiMateApplicationDiagram
 export type { ArchiMateDiagramProps, ArchiMateLayerDiagramProps, ArchiMateDiagramData, ArchiMateElementSpec, ArchiMateRelationshipSpec, ArchiMateLayer, ArchiMateRelKind } from './ArchiMateDiagram';
 export { SysMLBlockDiagram } from './SysMLBlockDiagram';
 export type { SysMLBlockDiagramProps, SysMLBlockDiagramData, SysMLBlockSpec, SysMLRelationshipSpec, SysMLRelKind } from './SysMLBlockDiagram';
+
+// G5: 데이터 차트 (ORD-010)
+export { BarChart } from './BarChart';
+export type { BarChartProps, BarChartDatum } from './BarChart';
+export { LineChart } from './LineChart';
+export type { LineChartProps, LineSeries, LinePoint } from './LineChart';
+export { QuadrantChart } from './QuadrantChart';
+export type { QuadrantChartProps, QuadrantItem } from './QuadrantChart';

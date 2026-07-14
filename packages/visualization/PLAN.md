@@ -148,7 +148,23 @@ packages/diagram/
 
 ---
 
+## C-2. 컴포넌트 공통 계약 (ORD-010 — 차트/구조/인포그래픽 신규 유형)
+
+ORD-010에서 추가되는 차트·구조 다이어그램·인포그래픽 유형이 공통으로 준수하는 계약. 외부 검토(codex/Gemini) 반영.
+
+- **공통 props 네이밍**: 주 입력 `data`, 대체 모드 `children`, 항목 배열 `items`/`series`, 항목 필드 `{ id(필수 string), label, value, color? }`, 값 포맷 `formatValue?: (n)=>string`, 차트 도메인 `domain?: [min,max]`(미지정 시 데이터에서 계산, 0 기준선 포함).
+- **data 속성 이원 규칙**: 공개 시맨틱 훅은 `data-bbangto-viz-*` 접두어로 **통일**(테스트·외부 셀렉터용: `data-bbangto-viz-bar`·`-point`·`-line`·`-axis`·`-tick`·`-band-edge`·`-pattern` 등). `data-viz-part="shape"`는 내부 paint 계약 훅(contractCss 전용, shape 채널).
+- **paint 채널 제약**: 신규 채널·토큰 슬롯 추가 금지. 계약 채널은 `shape`/`edge` 2개. 면 구분이 필요한 복합 유형은 `vvar('palette','pN')` 인라인 fill + fill-opacity 상수로 표현. 텍스트 위계는 `vvar('typography',…)`.
+- **SVG 접근성**: 루트 Canvas `role="img"` + `title`(선택 `desc`), 값은 항상 텍스트 병기(그래픽 단독 인코딩 금지).
+- **엣지 케이스**: 빈 데이터→빈 캔버스(throw 금지), 단일 항목 허용, `children`+`data` 동시→`children` 우선.
+- **지원 범위(공개 계약)**: Sankey=acyclic·좌→우·수동 노드 좌표. GitGraph merge=직선(curved는 후속). Venn=2원 정밀+3원 대칭 근사. GeoMap=caller-supplied region path(투영 미지원, 고정 viewBox). 대량 데이터 최적화 비대상.
+- **테스트 이원화**: 순수 geometry(`scale`/`treemap`/`venn`/`sankey`/`tree`)는 `src/**/*.test.ts` vitest 단위 테스트, 컴포넌트 렌더는 storybook `play()`. play는 텍스트 bbox/computed width 대조 금지(Flaky) — geometry 산출 결정값 vs attr 정수 대조(±1).
+
+---
+
 ## D. 전체 다이어그램 타입 인벤토리 + 프리셋
+
+> 타입 전수 목록·우선순위는 [visualization-type-inventory.md](./visualization-type-inventory.md)가 SSOT — §D는 구현 스펙.
 
 모든 프리셋은 **두 작성 모드 모두 지원**: 저수준 `children`(아톰 직접 조합) + 편의 `data` prop(`types/data.ts`의 `NodeSpec`/`EdgeSpec`). 규칙: `children` 있으면 children 렌더, 없으면 `data` 렌더(병합 금지 — id 중복 방지). **`data` 항목은 `id` 필수**(자동 카운터/랜덤 금지 — SSR/CSR id 불일치로 인한 hydration mismatch 방지). 내부에서 부득이 생성하는 id는 React `useId()`로 결정적으로 만든다.
 
