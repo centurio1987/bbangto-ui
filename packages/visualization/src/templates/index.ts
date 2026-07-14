@@ -86,3 +86,11 @@ export { NetworkGraph } from './NetworkGraph';
 export type { NetworkGraphProps, GraphNode, GraphEdge } from './NetworkGraph';
 export { ScreenFlow } from './ScreenFlow';
 export type { ScreenFlowProps, ScreenSpec, FlowSpec } from './ScreenFlow';
+
+// G5-P2: 데이터 차트 확장 (ORD-011)
+export { StackedBarChart } from './StackedBarChart';
+export type { StackedBarChartProps, StackedBarSeries } from './StackedBarChart';
+export { AreaChart } from './AreaChart';
+export type { AreaChartProps, AreaSeries, AreaPoint } from './AreaChart';
+export { ScatterPlot } from './ScatterPlot';
+export type { ScatterPlotProps, ScatterSeries, ScatterPoint } from './ScatterPlot';
