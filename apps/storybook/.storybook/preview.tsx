@@ -28,7 +28,7 @@ const preview: Preview = {
             'Blocks',
             'Patterns',
           ],
-          'VISUALIZATION', ['Provider', 'Headless', 'Atoms', 'Molecules', 'Patterns', 'Templates', ['G1', 'G2', 'G3', 'G4', 'G5', 'Style Matrix']],
+          'VISUALIZATION', ['Provider', 'Headless', 'Atoms', 'Molecules', 'Patterns', 'Templates', ['G1', 'G2', 'G3', 'G4', 'G5', 'Structure', 'Style Matrix']],
           // 기본 foundation(light/dark/high-contrast)은 전역 툴바로 전환. 그 외
           // 확장 foundation(amber + external 74)은 FOUNDATION CATALOG로 분리.
           'FOUNDATION CATALOG',
