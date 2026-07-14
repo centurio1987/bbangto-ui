@@ -37,6 +37,27 @@ _처리할 신규 지시가 없습니다._
 
 ## 처리 완료 (COMMITTED)
 
+<!-- ORDER:COMMITTED id=ORD-011 status=done committed=2026-07-14 -->
+<!-- 봉인 구획: 편집 금지. 철회하려면 신규 지시에 reverts=ORD-011 항목을 추가하세요. -->
+### ORD-011 — visualization 유형 인벤토리 P2 22건 구현
+
+<!-- 원문(verbatim): 아래 블록은 신규 지시 영역의 원본을 그대로 보존한다. 수정 금지. -->
+```text
+p2 수행
+```
+
+- 결과: `visualization-type-inventory.md` §5 P2 항목 **22건 전량 구현**(📋 net-new 18 + 🔶 근사→전용 승격 4). 외부 검토(codex gpt-5.5 / Gemini) 반영 플랜 — 공개 타입·데이터 정책(음수/0 유형별)·geometry 경계조건 선고정, caller 바인딩 프로토콜 명시, 정적 SVG 방침상 tooltip/resize/axe/스냅샷은 범위 밖 확정. 8 Phase RED→GREEN 16커밋. ORD-010 공통 계약(PLAN §C-2) 전면 준수 — **신규 paint 채널 0**.
+  - **신규 geometry 5**(vitest 단위 24): `stack`(양수 누적·음수 clamp)·`histogram`(binning, thresholds>bins)·`waterfall`(running total·음수 delta)·`funnel`(trapezoids)·`fishbone`(홀짝 교차 layout). **신규 molecule**: `ActorGlyph`.
+  - **E 데이터 차트 8**: `StackedBarChart`(VT-502)·`AreaChart`(VT-504)·`ScatterPlot`(VT-505)·`Histogram`(VT-508)·`DotPlot`(VT-509, dot/dumbbell/range)·`WaterfallChart`(VT-517)·`Heatmap`(VT-512)·`ChoroplethMap`(VT-518, caller path). Heatmap/Choropleth 강도는 팔레트색+fill-opacity 스케일.
+  - **A 엔지니어링 다이어그램 5**: `UseCaseDiagram`(VT-105)·`C4DynamicDiagram`(VT-113, 순번 배지)·`C4SystemLandscapeDiagram`(VT-114)·`DataFlowDiagram`(VT-126, 개방형 데이터스토어)·`ActivityDiagram`(VT-106, 🔶→✅ 전용 승격).
+  - **관계/원인 템플릿 2**: `ConceptMap`(VT-302, 🔶→✅ 전용 승격·linking phrase 필수)·`Fishbone`(VT-706).
+  - **패턴 5 + 모드 확장 2**: `Funnel`(VT-207)·`ListInfographic`(VT-603)·`AnnotatedIllustration`(VT-606, CalloutLeader 재사용)·`SwotMatrix`(VT-703)·`OnionDiagram`(VT-705) + `Cycle` `flywheel` 모드(VT-708 🔶→✅)·`Statistics` `waffle` 모드(VT-513 🔶→✅, 최대잔여법 100셀).
+  - 6개 스타일 가이드는 계약 CSS(shape/edge)만으로 자동 커버 — 가이드 파일 무변경.
+  - 검증: 게이트 전부 green — typecheck/build/**storybook test 1078개**(151 파일)/storybook build + **unit 56**(신규 geometry 24) + publint All good. changeset(viz minor — additive). 문서: inventory §5 22행 전이·§6 역방향 표 +20 export·§7 재계산(84%)·PLAN §D G5 노트·storySort G5-P2/A-P2.
+  - 커버리지 개선: 전체 구현률 60%→**84%**(76/90). 데이터 차트 45%→85%·인포그래픽 55%→73%·개념 프레임워크 40%→70%. P1·P2 잔여 0.
+  - 이연: P3 백로그(잔여 📋 9·🔶 2 — Boxplot/Chord/Iceberg/BMC/Honeycomb 등 대부분 신규 프리미티브 필요).
+<!-- /ORDER:COMMITTED id=ORD-011 -->
+
 <!-- ORDER:COMMITTED id=ORD-010 status=done committed=2026-07-14 -->
 <!-- 봉인 구획: 편집 금지. 철회하려면 신규 지시에 reverts=ORD-010 항목을 추가하세요. -->
 ### ORD-010 — visualization 유형 인벤토리 P1 26건 구현
