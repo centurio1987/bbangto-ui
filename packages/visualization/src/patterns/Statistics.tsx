@@ -16,7 +16,9 @@ export interface StatItemSpec {
   count?: number;
 }
 
-export type StatisticsMode = 'cards' | 'isotype' | 'mosaic';
+export type StatisticsMode = 'cards' | 'isotype' | 'mosaic' | 'waffle';
+
+const WAFFLE_PALETTE = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8'] as const;
 
 export interface StatisticsProps extends Omit<CanvasProps, 'data'> {
   data?: { items: readonly StatItemSpec[] };
@@ -46,7 +48,9 @@ export function Statistics({
           ? renderIsotype(items, vbX, vbY, vbW, vbH)
           : mode === 'mosaic'
             ? renderMosaic(items, vbX, vbY, vbW, vbH)
-            : renderCards(items, vbX, vbY, vbW, vbH)
+            : mode === 'waffle'
+              ? renderWaffle(items, vbX, vbY, vbW, vbH)
+              : renderCards(items, vbX, vbY, vbW, vbH)
         : children}
     </Canvas>
   );
@@ -140,6 +144,98 @@ function renderIsotype(
           </g>
         );
       })}
+    </>
+  );
+}
+
+/** waffle (VT-513) — 10×10=100셀 비율 채움. 카테고리별 셀 수 = 최대잔여법 반올림. */
+function renderWaffle(
+  items: readonly StatItemSpec[],
+  vbX: number,
+  vbY: number,
+  vbW: number,
+  vbH: number,
+): ReactNode {
+  const n = items.length;
+  if (!n) return null;
+
+  const vals = items.map((it) => Math.max(0, Number(it.value) || 0));
+  const total = vals.reduce((s, v) => s + v, 0);
+  if (total <= 0) return null;
+
+  // 최대잔여법으로 합계 100 보장
+  const raw = vals.map((v) => (v / total) * 100);
+  const counts = raw.map(Math.floor);
+  let remainder = 100 - counts.reduce((s, v) => s + v, 0);
+  const byFrac = raw
+    .map((v, i) => ({ i, frac: v - Math.floor(v) }))
+    .sort((a, b) => b.frac - a.frac);
+  for (let k = 0; k < remainder; k++) counts[byFrac[k % byFrac.length].i]++;
+
+  // 셀 인덱스 → 카테고리 매핑(0..99)
+  const catOfCell: number[] = [];
+  counts.forEach((c, ci) => {
+    for (let k = 0; k < c; k++) catOfCell.push(ci);
+  });
+
+  const gridSide = Math.min(vbW * 0.55, vbH - 32);
+  const cell = gridSide / 10;
+  const pad = cell * 0.12;
+  const gx = vbX + 16;
+  const gy = vbY + 16;
+
+  const cells: ReactNode[] = [];
+  for (let idx = 0; idx < 100; idx++) {
+    // 아래→위로 채워지도록 행 반전
+    const col = idx % 10;
+    const rowFromBottom = Math.floor(idx / 10);
+    const row = 9 - rowFromBottom;
+    const ci = catOfCell[idx];
+    const filled = ci != null;
+    cells.push(
+      <rect
+        key={idx}
+        data-bbangto-viz-cell
+        data-bbangto-viz-cell-cat={filled ? items[ci].label : undefined}
+        data-viz-part="shape"
+        x={gx + col * cell + pad}
+        y={gy + row * cell + pad}
+        width={cell - pad * 2}
+        height={cell - pad * 2}
+        rx={2}
+        style={{
+          fill: filled ? vvar('palette', WAFFLE_PALETTE[ci % WAFFLE_PALETTE.length]) : vvar('canvas', 'grid'),
+        }}
+      />,
+    );
+  }
+
+  // 범례(우측): 색·라벨·값 텍스트 병기
+  const legendX = gx + gridSide + 28;
+  const legend = items.map((it, i) => {
+    const ly = gy + i * 26 + 4;
+    return (
+      <g key={`lg-${i}`}>
+        <rect x={legendX} y={ly} width={14} height={14} rx={2} style={{ fill: vvar('palette', WAFFLE_PALETTE[i % WAFFLE_PALETTE.length]) }} />
+        <text
+          x={legendX + 22}
+          y={ly + 7}
+          dominantBaseline="central"
+          fontSize={13}
+          fontWeight={700}
+          fontFamily={vvar('typography', 'titleFont')}
+          style={{ fill: vvar('shape', 'stroke') }}
+        >
+          {`${it.label} ${it.value}${it.unit ?? '%'} (${counts[i]})`}
+        </text>
+      </g>
+    );
+  });
+
+  return (
+    <>
+      {cells}
+      {legend}
     </>
   );
 }

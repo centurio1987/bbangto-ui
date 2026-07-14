@@ -100,3 +100,7 @@ export { DotPlot } from './DotPlot';
 export type { DotPlotProps, DotPlotItem, DotPlotMode } from './DotPlot';
 export { WaterfallChart } from './WaterfallChart';
 export type { WaterfallChartProps, WaterfallItem } from './WaterfallChart';
+export { Heatmap } from './Heatmap';
+export type { HeatmapProps, HeatmapCell } from './Heatmap';
+export { ChoroplethMap } from './ChoroplethMap';
+export type { ChoroplethMapProps, ChoroplethRegion, ChoroplethItem } from './ChoroplethMap';
