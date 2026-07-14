@@ -1,0 +1,739 @@
+[
+  {
+    "name": "ai-surreal-gradient3d-01",
+    "description": "딥 다크 위 AI 초현실 3D 렌더 + 이리데센트 그라데이션 표면, 소프트 접지 그림자 + 스펙큘러 글로스, 그로테스크/모노 타이포",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "artdeco-luxe-01",
+    "description": "흑·딥그린 베이스 위 골드 라인의 1920s 아르데코 럭셔리(대칭·기하 장식, 디스플레이 세리프)",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "aurora-gradient-01",
+    "description": "딥 다크 베이스 위 오로라 메시 그라디언트 + 부유 글로우 오브, 그라디언트 fill 버튼·다크 글래스 표면(AI/SaaS 랜딩)",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "bauhaus-geometric-01",
+    "description": "바우하우스 기하 구성 — 3원색(빨·노·파) + 흑백, 기하 산세리프, 면 분할·원형 장식",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "bento-modular-01",
+    "description": "도시락형 모듈 그리드 + 둥근 타일 + soft elevation + 산세리프, 인디고/틸 액센트",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "blueprint-technical-01",
+    "description": "청사진 제도 미감 — 딥 블루 보드 + 8px 모눈 + 1px 화이트 라인 드로잉, 화살촉 치수선·번호 콜아웃, 그림자 없음",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "claymorphism-playful-01",
+    "description": "두툼한 3D 점토 표면 + 외부 드롭섀도 + 내부 inset 하이라이트(밝은 라벤더 베이스)",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "collage-scrapbook-01",
+    "description": "크라프트지 콜라주/스크랩북 — 손그림 보더 + 폴라로이드·테이프 컷아웃 + 스티커 라벨(라이트 베이스)",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "cyberpunk-hud-01",
+    "description": "near-black 베이스 + 네온 시안·마젠타·옐로 엣지 + 클립 모서리 HUD 프레임(다크 베이스)",
+    "metaStatus": "authored",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Cyberpunk_Hud_01",
+      "trendIndex": 18,
+      "family": "tech-dark",
+      "priority": "P2",
+      "summary": "다크 베이스 + 네온 엣지·스캔라인 + HUD 프레임의 사이버펑크 인터페이스.",
+      "tags": [
+        "dark",
+        "neon",
+        "high-contrast",
+        "futuristic",
+        "technical",
+        "mono",
+        "vivid",
+        "animated"
+      ],
+      "mood": {
+        "formality": 3,
+        "energy": 5,
+        "warmth": 2,
+        "density": 4,
+        "ornament": 4
+      },
+      "characteristics": {
+        "cornerRadius": "sharp",
+        "borderWeight": "thin",
+        "shadow": "glow",
+        "density": "dense",
+        "motion": "kinetic",
+        "colorScheme": "dark",
+        "contrast": "high"
+      },
+      "domains": [
+        "gaming",
+        "entertainment",
+        "crypto-web3",
+        "dashboard",
+        "landing"
+      ],
+      "useWhen": [
+        "게임·e스포츠·스트리밍처럼 몰입형 다크 인터페이스가 필요할 때 쓴다.",
+        "crypto/web3·테크 제품에서 미래적·하이테크 인상을 줄 때 쓴다.",
+        "실시간 데이터·HUD 오버레이 감성의 대시보드에 쓴다."
+      ],
+      "avoidWhen": [
+        "접근성·장시간 가독성이 최우선인 문서/폼에는 피한다.",
+        "차분·중립·기업 신뢰 톤이 필요할 때 피한다.",
+        "prefers-reduced-motion 사용자 비중이 큰 서비스에는 모션·글로우 과다로 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": true,
+        "darkFirst": true
+      },
+      "related": [
+        "terminal-mono-01",
+        "aurora-gradient-01",
+        "radiant-glow-dark-01"
+      ]
+    }
+  },
+  {
+    "name": "darkluxe-editorial-01",
+    "description": "순흑·차콜 베이스 위 절제된 골드 강조의 다크 편집 럭셔리(대형 세리프 헤딩)",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "editorial-magazine-01",
+    "description": "warm paper 위 세리프 본문 + 디스플레이 세리프 헤드라인 + 헤어라인 칼럼 규칙선(잉크 온 페이퍼 고대비)",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "flat-material-01",
+    "description": "Material You 톤 + elevation 그림자 + 상태 레이어, 둥근 pill 액션",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "frutiger-aero-glossy-01",
+    "description": "스카이블루·그린·화이트 자연 모티프 + 아쿠아 글로스 표면(라이트 베이스)",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "glassmorphism-aurora-01",
+    "description": "반투명 frosted glass + 배경 블러 + 보라·시안 오로라 강조(다크 베이스)",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "glitch-distortion-01",
+    "description": "near-black 베이스 + 마젠타/시안 듀오톤 + RGB 채널 오프셋·슬라이스 글리치, 모노/콘덴스트 디스플레이",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "gothic-medieval-digital-01",
+    "description": "near-black/옥스블러드 + 뮤트 골드 + 단일 네온 블록, 블랙레터·문장·왁스 인장이 디지털 그리드와 충돌하는 다크 신비주의",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "grainy-blur-dreamy-01",
+    "description": "필름 그레인 + 아웃포커스 블러 헤이즈 + 웜 오프화이트 종이 배경, 코랄/라벤더/스카이 저대비 그라디언트에 또렷한 잉크 단색 헤드라인",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "halftone-dot-print-01",
+    "description": "밝은 페이퍼 + CMYK 망점 스크린톤 + 굵은 그로테스크 산세리프, 도트 밀도로 톤을 만드는 인쇄 분해 미학",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "halftone-glitch-colorsep-01",
+    "description": "CMYK 망점 스크린 + 적·녹 채널 색분해 글리치, near-black 다크 베이스 + 한정 잉크 팔레트 + 헤비 그로테스크",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "heritage-folk-ornament-01",
+    "description": "따뜻한 흙빛 코랄 그라운드 + 대칭 민속 꽃·새 모티프 + 스캘럽 장식 보더 + 세리프 디스플레이/휴머니스트 산세리프, 거의 평면(near-flat) 공예 오너먼트",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "humanist-imperfect-01",
+    "description": "손그림 + 유기 곡선 + 의도적 결함 레터폼, 웜 페이퍼 배경 + 어스/잉크 톤",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "iridescent-chrome-01",
+    "description": "근흑 무대 위 불투명 홀로그래픽 포일 + 액체 크롬 메탈 — 각도/인터랙션에 따라 시프트하는 이리데센트 광택",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "kawaii-pastel-01",
+    "description": "화이트 베이스 + 베이비핑크·민트·라벤더 파스텔 강조, 둥글둥글 마스코트 모티프(라이트 베이스)",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "kinetic-typography-01",
+    "description": "움직이는/커서 반응 타이포그래피 + 미니멀 단색 배경 + 단일 강조색, 초대형 볼드 헤드라인",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "maximalism-dopamine-01",
+    "description": "고채도 충돌색 + 대형 가변 타이포 + 겹침 레이아웃 + 강한 보더·그림자(라이트 베이스)",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "memphis-postmodern-01",
+    "description": "고채도 핑크·시안·노랑 충돌 + 파스텔, 지그재그·물방울·테리조 패턴, 굵은 검정 윤곽(밝은 베이스)",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "minimal-saas-01",
+    "description": "중립 그레이 + 단일 인디고 액센트, 얇은 보더·약한 그림자, 넉넉한 여백",
+    "metaStatus": "authored",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Minimal_Saas_01",
+      "trendIndex": 6,
+      "family": "flat-systematic",
+      "priority": "P1",
+      "summary": "중립 그레이 + 단일 인디고 액센트, 얇은 보더·약한 그림자, 넉넉한 여백의 제품 UI.",
+      "tags": [
+        "light",
+        "minimal",
+        "flat",
+        "airy",
+        "muted",
+        "serious",
+        "mono"
+      ],
+      "mood": {
+        "formality": 4,
+        "energy": 1,
+        "warmth": 2,
+        "density": 2,
+        "ornament": 1
+      },
+      "characteristics": {
+        "cornerRadius": "soft",
+        "borderWeight": "thin",
+        "shadow": "soft",
+        "density": "airy",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "medium"
+      },
+      "domains": [
+        "saas",
+        "dev-tools",
+        "fintech",
+        "dashboard",
+        "docs"
+      ],
+      "useWhen": [
+        "제품 대시보드·설정·데이터 밀도 높은 관리 UI를 만들 때 쓴다.",
+        "B2B SaaS·개발자 도구처럼 신뢰감과 가독성이 우선일 때 쓴다.",
+        "브랜드 색을 절제하고 콘텐츠에 집중시키고 싶을 때 쓴다."
+      ],
+      "avoidWhen": [
+        "소비자 마케팅 랜딩에서 강한 개성·임팩트가 필요할 때 피한다.",
+        "놀이·엔터·키즈처럼 표현적 에너지가 핵심일 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "flat-material-01",
+        "swiss-international-01"
+      ]
+    }
+  },
+  {
+    "name": "mixed-media-collage-01",
+    "description": "페이퍼 캔버스 + 다색 팔레트 위 사진·드로잉·3D를 듀오톤·그레인으로 통일한 레이어 콜라주, 컷아웃 그라운드 섀도 + 미세 회전",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "naive-doodle-01",
+    "description": "크레용 낙서·스크리블 미학 — 오프화이트 노트 배경, 원색 마커 다색, 삐뚤한 손그림 윤곽선과 영역을 벗어난 채색",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "neobrutalism-editorial-01",
+    "description": "네오브루탈리즘 소프트웨어 베이커리 — 크림·잉크·골드, 각진 모서리, 하드 오프셋 그림자",
+    "metaStatus": "authored",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Neobrutalism_Editorial_01",
+      "trendIndex": 0,
+      "family": "structural-raw",
+      "summary": "크림·잉크·골드, 각진 모서리, 하드 오프셋 그림자의 편집형 네오브루탈리즘.",
+      "tags": [
+        "light",
+        "high-contrast",
+        "sharp",
+        "raw",
+        "typographic",
+        "geometric"
+      ],
+      "mood": {
+        "formality": 2,
+        "energy": 4,
+        "warmth": 3,
+        "density": 3,
+        "ornament": 3
+      },
+      "characteristics": {
+        "cornerRadius": "sharp",
+        "borderWeight": "bold",
+        "shadow": "hard",
+        "density": "balanced",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "high"
+      },
+      "domains": [
+        "portfolio",
+        "marketing",
+        "editorial",
+        "creative-agency",
+        "blog",
+        "landing"
+      ],
+      "useWhen": [
+        "포트폴리오·에이전시·캠페인에서 강한 개성과 임팩트를 원할 때 쓴다.",
+        "편집/매거진 톤으로 타이포와 구조를 전면에 내세울 때 쓴다.",
+        "차별화된 raw·anti-corporate 인상을 줄 때 쓴다."
+      ],
+      "avoidWhen": [
+        "엔터프라이즈 대시보드처럼 절제·중립이 필요할 때 피한다.",
+        "장시간 읽는 고밀도 데이터 UI에는 강한 그림자·대비가 피로하므로 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aaa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "swiss-international-01",
+        "bauhaus-geometric-01"
+      ]
+    }
+  },
+  {
+    "name": "neumorphism-soft-01",
+    "description": "단색 라이트 그레이 표면 + 이중 그림자(볼록/오목) 압출감, 부드러운 라운드",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "op-art-kinetic-01",
+    "description": "옵아트 키네틱 — 고대비 흑백 + 코발트 액센트, 압축 그로테스크 헤비 산세리프, 직각 기조, 줄무늬 위상 드리프트의 옵티컬 운동감",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "organic-fluid-blob-01",
+    "description": "유체 블롭·리본 곡선 + 다색 그라디언트 색면 + 둥근 지오메트릭 산세리프 + 평면적(그림자 최소), 마젠타/시안/라임/코랄 다색 액센트",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "photo-type-editorial-01",
+    "description": "단색 평면 배경 + 초대형 grotesque 타이포와 사진 융합(클립·마스크·아웃라인) + 각진 플랫 프레임, 차콜/오렌지/옐로 대비",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "pixel-art-retro-01",
+    "description": "8비트 도트 미감 + 정수 픽셀 그리드 스냅 + 직각 모서리 + blur 0 하드 도트 그림자, CRT 다크 베이스에 고채도 원색",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "punk-grunge-graffiti-01",
+    "description": "제록스 하프톤·찢긴 가장자리·스프레이/낙서가 그리드를 깨는 펑크 진 그래피티 — 오프블랙 + 형광 스폿(옐로/마젠타) 충돌",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "radiant-glow-dark-01",
+    "description": "다크 라디언트 글로우 + 중심 발광(핫핑크/앰버) + 노이즈 그레인 + glow bloom 깊이, 절제된 radius",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "retro70s-warm-01",
+    "description": "크림 베이스 위 머스타드·테라코타·올리브 어스톤 + 필름 그레인 텍스처의 70년대 따뜻한 레트로",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "risograph-print-01",
+    "description": "웜 크림 종이 + 한정 스팟 잉크 2~3색 multiply 오버프린트 + 분판 미스레지스트레이션 + 그레인/망점 질감, 평면 인쇄물 미학",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "romantic-botanical-01",
+    "description": "파스텔 가든 팔레트 + 화이트 라인아트(꽃·잎·나비) + 세리프 디스플레이/휴머니스트 산세리프 본문, 꽃잎형 부드러운 radius와 soft ambient",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "scandi-warm-01",
+    "description": "따뜻한 오프화이트 위 우드톤 주조 + 세이지 액센트의 북유럽 미니멀(라이트 베이스)",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "shattered-glass-cinematic-01",
+    "description": "깨진 유리 시네마틱 — 딥 잉크 다크 배경 + 시안/마젠타/라임 이리데센트 굴절 + 균열 파편 패널 + 대형 세리프 헤드",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "skeuomorphism-tactile-01",
+    "description": "따뜻한 베이지 가죽·노트 질감 + 베벨·그라디언트로 빚은 물리적 스큐어모피즘(라이트 베이스)",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "spatial-3d-01",
+    "description": "딥 다크 + 라이팅 음영 + 포인터 반응 깊이·시차(틸트), CSS 3D transform으로 공간 UI 모사",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "swiss-international-01",
+    "description": "그리드 + 비대칭 정렬 + 산세리프 + 적/흑/백, 각진 모서리·무그림자",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "tactile-texture-01",
+    "description": "퍼피·소프트·스퀴시 촉각 질감 + 하이퍼리얼 디테일, 파스텔 톤·두툼한 radius·부드러운 이중 그림자",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "terminal-mono-01",
+    "description": "모노스페이스 전면 + 다크 콘솔 + 포스포 그린, 박스 보더·커서·각진 모서리",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "ukiyoe-woodblock-01",
+    "description": "쌀종이 배경 + 평면 흙빛 색면 + 먹빛 윤곽선과 여백 위계 + 붉은 낙관 도장, 인디고/적갈 액센트의 전통 목판화 미학",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "vaporwave-synth-01",
+    "description": "딥퍼플 배경 + 네온 핑크·시안 글로우 + 80s 석양 그라디언트 + 퍼스펙티브 네온 그리드(다크 베이스)",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "warped-checkerboard-01",
+    "description": "액화 왜곡된 2색 체크 격자(레드/핑크) 풀블리드 배경 + 솔리드 화이트 패널 + 라운드 그로테스크 + 플랫 카드",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "y2k-futurism-01",
+    "description": "크롬·실버 메탈 그라디언트 + 핑크·시안·라임 네온 + 글로시 버블 폼(라이트 실버 베이스)",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  }
+]
