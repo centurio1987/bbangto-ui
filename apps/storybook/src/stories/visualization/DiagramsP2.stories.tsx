@@ -7,6 +7,8 @@ import {
   C4SystemLandscapeDiagram,
   DataFlowDiagram,
   ActivityDiagram,
+  ConceptMap,
+  Fishbone,
 } from '@centurio1987/bbangto-ui-visualization';
 import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visualization-style-guide-catalog';
 import { expect } from 'storybook/test';
@@ -193,5 +195,67 @@ export const Activity: Story = {
     await expect(canvasElement.querySelector('[data-bbangto-viz-activity-kind="decision"]')).toBeTruthy();
     await expect(canvasElement.querySelectorAll('[data-bbangto-viz-activity-kind="action"]').length).toBe(3);
     await expect(canvasElement.textContent).toContain('Process');
+  },
+};
+
+// ── ConceptMap (VT-302, 🔶→✅ dedicated) ──────────────────────────────
+export const ConceptMapBasic: Story = {
+  render: () => (
+    <ConceptMap
+      data={{
+        nodes: [
+          { id: 'water', label: 'Water', x: 40, y: 30, width: 110, height: 46 },
+          { id: 'cloud', label: 'Cloud', x: 260, y: 30, width: 110, height: 46 },
+          { id: 'rain', label: 'Rain', x: 260, y: 170, width: 110, height: 46 },
+          { id: 'river', label: 'River', x: 40, y: 170, width: 110, height: 46 },
+        ],
+        links: [
+          { from: 'water', to: 'cloud', label: 'evaporates to' },
+          { from: 'cloud', to: 'rain', label: 'condenses as' },
+          { from: 'rain', to: 'river', label: 'flows into' },
+          { from: 'river', to: 'water', label: 'returns' },
+        ],
+      }}
+      viewBox="0 0 420 250"
+      width={420}
+      height={250}
+      title="Concept map"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    await expect(canvasElement.querySelectorAll('[data-bbangto-viz-concept-node]').length).toBe(4);
+    // 라벨 붙은 연결선 = concept map의 핵심(Mindmap과 차별점)
+    await expect(canvasElement.querySelectorAll('[data-bbangto-viz-edge-label]').length).toBe(4);
+    await expect(canvasElement.textContent).toContain('evaporates to');
+  },
+};
+
+// ── Fishbone (VT-706) ─────────────────────────────────────────────────
+export const FishboneBasic: Story = {
+  render: () => (
+    <Fishbone
+      data={{
+        problem: 'Late delivery',
+        categories: [
+          { id: 'people', label: 'People', causes: ['Understaffed', 'Training'] },
+          { id: 'process', label: 'Process', causes: ['Manual steps'] },
+          { id: 'tools', label: 'Tools', causes: ['Slow CI'] },
+          { id: 'env', label: 'Environment', causes: ['Flaky infra'] },
+        ],
+      }}
+      viewBox="0 0 560 280"
+      width={560}
+      height={280}
+      title="Fishbone"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    await expect(canvasElement.querySelectorAll('[data-bbangto-viz-bone]').length).toBe(4);
+    await expect(canvasElement.querySelector('[data-bbangto-viz-fishbone-head]')).toBeTruthy();
+    await expect(canvasElement.textContent).toContain('Late delivery');
+    await expect(canvasElement.textContent).toContain('People');
+    await expect(canvasElement.textContent).toContain('Slow CI');
   },
 };
