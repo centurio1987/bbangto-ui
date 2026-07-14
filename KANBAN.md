@@ -5,7 +5,8 @@
 
 ## 백로그
 <!-- 아직 착수 결정 전. 우선순위 미정 후보 풀. 백로그→할 일 이동이 "할지 고민" → "하기로 확정" 전환점. -->
-- `KAN-018` bbangto-ui 라이브러리를 가져다 쓸 때, 직접 스타일 가이드를 구성하지 않고, catalog에서 채택하는 경우도 있을 것이다. 이 판단을 ai가 해야 한다고 할 때, 코드 내용을 전수 검토 하지 않고, 채택에 도움을 줄 수 있는 장치를 마련 하고 싶다. 메타 데이터를 심어 놓는다던가. 그와 관련된 전략을 구상해라. — 생성:유저 · 최종:유저 · 갱신:2026-07-14
+- `KAN-019` visualization 관련 스타일 가이드 카탈로그 수가 매우 적은 상황이다. 풍부화 하기 위해, 추가할 수 있는 디자인 스타일을 조사 및 수집 하고, 항목화 해라. 그리고 구현 계획을 세워라. — 생성:유저 · 최종:유저 · 갱신:2026-07-14
+- `KAN-020` bbangto-ui에서 visualization 라이브러리를 가져다 쓸 때, 사용 주체가 ai라면, 어떤 경우에 어떤 시각화 패턴을 사용할지 파악하기 위해 라이브러리 코드를 검사해야 할 수도 있다. 하지만, 그러면 패턴이 방대해 졌을 때 효과적으로 탐색하기 어렵다. 따라서, 각 패턴이 어떤 상황에서 유효한지 알려주는 메타 데이터를 라이브러리 레벨에서 제공할 수 있다면 좋을 것이다. 그렇게 하기 위한 전략을 구상해라. — 생성:유저 · 최종:유저 · 갱신:2026-07-14
 - `KAN-013` 스타일 가이드 Iso_ColorBlock (isometric, F6) 구현 — 생성:ai · 최종:ai · 갱신:2026-07-14
   - 메모: ORD-008/009 이연 — iso geometry 프리미티브 신규 필요(기술 블로커로 계속 보류 중).
 - `KAN-014` 스타일 가이드 Marker_Sketchnote (hand-drawn, F4) 구현 — 생성:ai · 최종:ai · 갱신:2026-07-14
@@ -16,6 +17,16 @@
   - 메모: ORD-008 이연 — TemplateStyleMatrix 심층 검증이 파일럿 3템플릿×3스타일가이드로 한정됨. ORD-010/011로 구현 템플릿이 76/90까지 늘어 재스코핑 필요(단일 가이드 paint 해석 게이트는 전 템플릿 커버, 3-way 교차검증만 파일럿 한정).
 - `KAN-017` 신규 style guide 후보 5종 구현 (Bento_Modular/Kinetic_Typography/Spatial_3D/Humanist_Imperfect/Tactile_Texture) — 생성:ai · 최종:ai · 갱신:2026-07-14
   - 메모: design-trends-2020-2026.md §C 신규 후보 — ORD-009에서 추가된 3종(Corporate_Schematic/Ink_Line_Duotone/Neon_Gradient_Dark)과 별개로 아직 스타일 가이드로 구현되지 않음.
+- `KAN-021` 잔여 48 UI + 6 viz style guide meta 전량 backfill (완료 시 gate 'meta 필수' 승격) — 생성:ai · 최종:ai · 갱신:2026-07-14
+  - 메모: KAN-018 후속 — Workflow 일괄 저작(foundation-preset-tweaks 대량편집 선례). 전 항목 authored 후 매니페스트 pending 0.
+- `KAN-022` selectStyleGuides(criteria) 스코어링 helper API (catalog 패키지) — 생성:ai · 최종:ai · 갱신:2026-07-14
+  - 메모: KAN-018 후속 — 매니페스트 meta로 태그·무드·도메인 필터·랭킹. core 아닌 style-guide-catalog에 배치(순환참조 방지).
+- `KAN-023` Storybook 'Catalog Decision Table' 스토리 (매니페스트 비교표 렌더) — 생성:ai · 최종:ai · 갱신:2026-07-14
+  - 메모: KAN-018 후속 — catalog.manifest.json을 사람이 비교하는 결정 테이블.
+- `KAN-024` 팔레트 토큰 실측 WCAG 대비 계산 → meta.accessibility 선언 CI 대조 — 생성:ai · 최종:ai · 갱신:2026-07-14
+  - 메모: KAN-018 후속 — accessibility가 advisory 선언에 그치는 과대주장 방지(외부검토 지적).
+- `KAN-025` catalog.manifest.json → style-guide-catalog.md 트렌드 표 자동생성(문서 drift 제거) — 생성:ai · 최종:ai · 갱신:2026-07-14
+  - 메모: KAN-018 후속 — 기계 SSOT에서 사람용 표 파생.
 
 ## 할 일
 
@@ -190,3 +201,5 @@
     ```text
     p3 수행
     ```
+- `KAN-018` bbangto-ui 라이브러리를 가져다 쓸 때, 직접 스타일 가이드를 구성하지 않고, catalog에서 채택하는 경우도 있을 것이다. 이 판단을 ai가 해야 한다고 할 때, 코드 내용을 전수 검토 하지 않고, 채택에 도움을 줄 수 있는 장치를 마련 하고 싶다. 메타 데이터를 심어 놓는다던가. 그와 관련된 전략을 구상해라. — 생성:유저 · 최종:ai · 갱신:2026-07-14
+  - 메모: 완료 — 채택 메타데이터 전략+파일럿. StyleGuideMeta 타입+통제어휘(packages/tokens/src/styleGuideMeta.ts), buildManifest 생성기+catalog.manifest.json(51행, authored 3/pending 48), 파일럿 3종 meta 저작(minimal-saas-01·neobrutalism-editorial-01·cyberpunk-hud-01), 전략문서 METADATA_STRATEGY.md. 게이트 전부 green: typecheck/build(prebuild gen:manifest)/unit(catalog 13·viz 82·hooks 115)/play 1090/storybook build/pack. 외부검토(codex·Gemini) 반영. 후속: 잔여 백필·selectStyleGuides·Decision Table·WCAG 실측·md 자동생성.
