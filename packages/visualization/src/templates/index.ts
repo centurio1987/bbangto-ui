@@ -116,3 +116,7 @@ export { DataFlowDiagram } from './DataFlowDiagram';
 export type { DataFlowDiagramProps, DFDNode, DFDFlow, DFDBoundary, DFDNodeKind } from './DataFlowDiagram';
 export { ActivityDiagram } from './ActivityDiagram';
 export type { ActivityDiagramProps, ActivityNode, ActivityEdge, ActivityLane, ActivityNodeKind } from './ActivityDiagram';
+export { ConceptMap } from './ConceptMap';
+export type { ConceptMapProps, ConceptNode, ConceptLink } from './ConceptMap';
+export { Fishbone } from './Fishbone';
+export type { FishboneProps, FishboneCategory } from './Fishbone';
