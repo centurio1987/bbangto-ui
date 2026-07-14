@@ -4,6 +4,10 @@ import {
   VisualizationStyleGuideProvider,
   GitGraph,
   PacketDiagram,
+  NetworkTopology,
+  DataLineage,
+  SitemapTree,
+  NetworkGraph,
 } from '@centurio1987/bbangto-ui-visualization';
 import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visualization-style-guide-catalog';
 import { expect } from 'storybook/test';
@@ -85,5 +89,129 @@ export const PacketDiagramBasic: Story = {
     // 비트 폭 합 = 행 폭 (Seq 32bit가 Source 16bit의 ~2배)
     const w = (el: Element) => parseFloat(el.querySelector('rect')?.getAttribute('width') || '0');
     await expect(w(fields[2])).toBeGreaterThan(w(fields[0]) * 1.5);
+  },
+};
+
+// ── NetworkTopology ───────────────────────────────────────────────────
+export const NetworkTopologyBasic: Story = {
+  render: () => (
+    <NetworkTopology
+      data={{
+        zones: [
+          { id: 'dmz', label: 'DMZ', x: 20, y: 40, width: 220, height: 200 },
+          { id: 'internal', label: 'Internal', x: 300, y: 40, width: 260, height: 200 },
+        ],
+        nodes: [
+          { id: 'fw', label: 'Firewall', x: 90, y: 90, zone: 'dmz' },
+          { id: 'web', label: 'Web', x: 90, y: 170, zone: 'dmz' },
+          { id: 'app', label: 'App', x: 360, y: 90, zone: 'internal' },
+          { id: 'db', label: 'DB', x: 360, y: 170, zone: 'internal', shape: 'cylinder' },
+        ],
+        links: [
+          { from: 'fw', to: 'web' },
+          { from: 'web', to: 'app' },
+          { from: 'app', to: 'db' },
+        ],
+      }}
+      viewBox="0 0 600 280"
+      width={600}
+      height={280}
+      title="Network topology"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    await expect(canvasElement.querySelectorAll('[data-bbangto-viz-zone]').length).toBe(2);
+    await expect(canvasElement.querySelectorAll('[data-bbangto-viz-node]').length).toBe(4);
+  },
+};
+
+// ── DataLineage ───────────────────────────────────────────────────────
+export const DataLineageBasic: Story = {
+  render: () => (
+    <DataLineage
+      data={{
+        nodes: [
+          { id: 'src', label: 'Source', detail: 'events', x: 20, y: 80 },
+          { id: 'stg', label: 'Staging', detail: 'clean', x: 220, y: 80 },
+          { id: 'dw', label: 'Warehouse', detail: 'facts', x: 420, y: 80 },
+        ],
+        edges: [
+          { from: 'src', to: 'stg', label: 'ETL' },
+          { from: 'stg', to: 'dw', label: 'load' },
+        ],
+      }}
+      viewBox="0 0 600 220"
+      width={600}
+      height={220}
+      title="Data lineage"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    await expect(canvasElement.querySelectorAll('[data-bbangto-viz-lineage-node]').length).toBe(3);
+    await expect(canvasElement.querySelectorAll('[data-bbangto-viz-edge]').length).toBe(2);
+  },
+};
+
+// ── SitemapTree ───────────────────────────────────────────────────────
+export const SitemapTreeBasic: Story = {
+  render: () => (
+    <SitemapTree
+      data={{
+        root: {
+          id: 'home',
+          label: 'Home',
+          children: [
+            { id: 'products', label: 'Products', children: [{ id: 'p1', label: 'List' }, { id: 'p2', label: 'Detail' }] },
+            { id: 'about', label: 'About' },
+            { id: 'blog', label: 'Blog', children: [{ id: 'b1', label: 'Posts' }] },
+          ],
+        },
+      }}
+      viewBox="0 0 640 320"
+      width={640}
+      height={320}
+      title="Sitemap tree"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const nodes = canvasElement.querySelectorAll('[data-bbangto-viz-sitemap-node]');
+    await expect(nodes.length).toBe(7);
+    // elbow edge 존재
+    await expect(canvasElement.querySelectorAll('[data-bbangto-viz-edge]').length).toBe(6);
+  },
+};
+
+// ── NetworkGraph ──────────────────────────────────────────────────────
+export const NetworkGraphBasic: Story = {
+  render: () => (
+    <NetworkGraph
+      data={{
+        nodes: [
+          { id: 'hub', label: 'Core', x: 300, y: 150, hub: true },
+          { id: 'a', label: 'A', x: 120, y: 60 },
+          { id: 'b', label: 'B', x: 120, y: 240 },
+          { id: 'c', label: 'C', x: 480, y: 60 },
+          { id: 'd', label: 'D', x: 480, y: 240 },
+        ],
+        edges: [
+          { from: 'hub', to: 'a' },
+          { from: 'hub', to: 'b' },
+          { from: 'hub', to: 'c' },
+          { from: 'hub', to: 'd' },
+        ],
+      }}
+      viewBox="0 0 600 300"
+      width={600}
+      height={300}
+      title="Network graph"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    await expect(canvasElement.querySelectorAll('[data-bbangto-viz-node]').length).toBe(5);
+    await expect(canvasElement.querySelectorAll('[data-bbangto-viz-edge]').length).toBe(4);
   },
 };
