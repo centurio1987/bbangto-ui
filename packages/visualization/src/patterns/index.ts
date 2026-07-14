@@ -24,3 +24,15 @@ export { PosterEditorial } from './PosterEditorial';
 export type { PosterEditorialProps } from './PosterEditorial';
 export { SpectrumSlider } from './SpectrumSlider';
 export type { SpectrumSliderProps, SpectrumAxis } from './SpectrumSlider';
+
+// P2 패턴 (ORD-011)
+export { Funnel } from './Funnel';
+export type { FunnelProps, FunnelStage } from './Funnel';
+export { ListInfographic } from './ListInfographic';
+export type { ListInfographicProps, ListInfographicItem } from './ListInfographic';
+export { AnnotatedIllustration } from './AnnotatedIllustration';
+export type { AnnotatedIllustrationProps, IllustrationAnnotation } from './AnnotatedIllustration';
+export { SwotMatrix } from './SwotMatrix';
+export type { SwotMatrixProps, SwotMatrixData } from './SwotMatrix';
+export { OnionDiagram } from './OnionDiagram';
+export type { OnionDiagramProps, OnionLayer } from './OnionDiagram';

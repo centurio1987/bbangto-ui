@@ -11,7 +11,7 @@ export interface CycleItemSpec {
   label: string;
 }
 
-export type CycleMode = 'ring' | 'orbit' | 'spiral';
+export type CycleMode = 'ring' | 'orbit' | 'spiral' | 'flywheel';
 
 export interface CycleProps extends Omit<CanvasProps, 'data'> {
   data?: { items: readonly CycleItemSpec[]; center?: string };
@@ -38,7 +38,9 @@ export function Cycle({ data, mode = 'ring', children, viewBox, ...canvasProps }
           ? renderOrbit(data, cx, cy, Math.min(vbW, vbH))
           : mode === 'spiral'
             ? renderSpiral(data, cx, cy, Math.min(vbW, vbH))
-            : renderRing(data, cx, cy, Math.min(vbW, vbH))
+            : mode === 'flywheel'
+              ? renderFlywheel(data, cx, cy, Math.min(vbW, vbH))
+              : renderRing(data, cx, cy, Math.min(vbW, vbH))
         : children}
     </Canvas>
   );
@@ -155,6 +157,57 @@ function renderSpiral(
       {positions.slice(0, -1).map((p, i) => (
         <Edge key={`e${i}`} from={p} to={positions[i + 1]} routing="curved" markerEnd="arrow" />
       ))}
+      {positions.map((p, i) => (
+        <g key={i} data-viz-cycle-node>
+          <Node id={`cycle-${i}`} x={p.x - nodeW / 2} y={p.y - nodeH / 2} width={nodeW} height={nodeH} shape="stadium" />
+          <NodeLabel x={p.x - nodeW / 2} y={p.y} width={nodeW} title={items[i].label} fontSize={12} />
+        </g>
+      ))}
+    </>
+  );
+}
+
+/** flywheel (VT-708) — 축적 가속 선순환. 중앙 허브 + 방사 노드 + 굵기 증가 곡선(모멘텀). */
+function renderFlywheel(
+  data: { items: readonly CycleItemSpec[]; center?: string },
+  cx: number,
+  cy: number,
+  size: number,
+): ReactNode {
+  const items = data.items;
+  const n = items.length;
+  if (!n) return null;
+  const orbitR = size * 0.32;
+  const hubR = size * 0.13;
+  const nodeW = 104;
+  const nodeH = 40;
+  const positions = radialPositions(n, cx, cy, orbitR);
+
+  return (
+    <>
+      {/* 중앙 허브 — 계약 paint(shape) + 모멘텀 라벨 */}
+      <circle data-viz-part="shape" cx={cx} cy={cy} r={hubR} style={{ fill: vvar('palette', 'p2') }} />
+      {data.center && (
+        <text x={cx} y={cy} textAnchor="middle" dominantBaseline="central" fontSize={16} fontWeight={800} fontFamily={vvar('typography', 'titleFont')} style={{ fill: vvar('shape', 'stroke') }}>
+          {data.center}
+        </text>
+      )}
+      {/* 가속 곡선: 순환 폐쇄 n개, 굵기 점증 */}
+      {positions.map((p, i) => {
+        const next = positions[(i + 1) % n];
+        const shrink = 0.86;
+        return (
+          <g key={`fw-${i}`} data-bbangto-viz-flywheel-arrow data-bbangto-viz-flywheel-arrow-index={String(i)}>
+            <Edge
+              from={{ x: cx + (p.x - cx) * shrink, y: cy + (p.y - cy) * shrink }}
+              to={{ x: cx + (next.x - cx) * shrink, y: cy + (next.y - cy) * shrink }}
+              routing="curved"
+              markerEnd="arrow"
+              strokeWidth={2 + i * 0.9}
+            />
+          </g>
+        );
+      })}
       {positions.map((p, i) => (
         <g key={i} data-viz-cycle-node>
           <Node id={`cycle-${i}`} x={p.x - nodeW / 2} y={p.y - nodeH / 2} width={nodeW} height={nodeH} shape="stadium" />
