@@ -116,8 +116,8 @@
 | VT-125 | Network Topology | nwdiag, network diagram | 네트워크 세그먼트·장비 토폴로지 | 망 구성/보안 경계 | node,edge,lane(세그먼트),icon | X07(T1)·X17(T3)·catalog §1-b(내부) | 📋 | (→template) | 존/방화벽/서버 시맨틱 | P1 |
 | VT-126 | Data-Flow Diagram | DFD, threat-model DFD | 데이터 이동·변환·저장 흐름 | 위협 모델링 | node,edge,boundary | X17(T3) | 📋 | (→template) | related:VT-127 | P2 |
 | VT-127 | Data Lineage | 확장 노드카드 lineage | 데이터 계보·파이프라인 추적 | 데이터 엔지니어링 | node(card),edge(named) | catalog §1-b(내부) | 📋 | (→template) | DetailCard/Sparkline 필요 | P1 |
-| VT-128 | Packet Diagram | packet(Mermaid) | 프로토콜 패킷 비트 필드 배치 | 프로토콜 문서화 | grid,axis | X06(T1)·PLAN §D G5(내부) | 📋 | (→template) | — | P1 |
-| VT-129 | Git Graph | gitGraph | 브랜치·커밋·머지 이력 | Git 전략 설명 | node,edge,lane,axis | X06(T1)·PLAN §D G5(내부) | 📋 | (→template) | tags:time | P1 |
+| VT-128 | Packet Diagram | packet(Mermaid) | 프로토콜 패킷 비트 필드 배치 | 프로토콜 문서화 | grid,axis | X06(T1)·PLAN §D G5(내부) | ✅ | `PacketDiagram`(template) | — | — |
+| VT-129 | Git Graph | gitGraph | 브랜치·커밋·머지 이력 | Git 전략 설명 | node,edge,lane,axis | X06(T1)·PLAN §D G5(내부) | ✅ | `GitGraph`(template) | tags:time·직선 merge | — |
 
 ### B. 프로세스·플로우 — `VT-2xx` (8행)
 

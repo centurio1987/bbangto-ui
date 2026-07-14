@@ -72,3 +72,7 @@ export { UserJourneyGantt } from './UserJourneyGantt';
 export type { UserJourneyGanttProps, JourneyPhase } from './UserJourneyGantt';
 export { UserJourneyMap } from './UserJourneyMap';
 export type { UserJourneyMapProps, JourneyStep } from './UserJourneyMap';
+export { GitGraph } from './GitGraph';
+export type { GitGraphProps, GitBranchSpec, GitCommitSpec, GitMergeSpec } from './GitGraph';
+export { PacketDiagram } from './PacketDiagram';
+export type { PacketDiagramProps, PacketField } from './PacketDiagram';
