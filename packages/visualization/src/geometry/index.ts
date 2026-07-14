@@ -7,3 +7,8 @@ export * from './treemap';
 export * from './venn';
 export * from './sankey';
 export * from './tree';
+export * from './stack';
+export * from './histogram';
+export * from './waterfall';
+export * from './funnel';
+export * from './fishbone';
