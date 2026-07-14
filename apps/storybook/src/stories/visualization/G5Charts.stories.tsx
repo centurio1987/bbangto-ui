@@ -10,6 +10,9 @@ import {
   RadialGauge,
   Treemap,
   SankeyDiagram,
+  GanttChart,
+  UserJourneyGantt,
+  UserJourneyMap,
   linearScale,
   bandScale,
 } from '@centurio1987/bbangto-ui-visualization';
@@ -282,6 +285,90 @@ export const SankeyBasic: Story = {
     await expect(bands.length).toBe(3);
     const nodes = canvasElement.querySelectorAll('[data-bbangto-viz-sankey-node]');
     await expect(nodes.length).toBe(4);
+  },
+};
+
+// ── GanttChart ────────────────────────────────────────────────────────
+export const GanttBasic: Story = {
+  render: () => (
+    <GanttChart
+      data={{
+        tasks: [
+          { id: 't1', label: 'Research', start: 0, end: 3 },
+          { id: 't2', label: 'Design', start: 2, end: 6 },
+          { id: 't3', label: 'Build', start: 5, end: 10 },
+          { id: 't4', label: 'Launch', start: 9, end: 12 },
+        ],
+      }}
+      viewBox="0 0 560 260"
+      width={560}
+      height={260}
+      title="Gantt chart"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const bars = canvasElement.querySelectorAll('[data-bbangto-viz-gantt-bar]');
+    await expect(bars.length).toBe(4);
+    // 스케일 대조: Build(5→10, len5)가 Launch(9→12, len3)보다 넓다 (±1)
+    const w = (el: Element) => parseFloat(el.getAttribute('width') || '0');
+    await expect(w(bars[2])).toBeGreaterThan(w(bars[3]));
+    await expect(canvasElement.querySelectorAll('[data-bbangto-viz-axis]').length).toBe(1);
+  },
+};
+
+// ── UserJourneyGantt ──────────────────────────────────────────────────
+export const UserJourneyGanttBasic: Story = {
+  render: () => (
+    <UserJourneyGantt
+      data={{
+        phases: [
+          { id: 'p1', label: 'Awareness', start: 0, end: 2 },
+          { id: 'p2', label: 'Consideration', start: 2, end: 5 },
+          { id: 'p3', label: 'Purchase', start: 5, end: 6 },
+          { id: 'p4', label: 'Retention', start: 6, end: 10 },
+        ],
+      }}
+      viewBox="0 0 620 240"
+      width={620}
+      height={240}
+      title="User journey gantt"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const pills = canvasElement.querySelectorAll('[data-bbangto-viz-journey-bar]');
+    await expect(pills.length).toBe(4);
+  },
+};
+
+// ── UserJourneyMap ────────────────────────────────────────────────────
+export const UserJourneyMapBasic: Story = {
+  render: () => (
+    <UserJourneyMap
+      data={{
+        steps: [
+          { id: 's1', label: 'Land', score: 60 },
+          { id: 's2', label: 'Sign up', score: 35 },
+          { id: 's3', label: 'Onboard', score: 50 },
+          { id: 's4', label: 'First value', score: 80 },
+          { id: 's5', label: 'Habit', score: 90 },
+        ],
+      }}
+      viewBox="0 0 640 300"
+      width={640}
+      height={300}
+      title="User journey map"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const steps = canvasElement.querySelectorAll('[data-bbangto-viz-journey-step]');
+    await expect(steps.length).toBe(5);
+    // 만족도 곡선 존재
+    const line = canvasElement.querySelector('[data-bbangto-viz-journey-line]');
+    await expect(line).not.toBeNull();
+    await expect((line!.getAttribute('d') || '').length).toBeGreaterThan(4);
   },
 };
 

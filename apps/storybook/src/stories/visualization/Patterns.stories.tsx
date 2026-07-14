@@ -7,6 +7,7 @@ import {
   Cycle,
   Statistics,
   Venn,
+  Pathways,
 } from '@centurio1987/bbangto-ui-visualization';
 import { expect } from 'storybook/test';
 import { expectVizPaintResolved } from './_paintGate';
@@ -422,5 +423,61 @@ export const VennThreeSets: Story = {
     await expect(circles.length).toBe(3);
     const root = canvasElement.querySelector('[data-bbangto-viz-pattern="venn"]')!;
     await expect(root.textContent).toContain('MVP');
+  },
+};
+
+// ──────────────────────────────────────────────────────────────────────
+// Cycle — spiral 모드 (VT-405). 나선 위 단계 노드
+// ──────────────────────────────────────────────────────────────────────
+export const CycleSpiral: Story = {
+  render: () => (
+    <Cycle
+      mode="spiral"
+      data={{ items: [{ label: 'Plan' }, { label: 'Do' }, { label: 'Check' }, { label: 'Act' }, { label: 'Scale' }], center: 'Growth' }}
+      viewBox="0 0 420 420"
+      width={420}
+      height={420}
+      title="Cycle spiral"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    const root = canvasElement.querySelector('[data-bbangto-viz-pattern="cycle"]');
+    await expect(root).not.toBeNull();
+    const nodes = canvasElement.querySelectorAll('[data-viz-cycle-node]');
+    await expect(nodes.length).toBe(5);
+    await expectVizPaintResolved(canvasElement);
+  },
+};
+
+// ──────────────────────────────────────────────────────────────────────
+// Pathways — 여정형 경로 (VT-208). curved path 위 이정표 + 순번
+// ──────────────────────────────────────────────────────────────────────
+export const PathwaysBasic: Story = {
+  render: () => (
+    <Pathways
+      data={{
+        steps: [
+          { id: 'p1', label: 'Enroll', description: 'Kick-off' },
+          { id: 'p2', label: 'Learn', description: 'Core modules' },
+          { id: 'p3', label: 'Practice', description: 'Hands-on' },
+          { id: 'p4', label: 'Certify', description: 'Final exam' },
+        ],
+      }}
+      viewBox="0 0 720 260"
+      width={720}
+      height={260}
+      title="Pathways"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    const root = canvasElement.querySelector('[data-bbangto-viz-pattern="pathways"]');
+    await expect(root).not.toBeNull();
+    const marks = canvasElement.querySelectorAll('[data-bbangto-viz-pathway-step]');
+    await expect(marks.length).toBe(4);
+    // 순번 DOM 순서
+    const badges = canvasElement.querySelectorAll('[data-viz-index-badge]');
+    await expect(badges[0].textContent).toContain('01');
+    await expect(badges[3].textContent).toContain('04');
+    await expectVizPaintResolved(canvasElement);
   },
 };
