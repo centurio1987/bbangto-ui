@@ -5,6 +5,9 @@ import {
   StackedBarChart,
   AreaChart,
   ScatterPlot,
+  Histogram,
+  DotPlot,
+  WaterfallChart,
 } from '@centurio1987/bbangto-ui-visualization';
 import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visualization-style-guide-catalog';
 import { expect } from 'storybook/test';
@@ -147,5 +150,106 @@ export const ScatterEmpty: Story = {
     // 빈 데이터 → throw 없이 빈 캔버스
     await expect(canvasElement.querySelectorAll('[data-bbangto-viz-point]').length).toBe(0);
     await expect(canvasElement.querySelector('[data-bbangto-viz-canvas]')).toBeTruthy();
+  },
+};
+
+// ── Histogram (VT-508) ────────────────────────────────────────────────
+export const HistogramBasic: Story = {
+  render: () => (
+    <Histogram
+      data={{ values: [1, 2, 2, 3, 3, 3, 4, 4, 5, 8, 9, 9] }}
+      bins={4}
+      viewBox="0 0 480 300"
+      width={480}
+      height={300}
+      title="Histogram"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const bars = canvasElement.querySelectorAll('[data-bbangto-viz-bar]');
+    await expect(bars.length).toBe(4);
+    const counts = canvasElement.querySelectorAll('[data-bbangto-viz-bar-value]');
+    await expect(counts.length).toBe(4);
+    await expect(canvasElement.querySelectorAll('[data-bbangto-viz-axis]').length).toBe(2);
+  },
+};
+
+// ── DotPlot (VT-509) ──────────────────────────────────────────────────
+export const DotPlotDot: Story = {
+  render: () => (
+    <DotPlot
+      data={{
+        items: [
+          { id: 'a', label: 'Alpha', value: 40 },
+          { id: 'b', label: 'Beta', value: 72 },
+          { id: 'c', label: 'Gamma', value: 55 },
+        ],
+      }}
+      mode="dot"
+      viewBox="0 0 480 240"
+      width={480}
+      height={240}
+      title="Dot plot"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    await expect(canvasElement.querySelectorAll('[data-bbangto-viz-point]').length).toBe(3);
+    await expect(canvasElement.querySelectorAll('[data-bbangto-viz-point-value]').length).toBe(3);
+  },
+};
+
+export const DotPlotDumbbell: Story = {
+  render: () => (
+    <DotPlot
+      data={{
+        items: [
+          { id: 'a', label: 'Alpha', low: 20, high: 60 },
+          { id: 'b', label: 'Beta', low: 35, high: 80 },
+        ],
+      }}
+      mode="dumbbell"
+      viewBox="0 0 480 220"
+      width={480}
+      height={220}
+      title="Dumbbell plot"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    // dumbbell: 2 dots per item + connector
+    await expect(canvasElement.querySelectorAll('[data-bbangto-viz-point]').length).toBe(4);
+    await expect(canvasElement.querySelectorAll('[data-bbangto-viz-range]').length).toBe(2);
+  },
+};
+
+// ── WaterfallChart (VT-517) ───────────────────────────────────────────
+export const WaterfallWithTotal: Story = {
+  render: () => (
+    <WaterfallChart
+      data={{
+        items: [
+          { id: 'start', label: 'Start', value: 100 },
+          { id: 'a', label: 'Gain', value: 40 },
+          { id: 'b', label: 'Loss', value: -30 },
+          { id: 'c', label: 'Gain2', value: 15 },
+        ],
+      }}
+      showTotal
+      totalLabel="Net"
+      viewBox="0 0 500 300"
+      width={500}
+      height={300}
+      title="Waterfall"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const bars = canvasElement.querySelectorAll('[data-bbangto-viz-bar]');
+    await expect(bars.length).toBe(5); // 4 steps + total
+    const total = canvasElement.querySelector('[data-bbangto-viz-bar-total="true"]');
+    await expect(total).toBeTruthy();
+    await expect(canvasElement.querySelectorAll('[data-bbangto-viz-bar-value]').length).toBe(5);
   },
 };
