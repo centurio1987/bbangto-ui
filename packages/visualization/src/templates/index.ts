@@ -120,3 +120,19 @@ export { ConceptMap } from './ConceptMap';
 export type { ConceptMapProps, ConceptNode, ConceptLink } from './ConceptMap';
 export { Fishbone } from './Fishbone';
 export type { FishboneProps, FishboneCategory } from './Fishbone';
+
+// E-P3 / A-P3 / C-P3: 데이터 차트·다이어그램 P3 (ORD-012)
+export { Boxplot } from './Boxplot';
+export type { BoxplotProps, BoxplotGroup, BoxplotSummaryInput } from './Boxplot';
+export { ChordDiagram } from './ChordDiagram';
+export type { ChordDiagramProps, ChordNode } from './ChordDiagram';
+export { UMLPackageDiagram } from './UMLPackageDiagram';
+export type { UMLPackageDiagramProps, UMLPackageDiagramData, UMLPackageSpec, UMLPackageDependencySpec, UMLPackageDependencyKind } from './UMLPackageDiagram';
+export { DMNDiagram } from './DMNDiagram';
+export type { DMNDiagramProps, DMNDiagramData, DMNNodeSpec, DMNRequirementSpec, DMNNodeKind, DMNRequirementKind } from './DMNDiagram';
+export { BPMNCollaborationDiagram } from './BPMNCollaborationDiagram';
+export type { BPMNCollaborationDiagramProps, BPMNCollaborationDiagramData, BPMNPoolSpec, BPMNCollabEventSpec, BPMNCollabTaskSpec, BPMNCollabGatewaySpec, BPMNCollabFlowSpec } from './BPMNCollaborationDiagram';
+export { ArchiMateViewpointDiagram } from './ArchiMateViewpointDiagram';
+export type { ArchiMateViewpointDiagramProps, ArchiMateViewpointDiagramData, ArchiMateViewpointElementSpec, ArchiMateViewpointRelationshipSpec, ArchiMateViewpoint } from './ArchiMateViewpointDiagram';
+export { WorkBreakdownStructure } from './WorkBreakdownStructure';
+export type { WorkBreakdownStructureProps, WBSNode } from './WorkBreakdownStructure';
