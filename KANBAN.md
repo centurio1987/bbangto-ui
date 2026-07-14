@@ -1,0 +1,192 @@
+# KANBAN — bbangto-ui
+
+> hyper plan 보드. 앱 기능 백로그가 아니라 프로젝트 차원의 계획을 유저·AI가 공동 관리한다.
+> 카드 메타(생성/최종/갱신)는 manage-kanban 스킬이 관리한다. 규칙은 스킬 SKILL.md를 따른다.
+
+## 백로그
+<!-- 아직 착수 결정 전. 우선순위 미정 후보 풀. 백로그→할 일 이동이 "할지 고민" → "하기로 확정" 전환점. -->
+- `KAN-018` bbangto-ui 라이브러리를 가져다 쓸 때, 직접 스타일 가이드를 구성하지 않고, catalog에서 채택하는 경우도 있을 것이다. 이 판단을 ai가 해야 한다고 할 때, 코드 내용을 전수 검토 하지 않고, 채택에 도움을 줄 수 있는 장치를 마련 하고 싶다. 메타 데이터를 심어 놓는다던가. 그와 관련된 전략을 구상해라. — 생성:유저 · 최종:유저 · 갱신:2026-07-14
+- `KAN-013` 스타일 가이드 Iso_ColorBlock (isometric, F6) 구현 — 생성:ai · 최종:ai · 갱신:2026-07-14
+  - 메모: ORD-008/009 이연 — iso geometry 프리미티브 신규 필요(기술 블로커로 계속 보류 중).
+- `KAN-014` 스타일 가이드 Marker_Sketchnote (hand-drawn, F4) 구현 — 생성:ai · 최종:ai · 갱신:2026-07-14
+  - 메모: ORD-008/009 이연 — 지터(jitter) seeded 렌더·손글씨 폰트·질감 토큰화 필요(기술 블로커로 계속 보류 중).
+- `KAN-015` G6 메타 프레임(Kruchten 4+1 / Viewpoint) 구현 — 생성:ai · 최종:ai · 갱신:2026-07-14
+  - 메모: ORD-008/010 이연 — 개념 프레임워크(G) 축의 메타 뷰(Kruchten 4+1, Viewpoint) 미구현.
+- `KAN-016` 파일럿 외 템플릿 3-스타일 매트릭스 검증 확대 — 생성:ai · 최종:ai · 갱신:2026-07-14
+  - 메모: ORD-008 이연 — TemplateStyleMatrix 심층 검증이 파일럿 3템플릿×3스타일가이드로 한정됨. ORD-010/011로 구현 템플릿이 76/90까지 늘어 재스코핑 필요(단일 가이드 paint 해석 게이트는 전 템플릿 커버, 3-way 교차검증만 파일럿 한정).
+- `KAN-017` 신규 style guide 후보 5종 구현 (Bento_Modular/Kinetic_Typography/Spatial_3D/Humanist_Imperfect/Tactile_Texture) — 생성:ai · 최종:ai · 갱신:2026-07-14
+  - 메모: design-trends-2020-2026.md §C 신규 후보 — ORD-009에서 추가된 3종(Corporate_Schematic/Ink_Line_Duotone/Neon_Gradient_Dark)과 별개로 아직 스타일 가이드로 구현되지 않음.
+
+## 할 일
+
+## 진행 중
+
+## 검토
+
+## 완료
+- `KAN-001` ORD-001 — StyleGuide 아키텍처 도입 (theme → style-guide 추상화 격상) — 생성:ai · 최종:ai · 갱신:2026-07-14
+  - 메모: StyleGuideTokens/StyleGuide/StyleGuideProvider 구현 및 export. typecheck+build 통과.
+  - 원문:
+    ```text
+    ## 배경
+    어떤 디자인 컨셉을 잡느냐에 따라, 컴포넌트의 appearance는 달라진다.
+    단순히 border-radius나 color, border-width가 아니라, decoration 자체가
+    달라질 수 있다. 예를 들면, 마치 도형이 2개 겹쳐 있는 듯한 모습을 하고
+    있는 버튼을 생각해 보자. bbangto-ui는 variant라는 속성으로 이것을
+    표현할 수는 있겠지만, 하나의 통일성 있는 디자인으로 그룹화 할 수단이나 개념이 없다.
+    또한, 그룹화 한다고 해도, 현재 컴포넌트 각각의 variant를 디자인과 별개로, 독립적인 variant를 가지고 있다.
+    
+    
+    ## 목적
+    위 배경을 고려 하면, 지금 **theme** 만을 분리하여 provide 하는 구조로는 capability 한계가 있다. 따라서 provide의 대상이 **theme**이 아니라 **style-guide**여야 한다.
+    
+    ### bbangto-ui의 정체성 강화
+    - bbangto-ui에서 제공하는 design-system은 원형(architype)만을 제공한다.
+    - 사용자가 구체적인 style-guide를 제공하거나 미리 준비된 preset catalog를 이용한다.
+    - bbangto-ui가 style guide 양식에 맞는 구성을 위한 인터페이스를 제공해야 한다.
+    
+    ### Style Guide
+    다음의 구성요소로 이루어진다.
+    
+    | 항목                   | 내용                                                                        | 실제 양식                            | 필수  |
+    | -------------------- | ------------------------------------------------------------------------- | -------------------------------- | --- |
+    | foundations          | design token을 정의한다.                                                       | css variable                     | O   |
+    | extended foundations | 구체적 디자인 스타일을 실현하기 위한 요소인 visual motif를 반영하기 위해 확장 design token을 정의한다.     | css variable                     | X   |
+    | wrapper component    | visual motif를 반영하기 위해, 원형 component를 wrapping 하는 wrapper component를 구현한다. | react component                  | X   |
+    | pattern              | 폼 입력, 데이터 테이블 등 반복적으로 사용되는 UI 조합                                          | 여러 react component가 조립된 템플릿 레이아웃 | X   |
+    | guideline            | 각 요소를 사용할 때의 Do's & Don'ts, 접근성 규칙                                        | 마크다운 문서                          | X   |
+    
+    ### Style Guide Catalog
+    대표적인 디자인 스타일에 대한 preset 집합을 미리 구현하여 bbangto-ui에서 제공한다.
+    ```
+- `KAN-002` ORD-002 — 카탈로그 preset 일반화(개인정보 제거·트렌드 인덱스 명명) + Visual Motif 6요소화 — 생성:ai · 최종:ai · 갱신:2026-07-14
+  - 메모: 개인정보 전면 제거 + Neobrutalism_Editorial_01 명명 확정 + Visual Motif 6요소 완성.
+  - 원문:
+    ```text
+    # ORDER 1
+    
+    - 스타일 가이드에 내 개인적인 내용(이름, 이메일, 내 포트폴리오, 회사 등등)을 포함하면 안된다.
+    - 명칭은 빵토 Bakery가 아니라 디자인 트렌드와 중복 방지를 위한 각 디자인 트렌드 별 인덱스(brutalism + xxxism + 01) 명으로 해야 한다.
+    - 각 카탈로그는 참조한 foundations, extended foundations, wrapper component, pattern, visual motif, guideline으로 구성한다.
+    - visual motif는 현재 빵토 Bakery의 Default 같은 구현 예시와 더불어, 대표 컴포넌트들을 대상으로 visual motif 스펙에 대한 설명을 포함한다.
+    - 구현 예시는 빵토 Bakery Default를 작성할 때 참고한 template을 토대로 만든다.
+    ```
+- `KAN-003` ORD-003 — 스토리북 구조 개편 (ARCHETYPE / DIAGRAM / STYLE GUIDE CATALOG) — 생성:ai · 최종:ai · 갱신:2026-07-14
+  - 메모: 사이드바 3대 최상위 재편(ARCHETYPE/DIAGRAM/STYLE GUIDE CATALOG), 85개 스토리 meta title 재매핑.
+  - 원문:
+    ```text
+    # ORDER 2
+    스토리북 구조를 개편한다. 명칭은 더 적절한 것이 있으면 계획 중 제안하고 컨펌 받아라
+    ARCHETYPE
+     |-- Foundations
+     |-- Components
+    	 |-- Atoms
+    	 |-- Molecules
+    	 |-- Organisms
+     |-- Blocks
+     |-- Patterns
+    
+    DIAGRAM
+    |-- ...
+    
+    STYLE GUIDE CATALOG
+    |-- Brutalism_Minimalism_01
+    	|-- Referenced Foundations
+    	|-- Extended Foundations
+    	|-- Wrapper Components
+    	|-- Patterns
+    	|-- Guideline
+    	|-- Visual Motif
+    ```
+- `KAN-004` ORD-004 — 스토리북 구조 컨셉에 따른 디렉토리 구조 검토 (결론: 현행 유지) — 생성:ai · 최종:ai · 갱신:2026-07-14
+  - 메모: 검토 후 현행 유지(보류) 결론 — churn 실익 낮음. styleGuides→styleGuideCatalog 명명은 저위험 옵션으로 보류.
+  - 원문:
+    ```text
+    # ORDER 3
+    order2에서 반영한 스토리북 구조의 컨셉에 따라, 디렉토리 구조도 변경 가능한 포인트가 있는지 살펴본다.
+    ```
+- `KAN-005` ORD-005 — Style Guide Catalog 후보 디자인 스타일/트렌드 조사·목록화 — 생성:ai · 최종:ai · 갱신:2026-07-14
+  - 메모: style-guide-catalog.md 신규 생성 — 2025-2026 트렌드 23개 후보 목록화(P1~P3 우선순위).
+  - 원문:
+    ```text
+    # ORDER
+    style guide catalog에 포함할 만한 디자인 스타일과 디자인트렌드를 조사해서 수집하고 목록화 해줘. 해당 목록은 style guide catalog를 일괄 생성하는데 사용할거다.
+    ```
+- `KAN-006` ORD-006 — theme→foundation 재편·카탈로그(foundation/style-guide) 분리·pattern/block wrapping 인터페이스 — 생성:ai · 최종:ai · 갱신:2026-07-14
+  - 메모: 4 Phase 구현: wrapperBlocks/Patterns 인터페이스, theme→foundation 전면 rename, foundations/style-guide-catalog 별도 패키지 분리 배포.
+  - 원문:
+    ```text
+    # ORDER
+    - archetype의 컴포넌트와 theme은 style guide에서 확장 가능하지만,
+      pattern, block은 그렇지 않다. 이 또한 wrapping을 위한 interface를
+      제공하는 것이 좋아 보인다.
+      - foundation의 theme은 확장 가능한 형태다. 따라서 기본
+      foundation(dark, light, high-contrast)를 제외하고는 storybook에서
+      FOUNDATION CATALOG로 빼는게 맞다. 또한 theme이란 명칭 대신
+      foundation으로 치환해라. 이건 코드 레벨에서도 마찬가지다.
+      - 코드 레벨에서도 foundation catalog에 해당하는 내용은 core와 다른
+      코드 영역으로 분리하고 npm package도 theme 대신 foundations로
+      배포해야 한다.
+      - style guide catalog에 정의된 각 style guide는 말
+        그대로 사전에 정의한 style guide preset에 대한 카탈로그 이므로,
+        core와는 분리 되어야 하고, npm package도 style-guide-catalog로
+      별도 배포 되어야 한다.
+    ```
+- `KAN-007` ORD-007 — 2026 디자인 트렌드(제공 링크) + 2020-2025 연도별 디자인 트렌드 리서치·목록화 — 생성:ai · 최종:ai · 갱신:2026-07-14
+  - 메모: design-trends-2020-2026.md 신규 — 2026 트렌드 22개 + 2020~2025 연도별 트렌드 + 신규 후보 5종(§C).
+  - 원문:
+    ```text
+    # ORDER
+    
+    https://www.figma.com/ko-kr/resource-library/web-design-trends/
+    https://www.behance.net/gallery/239027109/Design-Trends-2026?locale=ko_KR
+    https://www.adobe.com/express/learn/blog/design-trends-2026
+    
+    위 링크는 2026년 디자인 트렌드 링크다. 참조하여 새로운 디자인 트렌드를 목록화 해라. 또한, 같은 방식으로 2020년부터 2025년 까지의 디자인 트렌드도 리서치하여 목록화 하라
+    ```
+- `KAN-008` ORD-008 — DIAGRAM → VISUALIZATION 개편 (headless 아토믹 + 스타일 가이드 주입) — 생성:ai · 최종:ai · 갱신:2026-07-14
+  - 메모: visualization 패키지 신설, headless 아토믹 전환, 스타일 가이드 3종(Blueprint_Technical/Minimal_Line/Colorful_Flat) + 패턴 6종 구현.
+  - 원문:
+    ```text
+    # ORDER
+    현재 diagram으로 단독 디자인 시스템으로 존재하는 영역을 visualization으로 명명하고 구조를 개편하려고 한다.
+    
+    ## 구조
+    - 구조는 archetype처럼 **아토믹 디자인 시스템**을 사용한다. **diagram**이나 **infographic** 유형을 **아토믹 디자인 시스템**의 **템플릿**으로 구조화 한다.
+    - **diagram-references**를 참고하여 **pattern**도 파악한 후, 구현한다.
+    - **아토믹 디자인 시스템**과 **pattern**에 포함되는 구현물은 **headless component**로 구현한다.
+    - 구상 디자인 시스템은 **archetype design system**에 **스타일 가이드**를 주입하여 구현한다.
+    - **스타일 가이드**는 기존에 존재하는 **스타일 가이드**처럼, **foundations**, **guideline**, **wrapper components**를 구현해야 한다.
+    - **스타일 가이드 카탈로그**는 스토리 북에, 기존의 **스타일 가이드 카탈로그**처럼 **foundations**, **guideline**, **wrapper components**, **visual motif**, **foundation preset**을 구현해야 한다.
+    
+    ## 아토믹 디자인 시스템을 구성할 컴포넌트를 정의, 설계 구현하고, 스타일 가이드 카탈로그 정의, 설계 구현하기 위한 방법
+    - **diagram-references**를 참고하여, 계획을 세운다. 하나의 diagram과 infographic을 하나의 템플릿이나 pattern 단위로 삼고, 그를 구성하는 컴포넌트를 원자, 분자 단위로 구성한다.
+    - 디자인 스타일 단위로 스타일 가이드를 정의, 설계, 구현한다.
+    ```
+- `KAN-009` ORD-009 — 신규 파악 preset들 visualization style guide catalog 추가 — 생성:ai · 최종:ai · 갱신:2026-07-14
+  - 메모: 신규 스타일 가이드 3종(Corporate_Schematic_01/Ink_Line_Duotone_01/Neon_Gradient_Dark_01) + 기존 2종 preset 보강.
+  - 원문:
+    ```text
+    # ORDER
+    
+    새로 파악한 preset들 visualization의 style guide catalog에 추가해
+    ```
+- `KAN-010` ORD-010 — visualization 유형 인벤토리 P1 26건 구현 — 생성:ai · 최종:ai · 갱신:2026-07-14
+  - 메모: P1 26건 전량 구현 — 구현률 데이터차트5%→45%·인포그래픽18%→55%·개념프레임워크10%→40%. P1 잔여 0.
+  - 원문:
+    ```text
+    # ORDER
+    P1 구현을 위한 계획을 세우고 실행해
+    ```
+- `KAN-011` ORD-011 — visualization 유형 인벤토리 P2 22건 구현 — 생성:ai · 최종:ai · 갱신:2026-07-14
+  - 메모: P2 22건 전량 구현 — 전체 구현률 60%→84%(76/90). P1·P2 잔여 0, P3 백로그(📋9·🔶2)만 잔존.
+  - 원문:
+    ```text
+    p2 수행
+    ```
+- `KAN-012` visualization P3 백로그 11건 구현 (VT-102/121/123/124/307/510/516/604/704/707/709) — 생성:ai · 최종:ai · 갱신:2026-07-14
+  - 메모: 완료(ORD-012) — P3 11건 전량 구현, 인벤토리 백로그 소진(구현률 84%→97%, 87/90·범위 외 ⛔3 제외 시 100%). 신규 export: Boxplot·ChordDiagram·UMLPackageDiagram·DMNDiagram·BPMNCollaborationDiagram(🔶→✅)·ArchiMateViewpointDiagram·WorkBreakdownStructure(🔶→✅)·InformationalInfographic·Iceberg·BusinessModelCanvas·Honeycomb. 신규 geometry 4(boxplot/chord/iceberg/hexgrid)+tree.wbsNumbering+folder shape. 게이트 전부 green: typecheck/build/unit 82/play 1090/storybook build/publint. 외부 검토(codex/Gemini) 반영.
+  - 원문:
+    ```text
+    p3 수행
+    ```

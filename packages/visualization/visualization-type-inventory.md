@@ -90,7 +90,7 @@
 | ID | 이름 | aliases | 한 줄 정의 | 대표 용도 | 프리미티브 | 소스(티어) | 상태 | 매핑 | tags | P |
 |---|---|---|---|---|---|---|---|---|---|---|
 | VT-101 | UML Class Diagram | object diagram, C4 code-level class | 클래스·속성·연산과 관계 구조 | 도메인/코드 모델 | node,edge,tree | X01(T1) | ✅ | `ClassDiagram`(template) | related:VT-112 | — |
-| VT-102 | UML Package Diagram | — | 패키지 그룹화와 의존 관계 | 모듈 구조 관리 | node,edge,boundary | X01(T1) | 📋 | (→template) | — | P3 |
+| VT-102 | UML Package Diagram | — | 패키지 그룹화와 의존 관계 | 모듈 구조 관리 | node,edge,boundary | X01(T1) | ✅ | `UMLPackageDiagram`(template) | folder shape 신규 | — |
 | VT-103 | UML Component Diagram | composite structure diagram | 컴포넌트·인터페이스 배선 | 모듈 아키텍처 | node,edge,port | X01(T1) | ✅ | `UMLComponentDiagram`(template) | — | — |
 | VT-104 | UML Deployment Diagram | C4 deployment | 아티팩트의 실행 노드 배치 | 인프라·배포 구성 | node,edge,boundary | X01(T1) | ✅ | `UMLDeploymentDiagram`(template) | — | — |
 | VT-105 | UML Use Case Diagram | usecase | 액터-유스케이스 기능 관계 | 요구 범위 정의 | node,edge,boundary | X01(T1) | ✅ | `UseCaseDiagram`(template) | ActorGlyph molecule 신규 | — |
@@ -109,10 +109,10 @@
 | VT-118 | Requirement Diagram | requirementDiagram(SysML) | 요구-검증-충족 관계 모델 | 요구 추적성 | node,edge | X06(T1) | ✅ | `RequirementDiagram`(template) | — | — |
 | VT-119 | SysML Block Definition | BDD | «block» 정의·조성 구조 | 시스템 엔지니어링 | node,edge,tree | X01(T1) | ✅ | `SysMLBlockDiagram`(template) | — | — |
 | VT-120 | ArchiMate Layered View | layered viewpoint | 비즈니스~기술 계층 통합 EA 뷰 | 전사 아키텍처 | node,edge,lane(레이어밴드) | X03(T1) | ✅ | `ArchiMateDiagram`·`ArchiMateBusinessDiagram`·`ArchiMateApplicationDiagram`·`ArchiMateTechnologyDiagram`(template) | — | — |
-| VT-121 | ArchiMate 확장 viewpoints | motivation, strategy/capability map, implementation & migration | 동기·전략·이행 관점 EA 뷰 묶음 | 목표 정렬/전환 계획 | node,edge,boundary | X03(T1) | 📋 | (→template) | 세부 23종은 후보 풀 | P3 |
+| VT-121 | ArchiMate 확장 viewpoints | motivation, strategy/capability map, implementation & migration | 동기·전략·이행 관점 EA 뷰 묶음 | 목표 정렬/전환 계획 | node,edge,boundary | X03(T1) | ✅ | `ArchiMateViewpointDiagram`(template) | viewpoint별 밴드·세부 23종은 후보 풀 | — |
 | VT-122 | BPMN Process Diagram | orchestration, private process | 단일 참여자 업무 절차 모델 | 프로세스 자동화 | node,edge,lane | X04(T1) | ✅ | `BPMNDiagram`(template) | — | — |
-| VT-123 | BPMN Collaboration | choreography, conversation | 풀 간 메시지 교환 모델 | 조직 간 협업 | node,edge,lane(pool) | X04(T1) | 🔶 | `BPMNDiagram`(Lane/pool 조합) 근사 | — | P3 |
-| VT-124 | DMN Decision Requirements | DRD, DRG | 의사결정-입력-지식 요구 관계 | 비즈니스 룰 | node,edge | X05(T1) | 📋 | (→template) | — | P3 |
+| VT-123 | BPMN Collaboration | choreography, conversation | 풀 간 메시지 교환 모델 | 조직 간 협업 | node,edge,lane(pool) | X04(T1) | ✅ | `BPMNCollaborationDiagram`(template) | 🔶→✅ 전용 승격·message flow(dashed) | — |
+| VT-124 | DMN Decision Requirements | DRD, DRG | 의사결정-입력-지식 요구 관계 | 비즈니스 룰 | node,edge | X05(T1) | ✅ | `DMNDiagram`(template) | knowledgeSource/bkm shape 헬퍼 | — |
 | VT-125 | Network Topology | nwdiag, network diagram | 네트워크 세그먼트·장비 토폴로지 | 망 구성/보안 경계 | node,edge,lane(세그먼트),icon | X07(T1)·X17(T3)·catalog §1-b(내부) | ✅ | `NetworkTopology`(template) | 존 경계+장비 노드 | — |
 | VT-126 | Data-Flow Diagram | DFD, threat-model DFD | 데이터 이동·변환·저장 흐름 | 위협 모델링 | node,edge,boundary | X17(T3) | ✅ | `DataFlowDiagram`(template) | related:VT-127·개방형 데이터스토어 | — |
 | VT-127 | Data Lineage | 확장 노드카드 lineage | 데이터 계보·파이프라인 추적 | 데이터 엔지니어링 | node(card),edge(named) | catalog §1-b(내부) | ✅ | `DataLineage`(template) | 카드 노드+named edge | — |
@@ -142,7 +142,7 @@
 | VT-304 | Sitemap Tree | IA tree, sitemap | 사이트 IA 전용 트리(elbow) | 정보 구조 설계 | tree,edge(elbow) | catalog §1-b(내부) | ✅ | `SitemapTree`(template) | tidyTreeLayout | — |
 | VT-305 | Network Graph | node-link, force graph, semantic network, 방사형 노드링크 | 노드·엣지 관계망(비계층) | 관계 분석 | node,edge,radial | X09(T2)·catalog §2-a(내부) | ✅ | `NetworkGraph`(template) | 수동 좌표+허브 강조 | — |
 | VT-306 | Venn Diagram | Euler diagram, set diagram | 집합 겹침 원 교차 | 교집합/개념 비교 | area(원 교차) | X09·X11·X13(T2)·catalog §1-b(내부) | ✅ | `Venn`(pattern) | tags:chart,framework | — |
-| VT-307 | Work Breakdown Structure | WBS | 산출물 중심 작업 분해 트리 | 범위 분해 | tree,node | X07(T1) | 🔶 | `Hierarchy`(tree) 근사 | — | P3 |
+| VT-307 | Work Breakdown Structure | WBS | 산출물 중심 작업 분해 트리 | 범위 분해 | tree,node | X07(T1) | ✅ | `WorkBreakdownStructure`(template) | 🔶→✅ 전용 승격·wbsNumbering geometry | — |
 
 ### D. 시간축 — `VT-4xx` (5행)
 
@@ -169,13 +169,13 @@ catalog §1-b·§2-a의 "ChartPrimitives(bar/line/pie/donut/treemap…)"와 PLAN
 | VT-507 | Treemap | — | 중첩 사각형 면적 계층·비중 | Part-to-whole | grid,area,tree | X09·X11(T2)·catalog §1-b(내부) | ✅ | `Treemap`(template) | squarifyLayout | — |
 | VT-508 | Histogram | — | 구간 빈도 연속 막대 | Distribution | axis,band | X09·X11(T2) | ✅ | `Histogram`(template) | histogramBins geometry | — |
 | VT-509 | Dot Plot | range plot, arrow plot, dumbbell | 점 1~2개로 값·범위·변화 표시 | Distribution/Magnitude | axis,node(dot) | X09·X10(T2) | ✅ | `DotPlot`(template) | dot/dumbbell/range 3모드 | — |
-| VT-510 | Boxplot | box-and-whisker, Tukey | 중앙값·사분위 상자 요약 | Distribution | axis,band,area | X09·X11(T2) | 📋 | (→template) | — | P3 |
+| VT-510 | Boxplot | box-and-whisker, Tukey | 중앙값·사분위 상자 요약 | Distribution | axis,band,area | X09·X11(T2) | ✅ | `Boxplot`(template) | boxplot geometry(Tukey)·raw/summary 이원 | — |
 | VT-511 | Radar Chart | spider, cobweb | 방사 다축 다각형 | Magnitude | radial,axis,area | X09·X11(T2)·G5(내부) | ✅ | `RadarChart`(template) | — | — |
 | VT-512 | Heatmap | calendar heatmap, XY heatmap | 격자 색 농도 패턴 | Correlation/Time | grid,area | X09(T2) | ✅ | `Heatmap`(template) | 팔레트색+fill-opacity 강도 | — |
 | VT-513 | Waffle | gridplot, unit chart | 단위 격자 채움 백분율 | Part-to-whole | grid,icon-unit | X09(T2) | ✅ | `Statistics`(waffle 모드)(pattern) | 🔶→✅ 승격·최대잔여법 100셀 | — |
 | VT-514 | Isotype | pictogram | 아이콘 반복 수량(정수) | Magnitude | icon-unit,grid | X09(T2)·catalog §2(내부) | ✅ | `Statistics`(isotype·PictographUnit)(pattern) | — | — |
 | VT-515 | Sankey | alluvial, river plot | 흐름 폭으로 이동량 표시 | Flow | band,edge | X09·X11(T2)·G5(내부) | ✅ | `SankeyDiagram`(template) | BandEdge 신규 | — |
-| VT-516 | Chord Diagram | — | 원 둘레 간 흐름 리본 | Flow | radial,band | X09(T2) | 📋 | (→template) | — | P3 |
+| VT-516 | Chord Diagram | — | 원 둘레 간 흐름 리본 | Flow | radial,band | X09(T2) | ✅ | `ChordDiagram`(template) | chord geometry·리본 베지어 | — |
 | VT-517 | Waterfall | — | 증감 누적 단계 합계 도달 | Flow/Part-to-whole | axis,band | X09(T2) | ✅ | `WaterfallChart`(template) | waterfallSteps geometry·음수 delta | — |
 | VT-518 | Choropleth Map | — | 행정구역 색상 비율 지도 | Spatial | geo,area | X09·X10(T2) | ✅ | `ChoroplethMap`(template) | related:VT-605·caller path·id 바인딩 | — |
 | VT-519 | Radial Gauge | gauge, dial | 아크 척도 위 값 표시 | 단일 KPI | radial,axis | catalog §1-b(내부) | ✅ | `RadialGauge`(template) | donutSegmentPath+StatNumber | — |
@@ -190,7 +190,7 @@ catalog §1-b·§2-a의 "ChartPrimitives(bar/line/pie/donut/treemap…)"와 PLAN
 | VT-601 | Statistical Infographic | data infographic, stat cards | 수치 강조 카드/그리드 구성 | 성과·리서치 요약 | grid,node(card) | catalog §2(내부)·X14(T3) | ✅ | `Statistics`(cards·StatCard)(pattern) | — | — |
 | VT-602 | Comparison | versus, before-after, T-chart(pros/cons) | 패널 대비+중앙 디바이더 | 항목 비교 | grid,area | catalog §2(내부)·X14(T3) | ✅ | `Comparison`(pattern) | — | — |
 | VT-603 | List Infographic | listicle, checklist | 아이콘+항목 목록 시각화 | 팁/체크리스트 | grid,icon-unit,leader | X14(T3, 교차) | ✅ | `ListInfographic`(pattern) | 배지+제목+설명 행 | — |
-| VT-604 | Informational Infographic | descriptive | 텍스트 중심 개요 구성 | 개념 소개 | grid,leader | X14(T3, 교차) | 📋 | (→pattern) | — | P3 |
+| VT-604 | Informational Infographic | descriptive | 텍스트 중심 개요 구성 | 개념 소개 | grid,leader | X14(T3, 교차) | ✅ | `InformationalInfographic`(pattern) | 헤딩+인트로+섹션 그리드 | — |
 | VT-605 | Geo / Map Infographic | geographic, location infographic | 지도 위 데이터·마커 배치 | 지역 트렌드 | geo,node(pin),leader | catalog §2-a(내부)·X14(T3) | ✅ | `GeoMap`(pattern) | related:VT-518·caller-supplied path | — |
 | VT-606 | Annotated Illustration | anatomical, labeled diagram, cutaway/exploded view | 대상 구조 라벨링 해설 | 제품/구조 설명 | leader,node | X14·X15(T3, 교차) | ✅ | `AnnotatedIllustration`(pattern) | CalloutLeader 재사용·caller 삽화 slot | — |
 | VT-607 | Bento Grid | bento layout, 콜라주 그리드 | 비대칭 모듈 격자 배치 | 피처 소개/대시보드 | grid,area | catalog §2-a(내부)·X16(T3, 교차) | ✅ | `BentoGrid`(pattern) | — | — |
@@ -206,17 +206,17 @@ catalog §1-b·§2-a의 "ChartPrimitives(bar/line/pie/donut/treemap…)"와 PLAN
 | VT-701 | Pyramid | layered pyramid, Maslow | 기반→정점 층상 구조 | 중요도/단계 계층 | area(사다리꼴 스택) | catalog §2(내부)·X15(T3) | ✅ | `Hierarchy`(pyramid·PyramidLayer)(pattern) | related:VT-207 | — |
 | VT-702 | Quadrant / 2x2 Matrix | quadrantChart, Eisenhower, BCG, prioritization matrix | 두 축 4분면 배치 | 우선순위/포트폴리오 | axis,grid,node(dot) | X06(T1)·X13(T2)·§1-b Matrix·G5(내부) | ✅ | `QuadrantChart`(template) | tags:chart | — |
 | VT-703 | SWOT Matrix | TOWS | 강점·약점·기회·위협 4분면 | 전략 진단 | grid,area | X13(T2) | ✅ | `SwotMatrix`(pattern) | related:VT-702 | — |
-| VT-704 | Iceberg | iceberg model | 수면 아래 숨은 구조 은유 | 근본 원인 탐색 | area,leader | X13(T2)·X15(T3) | 📋 | (→pattern) | 일러스트 성격 강함 | P3 |
+| VT-704 | Iceberg | iceberg model | 수면 아래 숨은 구조 은유 | 근본 원인 탐색 | area,leader | X13(T2)·X15(T3) | ✅ | `Iceberg`(pattern) | iceberg geometry·폴리곤 사다리꼴 밴드 | — |
 | VT-705 | Onion / Concentric | stakeholder onion, peeling layers | 동심원 근접도 레이어 | 이해관계자/의존 계층 | radial,area | X15(T3, 교차) | ✅ | `OnionDiagram`(pattern) | layers[0]=core | — |
 | VT-706 | Fishbone | Ishikawa, cause-and-effect | 생선뼈 원인 범주화 | 근본 원인 분석 | edge(spine),node | X06(T1)·X13(T2) | ✅ | `Fishbone`(template) | fishboneLayout geometry | — |
-| VT-707 | Business Model Canvas | BMC, lean canvas | 9블록 사업 모델 한 장 정리 | 사업 기획 | grid,area | X13(T2) | 📋 | (→pattern) | canvas류 대표 | P3 |
+| VT-707 | Business Model Canvas | BMC, lean canvas | 9블록 사업 모델 한 장 정리 | 사업 기획 | grid,area | X13(T2) | ✅ | `BusinessModelCanvas`(pattern) | 표준 비대칭 9블록 span | — |
 | VT-708 | Flywheel | virtuous cycle, momentum loop | 축적 가속 선순환 바퀴 | 성장 루프 설명 | radial,edge | X13(T2)·X15(T3) | ✅ | `Cycle`(flywheel 모드) | 🔶→✅ 승격·중앙 허브+가속 곡선 | — |
-| VT-709 | Honeycomb | UX honeycomb, hexagon cluster | 육각 셀 다면 속성 표현 | 다면 기준 제시 | grid(hex) | X13(T2) | 📋 | (→pattern) | hexagon shape 재사용 | P3 |
+| VT-709 | Honeycomb | UX honeycomb, hexagon cluster | 육각 셀 다면 속성 표현 | 다면 기준 제시 | grid(hex) | X13(T2) | ✅ | `Honeycomb`(pattern) | hexgrid geometry·hexagonPath 재사용 | — |
 | VT-710 | Spectrum Slider | continuum, 대립축 다축 척도 | 대립 양극 축 위 위치 표시 | 성향/성숙도 척도 | axis,node(dot) | catalog §1-b(내부) | ✅ | `SpectrumSlider`(pattern) | quadrant와 별개 유형 | — |
 
 ## 6. 역방향 매핑 체크 테이블 (코드 export → VT ID)
 
-`src/templates/index.ts` 컴포넌트 export 58종 + `src/patterns/index.ts` 18종 전수(ORD-011 후). 각 export는 1개 이상 VT 행에 매핑되어야 한다.
+`src/templates/index.ts` 컴포넌트 export 65종 + `src/patterns/index.ts` 22종 전수(ORD-012 후). 각 export는 1개 이상 VT 행에 매핑되어야 한다.
 
 | export | 종류 | VT ID |
 |---|---|---|
@@ -296,24 +296,35 @@ catalog §1-b·§2-a의 "ChartPrimitives(bar/line/pie/donut/treemap…)"와 PLAN
 | `AnnotatedIllustration` | pattern | VT-606 |
 | `SwotMatrix` | pattern | VT-703 |
 | `OnionDiagram` | pattern | VT-705 |
+| `Boxplot` | template | VT-510 |
+| `ChordDiagram` | template | VT-516 |
+| `UMLPackageDiagram` | template | VT-102 |
+| `DMNDiagram` | template | VT-124 |
+| `BPMNCollaborationDiagram` | template | VT-123 |
+| `ArchiMateViewpointDiagram` | template | VT-121 |
+| `WorkBreakdownStructure` | template | VT-307 |
+| `InformationalInfographic` | pattern | VT-604 |
+| `Iceberg` | pattern | VT-704 |
+| `BusinessModelCanvas` | pattern | VT-707 |
+| `Honeycomb` | pattern | VT-709 |
 
 ## 7. Progress summary
 
-잔여 P2 = 남은 P2 백로그(이번 ORD-011에서 22건 전량 ✅ 전환 후 — 잔여 P1·P2 모두 0).
+잔여 P3 = 남은 P3 백로그(이번 ORD-012에서 11건 전량 ✅ 전환 후 — 잔여 P1·P2·P3 모두 0). 인벤토리 상 미구현은 ⛔ 3(범위 외)뿐.
 
-| 그룹 | 행 수 | ✅ | 🔶 | 📋 | ⛔ | 잔여 P1 | 잔여 P2 |
-|---|---|---|---|---|---|---|---|
-| A. 엔지니어링/소프트웨어 | 29 | 25 | 1 | 3 | 0 | 0 | 0 |
-| B. 프로세스·플로우 | 8 | 8 | 0 | 0 | 0 | 0 | 0 |
-| C. 계층·관계 | 7 | 6 | 1 | 0 | 0 | 0 | 0 |
-| D. 시간축 | 5 | 5 | 0 | 0 | 0 | 0 | 0 |
-| E. 데이터 차트 | 20 | 17 | 0 | 2 | 1 | 0 | 0 |
-| F. 인포그래픽/에디토리얼 | 11 | 8 | 0 | 1 | 2 | 0 | 0 |
-| G. 개념 프레임워크 | 10 | 7 | 0 | 3 | 0 | 0 | 0 |
-| **계** | **90** | **76** | **2** | **9** | **3** | **0** | **0** |
+| 그룹 | 행 수 | ✅ | 🔶 | 📋 | ⛔ | 잔여 P1 | 잔여 P2 | 잔여 P3 |
+|---|---|---|---|---|---|---|---|---|
+| A. 엔지니어링/소프트웨어 | 29 | 29 | 0 | 0 | 0 | 0 | 0 | 0 |
+| B. 프로세스·플로우 | 8 | 8 | 0 | 0 | 0 | 0 | 0 | 0 |
+| C. 계층·관계 | 7 | 7 | 0 | 0 | 0 | 0 | 0 | 0 |
+| D. 시간축 | 5 | 5 | 0 | 0 | 0 | 0 | 0 | 0 |
+| E. 데이터 차트 | 20 | 19 | 0 | 0 | 1 | 0 | 0 | 0 |
+| F. 인포그래픽/에디토리얼 | 11 | 9 | 0 | 0 | 2 | 0 | 0 | 0 |
+| G. 개념 프레임워크 | 10 | 10 | 0 | 0 | 0 | 0 | 0 | 0 |
+| **계** | **90** | **87** | **0** | **0** | **3** | **0** | **0** | **0** |
 
-> ORD-011 완료 후 커버리지: 구현(✅) **84%(76/90)**. 데이터 차트(E)는 45%→**85%**(17/20 ✅), 인포그래픽(F) 55%→**73%**(8/11), 개념 프레임워크(G) 40%→**70%**(7/10)로 재차 상승. 남은 🔶 2(VT-123 BPMN Collaboration·VT-307 WBS)와 📋 9는 전부 P3.
-> **P1·P2 잔여 0** — ORD-011에서 P2 22건(📋 18 + 🔶 승격 4: VT-106/302/513/708) 전량 구현. 신규 순수 geometry 5(`stack`/`histogram`/`waterfall`/`funnel`/`fishbone`, vitest 단위)·신규 molecule 1(`ActorGlyph`)·모드 확장 2(`Cycle.flywheel`·`Statistics.waffle`). 다음 우선순위는 P3 백로그(잔여 📋 9 — Boxplot/Chord/Iceberg/BMC/Honeycomb/UseCase 확장 등, 대부분 신규 프리미티브 필요).
+> ORD-012 완료 후 커버리지: 구현(✅) **97%(87/90)** — 범위 외 ⛔ 3(VT-520 Data Table·VT-610 Infographic Resume·VT-611 Scrollytelling)을 제외한 **채택 유형 전량 구현(87/87 = 100%)**. A 엔지니어링 100%(29/29)·E 데이터 차트 95%(19/20, ⛔ 1)·F 인포그래픽 82%(9/11, ⛔ 2)·G 개념 프레임워크 100%(10/10).
+> **P1·P2·P3 잔여 0** — ORD-012에서 P3 11건(📋 9 + 🔶 승격 2: VT-123 BPMN Collaboration·VT-307 WBS) 전량 구현. 신규 순수 geometry 4(`boxplot`/`chord`/`iceberg`/`hexgrid`, vitest 단위) + `tree.wbsNumbering`·신규 shape `folder`(+DMN inline path 헬퍼). 전부 공통 계약(§C-2) 준수 — 신규 paint 채널 0. **인벤토리 백로그 소진 완료.**
 
 ## 8. 부속 기록
 
