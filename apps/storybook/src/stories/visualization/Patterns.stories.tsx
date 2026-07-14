@@ -13,6 +13,11 @@ import {
   Sketchnote,
   PosterEditorial,
   SpectrumSlider,
+  Funnel,
+  ListInfographic,
+  AnnotatedIllustration,
+  SwotMatrix,
+  OnionDiagram,
 } from '@centurio1987/bbangto-ui-visualization';
 import { expect } from 'storybook/test';
 import { expectVizPaintResolved } from './_paintGate';
@@ -684,5 +689,167 @@ export const SpectrumSliderBasic: Story = {
     // 값 텍스트 병기
     const root = canvasElement.querySelector('[data-bbangto-viz-pattern="spectrum-slider"]')!;
     await expect(root.textContent).toContain('75');
+  },
+};
+
+// ══════════════════════════════════════════════════════════════════════
+// P2 패턴 (ORD-011) — Funnel/List/Annotated/SWOT/Onion + Cycle flywheel
+// ══════════════════════════════════════════════════════════════════════
+
+// Funnel (VT-207) — 단계 축소 전환 (funnelTrapezoids geometry)
+export const FunnelBasic: Story = {
+  render: () => (
+    <Funnel
+      data={{
+        stages: [
+          { id: 'v', label: 'Visits', value: 1000 },
+          { id: 'l', label: 'Leads', value: 620 },
+          { id: 'q', label: 'Qualified', value: 280 },
+          { id: 'w', label: 'Won', value: 90 },
+        ],
+      }}
+      viewBox="0 0 420 320"
+      width={420}
+      height={320}
+      title="Funnel"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const stages = canvasElement.querySelectorAll('[data-bbangto-viz-funnel-stage]');
+    await expect(stages.length).toBe(4);
+    const root = canvasElement.querySelector('[data-bbangto-viz-pattern="funnel"]')!;
+    await expect(root.textContent).toContain('1000');
+    await expect(root.textContent).toContain('Won');
+  },
+};
+
+// ListInfographic (VT-603) — 아이콘 + 항목 목록
+export const ListInfographicBasic: Story = {
+  render: () => (
+    <ListInfographic
+      data={{
+        items: [
+          { id: '1', title: 'Fast', description: 'Ships in milliseconds' },
+          { id: '2', title: 'Safe', description: 'Type-checked contracts' },
+          { id: '3', title: 'Simple', description: 'One import to start' },
+        ],
+      }}
+      viewBox="0 0 480 260"
+      width={480}
+      height={260}
+      title="List infographic"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const rows = canvasElement.querySelectorAll('[data-bbangto-viz-list-item]');
+    await expect(rows.length).toBe(3);
+    await expect(canvasElement.textContent).toContain('Type-checked contracts');
+  },
+};
+
+// AnnotatedIllustration (VT-606) — caller 삽화 slot + CalloutLeader 주석
+export const AnnotatedIllustrationBasic: Story = {
+  render: () => (
+    <AnnotatedIllustration
+      data={{
+        annotations: [
+          { id: 'a', x: 120, y: 90, label: 'Lid', side: 'left' },
+          { id: 'b', x: 200, y: 150, label: 'Body', side: 'right' },
+          { id: 'c', x: 160, y: 220, label: 'Base', side: 'right' },
+        ],
+      }}
+      illustration={<rect x={120} y={80} width={80} height={150} rx={8} data-viz-part="shape" style={{ fill: 'none', stroke: 'currentColor', strokeWidth: 2 }} />}
+      viewBox="0 0 420 300"
+      width={420}
+      height={300}
+      title="Annotated illustration"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const callouts = canvasElement.querySelectorAll('[data-viz-callout-leader]');
+    await expect(callouts.length).toBe(3);
+    await expect(canvasElement.textContent).toContain('Body');
+  },
+};
+
+// SwotMatrix (VT-703) — 강점/약점/기회/위협 4분면
+export const SwotMatrixBasic: Story = {
+  render: () => (
+    <SwotMatrix
+      data={{
+        strengths: ['Brand', 'Team'],
+        weaknesses: ['Cash flow'],
+        opportunities: ['New market', 'Partnerships'],
+        threats: ['Competition'],
+      }}
+      viewBox="0 0 440 360"
+      width={440}
+      height={360}
+      title="SWOT"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const quads = canvasElement.querySelectorAll('[data-bbangto-viz-swot-quadrant]');
+    await expect(quads.length).toBe(4);
+    await expect(canvasElement.textContent).toContain('Strengths');
+    await expect(canvasElement.textContent).toContain('New market');
+  },
+};
+
+// OnionDiagram (VT-705) — 동심원 근접 레이어
+export const OnionDiagramBasic: Story = {
+  render: () => (
+    <OnionDiagram
+      data={{
+        layers: [
+          { id: 'core', label: 'Core' },
+          { id: 'team', label: 'Team' },
+          { id: 'org', label: 'Org' },
+          { id: 'ext', label: 'External' },
+        ],
+      }}
+      viewBox="0 0 400 400"
+      width={400}
+      height={400}
+      title="Onion"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const rings = canvasElement.querySelectorAll('[data-bbangto-viz-onion-layer]');
+    await expect(rings.length).toBe(4);
+    await expect(canvasElement.textContent).toContain('Core');
+    await expect(canvasElement.textContent).toContain('External');
+  },
+};
+
+// Cycle flywheel 모드 (VT-708, 🔶→✅)
+export const CycleFlywheel: Story = {
+  render: () => (
+    <Cycle
+      mode="flywheel"
+      data={{
+        center: 'Growth',
+        items: [{ label: 'Acquire' }, { label: 'Activate' }, { label: 'Retain' }, { label: 'Refer' }],
+      }}
+      viewBox="0 0 420 420"
+      width={420}
+      height={420}
+      title="Flywheel"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const nodes = canvasElement.querySelectorAll('[data-viz-cycle-node]');
+    await expect(nodes.length).toBe(4);
+    // 모멘텀: 커브 커넥터 = 노드 수(순환 폐쇄)
+    const conns = canvasElement.querySelectorAll('[data-bbangto-viz-flywheel-arrow]');
+    await expect(conns.length).toBe(4);
+    const root = canvasElement.querySelector('[data-bbangto-viz-pattern="cycle"]')!;
+    await expect(root.textContent).toContain('Growth');
   },
 };
