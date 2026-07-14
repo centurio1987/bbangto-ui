@@ -28,3 +28,5 @@ export { CalloutLeader } from './CalloutLeader';
 export type { CalloutLeaderProps } from './CalloutLeader';
 export { StatCard } from './StatCard';
 export type { StatCardProps } from './StatCard';
+export { MockupNode } from './MockupNode';
+export type { MockupNodeProps } from './MockupNode';

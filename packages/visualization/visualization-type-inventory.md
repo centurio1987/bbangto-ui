@@ -128,7 +128,7 @@
 | VT-203 | Cycle | cycle diagram, loop, RADIALS | 순환 폐쇄 링/오빗 프로세스 | 반복 프로세스 | radial,edge | catalog §2(내부)·X11(T2) | ✅ | `Cycle`(pattern) | related:VT-708 | — |
 | VT-204 | Kanban Board | kanban(Mermaid) | 상태 컬럼별 카드 보드 | 작업 흐름 관리 | lane,node(card) | X06(T1) | ✅ | `KanbanBoard`(template) | — | — |
 | VT-205 | User Journey Map | journey(Mermaid), customer journey map | 여정 단계+만족도/감정 곡선 | UX 리서치 | lane,axis,node | X06(T1)·X12(T2)·PLAN §D G5(내부) | ✅ | `UserJourneyMap`(template) | — | — |
-| VT-206 | Screen Flow | wireflow, user-flow with mockups | 화면 목업 노드 간 이동 흐름 | 화면 설계 소통 | node(mockup),edge | catalog §1-b(내부)·X17(T3) | 📋 | (→template) | MockupNode 필요 | P1 |
+| VT-206 | Screen Flow | wireflow, user-flow with mockups | 화면 목업 노드 간 이동 흐름 | 화면 설계 소통 | node(mockup),edge | catalog §1-b(내부)·X17(T3) | ✅ | `ScreenFlow`(template) | MockupNode molecule 신규 | — |
 | VT-207 | Funnel | sales/marketing funnel, AIDA | 단계 축소형 전환 구조 | 전환 분석 | area(사다리꼴 스택) | X13(T2) | 📋 | (→pattern) | related:VT-701 | P2 |
 | VT-208 | Pathways | 여정형 경로 인포그래픽, tube-map style route | 경로/노선 위 이정표 배열 | 커리큘럼/여정 안내 | edge(path),node,leader | catalog §2-a(내부) | ✅ | `Pathways`(pattern) | — | — |
 
@@ -191,11 +191,11 @@ catalog §1-b·§2-a의 "ChartPrimitives(bar/line/pie/donut/treemap…)"와 PLAN
 | VT-602 | Comparison | versus, before-after, T-chart(pros/cons) | 패널 대비+중앙 디바이더 | 항목 비교 | grid,area | catalog §2(내부)·X14(T3) | ✅ | `Comparison`(pattern) | — | — |
 | VT-603 | List Infographic | listicle, checklist | 아이콘+항목 목록 시각화 | 팁/체크리스트 | grid,icon-unit,leader | X14(T3, 교차) | 📋 | (→pattern) | — | P2 |
 | VT-604 | Informational Infographic | descriptive | 텍스트 중심 개요 구성 | 개념 소개 | grid,leader | X14(T3, 교차) | 📋 | (→pattern) | — | P3 |
-| VT-605 | Geo / Map Infographic | geographic, location infographic | 지도 위 데이터·마커 배치 | 지역 트렌드 | geo,node(pin),leader | catalog §2-a(내부)·X14(T3) | 📋 | (→pattern) | related:VT-518 | P1 |
+| VT-605 | Geo / Map Infographic | geographic, location infographic | 지도 위 데이터·마커 배치 | 지역 트렌드 | geo,node(pin),leader | catalog §2-a(내부)·X14(T3) | ✅ | `GeoMap`(pattern) | related:VT-518·caller-supplied path | — |
 | VT-606 | Annotated Illustration | anatomical, labeled diagram, cutaway/exploded view | 대상 구조 라벨링 해설 | 제품/구조 설명 | leader,node | X14·X15(T3, 교차) | 📋 | (→pattern) | CalloutLeader 재사용 | P2 |
-| VT-607 | Bento Grid | bento layout, 콜라주 그리드 | 비대칭 모듈 격자 배치 | 피처 소개/대시보드 | grid,area | catalog §2-a(내부)·X16(T3, 교차) | 📋 | (→pattern) | — | P1 |
-| VT-608 | Sketchnote Composition | visual note | 손그림·화살표 시각 노트 구성 | 강연 기록/아이디어 | node,edge,leader | catalog §2-a(내부)·X13(T2) | 📋 | (→pattern) | F4 스타일(지터) 블로커와 연동 | P1 |
-| VT-609 | Poster / Editorial Title | magazine layout, editorial composition | 타이포 위계 중심 지면 구성 | 표지/타이틀 지면 | grid,area | catalog §2-a(내부)·X14(T3) | 📋 | (→pattern) | — | P1 |
+| VT-607 | Bento Grid | bento layout, 콜라주 그리드 | 비대칭 모듈 격자 배치 | 피처 소개/대시보드 | grid,area | catalog §2-a(내부)·X16(T3, 교차) | ✅ | `BentoGrid`(pattern) | — | — |
+| VT-608 | Sketchnote Composition | visual note | 손그림·화살표 시각 노트 구성 | 강연 기록/아이디어 | node,edge,leader | catalog §2-a(내부)·X13(T2) | ✅ | `Sketchnote`(pattern) | 구조만·지터 paint는 F4 이연 | — |
+| VT-609 | Poster / Editorial Title | magazine layout, editorial composition | 타이포 위계 중심 지면 구성 | 표지/타이틀 지면 | grid,area | catalog §2-a(내부)·X14(T3) | ✅ | `PosterEditorial`(pattern) | — | — |
 | VT-610 | Infographic Resume | visual CV | 경력·스킬 시각 이력서 | 개인 문서 | grid,axis | X14(T3, 교차) | ⛔ | 사유: 제품범위외(개인 문서 특화 컴포지션) | — | — |
 | VT-611 | Scrollytelling | scroll-driven longform | 스크롤 연동 내러티브 전개 | 데이터 저널리즘 | (스크롤 인터랙션) | X13(T2) | ⛔ | 사유: 제품범위외(정적 SVG 컴포넌트 범위 밖) | — | — |
 
@@ -212,7 +212,7 @@ catalog §1-b·§2-a의 "ChartPrimitives(bar/line/pie/donut/treemap…)"와 PLAN
 | VT-707 | Business Model Canvas | BMC, lean canvas | 9블록 사업 모델 한 장 정리 | 사업 기획 | grid,area | X13(T2) | 📋 | (→pattern) | canvas류 대표 | P3 |
 | VT-708 | Flywheel | virtuous cycle, momentum loop | 축적 가속 선순환 바퀴 | 성장 루프 설명 | radial,edge | X13(T2)·X15(T3) | 🔶 | `Cycle`(orbit/ring) 근사 | — | P2 |
 | VT-709 | Honeycomb | UX honeycomb, hexagon cluster | 육각 셀 다면 속성 표현 | 다면 기준 제시 | grid(hex) | X13(T2) | 📋 | (→pattern) | hexagon shape 재사용 | P3 |
-| VT-710 | Spectrum Slider | continuum, 대립축 다축 척도 | 대립 양극 축 위 위치 표시 | 성향/성숙도 척도 | axis,node(dot) | catalog §1-b(내부) | 📋 | (→pattern) | quadrant와 별개 유형 | P1 |
+| VT-710 | Spectrum Slider | continuum, 대립축 다축 척도 | 대립 양극 축 위 위치 표시 | 성향/성숙도 척도 | axis,node(dot) | catalog §1-b(내부) | ✅ | `SpectrumSlider`(pattern) | quadrant와 별개 유형 | — |
 
 ## 6. 역방향 매핑 체크 테이블 (코드 export → VT ID)
 
