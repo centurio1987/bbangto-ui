@@ -5,6 +5,8 @@
  * React 의존 없음 — VisualizationStyleGuide(React 레이어)는 visualization 패키지에 있다.
  */
 
+import type { StyleGuideMeta } from './styleGuideMeta';
+
 /** 시각화 노드의 시맨틱 종류. 스타일 가이드가 종류별 paint를 결정한다. */
 export type VizNodeSemanticKind =
   | 'person'
@@ -143,4 +145,6 @@ export interface VisualizationStyleGuideTokens {
   readonly defaultFoundationKey?: string;
   /** 선택. 사용 가이드라인 (구조화 JSON). */
   readonly guidelines?: Record<string, Record<string, unknown>>;
+  /** 선택. AI 채택(adoption)용 기계가독 메타데이터. UI catalog와 공통 스키마. */
+  readonly meta?: StyleGuideMeta;
 }
