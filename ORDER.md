@@ -33,19 +33,29 @@ theme을 지정하지 않았을 때 기본 theme을 사용한다.
 
 ## 신규 지시
 
+_처리할 신규 지시가 없습니다._
+
+## 처리 완료 (COMMITTED)
+
+<!-- ORDER:COMMITTED id=ORD-010 status=done committed=2026-07-14 -->
+<!-- 봉인 구획: 편집 금지. 철회하려면 신규 지시에 reverts=ORD-010 항목을 추가하세요. -->
 ### ORD-010 — visualization 유형 인벤토리 P1 26건 구현
 
-<!-- 원문(verbatim) -->
+<!-- 원문(verbatim): 아래 블록은 신규 지시 영역의 원본을 그대로 보존한다. 수정 금지. -->
 ```text
 # ORDER
 P1 구현을 위한 계획을 세우고 실행해
 ```
 
-- 대상: `visualization-type-inventory.md` §5의 P1 항목 26건(§7의 "27/E=8"은 집계 오기 — E 대역 P1은 7건, 실측 26건).
-- 접근: 7 웨이브(RED→GREEN) + 공통 계약 선고정 + geometry 순수 함수 vitest 단위 테스트 이원화. 외부 검토(codex gpt-5.5 / Gemini) 반영 플랜.
-- 진행 중 — 완료 시 봉인.
-
-## 처리 완료 (COMMITTED)
+- 결과: `visualization-type-inventory.md` §5 P1 항목 **26건 전량 구현**(§7의 "총 27/E=8"은 집계 오기 — 실측 26·E=7, 이번에 정정). 외부 검토(codex gpt-5.5 / Gemini) 반영 플랜, 7 웨이브 RED→GREEN 17커밋. 공통 계약(props/data 속성/접근성/엣지케이스) 선고정 + geometry 순수 함수는 vitest 단위 테스트, 컴포넌트는 storybook play() 이원화.
+  - **신규 geometry**(vitest 단위 32): `scale`(linearScale/bandScale/niceTicks)·`treemap`(squarify)·`venn`(2원 정밀·3원 대칭 근사)·`sankey`(acyclic 오프셋)·`tree`(tidyTreeLayout). **신규 atom**: `Axis`·`BandEdge`. **신규 molecule**: `MockupNode`.
+  - **차트 템플릿 13**: `BarChart`(VT-501)·`LineChart`(VT-503)·`QuadrantChart`(VT-702)·`PieChart`(VT-506)·`RadarChart`(VT-511)·`RadialGauge`(VT-519)·`Treemap`(VT-507)·`SankeyDiagram`(VT-515)·`GanttChart`(VT-403)·`UserJourneyGantt`(VT-404)·`UserJourneyMap`(VT-205)·`GitGraph`(VT-129, 직선 merge)·`PacketDiagram`(VT-128).
+  - **구조 템플릿 5**: `NetworkTopology`(VT-125)·`DataLineage`(VT-127)·`SitemapTree`(VT-304, elbow)·`NetworkGraph`(VT-305)·`ScreenFlow`(VT-206).
+  - **패턴 7 + Cycle 확장**: `Venn`(VT-306)·`Pathways`(VT-208)·`GeoMap`(VT-605, caller-supplied path)·`BentoGrid`(VT-607)·`Sketchnote`(VT-608, 지터 paint는 F4 이연)·`PosterEditorial`(VT-609)·`SpectrumSlider`(VT-710) + `Cycle` `spiral` 모드(VT-405, additive union).
+  - 6개 스타일 가이드는 계약 CSS(shape/edge)만으로 자동 커버 — 가이드 파일 무변경. 신규 paint 채널·토큰 슬롯 없음.
+  - 검증: 게이트 전부 green — typecheck/build/**test 1051개**(기존 1006 → +45, 스토리 파일 149)/storybook build + **unit 32**(신규 geometry) + publint All good. changeset(viz minor — additive, 기존 타입 무변경). 문서: inventory §5 26행 ✅·§6 역방향 표 전수·§7 재계산(오기 정정)·PLAN §D G5 완료 노트.
+  - 커버리지 개선: 구현률 데이터 차트 5%→45%·인포그래픽 18%→55%·개념 프레임워크 10%→40%. P1 잔여 0.
+  - 이연: `XYChart`(Bar/Line로 대체), G6 메타 프레임(Kruchten/Viewpoint), P2/P3 백로그.
 
 <!-- ORDER:COMMITTED id=ORD-009 status=done committed=2026-07-13 -->
 <!-- 봉인 구획: 편집 금지. 철회하려면 신규 지시에 reverts=ORD-009 항목을 추가하세요. -->
