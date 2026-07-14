@@ -165,12 +165,12 @@ catalog §1-b·§2-a의 "ChartPrimitives(bar/line/pie/donut/treemap…)"와 PLAN
 | VT-503 | Line Chart | multiple lines | 시간축 값 변화 선 연결 | Change over Time | axis,edge(path) | X09·X10·X11(T2)·G5 XYChart(내부) | ✅ | `LineChart`(template) | — | — |
 | VT-504 | Area Chart | stacked area | 선 아래 채움으로 총량 강조 | Change over Time | axis,area | X09·X10(T2) | 📋 | (→template) | — | P2 |
 | VT-505 | Scatterplot | XY plot, bubble(크기 인코딩), connected scatter | 두 변수 관계 점 표시 | Correlation | axis,node(dot) | X09·X10·X11(T2) | 📋 | (→template) | — | P2 |
-| VT-506 | Pie / Donut | election donut, multiple pies, arc | 부채꼴 구성비 | Part-to-whole | radial,area | X09·X10·X11(T2)·G5(내부) | 📋 | (→template) | RingSegment 재사용 | P1 |
+| VT-506 | Pie / Donut | election donut, multiple pies, arc | 부채꼴 구성비 | Part-to-whole | radial,area | X09·X10·X11(T2)·G5(내부) | ✅ | `PieChart`(template) | donutSegmentPath 재사용 | — |
 | VT-507 | Treemap | — | 중첩 사각형 면적 계층·비중 | Part-to-whole | grid,area,tree | X09·X11(T2)·catalog §1-b(내부) | 📋 | (→template) | — | P1 |
 | VT-508 | Histogram | — | 구간 빈도 연속 막대 | Distribution | axis,band | X09·X11(T2) | 📋 | (→template) | — | P2 |
 | VT-509 | Dot Plot | range plot, arrow plot, dumbbell | 점 1~2개로 값·범위·변화 표시 | Distribution/Magnitude | axis,node(dot) | X09·X10(T2) | 📋 | (→template) | — | P2 |
 | VT-510 | Boxplot | box-and-whisker, Tukey | 중앙값·사분위 상자 요약 | Distribution | axis,band,area | X09·X11(T2) | 📋 | (→template) | — | P3 |
-| VT-511 | Radar Chart | spider, cobweb | 방사 다축 다각형 | Magnitude | radial,axis,area | X09·X11(T2)·G5(내부) | 📋 | (→template) | — | P1 |
+| VT-511 | Radar Chart | spider, cobweb | 방사 다축 다각형 | Magnitude | radial,axis,area | X09·X11(T2)·G5(내부) | ✅ | `RadarChart`(template) | — | — |
 | VT-512 | Heatmap | calendar heatmap, XY heatmap | 격자 색 농도 패턴 | Correlation/Time | grid,area | X09(T2) | 📋 | (→template) | — | P2 |
 | VT-513 | Waffle | gridplot, unit chart | 단위 격자 채움 백분율 | Part-to-whole | grid,icon-unit | X09(T2) | 🔶 | `Statistics`(mosaic·ProportionBlock) 근사 | — | P2 |
 | VT-514 | Isotype | pictogram | 아이콘 반복 수량(정수) | Magnitude | icon-unit,grid | X09(T2)·catalog §2(내부) | ✅ | `Statistics`(isotype·PictographUnit)(pattern) | — | — |
@@ -178,7 +178,7 @@ catalog §1-b·§2-a의 "ChartPrimitives(bar/line/pie/donut/treemap…)"와 PLAN
 | VT-516 | Chord Diagram | — | 원 둘레 간 흐름 리본 | Flow | radial,band | X09(T2) | 📋 | (→template) | — | P3 |
 | VT-517 | Waterfall | — | 증감 누적 단계 합계 도달 | Flow/Part-to-whole | axis,band | X09(T2) | 📋 | (→template) | — | P2 |
 | VT-518 | Choropleth Map | — | 행정구역 색상 비율 지도 | Spatial | geo,area | X09·X10(T2) | 📋 | (→template) | related:VT-605 | P2 |
-| VT-519 | Radial Gauge | gauge, dial | 아크 척도 위 값 표시 | 단일 KPI | radial,axis | catalog §1-b(내부) | 🔶 | `RingSegment`+`StatNumber`(atom 조합) 근사 | — | P1 |
+| VT-519 | Radial Gauge | gauge, dial | 아크 척도 위 값 표시 | 단일 KPI | radial,axis | catalog §1-b(내부) | ✅ | `RadialGauge`(template) | donutSegmentPath+StatNumber | — |
 | VT-520 | Data Table | table | 행·열 원자료 정밀 조회 | 정밀값 비교 | grid | X10·X11(T2) | ⛔ | 사유: 제품범위외(SVG viz 패키지 밖 — DOM 테이블 영역) | — | — |
 
 ### F. 인포그래픽/에디토리얼 레이아웃 — `VT-6xx` (11행)
