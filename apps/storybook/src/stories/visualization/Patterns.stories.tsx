@@ -402,6 +402,39 @@ export const StatisticsIsotype: Story = {
   },
 };
 
+// waffle 모드 (VT-513) — 100셀 격자 비율 채움 (ORD-011)
+export const StatisticsWaffle: Story = {
+  render: () => (
+    <Statistics
+      mode="waffle"
+      data={{
+        items: [
+          { label: 'Mobile', value: 60 },
+          { label: 'Desktop', value: 30 },
+          { label: 'Tablet', value: 10 },
+        ],
+      }}
+      viewBox="0 0 420 320"
+      width={420}
+      height={320}
+      title="Statistics waffle"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    // 10×10 = 100 셀
+    const cells = canvasElement.querySelectorAll('[data-bbangto-viz-cell]');
+    await expect(cells.length).toBe(100);
+    // 카테고리별 채움 셀 수 = round(비율×100): 60/30/10
+    const filled = (cat: string) => canvasElement.querySelectorAll(`[data-bbangto-viz-cell-cat="${cat}"]`).length;
+    await expect(filled('Mobile')).toBe(60);
+    await expect(filled('Desktop')).toBe(30);
+    await expect(filled('Tablet')).toBe(10);
+    const root = canvasElement.querySelector('[data-bbangto-viz-pattern="statistics"]')!;
+    await expect(root.textContent).toContain('Mobile');
+    await expectVizPaintResolved(canvasElement);
+  },
+};
+
 // ──────────────────────────────────────────────────────────────────────
 // Venn — 집합 겹침 (VT-306). 2원 정밀 + 3원 대칭 근사, 교집합 라벨 텍스트 병기
 // ──────────────────────────────────────────────────────────────────────

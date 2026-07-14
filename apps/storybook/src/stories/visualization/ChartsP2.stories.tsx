@@ -8,6 +8,8 @@ import {
   Histogram,
   DotPlot,
   WaterfallChart,
+  Heatmap,
+  ChoroplethMap,
 } from '@centurio1987/bbangto-ui-visualization';
 import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visualization-style-guide-catalog';
 import { expect } from 'storybook/test';
@@ -251,5 +253,99 @@ export const WaterfallWithTotal: Story = {
     const total = canvasElement.querySelector('[data-bbangto-viz-bar-total="true"]');
     await expect(total).toBeTruthy();
     await expect(canvasElement.querySelectorAll('[data-bbangto-viz-bar-value]').length).toBe(5);
+  },
+};
+
+// ── Heatmap (VT-512) ──────────────────────────────────────────────────
+export const HeatmapBasic: Story = {
+  render: () => (
+    <Heatmap
+      data={{
+        rows: ['Mon', 'Tue', 'Wed'],
+        cols: ['AM', 'PM', 'Eve'],
+        cells: [
+          { row: 'Mon', col: 'AM', value: 2 },
+          { row: 'Mon', col: 'PM', value: 8 },
+          { row: 'Mon', col: 'Eve', value: 5 },
+          { row: 'Tue', col: 'AM', value: 1 },
+          { row: 'Tue', col: 'PM', value: 9 },
+          { row: 'Tue', col: 'Eve', value: 4 },
+          { row: 'Wed', col: 'AM', value: 6 },
+          { row: 'Wed', col: 'PM', value: 3 },
+          { row: 'Wed', col: 'Eve', value: 7 },
+        ],
+      }}
+      viewBox="0 0 420 320"
+      width={420}
+      height={320}
+      title="Heatmap"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const cells = canvasElement.querySelectorAll('[data-bbangto-viz-cell]');
+    await expect(cells.length).toBe(9);
+    // 강도 인코딩: 높은 값 셀의 fill-opacity가 낮은 값보다 큼
+    const op = (row: string, col: string) => {
+      const el = canvasElement.querySelector(`[data-bbangto-viz-cell-id="${row}:${col}"]`)!;
+      return parseFloat(getComputedStyle(el as Element).fillOpacity || '1');
+    };
+    await expect(op('Tue', 'PM')).toBeGreaterThan(op('Tue', 'AM'));
+    // 값 텍스트 병기
+    await expect(canvasElement.querySelectorAll('[data-bbangto-viz-cell-value]').length).toBe(9);
+  },
+};
+
+// ── ChoroplethMap (VT-518) ────────────────────────────────────────────
+const CHORO_REGIONS = [
+  { id: 'r1', d: 'M10,10 H120 V110 H10 Z', label: 'North' },
+  { id: 'r2', d: 'M130,10 H240 V110 H130 Z', label: 'South' },
+  { id: 'r3', d: 'M10,120 H240 V220 H10 Z', label: 'East' },
+];
+
+export const ChoroplethBasic: Story = {
+  render: () => (
+    <ChoroplethMap
+      data={{
+        regions: CHORO_REGIONS,
+        items: [
+          { id: 'r1', value: 20 },
+          { id: 'r2', value: 80 },
+          { id: 'r3', value: 50 },
+        ],
+      }}
+      viewBox="0 0 260 240"
+      width={260}
+      height={240}
+      title="Choropleth"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const regions = canvasElement.querySelectorAll('[data-bbangto-viz-geo-region]');
+    await expect(regions.length).toBe(3);
+    const op = (id: string) =>
+      parseFloat(getComputedStyle(canvasElement.querySelector(`[data-bbangto-viz-geo-region-id="${id}"]`)! as Element).fillOpacity || '1');
+    // 값 큰 지역이 더 진함
+    await expect(op('r2')).toBeGreaterThan(op('r1'));
+    // 값 텍스트 병기
+    const root = canvasElement.querySelector('[data-bbangto-viz-chart="choropleth"]')!;
+    await expect(root.textContent).toContain('80');
+  },
+};
+
+export const ChoroplethUnmatched: Story = {
+  render: () => (
+    <ChoroplethMap
+      data={{ regions: CHORO_REGIONS, items: [{ id: 'r1', value: 40 }] }}
+      viewBox="0 0 260 240"
+      width={260}
+      height={240}
+      title="Choropleth partial"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    // 미매칭 region도 throw 없이 렌더(중립 fill)
+    await expect(canvasElement.querySelectorAll('[data-bbangto-viz-geo-region]').length).toBe(3);
   },
 };
