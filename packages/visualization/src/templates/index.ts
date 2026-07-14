@@ -104,3 +104,15 @@ export { Heatmap } from './Heatmap';
 export type { HeatmapProps, HeatmapCell } from './Heatmap';
 export { ChoroplethMap } from './ChoroplethMap';
 export type { ChoroplethMapProps, ChoroplethRegion, ChoroplethItem } from './ChoroplethMap';
+
+// A-P2: 엔지니어링 다이어그램 확장 (ORD-011)
+export { UseCaseDiagram } from './UseCaseDiagram';
+export type { UseCaseDiagramProps, UseCaseActor, UseCaseNodeSpec, UseCaseSystemSpec, UseCaseLink, UseCaseLinkKind } from './UseCaseDiagram';
+export { C4DynamicDiagram } from './C4DynamicDiagram';
+export type { C4DynamicDiagramProps, C4DynamicDiagramData, C4DynamicElement, C4DynamicStep } from './C4DynamicDiagram';
+export { C4SystemLandscapeDiagram } from './C4SystemLandscapeDiagram';
+export type { C4SystemLandscapeDiagramProps, C4SystemLandscapeDiagramData } from './C4SystemLandscapeDiagram';
+export { DataFlowDiagram } from './DataFlowDiagram';
+export type { DataFlowDiagramProps, DFDNode, DFDFlow, DFDBoundary, DFDNodeKind } from './DataFlowDiagram';
+export { ActivityDiagram } from './ActivityDiagram';
+export type { ActivityDiagramProps, ActivityNode, ActivityEdge, ActivityLane, ActivityNodeKind } from './ActivityDiagram';
