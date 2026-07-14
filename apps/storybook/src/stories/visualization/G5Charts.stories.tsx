@@ -5,6 +5,9 @@ import {
   BarChart,
   LineChart,
   QuadrantChart,
+  PieChart,
+  RadarChart,
+  RadialGauge,
   linearScale,
   bandScale,
 } from '@centurio1987/bbangto-ui-visualization';
@@ -137,6 +140,81 @@ export const QuadrantChartBasic: Story = {
     await expect(canvasElement.querySelectorAll('[data-bbangto-viz-axis]').length).toBe(2);
     // 사분면 라벨 4개
     await expect(canvasElement.querySelectorAll('[data-bbangto-viz-quadrant-label]').length).toBe(4);
+  },
+};
+
+// ── PieChart ──────────────────────────────────────────────────────────
+const PIE_ITEMS = [
+  { id: 'a', label: 'Chrome', value: 63 },
+  { id: 'b', label: 'Safari', value: 20 },
+  { id: 'c', label: 'Edge', value: 10 },
+  { id: 'd', label: 'Other', value: 7 },
+];
+
+export const PieChartDonut: Story = {
+  render: () => (
+    <PieChart data={{ items: PIE_ITEMS }} mode="donut" viewBox="0 0 420 360" width={420} height={360} title="Donut chart" />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const slices = canvasElement.querySelectorAll('[data-bbangto-viz-slice]');
+    await expect(slices.length).toBe(4);
+    // 값 텍스트 병기
+    const labels = canvasElement.querySelectorAll('[data-bbangto-viz-slice-label]');
+    await expect(labels.length).toBe(4);
+    await expect(labels[0].textContent).toContain('63');
+  },
+};
+
+export const PieChartPie: Story = {
+  render: () => (
+    <PieChart data={{ items: PIE_ITEMS }} mode="pie" viewBox="0 0 420 360" width={420} height={360} title="Pie chart" />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    await expect(canvasElement.querySelectorAll('[data-bbangto-viz-slice]').length).toBe(4);
+  },
+};
+
+// ── RadarChart ────────────────────────────────────────────────────────
+export const RadarChartMultiSeries: Story = {
+  render: () => (
+    <RadarChart
+      data={{
+        axes: ['Speed', 'Power', 'Range', 'Cost', 'Weight'],
+        series: [
+          { id: 'r1', label: 'Model A', values: [80, 60, 70, 40, 55] },
+          { id: 'r2', label: 'Model B', values: [50, 90, 45, 70, 65] },
+        ],
+        max: 100,
+      }}
+      viewBox="0 0 420 420"
+      width={420}
+      height={420}
+      title="Radar chart"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const spokes = canvasElement.querySelectorAll('[data-bbangto-viz-radar-axis]');
+    await expect(spokes.length).toBe(5);
+    const polys = canvasElement.querySelectorAll('[data-bbangto-viz-radar-series]');
+    await expect(polys.length).toBe(2);
+  },
+};
+
+// ── RadialGauge ───────────────────────────────────────────────────────
+export const RadialGaugeBasic: Story = {
+  render: () => (
+    <RadialGauge data={{ value: 72, min: 0, max: 100, label: 'Uptime', unit: '%' }} viewBox="0 0 320 240" width={320} height={240} title="Radial gauge" />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const gauge = canvasElement.querySelector('[data-bbangto-viz-gauge]');
+    await expect(gauge).not.toBeNull();
+    // 값 텍스트 병기(StatNumber)
+    const val = canvasElement.querySelector('[data-viz-stat-value]');
+    await expect(val?.textContent).toContain('72');
   },
 };
 
