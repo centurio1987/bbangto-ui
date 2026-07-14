@@ -141,7 +141,7 @@
 | VT-303 | Hierarchy / Tree | org chart, tree diagram, TreeView, hierarchical infographic | 루트-자식 재귀 트리 | 조직/분류 구조 | tree,node,edge | catalog §2(내부)·X06(T1)·X14(T3) | ✅ | `Hierarchy`(pattern) | pyramid 모드는 VT-701 | — |
 | VT-304 | Sitemap Tree | IA tree, sitemap | 사이트 IA 전용 트리(elbow) | 정보 구조 설계 | tree,edge(elbow) | catalog §1-b(내부) | 📋 | (→template) | — | P1 |
 | VT-305 | Network Graph | node-link, force graph, semantic network, 방사형 노드링크 | 노드·엣지 관계망(비계층) | 관계 분석 | node,edge,radial | X09(T2)·catalog §2-a(내부) | 📋 | (→template) | — | P1 |
-| VT-306 | Venn Diagram | Euler diagram, set diagram | 집합 겹침 원 교차 | 교집합/개념 비교 | area(원 교차) | X09·X11·X13(T2)·catalog §1-b(내부) | 📋 | (→pattern) | tags:chart,framework | P1 |
+| VT-306 | Venn Diagram | Euler diagram, set diagram | 집합 겹침 원 교차 | 교집합/개념 비교 | area(원 교차) | X09·X11·X13(T2)·catalog §1-b(내부) | ✅ | `Venn`(pattern) | tags:chart,framework | — |
 | VT-307 | Work Breakdown Structure | WBS | 산출물 중심 작업 분해 트리 | 범위 분해 | tree,node | X07(T1) | 🔶 | `Hierarchy`(tree) 근사 | — | P3 |
 
 ### D. 시간축 — `VT-4xx` (5행)
@@ -166,7 +166,7 @@ catalog §1-b·§2-a의 "ChartPrimitives(bar/line/pie/donut/treemap…)"와 PLAN
 | VT-504 | Area Chart | stacked area | 선 아래 채움으로 총량 강조 | Change over Time | axis,area | X09·X10(T2) | 📋 | (→template) | — | P2 |
 | VT-505 | Scatterplot | XY plot, bubble(크기 인코딩), connected scatter | 두 변수 관계 점 표시 | Correlation | axis,node(dot) | X09·X10·X11(T2) | 📋 | (→template) | — | P2 |
 | VT-506 | Pie / Donut | election donut, multiple pies, arc | 부채꼴 구성비 | Part-to-whole | radial,area | X09·X10·X11(T2)·G5(내부) | ✅ | `PieChart`(template) | donutSegmentPath 재사용 | — |
-| VT-507 | Treemap | — | 중첩 사각형 면적 계층·비중 | Part-to-whole | grid,area,tree | X09·X11(T2)·catalog §1-b(내부) | 📋 | (→template) | — | P1 |
+| VT-507 | Treemap | — | 중첩 사각형 면적 계층·비중 | Part-to-whole | grid,area,tree | X09·X11(T2)·catalog §1-b(내부) | ✅ | `Treemap`(template) | squarifyLayout | — |
 | VT-508 | Histogram | — | 구간 빈도 연속 막대 | Distribution | axis,band | X09·X11(T2) | 📋 | (→template) | — | P2 |
 | VT-509 | Dot Plot | range plot, arrow plot, dumbbell | 점 1~2개로 값·범위·변화 표시 | Distribution/Magnitude | axis,node(dot) | X09·X10(T2) | 📋 | (→template) | — | P2 |
 | VT-510 | Boxplot | box-and-whisker, Tukey | 중앙값·사분위 상자 요약 | Distribution | axis,band,area | X09·X11(T2) | 📋 | (→template) | — | P3 |
@@ -174,7 +174,7 @@ catalog §1-b·§2-a의 "ChartPrimitives(bar/line/pie/donut/treemap…)"와 PLAN
 | VT-512 | Heatmap | calendar heatmap, XY heatmap | 격자 색 농도 패턴 | Correlation/Time | grid,area | X09(T2) | 📋 | (→template) | — | P2 |
 | VT-513 | Waffle | gridplot, unit chart | 단위 격자 채움 백분율 | Part-to-whole | grid,icon-unit | X09(T2) | 🔶 | `Statistics`(mosaic·ProportionBlock) 근사 | — | P2 |
 | VT-514 | Isotype | pictogram | 아이콘 반복 수량(정수) | Magnitude | icon-unit,grid | X09(T2)·catalog §2(내부) | ✅ | `Statistics`(isotype·PictographUnit)(pattern) | — | — |
-| VT-515 | Sankey | alluvial, river plot | 흐름 폭으로 이동량 표시 | Flow | band,edge | X09·X11(T2)·G5(내부) | 📋 | (→template) | band 엣지 신규 | P1 |
+| VT-515 | Sankey | alluvial, river plot | 흐름 폭으로 이동량 표시 | Flow | band,edge | X09·X11(T2)·G5(내부) | ✅ | `SankeyDiagram`(template) | BandEdge 신규 | — |
 | VT-516 | Chord Diagram | — | 원 둘레 간 흐름 리본 | Flow | radial,band | X09(T2) | 📋 | (→template) | — | P3 |
 | VT-517 | Waterfall | — | 증감 누적 단계 합계 도달 | Flow/Part-to-whole | axis,band | X09(T2) | 📋 | (→template) | — | P2 |
 | VT-518 | Choropleth Map | — | 행정구역 색상 비율 지도 | Spatial | geo,area | X09·X10(T2) | 📋 | (→template) | related:VT-605 | P2 |

@@ -62,3 +62,7 @@ export { RadarChart } from './RadarChart';
 export type { RadarChartProps, RadarSeries } from './RadarChart';
 export { RadialGauge } from './RadialGauge';
 export type { RadialGaugeProps } from './RadialGauge';
+export { Treemap } from './Treemap';
+export type { TreemapProps, TreemapDatum } from './Treemap';
+export { SankeyDiagram } from './SankeyDiagram';
+export type { SankeyDiagramProps, SankeyNodeSpec } from './SankeyDiagram';

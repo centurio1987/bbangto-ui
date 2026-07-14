@@ -10,3 +10,5 @@ export { Cycle } from './Cycle';
 export type { CycleProps, CycleItemSpec, CycleMode } from './Cycle';
 export { Statistics } from './Statistics';
 export type { StatisticsProps, StatItemSpec, StatisticsMode } from './Statistics';
+export { Venn } from './Venn';
+export type { VennProps, VennSetSpec, VennIntersectionSpec } from './Venn';
