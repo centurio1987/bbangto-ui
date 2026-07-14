@@ -193,3 +193,12 @@ export const styleGuideCatalog: readonly StyleGuide[] = [
 export const styleGuideMap: Record<string, StyleGuide> = Object.fromEntries(
   styleGuideCatalog.map((sg) => [sg.name, sg])
 );
+
+// 채택 메타데이터 매니페스트 생성기 (catalog.manifest.json으로 투영).
+export {
+  buildManifest,
+  serializeManifest,
+  type ManifestEntry,
+  type ManifestCompleteness,
+  type CatalogEntryLike,
+} from './manifest';

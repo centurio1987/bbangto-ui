@@ -313,4 +313,38 @@ export const neobrutalismEditorialStyleGuide: StyleGuide = {
   patterns: { NeobrutalismShowcase: Showcase },
   guidelines,
   visualMotif,
+  meta: {
+    displayName: 'Neobrutalism_Editorial_01',
+    trendIndex: 0,
+    family: 'structural-raw',
+    summary: '크림·잉크·골드, 각진 모서리, 하드 오프셋 그림자의 편집형 네오브루탈리즘.',
+    tags: ['light', 'high-contrast', 'sharp', 'raw', 'typographic', 'geometric'],
+    mood: { formality: 2, energy: 4, warmth: 3, density: 3, ornament: 3 },
+    characteristics: {
+      cornerRadius: 'sharp',
+      borderWeight: 'bold',
+      shadow: 'hard',
+      density: 'balanced',
+      motion: 'subtle',
+      colorScheme: 'both',
+      contrast: 'high',
+    },
+    domains: ['portfolio', 'marketing', 'editorial', 'creative-agency', 'blog', 'landing'],
+    useWhen: [
+      '포트폴리오·에이전시·캠페인에서 강한 개성과 임팩트를 원할 때 쓴다.',
+      '편집/매거진 톤으로 타이포와 구조를 전면에 내세울 때 쓴다.',
+      '차별화된 raw·anti-corporate 인상을 줄 때 쓴다.',
+    ],
+    avoidWhen: [
+      '엔터프라이즈 대시보드처럼 절제·중립이 필요할 때 피한다.',
+      '장시간 읽는 고밀도 데이터 UI에는 강한 그림자·대비가 피로하므로 피한다.',
+    ],
+    accessibility: {
+      contrastIntent: 'aaa',
+      colorblindConsidered: true,
+      motionHeavy: false,
+      darkFirst: false,
+    },
+    related: ['swiss-international-01', 'bauhaus-geometric-01'],
+  },
 };
