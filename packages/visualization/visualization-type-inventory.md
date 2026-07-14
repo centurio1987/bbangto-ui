@@ -24,8 +24,8 @@
 
 | 소스 | 추출 내용 |
 |---|---|
-| `src/templates/index.ts` | 구현 템플릿 컴포넌트 export **25종** (권위 목록) |
-| `src/patterns/index.ts` | 구현 패턴 **6종** |
+| `src/templates/index.ts` | 구현 템플릿 컴포넌트 export **43종** (ORD-008 25 + ORD-010 18, 권위 목록) |
+| `src/patterns/index.ts` | 구현 패턴 **13종** (ORD-008 6 + ORD-010 7) |
 | `visualization-catalog.md` §1-a/§1-b/§1-c/§2/§2-a | 커버 유형 + 템플릿 갭 9항목 + 원자 갭 + 이연 패턴 7항목 |
 | `PLAN.md` §D (G1~G6) | 마스터 타입 리스트 — G5 차트 9종·G6 메타 프레임 2종 미구현 |
 | `diagram-references/README.md` | 유형 축 vs 스타일 축 분리 근거 |
@@ -216,7 +216,7 @@ catalog §1-b·§2-a의 "ChartPrimitives(bar/line/pie/donut/treemap…)"와 PLAN
 
 ## 6. 역방향 매핑 체크 테이블 (코드 export → VT ID)
 
-`src/templates/index.ts` 컴포넌트 export 25종 + `src/patterns/index.ts` 6종 전수. 각 export는 1개 이상 VT 행에 매핑되어야 한다.
+`src/templates/index.ts` 컴포넌트 export 43종 + `src/patterns/index.ts` 13종 전수(ORD-010 후). 각 export는 1개 이상 VT 행에 매핑되어야 한다.
 
 | export | 종류 | VT ID |
 |---|---|---|
@@ -249,24 +249,51 @@ catalog §1-b·§2-a의 "ChartPrimitives(bar/line/pie/donut/treemap…)"와 PLAN
 | `Comparison` | pattern | VT-602 |
 | `TimelineRoadmap` | pattern | VT-402 |
 | `Hierarchy` | pattern | VT-303 (+VT-701, VT-307 근사) |
-| `Cycle` | pattern | VT-203 (+VT-405·VT-708 근사) |
+| `Cycle` | pattern | VT-203 (+VT-405 spiral, VT-708 근사) |
 | `Statistics` | pattern | VT-601 (+VT-514, VT-513 근사) |
+| `BarChart` | template | VT-501 |
+| `LineChart` | template | VT-503 |
+| `QuadrantChart` | template | VT-702 |
+| `PieChart` | template | VT-506 |
+| `RadarChart` | template | VT-511 |
+| `RadialGauge` | template | VT-519 |
+| `Treemap` | template | VT-507 |
+| `SankeyDiagram` | template | VT-515 |
+| `GanttChart` | template | VT-403 |
+| `UserJourneyGantt` | template | VT-404 |
+| `UserJourneyMap` | template | VT-205 |
+| `GitGraph` | template | VT-129 |
+| `PacketDiagram` | template | VT-128 |
+| `NetworkTopology` | template | VT-125 |
+| `DataLineage` | template | VT-127 |
+| `SitemapTree` | template | VT-304 |
+| `NetworkGraph` | template | VT-305 |
+| `ScreenFlow` | template | VT-206 |
+| `Venn` | pattern | VT-306 |
+| `Pathways` | pattern | VT-208 |
+| `GeoMap` | pattern | VT-605 |
+| `BentoGrid` | pattern | VT-607 |
+| `Sketchnote` | pattern | VT-608 |
+| `PosterEditorial` | pattern | VT-609 |
+| `SpectrumSlider` | pattern | VT-710 |
 
 ## 7. Progress summary
 
-| 그룹 | 행 수 | ✅ | 🔶 | 📋 | ⛔ | 그중 P1 |
-|---|---|---|---|---|---|---|
-| A. 엔지니어링/소프트웨어 | 29 | 16 | 2 | 11 | 0 | 4 |
-| B. 프로세스·플로우 | 8 | 4 | 0 | 4 | 0 | 3 |
-| C. 계층·관계 | 7 | 2 | 2 | 3 | 0 | 3 |
-| D. 시간축 | 5 | 2 | 1 | 2 | 0 | 3 |
-| E. 데이터 차트 | 20 | 1 | 2 | 16 | 1 | 8 |
-| F. 인포그래픽/에디토리얼 | 11 | 2 | 0 | 7 | 2 | 4 |
-| G. 개념 프레임워크 | 10 | 1 | 1 | 8 | 0 | 2 |
-| **계** | **90** | **28** | **8** | **51** | **3** | **27** |
+잔여 P1 = 남은 P1 백로그(이번 ORD-010에서 26건 전량 ✅ 전환 후).
 
-> 커버리지 불균형이 수치로 확인된다: 엔지니어링(A)은 55%(16/29) 구현인 반면, 최대 갭인 데이터 차트(E)는 5%(1/20), 인포그래픽(F) 18%, 개념 프레임워크(G) 10%. 레퍼런스 무게중심(인포그래픽·프로세스·에디토리얼)과 정확히 반대다.
-> P1(레퍼런스 관찰·내부 갭 유래) 총 27건 — 다음 ORDER 후보: E 대역 8건(VT-501·503·506·507·511·515·519 등) + F 대역 4건(VT-605·607·608·609)이 최우선.
+| 그룹 | 행 수 | ✅ | 🔶 | 📋 | ⛔ | 잔여 P1 |
+|---|---|---|---|---|---|---|
+| A. 엔지니어링/소프트웨어 | 29 | 20 | 2 | 7 | 0 | 0 |
+| B. 프로세스·플로우 | 8 | 7 | 0 | 1 | 0 | 0 |
+| C. 계층·관계 | 7 | 5 | 2 | 0 | 0 | 0 |
+| D. 시간축 | 5 | 5 | 0 | 0 | 0 | 0 |
+| E. 데이터 차트 | 20 | 8 | 1 | 10 | 1 | 0 |
+| F. 인포그래픽/에디토리얼 | 11 | 6 | 0 | 3 | 2 | 0 |
+| G. 개념 프레임워크 | 10 | 3 | 1 | 6 | 0 | 0 |
+| **계** | **90** | **54** | **6** | **27** | **3** | **0** |
+
+> ORD-010 완료 후 커버리지: 구현(✅) 60%(54/90). 최대 갭이던 데이터 차트(E)는 5%→45%(9/20 ✅+🔶), 인포그래픽(F) 18%→55%(6/11), 개념 프레임워크(G) 10%→40%(4/10)로 상승 — 엔지니어링 편중이 크게 완화됐다.
+> **P1 잔여 0** (직전 §7 집계의 "총 27/E=8"은 오기였고 실측 26건 — ORD-010에서 전량 구현). 다음 우선순위는 P2 백로그(E 대역 Stacked/Area/Scatter/Histogram/Dot/Waterfall/Choropleth 등 10건, G 대역 SWOT/Onion/Fishbone/Honeycomb 등).
 
 ## 8. 부속 기록
 

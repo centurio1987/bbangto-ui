@@ -177,6 +177,7 @@ ORD-010에서 추가되는 차트·구조 다이어그램·인포그래픽 유�
 **G4 인터랙션 (lifeline/lane)**: `SequenceDiagram`(Lifeline, activation bar, message Edge, loop/alt Boundary) · `ZenUMLDiagram`(SequenceDiagram 리스킨) · `BPMNDiagram`(pool/swimlane Lane, event 원/task 라운드/gateway 다이아 — BPMN 글리프 신규) · `ArchiMateBusinessDiagram`/`ArchiMateApplicationDiagram`/`ArchiMateTechnologyDiagram`(공용 ArchiMate 몰리큘, 레이어 컬러밴드로 구분) · `SysMLBlockDiagram`(ClassBox 파생 «block»)
 
 **G5 데이터 차트** (geometry 기반, 레지스트리 대부분 불필요): `PieChart` · `XYChart` · `RadarChart` · `QuadrantChart` · `SankeyDiagram`(가변폭 `band` 엣지 신규) · `GanttChart` · `UserJourney` · `PacketDiagram` · `GitGraph`
+> **ORD-010 구현 완료(P1)**: `BarChart`·`LineChart`(XYChart 분해)·`PieChart`·`RadarChart`·`QuadrantChart`·`RadialGauge`·`Treemap`·`SankeyDiagram`(신규 `BandEdge` atom)·`GanttChart`·`UserJourneyGantt`·`UserJourneyMap`·`GitGraph`·`PacketDiagram` + 신규 geometry `scale`/`treemap`/`venn`/`sankey`/`tree`(vitest 단위 테스트) + `Axis` atom. 구조 계열 `NetworkTopology`·`DataLineage`·`SitemapTree`·`NetworkGraph`·`ScreenFlow`, 패턴 `Venn`·`Pathways`·`GeoMap`·`BentoGrid`·`Sketchnote`·`PosterEditorial`·`SpectrumSlider` + `Cycle` spiral 모드도 함께. 잔여: `XYChart`(Bar/Line로 대체), G6 메타 프레임은 후속.
 
 **G6 메타 구조 프레임** (다른 프리셋을 조합): `Kruchten4Plus1View`(Logical/Process/Development/Physical + Scenarios 5영역 슬롯) · `ViewpointFrame`(ISO/IEC/IEEE 42010 — `viewpoint`/`concerns[]`/`stakeholders[]`/`view` props, 헤더밴드 + body 슬롯)
 
