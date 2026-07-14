@@ -8,6 +8,8 @@
 - 스타일 축: minimal / colorful / isometric / hand-drawn
 - 이번 ORD-008 구현 범위(스필오버 방지 규칙): 패턴 6종 + 그 구성 atom/molecule + 스타일 가이드 3종(Blueprint_Technical_01 / Minimal_Line_01 / Colorful_Flat_01). **여기 목록에만 있고 구현 대상 표기가 없는 항목은 전부 후속 ORDER 이연.**
 - 참고: 무관 이미지 2장 제외(`infographic_minimal_03`·`infographic_colorful_06` — 광고 사진; `infographic_colorful_01`은 저신뢰 썸네일이나 차트 콜라주로 잠정 반영). 사진별 전수 분석·스타일 재분류는 `style-classification.md` 참조.
+- **유형 전수 인벤토리·백로그 SSOT**: [visualization-type-inventory.md](./visualization-type-inventory.md) (VT-### 90행, 우선순위·상태 포함).
+  본 문서는 88장 레퍼런스 분석과 스타일 가이드(§4)의 SSOT로 유지된다.
 
 ---
 
@@ -26,6 +28,8 @@
 | 레이어드 아키텍처 | system minimal_04, colorful_06 | `ArchiMate*` 근접 |
 
 ### 1-b. 신규 템플릿 갭 (전부 후속 ORDER 이연)
+
+> 이 갭 리스트는 [visualization-type-inventory.md](./visualization-type-inventory.md) Registry에 흡수됨 — 우선순위·상태는 그쪽이 SSOT.
 
 | 갭 유형 | 근거 이미지 | 비고 |
 |---|---|---|
@@ -85,6 +89,9 @@ TimeAxis/DateTick, 범용 개념 아이콘 글리프 세트, 협업 마커류(�
 - 수용 기준: 카드/행 수 = data 길이, 각 값은 텍스트로도 노출(그래픽 단독 금지)
 
 ### 2-a. 6종 외 관측 패턴 (목록만 — 후속 이연)
+
+> 이 목록은 [visualization-type-inventory.md](./visualization-type-inventory.md) Registry에 흡수됨 — 우선순위·상태는 그쪽이 SSOT.
+
 ChartPrimitives(순수 차트), Sketchnote 컴포지션, Bento/콜라주 그리드, 방사형 노드링크,
 지도(geo) 인포그래픽, 포스터/에디토리얼 타이틀 컴포지션, Pathways 여정형.
 
