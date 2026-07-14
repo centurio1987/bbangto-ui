@@ -127,10 +127,10 @@
 | VT-202 | Process Steps | process infographic, how-to, step-by-step | 순차 스텝 체인(배지+커넥터) | 튜토리얼/워크플로 | node,leader,grid | catalog §2(내부)·X14(T3) | ✅ | `ProcessSteps`(pattern) | — | — |
 | VT-203 | Cycle | cycle diagram, loop, RADIALS | 순환 폐쇄 링/오빗 프로세스 | 반복 프로세스 | radial,edge | catalog §2(내부)·X11(T2) | ✅ | `Cycle`(pattern) | related:VT-708 | — |
 | VT-204 | Kanban Board | kanban(Mermaid) | 상태 컬럼별 카드 보드 | 작업 흐름 관리 | lane,node(card) | X06(T1) | ✅ | `KanbanBoard`(template) | — | — |
-| VT-205 | User Journey Map | journey(Mermaid), customer journey map | 여정 단계+만족도/감정 곡선 | UX 리서치 | lane,axis,node | X06(T1)·X12(T2)·PLAN §D G5(내부) | 📋 | (→template) | — | P1 |
+| VT-205 | User Journey Map | journey(Mermaid), customer journey map | 여정 단계+만족도/감정 곡선 | UX 리서치 | lane,axis,node | X06(T1)·X12(T2)·PLAN §D G5(내부) | ✅ | `UserJourneyMap`(template) | — | — |
 | VT-206 | Screen Flow | wireflow, user-flow with mockups | 화면 목업 노드 간 이동 흐름 | 화면 설계 소통 | node(mockup),edge | catalog §1-b(내부)·X17(T3) | 📋 | (→template) | MockupNode 필요 | P1 |
 | VT-207 | Funnel | sales/marketing funnel, AIDA | 단계 축소형 전환 구조 | 전환 분석 | area(사다리꼴 스택) | X13(T2) | 📋 | (→pattern) | related:VT-701 | P2 |
-| VT-208 | Pathways | 여정형 경로 인포그래픽, tube-map style route | 경로/노선 위 이정표 배열 | 커리큘럼/여정 안내 | edge(path),node,leader | catalog §2-a(내부) | 📋 | (→pattern) | — | P1 |
+| VT-208 | Pathways | 여정형 경로 인포그래픽, tube-map style route | 경로/노선 위 이정표 배열 | 커리큘럼/여정 안내 | edge(path),node,leader | catalog §2-a(내부) | ✅ | `Pathways`(pattern) | — | — |
 
 ### C. 계층·관계 — `VT-3xx` (7행)
 
@@ -150,9 +150,9 @@
 |---|---|---|---|---|---|---|---|---|---|---|
 | VT-401 | Timeline | chronology, Priestley timeline, timeline infographic | 사건의 시간순 나열 | 연혁/사건 전개 | axis,node | X06(T1)·X09(T2)·X14(T3) | ✅ | `TimelineDiagram`(template) | — | — |
 | VT-402 | Timeline Roadmap | product roadmap, milestones | 마일스톤·기간 로드맵(chevron) | 제품 계획 공유 | axis,node(marker) | catalog §2(내부)·X14(T3) | ✅ | `TimelineRoadmap`(pattern) | — | — |
-| VT-403 | Gantt Chart | gantt, project schedule | 작업·기간 시간축 막대 일정 | 일정 관리 | axis,band,lane | X06·X07(T1)·PLAN §D G5(내부) | 📋 | (→template) | tags:chart | P1 |
-| VT-404 | User Journey Gantt | journey pill + 날짜축 | 여정 pill과 날짜축 결합 | 여정 일정화 | axis,band,node(pill) | catalog §1-b(내부) | 📋 | (→template) | TimeAxis/GanttBar 필요 | P1 |
-| VT-405 | Radial / Spiral Phase | 원형·스파이럴 단계도 | 나선/원주 위 단계 배열 | 장기 phase 표현 | radial,axis | catalog §1-b(내부) | 🔶 | `Cycle` 부분 흡수 | — | P1 |
+| VT-403 | Gantt Chart | gantt, project schedule | 작업·기간 시간축 막대 일정 | 일정 관리 | axis,band,lane | X06·X07(T1)·PLAN §D G5(내부) | ✅ | `GanttChart`(template) | tags:chart | — |
+| VT-404 | User Journey Gantt | journey pill + 날짜축 | 여정 pill과 날짜축 결합 | 여정 일정화 | axis,band,node(pill) | catalog §1-b(내부) | ✅ | `UserJourneyGantt`(template) | — | — |
+| VT-405 | Radial / Spiral Phase | 원형·스파이럴 단계도 | 나선/원주 위 단계 배열 | 장기 phase 표현 | radial,axis | catalog §1-b(내부) | ✅ | `Cycle`(spiral 모드) | — | — |
 
 ### E. 데이터 차트 — `VT-5xx` (20행) — 최대 갭 영역
 

@@ -11,7 +11,7 @@ export interface CycleItemSpec {
   label: string;
 }
 
-export type CycleMode = 'ring' | 'orbit';
+export type CycleMode = 'ring' | 'orbit' | 'spiral';
 
 export interface CycleProps extends Omit<CanvasProps, 'data'> {
   data?: { items: readonly CycleItemSpec[]; center?: string };
@@ -36,7 +36,9 @@ export function Cycle({ data, mode = 'ring', children, viewBox, ...canvasProps }
       {data
         ? mode === 'orbit'
           ? renderOrbit(data, cx, cy, Math.min(vbW, vbH))
-          : renderRing(data, cx, cy, Math.min(vbW, vbH))
+          : mode === 'spiral'
+            ? renderSpiral(data, cx, cy, Math.min(vbW, vbH))
+            : renderRing(data, cx, cy, Math.min(vbW, vbH))
         : children}
     </Canvas>
   );
@@ -106,6 +108,58 @@ function renderRing(
         >
           {item.label}
         </text>
+      ))}
+    </>
+  );
+}
+
+function renderSpiral(
+  data: { items: readonly CycleItemSpec[]; center?: string },
+  cx: number,
+  cy: number,
+  size: number,
+): ReactNode {
+  const items = data.items;
+  const n = items.length;
+  if (!n) return null;
+  const nodeW = 104;
+  const nodeH = 38;
+  const rMax = size * 0.4;
+  const rMin = size * 0.12;
+  const turns = 1.25; // 아르키메데스 나선 회전수
+  // 안쪽(첫 단계)→바깥(마지막 단계)으로 반경·각 증가.
+  const positions = Array.from({ length: n }, (_, i) => {
+    const t = n === 1 ? 0 : i / (n - 1);
+    const r = rMin + (rMax - rMin) * t;
+    const angleDeg = -90 + turns * 360 * t;
+    const rad = (angleDeg * Math.PI) / 180;
+    return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
+  });
+
+  return (
+    <>
+      {data.center && (
+        <text
+          x={cx}
+          y={cy}
+          textAnchor="middle"
+          dominantBaseline="central"
+          fontSize={15}
+          fontWeight={700}
+          fontFamily={vvar('typography', 'titleFont')}
+          style={{ fill: vvar('shape', 'stroke') }}
+        >
+          {data.center}
+        </text>
+      )}
+      {positions.slice(0, -1).map((p, i) => (
+        <Edge key={`e${i}`} from={p} to={positions[i + 1]} routing="curved" markerEnd="arrow" />
+      ))}
+      {positions.map((p, i) => (
+        <g key={i} data-viz-cycle-node>
+          <Node id={`cycle-${i}`} x={p.x - nodeW / 2} y={p.y - nodeH / 2} width={nodeW} height={nodeH} shape="stadium" />
+          <NodeLabel x={p.x - nodeW / 2} y={p.y} width={nodeW} title={items[i].label} fontSize={12} />
+        </g>
       ))}
     </>
   );
