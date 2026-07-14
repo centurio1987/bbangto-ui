@@ -73,7 +73,7 @@ export const CanvasBasic: Story = {
 const ALL_SHAPES: NodeShape[] = [
   'rect', 'rounded', 'stadium', 'circle', 'ellipse',
   'diamond', 'cylinder', 'hexagon', 'parallelogram',
-  'trapezoid', 'subroutine', 'doubleCircle', 'cube', 'component',
+  'trapezoid', 'subroutine', 'doubleCircle', 'cube', 'component', 'folder',
 ];
 
 export const NodeShapes: Story = {

@@ -56,3 +56,23 @@ export function tidyTreeLayout(
     parentId: n.parentId,
   }));
 }
+
+/**
+ * WBS 십진 번호 부여("1", "1.1", "1.1.1"). WBS(VT-307) 전용.
+ * 다중 루트(배열) 지원, 순환은 방문 Set으로 방어(재방문 skip), 빈 입력 → {}.
+ */
+export function wbsNumbering(roots: TreeNodeInput | TreeNodeInput[]): Record<string, string> {
+  const list = Array.isArray(roots) ? roots : [roots];
+  const out: Record<string, string> = {};
+  const seen = new Set<string>();
+
+  const walk = (node: TreeNodeInput, code: string): void => {
+    if (seen.has(node.id)) return; // 순환 방어.
+    seen.add(node.id);
+    out[node.id] = code;
+    (node.children ?? []).forEach((child, i) => walk(child, `${code}.${i + 1}`));
+  };
+
+  list.forEach((root, i) => walk(root, `${i + 1}`));
+  return out;
+}

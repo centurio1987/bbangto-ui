@@ -12,3 +12,7 @@ export * from './histogram';
 export * from './waterfall';
 export * from './funnel';
 export * from './fishbone';
+export * from './boxplot';
+export * from './chord';
+export * from './iceberg';
+export * from './hexgrid';

@@ -12,6 +12,7 @@ import {
   subroutinePath,
   cylinderPaths,
   cubePaths,
+  folderPath,
 } from '../geometry/shapes';
 
 export type { NodeShape };
@@ -223,6 +224,16 @@ function renderShapeElements(
         </>
       );
     }
+
+    case 'folder':
+      return (
+        <path
+          data-bbangto-viz-node-shape="folder"
+          data-viz-part="shape"
+          d={folderPath(bbox)}
+          style={shapeStyle}
+        />
+      );
 
     case 'component': {
       const notchW = 16;

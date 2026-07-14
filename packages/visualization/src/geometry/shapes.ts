@@ -14,7 +14,8 @@ export type NodeShape =
   | 'subroutine'
   | 'doubleCircle'
   | 'cube'
-  | 'component';
+  | 'component'
+  | 'folder';
 
 export function rectPath({ x, y, width, height }: BBox): string {
   return `M ${x} ${y} h ${width} v ${height} h ${-width} Z`;
@@ -139,4 +140,45 @@ export function cubePaths({ x, y, width, height }: BBox, depth = 12): CubePaths 
     `L ${x + width} ${y + height - d} ` +
     `L ${x + width - d} ${y + height} Z`;
   return { front, top, right };
+}
+
+/** UML Package(VT-102) 폴더 탭 shape — 좌상단 탭 + 본체. */
+export function folderPath({ x, y, width, height }: BBox, tabW?: number, tabH?: number): string {
+  const t = Math.min(tabW ?? width * 0.35, width * 0.6);
+  const th = Math.min(tabH ?? 14, height * 0.28);
+  return (
+    `M ${x} ${y} ` +
+    `L ${x + t} ${y} ` +
+    `L ${x + t} ${y + th} ` +
+    `L ${x + width} ${y + th} ` +
+    `L ${x + width} ${y + height} ` +
+    `L ${x} ${y + height} Z`
+  );
+}
+
+/** DMN Knowledge Source(VT-124) — 하단 물결(ogee) 사각형. Node 미편입(DMN 템플릿 inline). */
+export function knowledgeSourcePath({ x, y, width, height }: BBox): string {
+  const w = Math.min(10, height * 0.22);
+  const dx = width * 0.25;
+  return (
+    `M ${x} ${y} ` +
+    `h ${width} ` +
+    `v ${height - w} ` +
+    `c ${-dx} ${w} ${-dx} ${-w} ${-width * 0.5} 0 ` +
+    `c ${-dx} ${w} ${-dx} ${-w} ${-width * 0.5} 0 ` +
+    `Z`
+  );
+}
+
+/** DMN Business Knowledge Model(VT-124) — 상단 양 모서리 컷 사각형. */
+export function bkmPath({ x, y, width, height }: BBox): string {
+  const c = Math.min(12, width * 0.12, height * 0.35);
+  return (
+    `M ${x + c} ${y} ` +
+    `L ${x + width - c} ${y} ` +
+    `L ${x + width} ${y + c} ` +
+    `L ${x + width} ${y + height} ` +
+    `L ${x} ${y + height} ` +
+    `L ${x} ${y + c} Z`
+  );
 }
