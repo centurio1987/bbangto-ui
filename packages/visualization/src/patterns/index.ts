@@ -36,3 +36,13 @@ export { SwotMatrix } from './SwotMatrix';
 export type { SwotMatrixProps, SwotMatrixData } from './SwotMatrix';
 export { OnionDiagram } from './OnionDiagram';
 export type { OnionDiagramProps, OnionLayer } from './OnionDiagram';
+
+// P3 패턴 (ORD-012)
+export { InformationalInfographic } from './InformationalInfographic';
+export type { InformationalInfographicProps, InformationalSection } from './InformationalInfographic';
+export { Iceberg } from './Iceberg';
+export type { IcebergProps, IcebergLayer } from './Iceberg';
+export { BusinessModelCanvas } from './BusinessModelCanvas';
+export type { BusinessModelCanvasProps, BusinessModelCanvasBlocks } from './BusinessModelCanvas';
+export { Honeycomb } from './Honeycomb';
+export type { HoneycombProps, HoneycombCell } from './Honeycomb';
