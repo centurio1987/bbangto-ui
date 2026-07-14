@@ -3,6 +3,10 @@
 > 목적: Style Guide Catalog를 **일괄 생성**하기 위한 후보 디자인 트렌드 수집·목록.
 > 각 항목은 bbangto-ui의 `StyleGuide` 6요소(아래)로 곧장 인스턴스화할 수 있도록 명세화한다.
 > 현재 `@centurio1987/bbangto-ui-style-guide-catalog` 패키지에 **29개 preset이 구현**되어 있다(#0–28 전부, `styleGuideCatalog`/`styleGuideMap` 등재).
+>
+> **채택 메타데이터(AI가 catalog에서 style guide를 코드 전수 검토 없이 고르기):** 아래 트렌드 표의
+> 채택 정보(패밀리·우선순위·모티프)는 각 `StyleGuide.meta`(SSOT)로 흡수되어 `catalog.manifest.json`으로
+> 투영된다. 전략·스키마·통제 어휘는 [`../style-guide-catalog/METADATA_STRATEGY.md`](../style-guide-catalog/METADATA_STRATEGY.md) 참고.
 
 ## StyleGuide 6요소 (생성 대상 스키마)
 
