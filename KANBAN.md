@@ -17,8 +17,6 @@
   - 메모: ORD-008 이연 — TemplateStyleMatrix 심층 검증이 파일럿 3템플릿×3스타일가이드로 한정됨. ORD-010/011로 구현 템플릿이 76/90까지 늘어 재스코핑 필요(단일 가이드 paint 해석 게이트는 전 템플릿 커버, 3-way 교차검증만 파일럿 한정).
 - `KAN-017` 신규 style guide 후보 5종 구현 (Bento_Modular/Kinetic_Typography/Spatial_3D/Humanist_Imperfect/Tactile_Texture) — 생성:ai · 최종:ai · 갱신:2026-07-14
   - 메모: design-trends-2020-2026.md §C 신규 후보 — ORD-009에서 추가된 3종(Corporate_Schematic/Ink_Line_Duotone/Neon_Gradient_Dark)과 별개로 아직 스타일 가이드로 구현되지 않음.
-- `KAN-022` selectStyleGuides(criteria) 스코어링 helper API (catalog 패키지) — 생성:ai · 최종:ai · 갱신:2026-07-14
-  - 메모: KAN-018 후속 — 매니페스트 meta로 태그·무드·도메인 필터·랭킹. core 아닌 style-guide-catalog에 배치(순환참조 방지).
 - `KAN-023` Storybook 'Catalog Decision Table' 스토리 (매니페스트 비교표 렌더) — 생성:ai · 최종:ai · 갱신:2026-07-14
   - 메모: KAN-018 후속 — catalog.manifest.json을 사람이 비교하는 결정 테이블.
 - `KAN-024` 팔레트 토큰 실측 WCAG 대비 계산 → meta.accessibility 선언 CI 대조 — 생성:ai · 최종:ai · 갱신:2026-07-14
@@ -33,6 +31,8 @@
 ## 검토
 
 ## 완료
+- `KAN-022` selectStyleGuides(criteria) 스코어링 helper API (catalog 패키지) — 생성:ai · 최종:ai · 갱신:2026-07-17
+  - 메모: `selectStyleGuides(catalog, criteria)` 순수 함수(METADATA_STRATEGY §6 2단계 구현). soft-weighted 스코어링(하드 필터 아님 → shortlist 붕괴 방지), family/priority(집합)·domains/tags(recall)·characteristics(등가, dark↔both)·mood(근접/band graded), 입력 sanitize·결정적 tie-break(score→priority→trendIndex→name)·pending 처리. generic `{name,meta?}`로 UI/viz/ManifestEntry 공용, 양쪽 배럴 export. viz는 select.ts 국소 복제(manifest.ts 선례)+parity 테스트(UI helper를 test 전용 devDep로 import해 deep-equal, drift 가드). UI 28+viz 10 vitest green, 4 게이트 green. `meta?` optional 제거는 이연(별도 카드).
 - `KAN-021` 잔여 48 UI + 6 viz style guide meta 전량 backfill (완료 시 gate 'meta 필수' 승격) — 생성:ai · 최종:ai · 갱신:2026-07-16
   - 메모: Workflow 5배치(A~D UI 48 + E viz 6)로 StyleGuideMeta 일괄 저작. UI 51/51·viz 6/6 authored, 두 매니페스트 pending 0. viz 매니페스트 인프라(생성기 국소 복제·prebuild·동기 테스트) 신설. 매니페스트 동기/DoD 테스트로 gate "meta 필수" 승격 근거 확보(타입상 optional 제거는 KAN-022 helper 도입 시 병행). 품질 게이트 4종 green + git clean. KAN-018 커밋 누락 genManifest.ts 편입.
 - `KAN-001` ORD-001 — StyleGuide 아키텍처 도입 (theme → style-guide 추상화 격상) — 생성:ai · 최종:ai · 갱신:2026-07-14

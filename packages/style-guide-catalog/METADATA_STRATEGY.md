@@ -121,12 +121,14 @@ StyleGuide.meta  ──(buildManifest, 결정적)──▶  catalog.manifest.jso
    **한 파일**을 로드한다.
 2. `domains` / `mood` / `tags` / `characteristics`로 후보 3–5종을 필터·랭크한다.
    (예: "다크 게이밍 대시보드" → `domains∋gaming` + `characteristics.colorScheme='dark'` +
-   `mood.energy≥4` → `cyberpunk-hud-01` 식별.)
+   `mood.energy≥4` → `cyberpunk-hud-01` 식별.) **이 2단계는 KAN-022의 `selectStyleGuides(catalog,
+   criteria)`가 코드로 수행**한다 — soft-weighted 스코어링으로 상위 N을 결정적으로 반환.
 3. 필요 시 해당 슬러그의 `useWhen`/`avoidWhen`·`summary`로 최종 판단한다(여전히 `.tsx` 전수 열람 불필요).
 4. `styleGuideMap[slug]`로 채택한다.
 
-> 스코어링/랭킹 로직 자체(`selectStyleGuides`)는 이 카드 범위 밖(KAN-022). 현 매니페스트는 필터용
-> 데이터를 제공하고, 랭킹은 소비자(AI)나 후속 helper가 수행한다.
+> **KAN-022 완료**: `selectStyleGuides`가 위 2단계를 구현한다(`src/select.ts`, UI·viz 양쪽 export).
+> soft-weighted(하드 필터 아님) → shortlist 붕괴 없이 상위 N 반환, 최종 판단은 소비자(AI)가
+> `useWhen`/`avoidWhen`으로. viz는 국소 복제 + parity 테스트로 drift 가드.
 
 ## 7. 롤아웃 단계
 
@@ -134,7 +136,7 @@ StyleGuide.meta  ──(buildManifest, 결정적)──▶  catalog.manifest.jso
 |---|---|---|
 | **파일럿(KAN-018)** | `StyleGuideMeta` 타입·어휘 + `buildManifest` + 매니페스트 + 게이트 + **대표 3종**(minimal-saas-01·neobrutalism-editorial-01·cyberpunk-hud-01) | ✅ 이 카드 |
 | KAN-021 | 잔여 48 UI + 6 viz `meta` 전량 backfill → gate "meta 필수" 승격 | ✅ (UI 51/51·viz 6/6 authored, pending 0; viz 매니페스트 인프라 신설) |
-| KAN-022 | `selectStyleGuides(criteria)` 스코어링 helper API | 📋 |
+| KAN-022 | `selectStyleGuides(criteria)` 스코어링 helper API | ✅ (soft-weighted, UI·viz 국소복제+parity, 38 vitest) |
 | KAN-023 | Storybook "Catalog Decision Table" 비교표 스토리 | 📋 |
 | KAN-024 | 팔레트 토큰 실측 WCAG 대비 계산 → `accessibility` 선언과 CI 대조 | 📋 |
 | KAN-025 | 매니페스트 → `style-guide-catalog.md` 트렌드 표 자동생성 | 📋 |
