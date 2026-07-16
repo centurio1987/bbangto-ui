@@ -32,3 +32,12 @@ export const vizStyleGuideCatalog: readonly VisualizationStyleGuide[] = [
 export const vizStyleGuideMap: Record<string, VisualizationStyleGuide> = Object.fromEntries(
   vizStyleGuideCatalog.map((sg) => [sg.name, sg]),
 );
+
+// 채택 메타데이터 매니페스트 생성기 (catalog.manifest.json으로 투영). UI 동형 생성기 국소 복제.
+export {
+  buildManifest,
+  serializeManifest,
+  type ManifestEntry,
+  type ManifestCompleteness,
+  type CatalogEntryLike,
+} from './manifest';

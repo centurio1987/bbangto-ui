@@ -1,0 +1,68 @@
+[
+  {
+    "name": "blueprint-technical-01",
+    "description": "Precision drafting look — warm paper canvas, bold 2.5px keylines, pastel semantic fills, mono tags. Promoted from the original blueprint theme.",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 2,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "colorful-flat-01",
+    "description": "Saturated flat pop — cream canvas, thick navy keylines, bright semantic fills, offset solid shadows.",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "corporate-schematic-01",
+    "description": "Corporate cloud-schematic language — white ground, neutral hairlines, flat vendor-neutral accent tiles, dashed zone boundaries.",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 2,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "ink-line-duotone-01",
+    "description": "Clean uniform monoline duotone — black shape ink + cobalt connector ink, unfilled shapes, mono annotations.",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 2,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "minimal-line-01",
+    "description": "Monochrome ink line-art — warm ivory canvas, 1.25px hairlines, unfilled shapes, one restrained accent.",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 3,
+      "hasVisualMotif": true
+    }
+  },
+  {
+    "name": "neon-gradient-dark-01",
+    "description": "Dark neon-gradient paint — deep purple ground, glossy multi-hue gradient fills via wrapper-injected SVG defs, white hairline edges, restrained glow.",
+    "metaStatus": "pending",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 2,
+      "hasVisualMotif": true
+    }
+  }
+]
