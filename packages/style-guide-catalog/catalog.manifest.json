@@ -1787,12 +1787,73 @@
   {
     "name": "memphis-postmodern-01",
     "description": "고채도 핑크·시안·노랑 충돌 + 파스텔, 지그재그·물방울·테리조 패턴, 굵은 검정 윤곽(밝은 베이스)",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Memphis_Postmodern_01",
+      "trendIndex": 12,
+      "family": "nostalgia",
+      "priority": "P3",
+      "summary": "밝은 크림 위 고채도 핑크·시안·노랑 충돌과 지그재그·물방울·테리조 패턴, 굵은 검정 윤곽·하드 오프셋 그림자의 포스트모던 표면.",
+      "tags": [
+        "vivid",
+        "playful",
+        "maximal",
+        "retro",
+        "geometric",
+        "textured",
+        "high-contrast",
+        "pastel"
+      ],
+      "mood": {
+        "formality": 1,
+        "energy": 5,
+        "warmth": 3,
+        "density": 4,
+        "ornament": 5
+      },
+      "characteristics": {
+        "cornerRadius": "soft",
+        "borderWeight": "bold",
+        "shadow": "hard",
+        "density": "balanced",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "high"
+      },
+      "domains": [
+        "creative-agency",
+        "marketing",
+        "portfolio",
+        "entertainment",
+        "landing"
+      ],
+      "useWhen": [
+        "브랜드에 경쾌하고 개성 강한 포스트모던 인상을 주고 싶을 때 쓴다.",
+        "크리에이티브 에이전시·이벤트·전시 랜딩처럼 시각적 임팩트가 우선일 때 쓴다.",
+        "고채도 색 충돌과 패턴으로 놀이·활기를 표현하고 싶을 때 쓴다."
+      ],
+      "avoidWhen": [
+        "데이터 밀도 높은 대시보드·업무 도구처럼 차분함이 필요할 때 피한다.",
+        "금융·의료처럼 절제와 신뢰가 우선인 도메인에서는 피한다.",
+        "장시간 읽는 본문 중심 문서에서 시각 피로가 우려될 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "neobrutalism-editorial-01",
+        "maximalism-dopamine-01",
+        "y2k-futurism-01"
+      ]
     }
   },
   {
@@ -1867,23 +1928,143 @@
   {
     "name": "mixed-media-collage-01",
     "description": "페이퍼 캔버스 + 다색 팔레트 위 사진·드로잉·3D를 듀오톤·그레인으로 통일한 레이어 콜라주, 컷아웃 그라운드 섀도 + 미세 회전",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "MixedMediaCollage_15",
+      "trendIndex": 43,
+      "family": "expressive-energetic",
+      "priority": "P2",
+      "summary": "페이퍼 캔버스 위 사진·드로잉·3D를 듀오톤·그레인으로 통일한 레이어 콜라주 — 편집적 멀티미디어 합성 비주얼.",
+      "tags": [
+        "textured",
+        "grainy",
+        "organic",
+        "asymmetric",
+        "hand-drawn",
+        "typographic",
+        "maximal"
+      ],
+      "mood": {
+        "formality": 2,
+        "energy": 3,
+        "warmth": 4,
+        "density": 3,
+        "ornament": 4
+      },
+      "characteristics": {
+        "cornerRadius": "soft",
+        "borderWeight": "thin",
+        "shadow": "soft",
+        "density": "balanced",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "medium"
+      },
+      "domains": [
+        "creative-agency",
+        "portfolio",
+        "editorial",
+        "marketing",
+        "landing"
+      ],
+      "useWhen": [
+        "사진·일러스트·3D를 한 톤으로 녹여 하나의 합성 이미지처럼 보여줄 때 쓴다.",
+        "룩북·캠페인·무드보드처럼 편집적 비주얼이 주인공인 화면에 쓴다.",
+        "브랜드 어바웃·아티클 스프레드에서 다매체를 감각적으로 엮고 싶을 때 쓴다.",
+        "크리에이티브 에이전시·포트폴리오의 표현적 개성이 필요할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "데이터 밀도 높은 대시보드·폼 중심 제품 UI에는 피한다.",
+        "collage-scrapbook처럼 테이프·찢김 등 날것의 이음새 질감이 목표일 때 피한다.",
+        "텍스트 가독성·명료한 정보 위계가 최우선일 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "collage-scrapbook-01",
+        "photo-type-editorial-01",
+        "editorial-magazine-01"
+      ]
     }
   },
   {
     "name": "naive-doodle-01",
     "description": "크레용 낙서·스크리블 미학 — 오프화이트 노트 배경, 원색 마커 다색, 삐뚤한 손그림 윤곽선과 영역을 벗어난 채색",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Naive_Doodle_01",
+      "trendIndex": 50,
+      "family": "expressive-energetic",
+      "priority": "P3",
+      "summary": "비숙련 어린아이의 크레용 낙서·스크리블 — 원색 마커 다색, 삐뚤한 손그림 윤곽선, 화살표·동그라미 주석의 천진한 카오스.",
+      "tags": [
+        "light",
+        "vivid",
+        "hand-drawn",
+        "playful",
+        "organic",
+        "textured",
+        "animated"
+      ],
+      "mood": {
+        "formality": 1,
+        "energy": 4,
+        "warmth": 4,
+        "density": 3,
+        "ornament": 4
+      },
+      "characteristics": {
+        "cornerRadius": "round",
+        "borderWeight": "bold",
+        "shadow": "hard",
+        "density": "balanced",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "high"
+      },
+      "domains": [
+        "kids",
+        "education",
+        "marketing",
+        "creative-agency",
+        "landing"
+      ],
+      "useWhen": [
+        "키즈·교육·커뮤니티처럼 천진하고 친근한 손그림 무드가 필요할 때 쓴다.",
+        "이벤트·캠페인 랜딩이나 무드보드·포스터에서 놀이 같은 개성을 줄 때 쓴다.",
+        "낙서 주석(화살표·동그라미)으로 헤드라인을 강조하고 싶을 때 쓴다."
+      ],
+      "avoidWhen": [
+        "금융·기업 대시보드처럼 신뢰감과 정밀함이 우선일 때 피한다.",
+        "고밀도 데이터·긴 본문 가독성이 핵심인 UI에서 피한다.",
+        "절제된 미니멀·럭셔리 톤이 필요할 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "humanist-imperfect-01",
+        "kawaii-pastel-01"
+      ]
     }
   },
   {
@@ -1957,100 +2138,645 @@
   {
     "name": "neumorphism-soft-01",
     "description": "단색 라이트 그레이 표면 + 이중 그림자(볼록/오목) 압출감, 부드러운 라운드",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Neumorphism_Soft_01",
+      "trendIndex": 2,
+      "family": "depth-material",
+      "priority": "P1",
+      "summary": "배경과 같은 단색 표면을 이중 그림자로 볼록/오목 압출한 부드러운 촉각 UI.",
+      "tags": [
+        "light",
+        "muted",
+        "monochrome",
+        "rounded",
+        "depth",
+        "minimal",
+        "mono"
+      ],
+      "mood": {
+        "formality": 3,
+        "energy": 1,
+        "warmth": 2,
+        "density": 2,
+        "ornament": 2
+      },
+      "characteristics": {
+        "cornerRadius": "round",
+        "borderWeight": "none",
+        "shadow": "soft",
+        "density": "airy",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "low"
+      },
+      "domains": [
+        "saas",
+        "dashboard",
+        "entertainment",
+        "portfolio",
+        "fintech"
+      ],
+      "useWhen": [
+        "물리 버튼 같은 눌림 피드백의 부드러운 촉각 인터페이스를 원할 때 쓴다.",
+        "설정 패널·미디어 플레이어·계산기형 키패드처럼 컨트롤이 적은 화면에 쓴다.",
+        "단일 색조로 시각 소음을 줄인 차분한 인상을 만들고 싶을 때 쓴다."
+      ],
+      "avoidWhen": [
+        "텍스트·데이터 밀도가 높아 강한 대비와 가독성이 우선일 때 피한다.",
+        "WCAG 대비를 엄격히 지켜야 하는 접근성 민감 서비스에 피한다.",
+        "명확한 위계·강조가 필요한 정보 중심 화면에 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "low",
+        "colorblindConsidered": false,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "claymorphism-playful-01",
+        "skeuomorphism-tactile-01",
+        "glassmorphism-aurora-01"
+      ]
     }
   },
   {
     "name": "op-art-kinetic-01",
     "description": "옵아트 키네틱 — 고대비 흑백 + 코발트 액센트, 압축 그로테스크 헤비 산세리프, 직각 기조, 줄무늬 위상 드리프트의 옵티컬 운동감",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "OpArtKinetic_17",
+      "trendIndex": 45,
+      "family": "flat-systematic",
+      "priority": "P3",
+      "summary": "고대비 흑백 + 코발트 액센트 1색, 압축 그로테스크 헤비 산세리프, 직각 기조. 평행선·줄무늬의 위상 드리프트가 만드는 옵티컬 운동감이 시그니처.",
+      "tags": [
+        "high-contrast",
+        "monochrome",
+        "geometric",
+        "sharp",
+        "kinetic",
+        "typographic",
+        "vivid",
+        "flat"
+      ],
+      "mood": {
+        "formality": 3,
+        "energy": 4,
+        "warmth": 1,
+        "density": 3,
+        "ornament": 3
+      },
+      "characteristics": {
+        "cornerRadius": "sharp",
+        "borderWeight": "bold",
+        "shadow": "none",
+        "density": "balanced",
+        "motion": "kinetic",
+        "colorScheme": "both",
+        "contrast": "high"
+      },
+      "domains": [
+        "creative-agency",
+        "portfolio",
+        "marketing",
+        "landing",
+        "entertainment"
+      ],
+      "useWhen": [
+        "전시·포스터·브랜드 캠페인처럼 강한 시각적 임팩트가 필요할 때 쓴다.",
+        "크리에이티브 에이전시·포트폴리오 히어로에 옵티컬 착시로 이목을 끌 때 쓴다.",
+        "고대비 흑백 + 단일 강채도 액센트의 절제된 대담함을 원할 때 쓴다.",
+        "이벤트 랜딩·갤러리 그리드에 리듬감 있는 줄무늬 변주를 쓰고 싶을 때 쓴다."
+      ],
+      "avoidWhen": [
+        "본문·폼·표 같은 고밀도 정보 UI에는 피한다(줄무늬가 가독을 해친다).",
+        "시각 피로·편두통·발작 위험을 낮춰야 하는 접근성 민감 서비스에는 피한다.",
+        "SaaS 대시보드·차분한 기업 UI처럼 조용한 신뢰감이 우선일 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": true,
+        "motionHeavy": true,
+        "darkFirst": false
+      },
+      "related": [
+        "bauhaus-geometric-01",
+        "kinetic-typography-01",
+        "warped-checkerboard-01"
+      ]
     }
   },
   {
     "name": "organic-fluid-blob-01",
     "description": "유체 블롭·리본 곡선 + 다색 그라디언트 색면 + 둥근 지오메트릭 산세리프 + 평면적(그림자 최소), 마젠타/시안/라임/코랄 다색 액센트",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Organic_Fluid_Blob_01",
+      "trendIndex": 34,
+      "family": "expressive-energetic",
+      "priority": "P1",
+      "summary": "바이오모픽 블롭·리본·스우시의 매끈한 곡선 + 시안→마젠타→코랄 다색 유체 그라디언트, 평면적이며 hover 블롭 모핑이 시그니처.",
+      "tags": [
+        "gradient",
+        "organic",
+        "rounded",
+        "vivid",
+        "flat",
+        "playful",
+        "animated"
+      ],
+      "mood": {
+        "formality": 2,
+        "energy": 4,
+        "warmth": 3,
+        "density": 2,
+        "ornament": 4
+      },
+      "characteristics": {
+        "cornerRadius": "round",
+        "borderWeight": "thin",
+        "shadow": "none",
+        "density": "airy",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "medium"
+      },
+      "domains": [
+        "creative-agency",
+        "marketing",
+        "landing",
+        "portfolio",
+        "entertainment"
+      ],
+      "useWhen": [
+        "창의적·표현적 브랜드 랜딩에서 유기적 곡선과 다색 그라디언트로 개성을 낼 때 쓴다.",
+        "부드럽고 친근한 인상의 마케팅·에이전시 사이트를 만들 때 쓴다.",
+        "hover 블롭 모핑 같은 유체 인터랙션으로 생동감을 주고 싶을 때 쓴다.",
+        "그림자 없이 색의 흐름만으로 깊이를 표현하고 싶을 때 쓴다."
+      ],
+      "avoidWhen": [
+        "데이터 밀도 높은 대시보드·관리 UI처럼 각지고 정돈된 구조가 필요할 때 피한다.",
+        "금융·엔터프라이즈처럼 절제된 격식과 중립 톤이 우선일 때 피한다.",
+        "그라디언트 색면 위 본문 가독성이 핵심인 텍스트 중심 화면에는 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "claymorphism-playful-01",
+        "aurora-gradient-01",
+        "ai-surreal-gradient3d-01"
+      ]
     }
   },
   {
     "name": "photo-type-editorial-01",
     "description": "단색 평면 배경 + 초대형 grotesque 타이포와 사진 융합(클립·마스크·아웃라인) + 각진 플랫 프레임, 차콜/오렌지/옐로 대비",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "PhotoTypeEditorial_16",
+      "trendIndex": 44,
+      "family": "typographic-editorial",
+      "priority": "P3",
+      "summary": "단색 평면 배경 + 초대형 grotesque 타이포와 사진의 융합(클립·마스크·아웃라인), 각진 플랫 프레임과 hard-offset의 포스터형 에디토리얼.",
+      "tags": [
+        "typographic",
+        "sharp",
+        "high-contrast",
+        "vivid",
+        "flat",
+        "asymmetric"
+      ],
+      "mood": {
+        "formality": 3,
+        "energy": 4,
+        "warmth": 4,
+        "density": 3,
+        "ornament": 2
+      },
+      "characteristics": {
+        "cornerRadius": "sharp",
+        "borderWeight": "bold",
+        "shadow": "hard",
+        "density": "balanced",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "high"
+      },
+      "domains": [
+        "editorial",
+        "portfolio",
+        "marketing",
+        "creative-agency",
+        "landing"
+      ],
+      "useWhen": [
+        "매거진 표지·포스터형 히어로처럼 사진과 대형 활자를 한 덩어리로 강렬하게 보여줄 때 쓴다.",
+        "크리에이티브 에이전시·포트폴리오에서 타이포 주도의 편집적 임팩트가 필요할 때 쓴다.",
+        "캠페인 랜딩·갤러리 인덱스에서 사진을 글자·기하 프레임에 가둬 인상적으로 배치할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "데이터 밀도 높은 대시보드·설정 UI처럼 절제된 가독성이 우선일 때 피한다.",
+        "본문·긴 텍스트가 중심인 문서·블로그에서 활자를 사진으로 채우려 할 때 피한다.",
+        "부드럽고 둥근·친근한 무드가 필요한 키즈·소비자 서비스에는 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "editorial-magazine-01",
+        "neobrutalism-editorial-01",
+        "mixed-media-collage-01"
+      ]
     }
   },
   {
     "name": "pixel-art-retro-01",
     "description": "8비트 도트 미감 + 정수 픽셀 그리드 스냅 + 직각 모서리 + blur 0 하드 도트 그림자, CRT 다크 베이스에 고채도 원색",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "PixelArtRetro_13",
+      "trendIndex": 3,
+      "family": "nostalgia",
+      "priority": "P2",
+      "summary": "의도적 저해상 8비트 도트 미감 — 정수 픽셀 그리드에 스냅된 블록 타이포·직각 모서리·blur 0 하드 도트 그림자, CRT 다크 베이스 고채도 원색.",
+      "tags": [
+        "retro",
+        "dark",
+        "vivid",
+        "sharp",
+        "geometric",
+        "mono",
+        "grid",
+        "playful"
+      ],
+      "mood": {
+        "formality": 2,
+        "energy": 4,
+        "warmth": 2,
+        "density": 3,
+        "ornament": 3
+      },
+      "characteristics": {
+        "cornerRadius": "sharp",
+        "borderWeight": "bold",
+        "shadow": "hard",
+        "density": "balanced",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "high"
+      },
+      "domains": [
+        "gaming",
+        "entertainment",
+        "portfolio",
+        "creative-agency",
+        "landing"
+      ],
+      "useWhen": [
+        "레트로 게임·아케이드 향수를 앞세운 UI를 만들 때 쓴다.",
+        "8비트 도트 미감으로 강한 개성·놀이 에너지를 줄 때 쓴다.",
+        "게임·엔터·크리에이티브 포트폴리오 랜딩에 쓴다."
+      ],
+      "avoidWhen": [
+        "장문 본문 가독성·정보 밀도가 최우선인 관리 UI에는 피한다.",
+        "기업·금융처럼 절제된 신뢰감이 필요할 때 피한다.",
+        "부드러운 곡선·그라디언트 기반 브랜드에는 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": false,
+        "darkFirst": true
+      },
+      "related": [
+        "terminal-mono-01",
+        "y2k-futurism-01",
+        "vaporwave-synth-01"
+      ]
     }
   },
   {
     "name": "punk-grunge-graffiti-01",
     "description": "제록스 하프톤·찢긴 가장자리·스프레이/낙서가 그리드를 깨는 펑크 진 그래피티 — 오프블랙 + 형광 스폿(옐로/마젠타) 충돌",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "PunkGrungeGraffiti_10",
+      "trendIndex": 38,
+      "family": "expressive-energetic",
+      "priority": "P2",
+      "summary": "제록스 하프톤·찢긴 가장자리·스프레이/낙서가 그리드를 깨는 반정제 카오스 콜라주, 오프블랙 + 형광 스폿(옐로/마젠타/레드) 충돌.",
+      "tags": [
+        "raw",
+        "sharp",
+        "textured",
+        "grainy",
+        "high-contrast",
+        "neon",
+        "hand-drawn",
+        "maximal",
+        "asymmetric"
+      ],
+      "mood": {
+        "formality": 1,
+        "energy": 5,
+        "warmth": 3,
+        "density": 4,
+        "ornament": 5
+      },
+      "characteristics": {
+        "cornerRadius": "sharp",
+        "borderWeight": "bold",
+        "shadow": "hard",
+        "density": "dense",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "high"
+      },
+      "domains": [
+        "creative-agency",
+        "entertainment",
+        "portfolio",
+        "marketing",
+        "landing"
+      ],
+      "useWhen": [
+        "음악·서브컬처·이벤트처럼 반항적이고 시끄러운 개성이 필요할 때 쓴다.",
+        "진(zine)·포스터·굿즈처럼 손으로 찢어 붙인 콜라주 질감을 원할 때 쓴다.",
+        "크리에이티브 에이전시·아티스트 포트폴리오에서 강한 인상을 남기고 싶을 때 쓴다."
+      ],
+      "avoidWhen": [
+        "신뢰·정밀이 중요한 금융·의료·기업 대시보드에는 피한다.",
+        "높은 정보 밀도와 장시간 가독성이 필요한 제품 UI에는 피한다.",
+        "차분하고 절제된 미니멀 톤이 요구될 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "collage-scrapbook-01",
+        "neobrutalism-editorial-01",
+        "mixed-media-collage-01"
+      ]
     }
   },
   {
     "name": "radiant-glow-dark-01",
     "description": "다크 라디언트 글로우 + 중심 발광(핫핑크/앰버) + 노이즈 그레인 + glow bloom 깊이, 절제된 radius",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "RadiantGlowDark_07",
+      "trendIndex": 35,
+      "family": "tech-dark",
+      "priority": "P1",
+      "summary": "near-black 바탕 위 중심에서 방사하는 핫핑크·앰버 라디언트 글로우와 노이즈 그레인, 드롭섀도 대신 glow bloom으로 깊이를 만드는 다크 무드.",
+      "tags": [
+        "dark",
+        "neon",
+        "gradient",
+        "grainy",
+        "vivid",
+        "sharp",
+        "futuristic",
+        "animated"
+      ],
+      "mood": {
+        "formality": 3,
+        "energy": 4,
+        "warmth": 3,
+        "density": 2,
+        "ornament": 4
+      },
+      "characteristics": {
+        "cornerRadius": "sharp",
+        "borderWeight": "thin",
+        "shadow": "glow",
+        "density": "airy",
+        "motion": "subtle",
+        "colorScheme": "dark",
+        "contrast": "high"
+      },
+      "domains": [
+        "landing",
+        "marketing",
+        "entertainment",
+        "creative-agency",
+        "gaming"
+      ],
+      "useWhen": [
+        "다크 무드 랜딩 히어로·이벤트/뮤직 포스터에서 중심 발광으로 시선을 한 점에 모을 때 쓴다.",
+        "네온 글로우·시네마틱 다크 미학으로 강렬한 첫인상이 필요할 때 쓴다.",
+        "제품·아티스트 실루엣 쇼케이스나 강조 플랜에만 bloom을 집중하고 싶을 때 쓴다."
+      ],
+      "avoidWhen": [
+        "밝고 매끈한 파스텔 그라데이션 무드가 필요할 때 피한다(aurora-gradient 계열을 쓴다).",
+        "정보 밀도 높은 대시보드·문서처럼 차분한 가독성이 우선일 때 피한다.",
+        "발광면 위에 저명도 컬러 텍스트를 넓게 올려야 할 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": false,
+        "darkFirst": true
+      },
+      "related": [
+        "cyberpunk-hud-01",
+        "aurora-gradient-01",
+        "vaporwave-synth-01"
+      ]
     }
   },
   {
     "name": "retro70s-warm-01",
     "description": "크림 베이스 위 머스타드·테라코타·올리브 어스톤 + 필름 그레인 텍스처의 70년대 따뜻한 레트로",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Retro70s_Warm_01",
+      "trendIndex": 14,
+      "family": "nostalgia",
+      "priority": "P3",
+      "summary": "크림 베이스 위 머스타드·테라코타·올리브 어스톤, 필름 그레인, 알약형·아치 라운드의 70년대 따뜻한 레트로.",
+      "tags": [
+        "light",
+        "retro",
+        "grainy",
+        "textured",
+        "rounded",
+        "playful",
+        "vivid"
+      ],
+      "mood": {
+        "formality": 2,
+        "energy": 3,
+        "warmth": 5,
+        "density": 3,
+        "ornament": 3
+      },
+      "characteristics": {
+        "cornerRadius": "round",
+        "borderWeight": "bold",
+        "shadow": "hard",
+        "density": "balanced",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "medium"
+      },
+      "domains": [
+        "marketing",
+        "landing",
+        "portfolio",
+        "blog",
+        "creative-agency"
+      ],
+      "useWhen": [
+        "70년대 빈티지·레트로 무드의 브랜드 Hero·랜딩을 만들 때 쓴다.",
+        "따뜻한 어스톤과 그루비 라운드로 친근하고 아날로그한 인상을 주고 싶을 때 쓴다.",
+        "카페·베이커리·라이프스타일처럼 손맛과 온기를 강조할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "데이터 밀도 높은 대시보드·엔터프라이즈 관리 UI에는 피한다.",
+        "차갑고 미니멀한 테크·핀테크 신뢰 톤이 필요할 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "scandi-warm-01",
+        "risograph-print-01"
+      ]
     }
   },
   {
     "name": "risograph-print-01",
     "description": "웜 크림 종이 + 한정 스팟 잉크 2~3색 multiply 오버프린트 + 분판 미스레지스트레이션 + 그레인/망점 질감, 평면 인쇄물 미학",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Risograph_Print_01",
+      "trendIndex": 29,
+      "family": "nostalgia",
+      "priority": "P1",
+      "summary": "웜 크림 종이 + 한정 스팟 잉크 2~3색 multiply 오버프린트, 분판 미스레지스트레이션과 그레인/망점의 평면 인쇄소 질감.",
+      "tags": [
+        "light",
+        "vivid",
+        "textured",
+        "grainy",
+        "retro",
+        "sharp",
+        "typographic"
+      ],
+      "mood": {
+        "formality": 2,
+        "energy": 3,
+        "warmth": 4,
+        "density": 3,
+        "ornament": 4
+      },
+      "characteristics": {
+        "cornerRadius": "sharp",
+        "borderWeight": "thin",
+        "shadow": "none",
+        "density": "balanced",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "medium"
+      },
+      "domains": [
+        "creative-agency",
+        "editorial",
+        "marketing",
+        "portfolio",
+        "blog"
+      ],
+      "useWhen": [
+        "포스터·룩북·인쇄물처럼 손맛 있는 아날로그 질감이 핵심일 때 쓴다.",
+        "크리에이티브 에이전시·전시·문화 행사 홍보물에 개성을 줄 때 쓴다.",
+        "한정 스팟 잉크 오버프린트로 제3색과 분판 어긋남을 연출하고 싶을 때 쓴다.",
+        "인디 출판·소규모 브랜드의 편집 표지 무드가 필요할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "데이터 밀도 높은 대시보드·관리 UI처럼 정밀 정합과 가독성이 최우선일 때 피한다.",
+        "풀컬러 사진·부드러운 그라디언트·드롭섀도가 중심인 디자인에는 피한다.",
+        "기업 신뢰감·미니멀 절제가 우선인 B2B SaaS에는 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "halftone-dot-print-01",
+        "tactile-texture-01",
+        "halftone-glitch-colorsep-01"
+      ]
     }
   },
   {

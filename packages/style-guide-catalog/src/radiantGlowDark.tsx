@@ -291,4 +291,41 @@ export const radiantGlowDarkStyleGuide: StyleGuide = {
   patterns: { RadiantGlowDarkShowcase: Showcase },
   guidelines,
   visualMotif,
+  meta: {
+    displayName: 'RadiantGlowDark_07',
+    trendIndex: 35,
+    family: 'tech-dark',
+    priority: 'P1',
+    summary:
+      'near-black 바탕 위 중심에서 방사하는 핫핑크·앰버 라디언트 글로우와 노이즈 그레인, 드롭섀도 대신 glow bloom으로 깊이를 만드는 다크 무드.',
+    tags: ['dark', 'neon', 'gradient', 'grainy', 'vivid', 'sharp', 'futuristic', 'animated'],
+    mood: { formality: 3, energy: 4, warmth: 3, density: 2, ornament: 4 },
+    characteristics: {
+      cornerRadius: 'sharp',
+      borderWeight: 'thin',
+      shadow: 'glow',
+      density: 'airy',
+      motion: 'subtle',
+      colorScheme: 'dark',
+      contrast: 'high',
+    },
+    domains: ['landing', 'marketing', 'entertainment', 'creative-agency', 'gaming'],
+    useWhen: [
+      '다크 무드 랜딩 히어로·이벤트/뮤직 포스터에서 중심 발광으로 시선을 한 점에 모을 때 쓴다.',
+      '네온 글로우·시네마틱 다크 미학으로 강렬한 첫인상이 필요할 때 쓴다.',
+      '제품·아티스트 실루엣 쇼케이스나 강조 플랜에만 bloom을 집중하고 싶을 때 쓴다.',
+    ],
+    avoidWhen: [
+      '밝고 매끈한 파스텔 그라데이션 무드가 필요할 때 피한다(aurora-gradient 계열을 쓴다).',
+      '정보 밀도 높은 대시보드·문서처럼 차분한 가독성이 우선일 때 피한다.',
+      '발광면 위에 저명도 컬러 텍스트를 넓게 올려야 할 때 피한다.',
+    ],
+    accessibility: {
+      contrastIntent: 'aa',
+      colorblindConsidered: false,
+      motionHeavy: false,
+      darkFirst: true,
+    },
+    related: ['cyberpunk-hud-01', 'aurora-gradient-01', 'vaporwave-synth-01'],
+  },
 };

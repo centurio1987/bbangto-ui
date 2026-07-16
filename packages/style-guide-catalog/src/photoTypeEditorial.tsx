@@ -272,4 +272,41 @@ export const photoTypeEditorialStyleGuide: StyleGuide = {
   patterns: { PhotoTypeEditorialShowcase: Showcase },
   guidelines,
   visualMotif,
+  meta: {
+    displayName: 'PhotoTypeEditorial_16',
+    trendIndex: 44,
+    family: 'typographic-editorial',
+    priority: 'P3',
+    summary:
+      '단색 평면 배경 + 초대형 grotesque 타이포와 사진의 융합(클립·마스크·아웃라인), 각진 플랫 프레임과 hard-offset의 포스터형 에디토리얼.',
+    tags: ['typographic', 'sharp', 'high-contrast', 'vivid', 'flat', 'asymmetric'],
+    mood: { formality: 3, energy: 4, warmth: 4, density: 3, ornament: 2 },
+    characteristics: {
+      cornerRadius: 'sharp',
+      borderWeight: 'bold',
+      shadow: 'hard',
+      density: 'balanced',
+      motion: 'subtle',
+      colorScheme: 'both',
+      contrast: 'high',
+    },
+    domains: ['editorial', 'portfolio', 'marketing', 'creative-agency', 'landing'],
+    useWhen: [
+      '매거진 표지·포스터형 히어로처럼 사진과 대형 활자를 한 덩어리로 강렬하게 보여줄 때 쓴다.',
+      '크리에이티브 에이전시·포트폴리오에서 타이포 주도의 편집적 임팩트가 필요할 때 쓴다.',
+      '캠페인 랜딩·갤러리 인덱스에서 사진을 글자·기하 프레임에 가둬 인상적으로 배치할 때 쓴다.',
+    ],
+    avoidWhen: [
+      '데이터 밀도 높은 대시보드·설정 UI처럼 절제된 가독성이 우선일 때 피한다.',
+      '본문·긴 텍스트가 중심인 문서·블로그에서 활자를 사진으로 채우려 할 때 피한다.',
+      '부드럽고 둥근·친근한 무드가 필요한 키즈·소비자 서비스에는 피한다.',
+    ],
+    accessibility: {
+      contrastIntent: 'aa',
+      colorblindConsidered: false,
+      motionHeavy: false,
+      darkFirst: false,
+    },
+    related: ['editorial-magazine-01', 'neobrutalism-editorial-01', 'mixed-media-collage-01'],
+  },
 };
