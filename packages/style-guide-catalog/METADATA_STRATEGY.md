@@ -106,8 +106,10 @@ StyleGuide.meta  ──(buildManifest, 결정적)──▶  catalog.manifest.jso
 - **의존 방향(순환참조 방지)**: `tokens`(meta 타입) → `core`(StyleGuide) → `style-guide-catalog`
   (매니페스트·향후 helper). `core`는 catalog를 역참조하지 않는다. `selectStyleGuides()` 같은 helper는
   catalog 패키지에 둔다.
-- `meta`는 타입상 **optional**(백필 미완 항목과 공존). 전 항목 backfill 완료 후 gate를 "meta 필수"로
-  승격한다(KAN-021).
+- `meta`는 타입상 **optional**(백필 미완 항목과 공존). **KAN-021로 전 항목 backfill 완료**(UI 51/51·viz
+  6/6 authored, 두 매니페스트 pending 0) → 매니페스트 동기 테스트에 "전량 authored·pending 0" DoD
+  assertion을 추가해 gate를 승격했다. 타입 시그니처의 `?`(optional) 제거는 소비 helper 도입 시점
+  (KAN-022)에 병행한다(현재는 테스트 게이트가 필수성을 강제).
 - **재생성 강제**: `catalog.manifest.json`은 생성물이다. `prebuild`가 `gen:manifest`를 자동 실행하고,
   vitest 동기 테스트(`buildManifest(styleGuideCatalog) === 커밋본`)가 stale 매니페스트를 CI에서 잡는다.
 - **drift 최소화**: 매니페스트를 채택 필드의 기계 SSOT로 삼고, `style-guide-catalog.md` 트렌드 표는
@@ -131,7 +133,7 @@ StyleGuide.meta  ──(buildManifest, 결정적)──▶  catalog.manifest.jso
 | 단계 | 내용 | 상태 |
 |---|---|---|
 | **파일럿(KAN-018)** | `StyleGuideMeta` 타입·어휘 + `buildManifest` + 매니페스트 + 게이트 + **대표 3종**(minimal-saas-01·neobrutalism-editorial-01·cyberpunk-hud-01) | ✅ 이 카드 |
-| KAN-021 | 잔여 48 UI + 6 viz `meta` 전량 backfill → gate "meta 필수" 승격 | 📋 |
+| KAN-021 | 잔여 48 UI + 6 viz `meta` 전량 backfill → gate "meta 필수" 승격 | ✅ (UI 51/51·viz 6/6 authored, pending 0; viz 매니페스트 인프라 신설) |
 | KAN-022 | `selectStyleGuides(criteria)` 스코어링 helper API | 📋 |
 | KAN-023 | Storybook "Catalog Decision Table" 비교표 스토리 | 📋 |
 | KAN-024 | 팔레트 토큰 실측 WCAG 대비 계산 → `accessibility` 선언과 CI 대조 | 📋 |

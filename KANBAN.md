@@ -17,8 +17,6 @@
   - 메모: ORD-008 이연 — TemplateStyleMatrix 심층 검증이 파일럿 3템플릿×3스타일가이드로 한정됨. ORD-010/011로 구현 템플릿이 76/90까지 늘어 재스코핑 필요(단일 가이드 paint 해석 게이트는 전 템플릿 커버, 3-way 교차검증만 파일럿 한정).
 - `KAN-017` 신규 style guide 후보 5종 구현 (Bento_Modular/Kinetic_Typography/Spatial_3D/Humanist_Imperfect/Tactile_Texture) — 생성:ai · 최종:ai · 갱신:2026-07-14
   - 메모: design-trends-2020-2026.md §C 신규 후보 — ORD-009에서 추가된 3종(Corporate_Schematic/Ink_Line_Duotone/Neon_Gradient_Dark)과 별개로 아직 스타일 가이드로 구현되지 않음.
-- `KAN-021` 잔여 48 UI + 6 viz style guide meta 전량 backfill (완료 시 gate 'meta 필수' 승격) — 생성:ai · 최종:ai · 갱신:2026-07-14
-  - 메모: KAN-018 후속 — Workflow 일괄 저작(foundation-preset-tweaks 대량편집 선례). 전 항목 authored 후 매니페스트 pending 0.
 - `KAN-022` selectStyleGuides(criteria) 스코어링 helper API (catalog 패키지) — 생성:ai · 최종:ai · 갱신:2026-07-14
   - 메모: KAN-018 후속 — 매니페스트 meta로 태그·무드·도메인 필터·랭킹. core 아닌 style-guide-catalog에 배치(순환참조 방지).
 - `KAN-023` Storybook 'Catalog Decision Table' 스토리 (매니페스트 비교표 렌더) — 생성:ai · 최종:ai · 갱신:2026-07-14
@@ -35,6 +33,8 @@
 ## 검토
 
 ## 완료
+- `KAN-021` 잔여 48 UI + 6 viz style guide meta 전량 backfill (완료 시 gate 'meta 필수' 승격) — 생성:ai · 최종:ai · 갱신:2026-07-16
+  - 메모: Workflow 5배치(A~D UI 48 + E viz 6)로 StyleGuideMeta 일괄 저작. UI 51/51·viz 6/6 authored, 두 매니페스트 pending 0. viz 매니페스트 인프라(생성기 국소 복제·prebuild·동기 테스트) 신설. 매니페스트 동기/DoD 테스트로 gate "meta 필수" 승격 근거 확보(타입상 optional 제거는 KAN-022 helper 도입 시 병행). 품질 게이트 4종 green + git clean. KAN-018 커밋 누락 genManifest.ts 편입.
 - `KAN-001` ORD-001 — StyleGuide 아키텍처 도입 (theme → style-guide 추상화 격상) — 생성:ai · 최종:ai · 갱신:2026-07-14
   - 메모: StyleGuideTokens/StyleGuide/StyleGuideProvider 구현 및 export. typecheck+build 통과.
   - 원문:
