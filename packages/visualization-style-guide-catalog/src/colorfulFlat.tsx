@@ -287,4 +287,37 @@ export const colorfulFlat01VizStyleGuide: VisualizationStyleGuide = {
     },
     example: Showcase,
   },
+  meta: {
+    displayName: 'Colorful_Flat_01',
+    family: 'viz-flat-pop',
+    summary:
+      '고채도 flat 채움 + 두꺼운 navy 아웃라인 + 오프셋 솔리드 섀도의 팝 다이어그램 — 밝고 친근한 인포그래픽·차트에 쓴다.',
+    tags: ['vivid', 'flat', 'rounded', 'playful', 'high-contrast', 'depth'],
+    mood: { formality: 2, energy: 4, warmth: 4, density: 3, ornament: 3 },
+    characteristics: {
+      cornerRadius: 'round',
+      borderWeight: 'bold',
+      shadow: 'hard',
+      density: 'balanced',
+      motion: 'subtle',
+      colorScheme: 'both',
+      contrast: 'high',
+    },
+    domains: ['marketing', 'education', 'entertainment', 'creative-agency', 'social'],
+    useWhen: [
+      '발표·마케팅용 인포그래픽이나 통계 차트에서 강한 시선 임팩트가 필요할 때 쓴다.',
+      '노드·플로우 다이어그램을 밝고 친근한 팝 인상으로 표현하고 싶을 때 쓴다.',
+      '카테고리 구분을 고채도 색과 두꺼운 아웃라인으로 또렷하게 나누고 싶을 때 쓴다.',
+    ],
+    avoidWhen: [
+      '기업 아키텍처·기술 스키매틱처럼 절제되고 중립적인 도식이 필요할 때 피한다.',
+      '데이터 밀도가 매우 높아 두꺼운 아웃라인·오프셋 섀도가 시각적 잡음이 될 때 피한다.',
+    ],
+    accessibility: {
+      contrastIntent: 'aa',
+      colorblindConsidered: true,
+      motionHeavy: false,
+      darkFirst: false,
+    },
+  },
 };

@@ -252,4 +252,40 @@ export const minimalLine01VizStyleGuide: VisualizationStyleGuide = {
     },
     example: Showcase,
   },
+  meta: {
+    displayName: 'Minimal_Line_01',
+    family: 'viz-editorial-accent',
+    summary:
+      '웜 아이보리 캔버스 위 1.25px 헤어라인 라인아트 다이어그램 — 무채움 도형·넉넉한 여백·절제된 단일 액센트로 노드/플로우/차트를 정갈하게.',
+    tags: ['light', 'minimal', 'monochrome', 'flat', 'airy', 'typographic', 'muted'],
+    mood: { formality: 3, energy: 2, warmth: 4, density: 2, ornament: 1 },
+    characteristics: {
+      cornerRadius: 'sharp',
+      borderWeight: 'thin',
+      shadow: 'none',
+      density: 'airy',
+      motion: 'subtle',
+      colorScheme: 'light',
+      contrast: 'medium',
+    },
+    domains: ['docs', 'dev-tools', 'editorial', 'saas', 'dashboard'],
+    useWhen: [
+      '기술 문서·아키텍처 도식을 정갈한 라인아트로 담백하게 표현할 때 쓴다.',
+      '노드·플로우 다이어그램에서 색보다 굵기·여백으로 위계를 세우고 싶을 때 쓴다.',
+      '에디토리얼 데이터 저널리즘처럼 초대형 수치와 미세 캡션의 대비를 살릴 때 쓴다.',
+      '단일 액센트로 강조를 절제하며 인쇄물 같은 정적 인상이 필요할 때 쓴다.',
+    ],
+    avoidWhen: [
+      '카테고리가 많아 다색 인코딩으로 계열을 구분해야 하는 차트에는 피한다.',
+      '다크 대시보드·네온 강조 등 강렬한 시각 임팩트가 필요할 때 피한다.',
+      '면 채움·그라디언트로 볼륨감을 줘야 하는 인포그래픽에는 피한다.',
+    ],
+    accessibility: {
+      contrastIntent: 'aa',
+      colorblindConsidered: true,
+      motionHeavy: false,
+      darkFirst: false,
+    },
+    related: ['ink-line-duotone-01', 'blueprint-technical-01'],
+  },
 };

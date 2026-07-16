@@ -347,4 +347,39 @@ export const neonGradientDark01VizStyleGuide: VisualizationStyleGuide = {
     },
     example: NeonShowcase as React.FC,
   },
+  meta: {
+    displayName: 'Neon_Gradient_Dark_01',
+    family: 'viz-neon-gradient-dark',
+    summary:
+      '다크 그라디언트 그라운드 + kind별 멀티휴 네온 램프 채움·흰 헤어라인·절제된 글로우의 하이테크 데이터 시각화 페인트.',
+    tags: ['dark', 'neon', 'gradient', 'vivid', 'futuristic', 'glossy', 'technical'],
+    mood: { formality: 3, energy: 4, warmth: 2, density: 3, ornament: 4 },
+    characteristics: {
+      cornerRadius: 'soft',
+      borderWeight: 'thin',
+      shadow: 'glow',
+      density: 'balanced',
+      motion: 'subtle',
+      colorScheme: 'dark',
+      contrast: 'high',
+    },
+    domains: ['dashboard', 'crypto-web3', 'gaming', 'entertainment', 'marketing'],
+    useWhen: [
+      '다크 테마 대시보드·실시간 지표 화면에서 네온 그라디언트로 강한 시각적 임팩트를 줄 때 쓴다.',
+      '크립토·web3·게이밍처럼 미래지향 하이테크 무드가 필요한 노드/차트/다이어그램에 쓴다.',
+      '발표·데모용 시각화를 화려하게 부각하고 싶을 때 쓴다.',
+    ],
+    avoidWhen: [
+      '라이트 배경·인쇄 지향 문서형 차트가 필요할 때 피한다(이 가이드는 다크 전용).',
+      '수백 노드 규모 그래프에서 그라디언트 defs 비용·글로우 과부하가 문제될 때 피한다.',
+      '저채도 절제와 색각 안정성이 우선인 기업 리포트 차트에 피한다.',
+    ],
+    accessibility: {
+      contrastIntent: 'aa',
+      colorblindConsidered: false,
+      motionHeavy: false,
+      darkFirst: true,
+    },
+    related: ['colorful-flat-01'],
+  },
 };

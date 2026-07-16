@@ -257,4 +257,40 @@ export const corporateSchematic01VizStyleGuide: VisualizationStyleGuide = {
     },
     example: Showcase,
   },
+  meta: {
+    displayName: 'Corporate_Schematic_01',
+    family: 'viz-corporate-schematic',
+    summary:
+      '기업 클라우드 도식 언어 — 흰 바탕·중립 헤어라인·kind별 플랫 액센트 타일·대시 존 경계로 아키텍처/IA/UML 다이어그램을 그린다.',
+    tags: ['light', 'flat', 'geometric', 'grid', 'technical', 'serious', 'mono'],
+    mood: { formality: 5, energy: 2, warmth: 3, density: 3, ornament: 2 },
+    characteristics: {
+      cornerRadius: 'soft',
+      borderWeight: 'thin',
+      shadow: 'none',
+      density: 'balanced',
+      motion: 'subtle',
+      colorScheme: 'both',
+      contrast: 'medium',
+    },
+    domains: ['dashboard', 'dev-tools', 'saas', 'docs', 'education'],
+    useWhen: [
+      '클라우드 아키텍처·시스템 구성도·C4/UML 다이어그램을 그릴 때 쓴다.',
+      '흰 바탕에 벤더 중립 액센트 타일로 리소스 타입을 구분해야 할 때 쓴다.',
+      '슬라이드·기술 문서에 넣을 정돈된 기업 도식이 필요할 때 쓴다.',
+      'AZ/subnet/스윔레인 같은 존 경계를 대시 라인으로 표현할 때 쓴다.',
+    ],
+    avoidWhen: [
+      '손그림·화이트보드 스케치의 친근한 도식이 필요할 때 피한다.',
+      '단일 잉크 라인아트나 강렬한 네온 그라디언트가 핵심일 때 피한다.',
+      '데이터 저널리즘식 초대형 숫자 인포그래픽을 원할 때 피한다.',
+    ],
+    accessibility: {
+      contrastIntent: 'aa',
+      colorblindConsidered: true,
+      motionHeavy: false,
+      darkFirst: false,
+    },
+    related: ['ink-line-duotone-01', 'blueprint-technical-01'],
+  },
 };

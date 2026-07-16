@@ -234,4 +234,40 @@ export const inkLineDuotone01VizStyleGuide: VisualizationStyleGuide = {
     },
     example: Showcase,
   },
+  meta: {
+    displayName: 'Ink_Line_Duotone_01',
+    family: 'viz-ink-line-duotone',
+    summary:
+      '지터 없는 균일 1.75px 모노라인 + 블랙/블루 2잉크 듀오톤 — 채움 없는 클린 벡터의 기술 에디토리얼 다이어그램.',
+    tags: ['light', 'technical', 'minimal', 'mono', 'flat', 'geometric', 'sharp'],
+    mood: { formality: 4, energy: 2, warmth: 1, density: 2, ornament: 1 },
+    characteristics: {
+      cornerRadius: 'sharp',
+      borderWeight: 'thin',
+      shadow: 'none',
+      density: 'balanced',
+      motion: 'subtle',
+      colorScheme: 'light',
+      contrast: 'high',
+    },
+    domains: ['dev-tools', 'docs', 'saas', 'editorial'],
+    useWhen: [
+      '아키텍처·시스템 다이어그램을 채움 없는 클린 라인 일러스트로 그릴 때 쓴다.',
+      '기술 문서·개발자 도구의 노드/흐름 도식에 절제된 2잉크 듀오톤이 필요할 때 쓴다.',
+      '도형(블랙)과 흐름(블루)을 색 + 형태로 역할 분리해 읽히게 하고 싶을 때 쓴다.',
+      '인쇄물처럼 가볍고 정갈한 블루프린트 인상을 원할 때 쓴다.',
+    ],
+    avoidWhen: [
+      '카테고리가 많아 다색 시맨틱 채움이 필요한 차트일 때 피한다(F3를 쓴다).',
+      '손그림 지터·마커 스케치의 친근한 무드가 목표일 때 피한다(F4를 쓴다).',
+      '다크 배경·네온 그라디언트의 임팩트가 필요할 때 피한다(F7을 쓴다).',
+    ],
+    accessibility: {
+      contrastIntent: 'aa',
+      colorblindConsidered: true,
+      motionHeavy: false,
+      darkFirst: false,
+    },
+    related: ['blueprint-technical-01', 'minimal-line-01'],
+  },
 };

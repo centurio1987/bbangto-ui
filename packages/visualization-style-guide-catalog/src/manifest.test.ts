@@ -57,6 +57,18 @@ describe('buildManifest — rich/pending 분기 (fixture, 상태 독립)', () =>
     const names = buildManifest(vizStyleGuideCatalog).map((e) => e.name);
     expect(names).toEqual([...names].sort());
   });
+
+  it('KAN-021 backfill 완료 — viz 전 항목 authored, pending 0', () => {
+    const manifest = buildManifest(vizStyleGuideCatalog);
+    expect(manifest.filter((e) => e.metaStatus === 'pending')).toHaveLength(0);
+    expect(manifest.every((e) => e.metaStatus === 'authored' && e.meta)).toBe(true);
+  });
+
+  it('viz 항목의 family는 viz-* 패밀리다(UI 패밀리 오용 방지)', () => {
+    for (const e of buildManifest(vizStyleGuideCatalog)) {
+      expect(e.meta?.family).toMatch(/^viz-/);
+    }
+  });
 });
 
 describe('completeness 계산 — edge 커버 (fixture)', () => {

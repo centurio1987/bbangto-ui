@@ -261,4 +261,38 @@ export const blueprintTechnical01VizStyleGuide: VisualizationStyleGuide = {
     },
     example: Showcase,
   },
+  meta: {
+    displayName: 'Blueprint_Technical_01',
+    family: 'viz-corporate-schematic',
+    summary:
+      '따뜻한 종이 캔버스 위 굵은 잉크 keyline + 노드 종류별 파스텔 시맨틱 채움 + mono 태그의 정밀 제도(drafting)풍 아키텍처/플로우 다이어그램.',
+    tags: ['light', 'pastel', 'flat', 'geometric', 'technical', 'mono', 'grid'],
+    mood: { formality: 4, energy: 2, warmth: 3, density: 3, ornament: 2 },
+    characteristics: {
+      cornerRadius: 'soft',
+      borderWeight: 'bold',
+      shadow: 'none',
+      density: 'balanced',
+      motion: 'subtle',
+      colorScheme: 'both',
+      contrast: 'high',
+    },
+    domains: ['dev-tools', 'docs', 'saas', 'dashboard', 'education'],
+    useWhen: [
+      '아키텍처·C4·UML·플로우 다이어그램을 정밀 제도(drafting)풍으로 그릴 때 쓴다.',
+      '노드 종류(person·container·database 등)를 파스텔 시맨틱 색으로 구분하고 싶을 때 쓴다.',
+      '기술 문서·개발자 도구에서 진지하고 또렷한 도식이 필요할 때 쓴다.',
+    ],
+    avoidWhen: [
+      '고채도 플랫 팝·마케팅 인포그래픽처럼 강렬한 임팩트가 필요할 때 피한다.',
+      '채움 없는 순수 라인 듀오톤 미니멀 도식이 목표일 때 피한다.',
+    ],
+    accessibility: {
+      contrastIntent: 'aa',
+      colorblindConsidered: true,
+      motionHeavy: false,
+      darkFirst: false,
+    },
+    related: ['corporate-schematic-01', 'ink-line-duotone-01'],
+  },
 };

@@ -2,67 +2,403 @@
   {
     "name": "blueprint-technical-01",
     "description": "Precision drafting look — warm paper canvas, bold 2.5px keylines, pastel semantic fills, mono tags. Promoted from the original blueprint theme.",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 2,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Blueprint_Technical_01",
+      "family": "viz-corporate-schematic",
+      "summary": "따뜻한 종이 캔버스 위 굵은 잉크 keyline + 노드 종류별 파스텔 시맨틱 채움 + mono 태그의 정밀 제도(drafting)풍 아키텍처/플로우 다이어그램.",
+      "tags": [
+        "light",
+        "pastel",
+        "flat",
+        "geometric",
+        "technical",
+        "mono",
+        "grid"
+      ],
+      "mood": {
+        "formality": 4,
+        "energy": 2,
+        "warmth": 3,
+        "density": 3,
+        "ornament": 2
+      },
+      "characteristics": {
+        "cornerRadius": "soft",
+        "borderWeight": "bold",
+        "shadow": "none",
+        "density": "balanced",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "high"
+      },
+      "domains": [
+        "dev-tools",
+        "docs",
+        "saas",
+        "dashboard",
+        "education"
+      ],
+      "useWhen": [
+        "아키텍처·C4·UML·플로우 다이어그램을 정밀 제도(drafting)풍으로 그릴 때 쓴다.",
+        "노드 종류(person·container·database 등)를 파스텔 시맨틱 색으로 구분하고 싶을 때 쓴다.",
+        "기술 문서·개발자 도구에서 진지하고 또렷한 도식이 필요할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "고채도 플랫 팝·마케팅 인포그래픽처럼 강렬한 임팩트가 필요할 때 피한다.",
+        "채움 없는 순수 라인 듀오톤 미니멀 도식이 목표일 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "corporate-schematic-01",
+        "ink-line-duotone-01"
+      ]
     }
   },
   {
     "name": "colorful-flat-01",
     "description": "Saturated flat pop — cream canvas, thick navy keylines, bright semantic fills, offset solid shadows.",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Colorful_Flat_01",
+      "family": "viz-flat-pop",
+      "summary": "고채도 flat 채움 + 두꺼운 navy 아웃라인 + 오프셋 솔리드 섀도의 팝 다이어그램 — 밝고 친근한 인포그래픽·차트에 쓴다.",
+      "tags": [
+        "vivid",
+        "flat",
+        "rounded",
+        "playful",
+        "high-contrast",
+        "depth"
+      ],
+      "mood": {
+        "formality": 2,
+        "energy": 4,
+        "warmth": 4,
+        "density": 3,
+        "ornament": 3
+      },
+      "characteristics": {
+        "cornerRadius": "round",
+        "borderWeight": "bold",
+        "shadow": "hard",
+        "density": "balanced",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "high"
+      },
+      "domains": [
+        "marketing",
+        "education",
+        "entertainment",
+        "creative-agency",
+        "social"
+      ],
+      "useWhen": [
+        "발표·마케팅용 인포그래픽이나 통계 차트에서 강한 시선 임팩트가 필요할 때 쓴다.",
+        "노드·플로우 다이어그램을 밝고 친근한 팝 인상으로 표현하고 싶을 때 쓴다.",
+        "카테고리 구분을 고채도 색과 두꺼운 아웃라인으로 또렷하게 나누고 싶을 때 쓴다."
+      ],
+      "avoidWhen": [
+        "기업 아키텍처·기술 스키매틱처럼 절제되고 중립적인 도식이 필요할 때 피한다.",
+        "데이터 밀도가 매우 높아 두꺼운 아웃라인·오프셋 섀도가 시각적 잡음이 될 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": false
+      }
     }
   },
   {
     "name": "corporate-schematic-01",
     "description": "Corporate cloud-schematic language — white ground, neutral hairlines, flat vendor-neutral accent tiles, dashed zone boundaries.",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 2,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Corporate_Schematic_01",
+      "family": "viz-corporate-schematic",
+      "summary": "기업 클라우드 도식 언어 — 흰 바탕·중립 헤어라인·kind별 플랫 액센트 타일·대시 존 경계로 아키텍처/IA/UML 다이어그램을 그린다.",
+      "tags": [
+        "light",
+        "flat",
+        "geometric",
+        "grid",
+        "technical",
+        "serious",
+        "mono"
+      ],
+      "mood": {
+        "formality": 5,
+        "energy": 2,
+        "warmth": 3,
+        "density": 3,
+        "ornament": 2
+      },
+      "characteristics": {
+        "cornerRadius": "soft",
+        "borderWeight": "thin",
+        "shadow": "none",
+        "density": "balanced",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "medium"
+      },
+      "domains": [
+        "dashboard",
+        "dev-tools",
+        "saas",
+        "docs",
+        "education"
+      ],
+      "useWhen": [
+        "클라우드 아키텍처·시스템 구성도·C4/UML 다이어그램을 그릴 때 쓴다.",
+        "흰 바탕에 벤더 중립 액센트 타일로 리소스 타입을 구분해야 할 때 쓴다.",
+        "슬라이드·기술 문서에 넣을 정돈된 기업 도식이 필요할 때 쓴다.",
+        "AZ/subnet/스윔레인 같은 존 경계를 대시 라인으로 표현할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "손그림·화이트보드 스케치의 친근한 도식이 필요할 때 피한다.",
+        "단일 잉크 라인아트나 강렬한 네온 그라디언트가 핵심일 때 피한다.",
+        "데이터 저널리즘식 초대형 숫자 인포그래픽을 원할 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "ink-line-duotone-01",
+        "blueprint-technical-01"
+      ]
     }
   },
   {
     "name": "ink-line-duotone-01",
     "description": "Clean uniform monoline duotone — black shape ink + cobalt connector ink, unfilled shapes, mono annotations.",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 2,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Ink_Line_Duotone_01",
+      "family": "viz-ink-line-duotone",
+      "summary": "지터 없는 균일 1.75px 모노라인 + 블랙/블루 2잉크 듀오톤 — 채움 없는 클린 벡터의 기술 에디토리얼 다이어그램.",
+      "tags": [
+        "light",
+        "technical",
+        "minimal",
+        "mono",
+        "flat",
+        "geometric",
+        "sharp"
+      ],
+      "mood": {
+        "formality": 4,
+        "energy": 2,
+        "warmth": 1,
+        "density": 2,
+        "ornament": 1
+      },
+      "characteristics": {
+        "cornerRadius": "sharp",
+        "borderWeight": "thin",
+        "shadow": "none",
+        "density": "balanced",
+        "motion": "subtle",
+        "colorScheme": "light",
+        "contrast": "high"
+      },
+      "domains": [
+        "dev-tools",
+        "docs",
+        "saas",
+        "editorial"
+      ],
+      "useWhen": [
+        "아키텍처·시스템 다이어그램을 채움 없는 클린 라인 일러스트로 그릴 때 쓴다.",
+        "기술 문서·개발자 도구의 노드/흐름 도식에 절제된 2잉크 듀오톤이 필요할 때 쓴다.",
+        "도형(블랙)과 흐름(블루)을 색 + 형태로 역할 분리해 읽히게 하고 싶을 때 쓴다.",
+        "인쇄물처럼 가볍고 정갈한 블루프린트 인상을 원할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "카테고리가 많아 다색 시맨틱 채움이 필요한 차트일 때 피한다(F3를 쓴다).",
+        "손그림 지터·마커 스케치의 친근한 무드가 목표일 때 피한다(F4를 쓴다).",
+        "다크 배경·네온 그라디언트의 임팩트가 필요할 때 피한다(F7을 쓴다)."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "blueprint-technical-01",
+        "minimal-line-01"
+      ]
     }
   },
   {
     "name": "minimal-line-01",
     "description": "Monochrome ink line-art — warm ivory canvas, 1.25px hairlines, unfilled shapes, one restrained accent.",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Minimal_Line_01",
+      "family": "viz-editorial-accent",
+      "summary": "웜 아이보리 캔버스 위 1.25px 헤어라인 라인아트 다이어그램 — 무채움 도형·넉넉한 여백·절제된 단일 액센트로 노드/플로우/차트를 정갈하게.",
+      "tags": [
+        "light",
+        "minimal",
+        "monochrome",
+        "flat",
+        "airy",
+        "typographic",
+        "muted"
+      ],
+      "mood": {
+        "formality": 3,
+        "energy": 2,
+        "warmth": 4,
+        "density": 2,
+        "ornament": 1
+      },
+      "characteristics": {
+        "cornerRadius": "sharp",
+        "borderWeight": "thin",
+        "shadow": "none",
+        "density": "airy",
+        "motion": "subtle",
+        "colorScheme": "light",
+        "contrast": "medium"
+      },
+      "domains": [
+        "docs",
+        "dev-tools",
+        "editorial",
+        "saas",
+        "dashboard"
+      ],
+      "useWhen": [
+        "기술 문서·아키텍처 도식을 정갈한 라인아트로 담백하게 표현할 때 쓴다.",
+        "노드·플로우 다이어그램에서 색보다 굵기·여백으로 위계를 세우고 싶을 때 쓴다.",
+        "에디토리얼 데이터 저널리즘처럼 초대형 수치와 미세 캡션의 대비를 살릴 때 쓴다.",
+        "단일 액센트로 강조를 절제하며 인쇄물 같은 정적 인상이 필요할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "카테고리가 많아 다색 인코딩으로 계열을 구분해야 하는 차트에는 피한다.",
+        "다크 대시보드·네온 강조 등 강렬한 시각 임팩트가 필요할 때 피한다.",
+        "면 채움·그라디언트로 볼륨감을 줘야 하는 인포그래픽에는 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "ink-line-duotone-01",
+        "blueprint-technical-01"
+      ]
     }
   },
   {
     "name": "neon-gradient-dark-01",
     "description": "Dark neon-gradient paint — deep purple ground, glossy multi-hue gradient fills via wrapper-injected SVG defs, white hairline edges, restrained glow.",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 2,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Neon_Gradient_Dark_01",
+      "family": "viz-neon-gradient-dark",
+      "summary": "다크 그라디언트 그라운드 + kind별 멀티휴 네온 램프 채움·흰 헤어라인·절제된 글로우의 하이테크 데이터 시각화 페인트.",
+      "tags": [
+        "dark",
+        "neon",
+        "gradient",
+        "vivid",
+        "futuristic",
+        "glossy",
+        "technical"
+      ],
+      "mood": {
+        "formality": 3,
+        "energy": 4,
+        "warmth": 2,
+        "density": 3,
+        "ornament": 4
+      },
+      "characteristics": {
+        "cornerRadius": "soft",
+        "borderWeight": "thin",
+        "shadow": "glow",
+        "density": "balanced",
+        "motion": "subtle",
+        "colorScheme": "dark",
+        "contrast": "high"
+      },
+      "domains": [
+        "dashboard",
+        "crypto-web3",
+        "gaming",
+        "entertainment",
+        "marketing"
+      ],
+      "useWhen": [
+        "다크 테마 대시보드·실시간 지표 화면에서 네온 그라디언트로 강한 시각적 임팩트를 줄 때 쓴다.",
+        "크립토·web3·게이밍처럼 미래지향 하이테크 무드가 필요한 노드/차트/다이어그램에 쓴다.",
+        "발표·데모용 시각화를 화려하게 부각하고 싶을 때 쓴다."
+      ],
+      "avoidWhen": [
+        "라이트 배경·인쇄 지향 문서형 차트가 필요할 때 피한다(이 가이드는 다크 전용).",
+        "수백 노드 규모 그래프에서 그라디언트 defs 비용·글로우 과부하가 문제될 때 피한다.",
+        "저채도 절제와 색각 안정성이 우선인 기업 리포트 차트에 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": false,
+        "darkFirst": true
+      },
+      "related": [
+        "colorful-flat-01"
+      ]
     }
   }
 ]
