@@ -2782,133 +2782,864 @@
   {
     "name": "romantic-botanical-01",
     "description": "파스텔 가든 팔레트 + 화이트 라인아트(꽃·잎·나비) + 세리프 디스플레이/휴머니스트 산세리프 본문, 꽃잎형 부드러운 radius와 soft ambient",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "RomanticBotanical_20",
+      "trendIndex": 48,
+      "family": "nostalgia",
+      "priority": "P3",
+      "summary": "파스텔 정원 위 화이트 핸드드로잉 꽃·잎·나비 라인아트, 세리프 디스플레이 + 휴머니스트 산세리프의 로맨틱 보태니컬 무드.",
+      "tags": [
+        "pastel",
+        "light",
+        "serif",
+        "organic",
+        "rounded",
+        "airy",
+        "hand-drawn",
+        "animated"
+      ],
+      "mood": {
+        "formality": 2,
+        "energy": 2,
+        "warmth": 4,
+        "density": 2,
+        "ornament": 4
+      },
+      "characteristics": {
+        "cornerRadius": "round",
+        "borderWeight": "thin",
+        "shadow": "soft",
+        "density": "airy",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "low"
+      },
+      "domains": [
+        "marketing",
+        "ecommerce",
+        "portfolio",
+        "landing",
+        "creative-agency"
+      ],
+      "useWhen": [
+        "봄 캠페인·브랜드 Hero처럼 로맨틱하고 자연스러운 무드가 필요할 때 쓴다.",
+        "뷰티·코스메틱·굿즈 커머스에서 우아하고 감성적인 진열이 필요할 때 쓴다.",
+        "무드보드·포트폴리오·뉴스레터·초대장에 장식적 정원 무드를 입힐 때 쓴다.",
+        "파스텔 라인아트로 부드럽고 감성적인 브랜드 톤을 만들고 싶을 때 쓴다."
+      ],
+      "avoidWhen": [
+        "정보 밀도 높은 대시보드·데이터 화면에서 파스텔 저대비가 가독성을 해칠 때 피한다.",
+        "기업·핀테크처럼 포멀하고 강한 신뢰감이 우선일 때 피한다.",
+        "강렬한 임팩트·고에너지 표현이 핵심일 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "scandi-warm-01",
+        "kawaii-pastel-01",
+        "heritage-folk-ornament-01"
+      ]
     }
   },
   {
     "name": "scandi-warm-01",
     "description": "따뜻한 오프화이트 위 우드톤 주조 + 세이지 액센트의 북유럽 미니멀(라이트 베이스)",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Scandi_Warm_01",
+      "trendIndex": 22,
+      "family": "refined-luxury",
+      "priority": "P2",
+      "summary": "따뜻한 오프화이트 위 우드톤 주조 + 세이지 절제 액센트, 부드러운 라운드와 미세한 종이 결의 북유럽 미니멀.",
+      "tags": [
+        "light",
+        "muted",
+        "rounded",
+        "textured",
+        "airy",
+        "minimal",
+        "mono"
+      ],
+      "mood": {
+        "formality": 3,
+        "energy": 2,
+        "warmth": 5,
+        "density": 2,
+        "ornament": 2
+      },
+      "characteristics": {
+        "cornerRadius": "soft",
+        "borderWeight": "thin",
+        "shadow": "soft",
+        "density": "airy",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "medium"
+      },
+      "domains": [
+        "ecommerce",
+        "portfolio",
+        "marketing",
+        "blog",
+        "editorial"
+      ],
+      "useWhen": [
+        "라이프스타일·커머스 브랜드에 따뜻하고 차분한 인상을 줄 때 쓴다.",
+        "여백과 자연 톤으로 편안한 미니멀리즘을 원할 때 쓴다.",
+        "포트폴리오·룩북처럼 콘텐츠를 조용히 돋보이게 할 때 쓴다.",
+        "저채도 우드/세이지 팔레트로 온기를 전하고 싶을 때 쓴다."
+      ],
+      "avoidWhen": [
+        "강한 대비·임팩트나 고에너지 표현이 필요할 때 피한다.",
+        "테크·핀테크처럼 차갑고 정밀한 인상이 우선일 때 피한다.",
+        "화려한 색·장식으로 시선을 끌어야 할 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "retro70s-warm-01",
+        "humanist-imperfect-01"
+      ]
     }
   },
   {
     "name": "shattered-glass-cinematic-01",
     "description": "깨진 유리 시네마틱 — 딥 잉크 다크 배경 + 시안/마젠타/라임 이리데센트 굴절 + 균열 파편 패널 + 대형 세리프 헤드",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "ShatteredGlassCinematic_12",
+      "trendIndex": 40,
+      "family": "depth-material",
+      "priority": "P2",
+      "summary": "딥 잉크 다크 면을 가로지르는 깨진/금 간 유리 + 시안↔마젠타↔라임 이리데센트 프리즘 굴절, fragile yet striking의 시네마틱 결정질 표면.",
+      "tags": [
+        "dark",
+        "glass",
+        "gradient",
+        "neon",
+        "depth",
+        "serif",
+        "animated"
+      ],
+      "mood": {
+        "formality": 3,
+        "energy": 4,
+        "warmth": 2,
+        "density": 2,
+        "ornament": 4
+      },
+      "characteristics": {
+        "cornerRadius": "soft",
+        "borderWeight": "thin",
+        "shadow": "glow",
+        "density": "airy",
+        "motion": "kinetic",
+        "colorScheme": "dark",
+        "contrast": "high"
+      },
+      "domains": [
+        "portfolio",
+        "creative-agency",
+        "entertainment",
+        "marketing",
+        "landing"
+      ],
+      "useWhen": [
+        "시네마틱 히어로·룩북·제품 쇼케이스에서 극적인 인상이 필요할 때 쓴다.",
+        "깨진 유리·프리즘 굴절 같은 시각적 시그니처로 브랜드를 각인시키고 싶을 때 쓴다.",
+        "어두운 배경 위 이리데센트 강조로 프리미엄·아방가르드 분위기를 낼 때 쓴다.",
+        "포트폴리오·크리에이티브 에이전시 랜딩처럼 표현력이 우선일 때 쓴다."
+      ],
+      "avoidWhen": [
+        "데이터 밀도 높은 대시보드·관리 UI처럼 가독성이 최우선일 때 피한다.",
+        "본문 정보량이 많아 균열·굴절 장식이 오히려 방해될 때 피한다.",
+        "라이트·미니멀 기업 톤이 필요할 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": true,
+        "darkFirst": true
+      },
+      "related": [
+        "glassmorphism-aurora-01",
+        "iridescent-chrome-01",
+        "darkluxe-editorial-01"
+      ]
     }
   },
   {
     "name": "skeuomorphism-tactile-01",
     "description": "따뜻한 베이지 가죽·노트 질감 + 베벨·그라디언트로 빚은 물리적 스큐어모피즘(라이트 베이스)",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Skeuomorphism_Tactile_01",
+      "trendIndex": 4,
+      "family": "depth-material",
+      "priority": "P3",
+      "summary": "따뜻한 가죽·노트 베이지 표면 + 베벨 하이라이트·안쪽 그림자로 빚은 물리적 촉각 스큐어모피즘, 누르면 들어가는 버튼.",
+      "tags": [
+        "textured",
+        "depth",
+        "rounded",
+        "glossy",
+        "gradient",
+        "muted",
+        "retro"
+      ],
+      "mood": {
+        "formality": 3,
+        "energy": 2,
+        "warmth": 5,
+        "density": 3,
+        "ornament": 4
+      },
+      "characteristics": {
+        "cornerRadius": "soft",
+        "borderWeight": "thin",
+        "shadow": "hard",
+        "density": "balanced",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "medium"
+      },
+      "domains": [
+        "portfolio",
+        "entertainment",
+        "creative-agency",
+        "blog",
+        "marketing"
+      ],
+      "useWhen": [
+        "노트·메모·오디오 콘솔처럼 실물 은유로 어포던스를 강화할 때 쓴다.",
+        "가죽·종이 질감의 따뜻하고 촉각적인 인상을 주고 싶을 때 쓴다.",
+        "레트로·향수 감성의 포트폴리오나 브랜드 경험을 만들 때 쓴다.",
+        "버튼이 실제로 눌리는 물리 피드백으로 재미를 더할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "정보 밀도 높은 대시보드·데이터 UI에서 가독성이 우선일 때 피한다.",
+        "가볍고 빠른 로딩·모던 미니멀이 요구될 때 피한다.",
+        "넓은 화면에 질감을 남발해 일관성·유지비가 커질 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "neumorphism-soft-01",
+        "claymorphism-playful-01",
+        "tactile-texture-01"
+      ]
     }
   },
   {
     "name": "spatial-3d-01",
     "description": "딥 다크 + 라이팅 음영 + 포인터 반응 깊이·시차(틸트), CSS 3D transform으로 공간 UI 모사",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Spatial_3D_01",
+      "trendIndex": 26,
+      "family": "depth-material",
+      "priority": "P3",
+      "summary": "딥 다크 + 라이팅 음영, 포인터 반응 깊이·시차(틸트)를 CSS 3D transform으로 모사한 공간 UI.",
+      "tags": [
+        "dark",
+        "depth",
+        "gradient",
+        "rounded",
+        "animated",
+        "futuristic",
+        "glossy"
+      ],
+      "mood": {
+        "formality": 3,
+        "energy": 3,
+        "warmth": 2,
+        "density": 2,
+        "ornament": 3
+      },
+      "characteristics": {
+        "cornerRadius": "soft",
+        "borderWeight": "thin",
+        "shadow": "glow",
+        "density": "balanced",
+        "motion": "kinetic",
+        "colorScheme": "dark",
+        "contrast": "high"
+      },
+      "domains": [
+        "marketing",
+        "landing",
+        "portfolio",
+        "creative-agency",
+        "ecommerce"
+      ],
+      "useWhen": [
+        "제품 쇼케이스·랜딩 Hero에서 3D 오브젝트로 시선을 끌 때 쓴다.",
+        "포인터 반응 깊이·시차로 인터랙티브한 공간감을 주고 싶을 때 쓴다.",
+        "AR 프리뷰·인터랙티브 스토리처럼 몰입형 연출이 핵심일 때 쓴다.",
+        "다크 배경에 라이팅 음영으로 프리미엄 테크 인상을 줄 때 쓴다."
+      ],
+      "avoidWhen": [
+        "정보 밀도 높은 대시보드·문서처럼 정적 가독성이 우선일 때 피한다.",
+        "저사양·성능 예산이 빠듯하거나 정적 폴백을 마련하기 어려울 때 피한다.",
+        "prefers-reduced-motion 비중이 높아 모션을 줄여야 할 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": true,
+        "darkFirst": true
+      },
+      "related": [
+        "ai-surreal-gradient3d-01",
+        "glassmorphism-aurora-01",
+        "neumorphism-soft-01"
+      ]
     }
   },
   {
     "name": "swiss-international-01",
     "description": "그리드 + 비대칭 정렬 + 산세리프 + 적/흑/백, 각진 모서리·무그림자",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Swiss_International_01",
+      "trendIndex": 7,
+      "family": "typographic-editorial",
+      "priority": "P1",
+      "summary": "모듈러 그리드 + 비대칭 정렬 + 산세리프, 흑/백 + 단일 빨강, 각진 모서리·무그림자로 위계는 크기·굵기·위치로만.",
+      "tags": [
+        "light",
+        "high-contrast",
+        "sharp",
+        "grid",
+        "asymmetric",
+        "typographic",
+        "geometric",
+        "minimal",
+        "flat"
+      ],
+      "mood": {
+        "formality": 4,
+        "energy": 2,
+        "warmth": 2,
+        "density": 3,
+        "ornament": 1
+      },
+      "characteristics": {
+        "cornerRadius": "sharp",
+        "borderWeight": "thin",
+        "shadow": "none",
+        "density": "balanced",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "high"
+      },
+      "domains": [
+        "editorial",
+        "portfolio",
+        "marketing",
+        "creative-agency",
+        "docs"
+      ],
+      "useWhen": [
+        "편집·포스터·타이포 주도 레이아웃을 그리드로 조직할 때 쓴다.",
+        "고대비 흑백으로 명료함과 접근성을 최우선할 때 쓴다.",
+        "크리에이티브 에이전시·포트폴리오처럼 절제된 세련미가 필요할 때 쓴다.",
+        "장식을 배제하고 타이포 위계만으로 강약을 만들고 싶을 때 쓴다."
+      ],
+      "avoidWhen": [
+        "따뜻하고 친근한·놀이적 개성이 필요할 때 피한다.",
+        "풍부한 색·그라디언트·입체 질감으로 감성을 자극해야 할 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aaa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "minimal-saas-01",
+        "bauhaus-geometric-01",
+        "editorial-magazine-01"
+      ]
     }
   },
   {
     "name": "tactile-texture-01",
     "description": "퍼피·소프트·스퀴시 촉각 질감 + 하이퍼리얼 디테일, 파스텔 톤·두툼한 radius·부드러운 이중 그림자",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Tactile_Texture_01",
+      "trendIndex": 28,
+      "family": "expressive-energetic",
+      "priority": "P2",
+      "summary": "퍼피·소프트·스퀴시 촉각 질감 + 하이퍼리얼 광택. 파스텔 톤·두툼한 radius·부드러운 이중 그림자, 누르면 쪼그라드는 말랑한 인터랙션.",
+      "tags": [
+        "pastel",
+        "rounded",
+        "depth",
+        "glossy",
+        "textured",
+        "playful",
+        "animated"
+      ],
+      "mood": {
+        "formality": 2,
+        "energy": 3,
+        "warmth": 4,
+        "density": 2,
+        "ornament": 4
+      },
+      "characteristics": {
+        "cornerRadius": "round",
+        "borderWeight": "thin",
+        "shadow": "soft",
+        "density": "airy",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "medium"
+      },
+      "domains": [
+        "kids",
+        "education",
+        "entertainment",
+        "marketing",
+        "landing"
+      ],
+      "useWhen": [
+        "말랑한 촉각·놀이 감성이 첫인상을 좌우하는 랜딩·마케팅에 쓴다.",
+        "키즈·교육·엔터처럼 친근하고 만지고 싶은 UI가 필요할 때 쓴다.",
+        "버튼 누름 같은 인터랙션에 촉각적 스퀴시 피드백을 주고 싶을 때 쓴다."
+      ],
+      "avoidWhen": [
+        "정보 밀도가 높은 대시보드·관리 화면에는 쓰지 않는다.",
+        "기업·금융처럼 진중한 신뢰감이 우선일 때 피한다.",
+        "강한 질감·그림자가 시각 노이즈가 될 데이터 집약 화면에서 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "claymorphism-playful-01",
+        "neumorphism-soft-01",
+        "kawaii-pastel-01"
+      ]
     }
   },
   {
     "name": "terminal-mono-01",
     "description": "모노스페이스 전면 + 다크 콘솔 + 포스포 그린, 박스 보더·커서·각진 모서리",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Terminal_Mono_01",
+      "trendIndex": 19,
+      "family": "tech-dark",
+      "priority": "P1",
+      "summary": "본문까지 모노스페이스 + 다크 콘솔 배경 + 포스포 그린 강조, 박스 보더·커서·각진 모서리의 터미널 미학.",
+      "tags": [
+        "dark",
+        "mono",
+        "monochrome",
+        "sharp",
+        "technical",
+        "typographic",
+        "high-contrast"
+      ],
+      "mood": {
+        "formality": 3,
+        "energy": 2,
+        "warmth": 2,
+        "density": 3,
+        "ornament": 2
+      },
+      "characteristics": {
+        "cornerRadius": "sharp",
+        "borderWeight": "thin",
+        "shadow": "none",
+        "density": "balanced",
+        "motion": "subtle",
+        "colorScheme": "dark",
+        "contrast": "high"
+      },
+      "domains": [
+        "dev-tools",
+        "docs",
+        "landing",
+        "portfolio",
+        "crypto-web3"
+      ],
+      "useWhen": [
+        "개발자 도구·CLI 데모·로그/모니터링 UI를 만들 때 쓴다.",
+        "코드 블록·기술 문서에 콘솔 미학을 입히고 싶을 때 쓴다.",
+        "해커·기술 지향 브랜드의 랜딩에서 개성을 줄 때 쓴다."
+      ],
+      "avoidWhen": [
+        "넓은 소비자층 대상 마케팅 랜딩에서 친근함이 필요할 때 피한다.",
+        "장문 본문 가독성이 최우선인 콘텐츠(모노 피로)일 때 피한다.",
+        "따뜻하고 부드러운 무드가 필요할 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": false,
+        "darkFirst": true
+      },
+      "related": [
+        "cyberpunk-hud-01",
+        "blueprint-technical-01"
+      ]
     }
   },
   {
     "name": "ukiyoe-woodblock-01",
     "description": "쌀종이 배경 + 평면 흙빛 색면 + 먹빛 윤곽선과 여백 위계 + 붉은 낙관 도장, 인디고/적갈 액센트의 전통 목판화 미학",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "UkiyoeWoodblock_09",
+      "trendIndex": 37,
+      "family": "nostalgia",
+      "priority": "P2",
+      "summary": "쌀종이 배경 + 채도 낮은 흙빛 평면 색면 + 먹빛 윤곽선과 여백(ma) + 붉은 낙관 도장의 전통 목판화 미학.",
+      "tags": [
+        "light",
+        "muted",
+        "flat",
+        "textured",
+        "serif",
+        "airy",
+        "asymmetric",
+        "retro"
+      ],
+      "mood": {
+        "formality": 3,
+        "energy": 2,
+        "warmth": 4,
+        "density": 2,
+        "ornament": 3
+      },
+      "characteristics": {
+        "cornerRadius": "sharp",
+        "borderWeight": "bold",
+        "shadow": "none",
+        "density": "airy",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "medium"
+      },
+      "domains": [
+        "portfolio",
+        "editorial",
+        "blog",
+        "creative-agency",
+        "marketing"
+      ],
+      "useWhen": [
+        "동양·전통 미학의 서정 풍경을 담은 포트폴리오·룩북을 만들 때 쓴다.",
+        "채도 낮은 흙빛 팔레트로 차분하고 고요한 분위기를 낼 때 쓴다.",
+        "평면 색면과 먹선·여백으로 회화적 위계를 세우고 싶을 때 쓴다.",
+        "브랜드 스토리·갤러리처럼 이미지 슬롯 중심 편집이 필요할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "데이터 밀도 높은 대시보드·관리 UI처럼 기능 우선일 때 피한다.",
+        "글로시·네온·3D 입체감이나 강렬한 비비드 색이 필요할 때 피한다.",
+        "저채도 흙빛만으로 본문 대비가 무너질 위험이 클 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "scandi-warm-01",
+        "retro70s-warm-01",
+        "heritage-folk-ornament-01"
+      ]
     }
   },
   {
     "name": "vaporwave-synth-01",
     "description": "딥퍼플 배경 + 네온 핑크·시안 글로우 + 80s 석양 그라디언트 + 퍼스펙티브 네온 그리드(다크 베이스)",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Vaporwave_Synth_01",
+      "trendIndex": 11,
+      "family": "nostalgia",
+      "priority": "P2",
+      "summary": "딥퍼플 캔버스 위 네온 핑크·시안 글로우, 80s 석양 그라디언트와 퍼스펙티브 그리드, CRT 스캔라인의 신스웨이브.",
+      "tags": [
+        "dark",
+        "neon",
+        "gradient",
+        "vivid",
+        "retro",
+        "futuristic",
+        "mono",
+        "animated"
+      ],
+      "mood": {
+        "formality": 2,
+        "energy": 4,
+        "warmth": 3,
+        "density": 3,
+        "ornament": 4
+      },
+      "characteristics": {
+        "cornerRadius": "soft",
+        "borderWeight": "thin",
+        "shadow": "glow",
+        "density": "balanced",
+        "motion": "kinetic",
+        "colorScheme": "dark",
+        "contrast": "high"
+      },
+      "domains": [
+        "entertainment",
+        "gaming",
+        "creative-agency",
+        "marketing",
+        "portfolio"
+      ],
+      "useWhen": [
+        "음악·나이트라이프·레트로 이벤트 랜딩에 80s 신스웨이브 무드가 필요할 때 쓴다.",
+        "네온 글로우로 강한 레트로 미래 인상과 몰입감을 주고 싶을 때 쓴다.",
+        "다크 배경 위 비비드한 개성으로 브랜드를 각인시킬 때 쓴다."
+      ],
+      "avoidWhen": [
+        "B2B 대시보드·문서처럼 가독성과 절제가 우선일 때 피한다.",
+        "저모션·저자극이 요구되는 접근성 민감 환경에서 피한다(글리치·스캔라인).",
+        "장시간 읽는 본문 중심 서비스에서 피한다(네온 피로)."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": true,
+        "darkFirst": true
+      },
+      "related": [
+        "y2k-futurism-01",
+        "cyberpunk-hud-01",
+        "radiant-glow-dark-01"
+      ]
     }
   },
   {
     "name": "warped-checkerboard-01",
     "description": "액화 왜곡된 2색 체크 격자(레드/핑크) 풀블리드 배경 + 솔리드 화이트 패널 + 라운드 그로테스크 + 플랫 카드",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "WarpedCheckerboard_18",
+      "trendIndex": 46,
+      "family": "expressive-energetic",
+      "priority": "P3",
+      "summary": "직교 체크/깅엄 격자를 파도처럼 액화·왜곡한 풀블리드 디스토션 배경 + 솔리드 패널 분리, 딥 레드×베이비 핑크 2색의 표현적 룩북/랜딩 미학.",
+      "tags": [
+        "vivid",
+        "pastel",
+        "rounded",
+        "organic",
+        "retro",
+        "playful",
+        "animated"
+      ],
+      "mood": {
+        "formality": 2,
+        "energy": 4,
+        "warmth": 4,
+        "density": 3,
+        "ornament": 4
+      },
+      "characteristics": {
+        "cornerRadius": "round",
+        "borderWeight": "bold",
+        "shadow": "none",
+        "density": "balanced",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "medium"
+      },
+      "domains": [
+        "landing",
+        "marketing",
+        "portfolio",
+        "ecommerce",
+        "creative-agency"
+      ],
+      "useWhen": [
+        "이벤트·굿즈·패션 룩북처럼 강한 개성과 임팩트가 필요한 랜딩을 만들 때 쓴다.",
+        "프로필·링크인바이오처럼 시각적 시그니처가 곧 브랜드인 페이지에 쓴다.",
+        "히어로 배경을 유체 왜곡 패턴으로 채우고 콘텐츠는 솔리드 패널로 분리할 때 쓴다.",
+        "Y2K·레트로 감성의 말랑한 라운드 그로테스크 무드를 원할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "표·폼처럼 정보 밀도 높고 가독성이 최우선인 화면에는 피한다.",
+        "B2B SaaS·핀테크처럼 신뢰·절제된 톤이 필요할 때 피한다.",
+        "적록색맹·저시력 대비가 엄격히 요구되는 접근성 우선 UI에는 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "op-art-kinetic-01",
+        "memphis-postmodern-01",
+        "y2k-futurism-01"
+      ]
     }
   },
   {
     "name": "y2k-futurism-01",
     "description": "크롬·실버 메탈 그라디언트 + 핑크·시안·라임 네온 + 글로시 버블 폼(라이트 실버 베이스)",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Y2K_Futurism_01",
+      "trendIndex": 10,
+      "family": "nostalgia",
+      "priority": "P2",
+      "summary": "크롬·실버 메탈 그라디언트 + 핑크·시안·라임 네온 글로우, 글로시 버블 폼의 미래주의 회고 UI.",
+      "tags": [
+        "light",
+        "gradient",
+        "glossy",
+        "neon",
+        "vivid",
+        "rounded",
+        "futuristic",
+        "retro"
+      ],
+      "mood": {
+        "formality": 2,
+        "energy": 4,
+        "warmth": 3,
+        "density": 2,
+        "ornament": 4
+      },
+      "characteristics": {
+        "cornerRadius": "round",
+        "borderWeight": "thin",
+        "shadow": "glow",
+        "density": "balanced",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "medium"
+      },
+      "domains": [
+        "marketing",
+        "landing",
+        "entertainment",
+        "creative-agency",
+        "portfolio"
+      ],
+      "useWhen": [
+        "Y2K·레트로 미래주의 감성으로 강한 향수와 개성을 낼 때 쓴다.",
+        "크롬·네온·글로시 표면으로 시선을 끄는 마케팅·랜딩·이벤트 페이지를 만들 때 쓴다.",
+        "음악·엔터·크리에이티브 브랜드의 개성 있는 무드가 필요할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "데이터 밀도 높은 대시보드·관리 UI처럼 절제와 가독성이 우선일 때 피한다.",
+        "B2B·핀테크처럼 신뢰감과 정보 위계가 핵심일 때 피한다.",
+        "글로시 표면 위 장문 본문 가독성이 최우선일 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "vaporwave-synth-01",
+        "frutiger-aero-glossy-01",
+        "iridescent-chrome-01"
+      ]
     }
   }
 ]

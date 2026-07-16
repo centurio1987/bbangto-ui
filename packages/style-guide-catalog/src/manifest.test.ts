@@ -19,13 +19,18 @@ describe('buildManifest — rich/pending 분기', () => {
     expect(cyber?.meta?.mood.energy).toBe(5);
   });
 
-  it('meta가 없는 항목은 metaStatus="pending" + meta 미포함(completeness만)', () => {
+  it('meta가 없는 항목은 metaStatus="pending" + meta 미포함(completeness만) — fixture', () => {
+    // KAN-021 backfill 완료로 실제 카탈로그엔 pending이 0이므로 분기 계약은 fixture로 검증한다.
+    const [entry] = buildManifest([{ name: 'fixture-pending' }]);
+    expect(entry.metaStatus).toBe('pending');
+    expect(entry.meta).toBeUndefined();
+    expect(entry.completeness).toBeDefined();
+  });
+
+  it('KAN-021 backfill 완료 — 전 항목 authored, pending 0 (gate "meta 필수" 승격 근거)', () => {
     const pending = manifest.filter((e) => e.metaStatus === 'pending');
-    expect(pending.length).toBeGreaterThan(0);
-    for (const e of pending) {
-      expect(e.meta).toBeUndefined();
-      expect(e.completeness).toBeDefined();
-    }
+    expect(pending).toHaveLength(0);
+    expect(manifest.every((e) => e.metaStatus === 'authored' && e.meta)).toBe(true);
   });
 
   it('KAN-018 파일럿 3종은 backfill 이후에도 authored 상태를 유지한다', () => {
