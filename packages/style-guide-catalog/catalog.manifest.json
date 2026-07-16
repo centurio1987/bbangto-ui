@@ -2,89 +2,569 @@
   {
     "name": "ai-surreal-gradient3d-01",
     "description": "딥 다크 위 AI 초현실 3D 렌더 + 이리데센트 그라데이션 표면, 소프트 접지 그림자 + 스펙큘러 글로스, 그로테스크/모노 타이포",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "AISurrealGradient3D_11",
+      "trendIndex": 39,
+      "family": "depth-material",
+      "priority": "P2",
+      "summary": "딥 다크 위 AI 생성 초현실 3D 렌더 + 이리데센트 표면, 소프트 접지 그림자·스펙큘러 글로스의 몽환적 테크 미학.",
+      "tags": [
+        "dark",
+        "gradient",
+        "glossy",
+        "depth",
+        "neon",
+        "vivid",
+        "futuristic",
+        "rounded",
+        "mono"
+      ],
+      "mood": {
+        "formality": 3,
+        "energy": 4,
+        "warmth": 2,
+        "density": 2,
+        "ornament": 4
+      },
+      "characteristics": {
+        "cornerRadius": "round",
+        "borderWeight": "thin",
+        "shadow": "glow",
+        "density": "airy",
+        "motion": "subtle",
+        "colorScheme": "dark",
+        "contrast": "high"
+      },
+      "domains": [
+        "creative-agency",
+        "portfolio",
+        "marketing",
+        "entertainment",
+        "crypto-web3"
+      ],
+      "useWhen": [
+        "AI 생성 3D 렌더·초현실 비주얼로 강한 첫인상을 주는 랜딩·제품 론칭에 쓴다.",
+        "크리에이티브 에이전시·포트폴리오처럼 미래지향 이미지가 핵심일 때 쓴다.",
+        "이리데센트 그라데이션과 딥 다크의 대비로 드롭·컬렉션을 극적으로 연출할 때 쓴다.",
+        "web3·엔터테인먼트처럼 몽환적 테크 무드가 어울릴 때 쓴다."
+      ],
+      "avoidWhen": [
+        "텍스트·데이터 밀도가 높은 대시보드·문서 UI에는 피한다.",
+        "신뢰·중립이 최우선인 B2B SaaS·핀테크에는 피한다.",
+        "렌더 이미지 자산을 준비할 수 없을 때는 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": false,
+        "darkFirst": true
+      },
+      "related": [
+        "spatial-3d-01",
+        "organic-fluid-blob-01",
+        "iridescent-chrome-01"
+      ]
     }
   },
   {
     "name": "artdeco-luxe-01",
     "description": "흑·딥그린 베이스 위 골드 라인의 1920s 아르데코 럭셔리(대칭·기하 장식, 디스플레이 세리프)",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "ArtDeco_Luxe_01",
+      "trendIndex": 21,
+      "family": "refined-luxury",
+      "priority": "P3",
+      "summary": "흑·딥그린 위 골드 라인의 대칭 기하 프레임과 디스플레이 세리프로 빚은 1920s 아르데코 럭셔리.",
+      "tags": [
+        "dark",
+        "luxurious",
+        "serif",
+        "geometric",
+        "sharp",
+        "high-contrast"
+      ],
+      "mood": {
+        "formality": 5,
+        "energy": 2,
+        "warmth": 3,
+        "density": 3,
+        "ornament": 4
+      },
+      "characteristics": {
+        "cornerRadius": "sharp",
+        "borderWeight": "thin",
+        "shadow": "soft",
+        "density": "balanced",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "high"
+      },
+      "domains": [
+        "luxury",
+        "marketing",
+        "ecommerce",
+        "landing",
+        "entertainment"
+      ],
+      "useWhen": [
+        "럭셔리 브랜드·호텔·주얼리처럼 고급스러운 격식이 필요할 때 쓴다.",
+        "이벤트·갈라·초대장처럼 의례적 우아함을 연출할 때 쓴다.",
+        "골드·대칭 기하 장식으로 1920s 아르데코 무드를 낼 때 쓴다."
+      ],
+      "avoidWhen": [
+        "정보 밀도 높은 대시보드·관리 UI를 만들 때 피한다.",
+        "캐주얼·놀이·키즈처럼 가벼운 톤이 핵심일 때 피한다.",
+        "빠른 가독성·중립성이 우선인 B2B 제품에는 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": true
+      },
+      "related": [
+        "darkluxe-editorial-01"
+      ]
     }
   },
   {
     "name": "aurora-gradient-01",
     "description": "딥 다크 베이스 위 오로라 메시 그라디언트 + 부유 글로우 오브, 그라디언트 fill 버튼·다크 글래스 표면(AI/SaaS 랜딩)",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Aurora_Gradient_01",
+      "trendIndex": 20,
+      "family": "tech-dark",
+      "priority": "P2",
+      "summary": "딥 다크 위 다점 메시/오로라 그라디언트 배경 + 부유 글로우 오브, 그라디언트 fill 버튼·다크 글래스 표면(AI/SaaS 랜딩).",
+      "tags": [
+        "dark",
+        "gradient",
+        "glass",
+        "vivid",
+        "depth",
+        "futuristic",
+        "animated",
+        "rounded"
+      ],
+      "mood": {
+        "formality": 3,
+        "energy": 4,
+        "warmth": 2,
+        "density": 2,
+        "ornament": 4
+      },
+      "characteristics": {
+        "cornerRadius": "round",
+        "borderWeight": "thin",
+        "shadow": "glow",
+        "density": "airy",
+        "motion": "kinetic",
+        "colorScheme": "dark",
+        "contrast": "high"
+      },
+      "domains": [
+        "saas",
+        "marketing",
+        "landing",
+        "crypto-web3",
+        "creative-agency"
+      ],
+      "useWhen": [
+        "AI·SaaS 제품 랜딩에서 미래적이고 몰입감 있는 첫인상을 줄 때 쓴다.",
+        "딥 다크 위 빛나는 메시 그라디언트로 시선을 끄는 히어로가 필요할 때 쓴다.",
+        "웹3·크립토처럼 첨단·역동 이미지를 강조하고 싶을 때 쓴다."
+      ],
+      "avoidWhen": [
+        "데이터 밀도 높은 대시보드·테이블 UI에는 피한다(가독성 저하).",
+        "문서·블로그처럼 긴 본문 가독성이 최우선일 때 피한다.",
+        "절제된 기업/포멀 톤이나 라이트 기본이 요구될 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": true,
+        "darkFirst": true
+      },
+      "related": [
+        "glassmorphism-aurora-01",
+        "radiant-glow-dark-01",
+        "ai-surreal-gradient3d-01"
+      ]
     }
   },
   {
     "name": "bauhaus-geometric-01",
     "description": "바우하우스 기하 구성 — 3원색(빨·노·파) + 흑백, 기하 산세리프, 면 분할·원형 장식",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Bauhaus_Geometric_01",
+      "trendIndex": 9,
+      "family": "typographic-editorial",
+      "priority": "P2",
+      "summary": "3원색(빨·노·파)+흑백, 기하 산세리프, 직각 면 분할과 굵은 윤곽선·하드 그림자, 의도된 원형 장식의 기하 구성.",
+      "tags": [
+        "geometric",
+        "sharp",
+        "vivid",
+        "high-contrast",
+        "grid",
+        "typographic",
+        "retro"
+      ],
+      "mood": {
+        "formality": 3,
+        "energy": 4,
+        "warmth": 3,
+        "density": 3,
+        "ornament": 3
+      },
+      "characteristics": {
+        "cornerRadius": "sharp",
+        "borderWeight": "bold",
+        "shadow": "hard",
+        "density": "balanced",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "high"
+      },
+      "domains": [
+        "marketing",
+        "landing",
+        "creative-agency",
+        "portfolio",
+        "editorial"
+      ],
+      "useWhen": [
+        "포스터풍 기하 구성으로 강한 브랜드 인상을 줄 때 쓴다.",
+        "3원색과 굵은 윤곽선으로 임팩트가 필요한 랜딩·Hero에 쓴다.",
+        "디자인 에이전시·포트폴리오처럼 조형 개성을 드러낼 때 쓴다.",
+        "면 분할과 기하 블록으로 명확한 위계를 세울 때 쓴다."
+      ],
+      "avoidWhen": [
+        "데이터 밀도 높은 대시보드·긴 폼처럼 차분한 가독성이 우선일 때 피한다.",
+        "부드럽고 따뜻한 소비자 감성(키즈·파스텔)이 필요할 때 피한다.",
+        "절제된 미니멀 기업 톤이 요구될 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "swiss-international-01",
+        "memphis-postmodern-01"
+      ]
     }
   },
   {
     "name": "bento-modular-01",
     "description": "도시락형 모듈 그리드 + 둥근 타일 + soft elevation + 산세리프, 인디고/틸 액센트",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Bento_Modular_01",
+      "trendIndex": 24,
+      "family": "flat-systematic",
+      "priority": "P1",
+      "summary": "도시락형 모듈 그리드 + 둥근 타일 + soft elevation, 인디고/틸 액센트의 비대칭·균형 레이아웃.",
+      "tags": [
+        "light",
+        "rounded",
+        "grid",
+        "geometric",
+        "minimal",
+        "airy"
+      ],
+      "mood": {
+        "formality": 4,
+        "energy": 2,
+        "warmth": 2,
+        "density": 3,
+        "ornament": 2
+      },
+      "characteristics": {
+        "cornerRadius": "round",
+        "borderWeight": "thin",
+        "shadow": "soft",
+        "density": "balanced",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "medium"
+      },
+      "domains": [
+        "dashboard",
+        "saas",
+        "portfolio",
+        "marketing",
+        "landing"
+      ],
+      "useWhen": [
+        "대시보드·개요 화면을 크고 작은 모듈 타일로 정리할 때 쓴다.",
+        "여러 지표·기능을 한 화면에 균형 있게 배치하고 싶을 때 쓴다.",
+        "제품 랜딩·포트폴리오의 feature 그리드를 모듈로 구성할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "긴 글·기사처럼 선형 읽기 흐름이 핵심일 때 피한다.",
+        "강한 개성·표현적 임팩트가 필요한 브랜드 랜딩엔 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "minimal-saas-01",
+        "flat-material-01"
+      ]
     }
   },
   {
     "name": "blueprint-technical-01",
     "description": "청사진 제도 미감 — 딥 블루 보드 + 8px 모눈 + 1px 화이트 라인 드로잉, 화살촉 치수선·번호 콜아웃, 그림자 없음",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Blueprint_Technical_01",
+      "trendIndex": 30,
+      "family": "flat-systematic",
+      "priority": "P1",
+      "summary": "딥 블루 청사진 보드 + 8px 모눈 위 1px 라인 드로잉, 화살촉 치수선·번호 콜아웃의 엔지니어링 제도 도면 미학.",
+      "tags": [
+        "dark",
+        "technical",
+        "grid",
+        "mono",
+        "sharp",
+        "geometric",
+        "high-contrast"
+      ],
+      "mood": {
+        "formality": 4,
+        "energy": 2,
+        "warmth": 1,
+        "density": 3,
+        "ornament": 2
+      },
+      "characteristics": {
+        "cornerRadius": "sharp",
+        "borderWeight": "thin",
+        "shadow": "none",
+        "density": "balanced",
+        "motion": "subtle",
+        "colorScheme": "dark",
+        "contrast": "high"
+      },
+      "domains": [
+        "dev-tools",
+        "portfolio",
+        "creative-agency",
+        "landing",
+        "docs"
+      ],
+      "useWhen": [
+        "엔지니어링·건축·하드웨어처럼 제도(製圖)·설계 도면 감성이 필요할 때 쓴다.",
+        "제품 구조나 시스템을 도해로 설명하는 기술 랜딩·포트폴리오에 쓴다.",
+        "8px 모눈·치수선·콜아웃으로 정밀함과 전문성을 시각화하고 싶을 때 쓴다.",
+        "딥 블루 다크 보드의 강한 개성으로 차별화가 필요할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "따뜻하고 부드러운 소비자·키즈·라이프스타일 톤이 필요할 때 피한다.",
+        "풍부한 사진·그라디언트·입체 그림자가 핵심 비주얼일 때 피한다.",
+        "정보 밀도 높은 범용 대시보드에서 중립적 가독성만 원할 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": true
+      },
+      "related": [
+        "swiss-international-01",
+        "minimal-saas-01",
+        "bauhaus-geometric-01"
+      ]
     }
   },
   {
     "name": "claymorphism-playful-01",
     "description": "두툼한 3D 점토 표면 + 외부 드롭섀도 + 내부 inset 하이라이트(밝은 라벤더 베이스)",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Claymorphism_Playful_01",
+      "trendIndex": 3,
+      "family": "depth-material",
+      "priority": "P2",
+      "summary": "밝은 라벤더 위 파스텔 점토 표면, 외부 드롭섀도 + 내부 inset 하이라이트로 말랑한 압출, radius xl(28px)의 둥근 모서리.",
+      "tags": [
+        "light",
+        "pastel",
+        "rounded",
+        "depth",
+        "playful",
+        "organic",
+        "animated"
+      ],
+      "mood": {
+        "formality": 2,
+        "energy": 3,
+        "warmth": 3,
+        "density": 2,
+        "ornament": 3
+      },
+      "characteristics": {
+        "cornerRadius": "round",
+        "borderWeight": "none",
+        "shadow": "soft",
+        "density": "airy",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "medium"
+      },
+      "domains": [
+        "marketing",
+        "kids",
+        "education",
+        "portfolio",
+        "social"
+      ],
+      "useWhen": [
+        "친근하고 놀이적인 소비자 앱·랜딩에 말랑한 촉감을 주고 싶을 때 쓴다.",
+        "키즈·교육처럼 부드럽고 안전한 인상이 필요할 때 쓴다.",
+        "파스텔 톤과 두툼한 3D 표면으로 브랜드 개성을 드러낼 때 쓴다.",
+        "버튼·카드에 눌러보고 싶은 촉각적 반응을 넣고 싶을 때 쓴다."
+      ],
+      "avoidWhen": [
+        "정보 밀도 높은 대시보드·데이터 테이블에서 그림자 소음이 문제될 때 피한다.",
+        "기업용·금융처럼 격식과 절제가 우선일 때 피한다.",
+        "평면 구조와 강한 대비가 접근성상 필요할 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "neumorphism-soft-01",
+        "kawaii-pastel-01"
+      ]
     }
   },
   {
     "name": "collage-scrapbook-01",
     "description": "크라프트지 콜라주/스크랩북 — 손그림 보더 + 폴라로이드·테이프 컷아웃 + 스티커 라벨(라이트 베이스)",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Collage_Scrapbook_01",
+      "trendIndex": 16,
+      "family": "expressive-energetic",
+      "priority": "P3",
+      "summary": "크라프트지 위 손그림 보더·폴라로이드 테이프 컷아웃·스티커 라벨로 손으로 꾸민 스크랩북 페이지.",
+      "tags": [
+        "light",
+        "textured",
+        "hand-drawn",
+        "playful",
+        "organic",
+        "asymmetric",
+        "retro"
+      ],
+      "mood": {
+        "formality": 1,
+        "energy": 3,
+        "warmth": 5,
+        "density": 3,
+        "ornament": 4
+      },
+      "characteristics": {
+        "cornerRadius": "soft",
+        "borderWeight": "bold",
+        "shadow": "hard",
+        "density": "balanced",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "medium"
+      },
+      "domains": [
+        "portfolio",
+        "blog",
+        "creative-agency",
+        "kids",
+        "education"
+      ],
+      "useWhen": [
+        "개인 블로그·포트폴리오에 손으로 꾸민 따뜻한 인상을 줄 때 쓴다.",
+        "사진·메모·컬렉션을 콜라주처럼 붙여 보여주고 싶을 때 쓴다.",
+        "키즈·교육·취미 콘텐츠에 놀이적이고 친근한 질감을 줄 때 쓴다.",
+        "회고·무드보드처럼 아날로그 감성을 강조할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "데이터 밀도 높은 대시보드·기업 SaaS처럼 정밀·중립이 필요할 때 피한다.",
+        "엄격한 정렬 그리드와 균일한 반경이 요구되는 UI에는 피한다.",
+        "핀테크·의료처럼 격식과 신뢰가 최우선일 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "mixed-media-collage-01",
+        "naive-doodle-01",
+        "tactile-texture-01"
+      ]
     }
   },
   {
@@ -162,45 +642,283 @@
   {
     "name": "darkluxe-editorial-01",
     "description": "순흑·차콜 베이스 위 절제된 골드 강조의 다크 편집 럭셔리(대형 세리프 헤딩)",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "DarkLuxe_Editorial_01",
+      "trendIndex": 23,
+      "family": "refined-luxury",
+      "priority": "P2",
+      "summary": "순흑·차콜 베이스 위 절제된 골드 헤어라인, 대형 세리프 헤딩과 시네마틱 여백의 다크 편집 럭셔리.",
+      "tags": [
+        "dark",
+        "serif",
+        "typographic",
+        "luxurious",
+        "sharp",
+        "airy",
+        "animated"
+      ],
+      "mood": {
+        "formality": 4,
+        "energy": 2,
+        "warmth": 3,
+        "density": 2,
+        "ornament": 2
+      },
+      "characteristics": {
+        "cornerRadius": "sharp",
+        "borderWeight": "thin",
+        "shadow": "none",
+        "density": "airy",
+        "motion": "subtle",
+        "colorScheme": "dark",
+        "contrast": "high"
+      },
+      "domains": [
+        "luxury",
+        "editorial",
+        "portfolio",
+        "marketing",
+        "ecommerce"
+      ],
+      "useWhen": [
+        "패션·뷰티 브랜드 룩북이나 프리미엄 컬렉션 페이지를 만들 때 쓴다.",
+        "시네마틱 Hero·케이스 스터디처럼 여백과 고대비로 격조를 낼 때 쓴다.",
+        "흑·금 대비와 대형 세리프로 고급·정제된 인상이 필요할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "데이터 밀도 높은 대시보드·관리 UI처럼 정보 조밀함이 우선일 때 피한다.",
+        "놀이·키즈·소비자 팝처럼 밝고 표현적인 에너지가 핵심일 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": true
+      },
+      "related": [
+        "artdeco-luxe-01",
+        "editorial-magazine-01"
+      ]
     }
   },
   {
     "name": "editorial-magazine-01",
     "description": "warm paper 위 세리프 본문 + 디스플레이 세리프 헤드라인 + 헤어라인 칼럼 규칙선(잉크 온 페이퍼 고대비)",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Editorial_Magazine_01",
+      "trendIndex": 8,
+      "family": "typographic-editorial",
+      "priority": "P2",
+      "summary": "warm paper 위 디스플레이 세리프 헤드라인 + serif 본문, 헤어라인 칼럼 규칙선의 잉크 온 페이퍼 편집 지면.",
+      "tags": [
+        "light",
+        "serif",
+        "typographic",
+        "grid",
+        "high-contrast",
+        "airy",
+        "serious",
+        "sharp"
+      ],
+      "mood": {
+        "formality": 3,
+        "energy": 2,
+        "warmth": 4,
+        "density": 3,
+        "ornament": 2
+      },
+      "characteristics": {
+        "cornerRadius": "sharp",
+        "borderWeight": "thin",
+        "shadow": "none",
+        "density": "balanced",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "high"
+      },
+      "domains": [
+        "editorial",
+        "blog",
+        "marketing",
+        "portfolio",
+        "creative-agency"
+      ],
+      "useWhen": [
+        "긴 읽기·기사·매거진처럼 활자와 위계가 콘텐츠의 중심일 때 쓴다.",
+        "세리프 헤드라인과 칼럼 규칙선으로 인쇄물 같은 편집 지면을 만들 때 쓴다.",
+        "브랜드에 지적이고 고전적인 신뢰감을 주고 싶을 때 쓴다."
+      ],
+      "avoidWhen": [
+        "제품 대시보드·앱 UI처럼 조밀한 데이터 조작이 핵심일 때 피한다.",
+        "강렬한 색·모션으로 소비자 임팩트가 필요할 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aaa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "darkluxe-editorial-01",
+        "photo-type-editorial-01",
+        "swiss-international-01"
+      ]
     }
   },
   {
     "name": "flat-material-01",
     "description": "Material You 톤 + elevation 그림자 + 상태 레이어, 둥근 pill 액션",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Flat_Material_01",
+      "trendIndex": 5,
+      "family": "flat-systematic",
+      "priority": "P1",
+      "summary": "Material You 키컬러 파생 톤 시스템 + 부드러운 elevation 그림자, 둥근 pill 액션과 상태 레이어의 소비자 앱 UI.",
+      "tags": [
+        "light",
+        "rounded",
+        "flat",
+        "depth",
+        "pastel",
+        "mono"
+      ],
+      "mood": {
+        "formality": 3,
+        "energy": 2,
+        "warmth": 3,
+        "density": 3,
+        "ornament": 2
+      },
+      "characteristics": {
+        "cornerRadius": "round",
+        "borderWeight": "thin",
+        "shadow": "soft",
+        "density": "balanced",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "medium"
+      },
+      "domains": [
+        "saas",
+        "ecommerce",
+        "healthcare",
+        "education",
+        "social"
+      ],
+      "useWhen": [
+        "안드로이드/모바일 앱 감성의 일관된 디자인 시스템이 필요할 때 쓴다.",
+        "키컬러 하나로 표면·강조 톤을 자동 파생시키고 싶을 때 쓴다.",
+        "보더 대신 elevation 그림자로 위계를 표현하고 싶을 때 쓴다.",
+        "친근하고 접근성 좋은 소비자 제품 UI를 만들 때 쓴다."
+      ],
+      "avoidWhen": [
+        "날카로운 각·강한 브랜드 개성으로 차별화가 필요할 때 피한다.",
+        "고밀도 데이터·표 위주의 조밀한 관리 UI엔 과한 여백일 수 있어 피한다.",
+        "다크/네온 테크 무드가 핵심일 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "minimal-saas-01",
+        "neumorphism-soft-01"
+      ]
     }
   },
   {
     "name": "frutiger-aero-glossy-01",
     "description": "스카이블루·그린·화이트 자연 모티프 + 아쿠아 글로스 표면(라이트 베이스)",
-    "metaStatus": "pending",
+    "metaStatus": "authored",
     "completeness": {
       "hasWrappers": true,
       "hasPatterns": true,
       "foundationPresetCount": 3,
       "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "FrutigerAero_Glossy_01",
+      "trendIndex": 13,
+      "family": "nostalgia",
+      "priority": "P3",
+      "summary": "스카이블루·그린·화이트 위 아쿠아 글로시 버튼과 투명 글라스 카드, 물·잎·하늘 자연 모티프의 2000s 낙관적 테크-자연 글로스.",
+      "tags": [
+        "light",
+        "glossy",
+        "gradient",
+        "glass",
+        "rounded",
+        "vivid",
+        "retro",
+        "animated"
+      ],
+      "mood": {
+        "formality": 2,
+        "energy": 3,
+        "warmth": 2,
+        "density": 2,
+        "ornament": 4
+      },
+      "characteristics": {
+        "cornerRadius": "round",
+        "borderWeight": "thin",
+        "shadow": "soft",
+        "density": "airy",
+        "motion": "subtle",
+        "colorScheme": "both",
+        "contrast": "medium"
+      },
+      "domains": [
+        "landing",
+        "marketing",
+        "healthcare",
+        "dashboard"
+      ],
+      "useWhen": [
+        "2000년대 낙관적 테크-자연 감성의 밝은 랜딩·제품 소개를 만들 때 쓴다.",
+        "가전·웰니스처럼 맑고 투명한 아쿠아 글로스 표면이 어울릴 때 쓴다.",
+        "하늘·물·잎 그라디언트로 신선하고 친근한 인상을 주고 싶을 때 쓴다.",
+        "Y2K 이후 레트로 노스탤지어를 살리고 싶을 때 쓴다."
+      ],
+      "avoidWhen": [
+        "기업용 관리 UI·데이터 밀도 높은 대시보드에서 절제가 필요할 때 피한다.",
+        "무광 미니멀·진지한 편집 톤이 요구될 때 피한다.",
+        "광택·투명 표면이 텍스트 가독성을 해치는 고밀도 화면에서 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "glassmorphism-aurora-01",
+        "y2k-futurism-01",
+        "iridescent-chrome-01"
+      ]
     }
   },
   {

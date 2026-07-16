@@ -28,9 +28,14 @@ describe('buildManifest — rich/pending 분기', () => {
     }
   });
 
-  it('파일럿 3종이 정확히 authored 상태다', () => {
-    const authored = manifest.filter((e) => e.metaStatus === 'authored').map((e) => e.name).sort();
-    expect(authored).toEqual(['cyberpunk-hud-01', 'minimal-saas-01', 'neobrutalism-editorial-01']);
+  it('KAN-018 파일럿 3종은 backfill 이후에도 authored 상태를 유지한다', () => {
+    // KAN-021 backfill로 authored가 단조 증가하므로 "정확히 3종" 대신 파일럿 불변식만 검증한다.
+    const authored = new Set(
+      manifest.filter((e) => e.metaStatus === 'authored').map((e) => e.name)
+    );
+    for (const pilot of ['cyberpunk-hud-01', 'minimal-saas-01', 'neobrutalism-editorial-01']) {
+      expect(authored.has(pilot)).toBe(true);
+    }
   });
 
   it('결정적으로 name 오름차순 정렬된다', () => {
