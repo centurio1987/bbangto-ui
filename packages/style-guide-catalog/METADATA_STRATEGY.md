@@ -129,6 +129,9 @@ StyleGuide.meta  ──(buildManifest, 결정적)──▶  catalog.manifest.jso
 > **KAN-022 완료**: `selectStyleGuides`가 위 2단계를 구현한다(`src/select.ts`, UI·viz 양쪽 export).
 > soft-weighted(하드 필터 아님) → shortlist 붕괴 없이 상위 N 반환, 최종 판단은 소비자(AI)가
 > `useWhen`/`avoidWhen`으로. viz는 국소 복제 + parity 테스트로 drift 가드.
+>
+> **KAN-023 완료**: 이 흐름의 **사람용 실현**이 Storybook "Catalog Decision Table" 스토리다
+> (필터→`selectStyleGuides` 재랭크, UI/viz 2스토리). 사람이 눈으로 후보를 비교·선택한다.
 
 ## 7. 롤아웃 단계
 
@@ -137,6 +140,6 @@ StyleGuide.meta  ──(buildManifest, 결정적)──▶  catalog.manifest.jso
 | **파일럿(KAN-018)** | `StyleGuideMeta` 타입·어휘 + `buildManifest` + 매니페스트 + 게이트 + **대표 3종**(minimal-saas-01·neobrutalism-editorial-01·cyberpunk-hud-01) | ✅ 이 카드 |
 | KAN-021 | 잔여 48 UI + 6 viz `meta` 전량 backfill → gate "meta 필수" 승격 | ✅ (UI 51/51·viz 6/6 authored, pending 0; viz 매니페스트 인프라 신설) |
 | KAN-022 | `selectStyleGuides(criteria)` 스코어링 helper API | ✅ (soft-weighted, UI·viz 국소복제+parity, 38 vitest) |
-| KAN-023 | Storybook "Catalog Decision Table" 비교표 스토리 | 📋 |
+| KAN-023 | Storybook "Catalog Decision Table" 비교표 스토리 | ✅ (인터랙티브 필터·랭킹, UI/viz 2스토리) |
 | KAN-024 | 팔레트 토큰 실측 WCAG 대비 계산 → `accessibility` 선언과 CI 대조 | 📋 |
 | KAN-025 | 매니페스트 → `style-guide-catalog.md` 트렌드 표 자동생성 | 📋 |

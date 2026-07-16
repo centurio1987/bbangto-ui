@@ -17,8 +17,6 @@
   - 메모: ORD-008 이연 — TemplateStyleMatrix 심층 검증이 파일럿 3템플릿×3스타일가이드로 한정됨. ORD-010/011로 구현 템플릿이 76/90까지 늘어 재스코핑 필요(단일 가이드 paint 해석 게이트는 전 템플릿 커버, 3-way 교차검증만 파일럿 한정).
 - `KAN-017` 신규 style guide 후보 5종 구현 (Bento_Modular/Kinetic_Typography/Spatial_3D/Humanist_Imperfect/Tactile_Texture) — 생성:ai · 최종:ai · 갱신:2026-07-14
   - 메모: design-trends-2020-2026.md §C 신규 후보 — ORD-009에서 추가된 3종(Corporate_Schematic/Ink_Line_Duotone/Neon_Gradient_Dark)과 별개로 아직 스타일 가이드로 구현되지 않음.
-- `KAN-023` Storybook 'Catalog Decision Table' 스토리 (매니페스트 비교표 렌더) — 생성:ai · 최종:ai · 갱신:2026-07-14
-  - 메모: KAN-018 후속 — catalog.manifest.json을 사람이 비교하는 결정 테이블.
 - `KAN-024` 팔레트 토큰 실측 WCAG 대비 계산 → meta.accessibility 선언 CI 대조 — 생성:ai · 최종:ai · 갱신:2026-07-14
   - 메모: KAN-018 후속 — accessibility가 advisory 선언에 그치는 과대주장 방지(외부검토 지적).
 - `KAN-025` catalog.manifest.json → style-guide-catalog.md 트렌드 표 자동생성(문서 drift 제거) — 생성:ai · 최종:ai · 갱신:2026-07-14
@@ -31,6 +29,8 @@
 ## 검토
 
 ## 완료
+- `KAN-023` Storybook 'Catalog Decision Table' 스토리 (매니페스트 비교표 렌더) — 생성:ai · 최종:ai · 갱신:2026-07-17
+  - 메모: 매니페스트 채택 메타를 사람이 비교·선택하는 인터랙티브 결정 테이블(METADATA_STRATEGY §6 소비 흐름의 사람용 실현). `CatalogDecisionTable` 공통 컴포넌트 — 필터(domain/family/colorScheme/min-energy)→`criteriaFromFilters`(순수·export)→`selectStyleGuides` 재랭크(score 내림차순)→core `Table` 렌더, Rank·selected=Rank1, null-safe·kind별 컬럼. UI(51)·viz(6) 스토리 2개(`apps/storybook/src/stories/CatalogDecisionTable.stories.tsx` + `visualization/VizCatalogDecisionTable.stories.tsx` + `_decisionTable.tsx`). play(실 chromium): 데이터파생 행수·구체 토큰·관계적 필터 재랭크(매핑 검증)·soft-weighted 비붕괴·broad 개인정보 가드. 4 게이트 green, storySort/매니페스트 무변경.
 - `KAN-022` selectStyleGuides(criteria) 스코어링 helper API (catalog 패키지) — 생성:ai · 최종:ai · 갱신:2026-07-17
   - 메모: `selectStyleGuides(catalog, criteria)` 순수 함수(METADATA_STRATEGY §6 2단계 구현). soft-weighted 스코어링(하드 필터 아님 → shortlist 붕괴 방지), family/priority(집합)·domains/tags(recall)·characteristics(등가, dark↔both)·mood(근접/band graded), 입력 sanitize·결정적 tie-break(score→priority→trendIndex→name)·pending 처리. generic `{name,meta?}`로 UI/viz/ManifestEntry 공용, 양쪽 배럴 export. viz는 select.ts 국소 복제(manifest.ts 선례)+parity 테스트(UI helper를 test 전용 devDep로 import해 deep-equal, drift 가드). UI 28+viz 10 vitest green, 4 게이트 green. `meta?` optional 제거는 이연(별도 카드).
 - `KAN-021` 잔여 48 UI + 6 viz style guide meta 전량 backfill (완료 시 gate 'meta 필수' 승격) — 생성:ai · 최종:ai · 갱신:2026-07-16
