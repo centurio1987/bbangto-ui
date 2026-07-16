@@ -41,3 +41,14 @@ export {
   type ManifestCompleteness,
   type CatalogEntryLike,
 } from './manifest';
+
+// 채택 스코어링 helper (UI 동형 국소 복제, parity 테스트가 drift 가드).
+export {
+  selectStyleGuides,
+  DEFAULT_WEIGHTS,
+  type StyleSelectionCriteria,
+  type SelectionResult,
+  type MoodConstraint,
+  type SelectableEntry,
+  type CriterionWeights,
+} from './select';

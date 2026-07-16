@@ -202,3 +202,14 @@ export {
   type ManifestCompleteness,
   type CatalogEntryLike,
 } from './manifest';
+
+// 채택 스코어링 helper (meta 기반 후보 필터·랭크, METADATA_STRATEGY §6 2단계).
+export {
+  selectStyleGuides,
+  DEFAULT_WEIGHTS,
+  type StyleSelectionCriteria,
+  type SelectionResult,
+  type MoodConstraint,
+  type SelectableEntry,
+  type CriterionWeights,
+} from './select';
