@@ -56,9 +56,11 @@ StyleGuide.meta  ──(buildManifest, 결정적)──▶  catalog.manifest.jso
 - **`family`는 단일 primary 분류자.** 혼합 스타일의 부차 성격은 `tags`가 담당한다. 하나의 축으로
   강제 분류해야 필터가 단순하고 일관된다.
 - **`accessibility`는 "측정 보장"이 아니라 "설계 의도".** `contrastIntent`/`colorblindConsidered`는
-  저자 선언이고, `darkFirst`/`motionHeavy`는 설계 사실이다. **팔레트 토큰에서 실측 WCAG 대비를
-  계산해 선언과 대조하는 자동 검증은 후속 카드**(KAN-024)로 분리한다 — 스타일 가이드 선언만으로는
-  실제 대비를 보장할 수 없기 때문.
+  저자 선언이고, `darkFirst`/`motionHeavy`는 설계 사실이다. **KAN-024 완료**: 팔레트 실측 WCAG 대비
+  (`foreground.base` vs `background.base`, 전 preset; 그라디언트는 worst-case)를 `contrastIntent`와
+  CI에서 대조해 **over-claim을 hard-fail**한다(aa≥4.5·aaa≥7·low 무제약, `low`=정직한 저대비 허용).
+  유틸은 `tokens/contrast.ts`, 감사는 `style-guide-catalog/accessibilityAudit.ts`(`auditContrast`).
+  UI 51종 실측 결과 전량 정직(over-claim 0). viz는 텍스트 쌍 스키마가 달라 후속 카드로 분리.
 - **`useWhen`/`avoidWhen`은 자유 텍스트.** 소비자가 LLM이라 서술형이 유효하다. 단 **기계 필터의
   1차 신호는 구조화 필드(`tags`/`domains`/`mood`/`characteristics`)** 이고, `useWhen`/`avoidWhen`은
   최종 판단용 근거라는 역할 분리를 지킨다. 서술 규칙: 짧은 명령형 문장 ≤5개.
@@ -141,5 +143,6 @@ StyleGuide.meta  ──(buildManifest, 결정적)──▶  catalog.manifest.jso
 | KAN-021 | 잔여 48 UI + 6 viz `meta` 전량 backfill → gate "meta 필수" 승격 | ✅ (UI 51/51·viz 6/6 authored, pending 0; viz 매니페스트 인프라 신설) |
 | KAN-022 | `selectStyleGuides(criteria)` 스코어링 helper API | ✅ (soft-weighted, UI·viz 국소복제+parity, 38 vitest) |
 | KAN-023 | Storybook "Catalog Decision Table" 비교표 스토리 | ✅ (인터랙티브 필터·랭킹, UI/viz 2스토리) |
-| KAN-024 | 팔레트 토큰 실측 WCAG 대비 계산 → `accessibility` 선언과 CI 대조 | 📋 |
+| KAN-024 | 팔레트 토큰 실측 WCAG 대비 계산 → `accessibility` 선언과 CI 대조 | ✅ (UI over-claim hard-fail, 실측 51종 정직; viz 후속) |
 | KAN-025 | 매니페스트 → `style-guide-catalog.md` 트렌드 표 자동생성 | 📋 |
+| KAN-026 | viz 팔레트 실측 대비 감사(canvas 위 잉크/라벨 텍스트 쌍 정의 후 auditContrast 확장) | 📋 |
