@@ -4,6 +4,7 @@ import React from 'react';
 import { StyleGuideProvider, resolveFoundationPreset } from '@centurio1987/bbangto-ui-core';
 import type { StyleGuide } from '@centurio1987/bbangto-ui-core';
 import { styleGuideMap } from '@centurio1987/bbangto-ui-style-guide-catalog';
+import { contrastRatio } from '@centurio1987/bbangto-ui-tokens';
 
 /*
  * Style Guide Catalog — 공통 스토리 팩토리.
@@ -71,53 +72,6 @@ function foundationControl(sg: StyleGuide): Partial<Story> {
     },
     args: { foundationKey: sg.defaultFoundationKey ?? presets[0].key },
   };
-}
-
-/** #RGB / #RRGGBB → [r,g,b]. 파싱 불가 시 null. */
-function parseHex(c: string): [number, number, number] | null {
-  const s = c.trim().replace('#', '');
-  if (s.length === 3) return [0, 1, 2].map((i) => parseInt(s[i] + s[i], 16)) as [number, number, number];
-  if (s.length === 6) return [0, 2, 4].map((i) => parseInt(s.slice(i, i + 2), 16)) as [number, number, number];
-  return null;
-}
-
-/** WCAG 상대휘도 대비비. 파싱 불가 시 null. */
-function contrastRatio(a: string, b: string): number | null {
-  const ca = parseHex(a);
-  const cb = parseHex(b);
-  if (!ca || !cb) return null;
-  const lum = ([r, g, b]: [number, number, number]) => {
-    const f = (v: number) => {
-      const x = v / 255;
-      return x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4;
-    };
-    return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b);
-  };
-  const l1 = lum(ca);
-  const l2 = lum(cb);
-  return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
-}
-
-/** `rgb()/rgba()`(getComputedStyle 반환형) 또는 hex → 대비비. 파싱 불가 시 null. */
-function contrastRatioRGB(a: string, b: string): number | null {
-  const parse = (c: string): [number, number, number] | null => {
-    const m = c.match(/rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)/i);
-    if (m) return [Number(m[1]), Number(m[2]), Number(m[3])];
-    return parseHex(c);
-  };
-  const ca = parse(a);
-  const cb = parse(b);
-  if (!ca || !cb) return null;
-  const lum = ([r, g, b]: [number, number, number]) => {
-    const f = (v: number) => {
-      const x = v / 255;
-      return x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4;
-    };
-    return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b);
-  };
-  const l1 = lum(ca);
-  const l2 = lum(cb);
-  return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
 }
 
 const H3: React.FC<{ children: React.ReactNode }> = ({ children }) => (
@@ -356,7 +310,7 @@ export function makeCatalogStories(sg: StyleGuide): Record<string, Story> {
       const craft = canvasElement.querySelector<HTMLElement>('[data-section="craft"]');
       await expect(craft).not.toBeNull();
       const craftStyle = getComputedStyle(craft!);
-      const craftRatio = contrastRatioRGB(craftStyle.backgroundColor, craftStyle.color);
+      const craftRatio = contrastRatio(craftStyle.backgroundColor, craftStyle.color);
       if (craftRatio != null) await expect(craftRatio).toBeGreaterThanOrEqual(4.5);
 
       // 4) 개인정보 회귀 가드 — DOM 텍스트/href에 금지 토큰 부재.

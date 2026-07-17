@@ -10,6 +10,7 @@ import {
   type VisualizationStyleGuide,
 } from '@centurio1987/bbangto-ui-visualization';
 import { vizStyleGuideMap } from '@centurio1987/bbangto-ui-visualization-style-guide-catalog';
+import { contrastRatio } from '@centurio1987/bbangto-ui-tokens';
 import { expect } from 'storybook/test';
 
 /**
@@ -28,30 +29,6 @@ const FORBIDDEN_LEGACY = ['빵토', 'bbangto bakery', 'est. 2019'];
 const FORBIDDEN = [...FORBIDDEN_PRIVACY, ...FORBIDDEN_LEGACY];
 
 type Story = StoryObj<{ foundationKey?: string }>;
-
-function parseHex(c: string): [number, number, number] | null {
-  const s = c.trim().replace('#', '');
-  if (/[^0-9a-fA-F]/.test(s)) return null;
-  if (s.length === 3) return [0, 1, 2].map((i) => parseInt(s[i] + s[i], 16)) as [number, number, number];
-  if (s.length === 6) return [0, 2, 4].map((i) => parseInt(s.slice(i, i + 2), 16)) as [number, number, number];
-  return null;
-}
-
-function contrastRatio(a: string, b: string): number | null {
-  const ca = parseHex(a);
-  const cb = parseHex(b);
-  if (!ca || !cb) return null;
-  const lum = ([r, g, bl]: [number, number, number]) => {
-    const f = (v: number) => {
-      const x = v / 255;
-      return x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4;
-    };
-    return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(bl);
-  };
-  const l1 = lum(ca);
-  const l2 = lum(cb);
-  return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
-}
 
 function DocShell({
   sg,

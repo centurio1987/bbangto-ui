@@ -30,6 +30,8 @@ export type {
 export { STYLE_FAMILIES, DOMAINS, TAGS } from './styleGuideMeta';
 
 export { flattenToCSSVars, foundationToCSSString, foundationToStyleObject, cssVar } from './contract';
+export { parseColor, extractColors, relativeLuminance, compositeOver, contrastRatio } from './contrast';
+export type { RGBA } from './contrast';
 export { mergeFoundation } from './utils';
 export { breakpoints, up, down } from './breakpoints';
 export type { Breakpoint } from './breakpoints';

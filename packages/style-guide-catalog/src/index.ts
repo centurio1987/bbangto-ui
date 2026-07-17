@@ -213,3 +213,11 @@ export {
   type SelectableEntry,
   type CriterionWeights,
 } from './select';
+
+// accessibility over-claim 감사 (팔레트 실측 WCAG 대비 vs contrastIntent 선언, KAN-024).
+export {
+  auditContrast,
+  CONTRAST_THRESHOLDS,
+  type AuditableEntry,
+  type ContrastViolation,
+} from './accessibilityAudit';
