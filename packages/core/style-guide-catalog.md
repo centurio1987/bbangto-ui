@@ -42,7 +42,6 @@ slug = kebab-case (`name` / `data-bbangto-style-guide` / `styleGuideMap` 키).
 | 1 | Glassmorphism_Aurora_01 | `glassmorphism-aurora-01` | 깊이/material | 딥 인디고 위 반투명 frosted glass + backdrop-blur + 보라·시안 오로라 강조의 유리 표면. | P1 |
 | 2 | Neumorphism_Soft_01 | `neumorphism-soft-01` | 깊이/material | 배경과 같은 단색 표면을 이중 그림자로 볼록/오목 압출한 부드러운 촉각 UI. | P1 |
 | 3 | Claymorphism_Playful_01 | `claymorphism-playful-01` | 깊이/material | 밝은 라벤더 위 파스텔 점토 표면, 외부 드롭섀도 + 내부 inset 하이라이트로 말랑한 압출, radius xl(28px)의 둥근 모서리. | P2 |
-| 3 | PixelArtRetro_13 | `pixel-art-retro-01` | 노스탤지어 | 의도적 저해상 8비트 도트 미감 — 정수 픽셀 그리드에 스냅된 블록 타이포·직각 모서리·blur 0 하드 도트 그림자, CRT 다크 베이스 고채도 원색. | P2 |
 | 4 | Skeuomorphism_Tactile_01 | `skeuomorphism-tactile-01` | 깊이/material | 따뜻한 가죽·노트 베이지 표면 + 베벨 하이라이트·안쪽 그림자로 빚은 물리적 촉각 스큐어모피즘, 누르면 들어가는 버튼. | P3 |
 | 5 | Flat_Material_01 | `flat-material-01` | 평면/체계 | Material You 키컬러 파생 톤 시스템 + 부드러운 elevation 그림자, 둥근 pill 액션과 상태 레이어의 소비자 앱 UI. | P1 |
 | 6 | Minimal_Saas_01 | `minimal-saas-01` | 평면/체계 | 중립 그레이 + 단일 인디고 액센트, 얇은 보더·약한 그림자, 넉넉한 여백의 제품 UI. | P1 |
@@ -80,6 +79,7 @@ slug = kebab-case (`name` / `data-bbangto-style-guide` / `styleGuideMap` 키).
 | 38 | PunkGrungeGraffiti_10 | `punk-grunge-graffiti-01` | 표현/에너지 | 제록스 하프톤·찢긴 가장자리·스프레이/낙서가 그리드를 깨는 반정제 카오스 콜라주, 오프블랙 + 형광 스폿(옐로/마젠타/레드) 충돌. | P2 |
 | 39 | AISurrealGradient3D_11 | `ai-surreal-gradient3d-01` | 깊이/material | 딥 다크 위 AI 생성 초현실 3D 렌더 + 이리데센트 표면, 소프트 접지 그림자·스펙큘러 글로스의 몽환적 테크 미학. | P2 |
 | 40 | ShatteredGlassCinematic_12 | `shattered-glass-cinematic-01` | 깊이/material | 딥 잉크 다크 면을 가로지르는 깨진/금 간 유리 + 시안↔마젠타↔라임 이리데센트 프리즘 굴절, fragile yet striking의 시네마틱 결정질 표면. | P2 |
+| 41 | PixelArtRetro_13 | `pixel-art-retro-01` | 노스탤지어 | 의도적 저해상 8비트 도트 미감 — 정수 픽셀 그리드에 스냅된 블록 타이포·직각 모서리·blur 0 하드 도트 그림자, CRT 다크 베이스 고채도 원색. | P2 |
 | 42 | Halftone_Glitch_Colorsep_01 | `halftone-glitch-colorsep-01` | 테크/다크 | CMYK 망점 스크린 + 적·녹 채널 색분해 글리치, near-black 다크 베이스 + 2~3색 한정 잉크의 인쇄 오정합 포스터 미학. | P2 |
 | 43 | MixedMediaCollage_15 | `mixed-media-collage-01` | 표현/에너지 | 페이퍼 캔버스 위 사진·드로잉·3D를 듀오톤·그레인으로 통일한 레이어 콜라주 — 편집적 멀티미디어 합성 비주얼. | P2 |
 | 44 | PhotoTypeEditorial_16 | `photo-type-editorial-01` | 타이포/편집 | 단색 평면 배경 + 초대형 grotesque 타이포와 사진의 융합(클립·마스크·아웃라인), 각진 플랫 프레임과 hard-offset의 포스터형 에디토리얼. | P3 |
