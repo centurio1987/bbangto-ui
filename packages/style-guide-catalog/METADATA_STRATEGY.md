@@ -115,7 +115,9 @@ StyleGuide.meta  ──(buildManifest, 결정적)──▶  catalog.manifest.jso
 - **재생성 강제**: `catalog.manifest.json`은 생성물이다. `prebuild`가 `gen:manifest`를 자동 실행하고,
   vitest 동기 테스트(`buildManifest(styleGuideCatalog) === 커밋본`)가 stale 매니페스트를 CI에서 잡는다.
 - **drift 최소화**: 매니페스트를 채택 필드의 기계 SSOT로 삼고, `style-guide-catalog.md` 트렌드 표는
-  사람용 문서로 상호링크한다(장기적으로 매니페스트→md 표 자동생성은 KAN-025).
+  **KAN-025로 매니페스트에서 자동생성**한다(`buildTrendTable` → md의 `<!-- gen:trend-table -->` 마커
+  구간, `gen:trend-table` 스크립트로 갱신). sync 테스트(`trendTable.test.ts`, `test:unit`)가 stale md를
+  CI에서 잡는다. 패밀리 한국어 라벨은 `tokens`의 `STYLE_FAMILY_LABELS`(기계가독 SSOT).
 
 ## 6. AI 소비 흐름
 
@@ -144,5 +146,6 @@ StyleGuide.meta  ──(buildManifest, 결정적)──▶  catalog.manifest.jso
 | KAN-022 | `selectStyleGuides(criteria)` 스코어링 helper API | ✅ (soft-weighted, UI·viz 국소복제+parity, 38 vitest) |
 | KAN-023 | Storybook "Catalog Decision Table" 비교표 스토리 | ✅ (인터랙티브 필터·랭킹, UI/viz 2스토리) |
 | KAN-024 | 팔레트 토큰 실측 WCAG 대비 계산 → `accessibility` 선언과 CI 대조 | ✅ (UI over-claim hard-fail, 실측 51종 정직; viz 후속) |
-| KAN-025 | 매니페스트 → `style-guide-catalog.md` 트렌드 표 자동생성 | 📋 |
+| KAN-025 | 매니페스트 → `style-guide-catalog.md` 트렌드 표 자동생성 | ✅ (gen 마커+통합 표, sync 테스트; STYLE_FAMILY_LABELS 승격) |
 | KAN-026 | viz 팔레트 실측 대비 감사(canvas 위 잉크/라벨 텍스트 쌍 정의 후 auditContrast 확장) | 📋 |
+| KAN-027 | #29-50 비정규 displayName 16건 canonical(`Primary_Secondary_01`) 정규화 | 📋 |
