@@ -27,7 +27,7 @@ export type {
   StyleMood,
   StyleAccessibility,
 } from './styleGuideMeta';
-export { STYLE_FAMILIES, DOMAINS, TAGS } from './styleGuideMeta';
+export { STYLE_FAMILIES, STYLE_FAMILY_LABELS, DOMAINS, TAGS } from './styleGuideMeta';
 
 export { flattenToCSSVars, foundationToCSSString, foundationToStyleObject, cssVar } from './contract';
 export { parseColor, extractColors, relativeLuminance, compositeOver, contrastRatio } from './contrast';

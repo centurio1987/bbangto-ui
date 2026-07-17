@@ -2,7 +2,7 @@
 
 > 목적: Style Guide Catalog를 **일괄 생성**하기 위한 후보 디자인 트렌드 수집·목록.
 > 각 항목은 bbangto-ui의 `StyleGuide` 6요소(아래)로 곧장 인스턴스화할 수 있도록 명세화한다.
-> 현재 `@centurio1987/bbangto-ui-style-guide-catalog` 패키지에 **29개 preset이 구현**되어 있다(#0–28 전부, `styleGuideCatalog`/`styleGuideMap` 등재).
+> 현재 `@centurio1987/bbangto-ui-style-guide-catalog` 패키지에 **51개 preset이 구현**되어 있다(#0–50 전부, `styleGuideCatalog`/`styleGuideMap` 등재). 아래 색인 표는 `catalog.manifest.json`에서 자동생성된다(KAN-025).
 >
 > **채택 메타데이터(AI가 catalog에서 style guide를 코드 전수 검토 없이 고르기):** 아래 트렌드 표의
 > 채택 정보(패밀리·우선순위·모티프)는 각 `StyleGuide.meta`(SSOT)로 흡수되어 `catalog.manifest.json`으로
@@ -33,37 +33,63 @@ slug = kebab-case (`name` / `data-bbangto-style-guide` / `styleGuideMap` 키).
 
 > 우선순위(P): P1 = 대비/구현 효과 크고 기존 토큰 체계로 바로 표현 가능 · P2 = 가치 높으나 확장토큰/래퍼 필요 · P3 = 틈새/실험적.
 
-| # | 표시명 (제안) | slug | 패밀리 | 핵심 모티프 한 줄 | P |
-|---|---------------|------|--------|-------------------|---|
-| 0 | **Neobrutalism_Editorial_01** | `neobrutalism-editorial-01` | 구조/raw | 크림·잉크·골드, 각진 모서리, 하드 오프셋 그림자 *(구현됨)* | — |
-| 1 | Glassmorphism_Aurora_01 | `glassmorphism-aurora-01` | 깊이/material | 반투명 frosted glass + 배경 블러 + 오로라 그라디언트 | P1 |
-| 2 | Neumorphism_Soft_01 | `neumorphism-soft-01` | 깊이/material | 단색 표면 + 이중 그림자(볼록/오목) 압출감 | P1 |
-| 3 | Claymorphism_Playful_01 | `claymorphism-playful-01` | 깊이/material | 두툼한 라운드 + 파스텔 + inner/outer 소프트 그림자 | P2 |
-| 4 | Skeuomorphism_Tactile_01 | `skeuomorphism-tactile-01` | 깊이/material | 실물 질감(가죽/금속/그라디언트 베벨) 모사 | P3 |
-| 5 | Flat_Material_01 | `flat-material-01` | 평면/체계 | Material You 톤 + elevation 그림자 + 명료한 색역 | P1 |
-| 6 | Minimal_Saas_01 | `minimal-saas-01` | 평면/체계 | 중립 그레이 + 1 액센트, 넉넉한 여백, 낮은 채도 | P1 |
-| 7 | Swiss_International_01 | `swiss-international-01` | 타이포/편집 | 그리드·비대칭 정렬·Helvetica류·적·흑·백 | P1 |
-| 8 | Editorial_Magazine_01 | `editorial-magazine-01` | 타이포/편집 | serif 본문 + 대형 헤드라인 + 칼럼 레이아웃 | P2 |
-| 9 | Bauhaus_Geometric_01 | `bauhaus-geometric-01` | 타이포/편집 | 원·삼각·사각 기본형 + 3원색 + 기하 구성 | P2 |
-| 10 | Y2K_Futurism_01 | `y2k-futurism-01` | 노스탤지어 | 크롬·네온·버블·글로시 그라디언트, 버블 폰트 | P2 |
-| 11 | Vaporwave_Synth_01 | `vaporwave-synth-01` | 노스탤지어 | 핑크/시안 네온 그리드, 글리치, 80s 석양 | P2 |
-| 12 | Memphis_Postmodern_01 | `memphis-postmodern-01` | 노스탤지어 | 지그재그·도형 패턴·테리조·고채도 충돌 | P3 |
-| 13 | FrutigerAero_Glossy_01 | `frutiger-aero-glossy-01` | 노스탤지어 | 에어로 글로스 + 자연(물/하늘) + 스카이 그라디언트 | P3 |
-| 14 | Retro70s_Warm_01 | `retro70s-warm-01` | 노스탤지어 | 머스타드/테라코타/올리브, 라운드 산세리프, groovy | P3 |
-| 15 | Maximalism_Dopamine_01 | `maximalism-dopamine-01` | 표현/에너지 | 고채도 충돌색·겹침·대형 타이포·밀도 | P2 |
-| 16 | Collage_Scrapbook_01 | `collage-scrapbook-01` | 표현/에너지 | 스티커/찢긴 종이/컷아웃/손그림 콜라주 | P3 |
-| 17 | Kawaii_Pastel_01 | `kawaii-pastel-01` | 표현/에너지 | 파스텔 + 둥근 형태 + 귀여운 마스코트/아이콘 | P3 |
-| 18 | Cyberpunk_Hud_01 | `cyberpunk-hud-01` | 테크/다크 | 다크 베이스 + 네온 엣지/스캔라인 + HUD 프레임 | P2 |
-| 19 | Terminal_Mono_01 | `terminal-mono-01` | 테크/다크 | 모노스페이스 전면 + 다크 콘솔 + 커서/ASCII | P1 |
-| 20 | Aurora_Gradient_01 | `aurora-gradient-01` | 테크/다크 | 메시 그라디언트 배경 + 부유 글로우 + 다크 글래스 | P2 |
-| 21 | ArtDeco_Luxe_01 | `artdeco-luxe-01` | 정제/럭셔리 | 골드 라인·대칭·기하 장식·세리프 디스플레이 | P3 |
-| 22 | Scandi_Warm_01 | `scandi-warm-01` | 정제/럭셔리 | 따뜻한 오프화이트 + 우드톤 + 절제된 라운드 | P2 |
-| 23 | DarkLuxe_Editorial_01 | `darkluxe-editorial-01` | 정제/럭셔리 | 흑·금 고대비 + 대형 세리프 + 시네마틱 여백 | P2 |
-| 24 | **Bento_Modular_01** | `bento-modular-01` | 평면/체계 | 도시락형 모듈·비대칭·균형 그리드 (레이아웃 중심) *(구현됨)* | P1 |
-| 25 | **Kinetic_Typography_01** | `kinetic-typography-01` | 타이포/편집 | 커서 반응·가변 모션 텍스트, 움직이는 헤드라인 *(구현됨)* | P2 |
-| 26 | **Spatial_3D_01** | `spatial-3d-01` | 깊이/material | WebGL/3D·공간 UI, 스크롤 트리거 깊이·시차 *(구현됨)* | P3 |
-| 27 | **Humanist_Imperfect_01** | `humanist-imperfect-01` | 표현/에너지 | 손그림·유기 곡선·의도적 결함 레터폼, 감성 주도 *(구현됨)* | P2 |
-| 28 | **Tactile_Texture_01** | `tactile-texture-01` | 표현/에너지 | 퍼피·스퀴시·하이퍼리얼 질감, 촉각 모사 *(구현됨)* | P2 |
+> 아래 색인 표(#0–50 전체)는 `catalog.manifest.json`(각 `StyleGuide.meta`의 투영)에서 **자동생성**된다 — 마커 사이는 **수기 편집 금지**. 갱신: `pnpm --filter @centurio1987/bbangto-ui-style-guide-catalog gen:trend-table`. 정렬은 `trendIndex`(동률은 카탈로그 소스 순서), 요약 컬럼 = `meta.summary`.
+
+<!-- gen:trend-table:start -->
+| # | 표시명 | slug | 패밀리 | 요약 | P |
+|---|--------|------|--------|------|---|
+| 0 | Neobrutalism_Editorial_01 | `neobrutalism-editorial-01` | 구조/raw | 크림·잉크·골드, 각진 모서리, 하드 오프셋 그림자의 편집형 네오브루탈리즘. | — |
+| 1 | Glassmorphism_Aurora_01 | `glassmorphism-aurora-01` | 깊이/material | 딥 인디고 위 반투명 frosted glass + backdrop-blur + 보라·시안 오로라 강조의 유리 표면. | P1 |
+| 2 | Neumorphism_Soft_01 | `neumorphism-soft-01` | 깊이/material | 배경과 같은 단색 표면을 이중 그림자로 볼록/오목 압출한 부드러운 촉각 UI. | P1 |
+| 3 | Claymorphism_Playful_01 | `claymorphism-playful-01` | 깊이/material | 밝은 라벤더 위 파스텔 점토 표면, 외부 드롭섀도 + 내부 inset 하이라이트로 말랑한 압출, radius xl(28px)의 둥근 모서리. | P2 |
+| 3 | PixelArtRetro_13 | `pixel-art-retro-01` | 노스탤지어 | 의도적 저해상 8비트 도트 미감 — 정수 픽셀 그리드에 스냅된 블록 타이포·직각 모서리·blur 0 하드 도트 그림자, CRT 다크 베이스 고채도 원색. | P2 |
+| 4 | Skeuomorphism_Tactile_01 | `skeuomorphism-tactile-01` | 깊이/material | 따뜻한 가죽·노트 베이지 표면 + 베벨 하이라이트·안쪽 그림자로 빚은 물리적 촉각 스큐어모피즘, 누르면 들어가는 버튼. | P3 |
+| 5 | Flat_Material_01 | `flat-material-01` | 평면/체계 | Material You 키컬러 파생 톤 시스템 + 부드러운 elevation 그림자, 둥근 pill 액션과 상태 레이어의 소비자 앱 UI. | P1 |
+| 6 | Minimal_Saas_01 | `minimal-saas-01` | 평면/체계 | 중립 그레이 + 단일 인디고 액센트, 얇은 보더·약한 그림자, 넉넉한 여백의 제품 UI. | P1 |
+| 7 | Swiss_International_01 | `swiss-international-01` | 타이포/편집 | 모듈러 그리드 + 비대칭 정렬 + 산세리프, 흑/백 + 단일 빨강, 각진 모서리·무그림자로 위계는 크기·굵기·위치로만. | P1 |
+| 8 | Editorial_Magazine_01 | `editorial-magazine-01` | 타이포/편집 | warm paper 위 디스플레이 세리프 헤드라인 + serif 본문, 헤어라인 칼럼 규칙선의 잉크 온 페이퍼 편집 지면. | P2 |
+| 9 | Bauhaus_Geometric_01 | `bauhaus-geometric-01` | 타이포/편집 | 3원색(빨·노·파)+흑백, 기하 산세리프, 직각 면 분할과 굵은 윤곽선·하드 그림자, 의도된 원형 장식의 기하 구성. | P2 |
+| 10 | Y2K_Futurism_01 | `y2k-futurism-01` | 노스탤지어 | 크롬·실버 메탈 그라디언트 + 핑크·시안·라임 네온 글로우, 글로시 버블 폼의 미래주의 회고 UI. | P2 |
+| 11 | Vaporwave_Synth_01 | `vaporwave-synth-01` | 노스탤지어 | 딥퍼플 캔버스 위 네온 핑크·시안 글로우, 80s 석양 그라디언트와 퍼스펙티브 그리드, CRT 스캔라인의 신스웨이브. | P2 |
+| 12 | Memphis_Postmodern_01 | `memphis-postmodern-01` | 노스탤지어 | 밝은 크림 위 고채도 핑크·시안·노랑 충돌과 지그재그·물방울·테리조 패턴, 굵은 검정 윤곽·하드 오프셋 그림자의 포스트모던 표면. | P3 |
+| 13 | FrutigerAero_Glossy_01 | `frutiger-aero-glossy-01` | 노스탤지어 | 스카이블루·그린·화이트 위 아쿠아 글로시 버튼과 투명 글라스 카드, 물·잎·하늘 자연 모티프의 2000s 낙관적 테크-자연 글로스. | P3 |
+| 14 | Retro70s_Warm_01 | `retro70s-warm-01` | 노스탤지어 | 크림 베이스 위 머스타드·테라코타·올리브 어스톤, 필름 그레인, 알약형·아치 라운드의 70년대 따뜻한 레트로. | P3 |
+| 15 | Maximalism_Dopamine_01 | `maximalism-dopamine-01` | 표현/에너지 | 밝은 캔버스 위 고채도 충돌색 + 대형 가변 타이포 + 겹침 레이아웃 + 두꺼운 보더·오프셋 그림자의 과잉 에너지 UI. | P2 |
+| 16 | Collage_Scrapbook_01 | `collage-scrapbook-01` | 표현/에너지 | 크라프트지 위 손그림 보더·폴라로이드 테이프 컷아웃·스티커 라벨로 손으로 꾸민 스크랩북 페이지. | P3 |
+| 17 | Kawaii_Pastel_01 | `kawaii-pastel-01` | 표현/에너지 | 화이트 베이스 위 베이비핑크·민트·라벤더 파스텔, 둥글둥글 표면과 볼터치 글로우·마스코트로 귀여운 인상을 내는 UI. | P3 |
+| 18 | Cyberpunk_Hud_01 | `cyberpunk-hud-01` | 테크/다크 | 다크 베이스 + 네온 엣지·스캔라인 + HUD 프레임의 사이버펑크 인터페이스. | P2 |
+| 19 | Terminal_Mono_01 | `terminal-mono-01` | 테크/다크 | 본문까지 모노스페이스 + 다크 콘솔 배경 + 포스포 그린 강조, 박스 보더·커서·각진 모서리의 터미널 미학. | P1 |
+| 20 | Aurora_Gradient_01 | `aurora-gradient-01` | 테크/다크 | 딥 다크 위 다점 메시/오로라 그라디언트 배경 + 부유 글로우 오브, 그라디언트 fill 버튼·다크 글래스 표면(AI/SaaS 랜딩). | P2 |
+| 21 | ArtDeco_Luxe_01 | `artdeco-luxe-01` | 정제/럭셔리 | 흑·딥그린 위 골드 라인의 대칭 기하 프레임과 디스플레이 세리프로 빚은 1920s 아르데코 럭셔리. | P3 |
+| 22 | Scandi_Warm_01 | `scandi-warm-01` | 정제/럭셔리 | 따뜻한 오프화이트 위 우드톤 주조 + 세이지 절제 액센트, 부드러운 라운드와 미세한 종이 결의 북유럽 미니멀. | P2 |
+| 23 | DarkLuxe_Editorial_01 | `darkluxe-editorial-01` | 정제/럭셔리 | 순흑·차콜 베이스 위 절제된 골드 헤어라인, 대형 세리프 헤딩과 시네마틱 여백의 다크 편집 럭셔리. | P2 |
+| 24 | Bento_Modular_01 | `bento-modular-01` | 평면/체계 | 도시락형 모듈 그리드 + 둥근 타일 + soft elevation, 인디고/틸 액센트의 비대칭·균형 레이아웃. | P1 |
+| 25 | Kinetic_Typography_01 | `kinetic-typography-01` | 타이포/편집 | 미니멀 단색 다크 배경 + 단일 일렉트릭 강조색, 초대형 볼드 헤드라인이 커서·hover에 반응해 자간·굵기가 살아나는 kinetic 타이포그래피. | P2 |
+| 26 | Spatial_3D_01 | `spatial-3d-01` | 깊이/material | 딥 다크 + 라이팅 음영, 포인터 반응 깊이·시차(틸트)를 CSS 3D transform으로 모사한 공간 UI. | P3 |
+| 27 | Humanist_Imperfect_01 | `humanist-imperfect-01` | 표현/에너지 | 손그림 + 유기 곡선 + 의도적 결함 레터폼, 웜 페이퍼 배경 + 어스/잉크 톤의 감성 주도 진정성 UI. | P2 |
+| 28 | Tactile_Texture_01 | `tactile-texture-01` | 표현/에너지 | 퍼피·소프트·스퀴시 촉각 질감 + 하이퍼리얼 광택. 파스텔 톤·두툼한 radius·부드러운 이중 그림자, 누르면 쪼그라드는 말랑한 인터랙션. | P2 |
+| 29 | Risograph_Print_01 | `risograph-print-01` | 노스탤지어 | 웜 크림 종이 + 한정 스팟 잉크 2~3색 multiply 오버프린트, 분판 미스레지스트레이션과 그레인/망점의 평면 인쇄소 질감. | P1 |
+| 30 | Blueprint_Technical_01 | `blueprint-technical-01` | 평면/체계 | 딥 블루 청사진 보드 + 8px 모눈 위 1px 라인 드로잉, 화살촉 치수선·번호 콜아웃의 엔지니어링 제도 도면 미학. | P1 |
+| 31 | GrainyBlurDreamy_03 | `grainy-blur-dreamy-01` | 깊이/material | 필름 그레인 + 아웃포커스 블러가 코랄/라벤더 헤이즈 그라디언트 위에 겹친 몽환적 포토그래픽 안개, 또렷한 잉크 단색 헤드라인. | P1 |
+| 32 | GothicMedievalDigital_04 | `gothic-medieval-digital-01` | 테크/다크 | near-black·옥스블러드 + 뮤트 골드에 단일 네온 블록, 블랙레터·문장·왁스 인장이 디지털 그리드와 충돌하는 다크 신비주의. | P1 |
+| 33 | GlitchDistortion_05 | `glitch-distortion-01` | 테크/다크 | near-black 베이스 + 마젠타/시안 듀오톤, RGB 채널 오프셋·슬라이스 글리치로 '데이터 손상'을 미감으로 삼는 다크 테크. | P1 |
+| 34 | Organic_Fluid_Blob_01 | `organic-fluid-blob-01` | 표현/에너지 | 바이오모픽 블롭·리본·스우시의 매끈한 곡선 + 시안→마젠타→코랄 다색 유체 그라디언트, 평면적이며 hover 블롭 모핑이 시그니처. | P1 |
+| 35 | RadiantGlowDark_07 | `radiant-glow-dark-01` | 테크/다크 | near-black 바탕 위 중심에서 방사하는 핫핑크·앰버 라디언트 글로우와 노이즈 그레인, 드롭섀도 대신 glow bloom으로 깊이를 만드는 다크 무드. | P1 |
+| 36 | Halftone_Dot_Print_01 | `halftone-dot-print-01` | 노스탤지어 | 밝은 페이퍼 + CMYK 4원색 망점 스크린톤, 점의 크기·밀도·스크린 각으로 톤을 만드는 인쇄 분해 그래픽. | P2 |
+| 37 | UkiyoeWoodblock_09 | `ukiyoe-woodblock-01` | 노스탤지어 | 쌀종이 배경 + 채도 낮은 흙빛 평면 색면 + 먹빛 윤곽선과 여백(ma) + 붉은 낙관 도장의 전통 목판화 미학. | P2 |
+| 38 | PunkGrungeGraffiti_10 | `punk-grunge-graffiti-01` | 표현/에너지 | 제록스 하프톤·찢긴 가장자리·스프레이/낙서가 그리드를 깨는 반정제 카오스 콜라주, 오프블랙 + 형광 스폿(옐로/마젠타/레드) 충돌. | P2 |
+| 39 | AISurrealGradient3D_11 | `ai-surreal-gradient3d-01` | 깊이/material | 딥 다크 위 AI 생성 초현실 3D 렌더 + 이리데센트 표면, 소프트 접지 그림자·스펙큘러 글로스의 몽환적 테크 미학. | P2 |
+| 40 | ShatteredGlassCinematic_12 | `shattered-glass-cinematic-01` | 깊이/material | 딥 잉크 다크 면을 가로지르는 깨진/금 간 유리 + 시안↔마젠타↔라임 이리데센트 프리즘 굴절, fragile yet striking의 시네마틱 결정질 표면. | P2 |
+| 42 | Halftone_Glitch_Colorsep_01 | `halftone-glitch-colorsep-01` | 테크/다크 | CMYK 망점 스크린 + 적·녹 채널 색분해 글리치, near-black 다크 베이스 + 2~3색 한정 잉크의 인쇄 오정합 포스터 미학. | P2 |
+| 43 | MixedMediaCollage_15 | `mixed-media-collage-01` | 표현/에너지 | 페이퍼 캔버스 위 사진·드로잉·3D를 듀오톤·그레인으로 통일한 레이어 콜라주 — 편집적 멀티미디어 합성 비주얼. | P2 |
+| 44 | PhotoTypeEditorial_16 | `photo-type-editorial-01` | 타이포/편집 | 단색 평면 배경 + 초대형 grotesque 타이포와 사진의 융합(클립·마스크·아웃라인), 각진 플랫 프레임과 hard-offset의 포스터형 에디토리얼. | P3 |
+| 45 | OpArtKinetic_17 | `op-art-kinetic-01` | 평면/체계 | 고대비 흑백 + 코발트 액센트 1색, 압축 그로테스크 헤비 산세리프, 직각 기조. 평행선·줄무늬의 위상 드리프트가 만드는 옵티컬 운동감이 시그니처. | P3 |
+| 46 | WarpedCheckerboard_18 | `warped-checkerboard-01` | 표현/에너지 | 직교 체크/깅엄 격자를 파도처럼 액화·왜곡한 풀블리드 디스토션 배경 + 솔리드 패널 분리, 딥 레드×베이비 핑크 2색의 표현적 룩북/랜딩 미학. | P3 |
+| 47 | IridescentChrome_19 | `iridescent-chrome-01` | 깊이/material | 근흑 무대 위 불투명 홀로그래픽 포일 + 액체 크롬 메탈 — 각도/인터랙션에 따라 시프트하는 이리데센트 광택. | P3 |
+| 48 | RomanticBotanical_20 | `romantic-botanical-01` | 노스탤지어 | 파스텔 정원 위 화이트 핸드드로잉 꽃·잎·나비 라인아트, 세리프 디스플레이 + 휴머니스트 산세리프의 로맨틱 보태니컬 무드. | P3 |
+| 49 | HeritageFolkOrnament_21 | `heritage-folk-ornament-01` | 노스탤지어 | 따뜻한 흙빛 코랄 그라운드를 대칭 민속 꽃·새 모티프와 스캘럽 장식 보더가 감싸는, 거의 평면인 공예 오너먼트. | P3 |
+| 50 | Naive_Doodle_01 | `naive-doodle-01` | 표현/에너지 | 비숙련 어린아이의 크레용 낙서·스크리블 — 원색 마커 다색, 삐뚤한 손그림 윤곽선, 화살표·동그라미 주석의 천진한 카오스. | P3 |
+<!-- gen:trend-table:end -->
 
 > #24–28은 [`design-trends-2020-2026.md`](./design-trends-2020-2026.md) §C(2020–2026 시간축 리서치)에서 도출한 신규 후보. 기존 #1–23이 커버하지 못한 트렌드를 보강한다.
 
@@ -350,30 +376,7 @@ slug = kebab-case (`name` / `data-bbangto-style-guide` / `styleGuideMap` 키).
 
 ### 신규 후보 요약 (#29–#50)
 
-| # | 표시명 | slug | 패밀리 | 근거장수 | 핵심 모티프 | 차별점(요약) | P |
-|---|--------|------|--------|---------:|-------------|--------------|---|
-| 29 | RisographPrint_01 | `risograph-print` | 노스탤지어 | 10 | 거친 그레인 + 한정 색 분판(마젠타·블루·옐로) 오버프린트, 인쇄소 질감의 포스터/인물 | 가장 가까운 기존 스타일은 tactile-texture지만, 그것은 일반 물성 질감이고 이쪽은 '리소/스… | P1 |
-| 30 | BlueprintTechnical_02 | `blueprint-technical` | 평면/체계 | 10 | 블루/그린 청사진 그리드 + 치수선·아이소메트릭·라벨 도식의 엔지니어링 제도 레이아웃 | swiss-international/minimal-saas와 달리 단순 그리드가 아니라 '제도 청사진(측… | P1 |
-| 31 | GrainyBlurDreamy_03 | `grainy-blur-dreamy` | 깊이/material | 14 | 소프트 포커스 + 필름 그레인 + 흐릿한 그라데이션/인물, 몽환적 안개 분위기 | aurora-gradient/glassmorphism-aurora는 매끈하고 선명한 그라데이션 | P1 |
-| 32 | GothicMedievalDigital_04 | `gothic-medieval-digital` | 테크/다크 | 10 | 중세 문장·블랙레터·오컬트 성물 심볼 + 네온/디지털 블록의 다크 퓨전 | artdeco-luxe/darkluxe-editorial는 세련된 럭셔리 톤 | P1 |
-| 33 | GlitchDistortion_05 | `glitch-distortion` | 테크/다크 | 10 | 디지털 글리치·픽셀 깨짐·RGB 시프트로 왜곡된 인물/이미지, 네온 마젠타·시안 | cyberpunk-hud는 HUD/인터페이스 오버레이가 주제 | P1 |
-| 34 | OrganicFluidBlob_06 | `organic-fluid-blob` | 표현/에너지 | 7 | 흐르는 바이오모픽 블롭·리본·스우시, 매끈한 곡선과 비비드/파스텔 색면 | spatial-3d는 입체 UI 오브젝트, claymorphism-playful은 점토 질감 | P1 |
-| 35 | RadiantGlowDark_07 | `radiant-glow-dark` | 테크/다크 | 6 | 어두운 바탕 위 강렬한 발광 그라데이션·광선·실루엣, 노이즈 섞인 네온 글로우 | aurora-gradient는 밝고 매끈한 파스텔 그라데이션 | P1 |
-| 36 | HalftoneDotPrint_08 | `halftone-dot-print` | 노스탤지어 | 6 | CMYK 망점/스크린톤 도트 패턴 인쇄 기법 시연(사과 등), 색 분해 그라데이션 | risograph-print와 인접하지만 색분판 오버프린트가 아니라 '규칙적 망점/비트맵 도트 격자 자체… | P2 |
-| 37 | UkiyoeWoodblock_09 | `ukiyoe-woodblock` | 노스탤지어 | 4 | 일본 우키요에 목판화(후지산·분재), 절제된 흙빛 팔레트의 서정 풍경 | retro70s-warm/scandi-warm의 따뜻한 톤과 색만 비슷할 뿐, 이쪽은 '전통 목판화 평면… | P2 |
-| 38 | PunkGrungeGraffiti_10 | `punk-grunge-graffiti` | 표현/에너지 | 5 | 찢긴 종이·손글씨 그래피티·거친 마크의 반(反)정제 카오스 콜라주 | neobrutalism-editorial는 굵고 정돈된 의도적 투박함, collage-scrapbook은… | P2 |
-| 39 | AISurrealGradient3D_11 | `ai-surreal-gradient3d` | 깊이/material | 4 | 불가능한 유기적 3D 형상 + 무지갯빛 그라데이션의 AI 생성 초현실 렌더 | spatial-3d는 정돈된 UI 입체물, organic-fluid-blob은 평면 블롭 | P2 |
-| 40 | ShatteredGlassCinematic_12 | `shattered-glass-cinematic` | 깊이/material | 3 | 깨진/금 간 유리 오버레이 + 빛 굴절·이리데센트, 어두운 시네마틱 결정질 | glassmorphism-aurora는 매끈한 반투명 프로스트 패널 UI | P2 |
-| 41 | PixelArtRetro_13 | `pixel-art-retro` | 노스탤지어 | 3 | 8비트 픽셀 블록 타이포 + 그리드 배경, 레트로 디지털 도트 미감 | terminal-mono는 모노스페이스 텍스트 터미널, y2k-futurism은 크롬/거품 | P2 |
-| 42 | HalftoneGlitchColorSep_14 | `halftone-glitch-colorsep` | 테크/다크 | 4 | 망점 + RGB/적녹 색분해 어긋남 + 픽셀 왜곡 콜라주의 디지털 일그러짐 | 순수 halftone-dot-print(정적 인쇄망점)와 glitch-distortion(채널 파괴) 사… | P2 |
-| 43 | MixedMediaCollage_15 | `mixed-media-collage` | 표현/에너지 | 3 | 일러스트·사진·3D·빈티지 요소를 매끈히 합성한 멀티미디어 레이어 합성 | collage-scrapbook은 날것의 오려붙인 종이 콜라주 | P2 |
-| 44 | PhotoTypeEditorial_16 | `photo-type-editorial` | 타이포/편집 | 4 | 큰 글자 안에 사진을 채우거나 사진에 타이포/기하 프레임을 겹친 에디토리얼 | editorial-magazine은 그리드 기반 레이아웃 자체가 주제 | P3 |
-| 45 | OpArtKinetic_17 | `op-art-kinetic` | 평면/체계 | 2 | 동심원·평행선·줄무늬가 만드는 착시와 운동감의 옵아트 추상 | bauhaus-geometric는 정적 기하 구성, kinetic-typography는 글자 모션 | P3 |
-| 46 | WarpedCheckerboard_18 | `warped-checkerboard` | 표현/에너지 | 2 | 적·핑크 체크/깅엄 패턴을 파도처럼 유체 왜곡시킨 격자 디스토션 | memphis-postmodern의 패턴 사용과 달리, 이쪽은 '규칙 체크 격자를 액화·물결 왜곡'시키는… | P3 |
-| 47 | IridescentChrome_19 | `iridescent-chrome` | 깊이/material | 2 | 무지갯빛 홀로그래픽 포일·광택 액체 메탈/크롬의 반짝이는 표면 | frutiger-aero-glossy/glassmorphism-aurora는 투명 광택이지만, 이쪽은 '… | P3 |
-| 48 | RomanticBotanical_20 | `romantic-botanical` | 노스탤지어 | 2 | 파스텔 꽃·나비·식물 라인아트가 어우러진 로맨틱·자연 정원 무드 | scandi-warm/kawaii-pastel과 톤은 겹치나, 이쪽은 '식물·꽃·나비 도상과 핸드드로잉 … | P3 |
-| 49 | HeritageFolkOrnament_21 | `heritage-folk-ornament` | 노스탤지어 | 1 | 풍성한 민속 문양·꽃 모티프·장식 보더의 비비드 흙빛 오너먼트 | gothic-medieval-digital의 어두운 도상과 달리, 이쪽은 '밝고 비비드한 민속·포크 장식… | P3 |
-| 50 | NaiveDoodle_22 | `naive-doodle` | 표현/에너지 | 1 | 비숙련 손그림 낙서·스크리블의 어린아이 같은 천진한 카오스 | humanist-imperfect는 세련된 의도적 불완전이고 punk-grunge는 공격적 | P3 |
+> #29–50의 표시명·slug·패밀리·모티프·우선순위는 **위 통합 색인 표**(자동생성, `catalog.manifest.json` 파생)에 포함된다. 이 절은 이미지 마이닝 도출 근거(근거장수)·차별점 서술을 아래 항목별 생성 명세로 남긴다. *(도출 시점 표시명/slug는 backfill 시 canonical 명칭 `Trend_Modifier_01`/`slug-01`로 정규화됨 — 명칭 SSOT는 위 통합 표.)*
 
 > ⚠ 인쇄/망점 계열 3종(`risograph-print` #29 · `halftone-dot-print` #36 · `halftone-glitch-colorsep` #42)은 인접 — 구현 시 한 패밀리의 변주(_01/_02/_03)로 묶는 것을 검토. `glitch-distortion` #33 ↔ `halftone-glitch-colorsep` #42 도 일부 겹침.
 

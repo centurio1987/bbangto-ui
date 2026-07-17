@@ -221,3 +221,12 @@ export {
   type AuditableEntry,
   type ContrastViolation,
 } from './accessibilityAudit';
+
+// 트렌드 표 자동생성 (매니페스트 → style-guide-catalog.md 색인 표, KAN-025).
+export {
+  buildTrendTable,
+  replaceBetweenMarkers,
+  extractBetweenMarkers,
+  TREND_TABLE_START,
+  TREND_TABLE_END,
+} from './trendTable';

@@ -39,6 +39,31 @@ export const STYLE_FAMILIES = [
 ] as const;
 export type StyleFamily = (typeof STYLE_FAMILIES)[number];
 
+/**
+ * `StyleFamily` union → 사람용 라벨. 위 인라인 주석의 라벨을 기계가독 SSOT로 승격한 것.
+ * UI는 `style-guide-catalog.md` 트렌드 표의 한국어 패밀리 라벨, viz는 F1~F7 코드.
+ * (KAN-025 트렌드 표 자동생성이 소비 — 새 family 추가 시 이 Record가 컴파일에서 커버를 강제한다.)
+ */
+export const STYLE_FAMILY_LABELS: Record<StyleFamily, string> = {
+  // UI
+  'structural-raw': '구조/raw',
+  'depth-material': '깊이/material',
+  'flat-systematic': '평면/체계',
+  'typographic-editorial': '타이포/편집',
+  nostalgia: '노스탤지어',
+  'expressive-energetic': '표현/에너지',
+  'tech-dark': '테크/다크',
+  'refined-luxury': '정제/럭셔리',
+  // viz (F1~F7)
+  'viz-editorial-accent': 'F1 Editorial Accent',
+  'viz-corporate-schematic': 'F2 Corporate Schematic',
+  'viz-flat-pop': 'F3 Flat Pop',
+  'viz-marker-sketchnote': 'F4 Marker Sketchnote',
+  'viz-ink-line-duotone': 'F5 Ink Line Duotone',
+  'viz-iso-colorblock': 'F6 Iso Colorblock',
+  'viz-neon-gradient-dark': 'F7 Neon Gradient Dark',
+};
+
 /** 도메인/프로덕트 유형 적합성. AI가 "무엇을 만드는가"로 후보를 좁히는 1차 필터. */
 export const DOMAINS = [
   'saas',

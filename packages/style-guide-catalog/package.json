@@ -19,6 +19,7 @@
   ],
   "scripts": {
     "gen:manifest": "tsx scripts/genManifest.ts",
+    "gen:trend-table": "tsx scripts/genTrendTable.ts",
     "prebuild": "pnpm gen:manifest",
     "build": "tsup",
     "typecheck": "tsc --noEmit",
