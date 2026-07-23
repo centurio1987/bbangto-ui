@@ -95,6 +95,8 @@ const preview: Preview = {
             'Corporate_Schematic_01', ['Foundations', 'Wrapper Components', 'Guideline', 'Visual Motif', 'Foundation Presets'],
             'Ink_Line_Duotone_01', ['Foundations', 'Wrapper Components', 'Guideline', 'Visual Motif', 'Foundation Presets'],
             'Neon_Gradient_Dark_01', ['Foundations', 'Wrapper Components', 'Guideline', 'Visual Motif', 'Foundation Presets'],
+            'Marker_Sketchnote_01', ['Foundations', 'Wrapper Components', 'Guideline', 'Visual Motif', 'Foundation Presets'],
+            'Iso_Color_Block_01', ['Foundations', 'Wrapper Components', 'Guideline', 'Visual Motif', 'Foundation Presets'],
           ],
           '*',
         ],

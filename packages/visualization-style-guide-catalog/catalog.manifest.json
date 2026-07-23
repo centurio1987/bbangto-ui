@@ -266,6 +266,140 @@
     }
   },
   {
+    "name": "iso-color-block-01",
+    "description": "F6 color-block paint family — muted single color-family blocks with per-face 3-tone flat shading (via Node cube reuse), sharp prisms, neutral connectors. Paint only — NOT true isometric projection/depth-sort (separate geometry track).",
+    "metaStatus": "authored",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 2,
+      "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Iso_Color_Block_01",
+      "family": "viz-iso-colorblock",
+      "summary": "무채도 단일 계열 색블록 + 면별 3단 플랫 음영(cube 재사용)의 페인트 패밀리 — 샤프 프리즘, 중립 커넥터. 진짜 iso 투영은 아니다(별도 트랙).",
+      "tags": [
+        "geometric",
+        "depth",
+        "muted",
+        "flat",
+        "sharp",
+        "light"
+      ],
+      "mood": {
+        "formality": 3,
+        "energy": 2,
+        "warmth": 2,
+        "density": 2,
+        "ornament": 2
+      },
+      "characteristics": {
+        "cornerRadius": "sharp",
+        "borderWeight": "thin",
+        "shadow": "none",
+        "density": "balanced",
+        "motion": "still",
+        "colorScheme": "light",
+        "contrast": "medium"
+      },
+      "domains": [
+        "saas",
+        "dashboard",
+        "dev-tools",
+        "landing",
+        "marketing"
+      ],
+      "useWhen": [
+        "시스템 구성요소를 무채도 단일 계열 색블록(입체 면 음영)으로 정갈하게 보여줄 때 쓴다.",
+        "아이소메트릭 인포그래픽 무드의 플랫 색블록 다이어그램이 필요할 때 쓴다(진짜 투영 없이).",
+        "차분한 단일 계열 팔레트 + 중립 커넥터의 절제된 구조 도식을 원할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "진짜 아이소메트릭 투영·depth-sort·iso 커넥터가 필요할 때 피한다(별도 geometry 트랙 대상).",
+        "다색 고채도 시맨틱 채움이 필요할 때 피한다(F3를 쓴다).",
+        "손그림 친근함이 목표일 때 피한다(F4를 쓴다)."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "colorful-flat-01",
+        "corporate-schematic-01"
+      ]
+    }
+  },
+  {
+    "name": "marker-sketchnote-01",
+    "description": "Hand-drawn marker sketchnote paint — rough marker ink outlines via wrapper-injected feTurbulence/feDisplacementMap (fixed seed, deterministic), amber highlight, handwriting labels, paper or darkboard ground.",
+    "metaStatus": "authored",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 2,
+      "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Marker_Sketchnote_01",
+      "family": "viz-marker-sketchnote",
+      "summary": "러프 마커 잉크 윤곽(feTurbulence 지터) + 앰버 하이라이트 + 손글씨 라벨의 친근한 스케치노트 다이어그램 — 페이퍼/칠판 그라운드.",
+      "tags": [
+        "hand-drawn",
+        "playful",
+        "textured",
+        "light",
+        "organic",
+        "muted"
+      ],
+      "mood": {
+        "formality": 1,
+        "energy": 3,
+        "warmth": 4,
+        "density": 2,
+        "ornament": 3
+      },
+      "characteristics": {
+        "cornerRadius": "soft",
+        "borderWeight": "bold",
+        "shadow": "none",
+        "density": "balanced",
+        "motion": "still",
+        "colorScheme": "light",
+        "contrast": "high"
+      },
+      "domains": [
+        "education",
+        "marketing",
+        "blog",
+        "creative-agency",
+        "social"
+      ],
+      "useWhen": [
+        "워크숍·강의·브레인스토밍 도식을 친근한 손그림 스케치노트로 그릴 때 쓴다.",
+        "개념 설명·아이디어 맵을 마커 잉크 + 앰버 하이라이트의 캐주얼 무드로 전달할 때 쓴다.",
+        "화이트보드/칠판 느낌의 비격식 다이어그램이 필요할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "정밀·격식이 필요한 기업 리포트·기술 명세 도식일 때 피한다(F5/F2를 쓴다).",
+        "다색 시맨틱 채움 차트가 필요할 때 피한다(F3를 쓴다).",
+        "긴 본문 가독성이 최우선일 때 손글씨 남용을 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "ink-line-duotone-01",
+        "colorful-flat-01"
+      ]
+    }
+  },
+  {
     "name": "minimal-line-01",
     "description": "Monochrome ink line-art — warm ivory canvas, 1.25px hairlines, unfilled shapes, one restrained accent.",
     "metaStatus": "authored",

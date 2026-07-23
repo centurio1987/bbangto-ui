@@ -5,6 +5,8 @@ import { colorfulFlat01VizStyleGuide } from './colorfulFlat';
 import { inkLineDuotone01VizStyleGuide } from './inkLineDuotone';
 import { corporateSchematic01VizStyleGuide } from './corporateSchematic';
 import { neonGradientDark01VizStyleGuide } from './neonGradientDark';
+import { markerSketchnote01VizStyleGuide } from './markerSketchnote';
+import { isoColorBlock01VizStyleGuide } from './isoColorBlock';
 
 export { blueprintTechnical01VizStyleGuide } from './blueprintTechnical';
 export { minimalLine01VizStyleGuide } from './minimalLine';
@@ -12,6 +14,8 @@ export { colorfulFlat01VizStyleGuide } from './colorfulFlat';
 export { inkLineDuotone01VizStyleGuide } from './inkLineDuotone';
 export { corporateSchematic01VizStyleGuide } from './corporateSchematic';
 export { neonGradientDark01VizStyleGuide } from './neonGradientDark';
+export { markerSketchnote01VizStyleGuide } from './markerSketchnote';
+export { isoColorBlock01VizStyleGuide } from './isoColorBlock';
 export { makeVizColorway } from './_foundation';
 export type { VizColorwayOverride } from './_foundation';
 export { useVizMotifStyle } from './_motif';
@@ -26,6 +30,8 @@ export const vizStyleGuideCatalog: readonly VisualizationStyleGuide[] = [
   inkLineDuotone01VizStyleGuide,
   corporateSchematic01VizStyleGuide,
   neonGradientDark01VizStyleGuide,
+  markerSketchnote01VizStyleGuide,
+  isoColorBlock01VizStyleGuide,
 ];
 
 /** slug(name) → style guide 조회 맵. */

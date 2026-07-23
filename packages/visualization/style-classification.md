@@ -24,8 +24,8 @@
 |---|---|---|---|---|
 | F2 | Corporate_Schematic | 24 | 흰 바탕·헤어라인 중립선·브랜드 액센트 타일·대시 경계·orthogonal+소형 화살촉 | **Corporate_Schematic_01 ✓ (ORD-009)** |
 | F1 | Editorial_Accent | 16 | 웜 뉴트럴 바탕·잉크·절제된 단일 액센트·초대형 숫자↔미세 캡션·무그림자 | Minimal_Line_01 ✓ (`editorial` preset 추가 — ORD-009) |
-| F4 | Marker_Sketchnote | 16 | 진짜 지터 잉크·손글씨·형광 하이라이트(노랑 최빈)·종이/보드 질감 | 스펙만 (구 HandDrawn_Marker_01 — 지터 렌더 블로커) |
-| F6 | Iso_ColorBlock | 8 | 면별 3단 플랫 명암(그라디언트 없음)·뮤트 단일 색족·샤프 프리즘 | 스펙만 (구 Isometric_Prism_01 일부 — iso geometry 블로커) |
+| F4 | Marker_Sketchnote | 16 | 진짜 지터 잉크·손글씨·형광 하이라이트(노랑 최빈)·종이/보드 질감 | **구현** (`marker-sketchnote-01` — feTurbulence 고정 seed 지터 필터, KAN-014) |
+| F6 | Iso_ColorBlock | 8 | 면별 3단 플랫 명암(그라디언트 없음)·뮤트 단일 색족·샤프 프리즘 | **구현(paint family)** (`iso-color-block-01` — cube 3단 면 재사용; 진짜 iso 투영은 후속 geometry 트랙, KAN-013) |
 | F7 | Neon_Gradient_Dark | 7 | 다크 그라운드·광택 멀티휴 그라디언트·흰 헤어라인 엣지·글로우 | **Neon_Gradient_Dark_01 ✓ (ORD-009)** |
 | F3 | Flat_Pop | 6 | 고채도 플랫 채움·굵은 네이비 아웃라인·오프셋 솔리드 섀도·스타디움 필 | Colorful_Flat_01 ✓ (`bento-dark` preset 추가 — ORD-009) |
 | F5 | Ink_Line_Duotone | 6 | 지터 없는 균일 모노라인·블랙+블루 듀오톤·채움 없음/라이트 틴트 | **Ink_Line_Duotone_01 ✓ (ORD-009)** |

@@ -133,8 +133,8 @@ ChartPrimitives(순수 차트), Sketchnote 컴포지션, Bento/콜라주 그리�
 |---|---|---|
 | F2 Corporate_Schematic (24) | Corporate_Schematic_01 | **구현 ✓ (ORD-009)** — colorway `default`/`slide-dark` (§4-f) |
 | F1 Editorial_Accent (16) | Minimal_Line_01 | 구현 ✓ — `editorial` 솔리드 레드 preset 추가 완료 (ORD-009) |
-| F4 Marker_Sketchnote (16) | HandDrawn_Marker_01 | 스펙만 — 옐로 하이라이트 최빈·darkboard colorway 보강 (지터 렌더 블로커로 이연) |
-| F6 Iso_ColorBlock (8) | Iso_ColorBlock_01 (구 Isometric_Prism_01 재정의) | 스펙만 — 그라디언트 조항은 F7로 분리 (iso geometry 블로커로 이연) |
+| F4 Marker_Sketchnote (16) | marker-sketchnote-01 | **구현** — feTurbulence 고정 seed 지터 필터 + 앰버 하이라이트 + 손글씨(cursive) + paper/darkboard preset (KAN-014) |
+| F6 Iso_ColorBlock (8) | iso-color-block-01 | **구현(paint family)** — cube 3단 면 음영 재사용 + 단일 계열 램프; 진짜 iso 투영·depth-sort는 후속 geometry 트랙 (KAN-013) |
 | F7 Neon_Gradient_Dark (7) | Neon_Gradient_Dark_01 | **구현 ✓ (ORD-009)** — wrapper 레벨 그라디언트 defs, colorway `default`/`aurora` (§4-h) |
 | F3 Flat_Pop (6) | Colorful_Flat_01 | 구현 ✓ — `bento-dark` preset 추가 완료 (ORD-009) |
 | F5 Ink_Line_Duotone (6) | Ink_Line_Duotone_01 | **구현 ✓ (ORD-009)** — colorway `default`/`slate` (§4-g) |

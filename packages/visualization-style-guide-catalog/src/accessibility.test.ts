@@ -195,7 +195,7 @@ describe('auditVizContrast — over-claim 감지 (fixture)', () => {
 });
 
 describe('auditVizContrast — 실 viz 카탈로그 게이트 (over-claim 방지)', () => {
-  it('vizStyleGuideCatalog에 over-claim이 없다(전 6종 선언이 실측을 만족)', () => {
+  it('vizStyleGuideCatalog에 over-claim이 없다(전 8종 선언이 실측을 만족)', () => {
     const violations: VizContrastViolation[] = auditVizContrast(vizStyleGuideCatalog);
     expect(violations, formatVizViolations(violations)).toEqual([]);
   });
