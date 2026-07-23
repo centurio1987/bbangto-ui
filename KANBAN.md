@@ -17,9 +17,9 @@
   - 메모: ORD-008 이연 — TemplateStyleMatrix 심층 검증이 파일럿 3템플릿×3스타일가이드로 한정됨. ORD-010/011로 구현 템플릿이 76/90까지 늘어 재스코핑 필요(단일 가이드 paint 해석 게이트는 전 템플릿 커버, 3-way 교차검증만 파일럿 한정).
 - `KAN-017` 신규 style guide 후보 5종 구현 (Bento_Modular/Kinetic_Typography/Spatial_3D/Humanist_Imperfect/Tactile_Texture) — 생성:ai · 최종:ai · 갱신:2026-07-14
   - 메모: design-trends-2020-2026.md §C 신규 후보 — ORD-009에서 추가된 3종(Corporate_Schematic/Ink_Line_Duotone/Neon_Gradient_Dark)과 별개로 아직 스타일 가이드로 구현되지 않음.
-- `KAN-026` viz 카탈로그 팔레트 실측 대비 감사 — 생성:ai · 최종:ai · 갱신:2026-07-17
+- `KAN-026` viz 카탈로그 팔레트 실측 대비 감사 — 생성:유저 · 최종:유저 · 갱신:2026-07-23
   - 메모: KAN-024 후속 — viz VisualizationFoundation은 UI semantic.foreground/background와 스키마가 달라(canvas.bg + palette/node/c4.labelColor) 단일 본문 텍스트 쌍이 없음. "어떤 잉크/라벨을 canvas 위 텍스트로 볼지" 쌍 정의 후 tokens contrast 유틸로 auditContrast 확장(viz 6종 contrastIntent aa 대조). WCAG 수학 유틸(tokens/contrast.ts)은 이미 재사용 가능.
-- `KAN-027` #29-50 비정규 displayName 16건 canonical 정규화 — 생성:ai · 최종:ai · 갱신:2026-07-17
+- `KAN-027` #29-50 비정규 displayName 16건 canonical 정규화 — 생성:유저 · 최종:유저 · 갱신:2026-07-23
   - 메모: KAN-025가 드러냄 — #29-50 style guide 16종의 meta.displayName이 도출 시퀀스 접미사(GrainyBlurDreamy_03·PixelArtRetro_13 등)를 유지, #0-28의 canonical `Primary_Secondary_01` 규칙과 불일치. 단어 경계(3~4단어 slug 포함) 명명 결정 후 meta 일괄 정정 + 매니페스트·트렌드 표 재생성. (KAN-025에서 pixel-art-retro-01 trendIndex 버그만 선반영.)
 
 ## 할 일
@@ -29,15 +29,15 @@
 ## 검토
 
 ## 완료
-- `KAN-025` catalog.manifest.json → style-guide-catalog.md 트렌드 표 자동생성(문서 drift 제거) — 생성:ai · 최종:ai · 갱신:2026-07-17
+- `KAN-025` catalog.manifest.json → style-guide-catalog.md 트렌드 표 자동생성(문서 drift 제거) — 생성:ai · 최종:유저 · 갱신:2026-07-23
   - 메모: 기계 SSOT(매니페스트)에서 사람용 트렌드 표 파생. tokens STYLE_FAMILY_LABELS(주석 라벨→Record<StyleFamily,string> 승격) + style-guide-catalog/trendTable.ts(buildTrendTable 순수: meta결측 throw·안정정렬=trendIndex→카탈로그 소스 순서·pipe/개행 이스케이프 + replaceBetweenMarkers 실패조건 throw) + genTrendTable.ts/gen:trend-table(prebuild 미배선 → 빌드가 소스 md mutate 안 함). core md 1회 구조조정: 수기 표 2개 제거, gen 마커+통합 표(#0-50), P범례·도출통계·⚠경고·명세 산문 보존, 서두 stale 수정. trendTable.test.ts(형식·데이터정합·라벨완전성·마커·md sync 바이트)=drift 게이트(test:unit). 부수: pixel-art-retro-01 trendIndex 3→41 버그 선반영(별도 커밋), displayName 16건 정규화는 KAN-027. 4 게이트 green(storybook vite 캐시 삭제 필요).
-- `KAN-024` 팔레트 토큰 실측 WCAG 대비 계산 → meta.accessibility 선언 CI 대조 — 생성:ai · 최종:ai · 갱신:2026-07-17
+- `KAN-024` 팔레트 토큰 실측 WCAG 대비 계산 → meta.accessibility 선언 CI 대조 — 생성:ai · 최종:유저 · 갱신:2026-07-23
   - 메모: contrastIntent over-claim(선언이 실측보다 높음)을 CI hard-fail로 방지(accessibility가 advisory 과대주장으로 흐르는 것 차단). tokens/contrast.ts(parseColor hex/rgb/rgba·extractColors 그라디언트·relativeLuminance·compositeOver·contrastRatio, 범용) + style-guide-catalog/accessibilityAudit.ts(auditContrast: foreground.base vs background.base 전 preset, aa≥4.5/aaa≥7/low 무제약, 그라디언트는 실효색 worst-case, fg 파싱불가·bg 색추출불가=violation). accessibility.test.ts 17종(유틸+임계+엣지+실카탈로그 over-claim 0+파싱 sanity). storybook 로컬 대비 함수 dedup(tokens import). **실측 결과 UI 51종 전량 선언 정직(over-claim 0, 정정 불필요).** 4 게이트 green(storybook vite 캐시 삭제 필요=tokens 신규 export). viz는 스키마 상이로 KAN-026 분리.
-- `KAN-023` Storybook 'Catalog Decision Table' 스토리 (매니페스트 비교표 렌더) — 생성:ai · 최종:ai · 갱신:2026-07-17
+- `KAN-023` Storybook 'Catalog Decision Table' 스토리 (매니페스트 비교표 렌더) — 생성:ai · 최종:유저 · 갱신:2026-07-23
   - 메모: 매니페스트 채택 메타를 사람이 비교·선택하는 인터랙티브 결정 테이블(METADATA_STRATEGY §6 소비 흐름의 사람용 실현). `CatalogDecisionTable` 공통 컴포넌트 — 필터(domain/family/colorScheme/min-energy)→`criteriaFromFilters`(순수·export)→`selectStyleGuides` 재랭크(score 내림차순)→core `Table` 렌더, Rank·selected=Rank1, null-safe·kind별 컬럼. UI(51)·viz(6) 스토리 2개(`apps/storybook/src/stories/CatalogDecisionTable.stories.tsx` + `visualization/VizCatalogDecisionTable.stories.tsx` + `_decisionTable.tsx`). play(실 chromium): 데이터파생 행수·구체 토큰·관계적 필터 재랭크(매핑 검증)·soft-weighted 비붕괴·broad 개인정보 가드. 4 게이트 green, storySort/매니페스트 무변경.
-- `KAN-022` selectStyleGuides(criteria) 스코어링 helper API (catalog 패키지) — 생성:ai · 최종:ai · 갱신:2026-07-17
+- `KAN-022` selectStyleGuides(criteria) 스코어링 helper API (catalog 패키지) — 생성:ai · 최종:유저 · 갱신:2026-07-23
   - 메모: `selectStyleGuides(catalog, criteria)` 순수 함수(METADATA_STRATEGY §6 2단계 구현). soft-weighted 스코어링(하드 필터 아님 → shortlist 붕괴 방지), family/priority(집합)·domains/tags(recall)·characteristics(등가, dark↔both)·mood(근접/band graded), 입력 sanitize·결정적 tie-break(score→priority→trendIndex→name)·pending 처리. generic `{name,meta?}`로 UI/viz/ManifestEntry 공용, 양쪽 배럴 export. viz는 select.ts 국소 복제(manifest.ts 선례)+parity 테스트(UI helper를 test 전용 devDep로 import해 deep-equal, drift 가드). UI 28+viz 10 vitest green, 4 게이트 green. `meta?` optional 제거는 이연(별도 카드).
-- `KAN-021` 잔여 48 UI + 6 viz style guide meta 전량 backfill (완료 시 gate 'meta 필수' 승격) — 생성:ai · 최종:ai · 갱신:2026-07-16
+- `KAN-021` 잔여 48 UI + 6 viz style guide meta 전량 backfill (완료 시 gate 'meta 필수' 승격) — 생성:ai · 최종:유저 · 갱신:2026-07-23
   - 메모: Workflow 5배치(A~D UI 48 + E viz 6)로 StyleGuideMeta 일괄 저작. UI 51/51·viz 6/6 authored, 두 매니페스트 pending 0. viz 매니페스트 인프라(생성기 국소 복제·prebuild·동기 테스트) 신설. 매니페스트 동기/DoD 테스트로 gate "meta 필수" 승격 근거 확보(타입상 optional 제거는 KAN-022 helper 도입 시 병행). 품질 게이트 4종 green + git clean. KAN-018 커밋 누락 genManifest.ts 편입.
 - `KAN-001` ORD-001 — StyleGuide 아키텍처 도입 (theme → style-guide 추상화 격상) — 생성:ai · 최종:ai · 갱신:2026-07-14
   - 메모: StyleGuideTokens/StyleGuide/StyleGuideProvider 구현 및 export. typecheck+build 통과.
