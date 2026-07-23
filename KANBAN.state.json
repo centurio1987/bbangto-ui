@@ -1,6 +1,6 @@
 {
   "next_id": 28,
-  "next_seq": 46,
+  "next_seq": 47,
   "cards": {
     "KAN-001": {
       "col": "done",
@@ -233,13 +233,13 @@
     "KAN-020": {
       "col": "backlog",
       "title": "bbangto-ui에서 visualization 라이브러리를 가져다 쓸 때, 사용 주체가 ai라면, 어떤 경우에 어떤 시각화 패턴을 사용할지 파악하기 위해 라이브러리 코드를 검사해야 할 수도 있다. 하지만, 그러면 패턴이 방대해 졌을 때 효과적으로 탐색하기 어렵다. 따라서, 각 패턴이 어떤 상황에서 유효한지 알려주는 메타 데이터를 라이브러리 레벨에서 제공할 수 있다면 좋을 것이다. 그렇게 하기 위한 전략을 구상해라.",
-      "memo": "",
+      "memo": "검증(2026-07-23): 전제 부분 무효 — '메타데이터 전무'는 부정확. 이미 존재: (a) visualization/visualization-type-inventory.md가 유형별 '대표 용도(when to use)'+데이터형태(FT Visual Vocabulary)+프리미티브 분류 SSOT 제공, (b) style-guide-catalog/METADATA_STRATEGY.md + selectStyleGuides가 그대로 미러링 가능한 작동 선례. 잔여 과제로 재스코핑 필요: 패턴/템플릿 코드 객체에 기계가독 메타(useWhen 등)+매니페스트/헬퍼가 아직 부재(src/patterns·templates grep 0건). → 카드를 '패턴 축 매니페스트/셀렉터 구현'으로 좁힐 것.",
       "verbatim": "",
       "생성": "유저",
-      "최종": "유저",
-      "갱신": "2026-07-14",
+      "최종": "ai",
+      "갱신": "2026-07-23",
       "title_hash": "91f4421b03786bbad3100718209375088ccff9fa",
-      "memo_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+      "memo_hash": "1ea10fe79c2d6fe1430c89db75f32ff44ffd87a6",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-021": {
@@ -357,6 +357,16 @@
     "KAN-017"
   ],
   "recent": [
+    {
+      "seq": 46,
+      "t": "2026-07-23T14:40",
+      "a": "ai",
+      "id": "KAN-020",
+      "op": "edit",
+      "field": "memo",
+      "before": "",
+      "after": "검증(2026-07-23): 전제 부분 무효 — '메타데이터 전무'는 부정확. 이미 존재: (a) visualization/visualization-type-inventory.md가 유형별 '대표 용도(when to use)'+데이터형태(FT Visual Vocabulary)+프리미티브 분류 SSOT 제공, (b) style-guide-catalog/METADATA_STRATEGY.md + selectStyleGuides가 그대로 미러링 가능한 작동 선례. 잔여 과제로 재스코핑 필요: 패턴/템플릿 코드 객체에 기계가독 메타(useWhen 등)+매니페스트/헬퍼가 아직 부재(src/patterns·templates grep 0건). → 카드를 '패턴 축 매니페스트/셀렉터 구현'으로 좁힐 것."
+    },
     {
       "seq": 45,
       "t": "2026-07-23T14:40",
