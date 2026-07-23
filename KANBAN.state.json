@@ -1,6 +1,6 @@
 {
   "next_id": 28,
-  "next_seq": 50,
+  "next_seq": 52,
   "cards": {
     "KAN-001": {
       "col": "done",
@@ -303,15 +303,15 @@
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-026": {
-      "col": "doing",
+      "col": "done",
       "title": "viz 카탈로그 팔레트 실측 대비 감사",
-      "memo": "KAN-024 후속 — viz VisualizationFoundation은 UI semantic.foreground/background와 스키마가 달라(canvas.bg + palette/node/c4.labelColor) 단일 본문 텍스트 쌍이 없음. \"어떤 잉크/라벨을 canvas 위 텍스트로 볼지\" 쌍 정의 후 tokens contrast 유틸로 auditContrast 확장(viz 6종 contrastIntent aa 대조). WCAG 수학 유틸(tokens/contrast.ts)은 이미 재사용 가능.",
+      "memo": "완료(2026-07-23): auditVizContrast 구현 — VisualizationFoundation 선언 텍스트색(node.tagColor·c4.labelColor·boundary.labelColor)을 각 배경 표면 대비로 감사해 contrastIntent over-claim을 CI hard-fail. 순수 WCAG 수학(CONTRAST_THRESHOLDS·effectiveBgColors) tokens/contrast.ts로 승격(UI/viz SSOT 공유, UI 감사 리팩터+하위호환 re-export). surfaceBg 모델: 불투명 fill은 canvas 무관, fill:'none'(라인전용)·투명은 캔버스 위, 반투명은 canvas 합성, var/비-transparent tint는 fail-close. 그라디언트 worst-case. VizContrastViolation에 fg/bg/effectiveBg 진단+formatVizViolations. 실측 결과 viz 6종 전량 정직(over-claim 0). ChatGPT 외부검토 반영(tokens 승격·tint 정책 강화·Object.entries 순회·진단 강화·null-skip 확대). TDD 선작성. 4게이트 green(feat 커밋 e2484bb).",
       "verbatim": "",
       "생성": "유저",
       "최종": "ai",
       "갱신": "2026-07-23",
       "title_hash": "558e3b680f40ff85c53215fed72f2ba222f6bdca",
-      "memo_hash": "aed11cf3b1c3c1eaf00dfe1131934b60a4a52e5a",
+      "memo_hash": "8f6f23b24480778203416fca4f4053c12c49f635",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-027": {
@@ -357,6 +357,25 @@
     "KAN-026"
   ],
   "recent": [
+    {
+      "seq": 51,
+      "t": "2026-07-23T18:01",
+      "a": "ai",
+      "id": "KAN-026",
+      "op": "edit",
+      "field": "memo",
+      "before": "KAN-024 후속 — viz VisualizationFoundation은 UI semantic.foreground/background와 스키마가 달라(canvas.bg + palette/node/c4.labelColor) 단일 본문 텍스트 쌍이 없음. \"어떤 잉크/라벨을 canvas 위 텍스트로 볼지\" 쌍 정의 후 tokens contrast 유틸로 auditContrast 확장(viz 6종 contrastIntent aa 대조). WCAG 수학 유틸(tokens/contrast.ts)은 이미 재사용 가능.",
+      "after": "완료(2026-07-23): auditVizContrast 구현 — VisualizationFoundation 선언 텍스트색(node.tagColor·c4.labelColor·boundary.labelColor)을 각 배경 표면 대비로 감사해 contrastIntent over-claim을 CI hard-fail. 순수 WCAG 수학(CONTRAST_THRESHOLDS·effectiveBgColors) tokens/contrast.ts로 승격(UI/viz SSOT 공유, UI 감사 리팩터+하위호환 re-export). surfaceBg 모델: 불투명 fill은 canvas 무관, fill:'none'(라인전용)·투명은 캔버스 위, 반투명은 canvas 합성, var/비-transparent tint는 fail-close. 그라디언트 worst-case. VizContrastViolation에 fg/bg/effectiveBg 진단+formatVizViolations. 실측 결과 viz 6종 전량 정직(over-claim 0). ChatGPT 외부검토 반영(tokens 승격·tint 정책 강화·Object.entries 순회·진단 강화·null-skip 확대). TDD 선작성. 4게이트 green(feat 커밋 e2484bb)."
+    },
+    {
+      "seq": 50,
+      "t": "2026-07-23T18:01",
+      "a": "ai",
+      "id": "KAN-026",
+      "op": "move",
+      "from": "doing",
+      "to": "done"
+    },
     {
       "seq": 49,
       "t": "2026-07-23T17:44",
@@ -853,17 +872,6 @@
       "title": "ORD-002 — 카탈로그 preset 일반화(개인정보 제거·트렌드 인덱스 명명) + Visual Motif 6요소화",
       "memo": "개인정보 전면 제거 + Neobrutalism_Editorial_01 명명 확정 + Visual Motif 6요소 완성.",
       "verbatim": "# ORDER 1\n\n- 스타일 가이드에 내 개인적인 내용(이름, 이메일, 내 포트폴리오, 회사 등등)을 포함하면 안된다.\n- 명칭은 빵토 Bakery가 아니라 디자인 트렌드와 중복 방지를 위한 각 디자인 트렌드 별 인덱스(brutalism + xxxism + 01) 명으로 해야 한다.\n- 각 카탈로그는 참조한 foundations, extended foundations, wrapper component, pattern, visual motif, guideline으로 구성한다.\n- visual motif는 현재 빵토 Bakery의 Default 같은 구현 예시와 더불어, 대표 컴포넌트들을 대상으로 visual motif 스펙에 대한 설명을 포함한다.\n- 구현 예시는 빵토 Bakery Default를 작성할 때 참고한 template을 토대로 만든다."
-    },
-    {
-      "seq": 1,
-      "t": "2026-07-14T13:30",
-      "a": "ai",
-      "id": "KAN-001",
-      "op": "create",
-      "col": "done",
-      "title": "ORD-001 — StyleGuide 아키텍처 도입 (theme → style-guide 추상화 격상)",
-      "memo": "StyleGuideTokens/StyleGuide/StyleGuideProvider 구현 및 export. typecheck+build 통과.",
-      "verbatim": "## 배경\n어떤 디자인 컨셉을 잡느냐에 따라, 컴포넌트의 appearance는 달라진다.\n단순히 border-radius나 color, border-width가 아니라, decoration 자체가\n달라질 수 있다. 예를 들면, 마치 도형이 2개 겹쳐 있는 듯한 모습을 하고\n있는 버튼을 생각해 보자. bbangto-ui는 variant라는 속성으로 이것을\n표현할 수는 있겠지만, 하나의 통일성 있는 디자인으로 그룹화 할 수단이나 개념이 없다.\n또한, 그룹화 한다고 해도, 현재 컴포넌트 각각의 variant를 디자인과 별개로, 독립적인 variant를 가지고 있다.\n\n\n## 목적\n위 배경을 고려 하면, 지금 **theme** 만을 분리하여 provide 하는 구조로는 capability 한계가 있다. 따라서 provide의 대상이 **theme**이 아니라 **style-guide**여야 한다.\n\n### bbangto-ui의 정체성 강화\n- bbangto-ui에서 제공하는 design-system은 원형(architype)만을 제공한다.\n- 사용자가 구체적인 style-guide를 제공하거나 미리 준비된 preset catalog를 이용한다.\n- bbangto-ui가 style guide 양식에 맞는 구성을 위한 인터페이스를 제공해야 한다.\n\n### Style Guide\n다음의 구성요소로 이루어진다.\n\n| 항목                   | 내용                                                                        | 실제 양식                            | 필수  |\n| -------------------- | ------------------------------------------------------------------------- | -------------------------------- | --- |\n| foundations          | design token을 정의한다.                                                       | css variable                     | O   |\n| extended foundations | 구체적 디자인 스타일을 실현하기 위한 요소인 visual motif를 반영하기 위해 확장 design token을 정의한다.     | css variable                     | X   |\n| wrapper component    | visual motif를 반영하기 위해, 원형 component를 wrapping 하는 wrapper component를 구현한다. | react component                  | X   |\n| pattern              | 폼 입력, 데이터 테이블 등 반복적으로 사용되는 UI 조합                                          | 여러 react component가 조립된 템플릿 레이아웃 | X   |\n| guideline            | 각 요소를 사용할 때의 Do's & Don'ts, 접근성 규칙                                        | 마크다운 문서                          | X   |\n\n### Style Guide Catalog\n대표적인 디자인 스타일에 대한 preset 집합을 미리 구현하여 bbangto-ui에서 제공한다."
     }
   ]
 }

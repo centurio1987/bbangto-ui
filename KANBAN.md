@@ -23,8 +23,6 @@
 ## 할 일
 
 ## 진행 중
-- `KAN-026` viz 카탈로그 팔레트 실측 대비 감사 — 생성:유저 · 최종:ai · 갱신:2026-07-23
-  - 메모: KAN-024 후속 — viz VisualizationFoundation은 UI semantic.foreground/background와 스키마가 달라(canvas.bg + palette/node/c4.labelColor) 단일 본문 텍스트 쌍이 없음. "어떤 잉크/라벨을 canvas 위 텍스트로 볼지" 쌍 정의 후 tokens contrast 유틸로 auditContrast 확장(viz 6종 contrastIntent aa 대조). WCAG 수학 유틸(tokens/contrast.ts)은 이미 재사용 가능.
 
 ## 검토
 
@@ -209,3 +207,5 @@
   - 메모: 완료 — 채택 메타데이터 전략+파일럿. StyleGuideMeta 타입+통제어휘(packages/tokens/src/styleGuideMeta.ts), buildManifest 생성기+catalog.manifest.json(51행, authored 3/pending 48), 파일럿 3종 meta 저작(minimal-saas-01·neobrutalism-editorial-01·cyberpunk-hud-01), 전략문서 METADATA_STRATEGY.md. 게이트 전부 green: typecheck/build(prebuild gen:manifest)/unit(catalog 13·viz 82·hooks 115)/play 1090/storybook build/pack. 외부검토(codex·Gemini) 반영. 후속: 잔여 백필·selectStyleGuides·Decision Table·WCAG 실측·md 자동생성.
 - `KAN-017` 신규 style guide 후보 5종 구현 (Bento_Modular/Kinetic_Typography/Spatial_3D/Humanist_Imperfect/Tactile_Texture) — 생성:ai · 최종:ai · 갱신:2026-07-23
   - 메모: 검증(2026-07-23): 전제 무효 — 5종 후보(Bento_Modular/Kinetic_Typography/Spatial_3D/Humanist_Imperfect/Tactile_Texture)가 전부 이미 독립 preset으로 구현·등록됨. trendIndex #24-28, canonical displayName _01 부여(style-guide-catalog/src/index.ts:161-166, catalog.manifest.json). '이미지 레퍼런스 마이닝 #29-50' 파생 스타일과 혼입 없음. 미구현 0종 → 완료 처리.
+- `KAN-026` viz 카탈로그 팔레트 실측 대비 감사 — 생성:유저 · 최종:ai · 갱신:2026-07-23
+  - 메모: 완료(2026-07-23): auditVizContrast 구현 — VisualizationFoundation 선언 텍스트색(node.tagColor·c4.labelColor·boundary.labelColor)을 각 배경 표면 대비로 감사해 contrastIntent over-claim을 CI hard-fail. 순수 WCAG 수학(CONTRAST_THRESHOLDS·effectiveBgColors) tokens/contrast.ts로 승격(UI/viz SSOT 공유, UI 감사 리팩터+하위호환 re-export). surfaceBg 모델: 불투명 fill은 canvas 무관, fill:'none'(라인전용)·투명은 캔버스 위, 반투명은 canvas 합성, var/비-transparent tint는 fail-close. 그라디언트 worst-case. VizContrastViolation에 fg/bg/effectiveBg 진단+formatVizViolations. 실측 결과 viz 6종 전량 정직(over-claim 0). ChatGPT 외부검토 반영(tokens 승격·tint 정책 강화·Object.entries 순회·진단 강화·null-skip 확대). TDD 선작성. 4게이트 green(feat 커밋 e2484bb).
