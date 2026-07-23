@@ -21,8 +21,6 @@
 ## 할 일
 
 ## 진행 중
-- `KAN-027` #29-50 비정규 displayName 16건 canonical 정규화 — 생성:유저 · 최종:ai · 갱신:2026-07-23
-  - 메모: KAN-025가 드러냄 — #29-50 style guide 16종의 meta.displayName이 도출 시퀀스 접미사(GrainyBlurDreamy_03·PixelArtRetro_13 등)를 유지, #0-28의 canonical `Primary_Secondary_01` 규칙과 불일치. 단어 경계(3~4단어 slug 포함) 명명 결정 후 meta 일괄 정정 + 매니페스트·트렌드 표 재생성. (KAN-025에서 pixel-art-retro-01 trendIndex 버그만 선반영.)
 
 ## 검토
 
@@ -209,3 +207,5 @@
   - 메모: 검증(2026-07-23): 전제 무효 — 5종 후보(Bento_Modular/Kinetic_Typography/Spatial_3D/Humanist_Imperfect/Tactile_Texture)가 전부 이미 독립 preset으로 구현·등록됨. trendIndex #24-28, canonical displayName _01 부여(style-guide-catalog/src/index.ts:161-166, catalog.manifest.json). '이미지 레퍼런스 마이닝 #29-50' 파생 스타일과 혼입 없음. 미구현 0종 → 완료 처리.
 - `KAN-026` viz 카탈로그 팔레트 실측 대비 감사 — 생성:유저 · 최종:ai · 갱신:2026-07-23
   - 메모: 완료(2026-07-23): auditVizContrast 구현 — VisualizationFoundation 선언 텍스트색(node.tagColor·c4.labelColor·boundary.labelColor)을 각 배경 표면 대비로 감사해 contrastIntent over-claim을 CI hard-fail. 순수 WCAG 수학(CONTRAST_THRESHOLDS·effectiveBgColors) tokens/contrast.ts로 승격(UI/viz SSOT 공유, UI 감사 리팩터+하위호환 re-export). surfaceBg 모델: 불투명 fill은 canvas 무관, fill:'none'(라인전용)·투명은 캔버스 위, 반투명은 canvas 합성, var/비-transparent tint는 fail-close. 그라디언트 worst-case. VizContrastViolation에 fg/bg/effectiveBg 진단+formatVizViolations. 실측 결과 viz 6종 전량 정직(over-claim 0). ChatGPT 외부검토 반영(tokens 승격·tint 정책 강화·Object.entries 순회·진단 강화·null-skip 확대). TDD 선작성. 4게이트 green(feat 커밋 e2484bb).
+- `KAN-027` #29-50 비정규 displayName 16건 canonical 정규화 — 생성:유저 · 최종:ai · 갱신:2026-07-23
+  - 메모: 완료(2026-07-23): #29-50 meta.displayName 16종을 마이닝 도출 시퀀스명(GrainyBlurDreamy_03·PixelArtRetro_13 등, CamelCase+_NN)에서 canonical Primary_Secondary_01(단어 경계 _ + _01)로 정정. 명명 결정은 별도 필요 없었음 — Storybook 스토리 타이틀이 이미 canonical 형태로 확립됨(슬러그 기계 변환, AI 케이스=Ai_Surreal_Gradient3d_01)이라 meta를 거기에 정렬. 산문 #### NN. 헤더의 마이닝명은 provenance로 의도 보존(명칭 SSOT는 트렌드 표/meta, md §379 주석) — 이미 정규화된 6종과 동일 패턴으로 #29-50 전체가 일관해짐. 매니페스트·트렌드 표 gen 재생성(16 셀만, 행순서 불변). 신규 게이트 displayName.test.ts(전 카탈로그 canonical 형식 …_01 + 16종 슬러그 기계정합 + 유일성)=재발 방지. slug(name)는 이미 canonical이라 무변경. 5게이트 green(typecheck·build·test:unit catalog76·play1092·storybook build). feat 커밋 d481e26.

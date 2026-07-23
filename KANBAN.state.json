@@ -1,6 +1,6 @@
 {
   "next_id": 28,
-  "next_seq": 53,
+  "next_seq": 55,
   "cards": {
     "KAN-001": {
       "col": "done",
@@ -315,15 +315,15 @@
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-027": {
-      "col": "doing",
+      "col": "done",
       "title": "#29-50 비정규 displayName 16건 canonical 정규화",
-      "memo": "KAN-025가 드러냄 — #29-50 style guide 16종의 meta.displayName이 도출 시퀀스 접미사(GrainyBlurDreamy_03·PixelArtRetro_13 등)를 유지, #0-28의 canonical `Primary_Secondary_01` 규칙과 불일치. 단어 경계(3~4단어 slug 포함) 명명 결정 후 meta 일괄 정정 + 매니페스트·트렌드 표 재생성. (KAN-025에서 pixel-art-retro-01 trendIndex 버그만 선반영.)",
+      "memo": "완료(2026-07-23): #29-50 meta.displayName 16종을 마이닝 도출 시퀀스명(GrainyBlurDreamy_03·PixelArtRetro_13 등, CamelCase+_NN)에서 canonical Primary_Secondary_01(단어 경계 _ + _01)로 정정. 명명 결정은 별도 필요 없었음 — Storybook 스토리 타이틀이 이미 canonical 형태로 확립됨(슬러그 기계 변환, AI 케이스=Ai_Surreal_Gradient3d_01)이라 meta를 거기에 정렬. 산문 #### NN. 헤더의 마이닝명은 provenance로 의도 보존(명칭 SSOT는 트렌드 표/meta, md §379 주석) — 이미 정규화된 6종과 동일 패턴으로 #29-50 전체가 일관해짐. 매니페스트·트렌드 표 gen 재생성(16 셀만, 행순서 불변). 신규 게이트 displayName.test.ts(전 카탈로그 canonical 형식 …_01 + 16종 슬러그 기계정합 + 유일성)=재발 방지. slug(name)는 이미 canonical이라 무변경. 5게이트 green(typecheck·build·test:unit catalog76·play1092·storybook build). feat 커밋 d481e26.",
       "verbatim": "",
       "생성": "유저",
       "최종": "ai",
       "갱신": "2026-07-23",
       "title_hash": "6658551a4c485ecccbe857983d7a6b1e31382d6d",
-      "memo_hash": "568e7d640c6400d3a35f76f6292577be27958f47",
+      "memo_hash": "98e57168077a71b8a7b1f5dced4a0e0cf2b77b70",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     }
   },
@@ -357,6 +357,25 @@
     "KAN-027"
   ],
   "recent": [
+    {
+      "seq": 54,
+      "t": "2026-07-23T18:21",
+      "a": "ai",
+      "id": "KAN-027",
+      "op": "move",
+      "from": "doing",
+      "to": "done"
+    },
+    {
+      "seq": 53,
+      "t": "2026-07-23T18:21",
+      "a": "ai",
+      "id": "KAN-027",
+      "op": "edit",
+      "field": "memo",
+      "before": "KAN-025가 드러냄 — #29-50 style guide 16종의 meta.displayName이 도출 시퀀스 접미사(GrainyBlurDreamy_03·PixelArtRetro_13 등)를 유지, #0-28의 canonical `Primary_Secondary_01` 규칙과 불일치. 단어 경계(3~4단어 slug 포함) 명명 결정 후 meta 일괄 정정 + 매니페스트·트렌드 표 재생성. (KAN-025에서 pixel-art-retro-01 trendIndex 버그만 선반영.)",
+      "after": "완료(2026-07-23): #29-50 meta.displayName 16종을 마이닝 도출 시퀀스명(GrainyBlurDreamy_03·PixelArtRetro_13 등, CamelCase+_NN)에서 canonical Primary_Secondary_01(단어 경계 _ + _01)로 정정. 명명 결정은 별도 필요 없었음 — Storybook 스토리 타이틀이 이미 canonical 형태로 확립됨(슬러그 기계 변환, AI 케이스=Ai_Surreal_Gradient3d_01)이라 meta를 거기에 정렬. 산문 #### NN. 헤더의 마이닝명은 provenance로 의도 보존(명칭 SSOT는 트렌드 표/meta, md §379 주석) — 이미 정규화된 6종과 동일 패턴으로 #29-50 전체가 일관해짐. 매니페스트·트렌드 표 gen 재생성(16 셀만, 행순서 불변). 신규 게이트 displayName.test.ts(전 카탈로그 canonical 형식 …_01 + 16종 슬러그 기계정합 + 유일성)=재발 방지. slug(name)는 이미 canonical이라 무변경. 5게이트 green(typecheck·build·test:unit catalog76·play1092·storybook build). feat 커밋 d481e26."
+    },
     {
       "seq": 52,
       "t": "2026-07-23T18:14",
@@ -848,28 +867,6 @@
       "title": "ORD-005 — Style Guide Catalog 후보 디자인 스타일/트렌드 조사·목록화",
       "memo": "style-guide-catalog.md 신규 생성 — 2025-2026 트렌드 23개 후보 목록화(P1~P3 우선순위).",
       "verbatim": "# ORDER\nstyle guide catalog에 포함할 만한 디자인 스타일과 디자인트렌드를 조사해서 수집하고 목록화 해줘. 해당 목록은 style guide catalog를 일괄 생성하는데 사용할거다."
-    },
-    {
-      "seq": 4,
-      "t": "2026-07-14T13:30",
-      "a": "ai",
-      "id": "KAN-004",
-      "op": "create",
-      "col": "done",
-      "title": "ORD-004 — 스토리북 구조 컨셉에 따른 디렉토리 구조 검토 (결론: 현행 유지)",
-      "memo": "검토 후 현행 유지(보류) 결론 — churn 실익 낮음. styleGuides→styleGuideCatalog 명명은 저위험 옵션으로 보류.",
-      "verbatim": "# ORDER 3\norder2에서 반영한 스토리북 구조의 컨셉에 따라, 디렉토리 구조도 변경 가능한 포인트가 있는지 살펴본다."
-    },
-    {
-      "seq": 3,
-      "t": "2026-07-14T13:30",
-      "a": "ai",
-      "id": "KAN-003",
-      "op": "create",
-      "col": "done",
-      "title": "ORD-003 — 스토리북 구조 개편 (ARCHETYPE / DIAGRAM / STYLE GUIDE CATALOG)",
-      "memo": "사이드바 3대 최상위 재편(ARCHETYPE/DIAGRAM/STYLE GUIDE CATALOG), 85개 스토리 meta title 재매핑.",
-      "verbatim": "# ORDER 2\n스토리북 구조를 개편한다. 명칭은 더 적절한 것이 있으면 계획 중 제안하고 컨펌 받아라\nARCHETYPE\n |-- Foundations\n |-- Components\n\t |-- Atoms\n\t |-- Molecules\n\t |-- Organisms\n |-- Blocks\n |-- Patterns\n\nDIAGRAM\n|-- ...\n\nSTYLE GUIDE CATALOG\n|-- Brutalism_Minimalism_01\n\t|-- Referenced Foundations\n\t|-- Extended Foundations\n\t|-- Wrapper Components\n\t|-- Patterns\n\t|-- Guideline\n\t|-- Visual Motif"
     }
   ]
 }
