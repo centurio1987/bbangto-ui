@@ -1,6 +1,6 @@
 {
   "next_id": 29,
-  "next_seq": 62,
+  "next_seq": 64,
   "cards": {
     "KAN-001": {
       "col": "done",
@@ -171,15 +171,15 @@
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-015": {
-      "col": "backlog",
+      "col": "done",
       "title": "G6 메타 프레임(Kruchten 4+1 / Viewpoint) 구현",
-      "memo": "ORD-008/010 이연 — 개념 프레임워크(G) 축 메타 뷰(Kruchten4Plus1View + ISO/IEC/IEEE 42010 ViewpointFrame) 미구현(0%, PLAN.md:184 스펙만, Phase 8 후속). 검증(2026-07-23): ⚠️ 명칭 주의 — 이미 구현된 ArchiMateViewpointDiagram(KAN-012)은 ArchiMate 자체 viewpoint(motivation/strategy/implementation)로 이 카드의 ISO42010 ViewpointFrame과 별개 개념. 재착수 시 두 'Viewpoint'를 명시적으로 구분해 오판 방지할 것.",
+      "memo": "완료(2026-07-23): G6 메타 구조 프레임 2종 구현. Kruchten4Plus1View(영역별 slots=중첩 프리셋 우선·data=불릿 폴백, 영역 단위 no-merge; 3행 배치=상단 2코너·중앙 Scenarios(+1) 밴드·하단 2코너) + ViewpointFrame(ISO/IEC/IEEE 42010 — 헤더밴드=viewpoint·concerns[]·stakeholders[]·modelKinds[], body=중첩 view 슬롯, 미지정 시 'No view supplied' 플레이스홀더). §C-2 공통계약 준수(신규 아톰/geometry/paint 채널 0 — 기존 Canvas·Boundary·vvar·parseViewBox만 재사용). 슬롯=절대좌표 nested svg(x/y/w/h)로 타 프리셋 조합. 명칭 오판 방지: 42010 ViewpointFrame != ArchiMate 고유 viewpoint(ArchiMateViewpointDiagram, VT-121) — description/주석 명시. TDD 선작성(G6MetaFrames.stories.tsx 3스토리 play=영역/슬롯/헤더 메타/폴백 검증). 배럴 export + 인벤토리·PLAN SSOT 갱신. 4게이트 green(typecheck·build·test 1106·storybook build).",
       "verbatim": "",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-07-23",
+      "갱신": "2026-07-24",
       "title_hash": "c56c6d7345e573c685ebdf4c906ff074bb0bc046",
-      "memo_hash": "c54abcf237696a3ebb9723c9d738bccd2c7a9a56",
+      "memo_hash": "718cf05aa4bde7c2f0fd889c26ec5b4936c89562",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-016": {
@@ -342,7 +342,7 @@
   "order": [
     "KAN-019",
     "KAN-020",
-    "KAN-015",
+    "KAN-028",
     "KAN-025",
     "KAN-024",
     "KAN-023",
@@ -365,11 +365,30 @@
     "KAN-026",
     "KAN-027",
     "KAN-016",
-    "KAN-028",
     "KAN-014",
-    "KAN-013"
+    "KAN-013",
+    "KAN-015"
   ],
   "recent": [
+    {
+      "seq": 63,
+      "t": "2026-07-24T00:00",
+      "a": "ai",
+      "id": "KAN-015",
+      "op": "move",
+      "from": "backlog",
+      "to": "done"
+    },
+    {
+      "seq": 62,
+      "t": "2026-07-24T00:00",
+      "a": "ai",
+      "id": "KAN-015",
+      "op": "edit",
+      "field": "memo",
+      "before": "ORD-008/010 이연 — 개념 프레임워크(G) 축 메타 뷰(Kruchten4Plus1View + ISO/IEC/IEEE 42010 ViewpointFrame) 미구현(0%, PLAN.md:184 스펙만, Phase 8 후속). 검증(2026-07-23): ⚠️ 명칭 주의 — 이미 구현된 ArchiMateViewpointDiagram(KAN-012)은 ArchiMate 자체 viewpoint(motivation/strategy/implementation)로 이 카드의 ISO42010 ViewpointFrame과 별개 개념. 재착수 시 두 'Viewpoint'를 명시적으로 구분해 오판 방지할 것.",
+      "after": "완료(2026-07-23): G6 메타 구조 프레임 2종 구현. Kruchten4Plus1View(영역별 slots=중첩 프리셋 우선·data=불릿 폴백, 영역 단위 no-merge; 3행 배치=상단 2코너·중앙 Scenarios(+1) 밴드·하단 2코너) + ViewpointFrame(ISO/IEC/IEEE 42010 — 헤더밴드=viewpoint·concerns[]·stakeholders[]·modelKinds[], body=중첩 view 슬롯, 미지정 시 'No view supplied' 플레이스홀더). §C-2 공통계약 준수(신규 아톰/geometry/paint 채널 0 — 기존 Canvas·Boundary·vvar·parseViewBox만 재사용). 슬롯=절대좌표 nested svg(x/y/w/h)로 타 프리셋 조합. 명칭 오판 방지: 42010 ViewpointFrame != ArchiMate 고유 viewpoint(ArchiMateViewpointDiagram, VT-121) — description/주석 명시. TDD 선작성(G6MetaFrames.stories.tsx 3스토리 play=영역/슬롯/헤더 메타/폴백 검증). 배럴 export + 인벤토리·PLAN SSOT 갱신. 4게이트 green(typecheck·build·test 1106·storybook build)."
+    },
     {
       "seq": 61,
       "t": "2026-07-23T23:38",
@@ -848,28 +867,6 @@
       "col": "backlog",
       "title": "스타일 가이드 Marker_Sketchnote (hand-drawn, F4) 구현",
       "memo": "ORD-008/009 이연 — 지터(jitter) seeded 렌더·손글씨 폰트·질감 토큰화 필요(기술 블로커로 계속 보류 중).",
-      "verbatim": ""
-    },
-    {
-      "seq": 13,
-      "t": "2026-07-14T13:30",
-      "a": "ai",
-      "id": "KAN-013",
-      "op": "create",
-      "col": "backlog",
-      "title": "스타일 가이드 Iso_ColorBlock (isometric, F6) 구현",
-      "memo": "ORD-008/009 이연 — iso geometry 프리미티브 신규 필요(기술 블로커로 계속 보류 중).",
-      "verbatim": ""
-    },
-    {
-      "seq": 12,
-      "t": "2026-07-14T13:30",
-      "a": "ai",
-      "id": "KAN-012",
-      "op": "create",
-      "col": "backlog",
-      "title": "visualization P3 백로그 11건 구현 (VT-102/121/123/124/307/510/516/604/704/707/709)",
-      "memo": "visualization-type-inventory.md §5 P3 잔여 — UML Package(VT-102)·ArchiMate 확장 viewpoints(VT-121)·DMN DRD(VT-124)·Boxplot(VT-510)·Chord Diagram(VT-516)·Informational Infographic(VT-604)·Iceberg(VT-704)·BMC(VT-707)·Honeycomb(VT-709) 신규 9건 + BPMN Collaboration(VT-123)·WBS(VT-307) 근사→전용 승격 2건. 대부분 신규 프리미티브 필요(ORD-011 이연).",
       "verbatim": ""
     }
   ]
