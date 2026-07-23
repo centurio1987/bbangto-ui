@@ -1,6 +1,8 @@
 # KANBAN 변경 이력
 > 최근 50건. 이보다 오래된 이력은 KANBAN.archive.jsonl 로 압축 보관한다.
 
+- #56 2026-07-23 19:49 · ai · KAN-016 수정 메모
+- #55 2026-07-23 19:48 · ai · KAN-016 이동 백로그 → 완료
 - #54 2026-07-23 18:21 · ai · KAN-027 이동 진행 중 → 완료
 - #53 2026-07-23 18:21 · ai · KAN-027 수정 메모
 - #52 2026-07-23 18:14 · ai · KAN-027 이동 백로그 → 진행 중
@@ -49,5 +51,3 @@
 - #9 2026-07-14 13:30 · ai · KAN-009 생성 "ORD-009 — 신규 파악 preset들 visualization style guide catalog 추가" → 완료
 - #8 2026-07-14 13:30 · ai · KAN-008 생성 "ORD-008 — DIAGRAM → VISUALIZATION 개편 (headless 아토믹 + 스타일 가이드 주입)" → 완료
 - #7 2026-07-14 13:30 · ai · KAN-007 생성 "ORD-007 — 2026 디자인 트렌드(제공 링크) + 2020-2025 연도별 디자인 트렌드 리서치·목록화" → 완료
-- #6 2026-07-14 13:30 · ai · KAN-006 생성 "ORD-006 — theme→foundation 재편·카탈로그(foundation/style-guide) 분리·pattern/block wrapping 인터페이스" → 완료
-- #5 2026-07-14 13:30 · ai · KAN-005 생성 "ORD-005 — Style Guide Catalog 후보 디자인 스타일/트렌드 조사·목록화" → 완료

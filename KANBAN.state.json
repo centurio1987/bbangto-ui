@@ -1,6 +1,6 @@
 {
   "next_id": 28,
-  "next_seq": 55,
+  "next_seq": 57,
   "cards": {
     "KAN-001": {
       "col": "done",
@@ -183,15 +183,15 @@
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-016": {
-      "col": "backlog",
+      "col": "done",
       "title": "파일럿 외 템플릿 3-스타일 매트릭스 검증 확대",
-      "memo": "ORD-008 이연 — TemplateStyleMatrix 3-way 교차검증이 파일럿 3템플릿(Flowchart/SequenceDiagram/C4ContainerDiagram) 축에 고정. 검증(2026-07-23): 전제 수치 갱신 — 구현 템플릿 총량 76/90 → 87/90 확정(ORD-012 완료), 스타일가이드 축 3→6 증가로 매트릭스는 3템플릿×6가이드로 커졌으나 템플릿 축 파일럿 고정 한계 존속(TemplateStyleMatrix.stories.tsx PilotMatrix). 단일 가이드 paint 게이트(expectVizPaintResolved)는 전 템플릿 커버 — 3-way 교차검증의 템플릿 축 재스코핑만 남음.",
+      "memo": "완료 — 교차검증 템플릿 축을 파일럿 3종 → 그룹 전 축(G1~G5·P2·P3) 대표 24종으로 재스코핑. 신규 `_matrixFixtures.tsx`(그룹 스토리 검증 데이터 복사, 기존 스토리 무변경) + `TemplateStyleMatrix.stories.tsx`에 template-major `ExpandedMatrix` 스토리 추가(PilotMatrix 유지). play 검증: fixture 가드(key slug-safe·유일), 행수=fixture수·셀수=vizStyleGuideCatalog.length(SSOT), 셀별 svg role=img+non-empty title+expectVizPaintResolved+paintSig non-empty, 행마다 guideVarSig 전-가이드 all-distinct(결정적), 템플릿별 paintSig(svg 전 geometry mark, bg 제외, 상한60) 집합>1. 외부검토(codex) 반영: 약한 >1 기준 보강(가이드축 all-distinct 분리), bg가 paint 가리는 문제 제거, 첫-N 취약성→전-mark 일반화, SSOT 카운트, per-row 무결성. ExpandedMatrix 24×6=144 SVG play 2.56s(분할 불필요). 4 게이트 green(typecheck/build/test 1093/storybook build). viz 소스·core export 무변경.",
       "verbatim": "",
       "생성": "ai",
       "최종": "ai",
       "갱신": "2026-07-23",
       "title_hash": "d5dacc3cb6c5953b878c90c5b6a957eccc6570c2",
-      "memo_hash": "094099d145d34c69ad530547358eba30ef964e7b",
+      "memo_hash": "4c4ce0af41981e48ba173904ee5b2a705e062c29",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-017": {
@@ -333,7 +333,6 @@
     "KAN-013",
     "KAN-014",
     "KAN-015",
-    "KAN-016",
     "KAN-025",
     "KAN-024",
     "KAN-023",
@@ -354,9 +353,29 @@
     "KAN-018",
     "KAN-017",
     "KAN-026",
-    "KAN-027"
+    "KAN-027",
+    "KAN-016"
   ],
   "recent": [
+    {
+      "seq": 56,
+      "t": "2026-07-23T19:49",
+      "a": "ai",
+      "id": "KAN-016",
+      "op": "edit",
+      "field": "memo",
+      "before": "ORD-008 이연 — TemplateStyleMatrix 3-way 교차검증이 파일럿 3템플릿(Flowchart/SequenceDiagram/C4ContainerDiagram) 축에 고정. 검증(2026-07-23): 전제 수치 갱신 — 구현 템플릿 총량 76/90 → 87/90 확정(ORD-012 완료), 스타일가이드 축 3→6 증가로 매트릭스는 3템플릿×6가이드로 커졌으나 템플릿 축 파일럿 고정 한계 존속(TemplateStyleMatrix.stories.tsx PilotMatrix). 단일 가이드 paint 게이트(expectVizPaintResolved)는 전 템플릿 커버 — 3-way 교차검증의 템플릿 축 재스코핑만 남음.",
+      "after": "완료 — 교차검증 템플릿 축을 파일럿 3종 → 그룹 전 축(G1~G5·P2·P3) 대표 24종으로 재스코핑. 신규 `_matrixFixtures.tsx`(그룹 스토리 검증 데이터 복사, 기존 스토리 무변경) + `TemplateStyleMatrix.stories.tsx`에 template-major `ExpandedMatrix` 스토리 추가(PilotMatrix 유지). play 검증: fixture 가드(key slug-safe·유일), 행수=fixture수·셀수=vizStyleGuideCatalog.length(SSOT), 셀별 svg role=img+non-empty title+expectVizPaintResolved+paintSig non-empty, 행마다 guideVarSig 전-가이드 all-distinct(결정적), 템플릿별 paintSig(svg 전 geometry mark, bg 제외, 상한60) 집합>1. 외부검토(codex) 반영: 약한 >1 기준 보강(가이드축 all-distinct 분리), bg가 paint 가리는 문제 제거, 첫-N 취약성→전-mark 일반화, SSOT 카운트, per-row 무결성. ExpandedMatrix 24×6=144 SVG play 2.56s(분할 불필요). 4 게이트 green(typecheck/build/test 1093/storybook build). viz 소스·core export 무변경."
+    },
+    {
+      "seq": 55,
+      "t": "2026-07-23T19:48",
+      "a": "ai",
+      "id": "KAN-016",
+      "op": "move",
+      "from": "backlog",
+      "to": "done"
+    },
     {
       "seq": 54,
       "t": "2026-07-23T18:21",
@@ -845,28 +864,6 @@
       "title": "ORD-007 — 2026 디자인 트렌드(제공 링크) + 2020-2025 연도별 디자인 트렌드 리서치·목록화",
       "memo": "design-trends-2020-2026.md 신규 — 2026 트렌드 22개 + 2020~2025 연도별 트렌드 + 신규 후보 5종(§C).",
       "verbatim": "# ORDER\n\nhttps://www.figma.com/ko-kr/resource-library/web-design-trends/\nhttps://www.behance.net/gallery/239027109/Design-Trends-2026?locale=ko_KR\nhttps://www.adobe.com/express/learn/blog/design-trends-2026\n\n위 링크는 2026년 디자인 트렌드 링크다. 참조하여 새로운 디자인 트렌드를 목록화 해라. 또한, 같은 방식으로 2020년부터 2025년 까지의 디자인 트렌드도 리서치하여 목록화 하라"
-    },
-    {
-      "seq": 6,
-      "t": "2026-07-14T13:30",
-      "a": "ai",
-      "id": "KAN-006",
-      "op": "create",
-      "col": "done",
-      "title": "ORD-006 — theme→foundation 재편·카탈로그(foundation/style-guide) 분리·pattern/block wrapping 인터페이스",
-      "memo": "4 Phase 구현: wrapperBlocks/Patterns 인터페이스, theme→foundation 전면 rename, foundations/style-guide-catalog 별도 패키지 분리 배포.",
-      "verbatim": "# ORDER\n- archetype의 컴포넌트와 theme은 style guide에서 확장 가능하지만,\n  pattern, block은 그렇지 않다. 이 또한 wrapping을 위한 interface를\n  제공하는 것이 좋아 보인다.\n  - foundation의 theme은 확장 가능한 형태다. 따라서 기본\n  foundation(dark, light, high-contrast)를 제외하고는 storybook에서\n  FOUNDATION CATALOG로 빼는게 맞다. 또한 theme이란 명칭 대신\n  foundation으로 치환해라. 이건 코드 레벨에서도 마찬가지다.\n  - 코드 레벨에서도 foundation catalog에 해당하는 내용은 core와 다른\n  코드 영역으로 분리하고 npm package도 theme 대신 foundations로\n  배포해야 한다.\n  - style guide catalog에 정의된 각 style guide는 말\n    그대로 사전에 정의한 style guide preset에 대한 카탈로그 이므로,\n    core와는 분리 되어야 하고, npm package도 style-guide-catalog로\n  별도 배포 되어야 한다."
-    },
-    {
-      "seq": 5,
-      "t": "2026-07-14T13:30",
-      "a": "ai",
-      "id": "KAN-005",
-      "op": "create",
-      "col": "done",
-      "title": "ORD-005 — Style Guide Catalog 후보 디자인 스타일/트렌드 조사·목록화",
-      "memo": "style-guide-catalog.md 신규 생성 — 2025-2026 트렌드 23개 후보 목록화(P1~P3 우선순위).",
-      "verbatim": "# ORDER\nstyle guide catalog에 포함할 만한 디자인 스타일과 디자인트렌드를 조사해서 수집하고 목록화 해줘. 해당 목록은 style guide catalog를 일괄 생성하는데 사용할거다."
     }
   ]
 }
