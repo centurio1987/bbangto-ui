@@ -15,8 +15,8 @@
   - 메모: ORD-008/009 이연 — 지터(jitter) seeded 렌더·손글씨 폰트·질감 토큰화 필요(기술 블로커로 계속 보류 중).
 - `KAN-015` G6 메타 프레임(Kruchten 4+1 / Viewpoint) 구현 — 생성:ai · 최종:ai · 갱신:2026-07-14
   - 메모: ORD-008/010 이연 — 개념 프레임워크(G) 축의 메타 뷰(Kruchten 4+1, Viewpoint) 미구현.
-- `KAN-016` 파일럿 외 템플릿 3-스타일 매트릭스 검증 확대 — 생성:ai · 최종:ai · 갱신:2026-07-14
-  - 메모: ORD-008 이연 — TemplateStyleMatrix 심층 검증이 파일럿 3템플릿×3스타일가이드로 한정됨. ORD-010/011로 구현 템플릿이 76/90까지 늘어 재스코핑 필요(단일 가이드 paint 해석 게이트는 전 템플릿 커버, 3-way 교차검증만 파일럿 한정).
+- `KAN-016` 파일럿 외 템플릿 3-스타일 매트릭스 검증 확대 — 생성:ai · 최종:ai · 갱신:2026-07-23
+  - 메모: ORD-008 이연 — TemplateStyleMatrix 3-way 교차검증이 파일럿 3템플릿(Flowchart/SequenceDiagram/C4ContainerDiagram) 축에 고정. 검증(2026-07-23): 전제 수치 갱신 — 구현 템플릿 총량 76/90 → 87/90 확정(ORD-012 완료), 스타일가이드 축 3→6 증가로 매트릭스는 3템플릿×6가이드로 커졌으나 템플릿 축 파일럿 고정 한계 존속(TemplateStyleMatrix.stories.tsx PilotMatrix). 단일 가이드 paint 게이트(expectVizPaintResolved)는 전 템플릿 커버 — 3-way 교차검증의 템플릿 축 재스코핑만 남음.
 - `KAN-026` viz 카탈로그 팔레트 실측 대비 감사 — 생성:유저 · 최종:유저 · 갱신:2026-07-23
   - 메모: KAN-024 후속 — viz VisualizationFoundation은 UI semantic.foreground/background와 스키마가 달라(canvas.bg + palette/node/c4.labelColor) 단일 본문 텍스트 쌍이 없음. "어떤 잉크/라벨을 canvas 위 텍스트로 볼지" 쌍 정의 후 tokens contrast 유틸로 auditContrast 확장(viz 6종 contrastIntent aa 대조). WCAG 수학 유틸(tokens/contrast.ts)은 이미 재사용 가능.
 - `KAN-027` #29-50 비정규 displayName 16건 canonical 정규화 — 생성:유저 · 최종:유저 · 갱신:2026-07-23
