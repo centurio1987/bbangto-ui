@@ -13,8 +13,8 @@
   - 메모: ORD-008/009 이연 — iso geometry 프리미티브 신규 필요(기술 블로커로 계속 보류 중).
 - `KAN-014` 스타일 가이드 Marker_Sketchnote (hand-drawn, F4) 구현 — 생성:ai · 최종:ai · 갱신:2026-07-14
   - 메모: ORD-008/009 이연 — 지터(jitter) seeded 렌더·손글씨 폰트·질감 토큰화 필요(기술 블로커로 계속 보류 중).
-- `KAN-015` G6 메타 프레임(Kruchten 4+1 / Viewpoint) 구현 — 생성:ai · 최종:ai · 갱신:2026-07-14
-  - 메모: ORD-008/010 이연 — 개념 프레임워크(G) 축의 메타 뷰(Kruchten 4+1, Viewpoint) 미구현.
+- `KAN-015` G6 메타 프레임(Kruchten 4+1 / Viewpoint) 구현 — 생성:ai · 최종:ai · 갱신:2026-07-23
+  - 메모: ORD-008/010 이연 — 개념 프레임워크(G) 축 메타 뷰(Kruchten4Plus1View + ISO/IEC/IEEE 42010 ViewpointFrame) 미구현(0%, PLAN.md:184 스펙만, Phase 8 후속). 검증(2026-07-23): ⚠️ 명칭 주의 — 이미 구현된 ArchiMateViewpointDiagram(KAN-012)은 ArchiMate 자체 viewpoint(motivation/strategy/implementation)로 이 카드의 ISO42010 ViewpointFrame과 별개 개념. 재착수 시 두 'Viewpoint'를 명시적으로 구분해 오판 방지할 것.
 - `KAN-016` 파일럿 외 템플릿 3-스타일 매트릭스 검증 확대 — 생성:ai · 최종:ai · 갱신:2026-07-23
   - 메모: ORD-008 이연 — TemplateStyleMatrix 3-way 교차검증이 파일럿 3템플릿(Flowchart/SequenceDiagram/C4ContainerDiagram) 축에 고정. 검증(2026-07-23): 전제 수치 갱신 — 구현 템플릿 총량 76/90 → 87/90 확정(ORD-012 완료), 스타일가이드 축 3→6 증가로 매트릭스는 3템플릿×6가이드로 커졌으나 템플릿 축 파일럿 고정 한계 존속(TemplateStyleMatrix.stories.tsx PilotMatrix). 단일 가이드 paint 게이트(expectVizPaintResolved)는 전 템플릿 커버 — 3-way 교차검증의 템플릿 축 재스코핑만 남음.
 - `KAN-026` viz 카탈로그 팔레트 실측 대비 감사 — 생성:유저 · 최종:유저 · 갱신:2026-07-23
