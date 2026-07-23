@@ -1,6 +1,6 @@
 {
   "next_id": 28,
-  "next_seq": 44,
+  "next_seq": 45,
   "cards": {
     "KAN-001": {
       "col": "done",
@@ -195,7 +195,7 @@
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-017": {
-      "col": "backlog",
+      "col": "done",
       "title": "신규 style guide 후보 5종 구현 (Bento_Modular/Kinetic_Typography/Spatial_3D/Humanist_Imperfect/Tactile_Texture)",
       "memo": "검증(2026-07-23): 전제 무효 — 5종 후보(Bento_Modular/Kinetic_Typography/Spatial_3D/Humanist_Imperfect/Tactile_Texture)가 전부 이미 독립 preset으로 구현·등록됨. trendIndex #24-28, canonical displayName _01 부여(style-guide-catalog/src/index.ts:161-166, catalog.manifest.json). '이미지 레퍼런스 마이닝 #29-50' 파생 스타일과 혼입 없음. 미구현 0종 → 완료 처리.",
       "verbatim": "",
@@ -334,7 +334,6 @@
     "KAN-014",
     "KAN-015",
     "KAN-016",
-    "KAN-017",
     "KAN-026",
     "KAN-027",
     "KAN-025",
@@ -354,9 +353,19 @@
     "KAN-010",
     "KAN-011",
     "KAN-012",
-    "KAN-018"
+    "KAN-018",
+    "KAN-017"
   ],
   "recent": [
+    {
+      "seq": 44,
+      "t": "2026-07-23T14:39",
+      "a": "ai",
+      "id": "KAN-017",
+      "op": "move",
+      "from": "backlog",
+      "to": "done"
+    },
     {
       "seq": 43,
       "t": "2026-07-23T14:38",

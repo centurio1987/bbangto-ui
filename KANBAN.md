@@ -15,8 +15,6 @@
   - 메모: ORD-008/010 이연 — 개념 프레임워크(G) 축의 메타 뷰(Kruchten 4+1, Viewpoint) 미구현.
 - `KAN-016` 파일럿 외 템플릿 3-스타일 매트릭스 검증 확대 — 생성:ai · 최종:ai · 갱신:2026-07-14
   - 메모: ORD-008 이연 — TemplateStyleMatrix 심층 검증이 파일럿 3템플릿×3스타일가이드로 한정됨. ORD-010/011로 구현 템플릿이 76/90까지 늘어 재스코핑 필요(단일 가이드 paint 해석 게이트는 전 템플릿 커버, 3-way 교차검증만 파일럿 한정).
-- `KAN-017` 신규 style guide 후보 5종 구현 (Bento_Modular/Kinetic_Typography/Spatial_3D/Humanist_Imperfect/Tactile_Texture) — 생성:ai · 최종:ai · 갱신:2026-07-23
-  - 메모: 검증(2026-07-23): 전제 무효 — 5종 후보(Bento_Modular/Kinetic_Typography/Spatial_3D/Humanist_Imperfect/Tactile_Texture)가 전부 이미 독립 preset으로 구현·등록됨. trendIndex #24-28, canonical displayName _01 부여(style-guide-catalog/src/index.ts:161-166, catalog.manifest.json). '이미지 레퍼런스 마이닝 #29-50' 파생 스타일과 혼입 없음. 미구현 0종 → 완료 처리.
 - `KAN-026` viz 카탈로그 팔레트 실측 대비 감사 — 생성:유저 · 최종:유저 · 갱신:2026-07-23
   - 메모: KAN-024 후속 — viz VisualizationFoundation은 UI semantic.foreground/background와 스키마가 달라(canvas.bg + palette/node/c4.labelColor) 단일 본문 텍스트 쌍이 없음. "어떤 잉크/라벨을 canvas 위 텍스트로 볼지" 쌍 정의 후 tokens contrast 유틸로 auditContrast 확장(viz 6종 contrastIntent aa 대조). WCAG 수학 유틸(tokens/contrast.ts)은 이미 재사용 가능.
 - `KAN-027` #29-50 비정규 displayName 16건 canonical 정규화 — 생성:유저 · 최종:유저 · 갱신:2026-07-23
@@ -207,3 +205,5 @@
     ```
 - `KAN-018` bbangto-ui 라이브러리를 가져다 쓸 때, 직접 스타일 가이드를 구성하지 않고, catalog에서 채택하는 경우도 있을 것이다. 이 판단을 ai가 해야 한다고 할 때, 코드 내용을 전수 검토 하지 않고, 채택에 도움을 줄 수 있는 장치를 마련 하고 싶다. 메타 데이터를 심어 놓는다던가. 그와 관련된 전략을 구상해라. — 생성:유저 · 최종:ai · 갱신:2026-07-14
   - 메모: 완료 — 채택 메타데이터 전략+파일럿. StyleGuideMeta 타입+통제어휘(packages/tokens/src/styleGuideMeta.ts), buildManifest 생성기+catalog.manifest.json(51행, authored 3/pending 48), 파일럿 3종 meta 저작(minimal-saas-01·neobrutalism-editorial-01·cyberpunk-hud-01), 전략문서 METADATA_STRATEGY.md. 게이트 전부 green: typecheck/build(prebuild gen:manifest)/unit(catalog 13·viz 82·hooks 115)/play 1090/storybook build/pack. 외부검토(codex·Gemini) 반영. 후속: 잔여 백필·selectStyleGuides·Decision Table·WCAG 실측·md 자동생성.
+- `KAN-017` 신규 style guide 후보 5종 구현 (Bento_Modular/Kinetic_Typography/Spatial_3D/Humanist_Imperfect/Tactile_Texture) — 생성:ai · 최종:ai · 갱신:2026-07-23
+  - 메모: 검증(2026-07-23): 전제 무효 — 5종 후보(Bento_Modular/Kinetic_Typography/Spatial_3D/Humanist_Imperfect/Tactile_Texture)가 전부 이미 독립 preset으로 구현·등록됨. trendIndex #24-28, canonical displayName _01 부여(style-guide-catalog/src/index.ts:161-166, catalog.manifest.json). '이미지 레퍼런스 마이닝 #29-50' 파생 스타일과 혼입 없음. 미구현 0종 → 완료 처리.
