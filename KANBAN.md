@@ -17,12 +17,12 @@
   - 메모: ORD-008/010 이연 — 개념 프레임워크(G) 축 메타 뷰(Kruchten4Plus1View + ISO/IEC/IEEE 42010 ViewpointFrame) 미구현(0%, PLAN.md:184 스펙만, Phase 8 후속). 검증(2026-07-23): ⚠️ 명칭 주의 — 이미 구현된 ArchiMateViewpointDiagram(KAN-012)은 ArchiMate 자체 viewpoint(motivation/strategy/implementation)로 이 카드의 ISO42010 ViewpointFrame과 별개 개념. 재착수 시 두 'Viewpoint'를 명시적으로 구분해 오판 방지할 것.
 - `KAN-016` 파일럿 외 템플릿 3-스타일 매트릭스 검증 확대 — 생성:ai · 최종:ai · 갱신:2026-07-23
   - 메모: ORD-008 이연 — TemplateStyleMatrix 3-way 교차검증이 파일럿 3템플릿(Flowchart/SequenceDiagram/C4ContainerDiagram) 축에 고정. 검증(2026-07-23): 전제 수치 갱신 — 구현 템플릿 총량 76/90 → 87/90 확정(ORD-012 완료), 스타일가이드 축 3→6 증가로 매트릭스는 3템플릿×6가이드로 커졌으나 템플릿 축 파일럿 고정 한계 존속(TemplateStyleMatrix.stories.tsx PilotMatrix). 단일 가이드 paint 게이트(expectVizPaintResolved)는 전 템플릿 커버 — 3-way 교차검증의 템플릿 축 재스코핑만 남음.
-- `KAN-027` #29-50 비정규 displayName 16건 canonical 정규화 — 생성:유저 · 최종:유저 · 갱신:2026-07-23
-  - 메모: KAN-025가 드러냄 — #29-50 style guide 16종의 meta.displayName이 도출 시퀀스 접미사(GrainyBlurDreamy_03·PixelArtRetro_13 등)를 유지, #0-28의 canonical `Primary_Secondary_01` 규칙과 불일치. 단어 경계(3~4단어 slug 포함) 명명 결정 후 meta 일괄 정정 + 매니페스트·트렌드 표 재생성. (KAN-025에서 pixel-art-retro-01 trendIndex 버그만 선반영.)
 
 ## 할 일
 
 ## 진행 중
+- `KAN-027` #29-50 비정규 displayName 16건 canonical 정규화 — 생성:유저 · 최종:ai · 갱신:2026-07-23
+  - 메모: KAN-025가 드러냄 — #29-50 style guide 16종의 meta.displayName이 도출 시퀀스 접미사(GrainyBlurDreamy_03·PixelArtRetro_13 등)를 유지, #0-28의 canonical `Primary_Secondary_01` 규칙과 불일치. 단어 경계(3~4단어 slug 포함) 명명 결정 후 meta 일괄 정정 + 매니페스트·트렌드 표 재생성. (KAN-025에서 pixel-art-retro-01 trendIndex 버그만 선반영.)
 
 ## 검토
 

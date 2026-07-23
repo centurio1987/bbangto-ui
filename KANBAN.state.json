@@ -1,6 +1,6 @@
 {
   "next_id": 28,
-  "next_seq": 52,
+  "next_seq": 53,
   "cards": {
     "KAN-001": {
       "col": "done",
@@ -315,12 +315,12 @@
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-027": {
-      "col": "backlog",
+      "col": "doing",
       "title": "#29-50 비정규 displayName 16건 canonical 정규화",
       "memo": "KAN-025가 드러냄 — #29-50 style guide 16종의 meta.displayName이 도출 시퀀스 접미사(GrainyBlurDreamy_03·PixelArtRetro_13 등)를 유지, #0-28의 canonical `Primary_Secondary_01` 규칙과 불일치. 단어 경계(3~4단어 slug 포함) 명명 결정 후 meta 일괄 정정 + 매니페스트·트렌드 표 재생성. (KAN-025에서 pixel-art-retro-01 trendIndex 버그만 선반영.)",
       "verbatim": "",
       "생성": "유저",
-      "최종": "유저",
+      "최종": "ai",
       "갱신": "2026-07-23",
       "title_hash": "6658551a4c485ecccbe857983d7a6b1e31382d6d",
       "memo_hash": "568e7d640c6400d3a35f76f6292577be27958f47",
@@ -334,7 +334,6 @@
     "KAN-014",
     "KAN-015",
     "KAN-016",
-    "KAN-027",
     "KAN-025",
     "KAN-024",
     "KAN-023",
@@ -354,9 +353,19 @@
     "KAN-012",
     "KAN-018",
     "KAN-017",
-    "KAN-026"
+    "KAN-026",
+    "KAN-027"
   ],
   "recent": [
+    {
+      "seq": 52,
+      "t": "2026-07-23T18:14",
+      "a": "ai",
+      "id": "KAN-027",
+      "op": "move",
+      "from": "backlog",
+      "to": "doing"
+    },
     {
       "seq": 51,
       "t": "2026-07-23T18:01",
@@ -861,17 +870,6 @@
       "title": "ORD-003 — 스토리북 구조 개편 (ARCHETYPE / DIAGRAM / STYLE GUIDE CATALOG)",
       "memo": "사이드바 3대 최상위 재편(ARCHETYPE/DIAGRAM/STYLE GUIDE CATALOG), 85개 스토리 meta title 재매핑.",
       "verbatim": "# ORDER 2\n스토리북 구조를 개편한다. 명칭은 더 적절한 것이 있으면 계획 중 제안하고 컨펌 받아라\nARCHETYPE\n |-- Foundations\n |-- Components\n\t |-- Atoms\n\t |-- Molecules\n\t |-- Organisms\n |-- Blocks\n |-- Patterns\n\nDIAGRAM\n|-- ...\n\nSTYLE GUIDE CATALOG\n|-- Brutalism_Minimalism_01\n\t|-- Referenced Foundations\n\t|-- Extended Foundations\n\t|-- Wrapper Components\n\t|-- Patterns\n\t|-- Guideline\n\t|-- Visual Motif"
-    },
-    {
-      "seq": 2,
-      "t": "2026-07-14T13:30",
-      "a": "ai",
-      "id": "KAN-002",
-      "op": "create",
-      "col": "done",
-      "title": "ORD-002 — 카탈로그 preset 일반화(개인정보 제거·트렌드 인덱스 명명) + Visual Motif 6요소화",
-      "memo": "개인정보 전면 제거 + Neobrutalism_Editorial_01 명명 확정 + Visual Motif 6요소 완성.",
-      "verbatim": "# ORDER 1\n\n- 스타일 가이드에 내 개인적인 내용(이름, 이메일, 내 포트폴리오, 회사 등등)을 포함하면 안된다.\n- 명칭은 빵토 Bakery가 아니라 디자인 트렌드와 중복 방지를 위한 각 디자인 트렌드 별 인덱스(brutalism + xxxism + 01) 명으로 해야 한다.\n- 각 카탈로그는 참조한 foundations, extended foundations, wrapper component, pattern, visual motif, guideline으로 구성한다.\n- visual motif는 현재 빵토 Bakery의 Default 같은 구현 예시와 더불어, 대표 컴포넌트들을 대상으로 visual motif 스펙에 대한 설명을 포함한다.\n- 구현 예시는 빵토 Bakery Default를 작성할 때 참고한 template을 토대로 만든다."
     }
   ]
 }
