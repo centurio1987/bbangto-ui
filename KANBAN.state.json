@@ -1,6 +1,6 @@
 {
   "next_id": 28,
-  "next_seq": 49,
+  "next_seq": 50,
   "cards": {
     "KAN-001": {
       "col": "done",
@@ -303,12 +303,12 @@
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-026": {
-      "col": "backlog",
+      "col": "doing",
       "title": "viz 카탈로그 팔레트 실측 대비 감사",
       "memo": "KAN-024 후속 — viz VisualizationFoundation은 UI semantic.foreground/background와 스키마가 달라(canvas.bg + palette/node/c4.labelColor) 단일 본문 텍스트 쌍이 없음. \"어떤 잉크/라벨을 canvas 위 텍스트로 볼지\" 쌍 정의 후 tokens contrast 유틸로 auditContrast 확장(viz 6종 contrastIntent aa 대조). WCAG 수학 유틸(tokens/contrast.ts)은 이미 재사용 가능.",
       "verbatim": "",
       "생성": "유저",
-      "최종": "유저",
+      "최종": "ai",
       "갱신": "2026-07-23",
       "title_hash": "558e3b680f40ff85c53215fed72f2ba222f6bdca",
       "memo_hash": "aed11cf3b1c3c1eaf00dfe1131934b60a4a52e5a",
@@ -334,7 +334,6 @@
     "KAN-014",
     "KAN-015",
     "KAN-016",
-    "KAN-026",
     "KAN-027",
     "KAN-025",
     "KAN-024",
@@ -354,9 +353,19 @@
     "KAN-011",
     "KAN-012",
     "KAN-018",
-    "KAN-017"
+    "KAN-017",
+    "KAN-026"
   ],
   "recent": [
+    {
+      "seq": 49,
+      "t": "2026-07-23T17:44",
+      "a": "ai",
+      "id": "KAN-026",
+      "op": "move",
+      "from": "backlog",
+      "to": "doing"
+    },
     {
       "seq": 48,
       "t": "2026-07-23T14:42",
