@@ -9,11 +9,17 @@
  * 배경이 그라디언트면 전 색 스톱 중 **최악(worst-case) 대비**로 판정한다(텍스트가 어느 스톱 위에서도
  * 읽혀야 함). viz(VisualizationFoundation)는 텍스트 쌍 스키마가 달라 후속 카드로 분리한다.
  */
-import { parseColor, extractColors, compositeOver, contrastRatio } from '@centurio1987/bbangto-ui-tokens';
-import type { BbangtoFoundation, FoundationPreset, RGBA, StyleGuideMeta } from '@centurio1987/bbangto-ui-tokens';
+import {
+  parseColor,
+  extractColors,
+  contrastRatio,
+  effectiveBgColors,
+  CONTRAST_THRESHOLDS,
+} from '@centurio1987/bbangto-ui-tokens';
+import type { BbangtoFoundation, FoundationPreset, StyleGuideMeta } from '@centurio1987/bbangto-ui-tokens';
 
-/** contrastIntent → 본문 텍스트 WCAG 대비 하한(normal-text 보수 기준). low는 무제약(0). */
-export const CONTRAST_THRESHOLDS = { low: 0, aa: 4.5, aaa: 7 } as const;
+/** contrastIntent → 본문 텍스트 WCAG 대비 하한. tokens/contrast.ts로 승격(UI/viz 공유), 하위호환 re-export. */
+export { CONTRAST_THRESHOLDS };
 
 /** 감사 최소 입력(duck-typed). UI StyleGuide가 구조적으로 만족. */
 export interface AuditableEntry {
@@ -35,18 +41,6 @@ export interface ContrastViolation {
 }
 
 const round = (n: number): number => Math.round(n * 100) / 100;
-const WHITE: RGBA = { r: 255, g: 255, b: 255, a: 1 };
-
-/**
- * 레이어드 CSS 배경의 색 스톱들을 "실효 불투명색"으로 해석한다. 그라디언트는 보통 반투명
- * 오버레이 여러 겹 + 트레일링 solid 바탕(base) 구조라, 반투명/투명 스톱은 그 base 위에 합성한다
- * (투명 페이드 스톱을 흰색 위에 얹어 생기는 false 저대비 방지). 텍스트 대비는 이 실효색들 중 최악.
- */
-function effectiveBgColors(stops: readonly RGBA[]): RGBA[] {
-  const opaque = stops.filter((s) => s.a >= 1);
-  const backdrop = opaque.length ? opaque[opaque.length - 1] : WHITE;
-  return stops.map((s) => (s.a >= 1 ? s : compositeOver(s, backdrop)));
-}
 
 /**
  * catalog를 순회하며 contrastIntent(aa/aaa) over-claim을 수집한다. 빈 배열 = 과대주장 없음.

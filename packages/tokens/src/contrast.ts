@@ -115,3 +115,18 @@ export function contrastRatio(a: string | RGBA, b: string | RGBA): number | null
   const l2 = relativeLuminance(bgOpaque);
   return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
 }
+
+/** contrastIntent → 본문/라벨 텍스트 WCAG 대비 하한(normal-text 보수 기준). low는 무제약(0). */
+export const CONTRAST_THRESHOLDS = { low: 0, aa: 4.5, aaa: 7 } as const;
+
+/**
+ * 레이어드 CSS 배경의 색 스톱들을 "실효 불투명색"으로 해석한다. 그라디언트는 보통 반투명
+ * 오버레이 여러 겹 + 트레일링 solid 바탕(base) 구조라, 반투명/투명 스톱은 그 base 위에 합성한다
+ * (투명 페이드 스톱을 흰색 위에 얹어 생기는 false 저대비 방지). 텍스트 대비는 이 실효색들 중 최악.
+ * style-guide-catalog(UI)·visualization-style-guide-catalog(viz) 감사가 공유하는 순수 WCAG 헬퍼.
+ */
+export function effectiveBgColors(stops: readonly RGBA[]): RGBA[] {
+  const opaque = stops.filter((s) => s.a >= 1);
+  const backdrop = opaque.length ? opaque[opaque.length - 1] : WHITE;
+  return stops.map((s) => (s.a >= 1 ? s : compositeOver(s, backdrop)));
+}

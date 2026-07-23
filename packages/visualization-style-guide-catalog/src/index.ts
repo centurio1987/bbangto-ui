@@ -52,3 +52,11 @@ export {
   type SelectableEntry,
   type CriterionWeights,
 } from './select';
+
+// 팔레트 실측 WCAG 대비 over-claim 감사 (viz 스키마판; 순수 WCAG 수학은 tokens에서 공유). KAN-026.
+export {
+  auditVizContrast,
+  formatVizViolations,
+  type VizContrastViolation,
+  type AuditableVizEntry,
+} from './accessibilityAudit';
