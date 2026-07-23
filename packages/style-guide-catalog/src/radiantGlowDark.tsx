@@ -292,7 +292,7 @@ export const radiantGlowDarkStyleGuide: StyleGuide = {
   guidelines,
   visualMotif,
   meta: {
-    displayName: 'RadiantGlowDark_07',
+    displayName: 'Radiant_Glow_Dark_01',
     trendIndex: 35,
     family: 'tech-dark',
     priority: 'P1',

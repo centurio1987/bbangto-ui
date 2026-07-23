@@ -340,7 +340,7 @@ export const heritageFolkOrnamentStyleGuide: StyleGuide = {
   guidelines,
   visualMotif,
   meta: {
-    displayName: 'HeritageFolkOrnament_21',
+    displayName: 'Heritage_Folk_Ornament_01',
     trendIndex: 49,
     family: 'nostalgia',
     priority: 'P3',

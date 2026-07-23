@@ -287,7 +287,7 @@ export const glitchDistortionStyleGuide: StyleGuide = {
   guidelines,
   visualMotif,
   meta: {
-    displayName: 'GlitchDistortion_05',
+    displayName: 'Glitch_Distortion_01',
     trendIndex: 33,
     family: 'tech-dark',
     priority: 'P1',

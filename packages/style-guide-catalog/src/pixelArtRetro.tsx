@@ -288,7 +288,7 @@ export const pixelArtRetroStyleGuide: StyleGuide = {
   guidelines,
   visualMotif,
   meta: {
-    displayName: 'PixelArtRetro_13',
+    displayName: 'Pixel_Art_Retro_01',
     trendIndex: 41,
     family: 'nostalgia',
     priority: 'P2',

@@ -350,7 +350,7 @@ export const grainyBlurDreamyStyleGuide: StyleGuide = {
   guidelines,
   visualMotif,
   meta: {
-    displayName: 'GrainyBlurDreamy_03',
+    displayName: 'Grainy_Blur_Dreamy_01',
     trendIndex: 31,
     family: 'depth-material',
     priority: 'P1',

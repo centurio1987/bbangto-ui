@@ -293,7 +293,7 @@ export const gothicMedievalDigitalStyleGuide: StyleGuide = {
   guidelines,
   visualMotif,
   meta: {
-    displayName: 'GothicMedievalDigital_04',
+    displayName: 'Gothic_Medieval_Digital_01',
     trendIndex: 32,
     family: 'tech-dark',
     priority: 'P1',

@@ -296,7 +296,7 @@ export const aiSurrealGradient3dStyleGuide: StyleGuide = {
   guidelines,
   visualMotif,
   meta: {
-    displayName: 'AISurrealGradient3D_11',
+    displayName: 'Ai_Surreal_Gradient3d_01',
     trendIndex: 39,
     family: 'depth-material',
     priority: 'P2',

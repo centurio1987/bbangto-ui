@@ -265,7 +265,7 @@ export const romanticBotanicalStyleGuide: StyleGuide = {
   guidelines,
   visualMotif,
   meta: {
-    displayName: 'RomanticBotanical_20',
+    displayName: 'Romantic_Botanical_01',
     trendIndex: 48,
     family: 'nostalgia',
     priority: 'P3',

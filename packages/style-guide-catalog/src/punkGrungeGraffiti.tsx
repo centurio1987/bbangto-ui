@@ -328,7 +328,7 @@ export const punkGrungeGraffitiStyleGuide: StyleGuide = {
   guidelines,
   visualMotif,
   meta: {
-    displayName: 'PunkGrungeGraffiti_10',
+    displayName: 'Punk_Grunge_Graffiti_01',
     trendIndex: 38,
     family: 'expressive-energetic',
     priority: 'P2',

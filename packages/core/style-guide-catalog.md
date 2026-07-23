@@ -69,25 +69,25 @@ slug = kebab-case (`name` / `data-bbangto-style-guide` / `styleGuideMap` 키).
 | 28 | Tactile_Texture_01 | `tactile-texture-01` | 표현/에너지 | 퍼피·소프트·스퀴시 촉각 질감 + 하이퍼리얼 광택. 파스텔 톤·두툼한 radius·부드러운 이중 그림자, 누르면 쪼그라드는 말랑한 인터랙션. | P2 |
 | 29 | Risograph_Print_01 | `risograph-print-01` | 노스탤지어 | 웜 크림 종이 + 한정 스팟 잉크 2~3색 multiply 오버프린트, 분판 미스레지스트레이션과 그레인/망점의 평면 인쇄소 질감. | P1 |
 | 30 | Blueprint_Technical_01 | `blueprint-technical-01` | 평면/체계 | 딥 블루 청사진 보드 + 8px 모눈 위 1px 라인 드로잉, 화살촉 치수선·번호 콜아웃의 엔지니어링 제도 도면 미학. | P1 |
-| 31 | GrainyBlurDreamy_03 | `grainy-blur-dreamy-01` | 깊이/material | 필름 그레인 + 아웃포커스 블러가 코랄/라벤더 헤이즈 그라디언트 위에 겹친 몽환적 포토그래픽 안개, 또렷한 잉크 단색 헤드라인. | P1 |
-| 32 | GothicMedievalDigital_04 | `gothic-medieval-digital-01` | 테크/다크 | near-black·옥스블러드 + 뮤트 골드에 단일 네온 블록, 블랙레터·문장·왁스 인장이 디지털 그리드와 충돌하는 다크 신비주의. | P1 |
-| 33 | GlitchDistortion_05 | `glitch-distortion-01` | 테크/다크 | near-black 베이스 + 마젠타/시안 듀오톤, RGB 채널 오프셋·슬라이스 글리치로 '데이터 손상'을 미감으로 삼는 다크 테크. | P1 |
+| 31 | Grainy_Blur_Dreamy_01 | `grainy-blur-dreamy-01` | 깊이/material | 필름 그레인 + 아웃포커스 블러가 코랄/라벤더 헤이즈 그라디언트 위에 겹친 몽환적 포토그래픽 안개, 또렷한 잉크 단색 헤드라인. | P1 |
+| 32 | Gothic_Medieval_Digital_01 | `gothic-medieval-digital-01` | 테크/다크 | near-black·옥스블러드 + 뮤트 골드에 단일 네온 블록, 블랙레터·문장·왁스 인장이 디지털 그리드와 충돌하는 다크 신비주의. | P1 |
+| 33 | Glitch_Distortion_01 | `glitch-distortion-01` | 테크/다크 | near-black 베이스 + 마젠타/시안 듀오톤, RGB 채널 오프셋·슬라이스 글리치로 '데이터 손상'을 미감으로 삼는 다크 테크. | P1 |
 | 34 | Organic_Fluid_Blob_01 | `organic-fluid-blob-01` | 표현/에너지 | 바이오모픽 블롭·리본·스우시의 매끈한 곡선 + 시안→마젠타→코랄 다색 유체 그라디언트, 평면적이며 hover 블롭 모핑이 시그니처. | P1 |
-| 35 | RadiantGlowDark_07 | `radiant-glow-dark-01` | 테크/다크 | near-black 바탕 위 중심에서 방사하는 핫핑크·앰버 라디언트 글로우와 노이즈 그레인, 드롭섀도 대신 glow bloom으로 깊이를 만드는 다크 무드. | P1 |
+| 35 | Radiant_Glow_Dark_01 | `radiant-glow-dark-01` | 테크/다크 | near-black 바탕 위 중심에서 방사하는 핫핑크·앰버 라디언트 글로우와 노이즈 그레인, 드롭섀도 대신 glow bloom으로 깊이를 만드는 다크 무드. | P1 |
 | 36 | Halftone_Dot_Print_01 | `halftone-dot-print-01` | 노스탤지어 | 밝은 페이퍼 + CMYK 4원색 망점 스크린톤, 점의 크기·밀도·스크린 각으로 톤을 만드는 인쇄 분해 그래픽. | P2 |
-| 37 | UkiyoeWoodblock_09 | `ukiyoe-woodblock-01` | 노스탤지어 | 쌀종이 배경 + 채도 낮은 흙빛 평면 색면 + 먹빛 윤곽선과 여백(ma) + 붉은 낙관 도장의 전통 목판화 미학. | P2 |
-| 38 | PunkGrungeGraffiti_10 | `punk-grunge-graffiti-01` | 표현/에너지 | 제록스 하프톤·찢긴 가장자리·스프레이/낙서가 그리드를 깨는 반정제 카오스 콜라주, 오프블랙 + 형광 스폿(옐로/마젠타/레드) 충돌. | P2 |
-| 39 | AISurrealGradient3D_11 | `ai-surreal-gradient3d-01` | 깊이/material | 딥 다크 위 AI 생성 초현실 3D 렌더 + 이리데센트 표면, 소프트 접지 그림자·스펙큘러 글로스의 몽환적 테크 미학. | P2 |
-| 40 | ShatteredGlassCinematic_12 | `shattered-glass-cinematic-01` | 깊이/material | 딥 잉크 다크 면을 가로지르는 깨진/금 간 유리 + 시안↔마젠타↔라임 이리데센트 프리즘 굴절, fragile yet striking의 시네마틱 결정질 표면. | P2 |
-| 41 | PixelArtRetro_13 | `pixel-art-retro-01` | 노스탤지어 | 의도적 저해상 8비트 도트 미감 — 정수 픽셀 그리드에 스냅된 블록 타이포·직각 모서리·blur 0 하드 도트 그림자, CRT 다크 베이스 고채도 원색. | P2 |
+| 37 | Ukiyoe_Woodblock_01 | `ukiyoe-woodblock-01` | 노스탤지어 | 쌀종이 배경 + 채도 낮은 흙빛 평면 색면 + 먹빛 윤곽선과 여백(ma) + 붉은 낙관 도장의 전통 목판화 미학. | P2 |
+| 38 | Punk_Grunge_Graffiti_01 | `punk-grunge-graffiti-01` | 표현/에너지 | 제록스 하프톤·찢긴 가장자리·스프레이/낙서가 그리드를 깨는 반정제 카오스 콜라주, 오프블랙 + 형광 스폿(옐로/마젠타/레드) 충돌. | P2 |
+| 39 | Ai_Surreal_Gradient3d_01 | `ai-surreal-gradient3d-01` | 깊이/material | 딥 다크 위 AI 생성 초현실 3D 렌더 + 이리데센트 표면, 소프트 접지 그림자·스펙큘러 글로스의 몽환적 테크 미학. | P2 |
+| 40 | Shattered_Glass_Cinematic_01 | `shattered-glass-cinematic-01` | 깊이/material | 딥 잉크 다크 면을 가로지르는 깨진/금 간 유리 + 시안↔마젠타↔라임 이리데센트 프리즘 굴절, fragile yet striking의 시네마틱 결정질 표면. | P2 |
+| 41 | Pixel_Art_Retro_01 | `pixel-art-retro-01` | 노스탤지어 | 의도적 저해상 8비트 도트 미감 — 정수 픽셀 그리드에 스냅된 블록 타이포·직각 모서리·blur 0 하드 도트 그림자, CRT 다크 베이스 고채도 원색. | P2 |
 | 42 | Halftone_Glitch_Colorsep_01 | `halftone-glitch-colorsep-01` | 테크/다크 | CMYK 망점 스크린 + 적·녹 채널 색분해 글리치, near-black 다크 베이스 + 2~3색 한정 잉크의 인쇄 오정합 포스터 미학. | P2 |
-| 43 | MixedMediaCollage_15 | `mixed-media-collage-01` | 표현/에너지 | 페이퍼 캔버스 위 사진·드로잉·3D를 듀오톤·그레인으로 통일한 레이어 콜라주 — 편집적 멀티미디어 합성 비주얼. | P2 |
-| 44 | PhotoTypeEditorial_16 | `photo-type-editorial-01` | 타이포/편집 | 단색 평면 배경 + 초대형 grotesque 타이포와 사진의 융합(클립·마스크·아웃라인), 각진 플랫 프레임과 hard-offset의 포스터형 에디토리얼. | P3 |
-| 45 | OpArtKinetic_17 | `op-art-kinetic-01` | 평면/체계 | 고대비 흑백 + 코발트 액센트 1색, 압축 그로테스크 헤비 산세리프, 직각 기조. 평행선·줄무늬의 위상 드리프트가 만드는 옵티컬 운동감이 시그니처. | P3 |
-| 46 | WarpedCheckerboard_18 | `warped-checkerboard-01` | 표현/에너지 | 직교 체크/깅엄 격자를 파도처럼 액화·왜곡한 풀블리드 디스토션 배경 + 솔리드 패널 분리, 딥 레드×베이비 핑크 2색의 표현적 룩북/랜딩 미학. | P3 |
-| 47 | IridescentChrome_19 | `iridescent-chrome-01` | 깊이/material | 근흑 무대 위 불투명 홀로그래픽 포일 + 액체 크롬 메탈 — 각도/인터랙션에 따라 시프트하는 이리데센트 광택. | P3 |
-| 48 | RomanticBotanical_20 | `romantic-botanical-01` | 노스탤지어 | 파스텔 정원 위 화이트 핸드드로잉 꽃·잎·나비 라인아트, 세리프 디스플레이 + 휴머니스트 산세리프의 로맨틱 보태니컬 무드. | P3 |
-| 49 | HeritageFolkOrnament_21 | `heritage-folk-ornament-01` | 노스탤지어 | 따뜻한 흙빛 코랄 그라운드를 대칭 민속 꽃·새 모티프와 스캘럽 장식 보더가 감싸는, 거의 평면인 공예 오너먼트. | P3 |
+| 43 | Mixed_Media_Collage_01 | `mixed-media-collage-01` | 표현/에너지 | 페이퍼 캔버스 위 사진·드로잉·3D를 듀오톤·그레인으로 통일한 레이어 콜라주 — 편집적 멀티미디어 합성 비주얼. | P2 |
+| 44 | Photo_Type_Editorial_01 | `photo-type-editorial-01` | 타이포/편집 | 단색 평면 배경 + 초대형 grotesque 타이포와 사진의 융합(클립·마스크·아웃라인), 각진 플랫 프레임과 hard-offset의 포스터형 에디토리얼. | P3 |
+| 45 | Op_Art_Kinetic_01 | `op-art-kinetic-01` | 평면/체계 | 고대비 흑백 + 코발트 액센트 1색, 압축 그로테스크 헤비 산세리프, 직각 기조. 평행선·줄무늬의 위상 드리프트가 만드는 옵티컬 운동감이 시그니처. | P3 |
+| 46 | Warped_Checkerboard_01 | `warped-checkerboard-01` | 표현/에너지 | 직교 체크/깅엄 격자를 파도처럼 액화·왜곡한 풀블리드 디스토션 배경 + 솔리드 패널 분리, 딥 레드×베이비 핑크 2색의 표현적 룩북/랜딩 미학. | P3 |
+| 47 | Iridescent_Chrome_01 | `iridescent-chrome-01` | 깊이/material | 근흑 무대 위 불투명 홀로그래픽 포일 + 액체 크롬 메탈 — 각도/인터랙션에 따라 시프트하는 이리데센트 광택. | P3 |
+| 48 | Romantic_Botanical_01 | `romantic-botanical-01` | 노스탤지어 | 파스텔 정원 위 화이트 핸드드로잉 꽃·잎·나비 라인아트, 세리프 디스플레이 + 휴머니스트 산세리프의 로맨틱 보태니컬 무드. | P3 |
+| 49 | Heritage_Folk_Ornament_01 | `heritage-folk-ornament-01` | 노스탤지어 | 따뜻한 흙빛 코랄 그라운드를 대칭 민속 꽃·새 모티프와 스캘럽 장식 보더가 감싸는, 거의 평면인 공예 오너먼트. | P3 |
 | 50 | Naive_Doodle_01 | `naive-doodle-01` | 표현/에너지 | 비숙련 어린아이의 크레용 낙서·스크리블 — 원색 마커 다색, 삐뚤한 손그림 윤곽선, 화살표·동그라미 주석의 천진한 카오스. | P3 |
 <!-- gen:trend-table:end -->
 

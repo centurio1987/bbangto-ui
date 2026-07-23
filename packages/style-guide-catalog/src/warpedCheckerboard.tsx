@@ -290,7 +290,7 @@ export const warpedCheckerboardStyleGuide: StyleGuide = {
   guidelines,
   visualMotif,
   meta: {
-    displayName: 'WarpedCheckerboard_18',
+    displayName: 'Warped_Checkerboard_01',
     trendIndex: 46,
     family: 'expressive-energetic',
     priority: 'P3',

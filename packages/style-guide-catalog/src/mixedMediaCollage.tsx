@@ -278,7 +278,7 @@ export const mixedMediaCollageStyleGuide: StyleGuide = {
   guidelines,
   visualMotif,
   meta: {
-    displayName: 'MixedMediaCollage_15',
+    displayName: 'Mixed_Media_Collage_01',
     trendIndex: 43,
     family: 'expressive-energetic',
     priority: 'P2',

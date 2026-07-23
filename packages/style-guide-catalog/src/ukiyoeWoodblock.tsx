@@ -273,7 +273,7 @@ export const ukiyoeWoodblockStyleGuide: StyleGuide = {
   guidelines,
   visualMotif,
   meta: {
-    displayName: 'UkiyoeWoodblock_09',
+    displayName: 'Ukiyoe_Woodblock_01',
     trendIndex: 37,
     family: 'nostalgia',
     priority: 'P2',

@@ -307,7 +307,7 @@ export const iridescentChromeStyleGuide: StyleGuide = {
   guidelines,
   visualMotif,
   meta: {
-    displayName: 'IridescentChrome_19',
+    displayName: 'Iridescent_Chrome_01',
     trendIndex: 47,
     family: 'depth-material',
     priority: 'P3',

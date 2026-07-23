@@ -293,7 +293,7 @@ export const opArtKineticStyleGuide: StyleGuide = {
   guidelines,
   visualMotif,
   meta: {
-    displayName: 'OpArtKinetic_17',
+    displayName: 'Op_Art_Kinetic_01',
     trendIndex: 45,
     family: 'flat-systematic',
     priority: 'P3',

@@ -327,7 +327,7 @@ export const shatteredGlassCinematicStyleGuide: StyleGuide = {
   guidelines,
   visualMotif,
   meta: {
-    displayName: 'ShatteredGlassCinematic_12',
+    displayName: 'Shattered_Glass_Cinematic_01',
     trendIndex: 40,
     family: 'depth-material',
     priority: 'P2',

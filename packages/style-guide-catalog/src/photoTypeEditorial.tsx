@@ -273,7 +273,7 @@ export const photoTypeEditorialStyleGuide: StyleGuide = {
   guidelines,
   visualMotif,
   meta: {
-    displayName: 'PhotoTypeEditorial_16',
+    displayName: 'Photo_Type_Editorial_01',
     trendIndex: 44,
     family: 'typographic-editorial',
     priority: 'P3',
