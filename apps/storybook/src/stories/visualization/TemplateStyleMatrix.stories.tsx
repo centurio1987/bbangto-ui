@@ -10,10 +10,16 @@ import {
 } from '@centurio1987/bbangto-ui-visualization-style-guide-catalog';
 import { expect } from 'storybook/test';
 import { expectVizPaintResolved } from './_paintGate';
+import { MATRIX_FIXTURES } from './_matrixFixtures';
 
 /**
- * 파일럿 템플릿 3종 × 카탈로그 스타일 가이드 3종 매트릭스.
- * headless 구조가 스타일 가이드 주입만으로 서로 다른 시각 언어를 얻는지 검증한다.
+ * 템플릿 × 스타일 가이드 매트릭스 — headless 구조가 스타일 가이드 주입만으로
+ * 서로 다른 시각 언어(계약 paint가 가이드별로 다르게 해석됨)를 얻는지 교차검증.
+ *
+ * - `PilotMatrix`   : 파일럿 3템플릿(Flowchart/Sequence/C4Container) × 전 가이드.
+ *                     가이드-major 포커스 뷰.
+ * - `ExpandedMatrix`: 그룹 전 축(G1~G5·P2·P3) 대표 24템플릿 × 전 가이드.
+ *                     템플릿-major — 교차검증의 '템플릿 축'을 파일럿 밖으로 재스코핑(KAN-016).
  */
 const meta = {
   title: 'VISUALIZATION/Templates/Style Matrix',
@@ -118,5 +124,110 @@ export const PilotMatrix: Story = {
       getComputedStyle(cell.querySelector('[data-bbangto-viz-edge]')!).stroke;
     const strokes = new Set(Array.from(cells).map(strokeOf));
     await expect(strokes.size).toBeGreaterThan(1);
+  },
+};
+
+// ────────────────────────────────────────────────────────────────────────
+// ExpandedMatrix — 템플릿 축을 파일럿 밖 24종으로 재스코핑 (KAN-016)
+// ────────────────────────────────────────────────────────────────────────
+
+/** 가이드축 무결성용 — provider 엘리먼트의 foundation 토큰 var 결합(결정적). */
+const GUIDE_VAR_KEYS = [
+  '--bbangto-viz-canvas-bg',
+  '--bbangto-viz-shape-fill',
+  '--bbangto-viz-shape-stroke',
+  '--bbangto-viz-edge-width',
+  '--bbangto-viz-palette-p1',
+];
+const guideVarSig = (cell: HTMLElement): string => {
+  const cs = getComputedStyle(cell);
+  return GUIDE_VAR_KEYS.map((k) => cs.getPropertyValue(k).trim()).join('|');
+};
+
+/**
+ * paintSig — 셀 SVG 내 모든 geometry mark의 렌더 paint 지문(bg 미포함).
+ * data-attr 명명과 무관하게 bar/slice/line/node/edge를 일반 포착. 상한 60으로 비용 제한.
+ */
+const PAINT_MARK_SELECTOR = 'svg path, svg rect, svg circle, svg ellipse, svg polygon, svg line, svg polyline';
+const paintSig = (cell: HTMLElement): string => {
+  const marks = Array.from(cell.querySelectorAll<SVGElement>(PAINT_MARK_SELECTOR));
+  const parts = marks.map((el) => {
+    const cs = getComputedStyle(el);
+    return `${cs.fill}~${cs.stroke}~${cs.strokeWidth}`;
+  });
+  parts.sort();
+  return parts.slice(0, 60).join('|');
+};
+
+export const ExpandedMatrix: Story = {
+  render: () => (
+    <div className="expanded-matrix" style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+      {MATRIX_FIXTURES.map((fx) => (
+        <section key={fx.key} data-matrix-row={fx.key}>
+          <h4 style={{ margin: '0 0 6px', fontSize: 13 }}>
+            <span style={{ opacity: 0.55, marginRight: 8 }}>{fx.group}</span>
+            {fx.label}
+          </h4>
+          <div className="matrix-guides" style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+            {vizStyleGuideCatalog.map((sg) => (
+              <VisualizationStyleGuideProvider
+                key={sg.name}
+                styleGuide={sg}
+                className="matrix-cell"
+                style={{ padding: 8 }}
+              >
+                {fx.render()}
+              </VisualizationStyleGuideProvider>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const guideCount = vizStyleGuideCatalog.length;
+
+    // 1. fixture 가드 — key slug-safe·유일
+    const keys = MATRIX_FIXTURES.map((f) => f.key);
+    for (const k of keys) {
+      await expect(k).toMatch(/^[a-z0-9-]+$/);
+    }
+    await expect(new Set(keys).size).toBe(keys.length);
+
+    // 2. 행 수 == fixture 수 (SSOT)
+    const rows = Array.from(canvasElement.querySelectorAll<HTMLElement>('[data-matrix-row]'));
+    await expect(rows.length).toBe(MATRIX_FIXTURES.length);
+
+    // 3. 행(=템플릿)마다 검증
+    for (const row of rows) {
+      const cells = Array.from(row.querySelectorAll<HTMLElement>('.matrix-cell'));
+      await expect(cells.length).toBe(guideCount);
+
+      const varSigs: string[] = [];
+      const paintSigs: string[] = [];
+      for (const cell of cells) {
+        // 템플릿 1개가 렌더 + a11y title 보유
+        const svgs = cell.querySelectorAll('svg[role="img"]');
+        await expect(svgs.length).toBeGreaterThanOrEqual(1);
+        const title = svgs[0]!.querySelector('title');
+        await expect(title?.textContent?.trim() ?? '').not.toBe('');
+
+        // 모든 shape/edge가 유효 paint 해석(검정 fallback 없음)
+        await expectVizPaintResolved(cell);
+
+        // paint 지문은 최소 1개 mark를 담아야 함(mark 방출 코드화)
+        const sig = paintSig(cell);
+        await expect(sig.length).toBeGreaterThan(0);
+
+        varSigs.push(guideVarSig(cell));
+        paintSigs.push(sig);
+      }
+
+      // 가이드축 무결성(행마다) — 전 가이드가 서로 다른 토큰 해석
+      await expect(new Set(varSigs).size).toBe(guideCount);
+
+      // 템플릿별 교차검증 — 같은 데이터가 최소 2가이드에서 다르게 paint(bg 제외)
+      await expect(new Set(paintSigs).size).toBeGreaterThan(1);
+    }
   },
 };
