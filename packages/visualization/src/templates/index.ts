@@ -136,3 +136,14 @@ export { ArchiMateViewpointDiagram } from './ArchiMateViewpointDiagram';
 export type { ArchiMateViewpointDiagramProps, ArchiMateViewpointDiagramData, ArchiMateViewpointElementSpec, ArchiMateViewpointRelationshipSpec, ArchiMateViewpoint } from './ArchiMateViewpointDiagram';
 export { WorkBreakdownStructure } from './WorkBreakdownStructure';
 export type { WorkBreakdownStructureProps, WBSNode } from './WorkBreakdownStructure';
+
+// G6: 메타 구조 프레임 (다른 프리셋을 조합 — PLAN §D)
+export { Kruchten4Plus1View } from './Kruchten4Plus1View';
+export type {
+  Kruchten4Plus1ViewProps,
+  Kruchten4Plus1Slots,
+  Kruchten4Plus1Data,
+  Kruchten4Plus1RegionKey,
+} from './Kruchten4Plus1View';
+export { ViewpointFrame } from './ViewpointFrame';
+export type { ViewpointFrameProps } from './ViewpointFrame';

@@ -27,7 +27,7 @@
 | `src/templates/index.ts` | 구현 템플릿 컴포넌트 export **58종** (ORD-008 25 + ORD-010 18 + ORD-011 15, 권위 목록) |
 | `src/patterns/index.ts` | 구현 패턴 **18종** (ORD-008 6 + ORD-010 7 + ORD-011 5) + 모드 확장 2(`Cycle.flywheel`·`Statistics.waffle`) |
 | `visualization-catalog.md` §1-a/§1-b/§1-c/§2/§2-a | 커버 유형 + 템플릿 갭 9항목 + 원자 갭 + 이연 패턴 7항목 |
-| `PLAN.md` §D (G1~G6) | 마스터 타입 리스트 — G5 차트 9종·G6 메타 프레임 2종 미구현 |
+| `PLAN.md` §D (G1~G6) | 마스터 타입 리스트 — G5 차트·G6 메타 프레임 2종(`Kruchten4Plus1View`·`ViewpointFrame`) 모두 구현 완료(G6=KAN-015) |
 | `diagram-references/README.md` | 유형 축 vs 스타일 축 분리 근거 |
 
 ### 2-b. 외부 소스 (전 항목 접근일 2026-07-13)
@@ -342,7 +342,7 @@ catalog §1-b·§2-a의 "ChartPrimitives(bar/line/pie/donut/treemap…)"와 PLAN
 
 catalog §1-c의 원자 갭은 유형이 아니라 구성 요소이므로 행으로 승격하지 않는다(원문: `visualization-catalog.md` §1-c):
 Zone/Layer 밴드 · 서비스 아이콘 칩 · LegendBlock · 회전 EdgeLabel · LinkLabelChip · Fork/Join 바 · DetailCard · DashedGhostNode · TimeAxis/DateTick · 아이콘 글리프 세트 · 협업 마커.
-PLAN §D G6 메타 프레임(`Kruchten4Plus1View`·`ViewpointFrame`)은 유형이 아닌 조합 프레임이라 후보 풀에 기재.
+PLAN §D G6 메타 프레임(`Kruchten4Plus1View`·`ViewpointFrame`)은 유형이 아닌 조합 프레임이라 후보 풀에 기재. (2026-07-23 KAN-015 구현 완료 — 조합 프레임 성격 불변이라 VT 유형 행으로는 미승격.)
 
 ### 8-c. Deprecated ID 표
 
@@ -356,7 +356,7 @@ PLAN §D G6 메타 프레임(`Kruchten4Plus1View`·`ViewpointFrame`)은 유형�
 
 Registry 미등재 롱테일. 승격 시 해당 대역 끝 번호로 append.
 
-**다이어그램 계열**: Wardley Map(Mermaid) · Cynefin(Mermaid) · Event Modeling(Mermaid) · Railroad/Syntax diagram(PlantUML) · SDL(PlantUML) · UML Profile diagram(OMG — 메타모델 전용) · Salt UI wireframe(PlantUML — VT-206과 별개 도구 산출물) · Files tree(PlantUML) · Grid diagram(D2) · Kruchten 4+1 View(PLAN §D G6) · ViewpointFrame/ISO 42010(PLAN §D G6) · ArchiMate 개별 viewpoints 나머지(Organization·Application Cooperation/Usage·Business Process Cooperation·Product·Technology (Usage)·Physical·Information Structure·Service Realization·Implementation and Deployment) · Azure WAF 특수 3종(Availability&Resilience·Compliance Residency·Identity&Access Flow)
+**다이어그램 계열**: Wardley Map(Mermaid) · Cynefin(Mermaid) · Event Modeling(Mermaid) · Railroad/Syntax diagram(PlantUML) · SDL(PlantUML) · UML Profile diagram(OMG — 메타모델 전용) · Salt UI wireframe(PlantUML — VT-206과 별개 도구 산출물) · Files tree(PlantUML) · Grid diagram(D2) · Kruchten 4+1 View(PLAN §D G6 — ✅ 구현 `Kruchten4Plus1View`, KAN-015) · ViewpointFrame/ISO 42010(PLAN §D G6 — ✅ 구현 `ViewpointFrame`, KAN-015) · ArchiMate 개별 viewpoints 나머지(Organization·Application Cooperation/Usage·Business Process Cooperation·Product·Technology (Usage)·Physical·Information Structure·Service Realization·Implementation and Deployment) · Azure WAF 특수 3종(Availability&Resilience·Compliance Residency·Identity&Access Flow)
 
 **차트 계열**: Violin(FT) · Population pyramid(FT) · Dot strip/barcode(FT) · Cumulative curve(FT) · Parallel coordinates(FT·PT) · Proportional symbol(FT·DW) · Cartogram(FT) · Dot density map(FT) · Flow map(FT) · Contour/isoline(FT) · Voronoi(FT) · Stock price OHLC(FT) · Fan chart(FT) · Slope chart(FT) · Lollipop(FT) · Bullet bar(DW) · Line+Column combo(FT) · Seismogram(FT) · Circle timeline(FT) · Locator map(DW) · Spectrogram(PT) · Pareto(PT) · Dendrogram(PT) · Hyperbolic tree(PT) · Chernoff faces(PT)
 
