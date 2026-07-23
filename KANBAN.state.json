@@ -1,6 +1,6 @@
 {
-  "next_id": 28,
-  "next_seq": 57,
+  "next_id": 29,
+  "next_seq": 62,
   "cards": {
     "KAN-001": {
       "col": "done",
@@ -147,27 +147,27 @@
       "verbatim_hash": "7fb36f5bd2f4a96e97a5c422dfa2f43023ca13f5"
     },
     "KAN-013": {
-      "col": "backlog",
+      "col": "done",
       "title": "스타일 가이드 Iso_ColorBlock (isometric, F6) 구현",
-      "memo": "ORD-008/009 이연 — iso geometry 프리미티브 신규 필요(기술 블로커로 계속 보류 중).",
+      "memo": "완료(paint 패밀리 스코프, 사용자 승인) — F6 Iso_ColorBlock paint 가이드 구현(`iso-color-block-01`). 블로커 재해석: 분류문서 line 167/246-247 '스타일 가이드는 paint만, iso는 별도 geometry 트랙' 원칙에 따라 3단 면 페인트만 구현. Node cube 케이스(atoms/Node.tsx:212, front/top12%/right24% 고정 오버레이)를 재사용해 면별 3단 플랫 음영 확보 — 새 geometry 0. IsoNode wrapper는 제네릭 박스(rect/rounded/미지정)만 cube 승격, 의미 도형은 pass-through(시맨틱 보존). 단일 계열 램프(더스티 블루/웜 클레이 2 preset)+중립 커넥터 잉크(역할 분리)+accent 1색. 검토 반영: description·meta·guideline에 'paint family, 진짜 iso 투영 아님' 명시; face-tone ext 토큰은 dead token이라 폐기(--ext-accent만). meta 'aa'(over-claim 0). 진짜 iso 투영·depth-sort는 [[KAN-028]] 후속 트랙으로 분리. 파일: src/isoColorBlock.tsx + 스토리(wrapperExtraPlay=cube 승격·pass-through 검증) + index/preview/manifest. 4 게이트 green+카탈로그 39테스트.",
       "verbatim": "",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-07-14",
+      "갱신": "2026-07-23",
       "title_hash": "d1a538dd0ba1d69718e4a5f2d19f6120a938b230",
-      "memo_hash": "db414ab25d4f29057187bf1db0d32edd70ccb3c5",
+      "memo_hash": "5d9b80763acee438ccaaf45eaef95f8e803a482d",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-014": {
-      "col": "backlog",
+      "col": "done",
       "title": "스타일 가이드 Marker_Sketchnote (hand-drawn, F4) 구현",
-      "memo": "ORD-008/009 이연 — 지터(jitter) seeded 렌더·손글씨 폰트·질감 토큰화 필요(기술 블로커로 계속 보류 중).",
+      "memo": "완료 — F4 Marker_Sketchnote paint 가이드 구현(`marker-sketchnote-01`). 블로커 해소: seeded 지터는 RoughNode wrapper가 <defs><filter>에 feTurbulence(고정 seed=7)+feDisplacementMap 주입(NeonNode 패턴 미러, useVizDefsPrefix+useId 유일 id)으로 결정론 확보 — PRNG·새 geometry 0. 필터는 도형 그룹(data-viz-rough)에만, 텍스트 미적용(가독성). 손글씨=cursive 폴백 문자열(에셋 미번들). paper/darkboard 2 preset(makeVizColorway). meta contrastIntent 'aa'(over-claim 감사 0, 전 preset 실측 통과). 스토리 wrapperExtraPlay로 필터 스코프·seed·라벨 미왜곡 검증. 파일: src/markerSketchnote.tsx + VizStyleGuideMarkerSketchnote01.stories.tsx + index/preview/manifest. viz 6→8종. 4 게이트 green(typecheck/build/test 1103/storybook build)+카탈로그 39테스트. 외부검토(codex) 반영.",
       "verbatim": "",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-07-14",
+      "갱신": "2026-07-23",
       "title_hash": "296d754b6055b739f1f59a59abed0dcab3baeca8",
-      "memo_hash": "04e018672ee7922e339a061b370517e120953f15",
+      "memo_hash": "dd8da304f7c338b150a786dc7e235f7c4477676a",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-015": {
@@ -325,13 +325,23 @@
       "title_hash": "6658551a4c485ecccbe857983d7a6b1e31382d6d",
       "memo_hash": "98e57168077a71b8a7b1f5dced4a0e0cf2b77b70",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    },
+    "KAN-028": {
+      "col": "backlog",
+      "title": "viz geometry 트랙 — 진짜 isometric 투영(projection·depth-sort·iso 커넥터) 프리미티브 구현",
+      "memo": "KAN-013에서 분리. Iso_ColorBlock은 paint 패밀리(cube 3단 면 재사용)로 구현 완료했고, style-classification.md line 167/246-247 원칙(스타일 가이드는 paint만, iso는 별도 geometry 트랙)에 따라 진짜 iso는 이 카드로 분리. 필요: geometry/isometric.ts(투영 행렬 30°·depth-sort·iso 커넥터 라우팅·floor cast shadow), 텍스트는 skew 금지(평면 오버레이 레이어 — 접근성 필수). 착수 시 Iso_ColorBlock paint 가이드를 iso geometry 위에 합성 가능한지 검토.",
+      "verbatim": "",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-07-23",
+      "title_hash": "42ec92471f7ce4e43bf8abaf09344e2b6757fe03",
+      "memo_hash": "7b3a29154881d8ed5b3602c6299beaddf6738e40",
+      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     }
   },
   "order": [
     "KAN-019",
     "KAN-020",
-    "KAN-013",
-    "KAN-014",
     "KAN-015",
     "KAN-025",
     "KAN-024",
@@ -354,9 +364,61 @@
     "KAN-017",
     "KAN-026",
     "KAN-027",
-    "KAN-016"
+    "KAN-016",
+    "KAN-028",
+    "KAN-014",
+    "KAN-013"
   ],
   "recent": [
+    {
+      "seq": 61,
+      "t": "2026-07-23T23:38",
+      "a": "ai",
+      "id": "KAN-013",
+      "op": "edit",
+      "field": "memo",
+      "before": "ORD-008/009 이연 — iso geometry 프리미티브 신규 필요(기술 블로커로 계속 보류 중).",
+      "after": "완료(paint 패밀리 스코프, 사용자 승인) — F6 Iso_ColorBlock paint 가이드 구현(`iso-color-block-01`). 블로커 재해석: 분류문서 line 167/246-247 '스타일 가이드는 paint만, iso는 별도 geometry 트랙' 원칙에 따라 3단 면 페인트만 구현. Node cube 케이스(atoms/Node.tsx:212, front/top12%/right24% 고정 오버레이)를 재사용해 면별 3단 플랫 음영 확보 — 새 geometry 0. IsoNode wrapper는 제네릭 박스(rect/rounded/미지정)만 cube 승격, 의미 도형은 pass-through(시맨틱 보존). 단일 계열 램프(더스티 블루/웜 클레이 2 preset)+중립 커넥터 잉크(역할 분리)+accent 1색. 검토 반영: description·meta·guideline에 'paint family, 진짜 iso 투영 아님' 명시; face-tone ext 토큰은 dead token이라 폐기(--ext-accent만). meta 'aa'(over-claim 0). 진짜 iso 투영·depth-sort는 [[KAN-028]] 후속 트랙으로 분리. 파일: src/isoColorBlock.tsx + 스토리(wrapperExtraPlay=cube 승격·pass-through 검증) + index/preview/manifest. 4 게이트 green+카탈로그 39테스트."
+    },
+    {
+      "seq": 60,
+      "t": "2026-07-23T23:38",
+      "a": "ai",
+      "id": "KAN-013",
+      "op": "move",
+      "from": "backlog",
+      "to": "done"
+    },
+    {
+      "seq": 59,
+      "t": "2026-07-23T23:34",
+      "a": "ai",
+      "id": "KAN-014",
+      "op": "edit",
+      "field": "memo",
+      "before": "ORD-008/009 이연 — 지터(jitter) seeded 렌더·손글씨 폰트·질감 토큰화 필요(기술 블로커로 계속 보류 중).",
+      "after": "완료 — F4 Marker_Sketchnote paint 가이드 구현(`marker-sketchnote-01`). 블로커 해소: seeded 지터는 RoughNode wrapper가 <defs><filter>에 feTurbulence(고정 seed=7)+feDisplacementMap 주입(NeonNode 패턴 미러, useVizDefsPrefix+useId 유일 id)으로 결정론 확보 — PRNG·새 geometry 0. 필터는 도형 그룹(data-viz-rough)에만, 텍스트 미적용(가독성). 손글씨=cursive 폴백 문자열(에셋 미번들). paper/darkboard 2 preset(makeVizColorway). meta contrastIntent 'aa'(over-claim 감사 0, 전 preset 실측 통과). 스토리 wrapperExtraPlay로 필터 스코프·seed·라벨 미왜곡 검증. 파일: src/markerSketchnote.tsx + VizStyleGuideMarkerSketchnote01.stories.tsx + index/preview/manifest. viz 6→8종. 4 게이트 green(typecheck/build/test 1103/storybook build)+카탈로그 39테스트. 외부검토(codex) 반영."
+    },
+    {
+      "seq": 58,
+      "t": "2026-07-23T23:34",
+      "a": "ai",
+      "id": "KAN-014",
+      "op": "move",
+      "from": "backlog",
+      "to": "done"
+    },
+    {
+      "seq": 57,
+      "t": "2026-07-23T23:34",
+      "a": "ai",
+      "id": "KAN-028",
+      "op": "create",
+      "col": "backlog",
+      "title": "viz geometry 트랙 — 진짜 isometric 투영(projection·depth-sort·iso 커넥터) 프리미티브 구현",
+      "memo": "KAN-013에서 분리. Iso_ColorBlock은 paint 패밀리(cube 3단 면 재사용)로 구현 완료했고, style-classification.md line 167/246-247 원칙(스타일 가이드는 paint만, iso는 별도 geometry 트랙)에 따라 진짜 iso는 이 카드로 분리. 필요: geometry/isometric.ts(투영 행렬 30°·depth-sort·iso 커넥터 라우팅·floor cast shadow), 텍스트는 skew 금지(평면 오버레이 레이어 — 접근성 필수). 착수 시 Iso_ColorBlock paint 가이드를 iso geometry 위에 합성 가능한지 검토.",
+      "verbatim": ""
+    },
     {
       "seq": 56,
       "t": "2026-07-23T19:49",
@@ -809,61 +871,6 @@
       "title": "visualization P3 백로그 11건 구현 (VT-102/121/123/124/307/510/516/604/704/707/709)",
       "memo": "visualization-type-inventory.md §5 P3 잔여 — UML Package(VT-102)·ArchiMate 확장 viewpoints(VT-121)·DMN DRD(VT-124)·Boxplot(VT-510)·Chord Diagram(VT-516)·Informational Infographic(VT-604)·Iceberg(VT-704)·BMC(VT-707)·Honeycomb(VT-709) 신규 9건 + BPMN Collaboration(VT-123)·WBS(VT-307) 근사→전용 승격 2건. 대부분 신규 프리미티브 필요(ORD-011 이연).",
       "verbatim": ""
-    },
-    {
-      "seq": 11,
-      "t": "2026-07-14T13:30",
-      "a": "ai",
-      "id": "KAN-011",
-      "op": "create",
-      "col": "done",
-      "title": "ORD-011 — visualization 유형 인벤토리 P2 22건 구현",
-      "memo": "P2 22건 전량 구현 — 전체 구현률 60%→84%(76/90). P1·P2 잔여 0, P3 백로그(📋9·🔶2)만 잔존.",
-      "verbatim": "p2 수행"
-    },
-    {
-      "seq": 10,
-      "t": "2026-07-14T13:30",
-      "a": "ai",
-      "id": "KAN-010",
-      "op": "create",
-      "col": "done",
-      "title": "ORD-010 — visualization 유형 인벤토리 P1 26건 구현",
-      "memo": "P1 26건 전량 구현 — 구현률 데이터차트5%→45%·인포그래픽18%→55%·개념프레임워크10%→40%. P1 잔여 0.",
-      "verbatim": "# ORDER\nP1 구현을 위한 계획을 세우고 실행해"
-    },
-    {
-      "seq": 9,
-      "t": "2026-07-14T13:30",
-      "a": "ai",
-      "id": "KAN-009",
-      "op": "create",
-      "col": "done",
-      "title": "ORD-009 — 신규 파악 preset들 visualization style guide catalog 추가",
-      "memo": "신규 스타일 가이드 3종(Corporate_Schematic_01/Ink_Line_Duotone_01/Neon_Gradient_Dark_01) + 기존 2종 preset 보강.",
-      "verbatim": "# ORDER\n\n새로 파악한 preset들 visualization의 style guide catalog에 추가해"
-    },
-    {
-      "seq": 8,
-      "t": "2026-07-14T13:30",
-      "a": "ai",
-      "id": "KAN-008",
-      "op": "create",
-      "col": "done",
-      "title": "ORD-008 — DIAGRAM → VISUALIZATION 개편 (headless 아토믹 + 스타일 가이드 주입)",
-      "memo": "visualization 패키지 신설, headless 아토믹 전환, 스타일 가이드 3종(Blueprint_Technical/Minimal_Line/Colorful_Flat) + 패턴 6종 구현.",
-      "verbatim": "# ORDER\n현재 diagram으로 단독 디자인 시스템으로 존재하는 영역을 visualization으로 명명하고 구조를 개편하려고 한다.\n\n## 구조\n- 구조는 archetype처럼 **아토믹 디자인 시스템**을 사용한다. **diagram**이나 **infographic** 유형을 **아토믹 디자인 시스템**의 **템플릿**으로 구조화 한다.\n- **diagram-references**를 참고하여 **pattern**도 파악한 후, 구현한다.\n- **아토믹 디자인 시스템**과 **pattern**에 포함되는 구현물은 **headless component**로 구현한다.\n- 구상 디자인 시스템은 **archetype design system**에 **스타일 가이드**를 주입하여 구현한다.\n- **스타일 가이드**는 기존에 존재하는 **스타일 가이드**처럼, **foundations**, **guideline**, **wrapper components**를 구현해야 한다.\n- **스타일 가이드 카탈로그**는 스토리 북에, 기존의 **스타일 가이드 카탈로그**처럼 **foundations**, **guideline**, **wrapper components**, **visual motif**, **foundation preset**을 구현해야 한다.\n\n## 아토믹 디자인 시스템을 구성할 컴포넌트를 정의, 설계 구현하고, 스타일 가이드 카탈로그 정의, 설계 구현하기 위한 방법\n- **diagram-references**를 참고하여, 계획을 세운다. 하나의 diagram과 infographic을 하나의 템플릿이나 pattern 단위로 삼고, 그를 구성하는 컴포넌트를 원자, 분자 단위로 구성한다.\n- 디자인 스타일 단위로 스타일 가이드를 정의, 설계, 구현한다."
-    },
-    {
-      "seq": 7,
-      "t": "2026-07-14T13:30",
-      "a": "ai",
-      "id": "KAN-007",
-      "op": "create",
-      "col": "done",
-      "title": "ORD-007 — 2026 디자인 트렌드(제공 링크) + 2020-2025 연도별 디자인 트렌드 리서치·목록화",
-      "memo": "design-trends-2020-2026.md 신규 — 2026 트렌드 22개 + 2020~2025 연도별 트렌드 + 신규 후보 5종(§C).",
-      "verbatim": "# ORDER\n\nhttps://www.figma.com/ko-kr/resource-library/web-design-trends/\nhttps://www.behance.net/gallery/239027109/Design-Trends-2026?locale=ko_KR\nhttps://www.adobe.com/express/learn/blog/design-trends-2026\n\n위 링크는 2026년 디자인 트렌드 링크다. 참조하여 새로운 디자인 트렌드를 목록화 해라. 또한, 같은 방식으로 2020년부터 2025년 까지의 디자인 트렌드도 리서치하여 목록화 하라"
     }
   ]
 }
