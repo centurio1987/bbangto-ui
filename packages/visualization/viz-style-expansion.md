@@ -152,6 +152,10 @@ Glitch_Duotone(#33) · Organic_Blob(#34) · Halftone_Print(#36) · Pixel_Retro(#
 > **패밀리 통합 후보(P2 저작 시 축소 검토):** 인쇄 계열(riso#29/halftone#36/colorsep#42)은 `viz-print-ink` 한 패밀리 +
 > colorway로 묶을 수 있고, 클레이/카와이/택타일(#3/#17/#28)은 `viz-soft-puffy` 한 패밀리로 묶을 수 있다. F1~F7이
 > "1스타일=1패밀리"였던 관례를 P2에서 반드시 이어갈 필요는 없다 — 패밀리는 **채택 셀렉터의 조도**일 뿐이므로 과분화 지양.
+>
+> **→ 해소(KAN-034, §7):** "한 패밀리 + colorway로 ~12 저작단위 축소"는 현 게이트상 **불가**로 판명(2번째+ preset은
+> 색상만 달라야 함 — 모티프는 wrapper에 있어 색 토큰으로 스와핑 안 됨). 통합은 **family 코드 그룹핑**(별도 가이드,
+> 공유 family)으로만 실현. 결정·배치표·카드 분해는 **§7**.
 
 ### 4-c. P3 / 이연
 
@@ -260,8 +264,8 @@ Storybook 교차검증 스토리는 `vizStyleGuideCatalog`를 **런타임 순회
 
 - **배치 1 (P1, KAN-019 후속 카드):** Swiss → Bauhaus → Terminal → Riso → HUD. 각 1카드(KAN-013/014 granularity 선례).
   Swiss·Terminal 먼저(Tier A·신규 데코 0·가장 빠른 검증), 그다음 Bauhaus·Riso(모티프 CSS), 마지막 HUD(신규 wrapper).
-- **배치 2 (P2, 별도 카드군):** §4-b 17종. **저작 전 패밀리 통합 결정**(§4-b 통합 후보) 선행 — 인쇄/소프트 패밀리를
-  묶으면 17종이 실질 저작 단위 ~12종으로 축소.
+- **배치 2 (P2, 별도 카드군):** §4-b 17종. **저작 전 패밀리 통합 결정** 선행 → **KAN-034에서 해소(§7)**: colorway
+  통합은 게이트상 불가 → family 코드 그룹핑(인쇄/소프트)으로 실현, 저작 단위 17 유지. 카드 KAN-037~039로 분해.
 - **이연:** §4-c는 KAN-028 완료 후.
 
 ### 5-e. 백로그 카드 분해 제안
@@ -276,7 +280,7 @@ KAN-013/014로 분해한 패턴 답습):
 | Bauhaus_Geometric_01 viz 스타일 가이드 구현 | §4-d Bauhaus | A |
 | Riso_Print_01 viz 스타일 가이드 구현 | §4-d Riso | A |
 | Hud_Telemetry_01 viz 스타일 가이드 구현(+코너 브래킷 wrapper) | §4-d HUD | B |
-| P2 viz 배치 + 인쇄/소프트 패밀리 통합 결정 | §4-b | A |
+| P2 viz 배치 + 인쇄/소프트 패밀리 통합 결정 (KAN-034 완료 → §7) | §4-b · §7 | A |
 
 ---
 
@@ -287,3 +291,90 @@ KAN-013/014로 분해한 패턴 답습):
 - **실현성:** P1 5종 전부 Tier A/B, **코어 변경 0** — F5/F7이 증명한 경로. 신규 가이드는 §5-c로 기존 테스트에 자동 편입.
 - **권고:** KAN-019는 이 deliverable로 완료 처리하고, §5-e의 P1 5카드를 백로그에 등재해 배치 1을 착수한다. P2는
   패밀리 통합 결정을 선행한 뒤 별도 카드군으로.
+
+---
+
+## 7. P2 배치 계획 & 패밀리 통합 결정 (KAN-034)
+
+> **KAN-034 deliverable.** §4-b(P2 17종)가 "저작 전 선행"으로 남긴 **인쇄/소프트 패밀리 통합 결정**을 해소하고,
+> P2 배치·카드 분해를 확정한다. P1(KAN-019 → KAN-029~033)의 "1 planning 카드 → N impl 카드" 패턴을 P2에 답습한다.
+
+### 7-1. 핵심 정정 — colorway 통합은 게이트상 불가
+
+§4-b는 "인쇄/소프트 계열을 `한 패밀리 + colorway`로 묶으면 실질 저작 단위 ~12종"이라 전제했다. **이 전제는 현 viz 게이트에서 성립하지 않는다.**
+
+- `apps/storybook/src/stories/_vizCatalogStory.tsx`의 **색-스킴 전용 불변식**(line 319–326): 2번째 이상 preset은
+  **색상 토큰만** 달라야 하며 `typography · spacing · canvas.gridUnit · edge.width · shape.strokeWidth · boundary.radius`는
+  base와 deep-equal이어야 한다(위반 시 play 실패).
+- 각 스타일의 모티프(riso 오버프린트/그레인, halftone 망점, colorsep 채널오프셋; clay inset 퍼피, neumorph 동색
+  이중그림자, kawaii 마스코트)는 **wrapperComponents / 모티프 CSS**에 있고 preset 색 토큰으로 스와핑되지 않는다.
+- 따라서 인쇄 3종·소프트 3종은 **색상만의 차이가 아니라** 서로 다른 wrapper·그림자·형태를 요구 → **별도 가이드가 강제**된다.
+  colorway로 접을 수 없다.
+
+**결론:** "통합"은 저작 단위 축소가 아니라 **`family` 코드 그룹핑**(별도 가이드, 공유 family)으로만 실현된다. 저작 단위는
+**17 유지**. 이득은 셀렉터(`selectStyleGuides`)의 family 축 과분화 억제 + 채택자가 "인쇄풍/소프트풍" 버킷으로 1차 선택 가능.
+
+### 7-2. 결정 (사용자 승인, 2026-07-24)
+
+**인쇄/소프트만 family 그룹핑 + 나머지 1:1 + riso 리네임.** UI 카탈로그의 다대1 family 관례(8 family / 51 guide)와 정합한다.
+
+- **`viz-print-ink`** ← riso#29(shipped, 리네임) · Halftone_Print#36 · Glitch_Duotone#33 (+ 이연 colorsep#42).
+  #33은 마젠타/시안 **채널 오프셋(오정합/colorsep 축)** 이라 인쇄 오정합 계열로 편입.
+- **`viz-soft-puffy`** ← Neumorphic#2 · Clay_Playful#3 · Kawaii_Pastel#17.
+- 나머지 **12종은 각자 1:1 family**(고유 시그니처, P2 세트 내 대체 형제 없음).
+- **riso 리네임:** shipped `viz-riso-print` → `viz-print-ink` (`STYLE_FAMILIES` union + `STYLE_FAMILY_LABELS` +
+  `risoPrint.tsx` `meta.family` + `catalog.manifest.json`/트렌드 표 regen). family 코드는 **채택 메타데이터**이지
+  컴포넌트 public API가 아니라 저비용. **실행은 인쇄 패밀리 첫 저작 카드(KAN-037)** 에서 union 신규 편입과 원자적으로 수행(고립 리네임 회피).
+
+family 수 영향: 기존 viz 13 − 1(riso 리네임) + `viz-print-ink` + `viz-soft-puffy` + 12 단일 = **26 family / 30 guide**
+(순수 1:1이면 30). 그룹핑으로 4 절약.
+
+### 7-3. P2 17종 → family · tier · 출처 배치표
+
+| # | 제안 slug | 제안 표시명 | family | tier | 출처 UI | 시그니처 |
+|---|---|---|---|---|---|---|
+| 33 | viz-glitch-duotone-01 | Glitch_Duotone_01 | **viz-print-ink** | A | Glitch_Distortion#33 | 마젠타/시안 채널 오프셋 duotone(정적 오정합) |
+| 36 | viz-halftone-print-01 | Halftone_Print_01 | **viz-print-ink** | A | Halftone_Dot_Print#36 | CMYK 망점(SVG pattern)·코믹/인쇄 인포그래픽 |
+| 2 | viz-neumorphic-soft-01 | Neumorphic_Soft_01 | **viz-soft-puffy** | A | Neumorphism_Soft#2 | 동색 이중그림자 압출(저대비 리스크) |
+| 3 | viz-clay-playful-01 | Clay_Playful_01 | **viz-soft-puffy** | A | Claymorphism_Playful#3 | 파스텔 퍼피 클레이(inset filter)·키즈/에듀 |
+| 17 | viz-kawaii-pastel-01 | Kawaii_Pastel_01 | **viz-soft-puffy** | **B** | Kawaii_Pastel#17 | 파스텔+마스코트 글리프(신규 데코 wrapper) |
+| 0 | viz-neobrutalist-01 | Neobrutalist_01 | viz-neobrutalist | A | Neobrutalism_Editorial#0 | 두꺼운 잉크 아웃라인+하드 오프셋(크림/골드) |
+| 8 | viz-editorial-data-01 | Editorial_Data_01 | viz-editorial-data | A | Editorial_Magazine#8 | 세리프 디스플레이+헤어라인 칼럼룰(FT식) |
+| 11 | viz-synthwave-01 | Synthwave_01 | viz-synthwave | A | Vaporwave_Synth#11 | 퍼스펙티브 그리드+CRT 스캔라인(다크 네온) |
+| 12 | viz-memphis-pattern-01 | Memphis_Pattern_01 | viz-memphis-pattern | A | Memphis_Postmodern#12 | 지그재그/물방울/테라조+하드 오프셋 |
+| 14 | viz-retro70s-warm-01 | Retro70s_Warm_01 | viz-retro70s-warm | A | Retro70s_Warm#14 | 머스타드/테라코타/올리브 어스톤+그레인 |
+| 15 | viz-dopamine-max-01 | Dopamine_Max_01 | viz-dopamine-max | A | Maximalism_Dopamine#15 | 고채도 충돌+겹침(도파민 인포그래픽) |
+| 21 | viz-artdeco-luxe-01 | ArtDeco_Luxe_01 | viz-artdeco-luxe | A | ArtDeco_Luxe#21 | 흑/딥그린+골드 라인 대칭 프레임 |
+| 23 | viz-darkluxe-01 | DarkLuxe_01 | viz-darkluxe | A | DarkLuxe_Editorial#23 | 순흑+골드 헤어라인+대형 세리프(다크 럭셔리) |
+| 24 | viz-bento-stat-01 | Bento_Stat_01 | viz-bento-stat | A | Bento_Modular#24 | 벤토 타일 모듈(스타일보다 레이아웃 성격) |
+| 34 | viz-organic-blob-01 | Organic_Blob_01 | viz-organic-blob | **B** | Organic_Fluid_Blob#34 | 바이오모픽 블롭 노드(신규 blob shape) |
+| 37 | viz-ukiyoe-flat-01 | Ukiyoe_Flat_01 | viz-ukiyoe-flat | A | Ukiyoe_Woodblock#37 | 흙빛 평면 색면+먹 윤곽(니치·후순위) |
+| 41 | viz-pixel-retro-01 | Pixel_Retro_01 | viz-pixel-retro | A | Pixel_Art_Retro#41 | 8비트 정수 그리드+하드 도트(스냅, 신규 지오메트리 0) |
+
+> **tier:** A = 현행 토큰+colorway만(신규 atom/geometry 0), B = wrapper 데코 1개 신규(Node 래핑, geometry 아님).
+> Tier B 2종: Kawaii(마스코트 글리프 데코), Organic_Blob(블롭 shape — §2-b 판정 "블롭 노드 shape 필요").
+> slug/표시명은 저작 시 확정(canonical `Primary_Secondary_01`, `displayName.test.ts` 게이트 준수).
+
+### 7-4. 카드 분해 (백로그 등재)
+
+저작 단위 17을 가독성 있게 배치하되, **그룹 family는 한 카드에 모아** union 편입·리네임을 원자화한다.
+
+| 신규 카드 | 스코프 | tier |
+|---|---|---|
+| **KAN-037** | `viz-print-ink` 패밀리 — Halftone_Print + Glitch_Duotone 가이드 + riso→print-ink 리네임 | A |
+| **KAN-038** | `viz-soft-puffy` 패밀리 — Neumorphic + Clay_Playful + Kawaii_Pastel 가이드 | A/B |
+| **KAN-039** | P2 1:1 단일 12종 순차 구현(착수 시 개별 카드로 분해) | A(+Organic_Blob B) |
+
+### 7-5. 저작 순서 · 게이트 주의
+
+1. **KAN-037 먼저** — 리네임을 조기 확정해 이후 카드가 안정된 family 세트 위에서 저작되게 한다. 리네임 =
+   union `viz-riso-print`→`viz-print-ink` 교체 + label + `risoPrint.tsx` `meta.family` + manifest/트렌드 표 regen.
+   `manifest.test.ts` · `displayName.test.ts` · `accessibility.test.ts`(auditVizContrast) 통과 확인.
+2. 그룹 family(print-ink/soft-puffy)는 **guide마다 별도 wrapper**지만 **동일 family 문자열**을 `meta.family`에 부여 →
+   `selectStyleGuides` family 축에서 함께 랭크된다.
+3. **저대비 위험군**(Neumorphic 동색 이중그림자, Ukiyoe 흙빛 평면)은 `shape.stroke↔canvas.bg ≥4.5`, 채운 kind
+   `tagColor↔fill ≥4.5`, `auditVizContrast over-claim 0`을 특히 유의 — 정직한 `contrastIntent` 하향 허용
+   (KAN-029 Swiss `aa`·KAN-031 Bauhaus red 다크닝 선례).
+4. **§5-c 자동 편입**: meta + paint가 해석되면 `TemplateStyleMatrix` · `VizCatalogDecisionTable`가 카운트를 데이터파생으로
+   단언하므로 신규 가이드가 가이드별 테스트 없이 자동 green을 유지한다.
+5. tokens 신규 export(신규 family)마다 **storybook vite 캐시 삭제** 필요.
