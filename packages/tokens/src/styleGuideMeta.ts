@@ -40,7 +40,7 @@ export const STYLE_FAMILIES = [
   'viz-swiss-systematic', //     Swiss_Systematic_01 (KAN-029)
   'viz-terminal-ascii', //       Terminal_Ascii_01 (KAN-030)
   'viz-bauhaus-geometric', //    Bauhaus_Geometric_01 (KAN-031)
-  'viz-riso-print', //           Riso_Print_01 (KAN-032)
+  'viz-print-ink', //            Print/Ink family — Riso#32 · Halftone · Glitch 오정합 계열 (KAN-037)
   'viz-hud-telemetry', //        Hud_Telemetry_01 (KAN-033)
 ] as const;
 export type StyleFamily = (typeof STYLE_FAMILIES)[number];
@@ -72,7 +72,7 @@ export const STYLE_FAMILY_LABELS: Record<StyleFamily, string> = {
   'viz-swiss-systematic': 'Swiss Systematic',
   'viz-terminal-ascii': 'Terminal ASCII',
   'viz-bauhaus-geometric': 'Bauhaus Geometric',
-  'viz-riso-print': 'Riso Print',
+  'viz-print-ink': 'Print Ink',
   'viz-hud-telemetry': 'HUD Telemetry',
 };
 

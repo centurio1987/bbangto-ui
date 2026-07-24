@@ -12,6 +12,8 @@ import { terminalAscii01VizStyleGuide } from './terminalAscii';
 import { bauhausGeometric01VizStyleGuide } from './bauhausGeometric';
 import { risoPrint01VizStyleGuide } from './risoPrint';
 import { hudTelemetry01VizStyleGuide } from './hudTelemetry';
+import { halftonePrint01VizStyleGuide } from './halftonePrint';
+import { glitchDuotone01VizStyleGuide } from './glitchDuotone';
 
 export { blueprintTechnical01VizStyleGuide } from './blueprintTechnical';
 export { minimalLine01VizStyleGuide } from './minimalLine';
@@ -26,6 +28,8 @@ export { terminalAscii01VizStyleGuide } from './terminalAscii';
 export { bauhausGeometric01VizStyleGuide } from './bauhausGeometric';
 export { risoPrint01VizStyleGuide } from './risoPrint';
 export { hudTelemetry01VizStyleGuide } from './hudTelemetry';
+export { halftonePrint01VizStyleGuide } from './halftonePrint';
+export { glitchDuotone01VizStyleGuide } from './glitchDuotone';
 export { makeVizColorway } from './_foundation';
 export type { VizColorwayOverride } from './_foundation';
 export { useVizMotifStyle } from './_motif';
@@ -47,6 +51,8 @@ export const vizStyleGuideCatalog: readonly VisualizationStyleGuide[] = [
   bauhausGeometric01VizStyleGuide,
   risoPrint01VizStyleGuide,
   hudTelemetry01VizStyleGuide,
+  halftonePrint01VizStyleGuide,
+  glitchDuotone01VizStyleGuide,
 ];
 
 /** slug(name) → style guide 조회 맵. */

@@ -263,6 +263,137 @@
     }
   },
   {
+    "name": "glitch-duotone-01",
+    "description": "Static channel-offset duotone — light cool paper ground, translucent channel washes, and a decorative RGB-split misregistration: two aria-hidden ghost channels (magenta offset +1.6px, cyan offset -1.6px) behind the real dark-ink shape, overlapping via multiply overprint. Labels render unshifted for AA contrast; magenta/cyan are decoration only, never line or text ink.",
+    "metaStatus": "authored",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 2,
+      "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Glitch_Duotone_01",
+      "family": "viz-print-ink",
+      "summary": "밝은 쿨 페이퍼 + 마젠타/시안 채널 반투명 워시 + RGB-split 미스레지(두 유령 채널) multiply 오버프린트의 정적 듀오톤 인쇄 인포그래픽 페인트.",
+      "tags": [
+        "light",
+        "vivid",
+        "high-contrast",
+        "retro",
+        "textured"
+      ],
+      "mood": {
+        "formality": 2,
+        "energy": 3,
+        "warmth": 2,
+        "density": 2,
+        "ornament": 3
+      },
+      "characteristics": {
+        "cornerRadius": "soft",
+        "borderWeight": "thin",
+        "shadow": "none",
+        "density": "balanced",
+        "motion": "still",
+        "colorScheme": "light",
+        "contrast": "high"
+      },
+      "domains": [
+        "editorial",
+        "blog",
+        "creative-agency",
+        "marketing"
+      ],
+      "useWhen": [
+        "에디토리얼·블로그 인포그래픽을 듀오톤 인쇄 오정합(마젠타×시안 colorsep)의 트렌디한 무드로 낼 때 쓴다.",
+        "정적 RGB-split 미스레지로 레트로·아날로그 인쇄 질감을 주고 싶을 때 쓴다.",
+        "크리에이티브 에이전시·마케팅 비주얼에서 차별적 채널 시프트 감성이 필요할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "정밀·격식이 최우선인 기업 리포트·기술 명세 도식일 때 피한다(F2/Swiss를 쓴다).",
+        "다크 그라운드·네온 하이테크 무드가 필요할 때 피한다(F7을 쓴다).",
+        "저채도 절제·색 안정성이 우선인 대규모 데이터 차트에 피한다(고채도 채널 워시)."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "riso-print-01",
+        "terminal-ascii-01"
+      ]
+    }
+  },
+  {
+    "name": "halftone-print-01",
+    "description": "CMYK halftone print — warm paper ground, translucent CMYK ink washes with multiply overprint (2-ink overlap reads as a 3rd color), a deterministic K halftone dot screen (SVG <pattern>) overlaid on shapes only, near-black K ink for all lines and labels for AAA contrast on composited surfaces.",
+    "metaStatus": "authored",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 2,
+      "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Halftone_Print_01",
+      "family": "viz-print-ink",
+      "summary": "웜 페이퍼 + CMYK 잉크 워시 multiply 오버프린트 + K 망점 스크린의 코믹/인쇄 에디토리얼 인포그래픽 페인트.",
+      "tags": [
+        "textured",
+        "retro",
+        "vivid",
+        "light",
+        "high-contrast"
+      ],
+      "mood": {
+        "formality": 2,
+        "energy": 4,
+        "warmth": 3,
+        "density": 2,
+        "ornament": 3
+      },
+      "characteristics": {
+        "cornerRadius": "soft",
+        "borderWeight": "thin",
+        "shadow": "none",
+        "density": "balanced",
+        "motion": "still",
+        "colorScheme": "light",
+        "contrast": "high"
+      },
+      "domains": [
+        "editorial",
+        "blog",
+        "creative-agency",
+        "marketing",
+        "entertainment"
+      ],
+      "useWhen": [
+        "에디토리얼·블로그 인포그래픽을 코믹/인쇄 망점(웜 페이퍼 + CMYK 오버프린트)의 트렌디한 무드로 낼 때 쓴다.",
+        "CMYK 4색 잉크로 레트로 인쇄 질감(망점 스크린)을 주고 싶을 때 쓴다.",
+        "크리에이티브 에이전시·마케팅 비주얼에서 차별적 인쇄 감성이 필요할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "정밀·격식이 최우선인 기업 리포트·기술 명세 도식일 때 피한다(F5/F2를 쓴다).",
+        "다크 그라운드·네온 하이테크 무드가 필요할 때 피한다(F7을 쓴다).",
+        "색각 안정성·저채도 절제가 우선인 대규모 데이터 차트에 피한다(고채도 CMYK 잉크)."
+      ],
+      "accessibility": {
+        "contrastIntent": "aaa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "riso-print-01",
+        "colorful-flat-01"
+      ]
+    }
+  },
+  {
     "name": "hud-telemetry-01",
     "description": "HUD telemetry paint — deep teal-dark ground, neon cyan hairline linework, unfilled nodes framed by wrapper-drawn corner brackets, amber alert accent, restrained CSS glow + scanline overlay.",
     "metaStatus": "authored",
@@ -678,7 +809,7 @@
     },
     "meta": {
       "displayName": "Riso_Print_01",
-      "family": "viz-riso-print",
+      "family": "viz-print-ink",
       "summary": "웜 크림 + 스팟 잉크 2~3색 multiply 오버프린트·미세 미스레지·저주파 그레인의 리소그래프 에디토리얼 인포그래픽 페인트.",
       "tags": [
         "grainy",

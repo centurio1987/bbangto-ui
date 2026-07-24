@@ -393,7 +393,7 @@ export const risoPrint01VizStyleGuide: VisualizationStyleGuide = {
   },
   meta: {
     displayName: 'Riso_Print_01',
-    family: 'viz-riso-print',
+    family: 'viz-print-ink',
     summary:
       '웜 크림 + 스팟 잉크 2~3색 multiply 오버프린트·미세 미스레지·저주파 그레인의 리소그래프 에디토리얼 인포그래픽 페인트.',
     tags: ['grainy', 'textured', 'retro', 'vivid', 'light'],
