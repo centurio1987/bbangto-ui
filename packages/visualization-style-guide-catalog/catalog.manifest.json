@@ -601,6 +601,71 @@
     }
   },
   {
+    "name": "riso-print-01",
+    "description": "Risograph print paint — warm cream ground, translucent spot-ink washes with multiply overprint (2-ink overlap reads as a 3rd color), decorative misregistration offset and deterministic low-frequency feTurbulence grain (shape-only, seed fixed), dark-ink labels for AA contrast on composited surfaces.",
+    "metaStatus": "authored",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 2,
+      "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Riso_Print_01",
+      "family": "viz-riso-print",
+      "summary": "웜 크림 + 스팟 잉크 2~3색 multiply 오버프린트·미세 미스레지·저주파 그레인의 리소그래프 에디토리얼 인포그래픽 페인트.",
+      "tags": [
+        "grainy",
+        "textured",
+        "retro",
+        "vivid",
+        "light"
+      ],
+      "mood": {
+        "formality": 2,
+        "energy": 3,
+        "warmth": 4,
+        "density": 2,
+        "ornament": 3
+      },
+      "characteristics": {
+        "cornerRadius": "soft",
+        "borderWeight": "thin",
+        "shadow": "none",
+        "density": "balanced",
+        "motion": "still",
+        "colorScheme": "light",
+        "contrast": "high"
+      },
+      "domains": [
+        "editorial",
+        "blog",
+        "creative-agency",
+        "marketing"
+      ],
+      "useWhen": [
+        "에디토리얼·블로그 인포그래픽을 리소 프린트(웜 크림 + 스팟 잉크 오버프린트)의 트렌디한 무드로 낼 때 쓴다.",
+        "2~3색 스팟 잉크로 레트로·아날로그 인쇄 질감(그레인·미스레지)을 주고 싶을 때 쓴다.",
+        "크리에이티브 에이전시·마케팅 비주얼에서 차별적 인쇄 감성이 필요할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "정밀·격식이 최우선인 기업 리포트·기술 명세 도식일 때 피한다(F5/F2를 쓴다).",
+        "다크 그라운드·네온 하이테크 무드가 필요할 때 피한다(F7을 쓴다).",
+        "색각 안정성·저채도 절제가 우선인 대규모 데이터 차트에 피한다(고채도 스팟 잉크)."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "colorful-flat-01",
+        "marker-sketchnote-01"
+      ]
+    }
+  },
+  {
     "name": "swiss-systematic-01",
     "description": "International Typographic (Swiss) systematic diagram language — pure white canvas, 8px modular grid, 1px ink hairlines, unfilled shapes, orthogonal connectors, and a single red accent. Hierarchy by position/size/weight, not color.",
     "metaStatus": "authored",
