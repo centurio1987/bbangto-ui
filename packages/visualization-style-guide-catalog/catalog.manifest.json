@@ -263,6 +263,72 @@
     }
   },
   {
+    "name": "hud-telemetry-01",
+    "description": "HUD telemetry paint — deep teal-dark ground, neon cyan hairline linework, unfilled nodes framed by wrapper-drawn corner brackets, amber alert accent, restrained CSS glow + scanline overlay.",
+    "metaStatus": "authored",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 2,
+      "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Hud_Telemetry_01",
+      "family": "viz-hud-telemetry",
+      "summary": "딥 틸다크 그라운드 + 네온 시안 라인 + corner-bracket 프레임·앰버 경보·절제된 글로우/스캔라인의 헤드업 디스플레이형 텔레메트리 페인트.",
+      "tags": [
+        "dark",
+        "neon",
+        "technical",
+        "sharp",
+        "mono",
+        "futuristic"
+      ],
+      "mood": {
+        "formality": 4,
+        "energy": 3,
+        "warmth": 1,
+        "density": 3,
+        "ornament": 2
+      },
+      "characteristics": {
+        "cornerRadius": "sharp",
+        "borderWeight": "thin",
+        "shadow": "glow",
+        "density": "balanced",
+        "motion": "subtle",
+        "colorScheme": "dark",
+        "contrast": "high"
+      },
+      "domains": [
+        "dashboard",
+        "dev-tools",
+        "gaming",
+        "crypto-web3"
+      ],
+      "useWhen": [
+        "실시간 대시보드·텔레메트리 화면을 HUD(헤드업 디스플레이) 무드로 조립할 때 쓴다.",
+        "개발 도구·게이밍·크립토처럼 하이테크 다크 계기판 감성이 필요한 노드/차트에 쓴다.",
+        "무채움 시안 라인 + corner-bracket 프레임으로 절제된 테크니컬 도식을 원할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "라이트 배경·인쇄 지향 문서형 차트가 필요할 때 피한다(다크 전용).",
+        "솔리드/그라디언트 채움 도형의 풍부한 색 인코딩이 필요할 때 피한다(라인 아이덴티티).",
+        "따뜻하고 친근한 손그림 무드가 목표일 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": false,
+        "darkFirst": true
+      },
+      "related": [
+        "neon-gradient-dark-01",
+        "terminal-ascii-01"
+      ]
+    }
+  },
+  {
     "name": "ink-line-duotone-01",
     "description": "Clean uniform monoline duotone — black shape ink + cobalt connector ink, unfilled shapes, mono annotations.",
     "metaStatus": "authored",

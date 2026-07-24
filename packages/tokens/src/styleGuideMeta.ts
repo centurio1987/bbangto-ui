@@ -41,6 +41,7 @@ export const STYLE_FAMILIES = [
   'viz-terminal-ascii', //       Terminal_Ascii_01 (KAN-030)
   'viz-bauhaus-geometric', //    Bauhaus_Geometric_01 (KAN-031)
   'viz-riso-print', //           Riso_Print_01 (KAN-032)
+  'viz-hud-telemetry', //        Hud_Telemetry_01 (KAN-033)
 ] as const;
 export type StyleFamily = (typeof STYLE_FAMILIES)[number];
 
@@ -72,6 +73,7 @@ export const STYLE_FAMILY_LABELS: Record<StyleFamily, string> = {
   'viz-terminal-ascii': 'Terminal ASCII',
   'viz-bauhaus-geometric': 'Bauhaus Geometric',
   'viz-riso-print': 'Riso Print',
+  'viz-hud-telemetry': 'HUD Telemetry',
 };
 
 /** 도메인/프로덕트 유형 적합성. AI가 "무엇을 만드는가"로 후보를 좁히는 1차 필터. */

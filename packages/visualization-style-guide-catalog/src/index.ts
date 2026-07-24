@@ -11,6 +11,7 @@ import { swissSystematic01VizStyleGuide } from './swissSystematic';
 import { terminalAscii01VizStyleGuide } from './terminalAscii';
 import { bauhausGeometric01VizStyleGuide } from './bauhausGeometric';
 import { risoPrint01VizStyleGuide } from './risoPrint';
+import { hudTelemetry01VizStyleGuide } from './hudTelemetry';
 
 export { blueprintTechnical01VizStyleGuide } from './blueprintTechnical';
 export { minimalLine01VizStyleGuide } from './minimalLine';
@@ -24,6 +25,7 @@ export { swissSystematic01VizStyleGuide } from './swissSystematic';
 export { terminalAscii01VizStyleGuide } from './terminalAscii';
 export { bauhausGeometric01VizStyleGuide } from './bauhausGeometric';
 export { risoPrint01VizStyleGuide } from './risoPrint';
+export { hudTelemetry01VizStyleGuide } from './hudTelemetry';
 export { makeVizColorway } from './_foundation';
 export type { VizColorwayOverride } from './_foundation';
 export { useVizMotifStyle } from './_motif';
@@ -44,6 +46,7 @@ export const vizStyleGuideCatalog: readonly VisualizationStyleGuide[] = [
   terminalAscii01VizStyleGuide,
   bauhausGeometric01VizStyleGuide,
   risoPrint01VizStyleGuide,
+  hudTelemetry01VizStyleGuide,
 ];
 
 /** slug(name) → style guide 조회 맵. */
