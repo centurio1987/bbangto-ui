@@ -132,6 +132,71 @@
     }
   },
   {
+    "name": "clay-playful-01",
+    "description": "Pastel puffy claymorphism — warm cream ground, chunky rounded pastel-solid shapes modeled with a deterministic SVG inset (inner shadow) plus a soft outer puff drop (shape-scoped decoration), dark warm-clay ink labels for AA contrast on every light pastel fill. Kids/education/playful mood.",
+    "metaStatus": "authored",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 2,
+      "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Clay_Playful_01",
+      "family": "viz-soft-puffy",
+      "summary": "웜 크림 + 파스텔 솔리드 도형을 inset(inner shadow)·outer puff로 모델링한 퍼피 클레이(claymorphism) 인포그래픽. 키즈·교육·플레이풀.",
+      "tags": [
+        "pastel",
+        "rounded",
+        "playful",
+        "depth",
+        "light"
+      ],
+      "mood": {
+        "formality": 1,
+        "energy": 3,
+        "warmth": 4,
+        "density": 2,
+        "ornament": 3
+      },
+      "characteristics": {
+        "cornerRadius": "round",
+        "borderWeight": "thin",
+        "shadow": "soft",
+        "density": "airy",
+        "motion": "still",
+        "colorScheme": "light",
+        "contrast": "medium"
+      },
+      "domains": [
+        "kids",
+        "education",
+        "marketing",
+        "landing"
+      ],
+      "useWhen": [
+        "키즈·교육 인포그래픽을 파스텔 퍼피 클레이(부드러운 찰흙) 무드로 낼 때 쓴다.",
+        "두툼하게 굴린 소프트 도형(inset 모델링)으로 친근·플레이풀한 인상을 줄 때 쓴다.",
+        "마케팅·랜딩 비주얼에서 밝고 다정한 파스텔 감성이 필요할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "정밀·격식이 최우선인 기업 리포트·기술 명세 도식일 때 피한다(F2/Swiss를 쓴다).",
+        "다크 그라운드·하이테크 무드가 필요할 때 피한다(F7/HUD를 쓴다).",
+        "고밀도 데이터 차트에서 강한 색 구분이 필요할 때 피한다(유사 휘도 파스텔)."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "colorful-flat-01",
+        "kawaii-pastel-01"
+      ]
+    }
+  },
+  {
     "name": "colorful-flat-01",
     "description": "Saturated flat pop — cream canvas, thick navy keylines, bright semantic fills, offset solid shadows.",
     "metaStatus": "authored",
@@ -595,6 +660,69 @@
     }
   },
   {
+    "name": "kawaii-pastel-01",
+    "description": "Kawaii pastel — light pastel ground, pastel-solid rounded nodes, soft puffy drop-shadow (shape-only) and pastel polka-dot surface, plus a signature wrapper-drawn kawaii mascot glyph (dot eyes + smile arc + cheeks + sparkle) on each node corner; dark plum ink labels for AA contrast on light pastels.",
+    "metaStatus": "authored",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 2,
+      "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Kawaii_Pastel_01",
+      "family": "viz-soft-puffy",
+      "summary": "라이트 파스텔 + 둥근 소프트 퍼피 도형 + 노드 코너 마스코트 글리프(눈·미소·볼터치)·파스텔 폴카닷의 귀엽고 다정한 키즈/에듀 인포그래픽 페인트.",
+      "tags": [
+        "pastel",
+        "playful",
+        "rounded",
+        "light"
+      ],
+      "mood": {
+        "formality": 1,
+        "energy": 3,
+        "warmth": 5,
+        "density": 2,
+        "ornament": 4
+      },
+      "characteristics": {
+        "cornerRadius": "round",
+        "borderWeight": "thin",
+        "shadow": "soft",
+        "density": "balanced",
+        "motion": "subtle",
+        "colorScheme": "light",
+        "contrast": "medium"
+      },
+      "domains": [
+        "kids",
+        "education",
+        "entertainment"
+      ],
+      "useWhen": [
+        "키즈·교육·엔터테인먼트용 인포그래픽을 파스텔의 귀엽고 다정한 무드로 낼 때 쓴다.",
+        "마스코트 캐릭터 감성(작은 얼굴 글리프)으로 친근함을 더하고 싶을 때 쓴다.",
+        "소프트 퍼피(둥근 코너 + 부드러운 섀도) 스티커 룩의 라이트 차트가 필요할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "정밀·격식이 최우선인 기업 리포트·기술 명세 도식일 때 피한다(F2/Swiss를 쓴다).",
+        "다크·하이테크·시리어스 무드가 필요할 때 피한다(F7/HUD를 쓴다).",
+        "색각 이상 안정성이 최우선인 대규모 데이터 차트에 피한다(유사 파스텔 — 라벨 병기 전제)."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "colorful-flat-01",
+        "clay-playful-01"
+      ]
+    }
+  },
+  {
     "name": "marker-sketchnote-01",
     "description": "Hand-drawn marker sketchnote paint — rough marker ink outlines via wrapper-injected feTurbulence/feDisplacementMap (fixed seed, deterministic), amber highlight, handwriting labels, paper or darkboard ground.",
     "metaStatus": "authored",
@@ -794,6 +922,72 @@
       },
       "related": [
         "colorful-flat-01"
+      ]
+    }
+  },
+  {
+    "name": "neumorphic-soft-01",
+    "description": "Neumorphic soft extrusion — a same-tone soft cool-gray surface where shapes read via a dual soft shadow (light highlight top-left + dark shadow bottom-right) injected as an SVG filter on the shape group only; thin dark-slate ink strokes and labels carry the contrast (AA) while borders stay visually subtle. Warm-gray colorway swaps surface tone and ink together.",
+    "metaStatus": "authored",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 2,
+      "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Neumorphic_Soft_01",
+      "family": "viz-soft-puffy",
+      "summary": "소프트 그레이 동일 톤 표면 + 듀얼 소프트 섀도 압출·얇은 다크 잉크 윤곽/라벨의 차분한 뉴모픽 인포그래픽 페인트.",
+      "tags": [
+        "light",
+        "muted",
+        "rounded",
+        "depth",
+        "minimal"
+      ],
+      "mood": {
+        "formality": 3,
+        "energy": 1,
+        "warmth": 2,
+        "density": 2,
+        "ornament": 3
+      },
+      "characteristics": {
+        "cornerRadius": "round",
+        "borderWeight": "thin",
+        "shadow": "soft",
+        "density": "airy",
+        "motion": "still",
+        "colorScheme": "light",
+        "contrast": "medium"
+      },
+      "domains": [
+        "dashboard",
+        "saas",
+        "fintech",
+        "portfolio",
+        "healthcare"
+      ],
+      "useWhen": [
+        "차분하고 촉각적인 소프트 UI 무드로 대시보드·설정 화면 다이어그램을 낼 때 쓴다.",
+        "저채도 그레이 톤에 은은한 압출감(듀얼 섀도)을 주고 싶을 때 쓴다.",
+        "핀테크·헬스케어처럼 절제되고 프리미엄한 소프트 인상이 필요한 도식에 쓴다."
+      ],
+      "avoidWhen": [
+        "고대비·저시력 접근성이 최우선인 도식일 때 피한다(뉴모피즘은 저대비 무드 — F2/F5를 쓴다).",
+        "강한 시각적 임팩트·활기가 필요할 때 피한다(F3/F7을 쓴다).",
+        "흑백 인쇄·플랫 벡터 출력이 목표일 때 피한다(섀도 압출이 소실)."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "iso-color-block-01",
+        "clay-playful-01"
       ]
     }
   },

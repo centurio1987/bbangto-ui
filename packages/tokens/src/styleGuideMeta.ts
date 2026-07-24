@@ -42,6 +42,7 @@ export const STYLE_FAMILIES = [
   'viz-bauhaus-geometric', //    Bauhaus_Geometric_01 (KAN-031)
   'viz-print-ink', //            Print/Ink family — Riso#32 · Halftone · Glitch 오정합 계열 (KAN-037)
   'viz-hud-telemetry', //        Hud_Telemetry_01 (KAN-033)
+  'viz-soft-puffy', //           Soft/Puffy family — Neumorphic·Clay·Kawaii 소프트/퍼피 계열 (KAN-038)
 ] as const;
 export type StyleFamily = (typeof STYLE_FAMILIES)[number];
 
@@ -74,6 +75,7 @@ export const STYLE_FAMILY_LABELS: Record<StyleFamily, string> = {
   'viz-bauhaus-geometric': 'Bauhaus Geometric',
   'viz-print-ink': 'Print Ink',
   'viz-hud-telemetry': 'HUD Telemetry',
+  'viz-soft-puffy': 'Soft Puffy',
 };
 
 /** 도메인/프로덕트 유형 적합성. AI가 "무엇을 만드는가"로 후보를 좁히는 1차 필터. */

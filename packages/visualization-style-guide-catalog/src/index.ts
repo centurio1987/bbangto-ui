@@ -14,6 +14,9 @@ import { risoPrint01VizStyleGuide } from './risoPrint';
 import { hudTelemetry01VizStyleGuide } from './hudTelemetry';
 import { halftonePrint01VizStyleGuide } from './halftonePrint';
 import { glitchDuotone01VizStyleGuide } from './glitchDuotone';
+import { neumorphicSoft01VizStyleGuide } from './neumorphicSoft';
+import { clayPlayful01VizStyleGuide } from './clayPlayful';
+import { kawaiiPastel01VizStyleGuide } from './kawaiiPastel';
 
 export { blueprintTechnical01VizStyleGuide } from './blueprintTechnical';
 export { minimalLine01VizStyleGuide } from './minimalLine';
@@ -30,6 +33,9 @@ export { risoPrint01VizStyleGuide } from './risoPrint';
 export { hudTelemetry01VizStyleGuide } from './hudTelemetry';
 export { halftonePrint01VizStyleGuide } from './halftonePrint';
 export { glitchDuotone01VizStyleGuide } from './glitchDuotone';
+export { neumorphicSoft01VizStyleGuide } from './neumorphicSoft';
+export { clayPlayful01VizStyleGuide } from './clayPlayful';
+export { kawaiiPastel01VizStyleGuide } from './kawaiiPastel';
 export { makeVizColorway } from './_foundation';
 export type { VizColorwayOverride } from './_foundation';
 export { useVizMotifStyle } from './_motif';
@@ -53,6 +59,9 @@ export const vizStyleGuideCatalog: readonly VisualizationStyleGuide[] = [
   hudTelemetry01VizStyleGuide,
   halftonePrint01VizStyleGuide,
   glitchDuotone01VizStyleGuide,
+  neumorphicSoft01VizStyleGuide,
+  clayPlayful01VizStyleGuide,
+  kawaiiPastel01VizStyleGuide,
 ];
 
 /** slug(name) → style guide 조회 맵. */
