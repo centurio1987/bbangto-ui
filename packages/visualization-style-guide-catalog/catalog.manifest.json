@@ -601,5 +601,71 @@
         "corporate-schematic-01"
       ]
     }
+  },
+  {
+    "name": "terminal-ascii-01",
+    "description": "Dark-console TUI paint — full monospace (titleFont = JetBrains Mono), phosphor-green ink, unfilled 1px box nodes, orthogonal box-drawing edges, decorative cursor block + scanline. Amber CRT monochrome colorway.",
+    "metaStatus": "authored",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 2,
+      "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Terminal_Ascii_01",
+      "family": "viz-terminal-ascii",
+      "summary": "다크 콘솔 그라운드 위 전면 모노스페이스 + 포스포 그린 무채움 박스·직각 커넥터·커서 블록의 TUI/터미널풍 데이터 시각화 페인트(앰버 CRT 모노크롬 colorway 포함).",
+      "tags": [
+        "dark",
+        "mono",
+        "technical",
+        "sharp",
+        "monochrome",
+        "neon"
+      ],
+      "mood": {
+        "formality": 3,
+        "energy": 2,
+        "warmth": 2,
+        "density": 3,
+        "ornament": 1
+      },
+      "characteristics": {
+        "cornerRadius": "sharp",
+        "borderWeight": "thin",
+        "shadow": "glow",
+        "density": "balanced",
+        "motion": "still",
+        "colorScheme": "dark",
+        "contrast": "high"
+      },
+      "domains": [
+        "dev-tools",
+        "docs",
+        "saas",
+        "crypto-web3"
+      ],
+      "useWhen": [
+        "개발자 도구·CLI/TUI 무드의 다크 콘솔풍 다이어그램/차트가 필요할 때 쓴다.",
+        "전면 모노스페이스 + 포스포 그린(또는 앰버 CRT) 모노크롬 아이덴티티를 원할 때 쓴다.",
+        "기술 문서·crypto/web3에서 절제된 터미널 심미가 어울릴 때 쓴다."
+      ],
+      "avoidWhen": [
+        "라이트 배경·인쇄 지향 문서형 차트가 필요할 때 피한다(이 가이드는 다크 전용).",
+        "노드 종류를 다색 시맨틱 채움으로 구분해야 할 때 피한다(모노크롬 라인 전용).",
+        "따뜻한 손그림 친근함이 목표일 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aaa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": true
+      },
+      "related": [
+        "blueprint-technical-01",
+        "ink-line-duotone-01"
+      ]
+    }
   }
 ]
