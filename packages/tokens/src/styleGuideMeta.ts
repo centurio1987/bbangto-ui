@@ -36,6 +36,8 @@ export const STYLE_FAMILIES = [
   'viz-ink-line-duotone', //     F5
   'viz-iso-colorblock', //       F6
   'viz-neon-gradient-dark', //   F7
+  // viz 확장 패밀리 (KAN-019 §4-d — UI 카탈로그 트리아지 기반 P1 5종)
+  'viz-swiss-systematic', //     Swiss_Systematic_01 (KAN-029)
 ] as const;
 export type StyleFamily = (typeof STYLE_FAMILIES)[number];
 
@@ -62,6 +64,8 @@ export const STYLE_FAMILY_LABELS: Record<StyleFamily, string> = {
   'viz-ink-line-duotone': 'F5 Ink Line Duotone',
   'viz-iso-colorblock': 'F6 Iso Colorblock',
   'viz-neon-gradient-dark': 'F7 Neon Gradient Dark',
+  // viz 확장 (KAN-019 §4-d)
+  'viz-swiss-systematic': 'Swiss Systematic',
 };
 
 /** 도메인/프로덕트 유형 적합성. AI가 "무엇을 만드는가"로 후보를 좁히는 1차 필터. */

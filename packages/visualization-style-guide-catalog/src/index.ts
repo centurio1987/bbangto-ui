@@ -7,6 +7,7 @@ import { corporateSchematic01VizStyleGuide } from './corporateSchematic';
 import { neonGradientDark01VizStyleGuide } from './neonGradientDark';
 import { markerSketchnote01VizStyleGuide } from './markerSketchnote';
 import { isoColorBlock01VizStyleGuide } from './isoColorBlock';
+import { swissSystematic01VizStyleGuide } from './swissSystematic';
 
 export { blueprintTechnical01VizStyleGuide } from './blueprintTechnical';
 export { minimalLine01VizStyleGuide } from './minimalLine';
@@ -16,6 +17,7 @@ export { corporateSchematic01VizStyleGuide } from './corporateSchematic';
 export { neonGradientDark01VizStyleGuide } from './neonGradientDark';
 export { markerSketchnote01VizStyleGuide } from './markerSketchnote';
 export { isoColorBlock01VizStyleGuide } from './isoColorBlock';
+export { swissSystematic01VizStyleGuide } from './swissSystematic';
 export { makeVizColorway } from './_foundation';
 export type { VizColorwayOverride } from './_foundation';
 export { useVizMotifStyle } from './_motif';
@@ -32,6 +34,7 @@ export const vizStyleGuideCatalog: readonly VisualizationStyleGuide[] = [
   neonGradientDark01VizStyleGuide,
   markerSketchnote01VizStyleGuide,
   isoColorBlock01VizStyleGuide,
+  swissSystematic01VizStyleGuide,
 ];
 
 /** slug(name) → style guide 조회 맵. */

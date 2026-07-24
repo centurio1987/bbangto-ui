@@ -534,5 +534,72 @@
         "colorful-flat-01"
       ]
     }
+  },
+  {
+    "name": "swiss-systematic-01",
+    "description": "International Typographic (Swiss) systematic diagram language — pure white canvas, 8px modular grid, 1px ink hairlines, unfilled shapes, orthogonal connectors, and a single red accent. Hierarchy by position/size/weight, not color.",
+    "metaStatus": "authored",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 2,
+      "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Swiss_Systematic_01",
+      "family": "viz-swiss-systematic",
+      "summary": "순백 캔버스·8px 모듈러 그리드·1px 잉크 헤어라인·무채움 도형·직교 커넥터·단일 레드 액센트의 스위스 시스템 다이어그램 — 위계는 색이 아니라 위치·크기·굵기로.",
+      "tags": [
+        "grid",
+        "sharp",
+        "monochrome",
+        "technical",
+        "typographic",
+        "light"
+      ],
+      "mood": {
+        "formality": 5,
+        "energy": 2,
+        "warmth": 1,
+        "density": 3,
+        "ornament": 1
+      },
+      "characteristics": {
+        "cornerRadius": "sharp",
+        "borderWeight": "thin",
+        "shadow": "none",
+        "density": "balanced",
+        "motion": "still",
+        "colorScheme": "light",
+        "contrast": "high"
+      },
+      "domains": [
+        "dashboard",
+        "editorial",
+        "docs",
+        "fintech"
+      ],
+      "useWhen": [
+        "엄격한 그리드·무채도 잉크·단일 레드 액센트의 스위스 시스템 도식이 필요할 때 쓴다.",
+        "위계를 색이 아니라 위치·크기·굵기로 세우고 싶을 때 쓴다(Isotype 규칙).",
+        "핀테크·에디토리얼·기술 문서의 정갈하고 포멀한 구조 도식을 원할 때 쓴다.",
+        "직교 커넥터·샤프 코너의 기술적/타이포그래픽 인상이 필요할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "다색 고채도 시맨틱 인코딩으로 카테고리를 구분해야 할 때 피한다.",
+        "손그림·화이트보드의 친근한 스케치 무드가 목표일 때 피한다.",
+        "네온·그라디언트·다크 임팩트가 핵심일 때 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "minimal-line-01",
+        "corporate-schematic-01"
+      ]
+    }
   }
 ]
