@@ -10,15 +10,22 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
-    }
+    },
+    "./type-meta": {
+      "types": "./dist/typeMeta/index.d.ts",
+      "import": "./dist/typeMeta/index.js"
+    },
+    "./type.manifest.json": "./type.manifest.json"
   },
   "files": [
-    "dist"
+    "dist",
+    "type.manifest.json"
   ],
   "scripts": {
     "build": "tsup",
     "typecheck": "tsc --noEmit",
     "test": "vitest --run",
+    "gen:type-manifest": "tsx scripts/genTypeManifest.ts",
     "dev": "tsup --watch"
   },
   "dependencies": {
@@ -29,9 +36,11 @@
     "react-dom": "^18.2.0 || ^19.0.0"
   },
   "devDependencies": {
+    "@types/node": "^22.0.0",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "tsup": "^8.0.0",
+    "tsx": "^4.19.0",
     "typescript": "^5.7.0",
     "vitest": "^4.1.9"
   },

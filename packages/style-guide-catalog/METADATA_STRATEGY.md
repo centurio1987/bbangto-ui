@@ -5,6 +5,8 @@
 >
 > **관련 문서:** 트렌드 표는 [`../core/style-guide-catalog.md`](../core/style-guide-catalog.md),
 > viz 페인트 패밀리(F1~F7)는 [`../visualization/style-classification.md`](../visualization/style-classification.md).
+> 이 문서는 **스타일(paint) 축**만 다룬다 — 직교하는 **유형(what) 축**(어떤 시각화 컴포넌트를 쓸지)의
+> 동형 메타 전략은 [`../visualization/TYPE_METADATA_STRATEGY.md`](../visualization/TYPE_METADATA_STRATEGY.md) 참고 (KAN-020).
 
 ---
 
