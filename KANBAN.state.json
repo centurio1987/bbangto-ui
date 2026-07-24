@@ -1,6 +1,6 @@
 {
-  "next_id": 29,
-  "next_seq": 64,
+  "next_id": 35,
+  "next_seq": 72,
   "cards": {
     "KAN-001": {
       "col": "done",
@@ -219,15 +219,15 @@
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-019": {
-      "col": "backlog",
+      "col": "done",
       "title": "visualization 관련 스타일 가이드 카탈로그 수가 매우 적은 상황이다. 풍부화 하기 위해, 추가할 수 있는 디자인 스타일을 조사 및 수집 하고, 항목화 해라. 그리고 구현 계획을 세워라.",
-      "memo": "검증(2026-07-23): 사실상 완료 — 조사·항목화·구현계획 deliverable 이미 산출됨(visualization/style-classification.md F1~F7 페인트 패밀리 갭분석 + visualization-catalog.md §4 구현/미구현 항목화). 잔여 미구현분은 후속 카드로 분해 완료(KAN-013 Iso_ColorBlock/F6, KAN-014 Marker_Sketchnote/F4). viz 스타일가이드 3→6종 증가. 종료 또는 잔여 취지(viz 확대)만 신규 카드로 재구성 권장.",
+      "memo": "수행(2026-07-24): 88-corpus(F1~F7) 소진 확인 → 코퍼스 바깥 신규 조사원(UI 카탈로그 51종 + 아웃라이어 3종)에서 확장 후보 조사·항목화·구현계획 산출. deliverable=packages/visualization/viz-style-expansion.md. UI 51종 전수 viz-적용성 트리아지(강력 P1 5 / 보통 P2 17 / 커버·약함·제외 29), 유형⊥스타일 원칙 근거. P1 5종(Swiss/Bauhaus/Terminal/Riso/HUD) 전부 Tier A/B·코어변경 0(F5/F7 경로)·기존 매트릭스/결정테이블 테스트에 자동편입(§5-c). visualization-catalog.md §4에 포인터 추가. 실제 구현은 후속 카드로 분해(KAN-013/014 선례).",
       "verbatim": "",
       "생성": "유저",
       "최종": "ai",
-      "갱신": "2026-07-23",
+      "갱신": "2026-07-24",
       "title_hash": "c1ccbf2a1a1c3e3626a2dfaf416005202ac67d6d",
-      "memo_hash": "865c013a06f8d0f88fe1b1351da9d25555e6c0e6",
+      "memo_hash": "b9ae08ed760b7b224b4edc64fda5bdc4c5508a03",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-020": {
@@ -337,10 +337,81 @@
       "title_hash": "42ec92471f7ce4e43bf8abaf09344e2b6757fe03",
       "memo_hash": "7b3a29154881d8ed5b3602c6299beaddf6738e40",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    },
+    "KAN-029": {
+      "col": "backlog",
+      "title": "Swiss_Systematic_01 viz 스타일 가이드 구현 (KAN-019 P1)",
+      "memo": "viz-swiss-systematic. Tier A(코어 변경 0). 냉 뉴트럴·모듈러 그리드·단일 레드(#E1000F)·헤비 그로테스크·무그림자, 색 아닌 위치·크기로 위계(Isotype). 스펙 초안: viz-style-expansion.md §4-d. STYLE_FAMILIES union+label 추가 필요. Swiss·Terminal 먼저 착수 권장(가장 빠른 검증).",
+      "verbatim": "",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-07-24",
+      "title_hash": "fe2ad7c6c9c77c6dbea8a2225137174fc6fe128d",
+      "memo_hash": "fd196a8938eadcd571a5dd4d7ffa06487e2d09bb",
+      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    },
+    "KAN-030": {
+      "col": "backlog",
+      "title": "Terminal_Ascii_01 viz 스타일 가이드 구현 (KAN-019 P1)",
+      "memo": "viz-terminal-ascii. Tier A. 다크 콘솔(#0B0F0A)·전면 모노스페이스·포스포 그린(#3DDC84)·박스드로잉 보더·커서 액센트, colorway default/amber. 스펙: viz-style-expansion.md §4-d. dev-tools 다이어그램 적합.",
+      "verbatim": "",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-07-24",
+      "title_hash": "98715b6afb93346284bd5256a62beeb01fdca158",
+      "memo_hash": "53a1538e0233f9c209ccd69827841527e8a1ebe1",
+      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    },
+    "KAN-031": {
+      "col": "backlog",
+      "title": "Bauhaus_Geometric_01 viz 스타일 가이드 구현 (KAN-019 P1)",
+      "memo": "viz-bauhaus-geometric. Tier A. 웜 페이퍼+3원색(#E63A27/#F5C518/#1E4FCE)+흑백·직각 면분할·굵은 검정 윤곽·하드 오프셋 그림자·기하 글리프. 스펙: viz-style-expansion.md §4-d. 원색 fill 위 라벨 휘도 자동.",
+      "verbatim": "",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-07-24",
+      "title_hash": "18811c4c649f254b5f554b5e872c99c36eb21b20",
+      "memo_hash": "d98cdba674d8b74c15965d0900549feb3326be13",
+      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    },
+    "KAN-032": {
+      "col": "backlog",
+      "title": "Riso_Print_01 viz 스타일 가이드 구현 (KAN-019 P1)",
+      "memo": "viz-riso-print. Tier A. 웜 크림+스팟 잉크 2~3색 multiply 오버프린트(mix-blend-mode 모티프)·미스레지 오프셋·그레인(feTurbulence 재사용). 아웃라이어 mermaid_colorful_03 근거. 스펙: viz-style-expansion.md §4-d. 오버프린트 겹침색 대비 accessibilityAudit 게이트.",
+      "verbatim": "",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-07-24",
+      "title_hash": "853bbcb7691159de95221051407fb9d58bd5c215",
+      "memo_hash": "d6921e234b172340624260903f7d66718c47dcce",
+      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    },
+    "KAN-033": {
+      "col": "backlog",
+      "title": "Hud_Telemetry_01 viz 스타일 가이드 구현(+코너 브래킷 wrapper) (KAN-019 P1)",
+      "memo": "viz-hud-telemetry. Tier B(신규 데코 wrapper 1개: 코너 브래킷). 딥 틸다크(#07131A)+네온 시안(#22D3EE) 엣지+스캔라인+글로우 절제, 수치 mono. F7 defs/모티프 인프라 재사용. 스펙: viz-style-expansion.md §4-d. 그라디언트/글로우 위 텍스트 금지.",
+      "verbatim": "",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-07-24",
+      "title_hash": "cf907e650f24e521c477d5d80652dea173367fca",
+      "memo_hash": "c12df2e53d781245ec28fc4f23d10f98e8a0f3c5",
+      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    },
+    "KAN-034": {
+      "col": "backlog",
+      "title": "P2 viz 스타일 배치 + 인쇄/소프트 패밀리 통합 결정 (KAN-019 P2)",
+      "memo": "viz-style-expansion.md §4-b 17종(보통). 저작 전 패밀리 통합 결정 선행: 인쇄 계열(riso/halftone/colorsep)→viz-print-ink 1패밀리, 소프트 계열(clay/kawaii/tactile)→viz-soft-puffy 1패밀리로 묶으면 실질 저작 단위 ~12종. 과분화 지양(패밀리=셀렉터 조도).",
+      "verbatim": "",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-07-24",
+      "title_hash": "c5ddd9ee0cc604ae56c12448e544f080441e827c",
+      "memo_hash": "d406fc9641e3e8c3080421a1d840ff22be143021",
+      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     }
   },
   "order": [
-    "KAN-019",
     "KAN-020",
     "KAN-028",
     "KAN-025",
@@ -367,9 +438,101 @@
     "KAN-016",
     "KAN-014",
     "KAN-013",
-    "KAN-015"
+    "KAN-015",
+    "KAN-019",
+    "KAN-029",
+    "KAN-030",
+    "KAN-031",
+    "KAN-032",
+    "KAN-033",
+    "KAN-034"
   ],
   "recent": [
+    {
+      "seq": 71,
+      "t": "2026-07-24T13:34",
+      "a": "ai",
+      "id": "KAN-034",
+      "op": "create",
+      "col": "backlog",
+      "title": "P2 viz 스타일 배치 + 인쇄/소프트 패밀리 통합 결정 (KAN-019 P2)",
+      "memo": "viz-style-expansion.md §4-b 17종(보통). 저작 전 패밀리 통합 결정 선행: 인쇄 계열(riso/halftone/colorsep)→viz-print-ink 1패밀리, 소프트 계열(clay/kawaii/tactile)→viz-soft-puffy 1패밀리로 묶으면 실질 저작 단위 ~12종. 과분화 지양(패밀리=셀렉터 조도).",
+      "verbatim": ""
+    },
+    {
+      "seq": 70,
+      "t": "2026-07-24T13:34",
+      "a": "ai",
+      "id": "KAN-033",
+      "op": "create",
+      "col": "backlog",
+      "title": "Hud_Telemetry_01 viz 스타일 가이드 구현(+코너 브래킷 wrapper) (KAN-019 P1)",
+      "memo": "viz-hud-telemetry. Tier B(신규 데코 wrapper 1개: 코너 브래킷). 딥 틸다크(#07131A)+네온 시안(#22D3EE) 엣지+스캔라인+글로우 절제, 수치 mono. F7 defs/모티프 인프라 재사용. 스펙: viz-style-expansion.md §4-d. 그라디언트/글로우 위 텍스트 금지.",
+      "verbatim": ""
+    },
+    {
+      "seq": 69,
+      "t": "2026-07-24T13:34",
+      "a": "ai",
+      "id": "KAN-032",
+      "op": "create",
+      "col": "backlog",
+      "title": "Riso_Print_01 viz 스타일 가이드 구현 (KAN-019 P1)",
+      "memo": "viz-riso-print. Tier A. 웜 크림+스팟 잉크 2~3색 multiply 오버프린트(mix-blend-mode 모티프)·미스레지 오프셋·그레인(feTurbulence 재사용). 아웃라이어 mermaid_colorful_03 근거. 스펙: viz-style-expansion.md §4-d. 오버프린트 겹침색 대비 accessibilityAudit 게이트.",
+      "verbatim": ""
+    },
+    {
+      "seq": 68,
+      "t": "2026-07-24T13:34",
+      "a": "ai",
+      "id": "KAN-031",
+      "op": "create",
+      "col": "backlog",
+      "title": "Bauhaus_Geometric_01 viz 스타일 가이드 구현 (KAN-019 P1)",
+      "memo": "viz-bauhaus-geometric. Tier A. 웜 페이퍼+3원색(#E63A27/#F5C518/#1E4FCE)+흑백·직각 면분할·굵은 검정 윤곽·하드 오프셋 그림자·기하 글리프. 스펙: viz-style-expansion.md §4-d. 원색 fill 위 라벨 휘도 자동.",
+      "verbatim": ""
+    },
+    {
+      "seq": 67,
+      "t": "2026-07-24T13:34",
+      "a": "ai",
+      "id": "KAN-030",
+      "op": "create",
+      "col": "backlog",
+      "title": "Terminal_Ascii_01 viz 스타일 가이드 구현 (KAN-019 P1)",
+      "memo": "viz-terminal-ascii. Tier A. 다크 콘솔(#0B0F0A)·전면 모노스페이스·포스포 그린(#3DDC84)·박스드로잉 보더·커서 액센트, colorway default/amber. 스펙: viz-style-expansion.md §4-d. dev-tools 다이어그램 적합.",
+      "verbatim": ""
+    },
+    {
+      "seq": 66,
+      "t": "2026-07-24T13:34",
+      "a": "ai",
+      "id": "KAN-029",
+      "op": "create",
+      "col": "backlog",
+      "title": "Swiss_Systematic_01 viz 스타일 가이드 구현 (KAN-019 P1)",
+      "memo": "viz-swiss-systematic. Tier A(코어 변경 0). 냉 뉴트럴·모듈러 그리드·단일 레드(#E1000F)·헤비 그로테스크·무그림자, 색 아닌 위치·크기로 위계(Isotype). 스펙 초안: viz-style-expansion.md §4-d. STYLE_FAMILIES union+label 추가 필요. Swiss·Terminal 먼저 착수 권장(가장 빠른 검증).",
+      "verbatim": ""
+    },
+    {
+      "seq": 65,
+      "t": "2026-07-24T13:33",
+      "a": "ai",
+      "id": "KAN-019",
+      "op": "edit",
+      "field": "memo",
+      "before": "검증(2026-07-23): 사실상 완료 — 조사·항목화·구현계획 deliverable 이미 산출됨(visualization/style-classification.md F1~F7 페인트 패밀리 갭분석 + visualization-catalog.md §4 구현/미구현 항목화). 잔여 미구현분은 후속 카드로 분해 완료(KAN-013 Iso_ColorBlock/F6, KAN-014 Marker_Sketchnote/F4). viz 스타일가이드 3→6종 증가. 종료 또는 잔여 취지(viz 확대)만 신규 카드로 재구성 권장.",
+      "after": "수행(2026-07-24): 88-corpus(F1~F7) 소진 확인 → 코퍼스 바깥 신규 조사원(UI 카탈로그 51종 + 아웃라이어 3종)에서 확장 후보 조사·항목화·구현계획 산출. deliverable=packages/visualization/viz-style-expansion.md. UI 51종 전수 viz-적용성 트리아지(강력 P1 5 / 보통 P2 17 / 커버·약함·제외 29), 유형⊥스타일 원칙 근거. P1 5종(Swiss/Bauhaus/Terminal/Riso/HUD) 전부 Tier A/B·코어변경 0(F5/F7 경로)·기존 매트릭스/결정테이블 테스트에 자동편입(§5-c). visualization-catalog.md §4에 포인터 추가. 실제 구현은 후속 카드로 분해(KAN-013/014 선례)."
+    },
+    {
+      "seq": 64,
+      "t": "2026-07-24T13:33",
+      "a": "ai",
+      "id": "KAN-019",
+      "op": "move",
+      "from": "backlog",
+      "to": "done"
+    },
     {
       "seq": 63,
       "t": "2026-07-24T00:00",
@@ -783,90 +946,6 @@
       "col": "backlog",
       "title": "visualization 관련 스타일 가이드 카탈로그 수가 매우 적은 상황이다. 풍부화 하기 위해, 추가할 수 있는 디자인 스타일을 조사 및 수집 하고, 항목화 해라. 그리고 구현 계획을 세워라.",
       "memo": "",
-      "verbatim": ""
-    },
-    {
-      "seq": 21,
-      "t": "2026-07-14T13:54",
-      "a": "ai",
-      "id": "KAN-012",
-      "op": "edit",
-      "field": "verbatim",
-      "before": "",
-      "after": "p3 수행"
-    },
-    {
-      "seq": 20,
-      "t": "2026-07-14T13:54",
-      "a": "ai",
-      "id": "KAN-012",
-      "op": "edit",
-      "field": "memo",
-      "before": "visualization-type-inventory.md §5 P3 잔여 — UML Package(VT-102)·ArchiMate 확장 viewpoints(VT-121)·DMN DRD(VT-124)·Boxplot(VT-510)·Chord Diagram(VT-516)·Informational Infographic(VT-604)·Iceberg(VT-704)·BMC(VT-707)·Honeycomb(VT-709) 신규 9건 + BPMN Collaboration(VT-123)·WBS(VT-307) 근사→전용 승격 2건. 대부분 신규 프리미티브 필요(ORD-011 이연).",
-      "after": "완료(ORD-012) — P3 11건 전량 구현, 인벤토리 백로그 소진(구현률 84%→97%, 87/90·범위 외 ⛔3 제외 시 100%). 신규 export: Boxplot·ChordDiagram·UMLPackageDiagram·DMNDiagram·BPMNCollaborationDiagram(🔶→✅)·ArchiMateViewpointDiagram·WorkBreakdownStructure(🔶→✅)·InformationalInfographic·Iceberg·BusinessModelCanvas·Honeycomb. 신규 geometry 4(boxplot/chord/iceberg/hexgrid)+tree.wbsNumbering+folder shape. 게이트 전부 green: typecheck/build/unit 82/play 1090/storybook build/publint. 외부 검토(codex/Gemini) 반영."
-    },
-    {
-      "seq": 19,
-      "t": "2026-07-14T13:54",
-      "a": "ai",
-      "id": "KAN-012",
-      "op": "move",
-      "from": "backlog",
-      "to": "done"
-    },
-    {
-      "seq": 18,
-      "t": "2026-07-14T13:54",
-      "a": "유저",
-      "id": "KAN-018",
-      "op": "create",
-      "col": "backlog",
-      "title": "bbangto-ui 라이브러리를 가져다 쓸 때, 직접 스타일 가이드를 구성하지 않고, catalog에서 채택하는 경우도 있을 것이다. 이 판단을 ai가 해야 한다고 할 때, 코드 내용을 전수 검토 하지 않고, 채택에 도움을 줄 수 있는 장치를 마련 하고 싶다. 메타 데이터를 심어 놓는다던가. 그와 관련된 전략을 구상해라.",
-      "memo": "",
-      "verbatim": ""
-    },
-    {
-      "seq": 17,
-      "t": "2026-07-14T13:30",
-      "a": "ai",
-      "id": "KAN-017",
-      "op": "create",
-      "col": "backlog",
-      "title": "신규 style guide 후보 5종 구현 (Bento_Modular/Kinetic_Typography/Spatial_3D/Humanist_Imperfect/Tactile_Texture)",
-      "memo": "design-trends-2020-2026.md §C 신규 후보 — ORD-009에서 추가된 3종(Corporate_Schematic/Ink_Line_Duotone/Neon_Gradient_Dark)과 별개로 아직 스타일 가이드로 구현되지 않음.",
-      "verbatim": ""
-    },
-    {
-      "seq": 16,
-      "t": "2026-07-14T13:30",
-      "a": "ai",
-      "id": "KAN-016",
-      "op": "create",
-      "col": "backlog",
-      "title": "파일럿 외 템플릿 3-스타일 매트릭스 검증 확대",
-      "memo": "ORD-008 이연 — TemplateStyleMatrix 심층 검증이 파일럿 3템플릿×3스타일가이드로 한정됨. ORD-010/011로 구현 템플릿이 76/90까지 늘어 재스코핑 필요(단일 가이드 paint 해석 게이트는 전 템플릿 커버, 3-way 교차검증만 파일럿 한정).",
-      "verbatim": ""
-    },
-    {
-      "seq": 15,
-      "t": "2026-07-14T13:30",
-      "a": "ai",
-      "id": "KAN-015",
-      "op": "create",
-      "col": "backlog",
-      "title": "G6 메타 프레임(Kruchten 4+1 / Viewpoint) 구현",
-      "memo": "ORD-008/010 이연 — 개념 프레임워크(G) 축의 메타 뷰(Kruchten 4+1, Viewpoint) 미구현.",
-      "verbatim": ""
-    },
-    {
-      "seq": 14,
-      "t": "2026-07-14T13:30",
-      "a": "ai",
-      "id": "KAN-014",
-      "op": "create",
-      "col": "backlog",
-      "title": "스타일 가이드 Marker_Sketchnote (hand-drawn, F4) 구현",
-      "memo": "ORD-008/009 이연 — 지터(jitter) seeded 렌더·손글씨 폰트·질감 토큰화 필요(기술 블로커로 계속 보류 중).",
       "verbatim": ""
     }
   ]

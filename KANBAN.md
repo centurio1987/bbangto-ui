@@ -5,12 +5,22 @@
 
 ## 백로그
 <!-- 아직 착수 결정 전. 우선순위 미정 후보 풀. 백로그→할 일 이동이 "할지 고민" → "하기로 확정" 전환점. -->
-- `KAN-019` visualization 관련 스타일 가이드 카탈로그 수가 매우 적은 상황이다. 풍부화 하기 위해, 추가할 수 있는 디자인 스타일을 조사 및 수집 하고, 항목화 해라. 그리고 구현 계획을 세워라. — 생성:유저 · 최종:ai · 갱신:2026-07-23
-  - 메모: 검증(2026-07-23): 사실상 완료 — 조사·항목화·구현계획 deliverable 이미 산출됨(visualization/style-classification.md F1~F7 페인트 패밀리 갭분석 + visualization-catalog.md §4 구현/미구현 항목화). 잔여 미구현분은 후속 카드로 분해 완료(KAN-013 Iso_ColorBlock/F6, KAN-014 Marker_Sketchnote/F4). viz 스타일가이드 3→6종 증가. 종료 또는 잔여 취지(viz 확대)만 신규 카드로 재구성 권장.
 - `KAN-020` bbangto-ui에서 visualization 라이브러리를 가져다 쓸 때, 사용 주체가 ai라면, 어떤 경우에 어떤 시각화 패턴을 사용할지 파악하기 위해 라이브러리 코드를 검사해야 할 수도 있다. 하지만, 그러면 패턴이 방대해 졌을 때 효과적으로 탐색하기 어렵다. 따라서, 각 패턴이 어떤 상황에서 유효한지 알려주는 메타 데이터를 라이브러리 레벨에서 제공할 수 있다면 좋을 것이다. 그렇게 하기 위한 전략을 구상해라. — 생성:유저 · 최종:ai · 갱신:2026-07-23
   - 메모: 검증(2026-07-23): 전제 부분 무효 — '메타데이터 전무'는 부정확. 이미 존재: (a) visualization/visualization-type-inventory.md가 유형별 '대표 용도(when to use)'+데이터형태(FT Visual Vocabulary)+프리미티브 분류 SSOT 제공, (b) style-guide-catalog/METADATA_STRATEGY.md + selectStyleGuides가 그대로 미러링 가능한 작동 선례. 잔여 과제로 재스코핑 필요: 패턴/템플릿 코드 객체에 기계가독 메타(useWhen 등)+매니페스트/헬퍼가 아직 부재(src/patterns·templates grep 0건). → 카드를 '패턴 축 매니페스트/셀렉터 구현'으로 좁힐 것.
 - `KAN-028` viz geometry 트랙 — 진짜 isometric 투영(projection·depth-sort·iso 커넥터) 프리미티브 구현 — 생성:ai · 최종:ai · 갱신:2026-07-23
   - 메모: KAN-013에서 분리. Iso_ColorBlock은 paint 패밀리(cube 3단 면 재사용)로 구현 완료했고, style-classification.md line 167/246-247 원칙(스타일 가이드는 paint만, iso는 별도 geometry 트랙)에 따라 진짜 iso는 이 카드로 분리. 필요: geometry/isometric.ts(투영 행렬 30°·depth-sort·iso 커넥터 라우팅·floor cast shadow), 텍스트는 skew 금지(평면 오버레이 레이어 — 접근성 필수). 착수 시 Iso_ColorBlock paint 가이드를 iso geometry 위에 합성 가능한지 검토.
+- `KAN-029` Swiss_Systematic_01 viz 스타일 가이드 구현 (KAN-019 P1) — 생성:ai · 최종:ai · 갱신:2026-07-24
+  - 메모: viz-swiss-systematic. Tier A(코어 변경 0). 냉 뉴트럴·모듈러 그리드·단일 레드(#E1000F)·헤비 그로테스크·무그림자, 색 아닌 위치·크기로 위계(Isotype). 스펙 초안: viz-style-expansion.md §4-d. STYLE_FAMILIES union+label 추가 필요. Swiss·Terminal 먼저 착수 권장(가장 빠른 검증).
+- `KAN-030` Terminal_Ascii_01 viz 스타일 가이드 구현 (KAN-019 P1) — 생성:ai · 최종:ai · 갱신:2026-07-24
+  - 메모: viz-terminal-ascii. Tier A. 다크 콘솔(#0B0F0A)·전면 모노스페이스·포스포 그린(#3DDC84)·박스드로잉 보더·커서 액센트, colorway default/amber. 스펙: viz-style-expansion.md §4-d. dev-tools 다이어그램 적합.
+- `KAN-031` Bauhaus_Geometric_01 viz 스타일 가이드 구현 (KAN-019 P1) — 생성:ai · 최종:ai · 갱신:2026-07-24
+  - 메모: viz-bauhaus-geometric. Tier A. 웜 페이퍼+3원색(#E63A27/#F5C518/#1E4FCE)+흑백·직각 면분할·굵은 검정 윤곽·하드 오프셋 그림자·기하 글리프. 스펙: viz-style-expansion.md §4-d. 원색 fill 위 라벨 휘도 자동.
+- `KAN-032` Riso_Print_01 viz 스타일 가이드 구현 (KAN-019 P1) — 생성:ai · 최종:ai · 갱신:2026-07-24
+  - 메모: viz-riso-print. Tier A. 웜 크림+스팟 잉크 2~3색 multiply 오버프린트(mix-blend-mode 모티프)·미스레지 오프셋·그레인(feTurbulence 재사용). 아웃라이어 mermaid_colorful_03 근거. 스펙: viz-style-expansion.md §4-d. 오버프린트 겹침색 대비 accessibilityAudit 게이트.
+- `KAN-033` Hud_Telemetry_01 viz 스타일 가이드 구현(+코너 브래킷 wrapper) (KAN-019 P1) — 생성:ai · 최종:ai · 갱신:2026-07-24
+  - 메모: viz-hud-telemetry. Tier B(신규 데코 wrapper 1개: 코너 브래킷). 딥 틸다크(#07131A)+네온 시안(#22D3EE) 엣지+스캔라인+글로우 절제, 수치 mono. F7 defs/모티프 인프라 재사용. 스펙: viz-style-expansion.md §4-d. 그라디언트/글로우 위 텍스트 금지.
+- `KAN-034` P2 viz 스타일 배치 + 인쇄/소프트 패밀리 통합 결정 (KAN-019 P2) — 생성:ai · 최종:ai · 갱신:2026-07-24
+  - 메모: viz-style-expansion.md §4-b 17종(보통). 저작 전 패밀리 통합 결정 선행: 인쇄 계열(riso/halftone/colorsep)→viz-print-ink 1패밀리, 소프트 계열(clay/kawaii/tactile)→viz-soft-puffy 1패밀리로 묶으면 실질 저작 단위 ~12종. 과분화 지양(패밀리=셀렉터 조도).
 
 ## 할 일
 
@@ -211,3 +221,5 @@
   - 메모: 완료(paint 패밀리 스코프, 사용자 승인) — F6 Iso_ColorBlock paint 가이드 구현(`iso-color-block-01`). 블로커 재해석: 분류문서 line 167/246-247 '스타일 가이드는 paint만, iso는 별도 geometry 트랙' 원칙에 따라 3단 면 페인트만 구현. Node cube 케이스(atoms/Node.tsx:212, front/top12%/right24% 고정 오버레이)를 재사용해 면별 3단 플랫 음영 확보 — 새 geometry 0. IsoNode wrapper는 제네릭 박스(rect/rounded/미지정)만 cube 승격, 의미 도형은 pass-through(시맨틱 보존). 단일 계열 램프(더스티 블루/웜 클레이 2 preset)+중립 커넥터 잉크(역할 분리)+accent 1색. 검토 반영: description·meta·guideline에 'paint family, 진짜 iso 투영 아님' 명시; face-tone ext 토큰은 dead token이라 폐기(--ext-accent만). meta 'aa'(over-claim 0). 진짜 iso 투영·depth-sort는 [[KAN-028]] 후속 트랙으로 분리. 파일: src/isoColorBlock.tsx + 스토리(wrapperExtraPlay=cube 승격·pass-through 검증) + index/preview/manifest. 4 게이트 green+카탈로그 39테스트.
 - `KAN-015` G6 메타 프레임(Kruchten 4+1 / Viewpoint) 구현 — 생성:ai · 최종:ai · 갱신:2026-07-24
   - 메모: 완료(2026-07-23): G6 메타 구조 프레임 2종 구현. Kruchten4Plus1View(영역별 slots=중첩 프리셋 우선·data=불릿 폴백, 영역 단위 no-merge; 3행 배치=상단 2코너·중앙 Scenarios(+1) 밴드·하단 2코너) + ViewpointFrame(ISO/IEC/IEEE 42010 — 헤더밴드=viewpoint·concerns[]·stakeholders[]·modelKinds[], body=중첩 view 슬롯, 미지정 시 'No view supplied' 플레이스홀더). §C-2 공통계약 준수(신규 아톰/geometry/paint 채널 0 — 기존 Canvas·Boundary·vvar·parseViewBox만 재사용). 슬롯=절대좌표 nested svg(x/y/w/h)로 타 프리셋 조합. 명칭 오판 방지: 42010 ViewpointFrame != ArchiMate 고유 viewpoint(ArchiMateViewpointDiagram, VT-121) — description/주석 명시. TDD 선작성(G6MetaFrames.stories.tsx 3스토리 play=영역/슬롯/헤더 메타/폴백 검증). 배럴 export + 인벤토리·PLAN SSOT 갱신. 4게이트 green(typecheck·build·test 1106·storybook build).
+- `KAN-019` visualization 관련 스타일 가이드 카탈로그 수가 매우 적은 상황이다. 풍부화 하기 위해, 추가할 수 있는 디자인 스타일을 조사 및 수집 하고, 항목화 해라. 그리고 구현 계획을 세워라. — 생성:유저 · 최종:ai · 갱신:2026-07-24
+  - 메모: 수행(2026-07-24): 88-corpus(F1~F7) 소진 확인 → 코퍼스 바깥 신규 조사원(UI 카탈로그 51종 + 아웃라이어 3종)에서 확장 후보 조사·항목화·구현계획 산출. deliverable=packages/visualization/viz-style-expansion.md. UI 51종 전수 viz-적용성 트리아지(강력 P1 5 / 보통 P2 17 / 커버·약함·제외 29), 유형⊥스타일 원칙 근거. P1 5종(Swiss/Bauhaus/Terminal/Riso/HUD) 전부 Tier A/B·코어변경 0(F5/F7 경로)·기존 매트릭스/결정테이블 테스트에 자동편입(§5-c). visualization-catalog.md §4에 포인터 추가. 실제 구현은 후속 카드로 분해(KAN-013/014 선례).
