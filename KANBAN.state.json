@@ -1,6 +1,6 @@
 {
   "next_id": 40,
-  "next_seq": 93,
+  "next_seq": 95,
   "cards": {
     "KAN-001": {
       "col": "done",
@@ -435,15 +435,15 @@
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-037": {
-      "col": "backlog",
+      "col": "done",
       "title": "viz-print-ink 패밀리 — Halftone_Print + Glitch_Duotone viz 가이드 + riso 리네임 (KAN-034 P2)",
-      "memo": "KAN-034 결정: 인쇄 계열 family 그룹핑. 첫 단계=shipped viz-riso-print→viz-print-ink 리네임(STYLE_FAMILIES union + STYLE_FAMILY_LABELS + risoPrint.tsx meta.family + manifest/트렌드표 regen; manifest·displayName·accessibility 테스트 통과 확인). 이어 Halftone_Print(UI#36 CMYK 망점 SVG pattern) + Glitch_Duotone(UI#33 마젠타/시안 채널 오프셋 duotone) 2 가이드 저작, 둘 다 meta.family=viz-print-ink 공유. colorway 통합 불가(모티프=별도 wrapper). Tier A. 스펙: viz-style-expansion.md §7-3/§7-5.",
+      "memo": "완료(2026-07-24): viz-print-ink 패밀리 확정 + Halftone_Print_01·Glitch_Duotone_01 2종 저작(병렬 하네스 검증 웨이브 — KAN-034 후속 첫 배치). riso 리네임 원자 수행: tokens STYLE_FAMILIES viz-riso-print→viz-print-ink + STYLE_FAMILY_LABELS 'Print Ink' + risoPrint.tsx meta.family. 신규 2종 모두 meta.family=viz-print-ink 공유(3 guide/1 family). Halftone(웜페이퍼 #F7F4EC + CMYK 반투명 워시 multiply 오버프린트 + K 망점 SVG <pattern> 도형한정 오버레이·HalftonePrintNode, near-black K 잉크 라벨, contrastIntent aaa) · Glitch(밝은 쿨페이퍼 #F2EFF2 + 마젠타/시안 채널 반투명 워시 + RGB-split 두 유령채널 ±1.6px 오프셋 multiply·GlitchNode, 다크잉크 라벨, contrastIntent aa). 둘 다 risoPrint 템플릿 미러(별도 wrapper·makeVizColorway 2 preset·게이트 색스킴 불변식 준수). 게이트 4종 green: build(viz manifest 13→15)·typecheck·test 1141 passed/166 files·storybook build. 병렬 저작 전략 실증: 2 에이전트가 각자 src+story 2파일만 저작, 공유 seam(tokens union·barrel·manifest)은 메인 직렬 통합. viz 카탈로그 13→15 guide. 후속 KAN-038(soft-puffy)·KAN-039(1:1 12종) 미착수.",
       "verbatim": "",
       "생성": "ai",
       "최종": "ai",
       "갱신": "2026-07-24",
       "title_hash": "1be58692811c32c63cfaf180bf93e62fe3e3e8a2",
-      "memo_hash": "648e080ce36cc7edde729d5a490ceaf7e438871b",
+      "memo_hash": "05b6f94584e94466dfae31449e5c71f149976675",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-038": {
@@ -476,6 +476,8 @@
     "KAN-028",
     "KAN-035",
     "KAN-036",
+    "KAN-038",
+    "KAN-039",
     "KAN-025",
     "KAN-024",
     "KAN-023",
@@ -508,11 +510,28 @@
     "KAN-032",
     "KAN-033",
     "KAN-034",
-    "KAN-037",
-    "KAN-038",
-    "KAN-039"
+    "KAN-037"
   ],
   "recent": [
+    {
+      "seq": 94,
+      "t": "2026-07-24T15:22",
+      "a": "ai",
+      "id": "KAN-037",
+      "op": "edit",
+      "field": "memo",
+      "before": "KAN-034 결정: 인쇄 계열 family 그룹핑. 첫 단계=shipped viz-riso-print→viz-print-ink 리네임(STYLE_FAMILIES union + STYLE_FAMILY_LABELS + risoPrint.tsx meta.family + manifest/트렌드표 regen; manifest·displayName·accessibility 테스트 통과 확인). 이어 Halftone_Print(UI#36 CMYK 망점 SVG pattern) + Glitch_Duotone(UI#33 마젠타/시안 채널 오프셋 duotone) 2 가이드 저작, 둘 다 meta.family=viz-print-ink 공유. colorway 통합 불가(모티프=별도 wrapper). Tier A. 스펙: viz-style-expansion.md §7-3/§7-5.",
+      "after": "완료(2026-07-24): viz-print-ink 패밀리 확정 + Halftone_Print_01·Glitch_Duotone_01 2종 저작(병렬 하네스 검증 웨이브 — KAN-034 후속 첫 배치). riso 리네임 원자 수행: tokens STYLE_FAMILIES viz-riso-print→viz-print-ink + STYLE_FAMILY_LABELS 'Print Ink' + risoPrint.tsx meta.family. 신규 2종 모두 meta.family=viz-print-ink 공유(3 guide/1 family). Halftone(웜페이퍼 #F7F4EC + CMYK 반투명 워시 multiply 오버프린트 + K 망점 SVG <pattern> 도형한정 오버레이·HalftonePrintNode, near-black K 잉크 라벨, contrastIntent aaa) · Glitch(밝은 쿨페이퍼 #F2EFF2 + 마젠타/시안 채널 반투명 워시 + RGB-split 두 유령채널 ±1.6px 오프셋 multiply·GlitchNode, 다크잉크 라벨, contrastIntent aa). 둘 다 risoPrint 템플릿 미러(별도 wrapper·makeVizColorway 2 preset·게이트 색스킴 불변식 준수). 게이트 4종 green: build(viz manifest 13→15)·typecheck·test 1141 passed/166 files·storybook build. 병렬 저작 전략 실증: 2 에이전트가 각자 src+story 2파일만 저작, 공유 seam(tokens union·barrel·manifest)은 메인 직렬 통합. viz 카탈로그 13→15 guide. 후속 KAN-038(soft-puffy)·KAN-039(1:1 12종) 미착수."
+    },
+    {
+      "seq": 93,
+      "t": "2026-07-24T15:22",
+      "a": "ai",
+      "id": "KAN-037",
+      "op": "move",
+      "from": "backlog",
+      "to": "done"
+    },
     {
       "seq": 92,
       "t": "2026-07-24T14:42",
@@ -989,25 +1008,6 @@
       "field": "memo",
       "before": "",
       "after": "검증(2026-07-23): 사실상 완료 — 조사·항목화·구현계획 deliverable 이미 산출됨(visualization/style-classification.md F1~F7 페인트 패밀리 갭분석 + visualization-catalog.md §4 구현/미구현 항목화). 잔여 미구현분은 후속 카드로 분해 완료(KAN-013 Iso_ColorBlock/F6, KAN-014 Marker_Sketchnote/F4). viz 스타일가이드 3→6종 증가. 종료 또는 잔여 취지(viz 확대)만 신규 카드로 재구성 권장."
-    },
-    {
-      "seq": 44,
-      "t": "2026-07-23T14:39",
-      "a": "ai",
-      "id": "KAN-017",
-      "op": "move",
-      "from": "backlog",
-      "to": "done"
-    },
-    {
-      "seq": 43,
-      "t": "2026-07-23T14:38",
-      "a": "ai",
-      "id": "KAN-017",
-      "op": "edit",
-      "field": "memo",
-      "before": "design-trends-2020-2026.md §C 신규 후보 — ORD-009에서 추가된 3종(Corporate_Schematic/Ink_Line_Duotone/Neon_Gradient_Dark)과 별개로 아직 스타일 가이드로 구현되지 않음.",
-      "after": "검증(2026-07-23): 전제 무효 — 5종 후보(Bento_Modular/Kinetic_Typography/Spatial_3D/Humanist_Imperfect/Tactile_Texture)가 전부 이미 독립 preset으로 구현·등록됨. trendIndex #24-28, canonical displayName _01 부여(style-guide-catalog/src/index.ts:161-166, catalog.manifest.json). '이미지 레퍼런스 마이닝 #29-50' 파생 스타일과 혼입 없음. 미구현 0종 → 완료 처리."
     }
   ]
 }
