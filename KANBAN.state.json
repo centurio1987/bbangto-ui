@@ -1,6 +1,6 @@
 {
   "next_id": 40,
-  "next_seq": 95,
+  "next_seq": 97,
   "cards": {
     "KAN-001": {
       "col": "done",
@@ -447,15 +447,15 @@
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-038": {
-      "col": "backlog",
+      "col": "done",
       "title": "viz-soft-puffy 패밀리 — Neumorphic + Clay_Playful + Kawaii_Pastel viz 가이드 (KAN-034 P2)",
-      "memo": "KAN-034 결정: 소프트 계열 family 그룹핑. 3 가이드 모두 meta.family=viz-soft-puffy 공유·별도 wrapper: Neumorphic(UI#2 동색 이중그림자 압출, 저대비 리스크 — ink↔bg/tag↔fill ≥4.5:1 유의), Clay_Playful(UI#3 파스텔 퍼피 inset filter), Kawaii_Pastel(UI#17 파스텔+마스코트 글리프=신규 데코 wrapper, Tier B). colorway 통합 불가(shadow/radius/wrapper 상이). Tier A/B. 스펙: §7-3/§7-5.",
+      "memo": "완료(2026-07-24): 신규 viz-soft-puffy family 확정 + 소프트/퍼피 계열 3종 저작(3 guide/1 family). tokens STYLE_FAMILIES viz-soft-puffy 추가 + label 'Soft Puffy'. 저대비 위험군 정직 대응(전부 다크 잉크 라벨·윤곽 ≥4.5, 모티프는 wrapper 장식). Neumorphic_Soft_01(동색 표면 #E8ECF2 + 듀얼 소프트 섀도 압출·NeumorphNode feOffset+feGaussianBlur+feFlood+feComposite 2겹 feMerge, 다크 슬레이트 잉크 ~10:1, contrastIntent aa·contrast medium) · Clay_Playful_01(파스텔 퍼피 + inset inner-shadow·ClayNode feComposite operator=out 알파반전 + outer puff, 다크 클레이 잉크, aa) · Kawaii_Pastel_01(파스텔 + 마스코트 글리프 데코 wrapper·KawaiiNode bbox서 얼굴 글리프 계산, Tier B, 다크 플럼 잉크, aa). 3종 모두 risoPrint 템플릿 미러(별도 wrapper·makeVizColorway 2 preset·색스킴 불변식). 병렬 저작 실증: 3 general-purpose 에이전트가 각자 src+story 2파일만, 공유 seam(tokens 신규 family·barrel·manifest)은 메인 직렬 통합(P0 family 추가 선행). 게이트 4종 green: build(manifest 15→18)·typecheck·test 1156 passed/169 files·storybook build. viz 카탈로그 15→18 guide. feat d979f14. 후속 KAN-039(1:1 12종) 미착수.",
       "verbatim": "",
       "생성": "ai",
       "최종": "ai",
       "갱신": "2026-07-24",
       "title_hash": "af41b7e9e0fb1807304858c3d038028c5f30e5b1",
-      "memo_hash": "462a00ebe939ec76518168bb7c7ff81256d97a90",
+      "memo_hash": "e049af168658b579ed0e1920115651c42451fa3f",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-039": {
@@ -476,7 +476,6 @@
     "KAN-028",
     "KAN-035",
     "KAN-036",
-    "KAN-038",
     "KAN-039",
     "KAN-025",
     "KAN-024",
@@ -510,9 +509,29 @@
     "KAN-032",
     "KAN-033",
     "KAN-034",
-    "KAN-037"
+    "KAN-037",
+    "KAN-038"
   ],
   "recent": [
+    {
+      "seq": 96,
+      "t": "2026-07-24T16:02",
+      "a": "ai",
+      "id": "KAN-038",
+      "op": "edit",
+      "field": "memo",
+      "before": "KAN-034 결정: 소프트 계열 family 그룹핑. 3 가이드 모두 meta.family=viz-soft-puffy 공유·별도 wrapper: Neumorphic(UI#2 동색 이중그림자 압출, 저대비 리스크 — ink↔bg/tag↔fill ≥4.5:1 유의), Clay_Playful(UI#3 파스텔 퍼피 inset filter), Kawaii_Pastel(UI#17 파스텔+마스코트 글리프=신규 데코 wrapper, Tier B). colorway 통합 불가(shadow/radius/wrapper 상이). Tier A/B. 스펙: §7-3/§7-5.",
+      "after": "완료(2026-07-24): 신규 viz-soft-puffy family 확정 + 소프트/퍼피 계열 3종 저작(3 guide/1 family). tokens STYLE_FAMILIES viz-soft-puffy 추가 + label 'Soft Puffy'. 저대비 위험군 정직 대응(전부 다크 잉크 라벨·윤곽 ≥4.5, 모티프는 wrapper 장식). Neumorphic_Soft_01(동색 표면 #E8ECF2 + 듀얼 소프트 섀도 압출·NeumorphNode feOffset+feGaussianBlur+feFlood+feComposite 2겹 feMerge, 다크 슬레이트 잉크 ~10:1, contrastIntent aa·contrast medium) · Clay_Playful_01(파스텔 퍼피 + inset inner-shadow·ClayNode feComposite operator=out 알파반전 + outer puff, 다크 클레이 잉크, aa) · Kawaii_Pastel_01(파스텔 + 마스코트 글리프 데코 wrapper·KawaiiNode bbox서 얼굴 글리프 계산, Tier B, 다크 플럼 잉크, aa). 3종 모두 risoPrint 템플릿 미러(별도 wrapper·makeVizColorway 2 preset·색스킴 불변식). 병렬 저작 실증: 3 general-purpose 에이전트가 각자 src+story 2파일만, 공유 seam(tokens 신규 family·barrel·manifest)은 메인 직렬 통합(P0 family 추가 선행). 게이트 4종 green: build(manifest 15→18)·typecheck·test 1156 passed/169 files·storybook build. viz 카탈로그 15→18 guide. feat d979f14. 후속 KAN-039(1:1 12종) 미착수."
+    },
+    {
+      "seq": 95,
+      "t": "2026-07-24T16:02",
+      "a": "ai",
+      "id": "KAN-038",
+      "op": "move",
+      "from": "backlog",
+      "to": "done"
+    },
     {
       "seq": 94,
       "t": "2026-07-24T15:22",
@@ -988,26 +1007,6 @@
       "field": "memo",
       "before": "ORD-008 이연 — TemplateStyleMatrix 심층 검증이 파일럿 3템플릿×3스타일가이드로 한정됨. ORD-010/011로 구현 템플릿이 76/90까지 늘어 재스코핑 필요(단일 가이드 paint 해석 게이트는 전 템플릿 커버, 3-way 교차검증만 파일럿 한정).",
       "after": "ORD-008 이연 — TemplateStyleMatrix 3-way 교차검증이 파일럿 3템플릿(Flowchart/SequenceDiagram/C4ContainerDiagram) 축에 고정. 검증(2026-07-23): 전제 수치 갱신 — 구현 템플릿 총량 76/90 → 87/90 확정(ORD-012 완료), 스타일가이드 축 3→6 증가로 매트릭스는 3템플릿×6가이드로 커졌으나 템플릿 축 파일럿 고정 한계 존속(TemplateStyleMatrix.stories.tsx PilotMatrix). 단일 가이드 paint 게이트(expectVizPaintResolved)는 전 템플릿 커버 — 3-way 교차검증의 템플릿 축 재스코핑만 남음."
-    },
-    {
-      "seq": 46,
-      "t": "2026-07-23T14:40",
-      "a": "ai",
-      "id": "KAN-020",
-      "op": "edit",
-      "field": "memo",
-      "before": "",
-      "after": "검증(2026-07-23): 전제 부분 무효 — '메타데이터 전무'는 부정확. 이미 존재: (a) visualization/visualization-type-inventory.md가 유형별 '대표 용도(when to use)'+데이터형태(FT Visual Vocabulary)+프리미티브 분류 SSOT 제공, (b) style-guide-catalog/METADATA_STRATEGY.md + selectStyleGuides가 그대로 미러링 가능한 작동 선례. 잔여 과제로 재스코핑 필요: 패턴/템플릿 코드 객체에 기계가독 메타(useWhen 등)+매니페스트/헬퍼가 아직 부재(src/patterns·templates grep 0건). → 카드를 '패턴 축 매니페스트/셀렉터 구현'으로 좁힐 것."
-    },
-    {
-      "seq": 45,
-      "t": "2026-07-23T14:40",
-      "a": "ai",
-      "id": "KAN-019",
-      "op": "edit",
-      "field": "memo",
-      "before": "",
-      "after": "검증(2026-07-23): 사실상 완료 — 조사·항목화·구현계획 deliverable 이미 산출됨(visualization/style-classification.md F1~F7 페인트 패밀리 갭분석 + visualization-catalog.md §4 구현/미구현 항목화). 잔여 미구현분은 후속 카드로 분해 완료(KAN-013 Iso_ColorBlock/F6, KAN-014 Marker_Sketchnote/F4). viz 스타일가이드 3→6종 증가. 종료 또는 잔여 취지(viz 확대)만 신규 카드로 재구성 권장."
     }
   ]
 }
