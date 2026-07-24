@@ -11,12 +11,12 @@
   - 메모: KAN-013에서 분리. Iso_ColorBlock은 paint 패밀리(cube 3단 면 재사용)로 구현 완료했고, style-classification.md line 167/246-247 원칙(스타일 가이드는 paint만, iso는 별도 geometry 트랙)에 따라 진짜 iso는 이 카드로 분리. 필요: geometry/isometric.ts(투영 행렬 30°·depth-sort·iso 커넥터 라우팅·floor cast shadow), 텍스트는 skew 금지(평면 오버레이 레이어 — 접근성 필수). 착수 시 Iso_ColorBlock paint 가이드를 iso geometry 위에 합성 가능한지 검토.
 - `KAN-035` 최초 ai를 위한 메타데이터를 도입한 작업 이후로, 태스크를 진행할 때마다, 메타데이터 생성도 같이 진행이 됐는지 확인 필요. 같이 생성이 안됐다면, 없는 인터페이스들에 대해서 적용하기 위한 계획 및 수행 필요 — 생성:유저 · 최종:유저 · 갱신:2026-07-24
 - `KAN-036` 지금까지의 작업 내역을 npm package에 새로 반영해라. 새로 생기거나 없어져야 하는 패키지가 있는지, 이름이 바뀌어야 하는 패키지가 있는지도 확인하고, 버전도 확인해서 배포 계획을 세워라. — 생성:유저 · 최종:유저 · 갱신:2026-07-24
-- `KAN-039` P2 viz 1:1 단일 스타일 12종 순차 구현 (KAN-034 P2) — 생성:ai · 최종:ai · 갱신:2026-07-24
-  - 메모: KAN-034 결정: 아래 12종은 각자 고유 family(1:1). 착수 시 개별 카드로 분해(KAN-019→029~033 선례). 순서·slug·tier: viz-style-expansion.md §7-3 배치표. 목록: Neobrutalist#0 · Editorial_Data#8 · Synthwave#11 · Memphis_Pattern#12 · Retro70s_Warm#14 · Dopamine_Max#15 · ArtDeco_Luxe#21 · DarkLuxe#23 · Bento_Stat#24 · Organic_Blob#34(Tier B 신규 blob shape) · Pixel_Retro#41 · Ukiyoe_Flat#37(저대비 유의). Organic_Blob 외 전부 Tier A.
 
 ## 할 일
 
 ## 진행 중
+- `KAN-039` P2 viz 1:1 단일 스타일 12종 순차 구현 (KAN-034 P2) — 생성:ai · 최종:ai · 갱신:2026-07-24
+  - 메모: 진행 중 6/12(2026-07-24): 안전 Tier A 서브배치 1/2 완료 — 라이트 그라운드·신규 geometry 0인 6종 각자 고유 family로 저작(feat bef142d). 완료: Neobrutalist_01(하드 오프셋 섀도, aaa)·Editorial_Data_01(세리프+헤어라인 룰, aaa)·Memphis_Pattern_01(confetti SVG pattern+하드오프셋, aa)·Retro70s_Warm_01(어스톤 라이트틴트+feTurbulence 그레인, aa)·Dopamine_Max_01(고채도 반투명워시 클래시, aa)·Bento_Stat_01(벤토 타일 프레임, aaa). 6 에이전트 병렬 저작+seam 직렬 통합, 게이트 4종 green(manifest 18→24·test 1186/175 files). viz 카탈로그 18→24 guide. **잔여 6종(배치 2/2, 리스크군)**: Organic_Blob#34(Tier B 신규 blob shape) · Ukiyoe_Flat#37(흙빛 저대비 유의) · Synthwave#11(다크 네온) · ArtDeco_Luxe#21(흑+골드) · DarkLuxe#23(순흑+골드) · Pixel_Retro#41(정수 그리드 스냅). 착수 시 §7-3 배치표 참조. 채도/다크/저대비군이라 대비 정직 하향+per-fill 검증 유의. 생성:ai.
 
 ## 검토
 
