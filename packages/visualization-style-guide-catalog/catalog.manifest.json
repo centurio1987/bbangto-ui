@@ -1,5 +1,70 @@
 [
   {
+    "name": "bauhaus-geometric-01",
+    "description": "Bauhaus geometric paint family — warm paper ground, thick black keylines, primary-color flat fills (red/yellow/blue) with per-fill contrast-safe labels, hard solid offset shadows, sharp right-angle edges.",
+    "metaStatus": "authored",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 2,
+      "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Bauhaus_Geometric_01",
+      "family": "viz-bauhaus-geometric",
+      "summary": "3원색 flat 채움 + 두꺼운 블랙 아웃라인 + 하드 솔리드 오프셋 섀도의 기하 다이어그램 — 교육·에디토리얼·마케팅의 강한 조형 인상에 쓴다.",
+      "tags": [
+        "geometric",
+        "vivid",
+        "sharp",
+        "high-contrast",
+        "flat",
+        "light"
+      ],
+      "mood": {
+        "formality": 3,
+        "energy": 4,
+        "warmth": 3,
+        "density": 3,
+        "ornament": 3
+      },
+      "characteristics": {
+        "cornerRadius": "sharp",
+        "borderWeight": "bold",
+        "shadow": "hard",
+        "density": "balanced",
+        "motion": "still",
+        "colorScheme": "light",
+        "contrast": "high"
+      },
+      "domains": [
+        "education",
+        "editorial",
+        "marketing",
+        "creative-agency"
+      ],
+      "useWhen": [
+        "3원색·기하 도형의 강한 조형 인상으로 개념·구조를 또렷하게 보여줄 때 쓴다.",
+        "교육·에디토리얼·마케팅용 인포그래픽에서 바우하우스/데수타일 무드가 필요할 때 쓴다.",
+        "두꺼운 아웃라인과 하드 오프셋 섀도로 포스터형 다이어그램을 만들 때 쓴다."
+      ],
+      "avoidWhen": [
+        "기업 아키텍처·기술 스키매틱처럼 절제되고 중립적인 도식이 필요할 때 피한다.",
+        "데이터 밀도가 매우 높아 두꺼운 아웃라인·오프셋 섀도가 시각적 잡음이 될 때 피한다.",
+        "순수 3원색을 라벨 배경으로 강제해야 하는 요구가 있을 때 피한다(대비 미달 리스크)."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "colorful-flat-01"
+      ]
+    }
+  },
+  {
     "name": "blueprint-technical-01",
     "description": "Precision drafting look — warm paper canvas, bold 2.5px keylines, pastel semantic fills, mono tags. Promoted from the original blueprint theme.",
     "metaStatus": "authored",

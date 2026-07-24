@@ -39,6 +39,7 @@ export const STYLE_FAMILIES = [
   // viz 확장 패밀리 (KAN-019 §4-d — UI 카탈로그 트리아지 기반 P1 5종)
   'viz-swiss-systematic', //     Swiss_Systematic_01 (KAN-029)
   'viz-terminal-ascii', //       Terminal_Ascii_01 (KAN-030)
+  'viz-bauhaus-geometric', //    Bauhaus_Geometric_01 (KAN-031)
 ] as const;
 export type StyleFamily = (typeof STYLE_FAMILIES)[number];
 
@@ -68,6 +69,7 @@ export const STYLE_FAMILY_LABELS: Record<StyleFamily, string> = {
   // viz 확장 (KAN-019 §4-d)
   'viz-swiss-systematic': 'Swiss Systematic',
   'viz-terminal-ascii': 'Terminal ASCII',
+  'viz-bauhaus-geometric': 'Bauhaus Geometric',
 };
 
 /** 도메인/프로덕트 유형 적합성. AI가 "무엇을 만드는가"로 후보를 좁히는 1차 필터. */
