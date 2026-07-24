@@ -128,6 +128,10 @@ ChartPrimitives(순수 차트), Sketchnote 컴포지션, Bento/콜라주 그리�
 > 재분류한 결과가 `style-classification.md`에 있으며, 스타일 인벤토리는 그 문서의 **패밀리 7종**(F1~F7)을 정본으로 한다.
 > 요지: 최대 패밀리는 미구현 F2 Corporate_Schematic(24장)이고, 폴더 기준으로는 보이지 않던 F5 Ink_Line_Duotone /
 > F7 Neon_Gradient_Dark 두 패밀리가 신규 발견됐다. 아이소메트릭 투영은 스타일이 아니라 geometry로 분리한다.
+>
+> **📈 확장 계획 (2026-07-24, KAN-019)**: F1~F7(88-corpus)은 전량 구현돼 코퍼스가 소진됐다. 코퍼스 **바깥**의 신규
+> viz 스타일 후보(UI 카탈로그 51종 트리아지 + 아웃라이어 재검토)를 조사·항목화하고 구현 계획을 세운 문서가
+> [`viz-style-expansion.md`](./viz-style-expansion.md)에 있다 — P1 5종(Swiss/Bauhaus/Terminal/Riso/HUD)이 착수 후보.
 
 | 패밀리 (관측 장수) | 스타일 가이드 | 상태 |
 |---|---|---|
