@@ -1,5 +1,70 @@
 [
   {
+    "name": "artdeco-luxe-01",
+    "description": "Art Deco luxe paint — near-black (or deep-green) ground, gold hairline linework, nodes framed by a wrapper-drawn golden symmetric frame (stepped ziggurat corners + inner mirror-symmetric line frame), dark solid node fills with cream labels, faint gold vertical fluting ground, no shadow.",
+    "metaStatus": "authored",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 2,
+      "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "ArtDeco_Luxe_01",
+      "family": "viz-artdeco-luxe",
+      "summary": "니어블랙/딥그린 그라운드 + 골드 대칭 라인 프레임(stepped 코너)·격식 세리프·플루팅의 아르데코 럭셔리 데이터 시각화 페인트.",
+      "tags": [
+        "dark",
+        "luxurious",
+        "geometric",
+        "high-contrast",
+        "serif"
+      ],
+      "mood": {
+        "formality": 5,
+        "energy": 2,
+        "warmth": 3,
+        "density": 3,
+        "ornament": 4
+      },
+      "characteristics": {
+        "cornerRadius": "sharp",
+        "borderWeight": "thin",
+        "shadow": "none",
+        "density": "balanced",
+        "motion": "still",
+        "colorScheme": "dark",
+        "contrast": "high"
+      },
+      "domains": [
+        "luxury",
+        "marketing",
+        "portfolio",
+        "editorial"
+      ],
+      "useWhen": [
+        "럭셔리 브랜드·프리미엄 마케팅 비주얼에 아르데코 격식과 골드 대칭 프레임 무드를 줄 때 쓴다.",
+        "포트폴리오·에디토리얼에서 절제되고 포멀한 다크 럭스 도식이 필요할 때 쓴다.",
+        "골드 라인 + stepped 대칭 프레임으로 기하학적 고급감을 원할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "라이트 배경·인쇄 지향 문서형 차트가 필요할 때 피한다(다크 전용).",
+        "캐주얼·플레이풀·손그림 무드가 목표일 때 피한다(격식 5).",
+        "다색 채움으로 풍부한 색 인코딩이 필요할 때 피한다(골드 모노 라인 아이덴티티)."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": true
+      },
+      "related": [
+        "hud-telemetry-01",
+        "corporate-schematic-01"
+      ]
+    }
+  },
+  {
     "name": "bauhaus-geometric-01",
     "description": "Bauhaus geometric paint family — warm paper ground, thick black keylines, primary-color flat fills (red/yellow/blue) with per-fill contrast-safe labels, hard solid offset shadows, sharp right-angle edges.",
     "metaStatus": "authored",
@@ -389,6 +454,72 @@
       "related": [
         "ink-line-duotone-01",
         "blueprint-technical-01"
+      ]
+    }
+  },
+  {
+    "name": "darkluxe-01",
+    "description": "Dark luxury editorial paint — pure black ground, near-black solid fills, thin gold hairline linework framed by wrapper-drawn hairline rules, a large serif display face, warm cream labels for AAA contrast, no shadow or glow.",
+    "metaStatus": "authored",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 2,
+      "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "DarkLuxe_01",
+      "family": "viz-darkluxe",
+      "summary": "순수 블랙 그라운드 + 골드 헤어라인 룰·라인워크 + 큰 세리프 디스플레이의 미니멀 다크 럭셔리 에디토리얼 인포그래픽 페인트.",
+      "tags": [
+        "dark",
+        "luxurious",
+        "serif",
+        "typographic",
+        "high-contrast",
+        "minimal"
+      ],
+      "mood": {
+        "formality": 5,
+        "energy": 2,
+        "warmth": 3,
+        "density": 2,
+        "ornament": 2
+      },
+      "characteristics": {
+        "cornerRadius": "sharp",
+        "borderWeight": "thin",
+        "shadow": "none",
+        "density": "airy",
+        "motion": "still",
+        "colorScheme": "dark",
+        "contrast": "high"
+      },
+      "domains": [
+        "luxury",
+        "editorial",
+        "portfolio",
+        "marketing"
+      ],
+      "useWhen": [
+        "럭셔리 브랜드·에디토리얼 인포그래픽을 순수 블랙 + 골드 헤어라인의 값비싼 무드로 낼 때 쓴다.",
+        "큰 세리프 타이틀과 절제된 헤어라인으로 미니멀·고급 감성을 원하는 포트폴리오/마케팅 비주얼에 쓴다.",
+        "다크 그라운드에서 격식 높은 편집적 도식을 조립할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "밝고 활기찬 대중적 무드나 라이트 배경이 필요할 때 피한다(이 가이드는 다크 전용).",
+        "풍부한 다색 데이터 인코딩이 필요한 고밀도 차트에 피한다(절제된 골드/크림 2~3색).",
+        "캐주얼·키치·손그림 감성이 목표일 때 피한다(격식·미니멀 지향)."
+      ],
+      "accessibility": {
+        "contrastIntent": "aaa",
+        "colorblindConsidered": false,
+        "motionHeavy": false,
+        "darkFirst": true
+      },
+      "related": [
+        "ink-line-duotone-01",
+        "corporate-schematic-01"
       ]
     }
   },
@@ -1321,6 +1452,137 @@
     }
   },
   {
+    "name": "organic-blob-01",
+    "description": "Organic blob paint — soft natural-light ground, biomorphic blob-shaped nodes drawn by a wrapper as a deterministic closed cubic-bezier path behind the real node, calm natural-pastel tints (sage/clay/sky/peach/lilac) with deep green-charcoal ink labels for AA contrast, no shadow.",
+    "metaStatus": "authored",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 2,
+      "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Organic_Blob_01",
+      "family": "viz-organic-blob",
+      "summary": "소프트 자연광 그라운드 + 결정론적 유기 blob 형태 노드 + 자연 파스텔 틴트·딥 그린-차콜 잉크의 차분하고 친근한 바이오모픽 인포그래픽 페인트.",
+      "tags": [
+        "organic",
+        "rounded",
+        "pastel",
+        "light",
+        "playful"
+      ],
+      "mood": {
+        "formality": 2,
+        "energy": 2,
+        "warmth": 4,
+        "density": 2,
+        "ornament": 3
+      },
+      "characteristics": {
+        "cornerRadius": "round",
+        "borderWeight": "thin",
+        "shadow": "none",
+        "density": "airy",
+        "motion": "still",
+        "colorScheme": "light",
+        "contrast": "high"
+      },
+      "domains": [
+        "creative-agency",
+        "marketing",
+        "portfolio",
+        "education",
+        "healthcare"
+      ],
+      "useWhen": [
+        "차분하고 친근한 유기적 무드의 다이어그램·인포그래픽을 조립할 때 쓴다.",
+        "크리에이티브 에이전시·마케팅·포트폴리오처럼 부드러운 바이오모픽 감성이 필요할 때 쓴다.",
+        "교육·헬스케어처럼 따뜻하고 접근 가능한 파스텔 도식이 필요할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "각진 정밀·격식이 최우선인 기업 리포트·기술 명세 도식일 때 피한다.",
+        "다크 그라운드·네온 하이테크 무드가 필요할 때 피한다(라이트 전용).",
+        "고채도 원색으로 강한 에너지를 내야 할 때 피한다(저채도 자연 파스텔)."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "colorful-flat-01",
+        "marker-sketchnote-01"
+      ]
+    }
+  },
+  {
+    "name": "pixel-retro-01",
+    "description": "8-bit pixel-art paint — light retro parchment ground, hard flat retro console fills with chunky pixel-ink outlines on an 8px integer grid, a deterministic square-pixel dot screen (SVG <pattern>, crispEdges) overlaid on shapes only, crispEdges shape-rendering to drop anti-aliasing, near-black ink for all lines and labels for AA-plus contrast on flat fills. No new geometry — the pixel feel comes from a square pattern overlay plus hard flat fills.",
+    "metaStatus": "authored",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 2,
+      "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Pixel_Retro_01",
+      "family": "viz-pixel-retro",
+      "summary": "라이트 파치먼트 + 하드 플랫 레트로 채움 + 청키 픽셀 잉크 윤곽 + 스퀘어 픽셀 도트 스크린(정수 그리드)의 8비트 픽셀 아트 인포그래픽 페인트.",
+      "tags": [
+        "retro",
+        "geometric",
+        "vivid",
+        "high-contrast",
+        "sharp"
+      ],
+      "mood": {
+        "formality": 1,
+        "energy": 4,
+        "warmth": 3,
+        "density": 4,
+        "ornament": 3
+      },
+      "characteristics": {
+        "cornerRadius": "sharp",
+        "borderWeight": "bold",
+        "shadow": "none",
+        "density": "dense",
+        "motion": "still",
+        "colorScheme": "light",
+        "contrast": "high"
+      },
+      "domains": [
+        "gaming",
+        "entertainment",
+        "dev-tools",
+        "marketing"
+      ],
+      "useWhen": [
+        "게이밍·엔터테인먼트 인포그래픽을 8비트 픽셀 아트(정수 그리드 + 스퀘어 픽셀 도트)의 레트로 콘솔 무드로 낼 때 쓴다.",
+        "레트로 픽셀 질감(하드 플랫 채움 + crispEdges)으로 노스탤지어 무드를 주고 싶을 때 쓴다.",
+        "dev-tools·마케팅 비주얼에서 차별적 레트로 게임 감성이 필요할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "정밀·격식이 최우선인 기업 리포트·기술 명세 도식일 때 피한다(F2/Swiss를 쓴다).",
+        "부드러운 곡선·소프트 섀도의 우아한 무드가 필요할 때 피한다(Soft/Puffy를 쓴다).",
+        "색각 안정성·저채도 절제가 우선인 대규모 데이터 차트에 피한다(고채도 콘솔 팔레트)."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "colorful-flat-01",
+        "terminal-ascii-01"
+      ]
+    }
+  },
+  {
     "name": "retro70s-warm-01",
     "description": "Warm 1970s earth-tone infographic paint — mustard, terracotta, burnt-orange and avocado-olive on a warm cream ground with a fine deterministic feTurbulence grain (shape-only, seed fixed). Node fills stay light warm tints so dark warm-brown ink labels pass AA; the saturated earth tones live in the palette swatches only. Cozy, analog, warm.",
     "metaStatus": "authored",
@@ -1520,6 +1782,73 @@
     }
   },
   {
+    "name": "synthwave-01",
+    "description": "Synthwave paint — deep purple/navy ground, neon magenta + cyan ink, opaque deep-indigo node fills, receding perspective grid and CRT scanlines injected as name-scoped motif CSS (shape/showcase only), restrained neon glow, near-white labels for AA contrast on dark surfaces.",
+    "metaStatus": "authored",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 2,
+      "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Synthwave_01",
+      "family": "viz-synthwave",
+      "summary": "딥 퍼플/네이비 그라운드 + 네온 마젠타·시안 + 원근 퍼스펙티브 그리드·CRT 스캔라인·절제된 글로우의 80s 레트로퓨처 신스웨이브 데이터 시각화 페인트.",
+      "tags": [
+        "dark",
+        "neon",
+        "vivid",
+        "retro",
+        "futuristic",
+        "gradient"
+      ],
+      "mood": {
+        "formality": 2,
+        "energy": 5,
+        "warmth": 3,
+        "density": 3,
+        "ornament": 4
+      },
+      "characteristics": {
+        "cornerRadius": "sharp",
+        "borderWeight": "thin",
+        "shadow": "glow",
+        "density": "balanced",
+        "motion": "still",
+        "colorScheme": "dark",
+        "contrast": "high"
+      },
+      "domains": [
+        "gaming",
+        "entertainment",
+        "crypto-web3",
+        "marketing",
+        "dashboard"
+      ],
+      "useWhen": [
+        "게이밍·엔터테인먼트·크립토처럼 80s 레트로퓨처 네온 무드가 필요한 노드/차트/다이어그램에 쓴다.",
+        "다크 테마 대시보드·데모 화면을 퍼스펙티브 그리드 + CRT 스캔라인으로 강렬하게 부각할 때 쓴다.",
+        "네온 마젠타·시안(또는 선셋 오렌지·바이올렛)으로 에너지 넘치는 임팩트를 줄 때 쓴다."
+      ],
+      "avoidWhen": [
+        "라이트 배경·인쇄 지향 문서형 차트가 필요할 때 피한다(다크 전용).",
+        "정밀·격식이 최우선인 기업 리포트·기술 명세 도식일 때 피한다(고에너지 네온).",
+        "저채도 절제와 색각 안정성이 우선인 대규모 데이터 차트에 피한다."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": false,
+        "darkFirst": true
+      },
+      "related": [
+        "neon-gradient-dark-01",
+        "hud-telemetry-01"
+      ]
+    }
+  },
+  {
     "name": "terminal-ascii-01",
     "description": "Dark-console TUI paint — full monospace (titleFont = JetBrains Mono), phosphor-green ink, unfilled 1px box nodes, orthogonal box-drawing edges, decorative cursor block + scanline. Amber CRT monochrome colorway.",
     "metaStatus": "authored",
@@ -1581,6 +1910,71 @@
       },
       "related": [
         "blueprint-technical-01",
+        "ink-line-duotone-01"
+      ]
+    }
+  },
+  {
+    "name": "ukiyoe-flat-01",
+    "description": "Ukiyo-e woodblock paint family — warm washi paper ground, earthy muted flat color planes (light indigo/ochre/clay/sage/plum tints) contoured by a bold sumi-ink outline with a subtle registration offset (decorative, shape-only), saturated earth tones reserved for palette swatches, sumi-ink labels for honest AA contrast on the light tints.",
+    "metaStatus": "authored",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 2,
+      "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Ukiyoe_Flat_01",
+      "family": "viz-ukiyoe-flat",
+      "summary": "웜 와시 페이퍼 + 흙빛 뮤트 flat 색면 + 굵은 스미 먹선 컨투어의 일본 목판화(우키요에) 인포그래픽 페인트 — 차분·전통·평면.",
+      "tags": [
+        "muted",
+        "flat",
+        "textured",
+        "retro",
+        "light"
+      ],
+      "mood": {
+        "formality": 3,
+        "energy": 2,
+        "warmth": 4,
+        "density": 2,
+        "ornament": 3
+      },
+      "characteristics": {
+        "cornerRadius": "soft",
+        "borderWeight": "bold",
+        "shadow": "none",
+        "density": "balanced",
+        "motion": "still",
+        "colorScheme": "light",
+        "contrast": "medium"
+      },
+      "domains": [
+        "editorial",
+        "creative-agency",
+        "marketing",
+        "portfolio"
+      ],
+      "useWhen": [
+        "에디토리얼·포트폴리오 인포그래픽을 우키요에(목판화)의 흙빛 flat 색면 + 스미 먹선 무드로 낼 때 쓴다.",
+        "차분하고 전통적인 아날로그 인상을 절제된 흙빛 뮤트 팔레트로 주고 싶을 때 쓴다.",
+        "크리에이티브 에이전시·마케팅 비주얼에서 일본 목판화풍의 차별적 감성이 필요할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "정밀·격식이 최우선인 기업 리포트·기술 명세 도식일 때 피한다(F2를 쓴다).",
+        "다크 그라운드·네온 하이테크 무드가 필요할 때 피한다(이 가이드는 라이트 전용).",
+        "고채도·고에너지 팝 임팩트가 필요할 때 피한다(뮤트 흙빛 절제 무드)."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "colorful-flat-01",
         "ink-line-duotone-01"
       ]
     }

@@ -50,6 +50,12 @@ export const STYLE_FAMILIES = [
   'viz-retro70s-warm', //        Retro70s_Warm_01 (KAN-039)
   'viz-dopamine-max', //         Dopamine_Max_01 (KAN-039)
   'viz-bento-stat', //           Bento_Stat_01 (KAN-039)
+  'viz-synthwave', //            Synthwave_01 (KAN-039)
+  'viz-artdeco-luxe', //         ArtDeco_Luxe_01 (KAN-039)
+  'viz-darkluxe', //             DarkLuxe_01 (KAN-039)
+  'viz-organic-blob', //         Organic_Blob_01 (KAN-039, Tier B blob shape)
+  'viz-ukiyoe-flat', //          Ukiyoe_Flat_01 (KAN-039)
+  'viz-pixel-retro', //          Pixel_Retro_01 (KAN-039)
 ] as const;
 export type StyleFamily = (typeof STYLE_FAMILIES)[number];
 
@@ -89,6 +95,12 @@ export const STYLE_FAMILY_LABELS: Record<StyleFamily, string> = {
   'viz-retro70s-warm': 'Retro 70s Warm',
   'viz-dopamine-max': 'Dopamine Max',
   'viz-bento-stat': 'Bento Stat',
+  'viz-synthwave': 'Synthwave',
+  'viz-artdeco-luxe': 'Art Deco Luxe',
+  'viz-darkluxe': 'Dark Luxe',
+  'viz-organic-blob': 'Organic Blob',
+  'viz-ukiyoe-flat': 'Ukiyoe Flat',
+  'viz-pixel-retro': 'Pixel Retro',
 };
 
 /** 도메인/프로덕트 유형 적합성. AI가 "무엇을 만드는가"로 후보를 좁히는 1차 필터. */

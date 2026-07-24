@@ -23,6 +23,12 @@ import { memphisPattern01VizStyleGuide } from './memphisPattern';
 import { retro70sWarm01VizStyleGuide } from './retro70sWarm';
 import { dopamineMax01VizStyleGuide } from './dopamineMax';
 import { bentoStat01VizStyleGuide } from './bentoStat';
+import { synthwave01VizStyleGuide } from './synthwave';
+import { artdecoLuxe01VizStyleGuide } from './artdecoLuxe';
+import { darkluxe01VizStyleGuide } from './darkluxe';
+import { organicBlob01VizStyleGuide } from './organicBlob';
+import { ukiyoeFlat01VizStyleGuide } from './ukiyoeFlat';
+import { pixelRetro01VizStyleGuide } from './pixelRetro';
 
 export { blueprintTechnical01VizStyleGuide } from './blueprintTechnical';
 export { minimalLine01VizStyleGuide } from './minimalLine';
@@ -48,6 +54,12 @@ export { memphisPattern01VizStyleGuide } from './memphisPattern';
 export { retro70sWarm01VizStyleGuide } from './retro70sWarm';
 export { dopamineMax01VizStyleGuide } from './dopamineMax';
 export { bentoStat01VizStyleGuide } from './bentoStat';
+export { synthwave01VizStyleGuide } from './synthwave';
+export { artdecoLuxe01VizStyleGuide } from './artdecoLuxe';
+export { darkluxe01VizStyleGuide } from './darkluxe';
+export { organicBlob01VizStyleGuide } from './organicBlob';
+export { ukiyoeFlat01VizStyleGuide } from './ukiyoeFlat';
+export { pixelRetro01VizStyleGuide } from './pixelRetro';
 export { makeVizColorway } from './_foundation';
 export type { VizColorwayOverride } from './_foundation';
 export { useVizMotifStyle } from './_motif';
@@ -80,6 +92,12 @@ export const vizStyleGuideCatalog: readonly VisualizationStyleGuide[] = [
   retro70sWarm01VizStyleGuide,
   dopamineMax01VizStyleGuide,
   bentoStat01VizStyleGuide,
+  synthwave01VizStyleGuide,
+  artdecoLuxe01VizStyleGuide,
+  darkluxe01VizStyleGuide,
+  organicBlob01VizStyleGuide,
+  ukiyoeFlat01VizStyleGuide,
+  pixelRetro01VizStyleGuide,
 ];
 
 /** slug(name) → style guide 조회 맵. */
