@@ -1,6 +1,6 @@
 {
-  "next_id": 40,
-  "next_seq": 103,
+  "next_id": 41,
+  "next_seq": 110,
   "cards": {
     "KAN-001": {
       "col": "done",
@@ -231,15 +231,15 @@
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-020": {
-      "col": "backlog",
-      "title": "bbangto-ui에서 visualization 라이브러리를 가져다 쓸 때, 사용 주체가 ai라면, 어떤 경우에 어떤 시각화 패턴을 사용할지 파악하기 위해 라이브러리 코드를 검사해야 할 수도 있다. 하지만, 그러면 패턴이 방대해 졌을 때 효과적으로 탐색하기 어렵다. 따라서, 각 패턴이 어떤 상황에서 유효한지 알려주는 메타 데이터를 라이브러리 레벨에서 제공할 수 있다면 좋을 것이다. 그렇게 하기 위한 전략을 구상해라.",
-      "memo": "검증(2026-07-23): 전제 부분 무효 — '메타데이터 전무'는 부정확. 이미 존재: (a) visualization/visualization-type-inventory.md가 유형별 '대표 용도(when to use)'+데이터형태(FT Visual Vocabulary)+프리미티브 분류 SSOT 제공, (b) style-guide-catalog/METADATA_STRATEGY.md + selectStyleGuides가 그대로 미러링 가능한 작동 선례. 잔여 과제로 재스코핑 필요: 패턴/템플릿 코드 객체에 기계가독 메타(useWhen 등)+매니페스트/헬퍼가 아직 부재(src/patterns·templates grep 0건). → 카드를 '패턴 축 매니페스트/셀렉터 구현'으로 좁힐 것.",
+      "col": "done",
+      "title": "visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현",
+      "memo": "완료(2026-07-24). 유형(what) 축 채택 메타 인프라 신설 — 스타일 축(KAN-018/021/022/023)을 유형 축으로 미러링. 산출물: `packages/visualization/src/typeMeta/{types,registry,manifest,select,index}.ts` + `scripts/genTypeManifest.ts` + `type.manifest.json`(87 엔트리) + 서브패스 export `./type-meta`(루트 배럴 미오염 → 컴포넌트 소비자 번들 무영향) + `TYPE_METADATA_STRATEGY.md`(+ style METADATA_STRATEGY 포인터). **VizTypeMeta 스키마**(category A~G·dataShape=FT9+구조7·primitives16·tags 고정 union·useWhen/avoidWhen/related). **레지스트리 87 슬롯**(inventory §5/§6 전사, ⛔ 3행 제외) — 파일럿 6종 rich-meta(BarChart VT-501·ClassDiagram VT-101·ProcessSteps VT-202·SwotMatrix VT-703·Sequence VT-108[다-export 3]·Cycle VT-203[variant]), 나머지 81 pending. **buildTypeManifest**(related 정합성 authored 전체 throw·id 결정적 정렬·완성도 계산) + **selectVizTypes**(soft-weighted recall·includePending 기본 false·결정적 tie-break — select.ts 시맨틱 계승). 커버리지 게이트 = 배럴 정적 소스스캔 양방향(90 export − allowlist 3[IsometricScene·Kruchten4Plus1View·ViewpointFrame; inventory §8-b VT 미승격] = 87). TDD 30 테스트(registry/manifest 바이트동기/select). 외부검토(codex) 13지적 반영(모드 variant·정적스캔·서브패스·시맨틱계승·태그 union·개수기준 분리·related 전체·stable-API·소비 이원경로). prebuild 미배선(코어 blast radius↓, KAN-025 선례)—`gen:type-manifest` 수동+바이트동기 테스트가 최신성 강제. 게이트 5종 green: typecheck·build(viz dist/typeMeta emit)·test:unit(viz 138[+30])·test(1219 play)·storybook build. 스코프=인프라+파일럿; pending 81 전량 backfill은 [[KAN-040]] 후속. **[[KAN-035]] 선행조건**(본 카드=유형 축 인프라, KAN-035=전 인터페이스 커버리지 감사).",
       "verbatim": "",
       "생성": "유저",
-      "최종": "ai",
-      "갱신": "2026-07-23",
-      "title_hash": "91f4421b03786bbad3100718209375088ccff9fa",
-      "memo_hash": "1ea10fe79c2d6fe1430c89db75f32ff44ffd87a6",
+      "최종": "유저",
+      "갱신": "2026-07-25",
+      "title_hash": "72219977ad8351e0ee2e76e3f94618c42a02153f",
+      "memo_hash": "99772ef561db6c8a3b9d00eb470c5307cbf29a3b",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-021": {
@@ -413,13 +413,13 @@
     "KAN-035": {
       "col": "backlog",
       "title": "최초 ai를 위한 메타데이터를 도입한 작업 이후로, 태스크를 진행할 때마다, 메타데이터 생성도 같이 진행이 됐는지 확인 필요. 같이 생성이 안됐다면, 없는 인터페이스들에 대해서 적용하기 위한 계획 및 수행 필요",
-      "memo": "",
+      "memo": "범위 관계 — 본 카드는 전 인터페이스 메타 **커버리지 감사/집행**(상위). [[KAN-020]]은 그중 visualization 유형(패턴/템플릿) 축 **인프라 구축**(선행 조건)으로 (b) 분리 유지 결정(2026-07-24).",
       "verbatim": "",
       "생성": "유저",
       "최종": "유저",
-      "갱신": "2026-07-24",
+      "갱신": "2026-07-25",
       "title_hash": "0623205a5d4ad01d035037b8f98b4ce3a702afd3",
-      "memo_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+      "memo_hash": "bd5c7611f5154e5c475943eca041948ddf3c9e05",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-036": {
@@ -469,12 +469,24 @@
       "title_hash": "b3ceefd41c8440cd1f35d65f05a98391c7c0eb4c",
       "memo_hash": "05c7ea61085a8d578e0dde7109d5dcf51e3567d1",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    },
+    "KAN-040": {
+      "col": "done",
+      "title": "viz 유형 축 meta 전량 backfill — [[KAN-020]] 인프라 위 pending 81종에 rich `VizTypeMeta`(useWhen/avoidWhen/dataShape/primitives/related) additive 저작, 완료 시 gate 'type-meta 필수' 승격 후보. 스키마는 KAN-020이 stable 동결 → 필드 추가·변경 없이 채우기만. 스타일 축 KAN-021(48+6 backfill) 동형. **[[KAN-035]] 관계**: 본 카드 = viz 유형 축 커버리지 **저작 실행**, KAN-035 = 전 인터페이스 커버리지 **감사/집행**(상위).",
+      "memo": "완료(2026-07-25): KAN-020 인프라(동결 스키마) 위 pending 81종 전량 additive 백필 → 전 87 authored·pending 0. 인벤토리 §5 각 행(정의·용도·프리미티브·aliases·tags·related)을 통제 어휘 union으로 정규화 승격(필드 추가·변경 0). **gate 'type-meta 필수' 승격**: registry.test.ts에 전 엔트리 meta 보유(pending 0)·통제 어휘 검증·useWhen/avoidWhen(≤5)·related 정합성 hard-fail 추가. 타입상 meta? optional 제거는 breaking이라 이연(스타일 축 KAN-021 선례=게이트 집행·타입 유지). TDD: manifest.test authored 6→87·pending 81→0, select.test AUTHORED=87 + 카운트/집합 의존 3종 재작성(process 만점집합=레지스트리 파생·geo soft-weighted 비붕괴) + includePending 합성 픽스처 테스트(실 레지스트리 pending 0이라 커버리지 보존). type.manifest.json 재생성(gen:type-manifest). 게이트 5종 green: typecheck(8pkg)·build·test:unit(viz 138→141)·test(1219 play)·storybook build. 코어/스토리 무변경(순수 데이터+테스트). [[KAN-035]] 감사/집행은 상위 카드 유지.",
+      "verbatim": "",
+      "생성": "유저",
+      "최종": "ai",
+      "갱신": "2026-07-25",
+      "title_hash": "1d09e4d2af06fb5f007779300d02d84fa6ab1ea4",
+      "memo_hash": "7bdde19bac06c318d03917e87f96e4b8f795b1e7",
+      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     }
   },
   "order": [
-    "KAN-020",
     "KAN-035",
     "KAN-036",
+    "KAN-020",
     "KAN-025",
     "KAN-024",
     "KAN-023",
@@ -510,9 +522,79 @@
     "KAN-037",
     "KAN-038",
     "KAN-039",
-    "KAN-028"
+    "KAN-028",
+    "KAN-040"
   ],
   "recent": [
+    {
+      "seq": 109,
+      "t": "2026-07-25T00:57",
+      "a": "ai",
+      "id": "KAN-040",
+      "op": "edit",
+      "field": "memo",
+      "before": "KAN-020 완료 시 파생(2026-07-24). 파일럿 6종(VT-101/108/202/203/501/703) authored, 잔여 81 pending. 저작 게이트: registry.test 정적스캔 커버리지·manifest.test 바이트동기가 이미 drift 방지. 참고 갭 — geometry 트랙 IsometricScene·G6 조합프레임 Kruchten4Plus1View·ViewpointFrame은 inventory §8-b가 VT 미승격이라 registry allowlist 제외 중; selectable로 만들려면 inventory §5/§6에 VT 행 추가 선행(이 카드 또는 별도).",
+      "after": "완료(2026-07-25): KAN-020 인프라(동결 스키마) 위 pending 81종 전량 additive 백필 → 전 87 authored·pending 0. 인벤토리 §5 각 행(정의·용도·프리미티브·aliases·tags·related)을 통제 어휘 union으로 정규화 승격(필드 추가·변경 0). **gate 'type-meta 필수' 승격**: registry.test.ts에 전 엔트리 meta 보유(pending 0)·통제 어휘 검증·useWhen/avoidWhen(≤5)·related 정합성 hard-fail 추가. 타입상 meta? optional 제거는 breaking이라 이연(스타일 축 KAN-021 선례=게이트 집행·타입 유지). TDD: manifest.test authored 6→87·pending 81→0, select.test AUTHORED=87 + 카운트/집합 의존 3종 재작성(process 만점집합=레지스트리 파생·geo soft-weighted 비붕괴) + includePending 합성 픽스처 테스트(실 레지스트리 pending 0이라 커버리지 보존). type.manifest.json 재생성(gen:type-manifest). 게이트 5종 green: typecheck(8pkg)·build·test:unit(viz 138→141)·test(1219 play)·storybook build. 코어/스토리 무변경(순수 데이터+테스트). [[KAN-035]] 감사/집행은 상위 카드 유지."
+    },
+    {
+      "seq": 108,
+      "t": "2026-07-25T00:57",
+      "a": "ai",
+      "id": "KAN-040",
+      "op": "move",
+      "from": "backlog",
+      "to": "done"
+    },
+    {
+      "seq": 107,
+      "t": "2026-07-25T00:57",
+      "a": "유저",
+      "id": "KAN-020",
+      "op": "edit",
+      "field": "memo",
+      "before": "검증(2026-07-23): 전제 부분 무효 — '메타데이터 전무'는 부정확. 이미 존재: (a) visualization/visualization-type-inventory.md가 유형별 '대표 용도(when to use)'+데이터형태(FT Visual Vocabulary)+프리미티브 분류 SSOT 제공, (b) style-guide-catalog/METADATA_STRATEGY.md + selectStyleGuides가 그대로 미러링 가능한 작동 선례. 잔여 과제로 재스코핑 필요: 패턴/템플릿 코드 객체에 기계가독 메타(useWhen 등)+매니페스트/헬퍼가 아직 부재(src/patterns·templates grep 0건). → 카드를 '패턴 축 매니페스트/셀렉터 구현'으로 좁힐 것.",
+      "after": "완료(2026-07-24). 유형(what) 축 채택 메타 인프라 신설 — 스타일 축(KAN-018/021/022/023)을 유형 축으로 미러링. 산출물: `packages/visualization/src/typeMeta/{types,registry,manifest,select,index}.ts` + `scripts/genTypeManifest.ts` + `type.manifest.json`(87 엔트리) + 서브패스 export `./type-meta`(루트 배럴 미오염 → 컴포넌트 소비자 번들 무영향) + `TYPE_METADATA_STRATEGY.md`(+ style METADATA_STRATEGY 포인터). **VizTypeMeta 스키마**(category A~G·dataShape=FT9+구조7·primitives16·tags 고정 union·useWhen/avoidWhen/related). **레지스트리 87 슬롯**(inventory §5/§6 전사, ⛔ 3행 제외) — 파일럿 6종 rich-meta(BarChart VT-501·ClassDiagram VT-101·ProcessSteps VT-202·SwotMatrix VT-703·Sequence VT-108[다-export 3]·Cycle VT-203[variant]), 나머지 81 pending. **buildTypeManifest**(related 정합성 authored 전체 throw·id 결정적 정렬·완성도 계산) + **selectVizTypes**(soft-weighted recall·includePending 기본 false·결정적 tie-break — select.ts 시맨틱 계승). 커버리지 게이트 = 배럴 정적 소스스캔 양방향(90 export − allowlist 3[IsometricScene·Kruchten4Plus1View·ViewpointFrame; inventory §8-b VT 미승격] = 87). TDD 30 테스트(registry/manifest 바이트동기/select). 외부검토(codex) 13지적 반영(모드 variant·정적스캔·서브패스·시맨틱계승·태그 union·개수기준 분리·related 전체·stable-API·소비 이원경로). prebuild 미배선(코어 blast radius↓, KAN-025 선례)—`gen:type-manifest` 수동+바이트동기 테스트가 최신성 강제. 게이트 5종 green: typecheck·build(viz dist/typeMeta emit)·test:unit(viz 138[+30])·test(1219 play)·storybook build. 스코프=인프라+파일럿; pending 81 전량 backfill은 [[KAN-040]] 후속. **[[KAN-035]] 선행조건**(본 카드=유형 축 인프라, KAN-035=전 인터페이스 커버리지 감사)."
+    },
+    {
+      "seq": 106,
+      "t": "2026-07-25T00:57",
+      "a": "유저",
+      "id": "KAN-020",
+      "op": "edit",
+      "field": "title",
+      "before": "bbangto-ui에서 visualization 라이브러리를 가져다 쓸 때, 사용 주체가 ai라면, 어떤 경우에 어떤 시각화 패턴을 사용할지 파악하기 위해 라이브러리 코드를 검사해야 할 수도 있다. 하지만, 그러면 패턴이 방대해 졌을 때 효과적으로 탐색하기 어렵다. 따라서, 각 패턴이 어떤 상황에서 유효한지 알려주는 메타 데이터를 라이브러리 레벨에서 제공할 수 있다면 좋을 것이다. 그렇게 하기 위한 전략을 구상해라.",
+      "after": "visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현"
+    },
+    {
+      "seq": 105,
+      "t": "2026-07-25T00:57",
+      "a": "유저",
+      "id": "KAN-020",
+      "op": "move",
+      "from": "backlog",
+      "to": "done"
+    },
+    {
+      "seq": 104,
+      "t": "2026-07-25T00:57",
+      "a": "유저",
+      "id": "KAN-040",
+      "op": "create",
+      "col": "backlog",
+      "title": "viz 유형 축 meta 전량 backfill — [[KAN-020]] 인프라 위 pending 81종에 rich `VizTypeMeta`(useWhen/avoidWhen/dataShape/primitives/related) additive 저작, 완료 시 gate 'type-meta 필수' 승격 후보. 스키마는 KAN-020이 stable 동결 → 필드 추가·변경 없이 채우기만. 스타일 축 KAN-021(48+6 backfill) 동형. **[[KAN-035]] 관계**: 본 카드 = viz 유형 축 커버리지 **저작 실행**, KAN-035 = 전 인터페이스 커버리지 **감사/집행**(상위).",
+      "memo": "KAN-020 완료 시 파생(2026-07-24). 파일럿 6종(VT-101/108/202/203/501/703) authored, 잔여 81 pending. 저작 게이트: registry.test 정적스캔 커버리지·manifest.test 바이트동기가 이미 drift 방지. 참고 갭 — geometry 트랙 IsometricScene·G6 조합프레임 Kruchten4Plus1View·ViewpointFrame은 inventory §8-b가 VT 미승격이라 registry allowlist 제외 중; selectable로 만들려면 inventory §5/§6에 VT 행 추가 선행(이 카드 또는 별도).",
+      "verbatim": ""
+    },
+    {
+      "seq": 103,
+      "t": "2026-07-25T00:57",
+      "a": "유저",
+      "id": "KAN-035",
+      "op": "edit",
+      "field": "memo",
+      "before": "",
+      "after": "범위 관계 — 본 카드는 전 인터페이스 메타 **커버리지 감사/집행**(상위). [[KAN-020]]은 그중 visualization 유형(패턴/템플릿) 축 **인프라 구축**(선행 조건)으로 (b) 분리 유지 결정(2026-07-24)."
+    },
     {
       "seq": 102,
       "t": "2026-07-24T22:38",
@@ -939,74 +1021,6 @@
       "op": "move",
       "from": "backlog",
       "to": "done"
-    },
-    {
-      "seq": 59,
-      "t": "2026-07-23T23:34",
-      "a": "ai",
-      "id": "KAN-014",
-      "op": "edit",
-      "field": "memo",
-      "before": "ORD-008/009 이연 — 지터(jitter) seeded 렌더·손글씨 폰트·질감 토큰화 필요(기술 블로커로 계속 보류 중).",
-      "after": "완료 — F4 Marker_Sketchnote paint 가이드 구현(`marker-sketchnote-01`). 블로커 해소: seeded 지터는 RoughNode wrapper가 <defs><filter>에 feTurbulence(고정 seed=7)+feDisplacementMap 주입(NeonNode 패턴 미러, useVizDefsPrefix+useId 유일 id)으로 결정론 확보 — PRNG·새 geometry 0. 필터는 도형 그룹(data-viz-rough)에만, 텍스트 미적용(가독성). 손글씨=cursive 폴백 문자열(에셋 미번들). paper/darkboard 2 preset(makeVizColorway). meta contrastIntent 'aa'(over-claim 감사 0, 전 preset 실측 통과). 스토리 wrapperExtraPlay로 필터 스코프·seed·라벨 미왜곡 검증. 파일: src/markerSketchnote.tsx + VizStyleGuideMarkerSketchnote01.stories.tsx + index/preview/manifest. viz 6→8종. 4 게이트 green(typecheck/build/test 1103/storybook build)+카탈로그 39테스트. 외부검토(codex) 반영."
-    },
-    {
-      "seq": 58,
-      "t": "2026-07-23T23:34",
-      "a": "ai",
-      "id": "KAN-014",
-      "op": "move",
-      "from": "backlog",
-      "to": "done"
-    },
-    {
-      "seq": 57,
-      "t": "2026-07-23T23:34",
-      "a": "ai",
-      "id": "KAN-028",
-      "op": "create",
-      "col": "backlog",
-      "title": "viz geometry 트랙 — 진짜 isometric 투영(projection·depth-sort·iso 커넥터) 프리미티브 구현",
-      "memo": "KAN-013에서 분리. Iso_ColorBlock은 paint 패밀리(cube 3단 면 재사용)로 구현 완료했고, style-classification.md line 167/246-247 원칙(스타일 가이드는 paint만, iso는 별도 geometry 트랙)에 따라 진짜 iso는 이 카드로 분리. 필요: geometry/isometric.ts(투영 행렬 30°·depth-sort·iso 커넥터 라우팅·floor cast shadow), 텍스트는 skew 금지(평면 오버레이 레이어 — 접근성 필수). 착수 시 Iso_ColorBlock paint 가이드를 iso geometry 위에 합성 가능한지 검토.",
-      "verbatim": ""
-    },
-    {
-      "seq": 56,
-      "t": "2026-07-23T19:49",
-      "a": "ai",
-      "id": "KAN-016",
-      "op": "edit",
-      "field": "memo",
-      "before": "ORD-008 이연 — TemplateStyleMatrix 3-way 교차검증이 파일럿 3템플릿(Flowchart/SequenceDiagram/C4ContainerDiagram) 축에 고정. 검증(2026-07-23): 전제 수치 갱신 — 구현 템플릿 총량 76/90 → 87/90 확정(ORD-012 완료), 스타일가이드 축 3→6 증가로 매트릭스는 3템플릿×6가이드로 커졌으나 템플릿 축 파일럿 고정 한계 존속(TemplateStyleMatrix.stories.tsx PilotMatrix). 단일 가이드 paint 게이트(expectVizPaintResolved)는 전 템플릿 커버 — 3-way 교차검증의 템플릿 축 재스코핑만 남음.",
-      "after": "완료 — 교차검증 템플릿 축을 파일럿 3종 → 그룹 전 축(G1~G5·P2·P3) 대표 24종으로 재스코핑. 신규 `_matrixFixtures.tsx`(그룹 스토리 검증 데이터 복사, 기존 스토리 무변경) + `TemplateStyleMatrix.stories.tsx`에 template-major `ExpandedMatrix` 스토리 추가(PilotMatrix 유지). play 검증: fixture 가드(key slug-safe·유일), 행수=fixture수·셀수=vizStyleGuideCatalog.length(SSOT), 셀별 svg role=img+non-empty title+expectVizPaintResolved+paintSig non-empty, 행마다 guideVarSig 전-가이드 all-distinct(결정적), 템플릿별 paintSig(svg 전 geometry mark, bg 제외, 상한60) 집합>1. 외부검토(codex) 반영: 약한 >1 기준 보강(가이드축 all-distinct 분리), bg가 paint 가리는 문제 제거, 첫-N 취약성→전-mark 일반화, SSOT 카운트, per-row 무결성. ExpandedMatrix 24×6=144 SVG play 2.56s(분할 불필요). 4 게이트 green(typecheck/build/test 1093/storybook build). viz 소스·core export 무변경."
-    },
-    {
-      "seq": 55,
-      "t": "2026-07-23T19:48",
-      "a": "ai",
-      "id": "KAN-016",
-      "op": "move",
-      "from": "backlog",
-      "to": "done"
-    },
-    {
-      "seq": 54,
-      "t": "2026-07-23T18:21",
-      "a": "ai",
-      "id": "KAN-027",
-      "op": "move",
-      "from": "doing",
-      "to": "done"
-    },
-    {
-      "seq": 53,
-      "t": "2026-07-23T18:21",
-      "a": "ai",
-      "id": "KAN-027",
-      "op": "edit",
-      "field": "memo",
-      "before": "KAN-025가 드러냄 — #29-50 style guide 16종의 meta.displayName이 도출 시퀀스 접미사(GrainyBlurDreamy_03·PixelArtRetro_13 등)를 유지, #0-28의 canonical `Primary_Secondary_01` 규칙과 불일치. 단어 경계(3~4단어 slug 포함) 명명 결정 후 meta 일괄 정정 + 매니페스트·트렌드 표 재생성. (KAN-025에서 pixel-art-retro-01 trendIndex 버그만 선반영.)",
-      "after": "완료(2026-07-23): #29-50 meta.displayName 16종을 마이닝 도출 시퀀스명(GrainyBlurDreamy_03·PixelArtRetro_13 등, CamelCase+_NN)에서 canonical Primary_Secondary_01(단어 경계 _ + _01)로 정정. 명명 결정은 별도 필요 없었음 — Storybook 스토리 타이틀이 이미 canonical 형태로 확립됨(슬러그 기계 변환, AI 케이스=Ai_Surreal_Gradient3d_01)이라 meta를 거기에 정렬. 산문 #### NN. 헤더의 마이닝명은 provenance로 의도 보존(명칭 SSOT는 트렌드 표/meta, md §379 주석) — 이미 정규화된 6종과 동일 패턴으로 #29-50 전체가 일관해짐. 매니페스트·트렌드 표 gen 재생성(16 셀만, 행순서 불변). 신규 게이트 displayName.test.ts(전 카탈로그 canonical 형식 …_01 + 16종 슬러그 기계정합 + 유일성)=재발 방지. slug(name)는 이미 canonical이라 무변경. 5게이트 green(typecheck·build·test:unit catalog76·play1092·storybook build). feat 커밋 d481e26."
     }
   ]
 }
