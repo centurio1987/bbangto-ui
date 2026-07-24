@@ -43,6 +43,13 @@ export const STYLE_FAMILIES = [
   'viz-print-ink', //            Print/Ink family — Riso#32 · Halftone · Glitch 오정합 계열 (KAN-037)
   'viz-hud-telemetry', //        Hud_Telemetry_01 (KAN-033)
   'viz-soft-puffy', //           Soft/Puffy family — Neumorphic·Clay·Kawaii 소프트/퍼피 계열 (KAN-038)
+  // viz 확장 P2 1:1 단일 (KAN-039 — 각자 고유 family)
+  'viz-neobrutalist', //         Neobrutalist_01 (KAN-039)
+  'viz-editorial-data', //       Editorial_Data_01 (KAN-039)
+  'viz-memphis-pattern', //      Memphis_Pattern_01 (KAN-039)
+  'viz-retro70s-warm', //        Retro70s_Warm_01 (KAN-039)
+  'viz-dopamine-max', //         Dopamine_Max_01 (KAN-039)
+  'viz-bento-stat', //           Bento_Stat_01 (KAN-039)
 ] as const;
 export type StyleFamily = (typeof STYLE_FAMILIES)[number];
 
@@ -76,6 +83,12 @@ export const STYLE_FAMILY_LABELS: Record<StyleFamily, string> = {
   'viz-print-ink': 'Print Ink',
   'viz-hud-telemetry': 'HUD Telemetry',
   'viz-soft-puffy': 'Soft Puffy',
+  'viz-neobrutalist': 'Neobrutalist',
+  'viz-editorial-data': 'Editorial Data',
+  'viz-memphis-pattern': 'Memphis Pattern',
+  'viz-retro70s-warm': 'Retro 70s Warm',
+  'viz-dopamine-max': 'Dopamine Max',
+  'viz-bento-stat': 'Bento Stat',
 };
 
 /** 도메인/프로덕트 유형 적합성. AI가 "무엇을 만드는가"로 후보를 좁히는 1차 필터. */

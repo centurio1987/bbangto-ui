@@ -65,6 +65,71 @@
     }
   },
   {
+    "name": "bento-stat-01",
+    "description": "Bento tile modules — light neutral canvas, generously rounded stat tile cards framed by wrapper-drawn card outlines with an accent corner chip, dark slate ink linework and labels, restrained soft shadow. Clean, modern, dashboard-forward.",
+    "metaStatus": "authored",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 2,
+      "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Bento_Stat_01",
+      "family": "viz-bento-stat",
+      "summary": "라이트 뉴트럴 위 라운드 타일 카드로 노드를 모듈화한 벤토 대시보드형 인포그래픽 — 소프트 섀도·액센트 코너 칩·다크 슬레이트 잉크 라벨.",
+      "tags": [
+        "grid",
+        "minimal",
+        "flat",
+        "rounded",
+        "light"
+      ],
+      "mood": {
+        "formality": 3,
+        "energy": 2,
+        "warmth": 2,
+        "density": 2,
+        "ornament": 2
+      },
+      "characteristics": {
+        "cornerRadius": "round",
+        "borderWeight": "thin",
+        "shadow": "soft",
+        "density": "balanced",
+        "motion": "still",
+        "colorScheme": "light",
+        "contrast": "high"
+      },
+      "domains": [
+        "saas",
+        "dashboard",
+        "dev-tools",
+        "fintech"
+      ],
+      "useWhen": [
+        "대시보드·SaaS 지표 화면을 모듈형 벤토 타일 카드로 정돈해 낼 때 쓴다.",
+        "라운드 타일 + 라이트 뉴트럴의 깔끔하고 모던한 대시보드 무드가 필요할 때 쓴다.",
+        "stat 카드·KPI 모듈을 절제된 액센트로 강조하며 레이아웃 주도로 구성할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "다크 그라운드·네온 하이테크 계기판 무드가 필요할 때 피한다(HUD/네온 계열을 쓴다).",
+        "손그림·아날로그 인쇄 질감이 목표일 때 피한다(마커/리소 계열을 쓴다).",
+        "고채도 면 채움으로 강렬한 색 인코딩이 필요한 인포그래픽에 피한다(라이트 뉴트럴 표면)."
+      ],
+      "accessibility": {
+        "contrastIntent": "aaa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "minimal-line-01",
+        "blueprint-technical-01"
+      ]
+    }
+  },
+  {
     "name": "blueprint-technical-01",
     "description": "Precision drafting look — warm paper canvas, bold 2.5px keylines, pastel semantic fills, mono tags. Promoted from the original blueprint theme.",
     "metaStatus": "authored",
@@ -324,6 +389,140 @@
       "related": [
         "ink-line-duotone-01",
         "blueprint-technical-01"
+      ]
+    }
+  },
+  {
+    "name": "dopamine-max-01",
+    "description": "Maximalist dopamine infographic — bright near-white ground, clashing high-saturation translucent washes (hot pink, electric blue, lime, orange, violet, cyan) that overlap and blend via offset ghost duplicates with mix-blend-mode (clash = the motif), dark-ink lines and labels for AA contrast; saturated solids live in the palette only.",
+    "metaStatus": "authored",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 2,
+      "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Dopamine_Max_01",
+      "family": "viz-dopamine-max",
+      "priority": "P2",
+      "summary": "밝은 근백색 위 고채도 색 충돌·오프셋 오버랩 블렌드의 맥시멀 도파민 인포그래픽 — 요란·즐겁되 다크 잉크 라벨로 가독성 유지.",
+      "tags": [
+        "vivid",
+        "maximal",
+        "playful",
+        "high-contrast"
+      ],
+      "mood": {
+        "formality": 1,
+        "energy": 5,
+        "warmth": 3,
+        "density": 4,
+        "ornament": 5
+      },
+      "characteristics": {
+        "cornerRadius": "soft",
+        "borderWeight": "thin",
+        "shadow": "none",
+        "density": "dense",
+        "motion": "still",
+        "colorScheme": "light",
+        "contrast": "high"
+      },
+      "domains": [
+        "marketing",
+        "creative-agency",
+        "entertainment",
+        "social",
+        "landing"
+      ],
+      "useWhen": [
+        "요란하고 즐거운 도파민 무드로 고채도 색이 부딪히는 맥시멀 인포그래픽을 낼 때 쓴다.",
+        "마케팅·엔터·소셜 비주얼에서 강렬한 에너지와 시선 강탈이 필요할 때 쓴다.",
+        "색 충돌·오버랩 감성을 주되 라벨 가독성(AA)은 지키고 싶을 때 쓴다."
+      ],
+      "avoidWhen": [
+        "격식·절제가 최우선인 기업 리포트·기술 명세 도식일 때 피한다(F2/Swiss를 쓴다).",
+        "색각 안정성·저채도가 우선인 대규모 데이터 차트에 피한다(고채도 hue 다수).",
+        "다크 그라운드·네온 하이테크 무드가 필요할 때 피한다(F7을 쓴다)."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "colorful-flat-01",
+        "neon-gradient-dark-01"
+      ]
+    }
+  },
+  {
+    "name": "editorial-data-01",
+    "description": "FT-style editorial data — warm paper ground, a serif display typeface plus thin hairline column rules (a top + left rule bracket on each card, decorative and aria-hidden), charcoal ink for all lines and labels, restrained accent hues for AAA contrast on light surfaces.",
+    "metaStatus": "authored",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 2,
+      "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Editorial_Data_01",
+      "family": "viz-editorial-data",
+      "summary": "웜 페이퍼 + 세리프 디스플레이 + 헤어라인 컬럼 rule의 FT식 에디토리얼 데이터 인포그래픽 — 절제·고대비·라이트 전용.",
+      "tags": [
+        "serif",
+        "typographic",
+        "minimal",
+        "light",
+        "high-contrast",
+        "airy"
+      ],
+      "mood": {
+        "formality": 4,
+        "energy": 2,
+        "warmth": 3,
+        "density": 2,
+        "ornament": 1
+      },
+      "characteristics": {
+        "cornerRadius": "sharp",
+        "borderWeight": "thin",
+        "shadow": "none",
+        "density": "airy",
+        "motion": "still",
+        "colorScheme": "light",
+        "contrast": "high"
+      },
+      "domains": [
+        "editorial",
+        "blog",
+        "fintech",
+        "docs",
+        "dashboard"
+      ],
+      "useWhen": [
+        "데이터 저널리즘·에디토리얼 인포그래픽을 FT식 세리프 + 헤어라인 컬럼 룩으로 낼 때 쓴다.",
+        "웜 페이퍼 위 세리프 디스플레이의 절제된 인쇄 에디토리얼 무드가 필요할 때 쓴다.",
+        "핀테크·리서치 리포트에서 고대비·저장식의 정갈한 데이터 도식이 필요할 때 쓴다.",
+        "헤어라인 rule로 정보 위계를 조용히 구획하고 싶을 때 쓴다."
+      ],
+      "avoidWhen": [
+        "고채도 플랫 팝·다색 시맨틱 채움이 목표일 때 피한다(F3를 쓴다).",
+        "손그림·마커 스케치의 친근한 무드가 목표일 때 피한다(F4를 쓴다).",
+        "다크 그라운드·네온 그라디언트의 임팩트가 필요할 때 피한다(F7을 쓴다)."
+      ],
+      "accessibility": {
+        "contrastIntent": "aaa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "ink-line-duotone-01",
+        "corporate-schematic-01"
       ]
     }
   },
@@ -790,6 +989,71 @@
     }
   },
   {
+    "name": "memphis-pattern-01",
+    "description": "80s Memphis postmodern pattern — light off-white ground, bold primary × pastel clash solid flats, scattered zigzag/dot/squiggle terrazzo confetti (SVG <pattern>) overlaid on shapes only, and a hard (non-blurred) offset shadow, with near-black ink for all lines and labels for AA contrast on the flat fills.",
+    "metaStatus": "authored",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 2,
+      "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Memphis_Pattern_01",
+      "family": "viz-memphis-pattern",
+      "summary": "라이트 그라운드 + 볼드 프라이머리×파스텔 클래시 플랫 + 지그재그·도트·스퀴글 콘페티 + 하드 오프셋 섀도의 80s 멤피스 포스트모던 인포그래픽 페인트.",
+      "tags": [
+        "playful",
+        "geometric",
+        "vivid",
+        "retro",
+        "high-contrast"
+      ],
+      "mood": {
+        "formality": 1,
+        "energy": 5,
+        "warmth": 3,
+        "density": 4,
+        "ornament": 5
+      },
+      "characteristics": {
+        "cornerRadius": "soft",
+        "borderWeight": "bold",
+        "shadow": "hard",
+        "density": "dense",
+        "motion": "still",
+        "colorScheme": "light",
+        "contrast": "high"
+      },
+      "domains": [
+        "marketing",
+        "entertainment",
+        "kids",
+        "creative-agency"
+      ],
+      "useWhen": [
+        "마케팅·엔터테인먼트 인포그래픽을 80s 멤피스(볼드 플랫 + 콘페티 + 하드 섀도)의 활기찬 무드로 낼 때 쓴다.",
+        "지그재그·도트·스퀴글 콘페티와 하드 오프셋 섀도로 레트로 포스트모던 감성을 주고 싶을 때 쓴다.",
+        "키즈·크리에이티브 에이전시 비주얼에서 대담하고 장난스러운 인상이 필요할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "정밀·격식이 최우선인 기업 리포트·기술 명세 도식일 때 피한다(F2/Swiss를 쓴다).",
+        "다크 그라운드·네온 하이테크 무드가 필요할 때 피한다(F7을 쓴다).",
+        "저채도 절제·미니멀 톤이 우선일 때 피한다(고채도 볼드 클래시)."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "colorful-flat-01",
+        "bauhaus-geometric-01"
+      ]
+    }
+  },
+  {
     "name": "minimal-line-01",
     "description": "Monochrome ink line-art — warm ivory canvas, 1.25px hairlines, unfilled shapes, one restrained accent.",
     "metaStatus": "authored",
@@ -855,6 +1119,71 @@
       "related": [
         "ink-line-duotone-01",
         "blueprint-technical-01"
+      ]
+    }
+  },
+  {
+    "name": "neobrutalist-01",
+    "description": "Neobrutalist paint — cream/paper ground, thick near-black ink outlines, bright flat fills (gold accent led), hard non-blurred offset shadow silhouettes rendered behind each shape, sharp right-angle corners, near-black labels for AAA contrast on light fills.",
+    "metaStatus": "authored",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 2,
+      "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Neobrutalist_01",
+      "family": "viz-neobrutalist",
+      "summary": "크림/페이퍼 위 두꺼운 근블랙 아웃라인 + 밝은 flat 채움 + 하드 오프셋 섀도 + 골드 액센트의 날것 네오브루탈 다이어그램 — 강한 조형 인상이 필요한 에디토리얼·마케팅·크리에이티브에 쓴다.",
+      "tags": [
+        "raw",
+        "sharp",
+        "high-contrast",
+        "vivid",
+        "geometric"
+      ],
+      "mood": {
+        "formality": 2,
+        "energy": 4,
+        "warmth": 3,
+        "density": 3,
+        "ornament": 3
+      },
+      "characteristics": {
+        "cornerRadius": "sharp",
+        "borderWeight": "bold",
+        "shadow": "hard",
+        "density": "balanced",
+        "motion": "still",
+        "colorScheme": "light",
+        "contrast": "high"
+      },
+      "domains": [
+        "editorial",
+        "marketing",
+        "creative-agency",
+        "portfolio"
+      ],
+      "useWhen": [
+        "두꺼운 아웃라인·하드 오프셋 섀도의 날것 네오브루탈 무드로 강한 조형 인상을 줄 때 쓴다.",
+        "에디토리얼·마케팅·포트폴리오 인포그래픽에서 각지고 개성 있는 도식이 필요할 때 쓴다.",
+        "골드 액센트 + 밝은 flat 컬러로 눈에 띄는 포스터형 다이어그램을 만들 때 쓴다."
+      ],
+      "avoidWhen": [
+        "기업 아키텍처·기술 스키매틱처럼 절제되고 중립적인 도식이 필요할 때 피한다.",
+        "데이터 밀도가 매우 높아 두꺼운 아웃라인·오프셋 섀도가 시각적 잡음이 될 때 피한다.",
+        "다크 그라운드·네온 하이테크 무드가 필요할 때 피한다(라이트 전용)."
+      ],
+      "accessibility": {
+        "contrastIntent": "aaa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "bauhaus-geometric-01",
+        "colorful-flat-01"
       ]
     }
   },
@@ -988,6 +1317,73 @@
       "related": [
         "iso-color-block-01",
         "clay-playful-01"
+      ]
+    }
+  },
+  {
+    "name": "retro70s-warm-01",
+    "description": "Warm 1970s earth-tone infographic paint — mustard, terracotta, burnt-orange and avocado-olive on a warm cream ground with a fine deterministic feTurbulence grain (shape-only, seed fixed). Node fills stay light warm tints so dark warm-brown ink labels pass AA; the saturated earth tones live in the palette swatches only. Cozy, analog, warm.",
+    "metaStatus": "authored",
+    "completeness": {
+      "hasWrappers": true,
+      "hasPatterns": true,
+      "foundationPresetCount": 2,
+      "hasVisualMotif": true
+    },
+    "meta": {
+      "displayName": "Retro70s_Warm_01",
+      "family": "viz-retro70s-warm",
+      "priority": "P2",
+      "summary": "웜 크림 + 70s 어스톤(머스터드·테라코타·아보카도 올리브)·미세 그레인의 코지·아날로그 레트로 인포그래픽 페인트. 밝은 틴트 채움 + 다크 브라운 잉크로 AA 대비.",
+      "tags": [
+        "retro",
+        "grainy",
+        "textured",
+        "muted",
+        "light"
+      ],
+      "mood": {
+        "formality": 2,
+        "energy": 2,
+        "warmth": 5,
+        "density": 3,
+        "ornament": 3
+      },
+      "characteristics": {
+        "cornerRadius": "soft",
+        "borderWeight": "thin",
+        "shadow": "none",
+        "density": "balanced",
+        "motion": "still",
+        "colorScheme": "light",
+        "contrast": "high"
+      },
+      "domains": [
+        "editorial",
+        "blog",
+        "marketing",
+        "creative-agency",
+        "portfolio"
+      ],
+      "useWhen": [
+        "에디토리얼·블로그 인포그래픽을 70s 웜 어스톤(머스터드·테라코타·아보카도)의 코지·아날로그 무드로 낼 때 쓴다.",
+        "미세 그레인으로 레트로 인쇄 질감을 주되 라벨 가독성(AA)을 지켜야 할 때 쓴다.",
+        "마케팅·크리에이티브 비주얼에서 따뜻한 노스탤지어 감성이 필요할 때 쓴다."
+      ],
+      "avoidWhen": [
+        "정밀·격식이 최우선인 기업 리포트·기술 명세 도식일 때 피한다(F2/Swiss를 쓴다).",
+        "다크 그라운드·네온 하이테크 무드가 필요할 때 피한다(F7을 쓴다).",
+        "고채도 대비·쿨 팔레트가 필요한 대시보드에 피한다(웜 어스톤 저채도 무드)."
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": true,
+        "motionHeavy": false,
+        "darkFirst": false
+      },
+      "related": [
+        "marker-sketchnote-01",
+        "colorful-flat-01"
       ]
     }
   },

@@ -17,6 +17,12 @@ import { glitchDuotone01VizStyleGuide } from './glitchDuotone';
 import { neumorphicSoft01VizStyleGuide } from './neumorphicSoft';
 import { clayPlayful01VizStyleGuide } from './clayPlayful';
 import { kawaiiPastel01VizStyleGuide } from './kawaiiPastel';
+import { neobrutalist01VizStyleGuide } from './neobrutalist';
+import { editorialData01VizStyleGuide } from './editorialData';
+import { memphisPattern01VizStyleGuide } from './memphisPattern';
+import { retro70sWarm01VizStyleGuide } from './retro70sWarm';
+import { dopamineMax01VizStyleGuide } from './dopamineMax';
+import { bentoStat01VizStyleGuide } from './bentoStat';
 
 export { blueprintTechnical01VizStyleGuide } from './blueprintTechnical';
 export { minimalLine01VizStyleGuide } from './minimalLine';
@@ -36,6 +42,12 @@ export { glitchDuotone01VizStyleGuide } from './glitchDuotone';
 export { neumorphicSoft01VizStyleGuide } from './neumorphicSoft';
 export { clayPlayful01VizStyleGuide } from './clayPlayful';
 export { kawaiiPastel01VizStyleGuide } from './kawaiiPastel';
+export { neobrutalist01VizStyleGuide } from './neobrutalist';
+export { editorialData01VizStyleGuide } from './editorialData';
+export { memphisPattern01VizStyleGuide } from './memphisPattern';
+export { retro70sWarm01VizStyleGuide } from './retro70sWarm';
+export { dopamineMax01VizStyleGuide } from './dopamineMax';
+export { bentoStat01VizStyleGuide } from './bentoStat';
 export { makeVizColorway } from './_foundation';
 export type { VizColorwayOverride } from './_foundation';
 export { useVizMotifStyle } from './_motif';
@@ -62,6 +74,12 @@ export const vizStyleGuideCatalog: readonly VisualizationStyleGuide[] = [
   neumorphicSoft01VizStyleGuide,
   clayPlayful01VizStyleGuide,
   kawaiiPastel01VizStyleGuide,
+  neobrutalist01VizStyleGuide,
+  editorialData01VizStyleGuide,
+  memphisPattern01VizStyleGuide,
+  retro70sWarm01VizStyleGuide,
+  dopamineMax01VizStyleGuide,
+  bentoStat01VizStyleGuide,
 ];
 
 /** slug(name) → style guide 조회 맵. */
