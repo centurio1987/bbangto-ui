@@ -24,7 +24,9 @@ import { makeVizShowcase } from './_showcase';
  * 아니다. 분류 문서(line 167/246-247)의 "스타일 가이드는 paint만 정의, iso는 별도 geometry
  * 트랙" 원칙에 따른다. 색블록의 3단 면 음영은 headless `Node`의 `cube` 케이스가 이미 제공
  * (front/top 12%/right 24% 플랫 오버레이)하므로 새 geometry 없이 구현한다. 진짜 iso 투영은
- * 별도 geometry-트랙 후속 카드로 분리한다.
+ * 별도 geometry-트랙(`@centurio1987/bbangto-ui-visualization`의 `IsoPrism`/`IsometricScene` +
+ * `geometry/isometric.ts`)으로 KAN-028에서 구현됨 — 이 색블록 페인트를 그 iso geometry 위에
+ * 합성 가능(paint/geometry 직교).
  */
 
 const BLOCK_INK = '#2B3138'; // 블록 윤곽(중립 잉크)

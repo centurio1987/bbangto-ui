@@ -16,3 +16,4 @@ export * from './boxplot';
 export * from './chord';
 export * from './iceberg';
 export * from './hexgrid';
+export * from './isometric';

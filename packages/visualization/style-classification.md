@@ -25,7 +25,7 @@
 | F2 | Corporate_Schematic | 24 | 흰 바탕·헤어라인 중립선·브랜드 액센트 타일·대시 경계·orthogonal+소형 화살촉 | **Corporate_Schematic_01 ✓ (ORD-009)** |
 | F1 | Editorial_Accent | 16 | 웜 뉴트럴 바탕·잉크·절제된 단일 액센트·초대형 숫자↔미세 캡션·무그림자 | Minimal_Line_01 ✓ (`editorial` preset 추가 — ORD-009) |
 | F4 | Marker_Sketchnote | 16 | 진짜 지터 잉크·손글씨·형광 하이라이트(노랑 최빈)·종이/보드 질감 | **구현** (`marker-sketchnote-01` — feTurbulence 고정 seed 지터 필터, KAN-014) |
-| F6 | Iso_ColorBlock | 8 | 면별 3단 플랫 명암(그라디언트 없음)·뮤트 단일 색족·샤프 프리즘 | **구현(paint family)** (`iso-color-block-01` — cube 3단 면 재사용; 진짜 iso 투영은 후속 geometry 트랙, KAN-013) |
+| F6 | Iso_ColorBlock | 8 | 면별 3단 플랫 명암(그라디언트 없음)·뮤트 단일 색족·샤프 프리즘 | **구현(paint family)** (`iso-color-block-01` — cube 3단 면 재사용); 진짜 iso 투영은 geometry 트랙 `IsometricScene`/`IsoPrism`로 **구현(KAN-028)** |
 | F7 | Neon_Gradient_Dark | 7 | 다크 그라운드·광택 멀티휴 그라디언트·흰 헤어라인 엣지·글로우 | **Neon_Gradient_Dark_01 ✓ (ORD-009)** |
 | F3 | Flat_Pop | 6 | 고채도 플랫 채움·굵은 네이비 아웃라인·오프셋 솔리드 섀도·스타디움 필 | Colorful_Flat_01 ✓ (`bento-dark` preset 추가 — ORD-009) |
 | F5 | Ink_Line_Duotone | 6 | 지터 없는 균일 모노라인·블랙+블루 듀오톤·채움 없음/라이트 틴트 | **Ink_Line_Duotone_01 ✓ (ORD-009)** |
@@ -164,7 +164,7 @@
 | infographic_colorful_04 | iso 일러스트 피규어 + 컬러 밴드 변형 |
 
 **공통 시그니처**: 아이소메트릭 투영 + **면별 3단 플랫 명암**(top/side/front 별색, 그라디언트 없음) · 뮤트 단일 색족 램프(그린/퍼플/무채색) · 샤프 프리즘.
-페인트(3단 면 토큰)는 지금 구조로 구현 가능; iso geometry(투영·depth sorting)가 이연 사유.
+페인트(3단 면 토큰)는 `iso-color-block-01`로 구현. 진짜 iso geometry(30° 투영·depth-sort·바닥 커넥터·floor shadow)는 geometry 트랙 `geometry/isometric.ts` + `IsoPrism`/`IsometricScene`로 **구현(KAN-028)** — 페인트와 직교하여 이 색블록 페인트를 iso geometry 위에 합성 가능(스토리로 검증).
 
 ### F7. Neon_Gradient_Dark — 7장 (신규 분리 — 구 Isometric 스펙이 F6과 합쳐놨던 패밀리)
 
@@ -207,7 +207,7 @@
 | F3 Flat_Pop | Colorful_Flat_01 | 커버 ✓ + **`bento-dark` preset 추가 (ORD-009)** — 블랙 그라운드 + 피치/오렌지 램프(infographic_colorful_05). |
 | F4 Marker_Sketchnote | HandDrawn_Marker_01 (스펙) | 스펙 유효, **구현 이연 유지**(지터 seeded 렌더·손글씨 폰트·질감 토큰화 블로커). 보강: 하이라이트 최빈 옐로 #F2C230, **다크보드 colorway**, 크로스해치 음영 토큰. |
 | F5 Ink_Line_Duotone | Ink_Line_Duotone_01 | **구현 ✓ (ORD-009).** 클린 모노라인 1.75px + 블랙/블루 2잉크 역할 분리(도형/흐름), colorway `default`/`slate`. `makeVizColorway` edge.stroke override가 이 가이드로 추가됨. |
-| F6 Iso_ColorBlock | Isometric_Prism_01 (스펙 일부) | 구 스펙에서 그라디언트 요소를 F7로 분리하고 순수 면분할 3단 토큰으로 재정의. **geometry 이연 유지**. |
+| F6 Iso_ColorBlock | Iso_Color_Block_01 (paint) + geometry 트랙 | 구 스펙에서 그라디언트 요소를 F7로 분리하고 순수 면분할 3단 토큰으로 재정의. 진짜 iso geometry는 별도 트랙 `IsoPrism`/`IsometricScene`로 **구현(KAN-028)** — paint(iso-color-block-01)와 직교 합성. |
 | F7 Neon_Gradient_Dark | Neon_Gradient_Dark_01 | **구현 ✓ (ORD-009).** wrapper 레벨 `<defs><linearGradient>`(defsPrefix+useId 유일 id, stop=ext var) — iso geometry 없이 플랫 차트/패턴에 적용. 외부 라벨+리더 틱 규칙 구현. colorway `default`/`aurora`. |
 
 ## 스타일 가이드 정의 초안 (신규/보정분) — ORD-009에서 구현 완료 (F4/F6 스펙 보강분 제외)
@@ -245,6 +245,7 @@
 
 1. **투영과 페인트의 직교성**: iso 폴더 22장이 페인트 기준 F2(4)·F5(2)·F6(5)·F7(6)·F1(2)·F3(1)·기타로 분해됨.
    스타일 가이드는 페인트만 정의하고, iso는 geometry 확장(투영 유틸 + iso Node 변형)으로 별도 트랙 유지가 옳다 — 어떤 페인트 가이드와도 조합 가능해진다.
+   → geometry 트랙 `geometry/isometric.ts`(projectIso·isoPrismFaces·depthSortBoxes·isoConnectorPath·floorShadowPolygon·fitIsoProjection) + `IsoPrism`/`IsometricScene`로 **구현(KAN-028)**; 임의 페인트 가이드와의 합성을 스토리로 검증(Iso_ColorBlock·Corporate_Schematic 동일 씬).
 2. **"선질(line quality)"이 최상위 판별자**: clean vector vs 지터 vs 브러시가 패밀리를 가장 강하게 가른다(F4 vs F5 분리 근거).
 3. **액센트 전략의 3형**: 단일 액센트(F1/F5), 시맨틱 다색 타일(F2/F3), 램프/그라디언트(F6/F7) — foundations의 palette 슬롯 사용 방식이 패밀리별로 다름.
 4. 다크 그라운드 변형이 4개 패밀리(F2/F3/F4/F7)에서 독립 관측 — 다크 colorway는 패밀리 공통 요구.

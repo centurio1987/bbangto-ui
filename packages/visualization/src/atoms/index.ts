@@ -55,3 +55,5 @@ export { PyramidLayer } from './PyramidLayer';
 export type { PyramidLayerProps } from './PyramidLayer';
 export { VsDivider } from './VsDivider';
 export type { VsDividerProps } from './VsDivider';
+export { IsoPrism } from './IsoPrism';
+export type { IsoPrismProps } from './IsoPrism';
