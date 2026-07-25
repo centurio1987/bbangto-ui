@@ -1,6 +1,9 @@
 # KANBAN 변경 이력
 > 최근 50건. 이보다 오래된 이력은 KANBAN.archive.jsonl 로 압축 보관한다.
 
+- #117 2026-07-25 14:04 · ai · KAN-036 수정 메모
+- #116 2026-07-25 14:04 · ai · KAN-036 이동 진행 중 → 완료
+- #115 2026-07-25 13:56 · ai · KAN-036 이동 백로그 → 진행 중
 - #114 2026-07-25 13:00 · ai · KAN-041 수정 메모
 - #113 2026-07-25 12:59 · ai · KAN-041 이동 백로그 → 완료
 - #112 2026-07-25 12:33 · ai · KAN-041 생성 "foundations 잔여 73종 FoundationMeta 전량 backfill → census infra-pilot→covered 승격(pending 0)" → 백로그
@@ -48,6 +51,3 @@
 - #70 2026-07-24 13:34 · ai · KAN-033 생성 "Hud_Telemetry_01 viz 스타일 가이드 구현(+코너 브래킷 wrapper) (KAN-019 P1)" → 백로그
 - #69 2026-07-24 13:34 · ai · KAN-032 생성 "Riso_Print_01 viz 스타일 가이드 구현 (KAN-019 P1)" → 백로그
 - #68 2026-07-24 13:34 · ai · KAN-031 생성 "Bauhaus_Geometric_01 viz 스타일 가이드 구현 (KAN-019 P1)" → 백로그
-- #67 2026-07-24 13:34 · ai · KAN-030 생성 "Terminal_Ascii_01 viz 스타일 가이드 구현 (KAN-019 P1)" → 백로그
-- #66 2026-07-24 13:34 · ai · KAN-029 생성 "Swiss_Systematic_01 viz 스타일 가이드 구현 (KAN-019 P1)" → 백로그
-- #65 2026-07-24 13:33 · ai · KAN-019 수정 메모

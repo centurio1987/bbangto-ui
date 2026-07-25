@@ -1,4 +1,6 @@
-# @centurio1987/bbangto-ui-diagram
+# @centurio1987/bbangto-ui-visualization
+
+> 이 패키지는 `@centurio1987/bbangto-ui-diagram`(≤0.2.2)에서 rename됨(ORD-008, headless 아토믹 개편). 아래 0.2.2 이하 이력은 diagram 시절 기록이다.
 
 ## 0.2.2
 
