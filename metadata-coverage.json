@@ -33,11 +33,9 @@
       "package": "foundations",
       "files": ["foundation.manifest.json", "src/catalog.json"],
       "sourceModule": "src/index.ts:foundationCatalog (76) + src/meta/registry.ts:foundationMetaRegistry (authored)",
-      "status": "infra-pilot",
-      "pilotAuthored": 3,
-      "followUp": "KAN-041",
+      "status": "covered",
       "gate": "src/meta/registry.test.ts + manifest.test.ts + select.test.ts",
-      "note": "foundation(색 스킴 base) 채택 메타(FoundationMeta). KAN-035 인프라+파일럿 3종. 전량 backfill(pending 0→covered 승격)은 KAN-041. catalog.json은 foundationCatalog에서 파생 생성물."
+      "note": "foundation(색 스킴 base) 채택 메타(FoundationMeta). KAN-035 인프라+파일럿 3종 → KAN-041 전량 backfill(76/76 authored, pending 0). registry.test가 전 catalog slug authored를 hard-fail로 강제. catalog.json은 foundationCatalog에서 파생 생성물."
     }
   ],
   "outOfScope": [

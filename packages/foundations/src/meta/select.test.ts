@@ -97,3 +97,59 @@ describe('selectFoundations — 안정성·pending', () => {
     expect(Object.keys(r[0].breakdown!)).toContain('domains');
   });
 });
+
+// KAN-041 보강 — mood 근접·복합 criteria 가중합·weights 오버라이드의 구체 기대치.
+describe('selectFoundations — mood 근접(KAN-041)', () => {
+  const calm = mk(
+    'calm',
+    'light',
+    meta({ mood: { formality: 1, energy: 1, warmth: 1, density: 1, ornament: 1 }, tags: ['minimal'] }),
+  );
+  const loud = mk(
+    'loud',
+    'light',
+    meta({ mood: { formality: 5, energy: 5, warmth: 5, density: 5, ornament: 5 }, tags: ['maximal'] }),
+  );
+  const moodManifest = [loud, calm]; // 입력 순서 임의
+
+  it('mood {energy:5,ornament:5} → loud 근접 1위(proximity 1), calm 최하(proximity 0)', () => {
+    const r = selectFoundations(moodManifest, { mood: { energy: 5, ornament: 5 } });
+    expect(slugsOf(r)).toEqual(['loud', 'calm']);
+    expect(r[0].score).toBe(1); // |5-5|/4 평균 = 0 → 1
+    expect(r[1].score).toBe(0); // |5-1|/4 = 1 평균 → 0
+  });
+
+  it('mood는 지정 축만 반영 — 중간값 요청은 부분 근접으로 랭크', () => {
+    const r = selectFoundations(moodManifest, { mood: { energy: 3 } });
+    // |3-1|/4=0.5 → calm 0.5 ; |3-5|/4=0.5 → loud 0.5 ; 동점 → slug 오름차순
+    expect(slugsOf(r)).toEqual(['calm', 'loud']);
+    expect(r[0].score).toBeCloseTo(0.5);
+    expect(r[1].score).toBeCloseTo(0.5);
+  });
+});
+
+describe('selectFoundations — 복합 criteria 가중합(KAN-041)', () => {
+  it('colorScheme+domains+tags 동시 → 가중 정규화 순위 l2 > l1 > d1', () => {
+    const r = selectFoundations(manifest, {
+      colorScheme: 'light',
+      domains: ['saas'],
+      tags: ['minimal'],
+    });
+    expect(slugsOf(r)).toEqual(['l2', 'l1', 'd1']);
+    expect(r[0].score).toBe(1); // l2: (1·1 + 1·1 + 0.75·1)/2.75 = 1
+    expect(r[1].score).toBeCloseTo(2 / 2.75); // l1: tags 0 → (1+1+0)/2.75 ≈ 0.727
+    expect(r[2].score).toBe(0); // d1: 전 criterion 0
+  });
+
+  it('weights.tags=0 → tags 기여 소거, domains만으로 l1·l2 동점(slug 정렬)', () => {
+    const r = selectFoundations(manifest, {
+      domains: ['saas'],
+      tags: ['minimal'],
+      weights: { tags: 0 },
+    });
+    expect(slugsOf(r)).toEqual(['l1', 'l2', 'd1']);
+    expect(r[0].score).toBe(1); // l1: domains saas 적중, tags 무시
+    expect(r[1].score).toBe(1); // l2: 동일 → 동점, slug 오름차순으로 l1 먼저
+    expect(r[2].score).toBe(0); // d1: saas 없음
+  });
+});

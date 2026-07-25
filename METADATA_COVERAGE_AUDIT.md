@@ -20,13 +20,16 @@
 | UI 스타일가이드 | `style-guide-catalog` | 51 | 스타일(paint) 채택 | `StyleGuideMeta` → `catalog.manifest.json` | `manifest.test`·`accessibility.test` | ✅ covered (authored 51/51) |
 | viz 스타일가이드 | `visualization-style-guide-catalog` | 30 | 스타일(paint) 채택 | `StyleGuideMeta` → `catalog.manifest.json` | `manifest.test` | ✅ covered (30/30) |
 | viz 유형 | `visualization` | 87 | 유형(what) 채택 | `VizTypeMeta` → `type.manifest.json` | `typeMeta/registry.test`·`manifest.test` | ✅ covered (87/87) |
-| **foundation** | **`foundations`** | **76** | **색 스킴(base) 채택** | **`FoundationMeta` → `foundation.manifest.json`** | `meta/registry.test`·`manifest.test`·`select.test` | **🟡 infra-pilot (authored 3/76, 후속 KAN-041)** |
+| **foundation** | **`foundations`** | **76** | **색 스킴(base) 채택** | **`FoundationMeta` → `foundation.manifest.json`** | `meta/registry.test`·`manifest.test`·`select.test` | **✅ covered (authored 76/76, KAN-041)** |
 | core components | `core` | 57 | 기능(무엇이 필요한가) | — | — | ⬜ out-of-scope |
 | core blocks | `core` | 13 | 기능(어떤 섹션) | — | — | ⬜ out-of-scope |
 | core patterns | `core` | 4 | 기능(어떤 화면/플로우) | — | — | ⬜ out-of-scope |
 | core motion | `core` | ~28 | 효과(원하는 모션) | `motion-catalog.md`(구현 추적 SSOT) | — | ⬜ out-of-scope |
 
-> 각 축 게이트는 감사일 기준 실측 green: UI 31 + viz-sg 14 + viz-type 33 + foundation 40 테스트 통과.
+> 각 축 게이트는 실측 green: UI 31 + viz-sg 14 + viz-type 33 + foundation 44 테스트 통과(foundation은 KAN-041 backfill 후 40→44 — 4개 셀렉터 fixture 추가).
+>
+> **KAN-041 갱신(2026-07-25)**: foundation 축이 `infra-pilot`(authored 3/76)에서 **`covered`(authored 76/76·pending 0)**로 승격됐다.
+> 이로써 **네 축 전량 covered** — "전 인터페이스 메타 커버리지"가 이 시점에 달성됐다.
 
 ## 2. 판정 근거
 
@@ -35,15 +38,17 @@
 (pending 0). 각 패키지의 매니페스트 동기 테스트가 "전량 authored·바이트 일치"를 hard-fail로 강제한다 →
 축 **내부** drift는 이미 봉인돼 있다.
 
-### 2-2. foundation = 유일한 실질 갭 → infra-pilot
+### 2-2. foundation = 유일했던 실질 갭 → KAN-035 infra-pilot → KAN-041 covered
 `foundationCatalog`(76종)은 AI가 색 스킴 base를 고르는 채택 catalog이지만 런타임 노출은 `name`+`description`
 한 줄뿐이었고, `catalog.json`은 `{id,label,file}` 3필드뿐이었다 → 스타일가이드와 동일한 "76개 코드 전수 열람"
 문제. KAN-035에서 스타일/유형 축과 **동형 인프라**(`FoundationMeta` 스키마 + `foundation.manifest.json` +
 `selectFoundations` + 게이트)를 세우고 **파일럿 3종**(`blueprint`·`amber-dark`·`stark-white`)을 저작했다.
-잔여 73종 전량 backfill(→ pending 0, `covered` 승격)은 후속 카드 **KAN-041**이다.
+**KAN-041에서 잔여 73종을 전량 backfill해 76/76 authored·pending 0**을 달성하고, census status를
+`infra-pilot`→`covered`로 승격했다(동결 스키마 위 additive — 필드 추가·변경 0, registry에 meta만 추가).
 
-> **정직한 미완성 표기**: "전 인터페이스 메타 커버리지"는 KAN-041 완료 시점에 비로소 달성된다. census는
-> foundation을 `infra-pilot`으로 추적하며 `followUp`(KAN-041)이 비면 게이트가 fail한다(영구 예외 방지).
+> **완성 표기**: KAN-035는 foundation을 `infra-pilot`으로 추적하며 `followUp`(KAN-041)이 비면 게이트가 fail하도록
+> 설계됐다(영구 예외 방지). KAN-041 완료로 그 followUp이 해소돼 **네 축 전량 covered**가 됐다 — 'foundation-meta 필수'
+> 게이트(`registry.test`의 registry≡catalog)가 이제 pending 0을 hard-fail로 집행한다.
 
 #### 파일럿 관찰 — 스키마 적합성 확인
 - foundations 카탈로그는 **거의 전량 라이트-베이스**(흰 표면 + 어두운 텍스트, 브랜드 accent 프리셋)다.

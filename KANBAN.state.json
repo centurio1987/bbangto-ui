@@ -1,6 +1,6 @@
 {
   "next_id": 42,
-  "next_seq": 113,
+  "next_seq": 115,
   "cards": {
     "KAN-001": {
       "col": "done",
@@ -483,15 +483,15 @@
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-041": {
-      "col": "backlog",
+      "col": "done",
       "title": "foundations 잔여 73종 FoundationMeta 전량 backfill → census infra-pilot→covered 승격(pending 0)",
-      "memo": "KAN-035 후속. FoundationMeta 스키마·게이트·셀렉터·서브패스는 동결(stable). 잔여 73 foundation에 meta 저작(Workflow 배치, KAN-021/040 선례). DoD: pending 0 + metadata-coverage.json foundation status infra-pilot→covered + selector 기대 fixture 보강 + FOUNDATION_METADATA_STRATEGY 롤아웃 표 갱신. KAN-035 인프라 위 additive(파일 미변경, registry에 meta 추가).",
+      "memo": "완료(2026-07-25). KAN-035 인프라(동결 스키마) 위 잔여 73종 FoundationMeta 전량 additive 백필 → 76/76 authored·pending 0(파일 미변경, registry에 meta만 추가). 저작 grounding=실제 accent 토큰(semantic.primary.base) — description 오해(다수가 'on dark'라도 실 background.base=흰색, 예 electric-void) 회피. 통제 어휘=tokens TAGS/DOMAINS 재사용, related 76종 인접 클러스터(색hue/mono·void/warm) 정합. 'foundation-meta 필수' 게이트 승격: registry.test에 registry키집합≡catalog키집합(pending 0) hard-fail + manifest.test 76 전량 authored assert + metadata-coverage.json foundation infra-pilot→covered(census가 covered축 authored==total 강제). selector fixture 보강 3종(mood 근접·복합 criteria 가중합·weights.tags=0 소거). foundation.manifest.json 재생성(gen). 게이트 5종 green: typecheck(8pkg)·build(dist/meta emit·루트배럴 미오염)·test:unit(foundations 40→44)·test(1219 play)·storybook build. 문서: FOUNDATION_METADATA_STRATEGY 롤아웃표·METADATA_COVERAGE_AUDIT foundation→covered(네 축 전량 covered 달성). 관찰: 76 저작 후에도 colorScheme 75L/1D 편중·baseTextContrast≥17.39 상수 → 실질변별 tags/mood/domains(StyleGuideMeta 어휘 재사용 76 스케일 충분 확인, 스키마 변경 0).",
       "verbatim": "",
       "생성": "ai",
       "최종": "ai",
       "갱신": "2026-07-25",
       "title_hash": "022a0c519d596d6c90d4bc85eb077bd8816453a8",
-      "memo_hash": "da83e408cf0aa96301ecd0d35859cfb49dbd2511",
+      "memo_hash": "d6886e4873b4c456f11358f6f710faec87489061",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     }
   },
@@ -539,6 +539,25 @@
     "KAN-041"
   ],
   "recent": [
+    {
+      "seq": 114,
+      "t": "2026-07-25T13:00",
+      "a": "ai",
+      "id": "KAN-041",
+      "op": "edit",
+      "field": "memo",
+      "before": "KAN-035 후속. FoundationMeta 스키마·게이트·셀렉터·서브패스는 동결(stable). 잔여 73 foundation에 meta 저작(Workflow 배치, KAN-021/040 선례). DoD: pending 0 + metadata-coverage.json foundation status infra-pilot→covered + selector 기대 fixture 보강 + FOUNDATION_METADATA_STRATEGY 롤아웃 표 갱신. KAN-035 인프라 위 additive(파일 미변경, registry에 meta 추가).",
+      "after": "완료(2026-07-25). KAN-035 인프라(동결 스키마) 위 잔여 73종 FoundationMeta 전량 additive 백필 → 76/76 authored·pending 0(파일 미변경, registry에 meta만 추가). 저작 grounding=실제 accent 토큰(semantic.primary.base) — description 오해(다수가 'on dark'라도 실 background.base=흰색, 예 electric-void) 회피. 통제 어휘=tokens TAGS/DOMAINS 재사용, related 76종 인접 클러스터(색hue/mono·void/warm) 정합. 'foundation-meta 필수' 게이트 승격: registry.test에 registry키집합≡catalog키집합(pending 0) hard-fail + manifest.test 76 전량 authored assert + metadata-coverage.json foundation infra-pilot→covered(census가 covered축 authored==total 강제). selector fixture 보강 3종(mood 근접·복합 criteria 가중합·weights.tags=0 소거). foundation.manifest.json 재생성(gen). 게이트 5종 green: typecheck(8pkg)·build(dist/meta emit·루트배럴 미오염)·test:unit(foundations 40→44)·test(1219 play)·storybook build. 문서: FOUNDATION_METADATA_STRATEGY 롤아웃표·METADATA_COVERAGE_AUDIT foundation→covered(네 축 전량 covered 달성). 관찰: 76 저작 후에도 colorScheme 75L/1D 편중·baseTextContrast≥17.39 상수 → 실질변별 tags/mood/domains(StyleGuideMeta 어휘 재사용 76 스케일 충분 확인, 스키마 변경 0)."
+    },
+    {
+      "seq": 113,
+      "t": "2026-07-25T12:59",
+      "a": "ai",
+      "id": "KAN-041",
+      "op": "move",
+      "from": "backlog",
+      "to": "done"
+    },
     {
       "seq": 112,
       "t": "2026-07-25T12:33",
@@ -1017,24 +1036,6 @@
       "field": "memo",
       "before": "검증(2026-07-23): 사실상 완료 — 조사·항목화·구현계획 deliverable 이미 산출됨(visualization/style-classification.md F1~F7 페인트 패밀리 갭분석 + visualization-catalog.md §4 구현/미구현 항목화). 잔여 미구현분은 후속 카드로 분해 완료(KAN-013 Iso_ColorBlock/F6, KAN-014 Marker_Sketchnote/F4). viz 스타일가이드 3→6종 증가. 종료 또는 잔여 취지(viz 확대)만 신규 카드로 재구성 권장.",
       "after": "수행(2026-07-24): 88-corpus(F1~F7) 소진 확인 → 코퍼스 바깥 신규 조사원(UI 카탈로그 51종 + 아웃라이어 3종)에서 확장 후보 조사·항목화·구현계획 산출. deliverable=packages/visualization/viz-style-expansion.md. UI 51종 전수 viz-적용성 트리아지(강력 P1 5 / 보통 P2 17 / 커버·약함·제외 29), 유형⊥스타일 원칙 근거. P1 5종(Swiss/Bauhaus/Terminal/Riso/HUD) 전부 Tier A/B·코어변경 0(F5/F7 경로)·기존 매트릭스/결정테이블 테스트에 자동편입(§5-c). visualization-catalog.md §4에 포인터 추가. 실제 구현은 후속 카드로 분해(KAN-013/014 선례)."
-    },
-    {
-      "seq": 64,
-      "t": "2026-07-24T13:33",
-      "a": "ai",
-      "id": "KAN-019",
-      "op": "move",
-      "from": "backlog",
-      "to": "done"
-    },
-    {
-      "seq": 63,
-      "t": "2026-07-24T00:00",
-      "a": "ai",
-      "id": "KAN-015",
-      "op": "move",
-      "from": "backlog",
-      "to": "done"
     }
   ]
 }

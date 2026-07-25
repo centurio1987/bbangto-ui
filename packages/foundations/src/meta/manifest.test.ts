@@ -33,20 +33,22 @@ describe('buildFoundationManifest — 결정성·파생', () => {
     expect(slugs).toEqual([...slugs].sort());
   });
 
-  it('76 엔트리 — authored=파일럿·pending 나머지, colorScheme dark는 amber-dark 1종', () => {
+  it('76 엔트리 전량 authored(pending 0, KAN-041), colorScheme dark는 amber-dark 1종', () => {
     expect(m.length).toBe(76);
     const authored = m.filter((e) => e.metaStatus === 'authored');
     expect(authored.length).toBe(Object.keys(foundationMetaRegistry).length);
+    expect(authored.length).toBe(76); // pending 0 — 전량 backfill 승격
+    expect(m.filter((e) => e.metaStatus === 'pending')).toEqual([]);
     const dark = m.filter((e) => e.colorScheme === 'dark').map((e) => e.slug);
     expect(dark).toEqual(['amber-dark']);
   });
 
-  it('pending 엔트리는 파생 필드(colorScheme·baseTextContrast)는 있고 meta는 없다', () => {
+  it('모든 엔트리는 파생 필드(colorScheme·baseTextContrast) + meta를 가진다(전량 authored)', () => {
     for (const e of m) {
       expect(typeof e.baseTextContrast).toBe('number');
       expect(['light', 'dark']).toContain(e.colorScheme);
-      if (e.metaStatus === 'pending') expect(e.meta).toBeUndefined();
-      else expect(e.meta).toBeDefined();
+      expect(e.metaStatus).toBe('authored');
+      expect(e.meta).toBeDefined();
     }
   });
 });

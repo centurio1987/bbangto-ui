@@ -1,9 +1,10 @@
 /**
- * registry.test.ts — foundation 축 레지스트리 커버리지·불변식 게이트 (KAN-035, 인프라+파일럿 스코프).
+ * registry.test.ts — foundation 축 레지스트리 커버리지·불변식 게이트 (KAN-035 인프라 → KAN-041 pending-0 승격).
  *
- * 커버리지 SSOT는 `foundationCatalog`(src/index.ts, 76). registry는 authored 메타만 담으므로 게이트는
- * "registry 키 ⊆ catalog 키(phantom 0)·파일럿 ≥3·통제 어휘·useWhen/avoidWhen(≤5)·related 정합"을 강제한다.
- * pending 0 승격(전량 authored)은 후속 KAN-041의 몫이라 여기선 강제하지 않는다(infra-pilot 계약).
+ * 커버리지 SSOT는 `foundationCatalog`(src/index.ts, 76). registry는 authored 메타만 담는다. KAN-041에서
+ * **'foundation-meta 필수' 게이트로 승격**: registry 키 집합 === catalog 키 집합(전량 authored·phantom 0)을
+ * hard-fail로 강제한다(스타일 축 KAN-021·유형 축 KAN-040 선례 — 게이트로 집행, 타입은 유지). 그 위에
+ * 통제 어휘·useWhen/avoidWhen(≤5)·related 정합을 강제한다.
  */
 import { describe, it, expect } from 'vitest';
 import { TAGS, DOMAINS } from '@centurio1987/bbangto-ui-tokens';
@@ -15,18 +16,21 @@ const registrySlugs = Object.keys(foundationMetaRegistry);
 const TAG_SET = new Set<string>(TAGS);
 const DOMAIN_SET = new Set<string>(DOMAINS);
 
-describe('foundationMetaRegistry — 커버리지', () => {
+describe('foundationMetaRegistry — 커버리지(KAN-041 pending-0 승격)', () => {
   it('registry 키는 모두 foundationCatalog에 존재한다(phantom 0)', () => {
     const phantom = registrySlugs.filter((s) => !catalogSlugs.has(s));
     expect(phantom).toEqual([]);
   });
 
-  it('파일럿 authored ≥ 3(인프라+파일럿 스코프)', () => {
-    expect(registrySlugs.length).toBeGreaterThanOrEqual(3);
+  it('전 catalog slug이 authored(pending 0) — registry 키 집합 ≡ catalog 키 집합', () => {
+    const missing = [...catalogSlugs].filter((s) => !(s in foundationMetaRegistry));
+    expect(missing, `미저작 slug: ${missing.join(', ')}`).toEqual([]);
+    expect(new Set(registrySlugs)).toEqual(catalogSlugs);
   });
 
   it('foundationCatalog는 76종(amber 2 + external 74)', () => {
     expect(catalogSlugs.size).toBe(76);
+    expect(registrySlugs.length).toBe(76);
   });
 });
 

@@ -1,33 +1,36 @@
 /**
- * foundationMetaRegistry — 유형/스타일 축과 직교하는 **foundation(색 스킴 base) 채택 메타 SSOT** (KAN-035).
+ * foundationMetaRegistry — 유형/스타일 축과 직교하는 **foundation(색 스킴 base) 채택 메타 SSOT**
+ * (KAN-035 인프라·파일럿 3종 → KAN-041 전량 backfill: 76/76 authored, pending 0).
  *
- * 린 설계: slug 정체성은 이미 `foundationCatalog`(src/index.ts)가 SSOT라, 여기엔 **authored 메타만** 담는다
- * (viz 유형 축은 사전 id 목록이 없어 전 슬롯을 나열했으나 foundation은 불필요). 매니페스트 생성기가
- * `foundationCatalog` 키를 순회하며 registry에서 meta를 조회하고, 없으면 `metaStatus:'pending'`으로 남긴다.
+ * 린 설계: slug 정체성은 이미 `foundationCatalog`(src/index.ts)가 SSOT이므로 여기엔 **authored 메타만** 담는다.
+ * KAN-041에서 registry 키 집합 === catalog 키 집합(전량 authored)을 `registry.test`가 hard-fail로 강제한다
+ * ('foundation-meta 필수' 게이트 승격 — 스타일 축 KAN-021·유형 축 KAN-040 선례).
  *
- * **파일럿 3종(KAN-035, 인프라+파일럿 스코프)** — 스키마 스트레스 지향 스팬:
- *  - `blueprint`   : 라이트·쿨·기술(인디고, 개발자 인프라)
- *  - `amber-dark`  : **유일한 다크-베이스**(골드 on near-black, 핀테크/크립토) — colorScheme 다크 분기 실증
- *  - `stark-white` : 라이트·중립·엔터프라이즈 편집(그린-블랙 밴드)
- * 잔여 73종 전량 backfill = 후속 카드 KAN-041(pending 0 승격). registry.test가 파일럿 ≥3·통제어휘·related 정합을 게이트.
+ * **저작 grounding**: 각 preset의 파생 필드(colorScheme·baseTextContrast)는 생성기가 실측하므로 저작하지
+ * 않는다. authored 필드(tags/mood/domains/summary/useWhen/avoidWhen)는 preset의 **실제 accent 토큰**
+ * (`semantic.primary.base`)과 성격에 근거해 선언한다 — description은 오해를 부를 수 있으므로(예: electric-void는
+ * description상 "near-black"이지만 실제 background.base는 흰색) 실토큰 우선. 카탈로그는 거의 전량 라이트-베이스
+ * (유일한 다크-베이스=amber-dark)이므로 `darkFirst`는 amber-dark만 true, 실질 변별은 accent hue·mood·domains.
+ *
+ * 정렬은 slug 오름차순(매니페스트는 재정렬하므로 여기 순서는 가독성용). 통제 어휘 = tokens `TAGS`/`DOMAINS`.
  */
 import type { FoundationMeta } from '@centurio1987/bbangto-ui-tokens';
 
 export const foundationMetaRegistry: Readonly<Record<string, FoundationMeta>> = {
-  blueprint: {
-    displayName: 'Blueprint',
-    summary: '흰 바탕에 인디고 강조, 기술 청사진 미니멀 — 오픈소스/AI 인프라 톤',
-    tags: ['light', 'minimal', 'technical', 'mono', 'grid', 'geometric', 'airy', 'serious'],
-    mood: { formality: 4, energy: 2, warmth: 2, density: 2, ornament: 1 },
-    domains: ['dev-tools', 'saas', 'docs', 'landing'],
+  'acid-mint': {
+    displayName: 'Acid Mint',
+    summary: '흰 바탕 테크 에디토리얼에 애시드-민트/울트라바이올렛 강조, 대담한 디스플레이 타이포',
+    tags: ['light', 'vivid', 'technical', 'typographic', 'geometric'],
+    mood: { formality: 3, energy: 4, warmth: 2, density: 3, ornament: 2 },
+    domains: ['editorial', 'saas', 'dev-tools', 'creative-agency'],
     useWhen: [
-      '오픈소스·AI 인프라나 개발자 툴 랜딩',
-      '미니멀 화이트 기반에 인디고 포인트',
-      '코드·모노 타이포가 중요한 기술 문서',
+      '대담한 디스플레이 타이포의 테크 에디토리얼/제품 랜딩',
+      '애시드 컬러(민트·울트라바이올렛) 포인트가 필요할 때',
+      '크리에이티브 개발 브랜드',
     ],
-    avoidWhen: ['따뜻하고 표현적인 소비자 브랜드', '고밀도 데이터 대시보드 표면'],
+    avoidWhen: ['차분한 기업 금융 UI', '파스텔·소프트 소비자 제품'],
     accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
-    related: ['stark-white'],
+    related: ['prism', 'editorial-dark'],
   },
 
   'amber-dark': {
@@ -46,6 +49,950 @@ export const foundationMetaRegistry: Readonly<Record<string, FoundationMeta>> = 
     related: ['graphite'],
   },
 
+  'amber-light': {
+    displayName: 'Amber Light',
+    summary: '흰 바탕 트랜잭션 UI에 앰버/골드 강조 — amber-dark의 라이트 페어, 거래/핀테크',
+    tags: ['light', 'vivid', 'technical'],
+    mood: { formality: 3, energy: 3, warmth: 4, density: 3, ornament: 1 },
+    domains: ['fintech', 'crypto-web3', 'dashboard', 'saas'],
+    useWhen: [
+      '라이트 트레이딩·거래 대시보드',
+      '골드/앰버 강조의 밝은 핀테크 표면',
+      'amber-dark와 라이트/다크 페어가 필요할 때',
+    ],
+    avoidWhen: ['다크-우선 표면', '표현적·플레이풀 소비자 브랜드'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['amber-dark', 'gold-rush'],
+  },
+
+  'arctic-white': {
+    displayName: 'Arctic White',
+    summary: '급진적 화이트 여백 + 시네마틱 풀뷰포트 사진, 레드/일렉트릭 블루 포인트',
+    tags: ['light', 'minimal', 'high-contrast', 'airy'],
+    mood: { formality: 4, energy: 3, warmth: 2, density: 1, ornament: 1 },
+    domains: ['marketing', 'landing', 'portfolio', 'creative-agency'],
+    useWhen: [
+      '풀블리드 사진 중심 브랜드 랜딩',
+      '급진적 화이트스페이스 미니멀',
+      '시네마틱 마케팅 히어로',
+    ],
+    avoidWhen: ['고밀도 데이터 대시보드', '따뜻한 플레이풀 소비자'],
+    accessibility: { contrastIntent: 'aaa', colorblindConsidered: false, darkFirst: false },
+    related: ['cosmonaut', 'glacial'],
+  },
+
+  aubergine: {
+    displayName: 'Aubergine',
+    summary: '딥 오버진 보라 프라이머리 + 크림-라벤더 히어로 그라디언트 — 협업/메시징 워크플레이스',
+    tags: ['light', 'muted', 'minimal'],
+    mood: { formality: 4, energy: 2, warmth: 3, density: 2, ornament: 2 },
+    domains: ['saas', 'dev-tools', 'dashboard'],
+    useWhen: [
+      '협업·메시징 워크플레이스 SaaS',
+      '딥 오버진 보라 브랜드 아이덴티티',
+      '크림-라벤더 그라디언트 히어로',
+    ],
+    avoidWhen: ['고에너지 게이밍/크립토', '차가운 모노 기술 문서'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['obsidian-violet', 'grand-noir'],
+  },
+
+  'aurora-yellow': {
+    displayName: 'Aurora Yellow',
+    summary: '비비드 오로라-옐로 그라디언트 + 제로-radius 각진 버튼 — 프렌치 오토모티브 마케팅',
+    tags: ['light', 'vivid', 'sharp', 'geometric', 'high-contrast'],
+    mood: { formality: 3, energy: 4, warmth: 3, density: 2, ornament: 2 },
+    domains: ['marketing', 'landing', 'creative-agency', 'ecommerce'],
+    useWhen: [
+      '대담한 옐로 그라디언트 자동차/제품 랜딩',
+      '제로-radius 각진 버튼 디자인',
+      '고채도 임팩트 마케팅',
+    ],
+    avoidWhen: ['차분한 엔터프라이즈 대시보드', '파스텔·소프트 소비자'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['sunflower', 'neon-yellow'],
+  },
+
+  'azure-clean': {
+    displayName: 'Azure Clean',
+    summary: '순백 캔버스 + 일렉트릭 애저 CTA, 기하학적 정밀 타이포 — 클린 B2B SaaS',
+    tags: ['light', 'minimal', 'geometric', 'airy'],
+    mood: { formality: 4, energy: 2, warmth: 2, density: 2, ornament: 1 },
+    domains: ['saas', 'landing', 'marketing', 'docs'],
+    useWhen: [
+      '순백 캔버스 + 일렉트릭 애저 CTA',
+      '기하학적 정밀 타이포 제품',
+      '클린 B2B SaaS 랜딩',
+    ],
+    avoidWhen: ['따뜻한 표현적 소비자 브랜드', '다크-우선 UI'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['glacial', 'web-blue', 'social-blue'],
+  },
+
+  bavarian: {
+    displayName: 'Bavarian',
+    summary: '따뜻한 화이트 위 코퍼릿 사파이어 블루 — 프리미엄 오토모티브 에디토리얼',
+    tags: ['light', 'minimal', 'serious', 'airy'],
+    mood: { formality: 5, energy: 2, warmth: 3, density: 2, ornament: 1 },
+    domains: ['marketing', 'landing', 'luxury', 'editorial'],
+    useWhen: [
+      '프리미엄 자동차·제조 에디토리얼',
+      '따뜻한 화이트 위 사파이어 블루',
+      '격식 있는 브랜드 랜딩',
+    ],
+    avoidWhen: ['플레이풀 소비자 앱', '고밀도 개발자 대시보드'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['carbon', 'navy-dark'],
+  },
+
+  blueprint: {
+    displayName: 'Blueprint',
+    summary: '흰 바탕에 인디고 강조, 기술 청사진 미니멀 — 오픈소스/AI 인프라 톤',
+    tags: ['light', 'minimal', 'technical', 'mono', 'grid', 'geometric', 'airy', 'serious'],
+    mood: { formality: 4, energy: 2, warmth: 2, density: 2, ornament: 1 },
+    domains: ['dev-tools', 'saas', 'docs', 'landing'],
+    useWhen: [
+      '오픈소스·AI 인프라나 개발자 툴 랜딩',
+      '미니멀 화이트 기반에 인디고 포인트',
+      '코드·모노 타이포가 중요한 기술 문서',
+    ],
+    avoidWhen: ['따뜻하고 표현적인 소비자 브랜드', '고밀도 데이터 대시보드 표면'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['stark-white'],
+  },
+
+  broadsheet: {
+    displayName: 'Broadsheet',
+    summary: '페이퍼-화이트 신문 밀도 + 커스텀 세리프·잉크-블루 링크 — 텍스트 중심 테크 매거진',
+    tags: ['light', 'serif', 'typographic', 'dense', 'high-contrast'],
+    mood: { formality: 4, energy: 2, warmth: 2, density: 4, ornament: 2 },
+    domains: ['editorial', 'blog', 'docs', 'marketing'],
+    useWhen: [
+      '신문·매거진 밀도의 편집 콘텐츠',
+      '커스텀 세리프 + 잉크-블루 링크',
+      '텍스트 중심 테크 매거진',
+    ],
+    avoidWhen: ['여백 넉넉한 미니멀 랜딩', '고채도 소비자 브랜드'],
+    accessibility: { contrastIntent: 'aaa', colorblindConsidered: false, darkFirst: false },
+    related: ['serenity', 'terracotta'],
+  },
+
+  carbon: {
+    displayName: 'Carbon',
+    summary: '구조화된 사파이어 블루 팔레트 + 그리드 체계 — 엔터프라이즈 디자인 시스템 중력',
+    tags: ['light', 'minimal', 'grid', 'technical', 'serious'],
+    mood: { formality: 5, energy: 2, warmth: 2, density: 3, ornament: 1 },
+    domains: ['saas', 'dashboard', 'dev-tools', 'docs'],
+    useWhen: [
+      '구조화된 엔터프라이즈 디자인 시스템',
+      '사파이어 블루 그리드 대시보드',
+      '격식 있는 B2B 제품',
+    ],
+    avoidWhen: ['표현적 크리에이티브 브랜드', '따뜻한 플레이풀 소비자'],
+    accessibility: { contrastIntent: 'aaa', colorblindConsidered: false, darkFirst: false },
+    related: ['bavarian', 'onyx', 'blueprint'],
+  },
+
+  'carbon-night': {
+    displayName: 'Carbon Night',
+    summary: '미니멀 카본-블랙 + 모노스페이스 강조 — 개발자 이메일/API 제품',
+    tags: ['light', 'monochrome', 'mono', 'minimal', 'technical'],
+    mood: { formality: 4, energy: 2, warmth: 2, density: 2, ornament: 1 },
+    domains: ['dev-tools', 'saas', 'docs'],
+    useWhen: [
+      '개발자 이메일·API 제품',
+      '미니멀 카본-블랙 + 모노스페이스 강조',
+      '기술 문서 표면',
+    ],
+    avoidWhen: ['따뜻한 소비자 마케팅', '고채도 그라디언트 브랜드'],
+    accessibility: { contrastIntent: 'aaa', colorblindConsidered: false, darkFirst: false },
+    related: ['terminal', 'code-dark', 'onyx'],
+  },
+
+  'catalog-red': {
+    displayName: 'Catalog Red',
+    summary: '플랫 컬러 리본 카드 + 청키 헬베티카 — 카탈로그 시대 엔터프라이즈 웹',
+    tags: ['light', 'flat', 'geometric', 'retro'],
+    mood: { formality: 3, energy: 3, warmth: 2, density: 3, ornament: 2 },
+    domains: ['ecommerce', 'marketing', 'saas'],
+    useWhen: [
+      '카탈로그 시대 엔터프라이즈 웹 느낌',
+      '플랫 컬러 리본 카드 + 청키 헬베티카',
+      '레트로 B2B 커머스',
+    ],
+    avoidWhen: ['미니멀 프리미엄 럭셔리', '다크-우선 테크'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['cobalt', 'web-blue'],
+  },
+
+  celluloid: {
+    displayName: 'Celluloid',
+    summary: '필름-페스티벌 모노크롬 미학 + 틸 강조 — 시네마틱 AI 크리에이티브 툴',
+    tags: ['light', 'minimal', 'monochrome', 'technical'],
+    mood: { formality: 3, energy: 2, warmth: 2, density: 2, ornament: 1 },
+    domains: ['creative-agency', 'saas', 'entertainment', 'portfolio'],
+    useWhen: [
+      '시네마틱 AI 크리에이티브 툴',
+      '필름 페스티벌 모노크롬 편집 미학',
+      '틸 강조 프로덕트',
+    ],
+    avoidWhen: ['고밀도 금융 대시보드', '따뜻한 키즈 소비자'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['mint-code', 'grand-noir'],
+  },
+
+  'charcoal-warm': {
+    displayName: 'Charcoal Warm',
+    summary: '따뜻한 차콜 캔버스 + 블록 기반 명령 UI — 모던 터미널/커맨드 제품',
+    tags: ['light', 'mono', 'technical', 'geometric'],
+    mood: { formality: 3, energy: 3, warmth: 3, density: 3, ornament: 1 },
+    domains: ['dev-tools', 'saas', 'docs'],
+    useWhen: [
+      '모던 터미널·커맨드 UI',
+      '블록 기반 명령 인터페이스',
+      '따뜻한 차콜 톤 개발자 툴',
+    ],
+    avoidWhen: ['표현적 소비자 마케팅', '럭셔리 에디토리얼'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['terminal', 'code-ivory'],
+  },
+
+  cobalt: {
+    displayName: 'Cobalt',
+    summary: '클린 코발트 블루 아이덴티티 + 기관 신뢰 — 미니멀 크립토 거래소',
+    tags: ['light', 'minimal', 'geometric', 'serious'],
+    mood: { formality: 5, energy: 2, warmth: 2, density: 2, ornament: 1 },
+    domains: ['fintech', 'crypto-web3', 'dashboard', 'saas'],
+    useWhen: [
+      '기관 신뢰의 크립토 거래소',
+      '클린 코발트 블루 아이덴티티',
+      '미니멀 금융 제품',
+    ],
+    avoidWhen: ['플레이풀 소비자 브랜드', '따뜻한 에디토리얼'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['indigo-night', 'violet-depth', 'azure-clean'],
+  },
+
+  'code-dark': {
+    displayName: 'Code Dark',
+    summary: '타이트한 자간 + 니어-블랙 강조 — 코드 중심 개발자 플랫폼 미니멀',
+    tags: ['light', 'mono', 'monochrome', 'technical', 'minimal'],
+    mood: { formality: 3, energy: 2, warmth: 2, density: 2, ornament: 1 },
+    domains: ['dev-tools', 'docs', 'saas'],
+    useWhen: [
+      '코드 중심 개발자 플랫폼',
+      '타이트한 자간의 미니멀 기술 UI',
+      '니어-블랙 강조',
+    ],
+    avoidWhen: ['따뜻한 소비자 제품', '고채도 마케팅'],
+    accessibility: { contrastIntent: 'aaa', colorblindConsidered: false, darkFirst: false },
+    related: ['carbon-night', 'terminal', 'code-ivory'],
+  },
+
+  'code-ivory': {
+    displayName: 'Code Ivory',
+    summary: '아이보리 캔버스 + 모노스페이스 전면 — 터미널-네이티브 AI 코딩 에디터',
+    tags: ['light', 'mono', 'technical', 'airy'],
+    mood: { formality: 3, energy: 2, warmth: 3, density: 2, ornament: 1 },
+    domains: ['dev-tools', 'saas', 'docs'],
+    useWhen: [
+      'AI 코딩·에디터 제품',
+      '모노스페이스 전면 + 아이보리 캔버스',
+      '터미널-네이티브 개발자 톤',
+    ],
+    avoidWhen: ['표현적 소비자 브랜드', '고밀도 금융 대시보드'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['code-dark', 'charcoal-warm', 'ember-cream'],
+  },
+
+  'commerce-noir': {
+    displayName: 'Commerce Noir',
+    summary: '니어-블랙 위 네온-그린 강조 + 울트라-라이트 타이포 — 시네마틱 커머스',
+    tags: ['light', 'vivid', 'minimal'],
+    mood: { formality: 3, energy: 3, warmth: 2, density: 2, ornament: 1 },
+    domains: ['ecommerce', 'marketing', 'saas'],
+    useWhen: [
+      '시네마틱 커머스 브랜드',
+      '니어-블랙 위 네온-그린 강조',
+      '울트라-라이트 타이포 제품',
+    ],
+    avoidWhen: ['고밀도 데이터 대시보드', '따뜻한 키즈 소비자'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['jungle-night', 'mint-code'],
+  },
+
+  coral: {
+    displayName: 'Coral',
+    summary: '따뜻한 코랄 프라이머리 + 여백 넉넉한 화이트 에디토리얼 — 친근한 소비자 브랜드',
+    tags: ['light', 'rounded', 'airy', 'minimal'],
+    mood: { formality: 2, energy: 3, warmth: 4, density: 2, ornament: 2 },
+    domains: ['marketing', 'landing', 'ecommerce', 'social'],
+    useWhen: [
+      '따뜻한 코랄 강조의 소비자 브랜드',
+      '여백 넉넉한 화이트 에디토리얼',
+      '친근한 마케팅 랜딩',
+    ],
+    avoidWhen: ['격식 있는 엔터프라이즈', '다크-우선 테크'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['warm-parchment', 'warm-ivory', 'tangerine'],
+  },
+
+  cosmonaut: {
+    displayName: 'Cosmonaut',
+    summary: '스타크 흑백 + 풀블리드 미래적 이미지 — 우주/첨단기술 브랜드',
+    tags: ['light', 'monochrome', 'high-contrast', 'minimal', 'futuristic'],
+    mood: { formality: 4, energy: 3, warmth: 1, density: 1, ornament: 1 },
+    domains: ['marketing', 'landing', 'portfolio', 'creative-agency'],
+    useWhen: [
+      '우주·첨단기술 브랜드 랜딩',
+      '스타크 흑백 + 풀블리드 이미지',
+      '미래적 미니멀 마케팅',
+    ],
+    avoidWhen: ['따뜻한 소비자 제품', '고밀도 데이터 UI'],
+    accessibility: { contrastIntent: 'aaa', colorblindConsidered: false, darkFirst: false },
+    related: ['arctic-white', 'void', 'pitch'],
+  },
+
+  'cream-bloom': {
+    displayName: 'Cream Bloom',
+    summary: '따뜻한 크림 캔버스 + 볼드 바이올렛 클레이메이션 — 플레이풀 소비자',
+    tags: ['light', 'playful', 'rounded', 'vivid'],
+    mood: { formality: 2, energy: 4, warmth: 4, density: 2, ornament: 3 },
+    domains: ['marketing', 'landing', 'kids', 'social'],
+    useWhen: [
+      '플레이풀 클레이메이션 에너지의 소비자',
+      '따뜻한 크림 캔버스 + 볼드 바이올렛',
+      '친근한 브랜드 랜딩',
+    ],
+    avoidWhen: ['격식 있는 금융/엔터프라이즈', '미니멀 기술 문서'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['gradient-violet', 'honey-cream'],
+  },
+
+  'dark-chrome': {
+    displayName: 'Dark Chrome',
+    summary: '슬릭 다크-크롬 + 바이브런트 그라디언트·코랄-레드 강조 — 생산성 런처',
+    tags: ['light', 'gradient', 'vivid', 'minimal'],
+    mood: { formality: 3, energy: 4, warmth: 3, density: 2, ornament: 2 },
+    domains: ['dev-tools', 'saas', 'marketing'],
+    useWhen: [
+      '생산성 런처/툴 브랜드',
+      '슬릭 다크-크롬 + 바이브런트 그라디언트',
+      '코랄-레드 강조',
+    ],
+    avoidWhen: ['보수적 엔터프라이즈 대시보드', '세리프 에디토리얼'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['gradient-violet', 'motion-dark'],
+  },
+
+  'editorial-dark': {
+    displayName: 'Editorial Dark',
+    summary: '대형 디스플레이 타이포 + 코랄-레드 강조(다크 위) — 임팩트 큰 에디토리얼 마케팅',
+    tags: ['light', 'typographic', 'vivid', 'high-contrast'],
+    mood: { formality: 3, energy: 4, warmth: 3, density: 2, ornament: 2 },
+    domains: ['marketing', 'editorial', 'creative-agency', 'landing'],
+    useWhen: [
+      '대형 디스플레이 타이포 마케팅',
+      '다크 에디토리얼 + 코랄-레드 강조',
+      '임팩트 큰 브랜드 히어로',
+    ],
+    avoidWhen: ['차분한 데이터 대시보드', '파스텔 소비자'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['acid-mint', 'signal-red'],
+  },
+
+  'electric-void': {
+    displayName: 'Electric Void',
+    summary: '일렉트릭 바이올렛 강조 + 코드 중심 UI — 터미널 스타일 개발자 툴링',
+    tags: ['light', 'technical', 'mono', 'minimal'],
+    mood: { formality: 3, energy: 3, warmth: 2, density: 2, ornament: 1 },
+    domains: ['dev-tools', 'saas', 'docs'],
+    useWhen: [
+      '터미널 스타일 개발자 툴',
+      '일렉트릭 바이올렛 강조',
+      '코드 중심 제품 UI',
+    ],
+    avoidWhen: ['따뜻한 소비자 마케팅', '럭셔리 에디토리얼'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['midnight-indigo', 'violet-depth', 'motion-dark'],
+  },
+
+  'ember-cream': {
+    displayName: 'Ember Cream',
+    summary: '따뜻한 크림 캔버스 + 엠버-오렌지 CTA — AI-퍼스트 코드 에디터 온기',
+    tags: ['light', 'mono', 'technical', 'airy'],
+    mood: { formality: 3, energy: 3, warmth: 4, density: 2, ornament: 1 },
+    domains: ['dev-tools', 'saas', 'docs'],
+    useWhen: [
+      '따뜻한 크림 캔버스 AI 코드 에디터',
+      '엠버-오렌지 CTA',
+      '친근한 개발자 제품',
+    ],
+    avoidWhen: ['차가운 기업 대시보드', '다크-우선 UI'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['code-ivory', 'warm-linen', 'honey-cream'],
+  },
+
+  'forest-cream': {
+    displayName: 'Forest Cream',
+    summary: '어스-그린 4단계 시스템 + 따뜻한 크림 캔버스 — 아티산 커피 미학',
+    tags: ['light', 'muted', 'organic', 'serif'],
+    mood: { formality: 3, energy: 2, warmth: 4, density: 2, ornament: 2 },
+    domains: ['ecommerce', 'marketing', 'landing', 'blog'],
+    useWhen: [
+      '아티산 커피·식음료 브랜드',
+      '어스-그린 4단계 시스템 + 따뜻한 크림',
+      '자연친화 소비자 랜딩',
+    ],
+    avoidWhen: ['고채도 테크 대시보드', '다크-우선 크립토'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['moss-clean', 'jade-leaf', 'terracotta'],
+  },
+
+  glacial: {
+    displayName: 'Glacial',
+    summary: '프리미엄 화이트스페이스 + 시네마틱 이미지·퓨어 세룰리안 CTA — 하이엔드 소비자',
+    tags: ['light', 'minimal', 'airy', 'geometric'],
+    mood: { formality: 4, energy: 2, warmth: 2, density: 1, ornament: 1 },
+    domains: ['marketing', 'landing', 'ecommerce', 'luxury'],
+    useWhen: [
+      '프리미엄 화이트스페이스 제품 랜딩',
+      '시네마틱 이미지 + 퓨어 세룰리안 CTA',
+      '하이엔드 소비자 하드웨어',
+    ],
+    avoidWhen: ['고밀도 개발자 문서', '표현적 맥시멀 브랜드'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['azure-clean', 'arctic-white', 'social-blue'],
+  },
+
+  'gold-rush': {
+    displayName: 'Gold Rush',
+    summary: '딥 블랙 위 볼드 옐로 + 고대비 긴급 — 크립토 거래소/트레이딩 플로어',
+    tags: ['light', 'vivid', 'high-contrast', 'technical'],
+    mood: { formality: 3, energy: 4, warmth: 4, density: 3, ornament: 1 },
+    domains: ['fintech', 'crypto-web3', 'dashboard'],
+    useWhen: [
+      '크립토 거래소·트레이딩',
+      '딥 블랙 위 볼드 옐로',
+      '고대비 긴급 트레이딩 톤',
+    ],
+    avoidWhen: ['차분한 미니멀 에디토리얼', '파스텔 소비자'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['amber-light', 'amber-dark', 'neon-yellow'],
+  },
+
+  'gradient-violet': {
+    displayName: 'Gradient Violet',
+    summary: '시그니처 바이올렛 그라디언트 + weight-300 우아함 — 결제/금융 인프라',
+    tags: ['light', 'gradient', 'minimal', 'airy'],
+    mood: { formality: 4, energy: 3, warmth: 3, density: 2, ornament: 2 },
+    domains: ['fintech', 'saas', 'dev-tools', 'landing'],
+    useWhen: [
+      '결제·금융 인프라 브랜드',
+      '시그니처 바이올렛 그라디언트',
+      'weight-300 우아한 미니멀',
+    ],
+    avoidWhen: ['청키 레트로 브랜드', '다크-우선 게이밍'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['violet-depth', 'cream-bloom', 'midnight-indigo'],
+  },
+
+  'grand-noir': {
+    displayName: 'Grand Noir',
+    summary: '시네마-블랙 캔버스 + 모노크롬 오스테리티·기념비적 디스플레이 — 하이엔드 럭셔리',
+    tags: ['light', 'typographic', 'high-contrast', 'luxurious'],
+    mood: { formality: 5, energy: 2, warmth: 2, density: 2, ornament: 2 },
+    domains: ['luxury', 'editorial', 'portfolio', 'creative-agency'],
+    useWhen: [
+      '시네마틱 럭셔리 브랜드',
+      '모노크롬 오스테리티 + 기념비적 디스플레이 타이포',
+      '하이엔드 포트폴리오',
+    ],
+    avoidWhen: ['플레이풀 소비자 앱', '고밀도 데이터 UI'],
+    accessibility: { contrastIntent: 'aaa', colorblindConsidered: false, darkFirst: false },
+    related: ['obsidian-gold', 'aubergine', 'pitch'],
+  },
+
+  graphite: {
+    displayName: 'Graphite',
+    summary: '그래파이트-블랙 볼드 다크 인터페이스 + 그라디언트 프로덕트 카드 — AI 플랫폼',
+    tags: ['light', 'gradient', 'technical', 'minimal'],
+    mood: { formality: 4, energy: 3, warmth: 2, density: 3, ornament: 2 },
+    domains: ['saas', 'dev-tools', 'dashboard', 'landing'],
+    useWhen: [
+      '볼드 다크 인터페이스 AI 플랫폼',
+      '그라디언트 프로덕트 카드',
+      '그래파이트-블랙 브랜드',
+    ],
+    avoidWhen: ['따뜻한 소비자 마케팅', '세리프 에디토리얼'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['onyx', 'iron', 'indigo-night'],
+  },
+
+  'honey-cream': {
+    displayName: 'Honey Cream',
+    summary: '따뜻한 허니-크림 캔버스 + 앰버 강조 — 플레이풀 애널리틱스/개발자 제품',
+    tags: ['light', 'playful', 'vivid', 'rounded'],
+    mood: { formality: 2, energy: 4, warmth: 5, density: 2, ornament: 3 },
+    domains: ['saas', 'dev-tools', 'dashboard'],
+    useWhen: [
+      '플레이풀 애널리틱스·개발자 제품',
+      '따뜻한 허니-크림 + 앰버 강조',
+      '친근한 프로덕트 브랜드',
+    ],
+    avoidWhen: ['격식 있는 엔터프라이즈', '차가운 미니멀 럭셔리'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['tangerine', 'sunset', 'cream-bloom'],
+  },
+
+  'indigo-night': {
+    displayName: 'Indigo Night',
+    summary: '슬릭 다크 + 그라디언트 카드·코발트-인디고 강조 — 핀테크 정밀',
+    tags: ['light', 'gradient', 'technical', 'minimal'],
+    mood: { formality: 4, energy: 3, warmth: 2, density: 3, ornament: 2 },
+    domains: ['fintech', 'saas', 'dashboard', 'crypto-web3'],
+    useWhen: [
+      '핀테크 정밀 대시보드',
+      '슬릭 다크 + 그라디언트 카드',
+      '코발트-인디고 강조',
+    ],
+    avoidWhen: ['따뜻한 플레이풀 소비자', '레트로 브랜드'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['cobalt', 'midnight-indigo', 'graphite'],
+  },
+
+  iron: {
+    displayName: 'Iron',
+    summary: '퓨어 흑백 + 제품별 강조 시스템 — 엔터프라이즈 인프라',
+    tags: ['light', 'monochrome', 'high-contrast', 'minimal', 'technical'],
+    mood: { formality: 5, energy: 2, warmth: 2, density: 3, ornament: 1 },
+    domains: ['dev-tools', 'saas', 'dashboard', 'docs'],
+    useWhen: [
+      '엔터프라이즈 인프라 제품',
+      '퓨어 흑백 + 제품별 강조 시스템',
+      '격식 있는 개발자 플랫폼',
+    ],
+    avoidWhen: ['따뜻한 소비자 브랜드', '표현적 맥시멀'],
+    accessibility: { contrastIntent: 'aaa', colorblindConsidered: false, darkFirst: false },
+    related: ['void', 'precision', 'onyx'],
+  },
+
+  'ivory-loft': {
+    displayName: 'Ivory Loft',
+    summary: '따뜻한 화이트 캔버스 + 쿨-블루 강조 — 에디토리얼 워크플로우 SaaS',
+    tags: ['light', 'airy', 'minimal', 'geometric'],
+    mood: { formality: 3, energy: 2, warmth: 3, density: 2, ornament: 1 },
+    domains: ['saas', 'dashboard', 'dev-tools'],
+    useWhen: [
+      '에디토리얼 워크플로우 SaaS',
+      '따뜻한 화이트 + 쿨-블루 강조',
+      '협업 생산성 제품',
+    ],
+    avoidWhen: ['다크-우선 크립토', '고채도 마케팅'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['web-blue', 'social-blue', 'code-ivory'],
+  },
+
+  'jade-leaf': {
+    displayName: 'Jade Leaf',
+    summary: '제이드-그린 브랜딩 + 다크 틸 히어로 밴드 — 개발자 문서/데이터베이스',
+    tags: ['light', 'vivid', 'technical', 'geometric'],
+    mood: { formality: 3, energy: 3, warmth: 2, density: 3, ornament: 1 },
+    domains: ['dev-tools', 'docs', 'saas'],
+    useWhen: [
+      '개발자 문서·데이터베이스 제품',
+      '제이드-그린 브랜딩 + 다크 틸 히어로 밴드',
+      '기술 랜딩',
+    ],
+    avoidWhen: ['따뜻한 소비자 마케팅', '럭셔리 에디토리얼'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['mint-code', 'moss-clean', 'jungle-night'],
+  },
+
+  'jungle-night': {
+    displayName: 'Jungle Night',
+    summary: '다크 보이드 위 바이브런트 정글-그린 + 앨범아트 — 뮤직/미디어 스트리밍',
+    tags: ['light', 'vivid', 'playful'],
+    mood: { formality: 2, energy: 4, warmth: 3, density: 3, ornament: 2 },
+    domains: ['entertainment', 'social', 'marketing'],
+    useWhen: [
+      '뮤직·미디어 스트리밍 브랜드',
+      '다크 보이드 위 바이브런트 정글-그린',
+      '앨범아트 중심 UI',
+    ],
+    avoidWhen: ['격식 있는 금융/엔터프라이즈', '미니멀 문서'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['commerce-noir', 'jade-leaf'],
+  },
+
+  lime: {
+    displayName: 'Lime',
+    summary: '화이트 위 브라이트 라임 강조 — 스칸디나비안 핀테크 매거진 미학',
+    tags: ['light', 'vivid', 'airy', 'geometric'],
+    mood: { formality: 3, energy: 3, warmth: 3, density: 2, ornament: 2 },
+    domains: ['fintech', 'marketing', 'landing', 'editorial'],
+    useWhen: [
+      '스칸디 핀테크 매거진 미학',
+      '화이트 위 브라이트 라임 강조',
+      '밝고 대담한 금융 브랜드',
+    ],
+    avoidWhen: ['다크-우선 트레이딩', '보수적 기관 UI'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['sunflower', 'jade-leaf'],
+  },
+
+  'magazine-light': {
+    displayName: 'Magazine Light',
+    summary: '프린트-매거진 미학 + 애트머스페릭 라이트 표면·옐로 강조 — 보이스 AI 에디토리얼',
+    tags: ['light', 'typographic', 'vivid', 'airy'],
+    mood: { formality: 3, energy: 3, warmth: 3, density: 3, ornament: 2 },
+    domains: ['editorial', 'marketing', 'blog', 'landing'],
+    useWhen: [
+      '프린트-매거진 미학의 에디토리얼',
+      '보이스 AI 제품 랜딩',
+      '애트머스페릭 라이트 표면 + 옐로 강조',
+    ],
+    avoidWhen: ['고밀도 데이터 대시보드', '다크-우선 테크'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['aurora-yellow', 'broadsheet'],
+  },
+
+  'midnight-indigo': {
+    displayName: 'Midnight Indigo',
+    summary: '니어-보이드 다크 + 프리사이즈 페리윙클-인디고 강조 — 엔지니어용 울트라-미니멀',
+    tags: ['light', 'minimal', 'technical', 'geometric'],
+    mood: { formality: 4, energy: 2, warmth: 2, density: 2, ornament: 1 },
+    domains: ['dev-tools', 'saas', 'dashboard'],
+    useWhen: [
+      '엔지니어용 울트라-미니멀 제품',
+      '프리사이즈 페리윙클-인디고 강조',
+      '니어-보이드 다크 톤',
+    ],
+    avoidWhen: ['따뜻한 소비자 마케팅', '맥시멀 브랜드'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['electric-void', 'indigo-night', 'gradient-violet'],
+  },
+
+  'midnight-ink': {
+    displayName: 'Midnight Ink',
+    summary: '딥 인디고 + 앰버 강조, 키보드-퍼스트 — 프리미엄 이메일 생산성',
+    tags: ['light', 'technical', 'minimal', 'mono'],
+    mood: { formality: 4, energy: 2, warmth: 3, density: 2, ornament: 1 },
+    domains: ['saas', 'dev-tools', 'dashboard'],
+    useWhen: [
+      '키보드-퍼스트 프리미엄 생산성 UI',
+      '딥 인디고 이메일 제품',
+      '앰버 강조 다크 톤',
+    ],
+    avoidWhen: ['플레이풀 소비자 앱', '고채도 마케팅'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['midnight-indigo', 'obsidian-violet'],
+  },
+
+  'mint-code': {
+    displayName: 'Mint Code',
+    summary: '민트-에메랄드 강조 + 다크 코드-퍼스트 — 오픈소스 백엔드/데이터베이스',
+    tags: ['light', 'vivid', 'technical', 'mono'],
+    mood: { formality: 3, energy: 3, warmth: 2, density: 3, ornament: 1 },
+    domains: ['dev-tools', 'docs', 'saas'],
+    useWhen: [
+      '오픈소스 백엔드·데이터베이스 플랫폼',
+      '민트-에메랄드 강조 + 다크 코드-퍼스트',
+      '개발자 문서',
+    ],
+    avoidWhen: ['따뜻한 소비자 브랜드', '럭셔리 에디토리얼'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['jade-leaf', 'moss-clean', 'code-dark'],
+  },
+
+  'moss-clean': {
+    displayName: 'Moss Clean',
+    summary: '클린 화이트 + 포레스트-그린 강조 — 읽기 최적화 문서/지식 베이스',
+    tags: ['light', 'minimal', 'airy', 'muted'],
+    mood: { formality: 3, energy: 2, warmth: 3, density: 2, ornament: 1 },
+    domains: ['docs', 'blog', 'saas', 'education'],
+    useWhen: [
+      '읽기 최적화 문서·지식 베이스',
+      '클린 화이트 + 포레스트-그린 강조',
+      '차분한 콘텐츠 제품',
+    ],
+    avoidWhen: ['고채도 마케팅 히어로', '다크-우선 크립토'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['forest-cream', 'jade-leaf', 'mint-code'],
+  },
+
+  'motion-dark': {
+    displayName: 'Motion Dark',
+    summary: '볼드 다크 아트보드 + 일렉트릭 블루(보이드-블랙 위) — 모션-퍼스트 크리에이티브',
+    tags: ['light', 'vivid', 'kinetic', 'technical'],
+    mood: { formality: 3, energy: 4, warmth: 2, density: 2, ornament: 2 },
+    domains: ['creative-agency', 'marketing', 'portfolio', 'dev-tools'],
+    useWhen: [
+      '모션-퍼스트 크리에이티브 브랜드',
+      '볼드 다크 아트보드 + 일렉트릭 블루',
+      '애니메이션 중심 포트폴리오',
+    ],
+    avoidWhen: ['정적 문서 콘텐츠', '따뜻한 소비자 소매'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['electric-void', 'dark-chrome', 'cobalt'],
+  },
+
+  'navy-dark': {
+    displayName: 'Navy Dark',
+    summary: '3-서피스 다크 레이아웃 + 딥 네이비 CTA·시안 호버 — 결제/금융 기관',
+    tags: ['light', 'minimal', 'serious', 'geometric'],
+    mood: { formality: 5, energy: 2, warmth: 2, density: 2, ornament: 1 },
+    domains: ['fintech', 'saas', 'dashboard', 'ecommerce'],
+    useWhen: [
+      '결제·금융 기관 제품',
+      '3-서피스 다크 레이아웃 + 딥 네이비 CTA',
+      '시안 호버 인터랙션',
+    ],
+    avoidWhen: ['플레이풀 소비자', '표현적 크리에이티브'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['cobalt', 'bavarian', 'indigo-night'],
+  },
+
+  'neon-yellow': {
+    displayName: 'Neon Yellow',
+    summary: '일렉트릭 옐로-블랙 + 하이-볼티지 강조 — 애널리틱스/데이터베이스 기술 문서',
+    tags: ['light', 'neon', 'vivid', 'high-contrast', 'technical'],
+    mood: { formality: 2, energy: 5, warmth: 3, density: 3, ornament: 2 },
+    domains: ['dev-tools', 'dashboard', 'docs', 'saas'],
+    useWhen: [
+      '하이-볼티지 애널리틱스·데이터베이스',
+      '일렉트릭 옐로-블랙 강조',
+      '대담한 기술 문서',
+    ],
+    avoidWhen: ['차분한 럭셔리 에디토리얼', '보수적 기관 UI'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['aurora-yellow', 'gold-rush', 'sunflower'],
+  },
+
+  'obsidian-gold': {
+    displayName: 'Obsidian Gold',
+    summary: '트루 블랙 캐서드럴 캔버스 + 골드 강조·네오-그로테스크 디스플레이 — 럭셔리 에디토리얼',
+    tags: ['light', 'luxurious', 'high-contrast', 'typographic'],
+    mood: { formality: 5, energy: 2, warmth: 3, density: 2, ornament: 3 },
+    domains: ['luxury', 'editorial', 'portfolio', 'marketing'],
+    useWhen: [
+      '럭셔리 브랜드·에디토리얼',
+      '트루 블랙 + 골드 강조',
+      '네오-그로테스크 디스플레이 타이포',
+    ],
+    avoidWhen: ['플레이풀 소비자 앱', '고밀도 개발자 대시보드'],
+    accessibility: { contrastIntent: 'aaa', colorblindConsidered: false, darkFirst: false },
+    related: ['grand-noir', 'obsidian-violet'],
+  },
+
+  'obsidian-violet': {
+    displayName: 'Obsidian Violet',
+    summary: '미드나잇 캔버스 + 퍼플-바이올렛 — 데이터-덴스 다크 대시보드',
+    tags: ['light', 'technical', 'dense', 'muted'],
+    mood: { formality: 4, energy: 2, warmth: 2, density: 4, ornament: 1 },
+    domains: ['dashboard', 'saas', 'dev-tools', 'fintech'],
+    useWhen: [
+      '데이터-덴스 다크 대시보드',
+      '미드나잇 캔버스 + 퍼플-바이올렛',
+      '분석·모니터링 UI',
+    ],
+    avoidWhen: ['여백 넉넉한 미니멀 랜딩', '따뜻한 소비자 브랜드'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['violet-depth', 'graphite', 'midnight-ink'],
+  },
+
+  onyx: {
+    displayName: 'Onyx',
+    summary: '클린 니어-블랙 강조(화이트 위) — 개발자 지향 스케줄링/생산성 미니멀',
+    tags: ['light', 'minimal', 'monochrome', 'technical', 'airy'],
+    mood: { formality: 4, energy: 2, warmth: 2, density: 2, ornament: 1 },
+    domains: ['dev-tools', 'saas', 'docs'],
+    useWhen: [
+      '개발자 지향 스케줄링·생산성',
+      '클린 니어-블랙 강조 화이트',
+      '미니멀 오픈소스 제품',
+    ],
+    avoidWhen: ['고채도 마케팅', '따뜻한 키즈 소비자'],
+    accessibility: { contrastIntent: 'aaa', colorblindConsidered: false, darkFirst: false },
+    related: ['iron', 'precision', 'carbon-night'],
+  },
+
+  'oxide-green': {
+    displayName: 'Oxide Green',
+    summary: '옥사이드-그린 온 블랙 에너지 + 앵귤러 2px radius — 하드웨어/GPU 기술 파워',
+    tags: ['light', 'vivid', 'sharp', 'technical', 'geometric'],
+    mood: { formality: 3, energy: 4, warmth: 2, density: 3, ornament: 1 },
+    domains: ['dev-tools', 'dashboard', 'saas', 'gaming'],
+    useWhen: [
+      '하드웨어·GPU 기술 브랜드',
+      '옥사이드-그린 온 블랙 에너지',
+      '앵귤러 2px radius 정밀 UI',
+    ],
+    avoidWhen: ['따뜻한 소비자 에디토리얼', '소프트 파스텔 브랜드'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['jade-leaf', 'volt-emerald', 'neon-yellow'],
+  },
+
+  'periwinkle-retro': {
+    displayName: 'Periwinkle Retro',
+    summary: 'Y2K 브러시드-페리윙클 베벨 패널 + 하프톤 도트 카본 내비 — 레트로 웹',
+    tags: ['light', 'retro', 'textured', 'playful', 'gradient'],
+    mood: { formality: 2, energy: 4, warmth: 2, density: 3, ornament: 4 },
+    domains: ['creative-agency', 'portfolio', 'entertainment', 'marketing'],
+    useWhen: [
+      'Y2K·레트로 웹 미학',
+      '브러시드 페리윙클 베벨 패널 + 하프톤 도트',
+      '노스탤지어 크리에이티브',
+    ],
+    avoidWhen: ['격식 있는 엔터프라이즈', '미니멀 프리미엄'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['prism', 'raspberry'],
+  },
+
+  pitch: {
+    displayName: 'Pitch',
+    summary: '모노크롬 피치-블랙 온 화이트 + 매시브 대문자 타이포 — 애슬레틱 사진 브랜드',
+    tags: ['light', 'monochrome', 'high-contrast', 'typographic', 'sharp'],
+    mood: { formality: 4, energy: 4, warmth: 2, density: 2, ornament: 1 },
+    domains: ['marketing', 'ecommerce', 'landing', 'portfolio'],
+    useWhen: [
+      '애슬레틱·스포츠 브랜드',
+      '매시브 대문자 타이포 + 흑백',
+      '임팩트 큰 사진 중심 랜딩',
+    ],
+    avoidWhen: ['따뜻한 소프트 소비자', '고밀도 데이터 UI'],
+    accessibility: { contrastIntent: 'aaa', colorblindConsidered: false, darkFirst: false },
+    related: ['void', 'urban-mono', 'cosmonaut'],
+  },
+
+  precision: {
+    displayName: 'Precision',
+    summary: '흑백 정밀 + Geist 타이포 — 프론트엔드 배포/개발자 플랫폼',
+    tags: ['light', 'monochrome', 'minimal', 'technical', 'mono'],
+    mood: { formality: 4, energy: 2, warmth: 2, density: 2, ornament: 1 },
+    domains: ['dev-tools', 'saas', 'docs', 'landing'],
+    useWhen: [
+      '프론트엔드 배포·개발자 플랫폼',
+      '흑백 정밀 + Geist 타이포',
+      '미니멀 기술 랜딩',
+    ],
+    avoidWhen: ['따뜻한 소비자 마케팅', '표현적 맥시멀'],
+    accessibility: { contrastIntent: 'aaa', colorblindConsidered: false, darkFirst: false },
+    related: ['void', 'onyx', 'iron'],
+  },
+
+  prism: {
+    displayName: 'Prism',
+    summary: '모노크롬 프레임 위 바이브런트 멀티컬러 블록 — 플레이풀 크리에이티브 디자인 툴',
+    tags: ['light', 'vivid', 'playful', 'geometric', 'maximal'],
+    mood: { formality: 2, energy: 4, warmth: 3, density: 3, ornament: 4 },
+    domains: ['creative-agency', 'saas', 'marketing', 'portfolio'],
+    useWhen: [
+      '크리에이티브 디자인 툴',
+      '모노크롬 프레임 위 바이브런트 멀티컬러 블록',
+      '플레이풀 에디토리얼',
+    ],
+    avoidWhen: ['보수적 금융 기관', '차분한 미니멀 문서'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['acid-mint', 'periwinkle-retro'],
+  },
+
+  'race-night': {
+    displayName: 'Race Night',
+    summary: '모터스포츠-정밀 다크 캔버스 + 트라이컬러 M 강조·제로-마진 — 오토모티브 퍼포먼스',
+    tags: ['light', 'technical', 'high-contrast', 'sharp', 'geometric'],
+    mood: { formality: 4, energy: 4, warmth: 2, density: 3, ornament: 1 },
+    domains: ['marketing', 'landing', 'gaming', 'luxury'],
+    useWhen: [
+      '모터스포츠·자동차 퍼포먼스 브랜드',
+      '다크 캔버스 + 트라이컬러 M 강조',
+      '제로-마진 인텐시티',
+    ],
+    avoidWhen: ['따뜻한 소프트 소비자', '여백 넉넉한 미니멀'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['navy-dark', 'cobalt'],
+  },
+
+  raspberry: {
+    displayName: 'Raspberry',
+    summary: '라즈베리-레드 강조(화이트 위) + 매서너리 그리드 — 이미지-퍼스트 비주얼 디스커버리',
+    tags: ['light', 'vivid', 'rounded'],
+    mood: { formality: 2, energy: 3, warmth: 4, density: 3, ornament: 2 },
+    domains: ['social', 'ecommerce', 'marketing', 'entertainment'],
+    useWhen: [
+      '이미지-퍼스트 비주얼 디스커버리',
+      '라즈베리-레드 강조 화이트',
+      '매서너리 그리드 소셜',
+    ],
+    avoidWhen: ['격식 있는 엔터프라이즈', '다크-우선 테크'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['coral', 'signal-red'],
+  },
+
+  'scarlet-noir': {
+    displayName: 'Scarlet Noir',
+    summary: '키아로스쿠로 다크 캔버스 + 스칼렛 레드(니어-블랙 위)·극도의 스파스 — 드라마틱 편집',
+    tags: ['light', 'high-contrast', 'minimal', 'vivid'],
+    mood: { formality: 4, energy: 3, warmth: 2, density: 1, ornament: 1 },
+    domains: ['luxury', 'editorial', 'portfolio', 'creative-agency'],
+    useWhen: [
+      '키아로스쿠로 드라마틱 브랜드',
+      '니어-블랙 위 스칼렛 레드',
+      '극도로 스파스한 편집',
+    ],
+    avoidWhen: ['플레이풀 소비자 앱', '고밀도 대시보드'],
+    accessibility: { contrastIntent: 'aaa', colorblindConsidered: false, darkFirst: false },
+    related: ['signal-red', 'grand-noir'],
+  },
+
+  serenity: {
+    displayName: 'Serenity',
+    summary: '바이올렛-틴트 세리프 헤딩 + 소프트 크림 표면 — 따뜻한 미니멀 에디토리얼',
+    tags: ['light', 'serif', 'minimal', 'airy', 'muted'],
+    mood: { formality: 3, energy: 1, warmth: 4, density: 1, ornament: 2 },
+    domains: ['editorial', 'blog', 'portfolio', 'healthcare'],
+    useWhen: [
+      '따뜻한 미니멀 에디토리얼',
+      '바이올렛-틴트 세리프 헤딩 + 소프트 크림',
+      '차분한 콘텐츠 브랜드',
+    ],
+    avoidWhen: ['고에너지 마케팅', '다크-우선 테크 대시보드'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['broadsheet', 'warm-parchment', 'terracotta'],
+  },
+
+  'signal-red': {
+    displayName: 'Signal Red',
+    summary: '기념비적 대문자 디스플레이 + 시그널-레드 챕터 밴드 — 글로벌 텔레콤/기업',
+    tags: ['light', 'high-contrast', 'typographic', 'vivid', 'sharp'],
+    mood: { formality: 4, energy: 4, warmth: 2, density: 2, ornament: 1 },
+    domains: ['marketing', 'landing', 'saas'],
+    useWhen: [
+      '글로벌 텔레콤·기업 브랜드',
+      '기념비적 대문자 디스플레이',
+      '시그널-레드 챕터 밴드',
+    ],
+    avoidWhen: ['차분한 미니멀 럭셔리', '따뜻한 플레이풀 소비자'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['scarlet-noir', 'raspberry', 'editorial-dark'],
+  },
+
+  'social-blue': {
+    displayName: 'Social Blue',
+    summary: '사진-퍼스트 클린 화이트 + 코발트-블루 CTA — 바이너리 라이트 소셜/커뮤니티',
+    tags: ['light', 'minimal', 'airy', 'geometric'],
+    mood: { formality: 3, energy: 2, warmth: 2, density: 2, ornament: 1 },
+    domains: ['social', 'marketing', 'landing', 'saas'],
+    useWhen: [
+      '사진-퍼스트 소셜·커뮤니티',
+      '클린 화이트 + 코발트-블루 CTA',
+      '바이너리 라이트 표면',
+    ],
+    avoidWhen: ['다크-우선 크립토', '표현적 맥시멀 브랜드'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['web-blue', 'azure-clean', 'glacial'],
+  },
+
   'stark-white': {
     displayName: 'Stark White',
     summary: '스타크 화이트 편집형에 딥 그린-블랙 밴드 — 격식 있는 엔터프라이즈 SaaS 톤',
@@ -60,5 +1007,229 @@ export const foundationMetaRegistry: Readonly<Record<string, FoundationMeta>> = 
     avoidWhen: ['플레이풀·맥시멀 소비자 브랜드', '다크-우선 게이밍/크립토'],
     accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
     related: ['blueprint'],
+  },
+
+  sunflower: {
+    displayName: 'Sunflower',
+    summary: '브라이트 선플라워-옐로 강조(화이트 위) + 무한 캔버스 — 비주얼 협업/화이트보드',
+    tags: ['light', 'vivid', 'playful', 'rounded'],
+    mood: { formality: 2, energy: 4, warmth: 4, density: 2, ornament: 3 },
+    domains: ['saas', 'education', 'creative-agency', 'dashboard'],
+    useWhen: [
+      '협업·화이트보드 제품',
+      '브라이트 선플라워-옐로 강조',
+      '무한 캔버스 비주얼 협업',
+    ],
+    avoidWhen: ['격식 있는 금융 기관', '다크-우선 테크'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['aurora-yellow', 'lime', 'honey-cream'],
+  },
+
+  sunset: {
+    displayName: 'Sunset',
+    summary: '프렌치 미니멀 + 오렌지-선셋 온기(화이트 위) — 오픈-웨이트 AI/개발자 브랜드',
+    tags: ['light', 'minimal', 'airy', 'vivid'],
+    mood: { formality: 3, energy: 3, warmth: 4, density: 2, ornament: 1 },
+    domains: ['dev-tools', 'saas', 'landing', 'marketing'],
+    useWhen: [
+      '오픈-웨이트 AI·개발자 브랜드',
+      '프렌치 미니멀 + 오렌지-선셋 온기',
+      '화이트 캔버스 랜딩',
+    ],
+    avoidWhen: ['다크-우선 트레이딩', '고밀도 데이터 대시보드'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['tangerine', 'honey-cream', 'coral'],
+  },
+
+  tangerine: {
+    displayName: 'Tangerine',
+    summary: '따뜻한 크림 캔버스 + 탠저린-오렌지 — 친근한 워크플로우 자동화',
+    tags: ['light', 'rounded', 'playful', 'vivid'],
+    mood: { formality: 2, energy: 3, warmth: 4, density: 2, ornament: 2 },
+    domains: ['saas', 'dev-tools', 'marketing', 'landing'],
+    useWhen: [
+      '워크플로우 자동화·노코드',
+      '따뜻한 크림 캔버스 + 탠저린-오렌지',
+      '친근한 프로덕트 브랜드',
+    ],
+    avoidWhen: ['격식 있는 엔터프라이즈', '다크-우선 크립토'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['sunset', 'honey-cream', 'coral'],
+  },
+
+  terminal: {
+    displayName: 'Terminal',
+    summary: '퓨어 흑백 모노스페이스 + 터미널-퍼스트 — 로컬 AI/CLI 개발자 도구',
+    tags: ['light', 'monochrome', 'mono', 'minimal', 'technical'],
+    mood: { formality: 3, energy: 2, warmth: 2, density: 2, ornament: 1 },
+    domains: ['dev-tools', 'docs', 'saas'],
+    useWhen: [
+      '터미널-퍼스트 로컬 AI·CLI 제품',
+      '퓨어 흑백 모노스페이스',
+      '미니멀 개발자 도구',
+    ],
+    avoidWhen: ['따뜻한 소비자 마케팅', '고채도 브랜드'],
+    accessibility: { contrastIntent: 'aaa', colorblindConsidered: false, darkFirst: false },
+    related: ['void', 'carbon-night', 'code-dark'],
+  },
+
+  terracotta: {
+    displayName: 'Terracotta',
+    summary: '크림 캔버스 + 테라코타 강조·휴머니스트 세리프 헤드라인 — 따뜻한 에디토리얼',
+    tags: ['light', 'serif', 'muted', 'organic', 'airy'],
+    mood: { formality: 3, energy: 2, warmth: 5, density: 2, ornament: 2 },
+    domains: ['editorial', 'blog', 'portfolio', 'ecommerce'],
+    useWhen: [
+      '따뜻한 휴머니스트 에디토리얼',
+      '크림 캔버스 + 테라코타 강조',
+      '세리프 헤드라인 콘텐츠',
+    ],
+    avoidWhen: ['차가운 테크 대시보드', '다크-우선 크립토'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['warm-parchment', 'serenity', 'forest-cream'],
+  },
+
+  'urban-mono': {
+    displayName: 'Urban Mono',
+    summary: '볼드 흑백 모노 + 타이트 타이포 — 어반 모빌리티 에디토리얼 에너지',
+    tags: ['light', 'monochrome', 'mono', 'typographic', 'sharp'],
+    mood: { formality: 3, energy: 3, warmth: 2, density: 3, ornament: 1 },
+    domains: ['editorial', 'marketing', 'portfolio', 'landing'],
+    useWhen: [
+      '어반 모빌리티·도시 브랜드',
+      '볼드 흑백 모노 + 타이트 타이포',
+      '에디토리얼 에너지',
+    ],
+    avoidWhen: ['따뜻한 소프트 소비자', '파스텔 브랜드'],
+    accessibility: { contrastIntent: 'aaa', colorblindConsidered: false, darkFirst: false },
+    related: ['pitch', 'void', 'precision'],
+  },
+
+  'violet-depth': {
+    displayName: 'Violet Depth',
+    summary: '퍼플-액센트 화이트 UI + 딥 바이올렛 프라이머리 — 데이터-덴스 크립토 대시보드',
+    tags: ['light', 'technical', 'dense', 'vivid'],
+    mood: { formality: 4, energy: 3, warmth: 2, density: 4, ornament: 1 },
+    domains: ['crypto-web3', 'fintech', 'dashboard', 'saas'],
+    useWhen: [
+      '데이터-덴스 크립토 대시보드',
+      '퍼플-액센트 화이트 UI',
+      '딥 바이올렛 프라이머리 제품',
+    ],
+    avoidWhen: ['따뜻한 소비자 에디토리얼', '여백 넉넉한 미니멀'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['gradient-violet', 'obsidian-violet', 'cobalt'],
+  },
+
+  void: {
+    displayName: 'Void',
+    summary: '스타크 모노크롬 보이드 + 미래적 미니멀 — 프론티어 AI/리서치 브랜드',
+    tags: ['light', 'monochrome', 'minimal', 'futuristic', 'high-contrast'],
+    mood: { formality: 4, energy: 2, warmth: 2, density: 1, ornament: 1 },
+    domains: ['saas', 'dev-tools', 'landing', 'marketing'],
+    useWhen: [
+      '프론티어 AI·리서치 브랜드',
+      '스타크 모노크롬 보이드',
+      '미래적 미니멀 랜딩',
+    ],
+    avoidWhen: ['따뜻한 플레이풀 소비자', '고밀도 데이터 UI'],
+    accessibility: { contrastIntent: 'aaa', colorblindConsidered: false, darkFirst: false },
+    related: ['precision', 'terminal', 'cosmonaut'],
+  },
+
+  'volt-emerald': {
+    displayName: 'Volt Emerald',
+    summary: '보이드-블랙 + 볼트/앰버 강조 — 터미널-네이티브 AI 에이전트 프레임워크',
+    tags: ['light', 'technical', 'mono', 'vivid'],
+    mood: { formality: 3, energy: 3, warmth: 3, density: 2, ornament: 1 },
+    domains: ['dev-tools', 'saas', 'docs'],
+    useWhen: [
+      '터미널-네이티브 AI 에이전트 프레임워크',
+      '보이드-블랙 + 볼트/앰버 강조',
+      '개발자 도구 브랜드',
+    ],
+    avoidWhen: ['따뜻한 소비자 마케팅', '럭셔리 에디토리얼'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['oxide-green', 'mint-code', 'terminal'],
+  },
+
+  'warm-canvas': {
+    displayName: 'Warm Canvas',
+    summary: '클린 화이트 + 따뜻한 크림 표면 — 코드-포워드 ML 모델 API',
+    tags: ['light', 'minimal', 'mono', 'airy', 'technical'],
+    mood: { formality: 3, energy: 2, warmth: 3, density: 2, ornament: 1 },
+    domains: ['dev-tools', 'docs', 'saas'],
+    useWhen: [
+      '코드-포워드 ML 모델 API',
+      '클린 화이트 + 따뜻한 크림 표면',
+      '개발자 문서 톤',
+    ],
+    avoidWhen: ['고채도 마케팅', '다크-우선 크립토'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['warm-linen', 'ember-cream', 'precision'],
+  },
+
+  'warm-ivory': {
+    displayName: 'Warm Ivory',
+    summary: '따뜻한 크림-아이보리 캔버스 + 오비탈 필 형태 — 글로벌 결제/에디토리얼 온기',
+    tags: ['light', 'rounded', 'airy', 'vivid'],
+    mood: { formality: 3, energy: 3, warmth: 4, density: 2, ornament: 2 },
+    domains: ['fintech', 'marketing', 'landing', 'ecommerce'],
+    useWhen: [
+      '글로벌 결제·브랜드 에디토리얼',
+      '따뜻한 크림-아이보리 + 오비탈 필 형태',
+      '친근한 금융 마케팅',
+    ],
+    avoidWhen: ['다크-우선 트레이딩', '미니멀 모노 테크'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['warm-parchment', 'coral', 'raspberry'],
+  },
+
+  'warm-linen': {
+    displayName: 'Warm Linen',
+    summary: '크림-리넨 표면 + 소프트 블루/오렌지 AI 강조 — 따뜻한 메시징 제품',
+    tags: ['light', 'rounded', 'airy', 'playful'],
+    mood: { formality: 2, energy: 2, warmth: 4, density: 2, ornament: 2 },
+    domains: ['social', 'saas', 'marketing', 'landing'],
+    useWhen: [
+      '따뜻한 메시징·커뮤니케이션 제품',
+      '크림-리넨 표면 + 소프트 블루/오렌지',
+      '친근한 소비자 브랜드',
+    ],
+    avoidWhen: ['격식 있는 금융 기관', '다크-우선 테크'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['warm-canvas', 'ember-cream', 'tangerine'],
+  },
+
+  'warm-parchment': {
+    displayName: 'Warm Parchment',
+    summary: '파치먼트 캔버스 + 휴머니스트 타이포·코랄 강조 — 따뜻한 AI 빌더/노코드',
+    tags: ['light', 'typographic', 'rounded', 'airy'],
+    mood: { formality: 2, energy: 3, warmth: 5, density: 2, ornament: 2 },
+    domains: ['saas', 'landing', 'marketing', 'education'],
+    useWhen: [
+      '따뜻한 AI 빌더·노코드 브랜드',
+      '파치먼트 캔버스 + 휴머니스트 타이포',
+      '친근한 코랄 강조',
+    ],
+    avoidWhen: ['차가운 기업 대시보드', '다크-우선 크립토'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['warm-ivory', 'coral', 'serenity', 'terracotta'],
+  },
+
+  'web-blue': {
+    displayName: 'Web Blue',
+    summary: '블루-액센트 폴리시드 화이트 — 비주얼 노코드 웹 빌더',
+    tags: ['light', 'minimal', 'geometric', 'airy'],
+    mood: { formality: 3, energy: 3, warmth: 2, density: 2, ornament: 1 },
+    domains: ['dev-tools', 'saas', 'marketing', 'creative-agency'],
+    useWhen: [
+      '비주얼 노코드 웹 빌더',
+      '블루-액센트 폴리시드 화이트',
+      '크리에이터·디자이너 제품',
+    ],
+    avoidWhen: ['다크-우선 크립토', '따뜻한 키즈 소비자'],
+    accessibility: { contrastIntent: 'aa', colorblindConsidered: false, darkFirst: false },
+    related: ['social-blue', 'azure-clean', 'ivory-loft'],
   },
 };

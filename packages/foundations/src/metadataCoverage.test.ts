@@ -55,14 +55,15 @@ describe('metadata-coverage census — 실제 repo', () => {
     expect(violations).toEqual([]);
   });
 
-  it('4개 축(covered 3 + infra-pilot foundation)·core out-of-scope 선언 존재', () => {
+  it('4개 축 전량 covered(foundation KAN-041 승격)·core out-of-scope 선언 존재', () => {
     const byId = new Map(decl.axes.map((a) => [a.id, a]));
     expect(byId.has('ui-style-guide')).toBe(true);
     expect(byId.has('viz-style-guide')).toBe(true);
     expect(byId.has('viz-type')).toBe(true);
     const f = byId.get('foundation');
-    expect(f?.status).toBe('infra-pilot');
-    expect(f?.followUp).toBeTruthy(); // 영구 예외 방지
+    expect(f?.status).toBe('covered'); // KAN-041에서 infra-pilot→covered 승격(pending 0)
+    // covered면 followUp/pilotAuthored 불필요(영구 예외 아님).
+    expect(decl.axes.every((a) => a.status === 'covered')).toBe(true);
     expect(decl.outOfScope.length).toBeGreaterThanOrEqual(4);
   });
 

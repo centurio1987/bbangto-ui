@@ -81,11 +81,22 @@ foundationCatalog(SSOT) + foundationMetaRegistry(authored)
 
 | 단계 | 내용 | 상태 |
 |---|---|---|
-| **KAN-035** | `FoundationMeta` 스키마(어휘 재사용) + `buildFoundationManifest`(파생 colorScheme·baseTextContrast·over-claim·catalog.json emit) + `selectFoundations` + 게이트 + **파일럿 3종**(blueprint·amber-dark·stark-white) + repo census | ✅ 이 카드 |
-| **KAN-041** | 잔여 73종 `FoundationMeta` 전량 backfill → **pending 0** → census `infra-pilot`→`covered` 승격 + selector 기대 fixture 보강 + 이 문서 갱신 | 📋 후속 |
+| **KAN-035** | `FoundationMeta` 스키마(어휘 재사용) + `buildFoundationManifest`(파생 colorScheme·baseTextContrast·over-claim·catalog.json emit) + `selectFoundations` + 게이트 + **파일럿 3종**(blueprint·amber-dark·stark-white) + repo census | ✅ 완료 |
+| **KAN-041** | 잔여 73종 `FoundationMeta` 전량 backfill → **76/76 authored·pending 0** → census `infra-pilot`→`covered` 승격 + 'foundation-meta 필수' 게이트 승격 + selector 기대 fixture 보강(mood 근접·복합 criteria·weights 오버라이드) + 이 문서 갱신 | ✅ 완료 |
 
-### 파일럿 관찰(스키마 검증 결과)
+### 'foundation-meta 필수' 게이트 승격(KAN-041)
+동결 스키마(KAN-035) 위에서 잔여 73종을 **채우기만** 한 additive 백필(파일 미변경, registry에 meta 추가). 승격된 게이트:
+- `registry.test.ts`: **registry 키 집합 === catalog 키 집합**(전량 authored·pending 0)을 hard-fail(스타일 축 KAN-021·유형 축 KAN-040 선례 — 게이트로 집행, 타입 `related?`/optional은 유지).
+- `manifest.test.ts`: 76 엔트리 **전량 authored**·pending 0을 assert.
+- `metadata-coverage.json`: foundation `status: covered`(pending 0). census가 covered 축의 `authored==total`을 강제하므로 향후 신규 foundation 추가 시 meta 없이는 CI red.
+
+향후 신규 foundation 프리셋이 추가되면 `metaStatus:'pending'`으로 잠시 존재할 수 있으나(계약상 유효), 위 게이트들이 백필 전까지 red로 막는다.
+
+### 파일럿·전량 저작 관찰(스키마 검증 결과)
 foundations는 거의 전량 라이트-베이스(브랜드 accent 프리셋; base 라이트/다크 테마는 core 내장, 유일 다크-베이스는
-`amber-dark`). 따라서 `colorScheme`/`baseTextContrast` 파생은 정확하되 편중되며, **실질 변별은 authored
-`tags`/`mood`/`domains`가 담당**한다 → `StyleGuideMeta` 어휘 재사용이 적합함을 확인(스키마 변경 불필요).
-`baseTextContrast` over-claim 게이트는 현재 자명 통과지만 향후 다크/저대비 foundation 대비 forward guard로 유지한다.
+`amber-dark`). 76종 전량 저작 후에도 이 관찰은 유지된다: `colorScheme`은 75 light/1 dark로 편중, `baseTextContrast`도
+전량 ≥17.39(≈aaa 자명 통과)로 거의 상수 → **실질 변별은 authored `tags`(accent hue)·`mood`·`domains`가 담당**하며
+`StyleGuideMeta` 어휘 재사용이 76종 스케일에서도 충분함을 확인(스키마 변경 0). 저작은 description이 아니라 **실제
+accent 토큰**(`semantic.primary.base`)에 근거한다 — 다수 preset이 description상 "on dark/near-black"이라도 실제
+`background.base`는 흰색이기 때문(예: electric-void). `baseTextContrast` over-claim 게이트는 현재 자명 통과지만 향후
+다크/저대비 foundation 대비 forward guard로 유지한다.
