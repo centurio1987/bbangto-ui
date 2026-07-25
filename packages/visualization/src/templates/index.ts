@@ -1,0 +1,153 @@
+export { Flowchart } from './Flowchart';
+export type { FlowchartProps, FlowchartNodeSpec, FlowchartEdgeSpec } from './Flowchart';
+export { BlockDiagram } from './BlockDiagram';
+export type { BlockDiagramProps, BlockNodeSpec, BlockEdgeSpec } from './BlockDiagram';
+export { Mindmap } from './Mindmap';
+export type { MindmapProps, MindmapNodeSpec, MindmapEdgeSpec } from './Mindmap';
+export { TimelineDiagram } from './TimelineDiagram';
+export type { TimelineDiagramProps, TimelineDiagramData, TimelineEventSpec } from './TimelineDiagram';
+export { RequirementDiagram } from './RequirementDiagram';
+export type { RequirementDiagramProps, RequirementNodeSpec, RequirementEdgeSpec } from './RequirementDiagram';
+export { KanbanBoard } from './KanbanBoard';
+export type { KanbanBoardProps, KanbanColumnSpec, KanbanCardSpec } from './KanbanBoard';
+
+// G3: class / state / ER
+export { ClassDiagram } from './ClassDiagram';
+export type { ClassDiagramProps, ClassDiagramData, ClassSpec, ClassRelationshipSpec, ClassRelationshipKind } from './ClassDiagram';
+export { StateDiagram } from './StateDiagram';
+export type { StateDiagramProps, StateDiagramData, StateSpec, TransitionSpec } from './StateDiagram';
+export { ERDiagram } from './ERDiagram';
+export type { ERDiagramProps, ERDiagramData, EREntitySpec, ERRelationshipSpec, ERCardinality } from './ERDiagram';
+
+// G2: C4 / Architecture / UML family
+export { C4ContextDiagram } from './C4ContextDiagram';
+export type { C4ContextDiagramProps, C4ContextDiagramData } from './C4ContextDiagram';
+export { C4ContainerDiagram } from './C4ContainerDiagram';
+export type { C4ContainerDiagramProps, C4ContainerDiagramData } from './C4ContainerDiagram';
+export { C4ComponentDiagram } from './C4ComponentDiagram';
+export type { C4ComponentDiagramProps, C4ComponentDiagramData } from './C4ComponentDiagram';
+export { C4CodeDiagram } from './C4CodeDiagram';
+export type { C4CodeDiagramProps, C4CodeDiagramData, C4CodeElementSpec, C4CodeElementKind } from './C4CodeDiagram';
+export { ArchitectureDiagram } from './ArchitectureDiagram';
+export type { ArchitectureDiagramProps, ArchitectureDiagramData, ArchServiceSpec, ArchGroupSpec, ArchEdgeSpec } from './ArchitectureDiagram';
+export { UMLComponentDiagram } from './UMLComponentDiagram';
+export type { UMLComponentDiagramProps, UMLComponentDiagramData, UMLComponentSpec, UMLInterfaceSpec, UMLDependencySpec } from './UMLComponentDiagram';
+export { UMLDeploymentDiagram } from './UMLDeploymentDiagram';
+export type { UMLDeploymentDiagramProps, UMLDeploymentDiagramData, UMLDeploymentNodeSpec, UMLDeploymentEnvironmentSpec, UMLDeploymentEdgeSpec } from './UMLDeploymentDiagram';
+export { UMLSequenceDiagram } from './UMLSequenceDiagram';
+export type { UMLSequenceDiagramProps, UMLSequenceDiagramData, SequenceParticipantSpec, SequenceMessageSpec, SequenceMessageKind } from './UMLSequenceDiagram';
+
+// G4: interaction / lifeline / BPMN / ArchiMate / SysML
+export { SequenceDiagram } from './SequenceDiagram';
+export type { SequenceDiagramProps, SequenceDiagramData, SeqParticipantSpec, SeqMessageSpec, SeqActivationSpec, SeqFragmentSpec, SeqMessageKind, SeqFragmentKind } from './SequenceDiagram';
+export { ZenUMLDiagram } from './ZenUMLDiagram';
+export type { ZenUMLDiagramProps, ZenUMLDiagramData } from './ZenUMLDiagram';
+export { BPMNDiagram } from './BPMNDiagram';
+export type { BPMNDiagramProps, BPMNDiagramData, BPMNEventSpec, BPMNTaskSpec, BPMNGatewaySpec, BPMNLaneSpec, BPMNFlowSpec, BPMNEventKind, BPMNGatewayKind } from './BPMNDiagram';
+export { ArchiMateDiagram, ArchiMateBusinessDiagram, ArchiMateApplicationDiagram, ArchiMateTechnologyDiagram } from './ArchiMateDiagram';
+export type { ArchiMateDiagramProps, ArchiMateLayerDiagramProps, ArchiMateDiagramData, ArchiMateElementSpec, ArchiMateRelationshipSpec, ArchiMateLayer, ArchiMateRelKind } from './ArchiMateDiagram';
+export { SysMLBlockDiagram } from './SysMLBlockDiagram';
+export type { SysMLBlockDiagramProps, SysMLBlockDiagramData, SysMLBlockSpec, SysMLRelationshipSpec, SysMLRelKind } from './SysMLBlockDiagram';
+
+// G5: 데이터 차트 (ORD-010)
+export { BarChart } from './BarChart';
+export type { BarChartProps, BarChartDatum } from './BarChart';
+export { LineChart } from './LineChart';
+export type { LineChartProps, LineSeries, LinePoint } from './LineChart';
+export { QuadrantChart } from './QuadrantChart';
+export type { QuadrantChartProps, QuadrantItem } from './QuadrantChart';
+export { PieChart } from './PieChart';
+export type { PieChartProps, PieChartDatum } from './PieChart';
+export { RadarChart } from './RadarChart';
+export type { RadarChartProps, RadarSeries } from './RadarChart';
+export { RadialGauge } from './RadialGauge';
+export type { RadialGaugeProps } from './RadialGauge';
+export { Treemap } from './Treemap';
+export type { TreemapProps, TreemapDatum } from './Treemap';
+export { SankeyDiagram } from './SankeyDiagram';
+export type { SankeyDiagramProps, SankeyNodeSpec } from './SankeyDiagram';
+export { GanttChart } from './GanttChart';
+export type { GanttChartProps, GanttTask } from './GanttChart';
+export { UserJourneyGantt } from './UserJourneyGantt';
+export type { UserJourneyGanttProps, JourneyPhase } from './UserJourneyGantt';
+export { UserJourneyMap } from './UserJourneyMap';
+export type { UserJourneyMapProps, JourneyStep } from './UserJourneyMap';
+export { GitGraph } from './GitGraph';
+export type { GitGraphProps, GitBranchSpec, GitCommitSpec, GitMergeSpec } from './GitGraph';
+export { PacketDiagram } from './PacketDiagram';
+export type { PacketDiagramProps, PacketField } from './PacketDiagram';
+export { NetworkTopology } from './NetworkTopology';
+export type { NetworkTopologyProps, TopologyZone, TopologyNode, TopologyLink } from './NetworkTopology';
+export { DataLineage } from './DataLineage';
+export type { DataLineageProps, LineageNode, LineageEdge } from './DataLineage';
+export { SitemapTree } from './SitemapTree';
+export type { SitemapTreeProps, SitemapNode } from './SitemapTree';
+export { NetworkGraph } from './NetworkGraph';
+export type { NetworkGraphProps, GraphNode, GraphEdge } from './NetworkGraph';
+export { ScreenFlow } from './ScreenFlow';
+export type { ScreenFlowProps, ScreenSpec, FlowSpec } from './ScreenFlow';
+
+// G5-P2: 데이터 차트 확장 (ORD-011)
+export { StackedBarChart } from './StackedBarChart';
+export type { StackedBarChartProps, StackedBarSeries } from './StackedBarChart';
+export { AreaChart } from './AreaChart';
+export type { AreaChartProps, AreaSeries, AreaPoint } from './AreaChart';
+export { ScatterPlot } from './ScatterPlot';
+export type { ScatterPlotProps, ScatterSeries, ScatterPoint } from './ScatterPlot';
+export { Histogram } from './Histogram';
+export type { HistogramProps } from './Histogram';
+export { DotPlot } from './DotPlot';
+export type { DotPlotProps, DotPlotItem, DotPlotMode } from './DotPlot';
+export { WaterfallChart } from './WaterfallChart';
+export type { WaterfallChartProps, WaterfallItem } from './WaterfallChart';
+export { Heatmap } from './Heatmap';
+export type { HeatmapProps, HeatmapCell } from './Heatmap';
+export { ChoroplethMap } from './ChoroplethMap';
+export type { ChoroplethMapProps, ChoroplethRegion, ChoroplethItem } from './ChoroplethMap';
+
+// A-P2: 엔지니어링 다이어그램 확장 (ORD-011)
+export { UseCaseDiagram } from './UseCaseDiagram';
+export type { UseCaseDiagramProps, UseCaseActor, UseCaseNodeSpec, UseCaseSystemSpec, UseCaseLink, UseCaseLinkKind } from './UseCaseDiagram';
+export { C4DynamicDiagram } from './C4DynamicDiagram';
+export type { C4DynamicDiagramProps, C4DynamicDiagramData, C4DynamicElement, C4DynamicStep } from './C4DynamicDiagram';
+export { C4SystemLandscapeDiagram } from './C4SystemLandscapeDiagram';
+export type { C4SystemLandscapeDiagramProps, C4SystemLandscapeDiagramData } from './C4SystemLandscapeDiagram';
+export { DataFlowDiagram } from './DataFlowDiagram';
+export type { DataFlowDiagramProps, DFDNode, DFDFlow, DFDBoundary, DFDNodeKind } from './DataFlowDiagram';
+export { ActivityDiagram } from './ActivityDiagram';
+export type { ActivityDiagramProps, ActivityNode, ActivityEdge, ActivityLane, ActivityNodeKind } from './ActivityDiagram';
+export { ConceptMap } from './ConceptMap';
+export type { ConceptMapProps, ConceptNode, ConceptLink } from './ConceptMap';
+export { Fishbone } from './Fishbone';
+export type { FishboneProps, FishboneCategory } from './Fishbone';
+
+// E-P3 / A-P3 / C-P3: 데이터 차트·다이어그램 P3 (ORD-012)
+export { Boxplot } from './Boxplot';
+export type { BoxplotProps, BoxplotGroup, BoxplotSummaryInput } from './Boxplot';
+export { ChordDiagram } from './ChordDiagram';
+export type { ChordDiagramProps, ChordNode } from './ChordDiagram';
+export { UMLPackageDiagram } from './UMLPackageDiagram';
+export type { UMLPackageDiagramProps, UMLPackageDiagramData, UMLPackageSpec, UMLPackageDependencySpec, UMLPackageDependencyKind } from './UMLPackageDiagram';
+export { DMNDiagram } from './DMNDiagram';
+export type { DMNDiagramProps, DMNDiagramData, DMNNodeSpec, DMNRequirementSpec, DMNNodeKind, DMNRequirementKind } from './DMNDiagram';
+export { BPMNCollaborationDiagram } from './BPMNCollaborationDiagram';
+export type { BPMNCollaborationDiagramProps, BPMNCollaborationDiagramData, BPMNPoolSpec, BPMNCollabEventSpec, BPMNCollabTaskSpec, BPMNCollabGatewaySpec, BPMNCollabFlowSpec } from './BPMNCollaborationDiagram';
+export { ArchiMateViewpointDiagram } from './ArchiMateViewpointDiagram';
+export type { ArchiMateViewpointDiagramProps, ArchiMateViewpointDiagramData, ArchiMateViewpointElementSpec, ArchiMateViewpointRelationshipSpec, ArchiMateViewpoint } from './ArchiMateViewpointDiagram';
+export { WorkBreakdownStructure } from './WorkBreakdownStructure';
+export type { WorkBreakdownStructureProps, WBSNode } from './WorkBreakdownStructure';
+
+// G6: 메타 구조 프레임 (다른 프리셋을 조합 — PLAN §D)
+export { Kruchten4Plus1View } from './Kruchten4Plus1View';
+export type {
+  Kruchten4Plus1ViewProps,
+  Kruchten4Plus1Slots,
+  Kruchten4Plus1Data,
+  Kruchten4Plus1RegionKey,
+} from './Kruchten4Plus1View';
+export { ViewpointFrame } from './ViewpointFrame';
+export type { ViewpointFrameProps } from './ViewpointFrame';
+
+// geometry 트랙: 진짜 isometric 투영 씬 (KAN-028)
+export { IsometricScene } from './IsometricScene';
+export type { IsometricSceneProps, IsoCellSpec, IsoLinkSpec } from './IsometricScene';

@@ -1,3 +1,5 @@
+import type { StyleGuideMeta } from './styleGuideMeta';
+
 /**
  * Color scale with numbered steps matching Wanted Design System's atomic color system.
  * Steps range from 0 (darkest/black) to 100 (lightest/white).
@@ -292,6 +294,8 @@ export interface StyleGuideTokens {
   readonly defaultFoundationKey?: string;
   /** 선택. 컴포넌트 사용 가이드라인 (JSON 객체). 키: 가이드라인 이름, 값: 구조화된 데이터. */
   readonly guidelines?: Record<string, Record<string, unknown>>;
+  /** 선택. AI 채택(adoption)용 기계가독 메타데이터. catalog.manifest.json으로 투영된다. */
+  readonly meta?: StyleGuideMeta;
 }
 
 /** Utility type for partial theme overrides */

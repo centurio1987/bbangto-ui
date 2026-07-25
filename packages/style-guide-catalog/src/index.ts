@@ -1,8 +1,4 @@
 import type { StyleGuide } from '@centurio1987/bbangto-ui-core';
-import { bakeryStyleGuide } from './bakery';
-
-// Neobrutalism_Editorial_01 — 다른 49종과 동일한 3-export 트리오(factory 편입).
-export { bakeryStyleGuide, NeobrutalismShowcase, neobrutalismEditorialWrappers } from './bakery';
 
 // 공통 빌더(다른 preset 작성/소비 시 재사용).
 export { makeFoundations, makeSemantic, makeColorway, type SemanticInput, type FoundationInput } from './_foundation';
@@ -18,6 +14,7 @@ export {
 export { SHOWCASE_COPY_EXT } from './_showcaseCopy.generated';
 
 // P1 카탈로그 presets.
+export { neobrutalismEditorialStyleGuide, NeobrutalismShowcase, neobrutalismEditorialWrappers } from './neobrutalismEditorial';
 export { glassmorphismAuroraStyleGuide, GlassmorphismShowcase, glassmorphismAuroraWrappers } from './glassmorphismAurora';
 export { neumorphismSoftStyleGuide, NeumorphismShowcase, neumorphismSoftWrappers } from './neumorphismSoft';
 export { flatMaterialStyleGuide, FlatMaterialShowcase, flatMaterialWrappers } from './flatMaterial';
@@ -77,6 +74,7 @@ export { romanticBotanicalStyleGuide, RomanticBotanicalShowcase, romanticBotanic
 export { heritageFolkOrnamentStyleGuide, HeritageFolkOrnamentShowcase, heritageFolkOrnamentWrappers } from './heritageFolkOrnament';
 export { naiveDoodleStyleGuide, NaiveDoodleShowcase, naiveDoodleWrappers } from './naiveDoodle';
 
+import { neobrutalismEditorialStyleGuide } from './neobrutalismEditorial';
 import { glassmorphismAuroraStyleGuide } from './glassmorphismAurora';
 import { neumorphismSoftStyleGuide } from './neumorphismSoft';
 import { flatMaterialStyleGuide } from './flatMaterial';
@@ -134,7 +132,7 @@ import { naiveDoodleStyleGuide } from './naiveDoodle';
  * 단일 출처: 이 배열만 손으로 관리하고, `styleGuideMap`은 여기서 파생한다(중복 작성 금지).
  */
 export const styleGuideCatalog: readonly StyleGuide[] = [
-  bakeryStyleGuide,
+  neobrutalismEditorialStyleGuide,
   glassmorphismAuroraStyleGuide,
   neumorphismSoftStyleGuide,
   flatMaterialStyleGuide,
@@ -195,3 +193,40 @@ export const styleGuideCatalog: readonly StyleGuide[] = [
 export const styleGuideMap: Record<string, StyleGuide> = Object.fromEntries(
   styleGuideCatalog.map((sg) => [sg.name, sg])
 );
+
+// 채택 메타데이터 매니페스트 생성기 (catalog.manifest.json으로 투영).
+export {
+  buildManifest,
+  serializeManifest,
+  type ManifestEntry,
+  type ManifestCompleteness,
+  type CatalogEntryLike,
+} from './manifest';
+
+// 채택 스코어링 helper (meta 기반 후보 필터·랭크, METADATA_STRATEGY §6 2단계).
+export {
+  selectStyleGuides,
+  DEFAULT_WEIGHTS,
+  type StyleSelectionCriteria,
+  type SelectionResult,
+  type MoodConstraint,
+  type SelectableEntry,
+  type CriterionWeights,
+} from './select';
+
+// accessibility over-claim 감사 (팔레트 실측 WCAG 대비 vs contrastIntent 선언, KAN-024).
+export {
+  auditContrast,
+  CONTRAST_THRESHOLDS,
+  type AuditableEntry,
+  type ContrastViolation,
+} from './accessibilityAudit';
+
+// 트렌드 표 자동생성 (매니페스트 → style-guide-catalog.md 색인 표, KAN-025).
+export {
+  buildTrendTable,
+  replaceBetweenMarkers,
+  extractBetweenMarkers,
+  TREND_TABLE_START,
+  TREND_TABLE_END,
+} from './trendTable';

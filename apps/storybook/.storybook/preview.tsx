@@ -1,7 +1,8 @@
 import type { Preview } from '@storybook/react-vite';
 import React from 'react';
 import { FoundationProvider, lightFoundation, darkFoundation, highContrastFoundation } from '@centurio1987/bbangto-ui-core';
-import { DiagramProvider, blueprintTheme } from '@centurio1987/bbangto-ui-diagram';
+import { VisualizationStyleGuideProvider } from '@centurio1987/bbangto-ui-visualization';
+import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visualization-style-guide-catalog';
 
 const preview: Preview = {
   parameters: {
@@ -15,7 +16,8 @@ const preview: Preview = {
       test: 'todo',
     },
     options: {
-      // 사이드바 3대 최상위: ARCHETYPE(원형 디자인 시스템) / DIAGRAM / STYLE GUIDE CATALOG.
+      // 사이드바 최상위: ARCHETYPE(원형 디자인 시스템) / VISUALIZATION(headless 시각화 시스템)
+      // / FOUNDATION CATALOG / STYLE GUIDE CATALOG / VISUALIZATION STYLE GUIDE CATALOG.
       // Overview(.mdx)는 단일 진입 안내 문서로 최상단 고정.
       storySort: {
         order: [
@@ -26,7 +28,7 @@ const preview: Preview = {
             'Blocks',
             'Patterns',
           ],
-          'DIAGRAM',
+          'VISUALIZATION', ['Provider', 'Headless', 'Atoms', 'Molecules', 'Patterns', ['P3'], 'Templates', ['G1', 'G2', 'G3', 'G4', 'G5', 'G5-P2', 'A-P2', 'E-P3', 'A-P3', 'Structure', 'Style Matrix']],
           // 기본 foundation(light/dark/high-contrast)은 전역 툴바로 전환. 그 외
           // 확장 foundation(amber + external 74)은 FOUNDATION CATALOG로 분리.
           'FOUNDATION CATALOG',
@@ -85,6 +87,17 @@ const preview: Preview = {
             'Heritage_Folk_Ornament_01', ['Referenced Foundations', 'Extended Foundations', 'Wrapper Components', 'Patterns', 'Guideline', 'Visual Motif'],
             'Naive_Doodle_01', ['Referenced Foundations', 'Extended Foundations', 'Wrapper Components', 'Patterns', 'Guideline', 'Visual Motif'],
           ],
+          // visualization 카탈로그: ORDER 요구 5-leaf. storySort 정적 파싱 — inline 리터럴 필수.
+          'VISUALIZATION STYLE GUIDE CATALOG', [
+            'Blueprint_Technical_01', ['Foundations', 'Wrapper Components', 'Guideline', 'Visual Motif', 'Foundation Presets'],
+            'Minimal_Line_01', ['Foundations', 'Wrapper Components', 'Guideline', 'Visual Motif', 'Foundation Presets'],
+            'Colorful_Flat_01', ['Foundations', 'Wrapper Components', 'Guideline', 'Visual Motif', 'Foundation Presets'],
+            'Corporate_Schematic_01', ['Foundations', 'Wrapper Components', 'Guideline', 'Visual Motif', 'Foundation Presets'],
+            'Ink_Line_Duotone_01', ['Foundations', 'Wrapper Components', 'Guideline', 'Visual Motif', 'Foundation Presets'],
+            'Neon_Gradient_Dark_01', ['Foundations', 'Wrapper Components', 'Guideline', 'Visual Motif', 'Foundation Presets'],
+            'Marker_Sketchnote_01', ['Foundations', 'Wrapper Components', 'Guideline', 'Visual Motif', 'Foundation Presets'],
+            'Iso_Color_Block_01', ['Foundations', 'Wrapper Components', 'Guideline', 'Visual Motif', 'Foundation Presets'],
+          ],
           '*',
         ],
       },
@@ -117,9 +130,9 @@ const preview: Preview = {
 
       return (
         <FoundationProvider foundation={foundation} style={{ padding: '2rem', minHeight: '100vh', backgroundColor: bgColor, transition: 'background-color 0.3s ease' }}>
-          <DiagramProvider theme={blueprintTheme}>
+          <VisualizationStyleGuideProvider styleGuide={blueprintTechnical01VizStyleGuide}>
             <Story />
-          </DiagramProvider>
+          </VisualizationStyleGuideProvider>
         </FoundationProvider>
       );
     },

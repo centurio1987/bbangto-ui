@@ -31,11 +31,78 @@ theme을 지정하지 않았을 때 기본 theme을 사용한다.
 
 # ORDER
 
+> **전환 공지 (2026-07-14)**: 이 프로젝트의 계획·지시 관리 체계는 `ORDER.md`에서 **`KANBAN.md`**(manage-kanban 스킬)로 전환되었다.
+> ORD-001~ORD-011의 완료 이력과 원문(verbatim)은 `KANBAN.md` **완료** 컬럼에 카드(KAN-001~KAN-011)로 그대로 이관되었고, 각 ORDER의 이연(미완료) 항목은 `KANBAN.md` **백로그** 컬럼(KAN-012~KAN-017)에 등록되었다. 이 파일은 과거 기록 보존용으로만 유지하며, **신규 지시는 이제부터 `KANBAN.md`에 카드로 추가한다.**
+
 ## 신규 지시
 
-_처리할 신규 지시가 없습니다._
+_처리할 신규 지시가 없습니다. (신규 지시는 KANBAN.md로 이관됨 — 위 전환 공지 참조)_
 
 ## 처리 완료 (COMMITTED)
+
+<!-- ORDER:COMMITTED id=ORD-011 status=done committed=2026-07-14 -->
+<!-- 봉인 구획: 편집 금지. 철회하려면 신규 지시에 reverts=ORD-011 항목을 추가하세요. -->
+### ORD-011 — visualization 유형 인벤토리 P2 22건 구현
+
+<!-- 원문(verbatim): 아래 블록은 신규 지시 영역의 원본을 그대로 보존한다. 수정 금지. -->
+```text
+p2 수행
+```
+
+- 결과: `visualization-type-inventory.md` §5 P2 항목 **22건 전량 구현**(📋 net-new 18 + 🔶 근사→전용 승격 4). 외부 검토(codex gpt-5.5 / Gemini) 반영 플랜 — 공개 타입·데이터 정책(음수/0 유형별)·geometry 경계조건 선고정, caller 바인딩 프로토콜 명시, 정적 SVG 방침상 tooltip/resize/axe/스냅샷은 범위 밖 확정. 8 Phase RED→GREEN 16커밋. ORD-010 공통 계약(PLAN §C-2) 전면 준수 — **신규 paint 채널 0**.
+  - **신규 geometry 5**(vitest 단위 24): `stack`(양수 누적·음수 clamp)·`histogram`(binning, thresholds>bins)·`waterfall`(running total·음수 delta)·`funnel`(trapezoids)·`fishbone`(홀짝 교차 layout). **신규 molecule**: `ActorGlyph`.
+  - **E 데이터 차트 8**: `StackedBarChart`(VT-502)·`AreaChart`(VT-504)·`ScatterPlot`(VT-505)·`Histogram`(VT-508)·`DotPlot`(VT-509, dot/dumbbell/range)·`WaterfallChart`(VT-517)·`Heatmap`(VT-512)·`ChoroplethMap`(VT-518, caller path). Heatmap/Choropleth 강도는 팔레트색+fill-opacity 스케일.
+  - **A 엔지니어링 다이어그램 5**: `UseCaseDiagram`(VT-105)·`C4DynamicDiagram`(VT-113, 순번 배지)·`C4SystemLandscapeDiagram`(VT-114)·`DataFlowDiagram`(VT-126, 개방형 데이터스토어)·`ActivityDiagram`(VT-106, 🔶→✅ 전용 승격).
+  - **관계/원인 템플릿 2**: `ConceptMap`(VT-302, 🔶→✅ 전용 승격·linking phrase 필수)·`Fishbone`(VT-706).
+  - **패턴 5 + 모드 확장 2**: `Funnel`(VT-207)·`ListInfographic`(VT-603)·`AnnotatedIllustration`(VT-606, CalloutLeader 재사용)·`SwotMatrix`(VT-703)·`OnionDiagram`(VT-705) + `Cycle` `flywheel` 모드(VT-708 🔶→✅)·`Statistics` `waffle` 모드(VT-513 🔶→✅, 최대잔여법 100셀).
+  - 6개 스타일 가이드는 계약 CSS(shape/edge)만으로 자동 커버 — 가이드 파일 무변경.
+  - 검증: 게이트 전부 green — typecheck/build/**storybook test 1078개**(151 파일)/storybook build + **unit 56**(신규 geometry 24) + publint All good. changeset(viz minor — additive). 문서: inventory §5 22행 전이·§6 역방향 표 +20 export·§7 재계산(84%)·PLAN §D G5 노트·storySort G5-P2/A-P2.
+  - 커버리지 개선: 전체 구현률 60%→**84%**(76/90). 데이터 차트 45%→85%·인포그래픽 55%→73%·개념 프레임워크 40%→70%. P1·P2 잔여 0.
+  - 이연: P3 백로그(잔여 📋 9·🔶 2 — Boxplot/Chord/Iceberg/BMC/Honeycomb 등 대부분 신규 프리미티브 필요).
+<!-- /ORDER:COMMITTED id=ORD-011 -->
+
+<!-- ORDER:COMMITTED id=ORD-010 status=done committed=2026-07-14 -->
+<!-- 봉인 구획: 편집 금지. 철회하려면 신규 지시에 reverts=ORD-010 항목을 추가하세요. -->
+### ORD-010 — visualization 유형 인벤토리 P1 26건 구현
+
+<!-- 원문(verbatim): 아래 블록은 신규 지시 영역의 원본을 그대로 보존한다. 수정 금지. -->
+```text
+# ORDER
+P1 구현을 위한 계획을 세우고 실행해
+```
+
+- 결과: `visualization-type-inventory.md` §5 P1 항목 **26건 전량 구현**(§7의 "총 27/E=8"은 집계 오기 — 실측 26·E=7, 이번에 정정). 외부 검토(codex gpt-5.5 / Gemini) 반영 플랜, 7 웨이브 RED→GREEN 17커밋. 공통 계약(props/data 속성/접근성/엣지케이스) 선고정 + geometry 순수 함수는 vitest 단위 테스트, 컴포넌트는 storybook play() 이원화.
+  - **신규 geometry**(vitest 단위 32): `scale`(linearScale/bandScale/niceTicks)·`treemap`(squarify)·`venn`(2원 정밀·3원 대칭 근사)·`sankey`(acyclic 오프셋)·`tree`(tidyTreeLayout). **신규 atom**: `Axis`·`BandEdge`. **신규 molecule**: `MockupNode`.
+  - **차트 템플릿 13**: `BarChart`(VT-501)·`LineChart`(VT-503)·`QuadrantChart`(VT-702)·`PieChart`(VT-506)·`RadarChart`(VT-511)·`RadialGauge`(VT-519)·`Treemap`(VT-507)·`SankeyDiagram`(VT-515)·`GanttChart`(VT-403)·`UserJourneyGantt`(VT-404)·`UserJourneyMap`(VT-205)·`GitGraph`(VT-129, 직선 merge)·`PacketDiagram`(VT-128).
+  - **구조 템플릿 5**: `NetworkTopology`(VT-125)·`DataLineage`(VT-127)·`SitemapTree`(VT-304, elbow)·`NetworkGraph`(VT-305)·`ScreenFlow`(VT-206).
+  - **패턴 7 + Cycle 확장**: `Venn`(VT-306)·`Pathways`(VT-208)·`GeoMap`(VT-605, caller-supplied path)·`BentoGrid`(VT-607)·`Sketchnote`(VT-608, 지터 paint는 F4 이연)·`PosterEditorial`(VT-609)·`SpectrumSlider`(VT-710) + `Cycle` `spiral` 모드(VT-405, additive union).
+  - 6개 스타일 가이드는 계약 CSS(shape/edge)만으로 자동 커버 — 가이드 파일 무변경. 신규 paint 채널·토큰 슬롯 없음.
+  - 검증: 게이트 전부 green — typecheck/build/**test 1051개**(기존 1006 → +45, 스토리 파일 149)/storybook build + **unit 32**(신규 geometry) + publint All good. changeset(viz minor — additive, 기존 타입 무변경). 문서: inventory §5 26행 ✅·§6 역방향 표 전수·§7 재계산(오기 정정)·PLAN §D G5 완료 노트.
+  - 커버리지 개선: 구현률 데이터 차트 5%→45%·인포그래픽 18%→55%·개념 프레임워크 10%→40%. P1 잔여 0.
+  - 이연: `XYChart`(Bar/Line로 대체), G6 메타 프레임(Kruchten/Viewpoint), P2/P3 백로그.
+
+<!-- ORDER:COMMITTED id=ORD-009 status=done committed=2026-07-13 -->
+<!-- 봉인 구획: 편집 금지. 철회하려면 신규 지시에 reverts=ORD-009 항목을 추가하세요. -->
+### ORD-009 — 신규 파악 preset들 visualization style guide catalog 추가
+
+<!-- 원문(verbatim): 아래 블록은 신규 지시 영역의 원본을 그대로 보존한다. 수정 금지. -->
+```text
+# ORDER
+
+새로 파악한 preset들 visualization의 style guide catalog에 추가해
+```
+
+- 결과: `style-classification.md`(88장 사진별 재분류, ORD-008 후속)에서 새로 파악된 preset들을 외부 검토(Gemini 2회) 반영 플랜으로 구현. 커밋 6개(f616bf2/9b3fce2/1da9ebf/391a5e1/d8958d4/ea0263b + 봉인 커밋). TDD — RED(MISSING_EXPORT 3건 실측) → GREEN.
+  1. **신규 스타일 가이드 3종** (`@centurio1987/bbangto-ui-visualization-style-guide-catalog`):
+     - **Corporate_Schematic_01** (F2, 24장 최대 갭 해소) — 흰 그라운드 + 중립 헤어라인 1.25px + kind별 플랫 액센트 타일(브랜드 hex/아이콘 금지 — 중립 조정값) + 대시 존 경계. **kind별 tagColor 혼용**(오렌지·그린 타일 위 흰 텍스트 4.5:1 미달 실측 → 다크 텍스트). colorway `default`/`slide-dark`.
+     - **Ink_Line_Duotone_01** (F5, 신규 발견 패밀리) — 균일 1.75px 클린 모노라인, 블랙 도형 잉크 + 블루 엣지 잉크 2잉크 역할 분리, container만 라이트 틴트. colorway `default`/`slate`. `makeVizColorway`에 `edge.stroke` override 추가(색 전용 불변식 유지).
+     - **Neon_Gradient_Dark_01** (F7, 신규 분리 패밀리) — 코어 무변경: wrapper가 `<defs><linearGradient>`를 인라인 주입(defsPrefix+useId 이중 유일 id, stop-color=CSS var → colorway 반응), 글로우/다크 그라디언트 그라운드는 `useVizMotifStyle` 스코프 CSS, 그라디언트 면 위 텍스트 금지 → 외부 라벨+리더 틱 NeonTag. colorway `default`/`aurora`. foundation fill은 램프 대표 hex 유지 → 기존 게이트 전부 호환.
+  2. **기존 가이드 preset 보강**: Minimal_Line_01 `editorial`(F1 최빈 서브모드 — 레드 #E8321F는 텍스트 대비 미달 실측이라 그래픽 전용 + #B3271A 대안 명시) · Colorful_Flat_01 `bento-dark`(블랙+피치/오렌지 램프, 단일 다크브라운 tagColor 전 kind 4.5:1 실측).
+  3. **스토리북**: 신규 thin 스토리 3파일(5-leaf × 3 = 15 스토리), `makeVizCatalogStories`에 `wrapperExtraPlay` 옵션 — Neon 전용 그라디언트 게이트(defs 부모·id 유일성 Set·url(#id) 참조 무결성). storySort inline 리터럴 3행 추가. 카탈로그 6종 × 5-leaf.
+  4. **모든 신규 hex는 WCAG 대비 산술 검증 후 확정**(ink 4.5/edge 3.0/tagColor-vs-fill 4.5) — 플랜 단계 계산값이 play 게이트 실측으로 재확인됨.
+  - 검증: 게이트 4종 전부 green — typecheck/build/test **1021개**(기존 1006→+15)/storybook build. changeset(viz-catalog minor — 코어 패키지 무변경) 추가. 문서 갱신: `style-classification.md` 매핑 표 구현✓, `visualization-catalog.md` §4 표 + 4-f/4-g/4-h.
+  - 이연 유지(기술 블로커): F4 Marker_Sketchnote(지터 seeded 렌더·손글씨 폰트·질감 토큰화), F6 Iso_ColorBlock(iso geometry).
+<!-- /ORDER:COMMITTED id=ORD-009 -->
 
 <!-- ORDER:COMMITTED id=ORD-001 status=done committed=2026-06-29 -->
 <!-- 봉인 구획: 편집 금지. 철회하려면 신규 지시에 reverts=ORD-001 항목을 추가하세요. -->
@@ -201,3 +268,35 @@ https://www.adobe.com/express/learn/blog/design-trends-2026
 
 - 결과: `packages/core/design-trends-2020-2026.md` 신규 생성([`style-guide-catalog.md`](packages/core/style-guide-catalog.md)의 시간축 보강 문서). **A. 2026 트렌드** — 제공 링크 3종(Figma 16 / Behance 10 / Adobe 5)을 병합·중복제거하여 22개 항목으로 정리(시각특징 + 출처[F/B/A] + 기존 카탈로그 slug 매핑). **B. 2020–2025 연도별** — 연도별 웹 리서치로 2020(8)·2021(4)·2022(3)·2023(4)·2024(4)·2025(7) 트렌드를 최초/정점 연도 기준 목록화(지속 여부 비고). **C. 카탈로그 갱신 요약** — 기존 23후보로 커버되는 트렌드 매핑 + 신규 후보 5종(`Bento_Modular_01`/`Kinetic_Typography_01`/`Spatial_3D_01`/`Humanist_Imperfect_01`/`Tactile_Texture_01`) + 횡단 관심사(지속가능·접근성·AI/대화·게이미피케이션)는 컴포넌트 스타일이 아니라 패턴(PT)/가이드라인(G)으로 흡수 권고. 16개 출처 링크 첨부. (문서 전용 산출물 → 빌드 그래프 무변경, 코드 품질 게이트 비대상 — ORD-005 선례 동일.) 참고: Adobe Express 링크는 WebFetch 2회 타임아웃 → 동일 도메인 WebSearch로 내용 수집·반영.
 <!-- /ORDER:COMMITTED id=ORD-007 -->
+
+<!-- ORDER:COMMITTED id=ORD-008 status=done committed=2026-07-12 -->
+<!-- 봉인 구획: 편집 금지. 철회하려면 신규 지시에 reverts=ORD-008 항목을 추가하세요. -->
+### ORD-008 — DIAGRAM → VISUALIZATION 개편 (headless 아토믹 + 스타일 가이드 주입)
+
+<!-- 원문(verbatim): 아래 블록은 신규 지시 영역의 원본을 그대로 보존한다. 수정 금지. -->
+> # ORDER
+> 현재 diagram으로 단독 디자인 시스템으로 존재하는 영역을 visualization으로 명명하고 구조를 개편하려고 한다.
+>
+> ## 구조
+> - 구조는 archetype처럼 **아토믹 디자인 시스템**을 사용한다. **diagram**이나 **infographic** 유형을 **아토믹 디자인 시스템**의 **템플릿**으로 구조화 한다.
+> - **diagram-references**를 참고하여 **pattern**도 파악한 후, 구현한다.
+> - **아토믹 디자인 시스템**과 **pattern**에 포함되는 구현물은 **headless component**로 구현한다.
+> - 구상 디자인 시스템은 **archetype design system**에 **스타일 가이드**를 주입하여 구현한다.
+> - **스타일 가이드**는 기존에 존재하는 **스타일 가이드**처럼, **foundations**, **guideline**, **wrapper components**를 구현해야 한다.
+> - **스타일 가이드 카탈로그**는 스토리 북에, 기존의 **스타일 가이드 카탈로그**처럼 **foundations**, **guideline**, **wrapper components**, **visual motif**, **foundation preset**을 구현해야 한다.
+>
+> ## 아토믹 디자인 시스템을 구성할 컴포넌트를 정의, 설계 구현하고, 스타일 가이드 카탈로그 정의, 설계 구현하기 위한 방법
+> - **diagram-references**를 참고하여, 계획을 세운다. 하나의 diagram과 infographic을 하나의 템플릿이나 pattern 단위로 삼고, 그를 구성하는 컴포넌트를 원자, 분자 단위로 구성한다.
+> - 디자인 스타일 단위로 스타일 가이드를 정의, 설계, 구현한다.
+
+- 결과: 사용자 확정(파일럿 우선 · minimal+colorful 우선 · Blueprint 승격 · core 비의존 자체 Provider) + 외부 검토 2회(Gemini) 반영 후 Phase R~5로 구현. 커밋 7개(298f353/66f1b69/9f165b8/8c8941c/2bddaa8/4fa2a01 + 봉인 커밋).
+  1. **Phase R 목록화**: `diagram-references/` 88장 전수 분석 → [`packages/visualization/visualization-catalog.md`](packages/visualization/visualization-catalog.md) — 템플릿 매핑+갭 / 패턴 인벤토리+원자·분자 분해표 / 신규 컴포넌트 후보 / 스타일 가이드 4종 스펙(isometric·hand-drawn은 구현 이연). 이 목록이 정의→설계→구현의 단일 출처.
+  2. **rename**: `packages/diagram` → `packages/visualization`(`@centurio1987/bbangto-ui-visualization` 0.1.0, 클린 rename — ORD-006 선례), `nodes/`→`molecules/`, `presets/`→`templates/`, 스토리북 `DIAGRAM`→`VISUALIZATION` 계층.
+  3. **headless 전환**: atoms/molecules 전량 — 리터럴 paint 제거, 계약 스타일시트(`contractCss.ts`)가 시맨틱 속성(`data-viz-part` 등)→`--bbangto-viz-*` 토큰 바인딩, 명시 prop만 인라인 style(오버라이드 우선). cube 음영은 검정 오버레이+fillOpacity로 교체. Provider 부재 시 구조만 렌더(headless 증명 테스트), blueprint 하 computed 값은 구 리터럴과 동일(시각 무회귀 실측).
+  4. **스타일 가이드 인프라**: tokens에 `VisualizationFoundation`(+`shape` 그룹)/`VizFoundationPreset`/`VisualizationStyleGuideTokens`, visualization에 `VisualizationStyleGuide`+`VisualizationStyleGuideProvider`(+`useVizFoundation`/`useVizWrapperComponent`/`useVizDefsPrefix`) — core StyleGuide 구조 미러, core 비의존 유지. 다중 Provider 공존+defs id 고유성 테스트 포함.
+  5. **패턴 6종 구현**(스필오버 금지 규칙 준수): ProcessSteps/Comparison/TimelineRoadmap/Hierarchy/Cycle/Statistics + 신규 atoms 9종(StatNumber·IndexBadge·IconBadge·RingSegment·ProportionBlock·PictographUnit·MilestoneMarker·PyramidLayer·VsDivider) + molecules 3종(StepConnector·CalloutLeader·StatCard) + `geometry/layout.ts`. 값 텍스트 병기·DOM 순서 일치 등 접근성 규칙 반영.
+  6. **카탈로그 분리 배포**: 신규 `@centurio1987/bbangto-ui-visualization-style-guide-catalog`(0.1.0) — **Blueprint_Technical_01**(blueprintTheme verbatim 승격, paper/whiteprint preset) · **Minimal_Line_01**(hairline 라인아트, default/slate) · **Colorful_Flat_01**(navy 아웃라인+flat fill, default/candy). 각각 foundations/foundation presets(≥2)/wrapper components(Node·Tag·EdgeLabel)/guidelines(접근성 포함)/visual motif(스펙+합성 쇼케이스) 완비.
+  7. **스토리북**: `VISUALIZATION STYLE GUIDE CATALOG` 5-leaf(Foundations/Wrapper Components/Guideline/Visual Motif/Foundation Presets) 팩토리 `_vizCatalogStory.tsx` + play 게이트(FORBIDDEN·대비 4.5:1/3:1·preset 불변식) + TemplateStyleMatrix(파일럿 3 템플릿 × 3 가이드 var 해석 상이 실측) + 26개 템플릿 전 스토리 paint 해석 게이트.
+  - 검증: 게이트 4종 전부 green — typecheck/build/test **1006개**(기존 974→+32)/storybook build, 신규·rename 패키지 publint All good. changeset 추가(tokens·visualization·viz-catalog minor, diagram 삭제 기록).
+  - 이연(후속 ORDER): isometric/hand-drawn 스타일 가이드 구현, 파일럿 외 23개 템플릿 리터럴 제거·3-스타일 검증, 신규 템플릿 갭(SitemapTree 등), G5 차트/G6 메타 프레임.
+<!-- /ORDER:COMMITTED id=ORD-008 -->

@@ -1,0 +1,54 @@
+{
+  "name": "@centurio1987/bbangto-ui-visualization-style-guide-catalog",
+  "version": "0.1.0",
+  "description": "Visualization style guide preset catalog for bbangto-ui — 30 ready-made style guides built on the headless visualization system",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./manifest.json": "./catalog.manifest.json"
+  },
+  "files": [
+    "dist",
+    "catalog.manifest.json"
+  ],
+  "scripts": {
+    "gen:manifest": "tsx scripts/genVizManifest.ts",
+    "prebuild": "pnpm gen:manifest",
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest --run",
+    "dev": "tsup --watch"
+  },
+  "dependencies": {
+    "@centurio1987/bbangto-ui-tokens": "workspace:*",
+    "@centurio1987/bbangto-ui-visualization": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0 || ^19.0.0",
+    "react-dom": "^18.2.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@centurio1987/bbangto-ui-style-guide-catalog": "workspace:*",
+    "@types/node": "^22.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "tsup": "^8.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "vitest": "^4.1.9"
+  },
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/centurio1987/bbangto-ui.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
+}

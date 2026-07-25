@@ -1,0 +1,48 @@
+export { ProcessSteps } from './ProcessSteps';
+export type { ProcessStepsProps, ProcessStepSpec, ProcessStepsOrientation } from './ProcessSteps';
+export { Comparison } from './Comparison';
+export type { ComparisonProps, ComparisonPaneSpec, ComparisonMode } from './Comparison';
+export { TimelineRoadmap } from './TimelineRoadmap';
+export type { TimelineRoadmapProps, MilestoneSpec } from './TimelineRoadmap';
+export { Hierarchy } from './Hierarchy';
+export type { HierarchyProps, HierarchyTreeNode, HierarchyLayerSpec, HierarchyMode } from './Hierarchy';
+export { Cycle } from './Cycle';
+export type { CycleProps, CycleItemSpec, CycleMode } from './Cycle';
+export { Statistics } from './Statistics';
+export type { StatisticsProps, StatItemSpec, StatisticsMode } from './Statistics';
+export { Venn } from './Venn';
+export type { VennProps, VennSetSpec, VennIntersectionSpec } from './Venn';
+export { Pathways } from './Pathways';
+export type { PathwaysProps, PathwayStepSpec } from './Pathways';
+export { GeoMap } from './GeoMap';
+export type { GeoMapProps, GeoRegion, GeoPin } from './GeoMap';
+export { BentoGrid } from './BentoGrid';
+export type { BentoGridProps, BentoCell } from './BentoGrid';
+export { Sketchnote } from './Sketchnote';
+export type { SketchnoteProps, SketchNode, SketchConnector } from './Sketchnote';
+export { PosterEditorial } from './PosterEditorial';
+export type { PosterEditorialProps } from './PosterEditorial';
+export { SpectrumSlider } from './SpectrumSlider';
+export type { SpectrumSliderProps, SpectrumAxis } from './SpectrumSlider';
+
+// P2 패턴 (ORD-011)
+export { Funnel } from './Funnel';
+export type { FunnelProps, FunnelStage } from './Funnel';
+export { ListInfographic } from './ListInfographic';
+export type { ListInfographicProps, ListInfographicItem } from './ListInfographic';
+export { AnnotatedIllustration } from './AnnotatedIllustration';
+export type { AnnotatedIllustrationProps, IllustrationAnnotation } from './AnnotatedIllustration';
+export { SwotMatrix } from './SwotMatrix';
+export type { SwotMatrixProps, SwotMatrixData } from './SwotMatrix';
+export { OnionDiagram } from './OnionDiagram';
+export type { OnionDiagramProps, OnionLayer } from './OnionDiagram';
+
+// P3 패턴 (ORD-012)
+export { InformationalInfographic } from './InformationalInfographic';
+export type { InformationalInfographicProps, InformationalSection } from './InformationalInfographic';
+export { Iceberg } from './Iceberg';
+export type { IcebergProps, IcebergLayer } from './Iceberg';
+export { BusinessModelCanvas } from './BusinessModelCanvas';
+export type { BusinessModelCanvasProps, BusinessModelCanvasBlocks } from './BusinessModelCanvas';
+export { Honeycomb } from './Honeycomb';
+export type { HoneycombProps, HoneycombCell } from './Honeycomb';

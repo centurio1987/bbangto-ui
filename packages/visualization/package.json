@@ -1,0 +1,55 @@
+{
+  "name": "@centurio1987/bbangto-ui-visualization",
+  "version": "0.1.0",
+  "description": "Headless Visualization Design System (diagram / infographic) for bbangto-ui",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./type-meta": {
+      "types": "./dist/typeMeta/index.d.ts",
+      "import": "./dist/typeMeta/index.js"
+    },
+    "./type.manifest.json": "./type.manifest.json"
+  },
+  "files": [
+    "dist",
+    "type.manifest.json"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest --run",
+    "gen:type-manifest": "tsx scripts/genTypeManifest.ts",
+    "dev": "tsup --watch"
+  },
+  "dependencies": {
+    "@centurio1987/bbangto-ui-tokens": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0 || ^19.0.0",
+    "react-dom": "^18.2.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "tsup": "^8.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "vitest": "^4.1.9"
+  },
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/centurio1987/bbangto-ui.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
+}

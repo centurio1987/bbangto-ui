@@ -5,6 +5,16 @@
     "file": "acid-mint"
   },
   {
+    "id": "amber-dark",
+    "label": "Amber Dark",
+    "file": "amber-dark"
+  },
+  {
+    "id": "amber-light",
+    "label": "Amber Light",
+    "file": "amber-light"
+  },
+  {
     "id": "arctic-white",
     "label": "Arctic White",
     "file": "arctic-white"
@@ -40,14 +50,14 @@
     "file": "broadsheet"
   },
   {
-    "id": "carbon-night",
-    "label": "Carbon Night",
-    "file": "carbon-night"
-  },
-  {
     "id": "carbon",
     "label": "Carbon",
     "file": "carbon"
+  },
+  {
+    "id": "carbon-night",
+    "label": "Carbon Night",
+    "file": "carbon-night"
   },
   {
     "id": "catalog-red",
