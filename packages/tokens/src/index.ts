@@ -29,6 +29,12 @@ export type {
 } from './styleGuideMeta';
 export { STYLE_FAMILIES, STYLE_FAMILY_LABELS, DOMAINS, TAGS } from './styleGuideMeta';
 
+export type {
+  FoundationMeta,
+  FoundationColorScheme,
+  FoundationAccessibility,
+} from './foundationMeta';
+
 export { flattenToCSSVars, foundationToCSSString, foundationToStyleObject, cssVar } from './contract';
 export {
   parseColor,

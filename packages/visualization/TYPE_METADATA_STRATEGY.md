@@ -4,7 +4,9 @@
 > **코드/문서 전수 검토 없이** 고르도록 돕는 기계가독 메타데이터 체계. (KANBAN KAN-020)
 >
 > **관련 문서:** 유형 인벤토리 SSOT는 [`./visualization-type-inventory.md`](./visualization-type-inventory.md),
-> 스타일(paint) 축 전략은 [`../style-guide-catalog/METADATA_STRATEGY.md`](../style-guide-catalog/METADATA_STRATEGY.md).
+> 스타일(paint) 축 전략은 [`../style-guide-catalog/METADATA_STRATEGY.md`](../style-guide-catalog/METADATA_STRATEGY.md),
+> 색 스킴 base 축은 [`../foundations/FOUNDATION_METADATA_STRATEGY.md`](../foundations/FOUNDATION_METADATA_STRATEGY.md) (KAN-035),
+> 전 인터페이스 커버리지 감사/집행은 [`../../METADATA_COVERAGE_AUDIT.md`](../../METADATA_COVERAGE_AUDIT.md) 참고.
 > 유형 ⊥ 스타일: 한 유형은 모든 스타일 가이드로 리스킨된다.
 
 ---

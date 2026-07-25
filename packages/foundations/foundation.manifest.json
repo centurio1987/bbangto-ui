@@ -1,0 +1,663 @@
+[
+  {
+    "slug": "acid-mint",
+    "label": "Acid Mint",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "amber-dark",
+    "label": "Amber Dark",
+    "colorScheme": "dark",
+    "baseTextContrast": 19.35,
+    "metaStatus": "authored",
+    "meta": {
+      "displayName": "Amber Dark",
+      "summary": "근흑 바탕에 앰버/골드 강조, 프리미엄 다크 — 핀테크·크립토 트레이딩 톤",
+      "tags": [
+        "dark",
+        "vivid",
+        "high-contrast",
+        "technical",
+        "futuristic",
+        "serious"
+      ],
+      "mood": {
+        "formality": 3,
+        "energy": 4,
+        "warmth": 4,
+        "density": 3,
+        "ornament": 2
+      },
+      "domains": [
+        "fintech",
+        "crypto-web3",
+        "dashboard",
+        "saas"
+      ],
+      "useWhen": [
+        "다크 트레이딩·크립토·핀테크 대시보드",
+        "골드/앰버 강조의 프리미엄 다크 UI",
+        "고대비 다크 표면이 필요할 때"
+      ],
+      "avoidWhen": [
+        "밝고 에어리한 편집/블로그",
+        "키즈·파스텔 소비자 제품"
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "darkFirst": true
+      },
+      "related": [
+        "graphite"
+      ]
+    }
+  },
+  {
+    "slug": "amber-light",
+    "label": "Amber Light",
+    "colorScheme": "light",
+    "baseTextContrast": 17.39,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "arctic-white",
+    "label": "Arctic White",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "aubergine",
+    "label": "Aubergine",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "aurora-yellow",
+    "label": "Aurora Yellow",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "azure-clean",
+    "label": "Azure Clean",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "bavarian",
+    "label": "Bavarian",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "blueprint",
+    "label": "Blueprint",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "authored",
+    "meta": {
+      "displayName": "Blueprint",
+      "summary": "흰 바탕에 인디고 강조, 기술 청사진 미니멀 — 오픈소스/AI 인프라 톤",
+      "tags": [
+        "light",
+        "minimal",
+        "technical",
+        "mono",
+        "grid",
+        "geometric",
+        "airy",
+        "serious"
+      ],
+      "mood": {
+        "formality": 4,
+        "energy": 2,
+        "warmth": 2,
+        "density": 2,
+        "ornament": 1
+      },
+      "domains": [
+        "dev-tools",
+        "saas",
+        "docs",
+        "landing"
+      ],
+      "useWhen": [
+        "오픈소스·AI 인프라나 개발자 툴 랜딩",
+        "미니멀 화이트 기반에 인디고 포인트",
+        "코드·모노 타이포가 중요한 기술 문서"
+      ],
+      "avoidWhen": [
+        "따뜻하고 표현적인 소비자 브랜드",
+        "고밀도 데이터 대시보드 표면"
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "darkFirst": false
+      },
+      "related": [
+        "stark-white"
+      ]
+    }
+  },
+  {
+    "slug": "broadsheet",
+    "label": "Broadsheet",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "carbon",
+    "label": "Carbon",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "carbon-night",
+    "label": "Carbon Night",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "catalog-red",
+    "label": "Catalog Red",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "celluloid",
+    "label": "Celluloid",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "charcoal-warm",
+    "label": "Charcoal Warm",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "cobalt",
+    "label": "Cobalt",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "code-dark",
+    "label": "Code Dark",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "code-ivory",
+    "label": "Code Ivory",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "commerce-noir",
+    "label": "Commerce Noir",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "coral",
+    "label": "Coral",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "cosmonaut",
+    "label": "Cosmonaut",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "cream-bloom",
+    "label": "Cream Bloom",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "dark-chrome",
+    "label": "Dark Chrome",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "editorial-dark",
+    "label": "Editorial Dark",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "electric-void",
+    "label": "Electric Void",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "ember-cream",
+    "label": "Ember Cream",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "forest-cream",
+    "label": "Forest Cream",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "glacial",
+    "label": "Glacial",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "gold-rush",
+    "label": "Gold Rush",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "gradient-violet",
+    "label": "Gradient Violet",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "grand-noir",
+    "label": "Grand Noir",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "graphite",
+    "label": "Graphite",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "honey-cream",
+    "label": "Honey Cream",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "indigo-night",
+    "label": "Indigo Night",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "iron",
+    "label": "Iron",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "ivory-loft",
+    "label": "Ivory Loft",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "jade-leaf",
+    "label": "Jade Leaf",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "jungle-night",
+    "label": "Jungle Night",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "lime",
+    "label": "Lime",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "magazine-light",
+    "label": "Magazine Light",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "midnight-indigo",
+    "label": "Midnight Indigo",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "midnight-ink",
+    "label": "Midnight Ink",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "mint-code",
+    "label": "Mint Code",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "moss-clean",
+    "label": "Moss Clean",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "motion-dark",
+    "label": "Motion Dark",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "navy-dark",
+    "label": "Navy Dark",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "neon-yellow",
+    "label": "Neon Yellow",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "obsidian-gold",
+    "label": "Obsidian Gold",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "obsidian-violet",
+    "label": "Obsidian Violet",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "onyx",
+    "label": "Onyx",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "oxide-green",
+    "label": "Oxide Green",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "periwinkle-retro",
+    "label": "Periwinkle Retro",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "pitch",
+    "label": "Pitch",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "precision",
+    "label": "Precision",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "prism",
+    "label": "Prism",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "race-night",
+    "label": "Race Night",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "raspberry",
+    "label": "Raspberry",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "scarlet-noir",
+    "label": "Scarlet Noir",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "serenity",
+    "label": "Serenity",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "signal-red",
+    "label": "Signal Red",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "social-blue",
+    "label": "Social Blue",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "stark-white",
+    "label": "Stark White",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "authored",
+    "meta": {
+      "displayName": "Stark White",
+      "summary": "스타크 화이트 편집형에 딥 그린-블랙 밴드 — 격식 있는 엔터프라이즈 SaaS 톤",
+      "tags": [
+        "light",
+        "minimal",
+        "high-contrast",
+        "monochrome",
+        "serious",
+        "airy"
+      ],
+      "mood": {
+        "formality": 5,
+        "energy": 2,
+        "warmth": 3,
+        "density": 2,
+        "ornament": 1
+      },
+      "domains": [
+        "saas",
+        "editorial",
+        "docs",
+        "landing",
+        "healthcare"
+      ],
+      "useWhen": [
+        "엔터프라이즈 AI·SaaS 스타크 화이트 편집형",
+        "딥 그린-블랙 제품 밴드 강조",
+        "격식 있는 미니멀 기업 페이지"
+      ],
+      "avoidWhen": [
+        "플레이풀·맥시멀 소비자 브랜드",
+        "다크-우선 게이밍/크립토"
+      ],
+      "accessibility": {
+        "contrastIntent": "aa",
+        "colorblindConsidered": false,
+        "darkFirst": false
+      },
+      "related": [
+        "blueprint"
+      ]
+    }
+  },
+  {
+    "slug": "sunflower",
+    "label": "Sunflower",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "sunset",
+    "label": "Sunset",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "tangerine",
+    "label": "Tangerine",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "terminal",
+    "label": "Terminal",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "terracotta",
+    "label": "Terracotta",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "urban-mono",
+    "label": "Urban Mono",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "violet-depth",
+    "label": "Violet Depth",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "void",
+    "label": "Void",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "volt-emerald",
+    "label": "Volt Emerald",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "warm-canvas",
+    "label": "Warm Canvas",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "warm-ivory",
+    "label": "Warm Ivory",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "warm-linen",
+    "label": "Warm Linen",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "warm-parchment",
+    "label": "Warm Parchment",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  },
+  {
+    "slug": "web-blue",
+    "label": "Web Blue",
+    "colorScheme": "light",
+    "baseTextContrast": 18.88,
+    "metaStatus": "pending"
+  }
+]

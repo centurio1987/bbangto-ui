@@ -1,6 +1,6 @@
 {
-  "next_id": 41,
-  "next_seq": 110,
+  "next_id": 42,
+  "next_seq": 113,
   "cards": {
     "KAN-001": {
       "col": "done",
@@ -411,15 +411,15 @@
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-035": {
-      "col": "backlog",
+      "col": "done",
       "title": "최초 ai를 위한 메타데이터를 도입한 작업 이후로, 태스크를 진행할 때마다, 메타데이터 생성도 같이 진행이 됐는지 확인 필요. 같이 생성이 안됐다면, 없는 인터페이스들에 대해서 적용하기 위한 계획 및 수행 필요",
-      "memo": "범위 관계 — 본 카드는 전 인터페이스 메타 **커버리지 감사/집행**(상위). [[KAN-020]]은 그중 visualization 유형(패턴/템플릿) 축 **인프라 구축**(선행 조건)으로 (b) 분리 유지 결정(2026-07-24).",
+      "memo": "완료(2026-07-25). 전 인터페이스 메타 커버리지 감사+집행. 감사: 3축(UI 스타일가이드 51·viz 스타일가이드 30·유형 87) 전량 authored·게이트 green, core 4범주(components 57/blocks 13/patterns 4/motion 28) 기능선택형 out-of-scope(근거+승격 trigger 명문화). 유일 갭=foundations 76(name+description 한 줄뿐)→FoundationMeta 축 인프라 신설: tokens/foundationMeta.ts(Domain/Tag/StyleMood 재사용) + foundations/src/meta/{registry,manifest,select,index}.ts + gen(colorScheme·baseTextContrast 파생·over-claim hard-fail·catalog.json emit) + 서브패스 ./meta(번들격리, 루트 배럴 미오염) + 파일럿 3종(blueprint·amber-dark·stark-white). 집행 census: metadata-coverage.json(count 미포함, 매니페스트서 계산) + foundations/src/metadataCoverage.test(드리프트 스캔=미선언 카탈로그 fail·infra-pilot followUp 필수·자동 실패주입 fixture) + METADATA_COVERAGE_AUDIT.md 리포트. 부수 drift 수리: catalog.json 74→76 생성물 격하(amber 2종 누락+carbon 정렬 교정). 파일럿 관찰: foundations 전량 라이트-베이스(다크=amber-dark뿐)→colorScheme 편중, 실질변별=tags/mood/domains(StyleGuideMeta 재사용 적합 확인, 스키마 변경 불필요). 게이트 5종 green: typecheck·build(dist/meta emit)·test:unit(foundations 40 신규)·test(1219 play)·storybook build. 외부검토(codex) 반영(DoD 정직화·census count계산·이중SSOT 격하·baseTextContrast 명명 축소·자동 실패주입 등 14지적). 잔여 73 backfill=후속 KAN-041. 유형축 인프라 KAN-020이 선행조건.",
       "verbatim": "",
       "생성": "유저",
-      "최종": "유저",
+      "최종": "ai",
       "갱신": "2026-07-25",
       "title_hash": "0623205a5d4ad01d035037b8f98b4ce3a702afd3",
-      "memo_hash": "bd5c7611f5154e5c475943eca041948ddf3c9e05",
+      "memo_hash": "fd03d5ff7043b20b42b7c323eff53ad5f855c5d4",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-036": {
@@ -481,10 +481,21 @@
       "title_hash": "1d09e4d2af06fb5f007779300d02d84fa6ab1ea4",
       "memo_hash": "7bdde19bac06c318d03917e87f96e4b8f795b1e7",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    },
+    "KAN-041": {
+      "col": "backlog",
+      "title": "foundations 잔여 73종 FoundationMeta 전량 backfill → census infra-pilot→covered 승격(pending 0)",
+      "memo": "KAN-035 후속. FoundationMeta 스키마·게이트·셀렉터·서브패스는 동결(stable). 잔여 73 foundation에 meta 저작(Workflow 배치, KAN-021/040 선례). DoD: pending 0 + metadata-coverage.json foundation status infra-pilot→covered + selector 기대 fixture 보강 + FOUNDATION_METADATA_STRATEGY 롤아웃 표 갱신. KAN-035 인프라 위 additive(파일 미변경, registry에 meta 추가).",
+      "verbatim": "",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-07-25",
+      "title_hash": "022a0c519d596d6c90d4bc85eb077bd8816453a8",
+      "memo_hash": "da83e408cf0aa96301ecd0d35859cfb49dbd2511",
+      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     }
   },
   "order": [
-    "KAN-035",
     "KAN-036",
     "KAN-020",
     "KAN-025",
@@ -523,9 +534,41 @@
     "KAN-038",
     "KAN-039",
     "KAN-028",
-    "KAN-040"
+    "KAN-040",
+    "KAN-035",
+    "KAN-041"
   ],
   "recent": [
+    {
+      "seq": 112,
+      "t": "2026-07-25T12:33",
+      "a": "ai",
+      "id": "KAN-041",
+      "op": "create",
+      "col": "backlog",
+      "title": "foundations 잔여 73종 FoundationMeta 전량 backfill → census infra-pilot→covered 승격(pending 0)",
+      "memo": "KAN-035 후속. FoundationMeta 스키마·게이트·셀렉터·서브패스는 동결(stable). 잔여 73 foundation에 meta 저작(Workflow 배치, KAN-021/040 선례). DoD: pending 0 + metadata-coverage.json foundation status infra-pilot→covered + selector 기대 fixture 보강 + FOUNDATION_METADATA_STRATEGY 롤아웃 표 갱신. KAN-035 인프라 위 additive(파일 미변경, registry에 meta 추가).",
+      "verbatim": ""
+    },
+    {
+      "seq": 111,
+      "t": "2026-07-25T12:33",
+      "a": "ai",
+      "id": "KAN-035",
+      "op": "edit",
+      "field": "memo",
+      "before": "범위 관계 — 본 카드는 전 인터페이스 메타 **커버리지 감사/집행**(상위). [[KAN-020]]은 그중 visualization 유형(패턴/템플릿) 축 **인프라 구축**(선행 조건)으로 (b) 분리 유지 결정(2026-07-24).",
+      "after": "완료(2026-07-25). 전 인터페이스 메타 커버리지 감사+집행. 감사: 3축(UI 스타일가이드 51·viz 스타일가이드 30·유형 87) 전량 authored·게이트 green, core 4범주(components 57/blocks 13/patterns 4/motion 28) 기능선택형 out-of-scope(근거+승격 trigger 명문화). 유일 갭=foundations 76(name+description 한 줄뿐)→FoundationMeta 축 인프라 신설: tokens/foundationMeta.ts(Domain/Tag/StyleMood 재사용) + foundations/src/meta/{registry,manifest,select,index}.ts + gen(colorScheme·baseTextContrast 파생·over-claim hard-fail·catalog.json emit) + 서브패스 ./meta(번들격리, 루트 배럴 미오염) + 파일럿 3종(blueprint·amber-dark·stark-white). 집행 census: metadata-coverage.json(count 미포함, 매니페스트서 계산) + foundations/src/metadataCoverage.test(드리프트 스캔=미선언 카탈로그 fail·infra-pilot followUp 필수·자동 실패주입 fixture) + METADATA_COVERAGE_AUDIT.md 리포트. 부수 drift 수리: catalog.json 74→76 생성물 격하(amber 2종 누락+carbon 정렬 교정). 파일럿 관찰: foundations 전량 라이트-베이스(다크=amber-dark뿐)→colorScheme 편중, 실질변별=tags/mood/domains(StyleGuideMeta 재사용 적합 확인, 스키마 변경 불필요). 게이트 5종 green: typecheck·build(dist/meta emit)·test:unit(foundations 40 신규)·test(1219 play)·storybook build. 외부검토(codex) 반영(DoD 정직화·census count계산·이중SSOT 격하·baseTextContrast 명명 축소·자동 실패주입 등 14지적). 잔여 73 backfill=후속 KAN-041. 유형축 인프라 KAN-020이 선행조건."
+    },
+    {
+      "seq": 110,
+      "t": "2026-07-25T12:33",
+      "a": "ai",
+      "id": "KAN-035",
+      "op": "move",
+      "from": "backlog",
+      "to": "done"
+    },
     {
       "seq": 109,
       "t": "2026-07-25T00:57",
@@ -989,35 +1032,6 @@
       "t": "2026-07-24T00:00",
       "a": "ai",
       "id": "KAN-015",
-      "op": "move",
-      "from": "backlog",
-      "to": "done"
-    },
-    {
-      "seq": 62,
-      "t": "2026-07-24T00:00",
-      "a": "ai",
-      "id": "KAN-015",
-      "op": "edit",
-      "field": "memo",
-      "before": "ORD-008/010 이연 — 개념 프레임워크(G) 축 메타 뷰(Kruchten4Plus1View + ISO/IEC/IEEE 42010 ViewpointFrame) 미구현(0%, PLAN.md:184 스펙만, Phase 8 후속). 검증(2026-07-23): ⚠️ 명칭 주의 — 이미 구현된 ArchiMateViewpointDiagram(KAN-012)은 ArchiMate 자체 viewpoint(motivation/strategy/implementation)로 이 카드의 ISO42010 ViewpointFrame과 별개 개념. 재착수 시 두 'Viewpoint'를 명시적으로 구분해 오판 방지할 것.",
-      "after": "완료(2026-07-23): G6 메타 구조 프레임 2종 구현. Kruchten4Plus1View(영역별 slots=중첩 프리셋 우선·data=불릿 폴백, 영역 단위 no-merge; 3행 배치=상단 2코너·중앙 Scenarios(+1) 밴드·하단 2코너) + ViewpointFrame(ISO/IEC/IEEE 42010 — 헤더밴드=viewpoint·concerns[]·stakeholders[]·modelKinds[], body=중첩 view 슬롯, 미지정 시 'No view supplied' 플레이스홀더). §C-2 공통계약 준수(신규 아톰/geometry/paint 채널 0 — 기존 Canvas·Boundary·vvar·parseViewBox만 재사용). 슬롯=절대좌표 nested svg(x/y/w/h)로 타 프리셋 조합. 명칭 오판 방지: 42010 ViewpointFrame != ArchiMate 고유 viewpoint(ArchiMateViewpointDiagram, VT-121) — description/주석 명시. TDD 선작성(G6MetaFrames.stories.tsx 3스토리 play=영역/슬롯/헤더 메타/폴백 검증). 배럴 export + 인벤토리·PLAN SSOT 갱신. 4게이트 green(typecheck·build·test 1106·storybook build)."
-    },
-    {
-      "seq": 61,
-      "t": "2026-07-23T23:38",
-      "a": "ai",
-      "id": "KAN-013",
-      "op": "edit",
-      "field": "memo",
-      "before": "ORD-008/009 이연 — iso geometry 프리미티브 신규 필요(기술 블로커로 계속 보류 중).",
-      "after": "완료(paint 패밀리 스코프, 사용자 승인) — F6 Iso_ColorBlock paint 가이드 구현(`iso-color-block-01`). 블로커 재해석: 분류문서 line 167/246-247 '스타일 가이드는 paint만, iso는 별도 geometry 트랙' 원칙에 따라 3단 면 페인트만 구현. Node cube 케이스(atoms/Node.tsx:212, front/top12%/right24% 고정 오버레이)를 재사용해 면별 3단 플랫 음영 확보 — 새 geometry 0. IsoNode wrapper는 제네릭 박스(rect/rounded/미지정)만 cube 승격, 의미 도형은 pass-through(시맨틱 보존). 단일 계열 램프(더스티 블루/웜 클레이 2 preset)+중립 커넥터 잉크(역할 분리)+accent 1색. 검토 반영: description·meta·guideline에 'paint family, 진짜 iso 투영 아님' 명시; face-tone ext 토큰은 dead token이라 폐기(--ext-accent만). meta 'aa'(over-claim 0). 진짜 iso 투영·depth-sort는 [[KAN-028]] 후속 트랙으로 분리. 파일: src/isoColorBlock.tsx + 스토리(wrapperExtraPlay=cube 승격·pass-through 검증) + index/preview/manifest. 4 게이트 green+카탈로그 39테스트."
-    },
-    {
-      "seq": 60,
-      "t": "2026-07-23T23:38",
-      "a": "ai",
-      "id": "KAN-013",
       "op": "move",
       "from": "backlog",
       "to": "done"

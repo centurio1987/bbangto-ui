@@ -11,23 +11,34 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./catalog": "./src/catalog.json"
+    "./meta": {
+      "types": "./dist/meta/index.d.ts",
+      "import": "./dist/meta/index.js"
+    },
+    "./catalog": "./src/catalog.json",
+    "./foundation.manifest.json": "./foundation.manifest.json"
   },
   "files": [
     "dist",
-    "src/catalog.json"
+    "src/catalog.json",
+    "foundation.manifest.json"
   ],
   "scripts": {
     "build": "tsup",
     "typecheck": "tsc --noEmit",
+    "test": "vitest --run",
+    "gen:foundation-manifest": "tsx scripts/genFoundationManifest.ts",
     "dev": "tsup --watch"
   },
   "dependencies": {
     "@centurio1987/bbangto-ui-tokens": "workspace:*"
   },
   "devDependencies": {
+    "@types/node": "^22.0.0",
     "tsup": "^8.0.0",
-    "typescript": "^5.7.0"
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "vitest": "^4.1.9"
   },
   "sideEffects": false,
   "repository": {
