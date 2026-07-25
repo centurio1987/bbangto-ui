@@ -1,5 +1,32 @@
 # @centurio1987/bbangto-ui-style-guide-catalog
 
+## 0.3.0
+
+### Minor Changes
+
+- 298f353: Neobrutalism_Editorial_01 파일/네이밍 체계 표준화(다른 preset과 완전 동일 구조로 일관화)
+
+  - `src/bakery.ts` → `src/neobrutalismEditorial.tsx` (유일하게 다르던 파일명·확장자 제거)
+  - export 이름 변경(breaking): `bakeryStyleGuide` → `neobrutalismEditorialStyleGuide`
+  - 모티프 styleId/클래스: `bbangto-bakery-motif` → `bbangto-neobrutalism-editorial-01-motif`, `.bbangto-bakery-btn/card` → `.bbangto-neo-btn/card`
+  - wrapper displayPrefix: `Bakery` → `Neobrutalism`
+  - 슬러그 `neobrutalism-editorial-01`, Showcase displayName `NeobrutalismShowcase`, 카피 콘텐츠는 카탈로그 정체성으로 보존
+
+- b632c67: 채택 메타데이터 backfill + 선택 helper (additive).
+
+  - **`selectStyleGuides(catalog, criteria)`** 신규 export — soft-weighted 스코어링 순수 함수(하드 필터 아님 → shortlist 붕괴 방지). family/domains/tags/characteristics/mood 기준·결정적 tie-break·pending 처리.
+  - `catalog.manifest.json` 51종 전량 `StyleGuideMeta` authored(pending 0) — AI가 코드 전수검토 없이 카탈로그를 채택 판단할 수 있는 메타 SSOT.
+  - `meta.displayName` canonical(`Primary_Secondary_01`) 정규화(#29-50 16종 포함).
+
+  `selectStyleGuides`는 신규 export, 나머지는 데이터/문서 보강이라 하위호환.
+
+### Patch Changes
+
+- Updated dependencies [b632c67]
+- Updated dependencies [4fa2a01]
+  - @centurio1987/bbangto-ui-tokens@1.2.0
+  - @centurio1987/bbangto-ui-core@1.1.1
+
 ## 0.2.0
 
 ### Minor Changes
