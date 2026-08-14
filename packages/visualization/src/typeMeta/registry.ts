@@ -1,5 +1,5 @@
 /**
- * vizTypeRegistry — 유형 축 코드 SSOT (KAN-020, 전량 backfill KAN-040).
+ * vizTypeRegistry — 유형 축 코드 SSOT (KAN-020, 전량 backfill KAN-040, 구조 술어 축 KAN-043).
  *
  * `visualization-type-inventory.md` §5(VT 행)/§6(export 매핑)의 **채택 87 유형**을 코드 슬롯으로 전사한다.
  * 각 엔트리는 `id/name/exportNames/kind` 슬롯 정체성 + rich `meta`(`VizTypeMeta`)를 가진다 — KAN-040으로
@@ -12,6 +12,10 @@
  *
  * meta는 인벤토리 §5 각 행("한 줄 정의·대표 용도·프리미티브·aliases·tags·related")을 통제 어휘 union으로
  * 정규화해 승격한 것이다(free string 금지). ✅ 구현 유형이라 priority는 생략한다.
+ *
+ * `structuralTraits`(KAN-043)만은 인벤토리에 대응 컬럼이 없는 **신규 저작 축**이다 — 상류 소비자가
+ * "분기가 있나 없나"를 기계로 못 걸러 매핑표를 손으로 복제한 데 대한 응답(리포트 I5). 저작 원칙은
+ * types.ts `VIZ_STRUCTURAL_TRAITS` 주석에 있다: 그림이 실제로 주장하는 것만 적고, 느슨한 확대는 하지 않는다.
  *
  * 참고: geometry 트랙 `IsometricScene`(KAN-028)·G6 조합 프레임 `Kruchten4Plus1View`·`ViewpointFrame`(KAN-015)은
  * inventory §8-b가 VT 유형 행으로 미승격한 export라 여기 포함하지 않는다(registry.test allowlist에 문서화).
@@ -29,6 +33,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'engineering',
       summary: '클래스·속성·연산과 관계 구조',
       dataShape: ['hierarchy', 'relationship'],
+      structuralTraits: ['nested', 'relational'],
       primitives: ['node', 'edge', 'tree'],
       aliases: ['object diagram', 'C4 code-level class'],
       useWhen: [
@@ -52,6 +57,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'engineering',
       summary: '패키지 그룹화와 의존 관계',
       dataShape: ['hierarchy', 'relationship'],
+      structuralTraits: ['nested', 'relational'],
       primitives: ['node', 'edge', 'boundary'],
       aliases: [],
       useWhen: [
@@ -75,6 +81,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'engineering',
       summary: '컴포넌트·인터페이스 배선',
       dataShape: ['relationship', 'network'],
+      structuralTraits: ['relational'],
       primitives: ['node', 'edge', 'port'],
       aliases: ['composite structure diagram'],
       useWhen: [
@@ -98,6 +105,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'engineering',
       summary: '아티팩트의 실행 노드 배치',
       dataShape: ['relationship', 'hierarchy'],
+      structuralTraits: ['nested', 'relational'],
       primitives: ['node', 'edge', 'boundary'],
       aliases: ['C4 deployment'],
       useWhen: [
@@ -121,6 +129,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'engineering',
       summary: '액터-유스케이스 기능 관계',
       dataShape: ['relationship'],
+      structuralTraits: ['relational'],
       primitives: ['node', 'edge', 'boundary'],
       aliases: ['usecase'],
       useWhen: [
@@ -144,6 +153,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'engineering',
       summary: '제어 흐름·병행·레인 절차 모델',
       dataShape: ['process'],
+      structuralTraits: ['sequential', 'branching'],
       primitives: ['node', 'edge', 'lane'],
       aliases: ['swimlane diagram', 'activity'],
       useWhen: [
@@ -167,6 +177,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'engineering',
       summary: '상태·이벤트 전이 모델',
       dataShape: ['process'],
+      structuralTraits: ['sequential', 'branching', 'cyclic'],
       primitives: ['node', 'edge'],
       aliases: ['statechart', 'stateDiagram-v2'],
       useWhen: [
@@ -191,6 +202,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'engineering',
       summary: '수명선 간 시간순 메시지 교환',
       dataShape: ['process', 'temporal'],
+      structuralTraits: ['sequential', 'relational'],
       primitives: ['lifeline', 'edge', 'lane'],
       aliases: ['communication', 'interaction overview', 'timing', 'ZenUML'],
       useWhen: [
@@ -215,6 +227,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'engineering',
       summary: '시스템 블랙박스와 외부 관계',
       dataShape: ['relationship'],
+      structuralTraits: ['relational'],
       primitives: ['node', 'edge', 'boundary'],
       aliases: ['context diagram'],
       useWhen: [
@@ -238,6 +251,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'engineering',
       summary: '배포 단위(앱·DB)와 기술 구성',
       dataShape: ['relationship'],
+      structuralTraits: ['nested', 'relational'],
       primitives: ['node', 'edge', 'boundary'],
       aliases: [],
       useWhen: ['시스템 내부의 배포 단위(앱·DB·서비스)와 기술 스택을 개관할 때'],
@@ -258,6 +272,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'engineering',
       summary: '컨테이너 내부 컴포넌트 책임',
       dataShape: ['relationship'],
+      structuralTraits: ['nested', 'relational'],
       primitives: ['node', 'edge', 'boundary'],
       aliases: [],
       useWhen: ['컨테이너 내부 컴포넌트의 책임과 상호작용을 상세화할 때'],
@@ -278,6 +293,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'engineering',
       summary: '코드 수준 요소 구조(≈클래스도)',
       dataShape: ['hierarchy', 'relationship'],
+      structuralTraits: ['nested', 'relational'],
       primitives: ['node', 'edge'],
       aliases: [],
       useWhen: ['코드 수준 요소(클래스/인터페이스) 구조를 표현할 때'],
@@ -298,6 +314,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'engineering',
       summary: 'C4 요소 간 순서 있는 협력',
       dataShape: ['process', 'temporal'],
+      structuralTraits: ['sequential', 'relational'],
       primitives: ['node', 'edge'],
       aliases: [],
       useWhen: [
@@ -321,6 +338,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'engineering',
       summary: '다중 시스템 전경도',
       dataShape: ['relationship', 'network'],
+      structuralTraits: ['nested', 'relational'],
       primitives: ['node', 'edge', 'boundary'],
       aliases: [],
       useWhen: ['여러 시스템의 전사 전경을 지도로 표현할 때'],
@@ -338,6 +356,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'engineering',
       summary: '클라우드 서비스 구성도',
       dataShape: ['relationship', 'network'],
+      structuralTraits: ['nested', 'relational'],
       primitives: ['node', 'edge', 'boundary'],
       aliases: ['AWS/Azure/GCP diagram', 'architecture-beta'],
       useWhen: [
@@ -361,6 +380,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'engineering',
       summary: '기능 블록과 연결 구조',
       dataShape: ['relationship'],
+      structuralTraits: ['relational'],
       primitives: ['node', 'edge', 'grid'],
       aliases: ['block-beta', 'functional block'],
       useWhen: ['기능 블록과 연결로 시스템을 분해할 때'],
@@ -378,6 +398,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'engineering',
       summary: '엔터티·관계·카디널리티 모델',
       dataShape: ['relationship'],
+      structuralTraits: ['relational'],
       primitives: ['node', 'edge'],
       aliases: ['erDiagram', 'IE notation', 'ERD'],
       useWhen: ['DB 스키마의 엔터티·관계·카디널리티를 설계할 때'],
@@ -398,6 +419,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'engineering',
       summary: '요구-검증-충족 관계 모델',
       dataShape: ['relationship'],
+      structuralTraits: ['nested', 'relational'],
       primitives: ['node', 'edge'],
       aliases: ['requirementDiagram(SysML)'],
       useWhen: ['요구-검증-충족(satisfy/verify) 추적성을 모델링할 때'],
@@ -415,6 +437,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'engineering',
       summary: '«block» 정의·조성 구조',
       dataShape: ['hierarchy', 'relationship'],
+      structuralTraits: ['nested', 'relational'],
       primitives: ['node', 'edge', 'tree'],
       aliases: ['BDD'],
       useWhen: ['시스템 블록의 정의와 조성(composition) 구조를 표현할 때'],
@@ -438,6 +461,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'engineering',
       summary: '비즈니스~기술 계층 통합 EA 뷰',
       dataShape: ['relationship', 'hierarchy'],
+      structuralTraits: ['nested', 'relational'],
       primitives: ['node', 'edge', 'lane'],
       aliases: ['layered viewpoint'],
       useWhen: [
@@ -458,6 +482,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'engineering',
       summary: '동기·전략·이행 관점 EA 뷰 묶음',
       dataShape: ['relationship', 'concept'],
+      structuralTraits: ['nested', 'relational'],
       primitives: ['node', 'edge', 'boundary'],
       aliases: ['motivation', 'strategy/capability map', 'implementation & migration'],
       useWhen: ['동기·전략·이행 등 특정 관점의 EA 뷰가 필요할 때'],
@@ -475,6 +500,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'engineering',
       summary: '단일 참여자 업무 절차 모델',
       dataShape: ['process'],
+      structuralTraits: ['sequential', 'branching'],
       primitives: ['node', 'edge', 'lane'],
       aliases: ['orchestration', 'private process'],
       useWhen: ['단일 조직의 업무 절차를 표준 BPMN으로 모델링할 때'],
@@ -495,6 +521,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'engineering',
       summary: '풀 간 메시지 교환 모델',
       dataShape: ['process', 'flow'],
+      structuralTraits: ['sequential', 'branching', 'relational'],
       primitives: ['node', 'edge', 'lane'],
       aliases: ['choreography', 'conversation'],
       useWhen: ['여러 조직(풀) 간 메시지 교환 협업을 모델링할 때'],
@@ -512,6 +539,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'engineering',
       summary: '의사결정-입력-지식 요구 관계',
       dataShape: ['relationship'],
+      structuralTraits: ['nested', 'relational'],
       primitives: ['node', 'edge'],
       aliases: ['DRD', 'DRG'],
       useWhen: ['비즈니스 룰의 의사결정-입력-지식 요구 관계를 모델링할 때'],
@@ -529,6 +557,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'engineering',
       summary: '네트워크 세그먼트·장비 토폴로지',
       dataShape: ['network'],
+      structuralTraits: ['relational'],
       primitives: ['node', 'edge', 'lane'],
       aliases: ['nwdiag', 'network diagram'],
       useWhen: [
@@ -549,6 +578,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'engineering',
       summary: '데이터 이동·변환·저장 흐름',
       dataShape: ['flow', 'process'],
+      structuralTraits: ['sequential', 'relational'],
       primitives: ['node', 'edge', 'boundary'],
       aliases: ['DFD', 'threat-model DFD'],
       useWhen: [
@@ -572,6 +602,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'engineering',
       summary: '데이터 계보·파이프라인 추적',
       dataShape: ['flow', 'network'],
+      structuralTraits: ['sequential', 'relational'],
       primitives: ['node', 'edge'],
       aliases: ['lineage'],
       useWhen: ['데이터 계보와 파이프라인 경로를 추적할 때'],
@@ -589,6 +620,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'engineering',
       summary: '프로토콜 패킷 비트 필드 배치',
       dataShape: ['relationship'],
+      structuralTraits: ['cross-axis', 'quantitative'],
       primitives: ['grid', 'axis'],
       aliases: ['packet'],
       useWhen: ['프로토콜 패킷의 비트/바이트 필드 배치를 문서화할 때'],
@@ -605,6 +637,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'engineering',
       summary: '브랜치·커밋·머지 이력',
       dataShape: ['temporal', 'network'],
+      structuralTraits: ['sequential', 'branching', 'relational'],
       primitives: ['node', 'edge', 'lane', 'axis'],
       aliases: ['gitGraph'],
       useWhen: ['브랜치·커밋·머지 이력으로 Git 전략을 설명할 때'],
@@ -624,6 +657,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'process-flow',
       summary: '노드·간선 절차와 분기',
       dataShape: ['process'],
+      structuralTraits: ['sequential', 'branching'],
       primitives: ['node', 'edge'],
       aliases: ['graph', 'decision flowchart'],
       useWhen: [
@@ -648,6 +682,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'process-flow',
       summary: '순차 스텝 체인(배지+커넥터)',
       dataShape: ['process'],
+      structuralTraits: ['sequential'],
       primitives: ['node', 'leader', 'grid'],
       aliases: ['process infographic', 'how-to', 'step-by-step'],
       useWhen: [
@@ -671,6 +706,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'process-flow',
       summary: '순환 폐쇄 링/오빗 프로세스',
       dataShape: ['process'],
+      structuralTraits: ['sequential', 'cyclic'],
       primitives: ['radial', 'edge'],
       aliases: ['cycle diagram', 'loop'],
       useWhen: [
@@ -695,6 +731,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'process-flow',
       summary: '상태 컬럼별 카드 보드',
       dataShape: ['process'],
+      structuralTraits: ['sequential'],
       primitives: ['lane', 'node'],
       aliases: ['kanban'],
       useWhen: ['상태 컬럼(To Do/Doing/Done)으로 작업 흐름을 관리할 때'],
@@ -712,6 +749,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'process-flow',
       summary: '여정 단계+만족도/감정 곡선',
       dataShape: ['process', 'temporal'],
+      structuralTraits: ['sequential', 'quantitative'],
       primitives: ['lane', 'axis', 'node'],
       aliases: ['journey', 'customer journey map'],
       useWhen: [
@@ -735,6 +773,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'process-flow',
       summary: '화면 목업 노드 간 이동 흐름',
       dataShape: ['process', 'network'],
+      structuralTraits: ['sequential', 'branching', 'relational'],
       primitives: ['node', 'edge', 'mockup'],
       aliases: ['wireflow', 'user-flow'],
       useWhen: ['화면 목업 간 이동 흐름을 설계·소통할 때'],
@@ -755,6 +794,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'process-flow',
       summary: '단계 축소형 전환 구조',
       dataShape: ['process', 'magnitude'],
+      structuralTraits: ['sequential', 'quantitative'],
       primitives: ['area'],
       aliases: ['sales funnel', 'marketing funnel', 'AIDA'],
       useWhen: ['단계별 전환/이탈을 축소형 구조로 표현할 때'],
@@ -772,6 +812,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'process-flow',
       summary: '경로/노선 위 이정표 배열',
       dataShape: ['process'],
+      structuralTraits: ['sequential'],
       primitives: ['edge', 'node', 'leader'],
       aliases: ['route infographic', 'tube-map style route'],
       useWhen: ['커리큘럼/여정 경로 위 이정표를 배열할 때'],
@@ -791,6 +832,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'hierarchy-relation',
       summary: '중심 주제 방사형 위계 확장',
       dataShape: ['hierarchy'],
+      structuralTraits: ['nested', 'relational'],
       primitives: ['radial', 'tree', 'edge'],
       aliases: ['mind map', 'Buzan map', 'radial map'],
       useWhen: [
@@ -811,6 +853,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'hierarchy-relation',
       summary: '라벨 붙은 연결선의 개념 관계망',
       dataShape: ['network', 'concept'],
+      structuralTraits: ['relational'],
       primitives: ['node', 'edge'],
       aliases: ['Novak map', 'knowledge map'],
       useWhen: ['개념 간 관계를 라벨 붙은 연결선으로 구조화할 때'],
@@ -828,6 +871,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'hierarchy-relation',
       summary: '루트-자식 재귀 트리',
       dataShape: ['hierarchy'],
+      structuralTraits: ['nested'],
       primitives: ['tree', 'node', 'edge'],
       aliases: ['org chart', 'tree diagram', 'hierarchical infographic'],
       useWhen: ['조직/분류의 루트-자식 재귀 구조를 표현할 때'],
@@ -848,6 +892,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'hierarchy-relation',
       summary: '사이트 IA 전용 트리(elbow)',
       dataShape: ['hierarchy'],
+      structuralTraits: ['nested'],
       primitives: ['tree', 'edge'],
       aliases: ['IA tree', 'sitemap'],
       useWhen: ['사이트 정보구조(IA)를 elbow 트리로 설계할 때'],
@@ -865,6 +910,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'hierarchy-relation',
       summary: '노드·엣지 관계망(비계층)',
       dataShape: ['network'],
+      structuralTraits: ['relational'],
       primitives: ['node', 'edge', 'radial'],
       aliases: ['node-link', 'force graph', 'semantic network'],
       useWhen: [
@@ -888,6 +934,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'hierarchy-relation',
       summary: '집합 겹침 원 교차',
       dataShape: ['comparison', 'part-to-whole'],
+      structuralTraits: ['nested', 'paired'],
       primitives: ['area'],
       aliases: ['Euler diagram', 'set diagram'],
       useWhen: [
@@ -908,6 +955,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'hierarchy-relation',
       summary: '산출물 중심 작업 분해 트리',
       dataShape: ['hierarchy'],
+      structuralTraits: ['nested'],
       primitives: ['tree', 'node'],
       aliases: ['WBS'],
       useWhen: [
@@ -933,6 +981,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'time',
       summary: '사건의 시간순 나열',
       dataShape: ['temporal', 'change-over-time'],
+      structuralTraits: ['sequential'],
       primitives: ['axis', 'node'],
       aliases: ['chronology', 'timeline infographic'],
       useWhen: [
@@ -956,6 +1005,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'time',
       summary: '마일스톤·기간 로드맵(chevron)',
       dataShape: ['temporal'],
+      structuralTraits: ['sequential'],
       primitives: ['axis', 'node'],
       aliases: ['product roadmap', 'milestones'],
       useWhen: ['마일스톤과 기간을 로드맵으로 공유할 때'],
@@ -976,6 +1026,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'time',
       summary: '작업·기간 시간축 막대 일정',
       dataShape: ['temporal'],
+      structuralTraits: ['sequential', 'quantitative'],
       primitives: ['axis', 'band', 'lane'],
       aliases: ['gantt', 'project schedule'],
       useWhen: ['작업과 기간을 시간축 막대로 일정 관리할 때'],
@@ -996,6 +1047,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'time',
       summary: '여정 pill과 날짜축 결합',
       dataShape: ['temporal'],
+      structuralTraits: ['sequential', 'quantitative'],
       primitives: ['axis', 'band', 'node'],
       aliases: ['journey gantt'],
       useWhen: ['여정 단계를 날짜축과 결합해 일정화할 때'],
@@ -1014,6 +1066,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'time',
       summary: '나선/원주 위 단계 배열',
       dataShape: ['process', 'temporal'],
+      structuralTraits: ['sequential', 'cyclic'],
       primitives: ['radial', 'axis'],
       aliases: ['spiral phase', 'circular phase'],
       useWhen: [
@@ -1036,6 +1089,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'data-chart',
       summary: '범주 값의 막대 길이로 크기를 비교',
       dataShape: ['magnitude', 'ranking'],
+      structuralTraits: ['quantitative'],
       primitives: ['axis', 'band'],
       aliases: ['column', 'grouped bar', 'paired bar'],
       useWhen: [
@@ -1061,6 +1115,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'data-chart',
       summary: '막대 분할로 합+구성 동시 표시',
       dataShape: ['part-to-whole', 'deviation'],
+      structuralTraits: ['quantitative'],
       primitives: ['axis', 'band'],
       aliases: ['proportional stacked', 'diverging', 'spine'],
       useWhen: [
@@ -1084,6 +1139,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'data-chart',
       summary: '시간축 값 변화 선 연결',
       dataShape: ['change-over-time'],
+      structuralTraits: ['sequential', 'quantitative'],
       primitives: ['axis', 'edge'],
       aliases: ['line', 'multiple lines'],
       useWhen: [
@@ -1107,6 +1163,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'data-chart',
       summary: '선 아래 채움으로 총량 강조',
       dataShape: ['change-over-time', 'part-to-whole'],
+      structuralTraits: ['sequential', 'quantitative'],
       primitives: ['axis', 'area'],
       aliases: ['stacked area'],
       useWhen: [
@@ -1127,6 +1184,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'data-chart',
       summary: '두 변수 관계 점 표시',
       dataShape: ['correlation', 'distribution'],
+      structuralTraits: ['cross-axis', 'quantitative'],
       primitives: ['axis', 'node'],
       aliases: ['XY plot', 'bubble', 'connected scatter'],
       useWhen: [
@@ -1150,6 +1208,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'data-chart',
       summary: '부채꼴 구성비',
       dataShape: ['part-to-whole'],
+      structuralTraits: ['quantitative'],
       primitives: ['radial', 'area'],
       aliases: ['donut', 'arc', 'multiple pies'],
       useWhen: ['전체 대비 소수 범주의 구성비를 볼 때'],
@@ -1170,6 +1229,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'data-chart',
       summary: '중첩 사각형 면적 계층·비중',
       dataShape: ['part-to-whole', 'hierarchy'],
+      structuralTraits: ['nested', 'quantitative'],
       primitives: ['grid', 'area', 'tree'],
       aliases: [],
       useWhen: [
@@ -1193,6 +1253,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'data-chart',
       summary: '구간 빈도 연속 막대',
       dataShape: ['distribution'],
+      structuralTraits: ['quantitative'],
       primitives: ['axis', 'band'],
       aliases: [],
       useWhen: ['연속 변수의 구간별 빈도 분포를 볼 때'],
@@ -1213,6 +1274,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'data-chart',
       summary: '점 1~2개로 값·범위·변화 표시',
       dataShape: ['distribution', 'magnitude', 'ranking'],
+      structuralTraits: ['paired', 'quantitative'],
       primitives: ['axis', 'node'],
       aliases: ['range plot', 'arrow plot', 'dumbbell'],
       useWhen: [
@@ -1233,6 +1295,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'data-chart',
       summary: '중앙값·사분위 상자 요약',
       dataShape: ['distribution'],
+      structuralTraits: ['quantitative'],
       primitives: ['axis', 'band', 'area'],
       aliases: ['box-and-whisker', 'Tukey'],
       useWhen: [
@@ -1253,6 +1316,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'data-chart',
       summary: '방사 다축 다각형',
       dataShape: ['magnitude', 'comparison'],
+      structuralTraits: ['quantitative'],
       primitives: ['radial', 'axis', 'area'],
       aliases: ['spider', 'cobweb'],
       useWhen: ['여러 축의 값을 다각형으로 한눈에 비교할 때'],
@@ -1270,6 +1334,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'data-chart',
       summary: '격자 색 농도 패턴',
       dataShape: ['correlation', 'magnitude'],
+      structuralTraits: ['cross-axis', 'quantitative'],
       primitives: ['grid', 'area'],
       aliases: ['calendar heatmap', 'XY heatmap'],
       useWhen: [
@@ -1291,6 +1356,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'data-chart',
       summary: '단위 격자 채움 백분율',
       dataShape: ['part-to-whole'],
+      structuralTraits: ['quantitative'],
       primitives: ['grid', 'icon-unit'],
       aliases: ['gridplot', 'unit chart'],
       useWhen: [
@@ -1315,6 +1381,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'data-chart',
       summary: '아이콘 반복 수량(정수)',
       dataShape: ['magnitude', 'part-to-whole'],
+      structuralTraits: ['quantitative'],
       primitives: ['icon-unit', 'grid'],
       aliases: ['pictogram'],
       useWhen: [
@@ -1335,6 +1402,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'data-chart',
       summary: '흐름 폭으로 이동량 표시',
       dataShape: ['flow'],
+      structuralTraits: ['sequential', 'quantitative'],
       primitives: ['band', 'edge'],
       aliases: ['alluvial', 'river plot'],
       useWhen: [
@@ -1355,6 +1423,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'data-chart',
       summary: '원 둘레 간 흐름 리본',
       dataShape: ['flow', 'network'],
+      structuralTraits: ['relational', 'quantitative'],
       primitives: ['radial', 'band'],
       aliases: [],
       useWhen: ['개체 간 상호 흐름/연결을 원형 리본으로 표현할 때'],
@@ -1372,6 +1441,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'data-chart',
       summary: '증감 누적 단계 합계 도달',
       dataShape: ['flow', 'part-to-whole'],
+      structuralTraits: ['sequential', 'quantitative'],
       primitives: ['axis', 'band'],
       aliases: [],
       useWhen: ['증감을 누적해 최종 합계 도달 과정을 볼 때'],
@@ -1392,6 +1462,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'data-chart',
       summary: '행정구역 색상 비율 지도',
       dataShape: ['spatial', 'magnitude'],
+      structuralTraits: ['quantitative'],
       primitives: ['geo', 'area'],
       aliases: [],
       useWhen: ['행정구역별 값을 색상 농도로 지도에 표현할 때'],
@@ -1409,6 +1480,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'data-chart',
       summary: '아크 척도 위 값 표시',
       dataShape: ['magnitude'],
+      structuralTraits: ['quantitative'],
       primitives: ['radial', 'axis'],
       aliases: ['gauge', 'dial'],
       useWhen: ['단일 KPI를 아크 척도 위 값으로 표시할 때'],
@@ -1430,6 +1502,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'infographic-editorial',
       summary: '수치 강조 카드/그리드 구성',
       dataShape: ['magnitude', 'comparison'],
+      structuralTraits: ['quantitative'],
       primitives: ['grid', 'node'],
       aliases: ['data infographic', 'stat cards'],
       useWhen: [
@@ -1454,6 +1527,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'infographic-editorial',
       summary: '패널 대비+중앙 디바이더',
       dataShape: ['comparison'],
+      structuralTraits: ['paired'],
       primitives: ['grid', 'area'],
       aliases: ['versus', 'before-after', 'T-chart'],
       useWhen: [
@@ -1477,6 +1551,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'infographic-editorial',
       summary: '아이콘+항목 목록 시각화',
       dataShape: ['concept'],
+      structuralTraits: [],
       primitives: ['grid', 'icon-unit', 'leader'],
       aliases: ['listicle', 'checklist'],
       useWhen: ['팁/체크리스트를 아이콘+항목 행으로 시각화할 때'],
@@ -1494,6 +1569,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'infographic-editorial',
       summary: '텍스트 중심 개요 구성',
       dataShape: ['concept'],
+      structuralTraits: [],
       primitives: ['grid', 'leader'],
       aliases: ['descriptive'],
       useWhen: [
@@ -1514,6 +1590,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'infographic-editorial',
       summary: '지도 위 데이터·마커 배치',
       dataShape: ['spatial'],
+      structuralTraits: [],
       primitives: ['geo', 'node', 'leader'],
       aliases: ['geographic', 'location infographic'],
       useWhen: ['지도 위에 마커/데이터를 배치해 지역 트렌드를 표현할 때'],
@@ -1531,6 +1608,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'infographic-editorial',
       summary: '대상 구조 라벨링 해설',
       dataShape: ['concept'],
+      structuralTraits: [],
       primitives: ['leader', 'node'],
       aliases: ['anatomical', 'labeled diagram', 'cutaway'],
       useWhen: [
@@ -1551,6 +1629,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'infographic-editorial',
       summary: '비대칭 모듈 격자 배치',
       dataShape: ['concept'],
+      structuralTraits: [],
       primitives: ['grid', 'area'],
       aliases: ['bento layout', 'collage grid'],
       useWhen: ['비대칭 모듈 격자로 피처/대시보드를 배치할 때'],
@@ -1568,6 +1647,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'infographic-editorial',
       summary: '손그림·화살표 시각 노트 구성',
       dataShape: ['concept'],
+      structuralTraits: ['relational'],
       primitives: ['node', 'edge', 'leader'],
       aliases: ['visual note'],
       useWhen: ['강연/아이디어를 손그림·화살표 노트로 기록할 때'],
@@ -1585,6 +1665,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'infographic-editorial',
       summary: '타이포 위계 중심 지면 구성',
       dataShape: ['concept'],
+      structuralTraits: [],
       primitives: ['grid', 'area'],
       aliases: ['magazine layout', 'editorial composition'],
       useWhen: ['타이포 위계 중심의 표지/타이틀 지면을 구성할 때'],
@@ -1606,6 +1687,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'concept-framework',
       summary: '기반→정점 층상 구조',
       dataShape: ['hierarchy', 'part-to-whole'],
+      structuralTraits: ['nested'],
       primitives: ['area'],
       aliases: ['layered pyramid', 'Maslow'],
       useWhen: [
@@ -1629,6 +1711,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'concept-framework',
       summary: '두 축 4분면 배치',
       dataShape: ['comparison', 'correlation'],
+      structuralTraits: ['cross-axis'],
       primitives: ['axis', 'grid', 'node'],
       aliases: ['quadrantChart', 'Eisenhower', 'BCG', 'prioritization matrix'],
       useWhen: [
@@ -1649,6 +1732,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'concept-framework',
       summary: '강점·약점·기회·위협 4분면',
       dataShape: ['comparison', 'concept'],
+      structuralTraits: ['cross-axis', 'paired'],
       primitives: ['grid', 'area'],
       aliases: ['TOWS'],
       useWhen: [
@@ -1672,6 +1756,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'concept-framework',
       summary: '수면 아래 숨은 구조 은유',
       dataShape: ['concept', 'hierarchy'],
+      structuralTraits: ['nested', 'paired'],
       primitives: ['area', 'leader'],
       aliases: ['iceberg model'],
       useWhen: ['표면 현상과 그 아래 숨은 근본 원인을 은유로 표현할 때'],
@@ -1689,6 +1774,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'concept-framework',
       summary: '동심원 근접도 레이어',
       dataShape: ['hierarchy', 'concept'],
+      structuralTraits: ['nested'],
       primitives: ['radial', 'area'],
       aliases: ['stakeholder onion', 'concentric layers'],
       useWhen: ['동심원 근접도로 이해관계자/의존 계층을 표현할 때'],
@@ -1709,6 +1795,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'concept-framework',
       summary: '생선뼈 원인 범주화',
       dataShape: ['concept', 'hierarchy'],
+      structuralTraits: ['nested'],
       primitives: ['edge', 'node'],
       aliases: ['Ishikawa', 'cause-and-effect'],
       useWhen: [
@@ -1729,6 +1816,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'concept-framework',
       summary: '9블록 사업 모델 한 장 정리',
       dataShape: ['concept', 'comparison'],
+      structuralTraits: [],
       primitives: ['grid', 'area'],
       aliases: ['BMC', 'lean canvas'],
       useWhen: ['사업 모델을 표준 9블록으로 한 장에 정리할 때'],
@@ -1747,6 +1835,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'concept-framework',
       summary: '축적 가속 선순환 바퀴',
       dataShape: ['process'],
+      structuralTraits: ['sequential', 'cyclic'],
       primitives: ['radial', 'edge'],
       aliases: ['virtuous cycle', 'momentum loop'],
       useWhen: [
@@ -1767,6 +1856,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'concept-framework',
       summary: '육각 셀 다면 속성 표현',
       dataShape: ['concept', 'comparison'],
+      structuralTraits: [],
       primitives: ['grid'],
       aliases: ['UX honeycomb', 'hexagon cluster'],
       useWhen: ['다면 속성/기준을 육각 셀로 제시할 때'],
@@ -1784,6 +1874,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       category: 'concept-framework',
       summary: '대립 양극 축 위 위치 표시',
       dataShape: ['comparison', 'ranking'],
+      structuralTraits: ['paired', 'quantitative'],
       primitives: ['axis', 'node'],
       aliases: ['continuum', 'opposing-axis scale'],
       useWhen: ['대립하는 양극 축 위에 성향/성숙도 위치를 표시할 때'],

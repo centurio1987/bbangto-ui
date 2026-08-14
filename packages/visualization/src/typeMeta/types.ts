@@ -64,6 +64,40 @@ export const VIZ_DATA_SHAPES = [
 export type VizDataShape = (typeof VIZ_DATA_SHAPES)[number];
 
 /**
+ * 구조 술어 — "그 그림이 무엇을 주장하는가"를 기계가 읽는 축 (KAN-043 / 상류 I5).
+ *
+ * `dataShape`가 **가진 데이터**를 말한다면 이 축은 **그 데이터의 구조**를 말한다. 둘은 직교한다:
+ * Flowchart(VT-201)와 Process Steps(VT-202)는 `dataShape`가 똑같이 `['process']`지만 전자만 `branching`이다.
+ * 이 축이 없던 동안 소비자는 "분기가 있나 없나"를 산문 `useWhen`/`avoidWhen`으로만 판별할 수 있었고,
+ * 결국 자기 저장소에 매핑표를 손으로 옮겨 적었다(상류 리포트 I5). 그 사본을 없애는 것이 이 축의 목적이다.
+ *
+ * 저작 원칙: **그림이 실제로 주장하는 것만** 적는다. "리스트니까 sequential" 같은 느슨한 확장은 하지 않는다
+ * — 그러면 필터로서의 값이 사라진다. 구조가 판별축이 아닌 유형(에디토리얼 지면 구성 등)은 빈 배열이 정답이다.
+ */
+export const VIZ_STRUCTURAL_TRAITS = [
+  'sequential', //   한 방향으로 진행한다(다음 단계가 정해져 있다)
+  'branching', //    조건에 따라 경로가 갈린다      → Flowchart ○ / ProcessSteps ×
+  'cyclic', //       되돌아온다(닫힌 순환)
+  'nested', //       포함·층위(계층/중첩/적층)
+  'relational', //   순서 없는 개체 간 연결 관계망
+  'cross-axis', //   두 축의 교차(격자·사분면)
+  'paired', //       두 항목/양극의 대조
+  'quantitative', // 값의 크기를 기하(길이·면적·각도·위치)로 인코딩한다
+] as const;
+export type VizStructuralTrait = (typeof VIZ_STRUCTURAL_TRAITS)[number];
+
+export const VIZ_STRUCTURAL_TRAIT_LABELS: Record<VizStructuralTrait, string> = {
+  sequential: '순차 진행',
+  branching: '조건 분기',
+  cyclic: '순환',
+  nested: '포함·층위',
+  relational: '관계망',
+  'cross-axis': '두 축 교차',
+  paired: '양극 대조',
+  quantitative: '수량 인코딩',
+};
+
+/**
  * 구조 프리미티브 — inventory "프리미티브" 컬럼을 통제 union으로 편입.
  * 유형이 어떤 원자 구성으로 렌더되는지(교차 검색·유사 유형 발견용).
  */
@@ -120,6 +154,11 @@ export interface VizTypeMeta {
   readonly summary: string;
   /** 가진 데이터 형태(복수). */
   readonly dataShape: readonly VizDataShape[];
+  /**
+   * 구조 술어(복수) — `dataShape`와 직교한다. 분기·순환·계층 같은 "그림의 주장"을 기계가 읽는 축.
+   * 구조가 판별축이 아닌 유형은 빈 배열(느슨한 확대 해석 금지).
+   */
+  readonly structuralTraits: readonly VizStructuralTrait[];
   /** 구조 프리미티브(복수). */
   readonly primitives: readonly VizPrimitive[];
   /** 별칭(복수). */

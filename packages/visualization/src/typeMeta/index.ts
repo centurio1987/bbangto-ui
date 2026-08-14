@@ -12,6 +12,7 @@ export type {
   VizDataShape,
   VizPrimitive,
   VizTypeTag,
+  VizStructuralTrait,
 } from './types';
 export {
   VIZ_TYPE_CATEGORIES,
@@ -19,6 +20,8 @@ export {
   VIZ_DATA_SHAPES,
   VIZ_PRIMITIVES,
   VIZ_TYPE_TAGS,
+  VIZ_STRUCTURAL_TRAITS,
+  VIZ_STRUCTURAL_TRAIT_LABELS,
 } from './types';
 
 export { vizTypeRegistry } from './registry';
