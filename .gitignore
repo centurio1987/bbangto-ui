@@ -9,3 +9,7 @@ coverage/
 
 # Obsidian vault config (local editor state)
 .obsidian/
+
+# manage-kanban 다중 세션 잠금(로컬 전용)
+KANBAN.state.json.lock
+KANBAN.cards/.*.lock
