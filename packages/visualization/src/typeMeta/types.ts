@@ -176,6 +176,24 @@ export interface VizTypeMeta {
 }
 
 /**
+ * 렌더 변주 하나 — "이 유형을 그리려면 어느 prop에 어떤 값을 주는가" (KAN-043 / 상류 I6).
+ *
+ * 이전 스키마는 값만 담은 `variant?: string`이어서, 소비자가 `'waffle'`을 **어디에** 넣어야 하는지
+ * 알 수 없어 d.ts를 뒤져야 했다(자동 배선 단절). prop 이름을 함께 담아 그 왕복을 없앤다.
+ */
+export interface VizTypeVariant {
+  /** prop 이름. 현 코드베이스는 전부 `'mode'`. */
+  readonly prop: string;
+  /** prop에 넣을 리터럴 값. */
+  readonly value: string;
+  /**
+   * 이 export를 prop 없이 렌더했을 때 나오는 그림인가. export당 정확히 1건이어야 한다
+   * (`variantCoverage.test.ts`가 게이트). 이름만 보고 고른 소비자가 **자기가 받을 그림의** 근거를 읽게 하는 장치다.
+   */
+  readonly isDefault?: boolean;
+}
+
+/**
  * 레지스트리 1행 = 채택된 VT 유형 하나. `id/name/exportNames/kind`는 항상 존재하는 **슬롯 정체성**,
  * `meta`는 저작된 경우에만 붙는 rich 레이어(파일럿만; 나머지는 pending).
  * `exportNames`는 실제 배럴 export 문자열(≥1) — 컴포넌트를 import하지 않는다(순수 데이터).
@@ -189,8 +207,11 @@ export interface VizTypeRegistryEntry {
   readonly exportNames: readonly string[];
   /** 코드 위계. */
   readonly kind: 'template' | 'pattern';
-  /** 모드 힌트 — 1 export가 여러 VT/모드를 담당할 때(예: Cycle → 'flywheel'). */
-  readonly variant?: string;
+  /**
+   * 렌더 변주(복수) — 1 export가 여러 VT/모드를 담당할 때. 한 유형이 여러 모드로 렌더되기도 한다
+   * (예: VT-601은 `mode='cards'`와 `mode='mosaic'` 둘 다 — 면적/카드 표현만 다른 같은 유형).
+   */
+  readonly variants?: readonly VizTypeVariant[];
   /** 저작된 채택 메타(파일럿만). */
   readonly meta?: VizTypeMeta;
 }

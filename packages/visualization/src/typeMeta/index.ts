@@ -13,6 +13,7 @@ export type {
   VizPrimitive,
   VizTypeTag,
   VizStructuralTrait,
+  VizTypeVariant,
 } from './types';
 export {
   VIZ_TYPE_CATEGORIES,
@@ -25,6 +26,12 @@ export {
 } from './types';
 
 export { vizTypeRegistry } from './registry';
+
+export {
+  vizTypesForExport,
+  defaultVizTypeForExport,
+  vizTypeForVariant,
+} from './lookup';
 
 export type {
   VizTypeManifestEntry,

@@ -5,13 +5,13 @@
  * 엔트리다. `buildTypeManifest`는 `related` 참조 정합성을 authored 전체에 대해 검증하고, 완성도를 구조에서
  * 계산하며(렌더 없이 데이터만 → Node 실행 안전), id 오름차순으로 결정적 정렬한다.
  */
-import type { VizTypeMeta, VizTypeRegistryEntry } from './types';
+import type { VizTypeMeta, VizTypeRegistryEntry, VizTypeVariant } from './types';
 
 /** 매니페스트 생성기가 구조에서 계산하는 완성도 플래그(저작 대상 아님). */
 export interface VizTypeManifestCompleteness {
   /** exportNames 개수(항상). */
   readonly exportCount: number;
-  /** variant(모드 힌트) 보유 여부. */
+  /** 렌더 변주(`variants`) 보유 여부. */
   readonly hasVariant: boolean;
   /** useWhen 문장 수(meta 없으면 0). */
   readonly useWhenCount: number;
@@ -25,7 +25,11 @@ export interface VizTypeManifestEntry {
   readonly name: string;
   readonly kind: 'template' | 'pattern';
   readonly exportNames: readonly string[];
-  readonly variant?: string;
+  /**
+   * 렌더 변주. `{ prop, value }` 쌍이라 소비자가 값을 **어느 prop에** 넣을지 알 수 있다
+   * (KAN-043 / 상류 I6 — 이전 스키마는 값만 담은 `variant?: string`이었다).
+   */
+  readonly variants?: readonly VizTypeVariant[];
   /** 'pending'은 "아직 백필 안 됨"이지 "해당 없음"이 아니다(계약). */
   readonly metaStatus: 'authored' | 'pending';
   readonly completeness: VizTypeManifestCompleteness;
@@ -55,18 +59,18 @@ export function buildTypeManifest(
 
     const completeness: VizTypeManifestCompleteness = {
       exportCount: e.exportNames.length,
-      hasVariant: e.variant != null,
+      hasVariant: (e.variants?.length ?? 0) > 0,
       useWhenCount: e.meta?.useWhen.length ?? 0,
       primitiveCount: e.meta?.primitives.length ?? 0,
     };
 
-    // 고정 키 순서. undefined 값(variant·meta)은 JSON.stringify가 생략 → thin/rich가 명확히 구분된다.
+    // 고정 키 순서. undefined 값(variants·meta)은 JSON.stringify가 생략 → thin/rich가 명확히 구분된다.
     const entry = {
       id: e.id,
       name: e.name,
       kind: e.kind,
       exportNames: e.exportNames,
-      variant: e.variant,
+      variants: e.variants,
       metaStatus: (e.meta ? 'authored' : 'pending') as VizTypeManifestEntry['metaStatus'],
       completeness,
       meta: e.meta,

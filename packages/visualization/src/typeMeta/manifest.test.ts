@@ -96,6 +96,7 @@ function mkMeta(over: { related?: readonly string[] }) {
     category: 'engineering' as const,
     summary: 'fixture',
     dataShape: ['hierarchy'] as const,
+    structuralTraits: ['nested'] as const,
     primitives: ['node'] as const,
     aliases: [] as const,
     useWhen: ['use it'] as const,

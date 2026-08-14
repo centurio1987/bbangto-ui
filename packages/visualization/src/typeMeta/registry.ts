@@ -702,6 +702,10 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
     name: 'Cycle',
     exportNames: ['Cycle'],
     kind: 'pattern',
+    variants: [
+      { prop: 'mode', value: 'ring', isDefault: true },
+      { prop: 'mode', value: 'orbit' },
+    ],
     meta: {
       category: 'process-flow',
       summary: '순환 폐쇄 링/오빗 프로세스',
@@ -715,8 +719,8 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       ],
       avoidWhen: [
         '선형 절차는 Process Steps(VT-202) 사용',
-        '가속 선순환 강조는 flywheel variant(VT-708) 사용',
-        '장기 phase 나선은 spiral variant(VT-405) 사용',
+        '가속 선순환 강조는 Flywheel(VT-708) — Cycle mode="flywheel" 사용',
+        '장기 phase 나선은 Radial/Spiral Phase(VT-405) — Cycle mode="spiral" 사용',
       ],
       tags: ['infographic', 'radial'],
       related: ['VT-405', 'VT-708'],
@@ -867,6 +871,9 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
     name: 'Hierarchy / Tree',
     exportNames: ['Hierarchy'],
     kind: 'pattern',
+    variants: [
+      { prop: 'mode', value: 'tree', isDefault: true },
+    ],
     meta: {
       category: 'hierarchy-relation',
       summary: '루트-자식 재귀 트리',
@@ -1061,7 +1068,9 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
     name: 'Radial / Spiral Phase',
     exportNames: ['Cycle'],
     kind: 'pattern',
-    variant: 'spiral',
+    variants: [
+      { prop: 'mode', value: 'spiral' },
+    ],
     meta: {
       category: 'time',
       summary: '나선/원주 위 단계 배열',
@@ -1071,7 +1080,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       aliases: ['spiral phase', 'circular phase'],
       useWhen: [
         '장기 phase를 나선/원주 위에 배열할 때',
-        'spiral variant로 렌더할 때',
+        'Cycle을 mode="spiral"로 렌더할 때',
       ],
       avoidWhen: ['단순 순환 링은 Cycle(VT-203) 사용'],
       tags: ['radial', 'time'],
@@ -1270,6 +1279,11 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
     name: 'Dot Plot',
     exportNames: ['DotPlot'],
     kind: 'template',
+    variants: [
+      { prop: 'mode', value: 'dot', isDefault: true },
+      { prop: 'mode', value: 'dumbbell' },
+      { prop: 'mode', value: 'range' },
+    ],
     meta: {
       category: 'data-chart',
       summary: '점 1~2개로 값·범위·변화 표시',
@@ -1351,7 +1365,9 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
     name: 'Waffle',
     exportNames: ['Statistics'],
     kind: 'pattern',
-    variant: 'waffle',
+    variants: [
+      { prop: 'mode', value: 'waffle' },
+    ],
     meta: {
       category: 'data-chart',
       summary: '단위 격자 채움 백분율',
@@ -1361,7 +1377,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       aliases: ['gridplot', 'unit chart'],
       useWhen: [
         '백분율을 100셀 격자 채움으로 표현할 때',
-        'waffle variant로 렌더할 때',
+        'Statistics를 mode="waffle"로 렌더할 때',
       ],
       avoidWhen: [
         '아이콘 반복 수량은 Isotype(VT-514) 사용',
@@ -1376,7 +1392,9 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
     name: 'Isotype',
     exportNames: ['Statistics'],
     kind: 'pattern',
-    variant: 'isotype',
+    variants: [
+      { prop: 'mode', value: 'isotype' },
+    ],
     meta: {
       category: 'data-chart',
       summary: '아이콘 반복 수량(정수)',
@@ -1386,7 +1404,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       aliases: ['pictogram'],
       useWhen: [
         '아이콘을 반복해 정수 수량을 직관적으로 표현할 때',
-        'isotype variant로 렌더할 때',
+        'Statistics를 mode="isotype"로 렌더할 때',
       ],
       avoidWhen: ['연속 비율은 Waffle(VT-513) 사용'],
       tags: ['chart', 'infographic'],
@@ -1497,7 +1515,10 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
     name: 'Statistical Infographic',
     exportNames: ['Statistics'],
     kind: 'pattern',
-    variant: 'cards',
+    variants: [
+      { prop: 'mode', value: 'cards', isDefault: true },
+      { prop: 'mode', value: 'mosaic' },
+    ],
     meta: {
       category: 'infographic-editorial',
       summary: '수치 강조 카드/그리드 구성',
@@ -1508,7 +1529,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       useWhen: [
         '핵심 수치를 카드/그리드로 강조할 때',
         '성과·리서치를 요약할 때',
-        'cards variant로 렌더할 때',
+        'Statistics를 mode="cards"(기본) 또는 mode="mosaic"으로 렌더할 때',
       ],
       avoidWhen: [
         '정밀 추세는 Line(VT-503) 사용',
@@ -1523,6 +1544,10 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
     name: 'Comparison',
     exportNames: ['Comparison'],
     kind: 'pattern',
+    variants: [
+      { prop: 'mode', value: 'split', isDefault: true },
+      { prop: 'mode', value: 'magnitude' },
+    ],
     meta: {
       category: 'infographic-editorial',
       summary: '패널 대비+중앙 디바이더',
@@ -1682,7 +1707,9 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
     name: 'Pyramid',
     exportNames: ['Hierarchy'],
     kind: 'pattern',
-    variant: 'pyramid',
+    variants: [
+      { prop: 'mode', value: 'pyramid' },
+    ],
     meta: {
       category: 'concept-framework',
       summary: '기반→정점 층상 구조',
@@ -1692,7 +1719,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       aliases: ['layered pyramid', 'Maslow'],
       useWhen: [
         '기반→정점 층상 중요도/단계를 표현할 때',
-        'pyramid variant로 렌더할 때',
+        'Hierarchy를 mode="pyramid"로 렌더할 때',
       ],
       avoidWhen: [
         '전환 축소 구조는 Funnel(VT-207) 사용',
@@ -1830,7 +1857,9 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
     name: 'Flywheel',
     exportNames: ['Cycle'],
     kind: 'pattern',
-    variant: 'flywheel',
+    variants: [
+      { prop: 'mode', value: 'flywheel' },
+    ],
     meta: {
       category: 'concept-framework',
       summary: '축적 가속 선순환 바퀴',
@@ -1840,7 +1869,7 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
       aliases: ['virtuous cycle', 'momentum loop'],
       useWhen: [
         '축적으로 가속되는 성장 선순환을 설명할 때',
-        'flywheel variant로 렌더할 때',
+        'Cycle을 mode="flywheel"로 렌더할 때',
       ],
       avoidWhen: ['단순 반복 순환은 Cycle(VT-203) 사용'],
       tags: ['framework', 'radial'],

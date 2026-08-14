@@ -1521,10 +1521,21 @@
     "exportNames": [
       "Cycle"
     ],
+    "variants": [
+      {
+        "prop": "mode",
+        "value": "ring",
+        "isDefault": true
+      },
+      {
+        "prop": "mode",
+        "value": "orbit"
+      }
+    ],
     "metaStatus": "authored",
     "completeness": {
       "exportCount": 1,
-      "hasVariant": false,
+      "hasVariant": true,
       "useWhenCount": 2,
       "primitiveCount": 2
     },
@@ -1552,8 +1563,8 @@
       ],
       "avoidWhen": [
         "선형 절차는 Process Steps(VT-202) 사용",
-        "가속 선순환 강조는 flywheel variant(VT-708) 사용",
-        "장기 phase 나선은 spiral variant(VT-405) 사용"
+        "가속 선순환 강조는 Flywheel(VT-708) — Cycle mode=\"flywheel\" 사용",
+        "장기 phase 나선은 Radial/Spiral Phase(VT-405) — Cycle mode=\"spiral\" 사용"
       ],
       "tags": [
         "infographic",
@@ -1906,10 +1917,17 @@
     "exportNames": [
       "Hierarchy"
     ],
+    "variants": [
+      {
+        "prop": "mode",
+        "value": "tree",
+        "isDefault": true
+      }
+    ],
     "metaStatus": "authored",
     "completeness": {
       "exportCount": 1,
-      "hasVariant": false,
+      "hasVariant": true,
       "useWhenCount": 1,
       "primitiveCount": 3
     },
@@ -2341,7 +2359,12 @@
     "exportNames": [
       "Cycle"
     ],
-    "variant": "spiral",
+    "variants": [
+      {
+        "prop": "mode",
+        "value": "spiral"
+      }
+    ],
     "metaStatus": "authored",
     "completeness": {
       "exportCount": 1,
@@ -2370,7 +2393,7 @@
       ],
       "useWhen": [
         "장기 phase를 나선/원주 위에 배열할 때",
-        "spiral variant로 렌더할 때"
+        "Cycle을 mode=\"spiral\"로 렌더할 때"
       ],
       "avoidWhen": [
         "단순 순환 링은 Cycle(VT-203) 사용"
@@ -2780,10 +2803,25 @@
     "exportNames": [
       "DotPlot"
     ],
+    "variants": [
+      {
+        "prop": "mode",
+        "value": "dot",
+        "isDefault": true
+      },
+      {
+        "prop": "mode",
+        "value": "dumbbell"
+      },
+      {
+        "prop": "mode",
+        "value": "range"
+      }
+    ],
     "metaStatus": "authored",
     "completeness": {
       "exportCount": 1,
-      "hasVariant": false,
+      "hasVariant": true,
       "useWhenCount": 2,
       "primitiveCount": 2
     },
@@ -2974,7 +3012,12 @@
     "exportNames": [
       "Statistics"
     ],
-    "variant": "waffle",
+    "variants": [
+      {
+        "prop": "mode",
+        "value": "waffle"
+      }
+    ],
     "metaStatus": "authored",
     "completeness": {
       "exportCount": 1,
@@ -3001,7 +3044,7 @@
       ],
       "useWhen": [
         "백분율을 100셀 격자 채움으로 표현할 때",
-        "waffle variant로 렌더할 때"
+        "Statistics를 mode=\"waffle\"로 렌더할 때"
       ],
       "avoidWhen": [
         "아이콘 반복 수량은 Isotype(VT-514) 사용",
@@ -3024,7 +3067,12 @@
     "exportNames": [
       "Statistics"
     ],
-    "variant": "isotype",
+    "variants": [
+      {
+        "prop": "mode",
+        "value": "isotype"
+      }
+    ],
     "metaStatus": "authored",
     "completeness": {
       "exportCount": 1,
@@ -3051,7 +3099,7 @@
       ],
       "useWhen": [
         "아이콘을 반복해 정수 수량을 직관적으로 표현할 때",
-        "isotype variant로 렌더할 때"
+        "Statistics를 mode=\"isotype\"로 렌더할 때"
       ],
       "avoidWhen": [
         "연속 비율은 Waffle(VT-513) 사용"
@@ -3301,7 +3349,17 @@
     "exportNames": [
       "Statistics"
     ],
-    "variant": "cards",
+    "variants": [
+      {
+        "prop": "mode",
+        "value": "cards",
+        "isDefault": true
+      },
+      {
+        "prop": "mode",
+        "value": "mosaic"
+      }
+    ],
     "metaStatus": "authored",
     "completeness": {
       "exportCount": 1,
@@ -3330,7 +3388,7 @@
       "useWhen": [
         "핵심 수치를 카드/그리드로 강조할 때",
         "성과·리서치를 요약할 때",
-        "cards variant로 렌더할 때"
+        "Statistics를 mode=\"cards\"(기본) 또는 mode=\"mosaic\"으로 렌더할 때"
       ],
       "avoidWhen": [
         "정밀 추세는 Line(VT-503) 사용",
@@ -3352,10 +3410,21 @@
     "exportNames": [
       "Comparison"
     ],
+    "variants": [
+      {
+        "prop": "mode",
+        "value": "split",
+        "isDefault": true
+      },
+      {
+        "prop": "mode",
+        "value": "magnitude"
+      }
+    ],
     "metaStatus": "authored",
     "completeness": {
       "exportCount": 1,
-      "hasVariant": false,
+      "hasVariant": true,
       "useWhenCount": 2,
       "primitiveCount": 2
     },
@@ -3709,7 +3778,12 @@
     "exportNames": [
       "Hierarchy"
     ],
-    "variant": "pyramid",
+    "variants": [
+      {
+        "prop": "mode",
+        "value": "pyramid"
+      }
+    ],
     "metaStatus": "authored",
     "completeness": {
       "exportCount": 1,
@@ -3736,7 +3810,7 @@
       ],
       "useWhen": [
         "기반→정점 층상 중요도/단계를 표현할 때",
-        "pyramid variant로 렌더할 때"
+        "Hierarchy를 mode=\"pyramid\"로 렌더할 때"
       ],
       "avoidWhen": [
         "전환 축소 구조는 Funnel(VT-207) 사용",
@@ -4043,7 +4117,12 @@
     "exportNames": [
       "Cycle"
     ],
-    "variant": "flywheel",
+    "variants": [
+      {
+        "prop": "mode",
+        "value": "flywheel"
+      }
+    ],
     "metaStatus": "authored",
     "completeness": {
       "exportCount": 1,
@@ -4071,7 +4150,7 @@
       ],
       "useWhen": [
         "축적으로 가속되는 성장 선순환을 설명할 때",
-        "flywheel variant로 렌더할 때"
+        "Cycle을 mode=\"flywheel\"로 렌더할 때"
       ],
       "avoidWhen": [
         "단순 반복 순환은 Cycle(VT-203) 사용"

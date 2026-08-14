@@ -52,6 +52,7 @@ describe('selectVizTypes — 기본 동작', () => {
         category: 'data-chart',
         summary: 'fixture',
         dataShape: ['magnitude'],
+        structuralTraits: ['quantitative'],
         primitives: ['axis'],
         aliases: [],
         useWhen: ['use it'],
