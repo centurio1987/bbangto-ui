@@ -1,6 +1,6 @@
 {
   "next_id": 43,
-  "next_seq": 122,
+  "next_seq": 123,
   "cards": {
     "KAN-001": {
       "col": "done",
@@ -495,12 +495,12 @@
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-042-JZ2ZBT": {
-      "col": "todo",
+      "col": "doing",
       "title": "bbangto-ui-vizualization을 사용하는 클라이언트가 문제를 제기했다. \"/Users/centurio/resume/docs/viz-upstream-issues.md\" 이 레포트를 보고 문제를 진단하고 문제 해결 전략 레포트를 작성하고, wbs를 작성하여 이 카드를 수행하는 agent가 사용할 수 있도록 해라.ㄴ",
       "memo": "",
       "verbatim": "",
       "생성": "유저",
-      "최종": "유저",
+      "최종": "ai",
       "갱신": "2026-08-14",
       "title_hash": "ed3e8d0742d3b19912498906476bddac8f1a1699",
       "memo_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
@@ -508,7 +508,6 @@
     }
   },
   "order": [
-    "KAN-042-JZ2ZBT",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -549,9 +548,20 @@
     "KAN-040",
     "KAN-035",
     "KAN-041",
-    "KAN-036"
+    "KAN-036",
+    "KAN-042-JZ2ZBT"
   ],
   "recent": [
+    {
+      "seq": 122,
+      "t": "2026-08-14T13:09",
+      "a": "ai",
+      "id": "KAN-042-JZ2ZBT",
+      "op": "move",
+      "w": "S7030N",
+      "from": "todo",
+      "to": "doing"
+    },
     {
       "seq": 121,
       "t": "2026-08-14T12:57",
@@ -1036,16 +1046,6 @@
       "op": "move",
       "from": "backlog",
       "to": "done"
-    },
-    {
-      "seq": 72,
-      "t": "2026-07-24T14:11",
-      "a": "ai",
-      "id": "KAN-029",
-      "op": "edit",
-      "field": "memo",
-      "before": "viz-swiss-systematic. Tier A(코어 변경 0). 냉 뉴트럴·모듈러 그리드·단일 레드(#E1000F)·헤비 그로테스크·무그림자, 색 아닌 위치·크기로 위계(Isotype). 스펙 초안: viz-style-expansion.md §4-d. STYLE_FAMILIES union+label 추가 필요. Swiss·Terminal 먼저 착수 권장(가장 빠른 검증).",
-      "after": "완료(2026-07-24): Swiss_Systematic_01 (slug swiss-systematic-01) 구현 — 냉 뉴트럴 그레이 램프 + 단일 레드 #E1000F 액센트, 무채움 헤어라인 노드 + 레드 fill 강조 kind, 무그림자·radius0. 2 preset(Achromatic+Red / Ink). contrastIntent aa (white-on-red 4.99 < 7 이라 aaa 불가, 정직 하향). 병렬 배치 1/5. src/swissSystematic.tsx + 스토리, tokens family viz-swiss-systematic + index/manifest 편입. 4게이트 green."
     }
   ]
 }
