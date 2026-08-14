@@ -16,6 +16,7 @@ import {
   VIZ_DATA_SHAPES,
   VIZ_PRIMITIVES,
   VIZ_TYPE_TAGS,
+  VIZ_STRUCTURAL_TRAITS,
 } from './types';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -139,6 +140,35 @@ describe('vizTypeRegistry — 슬롯 불변식', () => {
       expect(m.useWhen.length).toBeLessThanOrEqual(5);
       expect(m.avoidWhen.length).toBeLessThanOrEqual(5);
     }
+  });
+
+  it('전 엔트리가 structuralTraits를 통제 어휘로 보유한다(중복 없음, 상류 I5)', () => {
+    for (const e of vizTypeRegistry) {
+      const traits = e.meta?.structuralTraits;
+      expect(Array.isArray(traits)).toBe(true);
+      if (!traits) continue;
+      for (const t of traits) expect(VIZ_STRUCTURAL_TRAITS).toContain(t);
+      expect(new Set(traits).size).toBe(traits.length);
+    }
+  });
+
+  it('structuralTraits가 분기 유무를 실제로 가른다 — VT-201 branching ⊃, VT-202 ⊅ (상류 I5의 오선택 판별)', () => {
+    const flowchart = vizTypeRegistry.find((e) => e.id === 'VT-201')!;
+    const processSteps = vizTypeRegistry.find((e) => e.id === 'VT-202')!;
+    expect(flowchart.meta!.structuralTraits).toContain('branching');
+    expect(processSteps.meta!.structuralTraits).not.toContain('branching');
+    expect(processSteps.meta!.structuralTraits).toContain('sequential');
+    // dataShape만으로는 둘이 구분되지 않는다는 사실도 함께 고정한다(축을 더한 이유).
+    expect([...flowchart.meta!.dataShape]).toEqual([...processSteps.meta!.dataShape]);
+  });
+
+  it('구조 술어를 가진 대역은 실제로 채워져 있다(빈 배열은 에디토리얼/프레임워크 일부에 한정)', () => {
+    const empty = vizTypeRegistry
+      .filter((e) => (e.meta?.structuralTraits.length ?? 0) === 0)
+      .map((e) => e.id);
+    // 구조가 판별축이 아닌 유형만 비어 있어야 한다 — 엔지니어링·프로세스·차트 대역은 전부 채워진다.
+    for (const id of empty) expect(id.startsWith('VT-6') || id.startsWith('VT-7')).toBe(true);
+    expect(empty.length).toBeLessThanOrEqual(12);
   });
 
   it('authored meta의 related는 존재하는 id를 가리킨다(self-ref/dup 없음)', () => {

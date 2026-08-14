@@ -122,11 +122,105 @@ describe('selectVizTypes — 스코어링', () => {
   });
 });
 
+describe('selectVizTypes — 구체성 (상류 I4)', () => {
+  it("match:'all' — 지정한 모든 축에 걸린 후보만 남는다(하드 필터)", () => {
+    // 상류 재현: relationship + matrix. 'any'에서는 matrix 태그 유형이 20위권 아래로 밀렸다.
+    const any = selectVizTypes(vizTypeRegistry, {
+      dataShape: ['relationship'],
+      tags: ['matrix'],
+      limit: 100,
+    });
+    const all = selectVizTypes(vizTypeRegistry, {
+      dataShape: ['relationship'],
+      tags: ['matrix'],
+      match: 'all',
+      limit: 100,
+    });
+    expect(any.length).toBeGreaterThan(all.length); // 'any'는 비붕괴(전량 잔존)
+    // 'all'은 두 축을 모두 만족하는 후보만 — 하나도 없으면 빈 배열이 정답이다("그런 유형은 없다").
+    for (const x of all) {
+      expect(x.entry.meta!.dataShape).toContain('relationship');
+      expect(x.entry.meta!.tags).toContain('matrix');
+    }
+  });
+
+  it("match:'all' — matrix 태그만 요구하면 matrix 보유 유형 전체와 정확히 일치한다", () => {
+    const all = selectVizTypes(vizTypeRegistry, { tags: ['matrix'], match: 'all', limit: 100 });
+    const expected = vizTypeRegistry
+      .filter((e) => e.meta?.tags.includes('matrix'))
+      .map((e) => e.id)
+      .sort();
+    expect(all.map((x) => x.id).sort()).toEqual(expected);
+    expect(all.length).toBeGreaterThanOrEqual(3); // VT-512 · VT-702 · VT-703
+  });
+
+  it("match 기본값은 'any' — 지정하지 않으면 현행(soft-weighted) 동작", () => {
+    const implicit = selectVizTypes(vizTypeRegistry, { tags: ['matrix'], limit: 100 });
+    const explicit = selectVizTypes(vizTypeRegistry, { tags: ['matrix'], match: 'any', limit: 100 });
+    expect(implicit.map((x) => x.id)).toEqual(explicit.map((x) => x.id));
+    expect(implicit.length).toBe(AUTHORED); // 하드필터가 아니다
+  });
+
+  it('structuralTraits 축이 분기 유무를 가른다 — branching 질의에서 VT-201이 VT-202를 앞선다', () => {
+    const r = selectVizTypes(vizTypeRegistry, {
+      dataShape: ['process'],
+      structuralTraits: ['branching'],
+      limit: 100,
+    });
+    const rank = (id: string) => r.findIndex((x) => x.id === id);
+    expect(rank('VT-201')).toBeGreaterThanOrEqual(0);
+    expect(rank('VT-201')).toBeLessThan(rank('VT-202'));
+    // 상류가 실제로 저지른 오선택: ProcessSteps는 분기 질의에서 만점을 받지 못한다.
+    const processSteps = r.find((x) => x.id === 'VT-202')!;
+    expect(processSteps.score).toBeLessThan(1);
+  });
+
+  it("match:'all' + structuralTraits — 분기형 절차 유형만 남는다", () => {
+    const r = selectVizTypes(vizTypeRegistry, {
+      dataShape: ['process'],
+      structuralTraits: ['branching'],
+      match: 'all',
+      limit: 100,
+    });
+    expect(r.map((x) => x.id)).toContain('VT-201');
+    expect(r.map((x) => x.id)).not.toContain('VT-202');
+    for (const x of r) expect(x.entry.meta!.structuralTraits).toContain('branching');
+  });
+
+  it('explain breakdown에 structuralTraits 키가 담긴다', () => {
+    const r = selectVizTypes(vizTypeRegistry, {
+      structuralTraits: ['cyclic'],
+      explain: true,
+      limit: 3,
+    });
+    expect(Object.keys(r[0].breakdown!)).toEqual(['structuralTraits']);
+  });
+
+  it('동점 tie-break에 precision이 들어간다 — 선언 축이 요청과 정확히 겹치는 후보가 앞선다', () => {
+    // dataShape:['process','flow'] → 0.5 동점 구간. VT-201(['process'])은 precision 1.0,
+    // VT-108(['process','temporal'])은 0.5 → 리포트가 지적한 "id 오름차순 때문에 VT-1xx가 항상 앞" 이 깨진다.
+    const r = selectVizTypes(vizTypeRegistry, { dataShape: ['process', 'flow'], limit: 100 });
+    const rank = (id: string) => r.findIndex((x) => x.id === id);
+    expect(rank('VT-201')).toBeLessThan(rank('VT-108'));
+    expect(rank('VT-202')).toBeLessThan(rank('VT-113'));
+  });
+});
+
 describe('selectVizTypes — 결정성·explain', () => {
-  it('tie-break: 동점은 id 오름차순(priority 동일 시)', () => {
-    const r = selectVizTypes(vizTypeRegistry, { dataShape: ['process'], limit: 10 });
-    const tied = r.filter((x) => x.score === 1).map((x) => x.id);
-    expect(tied).toEqual([...tied].sort());
+  it('tie-break: 동점·동precision은 id 오름차순(priority 동일 시)', () => {
+    const r = selectVizTypes(vizTypeRegistry, { dataShape: ['process'], limit: 100 });
+    // 같은 (score, precision) 그룹 안에서는 id가 오름차순이어야 한다.
+    const key = (x: (typeof r)[number]) => {
+      const owned = x.entry.meta!.dataShape;
+      const hit = owned.filter((d) => d === 'process').length;
+      return `${x.score}|${hit / owned.length}`;
+    };
+    const groups = new Map<string, string[]>();
+    for (const x of r) {
+      const k = key(x);
+      groups.set(k, [...(groups.get(k) ?? []), x.id]);
+    }
+    for (const ids of groups.values()) expect(ids).toEqual([...ids].sort());
   });
 
   it('두 번 호출해도 동일 순서(결정적)', () => {
