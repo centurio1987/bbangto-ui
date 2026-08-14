@@ -36,5 +36,6 @@ export type {
   VizTypeSelectionCriteria,
   VizTypeSelectionResult,
   VizCriterionWeights,
+  VizTypeMatchMode,
 } from './select';
 export { selectVizTypes, DEFAULT_VIZ_WEIGHTS } from './select';
