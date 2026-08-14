@@ -22,6 +22,11 @@ export interface FunnelProps extends Omit<CanvasProps, 'data'> {
 /**
  * Funnel (VT-207) — 단계 축소형 전환. funnelTrapezoids geometry 재사용.
  * headless: 단계별 라벨+값 텍스트 병기. 음수→0, 전체 0→빈 캔버스.
+ *
+ * @vizType VT-207 Funnel · B. 프로세스·플로우 · dataShape: process, magnitude · 구조: sequential, quantitative
+ * @useWhen 단계별 전환/이탈을 축소형 구조로 표현할 때
+ * @avoidWhen 층상 중요도 계층은 Pyramid(VT-701) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
  */
 export function Funnel({
   data,

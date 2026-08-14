@@ -28,6 +28,14 @@ export interface LineChartProps extends Omit<CanvasProps, 'data' | 'children'> {
 const PAD = { left: 48, right: 18, top: 22, bottom: 34 } as const;
 
 /** Line chart (VT-503) — 다중 시리즈 polyline + 점. headless: 값 축 텍스트 병기. */
+/**
+ * @vizType VT-503 Line Chart · E. 데이터 차트 · dataShape: change-over-time · 구조: sequential, quantitative
+ * @useWhen 연속 시간에 따른 추세를 볼 때
+ * @useWhen 여러 계열 추세를 비교할 때
+ * @avoidWhen 범주 크기 비교는 Bar(VT-501) 사용
+ * @avoidWhen 총량 강조는 Area(VT-504) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function LineChart({
   data,
   formatValue = (n) => String(n),

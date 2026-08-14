@@ -20,6 +20,14 @@ export interface UserJourneyMapProps extends Omit<CanvasProps, 'data' | 'childre
 const PAD = { left: 40, right: 24, top: 28, bottom: 52 } as const;
 
 /** User journey map (VT-205) — 단계 레인 + 만족도 곡선 + 감정 dot. headless. */
+/**
+ * @vizType VT-205 User Journey Map · B. 프로세스·플로우 · dataShape: process, temporal · 구조: sequential, quantitative
+ * @useWhen 사용자 여정 단계별 감정/만족도를 표현할 때
+ * @useWhen UX 리서치 결과를 소통할 때
+ * @avoidWhen 날짜 기반 여정 일정은 User Journey Gantt(VT-404) 사용
+ * @avoidWhen 화면 이동 흐름은 Screen Flow(VT-206) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function UserJourneyMap({
   data,
   viewBox,

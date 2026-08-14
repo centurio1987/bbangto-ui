@@ -26,6 +26,14 @@ export interface BarChartProps extends Omit<CanvasProps, 'data' | 'children'> {
 const PAD = { left: 48, right: 18, top: 22, bottom: 36 } as const;
 
 /** Bar chart (VT-501) — 단일 시리즈, 0 기준선(음수 지원). headless: 값은 텍스트 병기. */
+/**
+ * @vizType VT-501 Bar Chart · E. 데이터 차트 · dataShape: magnitude, ranking · 구조: quantitative
+ * @useWhen 범주 간 수치 크기를 직접 비교할 때
+ * @useWhen 순위를 막대 길이로 드러낼 때
+ * @avoidWhen 부분-전체 구성비가 핵심이면 Pie(VT-506)/Stacked Bar(VT-502) 사용
+ * @avoidWhen 시간 연속 추세는 Line(VT-503) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function BarChart({
   data,
   orientation = 'vertical',

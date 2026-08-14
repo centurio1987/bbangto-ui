@@ -34,6 +34,13 @@ export interface C4CodeDiagramProps extends Omit<CanvasProps, 'data' | 'children
   data?: C4CodeDiagramData;
 }
 
+/**
+ * @vizType VT-112 C4 Code · A. 엔지니어링/소프트웨어 · dataShape: hierarchy, relationship · 구조: nested, relational
+ * @useWhen 코드 수준 요소(클래스/인터페이스) 구조를 표현할 때
+ * @avoidWhen 컴포넌트 책임 수준은 C4 Component(VT-111) 사용
+ * @avoidWhen 표준 UML 클래스는 Class(VT-101) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function C4CodeDiagram({
   children,
   data,

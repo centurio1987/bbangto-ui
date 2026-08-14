@@ -22,6 +22,12 @@ export interface SpectrumSliderProps extends Omit<CanvasProps, 'data'> {
 const PAD = { left: 110, right: 110, top: 30, bottom: 30 } as const;
 
 /** Spectrum slider (VT-710) — 대립축 다축 척도 + 위치 dot. headless: 값 텍스트 병기. */
+/**
+ * @vizType VT-710 Spectrum Slider · G. 개념 프레임워크 · dataShape: comparison, ranking · 구조: paired, quantitative
+ * @useWhen 대립하는 양극 축 위에 성향/성숙도 위치를 표시할 때
+ * @avoidWhen 2축 4분면 배치는 Quadrant(VT-702) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function SpectrumSlider({ data, viewBox, children, title = 'Spectrum slider', ...canvasProps }: SpectrumSliderProps) {
   const [vbX, vbY, vbW, vbH] = parseViewBox(viewBox, [0, 0, 560, 260]);
 

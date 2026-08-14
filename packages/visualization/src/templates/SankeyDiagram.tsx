@@ -23,6 +23,12 @@ export interface SankeyDiagramProps extends Omit<CanvasProps, 'data' | 'children
 /**
  * Sankey (VT-515) — 흐름 폭으로 이동량. acyclic·좌→우·수동 노드 좌표(공개 계약).
  * BandEdge 리본 + 노드 막대. headless: 노드 값은 라벨로 노출.
+ *
+ * @vizType VT-515 Sankey · E. 데이터 차트 · dataShape: flow · 구조: sequential, quantitative
+ * @useWhen 노드 간 이동량을 흐름 폭으로 표현할 때
+ * @useWhen 단계 간 배분을 볼 때
+ * @avoidWhen 원 둘레 간 상호 흐름은 Chord(VT-516) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
  */
 export function SankeyDiagram({
   data,

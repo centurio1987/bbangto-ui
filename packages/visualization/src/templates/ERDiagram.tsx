@@ -58,6 +58,13 @@ function entityHeight(e: EREntitySpec): number {
   return HEADER_H + (e.attributes?.length ?? 0) * ROW_H;
 }
 
+/**
+ * @vizType VT-117 ER Diagram · A. 엔지니어링/소프트웨어 · dataShape: relationship · 구조: relational
+ * @useWhen DB 스키마의 엔터티·관계·카디널리티를 설계할 때
+ * @avoidWhen 클래스 행위 포함 모델은 Class(VT-101) 사용
+ * @avoidWhen 데이터 흐름은 Data-Flow(VT-126) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function ERDiagram({
   children,
   data,

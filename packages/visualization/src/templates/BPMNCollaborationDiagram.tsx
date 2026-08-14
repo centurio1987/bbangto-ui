@@ -101,6 +101,12 @@ function CollabGateway({ spec }: { spec: BPMNCollabGatewaySpec }) {
 }
 
 /** BPMN Collaboration (VT-123) — 다중 pool + sequence flow(solid) + message flow(dashed). headless. */
+/**
+ * @vizType VT-123 BPMN Collaboration · A. 엔지니어링/소프트웨어 · dataShape: process, flow · 구조: sequential, branching, relational
+ * @useWhen 여러 조직(풀) 간 메시지 교환 협업을 모델링할 때
+ * @avoidWhen 단일 참여자 절차는 BPMN Process(VT-122) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function BPMNCollaborationDiagram({
   children,
   data,

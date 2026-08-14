@@ -18,6 +18,12 @@ export interface PathwaysProps extends Omit<CanvasProps, 'data'> {
 }
 
 /** Pathways (VT-208) — 곡선 경로 위 이정표 + 순번. headless: 순번은 DOM 순서와 일치. */
+/**
+ * @vizType VT-208 Pathways · B. 프로세스·플로우 · dataShape: process · 구조: sequential
+ * @useWhen 커리큘럼/여정 경로 위 이정표를 배열할 때
+ * @avoidWhen 분기 절차는 Flowchart(VT-201) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function Pathways({ data, viewBox, children, ...canvasProps }: PathwaysProps) {
   const [vbX, vbY, vbW, vbH] = parseViewBox(viewBox, [0, 0, 720, 260]);
 

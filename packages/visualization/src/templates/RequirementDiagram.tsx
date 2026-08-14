@@ -110,6 +110,12 @@ function ReqNode({ req }: ReqNodeProps) {
   );
 }
 
+/**
+ * @vizType VT-118 Requirement Diagram · A. 엔지니어링/소프트웨어 · dataShape: relationship · 구조: nested, relational
+ * @useWhen 요구-검증-충족(satisfy/verify) 추적성을 모델링할 때
+ * @avoidWhen 기능 범위 정의는 Use Case(VT-105) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function RequirementDiagram({
   children,
   data,

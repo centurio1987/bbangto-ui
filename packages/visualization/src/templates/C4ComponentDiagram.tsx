@@ -19,6 +19,13 @@ export interface C4ComponentDiagramProps extends Omit<CanvasProps, 'data' | 'chi
   data?: C4ComponentDiagramData;
 }
 
+/**
+ * @vizType VT-111 C4 Component · A. 엔지니어링/소프트웨어 · dataShape: relationship · 구조: nested, relational
+ * @useWhen 컨테이너 내부 컴포넌트의 책임과 상호작용을 상세화할 때
+ * @avoidWhen 기술 스택 개관은 C4 Container(VT-110) 사용
+ * @avoidWhen 코드 클래스 구조는 C4 Code(VT-112) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function C4ComponentDiagram({
   children,
   data,

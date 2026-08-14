@@ -66,6 +66,13 @@ function relDash(kind?: ArchiMateRelKind): string | undefined {
   return kind === 'influence' || kind === 'access' ? '5 3' : undefined;
 }
 
+/**
+ * @vizType VT-120 ArchiMate Layered View · A. 엔지니어링/소프트웨어 · dataShape: relationship, hierarchy · 구조: nested, relational
+ * @useWhen 비즈니스·애플리케이션·기술 계층을 통합한 EA 뷰를 표현할 때
+ * @useWhen 레이어 밴드로 계층을 구분할 때
+ * @avoidWhen 동기·전략·이행 관점은 ArchiMate Viewpoints(VT-121) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function ArchiMateDiagram({
   children,
   data,
@@ -158,16 +165,37 @@ ArchiMateDiagram.displayName = 'ArchiMateDiagram';
 
 export interface ArchiMateLayerDiagramProps extends Omit<ArchiMateDiagramProps, 'layer'> {}
 
+/**
+ * @vizType VT-120 ArchiMate Layered View · A. 엔지니어링/소프트웨어 · dataShape: relationship, hierarchy · 구조: nested, relational
+ * @useWhen 비즈니스·애플리케이션·기술 계층을 통합한 EA 뷰를 표현할 때
+ * @useWhen 레이어 밴드로 계층을 구분할 때
+ * @avoidWhen 동기·전략·이행 관점은 ArchiMate Viewpoints(VT-121) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function ArchiMateBusinessDiagram(props: ArchiMateLayerDiagramProps) {
   return <ArchiMateDiagram layer="business" title={props.title ?? 'ArchiMate Business'} {...props} />;
 }
 ArchiMateBusinessDiagram.displayName = 'ArchiMateBusinessDiagram';
 
+/**
+ * @vizType VT-120 ArchiMate Layered View · A. 엔지니어링/소프트웨어 · dataShape: relationship, hierarchy · 구조: nested, relational
+ * @useWhen 비즈니스·애플리케이션·기술 계층을 통합한 EA 뷰를 표현할 때
+ * @useWhen 레이어 밴드로 계층을 구분할 때
+ * @avoidWhen 동기·전략·이행 관점은 ArchiMate Viewpoints(VT-121) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function ArchiMateApplicationDiagram(props: ArchiMateLayerDiagramProps) {
   return <ArchiMateDiagram layer="application" title={props.title ?? 'ArchiMate Application'} {...props} />;
 }
 ArchiMateApplicationDiagram.displayName = 'ArchiMateApplicationDiagram';
 
+/**
+ * @vizType VT-120 ArchiMate Layered View · A. 엔지니어링/소프트웨어 · dataShape: relationship, hierarchy · 구조: nested, relational
+ * @useWhen 비즈니스·애플리케이션·기술 계층을 통합한 EA 뷰를 표현할 때
+ * @useWhen 레이어 밴드로 계층을 구분할 때
+ * @avoidWhen 동기·전략·이행 관점은 ArchiMate Viewpoints(VT-121) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function ArchiMateTechnologyDiagram(props: ArchiMateLayerDiagramProps) {
   return <ArchiMateDiagram layer="technology" title={props.title ?? 'ArchiMate Technology'} {...props} />;
 }

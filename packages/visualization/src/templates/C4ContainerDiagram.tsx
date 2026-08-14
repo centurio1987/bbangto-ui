@@ -22,6 +22,13 @@ export interface C4ContainerDiagramProps extends Omit<CanvasProps, 'data' | 'chi
   data?: C4ContainerDiagramData;
 }
 
+/**
+ * @vizType VT-110 C4 Container · A. 엔지니어링/소프트웨어 · dataShape: relationship · 구조: nested, relational
+ * @useWhen 시스템 내부의 배포 단위(앱·DB·서비스)와 기술 스택을 개관할 때
+ * @avoidWhen 외부 범위 합의는 C4 Context(VT-109) 사용
+ * @avoidWhen 컨테이너 내부 컴포넌트는 C4 Component(VT-111) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function C4ContainerDiagram({
   children,
   data,

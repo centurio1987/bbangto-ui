@@ -23,6 +23,12 @@ const HEAD_W = 120;
 /**
  * Fishbone / Ishikawa (VT-706) — 수평 척추 + 인덱스 홀짝 상/하 교차 원인 범주 뼈대.
  * fishboneLayout geometry 재사용. headless(problem 헤드 + 범주/원인 텍스트).
+ *
+ * @vizType VT-706 Fishbone · G. 개념 프레임워크 · dataShape: concept, hierarchy · 구조: nested
+ * @useWhen 문제의 원인을 범주별 생선뼈로 분석할 때
+ * @useWhen 근본 원인 분석(RCA)을 할 때
+ * @avoidWhen 숨은 구조 은유는 Iceberg(VT-704) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
  */
 export function Fishbone({
   data,

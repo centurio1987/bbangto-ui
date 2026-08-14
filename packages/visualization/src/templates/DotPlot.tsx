@@ -93,6 +93,12 @@ function renderRange(item: DotPlotItem, i: number, ctx: RowCtx): ReactNode {
 /**
  * Dot plot / dumbbell / range (VT-509) — 공통 x 스케일 공유, 모드별 서브렌더 분리.
  * headless: 값 텍스트 병기. 수평 배치(카테고리=y band, 값=x축).
+ *
+ * @vizType VT-509 Dot Plot · E. 데이터 차트 · dataShape: distribution, magnitude, ranking · 구조: paired, quantitative · mode="dot"(기본), mode="dumbbell", mode="range"
+ * @useWhen 점으로 값을 표시하거나 dumbbell로 두 값 차이를 볼 때
+ * @useWhen 범위(range)를 표현할 때
+ * @avoidWhen 막대 길이 비교는 Bar(VT-501) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
  */
 export function DotPlot({
   data,

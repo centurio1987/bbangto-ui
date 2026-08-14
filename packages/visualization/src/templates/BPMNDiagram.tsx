@@ -134,6 +134,13 @@ function BPMNGateway({ spec }: BPMNGatewayRendProps) {
   );
 }
 
+/**
+ * @vizType VT-122 BPMN Process Diagram · A. 엔지니어링/소프트웨어 · dataShape: process · 구조: sequential, branching
+ * @useWhen 단일 조직의 업무 절차를 표준 BPMN으로 모델링할 때
+ * @avoidWhen 풀 간 메시지 교환은 BPMN Collaboration(VT-123) 사용
+ * @avoidWhen 비표준 범용 도식은 Flowchart(VT-201) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function BPMNDiagram({
   children,
   data,

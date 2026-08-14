@@ -31,6 +31,17 @@ const NODE_H = 40;
 /**
  * Hierarchy 패턴 — 계층/조직(headless).
  * 레퍼런스: system minimal_01/02(사이트맵 트리), infographic iso_05/06(피라미드 층).
+ *
+ * @vizType VT-303 Hierarchy / Tree · C. 계층·관계 · dataShape: hierarchy · 구조: nested · mode="tree"(기본)
+ * @useWhen 조직/분류의 루트-자식 재귀 구조를 표현할 때
+ * @avoidWhen 층상 비율 계층은 Pyramid(VT-701) 사용
+ * @avoidWhen 작업 분해는 WBS(VT-307) 사용
+ * @vizType VT-701 Pyramid · G. 개념 프레임워크 · dataShape: hierarchy, part-to-whole · 구조: nested · mode="pyramid"
+ * @useWhen 기반→정점 층상 중요도/단계를 표현할 때
+ * @useWhen Hierarchy를 mode="pyramid"로 렌더할 때
+ * @avoidWhen 전환 축소 구조는 Funnel(VT-207) 사용
+ * @avoidWhen 재귀 트리는 Hierarchy(VT-303) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
  */
 export function Hierarchy({
   data,

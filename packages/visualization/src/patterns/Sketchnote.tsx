@@ -29,6 +29,11 @@ const NODE_H = 56;
 /**
  * Sketchnote (VT-608) — 손그림형 구성(구조만). 지터/손글씨 paint는 F4 스타일 가이드 이연.
  * headless: Node 다형 + curved 커넥터 + 라벨.
+ *
+ * @vizType VT-608 Sketchnote Composition · F. 인포그래픽/에디토리얼 · dataShape: concept · 구조: relational
+ * @useWhen 강연/아이디어를 손그림·화살표 노트로 기록할 때
+ * @avoidWhen 정형 개념 관계는 Concept Map(VT-302) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
  */
 export function Sketchnote({ data, viewBox, children, title = 'Sketchnote', ...canvasProps }: SketchnoteProps) {
   if (!data) {

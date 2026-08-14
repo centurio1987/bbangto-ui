@@ -25,6 +25,13 @@ export interface InformationalInfographicProps extends Omit<CanvasProps, 'data'>
 }
 
 /** Informational infographic (VT-604) — 텍스트 중심 개요(헤딩+인트로+섹션 그리드). headless. */
+/**
+ * @vizType VT-604 Informational Infographic · F. 인포그래픽/에디토리얼 · dataShape: concept
+ * @useWhen 텍스트 중심으로 개념을 소개할 때
+ * @useWhen 헤딩+인트로+섹션 그리드로 개요를 구성할 때
+ * @avoidWhen 목록형은 List Infographic(VT-603) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function InformationalInfographic({
   data,
   viewBox,

@@ -65,6 +65,14 @@ function edgeConfig(kind: ClassRelationshipKind): EdgeConfig {
   }
 }
 
+/**
+ * @vizType VT-101 UML Class Diagram · A. 엔지니어링/소프트웨어 · dataShape: hierarchy, relationship · 구조: nested, relational
+ * @useWhen 도메인/코드 모델의 클래스 구조를 표현할 때
+ * @useWhen 상속·연관·의존 관계를 명세할 때
+ * @avoidWhen 런타임 시간순 상호작용이 핵심이면 Sequence(VT-108) 사용
+ * @avoidWhen 물리 배포 구성이면 Deployment(VT-104) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function ClassDiagram({
   children,
   data,

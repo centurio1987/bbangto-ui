@@ -106,6 +106,14 @@ function Socket({ x, y, lineLen = 18, radius = 5, direction = 'right', stroke = 
   );
 }
 
+/**
+ * @vizType VT-103 UML Component Diagram · A. 엔지니어링/소프트웨어 · dataShape: relationship, network · 구조: relational
+ * @useWhen 컴포넌트와 제공/요구 인터페이스 배선을 표현할 때
+ * @useWhen 모듈 아키텍처를 명세할 때
+ * @avoidWhen 런타임 배치는 Deployment(VT-104) 사용
+ * @avoidWhen 클래스 상세는 Class(VT-101) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function UMLComponentDiagram({
   children,
   data,

@@ -21,6 +21,13 @@ export interface HistogramProps extends Omit<CanvasProps, 'data' | 'children'> {
 const PAD = { left: 44, right: 18, top: 22, bottom: 36 } as const;
 
 /** Histogram (VT-508) — 연속값 구간 빈도. histogramBins geometry 재사용. */
+/**
+ * @vizType VT-508 Histogram · E. 데이터 차트 · dataShape: distribution · 구조: quantitative
+ * @useWhen 연속 변수의 구간별 빈도 분포를 볼 때
+ * @avoidWhen 범주 비교는 Bar(VT-501) 사용
+ * @avoidWhen 사분위 요약은 Boxplot(VT-510) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function Histogram({
   data,
   bins,

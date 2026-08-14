@@ -48,6 +48,12 @@ function relMarker(kind?: SysMLRelKind): { markerEnd?: MarkerVariant; markerStar
   }
 }
 
+/**
+ * @vizType VT-119 SysML Block Definition · A. 엔지니어링/소프트웨어 · dataShape: hierarchy, relationship · 구조: nested, relational
+ * @useWhen 시스템 블록의 정의와 조성(composition) 구조를 표현할 때
+ * @avoidWhen 소프트웨어 클래스 모델은 Class(VT-101) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function SysMLBlockDiagram({
   children,
   data,

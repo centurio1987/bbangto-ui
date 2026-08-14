@@ -35,6 +35,12 @@ export interface KanbanBoardProps extends Omit<CanvasProps, 'data' | 'children'>
   };
 }
 
+/**
+ * @vizType VT-204 Kanban Board · B. 프로세스·플로우 · dataShape: process · 구조: sequential
+ * @useWhen 상태 컬럼(To Do/Doing/Done)으로 작업 흐름을 관리할 때
+ * @avoidWhen 시간 기반 일정은 Gantt(VT-403) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function KanbanBoard({
   children,
   data,

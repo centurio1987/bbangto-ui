@@ -43,6 +43,13 @@ function levelFill(level: number, overrideFill?: string): string {
   return overrideFill ?? LEVEL_FILLS[level] ?? LEVEL_FILLS[LEVEL_FILLS.length - 1]!;
 }
 
+/**
+ * @vizType VT-301 Mindmap · C. 계층·관계 · dataShape: hierarchy · 구조: nested, relational
+ * @useWhen 중심 주제에서 방사형으로 아이디어를 확장할 때
+ * @useWhen 브레인스토밍 구조를 잡을 때
+ * @avoidWhen 라벨 붙은 개념 관계망은 Concept Map(VT-302) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function Mindmap({
   children,
   data,

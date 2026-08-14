@@ -25,6 +25,13 @@ export interface VennProps extends Omit<CanvasProps, 'data'> {
 }
 
 /** Venn (VT-306) — 집합 겹침. 2원 정밀+3원 대칭 근사. headless: 교집합 라벨 텍스트 병기. */
+/**
+ * @vizType VT-306 Venn Diagram · C. 계층·관계 · dataShape: comparison, part-to-whole · 구조: nested, paired
+ * @useWhen 집합 간 교집합·공통 요소를 표현할 때
+ * @useWhen 2~3개 개념의 겹침을 비교할 때
+ * @avoidWhen 정량 비율은 Pie(VT-506) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function Venn({ data, viewBox, children, ...canvasProps }: VennProps) {
   const [vbX, vbY, vbW, vbH] = parseViewBox(viewBox, [0, 0, 420, 360]);
 

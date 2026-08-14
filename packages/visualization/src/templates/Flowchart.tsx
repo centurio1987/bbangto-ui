@@ -42,6 +42,14 @@ export interface FlowchartProps extends Omit<CanvasProps, 'data' | 'children'> {
   showGrid?: boolean;
 }
 
+/**
+ * @vizType VT-201 Flowchart · B. 프로세스·플로우 · dataShape: process · 구조: sequential, branching
+ * @useWhen 분기가 있는 범용 절차를 도식할 때
+ * @useWhen 의사결정 흐름을 표현할 때
+ * @avoidWhen 표준 업무 절차는 BPMN(VT-122) 사용
+ * @avoidWhen 스윔레인 병행 절차는 Activity(VT-106) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function Flowchart({
   children,
   data,

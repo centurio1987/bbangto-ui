@@ -26,6 +26,13 @@ export interface GanttChartProps extends Omit<CanvasProps, 'data' | 'children'> 
 const PAD = { left: 96, right: 20, top: 16, bottom: 34 } as const;
 
 /** Gantt chart (VT-403) — bandScale(작업)×linearScale(시간). headless: 작업 라벨·기간 노출. */
+/**
+ * @vizType VT-403 Gantt Chart · D. 시간축 · dataShape: temporal · 구조: sequential, quantitative
+ * @useWhen 작업과 기간을 시간축 막대로 일정 관리할 때
+ * @avoidWhen 마일스톤 요약은 Timeline Roadmap(VT-402) 사용
+ * @avoidWhen 상태 보드는 Kanban(VT-204) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function GanttChart({
   data,
   formatValue = (n) => String(n),

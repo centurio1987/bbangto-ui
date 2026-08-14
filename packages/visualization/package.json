@@ -26,6 +26,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest --run",
     "gen:type-manifest": "tsx scripts/genTypeManifest.ts",
+    "gen:type-jsdoc": "tsx scripts/genTypeJsdoc.ts",
     "dev": "tsup --watch"
   },
   "dependencies": {

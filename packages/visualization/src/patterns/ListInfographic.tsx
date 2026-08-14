@@ -20,6 +20,12 @@ export interface ListInfographicProps extends Omit<CanvasProps, 'data'> {
 }
 
 /** List infographic (VT-603) — 아이콘 배지 + 항목 목록. headless. */
+/**
+ * @vizType VT-603 List Infographic · F. 인포그래픽/에디토리얼 · dataShape: concept
+ * @useWhen 팁/체크리스트를 아이콘+항목 행으로 시각화할 때
+ * @avoidWhen 텍스트 중심 개요는 Informational(VT-604) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function ListInfographic({
   data,
   viewBox,

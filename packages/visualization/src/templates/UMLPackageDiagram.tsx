@@ -37,6 +37,14 @@ export interface UMLPackageDiagramProps extends Omit<CanvasProps, 'data' | 'chil
 }
 
 /** UML Package Diagram (VT-102) — folder(탭) 패키지 + «import»/«access» 의존 엣지. headless. */
+/**
+ * @vizType VT-102 UML Package Diagram · A. 엔지니어링/소프트웨어 · dataShape: hierarchy, relationship · 구조: nested, relational
+ * @useWhen 모듈/패키지 그룹의 구조를 정리할 때
+ * @useWhen 패키지 간 의존 관계를 관리할 때
+ * @avoidWhen 클래스 내부 구조는 Class(VT-101) 사용
+ * @avoidWhen 물리 배포는 Deployment(VT-104) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function UMLPackageDiagram({
   children,
   data,

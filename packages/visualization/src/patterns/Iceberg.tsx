@@ -19,6 +19,12 @@ export interface IcebergProps extends Omit<CanvasProps, 'data'> {
 }
 
 /** Iceberg model (VT-704) — 수면 위 tip + 수면 아래 사다리꼴 레이어. icebergLayout geometry. headless. */
+/**
+ * @vizType VT-704 Iceberg · G. 개념 프레임워크 · dataShape: concept, hierarchy · 구조: nested, paired
+ * @useWhen 표면 현상과 그 아래 숨은 근본 원인을 은유로 표현할 때
+ * @avoidWhen 동심원 근접 계층은 Onion(VT-705) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function Iceberg({
   data,
   viewBox,

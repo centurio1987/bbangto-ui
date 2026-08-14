@@ -27,6 +27,14 @@ const R = 22;
 const HUB_R = 34;
 
 /** Network graph (VT-305) — 노드-엣지 관계망(비계층). headless(수동 좌표, 허브 강조). */
+/**
+ * @vizType VT-305 Network Graph · C. 계층·관계 · dataShape: network · 구조: relational
+ * @useWhen 비계층 노드·엣지 관계망을 분석할 때
+ * @useWhen 허브 노드를 강조할 때
+ * @avoidWhen 계층 트리는 Hierarchy(VT-303) 사용
+ * @avoidWhen 라벨 개념 관계는 Concept Map(VT-302) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function NetworkGraph({
   data,
   viewBox,

@@ -47,6 +47,14 @@ export interface ArchitectureDiagramProps extends Omit<CanvasProps, 'data' | 'ch
   data?: ArchitectureDiagramData;
 }
 
+/**
+ * @vizType VT-115 Cloud Architecture Diagram · A. 엔지니어링/소프트웨어 · dataShape: relationship, network · 구조: nested, relational
+ * @useWhen 클라우드 서비스 구성과 연결을 설계·소통할 때
+ * @useWhen 중립 아이콘으로 인프라를 도식할 때
+ * @avoidWhen 논리 UML 배치는 Deployment(VT-104) 사용
+ * @avoidWhen 네트워크 세그먼트 경계는 Network Topology(VT-125) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function ArchitectureDiagram({
   children,
   data,

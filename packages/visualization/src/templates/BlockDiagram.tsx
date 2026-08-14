@@ -36,6 +36,12 @@ export interface BlockDiagramProps extends Omit<CanvasProps, 'data' | 'children'
   };
 }
 
+/**
+ * @vizType VT-116 Block Diagram · A. 엔지니어링/소프트웨어 · dataShape: relationship · 구조: relational
+ * @useWhen 기능 블록과 연결로 시스템을 분해할 때
+ * @avoidWhen 표준 컴포넌트 배선은 Component(VT-103) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function BlockDiagram({
   children,
   data,

@@ -25,6 +25,13 @@ const BADGE_R = 18;
 /**
  * ProcessSteps 패턴 — 순차 스텝 체인(headless).
  * 레퍼런스: infographic minimal_04/05(수평 번호 스텝), colorful_04(수직), minimal_01(지그재그 콜아웃).
+ *
+ * @vizType VT-202 Process Steps · B. 프로세스·플로우 · dataShape: process · 구조: sequential
+ * @useWhen 튜토리얼/워크플로를 순서대로 안내할 때
+ * @useWhen 분기 없는 선형 절차를 강조할 때
+ * @avoidWhen 조건 분기가 있으면 Flowchart(VT-201) 사용
+ * @avoidWhen 끝이 처음으로 돌아오는 순환이면 Cycle(VT-203) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
  */
 export function ProcessSteps({
   data,

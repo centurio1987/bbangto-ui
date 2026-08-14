@@ -28,6 +28,12 @@ const polar = (cx: number, cy: number, r: number, deg: number) => {
 };
 
 /** Chord Diagram (VT-516) — 원 둘레 그룹 arc + 그룹 간 흐름 리본. chordLayout geometry. headless. */
+/**
+ * @vizType VT-516 Chord Diagram · E. 데이터 차트 · dataShape: flow, network · 구조: relational, quantitative
+ * @useWhen 개체 간 상호 흐름/연결을 원형 리본으로 표현할 때
+ * @avoidWhen 방향성 단계 흐름은 Sankey(VT-515) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function ChordDiagram({
   data,
   ringWidth = 16,

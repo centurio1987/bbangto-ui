@@ -32,6 +32,11 @@ const DEF_H = 46;
 /**
  * Concept Map (VT-302, 전용 승격) — 라벨 붙은 연결선의 개념 관계망(비계층).
  * Mindmap+EdgeLabel 근사를 대체(모든 링크에 linking phrase 필수). headless(수동 좌표).
+ *
+ * @vizType VT-302 Concept Map · C. 계층·관계 · dataShape: network, concept · 구조: relational
+ * @useWhen 개념 간 관계를 라벨 붙은 연결선으로 구조화할 때
+ * @avoidWhen 단일 중심 방사 위계는 Mindmap(VT-301) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
  */
 export function ConceptMap({
   data,

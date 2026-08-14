@@ -40,6 +40,13 @@ export interface NetworkTopologyProps extends Omit<CanvasProps, 'data' | 'childr
 const ZONE_PAD = 6;
 
 /** Network topology (VT-125) — 존 경계 밴드 + 장비 노드 + 링크. headless(수동 좌표). */
+/**
+ * @vizType VT-125 Network Topology · A. 엔지니어링/소프트웨어 · dataShape: network · 구조: relational
+ * @useWhen 네트워크 세그먼트와 장비 토폴로지를 표현할 때
+ * @useWhen 보안 존 경계를 구분할 때
+ * @avoidWhen 클라우드 서비스 구성은 Cloud Architecture(VT-115) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function NetworkTopology({
   data,
   viewBox,

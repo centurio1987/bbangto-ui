@@ -25,6 +25,21 @@ const PALETTE_KEYS = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8'] as const;
  * Cycle 패턴 — 순환 프로세스(headless).
  * 레퍼런스: infographic hd_06(원형 노드 체인), hd_02 RADIALS, system minimal_08(원형 phase).
  * ring: 아크 세그먼트가 원을 순환 폐쇄. orbit: 방사 노드 + 마지막→처음 커넥터.
+ *
+ * @vizType VT-203 Cycle · B. 프로세스·플로우 · dataShape: process · 구조: sequential, cyclic · mode="ring"(기본), mode="orbit"
+ * @useWhen 끝이 처음으로 돌아오는 반복 프로세스일 때
+ * @useWhen 단계가 순환 관계일 때
+ * @avoidWhen 선형 절차는 Process Steps(VT-202) 사용
+ * @avoidWhen 가속 선순환 강조는 Flywheel(VT-708) — Cycle mode="flywheel" 사용
+ * @vizType VT-405 Radial / Spiral Phase · D. 시간축 · dataShape: process, temporal · 구조: sequential, cyclic · mode="spiral"
+ * @useWhen 장기 phase를 나선/원주 위에 배열할 때
+ * @useWhen Cycle을 mode="spiral"로 렌더할 때
+ * @avoidWhen 단순 순환 링은 Cycle(VT-203) 사용
+ * @vizType VT-708 Flywheel · G. 개념 프레임워크 · dataShape: process · 구조: sequential, cyclic · mode="flywheel"
+ * @useWhen 축적으로 가속되는 성장 선순환을 설명할 때
+ * @useWhen Cycle을 mode="flywheel"로 렌더할 때
+ * @avoidWhen 단순 반복 순환은 Cycle(VT-203) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
  */
 export function Cycle({ data, mode = 'ring', children, viewBox, ...canvasProps }: CycleProps) {
   const [vbX, vbY, vbW, vbH] = parseViewBox(viewBox, [0, 0, 420, 420]);

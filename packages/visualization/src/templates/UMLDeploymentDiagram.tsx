@@ -45,6 +45,14 @@ export interface UMLDeploymentDiagramProps extends Omit<CanvasProps, 'data' | 'c
   data?: UMLDeploymentDiagramData;
 }
 
+/**
+ * @vizType VT-104 UML Deployment Diagram · A. 엔지니어링/소프트웨어 · dataShape: relationship, hierarchy · 구조: nested, relational
+ * @useWhen 소프트웨어 아티팩트의 물리/실행 노드 배치를 표현할 때
+ * @useWhen 인프라 배포 구성을 소통할 때
+ * @avoidWhen 논리 컴포넌트 배선은 Component(VT-103) 사용
+ * @avoidWhen 클라우드 서비스 구성은 Cloud Architecture(VT-115) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function UMLDeploymentDiagram({
   children,
   data,

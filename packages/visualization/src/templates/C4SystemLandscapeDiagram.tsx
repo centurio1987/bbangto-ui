@@ -21,6 +21,12 @@ export interface C4SystemLandscapeDiagramProps extends Omit<CanvasProps, 'data' 
 }
 
 /** C4 System Landscape (VT-114) — 다중 시스템 전경도 + 경계 + 관계. headless(수동 좌표). */
+/**
+ * @vizType VT-114 C4 System Landscape · A. 엔지니어링/소프트웨어 · dataShape: relationship, network · 구조: nested, relational
+ * @useWhen 여러 시스템의 전사 전경을 지도로 표현할 때
+ * @avoidWhen 단일 시스템 범위는 C4 Context(VT-109) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function C4SystemLandscapeDiagram({
   data,
   viewBox,

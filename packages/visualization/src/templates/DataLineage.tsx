@@ -31,6 +31,12 @@ const NODE_W = 130;
 const NODE_H = 64;
 
 /** Data lineage (VT-127) — 카드형 노드 + named edge. headless(수동 좌표, 기존 atom 조합). */
+/**
+ * @vizType VT-127 Data Lineage · A. 엔지니어링/소프트웨어 · dataShape: flow, network · 구조: sequential, relational
+ * @useWhen 데이터 계보와 파이프라인 경로를 추적할 때
+ * @avoidWhen 위협 모델 데이터 흐름은 Data-Flow(VT-126) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function DataLineage({
   data,
   viewBox,

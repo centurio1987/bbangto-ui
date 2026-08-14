@@ -20,6 +20,13 @@ export interface PieChartProps extends Omit<CanvasProps, 'data' | 'children'> {
 }
 
 /** Pie/Donut chart (VT-506) — RingSegment 재사용. headless: 각 조각 값 텍스트 병기. */
+/**
+ * @vizType VT-506 Pie / Donut · E. 데이터 차트 · dataShape: part-to-whole · 구조: quantitative
+ * @useWhen 전체 대비 소수 범주의 구성비를 볼 때
+ * @avoidWhen 범주가 많거나 정밀 비교가 필요하면 Bar(VT-501) 사용
+ * @avoidWhen 합+구성 동시 표현은 Stacked Bar(VT-502) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function PieChart({
   data,
   mode = 'pie',

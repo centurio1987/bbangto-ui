@@ -43,6 +43,13 @@ export interface ActivityDiagramProps extends Omit<CanvasProps, 'data' | 'childr
 /**
  * UML Activity (VT-106, 전용 승격) — start/end·action·decision·fork/join·merge + 레인.
  * Flowchart+BPMN 근사를 대체하는 전용 구현. headless(수동 좌표).
+ *
+ * @vizType VT-106 UML Activity Diagram · A. 엔지니어링/소프트웨어 · dataShape: process · 구조: sequential, branching
+ * @useWhen 제어 흐름과 병행·분기가 있는 절차를 모델링할 때
+ * @useWhen 스윔레인으로 담당 주체를 구분할 때
+ * @avoidWhen 범용 도식은 Flowchart(VT-201) 사용
+ * @avoidWhen 참여자 간 메시지 순서는 Sequence(VT-108) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
  */
 export function ActivityDiagram({
   data,

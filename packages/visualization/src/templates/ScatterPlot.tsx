@@ -41,6 +41,13 @@ const PAD = { left: 48, right: 20, top: 22, bottom: 36 } as const;
 /**
  * Scatterplot / bubble (VT-505) — 대량 가능 유형: 점별 텍스트 강제 대신 축+제목 요약으로
  * 값 접근성 확보. 권장 상한 ~200점. headless: 라벨 있는 점만 텍스트 병기.
+ *
+ * @vizType VT-505 Scatterplot · E. 데이터 차트 · dataShape: correlation, distribution · 구조: cross-axis, quantitative
+ * @useWhen 두 연속 변수의 상관을 볼 때
+ * @useWhen 버블로 3번째 변수를 크기 인코딩할 때
+ * @avoidWhen 범주 비교는 Bar(VT-501) 사용
+ * @avoidWhen 단변량 분포는 Histogram(VT-508) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
  */
 export function ScatterPlot({
   data,

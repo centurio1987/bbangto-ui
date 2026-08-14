@@ -25,6 +25,12 @@ export interface BentoGridProps extends Omit<CanvasProps, 'data'> {
 const PAD = 16;
 
 /** Bento grid (VT-607) — 비대칭 모듈 격자. headless(셀 겹침 없음). */
+/**
+ * @vizType VT-607 Bento Grid · F. 인포그래픽/에디토리얼 · dataShape: concept
+ * @useWhen 비대칭 모듈 격자로 피처/대시보드를 배치할 때
+ * @avoidWhen 정형 통계 카드는 Statistical Infographic(VT-601) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function BentoGrid({ data, gap = 10, viewBox, children, title = 'Bento grid', ...canvasProps }: BentoGridProps) {
   const [vbX, vbY, vbW, vbH] = parseViewBox(viewBox, [0, 0, 480, 360]);
 

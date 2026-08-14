@@ -28,6 +28,14 @@ export interface TimelineDiagramProps extends Omit<CanvasProps, 'data' | 'childr
   data?: TimelineDiagramData;
 }
 
+/**
+ * @vizType VT-401 Timeline · D. 시간축 · dataShape: temporal, change-over-time · 구조: sequential
+ * @useWhen 사건을 시간순으로 나열할 때
+ * @useWhen 연혁/전개를 표현할 때
+ * @avoidWhen 기간 막대 일정은 Gantt(VT-403) 사용
+ * @avoidWhen 마일스톤 로드맵은 Timeline Roadmap(VT-402) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function TimelineDiagram({
   children,
   data,

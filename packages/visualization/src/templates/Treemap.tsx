@@ -22,6 +22,14 @@ export interface TreemapProps extends Omit<CanvasProps, 'data' | 'children'> {
 const PAD = 8;
 
 /** Treemap (VT-507) — squarify 면적 분할. headless: 각 셀 값 텍스트 병기. */
+/**
+ * @vizType VT-507 Treemap · E. 데이터 차트 · dataShape: part-to-whole, hierarchy · 구조: nested, quantitative
+ * @useWhen 계층 데이터의 비중을 면적으로 표현할 때
+ * @useWhen 많은 범주의 부분-전체를 압축해서 볼 때
+ * @avoidWhen 단순 비율은 Pie(VT-506) 사용
+ * @avoidWhen 순수 계층 구조는 Hierarchy(VT-303) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function Treemap({
   data,
   formatValue = (n) => String(n),

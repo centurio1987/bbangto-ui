@@ -22,6 +22,14 @@ export interface C4ContextDiagramProps extends Omit<CanvasProps, 'data' | 'child
   data?: C4ContextDiagramData;
 }
 
+/**
+ * @vizType VT-109 C4 System Context · A. 엔지니어링/소프트웨어 · dataShape: relationship · 구조: relational
+ * @useWhen 시스템을 블랙박스로 두고 사용자·외부 시스템 관계를 표현할 때
+ * @useWhen 프로젝트 범위를 합의할 때
+ * @avoidWhen 내부 컨테이너 구성은 C4 Container(VT-110) 사용
+ * @avoidWhen 코드 수준 구조는 C4 Code(VT-112) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function C4ContextDiagram({
   children,
   data,

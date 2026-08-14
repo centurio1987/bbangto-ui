@@ -58,6 +58,13 @@ function resolveSummary(g: BoxplotGroup): FiveNumber | undefined {
 }
 
 /** Boxplot / box-and-whisker (VT-510) — group별 사분위 상자 + whisker + outlier. headless. */
+/**
+ * @vizType VT-510 Boxplot · E. 데이터 차트 · dataShape: distribution · 구조: quantitative
+ * @useWhen 중앙값·사분위·이상치로 분포를 요약할 때
+ * @useWhen 여러 그룹 분포를 비교할 때
+ * @avoidWhen 원자료 빈도 형태는 Histogram(VT-508) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function Boxplot({
   data,
   formatValue = (n) => String(n),

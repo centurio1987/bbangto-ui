@@ -21,6 +21,12 @@ export interface TimelineRoadmapProps extends Omit<CanvasProps, 'data'> {
  * TimelineRoadmap 패턴 — 연대기/로드맵(headless).
  * 레퍼런스: infographic iso_06(연도 배지 세그먼트 축), mermaid minimal_01/03(수평 시간축).
  * 수평 모드에서 마일스톤 콘텐츠는 축 상/하로 교차 배치된다.
+ *
+ * @vizType VT-402 Timeline Roadmap · D. 시간축 · dataShape: temporal · 구조: sequential
+ * @useWhen 마일스톤과 기간을 로드맵으로 공유할 때
+ * @avoidWhen 상세 작업 일정은 Gantt(VT-403) 사용
+ * @avoidWhen 사건 나열은 Timeline(VT-401) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
  */
 export function TimelineRoadmap({
   data,

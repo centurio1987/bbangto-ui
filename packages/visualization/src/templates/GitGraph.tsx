@@ -31,6 +31,12 @@ export interface GitGraphProps extends Omit<CanvasProps, 'data' | 'children'> {
 const PAD = { left: 90, right: 40, top: 30, bottom: 30 } as const;
 
 /** Git graph (VT-129) — 브랜치 레인 + 커밋 원 + 직선 merge(공개 계약: curved는 후속). headless. */
+/**
+ * @vizType VT-129 Git Graph · A. 엔지니어링/소프트웨어 · dataShape: temporal, network · 구조: sequential, branching, relational
+ * @useWhen 브랜치·커밋·머지 이력으로 Git 전략을 설명할 때
+ * @avoidWhen 일반 시간축 사건은 Timeline(VT-401) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function GitGraph({
   data,
   viewBox,

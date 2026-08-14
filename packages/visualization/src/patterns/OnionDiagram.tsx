@@ -18,6 +18,13 @@ export interface OnionDiagramProps extends Omit<CanvasProps, 'data'> {
 }
 
 /** Onion / Concentric (VT-705) — 동심원 근접도 레이어. headless(값=레이어 라벨). */
+/**
+ * @vizType VT-705 Onion / Concentric · G. 개념 프레임워크 · dataShape: hierarchy, concept · 구조: nested
+ * @useWhen 동심원 근접도로 이해관계자/의존 계층을 표현할 때
+ * @avoidWhen 수직 층상 은유는 Iceberg(VT-704) 사용
+ * @avoidWhen 방사 위계는 Mindmap(VT-301) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function OnionDiagram({
   data,
   viewBox,

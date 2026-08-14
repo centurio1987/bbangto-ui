@@ -28,6 +28,14 @@ export interface StackedBarChartProps extends Omit<CanvasProps, 'data' | 'childr
 const PAD = { left: 48, right: 18, top: 22, bottom: 36 } as const;
 
 /** Stacked bar chart (VT-502) — 양수 누적. headless: 세그먼트별 값 텍스트 병기. */
+/**
+ * @vizType VT-502 Stacked Bar · E. 데이터 차트 · dataShape: part-to-whole, deviation · 구조: quantitative
+ * @useWhen 합계와 구성비를 한 막대에서 동시에 볼 때
+ * @useWhen 발산형(diverging)으로 기준 대비를 표현할 때
+ * @avoidWhen 단순 크기 비교는 Bar(VT-501) 사용
+ * @avoidWhen 전체 대비 비율만이면 Pie(VT-506) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function StackedBarChart({
   data,
   orientation = 'vertical',

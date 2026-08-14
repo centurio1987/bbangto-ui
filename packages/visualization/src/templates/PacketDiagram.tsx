@@ -22,6 +22,12 @@ export interface PacketDiagramProps extends Omit<CanvasProps, 'data' | 'children
 const PAD = { left: 24, right: 24, top: 44, bottom: 24 } as const;
 
 /** Packet diagram (VT-128) — 비트 필드 배치 + 비트 눈금. headless: 필드 폭 = 비트 비례. */
+/**
+ * @vizType VT-128 Packet Diagram · A. 엔지니어링/소프트웨어 · dataShape: relationship · 구조: cross-axis, quantitative
+ * @useWhen 프로토콜 패킷의 비트/바이트 필드 배치를 문서화할 때
+ * @avoidWhen 연속 값 분포는 Histogram(VT-508) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function PacketDiagram({
   data,
   viewBox,

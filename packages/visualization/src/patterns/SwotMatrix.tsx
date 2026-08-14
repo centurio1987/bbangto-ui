@@ -33,6 +33,14 @@ const DEFAULT_TITLES: Record<keyof SwotMatrixData, string> = {
 };
 
 /** SWOT (VT-703) — 강점/약점/기회/위협 4분면. headless. */
+/**
+ * @vizType VT-703 SWOT Matrix · G. 개념 프레임워크 · dataShape: comparison, concept · 구조: cross-axis, paired
+ * @useWhen 전략 진단을 4분면으로 정리할 때
+ * @useWhen 내부/외부 × 긍정/부정 축으로 분류할 때
+ * @avoidWhen 정량 2축 배치는 Quadrant(VT-702) 사용
+ * @avoidWhen 단순 항목 대비는 Comparison(VT-602) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function SwotMatrix({
   data,
   labels,

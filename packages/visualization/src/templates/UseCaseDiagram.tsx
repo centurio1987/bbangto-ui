@@ -52,6 +52,14 @@ const UC_W = 120;
 const UC_H = 52;
 
 /** UML Use Case (VT-105) — 액터·유스케이스(ellipse)·시스템 경계·관계. headless(수동 좌표). */
+/**
+ * @vizType VT-105 UML Use Case Diagram · A. 엔지니어링/소프트웨어 · dataShape: relationship · 구조: relational
+ * @useWhen 액터와 시스템 기능(유스케이스) 관계를 정의할 때
+ * @useWhen 요구 범위를 합의할 때
+ * @avoidWhen 내부 절차 흐름은 Activity(VT-106) 사용
+ * @avoidWhen 요구 추적성은 Requirement(VT-118) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function UseCaseDiagram({
   data,
   viewBox,

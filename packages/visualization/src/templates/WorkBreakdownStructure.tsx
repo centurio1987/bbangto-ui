@@ -24,6 +24,14 @@ const NODE_H = 44;
 const PAD = { x: 74, top: 34, bottom: 30 } as const;
 
 /** Work Breakdown Structure (VT-307) — 산출물 분해 트리 + WBS 십진 번호 + 레벨 tiered fill. headless. */
+/**
+ * @vizType VT-307 Work Breakdown Structure · C. 계층·관계 · dataShape: hierarchy · 구조: nested
+ * @useWhen 프로젝트 산출물을 계층적으로 분해할 때
+ * @useWhen 범위를 작업 단위로 나눌 때
+ * @avoidWhen 일정은 Gantt(VT-403) 사용
+ * @avoidWhen 일반 조직 트리는 Hierarchy(VT-303) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function WorkBreakdownStructure({
   data,
   viewBox,

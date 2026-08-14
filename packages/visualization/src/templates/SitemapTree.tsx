@@ -21,6 +21,12 @@ const NODE_H = 40;
 const PAD = { x: 70, top: 30, bottom: 30 } as const;
 
 /** Sitemap tree (VT-304) — tidyTreeLayout + elbow(orthogonal) 커넥터. headless. */
+/**
+ * @vizType VT-304 Sitemap Tree · C. 계층·관계 · dataShape: hierarchy · 구조: nested
+ * @useWhen 사이트 정보구조(IA)를 elbow 트리로 설계할 때
+ * @avoidWhen 일반 조직 트리는 Hierarchy(VT-303) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function SitemapTree({
   data,
   viewBox,

@@ -25,6 +25,12 @@ export interface AnnotatedIllustrationProps extends Omit<CanvasProps, 'data'> {
 /**
  * Annotated Illustration (VT-606) — caller 삽화 slot + CalloutLeader 주석.
  * 투영/삽화 미제공(caller 공급). headless(고정 viewBox user-unit 좌표).
+ *
+ * @vizType VT-606 Annotated Illustration · F. 인포그래픽/에디토리얼 · dataShape: concept
+ * @useWhen 대상 구조를 라벨(콜아웃)로 해설할 때
+ * @useWhen 제품/구조를 설명할 때
+ * @avoidWhen 지도 위 마커는 Geo Infographic(VT-605) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
  */
 export function AnnotatedIllustration({
   data,

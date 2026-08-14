@@ -24,6 +24,12 @@ export interface UserJourneyGanttProps extends Omit<CanvasProps, 'data' | 'child
 const PAD = { left: 24, right: 24, top: 40, bottom: 34 } as const;
 
 /** User journey gantt (VT-404) — 여정 phase pill을 단일 시간축에 배치. headless. */
+/**
+ * @vizType VT-404 User Journey Gantt · D. 시간축 · dataShape: temporal · 구조: sequential, quantitative
+ * @useWhen 여정 단계를 날짜축과 결합해 일정화할 때
+ * @avoidWhen 감정 곡선 여정은 User Journey Map(VT-205) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function UserJourneyGantt({
   data,
   formatValue = (n) => String(n),

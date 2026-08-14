@@ -31,6 +31,22 @@ export interface StatisticsProps extends Omit<CanvasProps, 'data'> {
  * Statistics 패턴 — 수치 강조/아이콘 정량화(headless).
  * 레퍼런스: infographic minimal_02(스탯카드 그리드), minimal_06(아이소타입), colorful_05(모자이크).
  * 모든 값은 텍스트로도 노출한다(그래픽 단독 인코딩 금지).
+ *
+ * @vizType VT-513 Waffle · E. 데이터 차트 · dataShape: part-to-whole · 구조: quantitative · mode="waffle"
+ * @useWhen 백분율을 100셀 격자 채움으로 표현할 때
+ * @useWhen Statistics를 mode="waffle"로 렌더할 때
+ * @avoidWhen 아이콘 반복 수량은 Isotype(VT-514) 사용
+ * @avoidWhen 부채꼴 비율은 Pie(VT-506) 사용
+ * @vizType VT-514 Isotype · E. 데이터 차트 · dataShape: magnitude, part-to-whole · 구조: quantitative · mode="isotype"
+ * @useWhen 아이콘을 반복해 정수 수량을 직관적으로 표현할 때
+ * @useWhen Statistics를 mode="isotype"로 렌더할 때
+ * @avoidWhen 연속 비율은 Waffle(VT-513) 사용
+ * @vizType VT-601 Statistical Infographic · F. 인포그래픽/에디토리얼 · dataShape: magnitude, comparison · 구조: quantitative · mode="cards"(기본), mode="mosaic"
+ * @useWhen 핵심 수치를 카드/그리드로 강조할 때
+ * @useWhen 성과·리서치를 요약할 때
+ * @avoidWhen 정밀 추세는 Line(VT-503) 사용
+ * @avoidWhen 아이콘 반복 수량은 Isotype(VT-514) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
  */
 export function Statistics({
   data,

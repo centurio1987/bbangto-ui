@@ -21,6 +21,12 @@ export interface RadarChartProps extends Omit<CanvasProps, 'data' | 'children'> 
 const RINGS = 4;
 
 /** Radar chart (VT-511) — 방사 다축 다각형. headless: 축 라벨 텍스트 노출, palette+fill-opacity. */
+/**
+ * @vizType VT-511 Radar Chart · E. 데이터 차트 · dataShape: magnitude, comparison · 구조: quantitative
+ * @useWhen 여러 축의 값을 다각형으로 한눈에 비교할 때
+ * @avoidWhen 축이 많거나 정밀 비교가 필요하면 Bar(VT-501) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function RadarChart({
   data,
   viewBox,

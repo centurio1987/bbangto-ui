@@ -58,6 +58,12 @@ function blockRects(): Record<BlockKey, { x: number; y: number; w: number; h: nu
 }
 
 /** Business Model Canvas (VT-707) — 표준 9블록 비대칭 캔버스. headless. */
+/**
+ * @vizType VT-707 Business Model Canvas · G. 개념 프레임워크 · dataShape: concept, comparison
+ * @useWhen 사업 모델을 표준 9블록으로 한 장에 정리할 때
+ * @avoidWhen 전략 진단 4분면은 SWOT(VT-703) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function BusinessModelCanvas({
   data,
   viewBox,

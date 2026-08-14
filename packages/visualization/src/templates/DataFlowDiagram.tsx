@@ -45,6 +45,13 @@ const DEF_H = 52;
 /**
  * Data-Flow Diagram (VT-126) — 프로세스(원)·데이터스토어(개방형 rect)·외부엔티티(rect) +
  * 데이터 흐름 + 트러스트 경계(dashed). headless(수동 좌표).
+ *
+ * @vizType VT-126 Data-Flow Diagram · A. 엔지니어링/소프트웨어 · dataShape: flow, process · 구조: sequential, relational
+ * @useWhen 데이터의 이동·변환·저장 흐름을 표현할 때
+ * @useWhen 위협 모델 경계를 그릴 때
+ * @avoidWhen 정적 스키마 관계는 ER(VT-117) 사용
+ * @avoidWhen 데이터 계보 추적은 Data Lineage(VT-127) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
  */
 export function DataFlowDiagram({
   data,

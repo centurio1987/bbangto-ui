@@ -32,6 +32,13 @@ export interface QuadrantChartProps extends Omit<CanvasProps, 'data' | 'children
 const PAD = 44;
 
 /** Quadrant chart (VT-702) — 두 축 교차 4분면 + 산점. headless: 값(x,y)은 위치+라벨로 노출. */
+/**
+ * @vizType VT-702 Quadrant / 2x2 Matrix · G. 개념 프레임워크 · dataShape: comparison, correlation · 구조: cross-axis
+ * @useWhen 두 정량/정성 축으로 항목을 4분면에 배치할 때
+ * @useWhen 우선순위/포트폴리오를 분류할 때
+ * @avoidWhen 정성 전략 진단은 SWOT(VT-703) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function QuadrantChart({
   data,
   viewBox,

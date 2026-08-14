@@ -23,6 +23,13 @@ export interface ComparisonProps extends Omit<CanvasProps, 'data'> {
 /**
  * Comparison 패턴 — vs 대비 레이아웃(headless).
  * 레퍼런스: infographic colorful_06(before/after 스플릿), colorful_03(크기 비교).
+ *
+ * @vizType VT-602 Comparison · F. 인포그래픽/에디토리얼 · dataShape: comparison · 구조: paired · mode="split"(기본), mode="magnitude"
+ * @useWhen 두 대상을 패널로 나란히 대비할 때
+ * @useWhen before-after/pros-cons를 표현할 때
+ * @avoidWhen 전략 4분면은 SWOT(VT-703) 사용
+ * @avoidWhen 정량 2축 배치는 Quadrant(VT-702) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
  */
 export function Comparison({
   data,

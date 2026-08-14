@@ -61,6 +61,11 @@ function relDash(kind?: ArchiMateRelKind): string | undefined {
 /**
  * ArchiMate 확장 viewpoints (VT-121) — motivation / strategy / implementation & migration.
  * ArchiMate element/relationship 렌더를 재사용하되 viewpoint별 fill 밴드로 구분. headless.
+ *
+ * @vizType VT-121 ArchiMate Extended Viewpoints · A. 엔지니어링/소프트웨어 · dataShape: relationship, concept · 구조: nested, relational
+ * @useWhen 동기·전략·이행 등 특정 관점의 EA 뷰가 필요할 때
+ * @avoidWhen 계층 통합 뷰는 ArchiMate Layered(VT-120) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
  */
 export function ArchiMateViewpointDiagram({
   children,

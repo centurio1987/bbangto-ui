@@ -61,6 +61,12 @@ function DMNShape({ spec }: { spec: DMNNodeSpec }) {
 }
 
 /** DMN Decision Requirements (VT-124) — decision/inputData/knowledgeSource/bkm + 요구 엣지. headless. */
+/**
+ * @vizType VT-124 DMN Decision Requirements · A. 엔지니어링/소프트웨어 · dataShape: relationship · 구조: nested, relational
+ * @useWhen 비즈니스 룰의 의사결정-입력-지식 요구 관계를 모델링할 때
+ * @avoidWhen 절차 흐름은 BPMN Process(VT-122) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function DMNDiagram({
   children,
   data,

@@ -27,6 +27,12 @@ export interface GeoMapProps extends Omit<CanvasProps, 'data'> {
 }
 
 /** Geo map (VT-605) — caller-supplied region path + pins. headless(투영/좌표변환 없음). */
+/**
+ * @vizType VT-605 Geo / Map Infographic · F. 인포그래픽/에디토리얼 · dataShape: spatial
+ * @useWhen 지도 위에 마커/데이터를 배치해 지역 트렌드를 표현할 때
+ * @avoidWhen 행정구역 색상 비율은 Choropleth(VT-518) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function GeoMap({ data, viewBox, children, title = 'Geo map', ...canvasProps }: GeoMapProps) {
   return (
     <Canvas viewBox={viewBox} title={title} data-bbangto-viz-pattern="geo-map" {...canvasProps}>

@@ -19,6 +19,12 @@ export interface HoneycombProps extends Omit<CanvasProps, 'data'> {
 }
 
 /** Honeycomb (VT-709) — 육각 셀 클러스터. hexLayout(flat) + hexagonPath. headless. */
+/**
+ * @vizType VT-709 Honeycomb · G. 개념 프레임워크 · dataShape: concept, comparison
+ * @useWhen 다면 속성/기준을 육각 셀로 제시할 때
+ * @avoidWhen 정량 축 비교는 Radar(VT-511) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function Honeycomb({
   data,
   viewBox,

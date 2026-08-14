@@ -29,6 +29,13 @@ const SCREEN_W = 160;
 const SCREEN_H = 130;
 
 /** Screen flow (VT-206) — 화면 목업 노드 + 이동 흐름. headless(수동 좌표). */
+/**
+ * @vizType VT-206 Screen Flow · B. 프로세스·플로우 · dataShape: process, network · 구조: sequential, branching, relational
+ * @useWhen 화면 목업 간 이동 흐름을 설계·소통할 때
+ * @avoidWhen 감정 곡선 여정은 User Journey Map(VT-205) 사용
+ * @avoidWhen 추상 절차는 Flowchart(VT-201) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function ScreenFlow({
   data,
   viewBox,

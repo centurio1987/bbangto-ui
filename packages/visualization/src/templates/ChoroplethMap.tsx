@@ -28,6 +28,11 @@ export interface ChoroplethMapProps extends Omit<CanvasProps, 'data' | 'children
  * Choropleth map (VT-518) — caller-supplied region path + 값 강도(fill-opacity).
  * region.id ↔ item.id 매칭으로 강도 할당. 미매칭 region→중립 fill, 미매칭 item→무시.
  * 투영 미지원·고정 viewBox. headless: 지역 중심에 값 텍스트 병기.
+ *
+ * @vizType VT-518 Choropleth Map · E. 데이터 차트 · dataShape: spatial, magnitude · 구조: quantitative
+ * @useWhen 행정구역별 값을 색상 농도로 지도에 표현할 때
+ * @avoidWhen 지도 위 마커 배치는 Geo Infographic(VT-605) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
  */
 export function ChoroplethMap({
   data,

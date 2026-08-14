@@ -14,6 +14,12 @@ export interface RadialGaugeProps extends Omit<CanvasProps, 'data' | 'children'>
 }
 
 /** Radial gauge (VT-519) — 아크 트랙 + 값 아크 + 눈금 + StatNumber(값 텍스트 필수). */
+/**
+ * @vizType VT-519 Radial Gauge · E. 데이터 차트 · dataShape: magnitude · 구조: quantitative
+ * @useWhen 단일 KPI를 아크 척도 위 값으로 표시할 때
+ * @avoidWhen 여러 범주 비교는 Bar(VT-501) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function RadialGauge({
   data,
   startAngle = -180,

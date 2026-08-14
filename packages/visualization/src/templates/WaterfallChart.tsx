@@ -25,6 +25,13 @@ export interface WaterfallChartProps extends Omit<CanvasProps, 'data' | 'childre
 const PAD = { left: 48, right: 18, top: 22, bottom: 40 } as const;
 
 /** Waterfall (VT-517) — running total 증감 막대. 증가/감소/합계 팔레트 구분. */
+/**
+ * @vizType VT-517 Waterfall · E. 데이터 차트 · dataShape: flow, part-to-whole · 구조: sequential, quantitative
+ * @useWhen 증감을 누적해 최종 합계 도달 과정을 볼 때
+ * @avoidWhen 이동량 흐름은 Sankey(VT-515) 사용
+ * @avoidWhen 단순 구성비는 Stacked Bar(VT-502) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function WaterfallChart({
   data,
   showTotal = false,

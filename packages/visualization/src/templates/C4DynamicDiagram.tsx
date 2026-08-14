@@ -43,6 +43,14 @@ export interface C4DynamicDiagramProps extends Omit<CanvasProps, 'data' | 'child
 }
 
 /** C4 Dynamic (VT-113) — C4 요소 간 순번 있는 협력. 순번 배지 + 라벨. headless(수동 좌표). */
+/**
+ * @vizType VT-113 C4 Dynamic · A. 엔지니어링/소프트웨어 · dataShape: process, temporal · 구조: sequential, relational
+ * @useWhen C4 요소 간 런타임 협력을 순번으로 표현할 때
+ * @useWhen 특정 유스케이스의 흐름을 설명할 때
+ * @avoidWhen 정적 구성은 C4 Container(VT-110)/Component(VT-111) 사용
+ * @avoidWhen 상세 메시지 명세는 Sequence(VT-108) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function C4DynamicDiagram({
   data,
   viewBox,

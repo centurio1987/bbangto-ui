@@ -12,6 +12,12 @@ export interface PosterEditorialProps extends Omit<CanvasProps, 'data'> {
 const PAD = 32;
 
 /** Poster editorial (VT-609) — 타이포 위계 지면. headless(typography 토큰만). */
+/**
+ * @vizType VT-609 Poster / Editorial Title · F. 인포그래픽/에디토리얼 · dataShape: concept
+ * @useWhen 타이포 위계 중심의 표지/타이틀 지면을 구성할 때
+ * @avoidWhen 모듈 격자 배치는 Bento Grid(VT-607) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function PosterEditorial({ data, viewBox, children, title = 'Poster', ...canvasProps }: PosterEditorialProps) {
   const [vbX, vbY, vbW, vbH] = parseViewBox(viewBox, [0, 0, 520, 360]);
 

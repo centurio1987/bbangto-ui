@@ -48,6 +48,14 @@ function stateWidth(s: StateSpec): number {
   return s.width ?? 120;
 }
 
+/**
+ * @vizType VT-107 UML State Machine · A. 엔지니어링/소프트웨어 · dataShape: process · 구조: sequential, branching, cyclic
+ * @useWhen 객체/프로토콜의 상태와 이벤트 전이를 모델링할 때
+ * @useWhen 수명주기 상태를 명세할 때
+ * @avoidWhen 시간순 메시지 교환은 Sequence(VT-108) 사용
+ * @avoidWhen 제어 흐름 절차는 Activity(VT-106) 사용
+ * @seeTypeMeta 유형 87종 채택 메타 정본 — `@centurio1987/bbangto-ui-visualization/type-meta`의 selectVizTypes()/vizTypeRegistry, 파일로는 type.manifest.json
+ */
 export function StateDiagram({
   children,
   data,
