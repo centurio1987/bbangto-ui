@@ -270,6 +270,12 @@ export function makeVizCatalogStories(
       await expect(showcase!.querySelector('[data-bbangto-viz-pattern="process-steps"]')).not.toBeNull();
       await expect(showcase!.querySelector('[data-bbangto-viz-pattern="statistics"]')).not.toBeNull();
 
+      // 역할 캡션: 이 쇼케이스가 paint 축 데모임을 밝히고 유형 정본을 가리킨다(상류 리포트 I7).
+      const note = showcase!.querySelector('[data-viz-showcase-note]');
+      await expect(note).not.toBeNull();
+      await expect(note!.textContent).toContain('87종');
+      await expect(note!.textContent).toContain('type.manifest.json');
+
       // patterns 등록 + extendedFoundations 존재
       await expect(Object.keys(sg.patterns ?? {}).length).toBeGreaterThan(0);
       await expect(Object.keys(sg.extendedFoundations ?? {}).length).toBeGreaterThan(0);
