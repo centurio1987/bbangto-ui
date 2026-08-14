@@ -1,6 +1,7 @@
 import { type ReactNode } from 'react';
 import { Canvas, type CanvasProps } from '../atoms/Canvas';
 import { vvar } from '../tokens/contract';
+import { resolveLabelFont } from '../tokens/labelFont';
 import { parseViewBox } from '../geometry/layout';
 
 export interface BusinessModelCanvasBlocks {
@@ -99,7 +100,7 @@ export function BusinessModelCanvas({
                 x={x + 8}
                 y={y + 34 + ii * 15}
                 fontSize={10}
-                fontFamily={vvar('typography', 'monoFont')}
+                fontFamily={resolveLabelFont(item)}
                 style={{ fill: vvar('boundary', 'labelColor') }}
               >
                 {`• ${item}`}

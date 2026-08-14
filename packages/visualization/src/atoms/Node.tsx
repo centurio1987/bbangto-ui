@@ -12,6 +12,9 @@ import {
   subroutinePath,
   cylinderPaths,
   cubePaths,
+  cubeDepth,
+  subroutineIndent,
+  doubleCircleInnerRadius,
   folderPath,
 } from '../geometry/shapes';
 
@@ -148,7 +151,7 @@ function renderShapeElements(
       );
 
     case 'subroutine': {
-      const indent = Math.min(14, width / 6);
+      const indent = subroutineIndent(bbox);
       const lineStyle = definedStyle({
         stroke: shapeStyle.stroke,
         strokeWidth: shapeStyle.strokeWidth,
@@ -187,7 +190,7 @@ function renderShapeElements(
       const r = Math.min(width, height) / 2;
       const cx = x + width / 2;
       const cy = y + height / 2;
-      const innerR = r - 4;
+      const innerR = doubleCircleInnerRadius(bbox);
       return (
         <>
           <circle
@@ -202,7 +205,7 @@ function renderShapeElements(
             data-viz-part="shape"
             cx={cx}
             cy={cy}
-            r={innerR > 0 ? innerR : r * 0.7}
+            r={innerR}
             style={{ ...shapeStyle, fill: 'none' }}
           />
         </>
@@ -210,7 +213,7 @@ function renderShapeElements(
     }
 
     case 'cube': {
-      const depth = Math.min(14, width / 4, height / 4);
+      const depth = cubeDepth(bbox);
       const { front, top, right } = cubePaths(bbox, depth);
       // paint 무관 음영: 면색 위 검정 오버레이(fillOpacity)로 top/right 면을 어둡게 한다.
       // (hex 연산은 var() 기반 fill과 비호환이라 사용하지 않는다.)

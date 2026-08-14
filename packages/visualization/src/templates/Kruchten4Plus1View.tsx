@@ -1,6 +1,7 @@
 import { type ReactNode } from 'react';
 import { Canvas, type CanvasProps } from '../atoms/Canvas';
 import { vvar } from '../tokens/contract';
+import { resolveLabelFont } from '../tokens/labelFont';
 import { parseViewBox } from '../geometry/layout';
 
 /** 4+1 뷰의 5개 영역. 각 영역은 다른 프리셋(ReactNode)을 조합해 채운다. */
@@ -96,7 +97,6 @@ export function Kruchten4Plus1View({
   const rects = regionRects(vb);
   const stroke = vvar('shape', 'stroke');
   const titleFont = vvar('typography', 'titleFont');
-  const monoFont = vvar('typography', 'monoFont');
   const labelColor = vvar('boundary', 'labelColor');
 
   return (
@@ -138,7 +138,7 @@ export function Kruchten4Plus1View({
             >
               {meta.label}
             </text>
-            <text x={r.x + PAD} y={r.y + 34} fontSize={9.5} fontFamily={monoFont} style={{ fill: labelColor }}>
+            <text x={r.x + PAD} y={r.y + 34} fontSize={9.5} fontFamily={resolveLabelFont(meta.sub)} style={{ fill: labelColor }}>
               {meta.sub}
             </text>
             {slot != null ? (
@@ -160,7 +160,7 @@ export function Kruchten4Plus1View({
                   x={r.x + PAD + 2}
                   y={r.y + TITLE_BLOCK + 12 + ii * 15}
                   fontSize={10}
-                  fontFamily={monoFont}
+                  fontFamily={resolveLabelFont(item)}
                   style={{ fill: labelColor }}
                 >
                   {`• ${item}`}

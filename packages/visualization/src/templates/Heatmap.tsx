@@ -1,6 +1,7 @@
 import { type ReactNode } from 'react';
 import { Canvas, type CanvasProps } from '../atoms/Canvas';
 import { vvar } from '../tokens/contract';
+import { resolveLabelFont } from '../tokens/labelFont';
 import { parseViewBox } from '../geometry/layout';
 import { bandScale, linearScale } from '../geometry/scale';
 
@@ -103,19 +104,18 @@ export function Heatmap({
   });
 
   const labelFill = vvar('edge', 'stroke');
-  const labelFont = vvar('typography', 'monoFont');
 
   return (
     <Canvas viewBox={viewBox} title={title} data-bbangto-viz-chart="heatmap" {...canvasProps}>
       {/* 열 라벨(하단) */}
       {cols.map((c, ci) => (
-        <text key={`col-${c}`} data-bbangto-viz-tick-label x={xBand.center(ci)} y={plotBottom + 16} textAnchor="middle" fontSize={11} fontFamily={labelFont} style={{ fill: labelFill }}>
+        <text key={`col-${c}`} data-bbangto-viz-tick-label x={xBand.center(ci)} y={plotBottom + 16} textAnchor="middle" fontSize={11} fontFamily={resolveLabelFont(c)} style={{ fill: labelFill }}>
           {c}
         </text>
       ))}
       {/* 행 라벨(좌측) */}
       {rows.map((r, ri) => (
-        <text key={`row-${r}`} data-bbangto-viz-tick-label x={plotLeft - 8} y={yBand.center(ri)} textAnchor="end" dominantBaseline="central" fontSize={11} fontFamily={labelFont} style={{ fill: labelFill }}>
+        <text key={`row-${r}`} data-bbangto-viz-tick-label x={plotLeft - 8} y={yBand.center(ri)} textAnchor="end" dominantBaseline="central" fontSize={11} fontFamily={resolveLabelFont(r)} style={{ fill: labelFill }}>
           {r}
         </text>
       ))}

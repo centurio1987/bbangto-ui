@@ -1,5 +1,6 @@
 import React from 'react';
 import { vvar } from '../tokens/contract';
+import { resolveLabelFont } from '../tokens/labelFont';
 
 export interface EdgeLabelProps {
   x: number;
@@ -27,7 +28,7 @@ export const EdgeLabel = React.forwardRef<SVGGElement, EdgeLabelProps>(
     ref,
   ) => {
     const effectiveFill = fill ?? vvar('edge', 'stroke');
-    const effectiveFont = fontFamily ?? vvar('typography', 'monoFont');
+    const effectiveFont = resolveLabelFont(label, fontFamily);
     const charWidth = fontSize * 0.6;
     const approxWidth = label.length * charWidth + padding * 2;
 

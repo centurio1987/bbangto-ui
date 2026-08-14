@@ -1,6 +1,7 @@
 import { type ReactNode } from 'react';
 import { Canvas, type CanvasProps } from '../atoms/Canvas';
 import { vvar } from '../tokens/contract';
+import { resolveLabelFont } from '../tokens/labelFont';
 import { parseViewBox } from '../geometry/layout';
 
 const PALETTE_KEYS = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8'] as const;
@@ -62,7 +63,7 @@ export function InformationalInfographic({
         </text>
       )}
       {intro && (
-        <text x={vbX + margin} y={vbY + 48} fontSize={12} fontFamily={vvar('typography', 'monoFont')} style={{ fill: vvar('boundary', 'labelColor') }}>
+        <text x={vbX + margin} y={vbY + 48} fontSize={12} fontFamily={resolveLabelFont(intro)} style={{ fill: vvar('boundary', 'labelColor') }}>
           {intro}
         </text>
       )}
@@ -76,13 +77,13 @@ export function InformationalInfographic({
           <g key={s.id} data-bbangto-viz-info-section data-bbangto-viz-info-section-id={s.id}>
             <rect data-viz-part="shape" x={x} y={y} width={cellW} height={cellH} rx={8} style={{ fill: vvar('canvas', 'grid'), stroke, strokeWidth: 1 }} />
             <circle data-viz-part="shape" cx={x + 22} cy={y + 24} r={badgeR} style={{ fill: vvar('palette', PALETTE_KEYS[i % PALETTE_KEYS.length]) }} />
-            <text x={x + 22} y={y + 24} textAnchor="middle" dominantBaseline="central" fontSize={12} fontWeight={800} fontFamily={vvar('typography', 'monoFont')} style={{ fill: stroke }}>
+            <text x={x + 22} y={y + 24} textAnchor="middle" dominantBaseline="central" fontSize={12} fontWeight={800} fontFamily={resolveLabelFont(s.glyph)} style={{ fill: stroke }}>
               {s.glyph ?? String(i + 1)}
             </text>
             <text x={x + 44} y={y + 28} fontSize={14} fontWeight={700} fontFamily={vvar('typography', 'titleFont')} style={{ fill: stroke }}>
               {s.title}
             </text>
-            <text x={x + 14} y={y + 52} fontSize={11} fontFamily={vvar('typography', 'monoFont')} style={{ fill: vvar('boundary', 'labelColor') }}>
+            <text x={x + 14} y={y + 52} fontSize={11} fontFamily={resolveLabelFont(s.body)} style={{ fill: vvar('boundary', 'labelColor') }}>
               {s.body}
             </text>
           </g>

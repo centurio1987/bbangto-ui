@@ -3,8 +3,14 @@ import React from 'react';
 import { FoundationProvider, lightFoundation, darkFoundation, highContrastFoundation } from '@centurio1987/bbangto-ui-core';
 import { VisualizationStyleGuideProvider } from '@centurio1987/bbangto-ui-visualization';
 import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visualization-style-guide-catalog';
+import { assertEdgeMarkersOriented } from '../src/stories/visualization/_edgeGeometryGate';
 
 const preview: Preview = {
+  // 전 스토리 공통 게이트 — 마커가 방향을 잃은 엣지(종단 세그먼트 길이 0)를 잡는다.
+  // 상류 이슈 P1은 산출물이 조용히 틀리는 종류라 스토리마다 단정을 다는 대신 여기서 한 번에 건다.
+  afterEach: async ({ canvasElement, title, name }) => {
+    assertEdgeMarkersOriented(canvasElement, `${title} · ${name}`);
+  },
   parameters: {
     controls: {
       matchers: {

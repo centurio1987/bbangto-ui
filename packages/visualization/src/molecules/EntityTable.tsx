@@ -1,5 +1,6 @@
 import React, { type ReactNode } from 'react';
 import { vvar } from '../tokens/contract';
+import { resolveLabelFont } from '../tokens/labelFont';
 
 export interface EntityAttribute {
   name: string;
@@ -44,7 +45,6 @@ export const EntityTable = React.forwardRef<SVGGElement, EntityTableProps>(
   ) => {
     const effectiveStroke = stroke ?? vvar('edge', 'stroke');
     const effectiveHeaderFill = headerFill ?? vvar('canvas', 'grid');
-    const monoFont = vvar('typography', 'monoFont');
     const titleFont = vvar('typography', 'titleFont');
     const textColor = vvar('edge', 'stroke');
 
@@ -100,7 +100,7 @@ export const EntityTable = React.forwardRef<SVGGElement, EntityTableProps>(
                   y={rowY + ROW_H / 2}
                   textAnchor="start"
                   dominantBaseline="central"
-                  fontFamily={monoFont}
+                  fontFamily={resolveLabelFont(attr.key)}
                   fontSize={9}
                   fontWeight={700}
                   style={{ fill: textColor }}
@@ -113,7 +113,7 @@ export const EntityTable = React.forwardRef<SVGGElement, EntityTableProps>(
                 y={rowY + ROW_H / 2}
                 textAnchor="start"
                 dominantBaseline="central"
-                fontFamily={monoFont}
+                fontFamily={resolveLabelFont(attr.name)}
                 fontSize={10}
                 style={{ fill: textColor }}
               >
@@ -124,7 +124,7 @@ export const EntityTable = React.forwardRef<SVGGElement, EntityTableProps>(
                 y={rowY + ROW_H / 2}
                 textAnchor="end"
                 dominantBaseline="central"
-                fontFamily={monoFont}
+                fontFamily={resolveLabelFont(attr.type)}
                 fontSize={10}
                 style={{ fill: textColor }}
                 opacity={0.6}

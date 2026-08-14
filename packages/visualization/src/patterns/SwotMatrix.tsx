@@ -1,6 +1,7 @@
 import { type ReactNode } from 'react';
 import { Canvas, type CanvasProps } from '../atoms/Canvas';
 import { vvar } from '../tokens/contract';
+import { resolveLabelFont } from '../tokens/labelFont';
 import { parseViewBox } from '../geometry/layout';
 
 export interface SwotMatrixData {
@@ -75,7 +76,7 @@ export function SwotMatrix({
               {q.title}
             </text>
             {items.map((it, i) => (
-              <text key={i} x={x + 14} y={y + 46 + i * 18} fontSize={11} fontFamily={vvar('typography', 'monoFont')} style={{ fill: vvar('shape', 'stroke') }}>
+              <text key={i} x={x + 14} y={y + 46 + i * 18} fontSize={11} fontFamily={resolveLabelFont(it)} style={{ fill: vvar('shape', 'stroke') }}>
                 {`• ${it}`}
               </text>
             ))}

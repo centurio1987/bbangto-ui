@@ -1,5 +1,6 @@
 import React from 'react';
 import { vvar } from '../tokens/contract';
+import { resolveLabelFont } from '../tokens/labelFont';
 
 export interface TagProps {
   x: number;
@@ -23,7 +24,7 @@ export const Tag = React.forwardRef<SVGTextElement, TagProps>(
     ref,
   ) => {
     const effectiveFill = fill ?? vvar('edge', 'stroke');
-    const effectiveFont = fontFamily ?? vvar('typography', 'monoFont');
+    const effectiveFont = resolveLabelFont(label, fontFamily);
 
     return (
       <text

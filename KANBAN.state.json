@@ -1,6 +1,6 @@
 {
   "next_id": 43,
-  "next_seq": 123,
+  "next_seq": 124,
   "cards": {
     "KAN-001": {
       "col": "done",
@@ -495,7 +495,7 @@
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-042-JZ2ZBT": {
-      "col": "doing",
+      "col": "review",
       "title": "bbangto-ui-vizualization을 사용하는 클라이언트가 문제를 제기했다. \"/Users/centurio/resume/docs/viz-upstream-issues.md\" 이 레포트를 보고 문제를 진단하고 문제 해결 전략 레포트를 작성하고, wbs를 작성하여 이 카드를 수행하는 agent가 사용할 수 있도록 해라.ㄴ",
       "memo": "",
       "verbatim": "",
@@ -552,6 +552,16 @@
     "KAN-042-JZ2ZBT"
   ],
   "recent": [
+    {
+      "seq": 123,
+      "t": "2026-08-14T14:17",
+      "a": "ai",
+      "id": "KAN-042-JZ2ZBT",
+      "op": "move",
+      "w": "S7030N",
+      "from": "doing",
+      "to": "review"
+    },
     {
       "seq": 122,
       "t": "2026-08-14T13:09",
@@ -1037,15 +1047,6 @@
       "field": "memo",
       "before": "viz-terminal-ascii. Tier A. 다크 콘솔(#0B0F0A)·전면 모노스페이스·포스포 그린(#3DDC84)·박스드로잉 보더·커서 액센트, colorway default/amber. 스펙: viz-style-expansion.md §4-d. dev-tools 다이어그램 적합.",
       "after": "완료(2026-07-24): Terminal_Ascii_01 (slug terminal-ascii-01) 구현 — 다크 콘솔 #0B0F0A + 포스포 그린 #3DDC84, titleFont===monoFont 전면 mono, 무채움 그린 박스, default/amber colorway. contrastIntent aaa (최악 감사 10.09). wrapperExtraPlay=mono 시그니처 3중 검증. family viz-terminal-ascii. 4게이트 green."
-    },
-    {
-      "seq": 73,
-      "t": "2026-07-24T14:11",
-      "a": "ai",
-      "id": "KAN-029",
-      "op": "move",
-      "from": "backlog",
-      "to": "done"
     }
   ]
 }

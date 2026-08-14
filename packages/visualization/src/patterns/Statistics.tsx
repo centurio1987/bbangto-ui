@@ -5,6 +5,7 @@ import { PictographUnit } from '../atoms/PictographUnit';
 import { ProportionBlock } from '../atoms/ProportionBlock';
 import { StatNumber } from '../atoms/StatNumber';
 import { vvar } from '../tokens/contract';
+import { resolveLabelFont } from '../tokens/labelFont';
 import { parseViewBox } from '../geometry/layout';
 
 export interface StatItemSpec {
@@ -135,7 +136,7 @@ function renderIsotype(
               dominantBaseline="central"
               fontSize={13}
               fontWeight={700}
-              fontFamily={vvar('typography', 'monoFont')}
+              fontFamily={resolveLabelFont(`${item.value}${item.unit ?? ''}`)}
               style={{ fill: vvar('shape', 'stroke') }}
             >
               {item.value}

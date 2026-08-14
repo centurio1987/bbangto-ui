@@ -2,6 +2,7 @@ import { type ReactNode } from 'react';
 import { Canvas, type CanvasProps } from '../atoms/Canvas';
 import { Axis, type AxisTick } from '../atoms/Axis';
 import { vvar } from '../tokens/contract';
+import { resolveLabelFont } from '../tokens/labelFont';
 import { parseViewBox } from '../geometry/layout';
 import { linearScale, niceTicks } from '../geometry/scale';
 
@@ -103,7 +104,7 @@ export function ScatterPlot({
               y={yScale(p.y) - r - 3}
               textAnchor="middle"
               fontSize={10}
-              fontFamily={vvar('typography', 'monoFont')}
+              fontFamily={resolveLabelFont(p.label)}
               style={{ fill: vvar('shape', 'stroke') }}
             >
               {p.label}

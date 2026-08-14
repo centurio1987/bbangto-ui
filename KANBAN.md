@@ -9,10 +9,10 @@
 ## 할 일
 
 ## 진행 중
-- `KAN-042-JZ2ZBT` bbangto-ui-vizualization을 사용하는 클라이언트가 문제를 제기했다. "/Users/centurio/resume/docs/viz-upstream-issues.md" 이 레포트를 보고 문제를 진단하고 문제 해결 전략 레포트를 작성하고, wbs를 작성하여 이 카드를 수행하는 agent가 사용할 수 있도록 해라.ㄴ — 생성:유저 · 최종:ai · 갱신:2026-08-14
-  - 실행 문서: KANBAN.cards/KAN-042-JZ2ZBT.md (0/9 · 최근 08-14)
 
 ## 검토
+- `KAN-042-JZ2ZBT` bbangto-ui-vizualization을 사용하는 클라이언트가 문제를 제기했다. "/Users/centurio/resume/docs/viz-upstream-issues.md" 이 레포트를 보고 문제를 진단하고 문제 해결 전략 레포트를 작성하고, wbs를 작성하여 이 카드를 수행하는 agent가 사용할 수 있도록 해라.ㄴ — 생성:유저 · 최종:ai · 갱신:2026-08-14
+  - 실행 문서: KANBAN.cards/KAN-042-JZ2ZBT.md (9/9 · 최근 08-14)
 
 ## 완료
 - `KAN-020` visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현 — 생성:유저 · 최종:유저 · 갱신:2026-08-14

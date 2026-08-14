@@ -4,6 +4,7 @@ import { Node } from '../atoms/Node';
 import { Edge } from '../atoms/Edge';
 import { EdgeLabel } from '../atoms/EdgeLabel';
 import { vvar } from '../tokens/contract';
+import { resolveLabelFont } from '../tokens/labelFont';
 
 export interface LineageNode {
   id: string;
@@ -75,7 +76,7 @@ export function DataLineage({
               {n.label}
             </text>
             {n.detail && (
-              <text x={n.x + 10} y={n.y + 40} fontSize={11} fontFamily={vvar('typography', 'monoFont')} style={{ fill: vvar('edge', 'stroke'), opacity: 0.8 }}>
+              <text x={n.x + 10} y={n.y + 40} fontSize={11} fontFamily={resolveLabelFont(n.detail)} style={{ fill: vvar('edge', 'stroke'), opacity: 0.8 }}>
                 {n.detail}
               </text>
             )}

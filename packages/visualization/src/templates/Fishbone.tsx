@@ -1,6 +1,7 @@
 import { type ReactNode } from 'react';
 import { Canvas, type CanvasProps } from '../atoms/Canvas';
 import { vvar } from '../tokens/contract';
+import { resolveLabelFont } from '../tokens/labelFont';
 import { parseViewBox } from '../geometry/layout';
 import { fishboneLayout } from '../geometry/fishbone';
 
@@ -119,7 +120,7 @@ export function Fishbone({
                   x={px + 6}
                   y={py}
                   fontSize={10}
-                  fontFamily={vvar('typography', 'monoFont')}
+                  fontFamily={resolveLabelFont(c)}
                   style={{ fill: vvar('boundary', 'labelColor') }}
                 >
                   {c}

@@ -91,6 +91,14 @@ export interface VisualizationFoundation {
   readonly typography: {
     readonly titleFont: string;
     readonly monoFont: string;
+    /**
+     * 라벨류(경계·레인·엣지 라벨·태그 등) 기본 서체. 선택 필드다.
+     * 지정하면 라벨 문자열의 스크립트와 무관하게 이 서체를 쓰고, 지정하지 않으면
+     * 비ASCII 라벨은 `titleFont`, 라틴 라벨은 `monoFont`로 해석한다
+     * (`@centurio1987/bbangto-ui-visualization`의 `resolveLabelFont`).
+     * 기존 스타일가이드를 깨지 않으려 required가 아니라 optional로 둔다.
+     */
+    readonly labelFont?: string;
     readonly titleWeight: number;
     readonly sizes: {
       readonly title: string;

@@ -3,6 +3,7 @@ import { Canvas } from '../atoms/Canvas';
 import type { CanvasProps } from '../atoms/Canvas';
 import { Edge } from '../atoms/Edge';
 import { vvar } from '../tokens/contract';
+import { resolveLabelFont } from '../tokens/labelFont';
 
 export interface RequirementNodeSpec {
   id: string;
@@ -97,7 +98,7 @@ function ReqNode({ req }: ReqNodeProps) {
           y={y + HEADER_H + PAD + i * LINE_H + LINE_H / 2}
           textAnchor="start"
           dominantBaseline="central"
-          fontFamily={monoFont}
+          fontFamily={resolveLabelFont(line)}
           fontSize={9}
           fill={textColor}
           opacity={0.8}

@@ -4,6 +4,7 @@ import { Node } from '../atoms/Node';
 import { Edge } from '../atoms/Edge';
 import { NodeLabel } from '../atoms/NodeLabel';
 import { vvar } from '../tokens/contract';
+import { resolveLabelFont } from '../tokens/labelFont';
 
 export type UMLPackageDependencyKind = 'import' | 'access' | 'merge';
 
@@ -102,7 +103,7 @@ export function UMLPackageDiagram({
             y={my}
             textAnchor="middle"
             fontSize={9}
-            fontFamily={vvar('typography', 'monoFont')}
+            fontFamily={resolveLabelFont(stereotype)}
             style={{ fill: vvar('boundary', 'labelColor') }}
           >
             {stereotype}

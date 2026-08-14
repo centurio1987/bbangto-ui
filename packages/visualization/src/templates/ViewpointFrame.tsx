@@ -2,6 +2,7 @@ import { type ReactNode } from 'react';
 import { Canvas, type CanvasProps } from '../atoms/Canvas';
 import { Boundary } from '../atoms/Boundary';
 import { vvar } from '../tokens/contract';
+import { resolveLabelFont } from '../tokens/labelFont';
 import { parseViewBox } from '../geometry/layout';
 
 export interface ViewpointFrameProps extends Omit<CanvasProps, 'data' | 'children'> {
@@ -93,7 +94,7 @@ export function ViewpointFrame({
           ry={8}
           style={{ fill: vvar('palette', 'p2'), fillOpacity: 0.1, stroke, strokeWidth: 1.25 }}
         />
-        <text x={hx + PAD} y={hy + 18} fontSize={9.5} fontFamily={monoFont} style={{ fill: labelColor }}>
+        <text x={hx + PAD} y={hy + 18} fontSize={9.5} fontFamily={resolveLabelFont(frameLabel)} style={{ fill: labelColor }}>
           {frameLabel}
         </text>
         <text
@@ -140,7 +141,7 @@ export function ViewpointFrame({
             x={colConcernsX}
             y={hy + listTop + i * ROW}
             fontSize={10}
-            fontFamily={monoFont}
+            fontFamily={resolveLabelFont(c)}
             style={{ fill: stroke }}
           >
             {`• ${c}`}
@@ -153,7 +154,7 @@ export function ViewpointFrame({
             x={colStakeX}
             y={hy + listTop + i * ROW}
             fontSize={10}
-            fontFamily={monoFont}
+            fontFamily={resolveLabelFont(s)}
             style={{ fill: stroke }}
           >
             {`• ${s}`}
@@ -165,7 +166,7 @@ export function ViewpointFrame({
             x={colConcernsX}
             y={hy + listBottom + 14}
             fontSize={9.5}
-            fontFamily={monoFont}
+            fontFamily={resolveLabelFont(modelKinds.join(' · '))}
             style={{ fill: labelColor }}
           >
             {`Model kinds: ${modelKinds.join(' · ')}`}

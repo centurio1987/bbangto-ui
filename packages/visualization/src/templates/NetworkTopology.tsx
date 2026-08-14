@@ -4,6 +4,7 @@ import { Node } from '../atoms/Node';
 import { NodeLabel } from '../atoms/NodeLabel';
 import { Edge } from '../atoms/Edge';
 import { vvar } from '../tokens/contract';
+import { resolveLabelFont } from '../tokens/labelFont';
 import type { NodeShape } from '../geometry/shapes';
 
 export interface TopologyZone {
@@ -72,7 +73,7 @@ export function NetworkTopology({
             data-bbangto-viz-edge
             style={{ fill: 'none', strokeDasharray: '6 4' }}
           />
-          <text x={z.x} y={z.y - ZONE_PAD - 4} fontSize={11} fontWeight={700} fontFamily={vvar('typography', 'monoFont')} style={{ fill: vvar('boundary', 'labelColor') }}>
+          <text x={z.x} y={z.y - ZONE_PAD - 4} fontSize={11} fontWeight={700} fontFamily={resolveLabelFont(z.label)} style={{ fill: vvar('boundary', 'labelColor') }}>
             {z.label}
           </text>
         </g>

@@ -1,6 +1,7 @@
 import { type ReactNode } from 'react';
 import { Canvas, type CanvasProps } from '../atoms/Canvas';
 import { vvar } from '../tokens/contract';
+import { resolveLabelFont } from '../tokens/labelFont';
 import { parseViewBox } from '../geometry/layout';
 
 export interface PosterEditorialProps extends Omit<CanvasProps, 'data'> {
@@ -32,7 +33,7 @@ export function PosterEditorial({ data, viewBox, children, title = 'Poster', ...
       {/* 상단 규칙선 */}
       <path data-bbangto-viz-edge d={`M ${left} ${vbY + PAD} L ${right} ${vbY + PAD}`} style={{ fill: 'none', strokeWidth: 2 }} />
       {data.eyebrow && (
-        <text x={left} y={vbY + PAD + 26} fontSize={13} fontWeight={700} letterSpacing="0.18em" fontFamily={vvar('typography', 'monoFont')} style={{ fill: vvar('palette', 'p1') }}>
+        <text x={left} y={vbY + PAD + 26} fontSize={13} fontWeight={700} letterSpacing="0.18em" fontFamily={resolveLabelFont(data.eyebrow)} style={{ fill: vvar('palette', 'p1') }}>
           {data.eyebrow}
         </text>
       )}

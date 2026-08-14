@@ -1,6 +1,7 @@
 import { type ReactNode } from 'react';
 import { Canvas, type CanvasProps } from '../atoms/Canvas';
 import { vvar } from '../tokens/contract';
+import { resolveLabelFont } from '../tokens/labelFont';
 import { parseViewBox, distributeCenters } from '../geometry/layout';
 
 const PALETTE_KEYS = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8'] as const;
@@ -72,7 +73,7 @@ export function GitGraph({
         return (
           <g key={b.id} data-bbangto-viz-branch-lane data-bbangto-viz-branch-lane-id={b.id}>
             <path data-bbangto-viz-edge d={`M ${vbX + PAD.left} ${y} L ${vbX + vbW - PAD.right} ${y}`} style={{ fill: 'none', stroke: branchColor.get(b.id), strokeWidth: 2, opacity: 0.35 }} />
-            <text x={vbX + PAD.left - 10} y={y} textAnchor="end" dominantBaseline="central" fontSize={11} fontWeight={700} fontFamily={vvar('typography', 'monoFont')} style={{ fill: vvar('shape', 'stroke') }}>
+            <text x={vbX + PAD.left - 10} y={y} textAnchor="end" dominantBaseline="central" fontSize={11} fontWeight={700} fontFamily={resolveLabelFont(b.label)} style={{ fill: vvar('shape', 'stroke') }}>
               {b.label}
             </text>
           </g>
@@ -98,7 +99,7 @@ export function GitGraph({
           <g key={c.id} data-bbangto-viz-commit data-bbangto-viz-commit-id={c.id}>
             <circle cx={p.x} cy={p.y} r={7} style={{ fill: branchColor.get(c.branch) }} />
             {c.label && (
-              <text x={p.x} y={p.y - 12} textAnchor="middle" fontSize={10} fontFamily={vvar('typography', 'monoFont')} style={{ fill: vvar('shape', 'stroke') }}>
+              <text x={p.x} y={p.y - 12} textAnchor="middle" fontSize={10} fontFamily={resolveLabelFont(c.label)} style={{ fill: vvar('shape', 'stroke') }}>
                 {c.label}
               </text>
             )}

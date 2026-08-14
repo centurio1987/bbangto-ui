@@ -5,6 +5,7 @@ import { Edge } from '../atoms/Edge';
 import { NodeLabel } from '../atoms/NodeLabel';
 import { Lane } from '../atoms/Lane';
 import { vvar } from '../tokens/contract';
+import { resolveLabelFont } from '../tokens/labelFont';
 
 export type BPMNCollabEventKind = 'start' | 'end' | 'intermediate';
 export type BPMNCollabGatewayKind = 'exclusive' | 'parallel' | 'inclusive';
@@ -190,7 +191,7 @@ export function BPMNCollaborationDiagram({
             y={my}
             textAnchor="middle"
             fontSize={9}
-            fontFamily={vvar('typography', 'monoFont')}
+            fontFamily={resolveLabelFont(f.label)}
             style={{ fill: vvar('boundary', 'labelColor') }}
           >
             {f.label}

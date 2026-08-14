@@ -4,6 +4,7 @@ import type { CanvasProps } from '../atoms/Canvas';
 import { Node } from '../atoms/Node';
 import { NodeLabel } from '../atoms/NodeLabel';
 import { vvar } from '../tokens/contract';
+import { resolveLabelFont } from '../tokens/labelFont';
 
 export interface TimelineEventSpec {
   id: string;
@@ -59,7 +60,6 @@ export function TimelineDiagram({
   })();
 
   const stroke = vvar('edge', 'stroke');
-  const monoFont = vvar('typography', 'monoFont');
   const textColor = vvar('boundary', 'labelColor');
 
   return (
@@ -124,7 +124,7 @@ export function TimelineDiagram({
                 y={axisY + 16}
                 textAnchor="middle"
                 dominantBaseline="central"
-                fontFamily={monoFont}
+                fontFamily={resolveLabelFont(e.date)}
                 fontSize={9}
                 fill={textColor}
               >

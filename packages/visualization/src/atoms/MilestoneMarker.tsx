@@ -1,5 +1,6 @@
 import React from 'react';
 import { vvar } from '../tokens/contract';
+import { resolveLabelFont } from '../tokens/labelFont';
 
 export interface MilestoneMarkerProps {
   /** 축 위의 지점. */
@@ -39,7 +40,7 @@ export const MilestoneMarker = React.forwardRef<SVGGElement, MilestoneMarkerProp
           dominantBaseline="central"
           fontSize={11}
           fontWeight={700}
-          fontFamily={vvar('typography', 'monoFont')}
+          fontFamily={resolveLabelFont(period)}
           style={{ fill: vvar('canvas', 'bg') }}
         >
           {period}

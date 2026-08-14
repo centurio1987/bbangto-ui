@@ -2,6 +2,7 @@ import { type ReactNode } from 'react';
 import { Canvas, type CanvasProps } from '../atoms/Canvas';
 import { Axis } from '../atoms/Axis';
 import { vvar } from '../tokens/contract';
+import { resolveLabelFont } from '../tokens/labelFont';
 import { parseViewBox } from '../geometry/layout';
 import { linearScale } from '../geometry/scale';
 
@@ -118,12 +119,12 @@ export function QuadrantChart({
       {(data.xAxisLabel || data.yAxisLabel) && (
         <>
           {data.xAxisLabel && (
-            <text x={right} y={midY - 6} textAnchor="end" fontSize={11} fontStyle="italic" fontFamily={vvar('typography', 'monoFont')} style={{ fill: vvar('edge', 'stroke') }}>
+            <text x={right} y={midY - 6} textAnchor="end" fontSize={11} fontStyle="italic" fontFamily={resolveLabelFont(data.xAxisLabel)} style={{ fill: vvar('edge', 'stroke') }}>
               {data.xAxisLabel} →
             </text>
           )}
           {data.yAxisLabel && (
-            <text x={midX + 6} y={top} fontSize={11} fontStyle="italic" fontFamily={vvar('typography', 'monoFont')} style={{ fill: vvar('edge', 'stroke') }}>
+            <text x={midX + 6} y={top} fontSize={11} fontStyle="italic" fontFamily={resolveLabelFont(data.yAxisLabel)} style={{ fill: vvar('edge', 'stroke') }}>
               ↑ {data.yAxisLabel}
             </text>
           )}

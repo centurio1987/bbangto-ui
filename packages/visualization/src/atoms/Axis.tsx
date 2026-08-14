@@ -1,5 +1,6 @@
 import React from 'react';
 import { vvar } from '../tokens/contract';
+import { resolveLabelFont } from '../tokens/labelFont';
 
 export interface AxisTick {
   /** 축 주방향 좌표(x축이면 x, y축이면 y). 호출부가 scale로 계산해 넘긴다. */
@@ -33,7 +34,6 @@ export const Axis = React.forwardRef<SVGGElement, AxisProps>(
     const isX = orientation === 'x';
     const domainD = isX ? `M ${x} ${y} L ${x + length} ${y}` : `M ${x} ${y} L ${x} ${y + length}`;
     const labelFill = vvar('edge', 'stroke');
-    const labelFont = vvar('typography', 'monoFont');
 
     return (
       <g ref={ref} data-bbangto-viz-axis data-bbangto-viz-axis-orientation={orientation}>
@@ -53,7 +53,7 @@ export const Axis = React.forwardRef<SVGGElement, AxisProps>(
                   textAnchor={isX ? 'middle' : 'end'}
                   dominantBaseline={isX ? 'hanging' : 'central'}
                   fontSize={labelFontSize}
-                  fontFamily={labelFont}
+                  fontFamily={resolveLabelFont(String(t.label))}
                   style={{ fill: labelFill }}
                 >
                   {t.label}

@@ -1,5 +1,11 @@
 export type { VisualizationFoundation, NodeSemanticKind, NodeSemanticStyle } from './tokens/types';
-export { vvar, visualizationFoundationToStyleObject, baseVisualizationFoundation } from './tokens';
+export {
+  vvar,
+  visualizationFoundationToStyleObject,
+  baseVisualizationFoundation,
+  resolveLabelFont,
+  hasNonAsciiScript,
+} from './tokens';
 export type {
   VisualizationStyleGuide,
   VizWrapperComponents,

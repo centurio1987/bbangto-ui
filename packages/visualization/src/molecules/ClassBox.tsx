@@ -1,5 +1,6 @@
 import React, { type ReactNode } from 'react';
 import { vvar } from '../tokens/contract';
+import { resolveLabelFont } from '../tokens/labelFont';
 
 export interface ClassBoxProps {
   id?: string;
@@ -41,7 +42,6 @@ export const ClassBox = React.forwardRef<SVGGElement, ClassBoxProps>(
     ref,
   ) => {
     const effectiveStroke = stroke ?? vvar('edge', 'stroke');
-    const monoFont = vvar('typography', 'monoFont');
     const titleFont = vvar('typography', 'titleFont');
     const textColor = vvar('edge', 'stroke');
 
@@ -80,7 +80,7 @@ export const ClassBox = React.forwardRef<SVGGElement, ClassBoxProps>(
               y={y + nameH2 / 2 - 9}
               textAnchor="middle"
               dominantBaseline="central"
-              fontFamily={monoFont}
+              fontFamily={resolveLabelFont(stereotype)}
               fontSize={9}
               style={{ fill: textColor }}
             >
@@ -113,7 +113,7 @@ export const ClassBox = React.forwardRef<SVGGElement, ClassBoxProps>(
               y={attrY + PAD + i * ROW_H + ROW_H / 2}
               textAnchor="start"
               dominantBaseline="central"
-              fontFamily={monoFont}
+              fontFamily={resolveLabelFont(attr)}
               fontSize={10}
               style={{ fill: textColor }}
             >
@@ -134,7 +134,7 @@ export const ClassBox = React.forwardRef<SVGGElement, ClassBoxProps>(
               y={methodY + PAD + i * ROW_H + ROW_H / 2}
               textAnchor="start"
               dominantBaseline="central"
-              fontFamily={monoFont}
+              fontFamily={resolveLabelFont(method)}
               fontSize={10}
               style={{ fill: textColor }}
             >

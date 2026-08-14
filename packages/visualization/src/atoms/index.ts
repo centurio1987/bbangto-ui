@@ -20,7 +20,7 @@ export { Tag } from './Tag';
 export type { TagProps } from './Tag';
 
 export { Boundary } from './Boundary';
-export type { BoundaryProps, BoundaryVariant } from './Boundary';
+export type { BoundaryProps, BoundaryVariant, BoundaryLabelPlacement } from './Boundary';
 
 export { Lane } from './Lane';
 export type { LaneProps, LaneOrientation } from './Lane';

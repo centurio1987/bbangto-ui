@@ -1,5 +1,6 @@
 import React from 'react';
 import { vvar } from '../tokens/contract';
+import { resolveLabelFont } from '../tokens/labelFont';
 
 export type LaneOrientation = 'horizontal' | 'vertical';
 
@@ -42,7 +43,7 @@ export const Lane = React.forwardRef<SVGGElement, LaneProps>(
   ) => {
     const effectiveStroke = stroke ?? vvar('boundary', 'stroke');
     const effectiveLabelColor = labelColor ?? vvar('boundary', 'labelColor');
-    const effectiveFont = labelFontFamily ?? vvar('typography', 'monoFont');
+    const effectiveFont = resolveLabelFont(label, labelFontFamily);
 
     const isH = orientation === 'horizontal';
     const hw = isH ? headerWidth : width;
