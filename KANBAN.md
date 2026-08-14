@@ -9,6 +9,10 @@
 ## 할 일
 
 ## 진행 중
+
+## 검토
+- `KAN-042-JZ2ZBT` bbangto-ui-vizualization을 사용하는 클라이언트가 문제를 제기했다. "/Users/centurio/resume/docs/viz-upstream-issues.md" 이 레포트를 보고 문제를 진단하고 문제 해결 전략 레포트를 작성하고, wbs를 작성하여 이 카드를 수행하는 agent가 사용할 수 있도록 해라.ㄴ — 생성:유저 · 최종:ai · 갱신:2026-08-14
+  - 실행 문서: KANBAN.cards/KAN-042-JZ2ZBT.md (9/9 · 최근 08-14)
 - `KAN-043-2JM72N` 상류 리포트 I 계열(I1~I7) 해소 — 유형 선택 정보 도달 경로 — 생성:ai · 최종:ai · 갱신:2026-08-14
   - 메모: P 계열(KAN-042) 후속. 87종 콘텐츠는 있으나 소비자가 도달 못 하는 경로 결함 7건.
   - 실행 문서: KANBAN.cards/KAN-043-2JM72N.md (9/9 · 최근 08-14)
@@ -16,10 +20,6 @@
     ```text
     bbangto-ui-vizualization 패키지를 사용하는 사용자가 피드백 레포트를 작성했다. (/Users/centurio/resume/docs/viz-upstream-issues.md) P계열은 반영했으므로, I 계열을 검토해서 개선 해라
     ```
-
-## 검토
-- `KAN-042-JZ2ZBT` bbangto-ui-vizualization을 사용하는 클라이언트가 문제를 제기했다. "/Users/centurio/resume/docs/viz-upstream-issues.md" 이 레포트를 보고 문제를 진단하고 문제 해결 전략 레포트를 작성하고, wbs를 작성하여 이 카드를 수행하는 agent가 사용할 수 있도록 해라.ㄴ — 생성:유저 · 최종:ai · 갱신:2026-08-14
-  - 실행 문서: KANBAN.cards/KAN-042-JZ2ZBT.md (9/9 · 최근 08-14)
 
 ## 완료
 - `KAN-020` visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현 — 생성:유저 · 최종:유저 · 갱신:2026-08-14
