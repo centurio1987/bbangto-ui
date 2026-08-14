@@ -15,7 +15,8 @@
   },
   "files": [
     "dist",
-    "catalog.manifest.json"
+    "catalog.manifest.json",
+    "README.md"
   ],
   "scripts": {
     "gen:manifest": "tsx scripts/genVizManifest.ts",

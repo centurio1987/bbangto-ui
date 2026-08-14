@@ -6,9 +6,13 @@
  * 스타일(paint) 축의 `StyleGuideMeta`(tokens)를 **유형 축으로 미러링**한 것으로, 통제 어휘(const union)를
  * SSOT로 강제해 87 유형 저작 간 일관성을 유지한다.
  *
- * SSOT 계보: 사람용 문서 `visualization-type-inventory.md`(VT-### 90행)의 행별 "정의·대표용도·프리미티브·
- * 데이터형태"를 코드 메타로 승격한 것. registry가 코드 SSOT, `type.manifest.json`이 그 투영(파일 읽기용).
- * 전략은 `TYPE_METADATA_STRATEGY.md` 참고.
+ * SSOT 계보: 사람용 문서 `visualization-type-inventory.md`의 행별 "정의·대표용도·프리미티브·데이터형태"를
+ * 코드 메타로 승격한 것. registry가 코드 SSOT, `type.manifest.json`이 그 투영(파일 읽기용).
+ * 전략은 `TYPE_METADATA_STRATEGY.md` 참고 — **두 문서 모두 패키지에 동봉된다**(`package.json` `files`).
+ *
+ * 개수가 다른 이유: 인벤토리의 VT 행은 **90**, 레지스트리·매니페스트는 **87**이다. 차이 3은 ⛔ 제품 범위 밖으로
+ * 판정돼 컴포넌트가 없는 행(VT-520 Data Table · VT-610 Infographic Resume · VT-611 Scrollytelling)이다.
+ * 누락이 아니라 의도적 제외이며, 사유는 인벤토리에 행별로 적혀 있다.
  */
 
 // ─────────────────────────────────────────────────────────────────────────────

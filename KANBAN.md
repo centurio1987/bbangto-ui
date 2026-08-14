@@ -11,7 +11,7 @@
 ## 진행 중
 - `KAN-043-2JM72N` 상류 리포트 I 계열(I1~I7) 해소 — 유형 선택 정보 도달 경로 — 생성:ai · 최종:ai · 갱신:2026-08-14
   - 메모: P 계열(KAN-042) 후속. 87종 콘텐츠는 있으나 소비자가 도달 못 하는 경로 결함 7건.
-  - 실행 문서: KANBAN.cards/KAN-043-2JM72N.md (5/9 · 최근 08-14)
+  - 실행 문서: KANBAN.cards/KAN-043-2JM72N.md (7/9 · 최근 08-14)
   - 원문:
     ```text
     bbangto-ui-vizualization 패키지를 사용하는 사용자가 피드백 레포트를 작성했다. (/Users/centurio/resume/docs/viz-upstream-issues.md) P계열은 반영했으므로, I 계열을 검토해서 개선 해라

@@ -21,7 +21,8 @@
   "files": [
     "dist",
     "src/catalog.json",
-    "foundation.manifest.json"
+    "foundation.manifest.json",
+    "README.md"
   ],
   "scripts": {
     "build": "tsup",
