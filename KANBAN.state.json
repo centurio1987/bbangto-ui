@@ -1,6 +1,6 @@
 {
-  "next_id": 43,
-  "next_seq": 124,
+  "next_id": 44,
+  "next_seq": 125,
   "cards": {
     "KAN-001": {
       "col": "done",
@@ -505,9 +505,22 @@
       "title_hash": "ed3e8d0742d3b19912498906476bddac8f1a1699",
       "memo_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    },
+    "KAN-043-2JM72N": {
+      "col": "doing",
+      "title": "상류 리포트 I 계열(I1~I7) 해소 — 유형 선택 정보 도달 경로",
+      "memo": "P 계열(KAN-042) 후속. 87종 콘텐츠는 있으나 소비자가 도달 못 하는 경로 결함 7건.",
+      "verbatim": "bbangto-ui-vizualization 패키지를 사용하는 사용자가 피드백 레포트를 작성했다. (/Users/centurio/resume/docs/viz-upstream-issues.md) P계열은 반영했으므로, I 계열을 검토해서 개선 해라",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-08-14",
+      "title_hash": "1868f83bfc3252642775e831355143ecc7080610",
+      "memo_hash": "bd7e6eecdc7fb3d4e73bd27a87d2a654f637ae6c",
+      "verbatim_hash": "2e752e1c7bf53e1c3d5de3ec3a6f5e30574760e4"
     }
   },
   "order": [
+    "KAN-042-JZ2ZBT",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -549,9 +562,22 @@
     "KAN-035",
     "KAN-041",
     "KAN-036",
-    "KAN-042-JZ2ZBT"
+    "KAN-043-2JM72N"
   ],
   "recent": [
+    {
+      "seq": 124,
+      "t": "2026-08-14T15:00",
+      "a": "ai",
+      "id": "KAN-043-2JM72N",
+      "op": "create",
+      "w": "S7030N",
+      "col": "doing",
+      "title": "상류 리포트 I 계열(I1~I7) 해소 — 유형 선택 정보 도달 경로",
+      "memo": "P 계열(KAN-042) 후속. 87종 콘텐츠는 있으나 소비자가 도달 못 하는 경로 결함 7건.",
+      "verbatim": "bbangto-ui-vizualization 패키지를 사용하는 사용자가 피드백 레포트를 작성했다. (/Users/centurio/resume/docs/viz-upstream-issues.md) P계열은 반영했으므로, I 계열을 검토해서 개선 해라",
+      "parent": null
+    },
     {
       "seq": 123,
       "t": "2026-08-14T14:17",
@@ -1037,16 +1063,6 @@
       "op": "move",
       "from": "backlog",
       "to": "done"
-    },
-    {
-      "seq": 74,
-      "t": "2026-07-24T14:11",
-      "a": "ai",
-      "id": "KAN-030",
-      "op": "edit",
-      "field": "memo",
-      "before": "viz-terminal-ascii. Tier A. 다크 콘솔(#0B0F0A)·전면 모노스페이스·포스포 그린(#3DDC84)·박스드로잉 보더·커서 액센트, colorway default/amber. 스펙: viz-style-expansion.md §4-d. dev-tools 다이어그램 적합.",
-      "after": "완료(2026-07-24): Terminal_Ascii_01 (slug terminal-ascii-01) 구현 — 다크 콘솔 #0B0F0A + 포스포 그린 #3DDC84, titleFont===monoFont 전면 mono, 무채움 그린 박스, default/amber colorway. contrastIntent aaa (최악 감사 10.09). wrapperExtraPlay=mono 시그니처 3중 검증. family viz-terminal-ascii. 4게이트 green."
     }
   ]
 }
