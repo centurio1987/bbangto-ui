@@ -21,6 +21,8 @@ import {
  * "이 라이브러리로 그릴 수 있는 것"의 전부로 읽히는 오독이 실제로 일어났다(상류 리포트 I7 — 어느 소비자는
  * 이 화면을 PDF로 구워 유형 카탈로그 정본으로 삼았고, 87종 중 4종만 쓰게 됐다).
  * 그래서 렌더 하단에 역할을 밝히는 캡션을 기본으로 붙인다(`note: false`로 끌 수 있다).
+ * 캡션에 스코프 패키지명(`@centurio1987/…`)은 쓰지 않는다 — 쇼케이스는 공개 산출물이고 개인식별자는
+ * 금지 토큰이다(`_vizCatalogStory.tsx`의 `expectNoForbiddenTokens`가 게이트한다).
  */
 export interface VizShowcaseConfig {
   displayName: string;
@@ -72,8 +74,8 @@ function ScopeNote() {
       }}
     >
       이 쇼케이스는 <strong>paint(스타일) 축 데모</strong>입니다 — 그릴 수 있는 그림의 목록이 아닙니다.
-      유형은 87종이며 정본은 <code>@centurio1987/bbangto-ui-visualization</code>의{' '}
-      <code>type.manifest.json</code> / <code>selectVizTypes()</code>입니다.
+      유형은 87종이며 정본은 시각화 패키지의 <code>type.manifest.json</code> /{' '}
+      <code>selectVizTypes()</code>입니다.
     </p>
   );
 }
