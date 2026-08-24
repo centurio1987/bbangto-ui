@@ -64,7 +64,7 @@ scope: KANBAN/cards/KAN-044-3KYT2Q.md, KANBAN/batches/KAN-044-3KYT2Q.*, KANBAN/r
 - [x] `S2` inbound 참조 그래프 — 각 문서를 부르는 곳을 레포 전역에서 찾는다(코드·md·`CLAUDE.md`·스킬·`package.json`·스토리). 완료 기준: 문서마다 참조 수와 참조원 경로가 붙고, 참조 0건 목록이 따로 나온다
 - [x] `S3` 판정 규칙 확정 + 1차 분류 — 존치/통합/이관/폐기 4판정의 결정 규칙을 먼저 글로 박고, 그 규칙으로 판정 모집단 전량을 분류한다. 완료 기준: 전량에 판정 1개 + 근거 1줄. 규칙으로 안 갈리는 건은 `보류`로 표시하고 사유를 남긴다
 - [x] `S4` 통합·폐기 후보 원문 대조 — 판정이 `통합`·`폐기`·`보류`인 건만 파일을 실제로 열어 중복·유효성을 확인한다. 최소 대상: 루트 5종(ASSET_INTEGRATION_PLAN·RELEASE_PLAN·WAVE0_REPORT·METADATA_COVERAGE_AUDIT·DESIGN_SYSTEM_GUIDE)과 `packages/core/catalog/*.audit.md` 38개 표본. 완료 기준: 건마다 "무엇이 어디로" 한 줄, `보류` 0건
-- [ ] `S5` 정리 실행 계획 — 후속 카드 분해안(카드마다 범위·순서·되돌리기 방법)과 리스크(참조 깨짐·CLAUDE.md 지시 유실). 완료 기준: 후속 카드 후보가 범위와 함께 목록으로 나오고, 참조가 걸린 문서마다 "지우기 전에 고칠 곳"이 적힌다
+- [x] `S5` 정리 실행 계획 — 후속 카드 분해안(카드마다 범위·순서·되돌리기 방법)과 리스크(참조 깨짐·CLAUDE.md 지시 유실). 완료 기준: 후속 카드 후보가 범위와 함께 목록으로 나오고, 참조가 걸린 문서마다 "지우기 전에 고칠 곳"이 적힌다
 - [ ] `S6` 계획 리포트 발행 — `report-data` → (authoring-kit 있으면 집필) → `report.py` 렌더 → Artifact 발행. 완료 기준: 단일 자립 HTML이 외부 요청 0건으로 뜨고 링크가 유저에게 간다
 
 ## 검증
@@ -106,3 +106,5 @@ scope: KANBAN/cards/KAN-044-3KYT2Q.md, KANBAN/batches/KAN-044-3KYT2Q.*, KANBAN/r
 - 2026-08-25T00:26 · s:af4d5613 · S4 done — 통합·폐기 후보 원문 대조 완료. 겹치는 짝 10쌍(A~J) 줄 번호까지 확정. 실측 불일치 12건 발견 — CLAUDE.md·QUALITY_CHECKLIST·DESIGN_SYSTEM_GUIDE 의 packages/theme-* 4종 부재, README 수치 3건, RELEASE_PLAN 버전표 7행 전부 지나감, COMPONENT_CATALOG 43↔44 및 없는 audit 7종 지목, CHANGELOG 6개의 files 편입 오기재
 - 2026-08-25T00:26 · s:af4d5613 · S3 doing — 착수
 - 2026-08-25T00:27 · s:af4d5613 · S3 done — 판정 79/79 완료, 보류 0. 존치 27(그중 겹침정리·실측수정 8) · 통합 49(실작업 6건, 44는 audit 묶음 1건) · 이관 0 · 폐기 3(RELEASE_PLAN·sample_design/DESIGN-amber·apps/storybook/README, 전부 참조 0). 규칙 2번을 전체통합/부분통합으로 가르는 보정으로 보류 0 달성
+- 2026-08-25T00:28 · s:af4d5613 · S5 doing — 착수
+- 2026-08-25T00:30 · s:af4d5613 · S5 done — 후속 카드 4장(A 폐기집행 / B core계열통합 / C viz계열통합 / D 규율문서 실측정합) 분해. 루트 독립성 판정: A·B·C 병렬, B→D 직렬 중재 필요(DESIGN_SYSTEM_GUIDE 겹침), KAN-045 와 겹침 0. 리스크 7건에 막는 법 명시. 정리 후 모집단 79→35

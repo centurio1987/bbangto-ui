@@ -281,3 +281,101 @@ S1 규칙 2번 「`D` 가 있으면 통합」을 그대로 쓰면 **일부만 �
 - **`KANBAN.md`·`.kanban/log.md`·`KANBAN/**`** — manage-kanban 스킬 소유
 - **`README.md` 본문** — `KAN-045` 소관
 - **실제 삭제·통합 커밋** — 후속 카드의 몫(S5)
+
+---
+
+# S5 산출물 — 정리 실행 계획
+
+**이 카드는 아무것도 지우지 않는다.** 아래는 실행 지시가 아니라 **후속 카드 분해안**이고, 실제 등록은
+유저 승인 뒤에 `add` 로 한다.
+
+## 13. 후속 카드 후보 4장
+
+루트 카드는 상호 독립이어야 하므로 **`scope` 가 겹치지 않게** 갈랐다. 판정 79건이 넷으로 전부 들어간다.
+
+### A · 폐기 3건 집행
+
+| | |
+|---|---|
+| `scope` | `RELEASE_PLAN.md`, `sample_design/**`, `apps/storybook/README.md` |
+| 하는 일 | 폐기 판정 3건을 실제로 지운다. `sample_design/` 은 디렉터리째 사라진다 |
+| 선행 수정 | **없다** — 세 파일 전부 inbound 참조 0건 |
+| 되돌리기 | `git revert` 한 번. 파일 삭제만이라 충돌 지점이 없다 |
+| 크기 | work 1~2개. 4.7 「인스턴트 예외」 대상 |
+| 갈림길 | `apps/storybook/README.md` 는 **지우는 대신 Storybook 실행법으로 재작성**할 수 있다. 지금 것은 Vite 스톡 템플릿 원문이라 어느 쪽이든 현재 내용은 남지 않는다 |
+
+### B · core 카탈로그 계열 통합
+
+| | |
+|---|---|
+| `scope` | `packages/core/catalog/**`, `packages/core/COMPONENT_CATALOG.md`, `packages/core/design-trends-2020-2026.md`, `packages/core/style-guide-catalog.md`, `packages/style-guide-catalog/src/index.ts`, `ASSET_INTEGRATION_PLAN.md`, `WAVE0_REPORT.md` |
+| 하는 일 | ① audit 44 → `SATURATION_AUDIT.md` 1개로 접기 ② `ASSET_INTEGRATION_PLAN`·`WAVE0_REPORT` 를 `COMPONENT_CATALOG` 로 통합(토큰 갭 감사만 살림) ③ `design-trends-2020-2026` 을 `style-guide-catalog.md` 출처 절로 통합 ④ `COMPONENT_CATALOG` 결함 2건 수정(43→44, 없는 audit 7종 문장) |
+| 선행 수정 | `COMPONENT_CATALOG.md:181,234,248` · `packages/style-guide-catalog/src/index.ts:46`(주석) · `style-guide-catalog.md:94` |
+| **위험** | **`packages/core/style-guide-catalog.md` 38–92줄은 자동 생성 구간이다.** 그 줄을 건드리면 `trendTable.test.ts` 가 red 가 된다. 출처 절은 그 밖이므로 안전하지만, 파일을 **이동·개명·삭제하면** 테스트가 `readFileSync` 에서 깨진다 |
+| 되돌리기 | 44개 파일 접기가 한 커밋이면 revert 로 복원된다. work 단위로 태그를 단다 |
+| 크기 | work 4개. 배치 1~2개 |
+
+### C · visualization 계열 통합
+
+| | |
+|---|---|
+| `scope` | `packages/visualization/**`, `packages/visualization-style-guide-catalog/README.md`, `packages/style-guide-catalog/METADATA_STRATEGY.md` |
+| 하는 일 | ① `PLAN.md` 통합 — §C-2 공통 계약을 `viz/README.md` 로 옮기고 **`type-inventory.md:13` 의 "구현 스펙 SSOT" 지위도 함께 이동** ② `visualization-catalog.md` 통합 — §4 스타일 스펙을 `style-classification.md` 로 단일화 ③ 두 축 직교 표 중복 해소(`viz/README` ↔ `viz-sg-catalog/README` 중 한쪽을 링크로) ④ `METADATA_STRATEGY.md` §7 롤아웃 표 stale 수정(KAN-026·027) |
+| 선행 수정 | `type-inventory.md:12,13,14,29,30,343,369` · `style-classification.md:4` · `viz/README.md:128` |
+| **위험** | `visualization-catalog.md` 는 참조가 11건으로 통합 대상 중 가장 많다. **`type-inventory.md` 만 5곳에서 가리킨다** — 링크를 한 번에 다 고치지 않으면 SSOT 체인이 끊긴다 |
+| 되돌리기 | 문서 편집만이라 revert 안전 |
+| 크기 | work 4개. 배치 1~2개 |
+
+### D · 규율 문서 실측 정합 (B 의 **후행**)
+
+| | |
+|---|---|
+| `scope` | `CLAUDE.md`, `QUALITY_CHECKLIST.md`, `DESIGN_SYSTEM_GUIDE.md`, `_templates/**`, `packages/core/MOTION_QUALITY_CHECKLIST.md`, `packages/core/src/motion/README.md`, `packages/core/motion-catalog.md`, `METADATA_COVERAGE_AUDIT.md`, `packages/foundations/FOUNDATION_METADATA_STRATEGY.md` |
+| 하는 일 | ① `packages/theme-*` 4종 부재를 3문서에서 일괄 수정(`CLAUDE.md:56-63`·`QUALITY_CHECKLIST.md:59-62,15`·`DESIGN_SYSTEM_GUIDE.md:170`) ② `_templates` drift 2건(5개 테마 표기·Wave 어휘·Storybook title 규약) ③ 모션 워크플로 **5중 기재** 단일화 ④ `METADATA_COVERAGE_AUDIT` §2-2 → `FOUNDATION_METADATA_STRATEGY` §7 부분 통합 |
+| 선행 수정 | `DESIGN_SYSTEM_GUIDE.md:182` — **B 가 `ASSET_INTEGRATION_PLAN.md` 를 없앤 뒤에 고쳐야 한다** |
+| 되돌리기 | 문서 편집만. 다만 `CLAUDE.md` 는 에이전트 규율이라 잘못 고치면 이후 모든 작업에 번진다 — work 단위로 태그 |
+| 크기 | work 4개. 배치 1~2개 |
+
+## 14. 루트 독립성 판정
+
+| 쌍 | `scope` 겹침 | 처리 |
+|---|---|---|
+| A ↔ B, A ↔ C, A ↔ D | 없음 | 병렬 |
+| B ↔ C | 없음 — B 는 `packages/style-guide-catalog/src/index.ts`, C 는 같은 패키지의 `METADATA_STRATEGY.md`. 다른 파일 | 병렬 |
+| C ↔ D | 없음 | 병렬 |
+| **B ↔ D** | **`DESIGN_SYSTEM_GUIDE.md`** — B 는 :182(`ASSET_INTEGRATION_PLAN` 링크 제거), D 는 :170(`packages/theme-*`) | **직렬 중재 · B 선행** |
+| A~D ↔ **`KAN-045`**(README 재작성) | **없음** — `README.md` 를 건드리는 카드가 A~D 에 하나도 없다 | 병렬 |
+
+**B ↔ D 를 직렬로 두는 이유**: 줄이 달라 git 병합으로는 붙지만, D 가 먼저 돌면 :182 가 아직 살아 있는
+`ASSET_INTEGRATION_PLAN` 을 가리켜 고칠 것이 없고, B 가 나중에 그 파일을 없애면 **링크가 깨진 채로 남는다.**
+같은 이유로 `scope` 를 갈라 겹침을 없애는 「스코프 조정」은 안 된다 — `packages/theme-*` 수정 3건은 한 클래스라
+쪼개면 같은 지적이 두 카드로 갈린다.
+
+```
+python3 <스킬>/scripts/kanban.py dep-serialize <root> --pair <B>,<D> --first <B> \
+    --reason "DESIGN_SYSTEM_GUIDE.md 를 둘 다 고친다. B 가 ASSET_INTEGRATION_PLAN 을 없애야 D 가 :182 링크를 고칠 수 있고, 순서가 뒤면 깨진 링크가 남는다"
+```
+
+## 15. 리스크 — 지우면 깨지는 자리
+
+| 위험 | 어디 | 막는 법 |
+|---|---|---|
+| **CI red** | `packages/core/style-guide-catalog.md` 를 이동·개명·삭제하면 `packages/style-guide-catalog/src/trendTable.test.ts` 가 `readFileSync` 에서 깨진다. 38–92줄 수기 편집도 sync 테스트가 red | B 에서 이 파일은 **출처 절만** 손댄다. 파일 자체는 존치(동결) |
+| **코드 주석 고아** | `blocks/index.ts:5`·`patterns/index.ts:5` → `DESIGN_SYSTEM_GUIDE.md` · `styleGuideMeta.ts:18,31` → `style-classification.md` · `typeMeta/registry.ts:4` → `type-inventory.md` | 셋 다 **존치** 판정이라 문제 없음. 통합 대상이 이 목록에 없는지 매번 대조 |
+| **npm 배포물 유실** | `packages/visualization/package.json` `files` 가 `visualization-type-inventory.md`·`TYPE_METADATA_STRATEGY.md` 를 포함 | 둘 다 존치 판정 |
+| **SSOT 체인 단절** | C 에서 `PLAN.md`·`visualization-catalog.md` 를 없앨 때 `type-inventory.md` 의 5개 링크를 한 번에 안 고치면 SSOT 지목이 허공을 가리킨다 | C 의 완료 기준에 "`type-inventory.md` grep 결과 0건" 을 넣는다 |
+| **기각 사유 소실** | audit 44개를 폐기하면 `absorbed`/`noise`/`dropped` 후보의 기각 논거가 영구 소실된다 | 폐기가 아니라 **통합**으로 판정한 이유. 접을 때 Tally 전량을 옮긴다 |
+| **동결 문서 오편집** | `ORDER.md` 는 봉인 마커가 있고 `visualization-type-inventory.md:376` 이 "편집 금지"라 적는다 | A~D 어느 `scope` 에도 `ORDER.md` 를 넣지 않았다 |
+| **CLAUDE.md 오수정 번짐** | D 가 에이전트 규율을 고친다 | work 단위 태그. 게이트 명령 4종은 손대지 않고 구조도·경로만 고친다 |
+
+## 16. 정리 후 문서 수
+
+| | 지금 | 정리 후 |
+|---|---:|---:|
+| 판정 모집단 | 79 | **35** |
+| 그중 `packages/core/catalog/*.audit.md` | 44 | 1 |
+| 루트 마크다운(기계 소유 제외) | 9 | 6 |
+| 폐기 | — | 3 |
+
+44 → 1 이 감소분의 대부분이다. **루트는 9 → 6** 이고, 남는 6개는 전부 계약 문서이거나
+유일본(`CLAUDE.md`·`QUALITY_CHECKLIST.md`·`README.md`·`DESIGN_SYSTEM_GUIDE.md`·`METADATA_COVERAGE_AUDIT.md`·`ORDER.md`)이다.
