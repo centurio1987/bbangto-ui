@@ -6,7 +6,7 @@ branch: main
 worktree: /Users/centurio/bbangto-ui
 base: ab1a408
 merged: 649aaaa
-status: 검토 대기
+status: 승인
 ---
 
 # KAN-042-JZ2ZBT 검토 요청 — bbangto-ui-vizualization을 사용하는 클라이언트가 문제를 제기했다. "/Users/centurio/resume/docs/viz-upstream-issues.md" 이 레포트를 보고 문제를 진단하고 문제 해결 전략 레포트를 작성하고, wbs를 작성하여 이 카드를 수행하는 agent가 사용할 수 있도록 해라.ㄴ
@@ -142,24 +142,30 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-042-JZ2ZBT --add
 **전체 승인은 살아있는 항목이 전부 승인일 때만 섭니다**(철회는 분모에서 빠집니다). 하나라도
 반려·추가 의견·미정이면 4항의 전체 승인도 `→ 완료` 이동도 종료코드 14로 거부됩니다.
 
-- [ ] 이미 릴리스까지 나간 작업을 지금 소급 승인해도 되는가 — 검토서 없이 검토 컬럼에 10일 서 있었고 그 위에 후속 카드가 쌓였습니다
+- [x] 이미 릴리스까지 나간 작업을 지금 소급 승인해도 되는가 — 검토서 없이 검토 컬럼에 10일 서 있었고 그 위에 후속 카드가 쌓였습니다
     - **상세** — 검토 이동 기록은 .kanban/log.md:10 (#123 2026-08-14 14:17 · 검토로 이동)이고, 그 뒤 후속 카드 KAN-043 이 이 카드의 마지막 커밋 649aaaa 위에서 시작해 릴리스까지 갔습니다(.kanban/log.md:8). 즉 이 승인은 이미 npm 에 배포된 것을 사후 확인하는 것입니다
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 승인 · 유저 · 2026-08-24
 
     > **추가 의견** — _아직 없습니다._
 
-- [ ] 브랜치 규율을 못 지킨 채 main 에서 수행된 것을 이대로 닫아도 되는가
+- [x] 브랜치 규율을 못 지킨 채 main 에서 수행된 것을 이대로 닫아도 되는가
     - **상세** — 규율 원문: /Users/centurio/.claude/skills/manage-kanban/SKILL.md 「1.5 브랜치 규율」 — 루트 카드 하나 = 브랜치 하나입니다. 그러나 git branch -a 에 KAN-042-JZ2ZBT 브랜치가 없고 커밋 ad97f91·649aaaa 가 main 에 직접 쌓였습니다. 지금 되돌릴 방법은 없고, 남는 선택은 이 사실을 기록에 남기고 닫을지입니다
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 승인 · 유저 · 2026-08-24
 
     > **추가 의견** — _아직 없습니다._
 
-- [ ] 상류 이슈 4건 해소가 클라이언트 리포트의 요구를 실제로 충족하는가 — 클라이언트 재확인은 안 받았습니다
+- [x] 상류 이슈 4건 해소가 클라이언트 리포트의 요구를 실제로 충족하는가 — 클라이언트 재확인은 안 받았습니다
     - **상세** — P1~P4 는 클라이언트가 원 리포트에서 매긴 이슈 번호이고 각각 축 정렬 화살촉·콘텐츠 박스·경계 라벨·라벨 서체 결함입니다. 원문: /Users/centurio/resume/docs/viz-upstream-issues.md. 해소 코드는 packages/visualization/src/geometry/shapes.ts:1 과 routing.ts:1 이고 신규 테스트는 shapes.test.ts(194행)·routing.test.ts(198행)입니다
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 승인 · 유저 · 2026-08-24
 
     > **추가 의견** — _아직 없습니다._
 
@@ -177,9 +183,11 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-042-JZ2ZBT --add
      frontmatter 의 status 도 함께 고친다. 손으로 적어도 되지만, 그때는 수렴 검사를
      안 거치므로 `validate` 가 항목 판정과 어긋난 승인을 error 로 잡는다. -->
 
-**판정**: (아직 없습니다)
+**판정**: 승인
 
 **판정 이력**:
+
+- 승인 · 유저 · 2026-08-24
 
 - 승인이면 → `apply --op move --id KAN-042-JZ2ZBT --to done` 뒤에 `main` 병합과 워크트리 정리(출력의 `cleanup`)
 - 반려면 → `apply --op move --id KAN-042-JZ2ZBT --to doing` 뒤에 `doc-log --entry "<반려 사유>"`.
