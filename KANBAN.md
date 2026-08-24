@@ -28,13 +28,10 @@
 ## 진행 중
 
 ## 검토
-- `KAN-042-JZ2ZBT` bbangto-ui-vizualization을 사용하는 클라이언트가 문제를 제기했다. "/Users/centurio/resume/docs/viz-upstream-issues.md" 이 레포트를 보고 문제를 진단하고 문제 해결 전략 레포트를 작성하고, wbs를 작성하여 이 카드를 수행하는 agent가 사용할 수 있도록 해라.ㄴ — 생성:유저 · 최종:ai · 갱신:2026-08-14
-  - 실행 문서: KANBAN/cards/KAN-042-JZ2ZBT.md (9/9 · 최근 08-14)
-  - 검토 문서: KANBAN/reviews/KAN-042-JZ2ZBT.review.md (승인 0/3 · 검토 대기)
 - `KAN-043-2JM72N` 상류 리포트 I 계열(I1~I7) 해소 — 유형 선택 정보 도달 경로 — 생성:ai · 최종:ai · 갱신:2026-08-14
   - 메모: P 계열(KAN-042) 후속. 87종 콘텐츠는 있으나 소비자가 도달 못 하는 경로 결함 7건.
   - 실행 문서: KANBAN/cards/KAN-043-2JM72N.md (9/9 · 최근 08-14)
-  - 검토 문서: KANBAN/reviews/KAN-043-2JM72N.review.md (승인 0/4 · 검토 대기)
+  - 검토 문서: KANBAN/reviews/KAN-043-2JM72N.review.md (승인 4/4 · 승인)
   - 원문:
     ```text
     bbangto-ui-vizualization 패키지를 사용하는 사용자가 피드백 레포트를 작성했다. (/Users/centurio/resume/docs/viz-upstream-issues.md) P계열은 반영했으므로, I 계열을 검토해서 개선 해라
@@ -265,3 +262,6 @@
   - 메모: 완료(2026-07-25). KAN-035 인프라(동결 스키마) 위 잔여 73종 FoundationMeta 전량 additive 백필 → 76/76 authored·pending 0(파일 미변경, registry에 meta만 추가). 저작 grounding=실제 accent 토큰(semantic.primary.base) — description 오해(다수가 'on dark'라도 실 background.base=흰색, 예 electric-void) 회피. 통제 어휘=tokens TAGS/DOMAINS 재사용, related 76종 인접 클러스터(색hue/mono·void/warm) 정합. 'foundation-meta 필수' 게이트 승격: registry.test에 registry키집합≡catalog키집합(pending 0) hard-fail + manifest.test 76 전량 authored assert + metadata-coverage.json foundation infra-pilot→covered(census가 covered축 authored==total 강제). selector fixture 보강 3종(mood 근접·복합 criteria 가중합·weights.tags=0 소거). foundation.manifest.json 재생성(gen). 게이트 5종 green: typecheck(8pkg)·build(dist/meta emit·루트배럴 미오염)·test:unit(foundations 40→44)·test(1219 play)·storybook build. 문서: FOUNDATION_METADATA_STRATEGY 롤아웃표·METADATA_COVERAGE_AUDIT foundation→covered(네 축 전량 covered 달성). 관찰: 76 저작 후에도 colorScheme 75L/1D 편중·baseTextContrast≥17.39 상수 → 실질변별 tags/mood/domains(StyleGuideMeta 어휘 재사용 76 스케일 충분 확인, 스키마 변경 0).
 - `KAN-036` 지금까지의 작업 내역을 npm package에 새로 반영해라. 새로 생기거나 없어져야 하는 패키지가 있는지, 이름이 바뀌어야 하는 패키지가 있는지도 확인하고, 버전도 확인해서 배포 계획을 세워라. — 생성:유저 · 최종:유저 · 갱신:2026-08-14
   - 메모: 완료(2026-07-25): 작업 내역 npm 반영 감사 + 배포 계획. 마지막 발행(06ed3e5) 이후 ORD-008~~012 + KAN-013~~041 전량 미발행 확인. 갭 해소: 패키지별 단일 changeset 5종 신규(tokens/foundations/style-guide-catalog/visualization/viz-catalog) — foundations는 기존 6 changeset이 하나도 안 건드려 버전 범프 자체 누락(핵심 갭). changeset status 검증 = tokens 1.1.0→1.2.0·foundations 1.0.1→1.1.0·style-guide-catalog 0.2.0→0.3.0·visualization 0.1.0→0.2.0·viz-catalog 0.1.0→0.2.0·core 1.1.1(dep auto)·hooks 0.3.0 유지, major 0(전부 additive; style-guide-catalog bakery→neobrutalism 리네임만 breaking이나 pre-1.0라 minor 허용+기존 changeset 커버). 패키지 신설/삭제/리네임 불필요(diagram→visualization·themes→foundations 이미 코드 반영). drift 정정: style-guide-catalog desc 29→51·viz-catalog desc +30·visualization CHANGELOG H1 diagram→visualization+lineage. RELEASE_PLAN.md 신규(버전표+승인게이트+레거시 deprecate follow-up). 게이트 전부 green: typecheck 8pkg·build·test:unit(viz141/found44/sgc76/vsgc39)·test 1219 play·storybook build·dist↔exports(dist/meta·dist/typeMeta)·build drift 0. 외부검토(codex) 반영(changeset 패키지별 분할·semver 배럴 diff 검증·release-readiness). 배포 실행(main push→Version PR→publish 6종)은 유저 명시 승인 후 별도.
+- `KAN-042-JZ2ZBT` bbangto-ui-vizualization을 사용하는 클라이언트가 문제를 제기했다. "/Users/centurio/resume/docs/viz-upstream-issues.md" 이 레포트를 보고 문제를 진단하고 문제 해결 전략 레포트를 작성하고, wbs를 작성하여 이 카드를 수행하는 agent가 사용할 수 있도록 해라.ㄴ — 생성:유저 · 최종:ai · 갱신:2026-08-24
+  - 실행 문서: KANBAN/cards/KAN-042-JZ2ZBT.md (9/9 · 최근 08-14)
+  - 검토 문서: KANBAN/reviews/KAN-042-JZ2ZBT.review.md (승인 3/3 · 승인)

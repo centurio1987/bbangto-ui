@@ -1,6 +1,6 @@
 {
   "next_id": 46,
-  "next_seq": 130,
+  "next_seq": 131,
   "cards": {
     "KAN-001": {
       "col": "done",
@@ -495,13 +495,13 @@
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-042-JZ2ZBT": {
-      "col": "review",
+      "col": "done",
       "title": "bbangto-ui-vizualization을 사용하는 클라이언트가 문제를 제기했다. \"/Users/centurio/resume/docs/viz-upstream-issues.md\" 이 레포트를 보고 문제를 진단하고 문제 해결 전략 레포트를 작성하고, wbs를 작성하여 이 카드를 수행하는 agent가 사용할 수 있도록 해라.ㄴ",
       "memo": "",
       "verbatim": "",
       "생성": "유저",
       "최종": "ai",
-      "갱신": "2026-08-14",
+      "갱신": "2026-08-24",
       "title_hash": "ed3e8d0742d3b19912498906476bddac8f1a1699",
       "memo_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
@@ -562,7 +562,6 @@
   "order": [
     "KAN-044-3KYT2Q",
     "KAN-045-PNT454",
-    "KAN-042-JZ2ZBT",
     "KAN-043-2JM72N",
     "KAN-020",
     "KAN-025",
@@ -604,9 +603,20 @@
     "KAN-040",
     "KAN-035",
     "KAN-041",
-    "KAN-036"
+    "KAN-036",
+    "KAN-042-JZ2ZBT"
   ],
   "recent": [
+    {
+      "seq": 130,
+      "t": "2026-08-24T23:52",
+      "a": "ai",
+      "id": "KAN-042-JZ2ZBT",
+      "op": "move",
+      "w": "S7030N",
+      "from": "review",
+      "to": "done"
+    },
     {
       "seq": 129,
       "t": "2026-08-24T23:32",
@@ -1130,16 +1140,6 @@
       "op": "move",
       "from": "backlog",
       "to": "done"
-    },
-    {
-      "seq": 80,
-      "t": "2026-07-24T14:11",
-      "a": "ai",
-      "id": "KAN-033",
-      "op": "edit",
-      "field": "memo",
-      "before": "viz-hud-telemetry. Tier B(신규 데코 wrapper 1개: 코너 브래킷). 딥 틸다크(#07131A)+네온 시안(#22D3EE) 엣지+스캔라인+글로우 절제, 수치 mono. F7 defs/모티프 인프라 재사용. 스펙: viz-style-expansion.md §4-d. 그라디언트/글로우 위 텍스트 금지.",
-      "after": "완료(2026-07-24): Hud_Telemetry_01 (slug hud-telemetry-01) 구현 (Tier B) — 딥 틸다크 #07131A + 네온 시안 #22D3EE 엣지 + 코너 브래킷 데코(신규 wrapper HudNode가 x/y/w/h에서 4모서리 path 계산, data-viz-hud-bracket) + 스캔라인/글로우 절제(name-scoped CSS). default/amber preset, 화이트 라벨(글로우 위 텍스트 금지). contrastIntent aa. wrapperExtraPlay=브래킷 4+·노드 2+. related에 terminal-ascii-01 복원(5종 동시 편입). family viz-hud-telemetry. 4게이트 green."
     }
   ],
   "layout": 3
