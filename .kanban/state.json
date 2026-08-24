@@ -1,6 +1,6 @@
 {
   "next_id": 46,
-  "next_seq": 128,
+  "next_seq": 130,
   "cards": {
     "KAN-001": {
       "col": "done",
@@ -523,24 +523,40 @@
       "title": "불필요한 문서들 파악해서 정리하기 위한 계획 세우고 레포트 제출해라",
       "verbatim": "",
       "생성": "유저",
-      "최종": "유저",
+      "최종": "ai",
       "갱신": "2026-08-24",
       "title_hash": "c317be773297fff686cf4cc7b341b3ab67008a10",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
       "memo": "",
-      "memo_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+      "memo_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+      "short": "문서 정리 계획 리포트",
+      "short_hash": "7a100a1d6e42be44eccae4509a6a0b0cf7d6e88b",
+      "purpose": "레포 안의 문서를 전수 파악해 존치·통합·폐기를 가르는 정리 계획과 리포트를 낸다",
+      "purpose_hash": "9fbe03e3a4b1a07ad273ce4487f392c6acd05c78",
+      "reason": "루트에만 ASSET_INTEGRATION_PLAN·DESIGN_SYSTEM_GUIDE·METADATA_COVERAGE_AUDIT·ORDER·RELEASE_PLAN 등이 쌓여 어느 것이 살아있는 문서인지 구분되지 않는다",
+      "reason_hash": "df6d5c48a441242b79b513df7acc3828770646fe",
+      "goal": "문서마다 판정과 근거가 붙은 정리 계획 리포트가 나와 실제 정리를 착수할 수 있다",
+      "goal_hash": "def3dd2d880d73fdb5e1788a0db95e463346857f"
     },
     "KAN-045-PNT454": {
       "col": "todo",
       "title": "README는 이 레포를 설명하기에 정보가 많이 부족하다. 이 프로젝트를 활용 사례 별로 분류하고, 사례 별로 사용 방법을 자세한 절차로 서술해라. 서술 과정에서 authoring-kit skill을 이용해라.",
       "verbatim": "README는 이 레포를 설명하기에 정보가 많이 부족하다. 이 프로젝트를 활용 사례 별로 분류하고, 사례 별로 사용 방법을 자세한 절차로 서술해라. 서술 과정에서 authoring-kit skill을 이용해라.\n- 패키지 별 활용 방법이 없다.\n- 패키지를 사용해서 style guide를 구현할 수 있다는 사례 자체가 소개되어 있지 않다.\n- style guide를 구현하기 위한 방법이 서술되어 있지 않다.",
       "생성": "유저",
-      "최종": "유저",
+      "최종": "ai",
       "갱신": "2026-08-24",
       "title_hash": "7182ad28b641d23fc7e26fc64a41f5b2e1698358",
       "verbatim_hash": "d334ca74ef0ceecb12d2928b8c9759bd2183b81c",
       "memo": "",
-      "memo_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+      "memo_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+      "short": "README 활용 사례별 재작성",
+      "short_hash": "578fbaa74ef1a3e4d4332e104bbc976d11b1107f",
+      "purpose": "README를 활용 사례별로 분류하고 사례마다 패키지 사용 절차를 authoring-kit 으로 서술한다",
+      "purpose_hash": "81c9f97239aa9cc65d70cad0f1a91578728040f2",
+      "reason": "지금 README에는 패키지별 활용법도, style guide 구현 사례와 그 방법도 없다",
+      "reason_hash": "e5ad55045d6637fda021a69acb529b81b8ee18f0",
+      "goal": "처음 온 사람이 README만 보고 자기 사례에 맞는 패키지를 골라 style guide 까지 구현할 수 있다",
+      "goal_hash": "450e5ff8c649340c2183b5b75ab1c37afb6a2693"
     }
   },
   "order": [
@@ -591,6 +607,46 @@
     "KAN-036"
   ],
   "recent": [
+    {
+      "seq": 129,
+      "t": "2026-08-24T23:32",
+      "a": "ai",
+      "id": "KAN-045-PNT454",
+      "op": "brief",
+      "w": "S7030N",
+      "fields": {
+        "short": "README 활용 사례별 재작성",
+        "purpose": "README를 활용 사례별로 분류하고 사례마다 패키지 사용 절차를 authoring-kit 으로 서술한다",
+        "reason": "지금 README에는 패키지별 활용법도, style guide 구현 사례와 그 방법도 없다",
+        "goal": "처음 온 사람이 README만 보고 자기 사례에 맞는 패키지를 골라 style guide 까지 구현할 수 있다"
+      },
+      "before": {
+        "short": "",
+        "purpose": "",
+        "reason": "",
+        "goal": ""
+      }
+    },
+    {
+      "seq": 128,
+      "t": "2026-08-24T23:32",
+      "a": "ai",
+      "id": "KAN-044-3KYT2Q",
+      "op": "brief",
+      "w": "S7030N",
+      "fields": {
+        "short": "문서 정리 계획 리포트",
+        "purpose": "레포 안의 문서를 전수 파악해 존치·통합·폐기를 가르는 정리 계획과 리포트를 낸다",
+        "reason": "루트에만 ASSET_INTEGRATION_PLAN·DESIGN_SYSTEM_GUIDE·METADATA_COVERAGE_AUDIT·ORDER·RELEASE_PLAN 등이 쌓여 어느 것이 살아있는 문서인지 구분되지 않는다",
+        "goal": "문서마다 판정과 근거가 붙은 정리 계획 리포트가 나와 실제 정리를 착수할 수 있다"
+      },
+      "before": {
+        "short": "",
+        "purpose": "",
+        "reason": "",
+        "goal": ""
+      }
+    },
     {
       "seq": 127,
       "t": "2026-08-24T23:31",
@@ -1084,25 +1140,6 @@
       "field": "memo",
       "before": "viz-hud-telemetry. Tier B(신규 데코 wrapper 1개: 코너 브래킷). 딥 틸다크(#07131A)+네온 시안(#22D3EE) 엣지+스캔라인+글로우 절제, 수치 mono. F7 defs/모티프 인프라 재사용. 스펙: viz-style-expansion.md §4-d. 그라디언트/글로우 위 텍스트 금지.",
       "after": "완료(2026-07-24): Hud_Telemetry_01 (slug hud-telemetry-01) 구현 (Tier B) — 딥 틸다크 #07131A + 네온 시안 #22D3EE 엣지 + 코너 브래킷 데코(신규 wrapper HudNode가 x/y/w/h에서 4모서리 path 계산, data-viz-hud-bracket) + 스캔라인/글로우 절제(name-scoped CSS). default/amber preset, 화이트 라벨(글로우 위 텍스트 금지). contrastIntent aa. wrapperExtraPlay=브래킷 4+·노드 2+. related에 terminal-ascii-01 복원(5종 동시 편입). family viz-hud-telemetry. 4게이트 green."
-    },
-    {
-      "seq": 79,
-      "t": "2026-07-24T14:11",
-      "a": "ai",
-      "id": "KAN-032",
-      "op": "move",
-      "from": "backlog",
-      "to": "done"
-    },
-    {
-      "seq": 78,
-      "t": "2026-07-24T14:11",
-      "a": "ai",
-      "id": "KAN-032",
-      "op": "edit",
-      "field": "memo",
-      "before": "viz-riso-print. Tier A. 웜 크림+스팟 잉크 2~3색 multiply 오버프린트(mix-blend-mode 모티프)·미스레지 오프셋·그레인(feTurbulence 재사용). 아웃라이어 mermaid_colorful_03 근거. 스펙: viz-style-expansion.md §4-d. 오버프린트 겹침색 대비 accessibilityAudit 게이트.",
-      "after": "완료(2026-07-24): Riso_Print_01 (slug riso-print-01) 구현 — 웜 크림 #F4EFE0 + 스팟 잉크(핑크 #FF4D6D × 블루 #1E5AA8) multiply 오버프린트(mix-blend-mode 모티프) + feTurbulence grain(seed 7 결정론) + 미스레지 데코 ghost. shape.stroke=블루 #1E5AA8(핑크 2.8:1이라 라인/텍스트에서 제외). default/teal preset, 전 라벨 다크 잉크. contrastIntent aa (최악 라벨 7.84), accessibilityAudit over-claim 0. family viz-riso-print. 4게이트 green."
     }
   ],
   "layout": 3
