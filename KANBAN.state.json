@@ -1,6 +1,6 @@
 {
-  "next_id": 44,
-  "next_seq": 126,
+  "next_id": 46,
+  "next_seq": 128,
   "cards": {
     "KAN-001": {
       "col": "done",
@@ -517,10 +517,37 @@
       "title_hash": "1868f83bfc3252642775e831355143ecc7080610",
       "memo_hash": "bd7e6eecdc7fb3d4e73bd27a87d2a654f637ae6c",
       "verbatim_hash": "2e752e1c7bf53e1c3d5de3ec3a6f5e30574760e4"
+    },
+    "KAN-044-3KYT2Q": {
+      "col": "todo",
+      "title": "불필요한 문서들 파악해서 정리하기 위한 계획 세우고 레포트 제출해라",
+      "verbatim": "",
+      "생성": "유저",
+      "최종": "유저",
+      "갱신": "2026-08-24",
+      "title_hash": "c317be773297fff686cf4cc7b341b3ab67008a10",
+      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+      "memo": "",
+      "memo_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    },
+    "KAN-045-PNT454": {
+      "col": "todo",
+      "title": "README는 이 레포를 설명하기에 정보가 많이 부족하다. 이 프로젝트를 활용 사례 별로 분류하고, 사례 별로 사용 방법을 자세한 절차로 서술해라. 서술 과정에서 authoring-kit skill을 이용해라.",
+      "verbatim": "README는 이 레포를 설명하기에 정보가 많이 부족하다. 이 프로젝트를 활용 사례 별로 분류하고, 사례 별로 사용 방법을 자세한 절차로 서술해라. 서술 과정에서 authoring-kit skill을 이용해라.\n- 패키지 별 활용 방법이 없다.\n- 패키지를 사용해서 style guide를 구현할 수 있다는 사례 자체가 소개되어 있지 않다.\n- style guide를 구현하기 위한 방법이 서술되어 있지 않다.",
+      "생성": "유저",
+      "최종": "유저",
+      "갱신": "2026-08-24",
+      "title_hash": "7182ad28b641d23fc7e26fc64a41f5b2e1698358",
+      "verbatim_hash": "d334ca74ef0ceecb12d2928b8c9759bd2183b81c",
+      "memo": "",
+      "memo_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     }
   },
   "order": [
+    "KAN-044-3KYT2Q",
+    "KAN-045-PNT454",
     "KAN-042-JZ2ZBT",
+    "KAN-043-2JM72N",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -561,10 +588,41 @@
     "KAN-040",
     "KAN-035",
     "KAN-041",
-    "KAN-036",
-    "KAN-043-2JM72N"
+    "KAN-036"
   ],
   "recent": [
+    {
+      "seq": 127,
+      "t": "2026-08-24T23:31",
+      "a": "유저",
+      "id": "KAN-045-PNT454",
+      "op": "create",
+      "w": "S7030N",
+      "col": "todo",
+      "title": "README는 이 레포를 설명하기에 정보가 많이 부족하다. 이 프로젝트를 활용 사례 별로 분류하고, 사례 별로 사용 방법을 자세한 절차로 서술해라. 서술 과정에서 authoring-kit skill을 이용해라.",
+      "verbatim": "README는 이 레포를 설명하기에 정보가 많이 부족하다. 이 프로젝트를 활용 사례 별로 분류하고, 사례 별로 사용 방법을 자세한 절차로 서술해라. 서술 과정에서 authoring-kit skill을 이용해라.\n- 패키지 별 활용 방법이 없다.\n- 패키지를 사용해서 style guide를 구현할 수 있다는 사례 자체가 소개되어 있지 않다.\n- style guide를 구현하기 위한 방법이 서술되어 있지 않다.",
+      "short": "",
+      "purpose": "",
+      "reason": "",
+      "goal": "",
+      "memo": ""
+    },
+    {
+      "seq": 126,
+      "t": "2026-08-24T23:31",
+      "a": "유저",
+      "id": "KAN-044-3KYT2Q",
+      "op": "create",
+      "w": "S7030N",
+      "col": "todo",
+      "title": "불필요한 문서들 파악해서 정리하기 위한 계획 세우고 레포트 제출해라",
+      "verbatim": "",
+      "short": "",
+      "purpose": "",
+      "reason": "",
+      "goal": "",
+      "memo": ""
+    },
     {
       "seq": 125,
       "t": "2026-08-14T15:28",
@@ -1045,25 +1103,6 @@
       "field": "memo",
       "before": "viz-riso-print. Tier A. 웜 크림+스팟 잉크 2~3색 multiply 오버프린트(mix-blend-mode 모티프)·미스레지 오프셋·그레인(feTurbulence 재사용). 아웃라이어 mermaid_colorful_03 근거. 스펙: viz-style-expansion.md §4-d. 오버프린트 겹침색 대비 accessibilityAudit 게이트.",
       "after": "완료(2026-07-24): Riso_Print_01 (slug riso-print-01) 구현 — 웜 크림 #F4EFE0 + 스팟 잉크(핑크 #FF4D6D × 블루 #1E5AA8) multiply 오버프린트(mix-blend-mode 모티프) + feTurbulence grain(seed 7 결정론) + 미스레지 데코 ghost. shape.stroke=블루 #1E5AA8(핑크 2.8:1이라 라인/텍스트에서 제외). default/teal preset, 전 라벨 다크 잉크. contrastIntent aa (최악 라벨 7.84), accessibilityAudit over-claim 0. family viz-riso-print. 4게이트 green."
-    },
-    {
-      "seq": 77,
-      "t": "2026-07-24T14:11",
-      "a": "ai",
-      "id": "KAN-031",
-      "op": "move",
-      "from": "backlog",
-      "to": "done"
-    },
-    {
-      "seq": 76,
-      "t": "2026-07-24T14:11",
-      "a": "ai",
-      "id": "KAN-031",
-      "op": "edit",
-      "field": "memo",
-      "before": "viz-bauhaus-geometric. Tier A. 웜 페이퍼+3원색(#E63A27/#F5C518/#1E4FCE)+흑백·직각 면분할·굵은 검정 윤곽·하드 오프셋 그림자·기하 글리프. 스펙: viz-style-expansion.md §4-d. 원색 fill 위 라벨 휘도 자동.",
-      "after": "완료(2026-07-24): Bauhaus_Geometric_01 (slug bauhaus-geometric-01) 구현 — 웜 페이퍼 #F3EFE4 + 3원색 + 굵은 검정 윤곽 + 하드 오프셋 그림자. fill별 라벨 휘도 자동(모두 4.5 이상); red fill은 #D13120로 다크닝(순수 #E63A27은 white 4.20/black 4.14 둘 다 실패)하고 palette.p1엔 원색 #E63A27 보존. 무효 태그 bold/hard → high-contrast/flat 교체. contrastIntent aa. family viz-bauhaus-geometric. 4게이트 green."
     }
   ]
 }
