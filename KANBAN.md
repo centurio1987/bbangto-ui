@@ -26,7 +26,7 @@
   - 목적: 레포 안의 문서를 전수 파악해 존치·통합·폐기를 가르는 정리 계획과 리포트를 낸다
   - 이유: 루트에만 ASSET_INTEGRATION_PLAN·DESIGN_SYSTEM_GUIDE·METADATA_COVERAGE_AUDIT·ORDER·RELEASE_PLAN 등이 쌓여 어느 것이 살아있는 문서인지 구분되지 않는다
   - 목표: 문서마다 판정과 근거가 붙은 정리 계획 리포트가 나와 실제 정리를 착수할 수 있다
-  - 실행 문서: KANBAN/cards/KAN-044-3KYT2Q.md (0/6 · 최근 08-25)
+  - 실행 문서: KANBAN/cards/KAN-044-3KYT2Q.md (1/6 · 최근 08-25)
 
 ## 검토
 

@@ -27,8 +27,8 @@ WBS 순서(S2→S3→S4)와 이 배치의 실행 순서(S2·S4 → S3)가 다르
 
 | 워커 | 구획 | 대략 |
 |---|---|---|
-| W1 | 루트 마크다운 | 10개 · ASSET_INTEGRATION_PLAN·DESIGN_SYSTEM_GUIDE·METADATA_COVERAGE_AUDIT·ORDER·RELEASE_PLAN·WAVE0_REPORT·README·CLAUDE·QUALITY_CHECKLIST·KANBAN |
-| W2 | `packages/core/catalog/*.audit.md` | 38개 · 구조가 동일해 표본이 아니라 전량을 훑되 요지는 공통 스키마로 압축 |
+| W1 | 루트 마크다운 | 9개(KANBAN.md 제외) · ASSET_INTEGRATION_PLAN·DESIGN_SYSTEM_GUIDE·METADATA_COVERAGE_AUDIT·ORDER·RELEASE_PLAN·WAVE0_REPORT·README·CLAUDE·QUALITY_CHECKLIST |
+| W2 | `packages/core/catalog/*.audit.md` | 44개 · 구조가 동일해 표본이 아니라 전량을 훑되 요지는 공통 스키마로 압축 |
 | W3 | `packages/core` 그 외 | style-guide-catalog·COMPONENT_CATALOG·motion-catalog·design-trends-2020-2026·MOTION_QUALITY_CHECKLIST·README 류 |
 | W4 | `packages/visualization` + 나머지 패키지·앱·기타 | PLAN·visualization-catalog·visualization-type-inventory·style-classification·viz-style-expansion·TYPE_METADATA_STRATEGY·METADATA_STRATEGY 2종·패키지 README·`sample_design`·`diagram-references`·`_templates`·`apps/storybook` |
 
@@ -57,7 +57,7 @@ WBS 순서(S2→S3→S4)와 이 배치의 실행 순서(S2·S4 → S3)가 다르
 - **워커별 판정 기준 편차** — B안의 대표 리스크다. 워커가 판정을 내지 않게 하고(사실만 반환)
   판정을 WP2 한 곳으로 모아 원천 차단한다. 규칙 동봉은 워커가 **무엇을 사실로 모아야 하는지**
   알리는 용도다.
-- **W2 구획 38개가 구조 동일** — 파일마다 요지를 따로 쓰면 반환이 두꺼워진다. 공통 스키마
+- **W2 구획 44개가 구조 동일** — 파일마다 요지를 따로 쓰면 반환이 두꺼워진다. 공통 스키마
   1줄 + 예외만 따로 적게 한다.
 - **반환 누락** — 워커가 죽거나 빈 값을 내면 그 구획이 통째로 판정에서 빠진다. WP2 시작 전에
   구획별 행 수를 인벤토리와 대조해 누락 0을 확인한다.
