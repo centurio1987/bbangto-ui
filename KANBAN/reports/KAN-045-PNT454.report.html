@@ -1,0 +1,326 @@
+<meta charset="utf-8">
+<!-- kanban-fp:96f92eaec21df505892fa34cfc6590ed62ae663d voiced -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KAN-045-PNT454 실행 계획</title>
+<style>
+/* manage-kanban 계획 리포트 스타일 — Neobrutalism_Editorial_01 (editorial brutalism)
+ *
+ * 출처: bbangto-ui/packages/style-guide-catalog/src/neobrutalismEditorial.tsx
+ *   라이트 = foundations(semantic) · 다크 = midnightFoundations(makeColorway)
+ *
+ * **왜 사본인가.** @centurio1987/bbangto-ui-visualization 은 React 컴포넌트 + 빌드가
+ * 필요하고 사설 레지스트리(npm.pkg.github.com)에 있다. 리포트는 빌드 없이 열리는 단일
+ * HTML 이고 CSP 로 외부 로드가 막히므로, 패키지를 런타임에 쓸 수 없다. 그래서 토큰 값만
+ * 옮겼다.
+ *
+ * **drift 는 이 주석이 아니라 테스트가 막는다** — scripts/test_report.py 가 위 .tsx 를
+ * 파싱해 아래 값과 대조한다(원본이 없는 머신에서는 skip).
+ */
+
+:root {
+  --ink: #1C1B17;
+  --ink-hover: #2A2823;
+  --cream: #FAF2DD;
+  --paper: #FFFCF2;
+  --cream-sunken: #F3E8C9;
+  --gold: #E9C766;
+  --green: #C2D3B4;
+  --pink: #ECC3C8;
+  --muted: #4A463C;
+  --subtle: #6E6A5E;
+  --faint: #9A9483;
+  --border-width: 2px;
+
+  --bg: var(--cream);
+  --bg-elevated: var(--paper);
+  --bg-sunken: var(--cream-sunken);
+  --fg: var(--ink);
+  --fg-muted: var(--muted);
+  --fg-subtle: var(--subtle);
+  --border: var(--ink);
+  --accent: var(--gold);
+  --accent-2: var(--green);
+  --accent-3: var(--pink);
+  --danger: #C0392B;
+  --ok: #5C7A4A;
+  --warn: #B8860B;
+  --offset: 3px 3px 0 var(--gold);
+  --offset-lg: 5px 5px 0 var(--ink);
+
+  --font-sans: 'IBM Plex Sans KR', 'Apple SD Gothic Neo', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+}
+
+/* 다크는 잉크/크림을 뒤집는다(midnight colorway). 시스템 기본은 media query 가,
+ * 명시적 선택은 [data-theme] 가 이긴다 — 둘 다 정의해야 토글이 양방향으로 먹는다. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1C1B17;
+    --bg-elevated: #2A2823;
+    --bg-sunken: #141310;
+    --fg: #FAF2DD;
+    --fg-muted: #C9C2AE;
+    --fg-subtle: #9A9483;
+    --border: #FAF2DD;
+    --offset: 3px 3px 0 #FAF2DD;
+    --offset-lg: 5px 5px 0 #FAF2DD;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1C1B17;
+  --bg-elevated: #2A2823;
+  --bg-sunken: #141310;
+  --fg: #FAF2DD;
+  --fg-muted: #C9C2AE;
+  --fg-subtle: #9A9483;
+  --border: #FAF2DD;
+  --offset: 3px 3px 0 #FAF2DD;
+  --offset-lg: 5px 5px 0 #FAF2DD;
+}
+
+body {
+  margin: 0;
+  padding: 2.5rem 1.25rem 5rem;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.wrap { max-width: 62rem; margin: 0 auto; }
+
+/* 각진 모서리 · 2px 잉크선 · 하드 오프셋. 이 셋이 모티프의 전부다. */
+.card, .kpi, table, pre, .chart {
+  background: var(--bg-elevated);
+  border: var(--border-width) solid var(--border);
+  border-radius: 0;
+}
+.card { padding: 1.25rem 1.5rem; margin: 1.5rem 0; box-shadow: var(--offset); }
+
+h1, h2, h3 { font-weight: 700; margin: 2rem 0 .75rem; }
+h1 { font-size: 38px; line-height: 1.05; letter-spacing: -.01em; margin-top: 0; }
+h2 { font-size: 30px; line-height: 1.1; letter-spacing: -.01em;
+     border-bottom: var(--border-width) solid var(--border); padding-bottom: .35rem; }
+h3 { font-size: 20px; line-height: 1.3; }
+
+.meta { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em;
+        font-weight: 600; text-transform: uppercase; color: var(--fg-subtle); }
+
+.title-block { border: var(--border-width) solid var(--border); background: var(--accent);
+               color: var(--ink); padding: 1.5rem; box-shadow: var(--offset-lg); }
+.title-block h1, .title-block .meta { color: var(--ink); }
+
+.kpis { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1.5rem 0; }
+.kpi { flex: 1 1 9rem; padding: .9rem 1rem; box-shadow: var(--offset); }
+.kpi b { display: block; font-size: 30px; line-height: 1.1; }
+
+table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+th, td { border: 1px solid var(--border); padding: .5rem .7rem; text-align: left;
+         vertical-align: top; font-size: 15px; }
+th { background: var(--bg-sunken); font-weight: 700; }
+
+/* 넓은 것은 페이지가 아니라 자기 안에서 가로 스크롤한다. */
+.scroll { overflow-x: auto; }
+pre { padding: .8rem 1rem; font-family: var(--font-mono); font-size: 13px; overflow-x: auto; }
+code { font-family: var(--font-mono); font-size: .9em; }
+
+.chart { padding: 1rem; margin: 1rem 0; }
+.chart svg { display: block; width: 100%; height: auto; }
+
+.tag { display: inline-block; border: var(--border-width) solid var(--border);
+       padding: 0 .4rem; font-family: var(--font-mono); font-size: 12px; font-weight: 600; }
+.tag-done { background: var(--ok); color: var(--cream); }
+.tag-doing { background: var(--accent); color: var(--ink); }
+.tag-todo { background: var(--bg-sunken); color: var(--fg-muted); }
+.tag-hold { background: var(--accent-3); color: var(--ink); }
+.tag-warn { background: var(--warn); color: var(--ink); }
+.tag-danger { background: var(--danger); color: var(--cream); }
+/* 승계 칩은 판정 태그(승인·반려·미정)와 **다른 종류의 사실**이다 — 판정은 이 문서가
+ * 내린 상태이고 승계는 어디서 왔는가다. 위 여섯 중 하나를 빌려 쓰면 훑는 눈이 그것을
+ * 상태로 읽으므로, 어느 것과도 안 겹치게 잉크와 바탕을 뒤집는다. 토큰을 뒤집는 것이라
+ * 다크에서도 그대로 선다(리터럴을 박으면 그 자리만 안 뒤집힌다). */
+.tag-inh { background: var(--fg); color: var(--bg); }
+
+.note, blockquote { border-left: 5px solid var(--accent); padding-left: 1rem;
+                    color: var(--fg-muted); margin: 1rem 0; }
+ol, ul { padding-left: 1.4rem; }
+li { margin: .25rem 0; }
+
+/* ─── 승계 — 넘어온 의견임이 접기 밖에서 보여야 한다 ──────────────────────────
+ * 승계 사실은 `inherit` 값으로 이미 있었는데, 화면에는 상세(접기) 안의 텍스트 한 줄로만
+ * 있었다. 그래서 훑는 사람은 이 의견이 남의 검토서에서 넘어온 것인지 모른 채 판정한다 —
+ * 값을 가르는 것과 화면에서 드러나는 것은 다른 일이고, 이 블록이 뒤엣것이다.
+ *
+ * 왼쪽 띠는 이 스타일이 이미 쓰는 모티프다(.note·blockquote 가 accent, 검토 화면의 조작
+ * 자리가 accent-2). 승계는 남은 accent-3 을 쓴다 — 셋이 한 항목 안에 같이 서므로 자리마다
+ * 색이 달라야 "여기는 무엇을 하는 자리인가"가 색으로 읽힌다.
+ *
+ * 검토 화면 전용 CSS(report.py 의 REVIEW_CSS)가 아니라 여기 두는 이유: 그쪽은 **판정을
+ * 내릴 수 있는 문서**에만 실린다. 승계된 검토서(판정이 다른 문서로 넘어간 쪽)도 자기가
+ * 물려받은 의견을 그대로 들고 있어서, 거기 두면 그 화면에서만 띠가 통째로 빠진다. */
+.inh { border-left: 5px solid var(--accent-3); background: var(--bg-sunken);
+       padding: .5rem .75rem; margin: .5rem 0 .7rem; }
+/* 머리의 승계 알림은 문서 전체의 사실이라 절 사이 간격과 카드 여백을 그대로 쓴다. */
+.card.inh { padding: 1rem 1.25rem; margin: 1.5rem 0; }
+.inh-row { display: flex; flex-wrap: wrap; gap: .4rem; align-items: baseline;
+           margin: .2rem 0; }
+/* 라벨 폭을 맞춘다 — 줄이 여럿인데 값의 시작이 들쭉날쭉하면 무엇이 무엇의 값인지가
+   눈으로 안 붙는다. */
+.inh-row > .meta:first-child { margin: 0; min-width: 4.5rem; }
+.inh-val { flex: 1 1 16rem; color: var(--fg-muted); }
+/* 계보는 좁은 화면에서 페이지를 밀 수 있다. 가로 스크롤 대신 접어 내린다 — 홉이 낱개
+   조각이라 줄이 바뀌어도 읽는 순서가 안 깨진다. */
+.inh-chain { display: flex; flex-wrap: wrap; gap: .35rem; align-items: baseline; }
+.inh-arrow { color: var(--fg-subtle); }
+
+@media (max-width: 40rem) {
+  h1 { font-size: 30px; } h2 { font-size: 24px; }
+  body { padding: 1.5rem .75rem 3rem; }
+}
+
+</style>
+<div class="wrap">
+<div class="title-block">
+  <p class="meta">KAN-045-PNT454 · 할 일 · 브랜치 KAN-045-PNT454</p>
+  <h1>README는 이 레포를 설명하기에 정보가 많이 부족하다. 이 프로젝트를 활용 사례 별로 분류하고, 사례 별로 사용 방법을 자세한 절차로 서술해라. 서술 과정에서 authoring-kit skill을 이용해라.</h1>
+</div>
+
+
+<div class="kpis">
+  <div class="kpi"><span class="meta">work</span><b>0/7</b></div>
+  <div class="kpi"><span class="meta">배치</span><b>3</b></div>
+  <div class="kpi"><span class="meta">보류</span><b>0</b></div>
+  <div class="kpi"><span class="meta">독립성</span><b>OK</b></div>
+</div>
+
+<section class="card"><h3>이 카드가 무엇을 끝내려는가</h3>
+<p>이 계획서는 <code>KAN-045-PNT454</code> 한 장을 다룹니다. 칸반 보드에서 카드를 가리키는 이름이고, 뒤의 여섯 글자는 다른 워크트리가 같은 번호를 뽑아도 서로 안 섞이게 하는 식별자예요.</p>
+<p>이 카드가 끝나면 달라지는 것은 하나입니다. <strong>처음 이 레포에 온 사람이 README 한 장을 읽고 자기가 하려는 일을 찾아, 그 일에 필요한 패키지를 고르고, 마지막에는 자기만의 style guide까지 만들어 낼 수 있게 됩니다.</strong></p>
+<p>지금은 그게 안 됩니다. README를 열면 패키지 여덟 개가 표에 한 줄씩 적혀 있고 설치 명령이 이어집니다. 무엇을 만들려는 사람이 어느 줄을 봐야 하는지는 어디에도 없어요. 유저가 카드에 적어 준 지적 셋이 정확히 그 자리를 짚습니다. 패키지별 활용 방법이 없고, style guide를 만들 수 있다는 사례 자체가 소개되어 있지 않고, 만드는 방법이 서술되어 있지 않다는 것입니다.</p>
+<p>루트 카드 독립성은 깨지지 않았습니다. <code>dep-check</code> 가 미완료 루트 두 장(<code>KAN-044-3KYT2Q</code> 와 이 카드)에서 위반 0건을 냈어요. 다만 짚어 둘 것이 하나 있습니다. 이 카드에는 건드릴 경로를 <code>README.md</code> 와 <code>.claude/authoring/**</code> 로 적어 뒀지만, <code>KAN-044-3KYT2Q</code> 에는 아직 그 선언이 없어요. 그러니 위반 0건은 겹치지 않음을 확인했다는 뜻이 아니라 <strong>한쪽을 못 읽어 판정을 못 했다</strong>에 가깝죠. 사람이 대신 판정한 결과는 독립입니다. 044는 문서를 읽어 정리 계획을 내는 카드라 파일을 쓰지 않고, 이 카드는 README를 써요. 읽기와 쓰기는 같은 바이트를 다투지 않습니다.</p>
+<h3>왜 이 접근인가</h3>
+<p>흔한 오해부터 짚습니다. 이 카드는 문장을 다듬는 일로 보이지만, 실제로 절반은 <strong>숫자를 맞추는 일</strong>이에요.</p>
+<p>현 README를 매니페스트와 대조해 봤더니 네 곳이 어긋나 있었습니다. style guide preset을 24종이라고 적어 뒀는데 <code>packages/style-guide-catalog/catalog.manifest.json</code> 은 51개 항목을 갖고 있고, 브랜드 프리셋 74종은 실제로 76종이며, visualization 카탈로그는 예시 이름 하나만 적혀 숫자가 아예 없는데 실제로는 30종이에요. 시각화 유형 87종은 README에 나오지도 않습니다.</p>
+<p>왜 이게 문장 문제가 아니라 목표 문제일까요. 이 카드의 목표가 README 한 장만 보고도 고를 수 있게 하는 것이기 때문이에요. 51종 중에서 고르라고 안내해야 할 자리에 24라고 적혀 있으면, 독자는 절반을 못 본 채로 고릅니다. 틀린 숫자는 불친절이 아니라 <strong>목표 미달</strong> 그 자체예요. 그래서 이 카드는 매니페스트를 유일한 정본(single source of truth)으로 놓고 거기서 숫자를 길어 옵니다.</p>
+<p>두 번째 결정은 무엇을 기준으로 문서를 가르느냐입니다. 패키지별로 가르면 지금 있는 표가 길어질 뿐이고, 독자는 여전히 자기 줄을 못 찾아요. 처음 온 사람이 자기를 알아보는 기준은 <strong>무엇을 만들려는가</strong> 입니다. 그래서 사례를 그 기준으로 가르고, 사례마다 필요한 패키지, 설치, 최소 동작 코드, 그다음 걸음을 번호 절차로 답니다.</p>
+<blockquote>사례를 기준으로 삼는다는 것은, 목차를 읽는 사람이 자기를 3번이라고 지목할 수 있어야 한다는 뜻입니다.</blockquote>
+<p>버린 대안도 적어 둡니다. 사례별 문서를 <code>docs/</code> 로 쪼개고 README에는 목차만 두는 안이 있었습니다. 읽기는 편하지만 README 한 장으로 자립한다는 목표와 정면으로 어긋나고, 문서 수를 늘려 <code>KAN-044-3KYT2Q</code> 가 세려는 대상까지 불립니다. 매니페스트에서 README 표를 자동 생성하는 안도 있었어요. 숫자 어긋남은 확실히 막지만 사례별 산문 절차는 생성 대상이 아니라서, 이번 범위 밖으로 두고 필요하면 후속 카드로 냅니다.</p>
+<h3>무엇을 어떤 순서로</h3>
+<p>일을 일곱 조각으로 나눴습니다. 조각 하나를 work라고 부르고 <code>S1</code> 부터 <code>S7</code> 까지 번호를 붙였어요. 이 번호는 한 번 붙이면 안 바뀝니다. 나중에 되돌릴 때 이 번호로 태그를 찾기 때문입니다.</p>
+<p>일곱 조각은 세 마디로 읽힙니다.</p>
+<p><strong>먼저 사실을 모읍니다.</strong> <code>S1</code> 이 패키지 여덟 개의 실제 공개 export와 매니페스트 네 개의 실측 수치를 긁어 오고, 지금 README에 적힌 코드 조각이 아직 살아 있는 API인지 하나씩 판정합니다. <code>S2</code> 는 그 사실 위에서 사례의 경계를 확정합니다. <code>S3</code> 은 집필 도구인 authoring-kit을 이 프로젝트에 붙입니다.</p>
+<p><code>S1</code> 을 먼저 두는 이유가 중요합니다. 사실을 안 모으고 사례부터 나누면, 집필하는 쪽이 각자 조사하게 되고 사람마다 다른 숫자를 씁니다. 그러면 마지막 조립 단계에서 그 차이를 다시 대조해야 해요. 앞에서 한 번 하면 될 일을 뒤에서 네 번 하게 되는 것입니다.</p>
+<p><strong>그다음 씁니다.</strong> <code>S4</code> 가 사례 1번부터 5번까지, <code>S5</code> 가 6번부터 8번까지를 맡습니다. 여기서 style guide를 직접 만드는 절차가 두 번 나옵니다. 하나는 UI 쪽이고 하나는 visualization 쪽인데, 유저가 카드에 콕 집어 지적한 자리가 바로 이 둘입니다.</p>
+<p><strong>마지막에 조립하고 검사합니다.</strong> <code>S6</code> 이 흩어진 산출물을 README 한 장으로 잇고, <code>S7</code> 이 검증 다섯 가지를 실제로 돌립니다.</p>
+<h3>두 가지 수행안</h3>
+<p>같은 일곱 조각을 어떻게 굴릴지에 두 길이 있습니다. 둘 다 배치 세 개로 나뉩니다. 배치란 한 번에 묶어 수행하는 work 뭉치이고, 크기는 한 세션 예산의 절반을 넘지 않게 잡습니다.</p>
+<p><strong>단일 에이전트 안</strong>을 먼저 봅시다. 한 세션이 처음부터 끝까지 순서대로 갑니다. 배치 1이 <code>S1</code>·<code>S2</code>·<code>S3</code>, 배치 2가 <code>S4</code>·<code>S5</code>, 배치 3이 <code>S6</code>·<code>S7</code> 이에요. 병렬 폭은 1이죠. 강점은 목소리가 하나라는 것입니다. 사례 여덟 개를 같은 사람이 쓰니 절차를 적는 형식도 용어도 갈리지 않아요. 약점은 배치 2가 무겁다는 점입니다. 사례 여덟 개의 집필이 배치 하나에 통째로 몰리기 때문에, 예산이 모자라면 <code>S5</code> 를 배치 3으로 미루는 판단을 착수 시점에 해야 하죠. 되돌리기는 쉽습니다. 배치 2까지는 README를 안 건드리고 임시 산출물만 쌓거든요.</p>
+<p><strong>오케스트레이션 안</strong>은 다릅니다. 여러 워커를 동시에 굴려요. 배치 1에서는 <code>S1</code> 과 <code>S3</code> 이 서로를 안 읽으므로 나란히 돌 수 있어 병렬 폭이 2가 되고, <code>S2</code> 가 <code>S1</code> 을 기다립니다. 배치 2에서는 폭이 4로 올라가죠. 사례 여덟 개를 워커 넷에 둘씩 나누는 것입니다. 배치 3은 대상이 <code>README.md</code> 한 파일이라 나눌 수 없어 순차예요. 강점은 가장 무거운 배치 2가 짧아진다는 것입니다. 약점은 워커마다 절차 서술 형식과 용어가 갈린다는 점이고, 그 차이는 <code>S6</code> 조립에서 통합 재작성으로 청구되죠. 되돌리기는 앞의 안과 같되 단위가 더 잘게 쪼개집니다. 워커 하나의 산출물만 버리고 그 워커만 다시 돌릴 수 있어요.</p>
+<p>두 안의 차이를 한 문장으로 좁히면 이렇습니다. <strong>단일 에이전트 안은 배치 2의 무게를 감수하고 목소리를 지키며, 오케스트레이션 안은 목소리의 균열을 감수하고 배치 2를 쪼갭니다.</strong></p>
+<p>유저는 오케스트레이션 안을 골랐어요. 그 선택을 받아, 워커 넷이 같은 형식으로 쓰도록 배치 2 문서에 「워커 공통 계약」 네 조항을 박아 뒀습니다. 워커는 레포를 다시 조사하지 않고 <code>S1</code>·<code>S2</code> 산출물만 입력으로 받으며, 출력 형식이 고정되고, 세지 않은 숫자를 쓰지 않고, 파일을 직접 쓰지 않습니다.</p>
+<h3>막힐 만한 지점</h3>
+<p>가장 큰 것부터 봅시다.</p>
+<p><strong>목소리가 갈리는 자리는 배치 2입니다.</strong> 워커 넷이 각자 사례를 쓰면 절차를 번호로 적는 방식, 코드 앞에 붙이는 한 줄, 용어 선택이 조금씩 어긋납니다. 공통 계약으로 억제하지만 완전히 막지는 못해요. 남는 차이는 <code>S6</code> 에서 통합 재작성으로 흡수하고, <strong>그 재작성 분량을 수행 내역에 적습니다.</strong> 다음에 같은 선택을 할 때 근거가 되어야 하니까요.</p>
+<p><strong>예산이 넘칠 자리도 배치 2입니다.</strong> 워커 넷이 동시에 돌면서 각자 긴 산출물을 내면 합이 세션 예산 절반을 넘길 수 있습니다. 그래서 워커의 출력은 임시 파일로 떨어뜨리고, 오케스트레이터에게는 경로와 요약만 올라오게 합니다. 전문을 대화에 올리지 않는 것이 이 배치의 예산 방어선입니다.</p>
+<p><strong>죽은 코드 조각이 새 문서로 옮겨 갈 위험이 있습니다.</strong> 지금 README에도 <code>foundationCatalog[&#x27;coral&#x27;]</code> 처럼 살아 있는지 확인되지 않은 표기가 있어요. 검증 안 된 코드 조각은 문서가 아니라 사람을 헤매게 하는 물건입니다. 그래서 각 사례의 완료 기준에 &quot;코드 블록의 모든 import 토큰이 <code>S1</code> 이 만든 export 목록에 있을 것&quot;을 박았습니다. 하나라도 없으면 그 조각은 미완입니다.</p>
+<p><strong>되돌리기 어려운 지점은 사실상 <code>S6</code> 하나뿐입니다.</strong> 그 앞의 work들은 임시 파일만 남기고, <code>S6</code> 만 <code>README.md</code> 를 교체합니다. 단일 파일 교체라 되돌림 등급은 깨끗하게 나올 것으로 봅니다. 다만 이건 계획 시점의 예상이고, 실제 등급은 <code>rollback-plan</code> 이 태그를 보고 판정합니다.</p>
+<p><strong>마지막으로 검증이 이 카드와 무관하게 빨간 경우가 있습니다.</strong> 프로젝트 품질 게이트 다섯 종은 소스를 검사하는데 이 카드는 소스를 안 건드립니다. 그러니 거기서 실패가 나오면 이 카드가 만든 것이 아니라 앞선 상태의 문제예요. 그때 고치려 들지 않고 출력을 그대로 보고합니다.</p>
+<h3>무엇이 되면 끝인가</h3>
+<p>검증 다섯 가지가 전부 초록일 때 끝납니다. 하나씩 봅시다.</p>
+<p><strong>숫자가 맞는가.</strong> 매니페스트 네 개에서 항목 수를 세어 그 값이 README 본문에 그대로 나오는지 대조합니다. 눈으로 보는 대조가 아니라 스크립트가 세고 grep이 찾습니다.</p>
+<p><strong>코드가 실제로 컴파일되는가.</strong> README의 코드 블록을 임시 파일로 뽑아 워크스페이스 타입 검사에 태웁니다. <code>pnpm build</code> 와 <code>pnpm typecheck</code> 이 둘 다 exit 0이어야 하고, 뽑아낸 임시 파일은 검사 뒤에 남기지 않습니다.</p>
+<p><strong>링크가 살아 있는가.</strong> README가 가리키는 레포 안의 경로와 문서 앵커가 전부 실재해야 합니다. 깨진 링크는 0건입니다.</p>
+<p><strong>집필 규칙을 지켰는가.</strong> authoring-kit의 <code>validate</code> 가 갈래 위반 0건을 내고, 기계 리듬 스캐너가 선정된 voice의 면제를 반영한 뒤 임계 아래로 떨어져야 합니다.</p>
+<p><strong>기존 게이트가 여전히 초록인가.</strong> 이 프로젝트의 <code>CLAUDE.md</code> 가 요구하는 다섯 명령을 돌립니다. 이 카드는 소스를 안 건드리므로 회귀가 없다는 확인 절차예요.</p>
+<p>여기까지가 스크립트로 판정되는 것들입니다. 사람만 정할 수 있는 것은 따로 있어요. <strong>어디까지를 README에 담고 어디부터 <code>DESIGN_SYSTEM_GUIDE.md</code> 로 넘길지</strong>, 그리고 <strong>어떤 voice로 쓸지</strong>입니다. 둘 다 검토 단계에서 판단 항목으로 올려 유저에게 묻습니다. 지금 정해 두고 나중에 통보하지 않습니다.</p></section>
+
+<h2>전략</h2>
+<section class="card"><p>지시 원문은 <code>KANBAN.md</code> 카드의 <code>원문:</code> 블록에 있다(중복 보관하지 않음).</p>
+<h4>무엇이 문제인가 — 실측</h4>
+<p>현 README(174줄)는 <strong>패키지 목록 + 설치 스니펫</strong>이다. 지시가 지적한 셋이 실제로 없다.</p>
+<ul>
+<li>패키지 8종이 표 한 줄씩으로만 소개되고, 어떤 상황에 무엇을 고르는지가 없다.</li>
+<li>style guide를 <strong>구현</strong>할 수 있다는 사례가 없다. <code>StyleGuideProvider</code> 사용 예 4줄이 전부다.</li>
+<li>style guide를 <strong>저작</strong>하는 방법(preset 작성 → 대비 게이트 → 매니페스트 등재)이 한 줄도 없다.</li>
+</ul>
+<p>거기에 <strong>수치 drift</strong>가 겹친다(실측 대조 결과):</p>
+<p>| README 기재 | 실측 | 출처 | |---|---|---| | style guide preset 24종 | <strong>51종</strong> | <code>packages/style-guide-catalog/catalog.manifest.json</code> | | 브랜드 프리셋 74종 | <strong>76종</strong> | <code>packages/foundations/foundation.manifest.json</code> | | viz 카탈로그 &quot;Blueprint_Technical_01 등&quot; | <strong>30종</strong> | <code>packages/visualization-style-guide-catalog/catalog.manifest.json</code> | | viz 유형 축 언급 없음 | <strong>87종</strong> | <code>packages/visualization/type.manifest.json</code> |</p>
+<p>지시의 목표가 &quot;README만 보고 자기 사례에 맞는 패키지를 골라 style guide까지 구현&quot;이므로, <strong>틀린 수치는 그 자체로 목표 미달</strong>이다. 그래서 이 카드는 문장 작업이 아니라 <strong>매니페스트를 SSOT(single source of truth, 유일 정본)로 삼는 대조 작업</strong>을 포함한다.</p>
+<h4>접근 — 사례 축을 먼저 세우고 절차를 매단다</h4>
+<p>축을 &quot;패키지별&quot;로 잡으면 지금 표와 같은 것이 길어질 뿐이다. <strong>처음 온 사람이 자기를 알아보는 축</strong>은 *무엇을 만들려는가*이므로, 사례를 그 축으로 가른다. 사례마다 ① 필요한 패키지 ② 설치 ③ 최소 동작 코드 ④ 그다음 단계를 <strong>번호 절차</strong>로 단다.</p>
+<p>사례 후보(S2에서 확정):</p>
+<ol>
+<li>앱에 컴포넌트를 얹는다 — core + tokens</li>
+<li>브랜드 색으로 갈아입힌다 — foundations(76)</li>
+<li>완성된 룩을 골라 입힌다 — style-guide-catalog(51)</li>
+<li><strong>룩을 직접 만든다</strong> — style guide 저작 (지시가 콕 집은 자리)</li>
+<li>로직만 가져다 쓴다 — hooks</li>
+<li>다이어그램·인포그래픽을 그린다 — visualization(87 유형) + viz 카탈로그(30)</li>
+<li><strong>viz 룩을 직접 만든다</strong> — viz style guide 저작</li>
+<li>이 레포에 기여한다 — 품질 게이트</li>
+</ol>
+<h4>제약</h4>
+<ul>
+<li><strong>README 한 장으로 자립한다.</strong> 지시의 목표가 &quot;README만 보고&quot;다. 개념 심화는 <code>DESIGN_SYSTEM_GUIDE.md</code>(atom/molecule/block/pattern 기준표)가 이미 있으므로 <strong>링크로 넘기고 복제하지 않는다</strong>. 어디까지를 README에 담고 어디부터 링크로 넘길지는 검토의 판단 항목으로 낸다.</li>
+<li><strong>코드 스니펫은 실제 export를 쓴다.</strong> 지금 README의 <code>foundationCatalog[&#x27;coral&#x27;]</code> 같은 표기가 살아있는 API인지 S1에서 대조하고, 죽었으면 고친다. 검증되지 않은 스니펫은 문서가 아니라 함정이다.</li>
+<li><strong>authoring-kit은 지시된 도구다.</strong> 이 프로젝트에 미설치(<code>installed_plugins.json</code>에 bbangto-ui 없음)이나, 사용자 레지스트리 <code>~/.claude/authoring</code>은 살아 있고 voice 5종이 등록돼 있다. 플러그인 설치는 <code>~/.claude</code> 공유 상태 변경이라 <strong>설치 없이</strong> 마켓플레이스 경로의 스크립트를 <code>CLAUDE_PLUGIN_ROOT</code>로 직접 호출한다. spec은 이 프로젝트에 새로 등록한다(<code>.claude/authoring/specs/</code>).</li>
+</ul>
+<h4>버린 대안</h4>
+<ul>
+<li><strong>docs/ 로 쪼개기</strong> — 사례별 md를 따로 두고 README는 목차만. 지시의 &quot;README만 보고&quot;와 정면으로 어긋나고, KAN-044(문서 정리)가 세려는 문서 수를 늘린다.</li>
+<li><strong>자동 생성</strong> — 매니페스트에서 README 표를 생성(KAN-025의 trendTable 선례). 수치 drift는 막지만 사례별 산문 절차는 생성 대상이 아니다. 이번 범위 밖이고, 필요하면 후속 카드로 낸다.</li>
+<li><strong>영문 README</strong> — 지시에 없다. 기존 문체(한국어)를 유지한다.</li>
+</ul></section>
+
+<h2>실행 계획 (WBS)</h2>
+<div class="chart"><svg viewBox="0 0 860 268" role="img" aria-label="WBS 간트"><text x="16" y="57" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">S1</text><rect x="148.0" y="45" width="232.0" height="20" fill="#F3E8C9" stroke="#1C1B17" stroke-width="2"/><text x="156.0" y="59" font-size="12" fill="#1C1B17">사실 수집 — 패키지 8종의 실제 export·카탈로그 실측 수치·죽은 스니펫 …</text><text x="16" y="87" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">S2</text><rect x="148.0" y="75" width="232.0" height="20" fill="#F3E8C9" stroke="#1C1B17" stroke-width="2"/><text x="156.0" y="89" font-size="12" fill="#1C1B17">사례 축 확정 — 사례 8종의 경계·대상 패키지·&quot;그다음 단계&quot; 매핑</text><text x="16" y="117" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">S3</text><rect x="148.0" y="105" width="232.0" height="20" fill="#F3E8C9" stroke="#1C1B17" stroke-width="2"/><text x="156.0" y="119" font-size="12" fill="#1C1B17">authoring-kit 준비 — spec bbangto-readme 등록 + …</text><text x="16" y="147" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">S4</text><rect x="380.0" y="135" width="232.0" height="20" fill="#F3E8C9" stroke="#1C1B17" stroke-width="2"/><text x="388.0" y="149" font-size="12" fill="#1C1B17">사례 1~5 집필 — 앱 적용 · 브랜드 색 · 룩 고르기 · **룩 저작(UI…</text><text x="16" y="177" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">S5</text><rect x="380.0" y="165" width="232.0" height="20" fill="#F3E8C9" stroke="#1C1B17" stroke-width="2"/><text x="388.0" y="179" font-size="12" fill="#1C1B17">사례 6~8 집필 — visualization · **viz 룩 저작** · 기…</text><text x="16" y="207" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">S6</text><rect x="612.0" y="195" width="232.0" height="20" fill="#F3E8C9" stroke="#1C1B17" stroke-width="2"/><text x="620.0" y="209" font-size="12" fill="#1C1B17">README 조립 — 사례 라우팅 표 + 사례 본문 + 기존 절 정리 + 수치 …</text><text x="16" y="237" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">S7</text><rect x="612.0" y="225" width="232.0" height="20" fill="#F3E8C9" stroke="#1C1B17" stroke-width="2"/><text x="620.0" y="239" font-size="12" fill="#1C1B17">게이트 — 코드 스니펫 컴파일 검증 + authoring-gate 채점 + 링크…</text><line x1="148.0" y1="34" x2="148.0" y2="264" stroke="#1C1B17" stroke-width="2" stroke-dasharray="4 3"/><text x="154.0" y="28" font-size="11" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#6E6A5E">배치1</text><line x1="380.0" y1="34" x2="380.0" y2="264" stroke="#1C1B17" stroke-width="2" stroke-dasharray="4 3"/><text x="386.0" y="28" font-size="11" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#6E6A5E">배치2</text><line x1="612.0" y1="34" x2="612.0" y2="264" stroke="#1C1B17" stroke-width="2" stroke-dasharray="4 3"/><text x="618.0" y="28" font-size="11" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#6E6A5E">배치3</text></svg></div>
+<div class="scroll"><table>
+<tr><th>work</th><th>내용</th><th>상태</th></tr><tr><td><code>S1</code></td><td>사실 수집 — 패키지 8종의 실제 export·카탈로그 실측 수치·죽은 스니펫 대조</td><td><span class="tag tag-todo">미착수</span></td></tr><tr><td><code>S2</code></td><td>사례 축 확정 — 사례 8종의 경계·대상 패키지·&quot;그다음 단계&quot; 매핑</td><td><span class="tag tag-todo">미착수</span></td></tr><tr><td><code>S3</code></td><td>authoring-kit 준비 — spec <code>bbangto-readme</code> 등록 + voice 선정 + paths.json</td><td><span class="tag tag-todo">미착수</span></td></tr><tr><td><code>S4</code></td><td>사례 1~5 집필 — 앱 적용 · 브랜드 색 · 룩 고르기 · <strong>룩 저작(UI)</strong> · hooks</td><td><span class="tag tag-todo">미착수</span></td></tr><tr><td><code>S5</code></td><td>사례 6~8 집필 — visualization · <strong>viz 룩 저작</strong> · 기여</td><td><span class="tag tag-todo">미착수</span></td></tr><tr><td><code>S6</code></td><td>README 조립 — 사례 라우팅 표 + 사례 본문 + 기존 절 정리 + 수치 갱신</td><td><span class="tag tag-todo">미착수</span></td></tr><tr><td><code>S7</code></td><td>게이트 — 코드 스니펫 컴파일 검증 + authoring-gate 채점 + 링크 검사</td><td><span class="tag tag-todo">미착수</span></td></tr>
+</table></div>
+
+<h2>배치 구성</h2>
+<div class="chart"><svg viewBox="0 0 860 164" role="img" aria-label="배치 2안 비교"><text x="16" y="52" font-size="14" font-weight="700" fill="#1C1B17">단일 에이전트</text><rect x="190.0" y="30" width="208.7" height="36" fill="#F3E8C9" stroke="#1C1B17" stroke-width="2"/><text x="198.0" y="52" font-size="12" fill="#1C1B17">단계1</text><rect x="404.7" y="30" width="208.7" height="36" fill="#F3E8C9" stroke="#1C1B17" stroke-width="2"/><text x="412.7" y="52" font-size="12" fill="#1C1B17">단계2</text><rect x="619.3" y="30" width="208.7" height="36" fill="#F3E8C9" stroke="#1C1B17" stroke-width="2"/><text x="627.3" y="52" font-size="12" fill="#1C1B17">단계3</text><text x="16" y="108" font-size="14" font-weight="700" fill="#1C1B17">오케스트레이션</text><rect x="190.0" y="86" width="208.7" height="36" fill="#C2D3B4" stroke="#1C1B17" stroke-width="2"/><text x="198.0" y="108" font-size="12" fill="#1C1B17">단계1 ×2</text><rect x="404.7" y="86" width="208.7" height="36" fill="#C2D3B4" stroke="#1C1B17" stroke-width="2"/><text x="412.7" y="108" font-size="12" fill="#1C1B17">단계2 ×2</text><rect x="619.3" y="86" width="208.7" height="36" fill="#C2D3B4" stroke="#1C1B17" stroke-width="2"/><text x="627.3" y="108" font-size="12" fill="#1C1B17">단계3 ×2</text><text x="16" y="160" font-size="11" fill="#6E6A5E">배치 크기 기준: work 3~4개 = 한 세션 예산의 절반</text></svg></div>
+<div class="scroll"><table>
+<tr><th>배치</th><th>work</th><th>진행</th><th>배정 출처</th></tr><tr><td>배치1</td><td><code>S1, S2, S3</code></td><td>0/3</td><td>frontmatter</td></tr><tr><td>배치2</td><td><code>S4, S5</code></td><td>0/2</td><td>frontmatter</td></tr><tr><td>배치3</td><td><code>S6, S7</code></td><td>0/2</td><td>frontmatter</td></tr>
+</table></div>
+
+
+<h2>루트 독립성</h2>
+<div class="chart"><svg viewBox="0 0 860 166" role="img" aria-label="경로 레인 × 루트 카드 점유 매트릭스 — 위반 레인 0개"><text x="314.0" y="26" font-size="11" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#6E6A5E">KAN-044-3KYT2Q</text><text x="314.0" y="40" font-size="12" font-weight="400" fill="#1C1B17">문서 정리 계획 리포트</text><rect x="576.0" y="12" width="264.0" height="102" fill="#E9C766" opacity="0.10"/><text x="580.0" y="26" font-size="11" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#6E6A5E">▶ KAN-045-PNT454</text><text x="580.0" y="40" font-size="12" font-weight="700" fill="#1C1B17">README 활용 사례별 재작성</text><line x1="14" y1="46" x2="846" y2="46" stroke="#1C1B17" stroke-width="2"/><text x="14" y="67.0" font-size="11.5" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">.claude/authoring/**</text><rect x="580.0" y="52" width="252.0" height="20" fill="#E9C766" stroke="#1C1B17" stroke-width="2"/><text x="14" y="101.0" font-size="11.5" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">README.md</text><rect x="580.0" y="86" width="252.0" height="20" fill="#E9C766" stroke="#1C1B17" stroke-width="2"/><text x="14" y="130" font-size="11.5" font-style="italic" fill="#6E6A5E">scope 미기재로 판정에서 빠진 루트: KAN-044-3KYT2Q</text><text x="14" y="154" font-size="12" fill="#6E6A5E">겹치는 레인 없음 — 루트가 서로 독립입니다</text></svg></div>
+<p class="note">이 카드가 속한 루트는 다른 루트와 경로가 겹치지 않습니다. 병렬로 수행해도 충돌하지 않습니다.</p>
+<p class="note">경로 겹침은 신호이지 판정이 아닙니다. DB 스키마·환경변수·패키지
+매니페스트·공유 API 계약처럼 경로에 드러나지 않는 의존은 여기 잡히지 않습니다.</p>
+
+<h2>검증 기준</h2>
+<section class="card"><p>결정론적으로 판정되는 것만 여기 적는다. 사람이 정할 것은 검토서 3항으로 낸다.</p>
+<p><strong>V1 — 수치 정합.</strong> README에 적힌 카탈로그 수치가 매니페스트 실측과 같다.</p>
+<pre>python3 - &lt;&lt;&#x27;PY&#x27;
+import json, re, pathlib
+counts = {
+  &#x27;ui&#x27;:  len(json.load(open(&#x27;packages/style-guide-catalog/catalog.manifest.json&#x27;))),
+  &#x27;viz&#x27;: len(json.load(open(&#x27;packages/visualization-style-guide-catalog/catalog.manifest.json&#x27;))),
+  &#x27;fnd&#x27;: len(json.load(open(&#x27;packages/foundations/foundation.manifest.json&#x27;))),
+  &#x27;typ&#x27;: len(json.load(open(&#x27;packages/visualization/type.manifest.json&#x27;))),
+}
+print(counts)
+PY</pre>
+<p>기대: 출력한 네 수치가 README 본문에 그대로 등장한다(수동 대조 아님 — S7에서 스크립트로 grep 대조).</p>
+<p><strong>V2 — 스니펫이 실제로 컴파일된다.</strong> README의 모든 <code>tsx</code>/<code>ts</code> 코드 블록을 임시 파일로 뽑아 워크스페이스 타입 검사에 태운다.</p>
+<pre>pnpm build &amp;&amp; pnpm typecheck</pre>
+<p>기대: 두 명령 모두 exit 0. README 스니펫에서 뽑은 임시 검증 파일도 함께 통과한다(빌드 산출물에는 남기지 않는다).</p>
+<p><strong>V3 — 링크·경로가 살아 있다.</strong> README가 가리키는 레포 내부 경로와 앵커가 전부 존재한다.</p>
+<p>기대: 깨진 링크 0건.</p>
+<p><strong>V4 — authoring-kit 게이트.</strong> 집필 산출물이 채점을 통과한다.</p>
+<pre>CLAUDE_PLUGIN_ROOT=&lt;marketplace&gt;/authoring-kit \
+  python3 &lt;marketplace&gt;/authoring-kit/scripts/authoring.py validate
+CLAUDE_PLUGIN_ROOT=&lt;marketplace&gt;/authoring-kit \
+  python3 &lt;marketplace&gt;/authoring-kit/scripts/scan_ai_style.py README.md --voice &lt;선정 voice&gt;</pre>
+<p>기대: <code>validate</code> 갈래 위반 0건. <code>scan_ai_style</code> 기계 리듬 지표가 voice 면제를 반영한 뒤 임계 이하.</p>
+<p><strong>V5 — 프로젝트 품질 게이트 5종.</strong> <code>CLAUDE.md</code> 규정이라 문서 카드에도 적용한다(회귀 없음 확인).</p>
+<pre>pnpm typecheck &amp;&amp; pnpm build &amp;&amp; pnpm test &amp;&amp; pnpm --filter storybook build</pre>
+<p>기대: 전부 초록. 이 카드는 소스를 안 건드리므로 실패하면 그것은 이 카드가 만든 것이 아니라 <strong>선행 상태 문제</strong>이고, 그 사실을 그대로 보고한다.</p></section>
+
+<p class="meta">생성 근거: KANBAN.md
+KANBAN/cards/KAN-045-PNT454.md · 갱신 2026-08-24</p>
+</div>
