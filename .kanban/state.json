@@ -556,7 +556,11 @@
       "reason": "지금 README에는 패키지별 활용법도, style guide 구현 사례와 그 방법도 없다",
       "reason_hash": "e5ad55045d6637fda021a69acb529b81b8ee18f0",
       "goal": "처음 온 사람이 README만 보고 자기 사례에 맞는 패키지를 골라 style guide 까지 구현할 수 있다",
-      "goal_hash": "450e5ff8c649340c2183b5b75ab1c37afb6a2693"
+      "goal_hash": "450e5ff8c649340c2183b5b75ab1c37afb6a2693",
+      "scope": [
+        "README.md",
+        ".claude/authoring/**"
+      ]
     }
   },
   "order": [
