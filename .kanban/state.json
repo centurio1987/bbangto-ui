@@ -1,6 +1,6 @@
 {
   "next_id": 46,
-  "next_seq": 131,
+  "next_seq": 132,
   "cards": {
     "KAN-001": {
       "col": "done",
@@ -507,13 +507,13 @@
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-043-2JM72N": {
-      "col": "review",
+      "col": "done",
       "title": "상류 리포트 I 계열(I1~I7) 해소 — 유형 선택 정보 도달 경로",
       "memo": "P 계열(KAN-042) 후속. 87종 콘텐츠는 있으나 소비자가 도달 못 하는 경로 결함 7건.",
       "verbatim": "bbangto-ui-vizualization 패키지를 사용하는 사용자가 피드백 레포트를 작성했다. (/Users/centurio/resume/docs/viz-upstream-issues.md) P계열은 반영했으므로, I 계열을 검토해서 개선 해라",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-08-14",
+      "갱신": "2026-08-24",
       "title_hash": "1868f83bfc3252642775e831355143ecc7080610",
       "memo_hash": "bd7e6eecdc7fb3d4e73bd27a87d2a654f637ae6c",
       "verbatim_hash": "2e752e1c7bf53e1c3d5de3ec3a6f5e30574760e4"
@@ -562,7 +562,6 @@
   "order": [
     "KAN-044-3KYT2Q",
     "KAN-045-PNT454",
-    "KAN-043-2JM72N",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -604,9 +603,20 @@
     "KAN-035",
     "KAN-041",
     "KAN-036",
-    "KAN-042-JZ2ZBT"
+    "KAN-042-JZ2ZBT",
+    "KAN-043-2JM72N"
   ],
   "recent": [
+    {
+      "seq": 131,
+      "t": "2026-08-24T23:52",
+      "a": "ai",
+      "id": "KAN-043-2JM72N",
+      "op": "move",
+      "w": "S7030N",
+      "from": "review",
+      "to": "done"
+    },
     {
       "seq": 130,
       "t": "2026-08-24T23:52",
@@ -1131,15 +1141,6 @@
       "title": "최초 ai를 위한 메타데이터를 도입한 작업 이후로, 태스크를 진행할 때마다, 메타데이터 생성도 같이 진행이 됐는지 확인 필요. 같이 생성이 안됐다면, 없는 인터페이스들에 대해서 적용하기 위한 계획 및 수행 필요",
       "memo": "",
       "verbatim": ""
-    },
-    {
-      "seq": 81,
-      "t": "2026-07-24T14:11",
-      "a": "ai",
-      "id": "KAN-033",
-      "op": "move",
-      "from": "backlog",
-      "to": "done"
     }
   ],
   "layout": 3
