@@ -19,7 +19,7 @@
   - 목적: README를 활용 사례별로 분류하고 사례마다 패키지 사용 절차를 authoring-kit 으로 서술한다
   - 이유: 지금 README에는 패키지별 활용법도, style guide 구현 사례와 그 방법도 없다
   - 목표: 처음 온 사람이 README만 보고 자기 사례에 맞는 패키지를 골라 style guide 까지 구현할 수 있다
-  - 실행 문서: KANBAN/cards/KAN-045-PNT454.md (1/7 · 최근 08-25)
+  - 실행 문서: KANBAN/cards/KAN-045-PNT454.md (3/7 · 최근 08-25)
   - 원문:
     ```text
     README는 이 레포를 설명하기에 정보가 많이 부족하다. 이 프로젝트를 활용 사례 별로 분류하고, 사례 별로 사용 방법을 자세한 절차로 서술해라. 서술 과정에서 authoring-kit skill을 이용해라.
