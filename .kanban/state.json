@@ -536,7 +536,13 @@
       "reason": "루트에만 ASSET_INTEGRATION_PLAN·DESIGN_SYSTEM_GUIDE·METADATA_COVERAGE_AUDIT·ORDER·RELEASE_PLAN 등이 쌓여 어느 것이 살아있는 문서인지 구분되지 않는다",
       "reason_hash": "df6d5c48a441242b79b513df7acc3828770646fe",
       "goal": "문서마다 판정과 근거가 붙은 정리 계획 리포트가 나와 실제 정리를 착수할 수 있다",
-      "goal_hash": "def3dd2d880d73fdb5e1788a0db95e463346857f"
+      "goal_hash": "def3dd2d880d73fdb5e1788a0db95e463346857f",
+      "scope": [
+        "KANBAN/cards/KAN-044-3KYT2Q.md",
+        "KANBAN/batches/KAN-044-3KYT2Q.*",
+        "KANBAN/reports/KAN-044-3KYT2Q.*",
+        "KANBAN/reviews/KAN-044-3KYT2Q.*"
+      ]
     },
     "KAN-045-PNT454": {
       "col": "todo",
