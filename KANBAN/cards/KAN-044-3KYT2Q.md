@@ -61,9 +61,9 @@ scope: KANBAN/cards/KAN-044-3KYT2Q.md, KANBAN/batches/KAN-044-3KYT2Q.*, KANBAN/r
 ## 실행 계획
 <!-- `S<n>`은 고정 id — 이름을 바꾸지 않는다. 체크 상태는 doc-step 이 갱신한다. -->
 - [x] `S1` 문서 전수 인벤토리 — 모집단 확정과 메타데이터 수집. 완료 기준: md 전량에 (경로·줄수·바이트·최종 커밋일·커밋 수·소유자[사람/기계]) 6열이 붙고, 행 수가 `find` 결과와 일치한다. 기계 소유 제외 목록이 명시된다
-- [>] `S2` inbound 참조 그래프 — 각 문서를 부르는 곳을 레포 전역에서 찾는다(코드·md·`CLAUDE.md`·스킬·`package.json`·스토리). 완료 기준: 문서마다 참조 수와 참조원 경로가 붙고, 참조 0건 목록이 따로 나온다 <!-- claim:s=af4d5613 t=2026-08-25T00:12 -->
-- [ ] `S3` 판정 규칙 확정 + 1차 분류 — 존치/통합/이관/폐기 4판정의 결정 규칙을 먼저 글로 박고, 그 규칙으로 판정 모집단 전량을 분류한다. 완료 기준: 전량에 판정 1개 + 근거 1줄. 규칙으로 안 갈리는 건은 `보류`로 표시하고 사유를 남긴다
-- [>] `S4` 통합·폐기 후보 원문 대조 — 판정이 `통합`·`폐기`·`보류`인 건만 파일을 실제로 열어 중복·유효성을 확인한다. 최소 대상: 루트 5종(ASSET_INTEGRATION_PLAN·RELEASE_PLAN·WAVE0_REPORT·METADATA_COVERAGE_AUDIT·DESIGN_SYSTEM_GUIDE)과 `packages/core/catalog/*.audit.md` 38개 표본. 완료 기준: 건마다 "무엇이 어디로" 한 줄, `보류` 0건 <!-- claim:s=af4d5613 t=2026-08-25T00:12 -->
+- [x] `S2` inbound 참조 그래프 — 각 문서를 부르는 곳을 레포 전역에서 찾는다(코드·md·`CLAUDE.md`·스킬·`package.json`·스토리). 완료 기준: 문서마다 참조 수와 참조원 경로가 붙고, 참조 0건 목록이 따로 나온다
+- [x] `S3` 판정 규칙 확정 + 1차 분류 — 존치/통합/이관/폐기 4판정의 결정 규칙을 먼저 글로 박고, 그 규칙으로 판정 모집단 전량을 분류한다. 완료 기준: 전량에 판정 1개 + 근거 1줄. 규칙으로 안 갈리는 건은 `보류`로 표시하고 사유를 남긴다
+- [x] `S4` 통합·폐기 후보 원문 대조 — 판정이 `통합`·`폐기`·`보류`인 건만 파일을 실제로 열어 중복·유효성을 확인한다. 최소 대상: 루트 5종(ASSET_INTEGRATION_PLAN·RELEASE_PLAN·WAVE0_REPORT·METADATA_COVERAGE_AUDIT·DESIGN_SYSTEM_GUIDE)과 `packages/core/catalog/*.audit.md` 38개 표본. 완료 기준: 건마다 "무엇이 어디로" 한 줄, `보류` 0건
 - [ ] `S5` 정리 실행 계획 — 후속 카드 분해안(카드마다 범위·순서·되돌리기 방법)과 리스크(참조 깨짐·CLAUDE.md 지시 유실). 완료 기준: 후속 카드 후보가 범위와 함께 목록으로 나오고, 참조가 걸린 문서마다 "지우기 전에 고칠 곳"이 적힌다
 - [ ] `S6` 계획 리포트 발행 — `report-data` → (authoring-kit 있으면 집필) → `report.py` 렌더 → Artifact 발행. 완료 기준: 단일 자립 HTML이 외부 요청 0건으로 뜨고 링크가 유저에게 간다
 
@@ -101,3 +101,8 @@ scope: KANBAN/cards/KAN-044-3KYT2Q.md, KANBAN/batches/KAN-044-3KYT2Q.*, KANBAN/r
 - 2026-08-25T00:12 · s:af4d5613 — 인벤토리 산출물 위치를 카드 실행 문서 안이 아니라 KANBAN/reports/KAN-044-3KYT2Q.inventory.md 로 뒀다 — 79행 표 + 규칙이 전략 절을 덮어 카드 문서가 안 읽히기 때문. scope 안이라 루트 문서를 늘리지 않는다는 전략 취지는 유지된다
 - 2026-08-25T00:12 · s:af4d5613 · S2 doing — 착수
 - 2026-08-25T00:12 · s:af4d5613 · S4 doing — 착수
+- 2026-08-25T00:14 · s:af4d5613 — S6 사전 확인: authoring-kit 플러그인은 설치돼 있으나 scope 가 centurio1987.github.io·code_test·resume 3개 프로젝트뿐이고 bbangto-ui 에는 안 붙어 있다 — S6 에서 이 레포에 붙일지 유저에게 묻고, 안 붙이면 voice 미적용으로 렌더한다
+- 2026-08-25T00:26 · s:af4d5613 · S2 done — 4구획 워커 병렬 조사로 79건 전량 inbound 참조 조회 완료. 참조 0건 6건(README·RELEASE_PLAN·core/README·DESIGN-amber·apps/storybook/README + audit 44개는 파일 단위 0/글롭 3). 코드가 근거로 인용하는 문서 다수 확인(styleGuideMeta.ts→style-classification, blocks·patterns/index.ts→DESIGN_SYSTEM_GUIDE, genTrendTable.ts→style-guide-catalog.md)
+- 2026-08-25T00:26 · s:af4d5613 · S4 done — 통합·폐기 후보 원문 대조 완료. 겹치는 짝 10쌍(A~J) 줄 번호까지 확정. 실측 불일치 12건 발견 — CLAUDE.md·QUALITY_CHECKLIST·DESIGN_SYSTEM_GUIDE 의 packages/theme-* 4종 부재, README 수치 3건, RELEASE_PLAN 버전표 7행 전부 지나감, COMPONENT_CATALOG 43↔44 및 없는 audit 7종 지목, CHANGELOG 6개의 files 편입 오기재
+- 2026-08-25T00:26 · s:af4d5613 · S3 doing — 착수
+- 2026-08-25T00:27 · s:af4d5613 · S3 done — 판정 79/79 완료, 보류 0. 존치 27(그중 겹침정리·실측수정 8) · 통합 49(실작업 6건, 44는 audit 묶음 1건) · 이관 0 · 폐기 3(RELEASE_PLAN·sample_design/DESIGN-amber·apps/storybook/README, 전부 참조 0). 규칙 2번을 전체통합/부분통합으로 가르는 보정으로 보류 0 달성

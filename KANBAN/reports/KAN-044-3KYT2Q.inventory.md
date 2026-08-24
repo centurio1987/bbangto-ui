@@ -180,3 +180,104 @@ S3 이 한자리에서 한다.
 
 참조 조회는 파일명(확장자 포함)과 확장자 없는 이름 둘 다로 레포 전역을 훑는다.
 자기 자신과 `KANBAN/`·`.kanban/` 안의 언급은 참조로 세지 않는다(칸반 메모는 참조가 아니다).
+
+---
+
+# S3 산출물 — 판정 79건
+
+## 6. 규칙 보정 하나 (S3 에서 확정)
+
+S1 규칙 2번 「`D` 가 있으면 통합」을 그대로 쓰면 **일부만 겹치는 문서가 통째로 통합 대상**이 된다.
+`METADATA_COVERAGE_AUDIT.md` 가 그 경우다 — 98줄 중 겹치는 것은 §2-2 한 문단이고 나머지는 유일본이다.
+그래서 규칙 2번을 둘로 가른다.
+
+- **전체 통합** — 문서의 남는 가치가 흡수처에 전부 들어갈 때. 원본은 사라진다.
+- **부분 통합** — 겹치는 절만 흡수처로 보내고 그 자리에 링크를 둔다. 원본은 남는다 → 판정은 `존치`이고
+  「겹침 정리」를 따로 적는다.
+
+이 보정으로 `보류` 0건이 됐다.
+
+## 7. 판정 집계
+
+| 판정 | 건수 | 비고 |
+|---|---:|---|
+| 존치 | 27 | 그중 8건은 「겹침 정리」 또는 「실측 수정」이 따라붙는다 |
+| 통합 | 49 | **44건은 `catalog/*.audit.md` 묶음 1건**이므로 실제 통합 작업은 6건 |
+| 이관 | 0 | 자리가 틀린 문서는 없었다 |
+| 폐기 | 3 | 전부 참조 0건이거나 참조원이 함께 사라진다 |
+| 보류 | 0 | |
+| **합** | **79** | |
+
+## 8. 판정 — 루트 9건
+
+| 문서 | R | K | 판정 | 근거 | 지우기 전에 고칠 곳 |
+|---|---:|---|---|---|---|
+| `CLAUDE.md` | 5 | 상시 | **존치** | 계약 문서(규칙 1) | — (본문 수정만: 56–63행 `packages/theme-*` 4종 부재, 패키지 5개 누락, `test:unit` 누락) |
+| `QUALITY_CHECKLIST.md` | 10 | 상시 | **존치** | 계약 문서. 템플릿 코드 2개가 조항으로 인용 | — (본문 수정만: 59–62행 `packages/theme-*/src/theme.ts` 4경로 부재, 15행 "5개 테마") |
+| `README.md` | 0 | 상시 | **존치** | 계약 문서(레포 대문). **KAN-045 소관이라 이 카드는 손대지 않는다** | — (수치 3건 74→76·24→51·26→25 는 KAN-045 로 넘김) |
+| `DESIGN_SYSTEM_GUIDE.md` | 6 | 상시 | **존치** | `blocks/index.ts:5`·`patterns/index.ts:5` 가 계층 정의 출처로 지목. `COMPONENT_CATALOG.md:42` 가 상위로 위임 | — (본문 수정: 170행 `packages/theme-*`) |
+| `METADATA_COVERAGE_AUDIT.md` | 4 | 혼합 | **존치**(부분 통합) | 세 전략 문서가 상위 포인터로 지목. §4 재감사 절차를 `metadataCoverage.test.ts` 가 집행 | 겹침 정리: §2-2 파일럿 관찰 문단 → `FOUNDATION_METADATA_STRATEGY.md` §7 로 단일화하고 링크로 대체 |
+| `ORDER.md` | 1 | 일회성(동결) | **존치** | **`결과:` 상세 서술이 유일본이다** — KANBAN 카드 메모는 1줄로 압축돼 있어 지우면 ORD-001~011 실행 결과가 소실된다. 안전 규칙 2("근거를 못 대면 존치")에 걸린다 | — (전환 공지·봉인 마커가 이미 있어 추가 조치 없음) |
+| `ASSET_INTEGRATION_PLAN.md` | 2 | 일회성 | **통합** | Wave 0~5 전부 DONE(`COMPONENT_CATALOG.md:179-210`), 실측 blocks 13·patterns 4·hooks 31 존재. 실행 결과는 이미 CC 레지스트리에 있다 | 흡수처 `packages/core/COMPONENT_CATALOG.md` — 위임 모델·leaf 계약 요지만 3~5줄. 고칠 곳: `DESIGN_SYSTEM_GUIDE.md:182` |
+| `WAVE0_REPORT.md` | 1 | 일회성 | **통합** | "Wave 0 시범 실행 리포트", Wave 1~5 전부 DONE. 산출물 표는 `CC:181-187` 과 중복 | 흡수처 `packages/core/COMPONENT_CATALOG.md` — **토큰 갭 감사(breakpoint 가 cssVar 토큰이 될 수 없다)만 살린다**. 고칠 곳: `COMPONENT_CATALOG.md:181` |
+| `RELEASE_PLAN.md` | **0** | 일회성 | **폐기** | KAN-036 산출물이고 KAN-036 완료. 버전표 7행이 **전부 지나감**(tokens 1.2.0→실측 1.3.0 등), `.changeset/` changeset **0건** = 소진. 자기 선언 SSOT 가 `.changeset/*.md` | 없음(참조 0) |
+
+## 9. 판정 — `packages/core/catalog/*.audit.md` 44건
+
+**판정: 통합 (44 → 1)** · 흡수처 `packages/core/catalog/SATURATION_AUDIT.md`(신설)
+
+| 축 | 값 |
+|---|---|
+| `R` | **파일 단위 44개 전부 0건.** 글롭 단위 3행 — `COMPONENT_CATALOG.md:234`·`:248`·`packages/core/CHANGELOG.md:136`. 코드의 readdir/glob/`?raw` 접근 0. npm 미포함 |
+| `K` | **일회성** — 43개에 `Saturation round: 1 (pilot)`, round 2 파일 0건. 커밋 6개 전부 2026-06-27 이후 무변경. CC wave 표 `═══ 포화 완료 ═══` |
+| `D` | `COMPONENT_CATALOG.md:230-262` 와 **채택 멤버 이름 86종만** 겹친다 |
+
+**폐기가 아니라 통합인 이유**: `absorbed`/`noise`/`dropped` 후보의 **기각 사유가 유일본**이다. 파일 분량의
+절반이 그것이고 다른 어디에도 없다. "왜 이 variant 는 안 넣었는가"를 지우면 같은 후보가 다음 라운드에
+다시 올라온다. 반대로 **개별 파일로 남을 이유는 없다** — 개별 참조가 0이고 44개가 같은 라운드 산출물이다.
+
+지우기 전에 고칠 곳:
+- `packages/core/COMPONENT_CATALOG.md:234` · `:248` — 글롭 표기를 새 단일 문서로
+- `packages/core/CHANGELOG.md:136` — **고치지 않는다.** 과거 릴리스 시점의 사실 기록이다
+
+**대안(존치)**: 44개를 그대로 두는 것도 성립한다. `catalog/` 하위라 루트를 어지럽히지 않고, 통합 작업 자체가
+44개 파일을 읽어 접는 비용이다. 유저가 파일 수보다 작업 비용을 중히 보면 이쪽이다.
+
+## 10. 판정 — `packages/core` 그 외 7건
+
+| 문서 | R | K | 판정 | 근거 | 고칠 곳 |
+|---|---:|---|---|---|---|
+| `style-guide-catalog.md` | 20 | 상시 | **존치(동결)** | **38–92줄이 자동 생성 구간**(`gen:trend-table`). 이동·개명·삭제하면 `trendTable.test.ts` 가 `readFileSync` 에서 깨진다 | 손대지 않는다 |
+| `motion-catalog.md` | 15 | 상시 | **존치** | `CLAUDE.md:46` 이 기록 대상으로 지정한 계약 문서 | — |
+| `COMPONENT_CATALOG.md` | 7 | 혼합 | **존치** | 코드 3곳(`blocks`·`patterns`·`shaders/index.ts`)이 분류 출처로 지목 | 본문 수정 2건: 246행 "43 카테고리"→**44**, 256행이 지목하는 audit 7종(Slider·ScrollArea·Sidebar·TreeView·Text·CTA·Comparison)은 **존재하지 않는다** |
+| `MOTION_QUALITY_CHECKLIST.md` | 15 | 상시 | **존치** | `CLAUDE.md:45` 지정. `QUALITY_CHECKLIST.md:78` 이 D절을 전량 위임 | — |
+| `src/motion/README.md` | 8 | 상시 | **존치** | 코드 옆 "how" 문서. 참조 8건이 전부 자기 구획 안이지만 그것이 이 문서의 자리다 | 겹침 정리: 같은 워크플로가 **5곳**(이 파일·MOTION_QUALITY_CHECKLIST·motion-catalog §6·CLAUDE.md §4·QUALITY_CHECKLIST)에 기술 |
+| `README.md` | **0** | 상시 | **존치** | `package.json` `files:["dist","README.md"]` = **npm 발행물**. 참조 0 이 "안 읽힘"이 아닌 경우 | — |
+| `design-trends-2020-2026.md` | 3 | **일회성** | **통합** | 129행 "#24–28 후보로 정식 등재 완료" = **도출 목적 소진**. §C 5종 명세는 `style-guide-catalog.md` #24–28 로 흡수 완료 | 흡수처 `packages/core/style-guide-catalog.md` — 2020–2025 연도별 목록과 출처 3링크만 출처 절로. 고칠 곳: `style-guide-catalog.md:94`, `packages/style-guide-catalog/src/index.ts:46`(주석). `ORDER.md:269` 는 동결이라 안 고침 |
+
+## 11. 판정 — visualization + 나머지 19건
+
+| 문서 | R | K | 판정 | 근거 | 고칠 곳 |
+|---|---:|---|---|---|---|
+| `viz/style-classification.md` | **26** | 상시 | **존치** | `packages/tokens/src/styleGuideMeta.ts:18,31` 이 `STYLE_FAMILIES` union 근거로 인용. 가이드 소스 8종이 "근거: F#" 로 인용 | — (§4-f/g/h 중복은 아래 `visualization-catalog` 쪽에서 정리) |
+| `viz/visualization-type-inventory.md` | 21 | 상시 | **존치** | `package.json:24` `files` = **npm 동봉**. `typeMeta/registry.ts:4` 가 코드에서 SSOT 선언 | — |
+| `viz/TYPE_METADATA_STRATEGY.md` | 15 | 상시 | **존치** | `package.json:25` `files` = npm 동봉. `types.ts:11` 이 코드에서 계약 명시 | — |
+| `style-guide-catalog/METADATA_STRATEGY.md` | 13 | 상시 | **존치** | 코드 4곳이 **조항 번호로** 인용(`select.ts:4` "§6 소비 흐름 2단계") | 본문 수정: §7 롤아웃 표의 KAN-026·027 이 📋 인데 둘 다 완료 |
+| `viz/viz-style-expansion.md` | 8 | 일회성 | **존치** | K 는 일회성이나 **viz-sg-catalog 소스 7종이 저작 근거로 인용**한다. 지우면 7개 가이드의 근거가 끊긴다 | — |
+| `viz/README.md` | 3 | 상시 | **존치** | npm 진입 문서. `src/index.ts:28`·`tsup.config.ts:21` 이 지목 | 겹침 정리: 두 축 직교 표가 `viz-sg-catalog/README.md` 와 거의 동일 → 한쪽을 링크로 |
+| `foundations/FOUNDATION_METADATA_STRATEGY.md` | 5 | 상시 | **존치** | 코드 2곳이 지목. 3종 중 유일하게 롤아웃 표가 최신 | §7 이 `METADATA_COVERAGE_AUDIT` §2-2 의 흡수처가 된다(위 8절) |
+| `diagram-references/README.md` | 2 | 상시(자산 인덱스) | **존치** | 이미지 **88장이 실재**하고 폴더·파일명 규칙을 설명하는 유일 문서 | — (4스타일 분류는 `style-classification.md` 가 기각했다는 주석 1줄 권장) |
+| `_templates/README.md` | 1(+디렉터리 4) | 상시 | **존치** | **Storybook `meta.title` 계층 표의 유일 소재지** | 본문 수정: `Atoms/`·`Molecules/` 규약이 ORD-003 재편(`ARCHETYPE`/`DIAGRAM`/`STYLE GUIDE CATALOG`) 후 구조와 어긋남 |
+| `_templates/CHECKLIST_INSTANCE.template.md` | 2 | 상시(템플릿) | **존치** | `QUALITY_CHECKLIST.md` 복사 양식 | 본문 수정 2건: "5개 테마(light/dark/high-contrast/amber-light/amber-dark)" 부재 · "Wave 0\|1\|…\|6"·"21st 출처 카테고리" 가 현행 KAN-### 체계와 다름 |
+| 패키지 README 5개 — `tokens`·`foundations`·`hooks`·`style-guide-catalog`·`visualization-style-guide-catalog` | 각 1 | 상시 | **존치** ×5 | 전부 `package.json` `files` 등재 = **npm 배포 진입 문서**. 참조가 `files` 하나뿐인 것이 정상이다 | — |
+| `viz/PLAN.md` | 4 | **혼재** | **통합** | §E Phase 0~8 전부 완료. §A/§B 본문 전체가 구 명칭(`packages/diagram`·`dvar()`·`DiagramProvider`). **"이연" 3항목이 전부 완료(KAN-010~016)인데 미갱신이라 §D 인라인 노트와 자기모순** | 흡수처: §C-2 공통 계약 → `packages/visualization/README.md`. **`type-inventory.md:13` 의 "구현 스펙 SSOT" 지위를 함께 옮긴다.** 고칠 곳: `type-inventory.md:13,30,369` · `visualization-catalog.md:43` |
+| `viz/visualization-catalog.md` | 11 | 일회성 | **통합** | §1-b·§1-c·§2-a 가 스스로 3곳에서 "type-inventory Registry 에 **흡수됨**"이라 자기 무효를 선언. 148행이 "근거·경계는 style-classification 이 우선" 자인 | 흡수처: §4 스타일 스펙 → `style-classification.md` 로 단일화. 고칠 곳: `type-inventory.md:12,14,29,343,369` · `style-classification.md:4` · `viz/README.md:128` · `PLAN.md:10,34`(PLAN 도 통합 대상이라 함께 사라짐). `ORDER.md:103,293` 은 동결이라 안 고침 |
+| `sample_design/DESIGN-amber.md` | **0** | 일회성 | **폐기** | 완전 고아. 값(hex·타이포)은 `packages/foundations/src/amber.ts` 에 **실측 일치로 이미 흡수**됐고 코드가 이 문서를 인용하지 않는다. 원래 **Binance UI 분석 문서**이고 `f510700` 리네임 뒤에도 "Amber's iconic yellow"·가상 폰트 `AmberNova`/`AmberPlex` 잔재가 남아 있다 | 없음(참조 0). `sample_design/` 디렉터리가 통째로 사라진다 |
+| `apps/storybook/README.md` | **0** | 해당 없음 | **폐기** | **Vite `react-ts` 스톡 템플릿 원문 그대로**("# React + TypeScript + Vite"). bbangto-ui·Storybook·play 언급 0. 19개 중 유일하게 초기 커밋 이후 무수정. `private: true` 라 미배포 | 없음(참조 0). 대안: 지우는 대신 Storybook 실행법으로 **재작성** |
+
+## 12. 이 카드가 판정하지 않은 것
+
+- **`packages/*/CHANGELOG.md` 8개 + `.changeset/README.md`** — changesets 도구 소유. 사람이 정리할 대상이 아니다
+- **`KANBAN.md`·`.kanban/log.md`·`KANBAN/**`** — manage-kanban 스킬 소유
+- **`README.md` 본문** — `KAN-045` 소관
+- **실제 삭제·통합 커밋** — 후속 카드의 몫(S5)
