@@ -3,7 +3,7 @@ card: KAN-044-3KYT2Q
 batch: 1
 created: 2026-08-25
 branch: KAN-044-3KYT2Q
-status: 계획
+status: 완료
 steps: S1
 ---
 
