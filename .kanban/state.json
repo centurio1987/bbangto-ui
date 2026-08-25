@@ -1,6 +1,6 @@
 {
   "next_id": 46,
-  "next_seq": 135,
+  "next_seq": 136,
   "cards": {
     "KAN-001": {
       "col": "done",
@@ -519,7 +519,7 @@
       "verbatim_hash": "2e752e1c7bf53e1c3d5de3ec3a6f5e30574760e4"
     },
     "KAN-044-3KYT2Q": {
-      "col": "doing",
+      "col": "review",
       "title": "불필요한 문서들 파악해서 정리하기 위한 계획 세우고 레포트 제출해라",
       "verbatim": "",
       "생성": "유저",
@@ -613,6 +613,16 @@
     "KAN-044-3KYT2Q"
   ],
   "recent": [
+    {
+      "seq": 135,
+      "t": "2026-08-25T14:13",
+      "a": "ai",
+      "id": "KAN-044-3KYT2Q",
+      "op": "move",
+      "w": "DA5BWJ",
+      "from": "doing",
+      "to": "review"
+    },
     {
       "seq": 134,
       "t": "2026-08-25T14:10",
@@ -1135,16 +1145,6 @@
       "field": "memo",
       "before": "완료 — 교차검증 템플릿 축을 파일럿 3종 → 그룹 전 축(G1~G5·P2·P3) 대표 24종으로 재스코핑. 신규 `_matrixFixtures.tsx`(그룹 스토리 검증 데이터 복사, 기존 스토리 무변경) + `TemplateStyleMatrix.stories.tsx`에 template-major `ExpandedMatrix` 스토리 추가(PilotMatrix 유지). play 검증: fixture 가드(key slug-safe·유일), 행수=fixture수·셀수=vizStyleGuideCatalog.length(SSOT), 셀별 svg role=img+non-empty title+expectVizPaintResolved+paintSig non-empty, 행마다 guideVarSig 전-가이드 all-distinct(결정적), 템플릿별 paintSig(svg 전 geometry mark, bg 제외, 상한60) 집합>1. 외부검토(codex) 반영: 약한 >1 기준 보강(가이드축 all-distinct 분리), bg가 paint 가리는 문제 제거, 첫-N 취약성→전-mark 일반화, SSOT 카운트, per-row 무결성. ExpandedMatrix 24×6=144 SVG play 2.56s(분할 불필요). 4 게이트 green(typecheck/build/test 1093/storybook build). viz 소스·core export 무변경.",
       "after": "완료 — 교차검증 템플릿 축을 파일럿 3종 → 그룹 전 축(G1~G5·P2·P3) 대표 24종으로 재스코핑. 신규 `_matrixFixtures.tsx`(그룹 스토리 검증 데이터 복사, 기존 스토리 무변경) + `TemplateStyleMatrix.stories.tsx`에 template-major `ExpandedMatrix` 스토리 추가(PilotMatrix 유지). play 검증: fixture 가드(key slug-safe·유일), 행수=fixture수·셀수=vizStyleGuideCatalog.length(SSOT), 셀별 svg role=img+non-empty title+expectVizPaintResolved+paintSig non-empty, 행마다 guideVarSig 전-가이드 all-distinct(결정적), 템플릿별 paintSig(svg 전 geometry mark, bg 제외, 상한60) 집합&gt;1. 외부검토(codex) 반영: 약한 &gt;1 기준 보강(가이드축 all-distinct 분리), bg가 paint 가리는 문제 제거, 첫-N 취약성→전-mark 일반화, SSOT 카운트, per-row 무결성. ExpandedMatrix 24×6=144 SVG play 2.56s(분할 불필요). 4 게이트 green(typecheck/build/test 1093/storybook build). viz 소스·core export 무변경."
-    },
-    {
-      "seq": 85,
-      "t": "2026-07-24T14:39",
-      "a": "유저",
-      "id": "KAN-003",
-      "op": "edit",
-      "field": "verbatim",
-      "before": "# ORDER 2\n스토리북 구조를 개편한다. 명칭은 더 적절한 것이 있으면 계획 중 제안하고 컨펌 받아라\nARCHETYPE\n |-- Foundations\n |-- Components\n\t |-- Atoms\n\t |-- Molecules\n\t |-- Organisms\n |-- Blocks\n |-- Patterns\n\nDIAGRAM\n|-- ...\n\nSTYLE GUIDE CATALOG\n|-- Brutalism_Minimalism_01\n\t|-- Referenced Foundations\n\t|-- Extended Foundations\n\t|-- Wrapper Components\n\t|-- Patterns\n\t|-- Guideline\n\t|-- Visual Motif",
-      "after": "# ORDER 2\n스토리북 구조를 개편한다. 명칭은 더 적절한 것이 있으면 계획 중 제안하고 컨펌 받아라\nARCHETYPE\n |-- Foundations\n |-- Components\n     |-- Atoms\n     |-- Molecules\n     |-- Organisms\n |-- Blocks\n |-- Patterns\n\nDIAGRAM\n|-- ...\n\nSTYLE GUIDE CATALOG\n|-- Brutalism_Minimalism_01\n    |-- Referenced Foundations\n    |-- Extended Foundations\n    |-- Wrapper Components\n    |-- Patterns\n    |-- Guideline\n    |-- Visual Motif"
     }
   ],
   "layout": 3

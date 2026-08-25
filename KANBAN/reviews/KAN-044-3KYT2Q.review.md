@@ -24,9 +24,14 @@ status: 검토 대기
 | 베이스 | `b9745ad` |
 | 변경 훑기 | `git diff b9745ad...HEAD` |
 
-**커밋 10건**
+**커밋 15건**
 
 ```text
+0e6ed5d KAN-044: ORDER.md 판정 존치→폐기 (검토 3번 반려 반영)
+27b43e6 kanban: KAN-044 검토 판정 유입 — 승인 6 · 반려 1(3번 ORDER.md)
+70708e2 kanban: KAN-044 §14 에 D↔KAN-046 독립성 행 보강 + 검토 4번에 추가 의견
+1b9dc96 kanban: KAN-044 계획 리포트 재렌더(검토 컬럼 반영)
+f62106e kanban: KAN-044 검토로 이동 + 검토서 발행(판단 항목 7건) + 검토 화면 렌더
 bc560a8 KAN-044: 계획 리포트 재렌더(work 6/6 반영) + Artifact 발행
 3f2ddd9 KAN-044 S6: 계획 리포트 발행 + §16 산술 정정(79→28) + 검증 4종 통과
 f85e6c3 KAN-044 S6: authoring-kit 을 bbangto-ui 에 활성화 + kanban-report spec/paths 등록 (유저 승인)
@@ -39,7 +44,7 @@ b311313 kanban: KAN-044 배치1 완료 표시 + 배치2 착수 시점 판단 기
 def52e5 kanban: KAN-044 진행 중으로 이동 (문서 정리 계획 리포트 착수)
 ```
 
-**변경 파일 16개 (+1784 −27)**
+**변경 파일 20개 (+3270 −51)**
 
 | 파일 | 상태 | 추가 | 삭제 |
 |---|:--:|---:|---:|
@@ -47,18 +52,22 @@ def52e5 kanban: KAN-044 진행 중으로 이동 (문서 정리 계획 리포트 
 | `.claude/authoring/specs/kanban-report/spec.json` | M | 49 | 0 |
 | `.claude/authoring/specs/kanban-report/spec.md` | M | 45 | 0 |
 | `.claude/settings.json` | M | 3 | 0 |
-| `.kanban/archive.jsonl` | M | 1 | 0 |
-| `.kanban/log.md` | M | 1 | 1 |
-| `.kanban/state.json` | M | 21 | 16 |
+| `.kanban/archive.jsonl` | M | 3 | 0 |
+| `.kanban/log.md` | M | 3 | 3 |
+| `.kanban/reviews/KAN-044-3KYT2Q.events.jsonl` | M | 24 | 0 |
+| `.kanban/reviews/KAN-044-3KYT2Q.review.json` | M | 21 | 0 |
+| `.kanban/state.json` | M | 42 | 38 |
 | `KANBAN.board.html` | M | 235 | 5 |
-| `KANBAN.md` | M | 6 | 5 |
+| `KANBAN.md` | M | 7 | 5 |
 | `KANBAN/batches/KAN-044-3KYT2Q.batch1.md` | M | 55 | 0 |
 | `KANBAN/batches/KAN-044-3KYT2Q.batch2.md` | M | 68 | 0 |
 | `KANBAN/batches/KAN-044-3KYT2Q.batch3.md` | M | 63 | 0 |
-| `KANBAN/cards/KAN-044-3KYT2Q.md` | M | 112 | 0 |
-| `KANBAN/reports/KAN-044-3KYT2Q.draft.md` | M | 162 | 0 |
-| `KANBAN/reports/KAN-044-3KYT2Q.inventory.md` | M | 386 | 0 |
-| `KANBAN/reports/KAN-044-3KYT2Q.report.html` | M | 571 | 0 |
+| `KANBAN/cards/KAN-044-3KYT2Q.md` | M | 113 | 0 |
+| `KANBAN/reports/KAN-044-3KYT2Q.draft.md` | M | 163 | 0 |
+| `KANBAN/reports/KAN-044-3KYT2Q.inventory.md` | M | 404 | 0 |
+| `KANBAN/reports/KAN-044-3KYT2Q.report.html` | M | 572 | 0 |
+| `KANBAN/reviews/KAN-044-3KYT2Q.review.html` | M | 1160 | 0 |
+| `KANBAN/reviews/KAN-044-3KYT2Q.review.md` | M | 234 | 0 |
 
 **롤백 태그 9개**
 
@@ -109,26 +118,26 @@ kan/KAN-044-3KYT2Q/batch3
 **실행 결과**
 
 ```text
-① 모집단 누락 0 — 통과
-   find . -name "*.md" (node_modules·.git·dist·storybook-static 제외) = 101
-   내역: 사람 79 · 기계:changesets 9 · 기계:kanban 12 · 기계:플러그인자산 1
-   인벤토리 §3 표 행 수 = 79. 판정 모집단과 차집합 양쪽 0 (표에만 있음 [], 레포에만 있음 [])
+① 모집단 누락 0 — 통과 (재실행 2026-08-25, 반려 반영 후)
+   find . -name "*.md" (node_modules·.git·dist·storybook-static 제외) = 102
+   내역: 사람 79 · 기계:changesets 9 · 기계:kanban 13 · 기계:플러그인자산 1
+   인벤토리 §3 표 행 수 = 79. 판정 모집단과 차집합 양쪽 0
+   직전 실행의 101 → 102 증가분 1건은 검토서 발행본(KANBAN/reviews/KAN-044-3KYT2Q.review.md)이고
+   기계 소유라 판정 모집단이 아니다. 사람 문서 79 는 변동 없음.
 
-② 판정 누락 0 / 보류 0 — 통과
-   판정 표 4벌 위치 파싱 재검산: 존치 27 · 통합 49 · 이관 0 · 폐기 3 = 79
-   (통합 49 = 표에 적힌 5건 + §9 audit 묶음 44건. 보류 0건)
+② 판정 누락 0 — 통과
+   §7 집계: 존치 26 · 통합 49 · 이관 0 · 폐기 4 · 보류 0 · 합 79
+   검토 3번 반려(「제거」) 반영으로 존치 27→26 · 폐기 3→4 로 이동했고 합은 그대로다.
 
 ③ 근거 추적 가능 — 통과
-   폐기 3건 전부 R=0 명시: RELEASE_PLAN.md / sample_design/DESIGN-amber.md / apps/storybook/README.md
-   통합·존치의 R≥1 건은 「지우기 전에 고칠 곳」을 경로:줄로 기재
+   판정마다 근거 1줄 + 3축(참조 수·최종 커밋일·중복 대상) 기재.
+   폐기 4건 중 3건은 참조 0건이고, ORDER.md 만 참조 1건이라
+   "지우기 전에 고칠 곳"에 packages/visualization/visualization-type-inventory.md:376 을 명시했다.
+   §15 리스크에 「폐기 문서 참조 고아」 행과 A 의 완료 기준(grep 0건)을 함께 넣었다.
 
-④ 리포트 자립 HTML — 통과
-   grep -oE '(src|href)="https?://[^"]+' report.html | wc -l  → 0
-   grep -oE '(fetch|XMLHttpRequest|WebSocket)\(' report.html | wc -l → 0
-   <script> 태그 0건 · 63KB · voiced=true (ppangtolab-teacher × kanban-report)
-   derived-status → KANBAN/reports/KAN-044-3KYT2Q.report.html: fresh
-
-주의: 코드 게이트(pnpm typecheck/build/test)는 이 카드에 돌 대상이 없습니다 — 문서만 만들었고 .ts/.tsx 변경 0건입니다.
+④ 리포트가 자립 HTML 로 뜬다 — 통과
+   grep -oE '(src|href)="https?://[^"]+' KANBAN/reports/KAN-044-3KYT2Q.report.html | wc -l = 0
+   derived-status: KAN-044-3KYT2Q.report.html = fresh (voiced, 초안과 함께 재렌더)
 ```
 
 ## 3. 판단 항목 — 스크립트가 판정할 수 없는 것
@@ -161,52 +170,72 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-044-3KYT2Q --add
 **전체 승인은 살아있는 항목이 전부 승인일 때만 섭니다**(철회는 분모에서 빠집니다). 하나라도
 반려·추가 의견·미정이면 4항의 전체 승인도 `→ 완료` 이동도 종료코드 14로 거부됩니다.
 
-- [ ] packages/core/catalog/*.audit.md 44개를 한 파일로 접을 것인가 그대로 둘 것인가 — 지금은 「통합(44→1)」으로 판정했습니다
+- [x] packages/core/catalog/*.audit.md 44개를 한 파일로 접을 것인가 그대로 둘 것인가 — 지금은 「통합(44→1)」으로 판정했습니다
     - **상세** — 파일 단위 참조가 44개 전부 0건이고(글롭 참조만 3행) 43개에 'Saturation round: 1 (pilot)'이 붙은 1회성 증빙이라 개별 파일로 남을 이유가 없습니다. 다만 기각 사유(absorbed/noise/dropped 후보의 탈락 논거)가 유일본이라 폐기는 아닙니다. 접는 작업 자체가 44개를 읽는 비용입니다. 판정과 대안 둘 다: KANBAN/reports/KAN-044-3KYT2Q.inventory.md §9. 글롭 참조 3행의 원문: packages/core/COMPONENT_CATALOG.md:234 · :248 · packages/core/CHANGELOG.md:136
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 승인 · 유저 · 2026-08-25
 
     > **추가 의견** — _아직 없습니다._
 
-- [ ] apps/storybook/README.md 를 지울 것인가 Storybook 실행법으로 다시 쓸 것인가 — 지금은 「폐기」입니다
+- [x] apps/storybook/README.md 를 지울 것인가 Storybook 실행법으로 다시 쓸 것인가 — 지금은 「폐기」입니다
     - **상세** — 현재 내용은 Vite react-ts 스톡 템플릿 원문 그대로라 어느 쪽을 골라도 지금 글은 남지 않습니다. 원문: apps/storybook/README.md:1 이 '# React + TypeScript + Vite' 입니다. 참조 0건이고 apps/storybook/package.json 이 private:true 라 npm 미배포입니다. 판정 근거: KANBAN/reports/KAN-044-3KYT2Q.inventory.md §11 마지막 행
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 승인 · 유저 · 2026-08-25
 
     > **추가 의견** — _아직 없습니다._
 
-- [ ] ORDER.md 를 동결 존치로 둘 것인가 — 지금은 「존치」입니다
+- [x] ORDER.md 를 동결 존치로 둘 것인가 — 지금은 「존치」입니다
     - **상세** — ORD-001~011(ORDER.md 에 봉인된 옛 지시 11건)의 원문 블록은 KAN-001~011 로 문자 그대로 이관됐지만, 각 항목의 '결과:' 상세 서술은 ORDER.md 에만 있습니다 — 원문 대조: ORDER.md:246-251(ORD-006 결과 6줄) ↔ KANBAN.md 의 KAN-006 메모 1줄. 옮기려면 칸반 메모의 한 줄 제약과 부딪칩니다. 판정 근거: KANBAN/reports/KAN-044-3KYT2Q.inventory.md §8 ORDER.md 행
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 반려 · 유저 · 2026-08-25
+    > - 승인 · 유저 · 2026-08-25
 
-    > **추가 의견** — _아직 없습니다._
+    > **추가 의견**
+    >
+    > - 유저 · 2026-08-25 — 제거
+    > - ai · 2026-08-25 — 처리 회신(2026-08-25): 「제거」로 반영했습니다. ORDER.md 판정을 존치→폐기로 바꾸고 인벤토리 13곳·집필 초안 6곳을 고쳤습니다 — §7 집계(존치 27→26·폐기 3→4), §8 ORDER.md 행(근거를 이 반려로 교체 + 지우기 전에 고칠 곳 = packages/visualization/visualization-type-inventory.md:376 의 'ORDER.md 편집 금지' 문구), §11 통합 2건의 '동결이라 안 고침' 단서를 '함께 폐기되므로 고칠 것 없음'으로, §13 A 카드를 폐기 4건으로(scope 에 ORDER.md 추가), §15 리스크를 '폐기 문서 참조 고아'로 교체하고 A 완료 기준에 grep 0건을 넣었으며, §16 정리 후 모집단 28→27·루트 6→5. 결과 상세 서술은 레포에서 사라지지만 git 이력에는 남습니다. 커밋 0e6ed5d
 
-- [ ] 후속 카드를 A·B·C·D 넷으로 가른 경계가 맞는가
+- [x] 후속 카드를 A·B·C·D 넷으로 가른 경계가 맞는가
     - **상세** — scope(카드가 건드리는 경로 글롭)가 겹치지 않도록 갈랐습니다 — A=폐기 3건 집행, B=core 카탈로그 계열 통합, C=visualization 계열 통합, D=규율 문서 실측 정합. 다르게 가르는 방식(예: 통합/수정 축이 아니라 패키지 축)도 성립합니다. 넷의 scope 와 하는 일 전문: KANBAN/reports/KAN-044-3KYT2Q.inventory.md §13
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 승인 · 유저 · 2026-08-25
 
-    > **추가 의견** — _아직 없습니다._
+    > **추가 의견**
+    >
+    > - ai · 2026-08-25 — §14 보강(2026-08-25): 이 표는 KAN-045 하고만 대조했는데, main 의 「할 일」에 KAN-046-33S4G8(CLAUDE.md 품질 게이트에 pnpm test:unit 추가)이 살아 있습니다. D 의 scope 첫 항목이 CLAUDE.md 라 dep-check 가 루트 간 겹침으로 잡습니다. 다만 절이 달라(KAN-046=게이트 명령 :33-38, D=구조도 :56-63) 순서 의존이 없으므로 직렬이 아니라 dep-waive 로 제안했습니다 — 근거와 명령은 인벤토리 §14 에 넣었습니다
 
-- [ ] 후속 카드 B→D 직렬 중재를 등록할 것인가 — 지금은 「필요하다」로 판정했습니다
+- [x] 후속 카드 B→D 직렬 중재를 등록할 것인가 — 지금은 「필요하다」로 판정했습니다
     - **상세** — 직렬 중재는 두 카드를 병렬로 돌리지 않고 순서를 강제하는 장치입니다. 둘 다 DESIGN_SYSTEM_GUIDE.md 를 고칩니다 — B 는 :182(ASSET_INTEGRATION_PLAN 링크 제거), D 는 :170(packages/theme-* 표기 수정). 고치는 줄이 달라 git 병합은 되지만, D 가 먼저 돌면 :182 에 고칠 것이 없고 B 가 나중에 그 파일을 없애 링크가 깨진 채 남습니다. 판정 근거: KANBAN/reports/KAN-044-3KYT2Q.inventory.md §14
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 승인 · 유저 · 2026-08-25
 
     > **추가 의견** — _아직 없습니다._
 
-- [ ] .claude/settings.json 과 .claude/authoring/** 변경이 이 카드 scope 밖인데 이대로 둘 것인가
+- [x] .claude/settings.json 과 .claude/authoring/** 변경이 이 카드 scope 밖인데 이대로 둘 것인가
     - **상세** — 이 카드가 선언한 scope 는 KANBAN/ 아래 네 글롭뿐입니다 — 원문: KANBAN/cards/KAN-044-3KYT2Q.md:5 의 frontmatter scope 줄. 그런데 authoring-kit 활성화가 .claude/ 4파일을 건드렸습니다: .claude/settings.json(enabledPlugins 3줄 추가) · .claude/authoring/paths.json · .claude/authoring/specs/kanban-report/spec.json · 같은 폴더 spec.md. 유저 승인을 받고 한 변경이지만 scope 선언과는 어긋나고, review-init 이 이것을 경고로 냈습니다. 커밋 f85e6c3
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 승인 · 유저 · 2026-08-25
 
     > **추가 의견** — _아직 없습니다._
 
-- [ ] 판정 규칙을 「전체 통합 / 부분 통합」으로 가른 보정에 동의하는가
+- [x] 판정 규칙을 「전체 통합 / 부분 통합」으로 가른 보정에 동의하는가
     - **상세** — S1(이 카드 실행 계획의 첫 단계 — 문서 전수 인벤토리와 판정 규칙 확정)이 세운 규칙 2번은 '중복 대상이 있으면 통합'입니다. 그대로 쓰면 일부만 겹치는 문서가 통째로 통합 대상이 됩니다. METADATA_COVERAGE_AUDIT.md 가 그 경우라 존치 + 부분 통합으로 뒀습니다 — 98줄 중 겹치는 것은 §2-2 한 문단이고 흡수처는 packages/foundations/FOUNDATION_METADATA_STRATEGY.md §7 입니다. 원 규칙: KANBAN/reports/KAN-044-3KYT2Q.inventory.md §4, 보정: 같은 문서 §6
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 승인 · 유저 · 2026-08-25
 
     > **추가 의견** — _아직 없습니다._
 
