@@ -1301,5 +1301,5 @@ pnpm typecheck                 # 워크스페이스 전체 타입 검사
 ---
 
 <div align="center">
-  <sub>Built with ❤️ by the BBANGTO Team.</sub>
+  <sub>Built with care by the BBANGTO Team.</sub>
 </div>
