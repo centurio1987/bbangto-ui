@@ -110,3 +110,4 @@ scope: KANBAN/cards/KAN-044-3KYT2Q.md, KANBAN/batches/KAN-044-3KYT2Q.*, KANBAN/r
 - 2026-08-25T00:30 · s:af4d5613 · S5 done — 후속 카드 4장(A 폐기집행 / B core계열통합 / C viz계열통합 / D 규율문서 실측정합) 분해. 루트 독립성 판정: A·B·C 병렬, B→D 직렬 중재 필요(DESIGN_SYSTEM_GUIDE 겹침), KAN-045 와 겹침 0. 리스크 7건에 막는 법 명시. 정리 후 모집단 79→35
 - 2026-08-25T12:36 · s:af4d5613 — 검증 4종 실행 결과 — ①모집단 누락 0: 인벤토리 79행 = 현재 판정 모집단 79, 차집합 양쪽 0 ②판정 누락 0: 표 파싱 재검산 존치27+통합49+이관0+폐기3=79, 보류 0 ③폐기 3건 전부 참조 0 명시 ④리포트 자립: 외부 요청 0·fetch 0·63KB·voiced=true·derived-status fresh
 - 2026-08-25T12:36 · s:af4d5613 · S6 done — authoring-kit(ppangtolab-teacher × kanban-report, 규칙 해시 5ec7fd0a8902f140) 집필 초안으로 계획 리포트 렌더. 집필 워커가 §16 산술 오류(79→35)를 잡아 28로 정정. 외부 요청 0건 자립 HTML 63KB
+- 2026-08-25T14:10 · s:cb5e6918 — 검토 3번 반려(유저 의견 「제거」) — ORDER.md 판정을 존치→폐기로 뒤집고 인벤토리 §7·§8·§13-A·§15·§16 과 리포트를 그에 맞춰 고친다

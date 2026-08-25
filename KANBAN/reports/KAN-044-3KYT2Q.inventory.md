@@ -201,10 +201,10 @@ S1 규칙 2번 「`D` 가 있으면 통합」을 그대로 쓰면 **일부만 �
 
 | 판정 | 건수 | 비고 |
 |---|---:|---|
-| 존치 | 27 | 그중 8건은 「겹침 정리」 또는 「실측 수정」이 따라붙는다 |
+| 존치 | 26 | 그중 8건은 「겹침 정리」 또는 「실측 수정」이 따라붙는다 |
 | 통합 | 49 | **44건은 `catalog/*.audit.md` 묶음 1건**이므로 실제 통합 작업은 6건 |
 | 이관 | 0 | 자리가 틀린 문서는 없었다 |
-| 폐기 | 3 | 전부 참조 0건이거나 참조원이 함께 사라진다 |
+| 폐기 | 4 | 3건은 참조 0건. `ORDER.md` 만 참조 1건이라 지우기 전에 고칠 곳이 있다 |
 | 보류 | 0 | |
 | **합** | **79** | |
 
@@ -217,7 +217,7 @@ S1 규칙 2번 「`D` 가 있으면 통합」을 그대로 쓰면 **일부만 �
 | `README.md` | 0 | 상시 | **존치** | 계약 문서(레포 대문). **KAN-045 소관이라 이 카드는 손대지 않는다** | — (수치 3건 74→76·24→51·26→25 는 KAN-045 로 넘김) |
 | `DESIGN_SYSTEM_GUIDE.md` | 6 | 상시 | **존치** | `blocks/index.ts:5`·`patterns/index.ts:5` 가 계층 정의 출처로 지목. `COMPONENT_CATALOG.md:42` 가 상위로 위임 | — (본문 수정: 170행 `packages/theme-*`) |
 | `METADATA_COVERAGE_AUDIT.md` | 4 | 혼합 | **존치**(부분 통합) | 세 전략 문서가 상위 포인터로 지목. §4 재감사 절차를 `metadataCoverage.test.ts` 가 집행 | 겹침 정리: §2-2 파일럿 관찰 문단 → `FOUNDATION_METADATA_STRATEGY.md` §7 로 단일화하고 링크로 대체 |
-| `ORDER.md` | 1 | 일회성(동결) | **존치** | **`결과:` 상세 서술이 유일본이다** — KANBAN 카드 메모는 1줄로 압축돼 있어 지우면 ORD-001~011 실행 결과가 소실된다. 안전 규칙 2("근거를 못 대면 존치")에 걸린다 | — (전환 공지·봉인 마커가 이미 있어 추가 조치 없음) |
+| `ORDER.md` | 1 | 일회성(동결) | **폐기** | **검토 3번에서 존치가 반려됐다**(2026-08-25, 유저 판정 「제거」). 34행의 전환 공지(2026-07-14)대로 계획·지시 관리는 `KANBAN.md` 로 넘어갔고 ORD-001~011 원문은 KAN-001~011 로 문자 그대로 이관돼 있다. `결과:` 상세 서술은 이 판정으로 레포에서 사라지지만 git 이력에는 남는다 | `packages/visualization/visualization-type-inventory.md:376` — "ORDER.md 편집 금지" 문구를 지운다. 없는 파일을 가리키게 되기 때문 |
 | `ASSET_INTEGRATION_PLAN.md` | 2 | 일회성 | **통합** | Wave 0~5 전부 DONE(`COMPONENT_CATALOG.md:179-210`), 실측 blocks 13·patterns 4·hooks 31 존재. 실행 결과는 이미 CC 레지스트리에 있다 | 흡수처 `packages/core/COMPONENT_CATALOG.md` — 위임 모델·leaf 계약 요지만 3~5줄. 고칠 곳: `DESIGN_SYSTEM_GUIDE.md:182` |
 | `WAVE0_REPORT.md` | 1 | 일회성 | **통합** | "Wave 0 시범 실행 리포트", Wave 1~5 전부 DONE. 산출물 표는 `CC:181-187` 과 중복 | 흡수처 `packages/core/COMPONENT_CATALOG.md` — **토큰 갭 감사(breakpoint 가 cssVar 토큰이 될 수 없다)만 살린다**. 고칠 곳: `COMPONENT_CATALOG.md:181` |
 | `RELEASE_PLAN.md` | **0** | 일회성 | **폐기** | KAN-036 산출물이고 KAN-036 완료. 버전표 7행이 **전부 지나감**(tokens 1.2.0→실측 1.3.0 등), `.changeset/` changeset **0건** = 소진. 자기 선언 SSOT 가 `.changeset/*.md` | 없음(참조 0) |
@@ -253,7 +253,7 @@ S1 규칙 2번 「`D` 가 있으면 통합」을 그대로 쓰면 **일부만 �
 | `MOTION_QUALITY_CHECKLIST.md` | 15 | 상시 | **존치** | `CLAUDE.md:45` 지정. `QUALITY_CHECKLIST.md:78` 이 D절을 전량 위임 | — |
 | `src/motion/README.md` | 8 | 상시 | **존치** | 코드 옆 "how" 문서. 참조 8건이 전부 자기 구획 안이지만 그것이 이 문서의 자리다 | 겹침 정리: 같은 워크플로가 **5곳**(이 파일·MOTION_QUALITY_CHECKLIST·motion-catalog §6·CLAUDE.md §4·QUALITY_CHECKLIST)에 기술 |
 | `README.md` | **0** | 상시 | **존치** | `package.json` `files:["dist","README.md"]` = **npm 발행물**. 참조 0 이 "안 읽힘"이 아닌 경우 | — |
-| `design-trends-2020-2026.md` | 3 | **일회성** | **통합** | 129행 "#24–28 후보로 정식 등재 완료" = **도출 목적 소진**. §C 5종 명세는 `style-guide-catalog.md` #24–28 로 흡수 완료 | 흡수처 `packages/core/style-guide-catalog.md` — 2020–2025 연도별 목록과 출처 3링크만 출처 절로. 고칠 곳: `style-guide-catalog.md:94`, `packages/style-guide-catalog/src/index.ts:46`(주석). `ORDER.md:269` 는 동결이라 안 고침 |
+| `design-trends-2020-2026.md` | 3 | **일회성** | **통합** | 129행 "#24–28 후보로 정식 등재 완료" = **도출 목적 소진**. §C 5종 명세는 `style-guide-catalog.md` #24–28 로 흡수 완료 | 흡수처 `packages/core/style-guide-catalog.md` — 2020–2025 연도별 목록과 출처 3링크만 출처 절로. 고칠 곳: `style-guide-catalog.md:94`, `packages/style-guide-catalog/src/index.ts:46`(주석). `ORDER.md:269` 는 A 에서 함께 폐기되므로 고칠 것 없음 |
 
 ## 11. 판정 — visualization + 나머지 19건
 
@@ -271,7 +271,7 @@ S1 규칙 2번 「`D` 가 있으면 통합」을 그대로 쓰면 **일부만 �
 | `_templates/CHECKLIST_INSTANCE.template.md` | 2 | 상시(템플릿) | **존치** | `QUALITY_CHECKLIST.md` 복사 양식 | 본문 수정 2건: "5개 테마(light/dark/high-contrast/amber-light/amber-dark)" 부재 · "Wave 0\|1\|…\|6"·"21st 출처 카테고리" 가 현행 KAN-### 체계와 다름 |
 | 패키지 README 5개 — `tokens`·`foundations`·`hooks`·`style-guide-catalog`·`visualization-style-guide-catalog` | 각 1 | 상시 | **존치** ×5 | 전부 `package.json` `files` 등재 = **npm 배포 진입 문서**. 참조가 `files` 하나뿐인 것이 정상이다 | — |
 | `viz/PLAN.md` | 4 | **혼재** | **통합** | §E Phase 0~8 전부 완료. §A/§B 본문 전체가 구 명칭(`packages/diagram`·`dvar()`·`DiagramProvider`). **"이연" 3항목이 전부 완료(KAN-010~016)인데 미갱신이라 §D 인라인 노트와 자기모순** | 흡수처: §C-2 공통 계약 → `packages/visualization/README.md`. **`type-inventory.md:13` 의 "구현 스펙 SSOT" 지위를 함께 옮긴다.** 고칠 곳: `type-inventory.md:13,30,369` · `visualization-catalog.md:43` |
-| `viz/visualization-catalog.md` | 11 | 일회성 | **통합** | §1-b·§1-c·§2-a 가 스스로 3곳에서 "type-inventory Registry 에 **흡수됨**"이라 자기 무효를 선언. 148행이 "근거·경계는 style-classification 이 우선" 자인 | 흡수처: §4 스타일 스펙 → `style-classification.md` 로 단일화. 고칠 곳: `type-inventory.md:12,14,29,343,369` · `style-classification.md:4` · `viz/README.md:128` · `PLAN.md:10,34`(PLAN 도 통합 대상이라 함께 사라짐). `ORDER.md:103,293` 은 동결이라 안 고침 |
+| `viz/visualization-catalog.md` | 11 | 일회성 | **통합** | §1-b·§1-c·§2-a 가 스스로 3곳에서 "type-inventory Registry 에 **흡수됨**"이라 자기 무효를 선언. 148행이 "근거·경계는 style-classification 이 우선" 자인 | 흡수처: §4 스타일 스펙 → `style-classification.md` 로 단일화. 고칠 곳: `type-inventory.md:12,14,29,343,369` · `style-classification.md:4` · `viz/README.md:128` · `PLAN.md:10,34`(PLAN 도 통합 대상이라 함께 사라짐). `ORDER.md:103,293` 은 A 에서 함께 폐기되므로 고칠 것 없음 |
 | `sample_design/DESIGN-amber.md` | **0** | 일회성 | **폐기** | 완전 고아. 값(hex·타이포)은 `packages/foundations/src/amber.ts` 에 **실측 일치로 이미 흡수**됐고 코드가 이 문서를 인용하지 않는다. 원래 **Binance UI 분석 문서**이고 `f510700` 리네임 뒤에도 "Amber's iconic yellow"·가상 폰트 `AmberNova`/`AmberPlex` 잔재가 남아 있다 | 없음(참조 0). `sample_design/` 디렉터리가 통째로 사라진다 |
 | `apps/storybook/README.md` | **0** | 해당 없음 | **폐기** | **Vite `react-ts` 스톡 템플릿 원문 그대로**("# React + TypeScript + Vite"). bbangto-ui·Storybook·play 언급 0. 19개 중 유일하게 초기 커밋 이후 무수정. `private: true` 라 미배포 | 없음(참조 0). 대안: 지우는 대신 Storybook 실행법으로 **재작성** |
 
@@ -293,13 +293,13 @@ S1 규칙 2번 「`D` 가 있으면 통합」을 그대로 쓰면 **일부만 �
 
 루트 카드는 상호 독립이어야 하므로 **`scope` 가 겹치지 않게** 갈랐다. 판정 79건이 넷으로 전부 들어간다.
 
-### A · 폐기 3건 집행
+### A · 폐기 4건 집행
 
 | | |
 |---|---|
-| `scope` | `RELEASE_PLAN.md`, `sample_design/**`, `apps/storybook/README.md` |
-| 하는 일 | 폐기 판정 3건을 실제로 지운다. `sample_design/` 은 디렉터리째 사라진다 |
-| 선행 수정 | **없다** — 세 파일 전부 inbound 참조 0건 |
+| `scope` | `RELEASE_PLAN.md`, `sample_design/**`, `apps/storybook/README.md`, `ORDER.md`, `packages/visualization/visualization-type-inventory.md` |
+| 하는 일 | 폐기 판정 4건을 실제로 지운다. `sample_design/` 은 디렉터리째 사라진다 |
+| 선행 수정 | **`ORDER.md` 하나만 있다** — `visualization-type-inventory.md:376` 의 "ORDER.md 편집 금지" 문구를 먼저 지운다. 나머지 셋은 inbound 참조 0건 |
 | 되돌리기 | `git revert` 한 번. 파일 삭제만이라 충돌 지점이 없다 |
 | 크기 | work 1~2개. 4.7 「인스턴트 예외」 대상 |
 | 갈림길 | `apps/storybook/README.md` 는 **지우는 대신 Storybook 실행법으로 재작성**할 수 있다. 지금 것은 Vite 스톡 템플릿 원문이라 어느 쪽이든 현재 내용은 남지 않는다 |
@@ -380,22 +380,25 @@ python3 <스킬>/scripts/kanban.py dep-waive <root> --pair <D>,KAN-046-33S4G8 \
 | **npm 배포물 유실** | `packages/visualization/package.json` `files` 가 `visualization-type-inventory.md`·`TYPE_METADATA_STRATEGY.md` 를 포함 | 둘 다 존치 판정 |
 | **SSOT 체인 단절** | C 에서 `PLAN.md`·`visualization-catalog.md` 를 없앨 때 `type-inventory.md` 의 5개 링크를 한 번에 안 고치면 SSOT 지목이 허공을 가리킨다 | C 의 완료 기준에 "`type-inventory.md` grep 결과 0건" 을 넣는다 |
 | **기각 사유 소실** | audit 44개를 폐기하면 `absorbed`/`noise`/`dropped` 후보의 기각 논거가 영구 소실된다 | 폐기가 아니라 **통합**으로 판정한 이유. 접을 때 Tally 전량을 옮긴다 |
-| **동결 문서 오편집** | `ORDER.md` 는 봉인 마커가 있고 `visualization-type-inventory.md:376` 이 "편집 금지"라 적는다 | A~D 어느 `scope` 에도 `ORDER.md` 를 넣지 않았다 |
+| **폐기 문서 참조 고아** | `ORDER.md` 를 지우면 `visualization-type-inventory.md:376`("ORDER.md 편집 금지")이 없는 파일을 가리킨다. §11 의 통합 2건에 달린 "ORDER.md 는 동결이라 안 고침" 단서도 함께 무의미해진다 | A 의 완료 기준에 "`grep -rn 'ORDER\.md' --exclude-dir=.git` 결과 0건" 을 넣는다. 통합 카드(B·C)의 단서는 「함께 사라지므로 고칠 것 없음」으로 이미 고쳤다 |
 | **CLAUDE.md 오수정 번짐** | D 가 에이전트 규율을 고친다 | work 단위 태그. 게이트 명령 4종은 손대지 않고 구조도·경로만 고친다 |
 
 ## 16. 정리 후 문서 수
 
 | | 지금 | 정리 후 | 왜 |
 |---|---:|---:|---|
-| 존치 | 27 | 27 | 그대로 남는다 |
+| 존치 | 26 | 26 | 그대로 남는다 |
 | `packages/core/catalog/*.audit.md` | 44 | 1 | 한 파일로 접는다 |
 | 통합 흡수(파일이 사라짐) | 5 | 0 | `ASSET_INTEGRATION_PLAN`·`WAVE0_REPORT`·`design-trends-2020-2026`·`viz/PLAN`·`viz/visualization-catalog` |
-| 폐기 | 3 | 0 | `RELEASE_PLAN`·`sample_design/DESIGN-amber`·`apps/storybook/README` |
-| **판정 모집단 합** | **79** | **28** | 27 + 1 |
-| 루트 마크다운(기계 소유 제외) | 9 | 6 | 폐기 1 + 통합 2 가 사라진다 |
+| 폐기 | 4 | 0 | `RELEASE_PLAN`·`sample_design/DESIGN-amber`·`apps/storybook/README`·**`ORDER.md`**(검토 3번 반려 반영) |
+| **판정 모집단 합** | **79** | **27** | 26 + 1 |
+| 루트 마크다운(기계 소유 제외) | 9 | 5 | 폐기 2 + 통합 2 가 사라진다 |
 
-44 → 1 이 감소분의 대부분이다. **루트는 9 → 6** 이고, 남는 6개는 전부 계약 문서이거나
-유일본(`CLAUDE.md`·`QUALITY_CHECKLIST.md`·`README.md`·`DESIGN_SYSTEM_GUIDE.md`·`METADATA_COVERAGE_AUDIT.md`·`ORDER.md`)이다.
+44 → 1 이 감소분의 대부분이다. **루트는 9 → 5** 이고, 남는 5개는 전부 계약 문서이거나
+유일본(`CLAUDE.md`·`QUALITY_CHECKLIST.md`·`README.md`·`DESIGN_SYSTEM_GUIDE.md`·`METADATA_COVERAGE_AUDIT.md`)이다.
 
-> **정정 기록**: 이 표의 「정리 후」가 처음에 35 로 적혀 있었다. 판정별로 다시 세면
-> 27(존치) + 1(audit 묶음) = **28** 이다. 집필 워커가 §7 판정 집계와 대조해 잡았다.
+> **정정 기록 1**: 이 표의 「정리 후」가 처음에 35 로 적혀 있었다. 판정별로 다시 세면
+> 27(존치) + 1(audit 묶음) = **28** 이었다. 집필 워커가 §7 판정 집계와 대조해 잡았다.
+>
+> **정정 기록 2 (2026-08-25)**: 검토 3번에서 `ORDER.md` 존치가 반려되고 「제거」로 판정되어
+> 존치 27→26 · 폐기 3→4 로 옮겼다. 그에 따라 정리 후 모집단은 28→**27**, 루트는 6→**5** 다.

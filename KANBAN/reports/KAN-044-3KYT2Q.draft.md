@@ -2,7 +2,7 @@
 
 카드 `KAN-044-3KYT2Q`(칸반 보드에서 카드 한 장을 가리키는 식별자예요)는 문서를 지우지 않습니다. 레포에 있는 마크다운 98개를 전부 세고, 그중 사람이 정리할 대상인 79개에 판정 하나와 근거 한 줄을 붙이는 데까지가 이 카드의 몫이에요. 실제 삭제와 통합은 뒤에 등록할 카드가 합니다. 이 글을 다 읽으면 무엇이 남고 무엇이 접히는지, 그리고 다음에 어떤 카드를 만들면 되는지 답할 수 있습니다.
 
-판정 결과는 존치 27건, 통합 49건, 이관 0건, 폐기 3건이고 보류는 0건입니다. 여기서 헷갈리기 쉬운 자리가 통합 49예요. 숫자만 보면 마흔아홉 군데를 손봐야 할 것 같은데, 그중 **44건이 `packages/core/catalog/*.audit.md` 묶음 하나**입니다.
+판정 결과는 존치 26건, 통합 49건, 이관 0건, 폐기 4건이고 보류는 0건입니다. 여기서 헷갈리기 쉬운 자리가 통합 49예요. 숫자만 보면 마흔아홉 군데를 손봐야 할 것 같은데, 그중 **44건이 `packages/core/catalog/*.audit.md` 묶음 하나**입니다.
 
 ```text
 통합 49건
@@ -13,13 +13,14 @@
 
 44개는 서로 다른 문서가 아니라 같은 라운드에 한꺼번에 나온 감사 기록이에요. 그것을 파일 하나로 접는 것이 통합 작업 1건이고, 나머지 5건이 각자 흡수처로 갑니다. 그래서 실제로 손댈 통합은 **6건**입니다. 이관 0건은 자리가 틀려서 옮겨야 할 문서가 한 건도 없었다는 뜻이에요.
 
-정리가 끝나면 판정 모집단은 79개에서 **28개**가 됩니다. 감소분의 대부분이 방금 본 44 → 1이에요. 사람이 매일 지나치는 루트는 9개에서 **6개**로 줄어듭니다.
+정리가 끝나면 판정 모집단은 79개에서 **27개**가 됩니다. 감소분의 대부분이 방금 본 44 → 1이에요. 사람이 매일 지나치는 루트는 9개에서 **5개**로 줄어듭니다.
 
 ```text
 루트 마크다운 9
-  사라짐 3   ASSET_INTEGRATION_PLAN.md(통합) · WAVE0_REPORT.md(통합) · RELEASE_PLAN.md(폐기)
-  남음   6   CLAUDE.md · QUALITY_CHECKLIST.md · README.md
-             DESIGN_SYSTEM_GUIDE.md · METADATA_COVERAGE_AUDIT.md · ORDER.md
+  사라짐 4   ASSET_INTEGRATION_PLAN.md(통합) · WAVE0_REPORT.md(통합)
+             RELEASE_PLAN.md(폐기) · ORDER.md(폐기 — 검토 3번 반려 반영)
+  남음   5   CLAUDE.md · QUALITY_CHECKLIST.md · README.md
+             DESIGN_SYSTEM_GUIDE.md · METADATA_COVERAGE_AUDIT.md
 ```
 
 먼저 말해 둘 것이 하나 있어요. 뒤에서 제안할 후속 카드 B와 D가 `DESIGN_SYSTEM_GUIDE.md` 한 파일을 둘 다 고칩니다. 고치는 줄이 달라서 git 병합 자체는 되지만, 순서가 뒤집히면 사라진 파일을 가리키는 링크가 그대로 남아요. 그래서 두 카드는 나란히 돌리지 않고 **B 먼저, D 나중**으로 묶어야 합니다. 왜 그렇게 되는지는 「막힐 만한 자리」 절에 적어 두었습니다.
@@ -124,7 +125,7 @@ audit 44개 안에 있는 것
   기각 사유(absorbed·noise·dropped) ──▶ 다른 어디에도 없다  (유일본, 분량의 절반)
 ```
 
-나머지 셋은 지금 계획이 이미 피해 둔 자리예요. npm 배포물 유실은 `packages/visualization/package.json`의 `files`가 `visualization-type-inventory.md`와 `TYPE_METADATA_STRATEGY.md`를 포함하는 데서 오는데, 둘 다 존치라 걸리지 않습니다. 동결 문서 오편집은 `ORDER.md`에 봉인 마커가 있고 `visualization-type-inventory.md:376`이 편집 금지를 적어 두었기 때문인데, `ORDER.md`는 A부터 D까지 어느 카드의 범위에도 넣지 않았어요. 마지막은 `CLAUDE.md` 오수정이 이후 모든 작업에 번지는 것입니다. D가 에이전트 규율을 고치니까요. 품질 게이트 명령 네 종은 손대지 않고 구조도와 경로만 고치되, work 단위로 태그를 달아 되돌릴 지점을 남깁니다.
+나머지 셋은 지금 계획이 이미 피해 둔 자리예요. npm 배포물 유실은 `packages/visualization/package.json`의 `files`가 `visualization-type-inventory.md`와 `TYPE_METADATA_STRATEGY.md`를 포함하는 데서 오는데, 둘 다 존치라 걸리지 않습니다. 폐기 문서 참조 고아는 `ORDER.md`를 지울 때 `visualization-type-inventory.md:376`의 편집 금지 문구가 없는 파일을 가리키게 되는 것입니다. A의 완료 기준에 레포 전역 `grep` 0건을 넣어 막습니다. 마지막은 `CLAUDE.md` 오수정이 이후 모든 작업에 번지는 것입니다. D가 에이전트 규율을 고치니까요. 품질 게이트 명령 네 종은 손대지 않고 구조도와 경로만 고치되, work 단위로 태그를 달아 되돌릴 지점을 남깁니다.
 
 일곱 번째가 첫 절에서 미리 말한 자리입니다. 후속 카드 B와 D의 범위가 `DESIGN_SYSTEM_GUIDE.md` 한 파일에서 겹쳐요. B는 182행에서 `ASSET_INTEGRATION_PLAN` 링크를 걷어내고, D는 170행에서 `packages/theme-*` 표기를 고칩니다. 줄이 다르니 병합은 되는데 순서가 결과를 바꿉니다. 범위를 갈라 겹침을 없애는 방법도 여기서는 쓸 수 없어요. `packages/theme-*` 표기 수정 세 건은 `CLAUDE.md` · `QUALITY_CHECKLIST.md` · `DESIGN_SYSTEM_GUIDE.md`에 흩어진 한 클래스라, 쪼개면 같은 지적이 두 카드로 갈려 한쪽만 고쳐질 위험이 생기거든요. 그래서 범위는 그대로 두고 순서만 정합니다. B가 선행이고 D가 후행이에요.
 
@@ -142,12 +143,12 @@ B 먼저 → ASSET_INTEGRATION_PLAN 이 사라진다
 후속 카드는 넷으로 갈랐고 판정 79건이 그 넷에 전부 들어갑니다.
 
 ```text
-판정 79건 ─┬─ 존치 27 ──▶ 그중 8건에 본문 손질이 따라붙는다 (B·C·D 로 나뉜다)
+판정 79건 ─┬─ 존치 26 ──▶ 그중 8건에 본문 손질이 따라붙는다 (B·C·D 로 나뉜다)
            ├─ 통합 49 ──▶ B 가 47건(audit 44 + 3) · C 가 2건
-           └─ 폐기  3 ──▶ A
+           └─ 폐기  4 ──▶ A
 ```
 
-A는 폐기 3건 집행이에요. `RELEASE_PLAN.md`와 `apps/storybook/README.md`를 지우고 `sample_design/`은 디렉터리째 사라집니다. 셋 다 참조가 0건이라 선행 수정이 없고, 되돌리기는 revert 한 번이면 됩니다. 갈림길이 하나 있어요. `apps/storybook/README.md`는 Vite `react-ts` 스톡 템플릿 원문 그대로라서, 지우는 대신 Storybook 실행법으로 다시 쓰는 선택지도 됩니다. 어느 쪽이든 지금 내용은 남지 않아요. B는 core 카탈로그 계열 통합입니다. audit 44개를 하나로 접고, `ASSET_INTEGRATION_PLAN`과 `WAVE0_REPORT`를 `COMPONENT_CATALOG`로 통합하고(후자는 토큰 갭 감사만 살립니다), `design-trends-2020-2026`을 `style-guide-catalog.md`의 출처 절로 보내고, `COMPONENT_CATALOG`의 실측 오류 두 건을 고쳐요.
+A는 폐기 4건 집행이에요. `RELEASE_PLAN.md`·`apps/storybook/README.md`·`ORDER.md`를 지우고 `sample_design/`은 디렉터리째 사라집니다. 앞의 셋 중 `ORDER.md`만 참조가 1건이라 지우기 전에 `visualization-type-inventory.md:376`의 "ORDER.md 편집 금지" 문구를 먼저 걷어야 하고, 나머지는 참조 0건이라 선행 수정이 없습니다. 되돌리기는 revert 한 번이면 됩니다. 갈림길이 하나 있어요. `apps/storybook/README.md`는 Vite `react-ts` 스톡 템플릿 원문 그대로라서, 지우는 대신 Storybook 실행법으로 다시 쓰는 선택지도 됩니다. 어느 쪽이든 지금 내용은 남지 않아요. B는 core 카탈로그 계열 통합입니다. audit 44개를 하나로 접고, `ASSET_INTEGRATION_PLAN`과 `WAVE0_REPORT`를 `COMPONENT_CATALOG`로 통합하고(후자는 토큰 갭 감사만 살립니다), `design-trends-2020-2026`을 `style-guide-catalog.md`의 출처 절로 보내고, `COMPONENT_CATALOG`의 실측 오류 두 건을 고쳐요.
 
 C는 visualization 계열 통합입니다. `PLAN.md`의 공통 계약을 `viz/README.md`로 옮기면서 "구현 스펙 SSOT" 지위도 함께 옮기고, `visualization-catalog.md`의 스타일 스펙을 `style-classification.md`로 단일화하고, 스타일과 유형을 가로세로로 교차시킨 중복 표 한쪽을 링크로 바꿉니다. D는 규율 문서를 실측에 맞추는 카드이고 B의 후행이에요. `packages/theme-*` 부재를 세 문서에서 일괄 수정하고, 템플릿의 낡은 표기를 고치고, 다섯 군데에 흩어진 모션 워크플로 기재를 하나로 모읍니다. B·C·D는 각각 work 4개 규모이고 A는 1~2개입니다.
 
