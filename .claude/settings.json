@@ -26,5 +26,8 @@
       "Bash(pnpm --filter storybook*)",
       "Bash(pnpm -r*)"
     ]
+  },
+  "enabledPlugins": {
+    "authoring-kit@centurio87-plugins": true
   }
 }
