@@ -1,6 +1,6 @@
 {
   "next_id": 47,
-  "next_seq": 137,
+  "next_seq": 138,
   "cards": {
     "KAN-044-3KYT2Q": {
       "col": "todo",
@@ -23,12 +23,12 @@
       "memo_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-046-33S4G8": {
-      "col": "review",
+      "col": "done",
       "title": "pnpm test:unit 을 CLAUDE.md 품질 게이트에 추가 — 매니페스트·대비·명명 게이트가 문서에 없다",
       "verbatim": "별도 카드로 발행해라",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-08-25",
+      "갱신": "2026-08-26",
       "title_hash": "47281b75c4d6ed09e15267fada32ad22e3a626e4",
       "verbatim_hash": "44ebdd426d05c0802a09c11f195e55502e846450",
       "short": "test:unit 게이트 문서화",
@@ -646,6 +646,16 @@
   ],
   "recent": [
     {
+      "seq": 137,
+      "t": "2026-08-26T00:32",
+      "a": "ai",
+      "id": "KAN-046-33S4G8",
+      "op": "move",
+      "w": "M9ETB0",
+      "from": "review",
+      "to": "done"
+    },
+    {
       "seq": 136,
       "t": "2026-08-25T14:31",
       "a": "ai",
@@ -1175,15 +1185,6 @@
       "field": "memo",
       "before": "viz-style-expansion.md §4-b 17종(보통). 저작 전 패밀리 통합 결정 선행: 인쇄 계열(riso/halftone/colorsep)→viz-print-ink 1패밀리, 소프트 계열(clay/kawaii/tactile)→viz-soft-puffy 1패밀리로 묶으면 실질 저작 단위 ~12종. 과분화 지양(패밀리=셀렉터 조도).",
       "after": "완료(2026-07-24): P2 통합 결정 카드(코드변경 0·순수 계획/문서). 핵심 정정 — 메모의 「colorway로 ~12 저작단위 축소」는 현 게이트상 불가(_vizCatalogStory 색-스킴 불변식: 2번째+ preset은 색상만·비색토큰 deep-equal; 모티프는 wrapper라 색토큰 스와핑 불가). ∴ 통합=family 코드 그룹핑(별도 가이드·공유 family)만 가능, 저작단위 17 유지. 결정(사용자 승인): viz-print-ink(riso 리네임+halftone#36+glitch#33) · viz-soft-puffy(neumorph#2+clay#3+kawaii#17) 그룹핑, 나머지 12종 1:1(총 26 family/30 guide). riso 리네임 viz-riso-print→viz-print-ink는 첫 print 카드(KAN-037)에서 원자 수행. deliverable=viz-style-expansion.md §7(배치표·카드분해·게이트 주의). 분해: KAN-037(print-ink)·KAN-038(soft-puffy)·KAN-039(1:1 12종)."
-    },
-    {
-      "seq": 88,
-      "t": "2026-07-24T14:42",
-      "a": "ai",
-      "id": "KAN-034",
-      "op": "move",
-      "from": "backlog",
-      "to": "done"
     }
   ]
 }
