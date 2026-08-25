@@ -1,0 +1,93 @@
+{
+  "$schema": "authoring-kit/spec@1",
+  "schema_version": 1,
+  "id": "bbangto-readme",
+  "label": "bbangto-ui README (활용 사례별 안내)",
+  "version": "1.0.0",
+  "source": {
+    "origin": "authored",
+    "refs": [
+      "KANBAN/cards/KAN-045-PNT454.md ## 전략 — 사례 축(무엇을 만들려는가) 8종과 '한 장 자립' 제약",
+      "KANBAN/cards/KAN-045-PNT454.md ## 검증 V1~V3 — 수치 정합 · 스니펫 컴파일 · 링크 생존",
+      "README.md (개정 전, 174줄) — 패키지 표 + 설치 스니펫만 있던 상태. 이 명세가 대체하려는 형태",
+      "DESIGN_SYSTEM_GUIDE.md — 개념 심화를 넘기는 대상 문서",
+      "packages/style-guide-catalog/catalog.manifest.json · packages/foundations/foundation.manifest.json · packages/visualization-style-guide-catalog/catalog.manifest.json · packages/visualization/type.manifest.json — 본문 수치의 유일한 정본"
+    ],
+    "note": "문체 축은 여기 선언하지 않는다 — register·rhythm·device·lexicon 은 L1(voice) 소유이고, evidence·grammar·comprehension 은 L0 불가침이다. 이 명세는 structure 와 scope-principle 만 갖는다."
+  },
+  "voice": {
+    "default": "ppangtolab-teacher",
+    "allowed": ["ppangtolab-teacher", "ppangtolab-researcher"]
+  },
+  "sections": [
+    { "id": "hero", "label": "한 줄 정의와 히어로", "required": true, "order": 10,
+      "heading_fixed": false, "container": false, "parent": null, "repeat": false },
+
+    { "id": "routing", "label": "사례 라우팅 — 무엇을 만들려는가", "required": true, "order": 20,
+      "heading_fixed": false, "container": false, "parent": null, "repeat": false },
+
+    { "id": "cases", "label": "사례 본문 (모음)", "required": true, "order": 30,
+      "heading_fixed": false, "container": true, "parent": null, "repeat": false },
+
+    { "id": "cases.case", "label": "사례 하나", "required": true, "order": 40,
+      "heading_fixed": false, "container": true, "parent": "cases", "repeat": true },
+
+    { "id": "cases.case.audience", "label": "누가 언제 쓰나", "required": true, "order": 50,
+      "heading_fixed": false, "container": false, "parent": "cases.case", "repeat": false },
+
+    { "id": "cases.case.install", "label": "설치", "required": true, "order": 60,
+      "heading_fixed": false, "container": false, "parent": "cases.case", "repeat": false },
+
+    { "id": "cases.case.minimal", "label": "최소 동작 코드", "required": true, "order": 70,
+      "heading_fixed": false, "container": false, "parent": "cases.case", "repeat": false },
+
+    { "id": "cases.case.next", "label": "그다음 걸음", "required": true, "order": 80,
+      "heading_fixed": false, "container": false, "parent": "cases.case", "repeat": false },
+
+    { "id": "packages", "label": "패키지 표", "required": true, "order": 90,
+      "heading_fixed": false, "container": false, "parent": null, "repeat": false },
+
+    { "id": "dev", "label": "개발과 품질 게이트", "required": true, "order": 100,
+      "heading_fixed": false, "container": false, "parent": null, "repeat": false },
+
+    { "id": "links", "label": "함께 보기", "required": true, "order": 110,
+      "heading_fixed": false, "container": false, "parent": null, "repeat": false }
+  ],
+  "principles": [
+    { "code": "BR1", "level": "MUST", "axis": "scope-principle",
+      "text": "코드 블록의 모든 import 심볼은 그 패키지가 실제로 내보내는 공개 export 여야 한다. 검증되지 않은 코드 조각을 싣지 않는다 — 확인하지 못했으면 그 블록을 빼고, 대신 확인된 더 작은 블록을 싣는다" },
+
+    { "code": "BR2", "level": "MUST", "axis": "scope-principle",
+      "text": "카탈로그 수치는 매니페스트 실측값만 쓴다. 세지 않은 수를 적지 않는다. 수치를 적을 때는 어느 매니페스트에서 나온 값인지 본문이나 표에서 가리킬 수 있어야 한다" },
+
+    { "code": "BR3", "level": "MUST", "axis": "structure",
+      "text": "사례마다 네 자리(누가 언제 쓰나 → 설치 → 최소 동작 코드 → 그다음 걸음)를 순서대로 채운다. 하나라도 비면 그 사례는 미완이다 — 채울 수 없으면 사례 자체를 싣지 않는다" },
+
+    { "code": "BR4", "level": "MUST", "axis": "scope-principle",
+      "text": "README 한 장으로 자립한다. 독자가 다른 문서를 먼저 읽어야 절차를 실행할 수 있으면 위반이다. 개념 심화(atom/molecule/block/pattern 기준, 설계 근거)는 본문에 옮기지 않고 `DESIGN_SYSTEM_GUIDE.md` 로 링크한다" },
+
+    { "code": "BR5", "level": "MUST", "axis": "structure",
+      "text": "절차는 번호 목록으로 쓴다. 산문으로 흘리지 않는다. 한 항목은 독자가 수행할 수 있는 한 동작이고, 명령·코드는 그 항목 안의 블록으로 붙인다" },
+
+    { "code": "BR6", "level": "MUST", "axis": "structure",
+      "text": "사례 라우팅은 `무엇을 만들려는가`로 가른다. 패키지 이름·레이어 이름으로 가르지 않는다 — 처음 온 독자는 패키지 이름으로 자기를 알아보지 못한다. 라우팅 항목은 목적을 먼저 적고 패키지를 뒤에 붙인다" },
+
+    { "code": "BR7", "level": "MUST", "axis": "scope-principle",
+      "text": "본문이 가리키는 레포 내부 경로·앵커·문서 링크는 실제로 존재하는 것만 쓴다. 앞으로 만들 파일이나 예정된 문서를 링크하지 않는다" },
+
+    { "code": "BR8", "level": "SHOULD", "axis": "structure",
+      "text": "사례 하나는 그 절만 읽고 끝까지 실행할 수 있어야 한다. 앞 사례에서 이미 말했다는 이유로 설치나 필수 설정을 생략하지 않는다 — 생략할 때는 그 사례의 어느 번호로 가면 되는지 링크한다" }
+  ],
+  "conditional_rule": "조건부 절이 없다. 여섯 절과 사례의 네 자리는 전부 필수다. 빈 자리를 `해당 없음`으로 남기지 않고, 채울 수 없으면 그 사례를 README 에 싣지 않는다.",
+  "template": {
+    "kind": "md",
+    "slot_style": "bracket-inline",
+    "outputs": [{ "format": "md", "dir": "readme" }]
+  },
+  "placeholders": { "profile": "std-v1" },
+  "gate": {
+    "rubric": "default",
+    "max_rounds": 3,
+    "external_review": { "enabled": false, "failure_policy": "warn", "redact": "none" }
+  }
+}

@@ -1,0 +1,27 @@
+{
+ "card": "KAN-045-PNT454",
+ "front": {
+  "base": "2dc2543",
+  "branch": "KAN-045-PNT454",
+  "card": "KAN-045-PNT454",
+  "created": "2026-08-25",
+  "inherits": null,
+  "merged": null,
+  "status": "검토 대기",
+  "title": "README는 이 레포를 설명하기에 정보가 많이 부족하다. 이 프로젝트를 활용 사례 별로 분류하고, 사례 별로 사용 방법을 자세한 절차로 서술해라. 서술 과정에서 authoring-kit skill을 이용해라.",
+  "worktree": "/Users/centurio/orca/workspaces/bbangto-ui/KAN-045-PNT454"
+ },
+ "inherited_md": "",
+ "md_fp": "c2c726d0e12ca41e1c4301cd56c50b3aa36df3ea",
+ "md_src_fp": "37beee0f196c218378e646f52d244623d4bb3373",
+ "schema": 1,
+ "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `KAN-045-PNT454` |\n| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-045-PNT454` |\n| 베이스 | `2dc2543` |\n| 변경 훑기 | `git diff 2dc2543...HEAD` |\n\n**커밋 9건**\n\n```text\nc53fd6b docs: 푸터 이모지 제거 (검토 1번 반려 반영)\n1363a57 kanban: KAN-045 검토로 이동 + 검토서 발행(판단 항목 5)\n2ea10c6 kanban: KAN-045 배치3 완료 — S6 조립 · S7 게이트 5종 초록\n4eb4f05 docs: README를 활용 사례 10종 구조로 재작성\nb49b243 kanban: KAN-045 배치2 완료 — 사례 10종 병렬 집필(워커 4)\n480286f kanban: KAN-045 spec에 self-check 처리 확정 — 「그다음 걸음」이 겸한다\n9e3be5f kanban: KAN-045 배치1 완료 — S1 사실 수집 · S2 사례 갈래 확정\nb6111e4 kanban: KAN-045 S3 완료 — authoring spec bbangto-readme 등록\n3afacc5 kanban: KAN-045 진행 중으로 이동(착수)\n```\n\n**변경 파일 17개 (+3192 −166)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.claude/authoring/paths.json` | M | 2 | 1 |\n| `.claude/authoring/specs/bbangto-readme/spec.json` | M | 93 | 0 |\n| `.claude/authoring/specs/bbangto-readme/spec.md` | M | 140 | 0 |\n| `.kanban/archive.jsonl` | M | 2 | 0 |\n| `.kanban/log.md` | M | 2 | 2 |\n| `.kanban/reviews/KAN-045-PNT454.events.jsonl` | M | 17 | 0 |\n| `.kanban/reviews/KAN-045-PNT454.review.json` | M | 21 | 0 |\n| `.kanban/state.json` | M | 25 | 27 |\n| `KANBAN.board.html` | M | 235 | 5 |\n| `KANBAN.md` | M | 7 | 6 |\n| `KANBAN/batches/KAN-045-PNT454.batch1.md` | M | 8 | 1 |\n| `KANBAN/batches/KAN-045-PNT454.batch2.md` | M | 37 | 19 |\n| `KANBAN/batches/KAN-045-PNT454.batch3.md` | M | 23 | 1 |\n| `KANBAN/cards/KAN-045-PNT454.md` | M | 26 | 7 |\n| `KANBAN/reviews/KAN-045-PNT454.review.html` | M | 1098 | 0 |\n| `KANBAN/reviews/KAN-045-PNT454.review.md` | M | 228 | 0 |\n| `README.md` | M | 1228 | 97 |\n\n**롤백 태그 10개**\n\n```text\nkan/KAN-045-PNT454/S1\nkan/KAN-045-PNT454/S2\nkan/KAN-045-PNT454/S3\nkan/KAN-045-PNT454/S4\nkan/KAN-045-PNT454/S5\nkan/KAN-045-PNT454/S6\nkan/KAN-045-PNT454/S7\nkan/KAN-045-PNT454/batch1\nkan/KAN-045-PNT454/batch2\nkan/KAN-045-PNT454/batch3\n```",
+ "verdicts": [
+  {
+   "at": "2026-08-25",
+   "by": "유저",
+   "verdict": "승인"
+  }
+ ],
+ "verify_md": "<!-- 기준은 카드 실행 문서 「검증」 절의 사본이다. 정본은 KANBAN/cards/KAN-045-PNT454.md 이므로\n     기준이 바뀌면 그쪽을 고치고 review-init --refresh 로 이 항만 다시 뜬다.\n     결과는 착수한 쪽이 이미 돌린 것이다 — 검토자에게 다시 돌리라고 시키지 않는다.\n     **다시 돌려 아래와 다르게 나오면 그 자체가 반려 사유다.** -->\n\n**기준**\n\n<!-- 무엇을 실행해 무엇이 나오면 이 카드가 끝난 것인가. -->\n결정론적으로 판정되는 것만 여기 적는다. 사람이 정할 것은 검토서 3항으로 낸다.\n\n**V1 — 수치 정합.** README에 적힌 카탈로그 수치가 매니페스트 실측과 같다.\n\n```bash\npython3 - <<'PY'\nimport json, re, pathlib\ncounts = {\n  'ui':  len(json.load(open('packages/style-guide-catalog/catalog.manifest.json'))),\n  'viz': len(json.load(open('packages/visualization-style-guide-catalog/catalog.manifest.json'))),\n  'fnd': len(json.load(open('packages/foundations/foundation.manifest.json'))),\n  'typ': len(json.load(open('packages/visualization/type.manifest.json'))),\n}\nprint(counts)\nPY\n```\n\n기대: 출력한 네 수치가 README 본문에 그대로 등장한다(수동 대조 아님 — S7에서 스크립트로 grep 대조).\n\n**V2 — 스니펫이 실제로 컴파일된다.** README의 모든 `tsx`/`ts` 코드 블록을 임시 파일로 뽑아 워크스페이스 타입 검사에 태운다.\n\n```bash\npnpm build && pnpm typecheck\n```\n\n기대: 두 명령 모두 exit 0. README 스니펫에서 뽑은 임시 검증 파일도 함께 통과한다(빌드 산출물에는 남기지 않는다).\n\n**V3 — 링크·경로가 살아 있다.** README가 가리키는 레포 내부 경로와 앵커가 전부 존재한다.\n\n기대: 깨진 링크 0건.\n\n**V4 — authoring-kit 게이트.** 집필 산출물이 채점을 통과한다.\n\n```bash\nCLAUDE_PLUGIN_ROOT=<marketplace>/authoring-kit \\\n  python3 <marketplace>/authoring-kit/scripts/authoring.py validate\nCLAUDE_PLUGIN_ROOT=<marketplace>/authoring-kit \\\n  python3 <marketplace>/authoring-kit/scripts/scan_ai_style.py README.md --voice <선정 voice>\n```\n\n기대: `validate` 갈래 위반 0건. `scan_ai_style` 기계 리듬 지표가 voice 면제를 반영한 뒤 임계 이하.\n\n**V5 — 프로젝트 품질 게이트 5종.** `CLAUDE.md` 규정이라 문서 카드에도 적용한다(회귀 없음 확인).\n\n```bash\npnpm typecheck && pnpm build && pnpm test && pnpm --filter storybook build\n```\n\n기대: 전부 초록. 이 카드는 소스를 안 건드리므로 실패하면 그것은 이 카드가 만든 것이 아니라 **선행 상태 문제**이고, 그 사실을 그대로 보고한다.\n\n**실행 결과**\n\n```text\nV1 수치 정합 — 통과(재확인). 매니페스트 실측 51·30·76·87 이 본문에 그대로. 옛 오류 수치 '24종'·'26종' 잔존 0회.\nV2 스니펫 컴파일 — 통과. 코드 블록 46개에서 import 52건 추출 → 프로브로 tsc --noEmit exit 0. 프로브는 검증 후 삭제.\nV3 링크·앵커 — 통과(재확인). 내부 앵커 29건·레포 파일 링크 12건 전부 유효.\nV4 authoring-kit — validate --all 갈래 위반 0. **이모지 제거 후 재측정**: 코드 펜스를 걷어낸 산문 기준 등급 A·적발 0(S1·S2·S3 전부 0). README.md 직접 스캔은 C 이나 남은 적발 4건은 전부 코드 블록을 산문으로 센 오탐입니다 — P1 2건은 'CONTRAST_THRESHOLDS; // { low: 0, aa: 4.5, aaa: 7 }' 주석과 'useEffect(() => {...})' 줄, P4 2건은 CSS 의 !important. 스캐너가 3칸 들여쓴 코드 펜스를 못 걷어냅니다.\nV5 프로젝트 게이트 — pnpm typecheck exit 0(재실행). build·test·storybook build·test:unit 은 이모지 제거 직전 전부 초록이었고(test 182 파일·1224 테스트 pass), 그 뒤 변경은 README.md 한 줄뿐이라 이 넷의 입력이 아닙니다.\n```"
+}

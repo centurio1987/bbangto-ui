@@ -12,19 +12,6 @@
   - 목적: 레포 안의 문서를 전수 파악해 존치·통합·폐기를 가르는 정리 계획과 리포트를 낸다
   - 이유: 루트에만 ASSET_INTEGRATION_PLAN·DESIGN_SYSTEM_GUIDE·METADATA_COVERAGE_AUDIT·ORDER·RELEASE_PLAN 등이 쌓여 어느 것이 살아있는 문서인지 구분되지 않는다
   - 목표: 문서마다 판정과 근거가 붙은 정리 계획 리포트가 나와 실제 정리를 착수할 수 있다
-- `KAN-045-PNT454` README는 이 레포를 설명하기에 정보가 많이 부족하다. 이 프로젝트를 활용 사례 별로 분류하고, 사례 별로 사용 방법을 자세한 절차로 서술해라. 서술 과정에서 authoring-kit skill을 이용해라. — 생성:유저 · 최종:ai · 갱신:2026-08-24
-  - 짧은 제목: README 활용 사례별 재작성
-  - 목적: README를 활용 사례별로 분류하고 사례마다 패키지 사용 절차를 authoring-kit 으로 서술한다
-  - 이유: 지금 README에는 패키지별 활용법도, style guide 구현 사례와 그 방법도 없다
-  - 목표: 처음 온 사람이 README만 보고 자기 사례에 맞는 패키지를 골라 style guide 까지 구현할 수 있다
-  - 실행 문서: KANBAN/cards/KAN-045-PNT454.md (0/7 · 최근 08-25)
-  - 원문:
-    ```text
-    README는 이 레포를 설명하기에 정보가 많이 부족하다. 이 프로젝트를 활용 사례 별로 분류하고, 사례 별로 사용 방법을 자세한 절차로 서술해라. 서술 과정에서 authoring-kit skill을 이용해라.
-    - 패키지 별 활용 방법이 없다.
-    - 패키지를 사용해서 style guide를 구현할 수 있다는 사례 자체가 소개되어 있지 않다.
-    - style guide를 구현하기 위한 방법이 서술되어 있지 않다.
-    ```
 - `KAN-046-33S4G8` pnpm test:unit 을 CLAUDE.md 품질 게이트에 추가 — 매니페스트·대비·명명 게이트가 문서에 없다 — 생성:ai · 최종:ai · 갱신:2026-08-25
   - 짧은 제목: test:unit 게이트 문서화
   - 목적: CLAUDE.md 「품질 게이트 실행」 절에 pnpm test:unit 을 다섯 번째 명령으로 넣는다
@@ -275,4 +262,18 @@
   - 원문:
     ```text
     bbangto-ui-vizualization 패키지를 사용하는 사용자가 피드백 레포트를 작성했다. (/Users/centurio/resume/docs/viz-upstream-issues.md) P계열은 반영했으므로, I 계열을 검토해서 개선 해라
+    ```
+- `KAN-045-PNT454` README는 이 레포를 설명하기에 정보가 많이 부족하다. 이 프로젝트를 활용 사례 별로 분류하고, 사례 별로 사용 방법을 자세한 절차로 서술해라. 서술 과정에서 authoring-kit skill을 이용해라. — 생성:유저 · 최종:ai · 갱신:2026-08-25
+  - 짧은 제목: README 활용 사례별 재작성
+  - 목적: README를 활용 사례별로 분류하고 사례마다 패키지 사용 절차를 authoring-kit 으로 서술한다
+  - 이유: 지금 README에는 패키지별 활용법도, style guide 구현 사례와 그 방법도 없다
+  - 목표: 처음 온 사람이 README만 보고 자기 사례에 맞는 패키지를 골라 style guide 까지 구현할 수 있다
+  - 실행 문서: KANBAN/cards/KAN-045-PNT454.md (7/7 · 최근 08-25)
+  - 검토 문서: KANBAN/reviews/KAN-045-PNT454.review.md (승인 5/5 · 추가 의견 총 4 · 승인)
+  - 원문:
+    ```text
+    README는 이 레포를 설명하기에 정보가 많이 부족하다. 이 프로젝트를 활용 사례 별로 분류하고, 사례 별로 사용 방법을 자세한 절차로 서술해라. 서술 과정에서 authoring-kit skill을 이용해라.
+    - 패키지 별 활용 방법이 없다.
+    - 패키지를 사용해서 style guide를 구현할 수 있다는 사례 자체가 소개되어 있지 않다.
+    - style guide를 구현하기 위한 방법이 서술되어 있지 않다.
     ```
