@@ -27,7 +27,7 @@ In short:
 2. Copy the checklist for the item.
 3. Implement (steps below).
 4. Gate — all green:
-   `pnpm typecheck && pnpm build && pnpm test && pnpm --filter storybook build`.
+   `pnpm typecheck && pnpm build && pnpm test && pnpm --filter storybook build && pnpm test:unit`.
    `pnpm test` runs stories as Playwright/chromium browser tests via
    `@storybook/addon-vitest`.
 5. Tick every checklist box; update `../motion-catalog.md`.

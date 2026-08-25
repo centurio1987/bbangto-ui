@@ -236,7 +236,7 @@ Glitch_Duotone(#33) · Organic_Blob(#34) · Halftone_Print(#36) · Pixel_Retro(#
    커밋본과 재생성본 바이트 동기를 검증 → drift 게이트.
 6. **접근성 감사**: `accessibilityAudit.ts`(auditVizContrast)가 foreground vs background over-claim을 hard-fail. riso
    오버프린트·HUD 글로우처럼 실효 배경색이 합성되는 경우 worst-case로 선언 정직성 확인(KAN-026 인프라 재사용).
-7. **4 품질 게이트**: `pnpm typecheck` / `pnpm build` / `pnpm test` / `pnpm --filter storybook build`.
+7. **5 품질 게이트**: `pnpm typecheck` / `pnpm build` / `pnpm test` / `pnpm --filter storybook build` / `pnpm test:unit`.
 
 ### 5-b. 실현성 티어와 인프라 의존
 

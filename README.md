@@ -1158,7 +1158,7 @@ tokens를 따로 넣는 이유가 있습니다. `VizFoundationPreset` 타입이 
 
 ### 사례 10 · 이 레포에 기여한다
 
-preset이나 컴포넌트를 이 레포에 넣으려는 분을 위한 절차입니다. 사례 6과 사례 9에서 만든 것이 등재를 지나 릴리스까지 가는 뒷부분이기도 합니다. 게이트는 다섯인데, 넷은 `CLAUDE.md`에 적혀 있고 다섯 번째는 루트 `package.json`에만 있습니다.
+preset이나 컴포넌트를 이 레포에 넣으려는 분을 위한 절차입니다. 사례 6과 사례 9에서 만든 것이 등재를 지나 릴리스까지 가는 뒷부분이기도 합니다. 게이트는 다섯이고 `CLAUDE.md`와 이 문서가 같은 다섯을 적습니다.
 
 **설치**
 
@@ -1208,10 +1208,12 @@ pnpm build          # 최초 1회. 카탈로그 매니페스트 생성기가 cor
    pnpm build                     # storybook 제외 전 패키지 빌드 (+ 카탈로그 매니페스트 재생성)
    pnpm test                      # storybook 브라우저 테스트 (Playwright/chromium)
    pnpm --filter storybook build  # Storybook 번들 스모크 테스트
-   pnpm test:unit                 # 패키지 vitest — 매니페스트·대비·명명 게이트
+   pnpm test:unit                 # 패키지 vitest — 매니페스트·대비·명명·커버리지 게이트
    ```
 
-   `CLAUDE.md`는 위 넷만 적고 있습니다. 다섯 번째는 루트 `package.json:11`의 `"test:unit": "pnpm -r --filter=!storybook run test"`입니다.
+   다섯 중 이름이 낯선 것은 마지막 하나뿐입니다. 루트 `package.json:11`의 `"test:unit": "pnpm -r --filter=!storybook run test"`이고, 나머지 넷도 실체는 같은 파일에 있습니다.
+
+   `CLAUDE.md`도 같은 다섯을 적습니다. 넷만 적은 규범 문서가 다시 생기면 `packages/foundations/src/gateDocs.test.ts`가 그 자리를 짚어 `pnpm test:unit`을 빨갛게 만듭니다.
 
    다섯 번째가 왜 빠지면 안 되는지는 4번과 붙여 보면 드러나요. `pnpm test`의 실체는 `pnpm --filter storybook test` 한 줄이라 storybook 패키지만 돕니다. foundation을 하나 추가하고 `gen:foundation-manifest`를 잊었다고 해 봅시다. `packages/foundations/src/meta/manifest.test.ts`의 바이트 동기 테스트가 잡아야 할 상황인데, `pnpm test`는 그 파일을 실행조차 하지 않습니다. 넷이 전부 초록입니다. 그걸 보고 올린 다음, 다른 사람이 `pnpm test:unit`에서 처음 발견하게 되죠. 사례 6의 대비 감사와 명명 게이트도 정확히 같은 자리에 있습니다.
 
@@ -1273,7 +1275,7 @@ pnpm typecheck                 # 워크스페이스 전체 타입 검사
 | `pnpm build` | 빌드 실패 + 카탈로그 매니페스트 미갱신(`prebuild`가 재생성) |
 | `pnpm test` | 컴포넌트 동작 회귀 — Storybook `play` 함수를 chromium에서 실행 |
 | `pnpm --filter storybook build` | Storybook 번들이 깨지는 변경 |
-| `pnpm test:unit` | 매니페스트 바이트 동기 · 대비 over-claim · 명명 규칙 · 커버리지 census |
+| `pnpm test:unit` | 매니페스트 바이트 동기 · 대비 over-claim · 명명 규칙 · 커버리지 census · 게이트 목록 드리프트(규범 문서가 다섯째를 빠뜨리는 것) |
 
 **다섯 번째를 빠뜨리기 쉽습니다.** `pnpm test`의 실체는 `pnpm --filter storybook test`라 storybook 패키지만 돕니다. 패키지 vitest는 `pnpm test:unit`에서만 도니, foundation을 추가하고 매니페스트 생성을 잊었다면 앞의 넷은 전부 초록인 채로 통과합니다.
 

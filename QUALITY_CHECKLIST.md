@@ -29,6 +29,7 @@
 - [ ] `pnpm build` 통과
 - [ ] `pnpm test` 통과 (Playwright/chromium)
 - [ ] `pnpm --filter storybook build` 통과
+- [ ] `pnpm test:unit` 통과 (패키지 vitest — 매니페스트·대비·명명·커버리지)
 
 ---
 
@@ -48,6 +49,7 @@
 - [ ] `pnpm build` 통과
 - [ ] `pnpm test` 통과
 - [ ] `pnpm --filter storybook build` 통과
+- [ ] `pnpm test:unit` 통과 (패키지 vitest — 매니페스트·대비·명명·커버리지)
 
 ---
 
@@ -70,6 +72,7 @@
 - [ ] `pnpm build` 통과
 - [ ] `pnpm test` 통과
 - [ ] `pnpm --filter storybook build` 통과
+- [ ] `pnpm test:unit` 통과 (패키지 vitest — 매니페스트·대비·명명·커버리지)
 
 ---
 

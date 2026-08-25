@@ -214,7 +214,7 @@ gate** workflow — never implement before the item's test + checklist exist.
 6. **Implement** following the README conventions (token params → keyframe in
    `keyframes.ts` if new → atom in `src/motion/*.tsx` → export → finish story).
 7. **Run the quality gate** — all must be green:
-   `pnpm typecheck && pnpm build && pnpm test && pnpm --filter storybook build`.
+   `pnpm typecheck && pnpm build && pnpm test && pnpm --filter storybook build && pnpm test:unit`.
    (`pnpm test` runs the stories as Playwright/chromium browser tests.) Eyeball
    the story across all 5 themes + the reduced-motion story.
 8. **Record**: flip the item's §4 row to `implemented` (+ Source URL/License if
@@ -238,7 +238,7 @@ Work is split into **waves**. A wave = a batch of items sharing a theme, with:
 - **Exit gate** — applies to every wave: all its items `implemented` with a
   green per-item quality gate + ticked checklist (`MOTION_QUALITY_CHECKLIST.md`),
   §4 rows + §5 counts updated, and the full gate green:
-  `pnpm typecheck && pnpm build && pnpm test && pnpm --filter storybook build`.
+  `pnpm typecheck && pnpm build && pnpm test && pnpm --filter storybook build && pnpm test:unit`.
 
 **Dependency graph:** Wave 0 → (Waves 1, 2, 3, 4, 5, 6 in parallel). Everything
 depends only on Wave 0, so after Wave 0 the remaining waves can run

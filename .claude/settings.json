@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '\\n[품질 게이트] 구현 전 apps/storybook/src/stories/<Component>.stories.tsx 에 play 테스트를 먼저 작성하세요. 완료 전 pnpm typecheck && pnpm build && pnpm test 를 실행하세요.'"
+            "command": "echo '\\n[품질 게이트] 구현 전 apps/storybook/src/stories/<Component>.stories.tsx 에 play 테스트를 먼저 작성하세요. 완료 전 pnpm typecheck && pnpm build && pnpm test && pnpm --filter storybook build && pnpm test:unit 를 실행하세요.'"
           }
         ]
       }
