@@ -29,7 +29,7 @@
   - 이유: 루트에만 ASSET_INTEGRATION_PLAN·DESIGN_SYSTEM_GUIDE·METADATA_COVERAGE_AUDIT·ORDER·RELEASE_PLAN 등이 쌓여 어느 것이 살아있는 문서인지 구분되지 않는다
   - 목표: 문서마다 판정과 근거가 붙은 정리 계획 리포트가 나와 실제 정리를 착수할 수 있다
   - 실행 문서: KANBAN/cards/KAN-044-3KYT2Q.md (6/6 · 최근 08-25)
-  - 검토 문서: KANBAN/reviews/KAN-044-3KYT2Q.review.md (승인 0/7 · 검토 대기)
+  - 검토 문서: KANBAN/reviews/KAN-044-3KYT2Q.review.md (승인 0/7 · 추가 의견 1 · 추가 의견 총 1 · 검토 대기)
 
 ## 완료
 - `KAN-020` visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현 — 생성:유저 · 최종:유저 · 갱신:2026-08-14
