@@ -65,7 +65,7 @@ scope: KANBAN/cards/KAN-044-3KYT2Q.md, KANBAN/batches/KAN-044-3KYT2Q.*, KANBAN/r
 - [x] `S3` 판정 규칙 확정 + 1차 분류 — 존치/통합/이관/폐기 4판정의 결정 규칙을 먼저 글로 박고, 그 규칙으로 판정 모집단 전량을 분류한다. 완료 기준: 전량에 판정 1개 + 근거 1줄. 규칙으로 안 갈리는 건은 `보류`로 표시하고 사유를 남긴다
 - [x] `S4` 통합·폐기 후보 원문 대조 — 판정이 `통합`·`폐기`·`보류`인 건만 파일을 실제로 열어 중복·유효성을 확인한다. 최소 대상: 루트 5종(ASSET_INTEGRATION_PLAN·RELEASE_PLAN·WAVE0_REPORT·METADATA_COVERAGE_AUDIT·DESIGN_SYSTEM_GUIDE)과 `packages/core/catalog/*.audit.md` 38개 표본. 완료 기준: 건마다 "무엇이 어디로" 한 줄, `보류` 0건
 - [x] `S5` 정리 실행 계획 — 후속 카드 분해안(카드마다 범위·순서·되돌리기 방법)과 리스크(참조 깨짐·CLAUDE.md 지시 유실). 완료 기준: 후속 카드 후보가 범위와 함께 목록으로 나오고, 참조가 걸린 문서마다 "지우기 전에 고칠 곳"이 적힌다
-- [ ] `S6` 계획 리포트 발행 — `report-data` → (authoring-kit 있으면 집필) → `report.py` 렌더 → Artifact 발행. 완료 기준: 단일 자립 HTML이 외부 요청 0건으로 뜨고 링크가 유저에게 간다
+- [x] `S6` 계획 리포트 발행 — `report-data` → (authoring-kit 있으면 집필) → `report.py` 렌더 → Artifact 발행. 완료 기준: 단일 자립 HTML이 외부 요청 0건으로 뜨고 링크가 유저에게 간다
 
 ## 검증
 <!-- 무엇을 실행해 무엇이 나오면 이 카드가 끝난 것인가. -->
@@ -108,3 +108,5 @@ scope: KANBAN/cards/KAN-044-3KYT2Q.md, KANBAN/batches/KAN-044-3KYT2Q.*, KANBAN/r
 - 2026-08-25T00:27 · s:af4d5613 · S3 done — 판정 79/79 완료, 보류 0. 존치 27(그중 겹침정리·실측수정 8) · 통합 49(실작업 6건, 44는 audit 묶음 1건) · 이관 0 · 폐기 3(RELEASE_PLAN·sample_design/DESIGN-amber·apps/storybook/README, 전부 참조 0). 규칙 2번을 전체통합/부분통합으로 가르는 보정으로 보류 0 달성
 - 2026-08-25T00:28 · s:af4d5613 · S5 doing — 착수
 - 2026-08-25T00:30 · s:af4d5613 · S5 done — 후속 카드 4장(A 폐기집행 / B core계열통합 / C viz계열통합 / D 규율문서 실측정합) 분해. 루트 독립성 판정: A·B·C 병렬, B→D 직렬 중재 필요(DESIGN_SYSTEM_GUIDE 겹침), KAN-045 와 겹침 0. 리스크 7건에 막는 법 명시. 정리 후 모집단 79→35
+- 2026-08-25T12:36 · s:af4d5613 — 검증 4종 실행 결과 — ①모집단 누락 0: 인벤토리 79행 = 현재 판정 모집단 79, 차집합 양쪽 0 ②판정 누락 0: 표 파싱 재검산 존치27+통합49+이관0+폐기3=79, 보류 0 ③폐기 3건 전부 참조 0 명시 ④리포트 자립: 외부 요청 0·fetch 0·63KB·voiced=true·derived-status fresh
+- 2026-08-25T12:36 · s:af4d5613 · S6 done — authoring-kit(ppangtolab-teacher × kanban-report, 규칙 해시 5ec7fd0a8902f140) 집필 초안으로 계획 리포트 렌더. 집필 워커가 §16 산술 오류(79→35)를 잡아 28로 정정. 외부 요청 0건 자립 HTML 63KB

@@ -370,12 +370,17 @@ python3 <스킬>/scripts/kanban.py dep-serialize <root> --pair <B>,<D> --first <
 
 ## 16. 정리 후 문서 수
 
-| | 지금 | 정리 후 |
-|---|---:|---:|
-| 판정 모집단 | 79 | **35** |
-| 그중 `packages/core/catalog/*.audit.md` | 44 | 1 |
-| 루트 마크다운(기계 소유 제외) | 9 | 6 |
-| 폐기 | — | 3 |
+| | 지금 | 정리 후 | 왜 |
+|---|---:|---:|---|
+| 존치 | 27 | 27 | 그대로 남는다 |
+| `packages/core/catalog/*.audit.md` | 44 | 1 | 한 파일로 접는다 |
+| 통합 흡수(파일이 사라짐) | 5 | 0 | `ASSET_INTEGRATION_PLAN`·`WAVE0_REPORT`·`design-trends-2020-2026`·`viz/PLAN`·`viz/visualization-catalog` |
+| 폐기 | 3 | 0 | `RELEASE_PLAN`·`sample_design/DESIGN-amber`·`apps/storybook/README` |
+| **판정 모집단 합** | **79** | **28** | 27 + 1 |
+| 루트 마크다운(기계 소유 제외) | 9 | 6 | 폐기 1 + 통합 2 가 사라진다 |
 
 44 → 1 이 감소분의 대부분이다. **루트는 9 → 6** 이고, 남는 6개는 전부 계약 문서이거나
 유일본(`CLAUDE.md`·`QUALITY_CHECKLIST.md`·`README.md`·`DESIGN_SYSTEM_GUIDE.md`·`METADATA_COVERAGE_AUDIT.md`·`ORDER.md`)이다.
+
+> **정정 기록**: 이 표의 「정리 후」가 처음에 35 로 적혀 있었다. 판정별로 다시 세면
+> 27(존치) + 1(audit 묶음) = **28** 이다. 집필 워커가 §7 판정 집계와 대조해 잡았다.
