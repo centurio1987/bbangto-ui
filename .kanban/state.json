@@ -1,6 +1,6 @@
 {
   "next_id": 46,
-  "next_seq": 133,
+  "next_seq": 134,
   "cards": {
     "KAN-001": {
       "col": "done",
@@ -519,12 +519,12 @@
       "verbatim_hash": "2e752e1c7bf53e1c3d5de3ec3a6f5e30574760e4"
     },
     "KAN-044-3KYT2Q": {
-      "col": "doing",
+      "col": "review",
       "title": "불필요한 문서들 파악해서 정리하기 위한 계획 세우고 레포트 제출해라",
       "verbatim": "",
       "생성": "유저",
       "최종": "ai",
-      "갱신": "2026-08-24",
+      "갱신": "2026-08-25",
       "title_hash": "c317be773297fff686cf4cc7b341b3ab67008a10",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
       "memo": "",
@@ -613,6 +613,16 @@
     "KAN-044-3KYT2Q"
   ],
   "recent": [
+    {
+      "seq": 133,
+      "t": "2026-08-25T12:39",
+      "a": "ai",
+      "id": "KAN-044-3KYT2Q",
+      "op": "move",
+      "w": "DA5BWJ",
+      "from": "doing",
+      "to": "review"
+    },
     {
       "seq": 132,
       "t": "2026-08-24T23:58",
@@ -1135,17 +1145,6 @@
       "field": "memo",
       "before": "기계 SSOT(매니페스트)에서 사람용 트렌드 표 파생. tokens STYLE_FAMILY_LABELS(주석 라벨→Record<StyleFamily,string> 승격) + style-guide-catalog/trendTable.ts(buildTrendTable 순수: meta결측 throw·안정정렬=trendIndex→카탈로그 소스 순서·pipe/개행 이스케이프 + replaceBetweenMarkers 실패조건 throw) + genTrendTable.ts/gen:trend-table(prebuild 미배선 → 빌드가 소스 md mutate 안 함). core md 1회 구조조정: 수기 표 2개 제거, gen 마커+통합 표(#0-50), P범례·도출통계·⚠경고·명세 산문 보존, 서두 stale 수정. trendTable.test.ts(형식·데이터정합·라벨완전성·마커·md sync 바이트)=drift 게이트(test:unit). 부수: pixel-art-retro-01 trendIndex 3→41 버그 선반영(별도 커밋), displayName 16건 정규화는 KAN-027. 4 게이트 green(storybook vite 캐시 삭제 필요).",
       "after": "기계 SSOT(매니페스트)에서 사람용 트렌드 표 파생. tokens STYLE_FAMILY_LABELS(주석 라벨→Record&lt;StyleFamily,string&gt; 승격) + style-guide-catalog/trendTable.ts(buildTrendTable 순수: meta결측 throw·안정정렬=trendIndex→카탈로그 소스 순서·pipe/개행 이스케이프 + replaceBetweenMarkers 실패조건 throw) + genTrendTable.ts/gen:trend-table(prebuild 미배선 → 빌드가 소스 md mutate 안 함). core md 1회 구조조정: 수기 표 2개 제거, gen 마커+통합 표(#0-50), P범례·도출통계·⚠경고·명세 산문 보존, 서두 stale 수정. trendTable.test.ts(형식·데이터정합·라벨완전성·마커·md sync 바이트)=drift 게이트(test:unit). 부수: pixel-art-retro-01 trendIndex 3→41 버그 선반영(별도 커밋), displayName 16건 정규화는 KAN-027. 4 게이트 green(storybook vite 캐시 삭제 필요)."
-    },
-    {
-      "seq": 83,
-      "t": "2026-07-24T14:39",
-      "a": "유저",
-      "id": "KAN-036",
-      "op": "create",
-      "col": "backlog",
-      "title": "지금까지의 작업 내역을 npm package에 새로 반영해라. 새로 생기거나 없어져야 하는 패키지가 있는지, 이름이 바뀌어야 하는 패키지가 있는지도 확인하고, 버전도 확인해서 배포 계획을 세워라.",
-      "memo": "",
-      "verbatim": ""
     }
   ],
   "layout": 3
