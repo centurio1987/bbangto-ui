@@ -1,6 +1,6 @@
 {
-  "next_id": 47,
-  "next_seq": 137,
+  "next_id": 51,
+  "next_seq": 142,
   "cards": {
     "KAN-046-33S4G8": {
       "col": "todo",
@@ -587,6 +587,118 @@
         "README.md",
         ".claude/authoring/**"
       ]
+    },
+    "KAN-047-TRYYRC": {
+      "col": "todo",
+      "title": "문서 정리 A — 폐기 4건 집행 (RELEASE_PLAN · sample_design · storybook README · ORDER)",
+      "verbatim": "",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-08-25",
+      "title_hash": "309dd28de4c84bf86b3dbcb183dcacceec6465af",
+      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+      "short": "폐기 4건 집행",
+      "short_hash": "a8bab75f3ae668a72ecf834f94c557862cb1b7be",
+      "purpose": "KAN-044 가 폐기로 판정한 문서 4건을 실제로 지운다",
+      "purpose_hash": "d58a88bbe83bfad600c6c238ff514ac2ab160fdd",
+      "reason": "넷 다 참조가 0건이거나(3건) 참조원을 함께 고치면 되고(ORDER.md 1건), 목적이 소진된 1회성 문서다",
+      "reason_hash": "018d2c606c691e82b965666d385aef49c447463c",
+      "goal": "네 문서가 레포에서 사라지고 grep 결과 0건이라 참조 고아가 남지 않는다",
+      "goal_hash": "a59169c8c7b569dbb8469141484ac40f6c527d29",
+      "memo": "KAN-044 §13-A. ORDER.md 는 검토 3번 반려(유저 「제거」)로 존치→폐기가 된 건이라 선행 수정이 하나 있다 — visualization-type-inventory.md:376 의 「ORDER.md 편집 금지」 문구. work 1~2개(4.7 인스턴트 예외 대상)",
+      "memo_hash": "a274e5580b5179eff60ac68b0a898ec6e5189f90",
+      "scope": [
+        "RELEASE_PLAN.md",
+        "sample_design/**",
+        "apps/storybook/README.md",
+        "ORDER.md",
+        "packages/visualization/visualization-type-inventory.md"
+      ]
+    },
+    "KAN-048-R2KW3G": {
+      "col": "todo",
+      "title": "문서 정리 B — core 카탈로그 계열 통합 (audit 44→1 · 일회성 계획 3종 흡수)",
+      "verbatim": "",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-08-25",
+      "title_hash": "156a2dbe55de1f5a4cce5414d5d067eb89f1003b",
+      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+      "short": "core 카탈로그 통합",
+      "short_hash": "bf446d9d881236060316c8973148b91ea4f89d8b",
+      "purpose": "core 의 audit 44개를 한 파일로 접고 목적이 소진된 계획 문서 3종을 COMPONENT_CATALOG·style-guide-catalog 로 흡수한다",
+      "purpose_hash": "edaddb4fc889d8cc826b122c0f6e74c5e568c682",
+      "reason": "audit 44개는 파일 단위 참조 0건인 1회성 증빙이고 ASSET_INTEGRATION_PLAN·WAVE0_REPORT 는 Wave 전량 DONE 으로 실행 결과가 이미 레지스트리에 있다",
+      "reason_hash": "34b21d7865d61feb8ba3f0f6f1428f000e1e492c",
+      "goal": "core 문서가 47건 줄고 COMPONENT_CATALOG 의 실측 결함 2건이 함께 고쳐진다",
+      "goal_hash": "f2f38a4cbe5cade96a6a0ded3b023a31b69dabdf",
+      "memo": "KAN-044 §13-B. 위험: packages/core/style-guide-catalog.md 38–92줄은 자동 생성 구간이라 이동·개명·삭제하면 trendTable.test.ts 가 readFileSync 에서 red 가 된다 — 출처 절만 손댄다. D 의 선행(직렬 중재). work 4개",
+      "memo_hash": "2979c34afdcb842658763b97e23967cf143322fb",
+      "scope": [
+        "packages/core/catalog/**",
+        "packages/core/COMPONENT_CATALOG.md",
+        "packages/core/design-trends-2020-2026.md",
+        "packages/core/style-guide-catalog.md",
+        "packages/style-guide-catalog/src/index.ts",
+        "ASSET_INTEGRATION_PLAN.md",
+        "WAVE0_REPORT.md"
+      ]
+    },
+    "KAN-049-CWBPP6": {
+      "col": "todo",
+      "title": "문서 정리 C — visualization 계열 통합 (PLAN · visualization-catalog 흡수 + SSOT 이동)",
+      "verbatim": "",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-08-25",
+      "title_hash": "413d7deae94c0f1a211808da04989f396c17572e",
+      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+      "short": "viz 계열 통합",
+      "short_hash": "8f5673d85ea43d04c700cf80e49c93e46c755c3a",
+      "purpose": "viz 의 PLAN.md 와 visualization-catalog.md 를 흡수하면서 구현 스펙 SSOT 지위와 인바운드 링크를 함께 옮긴다",
+      "purpose_hash": "d02827b6af3d76347e672e41eda44e39ee4bd48c",
+      "reason": "두 문서가 본문에서 스스로 「흡수됨」을 선언했는데 type-inventory.md 가 아직 5곳에서 그것을 가리킨다",
+      "reason_hash": "882d4629c54f913b7af928c16c8a34a91ea1d75f",
+      "goal": "viz 문서 2건이 사라지고 type-inventory grep 결과가 0건이라 SSOT 체인이 끊기지 않는다",
+      "goal_hash": "ad2bda4935f457c79163d91540ec3fc2daa9be63",
+      "memo": "KAN-044 §13-C. 위험: visualization-catalog.md 는 참조 11건으로 통합 대상 중 최다 — 링크를 한 번에 다 고치지 않으면 SSOT 지목이 허공을 가리킨다. 완료 기준에 type-inventory grep 0건을 넣는다. work 4개",
+      "memo_hash": "543eb975c4c1431203888acb6aee4d1cfac95533",
+      "scope": [
+        "packages/visualization/**",
+        "packages/visualization-style-guide-catalog/README.md",
+        "packages/style-guide-catalog/METADATA_STRATEGY.md"
+      ]
+    },
+    "KAN-050-AJSQAY": {
+      "col": "todo",
+      "title": "문서 정리 D — 규율 문서 실측 정합 (theme-* 부재 · 모션 5중 기재)",
+      "verbatim": "",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-08-25",
+      "title_hash": "18c8839bf1a2bbfbde0d66a13dc03393b71ce8b2",
+      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+      "short": "규율 문서 실측 정합",
+      "short_hash": "391dfa5341cee3f8e1a227e38f17e1e52ce9c3a9",
+      "purpose": "CLAUDE.md·QUALITY_CHECKLIST·DESIGN_SYSTEM_GUIDE 의 실측 어긋남을 고치고 5곳에 흩어진 모션 워크플로 기재를 하나로 모은다",
+      "purpose_hash": "e5cf6892c1cc4609980e660446cb4d19c7cf715f",
+      "reason": "packages/theme-* 4종이 실재하지 않는데 세 규율 문서가 그것을 구조도와 경로로 가리키고 있다",
+      "reason_hash": "0181869b53f48c4ed990e346897502629e09fa6f",
+      "goal": "규율 문서가 실제 레포 구조와 일치하고 모션 워크플로가 한 곳에만 적힌다",
+      "goal_hash": "1b98bba47a59d6f31f2f166fb9f6d7788594bf14",
+      "memo": "KAN-044 §13-D. B 의 후행(직렬 중재) — DESIGN_SYSTEM_GUIDE.md:182 는 B 가 ASSET_INTEGRATION_PLAN 을 없앤 뒤에 고쳐야 한다. KAN-046 과 CLAUDE.md 를 함께 건드리지만 절이 달라 dep-waive 대상(§14). 게이트 명령 4종은 손대지 않고 구조도·경로만 고친다. work 4개",
+      "memo_hash": "65a3e5f909ddcffc25fc3f304146982e6b55ba75",
+      "scope": [
+        "CLAUDE.md",
+        "QUALITY_CHECKLIST.md",
+        "DESIGN_SYSTEM_GUIDE.md",
+        "_templates/**",
+        "packages/core/MOTION_QUALITY_CHECKLIST.md",
+        "packages/core/src/motion/README.md",
+        "packages/core/motion-catalog.md",
+        "METADATA_COVERAGE_AUDIT.md",
+        "packages/foundations/FOUNDATION_METADATA_STRATEGY.md"
+      ]
     }
   },
   "order": [
@@ -635,9 +747,91 @@
     "KAN-042-JZ2ZBT",
     "KAN-043-2JM72N",
     "KAN-044-3KYT2Q",
-    "KAN-045-PNT454"
+    "KAN-045-PNT454",
+    "KAN-047-TRYYRC",
+    "KAN-048-R2KW3G",
+    "KAN-049-CWBPP6",
+    "KAN-050-AJSQAY"
   ],
   "recent": [
+    {
+      "seq": 141,
+      "t": "2026-08-25T14:28",
+      "a": "유저",
+      "id": "KAN-050-AJSQAY",
+      "op": "serialize",
+      "w": "S7030N",
+      "with_": "KAN-048-R2KW3G",
+      "reason": "DESIGN_SYSTEM_GUIDE.md 를 둘 다 고친다. B 가 ASSET_INTEGRATION_PLAN 을 없애야 D 가 :182 링크를 고칠 수 있고, 순서가 뒤면 깨진 링크가 남는다. KAN-044 검토 5번에서 유저가 승인"
+    },
+    {
+      "seq": 140,
+      "t": "2026-08-25T14:27",
+      "a": "ai",
+      "id": "KAN-050-AJSQAY",
+      "op": "create",
+      "w": "S7030N",
+      "col": "todo",
+      "title": "문서 정리 D — 규율 문서 실측 정합 (theme-* 부재 · 모션 5중 기재)",
+      "verbatim": "",
+      "parent": null,
+      "short": "규율 문서 실측 정합",
+      "purpose": "CLAUDE.md·QUALITY_CHECKLIST·DESIGN_SYSTEM_GUIDE 의 실측 어긋남을 고치고 5곳에 흩어진 모션 워크플로 기재를 하나로 모은다",
+      "reason": "packages/theme-* 4종이 실재하지 않는데 세 규율 문서가 그것을 구조도와 경로로 가리키고 있다",
+      "goal": "규율 문서가 실제 레포 구조와 일치하고 모션 워크플로가 한 곳에만 적힌다",
+      "memo": "KAN-044 §13-D. B 의 후행(직렬 중재) — DESIGN_SYSTEM_GUIDE.md:182 는 B 가 ASSET_INTEGRATION_PLAN 을 없앤 뒤에 고쳐야 한다. KAN-046 과 CLAUDE.md 를 함께 건드리지만 절이 달라 dep-waive 대상(§14). 게이트 명령 4종은 손대지 않고 구조도·경로만 고친다. work 4개"
+    },
+    {
+      "seq": 139,
+      "t": "2026-08-25T14:27",
+      "a": "ai",
+      "id": "KAN-049-CWBPP6",
+      "op": "create",
+      "w": "S7030N",
+      "col": "todo",
+      "title": "문서 정리 C — visualization 계열 통합 (PLAN · visualization-catalog 흡수 + SSOT 이동)",
+      "verbatim": "",
+      "parent": null,
+      "short": "viz 계열 통합",
+      "purpose": "viz 의 PLAN.md 와 visualization-catalog.md 를 흡수하면서 구현 스펙 SSOT 지위와 인바운드 링크를 함께 옮긴다",
+      "reason": "두 문서가 본문에서 스스로 「흡수됨」을 선언했는데 type-inventory.md 가 아직 5곳에서 그것을 가리킨다",
+      "goal": "viz 문서 2건이 사라지고 type-inventory grep 결과가 0건이라 SSOT 체인이 끊기지 않는다",
+      "memo": "KAN-044 §13-C. 위험: visualization-catalog.md 는 참조 11건으로 통합 대상 중 최다 — 링크를 한 번에 다 고치지 않으면 SSOT 지목이 허공을 가리킨다. 완료 기준에 type-inventory grep 0건을 넣는다. work 4개"
+    },
+    {
+      "seq": 138,
+      "t": "2026-08-25T14:27",
+      "a": "ai",
+      "id": "KAN-048-R2KW3G",
+      "op": "create",
+      "w": "S7030N",
+      "col": "todo",
+      "title": "문서 정리 B — core 카탈로그 계열 통합 (audit 44→1 · 일회성 계획 3종 흡수)",
+      "verbatim": "",
+      "parent": null,
+      "short": "core 카탈로그 통합",
+      "purpose": "core 의 audit 44개를 한 파일로 접고 목적이 소진된 계획 문서 3종을 COMPONENT_CATALOG·style-guide-catalog 로 흡수한다",
+      "reason": "audit 44개는 파일 단위 참조 0건인 1회성 증빙이고 ASSET_INTEGRATION_PLAN·WAVE0_REPORT 는 Wave 전량 DONE 으로 실행 결과가 이미 레지스트리에 있다",
+      "goal": "core 문서가 47건 줄고 COMPONENT_CATALOG 의 실측 결함 2건이 함께 고쳐진다",
+      "memo": "KAN-044 §13-B. 위험: packages/core/style-guide-catalog.md 38–92줄은 자동 생성 구간이라 이동·개명·삭제하면 trendTable.test.ts 가 readFileSync 에서 red 가 된다 — 출처 절만 손댄다. D 의 선행(직렬 중재). work 4개"
+    },
+    {
+      "seq": 137,
+      "t": "2026-08-25T14:26",
+      "a": "ai",
+      "id": "KAN-047-TRYYRC",
+      "op": "create",
+      "w": "S7030N",
+      "col": "todo",
+      "title": "문서 정리 A — 폐기 4건 집행 (RELEASE_PLAN · sample_design · storybook README · ORDER)",
+      "verbatim": "",
+      "parent": null,
+      "short": "폐기 4건 집행",
+      "purpose": "KAN-044 가 폐기로 판정한 문서 4건을 실제로 지운다",
+      "reason": "넷 다 참조가 0건이거나(3건) 참조원을 함께 고치면 되고(ORDER.md 1건), 목적이 소진된 1회성 문서다",
+      "goal": "네 문서가 레포에서 사라지고 grep 결과 0건이라 참조 고아가 남지 않는다",
+      "memo": "KAN-044 §13-A. ORDER.md 는 검토 3번 반려(유저 「제거」)로 존치→폐기가 된 건이라 선행 수정이 하나 있다 — visualization-type-inventory.md:376 의 「ORDER.md 편집 금지」 문구. work 1~2개(4.7 인스턴트 예외 대상)"
+    },
     {
       "seq": 136,
       "t": "2026-08-25T14:18",
@@ -1127,56 +1321,20 @@
       "field": "memo",
       "before": "KAN-034 결정: 소프트 계열 family 그룹핑. 3 가이드 모두 meta.family=viz-soft-puffy 공유·별도 wrapper: Neumorphic(UI#2 동색 이중그림자 압출, 저대비 리스크 — ink↔bg/tag↔fill ≥4.5:1 유의), Clay_Playful(UI#3 파스텔 퍼피 inset filter), Kawaii_Pastel(UI#17 파스텔+마스코트 글리프=신규 데코 wrapper, Tier B). colorway 통합 불가(shadow/radius/wrapper 상이). Tier A/B. 스펙: §7-3/§7-5.",
       "after": "완료(2026-07-24): 신규 viz-soft-puffy family 확정 + 소프트/퍼피 계열 3종 저작(3 guide/1 family). tokens STYLE_FAMILIES viz-soft-puffy 추가 + label 'Soft Puffy'. 저대비 위험군 정직 대응(전부 다크 잉크 라벨·윤곽 ≥4.5, 모티프는 wrapper 장식). Neumorphic_Soft_01(동색 표면 #E8ECF2 + 듀얼 소프트 섀도 압출·NeumorphNode feOffset+feGaussianBlur+feFlood+feComposite 2겹 feMerge, 다크 슬레이트 잉크 ~10:1, contrastIntent aa·contrast medium) · Clay_Playful_01(파스텔 퍼피 + inset inner-shadow·ClayNode feComposite operator=out 알파반전 + outer puff, 다크 클레이 잉크, aa) · Kawaii_Pastel_01(파스텔 + 마스코트 글리프 데코 wrapper·KawaiiNode bbox서 얼굴 글리프 계산, Tier B, 다크 플럼 잉크, aa). 3종 모두 risoPrint 템플릿 미러(별도 wrapper·makeVizColorway 2 preset·색스킴 불변식). 병렬 저작 실증: 3 general-purpose 에이전트가 각자 src+story 2파일만, 공유 seam(tokens 신규 family·barrel·manifest)은 메인 직렬 통합(P0 family 추가 선행). 게이트 4종 green: build(manifest 15→18)·typecheck·test 1156 passed/169 files·storybook build. viz 카탈로그 15→18 guide. feat d979f14. 후속 KAN-039(1:1 12종) 미착수."
-    },
+    }
+  ],
+  "serials": [
     {
-      "seq": 95,
-      "t": "2026-07-24T16:02",
-      "a": "ai",
-      "id": "KAN-038",
-      "op": "move",
-      "from": "backlog",
-      "to": "done"
-    },
-    {
-      "seq": 94,
-      "t": "2026-07-24T15:22",
-      "a": "ai",
-      "id": "KAN-037",
-      "op": "edit",
-      "field": "memo",
-      "before": "KAN-034 결정: 인쇄 계열 family 그룹핑. 첫 단계=shipped viz-riso-print→viz-print-ink 리네임(STYLE_FAMILIES union + STYLE_FAMILY_LABELS + risoPrint.tsx meta.family + manifest/트렌드표 regen; manifest·displayName·accessibility 테스트 통과 확인). 이어 Halftone_Print(UI#36 CMYK 망점 SVG pattern) + Glitch_Duotone(UI#33 마젠타/시안 채널 오프셋 duotone) 2 가이드 저작, 둘 다 meta.family=viz-print-ink 공유. colorway 통합 불가(모티프=별도 wrapper). Tier A. 스펙: viz-style-expansion.md §7-3/§7-5.",
-      "after": "완료(2026-07-24): viz-print-ink 패밀리 확정 + Halftone_Print_01·Glitch_Duotone_01 2종 저작(병렬 하네스 검증 웨이브 — KAN-034 후속 첫 배치). riso 리네임 원자 수행: tokens STYLE_FAMILIES viz-riso-print→viz-print-ink + STYLE_FAMILY_LABELS 'Print Ink' + risoPrint.tsx meta.family. 신규 2종 모두 meta.family=viz-print-ink 공유(3 guide/1 family). Halftone(웜페이퍼 #F7F4EC + CMYK 반투명 워시 multiply 오버프린트 + K 망점 SVG <pattern> 도형한정 오버레이·HalftonePrintNode, near-black K 잉크 라벨, contrastIntent aaa) · Glitch(밝은 쿨페이퍼 #F2EFF2 + 마젠타/시안 채널 반투명 워시 + RGB-split 두 유령채널 ±1.6px 오프셋 multiply·GlitchNode, 다크잉크 라벨, contrastIntent aa). 둘 다 risoPrint 템플릿 미러(별도 wrapper·makeVizColorway 2 preset·게이트 색스킴 불변식 준수). 게이트 4종 green: build(viz manifest 13→15)·typecheck·test 1141 passed/166 files·storybook build. 병렬 저작 전략 실증: 2 에이전트가 각자 src+story 2파일만 저작, 공유 seam(tokens union·barrel·manifest)은 메인 직렬 통합. viz 카탈로그 13→15 guide. 후속 KAN-038(soft-puffy)·KAN-039(1:1 12종) 미착수."
-    },
-    {
-      "seq": 93,
-      "t": "2026-07-24T15:22",
-      "a": "ai",
-      "id": "KAN-037",
-      "op": "move",
-      "from": "backlog",
-      "to": "done"
-    },
-    {
-      "seq": 92,
-      "t": "2026-07-24T14:42",
-      "a": "ai",
-      "id": "KAN-039",
-      "op": "create",
-      "col": "backlog",
-      "title": "P2 viz 1:1 단일 스타일 12종 순차 구현 (KAN-034 P2)",
-      "memo": "KAN-034 결정: 아래 12종은 각자 고유 family(1:1). 착수 시 개별 카드로 분해(KAN-019→029~033 선례). 순서·slug·tier: viz-style-expansion.md §7-3 배치표. 목록: Neobrutalist#0 · Editorial_Data#8 · Synthwave#11 · Memphis_Pattern#12 · Retro70s_Warm#14 · Dopamine_Max#15 · ArtDeco_Luxe#21 · DarkLuxe#23 · Bento_Stat#24 · Organic_Blob#34(Tier B 신규 blob shape) · Pixel_Retro#41 · Ukiyoe_Flat#37(저대비 유의). Organic_Blob 외 전부 Tier A.",
-      "verbatim": ""
-    },
-    {
-      "seq": 91,
-      "t": "2026-07-24T14:42",
-      "a": "ai",
-      "id": "KAN-038",
-      "op": "create",
-      "col": "backlog",
-      "title": "viz-soft-puffy 패밀리 — Neumorphic + Clay_Playful + Kawaii_Pastel viz 가이드 (KAN-034 P2)",
-      "memo": "KAN-034 결정: 소프트 계열 family 그룹핑. 3 가이드 모두 meta.family=viz-soft-puffy 공유·별도 wrapper: Neumorphic(UI#2 동색 이중그림자 압출, 저대비 리스크 — ink↔bg/tag↔fill ≥4.5:1 유의), Clay_Playful(UI#3 파스텔 퍼피 inset filter), Kawaii_Pastel(UI#17 파스텔+마스코트 글리프=신규 데코 wrapper, Tier B). colorway 통합 불가(shadow/radius/wrapper 상이). Tier A/B. 스펙: §7-3/§7-5.",
-      "verbatim": ""
+      "pair": "KAN-048-R2KW3G|KAN-050-AJSQAY",
+      "order": [
+        "KAN-048-R2KW3G",
+        "KAN-050-AJSQAY"
+      ],
+      "scope_hash": "03ca14ef4bb1f5eb",
+      "reason": "DESIGN_SYSTEM_GUIDE.md 를 둘 다 고친다. B 가 ASSET_INTEGRATION_PLAN 을 없애야 D 가 :182 링크를 고칠 수 있고, 순서가 뒤면 깨진 링크가 남는다. KAN-044 검토 5번에서 유저가 승인",
+      "created": "2026-08-25T14:28",
+      "by": "유저",
+      "restrategy_required": false
     }
   ]
 }
