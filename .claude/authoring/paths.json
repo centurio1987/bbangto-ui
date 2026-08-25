@@ -1,6 +1,7 @@
 {
   "dirs": {
     "draft": "KANBAN/reports",
-    "report": "KANBAN/reports"
+    "report": "KANBAN/reports",
+    "readme": "."
   }
 }
