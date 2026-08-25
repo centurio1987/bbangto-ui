@@ -14,19 +14,20 @@
   - 목표: 문서마다 판정과 근거가 붙은 정리 계획 리포트가 나와 실제 정리를 착수할 수 있다
 
 ## 진행 중
+
+## 검토
 - `KAN-046-33S4G8` pnpm test:unit 을 CLAUDE.md 품질 게이트에 추가 — 매니페스트·대비·명명 게이트가 문서에 없다 — 생성:ai · 최종:ai · 갱신:2026-08-25
   - 짧은 제목: test:unit 게이트 문서화
   - 목적: CLAUDE.md 「품질 게이트 실행」 절에 pnpm test:unit 을 다섯 번째 명령으로 넣는다
   - 이유: 매니페스트 바이트 동기·대비 over-claim·명명 규칙·커버리지 census 가 전부 test:unit 에서만 도는데 CLAUDE.md 와 옛 README 둘 다 0회 등장했다
   - 목표: 네 명령만 초록인 상태로 올려 다른 사람이 test:unit 에서 처음 발견하는 일이 없어진다
   - 메모: KAN-045 검토 5번 판단 항목의 유저 의견('별도 카드로 발행해라')에서 분기. pnpm test 의 실체는 pnpm --filter storybook test 라 패키지 vitest 를 실행하지 않는다 — 근거 package.json:11, CLAUDE.md:32
-  - 실행 문서: KANBAN/cards/KAN-046-33S4G8.md (2/3 · 최근 08-25)
+  - 실행 문서: KANBAN/cards/KAN-046-33S4G8.md (3/3 · 최근 08-25)
+  - 검토 문서: KANBAN/reviews/KAN-046-33S4G8.review.md (승인 0/7 · 검토 대기)
   - 원문:
     ```text
     별도 카드로 발행해라
     ```
-
-## 검토
 
 ## 완료
 - `KAN-020` visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현 — 생성:유저 · 최종:유저 · 갱신:2026-08-14

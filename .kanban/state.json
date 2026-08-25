@@ -1,6 +1,6 @@
 {
   "next_id": 47,
-  "next_seq": 136,
+  "next_seq": 137,
   "cards": {
     "KAN-044-3KYT2Q": {
       "col": "todo",
@@ -23,7 +23,7 @@
       "memo_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-046-33S4G8": {
-      "col": "doing",
+      "col": "review",
       "title": "pnpm test:unit 을 CLAUDE.md 품질 게이트에 추가 — 매니페스트·대비·명명 게이트가 문서에 없다",
       "verbatim": "별도 카드로 발행해라",
       "생성": "ai",
@@ -646,6 +646,16 @@
   ],
   "recent": [
     {
+      "seq": 136,
+      "t": "2026-08-25T14:31",
+      "a": "ai",
+      "id": "KAN-046-33S4G8",
+      "op": "move",
+      "w": "M9ETB0",
+      "from": "doing",
+      "to": "review"
+    },
+    {
       "seq": 135,
       "t": "2026-08-25T14:16",
       "a": "ai",
@@ -1174,16 +1184,6 @@
       "op": "move",
       "from": "backlog",
       "to": "done"
-    },
-    {
-      "seq": 87,
-      "t": "2026-07-24T14:39",
-      "a": "유저",
-      "id": "KAN-029",
-      "op": "edit",
-      "field": "memo",
-      "before": "완료(2026-07-24): Swiss_Systematic_01 (slug swiss-systematic-01) 구현 — 냉 뉴트럴 그레이 램프 + 단일 레드 #E1000F 액센트, 무채움 헤어라인 노드 + 레드 fill 강조 kind, 무그림자·radius0. 2 preset(Achromatic+Red / Ink). contrastIntent aa (white-on-red 4.99 < 7 이라 aaa 불가, 정직 하향). 병렬 배치 1/5. src/swissSystematic.tsx + 스토리, tokens family viz-swiss-systematic + index/manifest 편입. 4게이트 green.",
-      "after": "완료(2026-07-24): Swiss_Systematic_01 (slug swiss-systematic-01) 구현 — 냉 뉴트럴 그레이 램프 + 단일 레드 #E1000F 액센트, 무채움 헤어라인 노드 + 레드 fill 강조 kind, 무그림자·radius0. 2 preset(Achromatic+Red / Ink). contrastIntent aa (white-on-red 4.99 &lt; 7 이라 aaa 불가, 정직 하향). 병렬 배치 1/5. src/swissSystematic.tsx + 스토리, tokens family viz-swiss-systematic + index/manifest 편입. 4게이트 green."
     }
   ]
 }
