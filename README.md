@@ -1158,7 +1158,7 @@ tokens를 따로 넣는 이유가 있습니다. `VizFoundationPreset` 타입이 
 
 ### 사례 10 · 이 레포에 기여한다
 
-preset이나 컴포넌트를 이 레포에 넣으려는 분을 위한 절차입니다. 사례 6과 사례 9에서 만든 것이 등재를 지나 릴리스까지 가는 뒷부분이기도 합니다. 게이트는 다섯인데, 넷은 `CLAUDE.md`에 적혀 있고 다섯 번째는 루트 `package.json`에만 있습니다.
+preset이나 컴포넌트를 이 레포에 넣으려는 분을 위한 절차입니다. 사례 6과 사례 9에서 만든 것이 등재를 지나 릴리스까지 가는 뒷부분이기도 합니다. 게이트는 다섯이고 `CLAUDE.md`에 다섯 다 적혀 있습니다. 다섯 번째 `pnpm test:unit`의 실체는 루트 `package.json`에 있습니다.
 
 **설치**
 
@@ -1208,10 +1208,10 @@ pnpm build          # 최초 1회. 카탈로그 매니페스트 생성기가 cor
    pnpm build                     # storybook 제외 전 패키지 빌드 (+ 카탈로그 매니페스트 재생성)
    pnpm test                      # storybook 브라우저 테스트 (Playwright/chromium)
    pnpm --filter storybook build  # Storybook 번들 스모크 테스트
-   pnpm test:unit                 # 패키지 vitest — 매니페스트·대비·명명 게이트
+   pnpm test:unit                 # 패키지 vitest — 매니페스트·대비·명명·커버리지 게이트
    ```
 
-   `CLAUDE.md`는 위 넷만 적고 있습니다. 다섯 번째는 루트 `package.json:11`의 `"test:unit": "pnpm -r --filter=!storybook run test"`입니다.
+   `CLAUDE.md`도 이 다섯을 적습니다. 다섯 번째의 실체는 루트 `package.json:11`의 `"test:unit": "pnpm -r --filter=!storybook run test"`입니다.
 
    다섯 번째가 왜 빠지면 안 되는지는 4번과 붙여 보면 드러나요. `pnpm test`의 실체는 `pnpm --filter storybook test` 한 줄이라 storybook 패키지만 돕니다. foundation을 하나 추가하고 `gen:foundation-manifest`를 잊었다고 해 봅시다. `packages/foundations/src/meta/manifest.test.ts`의 바이트 동기 테스트가 잡아야 할 상황인데, `pnpm test`는 그 파일을 실행조차 하지 않습니다. 넷이 전부 초록입니다. 그걸 보고 올린 다음, 다른 사람이 `pnpm test:unit`에서 처음 발견하게 되죠. 사례 6의 대비 감사와 명명 게이트도 정확히 같은 자리에 있습니다.
 

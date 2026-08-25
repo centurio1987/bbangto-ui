@@ -24,6 +24,7 @@ item exist. This file is the gate; copy the checklist into the PR/commit.
    pnpm build                # tsup builds + dts
    pnpm test                 # Storybook stories as Playwright/chromium browser tests
    pnpm --filter storybook build   # stories bundle (full smoke)
+   pnpm test:unit                  # package vitest — manifest/contrast/naming/coverage gates
    ```
 5. **Tick every checklist box.** Any unchecked box = not done.
 6. **Record** in `motion-catalog.md` (§4 row → `implemented`, §5 counts, §7 box).
@@ -109,3 +110,4 @@ Each animation item's story MUST have a `play` function asserting, as applicable
 - [ ] `pnpm build` green
 - [ ] `pnpm test` green (Playwright/chromium)
 - [ ] `pnpm --filter storybook build` green
+- [ ] `pnpm test:unit` green (package vitest — manifest/contrast/naming/coverage)

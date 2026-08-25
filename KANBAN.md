@@ -20,7 +20,7 @@
   - 이유: 매니페스트 바이트 동기·대비 over-claim·명명 규칙·커버리지 census 가 전부 test:unit 에서만 도는데 CLAUDE.md 와 옛 README 둘 다 0회 등장했다
   - 목표: 네 명령만 초록인 상태로 올려 다른 사람이 test:unit 에서 처음 발견하는 일이 없어진다
   - 메모: KAN-045 검토 5번 판단 항목의 유저 의견('별도 카드로 발행해라')에서 분기. pnpm test 의 실체는 pnpm --filter storybook test 라 패키지 vitest 를 실행하지 않는다 — 근거 package.json:11, CLAUDE.md:32
-  - 실행 문서: KANBAN/cards/KAN-046-33S4G8.md (1/3 · 최근 08-25)
+  - 실행 문서: KANBAN/cards/KAN-046-33S4G8.md (2/3 · 최근 08-25)
   - 원문:
     ```text
     별도 카드로 발행해라

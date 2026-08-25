@@ -36,6 +36,7 @@ pnpm typecheck                      # 워크스페이스 전체 타입 검사
 pnpm build                          # 모든 패키지 빌드 (storybook 제외)
 pnpm test                           # Playwright/chromium 브라우저 테스트
 pnpm --filter storybook build       # Storybook 번들 스모크 테스트
+pnpm test:unit                      # 패키지 vitest — 매니페스트·대비·명명·커버리지 게이트
 ```
 
 게이트가 하나라도 빨간 상태면 태스크를 완료로 표시하지 않는다.
@@ -99,5 +100,6 @@ pnpm dev              # Storybook 개발 서버 (포트 6006)
 pnpm build            # 전체 패키지 빌드
 pnpm typecheck        # 타입 검사
 pnpm test             # Playwright 브라우저 테스트 (CI 기준)
-pnpm test:watch       # 테스트 워치 모드
+pnpm test:unit        # 패키지 vitest — 매니페스트·대비·명명·커버리지 게이트
+pnpm --filter storybook test:watch   # 테스트 워치 모드 (루트에 test:watch 스크립트는 없다)
 ```

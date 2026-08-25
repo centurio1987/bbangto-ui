@@ -16,7 +16,7 @@ leaf subagent(Component/Hook Builder)가 복사해서 쓰는 스캐폴드 모음
 1) 스토리 play(또는 hook vitest) 테스트 작성 → RED 확인   ← 구현보다 먼저!
 2) CHECKLIST_INSTANCE 복사해 인스턴스화
 3) 컴포넌트/훅 구현 → GREEN
-4) 게이트: pnpm typecheck && pnpm build && pnpm test && pnpm --filter storybook build
+4) 게이트: pnpm typecheck && pnpm build && pnpm test && pnpm --filter storybook build && pnpm test:unit
 5) 배럴 export 추가 + 카탈로그 레지스트리 상태 갱신(DONE)
 ```
 
