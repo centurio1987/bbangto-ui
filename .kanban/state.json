@@ -1,6 +1,6 @@
 {
   "next_id": 46,
-  "next_seq": 136,
+  "next_seq": 137,
   "cards": {
     "KAN-001": {
       "col": "done",
@@ -519,7 +519,7 @@
       "verbatim_hash": "2e752e1c7bf53e1c3d5de3ec3a6f5e30574760e4"
     },
     "KAN-044-3KYT2Q": {
-      "col": "review",
+      "col": "done",
       "title": "불필요한 문서들 파악해서 정리하기 위한 계획 세우고 레포트 제출해라",
       "verbatim": "",
       "생성": "유저",
@@ -613,6 +613,16 @@
     "KAN-044-3KYT2Q"
   ],
   "recent": [
+    {
+      "seq": 136,
+      "t": "2026-08-25T14:18",
+      "a": "ai",
+      "id": "KAN-044-3KYT2Q",
+      "op": "move",
+      "w": "DA5BWJ",
+      "from": "review",
+      "to": "done"
+    },
     {
       "seq": 135,
       "t": "2026-08-25T14:13",
@@ -1135,16 +1145,6 @@
       "field": "memo",
       "before": "완료(2026-07-24): Swiss_Systematic_01 (slug swiss-systematic-01) 구현 — 냉 뉴트럴 그레이 램프 + 단일 레드 #E1000F 액센트, 무채움 헤어라인 노드 + 레드 fill 강조 kind, 무그림자·radius0. 2 preset(Achromatic+Red / Ink). contrastIntent aa (white-on-red 4.99 < 7 이라 aaa 불가, 정직 하향). 병렬 배치 1/5. src/swissSystematic.tsx + 스토리, tokens family viz-swiss-systematic + index/manifest 편입. 4게이트 green.",
       "after": "완료(2026-07-24): Swiss_Systematic_01 (slug swiss-systematic-01) 구현 — 냉 뉴트럴 그레이 램프 + 단일 레드 #E1000F 액센트, 무채움 헤어라인 노드 + 레드 fill 강조 kind, 무그림자·radius0. 2 preset(Achromatic+Red / Ink). contrastIntent aa (white-on-red 4.99 &lt; 7 이라 aaa 불가, 정직 하향). 병렬 배치 1/5. src/swissSystematic.tsx + 스토리, tokens family viz-swiss-systematic + index/manifest 편입. 4게이트 green."
-    },
-    {
-      "seq": 86,
-      "t": "2026-07-24T14:39",
-      "a": "유저",
-      "id": "KAN-016",
-      "op": "edit",
-      "field": "memo",
-      "before": "완료 — 교차검증 템플릿 축을 파일럿 3종 → 그룹 전 축(G1~G5·P2·P3) 대표 24종으로 재스코핑. 신규 `_matrixFixtures.tsx`(그룹 스토리 검증 데이터 복사, 기존 스토리 무변경) + `TemplateStyleMatrix.stories.tsx`에 template-major `ExpandedMatrix` 스토리 추가(PilotMatrix 유지). play 검증: fixture 가드(key slug-safe·유일), 행수=fixture수·셀수=vizStyleGuideCatalog.length(SSOT), 셀별 svg role=img+non-empty title+expectVizPaintResolved+paintSig non-empty, 행마다 guideVarSig 전-가이드 all-distinct(결정적), 템플릿별 paintSig(svg 전 geometry mark, bg 제외, 상한60) 집합>1. 외부검토(codex) 반영: 약한 >1 기준 보강(가이드축 all-distinct 분리), bg가 paint 가리는 문제 제거, 첫-N 취약성→전-mark 일반화, SSOT 카운트, per-row 무결성. ExpandedMatrix 24×6=144 SVG play 2.56s(분할 불필요). 4 게이트 green(typecheck/build/test 1093/storybook build). viz 소스·core export 무변경.",
-      "after": "완료 — 교차검증 템플릿 축을 파일럿 3종 → 그룹 전 축(G1~G5·P2·P3) 대표 24종으로 재스코핑. 신규 `_matrixFixtures.tsx`(그룹 스토리 검증 데이터 복사, 기존 스토리 무변경) + `TemplateStyleMatrix.stories.tsx`에 template-major `ExpandedMatrix` 스토리 추가(PilotMatrix 유지). play 검증: fixture 가드(key slug-safe·유일), 행수=fixture수·셀수=vizStyleGuideCatalog.length(SSOT), 셀별 svg role=img+non-empty title+expectVizPaintResolved+paintSig non-empty, 행마다 guideVarSig 전-가이드 all-distinct(결정적), 템플릿별 paintSig(svg 전 geometry mark, bg 제외, 상한60) 집합&gt;1. 외부검토(codex) 반영: 약한 &gt;1 기준 보강(가이드축 all-distinct 분리), bg가 paint 가리는 문제 제거, 첫-N 취약성→전-mark 일반화, SSOT 카운트, per-row 무결성. ExpandedMatrix 24×6=144 SVG play 2.56s(분할 불필요). 4 게이트 green(typecheck/build/test 1093/storybook build). viz 소스·core export 무변경."
     }
   ],
   "layout": 3

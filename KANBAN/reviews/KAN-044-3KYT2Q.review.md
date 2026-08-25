@@ -5,7 +5,7 @@ created: 2026-08-25
 branch: KAN-044-3KYT2Q
 worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-044-3KYT2Q
 base: b9745ad
-status: 검토 대기
+status: 승인
 ---
 
 # KAN-044-3KYT2Q 검토 요청 — 불필요한 문서들 파악해서 정리하기 위한 계획 세우고 레포트 제출해라
@@ -253,9 +253,11 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-044-3KYT2Q --add
      frontmatter 의 status 도 함께 고친다. 손으로 적어도 되지만, 그때는 수렴 검사를
      안 거치므로 `validate` 가 항목 판정과 어긋난 승인을 error 로 잡는다. -->
 
-**판정**: (아직 없습니다)
+**판정**: 승인
 
 **판정 이력**:
+
+- 승인 · 유저 · 2026-08-25
 
 - 승인이면 → `apply --op move --id KAN-044-3KYT2Q --to done` 뒤에 `main` 병합과 워크트리 정리(출력의 `cleanup`)
 - 반려면 → `apply --op move --id KAN-044-3KYT2Q --to doing` 뒤에 `doc-log --entry "<반려 사유>"`.
