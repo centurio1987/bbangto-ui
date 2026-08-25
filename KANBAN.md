@@ -25,6 +25,16 @@
     - 패키지를 사용해서 style guide를 구현할 수 있다는 사례 자체가 소개되어 있지 않다.
     - style guide를 구현하기 위한 방법이 서술되어 있지 않다.
     ```
+- `KAN-046-33S4G8` pnpm test:unit 을 CLAUDE.md 품질 게이트에 추가 — 매니페스트·대비·명명 게이트가 문서에 없다 — 생성:ai · 최종:ai · 갱신:2026-08-25
+  - 짧은 제목: test:unit 게이트 문서화
+  - 목적: CLAUDE.md 「품질 게이트 실행」 절에 pnpm test:unit 을 다섯 번째 명령으로 넣는다
+  - 이유: 매니페스트 바이트 동기·대비 over-claim·명명 규칙·커버리지 census 가 전부 test:unit 에서만 도는데 CLAUDE.md 와 옛 README 둘 다 0회 등장했다
+  - 목표: 네 명령만 초록인 상태로 올려 다른 사람이 test:unit 에서 처음 발견하는 일이 없어진다
+  - 메모: KAN-045 검토 5번 판단 항목의 유저 의견('별도 카드로 발행해라')에서 분기. pnpm test 의 실체는 pnpm --filter storybook test 라 패키지 vitest 를 실행하지 않는다 — 근거 package.json:11, CLAUDE.md:32
+  - 원문:
+    ```text
+    별도 카드로 발행해라
+    ```
 
 ## 진행 중
 

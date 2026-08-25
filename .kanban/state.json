@@ -1,6 +1,6 @@
 {
-  "next_id": 46,
-  "next_seq": 132,
+  "next_id": 47,
+  "next_seq": 133,
   "cards": {
     "KAN-001": {
       "col": "done",
@@ -561,6 +561,26 @@
         "README.md",
         ".claude/authoring/**"
       ]
+    },
+    "KAN-046-33S4G8": {
+      "col": "todo",
+      "title": "pnpm test:unit 을 CLAUDE.md 품질 게이트에 추가 — 매니페스트·대비·명명 게이트가 문서에 없다",
+      "verbatim": "별도 카드로 발행해라",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-08-25",
+      "title_hash": "47281b75c4d6ed09e15267fada32ad22e3a626e4",
+      "verbatim_hash": "44ebdd426d05c0802a09c11f195e55502e846450",
+      "short": "test:unit 게이트 문서화",
+      "short_hash": "a1c94c1cf929a1fbabd9ef82efb4e10c3335bc70",
+      "purpose": "CLAUDE.md 「품질 게이트 실행」 절에 pnpm test:unit 을 다섯 번째 명령으로 넣는다",
+      "purpose_hash": "d341047edf0803abae60d446f0f869863d477748",
+      "reason": "매니페스트 바이트 동기·대비 over-claim·명명 규칙·커버리지 census 가 전부 test:unit 에서만 도는데 CLAUDE.md 와 옛 README 둘 다 0회 등장했다",
+      "reason_hash": "f1d7a165b2fdef44732e1994186792942cdaf390",
+      "goal": "네 명령만 초록인 상태로 올려 다른 사람이 test:unit 에서 처음 발견하는 일이 없어진다",
+      "goal_hash": "d33561bbef4555119806bbb10f74fae12418204b",
+      "memo": "KAN-045 검토 5번 판단 항목의 유저 의견('별도 카드로 발행해라')에서 분기. pnpm test 의 실체는 pnpm --filter storybook test 라 패키지 vitest 를 실행하지 않는다 — 근거 package.json:11, CLAUDE.md:32",
+      "memo_hash": "34d88d096a5cc11105922e4525eec132b9960e1a"
     }
   },
   "order": [
@@ -608,9 +628,27 @@
     "KAN-041",
     "KAN-036",
     "KAN-042-JZ2ZBT",
-    "KAN-043-2JM72N"
+    "KAN-043-2JM72N",
+    "KAN-046-33S4G8"
   ],
   "recent": [
+    {
+      "seq": 132,
+      "t": "2026-08-25T12:22",
+      "a": "ai",
+      "id": "KAN-046-33S4G8",
+      "op": "create",
+      "w": "S7030N",
+      "col": "todo",
+      "title": "pnpm test:unit 을 CLAUDE.md 품질 게이트에 추가 — 매니페스트·대비·명명 게이트가 문서에 없다",
+      "verbatim": "별도 카드로 발행해라",
+      "parent": null,
+      "short": "test:unit 게이트 문서화",
+      "purpose": "CLAUDE.md 「품질 게이트 실행」 절에 pnpm test:unit 을 다섯 번째 명령으로 넣는다",
+      "reason": "매니페스트 바이트 동기·대비 over-claim·명명 규칙·커버리지 census 가 전부 test:unit 에서만 도는데 CLAUDE.md 와 옛 README 둘 다 0회 등장했다",
+      "goal": "네 명령만 초록인 상태로 올려 다른 사람이 test:unit 에서 처음 발견하는 일이 없어진다",
+      "memo": "KAN-045 검토 5번 판단 항목의 유저 의견('별도 카드로 발행해라')에서 분기. pnpm test 의 실체는 pnpm --filter storybook test 라 패키지 vitest 를 실행하지 않는다 — 근거 package.json:11, CLAUDE.md:32"
+    },
     {
       "seq": 131,
       "t": "2026-08-24T23:52",
@@ -1132,17 +1170,6 @@
       "op": "create",
       "col": "backlog",
       "title": "지금까지의 작업 내역을 npm package에 새로 반영해라. 새로 생기거나 없어져야 하는 패키지가 있는지, 이름이 바뀌어야 하는 패키지가 있는지도 확인하고, 버전도 확인해서 배포 계획을 세워라.",
-      "memo": "",
-      "verbatim": ""
-    },
-    {
-      "seq": 82,
-      "t": "2026-07-24T14:39",
-      "a": "유저",
-      "id": "KAN-035",
-      "op": "create",
-      "col": "backlog",
-      "title": "최초 ai를 위한 메타데이터를 도입한 작업 이후로, 태스크를 진행할 때마다, 메타데이터 생성도 같이 진행이 됐는지 확인 필요. 같이 생성이 안됐다면, 없는 인터페이스들에 대해서 적용하기 위한 계획 및 수행 필요",
       "memo": "",
       "verbatim": ""
     }
