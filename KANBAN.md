@@ -16,20 +16,6 @@
 ## 진행 중
 
 ## 검토
-- `KAN-045-PNT454` README는 이 레포를 설명하기에 정보가 많이 부족하다. 이 프로젝트를 활용 사례 별로 분류하고, 사례 별로 사용 방법을 자세한 절차로 서술해라. 서술 과정에서 authoring-kit skill을 이용해라. — 생성:유저 · 최종:ai · 갱신:2026-08-25
-  - 짧은 제목: README 활용 사례별 재작성
-  - 목적: README를 활용 사례별로 분류하고 사례마다 패키지 사용 절차를 authoring-kit 으로 서술한다
-  - 이유: 지금 README에는 패키지별 활용법도, style guide 구현 사례와 그 방법도 없다
-  - 목표: 처음 온 사람이 README만 보고 자기 사례에 맞는 패키지를 골라 style guide 까지 구현할 수 있다
-  - 실행 문서: KANBAN/cards/KAN-045-PNT454.md (7/7 · 최근 08-25)
-  - 검토 문서: KANBAN/reviews/KAN-045-PNT454.review.md (승인 4/5 · 반려 1 · 추가 의견 총 4 · 검토 대기)
-  - 원문:
-    ```text
-    README는 이 레포를 설명하기에 정보가 많이 부족하다. 이 프로젝트를 활용 사례 별로 분류하고, 사례 별로 사용 방법을 자세한 절차로 서술해라. 서술 과정에서 authoring-kit skill을 이용해라.
-    - 패키지 별 활용 방법이 없다.
-    - 패키지를 사용해서 style guide를 구현할 수 있다는 사례 자체가 소개되어 있지 않다.
-    - style guide를 구현하기 위한 방법이 서술되어 있지 않다.
-    ```
 
 ## 완료
 - `KAN-020` visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현 — 생성:유저 · 최종:유저 · 갱신:2026-08-14
@@ -266,4 +252,18 @@
   - 원문:
     ```text
     bbangto-ui-vizualization 패키지를 사용하는 사용자가 피드백 레포트를 작성했다. (/Users/centurio/resume/docs/viz-upstream-issues.md) P계열은 반영했으므로, I 계열을 검토해서 개선 해라
+    ```
+- `KAN-045-PNT454` README는 이 레포를 설명하기에 정보가 많이 부족하다. 이 프로젝트를 활용 사례 별로 분류하고, 사례 별로 사용 방법을 자세한 절차로 서술해라. 서술 과정에서 authoring-kit skill을 이용해라. — 생성:유저 · 최종:ai · 갱신:2026-08-25
+  - 짧은 제목: README 활용 사례별 재작성
+  - 목적: README를 활용 사례별로 분류하고 사례마다 패키지 사용 절차를 authoring-kit 으로 서술한다
+  - 이유: 지금 README에는 패키지별 활용법도, style guide 구현 사례와 그 방법도 없다
+  - 목표: 처음 온 사람이 README만 보고 자기 사례에 맞는 패키지를 골라 style guide 까지 구현할 수 있다
+  - 실행 문서: KANBAN/cards/KAN-045-PNT454.md (7/7 · 최근 08-25)
+  - 검토 문서: KANBAN/reviews/KAN-045-PNT454.review.md (승인 5/5 · 추가 의견 총 4 · 승인)
+  - 원문:
+    ```text
+    README는 이 레포를 설명하기에 정보가 많이 부족하다. 이 프로젝트를 활용 사례 별로 분류하고, 사례 별로 사용 방법을 자세한 절차로 서술해라. 서술 과정에서 authoring-kit skill을 이용해라.
+    - 패키지 별 활용 방법이 없다.
+    - 패키지를 사용해서 style guide를 구현할 수 있다는 사례 자체가 소개되어 있지 않다.
+    - style guide를 구현하기 위한 방법이 서술되어 있지 않다.
     ```
