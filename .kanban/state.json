@@ -1,6 +1,6 @@
 {
   "next_id": 47,
-  "next_seq": 135,
+  "next_seq": 136,
   "cards": {
     "KAN-044-3KYT2Q": {
       "col": "todo",
@@ -23,7 +23,7 @@
       "memo_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     "KAN-046-33S4G8": {
-      "col": "todo",
+      "col": "doing",
       "title": "pnpm test:unit 을 CLAUDE.md 품질 게이트에 추가 — 매니페스트·대비·명명 게이트가 문서에 없다",
       "verbatim": "별도 카드로 발행해라",
       "생성": "ai",
@@ -40,7 +40,20 @@
       "goal": "네 명령만 초록인 상태로 올려 다른 사람이 test:unit 에서 처음 발견하는 일이 없어진다",
       "goal_hash": "d33561bbef4555119806bbb10f74fae12418204b",
       "memo": "KAN-045 검토 5번 판단 항목의 유저 의견('별도 카드로 발행해라')에서 분기. pnpm test 의 실체는 pnpm --filter storybook test 라 패키지 vitest 를 실행하지 않는다 — 근거 package.json:11, CLAUDE.md:32",
-      "memo_hash": "34d88d096a5cc11105922e4525eec132b9960e1a"
+      "memo_hash": "34d88d096a5cc11105922e4525eec132b9960e1a",
+      "scope": [
+        "CLAUDE.md",
+        "QUALITY_CHECKLIST.md",
+        "README.md",
+        "_templates/**",
+        ".claude/settings.json",
+        "packages/core/MOTION_QUALITY_CHECKLIST.md",
+        "packages/core/motion-catalog.md",
+        "packages/core/src/motion/README.md",
+        "packages/visualization/viz-style-expansion.md",
+        "packages/foundations/src/gateDocs.ts",
+        "packages/foundations/src/gateDocs.test.ts"
+      ]
     },
     "KAN-020": {
       "col": "done",
@@ -585,7 +598,6 @@
   },
   "order": [
     "KAN-044-3KYT2Q",
-    "KAN-046-33S4G8",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -629,9 +641,20 @@
     "KAN-036",
     "KAN-042-JZ2ZBT",
     "KAN-043-2JM72N",
-    "KAN-045-PNT454"
+    "KAN-045-PNT454",
+    "KAN-046-33S4G8"
   ],
   "recent": [
+    {
+      "seq": 135,
+      "t": "2026-08-25T14:16",
+      "a": "ai",
+      "id": "KAN-046-33S4G8",
+      "op": "move",
+      "w": "M9ETB0",
+      "from": "todo",
+      "to": "doing"
+    },
     {
       "seq": 134,
       "t": "2026-08-25T13:10",
@@ -1161,16 +1184,6 @@
       "field": "memo",
       "before": "완료(2026-07-24): Swiss_Systematic_01 (slug swiss-systematic-01) 구현 — 냉 뉴트럴 그레이 램프 + 단일 레드 #E1000F 액센트, 무채움 헤어라인 노드 + 레드 fill 강조 kind, 무그림자·radius0. 2 preset(Achromatic+Red / Ink). contrastIntent aa (white-on-red 4.99 < 7 이라 aaa 불가, 정직 하향). 병렬 배치 1/5. src/swissSystematic.tsx + 스토리, tokens family viz-swiss-systematic + index/manifest 편입. 4게이트 green.",
       "after": "완료(2026-07-24): Swiss_Systematic_01 (slug swiss-systematic-01) 구현 — 냉 뉴트럴 그레이 램프 + 단일 레드 #E1000F 액센트, 무채움 헤어라인 노드 + 레드 fill 강조 kind, 무그림자·radius0. 2 preset(Achromatic+Red / Ink). contrastIntent aa (white-on-red 4.99 &lt; 7 이라 aaa 불가, 정직 하향). 병렬 배치 1/5. src/swissSystematic.tsx + 스토리, tokens family viz-swiss-systematic + index/manifest 편입. 4게이트 green."
-    },
-    {
-      "seq": 86,
-      "t": "2026-07-24T14:39",
-      "a": "유저",
-      "id": "KAN-016",
-      "op": "edit",
-      "field": "memo",
-      "before": "완료 — 교차검증 템플릿 축을 파일럿 3종 → 그룹 전 축(G1~G5·P2·P3) 대표 24종으로 재스코핑. 신규 `_matrixFixtures.tsx`(그룹 스토리 검증 데이터 복사, 기존 스토리 무변경) + `TemplateStyleMatrix.stories.tsx`에 template-major `ExpandedMatrix` 스토리 추가(PilotMatrix 유지). play 검증: fixture 가드(key slug-safe·유일), 행수=fixture수·셀수=vizStyleGuideCatalog.length(SSOT), 셀별 svg role=img+non-empty title+expectVizPaintResolved+paintSig non-empty, 행마다 guideVarSig 전-가이드 all-distinct(결정적), 템플릿별 paintSig(svg 전 geometry mark, bg 제외, 상한60) 집합>1. 외부검토(codex) 반영: 약한 >1 기준 보강(가이드축 all-distinct 분리), bg가 paint 가리는 문제 제거, 첫-N 취약성→전-mark 일반화, SSOT 카운트, per-row 무결성. ExpandedMatrix 24×6=144 SVG play 2.56s(분할 불필요). 4 게이트 green(typecheck/build/test 1093/storybook build). viz 소스·core export 무변경.",
-      "after": "완료 — 교차검증 템플릿 축을 파일럿 3종 → 그룹 전 축(G1~G5·P2·P3) 대표 24종으로 재스코핑. 신규 `_matrixFixtures.tsx`(그룹 스토리 검증 데이터 복사, 기존 스토리 무변경) + `TemplateStyleMatrix.stories.tsx`에 template-major `ExpandedMatrix` 스토리 추가(PilotMatrix 유지). play 검증: fixture 가드(key slug-safe·유일), 행수=fixture수·셀수=vizStyleGuideCatalog.length(SSOT), 셀별 svg role=img+non-empty title+expectVizPaintResolved+paintSig non-empty, 행마다 guideVarSig 전-가이드 all-distinct(결정적), 템플릿별 paintSig(svg 전 geometry mark, bg 제외, 상한60) 집합&gt;1. 외부검토(codex) 반영: 약한 &gt;1 기준 보강(가이드축 all-distinct 분리), bg가 paint 가리는 문제 제거, 첫-N 취약성→전-mark 일반화, SSOT 카운트, per-row 무결성. ExpandedMatrix 24×6=144 SVG play 2.56s(분할 불필요). 4 게이트 green(typecheck/build/test 1093/storybook build). viz 소스·core export 무변경."
     }
   ]
 }
