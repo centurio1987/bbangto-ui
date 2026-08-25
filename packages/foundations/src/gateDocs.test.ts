@@ -172,13 +172,34 @@ describe('auditGateDocs — fixture 실패주입(순수 검증기)', () => {
     expect(auditGateDocs([{ path: 'DOC.md', text: quickstart }])).toEqual([]);
   });
 
-  it('글롭 pnpm test* 는 test:unit 을 포함하므로 통과(권한 목록)', () => {
+  it('글롭만 적은 권한 목록은 애초에 트리거가 아니다', () => {
     const perms = [
       '      "Bash(pnpm typecheck*)",',
       '      "Bash(pnpm build*)",',
       '      "Bash(pnpm test*)",',
     ].join('\n');
     expect(auditGateDocs([{ path: '.claude/settings.json', text: perms }])).toEqual([]);
+  });
+
+  // ── 통과 구멍 차단(검토 1번: "편법으로 통과하게 두지 말아라") ──
+
+  it('글롭 pnpm test* 로는 요구를 못 채운다 — 게이트 목록에 적어도 여전히 위반', () => {
+    const glob = 'pnpm typecheck\npnpm build\npnpm test\npnpm test*';
+    expect(auditGateDocs([{ path: 'DOC.md', text: glob }])).toHaveLength(1);
+  });
+
+  it('코드펜스 안에서 빈 줄로 목록을 쪼개도 한 덩이다 — 분할 회피 차단', () => {
+    const split = ['```bash', 'pnpm typecheck', 'pnpm build', '', 'pnpm test', '```'].join('\n');
+    expect(auditGateDocs([{ path: 'DOC.md', text: split }])).toHaveLength(1);
+    // 쪼갠 채 다섯째를 넣으면 통과한다 — 막는 것은 분할 자체가 아니라 누락이다.
+    const splitOk = split.replace('pnpm test\n', 'pnpm test\n\npnpm test:unit\n');
+    expect(auditGateDocs([{ path: 'DOC.md', text: splitOk }])).toEqual([]);
+  });
+
+  it('펜스 안 덩이가 펜스 밖으로 새지 않는다', () => {
+    const text = ['pnpm typecheck', '```bash', 'pnpm test', '```'].join('\n');
+    expect(findCommandGroups(text)).toHaveLength(2);
+    expect(auditGateDocs([{ path: 'DOC.md', text }])).toEqual([]);
   });
 
   it('한 문서의 게이트 목록 둘이 각각 세어진다', () => {

@@ -10,10 +10,15 @@
  * **불변식**: `pnpm typecheck` 와 `pnpm test` 를 한 덩이에 함께 적은 명령 목록은 `pnpm test:unit` 도
  * 적어야 한다.
  *
- * 「한 덩이」 = `pnpm` 을 포함한 줄이 **서로 인접**해 이어진 그룹. 경계는 셋 — 빈 줄, 코드펜스, 그리고
- * `pnpm` 이 없는 줄. 산문 블록 전체를 한 덩이로 보면 같은 블록 어딘가에 `test:unit` 이 한 번 언급되기만
- * 해도 그 블록의 4게이트 목록이 통과하므로(`viz-style-expansion.md` 가 실제로 그럴 뻔했다) 인접으로
- * 좁혔다.
+ * 「한 덩이」의 규칙은 자리마다 다르고, 그 이유는 **통과 구멍이 자리마다 반대 방향으로 열리기**
+ * 때문이다. 코드펜스 안에서는 펜스 하나가 통째로 한 덩이다(빈 줄 하나로 목록을 쪼개 빠져나가지
+ * 못하게). 펜스 밖에서는 `pnpm` 을 포함한 줄이 **서로 인접**해 이어진 것만 한 덩이다(같은 문단
+ * 어딘가의 `test:unit` 한 번이 그 문단의 4게이트 목록을 통과시키지 못하게 —
+ * `viz-style-expansion.md` 가 실제로 그럴 뻔했다). 자세한 것은 `findCommandGroups` 주석에 있다.
+ *
+ * **요구를 채우는 표기는 리터럴 `pnpm test:unit` 하나뿐이다.** 글롭(`pnpm test*`)으로 때울 수 없고,
+ * 글롭은 트리거에서도 빠진다 — 권한 패턴을 특례로 통과시키려다 문서 쪽 통과 구멍을 함께 여는 것보다
+ * 트리거를 좁히는 쪽이 낫다.
  *
  * **커버리지 한계 — 이 게이트가 잡는 것은 리터럴 `pnpm typecheck` + `pnpm test` 동거 한 가지 표기다.**
  * `pnpm --filter … test`, `pnpm typecheck/build/test`, `` `pnpm typecheck`/`build`/`test` `` 는 안 잡힌다.
@@ -46,21 +51,28 @@ export interface GateViolation {
   readonly excerpt: string;
 }
 
-/** 게이트 목록임을 알리는 트리거 둘. 이 둘이 한 덩이에 함께 있어야 검사 대상이 된다. */
-const TYPECHECK_RE = /\bpnpm typecheck\b/;
-/** `pnpm test:unit`·`pnpm test:watch` 를 삼키지 않도록 뒤의 콜론을 배제한다. */
-const TEST_RE = /\bpnpm test\b(?!:)/;
 /**
- * 요구를 채우는 표기 둘. 리터럴 `pnpm test:unit`, 그리고 그것을 포함하는 글롭 `pnpm test*`
- * (`.claude/settings.json` 의 permissions `Bash(pnpm test*)` 가 실제로 `test:unit` 을 허용한다 —
- * 게이트 목록이 아닌 그 블록을 특례로 빼지 않고 규칙 안에서 통과시키기 위한 것이다).
+ * 게이트 목록임을 알리는 트리거 둘. 이 둘이 한 덩이에 함께 있어야 검사 대상이 된다.
+ *
+ * 뒤따르는 `*` 를 배제하는 이유는 **글롭이 통과 구멍이 되지 않게** 하기 위해서다.
+ * `.claude/settings.json` 의 permissions 는 `Bash(pnpm typecheck*)`·`Bash(pnpm test*)` 처럼
+ * 글롭으로 적히는데, 그것은 게이트 목록이 아니라 권한 패턴이라 애초에 트리거가 아니다. 그 블록을
+ * 「글롭이 요구를 만족시킨다」로 통과시키면 **문서에 `pnpm test*` 라고만 써도 게이트를 지나가는 길**이
+ * 함께 열린다 — 트리거에서 빼는 쪽이 만족 조건을 느슨하게 푸는 것보다 좁다.
  */
-const SATISFIED_RE = /\bpnpm test(?::unit\b|\*)/;
+const TYPECHECK_RE = /\bpnpm typecheck\b(?!\*)/;
+/** `pnpm test:unit`·`pnpm test:watch`(콜론)와 `pnpm test*`(글롭)를 삼키지 않는다. */
+const TEST_RE = /\bpnpm test\b(?![:*])/;
+/** 요구를 채우는 표기는 **리터럴 `pnpm test:unit` 하나뿐**이다. 글롭으로 때울 수 없다. */
+const SATISFIED_RE = /\bpnpm test:unit\b/;
 
 /** 이 줄이 명령 덩이에 속하는가. */
 function carriesPnpm(line: string): boolean {
   return line.includes('pnpm');
 }
+
+/** 코드펜스 열고 닫는 줄(``` 또는 ~~~, 들여쓰기 허용). */
+const FENCE_RE = /^\s*(?:```|~~~)/;
 
 // allowlist 항목 하나와 repo 상대경로를 대조한다. 지원하는 형태는 둘 —
 // 정확한 경로(`WAVE0_REPORT.md`)와 별별-슬래시 접두 basename(`**/CHANGELOG.md`).
@@ -72,28 +84,50 @@ function matchesAllow(relPath: string, pattern: string): boolean {
   return relPath === pattern;
 }
 
-/** 문서 하나를 인접 `pnpm` 줄 덩이로 쪼갠다. 노출하는 이유는 테스트가 경계 규칙을 직접 겨냥하기 위해서다. */
+/**
+ * 문서 하나를 명령 덩이로 쪼갠다. 노출하는 이유는 테스트가 경계 규칙을 직접 겨냥하기 위해서다.
+ *
+ * 규칙이 자리마다 다른 이유는 **양쪽 통과 구멍을 다 막기** 위해서다.
+ *
+ * - **코드펜스 안 = 펜스 하나가 한 덩이.** 인접만 보면 게이트 목록 사이에 빈 줄 하나를 넣어
+ *   두 덩이로 쪼개는 것만으로 검사를 지나갈 수 있다. 같은 펜스 안에 있으면 그것은 한 목록이다.
+ * - **펜스 밖 = 인접한 `pnpm` 줄.** 산문에서는 반대 구멍이 열린다 — 블록 전체를 한 덩이로 보면
+ *   같은 문단 어딘가의 `test:unit` 한 번이 그 문단의 4게이트 목록을 통과시킨다
+ *   (`packages/visualization/viz-style-expansion.md:235` 가 실제로 그럴 뻔했다).
+ */
 export function findCommandGroups(
   text: string,
 ): { startLine: number; endLine: number; lines: string[] }[] {
   const out: { startLine: number; endLine: number; lines: string[] }[] = [];
   const lines = text.split('\n');
   let cur: { startLine: number; endLine: number; lines: string[] } | null = null;
+  let inFence = false;
+
+  const flush = (): void => {
+    if (cur) out.push(cur);
+    cur = null;
+  };
+  const take = (line: string, i: number): void => {
+    if (cur) {
+      cur.endLine = i + 1;
+      cur.lines.push(line);
+    } else {
+      cur = { startLine: i + 1, endLine: i + 1, lines: [line] };
+    }
+  };
+
   for (let i = 0; i < lines.length; i += 1) {
     const line = lines[i]!;
-    if (carriesPnpm(line)) {
-      if (cur) {
-        cur.endLine = i + 1;
-        cur.lines.push(line);
-      } else {
-        cur = { startLine: i + 1, endLine: i + 1, lines: [line] };
-      }
-    } else if (cur) {
-      out.push(cur);
-      cur = null;
+    if (FENCE_RE.test(line)) {
+      // 펜스 경계에서 항상 끊는다 — 펜스 안 덩이가 밖으로 새거나 그 반대가 되지 않게.
+      flush();
+      inFence = !inFence;
+      continue;
     }
+    if (carriesPnpm(line)) take(line, i);
+    else if (!inFence) flush(); // 펜스 안에서는 pnpm 없는 줄이 덩이를 끊지 않는다.
   }
-  if (cur) out.push(cur);
+  flush();
   return out;
 }
 
