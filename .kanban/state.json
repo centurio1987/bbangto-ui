@@ -1,6 +1,6 @@
 {
   "next_id": 56,
-  "next_seq": 157,
+  "next_seq": 158,
   "cards": {
     "KAN-047-TRYYRC": {
       "col": "todo",
@@ -954,6 +954,16 @@
   ],
   "recent": [
     {
+      "seq": 157,
+      "t": "2026-10-05T00:14",
+      "a": "ai",
+      "id": "KAN-050-AJSQAY",
+      "op": "waive",
+      "w": "S7030N",
+      "with_": "KAN-051-5HMYKT",
+      "reason": "같은 CLAUDE.md지만 050은 게이트 명령 4종을 손대지 않고 구조도·경로만 고친다고 적었다. 051은 test:unit 설명 두 줄(39, 103행)만 고친다 (2026-10-05 유저 승인 플랜)"
+    },
+    {
       "seq": 156,
       "t": "2026-10-05T00:14",
       "a": "ai",
@@ -1560,16 +1570,6 @@
       "op": "move",
       "from": "backlog",
       "to": "doing"
-    },
-    {
-      "seq": 114,
-      "t": "2026-07-25T13:00",
-      "a": "ai",
-      "id": "KAN-041",
-      "op": "edit",
-      "field": "memo",
-      "before": "KAN-035 후속. FoundationMeta 스키마·게이트·셀렉터·서브패스는 동결(stable). 잔여 73 foundation에 meta 저작(Workflow 배치, KAN-021/040 선례). DoD: pending 0 + metadata-coverage.json foundation status infra-pilot→covered + selector 기대 fixture 보강 + FOUNDATION_METADATA_STRATEGY 롤아웃 표 갱신. KAN-035 인프라 위 additive(파일 미변경, registry에 meta 추가).",
-      "after": "완료(2026-07-25). KAN-035 인프라(동결 스키마) 위 잔여 73종 FoundationMeta 전량 additive 백필 → 76/76 authored·pending 0(파일 미변경, registry에 meta만 추가). 저작 grounding=실제 accent 토큰(semantic.primary.base) — description 오해(다수가 'on dark'라도 실 background.base=흰색, 예 electric-void) 회피. 통제 어휘=tokens TAGS/DOMAINS 재사용, related 76종 인접 클러스터(색hue/mono·void/warm) 정합. 'foundation-meta 필수' 게이트 승격: registry.test에 registry키집합≡catalog키집합(pending 0) hard-fail + manifest.test 76 전량 authored assert + metadata-coverage.json foundation infra-pilot→covered(census가 covered축 authored==total 강제). selector fixture 보강 3종(mood 근접·복합 criteria 가중합·weights.tags=0 소거). foundation.manifest.json 재생성(gen). 게이트 5종 green: typecheck(8pkg)·build(dist/meta emit·루트배럴 미오염)·test:unit(foundations 40→44)·test(1219 play)·storybook build. 문서: FOUNDATION_METADATA_STRATEGY 롤아웃표·METADATA_COVERAGE_AUDIT foundation→covered(네 축 전량 covered 달성). 관찰: 76 저작 후에도 colorScheme 75L/1D 편중·baseTextContrast≥17.39 상수 → 실질변별 tags/mood/domains(StyleGuideMeta 어휘 재사용 76 스케일 충분 확인, 스키마 변경 0)."
     }
   ],
   "waivers": [
@@ -1605,6 +1605,13 @@
       "pair": "KAN-049-CWBPP6|KAN-052-BYS4JN",
       "scope_hash": "42004c4bf2209c79",
       "reason": "052는 viz Provider 코드·internal/ExternalFonts와 README 사용법 절만 고친다. 049는 PLAN·visualization-catalog 문서 흡수다 (2026-10-05 유저 승인 플랜)",
+      "created": "2026-10-05T00:14",
+      "by": "ai"
+    },
+    {
+      "pair": "KAN-050-AJSQAY|KAN-051-5HMYKT",
+      "scope_hash": "1fbb2b79c2863518",
+      "reason": "같은 CLAUDE.md지만 050은 게이트 명령 4종을 손대지 않고 구조도·경로만 고친다고 적었다. 051은 test:unit 설명 두 줄(39, 103행)만 고친다 (2026-10-05 유저 승인 플랜)",
       "created": "2026-10-05T00:14",
       "by": "ai"
     }

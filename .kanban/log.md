@@ -1,6 +1,7 @@
 # KANBAN 변경 이력
 > 최근 50건. 이보다 오래된 이력은 archive.jsonl 로 압축 보관한다.
 
+- #157 2026-10-05 00:14 · ai · KAN-050-AJSQAY 독립성 겹침 용인 (상대 KAN-051-5HMYKT) — 같은 CLAUDE.md지만 050은 게이트 명령 4종을 손대지 않고 구조도·경로만 고친다고 적었다. 051은 test:unit 설명 두 줄(39, 103행)만 고친다 (2026-10-05 유저 승인 플랜)
 - #156 2026-10-05 00:14 · ai · KAN-049-CWBPP6 독립성 겹침 용인 (상대 KAN-052-BYS4JN) — 052는 viz Provider 코드·internal/ExternalFonts와 README 사용법 절만 고친다. 049는 PLAN·visualization-catalog 문서 흡수다 (2026-10-05 유저 승인 플랜)
 - #155 2026-10-05 00:14 · ai · KAN-049-CWBPP6 독립성 겹침 용인 (상대 KAN-051-5HMYKT) — 049는 packages/visualization/**를 잡았지만 md 문서만 고친다. 051은 packages/visualization/tsup.config.ts만 고친다 (2026-10-05 유저 승인 플랜)
 - #154 2026-10-05 00:14 · ai · KAN-048-R2KW3G 독립성 겹침 용인 (상대 KAN-051-5HMYKT) — 같은 style-guide-catalog/src/index.ts지만 048은 46행 주석, 051은 77~195행(catalog import·배열·map) 이동이라 줄이 겹치지 않는다 (2026-10-05 유저 승인 플랜)
@@ -50,4 +51,3 @@
 - #117 2026-07-25 14:04 · ai · KAN-036 수정 메모
 - #116 2026-07-25 14:04 · ai · KAN-036 이동 진행 중 → 완료
 - #115 2026-07-25 13:56 · ai · KAN-036 이동 백로그 → 진행 중
-- #114 2026-07-25 13:00 · ai · KAN-041 수정 메모
