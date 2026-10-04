@@ -62,7 +62,7 @@
   - 이유: Button 하나만 써도 core 320KB가 번들에 들어가 외부 앱(375KB)이 두 배 가까이 커진다
   - 목표: dist 기준 core Button 단독이 7KB 이하이고, 상한을 넘으면 test:unit이 빨강이 된다
   - 메모: 외부 앱 소비 문제 대응 5장 중 1 · 근거와 측정값은 카드 문서 「전략」
-  - 실행 문서: KANBAN/cards/KAN-051-5HMYKT.md (0/1)
+  - 실행 문서: KANBAN/cards/KAN-051-5HMYKT.md (0/1 · 최근 10-05)
   - 원문:
     ```text
     [첨부 이미지]
