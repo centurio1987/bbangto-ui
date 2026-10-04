@@ -50,8 +50,10 @@ Provider 세 곳이 외부 CDN 글꼴을 조건 없이 불러온다. 끄는 prop
 플랜 검토(plan-reviewer, fable)에서 이 카드에 지적 1건이 나와 반영했다: 전역 데코레이터 때문에 테스트가 적힌 대로는 초록이 될 수 없고, core 안 viz 겹침은 같은 패키지 중복 방지로 안 풀린다는 점.
 
 ## 실행 계획
-<!-- `S<n>`은 고정 id — 이름을 바꾸지 않는다. 체크 상태는 doc-step 이 갱신한다. -->
-- [ ] `S1` (첫 단계를 적으세요)
+- [ ] `S1` 테스트 환경과 play 테스트 먼저 — `preview.tsx` 데코레이터에 끄는 parameter, `ProviderFonts.stories.tsx`(core)와 `visualization/Provider.stories.tsx`에 글꼴 스토리, `beforeEach`에서 `bbangto-font-*` 노드 정리. 세는 범위는 `document` 전체의 `@import`를 담은 `style`과 `bbangto-font-*` id 노드. 확인할 경우: `fonts="none"` 0개 · 기본값 글꼴마다 1개 · core Provider 겹침 글꼴마다 1개 · core 안 viz 겹침 JetBrains Mono 1개 · 둘 다 `none`이면 0개. 완료 기준: 새 스토리는 빨강, 데코레이터 parameter를 넣은 뒤에도 기존 스토리 전부 초록
+- [ ] `S2` core — 두 Provider의 글꼴 코드를 `src/internal/ExternalFonts.tsx`로 묶고 `fonts` prop과 id 기반 `document.head` 주입을 넣는다. 완료 기준: core 경우 초록
+- [ ] `S3` viz — `VisualizationStyleGuideProvider`에 같은 id로 같은 방식을 적용한다. 완료 기준: core 안 viz 겹침까지 초록
+- [ ] `S4` README(core·viz)에 `fonts` 사용법과 SSR 차이를 적고 changeset(core·viz minor)을 쓴다. 완료 기준: 게이트 5종 초록
 
 ## 검증
 <!-- 무엇을 실행해 무엇이 나오면 이 카드가 끝난 것인가. -->
@@ -59,3 +61,4 @@ Provider 세 곳이 외부 CDN 글꼴을 조건 없이 불러온다. 끄는 prop
 ## 수행 내역
 <!-- KANBAN:LOG append-only — 아래로만 덧붙인다. 위를 고치지 않는다. -->
 - 2026-10-05T00:12 · s:bcc5b01f — `전략` 섹션 교체
+- 2026-10-05T00:12 · s:bcc5b01f — `실행 계획` 섹션 교체
