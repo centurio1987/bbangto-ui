@@ -1,6 +1,6 @@
 {
   "next_id": 56,
-  "next_seq": 149,
+  "next_seq": 150,
   "cards": {
     "KAN-047-TRYYRC": {
       "col": "todo",
@@ -954,6 +954,16 @@
   ],
   "recent": [
     {
+      "seq": 149,
+      "t": "2026-10-05T00:14",
+      "a": "ai",
+      "id": "KAN-054-M48FNQ",
+      "op": "serialize",
+      "w": "S7030N",
+      "with_": "KAN-053-TZ86NN",
+      "reason": "054가 053이 만든 packages/core/src/a11y/ 훅을 이어 쓴다. 053 훅 API를 보고 전략을 다시 세운다 (2026-10-05 유저 승인 플랜)"
+    },
+    {
       "seq": 148,
       "t": "2026-10-05T00:12",
       "a": "ai",
@@ -1558,16 +1568,6 @@
       "field": "memo",
       "before": "검증(2026-07-23): 전제 부분 무효 — '메타데이터 전무'는 부정확. 이미 존재: (a) visualization/visualization-type-inventory.md가 유형별 '대표 용도(when to use)'+데이터형태(FT Visual Vocabulary)+프리미티브 분류 SSOT 제공, (b) style-guide-catalog/METADATA_STRATEGY.md + selectStyleGuides가 그대로 미러링 가능한 작동 선례. 잔여 과제로 재스코핑 필요: 패턴/템플릿 코드 객체에 기계가독 메타(useWhen 등)+매니페스트/헬퍼가 아직 부재(src/patterns·templates grep 0건). → 카드를 '패턴 축 매니페스트/셀렉터 구현'으로 좁힐 것.",
       "after": "완료(2026-07-24). 유형(what) 축 채택 메타 인프라 신설 — 스타일 축(KAN-018/021/022/023)을 유형 축으로 미러링. 산출물: `packages/visualization/src/typeMeta/{types,registry,manifest,select,index}.ts` + `scripts/genTypeManifest.ts` + `type.manifest.json`(87 엔트리) + 서브패스 export `./type-meta`(루트 배럴 미오염 → 컴포넌트 소비자 번들 무영향) + `TYPE_METADATA_STRATEGY.md`(+ style METADATA_STRATEGY 포인터). **VizTypeMeta 스키마**(category A~G·dataShape=FT9+구조7·primitives16·tags 고정 union·useWhen/avoidWhen/related). **레지스트리 87 슬롯**(inventory §5/§6 전사, ⛔ 3행 제외) — 파일럿 6종 rich-meta(BarChart VT-501·ClassDiagram VT-101·ProcessSteps VT-202·SwotMatrix VT-703·Sequence VT-108[다-export 3]·Cycle VT-203[variant]), 나머지 81 pending. **buildTypeManifest**(related 정합성 authored 전체 throw·id 결정적 정렬·완성도 계산) + **selectVizTypes**(soft-weighted recall·includePending 기본 false·결정적 tie-break — select.ts 시맨틱 계승). 커버리지 게이트 = 배럴 정적 소스스캔 양방향(90 export − allowlist 3[IsometricScene·Kruchten4Plus1View·ViewpointFrame; inventory §8-b VT 미승격] = 87). TDD 30 테스트(registry/manifest 바이트동기/select). 외부검토(codex) 13지적 반영(모드 variant·정적스캔·서브패스·시맨틱계승·태그 union·개수기준 분리·related 전체·stable-API·소비 이원경로). prebuild 미배선(코어 blast radius↓, KAN-025 선례)—`gen:type-manifest` 수동+바이트동기 테스트가 최신성 강제. 게이트 5종 green: typecheck·build(viz dist/typeMeta emit)·test:unit(viz 138[+30])·test(1219 play)·storybook build. 스코프=인프라+파일럿; pending 81 전량 backfill은 [[KAN-040]] 후속. **[[KAN-035]] 선행조건**(본 카드=유형 축 인프라, KAN-035=전 인터페이스 커버리지 감사)."
-    },
-    {
-      "seq": 106,
-      "t": "2026-07-25T00:57",
-      "a": "유저",
-      "id": "KAN-020",
-      "op": "edit",
-      "field": "title",
-      "before": "bbangto-ui에서 visualization 라이브러리를 가져다 쓸 때, 사용 주체가 ai라면, 어떤 경우에 어떤 시각화 패턴을 사용할지 파악하기 위해 라이브러리 코드를 검사해야 할 수도 있다. 하지만, 그러면 패턴이 방대해 졌을 때 효과적으로 탐색하기 어렵다. 따라서, 각 패턴이 어떤 상황에서 유효한지 알려주는 메타 데이터를 라이브러리 레벨에서 제공할 수 있다면 좋을 것이다. 그렇게 하기 위한 전략을 구상해라.",
-      "after": "visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현"
     }
   ],
   "waivers": [
@@ -1590,6 +1590,18 @@
       "reason": "DESIGN_SYSTEM_GUIDE.md 를 둘 다 고친다. B 가 ASSET_INTEGRATION_PLAN 을 없애야 D 가 :182 링크를 고칠 수 있고, 순서가 뒤면 깨진 링크가 남는다. KAN-044 검토 5번에서 유저가 승인",
       "created": "2026-08-25T14:28",
       "by": "유저",
+      "restrategy_required": false
+    },
+    {
+      "pair": "KAN-053-TZ86NN|KAN-054-M48FNQ",
+      "order": [
+        "KAN-053-TZ86NN",
+        "KAN-054-M48FNQ"
+      ],
+      "scope_hash": "d5b683b76cb2dcd3",
+      "reason": "054가 053이 만든 packages/core/src/a11y/ 훅을 이어 쓴다. 053 훅 API를 보고 전략을 다시 세운다 (2026-10-05 유저 승인 플랜)",
+      "created": "2026-10-05T00:14",
+      "by": "ai",
       "restrategy_required": false
     }
   ]
