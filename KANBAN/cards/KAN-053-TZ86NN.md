@@ -52,9 +52,30 @@ scope: packages/core/src/a11y/**, packages/core/src/components/Drawer.tsx, packa
 - [ ] `S4` Select 적용 + changeset(core minor). 완료 기준: 게이트 5종 초록
 
 ## 검증
-<!-- 무엇을 실행해 무엇이 나오면 이 카드가 끝난 것인가. -->
+### 게이트 5종 (전부 초록이어야 완료)
+
+```bash
+pnpm typecheck
+pnpm build
+pnpm test                       # ← 키보드 play 테스트가 실제 chromium 에서 돈다
+pnpm --filter storybook build
+pnpm test:unit
+```
+
+### 빨강 → 초록
+
+1. `S1` 직후: Drawer·Tabs·Select의 새 키보드 테스트가 빨강. 기존 스토리는 초록.
+2. `S2` 직후: Modal 스토리 초록 유지(훅 교체가 동작을 바꾸지 않았다는 확인).
+3. `S3` 직후: Drawer·Tabs 초록, Select 빨강 유지.
+4. `S4` 직후: 전부 초록.
+
+### 추가 확인
+
+- 키보드만으로 Storybook에서 세 컴포넌트를 한 번씩 써 본다(마우스 없이 열기·이동·선택·닫기)
+- `grep -n "onKeyDown\|useEscapeKey\|useFocusTrap" packages/core/src/components/Modal.tsx` — 인라인 키 처리 대신 훅을 쓴다
 
 ## 수행 내역
 <!-- KANBAN:LOG append-only — 아래로만 덧붙인다. 위를 고치지 않는다. -->
 - 2026-10-05T00:12 · s:bcc5b01f — `전략` 섹션 교체
 - 2026-10-05T00:12 · s:bcc5b01f — `실행 계획` 섹션 교체
+- 2026-10-05T00:12 · s:bcc5b01f — `검증` 섹션 교체
