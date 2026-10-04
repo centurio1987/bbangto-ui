@@ -1,6 +1,6 @@
 {
   "next_id": 56,
-  "next_seq": 148,
+  "next_seq": 149,
   "cards": {
     "KAN-047-TRYYRC": {
       "col": "todo",
@@ -828,10 +828,10 @@
       "verbatim_hash": "3b3af68e102bf6abbeb1ecda50a4b415f6bfbbf8",
       "short": "나머지 키보드 일괄 + 커버리지 게이트",
       "short_hash": "9e6b83116dda11d8a39231d880986e194a85c4ac",
-      "purpose": "나머지 12곳의 키보드·포커스 결함을 고치고, 상호작용 컴포넌트마다 키보드 테스트가 있는지 test:unit이 검사하게 한다",
-      "purpose_hash": "bedf24f117a132a9a44f0aad3a79363bb395e60a",
-      "reason": "같은 결함이 12곳에 더 있어서 보고된 세 곳만 고치면 같은 문제가 다시 나온다",
-      "reason_hash": "4da085cb6e5b75929b9b27ed5d456425778028f3",
+      "purpose": "나머지 11곳의 키보드·포커스 결함을 고치고, 상호작용 컴포넌트마다 키보드 테스트가 있는지 test:unit이 검사하게 한다",
+      "purpose_hash": "51b1fb8ad915e3340cf3f41b20bc68485e08bd75",
+      "reason": "같은 결함이 11곳에 더 있어서 보고된 세 곳만 고치면 같은 문제가 다시 나온다",
+      "reason_hash": "51d55c25b51142dad396b48a03e25f4997102a21",
       "goal": "keyboard-coverage.json에 오른 모든 상호작용 컴포넌트에 키보드 play 테스트가 있고, 빠지면 test:unit이 빨강이 된다",
       "goal_hash": "b52648a97d41672d0fbdebedf45c8971d39dccc0",
       "memo": "외부 앱 소비 문제 대응 5장 중 4 · KAN-053 뒤에 직렬",
@@ -947,6 +947,26 @@
     "KAN-055-34A57K"
   ],
   "recent": [
+    {
+      "seq": 148,
+      "t": "2026-10-05T00:12",
+      "a": "ai",
+      "id": "KAN-054-M48FNQ",
+      "op": "brief",
+      "w": "S7030N",
+      "fields": {
+        "short": "나머지 키보드 일괄 + 커버리지 게이트",
+        "purpose": "나머지 11곳의 키보드·포커스 결함을 고치고, 상호작용 컴포넌트마다 키보드 테스트가 있는지 test:unit이 검사하게 한다",
+        "reason": "같은 결함이 11곳에 더 있어서 보고된 세 곳만 고치면 같은 문제가 다시 나온다",
+        "goal": "keyboard-coverage.json에 오른 모든 상호작용 컴포넌트에 키보드 play 테스트가 있고, 빠지면 test:unit이 빨강이 된다"
+      },
+      "before": {
+        "short": "나머지 키보드 일괄 + 커버리지 게이트",
+        "purpose": "나머지 12곳의 키보드·포커스 결함을 고치고, 상호작용 컴포넌트마다 키보드 테스트가 있는지 test:unit이 검사하게 한다",
+        "reason": "같은 결함이 12곳에 더 있어서 보고된 세 곳만 고치면 같은 문제가 다시 나온다",
+        "goal": "keyboard-coverage.json에 오른 모든 상호작용 컴포넌트에 키보드 play 테스트가 있고, 빠지면 test:unit이 빨강이 된다"
+      }
+    },
     {
       "seq": 147,
       "t": "2026-10-05T00:08",
@@ -1542,15 +1562,6 @@
       "field": "title",
       "before": "bbangto-ui에서 visualization 라이브러리를 가져다 쓸 때, 사용 주체가 ai라면, 어떤 경우에 어떤 시각화 패턴을 사용할지 파악하기 위해 라이브러리 코드를 검사해야 할 수도 있다. 하지만, 그러면 패턴이 방대해 졌을 때 효과적으로 탐색하기 어렵다. 따라서, 각 패턴이 어떤 상황에서 유효한지 알려주는 메타 데이터를 라이브러리 레벨에서 제공할 수 있다면 좋을 것이다. 그렇게 하기 위한 전략을 구상해라.",
       "after": "visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현"
-    },
-    {
-      "seq": 105,
-      "t": "2026-07-25T00:57",
-      "a": "유저",
-      "id": "KAN-020",
-      "op": "move",
-      "from": "backlog",
-      "to": "done"
     }
   ],
   "waivers": [
