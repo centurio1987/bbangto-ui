@@ -1,6 +1,7 @@
 # KANBAN 변경 이력
 > 최근 50건. 이보다 오래된 이력은 archive.jsonl 로 압축 보관한다.
 
+- #152 2026-10-05 00:14 · ai · KAN-055-34A57K serialize
 - #151 2026-10-05 00:14 · ai · KAN-055-34A57K serialize
 - #150 2026-10-05 00:14 · ai · KAN-055-34A57K serialize
 - #149 2026-10-05 00:14 · ai · KAN-054-M48FNQ serialize
@@ -50,4 +51,3 @@
 - #112 2026-07-25 12:33 · ai · KAN-041 생성 "foundations 잔여 73종 FoundationMeta 전량 backfill → census infra-pilot→covered 승격(pending 0)" → 백로그
 - #111 2026-07-25 12:33 · ai · KAN-035 수정 메모
 - #110 2026-07-25 12:33 · ai · KAN-035 이동 백로그 → 완료
-- #109 2026-07-25 00:57 · ai · KAN-040 수정 메모
