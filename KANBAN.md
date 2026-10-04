@@ -49,12 +49,12 @@
   - 목표: viz 문서 2건이 사라지고 type-inventory grep 결과가 0건이라 SSOT 체인이 끊기지 않는다
   - 메모: KAN-044 §13-C. 위험: visualization-catalog.md 는 참조 11건으로 통합 대상 중 최다 — 링크를 한 번에 다 고치지 않으면 SSOT 지목이 허공을 가리킨다. 완료 기준에 type-inventory grep 0건을 넣는다. work 4개
   - 실행 문서: KANBAN/cards/KAN-049-CWBPP6.md (0/1)
-- `KAN-050-AJSQAY` 문서 정리 D — 규율 문서 실측 정합 (theme-* 부재 · 모션 5중 기재) — 생성:ai · 최종:ai · 갱신:2026-08-25
+- `KAN-050-AJSQAY` 문서 정리 D — 규율 문서 실측 정합 (theme-* 부재 · 모션 5중 기재) — 생성:ai · 최종:ai · 갱신:2026-10-05
   - 짧은 제목: 규율 문서 실측 정합
   - 목적: CLAUDE.md·QUALITY_CHECKLIST·DESIGN_SYSTEM_GUIDE 의 실측 어긋남을 고치고 5곳에 흩어진 모션 워크플로 기재를 하나로 모은다
   - 이유: packages/theme-* 4종이 실재하지 않는데 세 규율 문서가 그것을 구조도와 경로로 가리키고 있다
   - 목표: 규율 문서가 실제 레포 구조와 일치하고 모션 워크플로가 한 곳에만 적힌다
-  - 메모: KAN-044 §13-D. B 의 후행(직렬 중재) — DESIGN_SYSTEM_GUIDE.md:182 는 B 가 ASSET_INTEGRATION_PLAN 을 없앤 뒤에 고쳐야 한다. KAN-046 과 CLAUDE.md 를 함께 건드리지만 절이 달라 dep-waive 대상(§14). 게이트 명령 4종은 손대지 않고 구조도·경로만 고친다. work 4개
+  - 메모: KAN-044 §13-D. B 의 후행(직렬 중재) — DESIGN_SYSTEM_GUIDE.md:182 는 B 가 ASSET_INTEGRATION_PLAN 을 없앤 뒤에 고쳐야 한다. KAN-046 과 CLAUDE.md 를 함께 건드리지만 절이 달라 dep-waive 대상(§14). 게이트 명령 4종은 손대지 않고 구조도·경로만 고친다. work 4개 추가(KAN-051 넘김): KAN-051이 tsup 출력을 파일 단위로 바꾸면 packages/core/motion-catalog.md:28 「tsup entry는 src/index.ts」 서술이 어긋나므로 함께 고친다.
   - 실행 문서: KANBAN/cards/KAN-050-AJSQAY.md (0/1)
 - `KAN-051-5HMYKT` 번들 트리 셰이킹 복구 — 파일 단위 출력 + 크기 상한 게이트 (core·viz·sgc·vsgc) — 생성:ai · 최종:ai · 갱신:2026-10-05
   - 짧은 제목: 번들 트리 셰이킹 복구
