@@ -731,7 +731,26 @@
       "goal": "dist 기준 core Button 단독이 7KB 이하이고, 상한을 넘으면 test:unit이 빨강이 된다",
       "goal_hash": "f9e5000db6d6595d5259e7016e5db222ea318ce5",
       "memo": "외부 앱 소비 문제 대응 5장 중 1 · 근거와 측정값은 카드 문서 「전략」",
-      "memo_hash": "cfc12d7edf9131691ccbbb87661875d7effe121b"
+      "memo_hash": "cfc12d7edf9131691ccbbb87661875d7effe121b",
+      "scope": [
+        "packages/core/tsup.config.ts",
+        "packages/visualization/tsup.config.ts",
+        "packages/style-guide-catalog/tsup.config.ts",
+        "packages/visualization-style-guide-catalog/tsup.config.ts",
+        "packages/style-guide-catalog/src/index.ts",
+        "packages/style-guide-catalog/src/catalog.ts",
+        "packages/visualization-style-guide-catalog/src/index.ts",
+        "packages/visualization-style-guide-catalog/src/catalog.ts",
+        "packages/foundations/package.json",
+        "packages/foundations/src/bundleBudget.test.ts",
+        "bundle-budget.json",
+        "pnpm-lock.yaml",
+        "apps/storybook/.storybook/main.ts",
+        "metadata-coverage.json",
+        ".github/workflows/release.yml",
+        "CLAUDE.md",
+        ".changeset/kan-051-*.md"
+      ]
     },
     "KAN-052-BYS4JN": {
       "col": "todo",
@@ -751,7 +770,20 @@
       "goal": "fonts=\"none\"이면 외부 글꼴 요청이 0건이고, 기본값을 쓰는 기존 화면은 그대로다",
       "goal_hash": "0c05928c1a7399bbce31525dbef609f60897d339",
       "memo": "외부 앱 소비 문제 대응 5장 중 2 · 근거는 카드 문서 「전략」",
-      "memo_hash": "0c1b971d825e418f7b01e62d47e5c8616d723259"
+      "memo_hash": "0c1b971d825e418f7b01e62d47e5c8616d723259",
+      "scope": [
+        "packages/core/src/FoundationProvider.tsx",
+        "packages/core/src/StyleGuideProvider.tsx",
+        "packages/core/src/internal/ExternalFonts.tsx",
+        "packages/visualization/src/styleGuide/VisualizationStyleGuideProvider.tsx",
+        "packages/visualization/src/internal/ExternalFonts.tsx",
+        "apps/storybook/.storybook/preview.tsx",
+        "apps/storybook/src/stories/ProviderFonts.stories.tsx",
+        "apps/storybook/src/stories/visualization/Provider.stories.tsx",
+        "packages/core/README.md",
+        "packages/visualization/README.md",
+        ".changeset/kan-052-*.md"
+      ]
     },
     "KAN-053-TZ86NN": {
       "col": "todo",
@@ -771,7 +803,19 @@
       "goal": "세 컴포넌트의 키보드·포커스 동작이 실제 chromium 위 play 테스트로 확인된다",
       "goal_hash": "5f116b8d3fd12947438996a53813b0e9d5be4831",
       "memo": "외부 앱 소비 문제 대응 5장 중 3 · KAN-054의 선행",
-      "memo_hash": "f7477f958671301251e68c31f76934ecdd7ea059"
+      "memo_hash": "f7477f958671301251e68c31f76934ecdd7ea059",
+      "scope": [
+        "packages/core/src/a11y/**",
+        "packages/core/src/components/Drawer.tsx",
+        "packages/core/src/components/Tabs.tsx",
+        "packages/core/src/components/Select.tsx",
+        "packages/core/src/components/Modal.tsx",
+        "apps/storybook/src/stories/Drawer.stories.tsx",
+        "apps/storybook/src/stories/Tabs.stories.tsx",
+        "apps/storybook/src/stories/Select.stories.tsx",
+        "apps/storybook/src/stories/Modal.stories.tsx",
+        ".changeset/kan-053-*.md"
+      ]
     },
     "KAN-054-M48FNQ": {
       "col": "todo",
@@ -791,7 +835,33 @@
       "goal": "keyboard-coverage.json에 오른 모든 상호작용 컴포넌트에 키보드 play 테스트가 있고, 빠지면 test:unit이 빨강이 된다",
       "goal_hash": "b52648a97d41672d0fbdebedf45c8971d39dccc0",
       "memo": "외부 앱 소비 문제 대응 5장 중 4 · KAN-053 뒤에 직렬",
-      "memo_hash": "410063f995eb6cc5eb075defc6aa4b5aa1c7200f"
+      "memo_hash": "410063f995eb6cc5eb075defc6aa4b5aa1c7200f",
+      "scope": [
+        "packages/core/src/a11y/**",
+        "packages/core/src/components/Popover.tsx",
+        "packages/core/src/components/Tooltip.tsx",
+        "packages/core/src/components/Menu.tsx",
+        "packages/core/src/components/SegmentedControl.tsx",
+        "packages/core/src/components/Calendar.tsx",
+        "packages/core/src/components/DatePicker.tsx",
+        "packages/core/src/components/Pagination.tsx",
+        "packages/core/src/components/DataGrid.tsx",
+        "packages/core/src/components/TreeView.tsx",
+        "packages/core/src/components/Carousel.tsx",
+        "apps/storybook/src/stories/Popover.stories.tsx",
+        "apps/storybook/src/stories/Tooltip.stories.tsx",
+        "apps/storybook/src/stories/Menu.stories.tsx",
+        "apps/storybook/src/stories/SegmentedControl.stories.tsx",
+        "apps/storybook/src/stories/Calendar.stories.tsx",
+        "apps/storybook/src/stories/DatePicker.stories.tsx",
+        "apps/storybook/src/stories/Pagination.stories.tsx",
+        "apps/storybook/src/stories/DataGrid.stories.tsx",
+        "apps/storybook/src/stories/TreeView.stories.tsx",
+        "apps/storybook/src/stories/Carousel.stories.tsx",
+        "keyboard-coverage.json",
+        "packages/foundations/src/keyboardCoverage.test.ts",
+        ".changeset/kan-054-*.md"
+      ]
     },
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -811,7 +881,12 @@
       "goal": "배포된 core 새 버전에서 Button 단독이 크기 상한 이하로 확인된다",
       "goal_hash": "f7597fc0e1f5d343379d8e502b57a11fdd25b56a",
       "memo": "외부 앱 소비 문제 대응 5장 중 5 · push·배포는 사용자의 분명한 실행 지시 뒤에만. 열 이동은 승인이 아니다",
-      "memo_hash": "0821287e5953d28612ee4cad800b57f033b779f0"
+      "memo_hash": "0821287e5953d28612ee4cad800b57f033b779f0",
+      "scope": [
+        "packages/*/package.json",
+        "packages/*/CHANGELOG.md",
+        ".changeset/*.md"
+      ]
     }
   },
   "order": [
