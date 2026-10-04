@@ -8,10 +8,46 @@ scope: packages/core/src/FoundationProvider.tsx, packages/core/src/StyleGuidePro
 # KAN-052-BYS4JN — Provider 외부 글꼴 선택화 — fonts prop + 글꼴별 1회 주입 (core·viz)
 
 ## 전략
-<!-- 왜 이 접근인가 · 제약 · 버린 대안. 사람이 자유롭게 편집한다. -->
-카드 메모: 외부 앱 소비 문제 대응 5장 중 2 · 근거는 카드 문서 「전략」
+### 문제
 
-지시 원문은 `KANBAN.md` 카드의 `원문:` 블록에 있다(중복 보관하지 않음).
+Provider 세 곳이 외부 CDN 글꼴을 조건 없이 불러온다. 끄는 prop이 없다.
+
+| 위치 | 불러오는 것 |
+|---|---|
+| `packages/core/src/FoundationProvider.tsx:55-58` | Pretendard(jsDelivr) · JetBrains Mono(Google Fonts) |
+| `packages/core/src/StyleGuideProvider.tsx:49-52` | 같은 두 글꼴, 같은 코드 |
+| `packages/visualization/src/styleGuide/VisualizationStyleGuideProvider.tsx:72` | JetBrains Mono(Google Fonts) |
+
+렌더 트리 안의 `<style>{'@import url(...)'}</style>`이라 중복 방지가 없다. Provider를 겹치면 같은 `<style>`이 여러 개 생기고, Storybook 전역 데코레이터(`apps/storybook/.storybook/preview.tsx:126-141`)처럼 core Provider 안에 viz Provider를 겹치면 JetBrains Mono가 두 번 들어간다. 앱이 글꼴을 직접 호스팅하거나 CSP(외부 리소스를 막는 보안 정책)를 쓰면 지금은 외부 요청을 막을 방법이 없다.
+
+### 접근
+
+1. **기본 동작은 그대로 두고 끌 수 있게만 한다.** Provider 세 곳에 `fonts?: 'external' | 'none'`(기본 `'external'`)을 더한다. 기존 사용처가 깨지지 않는 minor 변경이다.
+2. **중복 방지는 글꼴별 DOM id로 한다.** 렌더 트리 안의 `<style>` 대신 `bbangto-font-pretendard`, `bbangto-font-jetbrains-mono` id로 `document.head`에 한 번만 넣는다. 모션 keyframes 주입(`packages/core/src/motion/keyframes.ts:212-224`, `useInsertionEffect` + id 확인)이 이미 쓰는 방식이다.
+   - context를 쓰지 않는 까닭: visualization은 core에 의존하지 않는다(`packages/visualization/package.json:35-37`). 두 패키지가 같은 context를 나눌 수 없어서 context로는 core 안에 viz를 겹친 경우의 중복을 못 막는다. DOM id는 패키지와 무관하게 같은 값이면 막힌다.
+   - core는 두 Provider의 글꼴 코드를 `src/internal/ExternalFonts.tsx` 하나로 묶는다. viz는 core에 의존하지 않으므로 `src/internal/ExternalFonts.tsx`를 따로 두되 **같은 id**를 쓴다.
+   - 대가: SSR(서버에서 HTML을 미리 그리는 방식) HTML에 글꼴 `@import`가 빠지고 화면이 켜진 뒤에 불러온다. README에 적는다.
+3. **테스트 환경을 먼저 고친다.** 전역 데코레이터가 모든 스토리를 기본값 Provider 둘로 감싸므로 그대로는 `fonts="none"`의 0건을 확인할 수 없다. 스토리 parameter(예: `bbangtoProviders: false`)로 데코레이터를 끌 수 있게 한다. 주입한 노드는 언마운트해도 남으므로 글꼴 스토리는 `beforeEach`에서 `bbangto-font-*` 노드를 지운 뒤 렌더한다.
+
+### 버린 대안
+
+- **기본값을 `'none'`으로 바꾸기** — 기존 사용처의 글꼴이 사라지는 major 변경이다. 이번 범위에 넣지 않는다.
+- **같은 패키지 안 context로만 중복 방지** — core 안 viz 겹침을 못 막는다(위).
+- **React 19 `<link rel="stylesheet" precedence>` 자동 중복 제거** — peerDependency가 React 18도 받으므로(`packages/core/package.json:27-30`) 쓸 수 없다.
+
+### 겹침 처리
+
+- KAN-049와 용인: 이 카드는 viz Provider 코드와 README의 사용법 절만 고친다. KAN-049는 PLAN·catalog 문서 흡수다.
+- KAN-055(배포)가 이 카드 뒤에 직렬로 선다.
+
+### 범위 밖
+
+- foundation별 글꼴 불일치(예: `packages/foundations/src/amber.ts:19`는 Inter를 쓰는데 Provider가 불러오지 않는다)
+- 글꼴 파일을 패키지에 동봉해 자체 호스팅하는 일
+
+### 외부 검토
+
+플랜 검토(plan-reviewer, fable)에서 이 카드에 지적 1건이 나와 반영했다: 전역 데코레이터 때문에 테스트가 적힌 대로는 초록이 될 수 없고, core 안 viz 겹침은 같은 패키지 중복 방지로 안 풀린다는 점.
 
 ## 실행 계획
 <!-- `S<n>`은 고정 id — 이름을 바꾸지 않는다. 체크 상태는 doc-step 이 갱신한다. -->
@@ -22,3 +58,4 @@ scope: packages/core/src/FoundationProvider.tsx, packages/core/src/StyleGuidePro
 
 ## 수행 내역
 <!-- KANBAN:LOG append-only — 아래로만 덧붙인다. 위를 고치지 않는다. -->
+- 2026-10-05T00:12 · s:bcc5b01f — `전략` 섹션 교체
