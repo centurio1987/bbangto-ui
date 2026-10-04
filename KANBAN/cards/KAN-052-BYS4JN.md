@@ -56,9 +56,31 @@ Provider 세 곳이 외부 CDN 글꼴을 조건 없이 불러온다. 끄는 prop
 - [ ] `S4` README(core·viz)에 `fonts` 사용법과 SSR 차이를 적고 changeset(core·viz minor)을 쓴다. 완료 기준: 게이트 5종 초록
 
 ## 검증
-<!-- 무엇을 실행해 무엇이 나오면 이 카드가 끝난 것인가. -->
+### 게이트 5종 (전부 초록이어야 완료)
+
+```bash
+pnpm typecheck
+pnpm build
+pnpm test                       # ← 글꼴 play 테스트가 실제 chromium 에서 돈다
+pnpm --filter storybook build
+pnpm test:unit
+```
+
+core에 새 내부 모듈이 생기므로, 스토리에서 옛 dist가 보이면 `pnpm build` 뒤 Storybook vite 캐시를 지운다.
+
+### 빨강 → 초록
+
+1. `S1` 직후: 새 글꼴 스토리는 빨강(`fonts` prop이 없고 중복이 남는다). 데코레이터 parameter 추가로 기존 스토리가 깨지지 않았는지 `pnpm test` 전체가 그 밖에서는 초록이어야 한다.
+2. `S2` 직후: core 경우(0개 · 글꼴마다 1개 · 겹침 1개) 초록, core 안 viz 겹침은 아직 빨강.
+3. `S3` 직후: 전부 초록.
+
+### 추가 확인
+
+- `grep -rnE "fonts\.googleapis|cdn\.jsdelivr" packages/core/src packages/visualization/src` — `internal/ExternalFonts.tsx` 두 파일 밖에서는 0건
+- 기본값 Storybook 화면에서 글꼴이 예전처럼 보이는지 한 번 눈으로 본다(Pretendard·JetBrains Mono)
 
 ## 수행 내역
 <!-- KANBAN:LOG append-only — 아래로만 덧붙인다. 위를 고치지 않는다. -->
 - 2026-10-05T00:12 · s:bcc5b01f — `전략` 섹션 교체
 - 2026-10-05T00:12 · s:bcc5b01f — `실행 계획` 섹션 교체
+- 2026-10-05T00:12 · s:bcc5b01f — `검증` 섹션 교체
