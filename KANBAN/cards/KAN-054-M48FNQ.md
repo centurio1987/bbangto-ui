@@ -56,9 +56,29 @@ scope: packages/core/src/a11y/**, packages/core/src/components/Popover.tsx, pack
 - [ ] `S4` Pagination·DataGrid(스토리 신설) + changeset(core minor). 완료 기준: 커버리지 게이트를 포함한 게이트 5종 초록
 
 ## 검증
-<!-- 무엇을 실행해 무엇이 나오면 이 카드가 끝난 것인가. -->
+### 게이트 5종 (전부 초록이어야 완료)
+
+```bash
+pnpm typecheck
+pnpm build
+pnpm test                       # ← 키보드 play 테스트가 실제 chromium 에서 돈다
+pnpm --filter storybook build
+pnpm test:unit                  # ← keyboardCoverage.test.ts 가 여기서 돈다
+```
+
+### 빨강 → 초록
+
+1. `S1` 직후: 커버리지 게이트가 빨강. 빨강 목록이 「전략」 표의 11개 컴포넌트와 일치해야 한다(누락 검사가 표에 없는 것을 더 잡으면 표에 더하고, 표에 있는데 못 잡으면 검사 규칙을 고친다).
+2. `S2`·`S3`·`S4`를 지날 때마다 해당 컴포넌트가 빨강 목록에서 빠진다.
+3. `S4` 직후: 전부 초록.
+
+### 게이트 자체 시험
+
+- 키보드 테스트가 없는 가짜 상호작용 컴포넌트를 fixture로 넣으면 빨강이 되는지
+- 목록에 있는데 스토리에서 `userEvent.keyboard`를 지우면 빨강이 되는지
 
 ## 수행 내역
 <!-- KANBAN:LOG append-only — 아래로만 덧붙인다. 위를 고치지 않는다. -->
 - 2026-10-05T00:12 · s:bcc5b01f — `전략` 섹션 교체
 - 2026-10-05T00:12 · s:bcc5b01f — `실행 계획` 섹션 교체
+- 2026-10-05T00:12 · s:bcc5b01f — `검증` 섹션 교체
