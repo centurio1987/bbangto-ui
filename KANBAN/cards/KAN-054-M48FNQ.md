@@ -50,8 +50,10 @@ scope: packages/core/src/a11y/**, packages/core/src/components/Popover.tsx, pack
 - FormLayout `drawer`/`dialog` 레이아웃(열고 닫는 상태가 없는 레이아웃이라 성격이 다르다)
 
 ## 실행 계획
-<!-- `S<n>`은 고정 id — 이름을 바꾸지 않는다. 체크 상태는 doc-step 이 갱신한다. -->
-- [ ] `S1` (첫 단계를 적으세요)
+- [ ] `S1` 키보드 커버리지 게이트 먼저 — 루트 `keyboard-coverage.json`(컴포넌트 → 필요한 키보드 동작 · 검증 스토리)과 `packages/foundations/src/keyboardCoverage.test.ts`(누락 검사 · 테스트 검사). 완료 기준: 현재 상태로 빨강이고, 빨강 목록이 「전략」 표의 컴포넌트와 일치
+- [ ] `S2` 오버레이 — Tooltip(Esc · `aria-describedby`), Popover(포커스 복귀 · ARIA 자리), Menu 단독, DropdownMenu(Home/End · roving · 글자 검색). 완료 기준: 네 스토리의 키보드 테스트 초록
+- [ ] `S3` 복합 위젯 — SegmentedControl(radiogroup · 화살표), TreeView(Home/End · roving), Calendar(실제 포커스 이동), DatePicker(트리거 키 · 팝업 화살표), Carousel(region 포커스). 완료 기준: 다섯 스토리의 키보드 테스트 초록
+- [ ] `S4` Pagination·DataGrid(스토리 신설) + changeset(core minor). 완료 기준: 커버리지 게이트를 포함한 게이트 5종 초록
 
 ## 검증
 <!-- 무엇을 실행해 무엇이 나오면 이 카드가 끝난 것인가. -->
@@ -59,3 +61,4 @@ scope: packages/core/src/a11y/**, packages/core/src/components/Popover.tsx, pack
 ## 수행 내역
 <!-- KANBAN:LOG append-only — 아래로만 덧붙인다. 위를 고치지 않는다. -->
 - 2026-10-05T00:12 · s:bcc5b01f — `전략` 섹션 교체
+- 2026-10-05T00:12 · s:bcc5b01f — `실행 계획` 섹션 교체
