@@ -883,17 +883,28 @@
       "memo": "외부 앱 소비 문제 대응 5장 중 5 · push·배포는 사용자의 분명한 실행 지시 뒤에만. 열 이동은 승인이 아니다",
       "memo_hash": "0821287e5953d28612ee4cad800b57f033b779f0",
       "scope": [
-        "packages/*/package.json",
-        "packages/*/CHANGELOG.md",
+        "packages/core/package.json",
+        "packages/core/CHANGELOG.md",
+        "packages/visualization/package.json",
+        "packages/visualization/CHANGELOG.md",
+        "packages/style-guide-catalog/package.json",
+        "packages/style-guide-catalog/CHANGELOG.md",
+        "packages/visualization-style-guide-catalog/package.json",
+        "packages/visualization-style-guide-catalog/CHANGELOG.md",
         ".changeset/*.md"
       ]
     }
   },
   "order": [
+    "KAN-055-34A57K",
     "KAN-047-TRYYRC",
     "KAN-048-R2KW3G",
     "KAN-049-CWBPP6",
     "KAN-050-AJSQAY",
+    "KAN-051-5HMYKT",
+    "KAN-052-BYS4JN",
+    "KAN-053-TZ86NN",
+    "KAN-054-M48FNQ",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -939,12 +950,7 @@
     "KAN-043-2JM72N",
     "KAN-044-3KYT2Q",
     "KAN-045-PNT454",
-    "KAN-046-33S4G8",
-    "KAN-051-5HMYKT",
-    "KAN-052-BYS4JN",
-    "KAN-053-TZ86NN",
-    "KAN-054-M48FNQ",
-    "KAN-055-34A57K"
+    "KAN-046-33S4G8"
   ],
   "recent": [
     {
