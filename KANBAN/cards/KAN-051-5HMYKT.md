@@ -76,8 +76,10 @@ style-guide-catalog와 visualization-style-guide-catalog에는 원인이 하나 
 플랜을 별도 Claude 세션(plan-reviewer, fable)에 부쳐 지적 5건을 받아 모두 반영했다. 이 카드에 걸린 것은 셋이다: 게이트가 다른 패키지 dist를 읽는다는 점을 선례와 구분해 적을 것, build 없이 돌리면 안내와 함께 실패할 것, tokens도 측정 대상에 넣을 것.
 
 ## 실행 계획
-<!-- `S<n>`은 고정 id — 이름을 바꾸지 않는다. 체크 상태는 doc-step 이 갱신한다. -->
-- [ ] `S1` (첫 단계를 적으세요)
+- [ ] `S1` 크기 게이트 먼저 — foundations에 esbuild `~0.27.7` devDependency, 루트 `bundle-budget.json`(7개 패키지 대표 export·전체 상한, 상한 규칙), `bundleBudget.test.ts`(측정기 자체 시험 fixture · dist 실측 · dist 신선도). 완료 기준: `pnpm build && pnpm test:unit`이 core·viz·sgc·vsgc 크기로 빨강, foundations·hooks·tokens는 초록. src만 고치고 build 없이 돌리면 `pnpm build`를 먼저 하라는 안내와 함께 실패. 측정값을 수행 내역에 기록
+- [ ] `S2` tsup 설정 4개를 파일 단위 출력으로 — entry 글롭과 제외 패턴, `dts.entry` 명시, viz 배너 유지. 완료 기준: core·viz 초록, sgc·vsgc는 아직 빨강, export 목록 전후 동일, `find dist -name '*.d.ts'`가 index(viz는 typeMeta 포함)만
+- [ ] `S3` sgc·vsgc 배럴 분리 — catalog import·배열·map을 `src/catalog.ts`로. 완료 기준: 게이트 전부 초록, 공개 API 동일, sgc `genManifest`·`genTrendTable` 동작
+- [ ] `S4` 상한 확정과 정리 — 실측으로 `bundle-budget.json` 확정, `apps/storybook/.storybook/main.ts:16-20` 주석, `metadata-coverage.json` sourceModule 서술, `CLAUDE.md:39, 103` test:unit 설명에 "번들 크기" 추가, `release.yml` build 뒤 `pnpm test:unit` 단계, changeset 4개(core·viz·sgc·vsgc patch). 완료 기준: 게이트 5종 초록, `npm pack --dry-run` 목록 확인, Node에서 dist import 스모크, rollup·rolldown 교차 측정값 기록
 
 ## 검증
 <!-- 무엇을 실행해 무엇이 나오면 이 카드가 끝난 것인가. -->
@@ -85,3 +87,4 @@ style-guide-catalog와 visualization-style-guide-catalog에는 원인이 하나 
 ## 수행 내역
 <!-- KANBAN:LOG append-only — 아래로만 덧붙인다. 위를 고치지 않는다. -->
 - 2026-10-05T00:12 · s:bcc5b01f — `전략` 섹션 교체
+- 2026-10-05T00:12 · s:bcc5b01f — `실행 계획` 섹션 교체
