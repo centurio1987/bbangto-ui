@@ -1,6 +1,7 @@
 # KANBAN 변경 이력
 > 최근 50건. 이보다 오래된 이력은 archive.jsonl 로 압축 보관한다.
 
+- #159 2026-10-05 01:49 · 유저 · KAN-049-CWBPP6 독립성 겹침 용인 (상대 KAN-055-34A57K) — 049는 PLAN.md·visualization-catalog.md 흡수만 하고, 055가 viz에서 바꾸는 것은 CI Version PR이 만드는 package.json·CHANGELOG.md뿐이라 같은 파일을 건드리지 않는다 (2026-10-05 유저 선택)
 - #158 2026-10-05 00:14 · ai · KAN-050-AJSQAY 수정 메모
 - #157 2026-10-05 00:14 · ai · KAN-050-AJSQAY 독립성 겹침 용인 (상대 KAN-051-5HMYKT) — 같은 CLAUDE.md지만 050은 게이트 명령 4종을 손대지 않고 구조도·경로만 고친다고 적었다. 051은 test:unit 설명 두 줄(39, 103행)만 고친다 (2026-10-05 유저 승인 플랜)
 - #156 2026-10-05 00:14 · ai · KAN-049-CWBPP6 독립성 겹침 용인 (상대 KAN-052-BYS4JN) — 052는 viz Provider 코드·internal/ExternalFonts와 README 사용법 절만 고친다. 049는 PLAN·visualization-catalog 문서 흡수다 (2026-10-05 유저 승인 플랜)
@@ -50,4 +51,3 @@
 - #119 2026-08-14 12:57 · 유저 · KAN-020 수정 메모
 - #118 2026-08-14 12:57 · 유저 · KAN-042-JZ2ZBT 생성 "bbangto-ui-vizualization을 사용하는 클라이언트가 문제를 제기했다. "/Users/centurio/resume/docs/viz-upstream-issues.md" 이 레포트를 보고 문제를 진단하고 문제 해결 전략 레포트를 작성하고, wbs를 작성하여 이 카드를 수행하는 agent가 사용할 수 있도록 해라.ㄴ" → 할 일
 - #117 2026-07-25 14:04 · ai · KAN-036 수정 메모
-- #116 2026-07-25 14:04 · ai · KAN-036 이동 진행 중 → 완료

@@ -1,6 +1,6 @@
 {
   "next_id": 56,
-  "next_seq": 159,
+  "next_seq": 160,
   "cards": {
     "KAN-047-TRYYRC": {
       "col": "todo",
@@ -954,6 +954,16 @@
   ],
   "recent": [
     {
+      "seq": 159,
+      "t": "2026-10-05T01:49",
+      "a": "유저",
+      "id": "KAN-049-CWBPP6",
+      "op": "waive",
+      "w": "S7030N",
+      "with_": "KAN-055-34A57K",
+      "reason": "049는 PLAN.md·visualization-catalog.md 흡수만 하고, 055가 viz에서 바꾸는 것은 CI Version PR이 만드는 package.json·CHANGELOG.md뿐이라 같은 파일을 건드리지 않는다 (2026-10-05 유저 선택)"
+    },
+    {
       "seq": 158,
       "t": "2026-10-05T00:14",
       "a": "ai",
@@ -1563,15 +1573,6 @@
       "field": "memo",
       "before": "",
       "after": "완료(2026-07-25): 작업 내역 npm 반영 감사 + 배포 계획. 마지막 발행(06ed3e5) 이후 ORD-008~012 + KAN-013~041 전량 미발행 확인. 갭 해소: 패키지별 단일 changeset 5종 신규(tokens/foundations/style-guide-catalog/visualization/viz-catalog) — foundations는 기존 6 changeset이 하나도 안 건드려 버전 범프 자체 누락(핵심 갭). changeset status 검증 = tokens 1.1.0→1.2.0·foundations 1.0.1→1.1.0·style-guide-catalog 0.2.0→0.3.0·visualization 0.1.0→0.2.0·viz-catalog 0.1.0→0.2.0·core 1.1.1(dep auto)·hooks 0.3.0 유지, major 0(전부 additive; style-guide-catalog bakery→neobrutalism 리네임만 breaking이나 pre-1.0라 minor 허용+기존 changeset 커버). 패키지 신설/삭제/리네임 불필요(diagram→visualization·themes→foundations 이미 코드 반영). drift 정정: style-guide-catalog desc 29→51·viz-catalog desc +30·visualization CHANGELOG H1 diagram→visualization+lineage. RELEASE_PLAN.md 신규(버전표+승인게이트+레거시 deprecate follow-up). 게이트 전부 green: typecheck 8pkg·build·test:unit(viz141/found44/sgc76/vsgc39)·test 1219 play·storybook build·dist↔exports(dist/meta·dist/typeMeta)·build drift 0. 외부검토(codex) 반영(changeset 패키지별 분할·semver 배럴 diff 검증·release-readiness). 배포 실행(main push→Version PR→publish 6종)은 유저 명시 승인 후 별도."
-    },
-    {
-      "seq": 116,
-      "t": "2026-07-25T14:04",
-      "a": "ai",
-      "id": "KAN-036",
-      "op": "move",
-      "from": "doing",
-      "to": "done"
     }
   ],
   "waivers": [
@@ -1616,6 +1617,13 @@
       "reason": "같은 CLAUDE.md지만 050은 게이트 명령 4종을 손대지 않고 구조도·경로만 고친다고 적었다. 051은 test:unit 설명 두 줄(39, 103행)만 고친다 (2026-10-05 유저 승인 플랜)",
       "created": "2026-10-05T00:14",
       "by": "ai"
+    },
+    {
+      "pair": "KAN-049-CWBPP6|KAN-055-34A57K",
+      "scope_hash": "416343d60ccfae08",
+      "reason": "049는 PLAN.md·visualization-catalog.md 흡수만 하고, 055가 viz에서 바꾸는 것은 CI Version PR이 만드는 package.json·CHANGELOG.md뿐이라 같은 파일을 건드리지 않는다 (2026-10-05 유저 선택)",
+      "created": "2026-10-05T01:49",
+      "by": "유저"
     }
   ],
   "serials": [
