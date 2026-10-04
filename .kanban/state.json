@@ -1,6 +1,6 @@
 {
   "next_id": 56,
-  "next_seq": 155,
+  "next_seq": 156,
   "cards": {
     "KAN-047-TRYYRC": {
       "col": "todo",
@@ -954,6 +954,16 @@
   ],
   "recent": [
     {
+      "seq": 155,
+      "t": "2026-10-05T00:14",
+      "a": "ai",
+      "id": "KAN-049-CWBPP6",
+      "op": "waive",
+      "w": "S7030N",
+      "with_": "KAN-051-5HMYKT",
+      "reason": "049는 packages/visualization/**를 잡았지만 md 문서만 고친다. 051은 packages/visualization/tsup.config.ts만 고친다 (2026-10-05 유저 승인 플랜)"
+    },
+    {
       "seq": 154,
       "t": "2026-10-05T00:14",
       "a": "ai",
@@ -1559,17 +1569,6 @@
       "op": "move",
       "from": "backlog",
       "to": "done"
-    },
-    {
-      "seq": 112,
-      "t": "2026-07-25T12:33",
-      "a": "ai",
-      "id": "KAN-041",
-      "op": "create",
-      "col": "backlog",
-      "title": "foundations 잔여 73종 FoundationMeta 전량 backfill → census infra-pilot→covered 승격(pending 0)",
-      "memo": "KAN-035 후속. FoundationMeta 스키마·게이트·셀렉터·서브패스는 동결(stable). 잔여 73 foundation에 meta 저작(Workflow 배치, KAN-021/040 선례). DoD: pending 0 + metadata-coverage.json foundation status infra-pilot→covered + selector 기대 fixture 보강 + FOUNDATION_METADATA_STRATEGY 롤아웃 표 갱신. KAN-035 인프라 위 additive(파일 미변경, registry에 meta 추가).",
-      "verbatim": ""
     }
   ],
   "waivers": [
@@ -1591,6 +1590,13 @@
       "pair": "KAN-048-R2KW3G|KAN-051-5HMYKT",
       "scope_hash": "4803169921cf6365",
       "reason": "같은 style-guide-catalog/src/index.ts지만 048은 46행 주석, 051은 77~195행(catalog import·배열·map) 이동이라 줄이 겹치지 않는다 (2026-10-05 유저 승인 플랜)",
+      "created": "2026-10-05T00:14",
+      "by": "ai"
+    },
+    {
+      "pair": "KAN-049-CWBPP6|KAN-051-5HMYKT",
+      "scope_hash": "09c4f2a02aba2d8c",
+      "reason": "049는 packages/visualization/**를 잡았지만 md 문서만 고친다. 051은 packages/visualization/tsup.config.ts만 고친다 (2026-10-05 유저 승인 플랜)",
       "created": "2026-10-05T00:14",
       "by": "ai"
     }

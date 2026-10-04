@@ -1,6 +1,7 @@
 # KANBAN 변경 이력
 > 최근 50건. 이보다 오래된 이력은 archive.jsonl 로 압축 보관한다.
 
+- #155 2026-10-05 00:14 · ai · KAN-049-CWBPP6 독립성 겹침 용인 (상대 KAN-051-5HMYKT) — 049는 packages/visualization/**를 잡았지만 md 문서만 고친다. 051은 packages/visualization/tsup.config.ts만 고친다 (2026-10-05 유저 승인 플랜)
 - #154 2026-10-05 00:14 · ai · KAN-048-R2KW3G 독립성 겹침 용인 (상대 KAN-051-5HMYKT) — 같은 style-guide-catalog/src/index.ts지만 048은 46행 주석, 051은 77~195행(catalog import·배열·map) 이동이라 줄이 겹치지 않는다 (2026-10-05 유저 승인 플랜)
 - #153 2026-10-05 00:14 · ai · KAN-054-M48FNQ 독립성 겹침 용인 (상대 KAN-055-34A57K) — 054의 changeset은 054가 끝나 main에 병합된 뒤에만 들어오므로 그 전 배포에 섞이지 않는다 (2026-10-05 유저 승인 플랜)
 - #152 2026-10-05 00:14 · ai · KAN-055-34A57K serialize
@@ -50,4 +51,3 @@
 - #115 2026-07-25 13:56 · ai · KAN-036 이동 백로그 → 진행 중
 - #114 2026-07-25 13:00 · ai · KAN-041 수정 메모
 - #113 2026-07-25 12:59 · ai · KAN-041 이동 백로그 → 완료
-- #112 2026-07-25 12:33 · ai · KAN-041 생성 "foundations 잔여 73종 FoundationMeta 전량 backfill → census infra-pilot→covered 승격(pending 0)" → 백로그
