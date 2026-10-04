@@ -82,9 +82,37 @@ style-guide-catalog와 visualization-style-guide-catalog에는 원인이 하나 
 - [ ] `S4` 상한 확정과 정리 — 실측으로 `bundle-budget.json` 확정, `apps/storybook/.storybook/main.ts:16-20` 주석, `metadata-coverage.json` sourceModule 서술, `CLAUDE.md:39, 103` test:unit 설명에 "번들 크기" 추가, `release.yml` build 뒤 `pnpm test:unit` 단계, changeset 4개(core·viz·sgc·vsgc patch). 완료 기준: 게이트 5종 초록, `npm pack --dry-run` 목록 확인, Node에서 dist import 스모크, rollup·rolldown 교차 측정값 기록
 
 ## 검증
-<!-- 무엇을 실행해 무엇이 나오면 이 카드가 끝난 것인가. -->
+### 게이트 5종 (전부 초록이어야 완료)
+
+```bash
+pnpm typecheck
+pnpm build
+pnpm test
+pnpm --filter storybook build
+pnpm test:unit                  # ← bundleBudget.test.ts 가 여기서 돈다
+```
+
+foundations만 빨리 보려면 `pnpm build && pnpm --filter @centurio1987/bbangto-ui-foundations test`.
+
+### 빨강 → 초록
+
+1. `S1` 직후: core·viz·sgc·vsgc 대표 export가 상한 초과로 빨강(현재 dist 기준 core `Button` 약 320KB). foundations·hooks·tokens와 전체 상한은 초록.
+2. `S2` 직후: core·viz 초록, sgc·vsgc 빨강 유지. 게이트가 배럴 문제를 따로 잡는다는 확인이다.
+3. `S3` 직후: 전부 초록.
+4. 신선도: src 파일 하나를 건드리고 build 없이 `test:unit`을 돌리면 `pnpm build`를 먼저 하라는 메시지로 실패한다.
+
+### 추가 확인
+
+- `find packages/*/dist -name '*.d.ts'` — core·sgc·vsgc는 `index.d.ts` 하나, viz는 `index.d.ts`·`typeMeta/index.d.ts` 둘
+- `grep -rlE 'from "(fs|path|url|node:)' packages/*/dist` — 비어 있어야 한다(Node 전용 코드가 배포물에 없음)
+- export 목록 전후 대조(core 258, viz 210, typeMeta 15, sgc 174)
+- `npm pack --dry-run` — 파일 목록과 크기
+- Node에서 `import('@centurio1987/bbangto-ui-core')` 스모크
+- rollup·rolldown으로 core `Button`을 한 번 더 재서 수행 내역에 남긴다(게이트는 esbuild 하나)
+- Storybook 미리 묶기 캐시가 dist 변경을 못 볼 수 있으므로 한 번은 `storybook dev --force`로 띄운다
 
 ## 수행 내역
 <!-- KANBAN:LOG append-only — 아래로만 덧붙인다. 위를 고치지 않는다. -->
 - 2026-10-05T00:12 · s:bcc5b01f — `전략` 섹션 교체
 - 2026-10-05T00:12 · s:bcc5b01f — `실행 계획` 섹션 교체
+- 2026-10-05T00:12 · s:bcc5b01f — `검증` 섹션 교체
