@@ -142,6 +142,7 @@
   - 목표: md 47개가 사라지고 1개가 생겨 46개가 줄고, COMPONENT_CATALOG 의 실측 결함 2건이 함께 고쳐진다
   - 메모: KAN-044 §13-B. 위험: packages/core/style-guide-catalog.md 38–92줄은 자동 생성 구간이라 이동·개명·삭제하면 trendTable.test.ts 가 readFileSync 에서 red 가 된다 — 출처 절만 손댄다. D 의 선행(직렬 중재). work 4개
   - 실행 문서: KANBAN/cards/KAN-048-R2KW3G.md (0/4 · 최근 10-06)
+  - 계획 리포트: KANBAN/reports/KAN-048-R2KW3G.report.html (낡음)
 
 ## 검토
 

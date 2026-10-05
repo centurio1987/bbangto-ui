@@ -59,7 +59,8 @@ WAVE0 를 지우고 allowlist 항목을 남기면 아무것도 걸러내지 않�
   :182 가 없는 파일을 가리킨다. 레포에 링크 검사 게이트는 없어서(`package.json` 전수 확인) CI 는 안 깨진다.
 - **`packages/core/CHANGELOG.md:136` 은 고치지 않는다.** 그 릴리스 시점의 사실 기록이다.
 - **`packages/style-guide-catalog/src/index.ts` 는 46행 주석만 고친다.** KAN-051 도 이 파일을 고치지만
-  (용인 기록 있음) 저쪽은 export 배선이고 이쪽은 주석 한 줄이다.
+  저쪽은 export 배선(77–195행)이고 이쪽은 주석 한 줄이다. 2026-10-05 에 받은 용인은 이번 착수에서 scope 에
+  gateDocs 두 파일을 더하면서 규칙상 무효가 됐고(겹치는 파일은 그대로) 유저 재승인을 기다린다.
 
 ### 테스트를 먼저 세우는 방법
 
@@ -88,24 +89,30 @@ WAVE0 를 지우고 allowlist 항목을 남기면 아무것도 걸러내지 않�
 
 아래 다섯이 전부 통과해야 끝이다.
 
-1. **무손실 접기** — S1 검증 스크립트가 44/44 를 낸다. 원본 각 파일의 모든 줄이 `SATURATION_AUDIT.md` 의 해당
-   절에 같은 순서로 있다(제목 줄은 `#` 하나가 더 붙은 형태로 대조한다).
-2. **잔여 참조 0** — 아래 명령의 출력이 `DESIGN_SYSTEM_GUIDE.md:182` 한 줄과
-   `packages/core/CHANGELOG.md:136`(과거 릴리스 기록) 한 줄뿐이다.
-   ```bash
-   grep -rnE "WAVE0_REPORT|ASSET_INTEGRATION_PLAN|design-trends-2020-2026|\.audit\.md" . \
-     --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=dist --exclude-dir=storybook-static \
-     --exclude-dir=KANBAN --exclude-dir=.kanban --exclude=KANBAN.md --exclude=KANBAN.board.html
-   ```
-3. **자동 생성 구간 무변경** — `git diff main -- packages/core/style-guide-catalog.md` 의 변경 hunk 가 전부
-   38–92줄 밖이다.
-4. **품질 게이트 5종 초록** — `pnpm typecheck` · `pnpm build` · `pnpm test` · `pnpm --filter storybook build` ·
-   `pnpm test:unit`.
-5. **문서 수** — 칸반 산출물을 뺀 마크다운이 착수 시점 90개에서 44개가 된다(47개 삭제, 1개 생성).
-   ```bash
-   find . -name "*.md" -not -path "*/node_modules/*" -not -path "*/.git/*" -not -path "*/dist/*" \
-     -not -path "*/storybook-static/*" -not -path "./KANBAN/*" -not -path "./.kanban/*" -not -name KANBAN.md | wc -l
-   ```
+**1. 무손실 접기** — S1 검증 스크립트가 44/44 를 낸다. 원본 각 파일의 모든 줄이 `SATURATION_AUDIT.md` 의 해당
+절에 같은 순서로 있다(제목 줄은 `#` 하나가 더 붙은 형태로 대조한다).
+
+**2. 잔여 참조 0** — 아래 명령의 출력이 `DESIGN_SYSTEM_GUIDE.md:182` 한 줄과
+`packages/core/CHANGELOG.md:136`(과거 릴리스 기록) 한 줄뿐이다.
+
+```bash
+grep -rnE "WAVE0_REPORT|ASSET_INTEGRATION_PLAN|design-trends-2020-2026|\.audit\.md" . \
+  --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=dist --exclude-dir=storybook-static \
+  --exclude-dir=KANBAN --exclude-dir=.kanban --exclude=KANBAN.md --exclude=KANBAN.board.html
+```
+
+**3. 자동 생성 구간 무변경** — `git diff main -- packages/core/style-guide-catalog.md` 의 변경 hunk 가 전부
+38–92줄 밖이다.
+
+**4. 품질 게이트 5종 초록** — `pnpm typecheck` · `pnpm build` · `pnpm test` · `pnpm --filter storybook build` ·
+`pnpm test:unit`.
+
+**5. 문서 수** — 칸반 산출물을 뺀 마크다운이 착수 시점 90개에서 44개가 된다(47개 삭제, 1개 생성).
+
+```bash
+find . -name "*.md" -not -path "*/node_modules/*" -not -path "*/.git/*" -not -path "*/dist/*" \
+  -not -path "*/storybook-static/*" -not -path "./KANBAN/*" -not -path "./.kanban/*" -not -name KANBAN.md | wc -l
+```
 
 **이 카드가 확인하지 않는 것**: `DESIGN_SYSTEM_GUIDE.md:182` 의 깨진 링크 해소. KAN-050 의 완료 기준이다.
 
@@ -114,3 +121,5 @@ WAVE0 를 지우고 allowlist 항목을 남기면 아무것도 걸러내지 않�
 - 2026-10-06T00:22 · s:a0ca9d11 — `전략` 섹션 교체
 - 2026-10-06T00:22 · s:a0ca9d11 — `실행 계획` 섹션 교체
 - 2026-10-06T00:22 · s:a0ca9d11 — `검증` 섹션 교체
+- 2026-10-06T00:48 · s:a0ca9d11 — `전략` 섹션 교체
+- 2026-10-06T00:48 · s:a0ca9d11 — `검증` 섹션 교체
