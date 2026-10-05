@@ -139,9 +139,9 @@
   - 짧은 제목: core 카탈로그 통합
   - 목적: core 의 audit 44개를 한 파일로 접고 목적이 소진된 계획 문서 3종을 COMPONENT_CATALOG·style-guide-catalog 로 흡수한다
   - 이유: audit 44개는 파일 단위 참조 0건인 1회성 증빙이고 ASSET_INTEGRATION_PLAN·WAVE0_REPORT 는 Wave 전량 DONE 으로 실행 결과가 이미 레지스트리에 있다
-  - 목표: core 문서가 47건 줄고 COMPONENT_CATALOG 의 실측 결함 2건이 함께 고쳐진다
+  - 목표: md 47개가 사라지고 1개가 생겨 46개가 줄고, COMPONENT_CATALOG 의 실측 결함 2건이 함께 고쳐진다
   - 메모: KAN-044 §13-B. 위험: packages/core/style-guide-catalog.md 38–92줄은 자동 생성 구간이라 이동·개명·삭제하면 trendTable.test.ts 가 readFileSync 에서 red 가 된다 — 출처 절만 손댄다. D 의 선행(직렬 중재). work 4개
-  - 실행 문서: KANBAN/cards/KAN-048-R2KW3G.md (0/1)
+  - 실행 문서: KANBAN/cards/KAN-048-R2KW3G.md (0/4 · 최근 10-06)
 
 ## 검토
 

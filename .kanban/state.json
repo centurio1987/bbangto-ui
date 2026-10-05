@@ -1,6 +1,6 @@
 {
   "next_id": 56,
-  "next_seq": 161,
+  "next_seq": 162,
   "cards": {
     "KAN-047-TRYYRC": {
       "col": "todo",
@@ -44,8 +44,8 @@
       "purpose_hash": "edaddb4fc889d8cc826b122c0f6e74c5e568c682",
       "reason": "audit 44개는 파일 단위 참조 0건인 1회성 증빙이고 ASSET_INTEGRATION_PLAN·WAVE0_REPORT 는 Wave 전량 DONE 으로 실행 결과가 이미 레지스트리에 있다",
       "reason_hash": "34b21d7865d61feb8ba3f0f6f1428f000e1e492c",
-      "goal": "core 문서가 47건 줄고 COMPONENT_CATALOG 의 실측 결함 2건이 함께 고쳐진다",
-      "goal_hash": "f2f38a4cbe5cade96a6a0ded3b023a31b69dabdf",
+      "goal": "md 47개가 사라지고 1개가 생겨 46개가 줄고, COMPONENT_CATALOG 의 실측 결함 2건이 함께 고쳐진다",
+      "goal_hash": "5f4f3a584577c10a6ddd68d6d6ab06b82a8266be",
       "memo": "KAN-044 §13-B. 위험: packages/core/style-guide-catalog.md 38–92줄은 자동 생성 구간이라 이동·개명·삭제하면 trendTable.test.ts 가 readFileSync 에서 red 가 된다 — 출처 절만 손댄다. D 의 선행(직렬 중재). work 4개",
       "memo_hash": "2979c34afdcb842658763b97e23967cf143322fb",
       "scope": [
@@ -55,7 +55,9 @@
         "packages/core/style-guide-catalog.md",
         "packages/style-guide-catalog/src/index.ts",
         "ASSET_INTEGRATION_PLAN.md",
-        "WAVE0_REPORT.md"
+        "WAVE0_REPORT.md",
+        "packages/foundations/src/gateDocs.test.ts",
+        "packages/foundations/src/gateDocs.ts"
       ]
     },
     "KAN-049-CWBPP6": {
@@ -904,6 +906,7 @@
     "KAN-052-BYS4JN",
     "KAN-053-TZ86NN",
     "KAN-054-M48FNQ",
+    "KAN-048-R2KW3G",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -949,10 +952,20 @@
     "KAN-043-2JM72N",
     "KAN-044-3KYT2Q",
     "KAN-045-PNT454",
-    "KAN-046-33S4G8",
-    "KAN-048-R2KW3G"
+    "KAN-046-33S4G8"
   ],
   "recent": [
+    {
+      "seq": 161,
+      "t": "2026-10-06T00:23",
+      "a": "ai",
+      "id": "KAN-048-R2KW3G",
+      "op": "edit",
+      "w": "VP2A2W",
+      "field": "goal",
+      "before": "core 문서가 47건 줄고 COMPONENT_CATALOG 의 실측 결함 2건이 함께 고쳐진다",
+      "after": "md 47개가 사라지고 1개가 생겨 46개가 줄고, COMPONENT_CATALOG 의 실측 결함 2건이 함께 고쳐진다"
+    },
     {
       "seq": 160,
       "t": "2026-10-06T00:19",
@@ -1561,18 +1574,6 @@
       "field": "memo",
       "before": "완료(2026-07-24). 유형(what) 축 채택 메타 인프라 신설 — 스타일 축(KAN-018/021/022/023)을 유형 축으로 미러링. 산출물: `packages/visualization/src/typeMeta/{types,registry,manifest,select,index}.ts` + `scripts/genTypeManifest.ts` + `type.manifest.json`(87 엔트리) + 서브패스 export `./type-meta`(루트 배럴 미오염 → 컴포넌트 소비자 번들 무영향) + `TYPE_METADATA_STRATEGY.md`(+ style METADATA_STRATEGY 포인터). **VizTypeMeta 스키마**(category A~G·dataShape=FT9+구조7·primitives16·tags 고정 union·useWhen/avoidWhen/related). **레지스트리 87 슬롯**(inventory §5/§6 전사, ⛔ 3행 제외) — 파일럿 6종 rich-meta(BarChart VT-501·ClassDiagram VT-101·ProcessSteps VT-202·SwotMatrix VT-703·Sequence VT-108[다-export 3]·Cycle VT-203[variant]), 나머지 81 pending. **buildTypeManifest**(related 정합성 authored 전체 throw·id 결정적 정렬·완성도 계산) + **selectVizTypes**(soft-weighted recall·includePending 기본 false·결정적 tie-break — select.ts 시맨틱 계승). 커버리지 게이트 = 배럴 정적 소스스캔 양방향(90 export − allowlist 3[IsometricScene·Kruchten4Plus1View·ViewpointFrame; inventory §8-b VT 미승격] = 87). TDD 30 테스트(registry/manifest 바이트동기/select). 외부검토(codex) 13지적 반영(모드 variant·정적스캔·서브패스·시맨틱계승·태그 union·개수기준 분리·related 전체·stable-API·소비 이원경로). prebuild 미배선(코어 blast radius↓, KAN-025 선례)—`gen:type-manifest` 수동+바이트동기 테스트가 최신성 강제. 게이트 5종 green: typecheck·build(viz dist/typeMeta emit)·test:unit(viz 138[+30])·test(1219 play)·storybook build. 스코프=인프라+파일럿; pending 81 전량 backfill은 [[KAN-040]] 후속. **[[KAN-035]] 선행조건**(본 카드=유형 축 인프라, KAN-035=전 인터페이스 커버리지 감사).",
       "after": "완료(2026-07-24). 유형(what) 축 채택 메타 인프라 신설 — 스타일 축(KAN-018/021/022/023)을 유형 축으로 미러링. 산출물: `packages/visualization/src/typeMeta/{types,registry,manifest,select,index}.ts` + `scripts/genTypeManifest.ts` + `type.manifest.json`(87 엔트리) + 서브패스 export `./type-meta`(루트 배럴 미오염 → 컴포넌트 소비자 번들 무영향) + `TYPE_METADATA_STRATEGY.md`(+ style METADATA_STRATEGY 포인터). **VizTypeMeta 스키마**(category A~G·dataShape=FT9+구조7·primitives16·tags 고정 union·useWhen/avoidWhen/related). **레지스트리 87 슬롯**(inventory §5/§6 전사, ⛔ 3행 제외) — 파일럿 6종 rich-meta(BarChart VT-501·ClassDiagram VT-101·ProcessSteps VT-202·SwotMatrix VT-703·Sequence VT-108[다-export 3]·Cycle VT-203[variant]), 나머지 81 pending. **buildTypeManifest**(related 정합성 authored 전체 throw·id 결정적 정렬·완성도 계산) + **selectVizTypes**(soft-weighted recall·includePending 기본 false·결정적 tie-break — select.ts 시맨틱 계승). 커버리지 게이트 = 배럴 정적 소스스캔 양방향(90 export − allowlist 3[IsometricScene·Kruchten4Plus1View·ViewpointFrame; inventory §8-b VT 미승격] = 87). TDD 30 테스트(registry/manifest 바이트동기/select). 외부검토(codex) 13지적 반영(모드 variant·정적스캔·서브패스·시맨틱계승·태그 union·개수기준 분리·related 전체·stable-API·소비 이원경로). prebuild 미배선(코어 blast radius↓, KAN-025 선례)—`gen:type-manifest` 수동+바이트동기 테스트가 최신성 강제. 게이트 5종 green: typecheck·build(viz dist/typeMeta emit)·test:unit(viz 138[+30])·test(1219 play)·storybook build. 스코프=인프라+파일럿; pending 81 전량 backfill은 [[KAN-040]] 후속. [[KAN-035]] **선행조건**(본 카드=유형 축 인프라, KAN-035=전 인터페이스 커버리지 감사)."
-    },
-    {
-      "seq": 118,
-      "t": "2026-08-14T12:57",
-      "a": "유저",
-      "id": "KAN-042-JZ2ZBT",
-      "op": "create",
-      "w": "S7030N",
-      "col": "todo",
-      "title": "bbangto-ui-vizualization을 사용하는 클라이언트가 문제를 제기했다. \"/Users/centurio/resume/docs/viz-upstream-issues.md\" 이 레포트를 보고 문제를 진단하고 문제 해결 전략 레포트를 작성하고, wbs를 작성하여 이 카드를 수행하는 agent가 사용할 수 있도록 해라.ㄴ",
-      "memo": "",
-      "verbatim": ""
     }
   ],
   "waivers": [
