@@ -82,7 +82,7 @@ WAVE0 를 지우고 allowlist 항목을 남기면 아무것도 걸러내지 않�
 - [x] `S1` audit 44개를 `packages/core/catalog/SATURATION_AUDIT.md` 하나로 무손실 접기 — 색인 표 + 파일마다 `## <카테고리>` 절. `COMPONENT_CATALOG.md:234·248` 의 `catalog/<category>.audit.md` 표기를 새 문서로 고치고 44개를 지운다. 완료 기준: 검증 스크립트가 44개 원본의 모든 줄(제목은 한 단계 내린 형태)이 새 문서에 파일 순서대로 있다고 낸다 · `packages/core/catalog/` 에 파일이 하나만 남는다
 - [x] `S2` `ASSET_INTEGRATION_PLAN.md`·`WAVE0_REPORT.md` 를 `COMPONENT_CATALOG.md` 「Wave 실행 기록」 절로 흡수 — 먼저 `gateDocs.test.ts` allowlist 에서 WAVE0 항목을 빼고 픽스처를 로컬 allowlist 로 바꿔 `test:unit` 빨강을 본다. 그다음 위임 모델 요지·토큰 갭 감사·breakpoint 주의를 옮기고(게이트 명령 줄은 안 옮긴다) `:181` 링크를 고친 뒤 두 파일을 지우고, 주석 두 곳(`gateDocs.test.ts:33-38` · `gateDocs.ts:77-78`)을 실제에 맞춘다. 완료 기준: `@centurio1987/bbangto-ui-foundations` vitest 초록 · 두 파일명 grep 결과가 `DESIGN_SYSTEM_GUIDE.md:182`(KAN-050 몫)와 칸반 기록뿐
 - [x] `S3` `design-trends-2020-2026.md` 를 `style-guide-catalog.md` 「출처 (조사 근거)」 절로 흡수 — §B 연도별 목록 + 아직 없는 출처 링크 전부. `:94` 문구와 `packages/style-guide-catalog/src/index.ts:46` 주석을 출처 절로 돌리고 파일을 지운다. 완료 기준: `trendTable.test.ts` 초록 · `git diff` 가 38–92줄을 건드리지 않음 · 파일명 grep 결과가 칸반 기록뿐
-- [ ] `S4` `COMPONENT_CATALOG.md` 결함 2건(`:246` 43→44 · `:256` 없는 매니페스트 문장) + 품질 게이트 5종 + 최종 대조. 완료 기준: 게이트 5종 초록 · 「검증」 절 1~5 전부 통과
+- [x] `S4` `COMPONENT_CATALOG.md` 결함 2건(`:246` 43→44 · `:256` 없는 매니페스트 문장) + 품질 게이트 5종 + 최종 대조. 완료 기준: 게이트 5종 초록 · 「검증」 절 1~5 전부 통과
 
 ## 검증
 <!-- 무엇을 실행해 무엇이 나오면 이 카드가 끝난 것인가. -->
@@ -92,7 +92,7 @@ WAVE0 를 지우고 allowlist 항목을 남기면 아무것도 걸러내지 않�
 **1. 무손실 접기** — S1 검증 스크립트가 44/44 를 낸다. 원본 각 파일의 모든 줄이 `SATURATION_AUDIT.md` 의 해당
 절에 같은 순서로 있다(제목 줄은 `#` 하나가 더 붙은 형태로 대조한다).
 
-**2. 잔여 참조 정리** — 아래 명령의 출력이 다음 여섯 줄뿐이다. 지운 파일을 살아 있는 문서처럼 가리키는 줄이 없어야 한다.
+**2. 잔여 참조 정리** — 아래 명령의 출력이 다음 표의 줄뿐이다. 지운 파일을 살아 있는 문서처럼 가리키는 줄이 없어야 한다.
 
 ```bash
 grep -rnE "WAVE0_REPORT|ASSET_INTEGRATION_PLAN|design-trends-2020-2026|\.audit\.md" . \
@@ -106,19 +106,20 @@ grep -rnE "WAVE0_REPORT|ASSET_INTEGRATION_PLAN|design-trends-2020-2026|\.audit\.
 | 줄 | 왜 남는가 |
 |---|---|
 | `DESIGN_SYSTEM_GUIDE.md:182` | KAN-050 몫(직렬 중재). 이 카드 병합 뒤 KAN-050 완료까지 없는 파일을 가리킨다 |
-| `ORDER.md:269` | 과거 결과 기록. KAN-047 이 ORDER.md 를 통째로 지운다 — KAN-047 이 먼저 병합되면 이 줄은 안 나온다 |
+| `ORDER.md:269` | 과거 결과 기록. KAN-047 이 ORDER.md 를 통째로 지웠다 — 2026-10-06 에 main 을 합친 뒤로 이 줄은 안 나온다 |
 | `packages/core/CHANGELOG.md:136` | 과거 릴리스 기록 |
 | `packages/core/COMPONENT_CATALOG.md` 「Wave 실행 기록」 머리 | 이 카드가 남긴 흡수 출처 기록 |
 | `packages/core/style-guide-catalog.md` 「2020–2026 시간축 리서치」 머리 | 이 카드가 남긴 흡수 출처 기록 |
 | `packages/foundations/src/gateDocs.test.ts` allowlist 머리 주석 | 이 카드가 남긴 allowlist 변경 기록 |
 
-**3. 자동 생성 구간 무변경** — `git diff main -- packages/core/style-guide-catalog.md` 의 변경 hunk 가 전부
-38–92줄 밖이다.
+**3. 자동 생성 구간 무변경** — `git diff -U0 main -- packages/core/style-guide-catalog.md` 의 변경 hunk 가 전부
+38–92줄 밖이다(문맥 줄이 섞이지 않게 `-U0` 로 본다).
 
 **4. 품질 게이트 5종 초록** — `pnpm typecheck` · `pnpm build` · `pnpm test` · `pnpm --filter storybook build` ·
 `pnpm test:unit`.
 
-**5. 문서 수** — 칸반 산출물을 뺀 마크다운이 착수 시점 90개에서 44개가 된다(47개 삭제, 1개 생성).
+**5. 문서 수** — 칸반 산출물을 뺀 마크다운에서 이 카드 몫은 47개 삭제·1개 생성(−46)이다. 착수 시점 90개 기준이면 44개가 되고,
+도중에 KAN-047 병합(−4)을 합쳤으므로 실측 기대값은 86 → 40 이다. `git diff --name-status main` 의 md 기준 D 47 · A 1 로도 확인한다.
 
 ```bash
 find . -name "*.md" -not -path "*/node_modules/*" -not -path "*/.git/*" -not -path "*/dist/*" \
@@ -143,3 +144,6 @@ find . -name "*.md" -not -path "*/node_modules/*" -not -path "*/.git/*" -not -pa
 - 2026-10-06T00:56 · s:a0ca9d11 · S3 doing — 착수
 - 2026-10-06T00:57 · s:a0ca9d11 — `검증` 섹션 교체
 - 2026-10-06T00:57 · s:a0ca9d11 · S3 done — design-trends-2020-2026.md 의 §B 연도별 표 6개(2020~2025)와 출처 링크 16개(중복 2개 Figma 2026·CC Creative 제외)를 style-guide-catalog.md 「출처」 아래 「2020–2026 시간축 리서치」로 옮김. :94 문구·sgc index.ts:46 주석 갱신, 파일 삭제. sgc vitest 흡수 전후 76/76, diff hunk 는 94행·346행 이후뿐(38–92 무변경). 검증 2번 기대 출력을 실측 6줄로 확정
+- 2026-10-06T00:57 · s:a0ca9d11 · S4 doing — 착수
+- 2026-10-06T01:02 · s:a0ca9d11 — `검증` 섹션 교체
+- 2026-10-06T01:02 · s:a0ca9d11 · S4 done — COMPONENT_CATALOG 결함 2건(포화 43→44 카테고리 · 매니페스트 없는 7종 문장 정정, SATURATION_AUDIT 에서 7종 이름 검색해 호스트 절 0건 확인). main(KAN-047 병합분) 합침 — gateDocs.test.ts 머리 주석 충돌은 두 쪽이 지운 항목을 모두 지운 상태로, state 는 rebuild --salvage. 병합 뒤 게이트 5종 초록(test 182파일/1224 · test:unit hooks115·foundations62·viz257·sgc76·vsgc39). 검증 1 PASS 44/44 · 2 표의 5줄 · 3 hunk 94행·347행~ · 5 86→40(D47·A1)
