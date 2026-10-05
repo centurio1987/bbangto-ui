@@ -24,9 +24,12 @@ status: 검토 대기
 | 베이스 | `11cb644` |
 | 변경 훑기 | `git diff 11cb644...HEAD` |
 
-**커밋 6건**
+**커밋 9건**
 
 ```text
+643c5b4 KAN-052: fonts="none" 설명을 「그 Provider 몫만 끈다」로 정확히 — 검토자 추가 의견 반영
+9ec8424 kanban: KAN-052 검토자(opus) 판정 유입 — 항목 1 승인 · 추가 의견 1
+c009719 kanban: KAN-052 검토로 이동 + 검토서 발행(판단 항목 1) + 검토 화면 렌더
 5af8e71 KAN-052 S4: README fonts 사용법 + changeset(core·viz minor) — 게이트 5종 초록
 84aa3f7 KAN-052 S3: viz Provider 글꼴 주입을 core 와 같은 id 로 + fonts prop
 12ed704 KAN-052 S2: core Provider 글꼴 주입을 id 기반 1회 주입 + fonts prop 으로
@@ -35,30 +38,34 @@ status: 검토 대기
 8353e10 kanban: KAN-052 배치1 계획 + 계획 리포트 발행(authoring-kit voice 적용)
 ```
 
-**변경 파일 20개 (+1310 −52)**
+**변경 파일 24개 (+2828 −65)**
 
 | 파일 | 상태 | 추가 | 삭제 |
 |---|:--:|---:|---:|
-| `.changeset/kan-052-provider-fonts.md` | M | 19 | 0 |
-| `.kanban/archive.jsonl` | M | 1 | 0 |
-| `.kanban/log.md` | M | 1 | 1 |
-| `.kanban/state.json` | M | 15 | 15 |
+| `.changeset/kan-052-provider-fonts.md` | M | 20 | 0 |
+| `.kanban/archive.jsonl` | M | 2 | 0 |
+| `.kanban/log.md` | M | 2 | 2 |
+| `.kanban/reviews/KAN-052-BYS4JN.events.jsonl` | M | 3 | 0 |
+| `.kanban/reviews/KAN-052-BYS4JN.review.json` | M | 21 | 0 |
+| `.kanban/state.json` | M | 25 | 27 |
 | `KANBAN.board.html` | M | 2 | 2 |
-| `KANBAN.md` | M | 22 | 21 |
+| `KANBAN.md` | M | 23 | 21 |
 | `KANBAN/batches/KAN-052-BYS4JN.batch1.md` | M | 97 | 0 |
-| `KANBAN/cards/KAN-052-BYS4JN.md` | M | 12 | 4 |
+| `KANBAN/cards/KAN-052-BYS4JN.md` | M | 14 | 4 |
 | `KANBAN/reports/KAN-052-BYS4JN.draft.md` | M | 184 | 0 |
 | `KANBAN/reports/KAN-052-BYS4JN.report.html` | M | 625 | 0 |
+| `KANBAN/reviews/KAN-052-BYS4JN.review.html` | M | 1265 | 0 |
+| `KANBAN/reviews/KAN-052-BYS4JN.review.md` | M | 206 | 0 |
 | `apps/storybook/.storybook/preview.tsx` | M | 4 | 0 |
 | `apps/storybook/src/stories/ProviderFonts.stories.tsx` | M | 138 | 0 |
 | `apps/storybook/src/stories/visualization/Provider.stories.tsx` | M | 56 | 0 |
 | `packages/core/README.md` | M | 16 | 0 |
-| `packages/core/src/FoundationProvider.tsx` | M | 9 | 4 |
-| `packages/core/src/StyleGuideProvider.tsx` | M | 9 | 4 |
-| `packages/core/src/internal/ExternalFonts.tsx` | M | 48 | 0 |
+| `packages/core/src/FoundationProvider.tsx` | M | 10 | 4 |
+| `packages/core/src/StyleGuideProvider.tsx` | M | 10 | 4 |
+| `packages/core/src/internal/ExternalFonts.tsx` | M | 50 | 0 |
 | `packages/visualization/README.md` | M | 6 | 0 |
-| `packages/visualization/src/internal/ExternalFonts.tsx` | M | 37 | 0 |
-| `packages/visualization/src/styleGuide/VisualizationStyleGuideProvider.tsx` | M | 9 | 1 |
+| `packages/visualization/src/internal/ExternalFonts.tsx` | M | 39 | 0 |
+| `packages/visualization/src/styleGuide/VisualizationStyleGuideProvider.tsx` | M | 10 | 1 |
 
 **롤백 태그 5개**
 
@@ -105,17 +112,17 @@ core에 새 내부 모듈이 생기므로, 스토리에서 옛 dist가 보이면
 **실행 결과**
 
 ```text
-게이트 5종 (2026-10-06, 워크트리 KAN-052-BYS4JN, S4 커밋 직전 상태에서 실행)
+게이트 5종 (2026-10-06, 검토자 추가 의견 반영 뒤 재실행)
 - pnpm typecheck: exit 0
 - pnpm build: exit 0
 - pnpm test: exit 0 — Test Files 183 passed (183) / Tests 1232 passed (1232)
 - pnpm --filter storybook build: exit 0 — Storybook build completed successfully
-- pnpm test:unit: exit 0 — packages/hooks test:       Tests  115 passed (115);packages/foundations test:       Tests  62 passed (62);packages/visualization test:       Tests  257 passed (257);packages/style-guide-catalog test:       Tests  76 passed (76);.../visualization-style-guide-catalog test:       Tests  39 passed (39);
+- pnpm test:unit: exit 0 — hooks 115 · foundations 62 · visualization 257 · style-guide-catalog 76 · visualization-style-guide-catalog 39 통과
 
-빨강 → 초록
-- S1 직후: 새 글꼴 스토리 6종만 빨강, 그 밖 1226 통과 (기본값 가드 2종은 고치기 전에도 초록)
+빨강 → 초록 (새 글꼴 스토리 8종: ProviderFonts.stories.tsx 6 + visualization/Provider.stories.tsx 2)
+- S1 직후: 새 글꼴 스토리 6종 빨강(기본값 가드 2종은 고치기 전에도 초록), 그 밖 1226 통과
 - S2 직후: core 4종 초록, viz 관련 3종(viz 단독 none · core 안 viz 겹침 2종) 빨강
-- S3 직후: 글꼴 스토리 10종 전부 초록
+- S3 직후: 두 스토리 파일 10개(글꼴 스토리 8 + 기존 viz 스토리 2) 전부 초록
 
 추가 확인
 - grep -rnE "fonts\.googleapis|cdn\.jsdelivr" packages/core/src packages/visualization/src → internal/ExternalFonts.tsx 두 파일 밖 0건

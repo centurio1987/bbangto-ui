@@ -1,5 +1,5 @@
 <meta charset="utf-8">
-<!-- kanban-fp:a373d08241fb4123da060f21a3d503077fc0ab9b voiced -->
+<!-- kanban-fp:2956c43fa2e1a0829921cc1017c1d6ac30c45a73 voiced -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>KAN-052-BYS4JN 실행 계획</title>
 <style>
@@ -435,13 +435,13 @@ details[open] > summary::before { content: "\25BE\00a0"; }
 </style>
 <div class="wrap">
 <div class="title-block">
-  <p class="meta">KAN-052-BYS4JN · 진행 중 · 브랜치 KAN-052-BYS4JN</p>
+  <p class="meta">KAN-052-BYS4JN · 검토 · 브랜치 KAN-052-BYS4JN</p>
   <h1>Provider 외부 글꼴 선택화 — fonts prop + 글꼴별 1회 주입 (core·viz)</h1>
 </div>
 
 
 <div class="kpis">
-  <div class="kpi"><span class="meta">work</span><b>0/4</b></div>
+  <div class="kpi"><span class="meta">work</span><b>4/4</b></div>
   <div class="kpi"><span class="meta">배치</span><b>1</b></div>
   <div class="kpi"><span class="meta">보류</span><b>0</b></div>
   <div class="kpi"><span class="meta">독립성</span><b>2</b></div>
@@ -582,15 +582,15 @@ S3 직후  전부 초록</pre>
 <p>플랜 검토(plan-reviewer, fable)에서 이 카드에 지적 1건이 나와 반영했다: 전역 데코레이터 때문에 테스트가 적힌 대로는 초록이 될 수 없고, core 안 viz 겹침은 같은 패키지 중복 방지로 안 풀린다는 점.</p></section>
 
 <h2>실행 계획 (WBS)</h2>
-<div class="chart"><svg viewBox="0 0 860 178" role="img" aria-label="WBS 간트"><text x="16" y="57" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">S1</text><rect x="148.0" y="45" width="696.0" height="20" fill="#F3E8C9" stroke="#1C1B17" stroke-width="2"/><text x="156.0" y="59" font-size="12" fill="#1C1B17">테스트 환경과 play 테스트 먼저 — preview.tsx 데코레이터에 끄는 …</text><text x="16" y="87" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">S2</text><rect x="148.0" y="75" width="696.0" height="20" fill="#F3E8C9" stroke="#1C1B17" stroke-width="2"/><text x="156.0" y="89" font-size="12" fill="#1C1B17">core — 두 Provider의 글꼴 코드를 src/internal/Exter…</text><text x="16" y="117" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">S3</text><rect x="148.0" y="105" width="696.0" height="20" fill="#F3E8C9" stroke="#1C1B17" stroke-width="2"/><text x="156.0" y="119" font-size="12" fill="#1C1B17">viz — VisualizationStyleGuideProvider에 같은 id…</text><text x="16" y="147" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">S4</text><rect x="148.0" y="135" width="696.0" height="20" fill="#F3E8C9" stroke="#1C1B17" stroke-width="2"/><text x="156.0" y="149" font-size="12" fill="#1C1B17">README(core·viz)에 fonts 사용법과 SSR 차이를 적고 chan…</text><line x1="148.0" y1="34" x2="148.0" y2="174" stroke="#1C1B17" stroke-width="2" stroke-dasharray="4 3"/><text x="154.0" y="28" font-size="11" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#6E6A5E">배치1</text></svg></div>
+<div class="chart"><svg viewBox="0 0 860 178" role="img" aria-label="WBS 간트"><text x="16" y="57" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">S1</text><rect x="148.0" y="45" width="696.0" height="20" fill="#5C7A4A" stroke="#1C1B17" stroke-width="2"/><text x="156.0" y="59" font-size="12" fill="#1C1B17">테스트 환경과 play 테스트 먼저 — preview.tsx 데코레이터에 끄는 …</text><text x="16" y="87" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">S2</text><rect x="148.0" y="75" width="696.0" height="20" fill="#5C7A4A" stroke="#1C1B17" stroke-width="2"/><text x="156.0" y="89" font-size="12" fill="#1C1B17">core — 두 Provider의 글꼴 코드를 src/internal/Exter…</text><text x="16" y="117" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">S3</text><rect x="148.0" y="105" width="696.0" height="20" fill="#5C7A4A" stroke="#1C1B17" stroke-width="2"/><text x="156.0" y="119" font-size="12" fill="#1C1B17">viz — VisualizationStyleGuideProvider에 같은 id…</text><text x="16" y="147" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">S4</text><rect x="148.0" y="135" width="696.0" height="20" fill="#5C7A4A" stroke="#1C1B17" stroke-width="2"/><text x="156.0" y="149" font-size="12" fill="#1C1B17">README(core·viz)에 fonts 사용법과 SSR 차이를 적고 chan…</text><line x1="148.0" y1="34" x2="148.0" y2="174" stroke="#1C1B17" stroke-width="2" stroke-dasharray="4 3"/><text x="154.0" y="28" font-size="11" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#6E6A5E">배치1</text></svg></div>
 <div class="scroll"><table>
-<tr><th>work</th><th>내용</th><th>상태</th></tr><tr><td><code>S1</code></td><td>테스트 환경과 play 테스트 먼저 — <code>preview.tsx</code> 데코레이터에 끄는 parameter, <code>ProviderFonts.stories.tsx</code>(core)와 <code>visualization/Provider.stories.tsx</code>에 글꼴 스토리, <code>beforeEach</code>에서 <code>bbangto-font-*</code> 노드 정리. 세는 범위는 <code>document</code> 전체의 <code>@import</code>를 담은 <code>style</code>과 <code>bbangto-font-*</code> id 노드. 확인할 경우: <code>fonts=&quot;none&quot;</code> 0개 · 기본값 글꼴마다 1개 · core Provider 겹침 글꼴마다 1개 · core 안 viz 겹침 JetBrains Mono 1개 · 둘 다 <code>none</code>이면 0개. 완료 기준: 새 스토리는 빨강, 데코레이터 parameter를 넣은 뒤에도 기존 스토리 전부 초록</td><td><span class="tag tag-todo">미착수</span></td></tr><tr><td><code>S2</code></td><td>core — 두 Provider의 글꼴 코드를 <code>src/internal/ExternalFonts.tsx</code>로 묶고 <code>fonts</code> prop과 id 기반 <code>document.head</code> 주입을 넣는다. 완료 기준: core 경우 초록</td><td><span class="tag tag-todo">미착수</span></td></tr><tr><td><code>S3</code></td><td>viz — <code>VisualizationStyleGuideProvider</code>에 같은 id로 같은 방식을 적용한다. 완료 기준: core 안 viz 겹침까지 초록</td><td><span class="tag tag-todo">미착수</span></td></tr><tr><td><code>S4</code></td><td>README(core·viz)에 <code>fonts</code> 사용법과 SSR 차이를 적고 changeset(core·viz minor)을 쓴다. 완료 기준: 게이트 5종 초록</td><td><span class="tag tag-todo">미착수</span></td></tr>
+<tr><th>work</th><th>내용</th><th>상태</th></tr><tr><td><code>S1</code></td><td>테스트 환경과 play 테스트 먼저 — <code>preview.tsx</code> 데코레이터에 끄는 parameter, <code>ProviderFonts.stories.tsx</code>(core)와 <code>visualization/Provider.stories.tsx</code>에 글꼴 스토리, <code>beforeEach</code>에서 <code>bbangto-font-*</code> 노드 정리. 세는 범위는 <code>document</code> 전체의 <code>@import</code>를 담은 <code>style</code>과 <code>bbangto-font-*</code> id 노드. 확인할 경우: <code>fonts=&quot;none&quot;</code> 0개 · 기본값 글꼴마다 1개 · core Provider 겹침 글꼴마다 1개 · core 안 viz 겹침 JetBrains Mono 1개 · 둘 다 <code>none</code>이면 0개. 완료 기준: 새 스토리는 빨강, 데코레이터 parameter를 넣은 뒤에도 기존 스토리 전부 초록</td><td><span class="tag tag-done">완료</span></td></tr><tr><td><code>S2</code></td><td>core — 두 Provider의 글꼴 코드를 <code>src/internal/ExternalFonts.tsx</code>로 묶고 <code>fonts</code> prop과 id 기반 <code>document.head</code> 주입을 넣는다. 완료 기준: core 경우 초록</td><td><span class="tag tag-done">완료</span></td></tr><tr><td><code>S3</code></td><td>viz — <code>VisualizationStyleGuideProvider</code>에 같은 id로 같은 방식을 적용한다. 완료 기준: core 안 viz 겹침까지 초록</td><td><span class="tag tag-done">완료</span></td></tr><tr><td><code>S4</code></td><td>README(core·viz)에 <code>fonts</code> 사용법과 SSR 차이를 적고 changeset(core·viz minor)을 쓴다. 완료 기준: 게이트 5종 초록</td><td><span class="tag tag-done">완료</span></td></tr>
 </table></div>
 
 <h2>배치 구성</h2>
 <div class="chart"><svg viewBox="0 0 860 164" role="img" aria-label="배치 2안 비교"><text x="16" y="52" font-size="14" font-weight="700" fill="#1C1B17">단일 에이전트</text><rect x="190.0" y="30" width="638.0" height="36" fill="#F3E8C9" stroke="#1C1B17" stroke-width="2"/><text x="198.0" y="52" font-size="12" fill="#1C1B17">단계1</text><text x="16" y="108" font-size="14" font-weight="700" fill="#1C1B17">오케스트레이션</text><rect x="190.0" y="86" width="638.0" height="36" fill="#C2D3B4" stroke="#1C1B17" stroke-width="2"/><text x="198.0" y="108" font-size="12" fill="#1C1B17">단계1</text><text x="16" y="160" font-size="11" fill="#6E6A5E">배치 크기 기준: work 3~4개 = 한 세션 예산의 절반</text></svg></div>
 <div class="scroll"><table>
-<tr><th>배치</th><th>work</th><th>진행</th><th>배정 출처</th></tr><tr><td>배치1</td><td><code>S1, S2, S3, S4</code></td><td>0/4</td><td>frontmatter</td></tr>
+<tr><th>배치</th><th>work</th><th>진행</th><th>배정 출처</th></tr><tr><td>배치1</td><td><code>S1, S2, S3, S4</code></td><td>4/4</td><td>frontmatter</td></tr>
 </table></div>
 
 
