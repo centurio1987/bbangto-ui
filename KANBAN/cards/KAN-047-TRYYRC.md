@@ -53,7 +53,7 @@ scope: RELEASE_PLAN.md, sample_design/**, apps/storybook/README.md, ORDER.md, pa
 
 ## 실행 계획
 - [x] `S1` 참조원 정리 — `packages/visualization/visualization-type-inventory.md:376` 의 「ORDER.md 편집 금지」 조각과 `packages/foundations/src/gateDocs.test.ts:37` 의 `ORDER.md` 항목을 지운다. 완료 기준: 두 파일에 `ORDER.md` 0건, 나머지 문장과 남의 항목(ASSET_INTEGRATION_PLAN·PLAN.md)은 그대로
-- [ ] `S2` 폐기 4건 삭제 — `git rm` 으로 `RELEASE_PLAN.md`·`sample_design/DESIGN-amber.md`·`apps/storybook/README.md`·`ORDER.md` 를 지운다. 완료 기준: 「검증」 1~3 전부 통과
+- [x] `S2` 폐기 4건 삭제 — `git rm` 으로 `RELEASE_PLAN.md`·`sample_design/DESIGN-amber.md`·`apps/storybook/README.md`·`ORDER.md` 를 지운다. 완료 기준: 「검증」 1~3 전부 통과
 
 ## 검증
 셋이 모두 통과해야 끝이다.
@@ -82,3 +82,5 @@ scope: RELEASE_PLAN.md, sample_design/**, apps/storybook/README.md, ORDER.md, pa
 - 2026-10-06T00:22 · s:3f8d729b — 유저 동의 2건(2026-10-06) — ①KAN-049 겹침 다시 용인(사유에 :376 공유 가능성 반영) ②4.7 인스턴트 예외: 배치 문서·계획 리포트 생략, work 2개로 바로 수행
 - 2026-10-06T00:22 · s:3f8d729b · S1 doing — 착수
 - 2026-10-06T00:22 · s:3f8d729b · S1 done — 참조원 2곳의 ORDER.md 조각 삭제 — type-inventory.md:376 「ORDER.md 편집 금지」, gateDocs.test.ts:37 주석 항목. 같은 줄의 ASSET_INTEGRATION_PLAN·catalog §4 는 그대로
+- 2026-10-06T00:22 · s:3f8d729b · S2 doing — 착수
+- 2026-10-06T00:25 · s:3f8d729b · S2 done — 폐기 4건 git rm — 검증 ①ls-files 빈 출력 ②참조 grep 0건(착수 전 4) ③게이트 5종 초록: typecheck·build·test(182파일/1224)·storybook build·test:unit(549). 새 워크트리는 dist 가 없어 build 를 typecheck 앞에 돌려야 했다
