@@ -9,9 +9,9 @@
 ## 1. Scope model
 
 - 이 문서는 **유형(what) 축만** 다룬다. 한 유형은 모든 스타일 가이드로 리스킨 가능하다(유형 ⊥ 스타일).
-- **스타일(paint) 축 SSOT**: `visualization-catalog.md` §4 + `style-classification.md` (F1~F7 패밀리) — 이 문서에 복제 금지.
+- **스타일(paint) 축 SSOT**: `style-classification.md` (F1~F7 패밀리·가이드 인벤토리·횡단 구현 규칙) + `viz-style-expansion.md` (88장 밖 확장) — 이 문서에 복제 금지.
 - **구현 규약 SSOT**: `README.md` 「구현 규약」 절 (아키텍처·작성 모델·공통 계약) — 이 문서는 무엇이 있고/없고/우선인지만 말한다.
-- 88장 레퍼런스 이미지는 재분석하지 않는다 — `visualization-catalog.md`의 기존 해석(§1/§2)만 흡수하며, 레퍼런스 유래 갭에는 해당 섹션 표기를 남긴다.
+- 88장 레퍼런스 이미지는 재분석하지 않는다 — 구 catalog 의 기존 해석(§1/§2)만 흡수했으며, 레퍼런스 유래 갭에는 해당 섹션 표기(출처 코드 `catalog §…`, §2-a 범례)를 남긴다.
 - 구조 **프리미티브**(node/edge/lane/axis/radial/grid/area/tree/band/leader/mockup/geo/icon-unit)는 Registry 행이 아니라 행의 속성 필드다. catalog §1-c의 원자 갭은 §8-b에 프리미티브 수준으로만 기록한다.
 
 ## 2. Collection metadata
@@ -26,7 +26,7 @@
 |---|---|
 | `src/templates/index.ts` | 구현 템플릿 컴포넌트 export **58종** (ORD-008 25 + ORD-010 18 + ORD-011 15, 권위 목록) |
 | `src/patterns/index.ts` | 구현 패턴 **18종** (ORD-008 6 + ORD-010 7 + ORD-011 5) + 모드 확장 2(`Cycle.flywheel`·`Statistics.waffle`) |
-| `visualization-catalog.md` §1-a/§1-b/§1-c/§2/§2-a | 커버 유형 + 템플릿 갭 9항목 + 원자 갭 + 이연 패턴 7항목 |
+| `catalog` §1-a/§1-b/§1-c/§2/§2-a — 구 `visualization-catalog.md`. KAN-049 에서 §4·§5 를 `style-classification.md` 로 흡수하고 지웠다(§1~§3 은 이 문서에 이미 흡수됨). 원문: `git show 9799843:packages/visualization/visualization-catalog.md` | 커버 유형 + 템플릿 갭 9항목 + 원자 갭 + 이연 패턴 7항목. 이 문서의 출처 코드 `catalog §…` 가 이 행을 가리킨다 |
 | `PLAN` §D (G1~G6) — 구 `PLAN.md`. KAN-049 에서 `README.md` 「구현 규약」으로 흡수하고 지웠다. 원문: `git show fecab77:packages/visualization/PLAN.md` | 마스터 타입 리스트 — G5 차트·G6 메타 프레임 2종(`Kruchten4Plus1View`·`ViewpointFrame`) 모두 구현 완료(G6=KAN-015). 이 문서의 출처 코드 `PLAN §D …` 가 이 행을 가리킨다 |
 | `diagram-references/README.md` | 유형 축 vs 스타일 축 분리 근거 |
 
@@ -340,7 +340,7 @@ catalog §1-b·§2-a의 "ChartPrimitives(bar/line/pie/donut/treemap…)"와 PLAN
 
 ### 8-b. 프리미티브 수준 항목 (Registry 비대상 — ⛔ 사유 `프리미티브수준`)
 
-catalog §1-c의 원자 갭은 유형이 아니라 구성 요소이므로 행으로 승격하지 않는다(원문: `visualization-catalog.md` §1-c):
+catalog §1-c의 원자 갭은 유형이 아니라 구성 요소이므로 행으로 승격하지 않는다(원문: 출처 코드 `catalog` §1-c, §2-a 범례):
 Zone/Layer 밴드 · 서비스 아이콘 칩 · LegendBlock · 회전 EdgeLabel · LinkLabelChip · Fork/Join 바 · DetailCard · DashedGhostNode · TimeAxis/DateTick · 아이콘 글리프 세트 · 협업 마커.
 PLAN §D G6 메타 프레임(`Kruchten4Plus1View`·`ViewpointFrame`)은 유형이 아닌 조합 프레임이라 후보 풀에 기재. (2026-07-23 KAN-015 구현 완료 — 조합 프레임 성격 불변이라 VT 유형 행으로는 미승격.)
 
@@ -366,11 +366,10 @@ Registry 미등재 롱테일. 승격 시 해당 대역 끝 번호로 append.
 
 ## 10. Resume procedure (문맥 없는 에이전트의 이어받기)
 
-1. **소스 재스캔 순서**: `src/templates/index.ts` → `src/patterns/index.ts` → `visualization-catalog.md` §1-b/§1-c/§2-a. 새 export/갭이 보이면 §5 해당 대역 끝에 행 추가 + §6 역방향 표 갱신.
+1. **소스 재스캔 순서**: `src/templates/index.ts` → `src/patterns/index.ts`. (예전 순서 끝의 catalog §1-b/§1-c/§2-a·PLAN §D 는 갭이 전량 흡수돼 KAN-049 에서 지웠다.) 새 export/갭이 보이면 §5 해당 대역 끝에 행 추가 + §6 역방향 표 갱신.
 2. **ID 추가 규칙**: 대역 내 마지막 번호 +1로만 추가(append-only). 재정렬·재번호 금지. 병합 시 §8-c에 `폐기 ID → 대상 ID` 기록.
 3. **카운트 재계산**: §7 각 그룹 행 수·상태 합계 = §5 실제 행 수와 일치시킬 것(⛔ 포함, Appendix 제외).
 4. **검증 명령** (문서 루트 = 리포 루트):
    - export 전수: `rg -o "export \{ [A-Za-z]+ \}" packages/visualization/src/templates/index.ts packages/visualization/src/patterns/index.ts` 의 각 식별자가 §6 표에 존재하는지 대조
-   - 갭 흡수: catalog §1-b/§2-a 각 항목명을 본 문서에서 `rg` 검색 — Registry 행/alias/§8-b 중 한 곳에 존재해야 함
-   - 링크: 본 문서·catalog 간 `](./…)` 상대 링크의 대상 파일 존재 확인
-5. **변경 금지 영역**: catalog §4·style-classification.md 내용 복제 금지(스타일 축), 88장 이미지 재분석 금지, ORDER.md 편집 금지.
+   - 링크: 본 문서의 `](./…)` 상대 링크 대상 파일 존재 확인
+5. **변경 금지 영역**: style-classification.md 내용 복제 금지(스타일 축), 88장 이미지 재분석 금지, ORDER.md 편집 금지.

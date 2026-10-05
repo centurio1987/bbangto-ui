@@ -141,7 +141,7 @@
   - 이유: 두 문서가 본문에서 스스로 「흡수됨」을 선언했는데 type-inventory.md 가 아직 5곳에서 그것을 가리킨다
   - 목표: viz 문서 2건이 사라지고 type-inventory grep 결과가 0건이라 SSOT 체인이 끊기지 않는다
   - 메모: KAN-044 §13-C. 위험: visualization-catalog.md 는 참조 11건으로 통합 대상 중 최다 — 링크를 한 번에 다 고치지 않으면 SSOT 지목이 허공을 가리킨다. 완료 기준에 type-inventory grep 0건을 넣는다. work 4개
-  - 실행 문서: KANBAN/cards/KAN-049-CWBPP6.md (1/4 · 최근 10-06)
+  - 실행 문서: KANBAN/cards/KAN-049-CWBPP6.md (2/4 · 최근 10-06)
   - 계획 리포트: KANBAN/reports/KAN-049-CWBPP6.report.html (낡음)
 
 ## 검토

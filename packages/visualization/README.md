@@ -173,7 +173,9 @@ import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visu
 
 - `visualization-type-inventory.md` — 유형 축 인벤토리(VT 행 90, 사람용 SSOT)
 - `TYPE_METADATA_STRATEGY.md` — 유형 메타 레이어 설계·저작 규약
-- `visualization-catalog.md` · `style-classification.md` — 컴포넌트/스타일 분류
+
+저장소에만 있는 문서(npm 배포물에는 없다): `style-classification.md` — 88장 레퍼런스 기반 스타일 패밀리 분류와 횡단 구현 규칙,
+`viz-style-expansion.md` — 88장 밖 스타일 확장 계획.
 
 ## 라이선스·저장소
 
