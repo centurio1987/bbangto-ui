@@ -231,7 +231,7 @@ Wave 0 (편제·인프라·토큰)
 
 > **동기**: 위 78종은 카테고리당 3~6개의 *샘플*이었다. 실측(`sitemap.xml`) 결과 21st.dev에는 개별 디자인 ≈ 6,866개(공식 ~60 카테고리 헤드라인 ≈ 1,483)가 있고, 이는 극히 일부였다.
 > **목표(사용자 확정)** = 카테고리별 아키타입 **소진**: 각 UI 카테고리의 레퍼런스 디자인을 실제 열람(공개 `/community/components/<user>/<slug>` 페이지) → 구조적으로 구별되는 아키타입으로 클러스터링 → 기존 `variant×color×size×layout`로 표현되는 것 제외(dedupe) → 진짜 새 유형만 named 멤버로 추가. 1:1 복제·중복·비-UI 아트팩트는 제외.
-> **방법론**: discover(`/s/<slug>` RSC 파싱) → harvest(공개 JSX 열람, 코드 미복사) → cluster(객관 판정기준) → gap-analysis(API 경계: 상태/슬롯/모드 prop은 variant 아님) → implement(leaf 2파일 + 감사 매니페스트). opus orchestrator 중앙 게이트, sonnet leaf 병렬(Workflow). 카테고리별 정량 감사 = `packages/core/catalog/<category>.audit.md`.
+> **방법론**: discover(`/s/<slug>` RSC 파싱) → harvest(공개 JSX 열람, 코드 미복사) → cluster(객관 판정기준) → gap-analysis(API 경계: 상태/슬롯/모드 prop은 variant 아님) → implement(leaf 2파일 + 감사 매니페스트). opus orchestrator 중앙 게이트, sonnet leaf 병렬(Workflow). 카테고리별 정량 감사 = [`catalog/SATURATION_AUDIT.md`](catalog/SATURATION_AUDIT.md)(카테고리마다 따로 있던 매니페스트 44개를 한 파일로 모은 것).
 
 **축 규약·테스트 계약은 위 78-variant 섹션과 동일.** 추가 규칙: 신규 축 default-first 첫 멤버는 *기존 렌더를 byte-identical 재현*. 모든 색/그림자/반경은 `cssVar()` 토큰(raw 값 금지; `color-mix`/`backdrop-filter` 합성만 인라인 허용, 색은 토큰 파생). `color-mix()`는 최신 chromium에서 `color(srgb …)`로 직렬화됨(테스트 정규식 주의).
 
@@ -245,7 +245,7 @@ Wave 0 (편제·인프라·토큰)
 | **W5** | patterns | SignIn·SignUp·FormLayout·AIChat | 7 | 7 | `8e8e4ba` |
 | **═══ 포화 완료 ═══** | | 43 카테고리 | **86종** | **86** | 브라우저 test **608** · test:unit **115** · storybook build GREEN |
 
-**채택 멤버 전체** (호스트 → 신규 멤버; 감사 매니페스트는 `catalog/<category>.audit.md`):
+**채택 멤버 전체** (호스트 → 신규 멤버; 감사 매니페스트는 [`catalog/SATURATION_AUDIT.md`](catalog/SATURATION_AUDIT.md)의 카테고리별 절):
 - Button: gradient·link·neon · Input: composer-panel · Hero: stacked-showcase·gradient-surface · Card: retro·pixel · Table: divided·outlined *(신규 축)*
 - Select: glass · Checkbox: gradient *(신규축)* · Radio: card·list·segmented·glass *(신규축)* · Switch: outline *(신규축)* · NumberField: seven-segment *(신규축)* · Textarea: soft *(신규축)* · Chip: solid·outline·avatar · Badge: outline · Avatar: gradient-ring *(신규축)*
 - Accordion: split-media·neobrutalist·horizontal-panels · Calendar: fullscreen·scheduler-split · Menu: dock·segmented·glow · Tabs: segmented · Pagination: segmented·outlined·pixel · Popover: sheet·arrow·elevated · Tooltip: elevated · Link: outline·solid·ghost · DatePicker: inline-week-strip·wheel·ghost *(신규축)* · ProgressIndicator: ring·spokes·dots·bars *(신규축)*

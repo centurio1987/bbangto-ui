@@ -79,7 +79,7 @@ WAVE0 를 지우고 allowlist 항목을 남기면 아무것도 걸러내지 않�
 
 ## 실행 계획
 <!-- `S<n>`은 고정 id — 이름을 바꾸지 않는다. 체크 상태는 doc-step 이 갱신한다. -->
-- [ ] `S1` audit 44개를 `packages/core/catalog/SATURATION_AUDIT.md` 하나로 무손실 접기 — 색인 표 + 파일마다 `## <카테고리>` 절. `COMPONENT_CATALOG.md:234·248` 의 `catalog/<category>.audit.md` 표기를 새 문서로 고치고 44개를 지운다. 완료 기준: 검증 스크립트가 44개 원본의 모든 줄(제목은 한 단계 내린 형태)이 새 문서에 파일 순서대로 있다고 낸다 · `packages/core/catalog/` 에 파일이 하나만 남는다
+- [x] `S1` audit 44개를 `packages/core/catalog/SATURATION_AUDIT.md` 하나로 무손실 접기 — 색인 표 + 파일마다 `## <카테고리>` 절. `COMPONENT_CATALOG.md:234·248` 의 `catalog/<category>.audit.md` 표기를 새 문서로 고치고 44개를 지운다. 완료 기준: 검증 스크립트가 44개 원본의 모든 줄(제목은 한 단계 내린 형태)이 새 문서에 파일 순서대로 있다고 낸다 · `packages/core/catalog/` 에 파일이 하나만 남는다
 - [ ] `S2` `ASSET_INTEGRATION_PLAN.md`·`WAVE0_REPORT.md` 를 `COMPONENT_CATALOG.md` 「Wave 실행 기록」 절로 흡수 — 먼저 `gateDocs.test.ts` allowlist 에서 WAVE0 항목을 빼고 픽스처를 로컬 allowlist 로 바꿔 `test:unit` 빨강을 본다. 그다음 위임 모델 요지·토큰 갭 감사·breakpoint 주의를 옮기고(게이트 명령 줄은 안 옮긴다) `:181` 링크를 고친 뒤 두 파일을 지우고, 주석 두 곳(`gateDocs.test.ts:33-38` · `gateDocs.ts:77-78`)을 실제에 맞춘다. 완료 기준: `@centurio1987/bbangto-ui-foundations` vitest 초록 · 두 파일명 grep 결과가 `DESIGN_SYSTEM_GUIDE.md:182`(KAN-050 몫)와 칸반 기록뿐
 - [ ] `S3` `design-trends-2020-2026.md` 를 `style-guide-catalog.md` 「출처 (조사 근거)」 절로 흡수 — §B 연도별 목록 + 아직 없는 출처 링크 전부. `:94` 문구와 `packages/style-guide-catalog/src/index.ts:46` 주석을 출처 절로 돌리고 파일을 지운다. 완료 기준: `trendTable.test.ts` 초록 · `git diff` 가 38–92줄을 건드리지 않음 · 파일명 grep 결과가 칸반 기록뿐
 - [ ] `S4` `COMPONENT_CATALOG.md` 결함 2건(`:246` 43→44 · `:256` 없는 매니페스트 문장) + 품질 게이트 5종 + 최종 대조. 완료 기준: 게이트 5종 초록 · 「검증」 절 1~5 전부 통과
@@ -98,8 +98,11 @@ WAVE0 를 지우고 allowlist 항목을 남기면 아무것도 걸러내지 않�
 ```bash
 grep -rnE "WAVE0_REPORT|ASSET_INTEGRATION_PLAN|design-trends-2020-2026|\.audit\.md" . \
   --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=dist --exclude-dir=storybook-static \
-  --exclude-dir=KANBAN --exclude-dir=.kanban --exclude=KANBAN.md --exclude=KANBAN.board.html
+  --exclude-dir=KANBAN --exclude-dir=.kanban --exclude=KANBAN.md --exclude=KANBAN.board.html \
+  --exclude=SATURATION_AUDIT.md
 ```
+
+`SATURATION_AUDIT.md` 를 빼는 이유: 그 문서는 원본 파일 이름을 색인과 절마다의 출처 주석으로 일부러 기록한다. 그 기록은 잔여 참조가 아니다.
 
 **3. 자동 생성 구간 무변경** — `git diff main -- packages/core/style-guide-catalog.md` 의 변경 hunk 가 전부
 38–92줄 밖이다.
@@ -124,3 +127,6 @@ find . -name "*.md" -not -path "*/node_modules/*" -not -path "*/.git/*" -not -pa
 - 2026-10-06T00:48 · s:a0ca9d11 — `전략` 섹션 교체
 - 2026-10-06T00:48 · s:a0ca9d11 — `검증` 섹션 교체
 - 2026-10-06T00:51 · s:a0ca9d11 — `전략` 섹션 교체
+- 2026-10-06T00:51 · s:a0ca9d11 · S1 doing — 착수
+- 2026-10-06T00:53 · s:a0ca9d11 — `검증` 섹션 교체
+- 2026-10-06T00:53 · s:a0ca9d11 · S1 done — audit 44개 → packages/core/catalog/SATURATION_AUDIT.md(2183줄) 무손실 접기. 검증 스크립트 접기 전 FAIL 0/44 → 접은 뒤·원본 삭제 뒤 PASS 44/44(원본은 git main 에서 대조). COMPONENT_CATALOG.md:234·248 표기 갱신. 색인 표는 호스트·축 표기가 파일마다 달라 원 파일·절 제목 두 열로 냈다. 검증 2번 grep 에 --exclude=SATURATION_AUDIT.md 추가(출처 기록이라 잔여 참조가 아님)
