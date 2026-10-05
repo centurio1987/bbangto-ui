@@ -1,6 +1,10 @@
 # KANBAN 변경 이력
 > 최근 50건. 이보다 오래된 이력은 archive.jsonl 로 압축 보관한다.
 
+- #164 2026-10-06 00:31 · ai · KAN-047-TRYYRC 독립성 겹침 용인 (상대 KAN-049-CWBPP6) — 같은 줄을 둘 다 고친다 — visualization-type-inventory.md:376(047은 ORDER.md 조각, 049는 catalog §4 조각)과 gateDocs.test.ts:37-38(047은 ORDER.md 항목, 049는 PLAN.md 항목). 각자 자기 조각만 지우므로 순서가 바뀌어도 상대가 할 일이 그대로 남는다. 늦게 병합하는 쪽이 두 조각이 다 지워진 줄로 충돌을 푼다. 2026-08-25 사유('줄이 다르다')를 실측으로 바로잡아 재기록 (2026-10-06 유저 승인)
+- #163 2026-10-06 00:31 · ai · KAN-049-CWBPP6 독립성 겹침 용인 (상대 KAN-052-BYS4JN) — 052는 viz Provider 코드·internal/ExternalFonts와 README 사용법 절만 고친다. 049는 PLAN·visualization-catalog 문서 흡수이고 README에는 새 절(구현 규약)을 더한다. 049 scope에 gateDocs.test.ts를 더해 재기록 — 겹침 내용 불변 (2026-10-06 유저 승인)
+- #162 2026-10-06 00:31 · ai · KAN-049-CWBPP6 독립성 겹침 용인 (상대 KAN-051-5HMYKT) — 049는 packages/visualization/**를 잡았지만 md 문서만 고친다. 051은 packages/visualization/tsup.config.ts만 고친다. 049 scope에 gateDocs.test.ts를 더해 재기록 — 겹침 내용 불변 (2026-10-06 유저 승인)
+- #161 2026-10-06 00:31 · ai · KAN-049-CWBPP6 독립성 겹침 용인 (상대 KAN-055-34A57K) — 049는 PLAN.md·visualization-catalog.md 흡수만 하고, 055가 viz에서 바꾸는 것은 CI Version PR이 만드는 package.json·CHANGELOG.md뿐이라 같은 파일을 건드리지 않는다. 049 scope에 gateDocs.test.ts를 더해 재기록 — 겹침 내용 불변 (2026-10-06 유저 승인)
 - #160 2026-10-06 00:22 · ai · KAN-049-CWBPP6 이동 할 일 → 진행 중
 - #159 2026-10-05 01:49 · 유저 · KAN-049-CWBPP6 독립성 겹침 용인 (상대 KAN-055-34A57K) — 049는 PLAN.md·visualization-catalog.md 흡수만 하고, 055가 viz에서 바꾸는 것은 CI Version PR이 만드는 package.json·CHANGELOG.md뿐이라 같은 파일을 건드리지 않는다 (2026-10-05 유저 선택)
 - #158 2026-10-05 00:14 · ai · KAN-050-AJSQAY 수정 메모
@@ -47,7 +51,3 @@
 - #124 2026-08-14 15:00 · ai · KAN-043-2JM72N 생성 "상류 리포트 I 계열(I1~I7) 해소 — 유형 선택 정보 도달 경로" → 진행 중
 - #123 2026-08-14 14:17 · ai · KAN-042-JZ2ZBT 이동 진행 중 → 검토
 - #122 2026-08-14 13:09 · ai · KAN-042-JZ2ZBT 이동 할 일 → 진행 중
-- #121 2026-08-14 12:57 · 유저 · KAN-036 수정 메모
-- #120 2026-08-14 12:57 · 유저 · KAN-040 수정 제목
-- #119 2026-08-14 12:57 · 유저 · KAN-020 수정 메모
-- #118 2026-08-14 12:57 · 유저 · KAN-042-JZ2ZBT 생성 "bbangto-ui-vizualization을 사용하는 클라이언트가 문제를 제기했다. "/Users/centurio/resume/docs/viz-upstream-issues.md" 이 레포트를 보고 문제를 진단하고 문제 해결 전략 레포트를 작성하고, wbs를 작성하여 이 카드를 수행하는 agent가 사용할 수 있도록 해라.ㄴ" → 할 일

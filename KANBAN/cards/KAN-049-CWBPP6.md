@@ -2,7 +2,7 @@
 card: KAN-049-CWBPP6
 title: 문서 정리 C — visualization 계열 통합 (PLAN · visualization-catalog 흡수 + SSOT 이동)
 created: 2026-08-25
-scope: packages/visualization/**, packages/visualization-style-guide-catalog/README.md, packages/style-guide-catalog/METADATA_STRATEGY.md
+scope: packages/visualization/**, packages/visualization-style-guide-catalog/README.md, packages/style-guide-catalog/METADATA_STRATEGY.md, packages/foundations/src/gateDocs.test.ts
 ---
 
 # KAN-049-CWBPP6 — 문서 정리 C — visualization 계열 통합 (PLAN · visualization-catalog 흡수 + SSOT 이동)
@@ -57,12 +57,16 @@ scope: packages/visualization/**, packages/visualization-style-guide-catalog/REA
 - **구현 규약을 type-inventory 에 둔다** — `visualization-type-inventory.md:13` 이 「무엇이 있고/없고/우선인지만 말한다」고
   스스로 범위를 그었다.
 
-### 결정 대기 (착수 전 유저 확인)
+### 결정 (2026-10-06 유저 확인)
 
-- `gateDocs.test.ts` 를 scope 에 더할지. 더하면 KAN-049 가 얽힌 용인 4건이 무효가 되고, KAN-047 과는 같은 줄
-  (`visualization-type-inventory.md:376`, `gateDocs.test.ts:37-38`)을 함께 고친다는 사실이 새로 드러난다.
-- 완료 기준 「type-inventory grep 0건」을 출처 코드 29행까지 지우는 뜻으로 읽을지.
-- 배치안(단일 / 오케스트레이션).
+- **`gateDocs.test.ts` 를 scope 에 더한다.** :38 의 `PLAN.md` 항목만 지운다(:37 은 KAN-047, `ASSET_INTEGRATION_PLAN` 은 KAN-048 몫).
+  무효가 된 용인 4건을 다시 기록했다 — 051·052·055 는 겹침 내용 불변, 047 은 사유를 「같은 줄을 각자 자기 조각만 지운다,
+  늦게 병합하는 쪽이 충돌을 푼다」로 바로잡았다. KAN-047·048 의 scope 변경이 main 에 들어오면 049 와의 쌍이 다시 무효가 되므로
+  그때 main 에서 다시 기록해야 한다(048 과는 그때 처음 겹친다).
+- **출처 코드 29행은 남기고 범례로 푼다.** type-inventory §1 출처 표에 `catalog`·`PLAN` 두 코드의 뜻과 원문을 볼 git 경로를 적는다.
+  그래서 「검증」 1 grep 에는 범례 2줄이 남는다.
+- **원안 변경 두 건을 그대로 간다** — ③(두 축 표 중복)은 빼고, README 로 옮길 것은 현재 아키텍처 요지 · 아직 참인 확정 결정 · §C-2 셋이다.
+- **배치안은 단일 에이전트.**
 
 ## 실행 계획
 - [ ] `S1` PLAN.md 흡수·삭제 — viz `README.md` 에 「구현 규약 (구 PLAN §C-2)」 절을 새로 낸다(현재 아키텍처 · 아직 참인 확정 결정 · §C-2). 주장마다 코드 근거(`파일:줄`)를 확인하고, 안 맞으면 코드 기준으로 고쳐 쓰거나 뺀다. 같은 커밋에서 PLAN 인바운드(`visualization-type-inventory.md` :13·:30·:77·:159·:327·:345·:359·:369·:374·:375, `gateDocs.test.ts:38`)를 고치고 type-inventory §1 출처 표에 `PLAN` 코드의 마지막 판(git 고정 경로)을 적은 뒤 `git rm`. 완료 기준: 「검증」 1의 grep 에 `PLAN.md` 0건, 옮긴 주장마다 근거 확인이 수행 내역에 남는다
@@ -83,7 +87,7 @@ QUALITY_CHECKLIST 의 A~E 절은 컴포넌트·토큰·모션·스토리용이�
    ```
    - 착수 시 빨강 **13줄** — 지울 파일 자신 3(`PLAN.md:10,34` · `visualization-catalog.md:43`) + 인바운드 10
      (`visualization-type-inventory.md:12,13,14,29,30,343,369` · `style-classification.md:4` · `README.md:128` · `gateDocs.test.ts:38`)
-   - 끝나면 type-inventory §1 출처 범례의 git 고정 경로 줄(결정 대기 결과에 따라 0~2줄)만 남는다
+   - 끝나면 type-inventory §1 출처 범례의 git 경로 2줄만 남는다
 2. **파일명 없는 지목도 풀린다** —
    - `grep -n -E 'catalog·PLAN|catalog §4|§5-6' packages/visualization/*.md` 0건(이어받기 절차·변경 금지 영역·횡단 규칙 참조가 새 자리를 가리킨다)
    - Registry 출처 코드 29행은 남되, §1 출처 표에 `catalog`·`PLAN` 두 코드의 정의가 있다
@@ -104,3 +108,6 @@ QUALITY_CHECKLIST 의 A~E 절은 컴포넌트·토큰·모션·스토리용이�
 - 2026-10-06T00:23 · s:211bdcc1 — `전략` 섹션 교체
 - 2026-10-06T00:23 · s:211bdcc1 — `실행 계획` 섹션 교체
 - 2026-10-06T00:24 · s:211bdcc1 — `검증` 섹션 교체
+- 2026-10-06T00:31 · s:211bdcc1 — `전략` 섹션 교체
+- 2026-10-06T00:31 · s:211bdcc1 — `검증` 섹션 교체
+- 2026-10-06T00:31 · s:211bdcc1 — 착수 결정 4건 유저 확인(전부 추천안) — scope 에 gateDocs.test.ts 추가(문서 frontmatter 를 AI 가 고쳐 reconcile 이 유저로 귀속), 용인 4건 재기록(047 사유 정정), 출처 코드 29행 존치+범례, 원안 ③ 제외·README 이관 확대, 단일 에이전트
