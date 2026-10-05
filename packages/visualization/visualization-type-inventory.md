@@ -10,7 +10,7 @@
 
 - 이 문서는 **유형(what) 축만** 다룬다. 한 유형은 모든 스타일 가이드로 리스킨 가능하다(유형 ⊥ 스타일).
 - **스타일(paint) 축 SSOT**: `visualization-catalog.md` §4 + `style-classification.md` (F1~F7 패밀리) — 이 문서에 복제 금지.
-- **구현 스펙 SSOT**: `PLAN.md` (아키텍처·§D 구현 노트) — 이 문서는 무엇이 있고/없고/우선인지만 말한다.
+- **구현 규약 SSOT**: `README.md` 「구현 규약」 절 (아키텍처·작성 모델·공통 계약) — 이 문서는 무엇이 있고/없고/우선인지만 말한다.
 - 88장 레퍼런스 이미지는 재분석하지 않는다 — `visualization-catalog.md`의 기존 해석(§1/§2)만 흡수하며, 레퍼런스 유래 갭에는 해당 섹션 표기를 남긴다.
 - 구조 **프리미티브**(node/edge/lane/axis/radial/grid/area/tree/band/leader/mockup/geo/icon-unit)는 Registry 행이 아니라 행의 속성 필드다. catalog §1-c의 원자 갭은 §8-b에 프리미티브 수준으로만 기록한다.
 
@@ -27,7 +27,7 @@
 | `src/templates/index.ts` | 구현 템플릿 컴포넌트 export **58종** (ORD-008 25 + ORD-010 18 + ORD-011 15, 권위 목록) |
 | `src/patterns/index.ts` | 구현 패턴 **18종** (ORD-008 6 + ORD-010 7 + ORD-011 5) + 모드 확장 2(`Cycle.flywheel`·`Statistics.waffle`) |
 | `visualization-catalog.md` §1-a/§1-b/§1-c/§2/§2-a | 커버 유형 + 템플릿 갭 9항목 + 원자 갭 + 이연 패턴 7항목 |
-| `PLAN.md` §D (G1~G6) | 마스터 타입 리스트 — G5 차트·G6 메타 프레임 2종(`Kruchten4Plus1View`·`ViewpointFrame`) 모두 구현 완료(G6=KAN-015) |
+| `PLAN` §D (G1~G6) — 구 `PLAN.md`. KAN-049 에서 `README.md` 「구현 규약」으로 흡수하고 지웠다. 원문: `git show fecab77:packages/visualization/PLAN.md` | 마스터 타입 리스트 — G5 차트·G6 메타 프레임 2종(`Kruchten4Plus1View`·`ViewpointFrame`) 모두 구현 완료(G6=KAN-015). 이 문서의 출처 코드 `PLAN §D …` 가 이 행을 가리킨다 |
 | `diagram-references/README.md` | 유형 축 vs 스타일 축 분리 근거 |
 
 ### 2-b. 외부 소스 (전 항목 접근일 2026-07-13)
@@ -324,7 +324,7 @@ catalog §1-b·§2-a의 "ChartPrimitives(bar/line/pie/donut/treemap…)"와 PLAN
 | **계** | **90** | **87** | **0** | **0** | **3** | **0** | **0** | **0** |
 
 > ORD-012 완료 후 커버리지: 구현(✅) **97%(87/90)** — 범위 외 ⛔ 3(VT-520 Data Table·VT-610 Infographic Resume·VT-611 Scrollytelling)을 제외한 **채택 유형 전량 구현(87/87 = 100%)**. A 엔지니어링 100%(29/29)·E 데이터 차트 95%(19/20, ⛔ 1)·F 인포그래픽 82%(9/11, ⛔ 2)·G 개념 프레임워크 100%(10/10).
-> **P1·P2·P3 잔여 0** — ORD-012에서 P3 11건(📋 9 + 🔶 승격 2: VT-123 BPMN Collaboration·VT-307 WBS) 전량 구현. 신규 순수 geometry 4(`boxplot`/`chord`/`iceberg`/`hexgrid`, vitest 단위) + `tree.wbsNumbering`·신규 shape `folder`(+DMN inline path 헬퍼). 전부 공통 계약(§C-2) 준수 — 신규 paint 채널 0. **인벤토리 백로그 소진 완료.**
+> **P1·P2·P3 잔여 0** — ORD-012에서 P3 11건(📋 9 + 🔶 승격 2: VT-123 BPMN Collaboration·VT-307 WBS) 전량 구현. 신규 순수 geometry 4(`boxplot`/`chord`/`iceberg`/`hexgrid`, vitest 단위) + `tree.wbsNumbering`·신규 shape `folder`(+DMN inline path 헬퍼). 전부 공통 계약(`README.md` 「구현 규약」, 구 PLAN §C-2) 준수 — 신규 paint 채널 0. **인벤토리 백로그 소진 완료.**
 
 ## 8. 부속 기록
 
@@ -366,11 +366,11 @@ Registry 미등재 롱테일. 승격 시 해당 대역 끝 번호로 append.
 
 ## 10. Resume procedure (문맥 없는 에이전트의 이어받기)
 
-1. **소스 재스캔 순서**: `src/templates/index.ts` → `src/patterns/index.ts` → `visualization-catalog.md` §1-b/§1-c/§2-a → `PLAN.md` §D. 새 export/갭이 보이면 §5 해당 대역 끝에 행 추가 + §6 역방향 표 갱신.
+1. **소스 재스캔 순서**: `src/templates/index.ts` → `src/patterns/index.ts` → `visualization-catalog.md` §1-b/§1-c/§2-a. 새 export/갭이 보이면 §5 해당 대역 끝에 행 추가 + §6 역방향 표 갱신.
 2. **ID 추가 규칙**: 대역 내 마지막 번호 +1로만 추가(append-only). 재정렬·재번호 금지. 병합 시 §8-c에 `폐기 ID → 대상 ID` 기록.
 3. **카운트 재계산**: §7 각 그룹 행 수·상태 합계 = §5 실제 행 수와 일치시킬 것(⛔ 포함, Appendix 제외).
 4. **검증 명령** (문서 루트 = 리포 루트):
    - export 전수: `rg -o "export \{ [A-Za-z]+ \}" packages/visualization/src/templates/index.ts packages/visualization/src/patterns/index.ts` 의 각 식별자가 §6 표에 존재하는지 대조
-   - 갭 흡수: catalog §1-b/§2-a·PLAN §D G5 각 항목명을 본 문서에서 `rg` 검색 — Registry 행/alias/§8-b 중 한 곳에 존재해야 함
-   - 링크: 본 문서·catalog·PLAN 간 `](./…)` 상대 링크의 대상 파일 존재 확인
+   - 갭 흡수: catalog §1-b/§2-a 각 항목명을 본 문서에서 `rg` 검색 — Registry 행/alias/§8-b 중 한 곳에 존재해야 함
+   - 링크: 본 문서·catalog 간 `](./…)` 상대 링크의 대상 파일 존재 확인
 5. **변경 금지 영역**: catalog §4·style-classification.md 내용 복제 금지(스타일 축), 88장 이미지 재분석 금지, ORDER.md 편집 금지.

@@ -69,7 +69,7 @@ scope: packages/visualization/**, packages/visualization-style-guide-catalog/REA
 - **배치안은 단일 에이전트.**
 
 ## 실행 계획
-- [ ] `S1` PLAN.md 흡수·삭제 — viz `README.md` 에 「구현 규약 (구 PLAN §C-2)」 절을 새로 낸다(현재 아키텍처 · 아직 참인 확정 결정 · §C-2). 주장마다 코드 근거(`파일:줄`)를 확인하고, 안 맞으면 코드 기준으로 고쳐 쓰거나 뺀다. 같은 커밋에서 PLAN 인바운드(`visualization-type-inventory.md` :13·:30·:77·:159·:327·:345·:359·:369·:374·:375, `gateDocs.test.ts:38`)를 고치고 type-inventory §1 출처 표에 `PLAN` 코드의 마지막 판(git 고정 경로)을 적은 뒤 `git rm`. 완료 기준: 「검증」 1의 grep 에 `PLAN.md` 0건, 옮긴 주장마다 근거 확인이 수행 내역에 남는다
+- [x] `S1` PLAN.md 흡수·삭제 — viz `README.md` 에 「구현 규약 (구 PLAN §C-2)」 절을 새로 낸다(현재 아키텍처 · 아직 참인 확정 결정 · §C-2). 주장마다 코드 근거(`파일:줄`)를 확인하고, 안 맞으면 코드 기준으로 고쳐 쓰거나 뺀다. 같은 커밋에서 PLAN 인바운드(`visualization-type-inventory.md` :13·:30·:77·:159·:327·:345·:359·:369·:374·:375, `gateDocs.test.ts:38`)를 고치고 type-inventory §1 출처 표에 `PLAN` 코드의 마지막 판(git 고정 경로)을 적은 뒤 `git rm`. 완료 기준: 「검증」 1의 grep 에 `PLAN.md` 0건, 옮긴 주장마다 근거 확인이 수행 내역에 남는다
 - [ ] `S2` visualization-catalog.md 흡수·삭제 — §4 표·4-a~4-c·§5 를 `style-classification.md` 로 옮기고 F4·F6 「스펙만」 헤딩을 현행으로 고친다. 같은 커밋에서 인바운드(`visualization-type-inventory.md` :12·:14·:15·:29·:77·:159·:335·:343·:369·:374·:375·:376, `style-classification.md` :4·:205, `README.md:128`)를 고치고 type-inventory §1 출처 표에 `catalog` 코드의 마지막 판을 적은 뒤 `git rm`. 완료 기준: 「검증」 1의 grep 0건, 「검증」 2 통과
 - [ ] `S3` METADATA_STRATEGY §7 롤아웃 표 — `packages/style-guide-catalog/METADATA_STRATEGY.md:152,154,155` 의 KAN-024 「viz 후속」·KAN-026·027 📋 를 완료로 고친다. 완료 기준: §7 표에 📋 0건, 각 행에 완료 커밋(`e2484bb`·`d481e26`) 기재
 - [ ] `S4` 검증 — 「검증」 1~4 를 전부 돌린다. 완료 기준: 전부 통과하고 숫자가 수행 내역에 남는다
@@ -111,3 +111,5 @@ QUALITY_CHECKLIST 의 A~E 절은 컴포넌트·토큰·모션·스토리용이�
 - 2026-10-06T00:31 · s:211bdcc1 — `전략` 섹션 교체
 - 2026-10-06T00:31 · s:211bdcc1 — `검증` 섹션 교체
 - 2026-10-06T00:31 · s:211bdcc1 — 착수 결정 4건 유저 확인(전부 추천안) — scope 에 gateDocs.test.ts 추가(문서 frontmatter 를 AI 가 고쳐 reconcile 이 유저로 귀속), 용인 4건 재기록(047 사유 정정), 출처 코드 29행 존치+범례, 원안 ③ 제외·README 이관 확대, 단일 에이전트
+- 2026-10-06T00:31 · s:211bdcc1 · S1 doing — 착수
+- 2026-10-06T00:34 · s:211bdcc1 · S1 done — PLAN.md 흡수·삭제 — README 「구현 규약 (구 PLAN §C-2)」 신설. 근거: contractCss.ts:12-21 · Node.tsx:37 · tokens/contract.ts:7 · Provider.tsx:95,102 · tokens/base.ts(무채색) · Canvas.tsx:72,92 · package.json deps=tokens 하나 · types/data.ts:8-16 · Flowchart.tsx:63 · BarChart.tsx:59-61 · Sankey:24·GitGraph:33·Venn:27·GeoMap:29. 낡아서 고쳐 옮김: data-viz-pattern→data-bbangto-viz-pattern(0건), 자동 레이아웃 없음→노드-엣지 유형만(tidyTreeLayout·squarifyLayout 있음), core import grep 가드(가드 테스트 없음 → 안 옮김). 인바운드: type-inventory :13·:30(§2-a 출처 표를 범례로)·:327·:369·:374·:375, gateDocs.test.ts:38. 출처 코드 사용처 :77·:159·:345·:359 는 결정 2대로 둠. gateDocs 18/18 통과

@@ -121,6 +121,54 @@ import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visu
 </VisualizationStyleGuideProvider>
 ```
 
+## 구현 규약 (구 PLAN §C-2)
+
+새 유형을 더하거나 컴포넌트를 고칠 때 지키는 규약이다. 소비자에게는 공개 계약이기도 하다 —
+어떤 props 가 오고, 무엇을 지원하지 않는지가 여기서 정해진다.
+
+### 구조
+
+- **geometry 는 컴포넌트에, paint 는 스타일 레이어에.** 컴포넌트는 리터럴 색을 쓰지 않고 시맨틱 data 속성
+  (`data-viz-part="shape"` · `data-bbangto-viz-edge` · `data-bbangto-viz-pattern` …)만 낸다.
+  `src/provider/contractCss.ts` 의 계약 스타일시트가 그 속성을 `--bbangto-viz-*` 토큰에 묶는다.
+- **명시한 prop 이 이긴다.** 사용자가 준 `fill`·`stroke` 는 인라인 `style` 로 렌더된다. SVG presentation
+  attribute 는 author stylesheet 에 지고 `var()` 도 attribute 안에서는 무효라 쓰지 않는다.
+- **토큰 계층**: `VisualizationFoundation`(tokens 패키지) → `vvar()` 가 만드는 `var(--bbangto-viz-…)` →
+  `VisualizationStyleGuideProvider` 가 CSS 변수를 주입한다. Provider 밖에서는 무채색 `baseVisualizationFoundation` 으로 떨어진다.
+- **스타일 가이드는 core 와 같은 모양이고 core 에 기대지 않는다.** `VisualizationStyleGuide` 는 core `StyleGuide` 의
+  구조를 로컬로 다시 선언했다. 이 패키지의 런타임 의존은 `@centurio1987/bbangto-ui-tokens` 하나다.
+- **레이어**: `atoms/` → `molecules/` → `patterns/` · `templates/`(다이어그램·인포그래픽 유형). 배치 계산은 `geometry/` 의 순수 함수다.
+- **마커 id 가 겹치지 않는다.** `Canvas` 가 `useId` 로 캔버스마다 마커 id 를 따로 만든다. defs 가 더 필요하면
+  Provider 의 `useVizDefsPrefix()` 를 쓴다.
+
+### 작성 모델
+
+- **노드-엣지 유형은 좌표를 호출자가 준다.** Flowchart·C4·UML 처럼 노드와 엣지로 그리는 유형에는 자동 레이아웃
+  엔진이 없다 — `data.nodes` 의 `x`·`y`·`width`·`height` 를 그대로 그린다. 트리·트리맵·차트처럼 배치가 데이터에서
+  정해지는 유형만 `geometry/` 의 순수 함수(`tidyTreeLayout`·`squarifyLayout` 등)로 위치를 계산한다.
+  텍스트 DSL 파서와 mermaid·dagre·d3 의존은 없다.
+- **표기 키트이지 검증기가 아니다.** BPMN·ArchiMate·SysML 같은 표준의 의미와 제약을 런타임에 검사하지 않는다.
+- **`children` 과 `data`**: 둘 다 받고, `children` 이 있으면 `children` 만 그린다(둘을 섞지 않는다).
+  `data` 항목은 `id` 가 필수다 — 자동 번호를 매기면 SSR 과 CSR 의 id 가 어긋난다.
+
+### 공통 계약 (ORD-010 이후 유형 전부)
+
+- **props 이름**: 주 입력 `data`, 대체 모드 `children`, 항목 배열 `items`/`series`, 항목 필드 `{ id, label, value, color? }`
+  (`id` 는 필수 string), 값 포맷 `formatValue?: (n) => string`, 차트 도메인 `domain?: [min, max]`
+  (없으면 데이터에서 계산하고 0 기준선을 넣는다).
+- **data 속성은 두 갈래다.** 테스트·외부 셀렉터용 공개 훅은 `data-bbangto-viz-*`(`-bar`·`-point`·`-line`·`-axis`·`-tick`·
+  `-band-edge`·`-pattern` …)이고, `data-viz-part="shape"` 는 계약 스타일시트만 쓰는 내부 훅이다.
+- **paint 채널을 늘리지 않는다.** 계약 채널은 `shape`·`edge` 둘이다. 면을 갈라야 하는 유형은
+  `vvar('palette', 'pN')` 인라인 fill 과 fill-opacity 상수로, 텍스트 위계는 `vvar('typography', …)` 로 낸다.
+- **접근성**: 루트 `Canvas` 는 `role="img"`(`accessible="structured"` 면 `group`)와 `title`(선택 `desc`)을 갖는다.
+  값은 항상 텍스트로 함께 적는다 — 그래픽만으로 값을 말하지 않는다.
+- **경계 입력**: 빈 데이터는 빈 캔버스다(throw 하지 않는다). 항목 하나도 그린다. `children`·`data` 를 함께 주면 `children` 이다.
+- **지원 범위**: Sankey 는 비순환·좌→우·수동 노드 좌표. GitGraph merge 는 직선. Venn 은 2원 정밀 + 3원 대칭 근사.
+  GeoMap 은 호출자가 준 region path 를 그린다(투영 없음, 고정 viewBox). 대량 데이터 최적화는 대상이 아니다.
+- **테스트는 두 갈래다.** 순수 geometry 는 `src/**/*.test.ts` 의 vitest 단위 테스트로, 컴포넌트 렌더는 Storybook `play()` 로 본다.
+  `play()` 에서는 텍스트 bbox·computed width 를 대조하지 않는다(실행마다 흔들린다) — geometry 가 낸 값과
+  attribute 정수를 ±1 로 대조한다.
+
 ## 함께 들어 있는 문서
 
 - `visualization-type-inventory.md` — 유형 축 인벤토리(VT 행 90, 사람용 SSOT)
