@@ -145,7 +145,7 @@
   - 메모: KAN-044 §13-C. 위험: visualization-catalog.md 는 참조 11건으로 통합 대상 중 최다 — 링크를 한 번에 다 고치지 않으면 SSOT 지목이 허공을 가리킨다. 완료 기준에 type-inventory grep 0건을 넣는다. work 4개
   - 실행 문서: KANBAN/cards/KAN-049-CWBPP6.md (4/4 · 최근 10-06)
   - 계획 리포트: KANBAN/reports/KAN-049-CWBPP6.report.html (낡음)
-  - 검토 문서: KANBAN/reviews/KAN-049-CWBPP6.review.md (승인 0/2 · 검토 대기)
+  - 검토 문서: KANBAN/reviews/KAN-049-CWBPP6.review.md (승인 1/2 · 반려 1 · 추가 의견 총 2 · 검토 대기)
 
 ## 완료
 - `KAN-020` visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현 — 생성:유저 · 최종:유저 · 갱신:2026-08-14
