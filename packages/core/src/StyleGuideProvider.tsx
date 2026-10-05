@@ -23,7 +23,8 @@ export interface StyleGuideProviderProps {
   style?: React.CSSProperties;
   /**
    * External web fonts (Pretendard, JetBrains Mono). Defaults to `'external'`.
-   * `'none'` makes no CDN request — load the fonts yourself (self-hosting, strict CSP).
+   * `'none'` stops this Provider from requesting them — load the fonts yourself (self-hosting, strict CSP).
+   * Injection is shared by the whole document: for zero CDN requests every Provider must use `'none'`.
    * Each font is injected into `document.head` once, however many Providers are nested.
    */
   fonts?: ExternalFontsMode;

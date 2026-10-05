@@ -3,7 +3,9 @@ import { useInsertionEffect } from 'react';
 /**
  * Provider가 외부 CDN 글꼴을 불러올지.
  * - `'external'`(기본): JetBrains Mono(Google Fonts)를 주입한다.
- * - `'none'`: 외부 요청을 하지 않는다. 글꼴은 앱이 직접 불러온다.
+ * - `'none'`: 이 Provider는 글꼴을 넣지 않는다. 글꼴은 앱이 직접 불러온다.
+ *   주입은 문서 전체가 나눠 쓰므로 다른 Provider가 이미 넣은 글꼴은 남는다 —
+ *   외부 요청 0건은 문서 안 Provider 전부가 `'none'` 일 때다.
  */
 export type ExternalFontsMode = 'external' | 'none';
 

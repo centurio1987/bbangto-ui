@@ -9,7 +9,8 @@ Provider 외부 글꼴을 끌 수 있게 하고, 겹쳐 써도 글꼴마다 한 
 
 - **`fonts?: 'external' | 'none'`** — `FoundationProvider` · `StyleGuideProvider`(core),
   `VisualizationStyleGuideProvider`(visualization)에 더했다. 기본값 `'external'`은 지금 동작 그대로다.
-  `'none'`이면 CDN 글꼴 요청을 하지 않으므로 글꼴을 직접 호스팅하거나 CSP로 외부 요청을 막는 앱이 쓸 수 있다.
+  `'none'`이면 그 Provider는 CDN 글꼴 요청을 하지 않는다. 글꼴을 직접 호스팅하거나 CSP로 외부 요청을 막는 앱용이다.
+  주입은 문서 전체가 나눠 쓰므로, 외부 요청을 0건으로 만들려면 문서 안의 Provider 전부에 `'none'`을 준다.
 
 ### 바뀐 동작
 

@@ -3,7 +3,9 @@ import { useInsertionEffect } from 'react';
 /**
  * Whether a Provider loads its web fonts from external CDNs.
  * - `'external'` (default): inject Pretendard (jsDelivr) and JetBrains Mono (Google Fonts).
- * - `'none'`: make no external request. The app is expected to load the fonts itself.
+ * - `'none'`: this Provider injects nothing. The app is expected to load the fonts itself.
+ *   Injection is shared by the whole document, so fonts another Provider already injected
+ *   stay — external requests reach zero only when every Provider in the document uses `'none'`.
  */
 export type ExternalFontsMode = 'external' | 'none';
 

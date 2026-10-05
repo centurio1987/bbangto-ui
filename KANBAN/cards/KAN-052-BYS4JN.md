@@ -92,3 +92,5 @@ core에 새 내부 모듈이 생기므로, 스토리에서 옛 dist가 보이면
 - 2026-10-06T00:44 · s:d196a119 · S3 done — viz internal/ExternalFonts.tsx(core와 같은 id·href) + VisualizationStyleGuideProvider fonts prop. 글꼴 스토리 10종 전부 초록, 외부 글꼴 주소는 ExternalFonts.tsx 두 파일 밖 0건
 - 2026-10-06T00:45 · s:d196a119 · S4 doing — 착수
 - 2026-10-06T00:50 · s:d196a119 · S4 done — README(core·viz) fonts 절 + changeset(core·viz minor). 게이트 5종 초록(test 1232/1232). 빌드 Storybook 기본 화면: head 에 글꼴 노드 2개·렌더 트리 @import 0, Pretendard 적용, JetBrains Mono 18 face 등록·요청 시 로드
+- 2026-10-06T00:57 · s:d196a119 — 정정: S3 기록의 「글꼴 스토리 10종」은 「두 스토리 파일의 10개(글꼴 스토리 8 + 기존 viz 스토리 2)」가 맞다. 글꼴 스토리는 8종(core 6·viz 2). S3 커밋 메시지(84aa3f7)에도 같은 오기가 있다 — 검토자(opus) 지적
+- 2026-10-06T00:57 · s:d196a119 — 검토자 추가 의견 반영: fonts="none" 이 문서 전체가 아니라 그 Provider 몫만 끈다는 점을 7곳(core·viz ExternalFonts 타입 주석, Provider JSDoc 3, changeset, viz README:127)에서 정확히 고침

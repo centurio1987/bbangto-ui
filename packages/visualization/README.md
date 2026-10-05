@@ -124,7 +124,7 @@ import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visu
 Provider는 기본으로 JetBrains Mono를 Google Fonts에서 불러온다. 글꼴을 직접 호스팅하거나 CSP로
 외부 요청을 막는 앱은 `fonts="none"`으로 끈다. 글꼴은 `document.head`에 한 번만 들어가므로
 (`#bbangto-font-jetbrains-mono`) core Provider 안에 겹쳐도 요청이 두 번 나가지 않는다.
-외부 요청을 0건으로 만들려면 겹친 Provider 전부에 `fonts="none"`을 준다. SSR HTML에는 `@import`가
+외부 요청을 0건으로 만들려면 문서 안의 Provider 전부에 `fonts="none"`을 준다. SSR HTML에는 `@import`가
 들어가지 않고 화면이 켜진 뒤에 불러온다.
 
 ## 함께 들어 있는 문서
