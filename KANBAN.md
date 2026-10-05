@@ -144,7 +144,7 @@
   - 목표: 네 문서가 레포에서 사라지고 grep 결과 0건이라 참조 고아가 남지 않는다
   - 메모: KAN-044 §13-A. ORDER.md 는 검토 3번 반려(유저 「제거」)로 존치→폐기가 된 건이라 선행 수정이 하나 있다 — visualization-type-inventory.md:376 의 「ORDER.md 편집 금지」 문구. work 1~2개(4.7 인스턴트 예외 대상)
   - 실행 문서: KANBAN/cards/KAN-047-TRYYRC.md (2/2 · 최근 10-06)
-  - 검토 문서: KANBAN/reviews/KAN-047-TRYYRC.review.md (승인 0/2 · 검토 대기)
+  - 검토 문서: KANBAN/reviews/KAN-047-TRYYRC.review.md (승인 2/2 · 추가 의견 총 2 · 검토 대기)
 
 ## 완료
 - `KAN-020` visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현 — 생성:유저 · 최종:유저 · 갱신:2026-08-14
