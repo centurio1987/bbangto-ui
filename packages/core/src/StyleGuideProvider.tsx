@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useMemo, ReactNode } from 'react';
 import { foundationToStyleObject } from '@centurio1987/bbangto-ui-tokens';
 import { useMotionKeyframes } from './motion/keyframes';
+import { useExternalFonts, type ExternalFontsMode } from './internal/ExternalFonts';
 import type { StyleGuide } from './StyleGuide';
 import { resolveFoundationPreset } from './StyleGuide';
 
@@ -20,6 +21,12 @@ export interface StyleGuideProviderProps {
   className?: string;
   /** Additional inline styles. */
   style?: React.CSSProperties;
+  /**
+   * External web fonts (Pretendard, JetBrains Mono). Defaults to `'external'`.
+   * `'none'` makes no CDN request — load the fonts yourself (self-hosting, strict CSP).
+   * Each font is injected into `document.head` once, however many Providers are nested.
+   */
+  fonts?: ExternalFontsMode;
 }
 
 /**
@@ -34,6 +41,7 @@ export function StyleGuideProvider({
   as: Component = 'div',
   className,
   style,
+  fonts = 'external',
 }: StyleGuideProviderProps) {
   const { foundations, extendedFoundations, activeKey } = resolveFoundationPreset(styleGuide, foundationKey);
 
@@ -43,13 +51,10 @@ export function StyleGuideProvider({
   }), [foundations, extendedFoundations]);
 
   useMotionKeyframes();
+  useExternalFonts(fonts);
 
   return (
     <StyleGuideContext.Provider value={styleGuide}>
-      <style>{`
-        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
-      `}</style>
       <Component
         className={className}
         style={{ ...cssVars, ...style } as React.CSSProperties}

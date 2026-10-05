@@ -7,6 +7,7 @@ import {
 } from '@centurio1987/bbangto-ui-tokens';
 import { lightFoundation } from './foundations';
 import { useMotionKeyframes } from './motion/keyframes';
+import { useExternalFonts, type ExternalFontsMode } from './internal/ExternalFonts';
 
 interface FoundationContextValue {
   foundation: BbangtoFoundation;
@@ -26,6 +27,12 @@ export interface FoundationProviderProps {
   className?: string;
   /** Additional inline styles. */
   style?: React.CSSProperties;
+  /**
+   * External web fonts (Pretendard, JetBrains Mono). Defaults to `'external'`.
+   * `'none'` makes no CDN request — load the fonts yourself (self-hosting, strict CSP).
+   * Each font is injected into `document.head` once, however many Providers are nested.
+   */
+  fonts?: ExternalFontsMode;
 }
 
 /**
@@ -38,6 +45,7 @@ export function FoundationProvider({
   as: Component = 'div',
   className,
   style,
+  fonts = 'external',
 }: FoundationProviderProps) {
   const mergedFoundation = useMemo(() => {
     return overrides ? mergeFoundation(foundation, overrides) : foundation;
@@ -49,13 +57,10 @@ export function FoundationProvider({
 
   // Inject motion keyframes + prefers-reduced-motion reset once per document.
   useMotionKeyframes();
+  useExternalFonts(fonts);
 
   return (
     <FoundationContext.Provider value={{ foundation: mergedFoundation }}>
-      <style>{`
-        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
-      `}</style>
       <Component
         className={className}
         style={{ ...cssVars, ...style } as React.CSSProperties}
