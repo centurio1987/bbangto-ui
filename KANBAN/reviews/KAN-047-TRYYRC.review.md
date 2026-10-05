@@ -159,7 +159,7 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-047-TRYYRC --add
 
 - [ ] 「참조 0건」 검사에서 칸반 기록을 뺀 것이 맞는가 — 지운 문서 이름이 칸반 기록에는 남아 있습니다
     - **배경**
-      - 카드 목표는 「grep 결과 0건이라 참조 고아가 남지 않는다」입니다. 원문: KANBAN.md:142
+      - 카드 목표는 「grep 결과 0건이라 참조 고아가 남지 않는다」입니다. 원문: KANBAN.md 의 KAN-047-TRYYRC 「목표」 줄
       - 칸반 기록 파일 18개(보드·카드 문서·검토서·로그·KAN-044 리포트)에 지운 문서 이름이 나옵니다. 예: KAN-044 수행 내역의 「ORDER.md 판정을 존치→폐기로」. 원문: KANBAN/cards/KAN-044-3KYT2Q.md:113
       - 이 기록들은 그때 무슨 일이 있었는지 적은 이력입니다. 지금 파일이 없다고 고치면 이력이 바뀌고, 보드의 원문 펜스는 요약·의역하지 않는 것이 규칙입니다.
       - 그래서 검사에서 KANBAN.md·KANBAN/·.kanban/ 을 뺐고, 그 밖의 레포 전역은 0건입니다. 원문: KANBAN/cards/KAN-047-TRYYRC.md 「검증」 2
