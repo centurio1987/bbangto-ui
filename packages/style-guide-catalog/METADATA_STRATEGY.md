@@ -149,7 +149,7 @@ StyleGuide.meta  ──(buildManifest, 결정적)──▶  catalog.manifest.jso
 | KAN-021 | 잔여 48 UI + 6 viz `meta` 전량 backfill → gate "meta 필수" 승격 | ✅ (UI 51/51·viz 6/6 authored, pending 0; viz 매니페스트 인프라 신설) |
 | KAN-022 | `selectStyleGuides(criteria)` 스코어링 helper API | ✅ (soft-weighted, UI·viz 국소복제+parity, 38 vitest) |
 | KAN-023 | Storybook "Catalog Decision Table" 비교표 스토리 | ✅ (인터랙티브 필터·랭킹, UI/viz 2스토리) |
-| KAN-024 | 팔레트 토큰 실측 WCAG 대비 계산 → `accessibility` 선언과 CI 대조 | ✅ (UI over-claim hard-fail, 실측 51종 정직; viz 후속) |
+| KAN-024 | 팔레트 토큰 실측 WCAG 대비 계산 → `accessibility` 선언과 CI 대조 | ✅ (UI over-claim hard-fail, 실측 51종 정직; viz 는 KAN-026 에서 완료) |
 | KAN-025 | 매니페스트 → `style-guide-catalog.md` 트렌드 표 자동생성 | ✅ (gen 마커+통합 표, sync 테스트; STYLE_FAMILY_LABELS 승격) |
-| KAN-026 | viz 팔레트 실측 대비 감사(canvas 위 잉크/라벨 텍스트 쌍 정의 후 auditContrast 확장) | 📋 |
-| KAN-027 | #29-50 비정규 displayName 16건 canonical(`Primary_Secondary_01`) 정규화 | 📋 |
+| KAN-026 | viz 팔레트 실측 대비 감사(canvas 위 잉크/라벨 텍스트 쌍 정의 후 auditContrast 확장) | ✅ (`auditVizContrast`, over-claim 0 — `e2484bb`) |
+| KAN-027 | #29-50 비정규 displayName 16건 canonical(`Primary_Secondary_01`) 정규화 | ✅ (meta·매니페스트·트렌드 표 정정 — `d481e26`) |

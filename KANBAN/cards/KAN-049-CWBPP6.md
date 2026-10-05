@@ -71,7 +71,7 @@ scope: packages/visualization/**, packages/visualization-style-guide-catalog/REA
 ## 실행 계획
 - [x] `S1` PLAN.md 흡수·삭제 — viz `README.md` 에 「구현 규약 (구 PLAN §C-2)」 절을 새로 낸다(현재 아키텍처 · 아직 참인 확정 결정 · §C-2). 주장마다 코드 근거(`파일:줄`)를 확인하고, 안 맞으면 코드 기준으로 고쳐 쓰거나 뺀다. 같은 커밋에서 PLAN 인바운드(`visualization-type-inventory.md` :13·:30·:77·:159·:327·:345·:359·:369·:374·:375, `gateDocs.test.ts:38`)를 고치고 type-inventory §1 출처 표에 `PLAN` 코드의 마지막 판(git 고정 경로)을 적은 뒤 `git rm`. 완료 기준: 「검증」 1의 grep 에 `PLAN.md` 0건, 옮긴 주장마다 근거 확인이 수행 내역에 남는다
 - [x] `S2` visualization-catalog.md 흡수·삭제 — §4 표·4-a~4-c·§5 를 `style-classification.md` 로 옮기고 F4·F6 「스펙만」 헤딩을 현행으로 고친다. 같은 커밋에서 인바운드(`visualization-type-inventory.md` :12·:14·:15·:29·:77·:159·:335·:343·:369·:374·:375·:376, `style-classification.md` :4·:205, `README.md:128`)를 고치고 type-inventory §1 출처 표에 `catalog` 코드의 마지막 판을 적은 뒤 `git rm`. 완료 기준: 「검증」 1의 grep 0건, 「검증」 2 통과
-- [ ] `S3` METADATA_STRATEGY §7 롤아웃 표 — `packages/style-guide-catalog/METADATA_STRATEGY.md:152,154,155` 의 KAN-024 「viz 후속」·KAN-026·027 📋 를 완료로 고친다. 완료 기준: §7 표에 📋 0건, 각 행에 완료 커밋(`e2484bb`·`d481e26`) 기재
+- [x] `S3` METADATA_STRATEGY §7 롤아웃 표 — `packages/style-guide-catalog/METADATA_STRATEGY.md:152,154,155` 의 KAN-024 「viz 후속」·KAN-026·027 📋 를 완료로 고친다. 완료 기준: §7 표에 📋 0건, 각 행에 완료 커밋(`e2484bb`·`d481e26`) 기재
 - [ ] `S4` 검증 — 「검증」 1~4 를 전부 돌린다. 완료 기준: 전부 통과하고 숫자가 수행 내역에 남는다
 
 ## 검증
@@ -118,3 +118,5 @@ QUALITY_CHECKLIST 의 A~E 절은 컴포넌트·토큰·모션·스토리용이�
 - 2026-10-06T00:34 · s:211bdcc1 · S2 doing — 착수
 - 2026-10-06T00:36 · s:211bdcc1 — `검증` 섹션 교체
 - 2026-10-06T00:37 · s:211bdcc1 · S2 done — visualization-catalog.md 흡수·삭제 — style-classification 에 「초기 3종(구 §4-a~4-c)」·「횡단 구현 규칙(구 §5)」 신설, F4·F6 헤딩과 매핑 표 F4·F6 행을 구현 완료로(KAN-013·014, preset 은 소스에서 확인), §5-6 참조를 새 절로. 4-f~4-h 는 이미 있어 안 옮김, 4-h 「defs 수백 노드 guidelines 명시」는 소스에서 못 찾아 안 옮김. 횡단 규칙 1·4 는 토큰 슬롯이 없다는 사실을 함께 적음. 인바운드: type-inventory :12·:14·:29(§2-a 범례)·:343·:369·:374(항목 삭제)·:375·:376, README 「함께 들어 있는 문서」(npm 미동봉 문서를 저장소 전용으로 갈라 적음). 출처 코드 사용처 :15·:77·:159·:335 는 결정 2대로 둠. 검증 1 = 3줄(범례 2 + style-classification 흡수 이력 1), 검증 2 = 0건, 상대 링크 10/10, gateDocs 18/18. 출처 표 위치가 §1 이 아니라 §2-a 라서 검증 절 문구를 고침
+- 2026-10-06T00:37 · s:211bdcc1 · S3 doing — 착수
+- 2026-10-06T00:37 · s:211bdcc1 · S3 done — METADATA_STRATEGY §7 — KAN-024 「viz 후속」→KAN-026 완료, KAN-026(e2484bb)·027(d481e26) 📋→✅. §7 표 📋 0건. 이 md 를 읽는 테스트 없음(grep 확인)
