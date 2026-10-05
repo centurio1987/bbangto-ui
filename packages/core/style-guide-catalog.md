@@ -91,7 +91,7 @@ slug = kebab-case (`name` / `data-bbangto-style-guide` / `styleGuideMap` 키).
 | 50 | Naive_Doodle_01 | `naive-doodle-01` | 표현/에너지 | 비숙련 어린아이의 크레용 낙서·스크리블 — 원색 마커 다색, 삐뚤한 손그림 윤곽선, 화살표·동그라미 주석의 천진한 카오스. | P3 |
 <!-- gen:trend-table:end -->
 
-> #24–28은 [`design-trends-2020-2026.md`](./design-trends-2020-2026.md) §C(2020–2026 시간축 리서치)에서 도출한 신규 후보. 기존 #1–23이 커버하지 못한 트렌드를 보강한다.
+> #24–28은 2020–2026 시간축 리서치(아래 [출처](#출처-조사-근거) 절의 「2020–2026 시간축 리서치」)에서 도출한 신규 후보. 기존 #1–23이 커버하지 못한 트렌드를 보강한다.
 
 ---
 
@@ -343,6 +343,97 @@ slug = kebab-case (`name` / `data-bbangto-style-guide` / `styleGuideMap` 키).
 - [List of Aesthetics / Memphis / Y2K / Neubrutalism — Aesthetics Wiki](https://aesthetics.fandom.com/wiki/List_of_Aesthetics)
 - [25+ Graphic Design Styles Explained — Dezignz](https://dezignz.org/types-of-graphic-design-styles/)
 - [Cyberpunk Design Trends & Aesthetics — Brainstorm](https://brainstormprojects.studio/cyberpunk-design-style/)
+
+### 2020–2026 시간축 리서치 (#24–28 도출 근거)
+
+> `packages/core/design-trends-2020-2026.md`(2026-06-30)에서 옮겼다(KAN-048). 그 문서의 「카탈로그 갱신 요약」이 #24–28 을 도출했고, 도출이 끝나 문서는 지웠다(원문은 git 이력). 여기 남긴 것은 연도별 트렌드 표와 위 목록에 없던 출처 링크다.
+> 트렌드는 인접 연도에 걸쳐 지속되므로 **최초/정점 연도** 기준으로 배치하고 지속 여부를 비고에 적었다. 매핑 열의 slug 와 `(신규)` 표시는 그 문서를 쓸 당시(#0–23) 기준이다.
+
+#### 2020
+
+| # | 트렌드 | 시각 특징 | 카탈로그 매핑 / 비고 |
+|---|--------|-----------|---------------------|
+| 20-1 | **3D 깊이·리얼리즘** | 플랫 도형 → 부풀린 버블·초현실 환경·인터랙티브 모션. 플라스틱/컬러풀 소재의 하이퍼리얼 기하·조형. | (신규) 3D 패밀리 · 2023까지 지속 |
+| 20-2 | **모노크롬** | 단일 색의 톤 변주로 시각적 휴식·미니멀 변주. | `minimal-saas-01` 변주 |
+| 20-3 | **뮤트 컬러 팔레트** | 채도 낮은 배경으로 가독성↑·모던 감성. | `scandi-warm-01` 인접 |
+| 20-4 | **볼드 타이포그래피** | 장식·손글씨 줄고 모던 볼드 폰트. 라이트 폰트·심플 배경과 대비. | `swiss-international-01` |
+| 20-5 | **아이소메트릭** | 인포그래픽·프레젠테이션용 등각 구성. 형태·단순·깊이. | (신규) 일러스트 모티프 |
+| 20-6 | **임퍼펙션 / 진정성** | 그릿·그레인·러프 엣지·글리치로 인간적·불완전함. | `collage-scrapbook-01`, `vaporwave-synth-01`(글리치) |
+| 20-7 | **컬러 그라디언트** | 90s 회귀, 2색 이상 점진 블렌딩(타이포·일러스트 포함). | `aurora-gradient-01` 전조 |
+| 20-8 | **믹스드 미디어 콜라주** | 찢긴 종이·패브릭·컷아웃 텍스트·페인트 + 디지털 레이어. | `collage-scrapbook-01` |
+
+#### 2021
+
+| # | 트렌드 | 시각 특징 | 카탈로그 매핑 / 비고 |
+|---|--------|-----------|---------------------|
+| 21-1 | **다크 모드 표준화** | 트렌드 → 기대 표준. 저조도 눈 피로↓·OLED 배터리↑. 네온과 결합. | foundation `dark`(base) |
+| 21-2 | **글래스모피즘** | 반투명 유리/플라스틱 카드. 투명 글래스 + 라이트 보더 + 비비드/파스텔. 라이트·다크 양립, 접근성 양호. | `glassmorphism-aurora-01` |
+| 21-3 | **뉴모피즘** | 저대비·소프트 섀도·모노크롬으로 압출/함몰. ⚠ 접근성 취약(저대비). | `neumorphism-soft-01` |
+| 21-4 | **3D 일러스트/캐릭터 지속** | 부드러운 3D 캐릭터·아이콘 대중화. | (신규) 3D 패밀리 |
+
+#### 2022
+
+| # | 트렌드 | 시각 특징 | 카탈로그 매핑 / 비고 |
+|---|--------|-----------|---------------------|
+| 22-1 | **네오브루탈리즘** | 노출 그리드·강한 타이포·레이어링·제한 팔레트·미가공 HTML 룩. 적/청·적/녹 등 고대비 충돌색. 2022–23 주류화. | `neobrutalism-editorial-01` |
+| 22-2 | **Y2K 미학** | 크롬·네온·버블·글로시. 퍼피·샤이니·리퀴드 크롬 레터폼. 패션/뮤비/잡지 회귀. | `y2k-futurism-01` |
+| 22-3 | **도파민 / 비비드 컬러** | 미니멀·뮤트 → 고채도·네온 그라디언트·플레이풀. 라이프스타일/뷰티/youth 브랜드. | `maximalism-dopamine-01` |
+
+#### 2023
+
+| # | 트렌드 | 시각 특징 | 카탈로그 매핑 / 비고 |
+|---|--------|-----------|---------------------|
+| 23-1 | **네온/글로잉 그라디언트** | 깊이·차원감용 그라디언트. 네온·글로우로 에너지·레트로퓨처 감성(타이포·일러스트 적용). | `aurora-gradient-01`, `vaporwave-synth-01` |
+| 23-2 | **미니멀 3D ("아티피셜 리얼리즘")** | 라이프라이크 텍스처·소재. 과하지 않게 깊이 추가. 로고·패키지·웹 비주얼. | (신규) 3D 패밀리 |
+| 23-3 | **맥시멀리즘** | 볼드 컬러·패턴·텍스처로 시각적 압도. 캔버스 전면 사용·레이어드 사진·반복 요소·여백 배제. | `maximalism-dopamine-01` |
+| 23-4 | **실험적 타이포그래피** | 폰트 레이어링·의외 페어링·커스텀 타입으로 브랜드 개성. | `swiss-international-01`, `editorial-magazine-01` |
+
+#### 2024
+
+| # | 트렌드 | 시각 특징 | 카탈로그 매핑 / 비고 |
+|---|--------|-----------|---------------------|
+| 24-1 | **벤토 그리드** | 일본 도시락형 모듈·비대칭·균형 블록. Apple·MS·Pinterest 채택. 2024는 정적 → 이후 인터랙티브 타일로 진화. | (신규) — `bento-grid-01` 후보(PT/레이아웃) |
+| 24-2 | **키네틱 타이포그래피** | 움직이는 텍스트 — 스트레치·트위스트·커서 반응. 색·크기·투명도 변화. | (신규) — `kinetic-typography-01` 후보 |
+| 24-3 | **글래스모피즘 진화** | 프로스티드 글래스 + 스크롤 연동 동적 배경 블러. 카드 분리·플로팅 레이어. | `glassmorphism-aurora-01` |
+| 24-4 | **AI 통합/개인화** | AI를 개인화 도구·협업 파트너로. | (신규) — 26-20~22와 연속 |
+
+#### 2025
+
+| # | 트렌드 | 시각 특징 | 카탈로그 매핑 / 비고 |
+|---|--------|-----------|---------------------|
+| 25-1 | **오로라 그라디언트(플루이드)** | 오로라(북극광)에서 명명. 비선형 색 블렌딩으로 배경 깊이·집중 유도(비방해). | `aurora-gradient-01` |
+| 25-2 | **벤토 그리드 지속** | 모듈·비대칭·균형 블록의 모던 웹 표준화. | (신규) `bento-grid-01` 후보 |
+| 25-3 | **브루탈리즘 / 네오브루탈리즘** | 브루탈리즘=거칠고 혼돈. 네오브루탈리즘=구조적·미니멀·고대비 충돌색·괴짜 폰트·모던 일러스트. | `neobrutalism-editorial-01` |
+| 25-4 | **빅 타이포그래피** | 초대형 볼드 텍스트를 주 비주얼로. 가독성·개성·주목. | `swiss-international-01`, `darkluxe-editorial-01` |
+| 25-5 | **마이크로 인터랙션** | 의미 있는 미세 모션으로 피드백·주의 유도. | core `motion/*` atoms |
+| 25-6 | **다크 모드 진화** | 단순 반전 → 정교한 듀얼 테마·대비 튜닝. | foundation `dark`(base) |
+| 25-7 | **지속가능/접근성 우선** | 린 코드·접근성·성능 중심. | (신규) 횡단 가이드라인(G) |
+
+#### 출처 — 2026 (제공 링크)
+
+Figma 2026 은 위 목록에 있다.
+
+- [Design Trends 2026 — Behance](https://www.behance.net/gallery/239027109/Design-Trends-2026)
+- [Design trends for 2026 — Adobe Express](https://www.adobe.com/express/learn/blog/design-trends-2026)
+
+#### 출처 — 2020–2025 (연도별 리서치)
+
+CC Creative 는 위 목록에 있다.
+
+- [The Graphic Design Trends That Have Defined the 2020s — Mad Genius](https://madg.com/blog/the-graphic-design-trends-that-have-defined-the-2020s-so-far/)
+- [Top 10 Graphic Design Trends of 2020 — Printivity](https://www.printivity.com/insights/graphic-design-trend-2020)
+- [20 top graphic design trends for 2020 — Creative Bloq](https://www.creativebloq.com/features/graphic-design-trends-2020)
+- [2021-22 UI Design Trends: Neumorphism, Glassmorphism — Behance/Elkhan Hajizada](https://www.behance.net/gallery/140007635/2021-22-UI-Design-Trends-Neumorphism-Glassmorphism)
+- [Glassmorphism in 2021 — Hype4 Academy](https://hype4.academy/articles/design/glassmorphism-in-2021)
+- [Neo-Brutalism: The Trendy Middle Child of Web Design — Perficient](https://blogs.perficient.com/2022/03/11/neo-brutalism-the-trendy-middle-child-of-web-design/)
+- [Neubrutalism — Aesthetics Wiki](https://aesthetics.fandom.com/wiki/Neubrutalism)
+- [Top 2023 Graphic Design Trends — SketchDeck](https://sketchdeck.com/blog/top-2023-graphic-design-trends/)
+- [Graphic Design Trends 2023 — Piktochart](https://piktochart.com/blog/graphic-design-trends/)
+- [Bento Grids & Beyond: 7 UI Trends Dominating Web Design — WriterDock](https://writerdock.in/blog/bento-grids-and-beyond-7-ui-trends-dominating-web-design-2026)
+- [Top 25 Web Design Trends 2025 — Aufait UX](https://www.aufaitux.com/blog/web-design-trends-2025/)
+- [25 Top Web Design Trends 2025 — Depositphotos](https://blog.depositphotos.com/web-design-trends-2025.html)
+- [From Bento Boxes to Brutalism: Top UI Design Trends for 2025 — Wenoxo (Medium)](https://medium.com/@support_82111/from-bento-boxes-to-brutalism-decoding-the-top-ui-design-trends-for-2025-f524d0a49569)
+- [Graphic design trends for 2025 — Adobe Express](https://www.adobe.com/express/learn/blog/design-trends-2025)
 
 ---
 

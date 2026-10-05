@@ -43,7 +43,7 @@ export { collageScrapbookStyleGuide, CollageShowcase, collageScrapbookWrappers }
 export { kawaiiPastelStyleGuide, KawaiiShowcase, kawaiiPastelWrappers } from './kawaiiPastel';
 export { artDecoLuxeStyleGuide, ArtDecoShowcase, artDecoLuxeWrappers } from './artDecoLuxe';
 
-// 신규 후보(2026 트렌드 리서치 §C — design-trends-2020-2026.md) presets.
+// 신규 후보(2026 트렌드 리서치 — packages/core/style-guide-catalog.md 「출처」 절) presets.
 export { bentoModularStyleGuide, BentoShowcase, bentoModularWrappers } from './bentoModular';
 export { kineticTypographyStyleGuide, KineticShowcase, kineticTypographyWrappers } from './kineticTypography';
 export { spatial3dStyleGuide, Spatial3DShowcase, spatial3dWrappers } from './spatial3d';
