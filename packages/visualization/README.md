@@ -128,8 +128,8 @@ import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visu
 
 ### 구조
 
-- **geometry 는 컴포넌트에, paint 는 스타일 레이어에.** 컴포넌트는 리터럴 색을 쓰지 않고 시맨틱 data 속성
-  (`data-viz-part="shape"` · `data-bbangto-viz-edge` · `data-bbangto-viz-pattern` …)만 낸다.
+- **geometry 는 컴포넌트에, paint 는 스타일 레이어에.** 컴포넌트는 리터럴 색 대신 시맨틱 data 속성
+  (`data-viz-part="shape"` · `data-bbangto-viz-edge` · `data-bbangto-viz-pattern` …)을 낸다(예외는 아래 「알려진 한계」).
   `src/provider/contractCss.ts` 의 계약 스타일시트가 그 속성을 `--bbangto-viz-*` 토큰에 묶는다.
 - **명시한 prop 이 이긴다.** 사용자가 준 `fill`·`stroke` 는 인라인 `style` 로 렌더된다. SVG presentation
   attribute 는 author stylesheet 에 지고 `var()` 도 attribute 안에서는 무효라 쓰지 않는다.
@@ -140,6 +140,10 @@ import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visu
 - **레이어**: `atoms/` → `molecules/` → `patterns/` · `templates/`(다이어그램·인포그래픽 유형). 배치 계산은 `geometry/` 의 순수 함수다.
 - **마커 id 가 겹치지 않는다.** `Canvas` 가 `useId` 로 캔버스마다 마커 id 를 따로 만든다. defs 가 더 필요하면
   Provider 의 `useVizDefsPrefix()` 를 쓴다.
+- **렌더 중에 DOM 을 재지 않는다.** 글자 폭은 `geometry/text.ts` 의 `estimateWidth` 로 추정하고
+  `getComputedTextLength` 는 쓰지 않는다 — 그래서 서버 렌더와 브라우저 렌더의 결과가 같다.
+- **모션 줄이기를 따른다.** `prefers-reduced-motion: reduce` 면 스타일 가이드 범위 안의 애니메이션·전환을 사실상 끈다.
+  꼭 남겨야 하는 움직임에만 `data-bbangto-viz-animate="essential"` 을 붙인다(`src/provider/defs.ts`).
 
 ### 작성 모델
 
@@ -150,6 +154,12 @@ import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visu
 - **표기 키트이지 검증기가 아니다.** BPMN·ArchiMate·SysML 같은 표준의 의미와 제약을 런타임에 검사하지 않는다.
 - **`children` 과 `data`**: 둘 다 받고, `children` 이 있으면 `children` 만 그린다(둘을 섞지 않는다).
   `data` 항목은 `id` 가 필수다 — 자동 번호를 매기면 SSR 과 CSR 의 id 가 어긋난다.
+- **`children` 모드의 노드 등록은 한 단계뿐이다.** `Canvas` 는 바로 아래 자식 엘리먼트의 props 에서
+  `id`·`x`·`y`·`width`·`height` 를 읽어 엣지가 찾을 좌표로 등록한다. `<g>`·Fragment 처럼 다른 엘리먼트 안에 넣은 노드나
+  그 다섯 값을 props 로 받지 않는 래퍼 컴포넌트는 등록되지 않는다. 그 id 를 가리키는 `Edge` 는 콘솔 경고만 내고
+  그려지지 않는다(throw 하지 않는다). 그럴 때는 `Edge` 의 `from`/`to` 에 `{ x, y }` 를 직접 주거나 노드를 `Canvas` 바로 아래에 둔다.
+- **`NodeLabel` 은 기본이 `wrap`(어절 단위 줄바꿈, `maxLines` 기본 3)이고 `truncate`(말줄임)를 고를 수 있다.**
+  한 줄에 눌러 맞추는 `fit`(SVG `lengthAdjust`)은 폰트가 대체되면 글자가 찌그러지므로 직접 골라야만 켜진다.
 
 ### 공통 계약 (ORD-010 이후 유형 전부)
 
@@ -161,13 +171,21 @@ import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visu
 - **paint 채널을 늘리지 않는다.** 계약 채널은 `shape`·`edge` 둘이다. 면을 갈라야 하는 유형은
   `vvar('palette', 'pN')` 인라인 fill 과 fill-opacity 상수로, 텍스트 위계는 `vvar('typography', …)` 로 낸다.
 - **접근성**: 루트 `Canvas` 는 `role="img"`(`accessible="structured"` 면 `group`)와 `title`(선택 `desc`)을 갖는다.
-  값은 항상 텍스트로 함께 적는다 — 그래픽만으로 값을 말하지 않는다.
+  값은 항상 텍스트로 함께 적는다 — 그래픽만으로 값을 말하지 않는다. 노드 글리프·아이콘 배지 같은 장식은 `aria-hidden` 이다.
 - **경계 입력**: 빈 데이터는 빈 캔버스다(throw 하지 않는다). 항목 하나도 그린다. `children`·`data` 를 함께 주면 `children` 이다.
 - **지원 범위**: Sankey 는 비순환·좌→우·수동 노드 좌표. GitGraph merge 는 직선. Venn 은 2원 정밀 + 3원 대칭 근사.
   GeoMap 은 호출자가 준 region path 를 그린다(투영 없음, 고정 viewBox). 대량 데이터 최적화는 대상이 아니다.
 - **테스트는 두 갈래다.** 순수 geometry 는 `src/**/*.test.ts` 의 vitest 단위 테스트로, 컴포넌트 렌더는 Storybook `play()` 로 본다.
   `play()` 에서는 텍스트 bbox·computed width 를 대조하지 않는다(실행마다 흔들린다) — geometry 가 낸 값과
   attribute 정수를 ±1 로 대조한다.
+
+### 알려진 한계
+
+- **템플릿 12개는 기본 채움·선·그림자 색을 리터럴로 넣는다** — `ArchitectureDiagram` · `ArchiMateDiagram` · `BlockDiagram` ·
+  `BPMNDiagram` · `BPMNCollaborationDiagram` · `IsometricScene` · `KanbanBoard` · `Mindmap` · `RequirementDiagram` ·
+  `UMLComponentDiagram` · `UMLDeploymentDiagram` · `UMLSequenceDiagram`. 이 기본값이 인라인 style 로 렌더되므로
+  스타일 가이드를 바꿔도 그 부분 색은 그대로다. 구 PLAN 「이연」의 「파일럿 외 템플릿 리터럴 paint 제거」가 아직 남은 것이다
+  (2026-10-06 소스 확인).
 
 ## 함께 들어 있는 문서
 

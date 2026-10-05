@@ -122,3 +122,6 @@ QUALITY_CHECKLIST 의 A~E 절은 컴포넌트·토큰·모션·스토리용이�
 - 2026-10-06T00:37 · s:211bdcc1 · S3 done — METADATA_STRATEGY §7 — KAN-024 「viz 후속」→KAN-026 완료, KAN-026(e2484bb)·027(d481e26) 📋→✅. §7 표 📋 0건. 이 md 를 읽는 테스트 없음(grep 확인)
 - 2026-10-06T00:37 · s:211bdcc1 · S4 doing — 착수
 - 2026-10-06T00:40 · s:211bdcc1 · S4 done — 검증 전부 통과 — 1: 3줄(type-inventory:29·30 범례, style-classification:5 흡수 이력), 2: 0건·0건·출처 코드 29행 유지, 3: 상대 링크 10/10, 4: build·typecheck green · test 182 files/1224 tests · storybook build 성공 · test:unit hooks 115·foundations 62·visualization 257·style-guide-catalog 76·viz-sg-catalog 39 전부 통과
+- 2026-10-06T00:54 · s:211bdcc1 — 검토 §3-1 반려(opus 검토자) — PLAN §C·§F 의 살아 있는 규칙 5개(children 등록 한계·DOM 측정 안 함·NodeLabel 모드·모션 줄이기·장식 글리프 aria-hidden)가 README 에 없다. 코드로 5개 모두 확인. 같은 종류 전수 점검으로 PLAN 「이연」의 리터럴 paint 제거가 미완(템플릿 12개)인 것을 추가로 찾음. snap()·gridPlace 는 코드에 없어 안 옮김
+- 2026-10-06T00:54 · s:211bdcc1 — 정정 — S2 줄의 「4-h defs 수백 노드 주의를 소스에서 못 찾음」은 틀렸다. neonGradientDark.tsx:232·315 에 있다(grep 출력을 head -4 로 잘라 놓쳤다). 안 옮긴 결과는 그대로 맞다
+- 2026-10-06T00:56 · s:211bdcc1 — 반려 반영 — README 「구현 규약」에 5개 추가(구조: DOM 측정 안 함·모션 줄이기 / 작성 모델: children 등록 한계·NodeLabel 모드 / 공통 계약 접근성: 장식 aria-hidden) + 「알려진 한계」 절 신설(리터럴 색 템플릿 12개, 구 PLAN 이연 미완) + 「리터럴 색을 쓰지 않는다」 문장을 예외 참조로 고침. style-classification 횡단 규칙 상태 문장 정정(3 은 prop 만, 토큰 없음). test:unit 전부 통과, md 만 바뀌어 나머지 게이트 4종은 앞 실행(S4) 결과 유지
