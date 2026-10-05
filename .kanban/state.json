@@ -1,14 +1,14 @@
 {
   "next_id": 56,
-  "next_seq": 160,
+  "next_seq": 164,
   "cards": {
     "KAN-047-TRYYRC": {
-      "col": "todo",
+      "col": "done",
       "title": "문서 정리 A — 폐기 4건 집행 (RELEASE_PLAN · sample_design · storybook README · ORDER)",
       "verbatim": "",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-08-25",
+      "갱신": "2026-10-06",
       "title_hash": "309dd28de4c84bf86b3dbcb183dcacceec6465af",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
       "short": "폐기 4건 집행",
@@ -26,7 +26,8 @@
         "sample_design/**",
         "apps/storybook/README.md",
         "ORDER.md",
-        "packages/visualization/visualization-type-inventory.md"
+        "packages/visualization/visualization-type-inventory.md",
+        "packages/foundations/src/gateDocs.test.ts"
       ]
     },
     "KAN-048-R2KW3G": {
@@ -897,7 +898,6 @@
   },
   "order": [
     "KAN-055-34A57K",
-    "KAN-047-TRYYRC",
     "KAN-048-R2KW3G",
     "KAN-049-CWBPP6",
     "KAN-050-AJSQAY",
@@ -950,9 +950,50 @@
     "KAN-043-2JM72N",
     "KAN-044-3KYT2Q",
     "KAN-045-PNT454",
-    "KAN-046-33S4G8"
+    "KAN-046-33S4G8",
+    "KAN-047-TRYYRC"
   ],
   "recent": [
+    {
+      "seq": 163,
+      "t": "2026-10-06T00:48",
+      "a": "ai",
+      "id": "KAN-047-TRYYRC",
+      "op": "move",
+      "w": "JG08FN",
+      "from": "review",
+      "to": "done"
+    },
+    {
+      "seq": 162,
+      "t": "2026-10-06T00:26",
+      "a": "ai",
+      "id": "KAN-047-TRYYRC",
+      "op": "move",
+      "w": "JG08FN",
+      "from": "doing",
+      "to": "review"
+    },
+    {
+      "seq": 161,
+      "t": "2026-10-06T00:22",
+      "a": "유저",
+      "id": "KAN-047-TRYYRC",
+      "op": "waive",
+      "w": "JG08FN",
+      "with_": "KAN-049-CWBPP6",
+      "reason": "같은 파일(visualization-type-inventory.md)을 둘 다 고친다. A 는 :376 의 「ORDER.md 편집 금지」 조각, C 는 :12,13,14,29,30,343,369 의 SSOT 링크와 아마 :376 의 「catalog §4」 — 같은 줄이 겹칠 수 있다. 그래도 순서가 뒤집혀도 상대가 할 일이 그대로 남아 직렬은 불필요하고, C 는 착수 전이라 A 병합 뒤 출발하면 충돌이 없다. 2026-10-06 재확인: A 의 scope 에 gateDocs.test.ts 가 더해져 옛 용인이 무효가 된 것(겹침 내용은 불변). 유저 판단"
+    },
+    {
+      "seq": 160,
+      "t": "2026-10-06T00:18",
+      "a": "ai",
+      "id": "KAN-047-TRYYRC",
+      "op": "move",
+      "w": "JG08FN",
+      "from": "todo",
+      "to": "doing"
+    },
     {
       "seq": 159,
       "t": "2026-10-05T01:49",
@@ -1529,60 +1570,9 @@
       "field": "memo",
       "before": "완료(2026-07-25): 작업 내역 npm 반영 감사 + 배포 계획. 마지막 발행(06ed3e5) 이후 ORD-008~012 + KAN-013~041 전량 미발행 확인. 갭 해소: 패키지별 단일 changeset 5종 신규(tokens/foundations/style-guide-catalog/visualization/viz-catalog) — foundations는 기존 6 changeset이 하나도 안 건드려 버전 범프 자체 누락(핵심 갭). changeset status 검증 = tokens 1.1.0→1.2.0·foundations 1.0.1→1.1.0·style-guide-catalog 0.2.0→0.3.0·visualization 0.1.0→0.2.0·viz-catalog 0.1.0→0.2.0·core 1.1.1(dep auto)·hooks 0.3.0 유지, major 0(전부 additive; style-guide-catalog bakery→neobrutalism 리네임만 breaking이나 pre-1.0라 minor 허용+기존 changeset 커버). 패키지 신설/삭제/리네임 불필요(diagram→visualization·themes→foundations 이미 코드 반영). drift 정정: style-guide-catalog desc 29→51·viz-catalog desc +30·visualization CHANGELOG H1 diagram→visualization+lineage. RELEASE_PLAN.md 신규(버전표+승인게이트+레거시 deprecate follow-up). 게이트 전부 green: typecheck 8pkg·build·test:unit(viz141/found44/sgc76/vsgc39)·test 1219 play·storybook build·dist↔exports(dist/meta·dist/typeMeta)·build drift 0. 외부검토(codex) 반영(changeset 패키지별 분할·semver 배럴 diff 검증·release-readiness). 배포 실행(main push→Version PR→publish 6종)은 유저 명시 승인 후 별도.",
       "after": "완료(2026-07-25): 작업 내역 npm 반영 감사 + 배포 계획. 마지막 발행(06ed3e5) 이후 ORD-008~~012 + KAN-013~~041 전량 미발행 확인. 갭 해소: 패키지별 단일 changeset 5종 신규(tokens/foundations/style-guide-catalog/visualization/viz-catalog) — foundations는 기존 6 changeset이 하나도 안 건드려 버전 범프 자체 누락(핵심 갭). changeset status 검증 = tokens 1.1.0→1.2.0·foundations 1.0.1→1.1.0·style-guide-catalog 0.2.0→0.3.0·visualization 0.1.0→0.2.0·viz-catalog 0.1.0→0.2.0·core 1.1.1(dep auto)·hooks 0.3.0 유지, major 0(전부 additive; style-guide-catalog bakery→neobrutalism 리네임만 breaking이나 pre-1.0라 minor 허용+기존 changeset 커버). 패키지 신설/삭제/리네임 불필요(diagram→visualization·themes→foundations 이미 코드 반영). drift 정정: style-guide-catalog desc 29→51·viz-catalog desc +30·visualization CHANGELOG H1 diagram→visualization+lineage. RELEASE_PLAN.md 신규(버전표+승인게이트+레거시 deprecate follow-up). 게이트 전부 green: typecheck 8pkg·build·test:unit(viz141/found44/sgc76/vsgc39)·test 1219 play·storybook build·dist↔exports(dist/meta·dist/typeMeta)·build drift 0. 외부검토(codex) 반영(changeset 패키지별 분할·semver 배럴 diff 검증·release-readiness). 배포 실행(main push→Version PR→publish 6종)은 유저 명시 승인 후 별도."
-    },
-    {
-      "seq": 120,
-      "t": "2026-08-14T12:57",
-      "a": "유저",
-      "id": "KAN-040",
-      "op": "edit",
-      "w": "S7030N",
-      "field": "title",
-      "before": "viz 유형 축 meta 전량 backfill — [[KAN-020]] 인프라 위 pending 81종에 rich `VizTypeMeta`(useWhen/avoidWhen/dataShape/primitives/related) additive 저작, 완료 시 gate 'type-meta 필수' 승격 후보. 스키마는 KAN-020이 stable 동결 → 필드 추가·변경 없이 채우기만. 스타일 축 KAN-021(48+6 backfill) 동형. **[[KAN-035]] 관계**: 본 카드 = viz 유형 축 커버리지 **저작 실행**, KAN-035 = 전 인터페이스 커버리지 **감사/집행**(상위).",
-      "after": "viz 유형 축 meta 전량 backfill — [[KAN-020]] 인프라 위 pending 81종에 rich `VizTypeMeta`(useWhen/avoidWhen/dataShape/primitives/related) additive 저작, 완료 시 gate 'type-meta 필수' 승격 후보. 스키마는 KAN-020이 stable 동결 → 필드 추가·변경 없이 채우기만. 스타일 축 KAN-021(48+6 backfill) 동형. [[KAN-035]] **관계**: 본 카드 = viz 유형 축 커버리지 **저작 실행**, KAN-035 = 전 인터페이스 커버리지 **감사/집행**(상위)."
-    },
-    {
-      "seq": 119,
-      "t": "2026-08-14T12:57",
-      "a": "유저",
-      "id": "KAN-020",
-      "op": "edit",
-      "w": "S7030N",
-      "field": "memo",
-      "before": "완료(2026-07-24). 유형(what) 축 채택 메타 인프라 신설 — 스타일 축(KAN-018/021/022/023)을 유형 축으로 미러링. 산출물: `packages/visualization/src/typeMeta/{types,registry,manifest,select,index}.ts` + `scripts/genTypeManifest.ts` + `type.manifest.json`(87 엔트리) + 서브패스 export `./type-meta`(루트 배럴 미오염 → 컴포넌트 소비자 번들 무영향) + `TYPE_METADATA_STRATEGY.md`(+ style METADATA_STRATEGY 포인터). **VizTypeMeta 스키마**(category A~G·dataShape=FT9+구조7·primitives16·tags 고정 union·useWhen/avoidWhen/related). **레지스트리 87 슬롯**(inventory §5/§6 전사, ⛔ 3행 제외) — 파일럿 6종 rich-meta(BarChart VT-501·ClassDiagram VT-101·ProcessSteps VT-202·SwotMatrix VT-703·Sequence VT-108[다-export 3]·Cycle VT-203[variant]), 나머지 81 pending. **buildTypeManifest**(related 정합성 authored 전체 throw·id 결정적 정렬·완성도 계산) + **selectVizTypes**(soft-weighted recall·includePending 기본 false·결정적 tie-break — select.ts 시맨틱 계승). 커버리지 게이트 = 배럴 정적 소스스캔 양방향(90 export − allowlist 3[IsometricScene·Kruchten4Plus1View·ViewpointFrame; inventory §8-b VT 미승격] = 87). TDD 30 테스트(registry/manifest 바이트동기/select). 외부검토(codex) 13지적 반영(모드 variant·정적스캔·서브패스·시맨틱계승·태그 union·개수기준 분리·related 전체·stable-API·소비 이원경로). prebuild 미배선(코어 blast radius↓, KAN-025 선례)—`gen:type-manifest` 수동+바이트동기 테스트가 최신성 강제. 게이트 5종 green: typecheck·build(viz dist/typeMeta emit)·test:unit(viz 138[+30])·test(1219 play)·storybook build. 스코프=인프라+파일럿; pending 81 전량 backfill은 [[KAN-040]] 후속. **[[KAN-035]] 선행조건**(본 카드=유형 축 인프라, KAN-035=전 인터페이스 커버리지 감사).",
-      "after": "완료(2026-07-24). 유형(what) 축 채택 메타 인프라 신설 — 스타일 축(KAN-018/021/022/023)을 유형 축으로 미러링. 산출물: `packages/visualization/src/typeMeta/{types,registry,manifest,select,index}.ts` + `scripts/genTypeManifest.ts` + `type.manifest.json`(87 엔트리) + 서브패스 export `./type-meta`(루트 배럴 미오염 → 컴포넌트 소비자 번들 무영향) + `TYPE_METADATA_STRATEGY.md`(+ style METADATA_STRATEGY 포인터). **VizTypeMeta 스키마**(category A~G·dataShape=FT9+구조7·primitives16·tags 고정 union·useWhen/avoidWhen/related). **레지스트리 87 슬롯**(inventory §5/§6 전사, ⛔ 3행 제외) — 파일럿 6종 rich-meta(BarChart VT-501·ClassDiagram VT-101·ProcessSteps VT-202·SwotMatrix VT-703·Sequence VT-108[다-export 3]·Cycle VT-203[variant]), 나머지 81 pending. **buildTypeManifest**(related 정합성 authored 전체 throw·id 결정적 정렬·완성도 계산) + **selectVizTypes**(soft-weighted recall·includePending 기본 false·결정적 tie-break — select.ts 시맨틱 계승). 커버리지 게이트 = 배럴 정적 소스스캔 양방향(90 export − allowlist 3[IsometricScene·Kruchten4Plus1View·ViewpointFrame; inventory §8-b VT 미승격] = 87). TDD 30 테스트(registry/manifest 바이트동기/select). 외부검토(codex) 13지적 반영(모드 variant·정적스캔·서브패스·시맨틱계승·태그 union·개수기준 분리·related 전체·stable-API·소비 이원경로). prebuild 미배선(코어 blast radius↓, KAN-025 선례)—`gen:type-manifest` 수동+바이트동기 테스트가 최신성 강제. 게이트 5종 green: typecheck·build(viz dist/typeMeta emit)·test:unit(viz 138[+30])·test(1219 play)·storybook build. 스코프=인프라+파일럿; pending 81 전량 backfill은 [[KAN-040]] 후속. [[KAN-035]] **선행조건**(본 카드=유형 축 인프라, KAN-035=전 인터페이스 커버리지 감사)."
-    },
-    {
-      "seq": 118,
-      "t": "2026-08-14T12:57",
-      "a": "유저",
-      "id": "KAN-042-JZ2ZBT",
-      "op": "create",
-      "w": "S7030N",
-      "col": "todo",
-      "title": "bbangto-ui-vizualization을 사용하는 클라이언트가 문제를 제기했다. \"/Users/centurio/resume/docs/viz-upstream-issues.md\" 이 레포트를 보고 문제를 진단하고 문제 해결 전략 레포트를 작성하고, wbs를 작성하여 이 카드를 수행하는 agent가 사용할 수 있도록 해라.ㄴ",
-      "memo": "",
-      "verbatim": ""
-    },
-    {
-      "seq": 117,
-      "t": "2026-07-25T14:04",
-      "a": "ai",
-      "id": "KAN-036",
-      "op": "edit",
-      "field": "memo",
-      "before": "",
-      "after": "완료(2026-07-25): 작업 내역 npm 반영 감사 + 배포 계획. 마지막 발행(06ed3e5) 이후 ORD-008~012 + KAN-013~041 전량 미발행 확인. 갭 해소: 패키지별 단일 changeset 5종 신규(tokens/foundations/style-guide-catalog/visualization/viz-catalog) — foundations는 기존 6 changeset이 하나도 안 건드려 버전 범프 자체 누락(핵심 갭). changeset status 검증 = tokens 1.1.0→1.2.0·foundations 1.0.1→1.1.0·style-guide-catalog 0.2.0→0.3.0·visualization 0.1.0→0.2.0·viz-catalog 0.1.0→0.2.0·core 1.1.1(dep auto)·hooks 0.3.0 유지, major 0(전부 additive; style-guide-catalog bakery→neobrutalism 리네임만 breaking이나 pre-1.0라 minor 허용+기존 changeset 커버). 패키지 신설/삭제/리네임 불필요(diagram→visualization·themes→foundations 이미 코드 반영). drift 정정: style-guide-catalog desc 29→51·viz-catalog desc +30·visualization CHANGELOG H1 diagram→visualization+lineage. RELEASE_PLAN.md 신규(버전표+승인게이트+레거시 deprecate follow-up). 게이트 전부 green: typecheck 8pkg·build·test:unit(viz141/found44/sgc76/vsgc39)·test 1219 play·storybook build·dist↔exports(dist/meta·dist/typeMeta)·build drift 0. 외부검토(codex) 반영(changeset 패키지별 분할·semver 배럴 diff 검증·release-readiness). 배포 실행(main push→Version PR→publish 6종)은 유저 명시 승인 후 별도."
     }
   ],
   "waivers": [
-    {
-      "pair": "KAN-047-TRYYRC|KAN-049-CWBPP6",
-      "scope_hash": "ad19a72fd74f2019",
-      "reason": "같은 파일(visualization-type-inventory.md)을 건드리지만 줄이 다르다 — A 는 :376 의 「ORDER.md 편집 금지」 문구 한 줄, C 는 :12,13,14,29,30,343,369 의 SSOT 링크. 순서가 뒤집혀도 상대가 할 일이 그대로 남고 git 병합도 붙는다. 유저 판단(2026-08-25)",
-      "created": "2026-08-25T14:30",
-      "by": "유저"
-    },
     {
       "pair": "KAN-054-M48FNQ|KAN-055-34A57K",
       "scope_hash": "585cd50b9250aa6e",
@@ -1623,6 +1613,13 @@
       "scope_hash": "416343d60ccfae08",
       "reason": "049는 PLAN.md·visualization-catalog.md 흡수만 하고, 055가 viz에서 바꾸는 것은 CI Version PR이 만드는 package.json·CHANGELOG.md뿐이라 같은 파일을 건드리지 않는다 (2026-10-05 유저 선택)",
       "created": "2026-10-05T01:49",
+      "by": "유저"
+    },
+    {
+      "pair": "KAN-047-TRYYRC|KAN-049-CWBPP6",
+      "scope_hash": "2dc90f8f2d423773",
+      "reason": "같은 파일(visualization-type-inventory.md)을 둘 다 고친다. A 는 :376 의 「ORDER.md 편집 금지」 조각, C 는 :12,13,14,29,30,343,369 의 SSOT 링크와 아마 :376 의 「catalog §4」 — 같은 줄이 겹칠 수 있다. 그래도 순서가 뒤집혀도 상대가 할 일이 그대로 남아 직렬은 불필요하고, C 는 착수 전이라 A 병합 뒤 출발하면 충돌이 없다. 2026-10-06 재확인: A 의 scope 에 gateDocs.test.ts 가 더해져 옛 용인이 무효가 된 것(겹침 내용은 불변). 유저 판단",
+      "created": "2026-10-06T00:22",
       "by": "유저"
     }
   ],

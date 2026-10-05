@@ -28,13 +28,6 @@
     ```
 
 ## 할 일
-- `KAN-047-TRYYRC` 문서 정리 A — 폐기 4건 집행 (RELEASE_PLAN · sample_design · storybook README · ORDER) — 생성:ai · 최종:ai · 갱신:2026-08-25
-  - 짧은 제목: 폐기 4건 집행
-  - 목적: KAN-044 가 폐기로 판정한 문서 4건을 실제로 지운다
-  - 이유: 넷 다 참조가 0건이거나(3건) 참조원을 함께 고치면 되고(ORDER.md 1건), 목적이 소진된 1회성 문서다
-  - 목표: 네 문서가 레포에서 사라지고 grep 결과 0건이라 참조 고아가 남지 않는다
-  - 메모: KAN-044 §13-A. ORDER.md 는 검토 3번 반려(유저 「제거」)로 존치→폐기가 된 건이라 선행 수정이 하나 있다 — visualization-type-inventory.md:376 의 「ORDER.md 편집 금지」 문구. work 1~2개(4.7 인스턴트 예외 대상)
-  - 실행 문서: KANBAN/cards/KAN-047-TRYYRC.md (0/1)
 - `KAN-048-R2KW3G` 문서 정리 B — core 카탈로그 계열 통합 (audit 44→1 · 일회성 계획 3종 흡수) — 생성:ai · 최종:ai · 갱신:2026-08-25
   - 짧은 제목: core 카탈로그 통합
   - 목적: core 의 audit 44개를 한 파일로 접고 목적이 소진된 계획 문서 3종을 COMPONENT_CATALOG·style-guide-catalog 로 흡수한다
@@ -416,3 +409,11 @@
     ```text
     별도 카드로 발행해라
     ```
+- `KAN-047-TRYYRC` 문서 정리 A — 폐기 4건 집행 (RELEASE_PLAN · sample_design · storybook README · ORDER) — 생성:ai · 최종:ai · 갱신:2026-10-06
+  - 짧은 제목: 폐기 4건 집행
+  - 목적: KAN-044 가 폐기로 판정한 문서 4건을 실제로 지운다
+  - 이유: 넷 다 참조가 0건이거나(3건) 참조원을 함께 고치면 되고(ORDER.md 1건), 목적이 소진된 1회성 문서다
+  - 목표: 네 문서가 레포에서 사라지고 grep 결과 0건이라 참조 고아가 남지 않는다
+  - 메모: KAN-044 §13-A. ORDER.md 는 검토 3번 반려(유저 「제거」)로 존치→폐기가 된 건이라 선행 수정이 하나 있다 — visualization-type-inventory.md:376 의 「ORDER.md 편집 금지」 문구. work 1~2개(4.7 인스턴트 예외 대상)
+  - 실행 문서: KANBAN/cards/KAN-047-TRYYRC.md (2/2 · 최근 10-06)
+  - 검토 문서: KANBAN/reviews/KAN-047-TRYYRC.review.md (승인 2/2 · 추가 의견 총 2 · 승인)

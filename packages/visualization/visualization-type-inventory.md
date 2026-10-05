@@ -373,4 +373,4 @@ Registry 미등재 롱테일. 승격 시 해당 대역 끝 번호로 append.
    - export 전수: `rg -o "export \{ [A-Za-z]+ \}" packages/visualization/src/templates/index.ts packages/visualization/src/patterns/index.ts` 의 각 식별자가 §6 표에 존재하는지 대조
    - 갭 흡수: catalog §1-b/§2-a·PLAN §D G5 각 항목명을 본 문서에서 `rg` 검색 — Registry 행/alias/§8-b 중 한 곳에 존재해야 함
    - 링크: 본 문서·catalog·PLAN 간 `](./…)` 상대 링크의 대상 파일 존재 확인
-5. **변경 금지 영역**: catalog §4·style-classification.md 내용 복제 금지(스타일 축), 88장 이미지 재분석 금지, ORDER.md 편집 금지.
+5. **변경 금지 영역**: catalog §4·style-classification.md 내용 복제 금지(스타일 축), 88장 이미지 재분석 금지.
