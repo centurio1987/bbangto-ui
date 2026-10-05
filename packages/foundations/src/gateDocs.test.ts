@@ -34,7 +34,7 @@ const SKIP_DIRS = new Set(['node_modules', 'dist', 'storybook-static']);
  *
  * 실제로 발화하지 않는 항목을 적어 두면 다음 사람이 "여기 걸리니까 allowlist 에 있겠지"라고 잘못
  * 읽는다. 아래 문서들은 allowlist 에 **없지만** 위반이 될 수 없어서 없는 것이다(실측 확인):
- * `ORDER.md`(`` `pnpm typecheck`/`build`/`test` `` 백틱 표기) · `ASSET_INTEGRATION_PLAN.md`
+ * `ASSET_INTEGRATION_PLAN.md`
  * (`pnpm typecheck/build/test` 슬래시 표기) · `packages/visualization/PLAN.md`
  * (`pnpm --filter @centurio1987/diagram test`) · `METADATA_COVERAGE_AUDIT.md`(`test:unit` 만) ·
  * `packages/core/COMPONENT_CATALOG.md`(`pnpm` 0회). `KANBAN/`·`.kanban/`·`.changeset/` 은 애초에

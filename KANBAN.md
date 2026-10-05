@@ -141,7 +141,7 @@
   - 이유: 넷 다 참조가 0건이거나(3건) 참조원을 함께 고치면 되고(ORDER.md 1건), 목적이 소진된 1회성 문서다
   - 목표: 네 문서가 레포에서 사라지고 grep 결과 0건이라 참조 고아가 남지 않는다
   - 메모: KAN-044 §13-A. ORDER.md 는 검토 3번 반려(유저 「제거」)로 존치→폐기가 된 건이라 선행 수정이 하나 있다 — visualization-type-inventory.md:376 의 「ORDER.md 편집 금지」 문구. work 1~2개(4.7 인스턴트 예외 대상)
-  - 실행 문서: KANBAN/cards/KAN-047-TRYYRC.md (0/2 · 최근 10-06)
+  - 실행 문서: KANBAN/cards/KAN-047-TRYYRC.md (1/2 · 최근 10-06)
 
 ## 검토
 
