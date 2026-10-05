@@ -53,7 +53,7 @@ Provider 세 곳이 외부 CDN 글꼴을 조건 없이 불러온다. 끄는 prop
 - [x] `S1` 테스트 환경과 play 테스트 먼저 — `preview.tsx` 데코레이터에 끄는 parameter, `ProviderFonts.stories.tsx`(core)와 `visualization/Provider.stories.tsx`에 글꼴 스토리, `beforeEach`에서 `bbangto-font-*` 노드 정리. 세는 범위는 `document` 전체의 `@import`를 담은 `style`과 `bbangto-font-*` id 노드. 확인할 경우: `fonts="none"` 0개 · 기본값 글꼴마다 1개 · core Provider 겹침 글꼴마다 1개 · core 안 viz 겹침 JetBrains Mono 1개 · 둘 다 `none`이면 0개. 완료 기준: 새 스토리는 빨강, 데코레이터 parameter를 넣은 뒤에도 기존 스토리 전부 초록
 - [x] `S2` core — 두 Provider의 글꼴 코드를 `src/internal/ExternalFonts.tsx`로 묶고 `fonts` prop과 id 기반 `document.head` 주입을 넣는다. 완료 기준: core 경우 초록
 - [x] `S3` viz — `VisualizationStyleGuideProvider`에 같은 id로 같은 방식을 적용한다. 완료 기준: core 안 viz 겹침까지 초록
-- [ ] `S4` README(core·viz)에 `fonts` 사용법과 SSR 차이를 적고 changeset(core·viz minor)을 쓴다. 완료 기준: 게이트 5종 초록
+- [x] `S4` README(core·viz)에 `fonts` 사용법과 SSR 차이를 적고 changeset(core·viz minor)을 쓴다. 완료 기준: 게이트 5종 초록
 
 ## 검증
 ### 게이트 5종 (전부 초록이어야 완료)
@@ -90,3 +90,5 @@ core에 새 내부 모듈이 생기므로, 스토리에서 옛 dist가 보이면
 - 2026-10-06T00:43 · s:d196a119 · S2 done — core internal/ExternalFonts.tsx(useExternalFonts·id 2개) + FoundationProvider·StyleGuideProvider fonts prop. 글꼴 스토리: core 4종 초록, viz 관련 3종 빨강(예정대로)
 - 2026-10-06T00:43 · s:d196a119 · S3 doing — 착수
 - 2026-10-06T00:44 · s:d196a119 · S3 done — viz internal/ExternalFonts.tsx(core와 같은 id·href) + VisualizationStyleGuideProvider fonts prop. 글꼴 스토리 10종 전부 초록, 외부 글꼴 주소는 ExternalFonts.tsx 두 파일 밖 0건
+- 2026-10-06T00:45 · s:d196a119 · S4 doing — 착수
+- 2026-10-06T00:50 · s:d196a119 · S4 done — README(core·viz) fonts 절 + changeset(core·viz minor). 게이트 5종 초록(test 1232/1232). 빌드 Storybook 기본 화면: head 에 글꼴 노드 2개·렌더 트리 @import 0, Pretendard 적용, JetBrains Mono 18 face 등록·요청 시 로드
