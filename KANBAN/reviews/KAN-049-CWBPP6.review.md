@@ -24,9 +24,12 @@ status: 검토 대기
 | 베이스 | `11cb644` |
 | 변경 훑기 | `git diff 11cb644...HEAD` |
 
-**커밋 8건**
+**커밋 11건**
 
 ```text
+5a4aede docs(viz): 검토 §3-1 반려 반영 — 구현 규약에 빠진 규칙 5개와 알려진 한계 추가 — KAN-049
+ea3a9f3 kanban: KAN-049 검토자(opus) 항목 판정 — §3-1 반려(PLAN 의 살아 있는 규칙 5개 누락) · §3-2 승인
+ac56062 kanban: KAN-049 검토로 이동 — 검토서(판단 항목 2) 발행
 75bad37 kanban: KAN-049 S4 검증 완료 — 검증 1~3 통과, 품질 게이트 5종 green
 b087dcc docs(style-guide-catalog): METADATA_STRATEGY §7 롤아웃 표의 KAN-024·026·027 완료 반영 — KAN-049 S3
 6a5a8fd docs(viz): visualization-catalog.md 를 style-classification 으로 흡수하고 삭제 — KAN-049 S2
@@ -37,30 +40,35 @@ f39a5fb kanban: KAN-049 착수 결정 반영 — scope 에 gateDocs.test.ts 추�
 1df226b kanban: KAN-049 착수 — 진행 중으로 이동
 ```
 
-**변경 파일 15개 (+938 −592)**
+**변경 파일 19개 (+2502 −615)**
 
 | 파일 | 상태 | 추가 | 삭제 |
 |---|:--:|---:|---:|
-| `.kanban/archive.jsonl` | M | 5 | 0 |
-| `.kanban/log.md` | M | 5 | 5 |
-| `.kanban/state.json` | M | 79 | 83 |
+| `.kanban/archive.jsonl` | M | 7 | 0 |
+| `.kanban/log.md` | M | 7 | 7 |
+| `.kanban/reviews/KAN-049-CWBPP6.events.jsonl` | M | 7 | 0 |
+| `.kanban/reviews/KAN-049-CWBPP6.review.json` | M | 21 | 0 |
+| `.kanban/state.json` | M | 100 | 104 |
 | `KANBAN.board.html` | M | 2 | 2 |
-| `KANBAN.md` | M | 8 | 7 |
+| `KANBAN.md` | M | 9 | 7 |
 | `KANBAN/batches/KAN-049-CWBPP6.batch1.md` | M | 95 | 0 |
-| `KANBAN/cards/KAN-049-CWBPP6.md` | M | 108 | 6 |
+| `KANBAN/cards/KAN-049-CWBPP6.md` | M | 111 | 6 |
 | `KANBAN/reports/KAN-049-CWBPP6.report.html` | M | 529 | 0 |
+| `KANBAN/reviews/KAN-049-CWBPP6.review.html` | M | 1265 | 0 |
+| `KANBAN/reviews/KAN-049-CWBPP6.review.md` | M | 223 | 0 |
 | `packages/foundations/src/gateDocs.test.ts` | M | 1 | 2 |
 | `packages/style-guide-catalog/METADATA_STRATEGY.md` | M | 3 | 3 |
 | `packages/visualization/PLAN.md` | M | 0 | 238 |
-| `packages/visualization/README.md` | M | 51 | 1 |
-| `packages/visualization/style-classification.md` | M | 42 | 9 |
+| `packages/visualization/README.md` | M | 69 | 1 |
+| `packages/visualization/style-classification.md` | M | 43 | 9 |
 | `packages/visualization/visualization-catalog.md` | M | 0 | 225 |
 | `packages/visualization/visualization-type-inventory.md` | M | 10 | 11 |
 
-**롤백 태그 5개**
+**롤백 태그 6개**
 
 ```text
 kan/KAN-049-CWBPP6/S1
+kan/KAN-049-CWBPP6/S1.r2
 kan/KAN-049-CWBPP6/S2
 kan/KAN-049-CWBPP6/S3
 kan/KAN-049-CWBPP6/S4
@@ -118,6 +126,7 @@ QUALITY_CHECKLIST 의 A~E 절은 컴포넌트·토큰·모션·스토리용이�
   pnpm test — Test Files 182 passed (182) · Tests 1224 passed (1224)
   pnpm --filter storybook build — Storybook build completed successfully
   pnpm test:unit — hooks 115 · foundations 62(gateDocs 18 포함) · visualization 257 · style-guide-catalog 76 · visualization-style-guide-catalog 39 전부 통과
+재작업(§3-1 반려 반영, 5a4aede) 뒤 — md 2개만 바뀜(README · style-classification). pnpm test:unit 다시 실행: hooks 115 · foundations 62 · visualization 257 · style-guide-catalog 76 · visualization-style-guide-catalog 39 전부 통과. typecheck·build·test·storybook build 는 md 를 읽지 않아 다시 돌리지 않음(위 결과 유지)
 ```
 
 ## 3. 판단 항목 — 스크립트가 판정할 수 없는 것
@@ -177,11 +186,16 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-049-CWBPP6 --add
     | **추천** 이대로 둔다 | 「core 사용을 검사로 막는다」는 약속이 문서에서 사라진다 | 문서가 지금 코드가 실제로 하는 일만 말한다 |
     | core 사용 금지 검사를 새 카드로 만든다 | 카드가 하나 늘어난다 | PLAN 이 약속만 하고 만들지 않았던 장치가 실제로 생긴다 |
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 반려 · ai · 2026-10-06
 
-    > **추가 의견** — _아직 없습니다._
+    > **추가 의견**
+    >
+    > - ai · 2026-10-06 — 반려 사유는 core 검사 선택지가 아니라 빠진 내용입니다. core 검사는 추천대로 새 카드 없이 두는 데 동의합니다. 그런데 지운 PLAN.md 의 §C(원자 레이어)와 §F(리스크·결정 사항)에 지금 코드에서도 맞는 규칙이 있는데, README 「구현 규약」 어디에도 없습니다. 전략의 「무엇을 어디로」 표는 §C 를 「유형 목록·완료 이력」이라며 옮기지 않는 쪽에 넣었고, §F 는 표에 아예 없습니다. 전략이 「안 옮기면 패키지의 설계 원칙이 git 이력에만 남는다」고 경고한 바로 그 상태입니다. 빠진 것은 다섯입니다. ① children 모드에서 Canvas 는 직속 자식만 훑어 노드 좌표를 등록합니다. 조건부·중첩·memo 로 감싼 노드는 등록되지 않고, 그 노드를 가리키는 Edge 는 경고만 내고 그리지 않습니다(throw 하지 않음). 우회는 Edge 에 {x,y} 를 직접 주거나 노드를 최상위에 두는 것입니다. PLAN 은 이 안내를 README 에 둔다고 적었습니다(PLAN.md:134). 코드: src/atoms/Canvas.tsx:29-51, src/atoms/Edge.tsx:39-42·86. ② 렌더 중에 DOM 을 재지 않습니다. 글자 폭은 src/geometry/text.ts:5 의 estimateWidth 로 추정하고 getComputedTextLength 를 쓰지 않습니다(SSR 결과를 같게 하려는 규칙, PLAN.md:212·215). ③ NodeLabel 은 기본 wrap, 선택 truncate 이고, 글자를 눌러 맞추는 fit 은 직접 골라야 켜집니다(PLAN.md:145, src/atoms/NodeLabel.tsx:6·41). ④ 사용자가 모션 줄이기를 켜면 스타일 가이드 범위 안의 애니메이션을 끄고 data-bbangto-viz-animate="essential" 만 남깁니다. PLAN.md:214 와 형태는 달라졌지만 지금도 있는 규칙입니다(src/provider/defs.ts:6-9). ⑤ 장식 글리프는 aria-hidden 입니다(PLAN.md:213, src/molecules/DatabaseNode.tsx:58 외). type-inventory :12 가 이제 README 「구현 규약」을 구현 규약의 기준 문서로 가리키므로, 이것들이 빠지면 기준 문서에 없는 규칙이 코드에만 남습니다. ①은 소비자가 바로 부딪히는 문제라 꼭 옮겨야 하고, ②~⑤는 「구조」·「작성 모델」 절에 한 줄씩이면 됩니다. 반려는 이 다섯 줄을 더하라는 뜻이지 절을 다시 쓰라는 뜻이 아닙니다.
+    > - ai · 2026-10-06 — 반영했습니다(5a4aede). 짚어 주신 다섯 가지를 코드로 다시 확인한 뒤 README 「구현 규약」에 넣었습니다 — 구조 절에 DOM 측정 안 함·모션 줄이기, 작성 모델 절에 children 모드 노드 등록 한계·NodeLabel 모드, 공통 계약 접근성에 장식 aria-hidden. ①은 코드가 엘리먼트 props 를 읽는 방식이라, memo 여부가 아니라 「다른 엘리먼트 안에 넣었거나 다섯 값을 props 로 받지 않는 래퍼」가 등록되지 않는다고 정확히 적었습니다(Canvas.tsx:29-51). 같은 종류 누락을 PLAN 전체에서 다시 훑어 하나를 더 찾았습니다 — 「이연」의 리터럴 paint 제거가 끝나지 않아 템플릿 12개가 기본 색을 리터럴로 넣고, 스타일 가이드가 그 부분을 못 바꿉니다. README 에 「알려진 한계」 절로 적고, 「리터럴 색을 쓰지 않는다」 문장이 이와 어긋나지 않게 고쳤습니다. PLAN 이 말한 snap()·gridPlace 헬퍼는 코드에 없어 옮기지 않았습니다.
 
-- [ ] visualization-catalog.md 에서 style-classification 으로 옮긴 범위를 이렇게 그어도 되는가 — 색 값은 옮기지 않고 소스 파일을 가리키게 했습니다
+- [x] visualization-catalog.md 에서 style-classification 으로 옮긴 범위를 이렇게 그어도 되는가 — 색 값은 옮기지 않고 소스 파일을 가리키게 했습니다
     - **배경**
       - 지운 문서의 스타일 절에는 가이드마다 색 값과 선 두께가 적혀 있었다. 같은 값이 각 가이드 소스 파일에 있고, 실제로 쓰이는 것은 그쪽이다. 원문: packages/visualization-style-guide-catalog/src/minimalLine.tsx:41
       - 그래서 옮긴 것은 값이 아니라 가이드를 고를 때 필요한 것이다. preset 이름(소스에서 확인), 무엇을 감싸는지, 접근성 주의를 옮기고 값은 소스 파일 이름으로 가리켰다. 원문: packages/visualization/style-classification.md 「초기 3종」 절
@@ -195,9 +209,13 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-049-CWBPP6 --add
     | **추천** 이대로 둔다 | 색 값을 보려면 소스 파일을 열어야 한다 | 문서와 코드의 값이 어긋날 자리가 없다 |
     | 색 값도 옮긴다 | 같은 값이 두 곳에 생긴다 | 가이드를 고칠 때마다 문서도 고쳐야 하고, 빠뜨리면 문서가 틀린 값을 보인다 |
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 승인 · ai · 2026-10-06
 
-    > **추가 의견** — _아직 없습니다._
+    > **추가 의견**
+    >
+    > - ai · 2026-10-06 — 범위에 동의합니다. 사실 하나만 바로잡습니다. 수행 내역 S2 줄은 구 catalog §4-h 의 「노드 수만큼 그라디언트 defs 가 생긴다」 주의를 「소스에서 못 찾아 안 옮김」이라고 적었지만, 그 주의는 이미 packages/visualization-style-guide-catalog/src/neonGradientDark.tsx:315(guidelines 의 dos)와 :232 주석에 있습니다. 그래서 안 옮긴 결과는 맞고, 이 항목의 원칙(값과 주의는 소스가 기준)과도 맞습니다. 구 §4-d 의 「라벨 skew 금지」 접근성 규칙도 isoColorBlock.tsx:215-217 에 있어서, 4-d·4-e 를 한 줄로 줄이면서 잃은 규칙은 확인한 범위에서 없습니다.
 
 
 ## 4. 판정
