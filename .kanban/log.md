@@ -1,6 +1,7 @@
 # KANBAN 변경 이력
 > 최근 50건. 이보다 오래된 이력은 archive.jsonl 로 압축 보관한다.
 
+- #165 2026-10-06 00:41 · ai · KAN-049-CWBPP6 이동 진행 중 → 검토
 - #164 2026-10-06 00:31 · ai · KAN-047-TRYYRC 독립성 겹침 용인 (상대 KAN-049-CWBPP6) — 같은 줄을 둘 다 고친다 — visualization-type-inventory.md:376(047은 ORDER.md 조각, 049는 catalog §4 조각)과 gateDocs.test.ts:37-38(047은 ORDER.md 항목, 049는 PLAN.md 항목). 각자 자기 조각만 지우므로 순서가 바뀌어도 상대가 할 일이 그대로 남는다. 늦게 병합하는 쪽이 두 조각이 다 지워진 줄로 충돌을 푼다. 2026-08-25 사유('줄이 다르다')를 실측으로 바로잡아 재기록 (2026-10-06 유저 승인)
 - #163 2026-10-06 00:31 · ai · KAN-049-CWBPP6 독립성 겹침 용인 (상대 KAN-052-BYS4JN) — 052는 viz Provider 코드·internal/ExternalFonts와 README 사용법 절만 고친다. 049는 PLAN·visualization-catalog 문서 흡수이고 README에는 새 절(구현 규약)을 더한다. 049 scope에 gateDocs.test.ts를 더해 재기록 — 겹침 내용 불변 (2026-10-06 유저 승인)
 - #162 2026-10-06 00:31 · ai · KAN-049-CWBPP6 독립성 겹침 용인 (상대 KAN-051-5HMYKT) — 049는 packages/visualization/**를 잡았지만 md 문서만 고친다. 051은 packages/visualization/tsup.config.ts만 고친다. 049 scope에 gateDocs.test.ts를 더해 재기록 — 겹침 내용 불변 (2026-10-06 유저 승인)
@@ -50,4 +51,3 @@
 - #125 2026-08-14 15:28 · ai · KAN-043-2JM72N 이동 진행 중 → 검토
 - #124 2026-08-14 15:00 · ai · KAN-043-2JM72N 생성 "상류 리포트 I 계열(I1~I7) 해소 — 유형 선택 정보 도달 경로" → 진행 중
 - #123 2026-08-14 14:17 · ai · KAN-042-JZ2ZBT 이동 진행 중 → 검토
-- #122 2026-08-14 13:09 · ai · KAN-042-JZ2ZBT 이동 할 일 → 진행 중

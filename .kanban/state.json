@@ -1,6 +1,6 @@
 {
   "next_id": 56,
-  "next_seq": 165,
+  "next_seq": 166,
   "cards": {
     "KAN-047-TRYYRC": {
       "col": "todo",
@@ -59,7 +59,7 @@
       ]
     },
     "KAN-049-CWBPP6": {
-      "col": "doing",
+      "col": "review",
       "title": "문서 정리 C — visualization 계열 통합 (PLAN · visualization-catalog 흡수 + SSOT 이동)",
       "verbatim": "",
       "생성": "ai",
@@ -905,7 +905,6 @@
     "KAN-052-BYS4JN",
     "KAN-053-TZ86NN",
     "KAN-054-M48FNQ",
-    "KAN-049-CWBPP6",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -951,9 +950,20 @@
     "KAN-043-2JM72N",
     "KAN-044-3KYT2Q",
     "KAN-045-PNT454",
-    "KAN-046-33S4G8"
+    "KAN-046-33S4G8",
+    "KAN-049-CWBPP6"
   ],
   "recent": [
+    {
+      "seq": 165,
+      "t": "2026-10-06T00:41",
+      "a": "ai",
+      "id": "KAN-049-CWBPP6",
+      "op": "move",
+      "w": "HQ1ZBZ",
+      "from": "doing",
+      "to": "review"
+    },
     {
       "seq": 164,
       "t": "2026-10-06T00:31",
@@ -1559,16 +1569,6 @@
       "w": "S7030N",
       "from": "doing",
       "to": "review"
-    },
-    {
-      "seq": 122,
-      "t": "2026-08-14T13:09",
-      "a": "ai",
-      "id": "KAN-042-JZ2ZBT",
-      "op": "move",
-      "w": "S7030N",
-      "from": "todo",
-      "to": "doing"
     }
   ],
   "waivers": [
