@@ -1,6 +1,6 @@
 {
   "next_id": 56,
-  "next_seq": 165,
+  "next_seq": 166,
   "cards": {
     "KAN-047-TRYYRC": {
       "col": "done",
@@ -65,7 +65,7 @@
       "verbatim": "",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-08-25",
+      "갱신": "2026-10-06",
       "title_hash": "413d7deae94c0f1a211808da04989f396c17572e",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
       "short": "viz 계열 통합",
@@ -76,8 +76,8 @@
       "reason_hash": "882d4629c54f913b7af928c16c8a34a91ea1d75f",
       "goal": "viz 문서 2건이 사라지고 type-inventory grep 결과가 0건이라 SSOT 체인이 끊기지 않는다",
       "goal_hash": "ad2bda4935f457c79163d91540ec3fc2daa9be63",
-      "memo": "KAN-044 §13-C. 위험: visualization-catalog.md 는 참조 11건으로 통합 대상 중 최다 — 링크를 한 번에 다 고치지 않으면 SSOT 지목이 허공을 가리킨다. 완료 기준에 type-inventory grep 0건을 넣는다. work 4개",
-      "memo_hash": "543eb975c4c1431203888acb6aee4d1cfac95533",
+      "memo": "KAN-044 §13-C. 위험: visualization-catalog.md 는 참조 11건으로 통합 대상 중 최다 — 링크를 한 번에 다 고치지 않으면 SSOT 지목이 허공을 가리킨다. 완료 기준에 type-inventory grep 0건을 넣는다. work 4개 · KAN-047 넘김: packages/foundations/src/gateDocs.test.ts:38 주석의 packages/visualization/PLAN.md 항목도 지운다. scope 에 이 파일을 더하면 :37 을 고칠 B(KAN-048)와 겹친다",
+      "memo_hash": "ae37bb64803917276738c6298543606def557332",
       "scope": [
         "packages/visualization/**",
         "packages/visualization-style-guide-catalog/README.md",
@@ -955,6 +955,17 @@
   ],
   "recent": [
     {
+      "seq": 165,
+      "t": "2026-10-06T00:49",
+      "a": "ai",
+      "id": "KAN-049-CWBPP6",
+      "op": "edit",
+      "w": "S7030N",
+      "field": "memo",
+      "before": "KAN-044 §13-C. 위험: visualization-catalog.md 는 참조 11건으로 통합 대상 중 최다 — 링크를 한 번에 다 고치지 않으면 SSOT 지목이 허공을 가리킨다. 완료 기준에 type-inventory grep 0건을 넣는다. work 4개",
+      "after": "KAN-044 §13-C. 위험: visualization-catalog.md 는 참조 11건으로 통합 대상 중 최다 — 링크를 한 번에 다 고치지 않으면 SSOT 지목이 허공을 가리킨다. 완료 기준에 type-inventory grep 0건을 넣는다. work 4개 · KAN-047 넘김: packages/foundations/src/gateDocs.test.ts:38 주석의 packages/visualization/PLAN.md 항목도 지운다. scope 에 이 파일을 더하면 :37 을 고칠 B(KAN-048)와 겹친다"
+    },
+    {
       "seq": 164,
       "t": "2026-10-06T00:49",
       "a": "ai",
@@ -1560,16 +1571,6 @@
       "w": "S7030N",
       "from": "doing",
       "to": "review"
-    },
-    {
-      "seq": 122,
-      "t": "2026-08-14T13:09",
-      "a": "ai",
-      "id": "KAN-042-JZ2ZBT",
-      "op": "move",
-      "w": "S7030N",
-      "from": "todo",
-      "to": "doing"
     }
   ],
   "waivers": [
