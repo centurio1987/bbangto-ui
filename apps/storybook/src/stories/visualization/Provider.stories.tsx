@@ -109,3 +109,59 @@ export const FoundationPresetResolution: Story = {
     await expect(roots[2].getAttribute('data-bbangto-viz-foundation')).toBe('default');
   },
 };
+
+// ── 외부 글꼴 주입 ──────────────────────────────────────────
+// 전역 데코레이터의 core Provider 가 글꼴을 함께 넣으므로 이 두 스토리는 데코레이터를 끈다.
+// core 와 viz 를 겹친 경우는 ProviderFonts.stories.tsx 가 본다.
+const JETBRAINS_MONO_SRC = 'fonts.googleapis.com/css2?family=JetBrains+Mono';
+
+/** JetBrains Mono 를 불러오는 노드 — 렌더 트리 안 `@import` style 과 `#bbangto-font-jetbrains-mono` 를 함께 센다. */
+function jetbrainsMonoNodes(): Element[] {
+  const hits = new Set<Element>();
+  document.querySelectorAll('#bbangto-font-jetbrains-mono').forEach((el) => hits.add(el));
+  document.querySelectorAll('style').forEach((el) => {
+    const text = el.textContent ?? '';
+    if (text.includes('@import') && text.includes(JETBRAINS_MONO_SRC)) hits.add(el);
+  });
+  document.querySelectorAll('link[rel="stylesheet"]').forEach((el) => {
+    if ((el.getAttribute('href') ?? '').includes(JETBRAINS_MONO_SRC)) hits.add(el);
+  });
+  return [...hits];
+}
+
+// head 에 주입된 노드는 언마운트해도 남는다 — 앞 스토리가 남긴 것을 지운다.
+const clearInjectedFonts = () => {
+  document.head.querySelectorAll('[id^="bbangto-font-"]').forEach((el) => el.remove());
+  for (const el of jetbrainsMonoNodes()) if (el.parentElement === document.head) el.remove();
+};
+
+export const FontsNone: Story = {
+  args: { styleGuide: sg, children: null },
+  parameters: { bbangtoProviders: false },
+  beforeEach: clearInjectedFonts,
+  render: () => (
+    <VisualizationStyleGuideProvider styleGuide={sg} fonts="none">
+      <div data-testid="viz-fonts">fonts="none"</div>
+    </VisualizationStyleGuideProvider>
+  ),
+  play: async ({ canvasElement }) => {
+    await within(canvasElement).findByTestId('viz-fonts');
+    await expect(jetbrainsMonoNodes()).toHaveLength(0);
+  },
+};
+
+// 기본값은 지금과 같아야 한다 — viz 단독으로도 JetBrains Mono 를 한 번 불러온다.
+export const FontsDefault: Story = {
+  args: { styleGuide: sg, children: null },
+  parameters: { bbangtoProviders: false },
+  beforeEach: clearInjectedFonts,
+  render: () => (
+    <VisualizationStyleGuideProvider styleGuide={sg}>
+      <div data-testid="viz-fonts">fonts 기본값</div>
+    </VisualizationStyleGuideProvider>
+  ),
+  play: async ({ canvasElement }) => {
+    await within(canvasElement).findByTestId('viz-fonts');
+    await expect(jetbrainsMonoNodes()).toHaveLength(1);
+  },
+};
