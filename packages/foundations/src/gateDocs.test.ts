@@ -30,19 +30,17 @@ const repoRoot = join(here, '..', '..', '..');
 const SKIP_DIRS = new Set(['node_modules', 'dist', 'storybook-static']);
 
 /**
- * **기록 문서 allowlist — 두 항뿐이다.**
+ * **기록 문서 allowlist — 한 항뿐이다.** `WAVE0_REPORT.md` 가 정확한 경로 항목으로 있었지만 KAN-048 에서
+ * 그 문서를 `packages/core/COMPONENT_CATALOG.md` 로 흡수하며(게이트 명령 줄은 옮기지 않았다) 함께 뺐다.
  *
  * 실제로 발화하지 않는 항목을 적어 두면 다음 사람이 "여기 걸리니까 allowlist 에 있겠지"라고 잘못
  * 읽는다. 아래 문서들은 allowlist 에 **없지만** 위반이 될 수 없어서 없는 것이다(실측 확인):
- * `ORDER.md`(`` `pnpm typecheck`/`build`/`test` `` 백틱 표기) · `ASSET_INTEGRATION_PLAN.md`
- * (`pnpm typecheck/build/test` 슬래시 표기) · `packages/visualization/PLAN.md`
+ * `ORDER.md`(`` `pnpm typecheck`/`build`/`test` `` 백틱 표기) · `packages/visualization/PLAN.md`
  * (`pnpm --filter @centurio1987/diagram test`) · `METADATA_COVERAGE_AUDIT.md`(`test:unit` 만) ·
  * `packages/core/COMPONENT_CATALOG.md`(`pnpm` 0회). `KANBAN/`·`.kanban/`·`.changeset/` 은 애초에
  * 스캔 범위 밖이다.
  */
 const ALLOWLIST = [
-  // WAVE0 완료 기록(7행). 그때의 게이트 상태라 고치면 이력이 왜곡된다.
-  'WAVE0_REPORT.md',
   // changesets 생성물. 수기 편집 금지 — 지금은 `pnpm` 0회지만 changeset 본문에 게이트 목록을
   // 붙이는 습관이 있어, 언젠가 릴리스 도중에 red 가 될 자리다.
   '**/CHANGELOG.md',
@@ -141,7 +139,8 @@ describe('auditGateDocs — fixture 실패주입(순수 검증기)', () => {
   });
 
   it('allowlist 에 든 문서는 넷이어도 통과', () => {
-    expect(auditGateDocs([{ path: 'WAVE0_REPORT.md', text: four }], ALLOWLIST)).toEqual([]);
+    // 정확한 경로 형태는 실제 allowlist 에 지금 항목이 없어 가상 경로로 시험한다.
+    expect(auditGateDocs([{ path: 'RECORD.md', text: four }], ['RECORD.md'])).toEqual([]);
     expect(auditGateDocs([{ path: 'packages/x/CHANGELOG.md', text: four }], ALLOWLIST)).toEqual([]);
   });
 

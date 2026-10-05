@@ -163,6 +163,27 @@ Wave 0 (편제·인프라·토큰)
    Wave 6 (통합·Storybook·릴리스)
 ```
 
+
+### Wave 실행 기록
+
+> 루트의 `ASSET_INTEGRATION_PLAN.md`(Wave 계획)와 `WAVE0_REPORT.md`(Wave 0 시범 실행 결과)를 KAN-048 에서 여기로 흡수했다. 두 문서 모두 2026-06-24 에 썼다. Wave 0~5 의 산출물과 상태는 아래 §5 레지스트리에 있으므로, 여기에는 레지스트리에 없는 것만 남긴다. 원문은 git 이력에 있다.
+
+**위임 모델.** 판단·합성이 필요한 일은 Opus, 사양이 확정된 독립 leaf 작업은 Sonnet 에 맡겼다. 역할은 넷이었다 — Catalog Orchestrator(Opus, 세션당 1명: Wave 순서·의존성 게이팅·Wave 그린 판정·레지스트리 갱신) · Wave Lead(Opus, Wave 별: leaf 팬아웃·결과 수집·red 재시도) · Component Builder(Sonnet, leaf 1개를 테스트 먼저 → 구현 → self typecheck) · Block/Pattern Composer(Opus, Wave 4·5 의 block/pattern 1개).
+
+**leaf 계약.** 입력 `{ name, layer, targetPath, storyPath, spec, checklistSection }` → 출력 `{ name, status: RED|GREEN|DONE, files[], testFile, typecheckPass, notes, blockers[] }`. `status: RED`(테스트 먼저)를 거치지 않은 산출물은 Wave Lead 가 반려했다.
+
+**Wave 0 토큰 갭 감사 (2026-06-24 기록).** 당시 `BbangtoTheme`(`packages/tokens/src/types.ts`)는 color·typography·spacing·radius·shadow·motion·zIndex 를 덮었고, 신규 산출물이 요구하는 부재 토큰은 아래와 같았다. 감사만 하고 토큰은 바꾸지 않았다 — 토큰 변경은 테마 동기화와 영향 컴포넌트 story 검증을 요구하는 Wave 단위 작업이라 해당 Wave 의 선행 태스크로 넘겼다.
+
+| 갭 | 필요 산출물 | 심각도 | 처리 시점 | 권고 |
+|---|---|:---:|---|---|
+| **breakpoint 토큰 (sm/md/lg/xl)** | blocks·patterns 반응형 | **高** | **Wave 4 직전** | ⚠️ 아래 아키텍처 주의 참조 — cssVar 불가, 별도 상수로 export |
+| **container max-width / layout 치수** | Hero 등 섹션, Sidebar 폭(240/rail 64px, spacing 최대 64 초과) | 中 | Wave 2(Sidebar)·4 | 우선 기존 `components?` 오버라이드 필드로 처리, 재사용 빈번해지면 `size` 스케일 승격 |
+| **zIndex.tooltip** | Tooltip·Menu 레이어링 | 低 | Wave 1·2 | 타입 1줄 + 4개 테마 동기화 (QUALITY_CHECKLIST C 절차) |
+| **scrollbar thumb/track 색·폭** | ScrollArea | 低 | Wave 2 | 없으면 `border`/`foreground` 토큰으로 충분, 필요 시 추가 |
+| **chat surface (user/assistant 구분)** | ChatBubble | 低 | Wave 2 | `background.elevated`/`primary.subtle`로 대체 가능, 전용 토큰 불요 |
+
+**⚠️ 아키텍처 주의 — breakpoint 는 cssVar 토큰이 될 수 없다.** CSS 커스텀 프로퍼티는 `@media (min-width: var(--bp))` 형태로 미디어 쿼리에서 동작하지 않는다. 그래서 breakpoint 는 `cssVar()` 토큰 계열이 아니라 `packages/tokens` 의 별도 상수(숫자/문자열)로 export 하고, 블록·패턴은 그 상수를 JS(`matchMedia`·컨테이너 쿼리)로 소비한다. 이 권고대로 Wave 4 선행 작업에서 `packages/tokens/src/breakpoints.ts` 의 `breakpoints` 상수가 들어갔다(2026-06-25, `28f845a`). 나머지 갭의 이후 처리는 이 기록에 반영하지 않았다.
+
 ---
 
 ## 5. 상태 추적 (Status Legend)
@@ -178,7 +199,7 @@ Wave 0 (편제·인프라·토큰)
 
 ### 레지스트리 (구현 진행 시 갱신)
 
-> Wave 0(편제·인프라) 완료 — 상세 `../../WAVE0_REPORT.md`.
+> Wave 0(편제·인프라) 완료 — 위임 모델·토큰 갭 감사는 위 [Wave 실행 기록](#wave-실행-기록).
 
 | 산출물 | 계층 | Wave | 상태 | 담당 에이전트 | 비고 |
 |---|---|---|---|---|---|

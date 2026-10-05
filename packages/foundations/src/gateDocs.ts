@@ -75,7 +75,7 @@ function carriesPnpm(line: string): boolean {
 const FENCE_RE = /^\s*(?:```|~~~)/;
 
 // allowlist 항목 하나와 repo 상대경로를 대조한다. 지원하는 형태는 둘 —
-// 정확한 경로(`WAVE0_REPORT.md`)와 별별-슬래시 접두 basename(`**/CHANGELOG.md`).
+// 정확한 경로(예: `docs/RECORD.md`)와 별별-슬래시 접두 basename(`**/CHANGELOG.md`).
 function matchesAllow(relPath: string, pattern: string): boolean {
   if (pattern.startsWith('**/')) {
     const base = pattern.slice(3);
