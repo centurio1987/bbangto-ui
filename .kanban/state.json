@@ -1,6 +1,6 @@
 {
   "next_id": 56,
-  "next_seq": 164,
+  "next_seq": 165,
   "cards": {
     "KAN-047-TRYYRC": {
       "col": "done",
@@ -36,7 +36,7 @@
       "verbatim": "",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-08-25",
+      "갱신": "2026-10-06",
       "title_hash": "156a2dbe55de1f5a4cce5414d5d067eb89f1003b",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
       "short": "core 카탈로그 통합",
@@ -47,8 +47,8 @@
       "reason_hash": "34b21d7865d61feb8ba3f0f6f1428f000e1e492c",
       "goal": "core 문서가 47건 줄고 COMPONENT_CATALOG 의 실측 결함 2건이 함께 고쳐진다",
       "goal_hash": "f2f38a4cbe5cade96a6a0ded3b023a31b69dabdf",
-      "memo": "KAN-044 §13-B. 위험: packages/core/style-guide-catalog.md 38–92줄은 자동 생성 구간이라 이동·개명·삭제하면 trendTable.test.ts 가 readFileSync 에서 red 가 된다 — 출처 절만 손댄다. D 의 선행(직렬 중재). work 4개",
-      "memo_hash": "2979c34afdcb842658763b97e23967cf143322fb",
+      "memo": "KAN-044 §13-B. 위험: packages/core/style-guide-catalog.md 38–92줄은 자동 생성 구간이라 이동·개명·삭제하면 trendTable.test.ts 가 readFileSync 에서 red 가 된다 — 출처 절만 손댄다. D 의 선행(직렬 중재). work 4개 · KAN-047 넘김: packages/foundations/src/gateDocs.test.ts 도 고친다 — :37 주석의 ASSET_INTEGRATION_PLAN.md 항목, :44–45 ALLOWLIST 의 WAVE0_REPORT.md(지우면 발화 안 하는 항목이 되고 :144 fixture 테스트도 함께 손봐야 한다). scope 에 이 파일을 더하면 :38 을 고칠 C(KAN-049)와 겹친다",
+      "memo_hash": "120776af14a4345eaa6300a3b47cc1a391fe5d11",
       "scope": [
         "packages/core/catalog/**",
         "packages/core/COMPONENT_CATALOG.md",
@@ -955,6 +955,17 @@
   ],
   "recent": [
     {
+      "seq": 164,
+      "t": "2026-10-06T00:49",
+      "a": "ai",
+      "id": "KAN-048-R2KW3G",
+      "op": "edit",
+      "w": "S7030N",
+      "field": "memo",
+      "before": "KAN-044 §13-B. 위험: packages/core/style-guide-catalog.md 38–92줄은 자동 생성 구간이라 이동·개명·삭제하면 trendTable.test.ts 가 readFileSync 에서 red 가 된다 — 출처 절만 손댄다. D 의 선행(직렬 중재). work 4개",
+      "after": "KAN-044 §13-B. 위험: packages/core/style-guide-catalog.md 38–92줄은 자동 생성 구간이라 이동·개명·삭제하면 trendTable.test.ts 가 readFileSync 에서 red 가 된다 — 출처 절만 손댄다. D 의 선행(직렬 중재). work 4개 · KAN-047 넘김: packages/foundations/src/gateDocs.test.ts 도 고친다 — :37 주석의 ASSET_INTEGRATION_PLAN.md 항목, :44–45 ALLOWLIST 의 WAVE0_REPORT.md(지우면 발화 안 하는 항목이 되고 :144 fixture 테스트도 함께 손봐야 한다). scope 에 이 파일을 더하면 :38 을 고칠 C(KAN-049)와 겹친다"
+    },
+    {
       "seq": 163,
       "t": "2026-10-06T00:48",
       "a": "ai",
@@ -1559,17 +1570,6 @@
       "w": "S7030N",
       "from": "todo",
       "to": "doing"
-    },
-    {
-      "seq": 121,
-      "t": "2026-08-14T12:57",
-      "a": "유저",
-      "id": "KAN-036",
-      "op": "edit",
-      "w": "S7030N",
-      "field": "memo",
-      "before": "완료(2026-07-25): 작업 내역 npm 반영 감사 + 배포 계획. 마지막 발행(06ed3e5) 이후 ORD-008~012 + KAN-013~041 전량 미발행 확인. 갭 해소: 패키지별 단일 changeset 5종 신규(tokens/foundations/style-guide-catalog/visualization/viz-catalog) — foundations는 기존 6 changeset이 하나도 안 건드려 버전 범프 자체 누락(핵심 갭). changeset status 검증 = tokens 1.1.0→1.2.0·foundations 1.0.1→1.1.0·style-guide-catalog 0.2.0→0.3.0·visualization 0.1.0→0.2.0·viz-catalog 0.1.0→0.2.0·core 1.1.1(dep auto)·hooks 0.3.0 유지, major 0(전부 additive; style-guide-catalog bakery→neobrutalism 리네임만 breaking이나 pre-1.0라 minor 허용+기존 changeset 커버). 패키지 신설/삭제/리네임 불필요(diagram→visualization·themes→foundations 이미 코드 반영). drift 정정: style-guide-catalog desc 29→51·viz-catalog desc +30·visualization CHANGELOG H1 diagram→visualization+lineage. RELEASE_PLAN.md 신규(버전표+승인게이트+레거시 deprecate follow-up). 게이트 전부 green: typecheck 8pkg·build·test:unit(viz141/found44/sgc76/vsgc39)·test 1219 play·storybook build·dist↔exports(dist/meta·dist/typeMeta)·build drift 0. 외부검토(codex) 반영(changeset 패키지별 분할·semver 배럴 diff 검증·release-readiness). 배포 실행(main push→Version PR→publish 6종)은 유저 명시 승인 후 별도.",
-      "after": "완료(2026-07-25): 작업 내역 npm 반영 감사 + 배포 계획. 마지막 발행(06ed3e5) 이후 ORD-008~~012 + KAN-013~~041 전량 미발행 확인. 갭 해소: 패키지별 단일 changeset 5종 신규(tokens/foundations/style-guide-catalog/visualization/viz-catalog) — foundations는 기존 6 changeset이 하나도 안 건드려 버전 범프 자체 누락(핵심 갭). changeset status 검증 = tokens 1.1.0→1.2.0·foundations 1.0.1→1.1.0·style-guide-catalog 0.2.0→0.3.0·visualization 0.1.0→0.2.0·viz-catalog 0.1.0→0.2.0·core 1.1.1(dep auto)·hooks 0.3.0 유지, major 0(전부 additive; style-guide-catalog bakery→neobrutalism 리네임만 breaking이나 pre-1.0라 minor 허용+기존 changeset 커버). 패키지 신설/삭제/리네임 불필요(diagram→visualization·themes→foundations 이미 코드 반영). drift 정정: style-guide-catalog desc 29→51·viz-catalog desc +30·visualization CHANGELOG H1 diagram→visualization+lineage. RELEASE_PLAN.md 신규(버전표+승인게이트+레거시 deprecate follow-up). 게이트 전부 green: typecheck 8pkg·build·test:unit(viz141/found44/sgc76/vsgc39)·test 1219 play·storybook build·dist↔exports(dist/meta·dist/typeMeta)·build drift 0. 외부검토(codex) 반영(changeset 패키지별 분할·semver 배럴 diff 검증·release-readiness). 배포 실행(main push→Version PR→publish 6종)은 유저 명시 승인 후 별도."
     }
   ],
   "waivers": [
