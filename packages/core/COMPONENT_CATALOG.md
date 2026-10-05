@@ -264,7 +264,7 @@ Wave 0 (편제·인프라·토큰)
 | **W3** | composite | Carousel·Modal·Snackbar·EmptyState·FileUploader·TopNavigation (+Text 포화) | 13 | 13 | `38a8988` |
 | **W4** | blocks | FeatureGrid·PricingSection·Testimonials·Gallery·LogoCloud·Dock·VideoBlock·MapBlock·MarketingFooter·AnnouncementBar (+CTA·Comparison 포화) | 16 | 16 | `0624f37` |
 | **W5** | patterns | SignIn·SignUp·FormLayout·AIChat | 7 | 7 | `8e8e4ba` |
-| **═══ 포화 완료 ═══** | | 43 카테고리 | **86종** | **86** | 브라우저 test **608** · test:unit **115** · storybook build GREEN |
+| **═══ 포화 완료 ═══** | | 44 카테고리 | **86종** | **86** | 브라우저 test **608** · test:unit **115** · storybook build GREEN |
 
 **채택 멤버 전체** (호스트 → 신규 멤버; 감사 매니페스트는 [`catalog/SATURATION_AUDIT.md`](catalog/SATURATION_AUDIT.md)의 카테고리별 절):
 - Button: gradient·link·neon · Input: composer-panel · Hero: stacked-showcase·gradient-surface · Card: retro·pixel · Table: divided·outlined *(신규 축)*
@@ -274,7 +274,7 @@ Wave 0 (편제·인프라·토큰)
 - FeatureGrid: panel-showcase·stacked-deck · PricingSection: single-panel·frosted-gradient · Testimonials: split-media·stacked-deck · Gallery: split-panel · LogoCloud: scroll-columns · Dock: glass·spotlight · VideoBlock: grid-gallery · MapBlock: stacked · MarketingFooter: wordmark·gradient · AnnouncementBar: gradient·glass
 - SignIn: media-backdrop · SignUp: frosted · FormLayout: popover·drawer·dialog·split · AIChat: frosted
 
-**기존 prop으로 포화(=+0, 추가 없음)**: Slider · ScrollArea · Sidebar · TreeView · Text · CTA · Comparison — 이미 `variant×color×size×layout` 조합이 디자인 스페이스를 덮어 새 아키타입 없음(각 감사 매니페스트에 흡수 사유 기록).
+**기존 prop으로 포화(=+0, 추가 없음)**: Slider · ScrollArea · Sidebar · TreeView · Text · CTA · Comparison — 이미 `variant×color×size×layout` 조합이 디자인 스페이스를 덮어 새 아키타입 없음. 이 7종은 감사 매니페스트를 남기지 않았다 — [`catalog/SATURATION_AUDIT.md`](catalog/SATURATION_AUDIT.md)에 이들의 절은 없고, 판정 근거는 이 문장이 전부다.
 
 #### Out-of-scope (이번 포화 미구현 — 별도 트랙)
 
