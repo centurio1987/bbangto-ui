@@ -26,7 +26,7 @@ scope: packages/core/src/a11y/**, packages/core/src/components/Drawer.tsx, packa
 2. **Modal의 인라인 코드를 `packages/core/src/a11y/` 공용 훅으로 뺀다.** `useEscapeKey`, `useFocusTrap`(열 때 이동·가두기·복귀), `useRovingFocus`(화살표·Home/End·방향), `useTypeahead`(글자 검색). Modal을 먼저 이 훅으로 바꿔, 이미 동작하는 구현으로 훅을 검증한다. 공개 export에는 넣지 않는다(내부 모듈).
 3. **세 컴포넌트에 붙인다.**
    - Drawer: `useEscapeKey` + `useFocusTrap`. `aria-labelledby`를 받을 수 있게 한다.
-   - Tabs: `useRovingFocus`로 Tab 정지점 하나, 방향은 `aria-orientation`을 따른다. `useId`로 tab↔panel `aria-controls`/`aria-labelledby`를 잇는다. 선택 안 된 패널도 `hidden`으로 DOM에 남겨 `aria-controls`가 가리킬 대상을 둔다. 사용자 `onClick`은 내부 선택 뒤에 함께 부른다.
+   - Tabs: `useRovingFocus`로 Tab 정지점 하나, 방향은 `aria-orientation`을 따른다. `useId`로 tab↔panel `aria-controls`/`aria-labelledby`를 잇는다. 선택 안 된 패널도 `hidden` 빈 껍데기로 DOM에 남겨 `aria-controls`가 가리킬 대상을 둔다. 내용(children)은 지금처럼 선택됐을 때만 그린다 — 내용까지 늘 그리면 외부 앱의 패널 안 컴포넌트가 처음부터 한꺼번에 마운트되어 동작이 바뀐다. 화살표로 탭을 옮기면 선택도 함께 옮긴다(APG의 자동 활성화 권고). 사용자 `onClick`은 내부 선택 뒤에 함께 부른다.
    - Select: 트리거에 `tabIndex=0`, 아래 화살표·Enter·Space로 열기, 화살표·Home/End로 활성 옵션 이동(`aria-activedescendant`), Enter로 선택, Esc로 닫고 트리거에 포커스 유지, `useTypeahead`. `aria-controls`·label 연결·`aria-disabled`·`aria-invalid` 자리를 바로잡는다.
 
 ### 버린 대안
@@ -79,3 +79,4 @@ pnpm test:unit
 - 2026-10-05T00:12 · s:bcc5b01f — `전략` 섹션 교체
 - 2026-10-05T00:12 · s:bcc5b01f — `실행 계획` 섹션 교체
 - 2026-10-05T00:12 · s:bcc5b01f — `검증` 섹션 교체
+- 2026-10-06T00:57 · s:6dbe1299 — `전략` 섹션 교체

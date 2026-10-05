@@ -28,19 +28,12 @@
     ```
 
 ## 할 일
-- `KAN-047-TRYYRC` 문서 정리 A — 폐기 4건 집행 (RELEASE_PLAN · sample_design · storybook README · ORDER) — 생성:ai · 최종:ai · 갱신:2026-08-25
-  - 짧은 제목: 폐기 4건 집행
-  - 목적: KAN-044 가 폐기로 판정한 문서 4건을 실제로 지운다
-  - 이유: 넷 다 참조가 0건이거나(3건) 참조원을 함께 고치면 되고(ORDER.md 1건), 목적이 소진된 1회성 문서다
-  - 목표: 네 문서가 레포에서 사라지고 grep 결과 0건이라 참조 고아가 남지 않는다
-  - 메모: KAN-044 §13-A. ORDER.md 는 검토 3번 반려(유저 「제거」)로 존치→폐기가 된 건이라 선행 수정이 하나 있다 — visualization-type-inventory.md:376 의 「ORDER.md 편집 금지」 문구. work 1~2개(4.7 인스턴트 예외 대상)
-  - 실행 문서: KANBAN/cards/KAN-047-TRYYRC.md (0/1)
-- `KAN-049-CWBPP6` 문서 정리 C — visualization 계열 통합 (PLAN · visualization-catalog 흡수 + SSOT 이동) — 생성:ai · 최종:ai · 갱신:2026-08-25
+- `KAN-049-CWBPP6` 문서 정리 C — visualization 계열 통합 (PLAN · visualization-catalog 흡수 + SSOT 이동) — 생성:ai · 최종:ai · 갱신:2026-10-06
   - 짧은 제목: viz 계열 통합
   - 목적: viz 의 PLAN.md 와 visualization-catalog.md 를 흡수하면서 구현 스펙 SSOT 지위와 인바운드 링크를 함께 옮긴다
   - 이유: 두 문서가 본문에서 스스로 「흡수됨」을 선언했는데 type-inventory.md 가 아직 5곳에서 그것을 가리킨다
   - 목표: viz 문서 2건이 사라지고 type-inventory grep 결과가 0건이라 SSOT 체인이 끊기지 않는다
-  - 메모: KAN-044 §13-C. 위험: visualization-catalog.md 는 참조 11건으로 통합 대상 중 최다 — 링크를 한 번에 다 고치지 않으면 SSOT 지목이 허공을 가리킨다. 완료 기준에 type-inventory grep 0건을 넣는다. work 4개
+  - 메모: KAN-044 §13-C. 위험: visualization-catalog.md 는 참조 11건으로 통합 대상 중 최다 — 링크를 한 번에 다 고치지 않으면 SSOT 지목이 허공을 가리킨다. 완료 기준에 type-inventory grep 0건을 넣는다. work 4개 · KAN-047 넘김: packages/foundations/src/gateDocs.test.ts:38 주석의 packages/visualization/PLAN.md 항목도 지운다. scope 에 이 파일을 더하면 :37 을 고칠 B(KAN-048)와 겹친다
   - 실행 문서: KANBAN/cards/KAN-049-CWBPP6.md (0/1)
 - `KAN-050-AJSQAY` 문서 정리 D — 규율 문서 실측 정합 (theme-* 부재 · 모션 5중 기재) — 생성:ai · 최종:ai · 갱신:2026-10-05
   - 짧은 제목: 규율 문서 실측 정합
@@ -97,7 +90,7 @@
   - 이유: 외부 앱이 들여올 세 컴포넌트를 키보드로 쓸 수 없고, Select는 Tab으로 닿지도 않는다
   - 목표: 세 컴포넌트의 키보드·포커스 동작이 실제 chromium 위 play 테스트로 확인된다
   - 메모: 외부 앱 소비 문제 대응 5장 중 3 · KAN-054의 선행
-  - 실행 문서: KANBAN/cards/KAN-053-TZ86NN.md (0/4 · 최근 10-05)
+  - 실행 문서: KANBAN/cards/KAN-053-TZ86NN.md (0/4 · 최근 10-06)
   - 원문:
     ```text
     [첨부 이미지]
@@ -140,7 +133,7 @@
   - 목적: core 의 audit 44개를 한 파일로 접고 목적이 소진된 계획 문서 3종을 COMPONENT_CATALOG·style-guide-catalog 로 흡수한다
   - 이유: audit 44개는 파일 단위 참조 0건인 1회성 증빙이고 ASSET_INTEGRATION_PLAN·WAVE0_REPORT 는 Wave 전량 DONE 으로 실행 결과가 이미 레지스트리에 있다
   - 목표: md 47개가 사라지고 1개가 생겨 46개가 줄고, COMPONENT_CATALOG 의 실측 결함 2건이 함께 고쳐진다
-  - 메모: KAN-044 §13-B. 위험: packages/core/style-guide-catalog.md 38–92줄은 자동 생성 구간이라 이동·개명·삭제하면 trendTable.test.ts 가 readFileSync 에서 red 가 된다 — 출처 절만 손댄다. D 의 선행(직렬 중재). work 4개
+  - 메모: KAN-044 §13-B. 위험: packages/core/style-guide-catalog.md 38–92줄은 자동 생성 구간이라 이동·개명·삭제하면 trendTable.test.ts 가 readFileSync 에서 red 가 된다 — 출처 절만 손댄다. D 의 선행(직렬 중재). work 4개 · KAN-047 넘김: packages/foundations/src/gateDocs.test.ts 도 고친다 — :37 주석의 ASSET_INTEGRATION_PLAN.md 항목, :44–45 ALLOWLIST 의 WAVE0_REPORT.md(지우면 발화 안 하는 항목이 되고 :144 fixture 테스트도 함께 손봐야 한다). scope 에 이 파일을 더하면 :38 을 고칠 C(KAN-049)와 겹친다
   - 실행 문서: KANBAN/cards/KAN-048-R2KW3G.md (3/4 · 최근 10-06)
   - 계획 리포트: KANBAN/reports/KAN-048-R2KW3G.report.html (낡음)
 
@@ -417,3 +410,11 @@
     ```text
     별도 카드로 발행해라
     ```
+- `KAN-047-TRYYRC` 문서 정리 A — 폐기 4건 집행 (RELEASE_PLAN · sample_design · storybook README · ORDER) — 생성:ai · 최종:ai · 갱신:2026-10-06
+  - 짧은 제목: 폐기 4건 집행
+  - 목적: KAN-044 가 폐기로 판정한 문서 4건을 실제로 지운다
+  - 이유: 넷 다 참조가 0건이거나(3건) 참조원을 함께 고치면 되고(ORDER.md 1건), 목적이 소진된 1회성 문서다
+  - 목표: 네 문서가 레포에서 사라지고 grep 결과 0건이라 참조 고아가 남지 않는다
+  - 메모: KAN-044 §13-A. ORDER.md 는 검토 3번 반려(유저 「제거」)로 존치→폐기가 된 건이라 선행 수정이 하나 있다 — visualization-type-inventory.md:376 의 「ORDER.md 편집 금지」 문구. work 1~2개(4.7 인스턴트 예외 대상)
+  - 실행 문서: KANBAN/cards/KAN-047-TRYYRC.md (2/2 · 최근 10-06)
+  - 검토 문서: KANBAN/reviews/KAN-047-TRYYRC.review.md (승인 2/2 · 추가 의견 총 2 · 승인)
