@@ -79,3 +79,4 @@ scope: RELEASE_PLAN.md, sample_design/**, apps/storybook/README.md, ORDER.md, pa
 - 2026-10-06T00:19 · s:3f8d729b — `실행 계획` 섹션 교체
 - 2026-10-06T00:19 · s:3f8d729b — `검증` 섹션 교체
 - 2026-10-06T00:20 · s:3f8d729b — 착수 전 검증 grep 빨강 4건 — ORDER.md:34 · RELEASE_PLAN.md:1 (지울 파일 자신) · visualization-type-inventory.md:376 · gateDocs.test.ts:37 (S1 이 고칠 참조원). scope 에 gateDocs.test.ts 를 더하자 KAN-049 와의 용인이 무효(waiver_stale)가 됐다 — 겹침 내용은 그대로, 유저 재확인 대기
+- 2026-10-06T00:22 · s:3f8d729b — 유저 동의 2건(2026-10-06) — ①KAN-049 겹침 다시 용인(사유에 :376 공유 가능성 반영) ②4.7 인스턴트 예외: 배치 문서·계획 리포트 생략, work 2개로 바로 수행
