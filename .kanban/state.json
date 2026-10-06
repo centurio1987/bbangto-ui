@@ -1,6 +1,6 @@
 {
   "next_id": 58,
-  "next_seq": 175,
+  "next_seq": 176,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -149,7 +149,7 @@
       "verbatim": "[첨부 이미지]\nbbangto-ui 컴포넌트를 지금 들여오면 생기는 문제\n- 워커가 시안의 화면 조각 42개를 나눴습니다. bbangto-ui에 이미 있는 것이 11개, 이 앱에서 만들 것이 22개, bbangto-ui에 요청할 것이 9개입니다.\n- 그런데 bbangto-ui core(1.1.2)는 들여오는 입구가 하나뿐입니다. Button 하나만 써도 약 420KB가 번들에 들어갑니다. 지금 웹 앱 전체가 375KB이니 앱이 두 배 넘게 커집니다.\n- 원인은 bbangto-ui 빌드에 있습니다. forwardRef 127곳에 「안 쓰면 버려도 된다」는 표시(__PURE__)가 없습니다. 이 두 가지는 제가 설치된 파일에서 직접 확인했습니다. 워커가 이 표시를 붙인 사본으로 다시 빌드하자 Button이 25KB로 줄었다고 보고했고, 이 재빌드는 제가 다시 해 보지 않았습니다.\n- 번들 말고도 문제가 있다고 워커가 보고했습니다(제가 직접 확인하지는 않았습니다).\n  - Provider가 외부 글꼴을 늘 불러옵니다.\n  - Drawer에 Esc 닫기와 포커스 처리가 없습니다.\n  - Tabs·Select의 키보드 조작이 빠져 있습니다.\n\n이 문제를 해결하기 위한 전략을 수립, 실행 계획 수립, 칸반 카드화 해라.",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-10-05",
+      "갱신": "2026-10-06",
       "title_hash": "c53fa866f35ffbecf1f9f1de448ba098ed6907b5",
       "verbatim_hash": "3b3af68e102bf6abbeb1ecda50a4b415f6bfbbf8",
       "short": "나머지 키보드 일괄 + 커버리지 게이트",
@@ -160,8 +160,8 @@
       "reason_hash": "51d55c25b51142dad396b48a03e25f4997102a21",
       "goal": "keyboard-coverage.json에 오른 모든 상호작용 컴포넌트에 키보드 play 테스트가 있고, 빠지면 test:unit이 빨강이 된다",
       "goal_hash": "b52648a97d41672d0fbdebedf45c8971d39dccc0",
-      "memo": "외부 앱 소비 문제 대응 5장 중 4 · KAN-053 뒤에 직렬",
-      "memo_hash": "410063f995eb6cc5eb075defc6aa4b5aa1c7200f",
+      "memo": "외부 앱 소비 문제 대응 5장 중 4 · KAN-053 뒤에 직렬 · KAN-053 넘김: onKeyDown 합성 규칙 통일(Tabs↔Modal·Drawer) + 실제 키 입력 게이트 — 전략 「KAN-053에서 넘어온 것」",
+      "memo_hash": "762927f4deccdaf1d13c964c0457bef70fb744da",
       "scope": [
         "packages/core/src/a11y/**",
         "packages/core/src/components/Popover.tsx",
@@ -1000,6 +1000,17 @@
   ],
   "recent": [
     {
+      "seq": 175,
+      "t": "2026-10-06T17:58",
+      "a": "ai",
+      "id": "KAN-054-M48FNQ",
+      "op": "edit",
+      "w": "S7030N",
+      "field": "memo",
+      "before": "외부 앱 소비 문제 대응 5장 중 4 · KAN-053 뒤에 직렬",
+      "after": "외부 앱 소비 문제 대응 5장 중 4 · KAN-053 뒤에 직렬 · KAN-053 넘김: onKeyDown 합성 규칙 통일(Tabs↔Modal·Drawer) + 실제 키 입력 게이트 — 전략 「KAN-053에서 넘어온 것」"
+    },
+    {
       "seq": 174,
       "t": "2026-10-06T17:54",
       "a": "ai",
@@ -1551,16 +1562,6 @@
       "reason": "Button 하나만 써도 core 320KB가 번들에 들어가 외부 앱(375KB)이 두 배 가까이 커진다",
       "goal": "dist 기준 core Button 단독이 7KB 이하이고, 상한을 넘으면 test:unit이 빨강이 된다",
       "memo": "외부 앱 소비 문제 대응 5장 중 1 · 근거와 측정값은 카드 문서 「전략」"
-    },
-    {
-      "seq": 142,
-      "t": "2026-08-25T14:30",
-      "a": "유저",
-      "id": "KAN-047-TRYYRC",
-      "op": "waive",
-      "w": "S7030N",
-      "with_": "KAN-049-CWBPP6",
-      "reason": "같은 파일(visualization-type-inventory.md)을 건드리지만 줄이 다르다 — A 는 :376 의 「ORDER.md 편집 금지」 문구 한 줄, C 는 :12,13,14,29,30,343,369 의 SSOT 링크. 순서가 뒤집혀도 상대가 할 일이 그대로 남고 git 병합도 붙는다. 유저 판단(2026-08-25)"
     }
   ],
   "waivers": [

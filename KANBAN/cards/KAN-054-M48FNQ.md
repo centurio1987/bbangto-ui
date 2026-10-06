@@ -44,6 +44,13 @@ scope: packages/core/src/a11y/**, packages/core/src/components/Popover.tsx, pack
 - KAN-053 뒤에 직렬로 선다. 착수 전에 KAN-053 결과(훅 API)를 보고 전략을 다시 세운다.
 - KAN-055와 용인: 이 카드의 changeset은 이 카드가 끝나 main에 병합된 뒤에만 들어오므로 그 전 배포에 섞이지 않는다.
 
+### KAN-053에서 넘어온 것 (2026-10-06 검토 승인)
+
+KAN-053 검토서(`KANBAN/reviews/KAN-053-TZ86NN.review.md` · 정본 `.kanban/reviews/KAN-053-TZ86NN.events.jsonl`)에서 이 카드로 넘긴 두 건이다. 재수립 때 각각 work로 받을지 정한다.
+
+1. **키 처리 콜백 합성 규칙을 하나로 맞춘다.** 외부 앱이 넘긴 `onKeyDown`에서 기본 동작을 막으면 Tabs는 내부 키 처리를 건너뛰는데(`packages/core/src/components/Tabs.tsx:134`의 `e.defaultPrevented` 확인), Modal·Drawer는 그 확인 없이 Esc·포커스 가두기를 이어서 한다(`Modal.tsx:92-96` · `Drawer.tsx:49-53`). 11곳에 훅을 이어 쓰기 전에 한 규칙으로 맞춘다. KAN-053은 이 불일치를 그대로 두고 승인됐다.
+2. **실제 키 입력 확인을 게이트로 만든다.** 위 「접근 1」의 게이트는 키보드 play 테스트가 **있는지**만 보는 정적 검사다. KAN-053에서 Modal을 Enter로 열면 포커스가 대화상자로 안 들어가는 결함이 play 테스트를 통과한 채 실제 키 입력에서만 드러났다(play 테스트는 입력을 흉내 내서 렌더 순서가 실제와 다르다). 원인은 패널 마운트가 열림 신호보다 한 박자 늦은 것이고 `useFocusTrap`의 재시도로 고쳤다. 같은 종류를 잡으려면 Playwright 실제 입력(CDP)으로 도는 검사가 따로 있어야 하며, 정적 게이트와 다른 장치다.
+
 ### 범위 밖
 
 - Accordion 헤더 사이 화살표·Home/End(APG에서 선택 사항). 커버리지 목록에는 올리되 고치지 않는다.
@@ -82,3 +89,4 @@ pnpm test:unit                  # ← keyboardCoverage.test.ts 가 여기서 돈
 - 2026-10-05T00:12 · s:bcc5b01f — `전략` 섹션 교체
 - 2026-10-05T00:12 · s:bcc5b01f — `실행 계획` 섹션 교체
 - 2026-10-05T00:12 · s:bcc5b01f — `검증` 섹션 교체
+- 2026-10-06T17:58 · s:6dbe1299 — `전략` 섹션 교체
