@@ -5,7 +5,7 @@ created: 2026-10-06
 branch: KAN-049-CWBPP6
 worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-049-CWBPP6
 base: 11cb644
-status: 검토 대기
+status: 승인
 ---
 
 # KAN-049-CWBPP6 검토 요청 — 문서 정리 C — visualization 계열 통합 (PLAN · visualization-catalog 흡수 + SSOT 이동)
@@ -176,7 +176,7 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-049-CWBPP6 --add
 **전체 승인은 살아있는 항목이 전부 승인일 때만 섭니다**(철회는 분모에서 빠집니다). 하나라도
 반려·추가 의견·미정이면 4항의 전체 승인도 `→ 완료` 이동도 종료코드 14로 거부됩니다.
 
-- [ ] README 「구현 규약」 절이 지운 PLAN.md 의 살아 있는 내용을 지금 코드에 맞게 옮겼는가 — 주장마다 코드와 대조했고, 코드와 다른 2건은 코드 기준으로 고쳐 옮겼습니다
+- [x] README 「구현 규약」 절이 지운 PLAN.md 의 살아 있는 내용을 지금 코드에 맞게 옮겼는가 — 주장마다 코드와 대조했고, 코드와 다른 2건은 코드 기준으로 고쳐 옮겼습니다
     - **배경**
       - PLAN.md 는 대부분 2026-07-12 개편 전 설계 이력이고, 아직 맞는 내용은 「현재 아키텍처」·「확정된 결정」·「공통 계약」 세 덩이에 있었다. 원문: git show fecab77:packages/visualization/PLAN.md
       - 세 덩이를 viz README 의 새 절 하나로 옮기면서 주장마다 코드 위치를 확인했다. 확인한 위치 목록은 카드 수행 내역의 첫 단계(PLAN 흡수) 완료 줄에 있다. 원문: KANBAN/cards/KAN-049-CWBPP6.md
@@ -195,6 +195,7 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-049-CWBPP6 --add
     >
     > - 반려 · ai · 2026-10-06
     > - 반려 · ai · 2026-10-06
+    > - 승인 · ai · 2026-10-06
 
     > **추가 의견**
     >
@@ -202,6 +203,7 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-049-CWBPP6 --add
     > - ai · 2026-10-06 — 반영했습니다(5a4aede). 짚어 주신 다섯 가지를 코드로 다시 확인한 뒤 README 「구현 규약」에 넣었습니다 — 구조 절에 DOM 측정 안 함·모션 줄이기, 작성 모델 절에 children 모드 노드 등록 한계·NodeLabel 모드, 공통 계약 접근성에 장식 aria-hidden. ①은 코드가 엘리먼트 props 를 읽는 방식이라, memo 여부가 아니라 「다른 엘리먼트 안에 넣었거나 다섯 값을 props 로 받지 않는 래퍼」가 등록되지 않는다고 정확히 적었습니다(Canvas.tsx:29-51). 같은 종류 누락을 PLAN 전체에서 다시 훑어 하나를 더 찾았습니다 — 「이연」의 리터럴 paint 제거가 끝나지 않아 템플릿 12개가 기본 색을 리터럴로 넣고, 스타일 가이드가 그 부분을 못 바꿉니다. README 에 「알려진 한계」 절로 적고, 「리터럴 색을 쓰지 않는다」 문장이 이와 어긋나지 않게 고쳤습니다. PLAN 이 말한 snap()·gridPlace 헬퍼는 코드에 없어 옮기지 않았습니다.
     > - ai · 2026-10-06 — 재검토 결과입니다. 짚은 다섯 가지는 코드와 맞게 들어갔습니다. ①의 표현 정정도 맞습니다 — Canvas.tsx:29-51 은 바로 아래 자식 엘리먼트의 props 만 읽으므로 memo 여부와 상관없고, 조건부(cond && <Node/>)와 map 배열도 펼쳐져 등록됩니다. 제 첫 의견의 「조건부·memo」는 부정확했습니다. NodeLabel maxLines 기본 3(NodeLabel.tsx:42)·fit 의 lengthAdjust(:115), 모션 줄이기 CSS 가 Provider 에 연결된 것(VisualizationStyleGuideProvider.tsx:62), IconBadge 의 aria-hidden(:36)도 확인했습니다. 남은 것은 새로 넣은 「알려진 한계」의 사실 하나입니다. 기본 색을 리터럴로 넣는 템플릿은 12개가 아니라 14개입니다. TimelineDiagram.tsx:110-111(이벤트 노드 fill #FFFFFF·stroke #111111)과 C4CodeDiagram.tsx:112(관계 Edge stroke #555555)가 빠졌습니다. 둘 다 Node·Edge 가 명시 prop 을 인라인 style 로 렌더하므로(Node.tsx:288, Edge.tsx:107-121) 스타일 가이드가 못 바꿉니다. 「구조」 절이 「예외는 아래 알려진 한계」라고 가리키므로, 목록에 없는 템플릿은 테마가 먹는다고 읽힙니다. 그래서 이번 반려는 두 이름을 더하고 개수를 14로 고치라는 뜻이고, 나머지는 그대로 두면 됩니다. 함께 고르면 좋은 것 하나: IsometricScene 은 리터럴이 반투명 검정 음영 하나(:144)뿐인데, 같은 종류인 Node.tsx:224·IsoPrism.tsx:93 의 음영은 코드 주석이 「paint 무관 음영」이라 부르며 목록에 없습니다. 음영을 한계로 칠지 한 문장으로 기준을 적고 그에 맞춰 IsometricScene 을 두거나 빼면 목록 기준이 하나로 섭니다.
     > - ai · 2026-10-06 — 반영했습니다(120fe9c). 목록이 틀린 원인은 제 검색이 작은따옴표로 감싼 hex 만 찾아 JSX 속성(fill="#FFFFFF")을 놓친 것입니다. 따옴표·rgba·색 이름까지 넓혀 src 의 templates·patterns·molecules·atoms 를 전부 다시 훑었습니다. TimelineDiagram·C4CodeDiagram 을 더했고, 셈 기준을 「불투명한 채움·선 색」으로 정해 문장에 적었습니다. 그 기준으로 IsometricScene 바닥 그림자는 Node cube 면·IsoPrism·Lane 의 반투명 음영과 같은 paint 무관 장치라 뺐습니다. 그래서 14가 아니라 13입니다. ① 표현 확인과 note 정정도 고맙습니다.
+    > - ai · 2026-10-06 — 2회차 재검토 결과 승인합니다. 「불투명한 채움·선 색」 기준으로 다시 세어 보니 13개가 맞습니다. templates·patterns·molecules·atoms 를 hex(JSX 속성의 큰따옴표 포함)·rgba·hsl·색 이름으로 훑으면 리터럴이 있는 템플릿은 14개입니다. 그중 IsometricScene 은 바닥 그림자 한 줄(:144, #000000 에 fillOpacity 0.08)뿐이라 기준대로 빠지고, 나머지 13개는 모두 불투명 리터럴(#FFFFFF·#111111·#555555·#E8EDF4 등)이 있어 README 목록과 이름까지 같습니다. patterns·molecules 에는 리터럴이 없고, atoms 에는 Node cube 면·IsoPrism·Lane 의 반투명 검정만 있어 기준 문장과 맞습니다. 기준을 문장에 적어 두었으니, 다음에 목록을 고치는 사람도 같은 방식으로 셀 수 있습니다.
 
 - [x] visualization-catalog.md 에서 style-classification 으로 옮긴 범위를 이렇게 그어도 되는가 — 색 값은 옮기지 않고 소스 파일을 가리키게 했습니다
     - **배경**
@@ -240,9 +242,11 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-049-CWBPP6 --add
      frontmatter 의 status 도 함께 고친다. 손으로 적어도 되지만, 그때는 수렴 검사를
      안 거치므로 `validate` 가 항목 판정과 어긋난 승인을 error 로 잡는다. -->
 
-**판정**: (아직 없습니다)
+**판정**: 승인
 
 **판정 이력**:
+
+- 승인 · 유저 · 2026-10-06
 
 - 승인이면 → `apply --op move --id KAN-049-CWBPP6 --to done` 뒤에 `main` 병합과 워크트리 정리(출력의 `cleanup`)
 - 반려면 → `apply --op move --id KAN-049-CWBPP6 --to doing` 뒤에 `doc-log --entry "<반려 사유>"`.
