@@ -127,11 +127,81 @@ Provider는 기본으로 JetBrains Mono를 Google Fonts에서 불러온다. 글�
 외부 요청을 0건으로 만들려면 문서 안의 Provider 전부에 `fonts="none"`을 준다. SSR HTML에는 `@import`가
 들어가지 않고 화면이 켜진 뒤에 불러온다.
 
+## 구현 규약 (구 PLAN §C-2)
+
+새 유형을 더하거나 컴포넌트를 고칠 때 지키는 규약이다. 소비자에게는 공개 계약이기도 하다 —
+어떤 props 가 오고, 무엇을 지원하지 않는지가 여기서 정해진다.
+
+### 구조
+
+- **geometry 는 컴포넌트에, paint 는 스타일 레이어에.** 컴포넌트는 리터럴 색 대신 시맨틱 data 속성
+  (`data-viz-part="shape"` · `data-bbangto-viz-edge` · `data-bbangto-viz-pattern` …)을 낸다(예외는 아래 「알려진 한계」).
+  `src/provider/contractCss.ts` 의 계약 스타일시트가 그 속성을 `--bbangto-viz-*` 토큰에 묶는다.
+- **명시한 prop 이 이긴다.** 사용자가 준 `fill`·`stroke` 는 인라인 `style` 로 렌더된다. SVG presentation
+  attribute 는 author stylesheet 에 지고 `var()` 도 attribute 안에서는 무효라 쓰지 않는다.
+- **토큰 계층**: `VisualizationFoundation`(tokens 패키지) → `vvar()` 가 만드는 `var(--bbangto-viz-…)` →
+  `VisualizationStyleGuideProvider` 가 CSS 변수를 주입한다. Provider 밖에서는 무채색 `baseVisualizationFoundation` 으로 떨어진다.
+- **스타일 가이드는 core 와 같은 모양이고 core 에 기대지 않는다.** `VisualizationStyleGuide` 는 core `StyleGuide` 의
+  구조를 로컬로 다시 선언했다. 이 패키지의 런타임 의존은 `@centurio1987/bbangto-ui-tokens` 하나다.
+- **레이어**: `atoms/` → `molecules/` → `patterns/` · `templates/`(다이어그램·인포그래픽 유형). 배치 계산은 `geometry/` 의 순수 함수다.
+- **마커 id 가 겹치지 않는다.** `Canvas` 가 `useId` 로 캔버스마다 마커 id 를 따로 만든다. defs 가 더 필요하면
+  Provider 의 `useVizDefsPrefix()` 를 쓴다.
+- **렌더 중에 DOM 을 재지 않는다.** 글자 폭은 `geometry/text.ts` 의 `estimateWidth` 로 추정하고
+  `getComputedTextLength` 는 쓰지 않는다 — 그래서 서버 렌더와 브라우저 렌더의 결과가 같다.
+- **모션 줄이기를 따른다.** `prefers-reduced-motion: reduce` 면 스타일 가이드 범위 안의 애니메이션·전환을 사실상 끈다.
+  꼭 남겨야 하는 움직임에만 `data-bbangto-viz-animate="essential"` 을 붙인다(`src/provider/defs.ts`).
+
+### 작성 모델
+
+- **노드-엣지 유형은 좌표를 호출자가 준다.** Flowchart·C4·UML 처럼 노드와 엣지로 그리는 유형에는 자동 레이아웃
+  엔진이 없다 — `data.nodes` 의 `x`·`y`·`width`·`height` 를 그대로 그린다. 트리·트리맵·차트처럼 배치가 데이터에서
+  정해지는 유형만 `geometry/` 의 순수 함수(`tidyTreeLayout`·`squarifyLayout` 등)로 위치를 계산한다.
+  텍스트 DSL 파서와 mermaid·dagre·d3 의존은 없다.
+- **표기 키트이지 검증기가 아니다.** BPMN·ArchiMate·SysML 같은 표준의 의미와 제약을 런타임에 검사하지 않는다.
+- **`children` 과 `data`**: 둘 다 받고, `children` 이 있으면 `children` 만 그린다(둘을 섞지 않는다).
+  `data` 항목은 `id` 가 필수다 — 자동 번호를 매기면 SSR 과 CSR 의 id 가 어긋난다.
+- **`children` 모드의 노드 등록은 한 단계뿐이다.** `Canvas` 는 바로 아래 자식 엘리먼트의 props 에서
+  `id`·`x`·`y`·`width`·`height` 를 읽어 엣지가 찾을 좌표로 등록한다. `<g>`·Fragment 처럼 다른 엘리먼트 안에 넣은 노드나
+  그 다섯 값을 props 로 받지 않는 래퍼 컴포넌트는 등록되지 않는다. 그 id 를 가리키는 `Edge` 는 콘솔 경고만 내고
+  그려지지 않는다(throw 하지 않는다). 그럴 때는 `Edge` 의 `from`/`to` 에 `{ x, y }` 를 직접 주거나 노드를 `Canvas` 바로 아래에 둔다.
+- **`NodeLabel` 은 기본이 `wrap`(어절 단위 줄바꿈, `maxLines` 기본 3)이고 `truncate`(말줄임)를 고를 수 있다.**
+  한 줄에 눌러 맞추는 `fit`(SVG `lengthAdjust`)은 폰트가 대체되면 글자가 찌그러지므로 직접 골라야만 켜진다.
+
+### 공통 계약 (ORD-010 이후 유형 전부)
+
+- **props 이름**: 주 입력 `data`, 대체 모드 `children`, 항목 배열 `items`/`series`, 항목 필드 `{ id, label, value, color? }`
+  (`id` 는 필수 string), 값 포맷 `formatValue?: (n) => string`, 차트 도메인 `domain?: [min, max]`
+  (없으면 데이터에서 계산하고 0 기준선을 넣는다).
+- **data 속성은 두 갈래다.** 테스트·외부 셀렉터용 공개 훅은 `data-bbangto-viz-*`(`-bar`·`-point`·`-line`·`-axis`·`-tick`·
+  `-band-edge`·`-pattern` …)이고, `data-viz-part="shape"` 는 계약 스타일시트만 쓰는 내부 훅이다.
+- **paint 채널을 늘리지 않는다.** 계약 채널은 `shape`·`edge` 둘이다. 면을 갈라야 하는 유형은
+  `vvar('palette', 'pN')` 인라인 fill 과 fill-opacity 상수로, 텍스트 위계는 `vvar('typography', …)` 로 낸다.
+- **접근성**: 루트 `Canvas` 는 `role="img"`(`accessible="structured"` 면 `group`)와 `title`(선택 `desc`)을 갖는다.
+  값은 항상 텍스트로 함께 적는다 — 그래픽만으로 값을 말하지 않는다. 노드 글리프·아이콘 배지 같은 장식은 `aria-hidden` 이다.
+- **경계 입력**: 빈 데이터는 빈 캔버스다(throw 하지 않는다). 항목 하나도 그린다. `children`·`data` 를 함께 주면 `children` 이다.
+- **지원 범위**: Sankey 는 비순환·좌→우·수동 노드 좌표. GitGraph merge 는 직선. Venn 은 2원 정밀 + 3원 대칭 근사.
+  GeoMap 은 호출자가 준 region path 를 그린다(투영 없음, 고정 viewBox). 대량 데이터 최적화는 대상이 아니다.
+- **테스트는 두 갈래다.** 순수 geometry 는 `src/**/*.test.ts` 의 vitest 단위 테스트로, 컴포넌트 렌더는 Storybook `play()` 로 본다.
+  `play()` 에서는 텍스트 bbox·computed width 를 대조하지 않는다(실행마다 흔들린다) — geometry 가 낸 값과
+  attribute 정수를 ±1 로 대조한다.
+
+### 알려진 한계
+
+- **템플릿 13개는 기본 채움·선 색을 리터럴로 넣는다** — `ArchitectureDiagram` · `ArchiMateDiagram` · `BlockDiagram` ·
+  `BPMNDiagram` · `BPMNCollaborationDiagram` · `C4CodeDiagram` · `KanbanBoard` · `Mindmap` · `RequirementDiagram` ·
+  `TimelineDiagram` · `UMLComponentDiagram` · `UMLDeploymentDiagram` · `UMLSequenceDiagram`. 이 기본값이 인라인 style 로
+  렌더되므로 스타일 가이드를 바꿔도 그 부분 색은 그대로다. 구 PLAN 「이연」의 「파일럿 외 템플릿 리터럴 paint 제거」가 아직
+  남은 것이다. 센 기준은 불투명한 채움·선 색이다 — 면 위에 반투명 검정을 얹는 음영·틴트(`Node` cube 면, `IsoPrism`,
+  `IsometricScene` 바닥 그림자, `Lane`)는 어떤 스타일 가이드 위에서도 같은 명암을 내는 paint 무관 장치라 세지 않았다
+  (2026-10-06 `src/` 전체에서 hex·rgba·색 이름 검색).
+
 ## 함께 들어 있는 문서
 
 - `visualization-type-inventory.md` — 유형 축 인벤토리(VT 행 90, 사람용 SSOT)
 - `TYPE_METADATA_STRATEGY.md` — 유형 메타 레이어 설계·저작 규약
-- `visualization-catalog.md` · `style-classification.md` — 컴포넌트/스타일 분류
+
+저장소에만 있는 문서(npm 배포물에는 없다): `style-classification.md` — 88장 레퍼런스 기반 스타일 패밀리 분류와 횡단 구현 규칙,
+`viz-style-expansion.md` — 88장 밖 스타일 확장 계획.
 
 ## 라이선스·저장소
 

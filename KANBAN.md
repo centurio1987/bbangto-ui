@@ -28,13 +28,6 @@
     ```
 
 ## 할 일
-- `KAN-049-CWBPP6` 문서 정리 C — visualization 계열 통합 (PLAN · visualization-catalog 흡수 + SSOT 이동) — 생성:ai · 최종:ai · 갱신:2026-10-06
-  - 짧은 제목: viz 계열 통합
-  - 목적: viz 의 PLAN.md 와 visualization-catalog.md 를 흡수하면서 구현 스펙 SSOT 지위와 인바운드 링크를 함께 옮긴다
-  - 이유: 두 문서가 본문에서 스스로 「흡수됨」을 선언했는데 type-inventory.md 가 아직 5곳에서 그것을 가리킨다
-  - 목표: viz 문서 2건이 사라지고 type-inventory grep 결과가 0건이라 SSOT 체인이 끊기지 않는다
-  - 메모: KAN-044 §13-C. 위험: visualization-catalog.md 는 참조 11건으로 통합 대상 중 최다 — 링크를 한 번에 다 고치지 않으면 SSOT 지목이 허공을 가리킨다. 완료 기준에 type-inventory grep 0건을 넣는다. work 4개 · KAN-047 넘김: packages/foundations/src/gateDocs.test.ts:38 주석의 packages/visualization/PLAN.md 항목도 지운다. scope 에 이 파일을 더하면 :37 을 고칠 B(KAN-048)와 겹친다
-  - 실행 문서: KANBAN/cards/KAN-049-CWBPP6.md (0/1)
 - `KAN-050-AJSQAY` 문서 정리 D — 규율 문서 실측 정합 (theme-* 부재 · 모션 5중 기재) — 생성:ai · 최종:ai · 갱신:2026-10-05
   - 짧은 제목: 규율 문서 실측 정합
   - 목적: CLAUDE.md·QUALITY_CHECKLIST·DESIGN_SYSTEM_GUIDE 의 실측 어긋남을 고치고 5곳에 흩어진 모션 워크플로 기재를 하나로 모은다
@@ -382,6 +375,15 @@
     ```text
     별도 카드로 발행해라
     ```
+- `KAN-049-CWBPP6` 문서 정리 C — visualization 계열 통합 (PLAN · visualization-catalog 흡수 + SSOT 이동) — 생성:ai · 최종:ai · 갱신:2026-10-06
+  - 짧은 제목: viz 계열 통합
+  - 목적: viz 의 PLAN.md 와 visualization-catalog.md 를 흡수하면서 구현 스펙 SSOT 지위와 인바운드 링크를 함께 옮긴다
+  - 이유: 두 문서가 본문에서 스스로 「흡수됨」을 선언했는데 type-inventory.md 가 아직 5곳에서 그것을 가리킨다
+  - 목표: viz 문서 2건이 사라지고 type-inventory grep 결과가 0건이라 SSOT 체인이 끊기지 않는다
+  - 메모: KAN-044 §13-C. 위험: visualization-catalog.md 는 참조 11건으로 통합 대상 중 최다 — 링크를 한 번에 다 고치지 않으면 SSOT 지목이 허공을 가리킨다. 완료 기준에 type-inventory grep 0건을 넣는다. work 4개 · KAN-047 넘김: packages/foundations/src/gateDocs.test.ts:38 주석의 packages/visualization/PLAN.md 항목도 지운다. scope 에 이 파일을 더하면 :37 을 고칠 B(KAN-048)와 겹친다
+  - 실행 문서: KANBAN/cards/KAN-049-CWBPP6.md (4/4 · 최근 10-06)
+  - 계획 리포트: KANBAN/reports/KAN-049-CWBPP6.report.html
+  - 검토 문서: KANBAN/reviews/KAN-049-CWBPP6.review.md (승인 2/2 · 추가 의견 총 7 · 승인)
 - `KAN-047-TRYYRC` 문서 정리 A — 폐기 4건 집행 (RELEASE_PLAN · sample_design · storybook README · ORDER) — 생성:ai · 최종:ai · 갱신:2026-10-06
   - 짧은 제목: 폐기 4건 집행
   - 목적: KAN-044 가 폐기로 판정한 문서 4건을 실제로 지운다

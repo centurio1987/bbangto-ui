@@ -1,6 +1,6 @@
 {
   "next_id": 56,
-  "next_seq": 168,
+  "next_seq": 173,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -31,31 +31,6 @@
         "packages/visualization-style-guide-catalog/package.json",
         "packages/visualization-style-guide-catalog/CHANGELOG.md",
         ".changeset/*.md"
-      ]
-    },
-    "KAN-049-CWBPP6": {
-      "col": "todo",
-      "title": "문서 정리 C — visualization 계열 통합 (PLAN · visualization-catalog 흡수 + SSOT 이동)",
-      "verbatim": "",
-      "생성": "ai",
-      "최종": "ai",
-      "갱신": "2026-10-06",
-      "title_hash": "413d7deae94c0f1a211808da04989f396c17572e",
-      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
-      "short": "viz 계열 통합",
-      "short_hash": "8f5673d85ea43d04c700cf80e49c93e46c755c3a",
-      "purpose": "viz 의 PLAN.md 와 visualization-catalog.md 를 흡수하면서 구현 스펙 SSOT 지위와 인바운드 링크를 함께 옮긴다",
-      "purpose_hash": "d02827b6af3d76347e672e41eda44e39ee4bd48c",
-      "reason": "두 문서가 본문에서 스스로 「흡수됨」을 선언했는데 type-inventory.md 가 아직 5곳에서 그것을 가리킨다",
-      "reason_hash": "882d4629c54f913b7af928c16c8a34a91ea1d75f",
-      "goal": "viz 문서 2건이 사라지고 type-inventory grep 결과가 0건이라 SSOT 체인이 끊기지 않는다",
-      "goal_hash": "ad2bda4935f457c79163d91540ec3fc2daa9be63",
-      "memo": "KAN-044 §13-C. 위험: visualization-catalog.md 는 참조 11건으로 통합 대상 중 최다 — 링크를 한 번에 다 고치지 않으면 SSOT 지목이 허공을 가리킨다. 완료 기준에 type-inventory grep 0건을 넣는다. work 4개 · KAN-047 넘김: packages/foundations/src/gateDocs.test.ts:38 주석의 packages/visualization/PLAN.md 항목도 지운다. scope 에 이 파일을 더하면 :37 을 고칠 B(KAN-048)와 겹친다",
-      "memo_hash": "ae37bb64803917276738c6298543606def557332",
-      "scope": [
-        "packages/visualization/**",
-        "packages/visualization-style-guide-catalog/README.md",
-        "packages/style-guide-catalog/METADATA_STRATEGY.md"
       ]
     },
     "KAN-050-AJSQAY": {
@@ -204,37 +179,6 @@
         "keyboard-coverage.json",
         "packages/foundations/src/keyboardCoverage.test.ts",
         ".changeset/kan-054-*.md"
-      ]
-    },
-    "KAN-048-R2KW3G": {
-      "col": "done",
-      "title": "문서 정리 B — core 카탈로그 계열 통합 (audit 44→1 · 일회성 계획 3종 흡수)",
-      "verbatim": "",
-      "생성": "ai",
-      "최종": "ai",
-      "갱신": "2026-10-06",
-      "title_hash": "156a2dbe55de1f5a4cce5414d5d067eb89f1003b",
-      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
-      "short": "core 카탈로그 통합",
-      "short_hash": "bf446d9d881236060316c8973148b91ea4f89d8b",
-      "purpose": "core 의 audit 44개를 한 파일로 접고 목적이 소진된 계획 문서 3종을 COMPONENT_CATALOG·style-guide-catalog 로 흡수한다",
-      "purpose_hash": "edaddb4fc889d8cc826b122c0f6e74c5e568c682",
-      "reason": "audit 44개는 파일 단위 참조 0건인 1회성 증빙이고 ASSET_INTEGRATION_PLAN·WAVE0_REPORT 는 Wave 전량 DONE 으로 실행 결과가 이미 레지스트리에 있다",
-      "reason_hash": "34b21d7865d61feb8ba3f0f6f1428f000e1e492c",
-      "goal": "md 47개가 사라지고 1개가 생겨 46개가 줄고, COMPONENT_CATALOG 의 실측 결함 2건이 함께 고쳐진다",
-      "goal_hash": "5f4f3a584577c10a6ddd68d6d6ab06b82a8266be",
-      "memo": "KAN-044 §13-B. 위험: packages/core/style-guide-catalog.md 38–92줄은 자동 생성 구간이라 이동·개명·삭제하면 trendTable.test.ts 가 readFileSync 에서 red 가 된다 — 출처 절만 손댄다. D 의 선행(직렬 중재). work 4개 · KAN-047 넘김: packages/foundations/src/gateDocs.test.ts 도 고친다 — :37 주석의 ASSET_INTEGRATION_PLAN.md 항목, :44–45 ALLOWLIST 의 WAVE0_REPORT.md(지우면 발화 안 하는 항목이 되고 :144 fixture 테스트도 함께 손봐야 한다). scope 에 이 파일을 더하면 :38 을 고칠 C(KAN-049)와 겹친다",
-      "memo_hash": "120776af14a4345eaa6300a3b47cc1a391fe5d11",
-      "scope": [
-        "packages/core/catalog/**",
-        "packages/core/COMPONENT_CATALOG.md",
-        "packages/core/design-trends-2020-2026.md",
-        "packages/core/style-guide-catalog.md",
-        "packages/style-guide-catalog/src/index.ts",
-        "ASSET_INTEGRATION_PLAN.md",
-        "WAVE0_REPORT.md",
-        "packages/foundations/src/gateDocs.test.ts",
-        "packages/foundations/src/gateDocs.ts"
       ]
     },
     "KAN-020": {
@@ -836,6 +780,32 @@
         "packages/foundations/src/gateDocs.test.ts"
       ]
     },
+    "KAN-049-CWBPP6": {
+      "col": "done",
+      "title": "문서 정리 C — visualization 계열 통합 (PLAN · visualization-catalog 흡수 + SSOT 이동)",
+      "verbatim": "",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-06",
+      "title_hash": "413d7deae94c0f1a211808da04989f396c17572e",
+      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+      "short": "viz 계열 통합",
+      "short_hash": "8f5673d85ea43d04c700cf80e49c93e46c755c3a",
+      "purpose": "viz 의 PLAN.md 와 visualization-catalog.md 를 흡수하면서 구현 스펙 SSOT 지위와 인바운드 링크를 함께 옮긴다",
+      "purpose_hash": "d02827b6af3d76347e672e41eda44e39ee4bd48c",
+      "reason": "두 문서가 본문에서 스스로 「흡수됨」을 선언했는데 type-inventory.md 가 아직 5곳에서 그것을 가리킨다",
+      "reason_hash": "882d4629c54f913b7af928c16c8a34a91ea1d75f",
+      "goal": "viz 문서 2건이 사라지고 type-inventory grep 결과가 0건이라 SSOT 체인이 끊기지 않는다",
+      "goal_hash": "ad2bda4935f457c79163d91540ec3fc2daa9be63",
+      "memo": "KAN-044 §13-C. 위험: visualization-catalog.md 는 참조 11건으로 통합 대상 중 최다 — 링크를 한 번에 다 고치지 않으면 SSOT 지목이 허공을 가리킨다. 완료 기준에 type-inventory grep 0건을 넣는다. work 4개 · KAN-047 넘김: packages/foundations/src/gateDocs.test.ts:38 주석의 packages/visualization/PLAN.md 항목도 지운다. scope 에 이 파일을 더하면 :37 을 고칠 B(KAN-048)와 겹친다",
+      "memo_hash": "ae37bb64803917276738c6298543606def557332",
+      "scope": [
+        "packages/visualization/**",
+        "packages/visualization-style-guide-catalog/README.md",
+        "packages/style-guide-catalog/METADATA_STRATEGY.md",
+        "packages/foundations/src/gateDocs.test.ts"
+      ]
+    },
     "KAN-047-TRYYRC": {
       "col": "done",
       "title": "문서 정리 A — 폐기 4건 집행 (RELEASE_PLAN · sample_design · storybook README · ORDER)",
@@ -896,11 +866,41 @@
         "packages/visualization/README.md",
         ".changeset/kan-052-*.md"
       ]
+    },
+    "KAN-048-R2KW3G": {
+      "col": "done",
+      "title": "문서 정리 B — core 카탈로그 계열 통합 (audit 44→1 · 일회성 계획 3종 흡수)",
+      "verbatim": "",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-06",
+      "title_hash": "156a2dbe55de1f5a4cce5414d5d067eb89f1003b",
+      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+      "short": "core 카탈로그 통합",
+      "short_hash": "bf446d9d881236060316c8973148b91ea4f89d8b",
+      "purpose": "core 의 audit 44개를 한 파일로 접고 목적이 소진된 계획 문서 3종을 COMPONENT_CATALOG·style-guide-catalog 로 흡수한다",
+      "purpose_hash": "edaddb4fc889d8cc826b122c0f6e74c5e568c682",
+      "reason": "audit 44개는 파일 단위 참조 0건인 1회성 증빙이고 ASSET_INTEGRATION_PLAN·WAVE0_REPORT 는 Wave 전량 DONE 으로 실행 결과가 이미 레지스트리에 있다",
+      "reason_hash": "34b21d7865d61feb8ba3f0f6f1428f000e1e492c",
+      "goal": "md 47개가 사라지고 1개가 생겨 46개가 줄고, COMPONENT_CATALOG 의 실측 결함 2건이 함께 고쳐진다",
+      "goal_hash": "5f4f3a584577c10a6ddd68d6d6ab06b82a8266be",
+      "memo": "KAN-044 §13-B. 위험: packages/core/style-guide-catalog.md 38–92줄은 자동 생성 구간이라 이동·개명·삭제하면 trendTable.test.ts 가 readFileSync 에서 red 가 된다 — 출처 절만 손댄다. D 의 선행(직렬 중재). work 4개 · KAN-047 넘김: packages/foundations/src/gateDocs.test.ts 도 고친다 — :37 주석의 ASSET_INTEGRATION_PLAN.md 항목, :44–45 ALLOWLIST 의 WAVE0_REPORT.md(지우면 발화 안 하는 항목이 되고 :144 fixture 테스트도 함께 손봐야 한다). scope 에 이 파일을 더하면 :38 을 고칠 C(KAN-049)와 겹친다",
+      "memo_hash": "120776af14a4345eaa6300a3b47cc1a391fe5d11",
+      "scope": [
+        "packages/core/catalog/**",
+        "packages/core/COMPONENT_CATALOG.md",
+        "packages/core/design-trends-2020-2026.md",
+        "packages/core/style-guide-catalog.md",
+        "packages/style-guide-catalog/src/index.ts",
+        "ASSET_INTEGRATION_PLAN.md",
+        "WAVE0_REPORT.md",
+        "packages/foundations/src/gateDocs.test.ts",
+        "packages/foundations/src/gateDocs.ts"
+      ]
     }
   },
   "order": [
     "KAN-055-34A57K",
-    "KAN-049-CWBPP6",
     "KAN-050-AJSQAY",
     "KAN-051-5HMYKT",
     "KAN-053-TZ86NN",
@@ -951,11 +951,62 @@
     "KAN-044-3KYT2Q",
     "KAN-045-PNT454",
     "KAN-046-33S4G8",
+    "KAN-049-CWBPP6",
     "KAN-047-TRYYRC",
     "KAN-052-BYS4JN",
     "KAN-048-R2KW3G"
   ],
   "recent": [
+    {
+      "seq": 172,
+      "t": "2026-10-06T17:28",
+      "a": "유저",
+      "id": "KAN-050-AJSQAY",
+      "op": "serialize",
+      "w": "S7030N",
+      "with_": "KAN-048-R2KW3G",
+      "reason": "DESIGN_SYSTEM_GUIDE.md 를 둘 다 고친다. B 가 ASSET_INTEGRATION_PLAN 을 없애야 D 가 :182 링크를 고칠 수 있고, 순서가 뒤면 깨진 링크가 남는다. KAN-044 검토 5번에서 유저가 승인. KAN-048 scope 확장으로 무효가 된 기록을 2026-10-06 유저 지시로 다시 건다"
+    },
+    {
+      "seq": 171,
+      "t": "2026-10-06T17:28",
+      "a": "ai",
+      "id": "KAN-049-CWBPP6",
+      "op": "move",
+      "w": "HQ1ZBZ",
+      "from": "review",
+      "to": "done"
+    },
+    {
+      "seq": 170,
+      "t": "2026-10-06T16:23",
+      "a": "ai",
+      "id": "KAN-049-CWBPP6",
+      "op": "move",
+      "w": "HQ1ZBZ",
+      "from": "doing",
+      "to": "review"
+    },
+    {
+      "seq": 169,
+      "t": "2026-10-06T16:19",
+      "a": "ai",
+      "id": "KAN-049-CWBPP6",
+      "op": "move",
+      "w": "HQ1ZBZ",
+      "from": "review",
+      "to": "doing"
+    },
+    {
+      "seq": 168,
+      "t": "2026-10-06T16:19",
+      "a": "ai",
+      "id": "KAN-049-CWBPP6",
+      "op": "move",
+      "w": "HQ1ZBZ",
+      "from": "review",
+      "to": "review"
+    },
     {
       "seq": 167,
       "t": "2026-10-06T16:48",
@@ -967,6 +1018,16 @@
       "to": "done"
     },
     {
+      "seq": 167,
+      "t": "2026-10-06T00:56",
+      "a": "ai",
+      "id": "KAN-049-CWBPP6",
+      "op": "move",
+      "w": "HQ1ZBZ",
+      "from": "doing",
+      "to": "review"
+    },
+    {
       "seq": 166,
       "t": "2026-10-06T01:04",
       "a": "ai",
@@ -975,6 +1036,16 @@
       "w": "VP2A2W",
       "from": "doing",
       "to": "review"
+    },
+    {
+      "seq": 166,
+      "t": "2026-10-06T00:54",
+      "a": "ai",
+      "id": "KAN-049-CWBPP6",
+      "op": "move",
+      "w": "HQ1ZBZ",
+      "from": "review",
+      "to": "doing"
     },
     {
       "seq": 165,
@@ -988,6 +1059,16 @@
       "after": "KAN-044 §13-C. 위험: visualization-catalog.md 는 참조 11건으로 통합 대상 중 최다 — 링크를 한 번에 다 고치지 않으면 SSOT 지목이 허공을 가리킨다. 완료 기준에 type-inventory grep 0건을 넣는다. work 4개 · KAN-047 넘김: packages/foundations/src/gateDocs.test.ts:38 주석의 packages/visualization/PLAN.md 항목도 지운다. scope 에 이 파일을 더하면 :37 을 고칠 B(KAN-048)와 겹친다"
     },
     {
+      "seq": 165,
+      "t": "2026-10-06T00:41",
+      "a": "ai",
+      "id": "KAN-049-CWBPP6",
+      "op": "move",
+      "w": "HQ1ZBZ",
+      "from": "doing",
+      "to": "review"
+    },
+    {
       "seq": 164,
       "t": "2026-10-06T00:49",
       "a": "ai",
@@ -999,6 +1080,16 @@
       "after": "KAN-044 §13-B. 위험: packages/core/style-guide-catalog.md 38–92줄은 자동 생성 구간이라 이동·개명·삭제하면 trendTable.test.ts 가 readFileSync 에서 red 가 된다 — 출처 절만 손댄다. D 의 선행(직렬 중재). work 4개 · KAN-047 넘김: packages/foundations/src/gateDocs.test.ts 도 고친다 — :37 주석의 ASSET_INTEGRATION_PLAN.md 항목, :44–45 ALLOWLIST 의 WAVE0_REPORT.md(지우면 발화 안 하는 항목이 되고 :144 fixture 테스트도 함께 손봐야 한다). scope 에 이 파일을 더하면 :38 을 고칠 C(KAN-049)와 겹친다"
     },
     {
+      "seq": 164,
+      "t": "2026-10-06T00:31",
+      "a": "ai",
+      "id": "KAN-047-TRYYRC",
+      "op": "waive",
+      "w": "HQ1ZBZ",
+      "with_": "KAN-049-CWBPP6",
+      "reason": "같은 줄을 둘 다 고친다 — visualization-type-inventory.md:376(047은 ORDER.md 조각, 049는 catalog §4 조각)과 gateDocs.test.ts:37-38(047은 ORDER.md 항목, 049는 PLAN.md 항목). 각자 자기 조각만 지우므로 순서가 바뀌어도 상대가 할 일이 그대로 남는다. 늦게 병합하는 쪽이 두 조각이 다 지워진 줄로 충돌을 푼다. 2026-08-25 사유('줄이 다르다')를 실측으로 바로잡아 재기록 (2026-10-06 유저 승인)"
+    },
+    {
       "seq": 163,
       "t": "2026-10-06T00:48",
       "a": "ai",
@@ -1007,6 +1098,16 @@
       "w": "JG08FN",
       "from": "review",
       "to": "done"
+    },
+    {
+      "seq": 163,
+      "t": "2026-10-06T00:31",
+      "a": "ai",
+      "id": "KAN-049-CWBPP6",
+      "op": "waive",
+      "w": "HQ1ZBZ",
+      "with_": "KAN-052-BYS4JN",
+      "reason": "052는 viz Provider 코드·internal/ExternalFonts와 README 사용법 절만 고친다. 049는 PLAN·visualization-catalog 문서 흡수이고 README에는 새 절(구현 규약)을 더한다. 049 scope에 gateDocs.test.ts를 더해 재기록 — 겹침 내용 불변 (2026-10-06 유저 승인)"
     },
     {
       "seq": 162,
@@ -1037,6 +1138,16 @@
       "w": "PP8AJM",
       "from": "review",
       "to": "done"
+    },
+    {
+      "seq": 162,
+      "t": "2026-10-06T00:31",
+      "a": "ai",
+      "id": "KAN-049-CWBPP6",
+      "op": "waive",
+      "w": "HQ1ZBZ",
+      "with_": "KAN-051-5HMYKT",
+      "reason": "049는 packages/visualization/**를 잡았지만 md 문서만 고친다. 051은 packages/visualization/tsup.config.ts만 고친다. 049 scope에 gateDocs.test.ts를 더해 재기록 — 겹침 내용 불변 (2026-10-06 유저 승인)"
     },
     {
       "seq": 161,
@@ -1070,6 +1181,16 @@
       "to": "review"
     },
     {
+      "seq": 161,
+      "t": "2026-10-06T00:31",
+      "a": "ai",
+      "id": "KAN-049-CWBPP6",
+      "op": "waive",
+      "w": "HQ1ZBZ",
+      "with_": "KAN-055-34A57K",
+      "reason": "049는 PLAN.md·visualization-catalog.md 흡수만 하고, 055가 viz에서 바꾸는 것은 CI Version PR이 만드는 package.json·CHANGELOG.md뿐이라 같은 파일을 건드리지 않는다. 049 scope에 gateDocs.test.ts를 더해 재기록 — 겹침 내용 불변 (2026-10-06 유저 승인)"
+    },
+    {
       "seq": 160,
       "t": "2026-10-06T00:19",
       "a": "ai",
@@ -1096,6 +1217,16 @@
       "id": "KAN-052-BYS4JN",
       "op": "move",
       "w": "PP8AJM",
+      "from": "todo",
+      "to": "doing"
+    },
+    {
+      "seq": 160,
+      "t": "2026-10-06T00:22",
+      "a": "ai",
+      "id": "KAN-049-CWBPP6",
+      "op": "move",
+      "w": "HQ1ZBZ",
       "from": "todo",
       "to": "doing"
     },
@@ -1402,143 +1533,6 @@
       "reason": "넷 다 참조가 0건이거나(3건) 참조원을 함께 고치면 되고(ORDER.md 1건), 목적이 소진된 1회성 문서다",
       "goal": "네 문서가 레포에서 사라지고 grep 결과 0건이라 참조 고아가 남지 않는다",
       "memo": "KAN-044 §13-A. ORDER.md 는 검토 3번 반려(유저 「제거」)로 존치→폐기가 된 건이라 선행 수정이 하나 있다 — visualization-type-inventory.md:376 의 「ORDER.md 편집 금지」 문구. work 1~2개(4.7 인스턴트 예외 대상)"
-    },
-    {
-      "seq": 137,
-      "t": "2026-08-26T00:32",
-      "a": "ai",
-      "id": "KAN-046-33S4G8",
-      "op": "move",
-      "w": "M9ETB0",
-      "from": "review",
-      "to": "done"
-    },
-    {
-      "seq": 136,
-      "t": "2026-08-25T14:18",
-      "a": "ai",
-      "id": "KAN-044-3KYT2Q",
-      "op": "move",
-      "w": "DA5BWJ",
-      "from": "review",
-      "to": "done"
-    },
-    {
-      "seq": 136,
-      "t": "2026-08-25T14:31",
-      "a": "ai",
-      "id": "KAN-046-33S4G8",
-      "op": "move",
-      "w": "M9ETB0",
-      "from": "doing",
-      "to": "review"
-    },
-    {
-      "seq": 135,
-      "t": "2026-08-25T14:13",
-      "a": "ai",
-      "id": "KAN-044-3KYT2Q",
-      "op": "move",
-      "w": "DA5BWJ",
-      "from": "doing",
-      "to": "review"
-    },
-    {
-      "seq": 135,
-      "t": "2026-08-25T14:16",
-      "a": "ai",
-      "id": "KAN-046-33S4G8",
-      "op": "move",
-      "w": "M9ETB0",
-      "from": "todo",
-      "to": "doing"
-    },
-    {
-      "seq": 134,
-      "t": "2026-08-25T14:10",
-      "a": "ai",
-      "id": "KAN-044-3KYT2Q",
-      "op": "move",
-      "w": "DA5BWJ",
-      "from": "review",
-      "to": "doing"
-    },
-    {
-      "seq": 134,
-      "t": "2026-08-25T13:10",
-      "a": "ai",
-      "id": "KAN-045-PNT454",
-      "op": "move",
-      "w": "ZW2ASM",
-      "from": "review",
-      "to": "done"
-    },
-    {
-      "seq": 133,
-      "t": "2026-08-25T12:39",
-      "a": "ai",
-      "id": "KAN-044-3KYT2Q",
-      "op": "move",
-      "w": "DA5BWJ",
-      "from": "doing",
-      "to": "review"
-    },
-    {
-      "seq": 133,
-      "t": "2026-08-25T02:08",
-      "a": "ai",
-      "id": "KAN-045-PNT454",
-      "op": "move",
-      "w": "ZW2ASM",
-      "from": "doing",
-      "to": "review"
-    },
-    {
-      "seq": 132,
-      "t": "2026-08-24T23:58",
-      "a": "ai",
-      "id": "KAN-044-3KYT2Q",
-      "op": "move",
-      "w": "DA5BWJ",
-      "from": "todo",
-      "to": "doing"
-    },
-    {
-      "seq": 132,
-      "t": "2026-08-25T12:22",
-      "a": "ai",
-      "id": "KAN-046-33S4G8",
-      "op": "create",
-      "w": "S7030N",
-      "col": "todo",
-      "title": "pnpm test:unit 을 CLAUDE.md 품질 게이트에 추가 — 매니페스트·대비·명명 게이트가 문서에 없다",
-      "verbatim": "별도 카드로 발행해라",
-      "parent": null,
-      "short": "test:unit 게이트 문서화",
-      "purpose": "CLAUDE.md 「품질 게이트 실행」 절에 pnpm test:unit 을 다섯 번째 명령으로 넣는다",
-      "reason": "매니페스트 바이트 동기·대비 over-claim·명명 규칙·커버리지 census 가 전부 test:unit 에서만 도는데 CLAUDE.md 와 옛 README 둘 다 0회 등장했다",
-      "goal": "네 명령만 초록인 상태로 올려 다른 사람이 test:unit 에서 처음 발견하는 일이 없어진다",
-      "memo": "KAN-045 검토 5번 판단 항목의 유저 의견('별도 카드로 발행해라')에서 분기. pnpm test 의 실체는 pnpm --filter storybook test 라 패키지 vitest 를 실행하지 않는다 — 근거 package.json:11, CLAUDE.md:32"
-    },
-    {
-      "seq": 132,
-      "t": "2026-08-25T00:13",
-      "a": "ai",
-      "id": "KAN-045-PNT454",
-      "op": "move",
-      "w": "ZW2ASM",
-      "from": "todo",
-      "to": "doing"
-    },
-    {
-      "seq": 131,
-      "t": "2026-08-24T23:52",
-      "a": "ai",
-      "id": "KAN-043-2JM72N",
-      "op": "move",
-      "w": "S7030N",
-      "from": "review",
-      "to": "done"
     }
   ],
   "waivers": [
@@ -1594,18 +1588,6 @@
   ],
   "serials": [
     {
-      "pair": "KAN-048-R2KW3G|KAN-050-AJSQAY",
-      "order": [
-        "KAN-048-R2KW3G",
-        "KAN-050-AJSQAY"
-      ],
-      "scope_hash": "03ca14ef4bb1f5eb",
-      "reason": "DESIGN_SYSTEM_GUIDE.md 를 둘 다 고친다. B 가 ASSET_INTEGRATION_PLAN 을 없애야 D 가 :182 링크를 고칠 수 있고, 순서가 뒤면 깨진 링크가 남는다. KAN-044 검토 5번에서 유저가 승인",
-      "created": "2026-08-25T14:28",
-      "by": "유저",
-      "restrategy_required": true
-    },
-    {
       "pair": "KAN-053-TZ86NN|KAN-054-M48FNQ",
       "order": [
         "KAN-053-TZ86NN",
@@ -1652,6 +1634,18 @@
       "created": "2026-10-05T00:14",
       "by": "ai",
       "restrategy_required": false
+    },
+    {
+      "pair": "KAN-048-R2KW3G|KAN-050-AJSQAY",
+      "order": [
+        "KAN-048-R2KW3G",
+        "KAN-050-AJSQAY"
+      ],
+      "scope_hash": "d91d7ccf595645c5",
+      "reason": "DESIGN_SYSTEM_GUIDE.md 를 둘 다 고친다. B 가 ASSET_INTEGRATION_PLAN 을 없애야 D 가 :182 링크를 고칠 수 있고, 순서가 뒤면 깨진 링크가 남는다. KAN-044 검토 5번에서 유저가 승인. KAN-048 scope 확장으로 무효가 된 기록을 2026-10-06 유저 지시로 다시 건다",
+      "created": "2026-10-06T17:28",
+      "by": "유저",
+      "restrategy_required": true
     }
   ]
 }

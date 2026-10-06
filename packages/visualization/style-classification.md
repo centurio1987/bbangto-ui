@@ -1,7 +1,8 @@
 # Visualization Style Classification — 사진별 분석 기반 스타일 재분류
 
 > `diagram-references/` 88장을 **폴더 분류와 무관하게** 사진별로 개별 분석(배경/스트로크/채움/팔레트/차원감/도형 언어/타이포/커넥터/그림자/질감)한 뒤,
-> 시각 속성 군집으로 스타일 패밀리를 정의한 문서. `visualization-catalog.md` §4의 스타일 가이드 인벤토리가 이 분류를 따른다.
+> 시각 속성 군집으로 스타일 패밀리를 정의한 문서. 88장 유래 스타일 가이드 인벤토리와 횡단 구현 규칙의 정본이다
+> (구 `visualization-catalog.md` §4·§5 를 KAN-049 에서 흡수했다).
 >
 > **핵심 결론: 폴더(minimal/colorful/isometric/hand-drawn) ≠ 스타일.**
 > 실측 결과 "hand-drawn" 폴더 20장 중 6장은 지터 없는 클린 벡터(F5/F2)였고, "isometric" 폴더 22장 중 8장은
@@ -110,7 +111,7 @@
 스타디움/큰 radius · 헤비 라운디드 산스 ALL-CAPS. 구현된 Colorful_Flat_01이 크림 그라운드 모드를 커버 —
 **다크 그라운드(벤토/캔디) colorway가 관측상 절반인데 preset 갭**.
 
-### F4. Marker_Sketchnote — 16장 (스펙만)
+### F4. Marker_Sketchnote — 16장 (`marker-sketchnote-01` ✓, KAN-014)
 
 | 이미지 | 근거 요약 |
 |---|---|
@@ -150,7 +151,7 @@
 "hand-drawn" 폴더에 3장, "isometric"·"minimal"에 각각 흩어져 있어 폴더 기준으로는 존재 자체가 안 보였다.
 구현된 가이드 중 최근연은 Blueprint_Technical_01(잉크 keyline 공유)이나, 파스텔 시맨틱 필 없이 순수 라인+단일 액센트라는 점이 다르다.
 
-### F6. Iso_ColorBlock — 8장 (스펙만)
+### F6. Iso_ColorBlock — 8장 (`iso-color-block-01` ✓, KAN-013)
 
 | 이미지 | 근거 요약 |
 |---|---|
@@ -202,15 +203,15 @@
 
 | 패밀리 | 대응 가이드 | 상태 · 조치 |
 |---|---|---|
-| F2 Corporate_Schematic | Corporate_Schematic_01 | **구현 ✓ (ORD-009).** 24장 최대 패밀리 — 브랜드 아이콘 배제 규칙(§5-6) 하에 중립 액센트 타일, kind별 tagColor 혼용(오렌지·그린=다크 텍스트), colorway `default`/`slide-dark`. |
+| F2 Corporate_Schematic | Corporate_Schematic_01 | **구현 ✓ (ORD-009).** 24장 최대 패밀리 — 브랜드 아이콘 배제 규칙(아래 「횡단 구현 규칙」 6) 하에 중립 액센트 타일, kind별 tagColor 혼용(오렌지·그린=다크 텍스트), colorway `default`/`slide-dark`. |
 | F1 Editorial_Accent | Minimal_Line_01 | **정합 완료 (ORD-009).** 라인아트 서브모드(a) = default/slate + **`editorial` preset(b)** 추가. 레드 #E8321F는 텍스트 대비 미달(4.07/4.28 실측)이라 그래픽 블록 전용 — guidelines에 금지 규칙 + 다크 레드 #B3271A 대안 명시. |
 | F3 Flat_Pop | Colorful_Flat_01 | 커버 ✓ + **`bento-dark` preset 추가 (ORD-009)** — 블랙 그라운드 + 피치/오렌지 램프(infographic_colorful_05). |
-| F4 Marker_Sketchnote | HandDrawn_Marker_01 (스펙) | 스펙 유효, **구현 이연 유지**(지터 seeded 렌더·손글씨 폰트·질감 토큰화 블로커). 보강: 하이라이트 최빈 옐로 #F2C230, **다크보드 colorway**, 크로스해치 음영 토큰. |
+| F4 Marker_Sketchnote | marker-sketchnote-01 | **구현 ✓ (KAN-014).** feTurbulence 고정 seed 지터 필터 + 앰버 하이라이트 + 손글씨(cursive), preset `default`(paper)/`darkboard`. 구 스펙명 HandDrawn_Marker_01. |
 | F5 Ink_Line_Duotone | Ink_Line_Duotone_01 | **구현 ✓ (ORD-009).** 클린 모노라인 1.75px + 블랙/블루 2잉크 역할 분리(도형/흐름), colorway `default`/`slate`. `makeVizColorway` edge.stroke override가 이 가이드로 추가됨. |
-| F6 Iso_ColorBlock | Iso_Color_Block_01 (paint) + geometry 트랙 | 구 스펙에서 그라디언트 요소를 F7로 분리하고 순수 면분할 3단 토큰으로 재정의. 진짜 iso geometry는 별도 트랙 `IsoPrism`/`IsometricScene`로 **구현(KAN-028)** — paint(iso-color-block-01)와 직교 합성. |
+| F6 Iso_ColorBlock | iso-color-block-01 (paint, KAN-013) + geometry 트랙 | 구 스펙에서 그라디언트 요소를 F7로 분리하고 순수 면분할 3단 토큰으로 재정의. 진짜 iso geometry는 별도 트랙 `IsoPrism`/`IsometricScene`로 **구현(KAN-028)** — paint(iso-color-block-01)와 직교 합성. |
 | F7 Neon_Gradient_Dark | Neon_Gradient_Dark_01 | **구현 ✓ (ORD-009).** wrapper 레벨 `<defs><linearGradient>`(defsPrefix+useId 유일 id, stop=ext var) — iso geometry 없이 플랫 차트/패턴에 적용. 외부 라벨+리더 틱 규칙 구현. colorway `default`/`aurora`. |
 
-## 스타일 가이드 정의 초안 (신규/보정분) — ORD-009에서 구현 완료 (F4/F6 스펙 보강분 제외)
+## 스타일 가이드 정의 초안 (신규/보정분) — ORD-009·KAN-013·KAN-014 에서 전부 구현
 
 ### Corporate_Schematic_01 (신규 — 1순위)
 - slug `corporate-schematic-01`. 근거 24장 (F2 배정표).
@@ -238,8 +239,27 @@
 ### 기존 가이드 보정
 - **Minimal_Line_01**: `editorial` preset 추가(솔리드 레드 #E8321F 액센트 블록 모드 — F1 최빈 서브모드). 문서상 근거를 "minimal 폴더 23장" → "F1 배정 16장"으로 교체.
 - **Colorful_Flat_01**: `bento-dark` preset 추가(블랙 그라운드 + 피치/오렌지 #E8823C — infographic_colorful_05).
-- **HandDrawn_Marker_01 스펙**: 하이라이트 기본 옐로 #F2C230, `darkboard` colorway(블랙 그라운드 + 페리윙클 #8FA8E0 + 옐로), 크로스해치 음영 토큰 추가.
-- **Isometric_Prism_01 스펙** → **Iso_ColorBlock_01**로 재정의: 그라디언트·글로우 조항 삭제(F7로 이관), 면별 3단 플랫 명암 토큰(top/side/front)만.
+- **HandDrawn_Marker_01 스펙**: 하이라이트 기본 옐로 #F2C230, `darkboard` colorway(블랙 그라운드 + 페리윙클 #8FA8E0 + 옐로), 크로스해치 음영 토큰 추가. → `marker-sketchnote-01`(KAN-014)로 구현.
+- **Isometric_Prism_01 스펙** → **Iso_ColorBlock_01**로 재정의: 그라디언트·글로우 조항 삭제(F7로 이관), 면별 3단 플랫 명암 토큰(top/side/front)만. → `iso-color-block-01`(KAN-013)로 구현, preset `default`/`clay`.
+
+### 초기 3종 (구 catalog §4-a~4-c)
+
+88장 분류보다 먼저 폴더 기준 근거로 만든 가이드다. 값(hex·두께)은 각 소스 파일이 정본이라 여기 옮기지 않고, 고를 때 필요한 경계만 남긴다.
+명명 규칙은 UI 카탈로그와 같다(트렌드 + 인덱스, 예: `Neobrutalism_Editorial_01`). 개인정보를 이름에 넣지 않는다.
+
+- **Blueprint_Technical_01** (`blueprintTechnical.tsx`) — 레퍼런스 유래가 아니라 기존 `blueprintTheme` 을 그대로 승격했다.
+  preset `default`(paper) · `whiteprint`(반전 네이비). motif 는 정밀 제도 — 라벤더 캔버스, 2.5px keyline, 8px radius, mono 태그.
+- **Minimal_Line_01** (`minimalLine.tsx`) — F1 대응. preset `default`(coral 액센트) · `slate`(cobalt 액센트) · `editorial`(위 「기존 가이드 보정」).
+  wrapper: hairline + 무채움 Node, 소문자 mono 캡션 Tag, 배경 없는 EdgeLabel, dashed hairline Boundary.
+  motif: 최소 화살촉(작은 삼각 또는 dot), orthogonal 라우팅, 초대형 숫자↔미세 캡션, 넉넉한 여백.
+  접근성: 관측된 저대비 회색 라벨을 쓰지 않는다 — 캡션도 4.5:1, hairline 의미선은 3:1.
+- **Colorful_Flat_01** (`colorfulFlat.tsx`) — F3 대응. preset `default`(warm 4색) · `candy`(마젠타·퍼플 듀오톤) · `bento-dark`(위 「기존 가이드 보정」).
+  wrapper: flat fill + navy 아웃라인 + 흰 라벨 Node, 채색 pill Tag, pill 캡슐 EdgeLabel.
+  motif: 곡선·대시 곡선 커넥터, 큰 화살촉, kind별 색 순환(p1~p8), 번호 배지 강조.
+  접근성: 채색 타일 위 흰 텍스트는 4.5:1 을 검증한다(amber·teal 위 흰색은 미달 위험 → 어두운 톤으로 보정). 색만으로 구분하지 않고 라벨을 함께 쓴다.
+
+구 catalog §4-d Isometric_Prism_01 · §4-e HandDrawn_Marker_01 은 스펙만 있던 이름이다. 위 「기존 가이드 보정」대로 재정의돼
+`iso-color-block-01` · `marker-sketchnote-01` 로 구현됐다.
 
 ## 횡단 관측 (분류에서 드러난 규칙)
 
@@ -249,3 +269,18 @@
 2. **"선질(line quality)"이 최상위 판별자**: clean vector vs 지터 vs 브러시가 패밀리를 가장 강하게 가른다(F4 vs F5 분리 근거).
 3. **액센트 전략의 3형**: 단일 액센트(F1/F5), 시맨틱 다색 타일(F2/F3), 램프/그라디언트(F6/F7) — foundations의 palette 슬롯 사용 방식이 패밀리별로 다름.
 4. 다크 그라운드 변형이 4개 패밀리(F2/F3/F4/F7)에서 독립 관측 — 다크 colorway는 패밀리 공통 요구.
+
+## 횡단 구현 규칙 (구 catalog §5 — 레퍼런스 유래)
+
+88장에서 패밀리와 무관하게 되풀이된 요구를 규칙으로 뽑은 것이다. 구현 상태(2026-10-06 소스 확인)는 고르다 —
+1·4 는 토큰 슬롯이 없다. 3 은 `Edge` prop(`routing`·`markerEnd`·`strokeDasharray`)으로만 바뀐다 — 토큰 자리
+`edge.dashPattern`(`packages/tokens/src/visualization.ts:66`)은 선언돼 있지만 계약 스타일시트도 `Edge` 도 읽지 않아,
+스타일 가이드가 커넥터 기본값을 정하지 못한다. 2·5·6 이 코드 전체에서 지켜지는지는 따로 감사하지 않았다. 새 가이드나 토큰을 설계할 때 채울 자리다.
+
+1. **auto-contrast**: 채운 도형 위 라벨은 fill 휘도에 따라 흰/검을 자동으로 고르게 하고, 그 선택을 스타일 가이드 토큰으로 제공한다.
+2. **값의 텍스트 병기**: 크기·아크·색으로 값을 나타내는 것(bubble, RingSegment, ProportionBlock)은 반드시 텍스트 값을 함께 쓴다.
+3. **커넥터 스타일 축**: 라우팅(orthogonal/curved/straight) × 선(solid/dashed/dotted) × 화살촉(none/dot/triangle)을
+   토큰·prop 양쪽에서 바꿀 수 있게 한다 — 스타일 가이드가 기본값을 정하고 개별 prop 이 덮어쓴다.
+4. **최소 가독 크기**: 그래픽 안 텍스트의 최소 글자 크기 토큰을 둔다. 장식 텍스트와 정보 텍스트를 구분한다.
+5. **순서 정보의 DOM 표현**: IndexBadge 순번은 DOM 순서와 일치시켜 스크린리더가 같은 순서로 읽게 한다.
+6. **브랜드 아이콘 배제**: AWS/Azure 등 provider 브랜드 아이콘은 들이지 않고 중립 아이콘 슬롯만 제공한다.
