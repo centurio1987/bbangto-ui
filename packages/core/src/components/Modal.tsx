@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 import { KEYFRAME_NAMES, SLIDE_VARS, useAnimatedMount } from '../motion';
+import { useEscapeKey, useFocusTrap } from '../a11y';
 
 export type ModalSize = 'sm' | 'md' | 'lg';
 
@@ -49,6 +50,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
       closeOnOverlayClick = true,
       style,
       className,
+      onKeyDown,
       ...props
     },
     ref
@@ -62,7 +64,6 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
     // Internal handle to the panel so the a11y contract (focus trap + return
     // focus) works regardless of how/whether the caller forwards a ref.
     const panelRef = useRef<HTMLDivElement | null>(null);
-    const lastFocusedRef = useRef<Element | null>(null);
     const setPanelRef = (node: HTMLDivElement | null) => {
       panelRef.current = node;
       if (typeof ref === 'function') ref(node);
@@ -80,50 +81,18 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
       };
     }, [isOpen]);
 
-    // Move focus into the dialog on open and restore it to the previously
-    // focused element on close. This is part of the dialog a11y contract that
-    // every variant (including new ones) must preserve.
-    useEffect(() => {
-      if (isOpen) {
-        lastFocusedRef.current = document.activeElement;
-        const id = requestAnimationFrame(() => panelRef.current?.focus());
-        return () => cancelAnimationFrame(id);
-      }
-      if (lastFocusedRef.current instanceof HTMLElement) {
-        lastFocusedRef.current.focus();
-      }
-      return undefined;
-    }, [isOpen]);
+    // Dialog a11y contract every variant (including new ones) must preserve:
+    // focus moves in on open and back on close, Tab stays inside, Esc dismisses
+    // (except while loading).
+    const handleEscape = useEscapeKey(onClose, !loading);
+    const handleFocusTrap = useFocusTrap(panelRef, isOpen);
 
     if (!shouldRender) return null;
 
-    // Esc dismissal + Tab focus trap. Keeps focus contained to the dialog so
-    // no variant can leak focus to the inert page behind the overlay.
     const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-      if (e.key === 'Escape' && !loading) {
-        e.stopPropagation();
-        onClose();
-        return;
-      }
-      if (e.key !== 'Tab') return;
-      const focusables = panelRef.current?.querySelectorAll<HTMLElement>(
-        'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
-      );
-      if (!focusables || focusables.length === 0) {
-        e.preventDefault();
-        panelRef.current?.focus();
-        return;
-      }
-      const first = focusables[0];
-      const last = focusables[focusables.length - 1];
-      const active = document.activeElement;
-      if (e.shiftKey && active === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && active === last) {
-        e.preventDefault();
-        first.focus();
-      }
+      onKeyDown?.(e);
+      handleEscape(e);
+      handleFocusTrap(e);
     };
 
     const handleOverlayClick = () => {
