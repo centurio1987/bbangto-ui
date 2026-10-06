@@ -147,3 +147,4 @@ find . -name "*.md" -not -path "*/node_modules/*" -not -path "*/.git/*" -not -pa
 - 2026-10-06T00:57 · s:a0ca9d11 · S4 doing — 착수
 - 2026-10-06T01:02 · s:a0ca9d11 — `검증` 섹션 교체
 - 2026-10-06T01:02 · s:a0ca9d11 · S4 done — COMPONENT_CATALOG 결함 2건(포화 43→44 카테고리 · 매니페스트 없는 7종 문장 정정, SATURATION_AUDIT 에서 7종 이름 검색해 호스트 절 0건 확인). main(KAN-047 병합분) 합침 — gateDocs.test.ts 머리 주석 충돌은 두 쪽이 지운 항목을 모두 지운 상태로, state 는 rebuild --salvage. 병합 뒤 게이트 5종 초록(test 182파일/1224 · test:unit hooks115·foundations62·viz257·sgc76·vsgc39). 검증 1 PASS 44/44 · 2 표의 5줄 · 3 hunk 94행·347행~ · 5 86→40(D47·A1)
+- 2026-10-06T16:48 · s:a0ca9d11 — 검토 전체 승인(유저) 뒤 main 최신분(KAN-052 병합 등 17커밋)을 다시 합침 — 충돌은 칸반 기계 파일뿐(rebuild --salvage). 재게이트: pnpm test 첫 실행이 ProviderFonts·viz Provider 스토리 6건 실패 → storybook vite 캐시(node_modules/.cache/storybook · apps/storybook/node_modules/.cache·.vite) 삭제 뒤 183파일/1232건 통과. 나머지 4종 초록. 검증 2번 5줄·접기 44/44 유지
