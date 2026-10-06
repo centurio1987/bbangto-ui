@@ -46,7 +46,7 @@ scope: packages/core/src/a11y/**, packages/core/src/components/Drawer.tsx, packa
 - Drawer를 portal로 띄우는 일(지금 core에는 `createPortal`이 없다)
 
 ## 실행 계획
-- [ ] `S1` 키보드 play 테스트 먼저 — Drawer 스토리 신설(Esc 닫힘 · 열면 패널 안으로 포커스 · Tab 순환 · 닫으면 트리거로 복귀), Tabs(→/← · Home/End · Tab 정지점 1개 · `aria-controls` 대상이 DOM에 있음 · 사용자 `onClick`을 넘겨도 선택됨), Select(Tab 도달 · ↓/Enter/Space로 열기 · 화살표+Enter 선택 · Esc로 닫고 트리거 포커스 유지 · 글자 검색 · `aria-activedescendant`). 완료 기준: 새 테스트 빨강, 기존 스토리 초록
+- [x] `S1` 키보드 play 테스트 먼저 — Drawer 스토리 신설(Esc 닫힘 · 열면 패널 안으로 포커스 · Tab 순환 · 닫으면 트리거로 복귀), Tabs(→/← · Home/End · Tab 정지점 1개 · `aria-controls` 대상이 DOM에 있음 · 사용자 `onClick`을 넘겨도 선택됨), Select(Tab 도달 · ↓/Enter/Space로 열기 · 화살표+Enter 선택 · Esc로 닫고 트리거 포커스 유지 · 글자 검색 · `aria-activedescendant`). 완료 기준: 새 테스트 빨강, 기존 스토리 초록
 - [ ] `S2` 공용 훅 추출 — `packages/core/src/a11y/`에 `useEscapeKey`·`useFocusTrap`·`useRovingFocus`·`useTypeahead`, Modal을 이 훅으로 교체. 완료 기준: 기존 Modal 스토리(Esc 포함) 초록, Modal 동작 변화 없음
 - [ ] `S3` Drawer·Tabs 적용. 완료 기준: 두 스토리의 새 테스트 초록
 - [ ] `S4` Select 적용 + changeset(core minor). 완료 기준: 게이트 5종 초록
@@ -80,3 +80,5 @@ pnpm test:unit
 - 2026-10-05T00:12 · s:bcc5b01f — `실행 계획` 섹션 교체
 - 2026-10-05T00:12 · s:bcc5b01f — `검증` 섹션 교체
 - 2026-10-06T00:57 · s:6dbe1299 — `전략` 섹션 교체
+- 2026-10-06T16:45 · s:6dbe1299 · S1 doing — 착수
+- 2026-10-06T16:48 · s:6dbe1299 · S1 done — Drawer 스토리 신설 + Tabs·Select 키보드 스토리 6건 추가. 새 키보드 테스트 6건이 키보드 단정에서 빨강, 기존 29건 초록, 스토리 tsc 오류 0

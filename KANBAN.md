@@ -99,7 +99,7 @@
   - 이유: 외부 앱이 들여올 세 컴포넌트를 키보드로 쓸 수 없고, Select는 Tab으로 닿지도 않는다
   - 목표: 세 컴포넌트의 키보드·포커스 동작이 실제 chromium 위 play 테스트로 확인된다
   - 메모: 외부 앱 소비 문제 대응 5장 중 3 · KAN-054의 선행
-  - 실행 문서: KANBAN/cards/KAN-053-TZ86NN.md (0/4 · 최근 10-06)
+  - 실행 문서: KANBAN/cards/KAN-053-TZ86NN.md (1/4 · 최근 10-06)
   - 계획 리포트: KANBAN/reports/KAN-053-TZ86NN.report.html (낡음)
   - 원문:
     ```text
