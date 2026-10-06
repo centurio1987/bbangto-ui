@@ -138,7 +138,7 @@
   - 메모: KAN-044 §13-B. 위험: packages/core/style-guide-catalog.md 38–92줄은 자동 생성 구간이라 이동·개명·삭제하면 trendTable.test.ts 가 readFileSync 에서 red 가 된다 — 출처 절만 손댄다. D 의 선행(직렬 중재). work 4개 · KAN-047 넘김: packages/foundations/src/gateDocs.test.ts 도 고친다 — :37 주석의 ASSET_INTEGRATION_PLAN.md 항목, :44–45 ALLOWLIST 의 WAVE0_REPORT.md(지우면 발화 안 하는 항목이 되고 :144 fixture 테스트도 함께 손봐야 한다). scope 에 이 파일을 더하면 :38 을 고칠 C(KAN-049)와 겹친다
   - 실행 문서: KANBAN/cards/KAN-048-R2KW3G.md (4/4 · 최근 10-06)
   - 계획 리포트: KANBAN/reports/KAN-048-R2KW3G.report.html (낡음)
-  - 검토 문서: KANBAN/reviews/KAN-048-R2KW3G.review.md (승인 2/2 · 추가 의견 총 2 · 검토 대기)
+  - 검토 문서: KANBAN/reviews/KAN-048-R2KW3G.review.md (승인 2/2 · 추가 의견 총 2 · 승인)
 
 ## 완료
 - `KAN-020` visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현 — 생성:유저 · 최종:유저 · 갱신:2026-08-14
