@@ -1,6 +1,7 @@
 # KANBAN 변경 이력
 > 최근 50건. 이보다 오래된 이력은 archive.jsonl 로 압축 보관한다.
 
+- #173 2026-10-06 17:54 · ai · KAN-056-D3V1MB 생성 "viz 템플릿 13개 리터럴 색 제거 — 스타일 가이드가 기본 채움·선 색까지 칠하게" → 백로그
 - #172 2026-10-06 17:28 · 유저 · KAN-050-AJSQAY serialize
 - #171 2026-10-06 17:28 · ai · KAN-049-CWBPP6 이동 검토 → 완료
 - #170 2026-10-06 16:23 · ai · KAN-049-CWBPP6 이동 진행 중 → 검토
@@ -50,4 +51,3 @@
 - #140 2026-08-25 14:27 · ai · KAN-050-AJSQAY 생성 "문서 정리 D — 규율 문서 실측 정합 (theme-* 부재 · 모션 5중 기재)" → 할 일
 - #139 2026-08-25 14:27 · ai · KAN-049-CWBPP6 생성 "문서 정리 C — visualization 계열 통합 (PLAN · visualization-catalog 흡수 + SSOT 이동)" → 할 일
 - #138 2026-08-25 14:27 · ai · KAN-048-R2KW3G 생성 "문서 정리 B — core 카탈로그 계열 통합 (audit 44→1 · 일회성 계획 3종 흡수)" → 할 일
-- #137 2026-08-25 14:26 · ai · KAN-047-TRYYRC 생성 "문서 정리 A — 폐기 4건 집행 (RELEASE_PLAN · sample_design · storybook README · ORDER)" → 할 일

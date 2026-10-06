@@ -26,6 +26,16 @@
     
     이 문제를 해결하기 위한 전략을 수립, 실행 계획 수립, 칸반 카드화 해라.
     ```
+- `KAN-056-D3V1MB` viz 템플릿 13개 리터럴 색 제거 — 스타일 가이드가 기본 채움·선 색까지 칠하게 — 생성:ai · 최종:ai · 갱신:2026-10-06
+  - 짧은 제목: 템플릿 리터럴 색 제거
+  - 목적: 템플릿 13개가 넣는 불투명 기본 채움·선 색을 계약 토큰으로 바꿔 스타일 가이드가 그 부분까지 칠하게 한다
+  - 이유: 기본값이 인라인 style 로 렌더돼 스타일 가이드를 바꿔도 그 색이 그대로다 — 구 PLAN 「이연」이 끝나지 않은 채 남았다(KAN-049 에서 발견)
+  - 목표: 13개 템플릿에 불투명 리터럴 색이 0건이 되고 viz README 「알려진 한계」의 해당 항목이 지워진다
+  - 메모: 목록과 셈 기준은 packages/visualization/README.md 「알려진 한계」. 반투명 검정 음영(Node cube 면·IsoPrism·IsometricScene 바닥 그림자·Lane)은 paint 무관 장치라 대상이 아니다
+  - 원문:
+    ```text
+    만들어 (앞 답변 「앞서 여쭌 백로그 카드 두 가지(리터럴 색이 남은 템플릿 13개, 읽히지 않는 `edge.dashPattern` 토큰)는 아직 만들지 않았습니다.」에 대한 답)
+    ```
 
 ## 할 일
 - `KAN-050-AJSQAY` 문서 정리 D — 규율 문서 실측 정합 (theme-* 부재 · 모션 5중 기재) — 생성:ai · 최종:ai · 갱신:2026-10-05
@@ -382,7 +392,7 @@
   - 목표: viz 문서 2건이 사라지고 type-inventory grep 결과가 0건이라 SSOT 체인이 끊기지 않는다
   - 메모: KAN-044 §13-C. 위험: visualization-catalog.md 는 참조 11건으로 통합 대상 중 최다 — 링크를 한 번에 다 고치지 않으면 SSOT 지목이 허공을 가리킨다. 완료 기준에 type-inventory grep 0건을 넣는다. work 4개 · KAN-047 넘김: packages/foundations/src/gateDocs.test.ts:38 주석의 packages/visualization/PLAN.md 항목도 지운다. scope 에 이 파일을 더하면 :37 을 고칠 B(KAN-048)와 겹친다
   - 실행 문서: KANBAN/cards/KAN-049-CWBPP6.md (4/4 · 최근 10-06)
-  - 계획 리포트: KANBAN/reports/KAN-049-CWBPP6.report.html
+  - 계획 리포트: KANBAN/reports/KAN-049-CWBPP6.report.html (낡음)
   - 검토 문서: KANBAN/reviews/KAN-049-CWBPP6.review.md (승인 2/2 · 추가 의견 총 7 · 승인)
 - `KAN-047-TRYYRC` 문서 정리 A — 폐기 4건 집행 (RELEASE_PLAN · sample_design · storybook README · ORDER) — 생성:ai · 최종:ai · 갱신:2026-10-06
   - 짧은 제목: 폐기 4건 집행

@@ -1,6 +1,6 @@
 {
-  "next_id": 56,
-  "next_seq": 173,
+  "next_id": 57,
+  "next_seq": 174,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -897,6 +897,26 @@
         "packages/foundations/src/gateDocs.test.ts",
         "packages/foundations/src/gateDocs.ts"
       ]
+    },
+    "KAN-056-D3V1MB": {
+      "col": "backlog",
+      "title": "viz 템플릿 13개 리터럴 색 제거 — 스타일 가이드가 기본 채움·선 색까지 칠하게",
+      "verbatim": "만들어 (앞 답변 「앞서 여쭌 백로그 카드 두 가지(리터럴 색이 남은 템플릿 13개, 읽히지 않는 `edge.dashPattern` 토큰)는 아직 만들지 않았습니다.」에 대한 답)",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-06",
+      "title_hash": "dcd892fa317c4cd77bd72ee1413a42dbd8ccf2b8",
+      "verbatim_hash": "86e2d9d99304c4fb30f03389edf118d082025240",
+      "short": "템플릿 리터럴 색 제거",
+      "short_hash": "bd0a789042831cdd0f9ead59bb2ead9dac4d4a64",
+      "purpose": "템플릿 13개가 넣는 불투명 기본 채움·선 색을 계약 토큰으로 바꿔 스타일 가이드가 그 부분까지 칠하게 한다",
+      "purpose_hash": "9b40e9749f01282f0a9aad453c85be12b1756fef",
+      "reason": "기본값이 인라인 style 로 렌더돼 스타일 가이드를 바꿔도 그 색이 그대로다 — 구 PLAN 「이연」이 끝나지 않은 채 남았다(KAN-049 에서 발견)",
+      "reason_hash": "0dc69ed9735b874a76e6bf1ac70730555add1ef8",
+      "goal": "13개 템플릿에 불투명 리터럴 색이 0건이 되고 viz README 「알려진 한계」의 해당 항목이 지워진다",
+      "goal_hash": "e9bd1a33c52be356cf510bfa4d5bba51d6351e8f",
+      "memo": "목록과 셈 기준은 packages/visualization/README.md 「알려진 한계」. 반투명 검정 음영(Node cube 면·IsoPrism·IsometricScene 바닥 그림자·Lane)은 paint 무관 장치라 대상이 아니다",
+      "memo_hash": "58b92a097f7586fdfdadd09d47dd82ffec343dbe"
     }
   },
   "order": [
@@ -954,9 +974,27 @@
     "KAN-049-CWBPP6",
     "KAN-047-TRYYRC",
     "KAN-052-BYS4JN",
-    "KAN-048-R2KW3G"
+    "KAN-048-R2KW3G",
+    "KAN-056-D3V1MB"
   ],
   "recent": [
+    {
+      "seq": 173,
+      "t": "2026-10-06T17:54",
+      "a": "ai",
+      "id": "KAN-056-D3V1MB",
+      "op": "create",
+      "w": "S7030N",
+      "col": "backlog",
+      "title": "viz 템플릿 13개 리터럴 색 제거 — 스타일 가이드가 기본 채움·선 색까지 칠하게",
+      "verbatim": "만들어 (앞 답변 「앞서 여쭌 백로그 카드 두 가지(리터럴 색이 남은 템플릿 13개, 읽히지 않는 `edge.dashPattern` 토큰)는 아직 만들지 않았습니다.」에 대한 답)",
+      "parent": null,
+      "short": "템플릿 리터럴 색 제거",
+      "purpose": "템플릿 13개가 넣는 불투명 기본 채움·선 색을 계약 토큰으로 바꿔 스타일 가이드가 그 부분까지 칠하게 한다",
+      "reason": "기본값이 인라인 style 로 렌더돼 스타일 가이드를 바꿔도 그 색이 그대로다 — 구 PLAN 「이연」이 끝나지 않은 채 남았다(KAN-049 에서 발견)",
+      "goal": "13개 템플릿에 불투명 리터럴 색이 0건이 되고 viz README 「알려진 한계」의 해당 항목이 지워진다",
+      "memo": "목록과 셈 기준은 packages/visualization/README.md 「알려진 한계」. 반투명 검정 음영(Node cube 면·IsoPrism·IsometricScene 바닥 그림자·Lane)은 paint 무관 장치라 대상이 아니다"
+    },
     {
       "seq": 172,
       "t": "2026-10-06T17:28",
@@ -1516,23 +1554,6 @@
       "reason": "audit 44개는 파일 단위 참조 0건인 1회성 증빙이고 ASSET_INTEGRATION_PLAN·WAVE0_REPORT 는 Wave 전량 DONE 으로 실행 결과가 이미 레지스트리에 있다",
       "goal": "core 문서가 47건 줄고 COMPONENT_CATALOG 의 실측 결함 2건이 함께 고쳐진다",
       "memo": "KAN-044 §13-B. 위험: packages/core/style-guide-catalog.md 38–92줄은 자동 생성 구간이라 이동·개명·삭제하면 trendTable.test.ts 가 readFileSync 에서 red 가 된다 — 출처 절만 손댄다. D 의 선행(직렬 중재). work 4개"
-    },
-    {
-      "seq": 137,
-      "t": "2026-08-25T14:26",
-      "a": "ai",
-      "id": "KAN-047-TRYYRC",
-      "op": "create",
-      "w": "S7030N",
-      "col": "todo",
-      "title": "문서 정리 A — 폐기 4건 집행 (RELEASE_PLAN · sample_design · storybook README · ORDER)",
-      "verbatim": "",
-      "parent": null,
-      "short": "폐기 4건 집행",
-      "purpose": "KAN-044 가 폐기로 판정한 문서 4건을 실제로 지운다",
-      "reason": "넷 다 참조가 0건이거나(3건) 참조원을 함께 고치면 되고(ORDER.md 1건), 목적이 소진된 1회성 문서다",
-      "goal": "네 문서가 레포에서 사라지고 grep 결과 0건이라 참조 고아가 남지 않는다",
-      "memo": "KAN-044 §13-A. ORDER.md 는 검토 3번 반려(유저 「제거」)로 존치→폐기가 된 건이라 선행 수정이 하나 있다 — visualization-type-inventory.md:376 의 「ORDER.md 편집 금지」 문구. work 1~2개(4.7 인스턴트 예외 대상)"
     }
   ],
   "waivers": [
