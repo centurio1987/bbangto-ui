@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
+import React, { createContext, useContext, useEffect, useId, useRef, useState } from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
+import { useRovingFocus } from '../a11y';
 
 // --- Types ---
 export type TabsVariant = 'underline' | 'pill' | 'enclosed' | 'segmented';
@@ -13,6 +14,8 @@ interface TabsContextValue {
   variant: TabsVariant;
   size: TabsSize;
   orientation: TabsOrientation;
+  /** Prefix for the tab ↔ panel ids that `aria-controls` / `aria-labelledby` link. */
+  baseId: string;
 }
 
 const TabsContext = createContext<TabsContextValue | undefined>(undefined);
@@ -24,6 +27,14 @@ function useTabsContext() {
   }
   return context;
 }
+
+// `value` is free text, so encode it to keep the id whitespace-free and unique.
+const tabId = (baseId: string, value: string) => `${baseId}-tab-${encodeURIComponent(value)}`;
+const panelId = (baseId: string, value: string) => `${baseId}-panel-${encodeURIComponent(value)}`;
+
+// The one trigger that sits in the Tab order (roving tabindex). TabsList owns it
+// because only the list knows whether the selected value matches an enabled tab.
+const TabStopContext = createContext<string | null>(null);
 
 // --- Tabs (Root) ---
 export interface TabsProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'defaultValue'> {
@@ -53,6 +64,7 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
     },
     ref
   ) => {
+    const baseId = useId();
     const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue || '');
     const isControlled = value !== undefined;
     const currentValue = isControlled ? value : uncontrolledValue;
@@ -72,7 +84,7 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
 
     return (
       <TabsContext.Provider
-        value={{ value: currentValue, onValueChange: handleValueChange, variant, size, orientation }}
+        value={{ value: currentValue, onValueChange: handleValueChange, variant, size, orientation, baseId }}
       >
         <div ref={ref} style={rootStyle} {...props}>
           {children}
@@ -87,10 +99,45 @@ Tabs.displayName = 'Tabs';
 export interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
-  ({ children, style, ...props }, ref) => {
-    const { value, variant, orientation } = useTabsContext();
+  ({ children, style, onKeyDown, ...props }, ref) => {
+    const { value, onValueChange, variant, orientation } = useTabsContext();
     const listRef = useRef<HTMLDivElement | null>(null);
     const [indicator, setIndicator] = useState({ left: 0, top: 0, width: 0, height: 0, visible: false });
+    const [tabStop, setTabStop] = useState<string | null>(null);
+    const roving = useRovingFocus({ orientation });
+
+    const getTriggers = () =>
+      Array.from(
+        listRef.current?.querySelectorAll<HTMLButtonElement>('[data-bbangto-tab-trigger]') ?? [],
+      ).filter((trigger) => trigger.closest('[role="tablist"]') === listRef.current);
+
+    // Keep exactly one tab reachable with Tab. Normally that is the selected tab;
+    // when nothing (or a disabled tab) is selected, fall back to the first enabled
+    // tab so keyboard users can still enter the list.
+    useEffect(() => {
+      const triggers = getTriggers();
+      const selectedEnabled = triggers.some(
+        (trigger) => trigger.dataset.bbangtoTabTrigger === value && !trigger.disabled,
+      );
+      const next = selectedEnabled
+        ? value
+        : triggers.find((trigger) => !trigger.disabled)?.dataset.bbangtoTabTrigger ?? null;
+      setTabStop((current) => (current === next ? current : next));
+    }, [children, value]);
+
+    // Arrow keys / Home / End move focus and selection together (APG automatic
+    // activation). Disabled tabs are skipped.
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+      onKeyDown?.(e);
+      if (e.defaultPrevented) return;
+      const triggers = getTriggers();
+      const current = triggers.indexOf(document.activeElement as HTMLButtonElement);
+      if (current < 0) return;
+      const next = roving(e, current, triggers.map((trigger) => trigger.disabled));
+      if (next === null || next === current) return;
+      triggers[next].focus();
+      onValueChange(triggers[next].dataset.bbangtoTabTrigger!);
+    };
 
     // Underline sliding indicator — only for the 'underline' variant.
     useEffect(() => {
@@ -223,9 +270,10 @@ export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
         aria-orientation={orientation}
         data-bbangto-tabs-variant={variant}
         style={listStyle}
+        onKeyDown={handleKeyDown}
         {...props}
       >
-        {children}
+        <TabStopContext.Provider value={tabStop}>{children}</TabStopContext.Provider>
         {variant === 'underline' && (
           <div data-bbangto-tabs-indicator style={indicatorStyle} />
         )}
@@ -241,10 +289,13 @@ export interface TabsTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonE
 }
 
 export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>(
-  ({ value, children, style, disabled, ...props }, ref) => {
-    const { value: selectedValue, onValueChange, variant, size, orientation } = useTabsContext();
+  ({ value, children, style, disabled, onClick, ...props }, ref) => {
+    const { value: selectedValue, onValueChange, variant, size, orientation, baseId } = useTabsContext();
+    const tabStop = useContext(TabStopContext);
     const isSelected = selectedValue === value;
     const isDisabled = disabled === true;
+    // Before TabsList has measured, the selected tab is the stop.
+    const isTabStop = tabStop === null ? isSelected : tabStop === value;
 
     // ── padding by size ──
     const paddingY =
@@ -379,13 +430,17 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
       <button
         ref={ref}
         role="tab"
+        id={tabId(baseId, value)}
         aria-selected={isSelected}
+        aria-controls={panelId(baseId, value)}
         aria-disabled={isDisabled || undefined}
         disabled={isDisabled}
+        tabIndex={isTabStop ? 0 : -1}
         data-bbangto-tab-trigger={value}
         data-bbangto-tabs-size={size}
-        onClick={() => {
+        onClick={(e) => {
           if (!isDisabled) onValueChange(value);
+          onClick?.(e);
         }}
         style={triggerStyle}
         {...props}
@@ -404,9 +459,19 @@ export interface TabsContentProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const TabsContent = React.forwardRef<HTMLDivElement, TabsContentProps>(
   ({ value, children, style, ...props }, ref) => {
-    const { value: selectedValue } = useTabsContext();
+    const { value: selectedValue, baseId } = useTabsContext();
+    const a11y = {
+      role: 'tabpanel',
+      id: panelId(baseId, value),
+      'aria-labelledby': tabId(baseId, value),
+    } as const;
 
-    if (selectedValue !== value) return null;
+    // An unselected panel stays as an empty hidden shell so the tab's
+    // aria-controls always points at an element. Its children are not rendered:
+    // panel content still mounts only while selected, as before.
+    if (selectedValue !== value) {
+      return <div ref={ref} {...a11y} data-bbangto-tabs-content {...props} hidden />;
+    }
 
     const contentStyle: React.CSSProperties = {
       padding: `${cssVar('spacing', '16')} 0`,
@@ -417,7 +482,7 @@ export const TabsContent = React.forwardRef<HTMLDivElement, TabsContentProps>(
     };
 
     return (
-      <div ref={ref} role="tabpanel" data-bbangto-tabs-content style={contentStyle} {...props}>
+      <div ref={ref} {...a11y} data-bbangto-tabs-content style={contentStyle} {...props}>
         {children}
       </div>
     );
