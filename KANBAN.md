@@ -95,29 +95,6 @@
 ## 진행 중
 
 ## 검토
-- `KAN-053-TZ86NN` Drawer·Tabs·Select 키보드·포커스 지원 — Modal에서 공용 훅 추출 — 생성:ai · 최종:ai · 갱신:2026-10-06
-  - 짧은 제목: Drawer·Tabs·Select 키보드 지원
-  - 목적: Modal의 포커스 처리를 공용 훅으로 빼고 Drawer·Tabs·Select에 WAI-ARIA APG 키보드 동작을 넣는다
-  - 이유: 외부 앱이 들여올 세 컴포넌트를 키보드로 쓸 수 없고, Select는 Tab으로 닿지도 않는다
-  - 목표: 세 컴포넌트의 키보드·포커스 동작이 실제 chromium 위 play 테스트로 확인된다
-  - 메모: 외부 앱 소비 문제 대응 5장 중 3 · KAN-054의 선행
-  - 실행 문서: KANBAN/cards/KAN-053-TZ86NN.md (4/4 · 최근 10-06)
-  - 계획 리포트: KANBAN/reports/KAN-053-TZ86NN.report.html (낡음)
-  - 검토 문서: KANBAN/reviews/KAN-053-TZ86NN.review.md (승인 5/5 · 추가 의견 총 5 · 승인)
-  - 원문:
-    ```text
-    [첨부 이미지]
-    bbangto-ui 컴포넌트를 지금 들여오면 생기는 문제
-    - 워커가 시안의 화면 조각 42개를 나눴습니다. bbangto-ui에 이미 있는 것이 11개, 이 앱에서 만들 것이 22개, bbangto-ui에 요청할 것이 9개입니다.
-    - 그런데 bbangto-ui core(1.1.2)는 들여오는 입구가 하나뿐입니다. Button 하나만 써도 약 420KB가 번들에 들어갑니다. 지금 웹 앱 전체가 375KB이니 앱이 두 배 넘게 커집니다.
-    - 원인은 bbangto-ui 빌드에 있습니다. forwardRef 127곳에 「안 쓰면 버려도 된다」는 표시(__PURE__)가 없습니다. 이 두 가지는 제가 설치된 파일에서 직접 확인했습니다. 워커가 이 표시를 붙인 사본으로 다시 빌드하자 Button이 25KB로 줄었다고 보고했고, 이 재빌드는 제가 다시 해 보지 않았습니다.
-    - 번들 말고도 문제가 있다고 워커가 보고했습니다(제가 직접 확인하지는 않았습니다).
-      - Provider가 외부 글꼴을 늘 불러옵니다.
-      - Drawer에 Esc 닫기와 포커스 처리가 없습니다.
-      - Tabs·Select의 키보드 조작이 빠져 있습니다.
-    
-    이 문제를 해결하기 위한 전략을 수립, 실행 계획 수립, 칸반 카드화 해라.
-    ```
 
 ## 완료
 - `KAN-020` visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현 — 생성:유저 · 최종:유저 · 갱신:2026-08-14
@@ -405,8 +382,31 @@
   - 목표: fonts="none"이면 외부 글꼴 요청이 0건이고, 기본값을 쓰는 기존 화면은 그대로다
   - 메모: 외부 앱 소비 문제 대응 5장 중 2 · 근거는 카드 문서 「전략」
   - 실행 문서: KANBAN/cards/KAN-052-BYS4JN.md (4/4 · 최근 10-06)
-  - 계획 리포트: KANBAN/reports/KAN-052-BYS4JN.report.html
+  - 계획 리포트: KANBAN/reports/KAN-052-BYS4JN.report.html (낡음)
   - 검토 문서: KANBAN/reviews/KAN-052-BYS4JN.review.md (승인 1/1 · 추가 의견 총 1 · 승인)
+  - 원문:
+    ```text
+    [첨부 이미지]
+    bbangto-ui 컴포넌트를 지금 들여오면 생기는 문제
+    - 워커가 시안의 화면 조각 42개를 나눴습니다. bbangto-ui에 이미 있는 것이 11개, 이 앱에서 만들 것이 22개, bbangto-ui에 요청할 것이 9개입니다.
+    - 그런데 bbangto-ui core(1.1.2)는 들여오는 입구가 하나뿐입니다. Button 하나만 써도 약 420KB가 번들에 들어갑니다. 지금 웹 앱 전체가 375KB이니 앱이 두 배 넘게 커집니다.
+    - 원인은 bbangto-ui 빌드에 있습니다. forwardRef 127곳에 「안 쓰면 버려도 된다」는 표시(__PURE__)가 없습니다. 이 두 가지는 제가 설치된 파일에서 직접 확인했습니다. 워커가 이 표시를 붙인 사본으로 다시 빌드하자 Button이 25KB로 줄었다고 보고했고, 이 재빌드는 제가 다시 해 보지 않았습니다.
+    - 번들 말고도 문제가 있다고 워커가 보고했습니다(제가 직접 확인하지는 않았습니다).
+      - Provider가 외부 글꼴을 늘 불러옵니다.
+      - Drawer에 Esc 닫기와 포커스 처리가 없습니다.
+      - Tabs·Select의 키보드 조작이 빠져 있습니다.
+    
+    이 문제를 해결하기 위한 전략을 수립, 실행 계획 수립, 칸반 카드화 해라.
+    ```
+- `KAN-053-TZ86NN` Drawer·Tabs·Select 키보드·포커스 지원 — Modal에서 공용 훅 추출 — 생성:ai · 최종:ai · 갱신:2026-10-06
+  - 짧은 제목: Drawer·Tabs·Select 키보드 지원
+  - 목적: Modal의 포커스 처리를 공용 훅으로 빼고 Drawer·Tabs·Select에 WAI-ARIA APG 키보드 동작을 넣는다
+  - 이유: 외부 앱이 들여올 세 컴포넌트를 키보드로 쓸 수 없고, Select는 Tab으로 닿지도 않는다
+  - 목표: 세 컴포넌트의 키보드·포커스 동작이 실제 chromium 위 play 테스트로 확인된다
+  - 메모: 외부 앱 소비 문제 대응 5장 중 3 · KAN-054의 선행
+  - 실행 문서: KANBAN/cards/KAN-053-TZ86NN.md (4/4 · 최근 10-06)
+  - 계획 리포트: KANBAN/reports/KAN-053-TZ86NN.report.html (낡음)
+  - 검토 문서: KANBAN/reviews/KAN-053-TZ86NN.review.md (승인 5/5 · 추가 의견 총 5 · 승인)
   - 원문:
     ```text
     [첨부 이미지]

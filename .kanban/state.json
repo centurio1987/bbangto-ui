@@ -1,6 +1,6 @@
 {
   "next_id": 56,
-  "next_seq": 168,
+  "next_seq": 169,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -158,7 +158,7 @@
       ]
     },
     "KAN-053-TZ86NN": {
-      "col": "review",
+      "col": "done",
       "title": "Drawer·Tabs·Select 키보드·포커스 지원 — Modal에서 공용 훅 추출",
       "verbatim": "[첨부 이미지]\nbbangto-ui 컴포넌트를 지금 들여오면 생기는 문제\n- 워커가 시안의 화면 조각 42개를 나눴습니다. bbangto-ui에 이미 있는 것이 11개, 이 앱에서 만들 것이 22개, bbangto-ui에 요청할 것이 9개입니다.\n- 그런데 bbangto-ui core(1.1.2)는 들여오는 입구가 하나뿐입니다. Button 하나만 써도 약 420KB가 번들에 들어갑니다. 지금 웹 앱 전체가 375KB이니 앱이 두 배 넘게 커집니다.\n- 원인은 bbangto-ui 빌드에 있습니다. forwardRef 127곳에 「안 쓰면 버려도 된다」는 표시(__PURE__)가 없습니다. 이 두 가지는 제가 설치된 파일에서 직접 확인했습니다. 워커가 이 표시를 붙인 사본으로 다시 빌드하자 Button이 25KB로 줄었다고 보고했고, 이 재빌드는 제가 다시 해 보지 않았습니다.\n- 번들 말고도 문제가 있다고 워커가 보고했습니다(제가 직접 확인하지는 않았습니다).\n  - Provider가 외부 글꼴을 늘 불러옵니다.\n  - Drawer에 Esc 닫기와 포커스 처리가 없습니다.\n  - Tabs·Select의 키보드 조작이 빠져 있습니다.\n\n이 문제를 해결하기 위한 전략을 수립, 실행 계획 수립, 칸반 카드화 해라.",
       "생성": "ai",
@@ -955,6 +955,16 @@
   ],
   "recent": [
     {
+      "seq": 168,
+      "t": "2026-10-06T17:54",
+      "a": "ai",
+      "id": "KAN-053-TZ86NN",
+      "op": "move",
+      "w": "F2R3GB",
+      "from": "review",
+      "to": "done"
+    },
+    {
       "seq": 167,
       "t": "2026-10-06T17:05",
       "a": "ai",
@@ -1536,26 +1546,6 @@
         "reason": "",
         "goal": ""
       }
-    },
-    {
-      "seq": 128,
-      "t": "2026-08-24T23:32",
-      "a": "ai",
-      "id": "KAN-044-3KYT2Q",
-      "op": "brief",
-      "w": "S7030N",
-      "fields": {
-        "short": "문서 정리 계획 리포트",
-        "purpose": "레포 안의 문서를 전수 파악해 존치·통합·폐기를 가르는 정리 계획과 리포트를 낸다",
-        "reason": "루트에만 ASSET_INTEGRATION_PLAN·DESIGN_SYSTEM_GUIDE·METADATA_COVERAGE_AUDIT·ORDER·RELEASE_PLAN 등이 쌓여 어느 것이 살아있는 문서인지 구분되지 않는다",
-        "goal": "문서마다 판정과 근거가 붙은 정리 계획 리포트가 나와 실제 정리를 착수할 수 있다"
-      },
-      "before": {
-        "short": "",
-        "purpose": "",
-        "reason": "",
-        "goal": ""
-      }
     }
   ],
   "waivers": [
@@ -1632,7 +1622,7 @@
       "reason": "054가 053이 만든 packages/core/src/a11y/ 훅을 이어 쓴다. 053 훅 API를 보고 전략을 다시 세운다 (2026-10-05 유저 승인 플랜)",
       "created": "2026-10-05T00:14",
       "by": "ai",
-      "restrategy_required": false
+      "restrategy_required": true
     },
     {
       "pair": "KAN-051-5HMYKT|KAN-055-34A57K",
@@ -1668,7 +1658,7 @@
       "reason": "배포는 051·052·053이 main에 병합된 뒤에야 의미가 있다 (2026-10-05 유저 승인 플랜)",
       "created": "2026-10-05T00:14",
       "by": "ai",
-      "restrategy_required": false
+      "restrategy_required": true
     }
   ]
 }
