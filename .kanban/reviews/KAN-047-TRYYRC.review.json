@@ -12,8 +12,8 @@
   "worktree": "/Users/centurio/orca/workspaces/bbangto-ui/KAN-047-TRYYRC"
  },
  "inherited_md": "",
- "md_fp": "ae75be5e30434fcc063c05f0bd887a836eb60130",
- "md_src_fp": "0526ff7269158ed514154ec22698dffe7ec663a1",
+ "md_fp": "8396c8cb4368b653a634af7766fa6628b1c3ab74",
+ "md_src_fp": "c1eb515c6d61f560303b1afa8d5958900ed1717c",
  "schema": 1,
  "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `KAN-047-TRYYRC` |\n| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-047-TRYYRC` |\n| 베이스 | `11cb644` |\n| 변경 훑기 | `git diff 11cb644...HEAD` |\n\n**커밋 5건**\n\n```text\n25c1427 KAN-047 S2: 폐기 4건 삭제 (RELEASE_PLAN · sample_design/DESIGN-amber · storybook README · ORDER)\nf108b11 KAN-047 S1: ORDER.md 참조원 2곳 정리 (type-inventory:376 · gateDocs.test.ts:37)\nfc60380 kanban: 용인 KAN-047 ↔ KAN-049 재확인 (scope 변경 후, 유저 선택) + 인스턴트 예외 동의\n0c04093 kanban: KAN-047 전략·실행 계획·검증 작성 + scope 에 gateDocs.test.ts 추가\ndf41f69 kanban: KAN-047 진행 중으로 이동\n```\n\n**변경 파일 12개 (+118 −1101)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.kanban/archive.jsonl` | M | 2 | 0 |\n| `.kanban/log.md` | M | 2 | 2 |\n| `.kanban/state.json` | M | 33 | 34 |\n| `KANBAN.board.html` | M | 2 | 2 |\n| `KANBAN.md` | M | 7 | 7 |\n| `KANBAN/cards/KAN-047-TRYYRC.md` | M | 70 | 6 |\n| `ORDER.md` | M | 0 | 302 |\n| `RELEASE_PLAN.md` | M | 0 | 39 |\n| `apps/storybook/README.md` | M | 0 | 73 |\n| `packages/foundations/src/gateDocs.test.ts` | M | 1 | 1 |\n| `packages/visualization/visualization-type-inventory.md` | M | 1 | 1 |\n| `sample_design/DESIGN-amber.md` | M | 0 | 634 |\n\n**롤백 태그 2개**\n\n```text\nkan/KAN-047-TRYYRC/S1\nkan/KAN-047-TRYYRC/S2\n```",
  "verdicts": [

@@ -124,6 +124,10 @@ const preview: Preview = {
   },
   decorators: [
     (Story, context) => {
+      // Provider 자체를 재는 스토리(글꼴 주입 횟수 등)는 바깥 Provider가 결과를 흐린다.
+      // `parameters.bbangtoProviders: false` 면 감싸지 않는다.
+      if (context.parameters.bbangtoProviders === false) return <Story />;
+
       const foundationName = context.globals.foundation;
       let foundation = lightFoundation;
       if (foundationName === 'dark') {

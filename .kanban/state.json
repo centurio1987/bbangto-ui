@@ -128,39 +128,6 @@
         ".changeset/kan-051-*.md"
       ]
     },
-    "KAN-052-BYS4JN": {
-      "col": "todo",
-      "title": "Provider 외부 글꼴 선택화 — fonts prop + 글꼴별 1회 주입 (core·viz)",
-      "verbatim": "[첨부 이미지]\nbbangto-ui 컴포넌트를 지금 들여오면 생기는 문제\n- 워커가 시안의 화면 조각 42개를 나눴습니다. bbangto-ui에 이미 있는 것이 11개, 이 앱에서 만들 것이 22개, bbangto-ui에 요청할 것이 9개입니다.\n- 그런데 bbangto-ui core(1.1.2)는 들여오는 입구가 하나뿐입니다. Button 하나만 써도 약 420KB가 번들에 들어갑니다. 지금 웹 앱 전체가 375KB이니 앱이 두 배 넘게 커집니다.\n- 원인은 bbangto-ui 빌드에 있습니다. forwardRef 127곳에 「안 쓰면 버려도 된다」는 표시(__PURE__)가 없습니다. 이 두 가지는 제가 설치된 파일에서 직접 확인했습니다. 워커가 이 표시를 붙인 사본으로 다시 빌드하자 Button이 25KB로 줄었다고 보고했고, 이 재빌드는 제가 다시 해 보지 않았습니다.\n- 번들 말고도 문제가 있다고 워커가 보고했습니다(제가 직접 확인하지는 않았습니다).\n  - Provider가 외부 글꼴을 늘 불러옵니다.\n  - Drawer에 Esc 닫기와 포커스 처리가 없습니다.\n  - Tabs·Select의 키보드 조작이 빠져 있습니다.\n\n이 문제를 해결하기 위한 전략을 수립, 실행 계획 수립, 칸반 카드화 해라.",
-      "생성": "ai",
-      "최종": "ai",
-      "갱신": "2026-10-05",
-      "title_hash": "f390314d33dcd7fe21689eda362b1d3e630f11a1",
-      "verbatim_hash": "3b3af68e102bf6abbeb1ecda50a4b415f6bfbbf8",
-      "short": "Provider 외부 글꼴 선택화",
-      "short_hash": "a26026ec2bb53f0bcbaa45586e4f44770ad29d58",
-      "purpose": "Provider 세 곳이 외부 CDN 글꼴을 무조건 불러오는 것을 끌 수 있게 하고, 겹쳐 쓸 때(core 안에 viz 포함) 글꼴마다 한 번만 불러오게 한다",
-      "purpose_hash": "daf9ce9bb0f213ecce56b9d579884c8d410da463",
-      "reason": "앱이 글꼴을 직접 호스팅하거나 CSP(외부 리소스 차단 정책)를 쓰면 지금은 외부 글꼴 요청을 막을 방법이 없다",
-      "reason_hash": "abd307a9de846ec5a4d23d58d187af213b5569c6",
-      "goal": "fonts=\"none\"이면 외부 글꼴 요청이 0건이고, 기본값을 쓰는 기존 화면은 그대로다",
-      "goal_hash": "0c05928c1a7399bbce31525dbef609f60897d339",
-      "memo": "외부 앱 소비 문제 대응 5장 중 2 · 근거는 카드 문서 「전략」",
-      "memo_hash": "0c1b971d825e418f7b01e62d47e5c8616d723259",
-      "scope": [
-        "packages/core/src/FoundationProvider.tsx",
-        "packages/core/src/StyleGuideProvider.tsx",
-        "packages/core/src/internal/ExternalFonts.tsx",
-        "packages/visualization/src/styleGuide/VisualizationStyleGuideProvider.tsx",
-        "packages/visualization/src/internal/ExternalFonts.tsx",
-        "apps/storybook/.storybook/preview.tsx",
-        "apps/storybook/src/stories/ProviderFonts.stories.tsx",
-        "apps/storybook/src/stories/visualization/Provider.stories.tsx",
-        "packages/core/README.md",
-        "packages/visualization/README.md",
-        ".changeset/kan-052-*.md"
-      ]
-    },
     "KAN-053-TZ86NN": {
       "col": "todo",
       "title": "Drawer·Tabs·Select 키보드·포커스 지원 — Modal에서 공용 훅 추출",
@@ -896,6 +863,39 @@
         "packages/visualization/visualization-type-inventory.md",
         "packages/foundations/src/gateDocs.test.ts"
       ]
+    },
+    "KAN-052-BYS4JN": {
+      "col": "done",
+      "title": "Provider 외부 글꼴 선택화 — fonts prop + 글꼴별 1회 주입 (core·viz)",
+      "verbatim": "[첨부 이미지]\nbbangto-ui 컴포넌트를 지금 들여오면 생기는 문제\n- 워커가 시안의 화면 조각 42개를 나눴습니다. bbangto-ui에 이미 있는 것이 11개, 이 앱에서 만들 것이 22개, bbangto-ui에 요청할 것이 9개입니다.\n- 그런데 bbangto-ui core(1.1.2)는 들여오는 입구가 하나뿐입니다. Button 하나만 써도 약 420KB가 번들에 들어갑니다. 지금 웹 앱 전체가 375KB이니 앱이 두 배 넘게 커집니다.\n- 원인은 bbangto-ui 빌드에 있습니다. forwardRef 127곳에 「안 쓰면 버려도 된다」는 표시(__PURE__)가 없습니다. 이 두 가지는 제가 설치된 파일에서 직접 확인했습니다. 워커가 이 표시를 붙인 사본으로 다시 빌드하자 Button이 25KB로 줄었다고 보고했고, 이 재빌드는 제가 다시 해 보지 않았습니다.\n- 번들 말고도 문제가 있다고 워커가 보고했습니다(제가 직접 확인하지는 않았습니다).\n  - Provider가 외부 글꼴을 늘 불러옵니다.\n  - Drawer에 Esc 닫기와 포커스 처리가 없습니다.\n  - Tabs·Select의 키보드 조작이 빠져 있습니다.\n\n이 문제를 해결하기 위한 전략을 수립, 실행 계획 수립, 칸반 카드화 해라.",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-06",
+      "title_hash": "f390314d33dcd7fe21689eda362b1d3e630f11a1",
+      "verbatim_hash": "3b3af68e102bf6abbeb1ecda50a4b415f6bfbbf8",
+      "short": "Provider 외부 글꼴 선택화",
+      "short_hash": "a26026ec2bb53f0bcbaa45586e4f44770ad29d58",
+      "purpose": "Provider 세 곳이 외부 CDN 글꼴을 무조건 불러오는 것을 끌 수 있게 하고, 겹쳐 쓸 때(core 안에 viz 포함) 글꼴마다 한 번만 불러오게 한다",
+      "purpose_hash": "daf9ce9bb0f213ecce56b9d579884c8d410da463",
+      "reason": "앱이 글꼴을 직접 호스팅하거나 CSP(외부 리소스 차단 정책)를 쓰면 지금은 외부 글꼴 요청을 막을 방법이 없다",
+      "reason_hash": "abd307a9de846ec5a4d23d58d187af213b5569c6",
+      "goal": "fonts=\"none\"이면 외부 글꼴 요청이 0건이고, 기본값을 쓰는 기존 화면은 그대로다",
+      "goal_hash": "0c05928c1a7399bbce31525dbef609f60897d339",
+      "memo": "외부 앱 소비 문제 대응 5장 중 2 · 근거는 카드 문서 「전략」",
+      "memo_hash": "0c1b971d825e418f7b01e62d47e5c8616d723259",
+      "scope": [
+        "packages/core/src/FoundationProvider.tsx",
+        "packages/core/src/StyleGuideProvider.tsx",
+        "packages/core/src/internal/ExternalFonts.tsx",
+        "packages/visualization/src/styleGuide/VisualizationStyleGuideProvider.tsx",
+        "packages/visualization/src/internal/ExternalFonts.tsx",
+        "apps/storybook/.storybook/preview.tsx",
+        "apps/storybook/src/stories/ProviderFonts.stories.tsx",
+        "apps/storybook/src/stories/visualization/Provider.stories.tsx",
+        "packages/core/README.md",
+        "packages/visualization/README.md",
+        ".changeset/kan-052-*.md"
+      ]
     }
   },
   "order": [
@@ -903,9 +903,9 @@
     "KAN-049-CWBPP6",
     "KAN-050-AJSQAY",
     "KAN-051-5HMYKT",
-    "KAN-052-BYS4JN",
     "KAN-053-TZ86NN",
     "KAN-054-M48FNQ",
+    "KAN-048-R2KW3G",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -953,7 +953,7 @@
     "KAN-045-PNT454",
     "KAN-046-33S4G8",
     "KAN-047-TRYYRC",
-    "KAN-048-R2KW3G"
+    "KAN-052-BYS4JN"
   ],
   "recent": [
     {
@@ -1019,6 +1019,16 @@
       "to": "review"
     },
     {
+      "seq": 162,
+      "t": "2026-10-06T16:13",
+      "a": "ai",
+      "id": "KAN-052-BYS4JN",
+      "op": "move",
+      "w": "PP8AJM",
+      "from": "review",
+      "to": "done"
+    },
+    {
       "seq": 161,
       "t": "2026-10-06T00:23",
       "a": "ai",
@@ -1040,6 +1050,16 @@
       "reason": "같은 파일(visualization-type-inventory.md)을 둘 다 고친다. A 는 :376 의 「ORDER.md 편집 금지」 조각, C 는 :12,13,14,29,30,343,369 의 SSOT 링크와 아마 :376 의 「catalog §4」 — 같은 줄이 겹칠 수 있다. 그래도 순서가 뒤집혀도 상대가 할 일이 그대로 남아 직렬은 불필요하고, C 는 착수 전이라 A 병합 뒤 출발하면 충돌이 없다. 2026-10-06 재확인: A 의 scope 에 gateDocs.test.ts 가 더해져 옛 용인이 무효가 된 것(겹침 내용은 불변). 유저 판단"
     },
     {
+      "seq": 161,
+      "t": "2026-10-06T00:51",
+      "a": "ai",
+      "id": "KAN-052-BYS4JN",
+      "op": "move",
+      "w": "PP8AJM",
+      "from": "doing",
+      "to": "review"
+    },
+    {
       "seq": 160,
       "t": "2026-10-06T00:19",
       "a": "ai",
@@ -1056,6 +1076,16 @@
       "id": "KAN-047-TRYYRC",
       "op": "move",
       "w": "JG08FN",
+      "from": "todo",
+      "to": "doing"
+    },
+    {
+      "seq": 160,
+      "t": "2026-10-06T00:36",
+      "a": "ai",
+      "id": "KAN-052-BYS4JN",
+      "op": "move",
+      "w": "PP8AJM",
       "from": "todo",
       "to": "doing"
     },
@@ -1509,62 +1539,6 @@
       "w": "S7030N",
       "from": "review",
       "to": "done"
-    },
-    {
-      "seq": 129,
-      "t": "2026-08-24T23:32",
-      "a": "ai",
-      "id": "KAN-045-PNT454",
-      "op": "brief",
-      "w": "S7030N",
-      "fields": {
-        "short": "README 활용 사례별 재작성",
-        "purpose": "README를 활용 사례별로 분류하고 사례마다 패키지 사용 절차를 authoring-kit 으로 서술한다",
-        "reason": "지금 README에는 패키지별 활용법도, style guide 구현 사례와 그 방법도 없다",
-        "goal": "처음 온 사람이 README만 보고 자기 사례에 맞는 패키지를 골라 style guide 까지 구현할 수 있다"
-      },
-      "before": {
-        "short": "",
-        "purpose": "",
-        "reason": "",
-        "goal": ""
-      }
-    },
-    {
-      "seq": 128,
-      "t": "2026-08-24T23:32",
-      "a": "ai",
-      "id": "KAN-044-3KYT2Q",
-      "op": "brief",
-      "w": "S7030N",
-      "fields": {
-        "short": "문서 정리 계획 리포트",
-        "purpose": "레포 안의 문서를 전수 파악해 존치·통합·폐기를 가르는 정리 계획과 리포트를 낸다",
-        "reason": "루트에만 ASSET_INTEGRATION_PLAN·DESIGN_SYSTEM_GUIDE·METADATA_COVERAGE_AUDIT·ORDER·RELEASE_PLAN 등이 쌓여 어느 것이 살아있는 문서인지 구분되지 않는다",
-        "goal": "문서마다 판정과 근거가 붙은 정리 계획 리포트가 나와 실제 정리를 착수할 수 있다"
-      },
-      "before": {
-        "short": "",
-        "purpose": "",
-        "reason": "",
-        "goal": ""
-      }
-    },
-    {
-      "seq": 127,
-      "t": "2026-08-24T23:31",
-      "a": "유저",
-      "id": "KAN-045-PNT454",
-      "op": "create",
-      "w": "S7030N",
-      "col": "todo",
-      "title": "README는 이 레포를 설명하기에 정보가 많이 부족하다. 이 프로젝트를 활용 사례 별로 분류하고, 사례 별로 사용 방법을 자세한 절차로 서술해라. 서술 과정에서 authoring-kit skill을 이용해라.",
-      "verbatim": "README는 이 레포를 설명하기에 정보가 많이 부족하다. 이 프로젝트를 활용 사례 별로 분류하고, 사례 별로 사용 방법을 자세한 절차로 서술해라. 서술 과정에서 authoring-kit skill을 이용해라.\n- 패키지 별 활용 방법이 없다.\n- 패키지를 사용해서 style guide를 구현할 수 있다는 사례 자체가 소개되어 있지 않다.\n- style guide를 구현하기 위한 방법이 서술되어 있지 않다.",
-      "short": "",
-      "purpose": "",
-      "reason": "",
-      "goal": "",
-      "memo": ""
     }
   ],
   "waivers": [
