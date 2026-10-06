@@ -1,6 +1,6 @@
 {
   "next_id": 56,
-  "next_seq": 168,
+  "next_seq": 170,
   "cards": {
     "KAN-047-TRYYRC": {
       "col": "todo",
@@ -59,7 +59,7 @@
       ]
     },
     "KAN-049-CWBPP6": {
-      "col": "review",
+      "col": "doing",
       "title": "문서 정리 C — visualization 계열 통합 (PLAN · visualization-catalog 흡수 + SSOT 이동)",
       "verbatim": "",
       "생성": "ai",
@@ -955,6 +955,26 @@
   ],
   "recent": [
     {
+      "seq": 169,
+      "t": "2026-10-06T16:19",
+      "a": "ai",
+      "id": "KAN-049-CWBPP6",
+      "op": "move",
+      "w": "HQ1ZBZ",
+      "from": "review",
+      "to": "doing"
+    },
+    {
+      "seq": 168,
+      "t": "2026-10-06T16:19",
+      "a": "ai",
+      "id": "KAN-049-CWBPP6",
+      "op": "move",
+      "w": "HQ1ZBZ",
+      "from": "review",
+      "to": "review"
+    },
+    {
       "seq": 167,
       "t": "2026-10-06T00:56",
       "a": "ai",
@@ -1540,32 +1560,6 @@
       "reason": "",
       "goal": "",
       "memo": ""
-    },
-    {
-      "seq": 126,
-      "t": "2026-08-24T23:31",
-      "a": "유저",
-      "id": "KAN-044-3KYT2Q",
-      "op": "create",
-      "w": "S7030N",
-      "col": "todo",
-      "title": "불필요한 문서들 파악해서 정리하기 위한 계획 세우고 레포트 제출해라",
-      "verbatim": "",
-      "short": "",
-      "purpose": "",
-      "reason": "",
-      "goal": "",
-      "memo": ""
-    },
-    {
-      "seq": 125,
-      "t": "2026-08-14T15:28",
-      "a": "ai",
-      "id": "KAN-043-2JM72N",
-      "op": "move",
-      "w": "S7030N",
-      "from": "doing",
-      "to": "review"
     }
   ],
   "waivers": [

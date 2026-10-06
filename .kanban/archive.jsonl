@@ -124,3 +124,5 @@
 {"seq": 122, "t": "2026-08-14T13:09", "a": "ai", "id": "KAN-042-JZ2ZBT", "op": "move", "w": "S7030N", "from": "todo", "to": "doing"}
 {"seq": 123, "t": "2026-08-14T14:17", "a": "ai", "id": "KAN-042-JZ2ZBT", "op": "move", "w": "S7030N", "from": "doing", "to": "review"}
 {"seq": 124, "t": "2026-08-14T15:00", "a": "ai", "id": "KAN-043-2JM72N", "op": "create", "w": "S7030N", "col": "doing", "title": "상류 리포트 I 계열(I1~I7) 해소 — 유형 선택 정보 도달 경로", "memo": "P 계열(KAN-042) 후속. 87종 콘텐츠는 있으나 소비자가 도달 못 하는 경로 결함 7건.", "verbatim": "bbangto-ui-vizualization 패키지를 사용하는 사용자가 피드백 레포트를 작성했다. (/Users/centurio/resume/docs/viz-upstream-issues.md) P계열은 반영했으므로, I 계열을 검토해서 개선 해라", "parent": null}
+{"seq": 125, "t": "2026-08-14T15:28", "a": "ai", "id": "KAN-043-2JM72N", "op": "move", "w": "S7030N", "from": "doing", "to": "review"}
+{"seq": 126, "t": "2026-08-24T23:31", "a": "유저", "id": "KAN-044-3KYT2Q", "op": "create", "w": "S7030N", "col": "todo", "title": "불필요한 문서들 파악해서 정리하기 위한 계획 세우고 레포트 제출해라", "verbatim": "", "short": "", "purpose": "", "reason": "", "goal": "", "memo": ""}

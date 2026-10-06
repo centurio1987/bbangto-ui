@@ -181,11 +181,13 @@ import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visu
 
 ### 알려진 한계
 
-- **템플릿 12개는 기본 채움·선·그림자 색을 리터럴로 넣는다** — `ArchitectureDiagram` · `ArchiMateDiagram` · `BlockDiagram` ·
-  `BPMNDiagram` · `BPMNCollaborationDiagram` · `IsometricScene` · `KanbanBoard` · `Mindmap` · `RequirementDiagram` ·
-  `UMLComponentDiagram` · `UMLDeploymentDiagram` · `UMLSequenceDiagram`. 이 기본값이 인라인 style 로 렌더되므로
-  스타일 가이드를 바꿔도 그 부분 색은 그대로다. 구 PLAN 「이연」의 「파일럿 외 템플릿 리터럴 paint 제거」가 아직 남은 것이다
-  (2026-10-06 소스 확인).
+- **템플릿 13개는 기본 채움·선 색을 리터럴로 넣는다** — `ArchitectureDiagram` · `ArchiMateDiagram` · `BlockDiagram` ·
+  `BPMNDiagram` · `BPMNCollaborationDiagram` · `C4CodeDiagram` · `KanbanBoard` · `Mindmap` · `RequirementDiagram` ·
+  `TimelineDiagram` · `UMLComponentDiagram` · `UMLDeploymentDiagram` · `UMLSequenceDiagram`. 이 기본값이 인라인 style 로
+  렌더되므로 스타일 가이드를 바꿔도 그 부분 색은 그대로다. 구 PLAN 「이연」의 「파일럿 외 템플릿 리터럴 paint 제거」가 아직
+  남은 것이다. 센 기준은 불투명한 채움·선 색이다 — 면 위에 반투명 검정을 얹는 음영·틴트(`Node` cube 면, `IsoPrism`,
+  `IsometricScene` 바닥 그림자, `Lane`)는 어떤 스타일 가이드 위에서도 같은 명암을 내는 paint 무관 장치라 세지 않았다
+  (2026-10-06 `src/` 전체에서 hex·rgba·색 이름 검색).
 
 ## 함께 들어 있는 문서
 
