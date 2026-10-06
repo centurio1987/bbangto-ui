@@ -1,6 +1,6 @@
 {
-  "next_id": 57,
-  "next_seq": 174,
+  "next_id": 58,
+  "next_seq": 175,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -917,6 +917,26 @@
       "goal_hash": "e9bd1a33c52be356cf510bfa4d5bba51d6351e8f",
       "memo": "목록과 셈 기준은 packages/visualization/README.md 「알려진 한계」. 반투명 검정 음영(Node cube 면·IsoPrism·IsometricScene 바닥 그림자·Lane)은 paint 무관 장치라 대상이 아니다",
       "memo_hash": "58b92a097f7586fdfdadd09d47dd82ffec343dbe"
+    },
+    "KAN-057-CCH3E8": {
+      "col": "backlog",
+      "title": "viz edge.dashPattern 토큰 정리 — 선언만 있고 읽히지 않는 커넥터 대시 토큰을 잇거나 걷기",
+      "verbatim": "만들어 (앞 답변 「앞서 여쭌 백로그 카드 두 가지(리터럴 색이 남은 템플릿 13개, 읽히지 않는 `edge.dashPattern` 토큰)는 아직 만들지 않았습니다.」에 대한 답)",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-06",
+      "title_hash": "4097b80c18139cf5aaab3f604df4da91bf5f7bdb",
+      "verbatim_hash": "86e2d9d99304c4fb30f03389edf118d082025240",
+      "short": "엣지 대시 토큰 정리",
+      "short_hash": "e320eaa6f21e52502c4be89116f6966a9f0d83f7",
+      "purpose": "선언만 된 edge.dashPattern 토큰을 계약 스타일시트나 Edge 가 읽게 잇거나, 쓸 계획이 없으면 걷어낸다",
+      "purpose_hash": "a94e94fc98415b5e2dd80242b7f78c172d821532",
+      "reason": "토큰 자리(packages/tokens/src/visualization.ts:66)는 있는데 아무도 읽지 않아, 스타일 가이드가 그 값을 넣어도 엣지 선 모양이 바뀌지 않는다(KAN-049 에서 발견)",
+      "reason_hash": "8ce79289d64641bd383ede0c7f33cb7a8bfb274d",
+      "goal": "토큰이 실제로 엣지에 반영되거나 타입에서 사라져, 선언과 동작이 어긋난 자리가 없어진다. style-classification 횡단 규칙 3 의 상태 문장도 갱신된다",
+      "goal_hash": "14c470d0fdb4c6c54cdf0d1eee4dd2567623589b",
+      "memo": "잇는 쪽이면 스타일 가이드 기본값을 개별 prop(strokeDasharray)이 덮는 순서를 지킨다. 잇기와 걷기 중 무엇을 할지는 착수 때 정한다",
+      "memo_hash": "fa79f4c6a72cc3d419b51e557a4bd9ae366539b9"
     }
   },
   "order": [
@@ -975,9 +995,27 @@
     "KAN-047-TRYYRC",
     "KAN-052-BYS4JN",
     "KAN-048-R2KW3G",
-    "KAN-056-D3V1MB"
+    "KAN-056-D3V1MB",
+    "KAN-057-CCH3E8"
   ],
   "recent": [
+    {
+      "seq": 174,
+      "t": "2026-10-06T17:54",
+      "a": "ai",
+      "id": "KAN-057-CCH3E8",
+      "op": "create",
+      "w": "S7030N",
+      "col": "backlog",
+      "title": "viz edge.dashPattern 토큰 정리 — 선언만 있고 읽히지 않는 커넥터 대시 토큰을 잇거나 걷기",
+      "verbatim": "만들어 (앞 답변 「앞서 여쭌 백로그 카드 두 가지(리터럴 색이 남은 템플릿 13개, 읽히지 않는 `edge.dashPattern` 토큰)는 아직 만들지 않았습니다.」에 대한 답)",
+      "parent": null,
+      "short": "엣지 대시 토큰 정리",
+      "purpose": "선언만 된 edge.dashPattern 토큰을 계약 스타일시트나 Edge 가 읽게 잇거나, 쓸 계획이 없으면 걷어낸다",
+      "reason": "토큰 자리(packages/tokens/src/visualization.ts:66)는 있는데 아무도 읽지 않아, 스타일 가이드가 그 값을 넣어도 엣지 선 모양이 바뀌지 않는다(KAN-049 에서 발견)",
+      "goal": "토큰이 실제로 엣지에 반영되거나 타입에서 사라져, 선언과 동작이 어긋난 자리가 없어진다. style-classification 횡단 규칙 3 의 상태 문장도 갱신된다",
+      "memo": "잇는 쪽이면 스타일 가이드 기본값을 개별 prop(strokeDasharray)이 덮는 순서를 지킨다. 잇기와 걷기 중 무엇을 할지는 착수 때 정한다"
+    },
     {
       "seq": 173,
       "t": "2026-10-06T17:54",
@@ -1537,23 +1575,6 @@
       "reason": "두 문서가 본문에서 스스로 「흡수됨」을 선언했는데 type-inventory.md 가 아직 5곳에서 그것을 가리킨다",
       "goal": "viz 문서 2건이 사라지고 type-inventory grep 결과가 0건이라 SSOT 체인이 끊기지 않는다",
       "memo": "KAN-044 §13-C. 위험: visualization-catalog.md 는 참조 11건으로 통합 대상 중 최다 — 링크를 한 번에 다 고치지 않으면 SSOT 지목이 허공을 가리킨다. 완료 기준에 type-inventory grep 0건을 넣는다. work 4개"
-    },
-    {
-      "seq": 138,
-      "t": "2026-08-25T14:27",
-      "a": "ai",
-      "id": "KAN-048-R2KW3G",
-      "op": "create",
-      "w": "S7030N",
-      "col": "todo",
-      "title": "문서 정리 B — core 카탈로그 계열 통합 (audit 44→1 · 일회성 계획 3종 흡수)",
-      "verbatim": "",
-      "parent": null,
-      "short": "core 카탈로그 통합",
-      "purpose": "core 의 audit 44개를 한 파일로 접고 목적이 소진된 계획 문서 3종을 COMPONENT_CATALOG·style-guide-catalog 로 흡수한다",
-      "reason": "audit 44개는 파일 단위 참조 0건인 1회성 증빙이고 ASSET_INTEGRATION_PLAN·WAVE0_REPORT 는 Wave 전량 DONE 으로 실행 결과가 이미 레지스트리에 있다",
-      "goal": "core 문서가 47건 줄고 COMPONENT_CATALOG 의 실측 결함 2건이 함께 고쳐진다",
-      "memo": "KAN-044 §13-B. 위험: packages/core/style-guide-catalog.md 38–92줄은 자동 생성 구간이라 이동·개명·삭제하면 trendTable.test.ts 가 readFileSync 에서 red 가 된다 — 출처 절만 손댄다. D 의 선행(직렬 중재). work 4개"
     }
   ],
   "waivers": [
