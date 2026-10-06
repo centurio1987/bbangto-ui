@@ -4,6 +4,8 @@ import { useEffect, useRef } from 'react';
 const FOCUSABLE =
   'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
+const MAX_FOCUS_FRAMES = 10;
+
 /**
  * Dialog focus contract (WAI-ARIA APG Dialog pattern).
  *
@@ -22,7 +24,22 @@ export function useFocusTrap<T extends HTMLElement>(
   useEffect(() => {
     if (active) {
       lastFocusedRef.current = document.activeElement;
-      const id = requestAnimationFrame(() => containerRef.current?.focus());
+      // The container may not exist yet: surfaces that animate their mount
+      // (useAnimatedMount) render it one update after `active` turns on, and with
+      // real input that update can land after the next frame. Retry for a few
+      // frames instead of trying once. Leave focus alone if something inside
+      // already took it (autoFocus).
+      let id = 0;
+      let frames = 0;
+      const moveFocus = () => {
+        const container = containerRef.current;
+        if (container) {
+          if (!container.contains(document.activeElement)) container.focus();
+          return;
+        }
+        if (frames++ < MAX_FOCUS_FRAMES) id = requestAnimationFrame(moveFocus);
+      };
+      id = requestAnimationFrame(moveFocus);
       return () => cancelAnimationFrame(id);
     }
     if (lastFocusedRef.current instanceof HTMLElement) {

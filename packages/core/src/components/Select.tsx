@@ -1,6 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useId } from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 import { Spinner } from '../motion/Spinner';
+import { getRovingIndex, useRovingFocus, useTypeahead } from '../a11y';
 
 export interface SelectOption {
   label: string;
@@ -63,16 +64,55 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
       variant = 'outline',
       style,
       className,
+      'aria-label': ariaLabel,
+      'aria-labelledby': ariaLabelledby,
       ...props
     },
     ref,
   ) => {
     const [isOpen, setIsOpen] = useState(false);
+    // Option the keyboard is on while the list is open (aria-activedescendant).
+    // Focus itself never leaves the combobox.
+    const [activeIndex, setActiveIndex] = useState(-1);
     const containerRef = useRef<HTMLDivElement | null>(null);
+    const baseId = useId();
+    const listboxId = `${baseId}-listbox`;
+    const optionId = (index: number) => `${baseId}-option-${index}`;
+    const roving = useRovingFocus({ orientation: 'vertical', loop: false });
+    const typeahead = useTypeahead();
 
     const selectedOption = options.find((opt) => opt.value === value);
+    const selectedIndex = options.findIndex((opt) => opt.value === value);
+    const optionDisabled = options.map((opt) => opt.disabled === true);
+    const optionLabels = options.map((opt) => opt.label);
 
     const isInteractionDisabled = disabled || loading;
+
+    const openList = (index?: number | null) => {
+      setIsOpen(true);
+      setActiveIndex(
+        index ??
+          (selectedIndex >= 0 && !optionDisabled[selectedIndex]
+            ? selectedIndex
+            : getRovingIndex('Home', -1, optionDisabled) ?? -1),
+      );
+    };
+
+    const closeList = () => {
+      setIsOpen(false);
+      setActiveIndex(-1);
+    };
+
+    const selectOption = (index: number) => {
+      if (optionDisabled[index]) return;
+      if (onChange) onChange(options[index].value);
+      closeList();
+    };
+
+    useEffect(() => {
+      if (!isOpen || activeIndex < 0) return;
+      document.getElementById(optionId(activeIndex))?.scrollIntoView?.({ block: 'nearest' });
+    }, [isOpen, activeIndex]);
 
     useEffect(() => {
       const handleClickOutside = (event: MouseEvent) => {
@@ -83,6 +123,52 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
       document.addEventListener('mousedown', handleClickOutside);
       return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
+
+    // WAI-ARIA APG select-only combobox keyboard contract.
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (isInteractionDisabled || e.altKey || e.ctrlKey || e.metaKey) return;
+
+      if (!isOpen) {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openList();
+          return;
+        }
+        if (e.key === 'Home' || e.key === 'End') {
+          e.preventDefault();
+          openList(getRovingIndex(e.key, -1, optionDisabled));
+          return;
+        }
+        const match = typeahead(e.key, optionLabels, optionDisabled, selectedIndex);
+        if (match !== null) openList(match);
+        return;
+      }
+
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        if (activeIndex >= 0) selectOption(activeIndex);
+        else closeList();
+        return;
+      }
+      if (e.key === 'Escape') {
+        // Keep a surrounding dialog open — this Escape belongs to the list.
+        e.preventDefault();
+        e.stopPropagation();
+        closeList();
+        return;
+      }
+      if (e.key === 'Tab') {
+        closeList();
+        return;
+      }
+      const next = roving(e, activeIndex, optionDisabled);
+      if (next !== null) {
+        setActiveIndex(next);
+        return;
+      }
+      const match = typeahead(e.key, optionLabels, optionDisabled, activeIndex);
+      if (match !== null) setActiveIndex(match);
+    };
 
     const containerStyle: React.CSSProperties = {
       position: 'relative',
@@ -169,10 +255,17 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
       padding: `${cssVar('spacing', '4')} 0`,
     };
 
-    const optionStyle = (isSelected: boolean, isOptionDisabled: boolean): React.CSSProperties => ({
+    const optionStyle = (
+      isSelected: boolean,
+      isActive: boolean,
+      isOptionDisabled: boolean,
+    ): React.CSSProperties => ({
       padding: `${cssVar('spacing', '8')} ${cssVar('spacing', '12')}`,
       cursor: isOptionDisabled ? 'not-allowed' : 'pointer',
-      backgroundColor: isSelected ? cssVar('semantic', 'background', 'sunken') : 'transparent',
+      backgroundColor: isSelected || isActive ? cssVar('semantic', 'background', 'sunken') : 'transparent',
+      // The keyboard's option must stay distinguishable from the selected one.
+      outline: isActive ? `2px solid ${cssVar('semantic', 'primary', 'base')}` : 'none',
+      outlineOffset: '-2px',
       color: isOptionDisabled
         ? cssVar('semantic', 'foreground', 'subtle')
         : cssVar('semantic', 'foreground', 'base'),
@@ -181,9 +274,9 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
     });
 
     const handleTriggerClick = () => {
-      if (!isInteractionDisabled) {
-        setIsOpen(!isOpen);
-      }
+      if (isInteractionDisabled) return;
+      if (isOpen) closeList();
+      else openList();
     };
 
     return (
@@ -198,7 +291,6 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
         }}
         style={containerStyle}
         className={className}
-        aria-invalid={error ? true : undefined}
         data-size={size}
         data-loading={loading || undefined}
         {...props}
@@ -206,9 +298,18 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
         <div
           style={triggerStyle}
           onClick={handleTriggerClick}
+          onKeyDown={handleKeyDown}
           role="combobox"
+          tabIndex={disabled ? -1 : 0}
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledby}
           aria-expanded={isOpen}
           aria-haspopup="listbox"
+          aria-controls={listboxId}
+          aria-activedescendant={isOpen && activeIndex >= 0 ? optionId(activeIndex) : undefined}
+          aria-disabled={disabled || undefined}
+          aria-invalid={error || undefined}
+          aria-busy={loading || undefined}
           data-bbangto-select-variant={variant}
         >
           <span>{selectedOption ? selectedOption.label : placeholder}</span>
@@ -231,21 +332,27 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
             </svg>
           )}
         </div>
-        <div style={dropdownStyle} role="listbox">
-          {options.map((opt) => {
+        <div
+          id={listboxId}
+          style={dropdownStyle}
+          role="listbox"
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledby}
+          // Clicking an option must not pull focus off the combobox.
+          onMouseDown={(e) => e.preventDefault()}
+        >
+          {options.map((opt, index) => {
             const isOptionDisabled = opt.disabled === true;
             return (
               <div
                 key={opt.value}
+                id={optionId(index)}
                 role="option"
                 aria-selected={opt.value === value}
                 aria-disabled={isOptionDisabled || undefined}
-                style={optionStyle(opt.value === value, isOptionDisabled)}
-                onClick={() => {
-                  if (isOptionDisabled) return;
-                  if (onChange) onChange(opt.value);
-                  setIsOpen(false);
-                }}
+                data-active={(isOpen && index === activeIndex) || undefined}
+                style={optionStyle(opt.value === value, isOpen && index === activeIndex, isOptionDisabled)}
+                onClick={() => selectOption(index)}
                 onMouseEnter={(e) => {
                   if (!isOptionDisabled) {
                     e.currentTarget.style.backgroundColor = cssVar('semantic', 'background', 'sunken');

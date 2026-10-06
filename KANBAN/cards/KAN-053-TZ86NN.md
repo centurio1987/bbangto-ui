@@ -49,7 +49,7 @@ scope: packages/core/src/a11y/**, packages/core/src/components/Drawer.tsx, packa
 - [x] `S1` 키보드 play 테스트 먼저 — Drawer 스토리 신설(Esc 닫힘 · 열면 패널 안으로 포커스 · Tab 순환 · 닫으면 트리거로 복귀), Tabs(→/← · Home/End · Tab 정지점 1개 · `aria-controls` 대상이 DOM에 있음 · 사용자 `onClick`을 넘겨도 선택됨), Select(Tab 도달 · ↓/Enter/Space로 열기 · 화살표+Enter 선택 · Esc로 닫고 트리거 포커스 유지 · 글자 검색 · `aria-activedescendant`). 완료 기준: 새 테스트 빨강, 기존 스토리 초록
 - [x] `S2` 공용 훅 추출 — `packages/core/src/a11y/`에 `useEscapeKey`·`useFocusTrap`·`useRovingFocus`·`useTypeahead`, Modal을 이 훅으로 교체. 완료 기준: 기존 Modal 스토리(Esc 포함) 초록, Modal 동작 변화 없음
 - [x] `S3` Drawer·Tabs 적용. 완료 기준: 두 스토리의 새 테스트 초록
-- [ ] `S4` Select 적용 + changeset(core minor). 완료 기준: 게이트 5종 초록
+- [x] `S4` Select 적용 + changeset(core minor). 완료 기준: 게이트 5종 초록
 
 ## 검증
 ### 게이트 5종 (전부 초록이어야 완료)
@@ -87,3 +87,6 @@ pnpm test:unit
 - 2026-10-06T16:50 · s:6dbe1299 — Modal 스토리는 Esc만 검사하고 포커스 가두기·복귀는 검사하지 않는다 — useFocusTrap의 그 두 동작은 S3의 Drawer 키보드 테스트가 처음 확인한다
 - 2026-10-06T16:50 · s:6dbe1299 · S3 doing — 착수
 - 2026-10-06T16:52 · s:6dbe1299 · S3 done — Drawer: Esc·포커스 이동·가두기·복귀(useFocusTrap 실검증). Tabs: roving tabindex·화살표/Home/End 자동 활성화·aria-controls/labelledby·비선택 패널 빈 껍데기·onClick 합성, 선택 탭 없을 때 첫 활성 탭을 Tab 정지점으로. 4파일 33/35 초록, Select 2건만 빨강
+- 2026-10-06T16:52 · s:6dbe1299 · S4 doing — 착수
+- 2026-10-06T17:04 · s:6dbe1299 · S4 done — Select APG 콤보박스 키 처리 + changeset(core minor). 게이트 5종 초록: build·typecheck·test:unit 549·test 1239·storybook build
+- 2026-10-06T17:04 · s:6dbe1299 — 추가 확인(정적 Storybook에 Playwright 실제 키 입력): Modal을 Enter로 열면 포커스가 버튼에 남는 결함 발견 — 착수 전 main 빌드에서도 같았다. useFocusTrap이 패널 마운트까지 최대 10프레임 재시도하게 고침. play 테스트는 흉내 낸 입력이라 이 결함을 못 잡는다. 수정 뒤 Modal·Drawer·Tabs·Select 키보드 흐름과 포커스 표시를 화면으로 확인
