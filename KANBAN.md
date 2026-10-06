@@ -103,7 +103,7 @@
   - 메모: 외부 앱 소비 문제 대응 5장 중 3 · KAN-054의 선행
   - 실행 문서: KANBAN/cards/KAN-053-TZ86NN.md (4/4 · 최근 10-06)
   - 계획 리포트: KANBAN/reports/KAN-053-TZ86NN.report.html (낡음)
-  - 검토 문서: KANBAN/reviews/KAN-053-TZ86NN.review.md (승인 5/5 · 추가 의견 총 5 · 검토 대기)
+  - 검토 문서: KANBAN/reviews/KAN-053-TZ86NN.review.md (승인 5/5 · 추가 의견 총 5 · 승인)
   - 원문:
     ```text
     [첨부 이미지]
