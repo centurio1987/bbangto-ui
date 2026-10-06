@@ -4,6 +4,7 @@ import { visualizationFoundationToStyleObject } from '../tokens/contract';
 import { baseVisualizationFoundation } from '../tokens/base';
 import { useVizDefs } from '../provider/defs';
 import { useVizContractCss } from '../provider/contractCss';
+import { useExternalFonts, type ExternalFontsMode } from '../internal/ExternalFonts';
 import type { VisualizationStyleGuide } from './VisualizationStyleGuide';
 import { resolveVizFoundationPreset } from './VisualizationStyleGuide';
 
@@ -27,6 +28,13 @@ export interface VisualizationStyleGuideProviderProps {
   as?: keyof React.JSX.IntrinsicElements;
   className?: string;
   style?: React.CSSProperties;
+  /**
+   * 외부 글꼴(JetBrains Mono). 기본 `'external'`.
+   * `'none'` 이면 이 Provider는 CDN 요청을 하지 않는다 — 글꼴을 직접 호스팅하거나 CSP 로 막는 앱용.
+   * 주입은 문서 전체가 나눠 쓰므로, 외부 요청 0건은 문서 안 Provider 전부가 `'none'` 일 때다.
+   * core Provider 와 겹쳐도 글꼴은 `document.head` 에 한 번만 들어간다.
+   */
+  fonts?: ExternalFontsMode;
 }
 
 /**
@@ -41,6 +49,7 @@ export function VisualizationStyleGuideProvider({
   as: Component = 'div',
   className,
   style,
+  fonts = 'external',
 }: VisualizationStyleGuideProviderProps) {
   const { foundations, extendedFoundations, activeKey } = resolveVizFoundationPreset(
     styleGuide,
@@ -61,6 +70,7 @@ export function VisualizationStyleGuideProvider({
 
   useVizDefs();
   useVizContractCss();
+  useExternalFonts(fonts);
 
   const ctx = useMemo(
     () => ({ styleGuide, foundations, defsPrefix }),
@@ -69,7 +79,6 @@ export function VisualizationStyleGuideProvider({
 
   return (
     <VizContext.Provider value={ctx}>
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');`}</style>
       <Component
         className={className}
         style={{ ...cssVars, ...style } as React.CSSProperties}

@@ -5,7 +5,7 @@ created: 2026-10-06
 branch: KAN-047-TRYYRC
 worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-047-TRYYRC
 base: 11cb644
-status: 검토 대기
+status: 승인
 ---
 
 # KAN-047-TRYYRC 검토 요청 — 문서 정리 A — 폐기 4건 집행 (RELEASE_PLAN · sample_design · storybook README · ORDER)
@@ -139,7 +139,7 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-047-TRYYRC --add
 **전체 승인은 살아있는 항목이 전부 승인일 때만 섭니다**(철회는 분모에서 빠집니다). 하나라도
 반려·추가 의견·미정이면 4항의 전체 승인도 `→ 완료` 이동도 종료코드 14로 거부됩니다.
 
-- [ ] B·C 카드가 지울 문서 이름은 테스트 주석에 남겨 둔 것이 맞는가 — 이 카드는 ORDER.md 이름만 지웠습니다
+- [x] B·C 카드가 지울 문서 이름은 테스트 주석에 남겨 둔 것이 맞는가 — 이 카드는 ORDER.md 이름만 지웠습니다
     - **배경**
       - 테스트 파일의 주석 한 곳이 「규칙 검사에 걸리지 않는 문서」 예시로 문서 다섯 개를 이름으로 적고 있습니다. 원문: packages/foundations/src/gateDocs.test.ts:36
       - 그중 ORDER.md 는 이 카드가 지웠으므로 그 이름만 뺐습니다. 테스트 동작은 바뀌지 않습니다. 원문: packages/foundations/src/gateDocs.test.ts:37
@@ -153,11 +153,15 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-047-TRYYRC --add
     | **추천** 남겨 두고 B·C 카드 메모에 한 줄씩 적는다 | 같은 주석을 세 카드가 나눠 고칩니다 | 각 카드가 자기 문서를 지울 때 이름도 함께 지워 주석이 늘 사실과 맞습니다 |
     | 지금 함께 지운다 | 아직 있는 문서를 주석에서 먼저 지웁니다 | B·C 가 끝날 때까지 주석이 사실과 어긋나고, 이 카드가 남의 작업 범위를 고친 것이 됩니다 |
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 승인 · ai · 2026-10-06
 
-    > **추가 의견** — _아직 없습니다._
+    > **추가 의견**
+    >
+    > - ai · 2026-10-06 — 검토자 의견: 추천 갈래가 맞다고 봅니다. 다만 표의 「대가」 칸에 빠진 것이 하나 있습니다. B(KAN-048)와 C(KAN-049)가 이 주석을 고치려면 둘 다 packages/foundations/src/gateDocs.test.ts 를 작업 범위(scope)에 새로 넣어야 합니다. 그러면 KAN-044 인벤토리 §14 에서 「겹침 없음 · 병렬」로 정해 둔 B와 C 사이에 새 겹침이 생겨, 그때 용인(dep-waive)이나 순서 지정을 다시 정해야 합니다. 또 두 문서 이름이 한 문장의 이어진 줄에 있어서(gateDocs.test.ts:37-39, 특히 :38 한 줄에 두 카드 몫이 함께 있습니다) 둘이 따로 병합되면 나중 카드가 병합 충돌을 풀어야 합니다. 그래도 「지금 함께 지운다」는 아직 있는 문서를 주석에서 먼저 지우는 것이라 이 추천이 낫습니다. 추천대로 하려면 남은 일이 있습니다 — 지금 B·C 카드 메모(.kanban/state.json 의 두 카드 memo)에는 이 주석 이야기가 없습니다. 메모에 ① 자기 문서 이름을 이 주석에서 지울 것 ② scope 에 이 파일을 더할 것 ③ 그러면 B와 C가 이 파일로 겹친다는 것을 함께 적어야 이 판정이 실제로 집행됩니다.
 
-- [ ] 「참조 0건」 검사에서 칸반 기록을 뺀 것이 맞는가 — 지운 문서 이름이 칸반 기록에는 남아 있습니다
+- [x] 「참조 0건」 검사에서 칸반 기록을 뺀 것이 맞는가 — 지운 문서 이름이 칸반 기록에는 남아 있습니다
     - **배경**
       - 카드 목표는 「grep 결과 0건이라 참조 고아가 남지 않는다」입니다. 원문: KANBAN.md 의 KAN-047-TRYYRC 「목표」 줄
       - 칸반 기록 파일 18개(보드·카드 문서·검토서·로그·KAN-044 리포트)에 지운 문서 이름이 나옵니다. 예: KAN-044 수행 내역의 「ORDER.md 판정을 존치→폐기로」. 원문: KANBAN/cards/KAN-044-3KYT2Q.md:113
@@ -171,9 +175,13 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-047-TRYYRC --add
     | **추천** 그대로 둔다 | 기록 속 문서 이름 몇 개가 이제 없는 파일을 가리킵니다 | 이력이 그때 모습 그대로 남고, 지운 파일 내용은 git 이력에서 볼 수 있습니다 |
     | 기록도 고친다 | 보드 원문·카드 문서·검토서·로그를 손대야 합니다 | 원문 보존 규칙과 부딪치고, 검토서 정본은 손으로 고치면 안 되는 파일입니다 |
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 승인 · ai · 2026-10-06
 
-    > **추가 의견** — _아직 없습니다._
+    > **추가 의견**
+    >
+    > - ai · 2026-10-06 — 검토자 의견: 칸반 기록을 검사에서 뺀 것이 맞다고 봅니다. 배경에 사실 하나를 더합니다. 유저가 승인한 KAN-044 인벤토리는 이 카드의 완료 기준을 「grep -rn 'ORDER\.md' --exclude-dir=.git 결과 0건」으로 적었고, 칸반 기록을 빼라는 말은 없습니다(KANBAN/reports/KAN-044-3KYT2Q.inventory.md:383). 그런데 그 기준을 글자 그대로 쓰면 영영 0건이 될 수 없습니다 — 그 기준을 적은 인벤토리 자신이 KANBAN/reports/ 안에서 ORDER.md 를 이름으로 적고 있고, 유저의 「제거」 판정 기록도 .kanban/reviews/KAN-044-3KYT2Q.events.jsonl 에 있습니다. 같은 인벤토리 §12 도 KANBAN.md·.kanban/log.md·KANBAN/** 을 「manage-kanban 스킬 소유」라며 정리 대상에서 뺐습니다(같은 파일 :281). 그래서 이번 검사 범위는 기준을 느슨하게 한 것이 아니라, 그 기준을 지킬 수 있는 유일한 읽기입니다. 참고로 지금 세면 이름이 나오는 칸반 기록 파일은 23개(이 카드 검토서 파일 4개 포함)로 배경의 18개와 다릅니다. 차이의 원인은 확인 안 했고, 결론에는 영향이 없습니다.
 
 
 ## 4. 판정
@@ -189,9 +197,11 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-047-TRYYRC --add
      frontmatter 의 status 도 함께 고친다. 손으로 적어도 되지만, 그때는 수렴 검사를
      안 거치므로 `validate` 가 항목 판정과 어긋난 승인을 error 로 잡는다. -->
 
-**판정**: (아직 없습니다)
+**판정**: 승인
 
 **판정 이력**:
+
+- 승인 · 유저 · 2026-10-06
 
 - 승인이면 → `apply --op move --id KAN-047-TRYYRC --to done` 뒤에 `main` 병합과 워크트리 정리(출력의 `cleanup`)
 - 반려면 → `apply --op move --id KAN-047-TRYYRC --to doing` 뒤에 `doc-log --entry "<반려 사유>"`.
