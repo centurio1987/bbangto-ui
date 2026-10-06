@@ -274,3 +274,129 @@ export const AllSizes: Story = {
     </div>
   ),
 };
+
+// ─── 키보드 계약 (WAI-ARIA APG Select-only Combobox 패턴) ──────────────────
+// 포커스는 내내 combobox 에 있고, 활성 옵션은 aria-activedescendant 로 가리킨다.
+// ↓/Enter/Space 로 열고, ↓/↑/Home/End 로 활성 옵션을 옮기며(비활성 옵션은 건너뛴다),
+// Enter 로 고르고 Esc 로 닫는다. 글자를 치면 그 글자로 시작하는 옵션으로 간다.
+
+const fruitOptions = [
+  { label: 'Apple', value: 'apple' },
+  { label: 'Banana', value: 'banana' },
+  { label: 'Blueberry', value: 'blueberry' },
+  { label: 'Cherry', value: 'cherry', disabled: true },
+  { label: 'Grape', value: 'grape' },
+];
+
+const activeLabel = (combobox: HTMLElement) => {
+  const id = combobox.getAttribute('aria-activedescendant');
+  return id ? document.getElementById(id)?.textContent ?? null : null;
+};
+
+export const Keyboard: Story = {
+  args: { options: fruitOptions },
+  render: () => {
+    const [value, setValue] = useState('');
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'flex-start' }}>
+        <button type="button">Before</button>
+        <Select
+          aria-label="Fruit"
+          options={fruitOptions}
+          value={value}
+          onChange={setValue}
+          placeholder="Pick a fruit"
+        />
+        <output data-testid="value">{value}</output>
+      </div>
+    );
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const combobox = await canvas.findByRole('combobox');
+    const value = canvas.getByTestId('value');
+
+    // ① Tab 으로 닿고, aria-label 이 combobox 의 이름이 된다.
+    canvas.getByRole('button', { name: 'Before' }).focus();
+    await userEvent.tab();
+    await expect(combobox).toHaveFocus();
+    await expect(combobox).toHaveAccessibleName('Fruit');
+
+    // ② combobox 가 listbox 를 가리킨다.
+    const listbox = canvasElement.querySelector('[role="listbox"]') as HTMLElement;
+    await expect(listbox.id).toBeTruthy();
+    await expect(combobox).toHaveAttribute('aria-controls', listbox.id);
+
+    // ③ ↓ 로 열면 첫 옵션이 활성이고 포커스는 combobox 에 남는다.
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(combobox).toHaveAttribute('aria-expanded', 'true');
+    await expect(activeLabel(combobox)).toBe('Apple');
+    await expect(combobox).toHaveFocus();
+
+    // ④ ↓/↑ 로 옮기고, 비활성 옵션(Cherry)은 건너뛰며, 끝에서 멈춘다.
+    await userEvent.keyboard('{ArrowDown}{ArrowDown}');
+    await expect(activeLabel(combobox)).toBe('Blueberry');
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(activeLabel(combobox)).toBe('Grape');
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(activeLabel(combobox)).toBe('Grape');
+    await userEvent.keyboard('{Home}');
+    await expect(activeLabel(combobox)).toBe('Apple');
+    await userEvent.keyboard('{End}');
+    await expect(activeLabel(combobox)).toBe('Grape');
+    await userEvent.keyboard('{ArrowUp}');
+    await expect(activeLabel(combobox)).toBe('Blueberry');
+
+    // ⑤ Enter 로 고르면 값이 바뀌고 닫히며 포커스는 combobox 에 남는다.
+    await userEvent.keyboard('{Enter}');
+    await expect(value).toHaveTextContent('blueberry');
+    await expect(combobox).toHaveAttribute('aria-expanded', 'false');
+    await expect(combobox).toHaveTextContent('Blueberry');
+    await expect(combobox).toHaveFocus();
+
+    // ⑥ Space 로 열면 고른 옵션이 활성이다. Esc 는 값을 안 바꾸고 닫는다.
+    await userEvent.keyboard(' ');
+    await expect(combobox).toHaveAttribute('aria-expanded', 'true');
+    await expect(activeLabel(combobox)).toBe('Blueberry');
+    await userEvent.keyboard('{ArrowUp}{Escape}');
+    await expect(combobox).toHaveAttribute('aria-expanded', 'false');
+    await expect(value).toHaveTextContent('blueberry');
+    await expect(combobox).toHaveFocus();
+
+    // ⑦ 글자를 치면 열리면서 그 글자로 시작하는 옵션으로 간다.
+    await userEvent.keyboard('g');
+    await expect(combobox).toHaveAttribute('aria-expanded', 'true');
+    await expect(activeLabel(combobox)).toBe('Grape');
+    await userEvent.keyboard('{Enter}');
+    await expect(value).toHaveTextContent('grape');
+  },
+};
+
+export const KeyboardDisabled: Story = {
+  args: { options: fruitOptions },
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'flex-start' }}>
+      <button type="button">Before</button>
+      <Select aria-label="Disabled fruit" disabled options={fruitOptions} value="" onChange={() => {}} />
+      <Select aria-label="Invalid fruit" error options={fruitOptions} value="" onChange={() => {}} />
+    </div>
+  ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const [disabled, invalid] = await canvas.findAllByRole('combobox');
+
+    // 비활성 Select 는 그 사실을 알리고 Tab 순서에서 빠진다.
+    await expect(disabled).toHaveAttribute('aria-disabled', 'true');
+    canvas.getByRole('button', { name: 'Before' }).focus();
+    await userEvent.tab();
+    await expect(invalid).toHaveFocus();
+
+    // 오류 상태는 combobox 자신이 aria-invalid 로 알린다.
+    await expect(invalid).toHaveAttribute('aria-invalid', 'true');
+
+    // 비활성 Select 는 키로도 안 열린다.
+    disabled.focus();
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(disabled).toHaveAttribute('aria-expanded', 'false');
+  },
+};

@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 import { KEYFRAME_NAMES, SLIDE_VARS, useAnimatedMount } from '../motion';
+import { useEscapeKey, useFocusTrap } from '../a11y';
 
 export interface DrawerProps extends React.HTMLAttributes<HTMLDivElement> {
   isOpen: boolean;
@@ -11,12 +12,21 @@ export interface DrawerProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
-  ({ isOpen, onClose, position = 'right', size = 'md', children, style, className, ...props }, ref) => {
+  ({ isOpen, onClose, position = 'right', size = 'md', children, style, className, onKeyDown, ...props }, ref) => {
     const { shouldRender, mountState } = useAnimatedMount(isOpen);
     const closing = mountState === 'closed';
     const dur = cssVar('motion', 'duration', 'normal');
     const easeOut = cssVar('motion', 'easing', 'out');
     const easeIn = cssVar('motion', 'easing', 'in');
+
+    // Internal handle to the panel so the dialog a11y contract works whether or
+    // not the caller forwards a ref.
+    const panelRef = useRef<HTMLDivElement | null>(null);
+    const setPanelRef = (node: HTMLDivElement | null) => {
+      panelRef.current = node;
+      if (typeof ref === 'function') ref(node);
+      else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+    };
 
     useEffect(() => {
       if (isOpen) {
@@ -29,7 +39,18 @@ export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
       };
     }, [isOpen]);
 
+    // Same dialog contract as Modal: focus moves in on open and back on close,
+    // Tab stays inside, Esc dismisses.
+    const handleEscape = useEscapeKey(onClose);
+    const handleFocusTrap = useFocusTrap(panelRef, isOpen);
+
     if (!shouldRender) return null;
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+      onKeyDown?.(e);
+      handleEscape(e);
+      handleFocusTrap(e);
+    };
 
     const overlayStyle: React.CSSProperties = {
       position: 'fixed',
@@ -85,12 +106,14 @@ export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
     return (
       <div style={overlayStyle} onClick={onClose}>
         <div
-          ref={ref}
+          ref={setPanelRef}
           style={drawerStyle}
           className={className}
           onClick={(e) => e.stopPropagation()}
+          onKeyDown={handleKeyDown}
           role="dialog"
           aria-modal="true"
+          tabIndex={-1}
           {...props}
         >
           {children}

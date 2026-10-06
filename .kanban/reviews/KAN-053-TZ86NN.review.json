@@ -1,0 +1,27 @@
+{
+ "card": "KAN-053-TZ86NN",
+ "front": {
+  "base": "b9f4a2f",
+  "branch": "KAN-053-TZ86NN",
+  "card": "KAN-053-TZ86NN",
+  "created": "2026-10-06",
+  "inherits": null,
+  "merged": null,
+  "status": "검토 대기",
+  "title": "Drawer·Tabs·Select 키보드·포커스 지원 — Modal에서 공용 훅 추출",
+  "worktree": "/Users/centurio/orca/workspaces/bbangto-ui/KAN-053-TZ86NN"
+ },
+ "inherited_md": "",
+ "md_fp": "1ef55cf247801701d37ff04030c7236dae1e8c10",
+ "md_src_fp": "8d337e3cd0be1c918313eae6d55b0fb47e08ea31",
+ "schema": 1,
+ "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `KAN-053-TZ86NN` |\n| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-053-TZ86NN` |\n| 베이스 | `b9f4a2f` |\n| 변경 훑기 | `git diff b9f4a2f...HEAD` |\n\n**커밋 6건**\n\n```text\nd6aa3fa KAN-053 S4: Select 키보드 적용 + changeset, Modal 열림 포커스 결함 수정 (게이트 5종 초록)\nf9e87c8 KAN-053 S3: Drawer·Tabs 키보드·포커스 적용 (새 테스트 초록)\n48dc248 kanban: KAN-053 배치2 착수 시점 판단 — 같은 세션에서 S3·S4 이어 감\nc56cfad KAN-053 S2: a11y 공용 훅 넷 추출 + Modal 교체 (Modal 스토리 초록)\n2cafe72 KAN-053 S1: Drawer·Tabs·Select 키보드 play 테스트 먼저 (빨강 6 · 기존 초록)\ndd9a28c kanban: KAN-053 진행 중으로 이동\n```\n\n**변경 파일 20개 (+888 −118)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.changeset/kan-053-keyboard-a11y.md` | M | 21 | 0 |\n| `.kanban/archive.jsonl` | M | 1 | 0 |\n| `.kanban/log.md` | M | 1 | 1 |\n| `.kanban/state.json` | M | 15 | 21 |\n| `KANBAN.board.html` | M | 2 | 2 |\n| `KANBAN.md` | M | 18 | 18 |\n| `KANBAN/batches/KAN-053-TZ86NN.batch2.md` | M | 5 | 1 |\n| `KANBAN/cards/KAN-053-TZ86NN.md` | M | 14 | 4 |\n| `apps/storybook/src/stories/Drawer.stories.tsx` | M | 102 | 0 |\n| `apps/storybook/src/stories/Select.stories.tsx` | M | 126 | 0 |\n| `apps/storybook/src/stories/Tabs.stories.tsx` | M | 147 | 0 |\n| `packages/core/src/a11y/index.ts` | M | 7 | 0 |\n| `packages/core/src/a11y/useEscapeKey.ts` | M | 16 | 0 |\n| `packages/core/src/a11y/useFocusTrap.ts` | M | 71 | 0 |\n| `packages/core/src/a11y/useRovingFocus.ts` | M | 61 | 0 |\n| `packages/core/src/a11y/useTypeahead.ts` | M | 46 | 0 |\n| `packages/core/src/components/Drawer.tsx` | M | 26 | 3 |\n| `packages/core/src/components/Modal.tsx` | M | 10 | 41 |\n| `packages/core/src/components/Select.tsx` | M | 122 | 15 |\n| `packages/core/src/components/Tabs.tsx` | M | 77 | 12 |\n\n**롤백 태그 6개**\n\n```text\nkan/KAN-053-TZ86NN/S1\nkan/KAN-053-TZ86NN/S2\nkan/KAN-053-TZ86NN/S3\nkan/KAN-053-TZ86NN/S4\nkan/KAN-053-TZ86NN/batch1\nkan/KAN-053-TZ86NN/batch2\n```",
+ "verdicts": [
+  {
+   "at": "2026-10-06",
+   "by": "유저",
+   "verdict": "승인"
+  }
+ ],
+ "verify_md": "<!-- 기준은 카드 실행 문서 「검증」 절의 사본이다. 정본은 KANBAN/cards/KAN-053-TZ86NN.md 이므로\n     기준이 바뀌면 그쪽을 고치고 review-init --refresh 로 이 항만 다시 뜬다.\n     결과는 착수한 쪽이 이미 돌린 것이다 — 검토자에게 다시 돌리라고 시키지 않는다.\n     **다시 돌려 아래와 다르게 나오면 그 자체가 반려 사유다.** -->\n\n**기준**\n\n### 게이트 5종 (전부 초록이어야 완료)\n\n```bash\npnpm typecheck\npnpm build\npnpm test                       # ← 키보드 play 테스트가 실제 chromium 에서 돈다\npnpm --filter storybook build\npnpm test:unit\n```\n\n### 빨강 → 초록\n\n1. `S1` 직후: Drawer·Tabs·Select의 새 키보드 테스트가 빨강. 기존 스토리는 초록.\n2. `S2` 직후: Modal 스토리 초록 유지(훅 교체가 동작을 바꾸지 않았다는 확인).\n3. `S3` 직후: Drawer·Tabs 초록, Select 빨강 유지.\n4. `S4` 직후: 전부 초록.\n\n### 추가 확인\n\n- 키보드만으로 Storybook에서 세 컴포넌트를 한 번씩 써 본다(마우스 없이 열기·이동·선택·닫기)\n- `grep -n \"onKeyDown\\|useEscapeKey\\|useFocusTrap\" packages/core/src/components/Modal.tsx` — 인라인 키 처리 대신 훅을 쓴다\n\n**실행 결과**\n\n```text\npnpm build                      exit 0\npnpm typecheck                  exit 0\npnpm test                       exit 0 — Test Files 184 passed (184) · Tests 1239 passed (1239)\npnpm --filter storybook build   exit 0 — Storybook build completed successfully\npnpm test:unit                  exit 0 — hooks 115 · visualization 257 · foundations 62 · style-guide-catalog 76 · visualization-style-guide-catalog 39 passed\n빨강→초록: S1 직후 새 키보드 테스트 6건 빨강(기존 29 초록) → S3 직후 Select 2건만 빨강 → S4 직후 4파일 35/35 초록\n추가 확인(정적 Storybook + Playwright 실제 키 입력): Drawer Enter 열기→포커스 패널 안 · Tab 순환 · Esc→연 버튼 복귀 / Tabs →로 Settings 이동·Tab 한 번에 묶음 밖 / Select Tab 도달·↓↓ 활성 Option 2·Enter 후 포커스 유지 / Modal Enter 열기→포커스 대화상자 안(수정 전에는 버튼에 남음, 착수 전 main 빌드도 동일)\ngrep onKeyDown Modal.tsx → handleKeyDown 이 useEscapeKey·useFocusTrap 처리기를 부른다(인라인 키 처리 없음)\n```"
+}
