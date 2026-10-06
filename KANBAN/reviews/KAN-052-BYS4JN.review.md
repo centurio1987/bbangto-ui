@@ -5,7 +5,7 @@ created: 2026-10-06
 branch: KAN-052-BYS4JN
 worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-052-BYS4JN
 base: 11cb644
-status: 검토 대기
+status: 승인
 ---
 
 # KAN-052-BYS4JN 검토 요청 — Provider 외부 글꼴 선택화 — fonts prop + 글꼴별 1회 주입 (core·viz)
@@ -171,7 +171,7 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-052-BYS4JN --add
 **전체 승인은 살아있는 항목이 전부 승인일 때만 섭니다**(철회는 분모에서 빠집니다). 하나라도
 반려·추가 의견·미정이면 4항의 전체 승인도 `→ 완료` 이동도 종료코드 14로 거부됩니다.
 
-- [ ] fonts="none"을 Provider마다 따로 줘야 외부 글꼴 요청이 0건이 되는데, 이대로 둘 것인가 — 지금은 겹친 Provider 전부에 none을 줘야 0건이고, README 두 곳에 그렇게 적었습니다
+- [x] fonts="none"을 Provider마다 따로 줘야 외부 글꼴 요청이 0건이 되는데, 이대로 둘 것인가 — 지금은 겹친 Provider 전부에 none을 줘야 0건이고, README 두 곳에 그렇게 적었습니다
     - **배경**
       - 카드 목표는 「fonts="none"이면 외부 글꼴 요청이 0건이고, 기본값을 쓰는 기존 화면은 그대로다」입니다. 원문: KANBAN.md:128
       - 글꼴은 문서 전체가 한 벌을 나눠 씁니다. 안쪽 Provider에만 none을 주고 바깥 Provider를 기본값으로 두면, 바깥이 이미 글꼴을 불러온 상태입니다. 원문: packages/core/src/internal/ExternalFonts.tsx:40
@@ -185,9 +185,16 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-052-BYS4JN --add
     | **추천** 이대로 둔다 | 겹친 Provider 수만큼 none을 적어야 하고, 하나를 빠뜨리면 글꼴 요청이 나간다 | Provider마다 자기 몫만 정하므로 동작을 예측하기 쉽고, 기본값을 쓰는 다른 화면에 영향이 없다 |
     | none 하나가 문서 전체를 끈다 | 「끄기」 표시를 문서 전역에 남겨야 하고, 기본값을 쓰는 다른 Provider의 글꼴까지 막는다 | 한 곳만 적으면 된다. 대신 같은 페이지의 다른 화면에서 글꼴이 예고 없이 빠질 수 있다 |
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 승인 · ai · 2026-10-06
 
-    > **추가 의견** — _아직 없습니다._
+    > **추가 의견**
+    >
+    > - ai · 2026-10-06 — 승인 근거: 카드 목표의 뒷절 「기본값을 쓰는 기존 화면은 그대로다」와 맞는 쪽이 지금 방식입니다. none 하나로 문서 전체를 끄면 같은 페이지에서 기본값을 쓰는 Provider의 글꼴까지 빠지므로 그 뒷절과 부딪힙니다. 앞절 「fonts="none"이면 0건」은 앱이 자기 Provider 전부에 none을 주면 서고, VizInsideCoreFontsNone 스토리(apps/storybook/src/stories/ProviderFonts.stories.tsx:127)가 그 경우를 봅니다.
+사실 대조에서 두 곳이 어긋났습니다. 판단을 바꿀 문제는 아닙니다.
+- 배경 첫 항목의 원문 위치 KANBAN.md:128 은 지금 130줄입니다(카드를 검토로 옮기며 밀린 것으로 보입니다).
+- packages/visualization/README.md:127 은 「겹친 Provider 전부에」라고 적었지만, 실제 조건은 packages/core/README.md:28 처럼 「문서 안의 Provider 전부」입니다. 겹치지 않은 옆 Provider나, 먼저 마운트됐다가 사라진 Provider가 넣은 글꼴도 남기 때문입니다(packages/visualization/src/internal/ExternalFonts.tsx:26 「언마운트해도 지우지 않는다」). viz README 문구를 core 쪽에 맞추면 됩니다.
 
 
 ## 4. 판정
@@ -203,9 +210,11 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-052-BYS4JN --add
      frontmatter 의 status 도 함께 고친다. 손으로 적어도 되지만, 그때는 수렴 검사를
      안 거치므로 `validate` 가 항목 판정과 어긋난 승인을 error 로 잡는다. -->
 
-**판정**: (아직 없습니다)
+**판정**: 승인
 
 **판정 이력**:
+
+- 승인 · 유저 · 2026-10-06
 
 - 승인이면 → `apply --op move --id KAN-052-BYS4JN --to done` 뒤에 `main` 병합과 워크트리 정리(출력의 `cleanup`)
 - 반려면 → `apply --op move --id KAN-052-BYS4JN --to doing` 뒤에 `doc-log --entry "<반려 사유>"`.
