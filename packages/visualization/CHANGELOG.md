@@ -1,5 +1,51 @@
 # @centurio1987/bbangto-ui-visualization
 
+## 0.4.0
+
+### Minor Changes
+
+- 5af8e71: Provider 외부 글꼴을 끌 수 있게 하고, 겹쳐 써도 글꼴마다 한 번만 불러온다(KAN-052).
+
+  ### 새 기능
+
+  - **`fonts?: 'external' | 'none'`** — `FoundationProvider` · `StyleGuideProvider`(core),
+    `VisualizationStyleGuideProvider`(visualization)에 더했다. 기본값 `'external'`은 지금 동작 그대로다.
+    `'none'`이면 그 Provider는 CDN 글꼴 요청을 하지 않는다. 글꼴을 직접 호스팅하거나 CSP로 외부 요청을 막는 앱용이다.
+    주입은 문서 전체가 나눠 쓰므로, 외부 요청을 0건으로 만들려면 문서 안의 Provider 전부에 `'none'`을 준다.
+
+  ### 바뀐 동작
+
+  - 글꼴 `@import`를 렌더 트리 안 `<style>`로 내던 것을 `document.head`의 `#bbangto-font-pretendard` ·
+    `#bbangto-font-jetbrains-mono`로 옮겼다. 같은 id가 있으면 넣지 않으므로 Provider를 여러 겹 감싸도,
+    core Provider 안에 visualization Provider를 겹쳐도 글꼴당 요청은 한 번이다.
+  - SSR HTML에는 글꼴 `@import`가 들어가지 않는다. 화면이 켜진 뒤에 불러온다.
+
+### Patch Changes
+
+- 145f269: 하나만 가져와도 패키지 전체가 번들에 딸려 오던 문제를 고쳤다(KAN-051). 공개 API와 import 경로는 그대로다.
+
+  ### 바뀐 동작
+
+  - **dist 가 파일 단위 출력이 됐다.** 전에는 패키지마다 `dist/index.js` 한 파일이어서, `package.json` 의
+    `sideEffects: false` 가 있어도 번들러가 쓰지 않는 컴포넌트를 버리지 못했다(이 선언은 파일 단위로만 작동한다).
+    이제 소스 파일마다 출력이 하나씩 나오고 함께 쓰는 코드는 `chunk-*.js` 로 빠진다. 입구(`dist/index.js`,
+    visualization 은 `dist/typeMeta/index.js` 도)와 타입 선언(`dist/index.d.ts`)의 경로는 바뀌지 않았다.
+  - **style-guide-catalog · visualization-style-guide-catalog: 카탈로그 배열과 조회 맵을 `src/catalog.ts` 로 옮겼다.**
+    배럴 최상위에서 `Object.fromEntries(...)` 로 맵을 만들던 것이 모든 preset 을 붙잡고 있었다.
+    `styleGuideCatalog` · `styleGuideMap` · `vizStyleGuideCatalog` · `vizStyleGuideMap` 은 지금처럼 루트에서 가져온다.
+
+  ### 크기 (esbuild 0.27.7, minify, react·`@centurio1987/*` 바깥)
+
+  | 가져온 것                                                           | 전       | 후       |
+  | ------------------------------------------------------------------- | -------- | -------- |
+  | core `Button` 하나                                                  | 324,410B | 4,622B   |
+  | visualization `BarChart` 하나                                       | 171,294B | 8,958B   |
+  | style-guide-catalog `NeobrutalismShowcase` 하나                     | 829,011B | 101,092B |
+  | visualization-style-guide-catalog `minimalLine01VizStyleGuide` 하나 | 335,601B | 11,810B  |
+
+  전부 가져오는 경우는 청크 경계 때문에 조금 커졌다(core 438,855B → 464,763B). style-guide-catalog 의 Showcase 하나가
+  여전히 약 101KB 인 것은 Showcase 전부가 함께 쓰는 생성 카피 파일(`_showcaseCopy.generated.ts`) 때문이다.
+
 ## 0.3.0
 
 ### Minor Changes
