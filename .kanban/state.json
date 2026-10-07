@@ -1,6 +1,6 @@
 {
-  "next_id": 58,
-  "next_seq": 195,
+  "next_id": 59,
+  "next_seq": 196,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -958,6 +958,26 @@
         "CLAUDE.md",
         ".changeset/kan-051-*.md"
       ]
+    },
+    "KAN-058-G883EJ": {
+      "col": "backlog",
+      "title": "style-guide-catalog Showcase 생성 카피 분할 — Showcase 하나가 51개 몫 카피를 끌고 오는 문제",
+      "verbatim": "",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-07",
+      "title_hash": "4919c048537be88734dbb1a48db5d6c3067b26f9",
+      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+      "short": "Showcase 카피 분할",
+      "short_hash": "7543f4a9d41a22d9b1f64b6ccc7bf84acae4df2e",
+      "purpose": "생성 카피 파일(_showcaseCopy.generated.ts)을 Showcase별로 나눠 Showcase 하나만 가져오면 그 카피만 딸려 오게 한다",
+      "purpose_hash": "14394a2c448289e654ff4dfaa1ec7e1f27a713e8",
+      "reason": "KAN-051 뒤에도 Showcase 하나가 약 101KB이고 그중 76,517B가 Showcase 51개가 함께 쓰는 생성 카피 파일 하나에서 온다",
+      "reason_hash": "fd4d64000cf7b1055ac570ff537cd291c728687f",
+      "goal": "Showcase 하나를 가져온 번들에 그 Showcase 카피만 들어가고, bundle-budget.json 의 sgc 대표 상한을 새 실측으로 낮춘다",
+      "goal_hash": "71c5299de384df365a2fd7e75ae55fb406e86a88",
+      "memo": "KAN-051 검토 4항(2026-10-07 승인)에서 나온 후속 · 근거는 KANBAN/cards/KAN-051-5HMYKT.md 「전략」의 범위 밖 절",
+      "memo_hash": "dc58b3eff9274c7e083fe599351503fbdc62e3cb"
     }
   },
   "order": [
@@ -1017,9 +1037,27 @@
     "KAN-048-R2KW3G",
     "KAN-053-TZ86NN",
     "KAN-050-AJSQAY",
-    "KAN-051-5HMYKT"
+    "KAN-051-5HMYKT",
+    "KAN-058-G883EJ"
   ],
   "recent": [
+    {
+      "seq": 195,
+      "t": "2026-10-07T15:33",
+      "a": "ai",
+      "id": "KAN-058-G883EJ",
+      "op": "create",
+      "w": "S7030N",
+      "col": "backlog",
+      "title": "style-guide-catalog Showcase 생성 카피 분할 — Showcase 하나가 51개 몫 카피를 끌고 오는 문제",
+      "verbatim": "",
+      "parent": null,
+      "short": "Showcase 카피 분할",
+      "purpose": "생성 카피 파일(_showcaseCopy.generated.ts)을 Showcase별로 나눠 Showcase 하나만 가져오면 그 카피만 딸려 오게 한다",
+      "reason": "KAN-051 뒤에도 Showcase 하나가 약 101KB이고 그중 76,517B가 Showcase 51개가 함께 쓰는 생성 카피 파일 하나에서 온다",
+      "goal": "Showcase 하나를 가져온 번들에 그 Showcase 카피만 들어가고, bundle-budget.json 의 sgc 대표 상한을 새 실측으로 낮춘다",
+      "memo": "KAN-051 검토 4항(2026-10-07 승인)에서 나온 후속 · 근거는 KANBAN/cards/KAN-051-5HMYKT.md 「전략」의 범위 밖 절"
+    },
     {
       "seq": 194,
       "t": "2026-10-07T15:31",
@@ -1528,16 +1566,6 @@
       "w": "JG08FN",
       "with_": "KAN-049-CWBPP6",
       "reason": "같은 파일(visualization-type-inventory.md)을 둘 다 고친다. A 는 :376 의 「ORDER.md 편집 금지」 조각, C 는 :12,13,14,29,30,343,369 의 SSOT 링크와 아마 :376 의 「catalog §4」 — 같은 줄이 겹칠 수 있다. 그래도 순서가 뒤집혀도 상대가 할 일이 그대로 남아 직렬은 불필요하고, C 는 착수 전이라 A 병합 뒤 출발하면 충돌이 없다. 2026-10-06 재확인: A 의 scope 에 gateDocs.test.ts 가 더해져 옛 용인이 무효가 된 것(겹침 내용은 불변). 유저 판단"
-    },
-    {
-      "seq": 161,
-      "t": "2026-10-06T00:51",
-      "a": "ai",
-      "id": "KAN-052-BYS4JN",
-      "op": "move",
-      "w": "PP8AJM",
-      "from": "doing",
-      "to": "review"
     }
   ],
   "waivers": [

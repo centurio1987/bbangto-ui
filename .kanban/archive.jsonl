@@ -179,3 +179,4 @@
 {"seq": 160, "t": "2026-10-06T00:18", "a": "ai", "id": "KAN-047-TRYYRC", "op": "move", "w": "JG08FN", "from": "todo", "to": "doing"}
 {"seq": 160, "t": "2026-10-06T00:36", "a": "ai", "id": "KAN-052-BYS4JN", "op": "move", "w": "PP8AJM", "from": "todo", "to": "doing"}
 {"seq": 161, "t": "2026-10-06T00:31", "a": "ai", "id": "KAN-049-CWBPP6", "op": "waive", "w": "HQ1ZBZ", "with_": "KAN-055-34A57K", "reason": "049는 PLAN.md·visualization-catalog.md 흡수만 하고, 055가 viz에서 바꾸는 것은 CI Version PR이 만드는 package.json·CHANGELOG.md뿐이라 같은 파일을 건드리지 않는다. 049 scope에 gateDocs.test.ts를 더해 재기록 — 겹침 내용 불변 (2026-10-06 유저 승인)"}
+{"seq": 161, "t": "2026-10-06T00:51", "a": "ai", "id": "KAN-052-BYS4JN", "op": "move", "w": "PP8AJM", "from": "doing", "to": "review"}
