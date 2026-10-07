@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
+import { composeHandlers } from '../a11y';
 import { Text } from './Text';
 import { ProgressIndicator } from './ProgressIndicator';
 import { Button } from './Button';
@@ -43,6 +44,8 @@ export const FileUploader = React.forwardRef<HTMLDivElement, FileUploaderProps>(
       variant = 'default',
       externalError,
       style,
+      onClick,
+      onKeyDown,
       ...props
     },
     ref
@@ -187,8 +190,8 @@ export const FileUploader = React.forwardRef<HTMLDivElement, FileUploaderProps>(
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
-            onClick={handleZoneClick}
-            onKeyDown={handleZoneKeyDown}
+            onClick={composeHandlers(onClick, handleZoneClick)}
+            onKeyDown={composeHandlers(onKeyDown, handleZoneKeyDown)}
             onMouseEnter={(e) => {
               if (!isInteractionDisabled) e.currentTarget.style.opacity = '0.8';
             }}
@@ -277,6 +280,8 @@ export const FileUploader = React.forwardRef<HTMLDivElement, FileUploaderProps>(
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
+            onClick={onClick}
+            onKeyDown={onKeyDown}
             {...props}
           >
             {hiddenInput}
@@ -400,7 +405,8 @@ export const FileUploader = React.forwardRef<HTMLDivElement, FileUploaderProps>(
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
-          onClick={handleZoneClick}
+          onClick={composeHandlers(onClick, handleZoneClick)}
+          onKeyDown={onKeyDown}
           {...props}
         >
           {hiddenInput}

@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useRef } from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
+import { composeHandlers } from '../a11y';
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -67,6 +68,7 @@ export const TreeView = React.forwardRef<HTMLUListElement, TreeViewProps>(
       onExpandedChange,
       variant = 'default',
       style,
+      onKeyDown,
       ...props
     },
     ref,
@@ -254,7 +256,7 @@ export const TreeView = React.forwardRef<HTMLUListElement, TreeViewProps>(
           className={connectedClass}
           data-bbangto-treeview-variant={variant}
           style={treeStyles}
-          onKeyDown={handleKeyDown}
+          onKeyDown={composeHandlers(onKeyDown, handleKeyDown)}
           {...props}
         >
           {nodes.map((node) => (

@@ -1,5 +1,6 @@
 import React from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
+import { composeHandlers } from '../a11y';
 
 export type TooltipVariant = 'dark' | 'light' | 'error' | 'elevated';
 export type TooltipSize = 'sm' | 'md' | 'lg';
@@ -26,6 +27,10 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
       size = 'md',
       disabled = false,
       style,
+      onMouseEnter,
+      onMouseLeave,
+      onFocus,
+      onBlur,
       ...props
     },
     ref
@@ -131,10 +136,10 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
         ref={ref}
         style={containerStyle}
         data-bbangto-tooltip-variant={variant}
-        onMouseEnter={show}
-        onMouseLeave={hide}
-        onFocus={show}
-        onBlur={hide}
+        onMouseEnter={composeHandlers(onMouseEnter, show)}
+        onMouseLeave={composeHandlers(onMouseLeave, hide)}
+        onFocus={composeHandlers(onFocus, show)}
+        onBlur={composeHandlers(onBlur, hide)}
         {...props}
       >
         {children}

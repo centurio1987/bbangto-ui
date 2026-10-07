@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 import { KEYFRAME_NAMES, SLIDE_VARS, useAnimatedMount } from '../motion';
-import { useEscapeKey, useFocusTrap } from '../a11y';
+import { composeHandlers, useEscapeKey, useFocusTrap } from '../a11y';
 
 export type ModalSize = 'sm' | 'md' | 'lg';
 
@@ -89,11 +89,10 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
 
     if (!shouldRender) return null;
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-      onKeyDown?.(e);
+    const handleKeyDown = composeHandlers(onKeyDown, (e: React.KeyboardEvent<HTMLDivElement>) => {
       handleEscape(e);
       handleFocusTrap(e);
-    };
+    });
 
     const handleOverlayClick = () => {
       if (closeOnOverlayClick && !loading) {

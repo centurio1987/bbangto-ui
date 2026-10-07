@@ -1,5 +1,6 @@
 import React from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
+import { composeHandlers } from '../a11y';
 
 export type CardVariant = 'elevated' | 'outlined' | 'filled' | 'retro' | 'pixel';
 export type CardStatus = 'none' | 'error' | 'success' | 'warning';
@@ -172,13 +173,12 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
     const resolvedRole = interactive ? (role ?? 'button') : role;
     const resolvedTabIndex = interactive ? (tabIndex ?? 0) : tabIndex;
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const handleKeyDown = composeHandlers(onKeyDown, (e: React.KeyboardEvent<HTMLDivElement>) => {
       if (interactive && (e.key === 'Enter' || e.key === ' ')) {
         e.preventDefault();
         (e.currentTarget as HTMLDivElement).click();
       }
-      onKeyDown?.(e);
-    };
+    });
 
     // Media slot styling per layout.
     const horizontalMediaStyle: React.CSSProperties = {

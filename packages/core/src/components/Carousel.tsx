@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
+import { composeHandlers } from '../a11y';
 
 export type CarouselSize = 'sm' | 'md' | 'lg';
 export type CarouselIndicatorVariant = 'dots' | 'numbers';
@@ -271,7 +272,7 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
         data-bbangto-carousel-variant={variant}
         style={containerStyle}
         {...props}
-        onKeyDown={(event) => {
+        onKeyDown={composeHandlers(onKeyDown, (event: React.KeyboardEvent<HTMLDivElement>) => {
           if (count > 1) {
             if (event.key === 'ArrowLeft') {
               prevSlide();
@@ -279,8 +280,7 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
               nextSlide();
             }
           }
-          onKeyDown?.(event);
-        }}
+        })}
         onMouseEnter={(event) => {
           setIsPaused(true);
           onMouseEnter?.(event);

@@ -400,3 +400,36 @@ export const KeyboardDisabled: Story = {
     await expect(disabled).toHaveAttribute('aria-expanded', 'false');
   },
 };
+
+// 합성 규칙(KAN-054): 외부 onKeyDown 이 먼저 돌고, preventDefault 하면 내부 키 처리를 건너뛴다.
+export const KeyDownPreventDefault: Story = {
+  args: { options: fruitOptions },
+  render: () => {
+    const [value, setValue] = useState('');
+    return (
+      <Select
+        aria-label="Fruit"
+        options={fruitOptions}
+        value={value}
+        onChange={setValue}
+        placeholder="Pick a fruit"
+        onKeyDown={(e) => {
+          if (e.key === 'ArrowDown') e.preventDefault();
+        }}
+      />
+    );
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const combobox = await canvas.findByRole('combobox');
+    combobox.focus();
+
+    // 외부가 ↓ 를 막았으므로 목록이 열리지 않는다.
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(combobox).toHaveAttribute('aria-expanded', 'false');
+
+    // 막지 않은 키(Enter)는 그대로 연다.
+    await userEvent.keyboard('{Enter}');
+    await expect(combobox).toHaveAttribute('aria-expanded', 'true');
+  },
+};

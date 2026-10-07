@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useId } from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 import { Spinner } from '../motion/Spinner';
-import { getRovingIndex, useRovingFocus, useTypeahead } from '../a11y';
+import { composeHandlers, getRovingIndex, useRovingFocus, useTypeahead } from '../a11y';
 
 export interface SelectOption {
   label: string;
@@ -66,6 +66,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
       className,
       'aria-label': ariaLabel,
       'aria-labelledby': ariaLabelledby,
+      onKeyDown,
       ...props
     },
     ref,
@@ -298,7 +299,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
         <div
           style={triggerStyle}
           onClick={handleTriggerClick}
-          onKeyDown={handleKeyDown}
+          onKeyDown={composeHandlers(onKeyDown, handleKeyDown)}
           role="combobox"
           tabIndex={disabled ? -1 : 0}
           aria-label={ariaLabel}

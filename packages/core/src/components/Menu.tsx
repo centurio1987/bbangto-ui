@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback, useId } from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
+import { composeHandlers } from '../a11y';
 
 // ─── Menu ────────────────────────────────────────────────────────────────────
 
@@ -186,7 +187,23 @@ export interface MenuItemProps extends Omit<React.LiHTMLAttributes<HTMLLIElement
 }
 
 export const MenuItem = React.forwardRef<HTMLLIElement, MenuItemProps>(
-  ({ children, onSelect, disabled = false, leftIcon, style, ...props }, ref) => {
+  (
+    {
+      children,
+      onSelect,
+      disabled = false,
+      leftIcon,
+      style,
+      onClick,
+      onKeyDown,
+      onMouseEnter,
+      onMouseLeave,
+      onFocus,
+      onBlur,
+      ...props
+    },
+    ref,
+  ) => {
     const [isHovered, setIsHovered] = useState(false);
 
     const handleClick = () => {
@@ -231,12 +248,12 @@ export const MenuItem = React.forwardRef<HTMLLIElement, MenuItemProps>(
         aria-disabled={disabled || undefined}
         tabIndex={disabled ? -1 : 0}
         style={itemStyles}
-        onClick={handleClick}
-        onKeyDown={handleKeyDown}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        onFocus={() => setIsHovered(true)}
-        onBlur={() => setIsHovered(false)}
+        onClick={composeHandlers(onClick, handleClick)}
+        onKeyDown={composeHandlers(onKeyDown, handleKeyDown)}
+        onMouseEnter={composeHandlers(onMouseEnter, () => setIsHovered(true))}
+        onMouseLeave={composeHandlers(onMouseLeave, () => setIsHovered(false))}
+        onFocus={composeHandlers(onFocus, () => setIsHovered(true))}
+        onBlur={composeHandlers(onBlur, () => setIsHovered(false))}
         {...props}
       >
         {leftIcon && (
@@ -585,10 +602,7 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
             }
             trigger.props.onClick?.(e);
           },
-          onKeyDown: (e: React.KeyboardEvent<HTMLElement>) => {
-            handleTriggerKeyDown(e);
-            trigger.props.onKeyDown?.(e);
-          },
+          onKeyDown: composeHandlers(trigger.props.onKeyDown, handleTriggerKeyDown),
           ref: triggerRef,
         } as React.HTMLAttributes<HTMLElement> & { ref: React.Ref<HTMLElement> })
       : null;
