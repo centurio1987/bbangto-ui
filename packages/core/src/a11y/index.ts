@@ -3,7 +3,9 @@
 export { composeHandlers } from './composeHandlers';
 export { getDateGridTarget, toIsoDate } from './dateGridKeys';
 export { focusWhenReady } from './focusWhenReady';
-export { FOCUS_RING, isFocusVisible } from './focusRing';
+export { FOCUS_RING, FOCUS_RING_INSET, isFocusVisible } from './focusRing';
+export { useFocusVisible } from './useFocusVisible';
+export type { FocusVisibleHandlers } from './useFocusVisible';
 export { useEscapeKey } from './useEscapeKey';
 export { useFocusTrap } from './useFocusTrap';
 export { getRovingIndex, useRovingFocus } from './useRovingFocus';

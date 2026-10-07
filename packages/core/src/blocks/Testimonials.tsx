@@ -436,7 +436,7 @@ export const Testimonials = React.forwardRef<HTMLElement, TestimonialsProps>(
         {needsScopedStyle && (
           <style>{`
             .${SECTION_ID}-carousel:focus-visible {
-              outline: 2px solid ${cssVar('semantic', 'primary', 'base')};
+              outline: 2px solid ${cssVar('semantic', 'border', 'focus')};
               outline-offset: 2px;
             }
             @media (max-width: ${breakpoints.md - 0.02}px) {

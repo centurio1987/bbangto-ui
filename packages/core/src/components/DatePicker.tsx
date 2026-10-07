@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 import { Button } from './Button';
 import { Popover } from './Popover';
-import { FOCUS_RING, focusWhenReady, getDateGridTarget, getRovingIndex, isFocusVisible, toIsoDate } from '../a11y';
+import { FOCUS_RING, focusWhenReady, getDateGridTarget, getRovingIndex, toIsoDate, useFocusVisible } from '../a11y';
 
 export type DatePickerSize = 'sm' | 'md' | 'lg';
 
@@ -76,7 +76,7 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
     const [isOpen, setIsOpen] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
     // Keyboard focus on the default trigger (ghost keeps its own ring below).
-    const [isTriggerFocusVisible, setIsTriggerFocusVisible] = useState(false);
+    const { focusVisible: isTriggerFocusVisible, focusProps: triggerFocusProps } = useFocusVisible<HTMLDivElement>();
     // Week-rail anchor: the strip shows the Sun–Sat week containing this date.
     const [weekAnchor, setWeekAnchor] = useState<Date>(value ?? new Date());
     // Date that holds keyboard focus in the popup grid / week rail (roving tabindex).
@@ -641,11 +641,11 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
             }}
             onFocus={(e) => {
               if (isGhost) setIsFocused(true);
-              else setIsTriggerFocusVisible(e.target === e.currentTarget && isFocusVisible(e.currentTarget));
+              else triggerFocusProps.onFocus(e);
             }}
-            onBlur={() => {
+            onBlur={(e) => {
               if (isGhost) setIsFocused(false);
-              else setIsTriggerFocusVisible(false);
+              else triggerFocusProps.onBlur(e);
             }}
             aria-disabled={disabled || undefined}
           >

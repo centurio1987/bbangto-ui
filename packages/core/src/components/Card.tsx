@@ -1,6 +1,6 @@
 import React from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
-import { composeHandlers, FOCUS_RING, isFocusVisible } from '../a11y';
+import { composeHandlers, FOCUS_RING, useFocusVisible } from '../a11y';
 
 export type CardVariant = 'elevated' | 'outlined' | 'filled' | 'retro' | 'pixel';
 export type CardStatus = 'none' | 'error' | 'success' | 'warning';
@@ -70,7 +70,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
     // unless the caller explicitly opts out with interactive={false}.
     const interactive = interactiveProp ?? onClick !== undefined;
     // Keyboard focus ring for interactive cards (mouse focus stays unmarked).
-    const [focusVisible, setFocusVisible] = React.useState(false);
+    const { focusVisible, focusProps } = useFocusVisible<HTMLDivElement>({ onFocus, onBlur });
     const paddingMap: Record<NonNullable<CardProps['padding']>, string> = {
       none: '0',
       sm: cssVar('spacing', '12'),
@@ -264,10 +264,8 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
         data-bbangto-card-layout={layout}
         onClick={onClick}
         onKeyDown={interactive ? handleKeyDown : onKeyDown}
-        onFocus={composeHandlers(onFocus, (e: React.FocusEvent<HTMLDivElement>) =>
-          setFocusVisible(e.target === e.currentTarget && isFocusVisible(e.currentTarget)),
-        )}
-        onBlur={composeHandlers(onBlur, () => setFocusVisible(false))}
+        onFocus={focusProps.onFocus}
+        onBlur={focusProps.onBlur}
         {...props}
       >
         {body}
