@@ -47,7 +47,9 @@ interface LifelineProps {
 function Lifeline({ participant, lifelineHeight }: LifelineProps) {
   const { x, width, name, fill, stroke } = participant;
   const cx = x + width / 2;
-  const headFill = fill ?? vvar('palette', 'p2');
+  // 머리 바탕은 파일럿 Lifeline 원자와 같은 캔버스 바탕이다. 이름 글자(edge.stroke)는 가이드가
+  // 캔버스 위에서 읽히게 고른 색이라, 팔레트 면 위에 두면 가이드에 따라 바탕에 묻힌다(KAN-056 검토 항목 4).
+  const headFill = fill ?? vvar('canvas', 'bg');
   const headStroke = stroke ?? vvar('edge', 'stroke');
 
   return (

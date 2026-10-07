@@ -11,9 +11,14 @@ import {
   VisualizationStyleGuideProvider,
 } from '@centurio1987/bbangto-ui-visualization';
 import type { VisualizationStyleGuide } from '@centurio1987/bbangto-ui-visualization';
-import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visualization-style-guide-catalog';
-import { parseColor } from '@centurio1987/bbangto-ui-tokens';
+import {
+  blueprintTechnical01VizStyleGuide,
+  vizStyleGuideCatalog,
+} from '@centurio1987/bbangto-ui-visualization-style-guide-catalog';
+import { compositeOver, contrastRatio, parseColor } from '@centurio1987/bbangto-ui-tokens';
+import type { RGBA } from '@centurio1987/bbangto-ui-tokens';
 import { expect } from 'storybook/test';
+import { LABEL_CONTRAST_BASELINE } from './_labelContrastBaseline';
 import { MATRIX_FIXTURES } from './_matrixFixtures';
 
 /**
@@ -334,5 +339,136 @@ export const LiteralPaintGate: Story = {
     }
 
     await expect(violations).toEqual([]);
+  },
+};
+
+// ────────────────────────────────────────────────────────────────────────
+// 글자 대비 — 가이드가 칠한 면 위의 글자가 읽히는가
+// ────────────────────────────────────────────────────────────────────────
+
+/**
+ * 리터럴을 토큰으로 바꾸면 글자색과 그 뒤 면 색이 서로 다른 토큰에서 오게 된다. 기본 가이드에서
+ * 멀쩡해도 다른 가이드에서는 두 토큰이 같은 색일 수 있다(KAN-056 검토 항목 4: synthwave 에서
+ * 시퀀스 머리 바탕 p2 와 이름 글자 edge.stroke 가 둘 다 #28E0F0 이었다). 그래서 대상 13개를
+ * 카탈로그 가이드 전부에서 그리고, 글자마다 그 아래 깔린 면을 합성해 대비를 잰다.
+ *
+ * - 배경: 캔버스 바탕(svg background) 위에, 글자 중심점을 칠하는 도형(rect·circle·ellipse·path·
+ *   polygon 중 문서 순서상 글자보다 앞선 것)의 fill 을 fill-opacity·opacity 까지 반영해 차례로 얹는다.
+ * - 기준: WCAG AA — 보통 글자 4.5:1, 큰 글자(화면 24px 이상, 굵게면 18.66px 이상) 3:1.
+ * - wrapperComponents 는 넣지 않는다. 모티프 장식은 템플릿 몫이 아니다.
+ */
+const TEXT_CONTRAST_MIN = 4.5;
+const LARGE_TEXT_CONTRAST_MIN = 3;
+const BACKDROP_TAGS = 'rect, circle, ellipse, path, polygon';
+const PAGE_WHITE: RGBA = { r: 255, g: 255, b: 255, a: 1 };
+
+function opacityChain(el: Element, stop: Element): number {
+  let o = 1;
+  for (let n: Element | null = el; n && n !== stop.parentElement; n = n.parentElement) {
+    o *= parseFloat(getComputedStyle(n).opacity || '1');
+  }
+  return o;
+}
+
+function fillPaint(el: SVGElement, svg: SVGSVGElement): RGBA | null {
+  const cs = getComputedStyle(el);
+  const c = parseColor(cs.fill);
+  if (!c) return null; // none · url(#…) 패턴/그라디언트
+  return { ...c, a: c.a * parseFloat(cs.fillOpacity || '1') * opacityChain(el, svg) };
+}
+
+function backdropOf(text: SVGTextElement, svg: SVGSVGElement): RGBA {
+  const box = text.getBoundingClientRect();
+  const point = new DOMPoint(box.left + box.width / 2, box.top + box.height / 2);
+  const svgBg = parseColor(getComputedStyle(svg).backgroundColor);
+  let color = svgBg ? compositeOver(svgBg, PAGE_WHITE) : PAGE_WHITE;
+  const shapes = Array.from(svg.querySelectorAll<SVGGeometryElement>(BACKDROP_TAGS)).filter(
+    (el) => !el.closest('defs') && Boolean(el.compareDocumentPosition(text) & Node.DOCUMENT_POSITION_FOLLOWING),
+  );
+  for (const shape of shapes) {
+    const ctm = shape.getScreenCTM();
+    if (!ctm || !shape.isPointInFill(point.matrixTransform(ctm.inverse()))) continue;
+    const paint = fillPaint(shape, svg);
+    if (paint && paint.a > 0) color = compositeOver(paint, color);
+  }
+  return color;
+}
+
+interface LowContrast {
+  id: string;
+  ratio: number;
+}
+
+function collectLowContrast(guide: string, key: string, cell: Element): { low: LowContrast[]; measured: number } {
+  const low: LowContrast[] = [];
+  let measured = 0;
+  cell.querySelectorAll<SVGSVGElement>('svg[data-bbangto-viz-canvas]').forEach((svg) => {
+    svg.querySelectorAll<SVGTextElement>('text').forEach((text, i) => {
+      const label = (text.textContent ?? '').trim();
+      if (!label || text.closest('defs')) return;
+      const paint = fillPaint(text, svg);
+      if (!paint || paint.a === 0) return;
+      const bg = backdropOf(text, svg);
+      const ratio = contrastRatio(compositeOver(paint, bg), bg) ?? 0;
+      const cs = getComputedStyle(text);
+      const px = parseFloat(cs.fontSize) * (text.getScreenCTM()?.a ?? 1);
+      const bold = parseInt(cs.fontWeight, 10) >= 700;
+      const min = px >= 24 || (bold && px >= 18.66) ? LARGE_TEXT_CONTRAST_MIN : TEXT_CONTRAST_MIN;
+      measured += 1;
+      if (ratio < min) low.push({ id: `${guide} · ${key} · text[${i}] "${label.slice(0, 24)}"`, ratio });
+    });
+  });
+  return { low, measured };
+}
+
+export const LabelContrastGate: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      {vizStyleGuideCatalog.map((sg) => (
+        <section key={sg.name} data-contrast-gate-guide={sg.name}>
+          <h4 style={{ margin: '0 0 6px', fontSize: 13 }}>{sg.name}</h4>
+          <VisualizationStyleGuideProvider
+            styleGuide={{ name: sg.name, foundations: sg.foundations }}
+            style={{ display: 'flex', gap: 8, flexWrap: 'wrap', padding: 8 }}
+          >
+            {TARGET_FIXTURES.map((fx) => (
+              <div key={fx.key} data-contrast-gate-cell={fx.key}>
+                {fx.render()}
+              </div>
+            ))}
+          </VisualizationStyleGuideProvider>
+        </section>
+      ))}
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const sections = Array.from(canvasElement.querySelectorAll<HTMLElement>('[data-contrast-gate-guide]'));
+    await expect(sections.length).toBe(vizStyleGuideCatalog.length);
+
+    const low: LowContrast[] = [];
+    for (const section of sections) {
+      const guide = section.dataset.contrastGateGuide!;
+      const cells = Array.from(section.querySelectorAll<HTMLElement>('[data-contrast-gate-cell]'));
+      await expect(cells.length).toBe(TARGET_FIXTURES.length);
+      for (const cell of cells) {
+        const key = cell.dataset.contrastGateCell!;
+        const result = collectLowContrast(guide, key, cell);
+        await expect(result.measured, `${guide} · ${key}: 잰 글자 수`).toBeGreaterThan(0);
+        low.push(...result.low);
+      }
+    }
+    // 기준 목록과 견준다 — 새 미달 · 더 떨어진 대비 · 이제 통과해 지워야 할 항목이 모두 실패다
+    const problems: string[] = [];
+    const seen = new Set<string>();
+    for (const { id, ratio } of low) {
+      seen.add(id);
+      const floor = LABEL_CONTRAST_BASELINE[id];
+      if (floor === undefined) problems.push(`새 미달 ${id} ${ratio.toFixed(2)}`);
+      else if (ratio < floor - 0.01) problems.push(`더 떨어짐 ${id} ${floor} → ${ratio.toFixed(2)}`);
+    }
+    for (const id of Object.keys(LABEL_CONTRAST_BASELINE)) {
+      if (!seen.has(id)) problems.push(`이제 통과 — 기준 목록에서 지울 것 ${id}`);
+    }
+    await expect(problems).toEqual([]);
   },
 };
