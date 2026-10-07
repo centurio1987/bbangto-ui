@@ -24,9 +24,14 @@ status: 검토 대기
 | 베이스 | `a072197` |
 | 변경 훑기 | `git diff a072197...HEAD` |
 
-**커밋 8건**
+**커밋 13건**
 
 ```text
+f4d547f fix(visualization): KAN-056 재작업 — UML 시퀀스 머리 바탕을 canvas.bg 로, 글자 대비 게이트 추가
+997e8e4 kanban: KAN-056 검토 → 진행 중 — 반려 2건(4 시퀀스 이름 대비 · 5 README 게이트 문장) 같은 카드 재작업 · reconcile 이 KAN-059 scope 캐시를 문서대로 맞춤
+8c2c482 kanban: KAN-056 검토 대행 2차(kanban-reviewer) — 항목 3 승인(후속 카드 둘) · 4·5 반려(이 카드에서 고침) (ai · 검토자)
+784c1c3 kanban: KAN-056 검토 대행(kanban-reviewer) — 항목 2건 승인 · 추가 의견 3건 · 항목 2건 신설 (ai · 검토자)
+6a126c1 kanban: KAN-056 검토로 이동 — 검토서(판단 항목 3) · 검토 리포트
 d4b9554 kanban: KAN-056 S4 완료 — 품질 게이트 5종 초록
 7c362e2 kanban: KAN-056 S3 완료 — 표기 색 옮기기와 문서
 d881cf0 fix(visualization): KAN-056 S3 — ArchiMate 계층색·BPMN 게이트웨이·UML 시퀀스를 토큰으로, README 알려진 한계 정리, changeset
@@ -37,19 +42,24 @@ d881cf0 fix(visualization): KAN-056 S3 — ArchiMate 계층색·BPMN 게이트�
 36e3bed kanban: KAN-056 진행 중으로 이동 (워크트리 착수)
 ```
 
-**변경 파일 22개 (+441 −77)**
+**변경 파일 27개 (+2426 −126)**
 
 | 파일 | 상태 | 추가 | 삭제 |
 |---|:--:|---:|---:|
-| `.changeset/kan-056-template-paint.md` | M | 28 | 0 |
-| `.kanban/archive.jsonl` | M | 1 | 0 |
-| `.kanban/log.md` | M | 1 | 1 |
-| `.kanban/state.json` | M | 14 | 14 |
+| `.changeset/kan-056-template-paint.md` | M | 31 | 0 |
+| `.kanban/archive.jsonl` | M | 4 | 0 |
+| `.kanban/log.md` | M | 4 | 4 |
+| `.kanban/reviews/KAN-056-D3V1MB.events.jsonl` | M | 17 | 0 |
+| `.kanban/reviews/KAN-056-D3V1MB.review.json` | M | 21 | 0 |
+| `.kanban/state.json` | M | 54 | 51 |
 | `KANBAN.board.html` | M | 2 | 2 |
-| `KANBAN.md` | M | 3 | 3 |
-| `KANBAN/cards/KAN-056-D3V1MB.md` | M | 13 | 4 |
-| `apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx` | M | 338 | 0 |
-| `packages/visualization/README.md` | M | 5 | 11 |
+| `KANBAN.md` | M | 5 | 4 |
+| `KANBAN/cards/KAN-056-D3V1MB.md` | M | 26 | 11 |
+| `KANBAN/reviews/KAN-056-D3V1MB.review.html` | M | 1269 | 0 |
+| `KANBAN/reviews/KAN-056-D3V1MB.review.md` | M | 249 | 0 |
+| `apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx` | M | 474 | 0 |
+| `apps/storybook/src/stories/visualization/_labelContrastBaseline.ts` | M | 219 | 0 |
+| `packages/visualization/README.md` | M | 12 | 11 |
 | `packages/visualization/src/templates/ArchiMateDiagram.tsx` | M | 11 | 6 |
 | `packages/visualization/src/templates/ArchitectureDiagram.tsx` | M | 2 | 2 |
 | `packages/visualization/src/templates/BPMNCollaborationDiagram.tsx` | M | 2 | 2 |
@@ -62,7 +72,7 @@ d881cf0 fix(visualization): KAN-056 S3 — ArchiMate 계층색·BPMN 게이트�
 | `packages/visualization/src/templates/TimelineDiagram.tsx` | M | 0 | 2 |
 | `packages/visualization/src/templates/UMLComponentDiagram.tsx` | M | 4 | 6 |
 | `packages/visualization/src/templates/UMLDeploymentDiagram.tsx` | M | 2 | 2 |
-| `packages/visualization/src/templates/UMLSequenceDiagram.tsx` | M | 5 | 9 |
+| `packages/visualization/src/templates/UMLSequenceDiagram.tsx` | M | 8 | 10 |
 
 **롤백 태그 4개**
 
@@ -87,7 +97,7 @@ kan/KAN-056-D3V1MB/S4
 ```bash
 pnpm typecheck
 pnpm build
-pnpm test                       # ← TemplatePaintGate 가 여기서 돈다
+pnpm test                       # ← TemplatePaintGate(리터럴 · 글자 대비 두 스토리)가 여기서 돈다
 pnpm --filter storybook build
 pnpm test:unit
 ```
@@ -105,27 +115,34 @@ pnpm test:unit
 - 리터럴 셈 — 13개 파일에서 `bash -c 'grep -nE "#[0-9a-fA-F]{3,8}\b|rgba?\(" <13개 파일>'` 를 돌리면 `rgba(0,0,0,` 두 줄(KanbanBoard 열 바탕 · RequirementDiagram 머리 띠)만 남는다.
 - ArchiMate 라벨 대비 — 전략의 계산을 바뀐 dist 로 다시 돌려, 30개 가이드 × 계층 3 중 4.5:1 미만이 11칸 이하인지 본다.
 - 기존 교차검증 — `TemplateStyleMatrix` 의 PilotMatrix·ExpandedMatrix 와 `Headless` 가 계속 초록이다.
-- 기본 가이드 모양 — S2 에서 지운 흰 채움·검정 선이 blueprint 토큰과 같은 값인지 `blueprintTechnical.tsx` 로 다시 확인하고, 바뀌는 다섯 곳이 changeset 목록과 같은지 본다.
+- 기본 가이드 모양 — S2 에서 지운 흰 채움·검정 선이 blueprint 토큰과 같은 값인지 `blueprintTechnical.tsx` 로 다시 확인하고, 바뀌는 여섯 곳이 changeset 목록과 같은지 본다.
+- 글자 대비(재작업에서 더함) — `LabelContrastGate` 가 13개 × 카탈로그 가이드 30개의 글자 대비를 재서 `_labelContrastBaseline.ts`(이미 있는 미달)와 견준다. 새 미달 · 0.01 넘게 떨어진 대비 · 이제 통과해 지울 항목이 모두 0이어야 한다. 카드 전 템플릿(a072197)으로 같은 검사를 돌린 값과 견줘, 이 카드가 만든 미달을 검토서에 따로 적는다.
 
 **실행 결과**
 
 ```text
-게이트 5종 (2026-10-07, 워크트리 KAN-056-D3V1MB)
+게이트 5종 (2026-10-08 재작업 뒤, 워크트리 KAN-056-D3V1MB · 커밋 f4d547f)
 pnpm typecheck                  rc=0
 pnpm build                      rc=0
-pnpm test                       rc=0 · Test Files 193 passed · Tests 1273 passed (TemplatePaintGate 포함)
+pnpm test                       rc=0 · Test Files 193 passed · Tests 1274 passed (TemplatePaintGate 리터럴 · 글자 대비 두 스토리 포함)
 pnpm --filter storybook build   rc=0 · Storybook build completed successfully
 pnpm test:unit                  rc=0 · hooks 115 · visualization 257 · foundations 101 · style-guide-catalog 76 · visualization-style-guide-catalog 39 등 전부 통과
 
-빨강 → 초록
+빨강 → 초록 (첫 수행 2026-10-07)
 S1 직후  TemplatePaintGate 빨강 82곳 — 13개 템플릿 전부에서 나옴 (matrix 나머지 18개는 깨끗해 회귀 가드로 묶음)
 S2 직후  잔여 13곳 — ArchiMate · BPMN 게이트웨이 · UMLSequence 에만
 S3 직후  0곳 · 관련 스토리 7파일 34개 초록
 
+빨강 → 초록 (재작업 2026-10-08, 검토 항목 4)
+LabelContrastGate 추가 직후  빨강 32곳 — 전부 UMLSequence 참여자 이름(16개 가이드 × 2)
+머리 바탕 canvas.bg 로 바꾼 뒤  0곳 · 기준 목록 204곳과 일치(새 미달 · 더 떨어짐 · 지울 항목 모두 0)
+
 추가 확인
 리터럴 셈       13개 파일 grep → KanbanBoard.tsx:91 · RequirementDiagram.tsx:49 의 rgba(0,0,0, 두 줄만
 ArchiMate 대비  4.5:1 미만 11/90 (불투명 팔레트였다면 53/90, 원래 파스텔 18/90)
-기본 가이드     blueprint shape.fill #FFFFFF · shape.stroke #111111 = 지운 기본값 · 바뀌는 다섯 곳 = changeset 목록
+시퀀스 이름 대비 후보 7개 × 가이드 30개: canvas.bg + edge.stroke 만 미달 0(최저 5.93). 지금이던 p2 + edge.stroke 16 · 카드 전 p2 + #111111 11
+글자 대비 앞뒤  카드 전 템플릿(a072197) 356곳 → 지금 204곳. 179곳 해소, 53곳 새 미달 또는 하락(항목 6)
+기본 가이드     blueprint shape.fill #FFFFFF · shape.stroke #111111 = 지운 기본값 · 바뀌는 여섯 곳 = changeset 목록
 ```
 
 ## 3. 판단 항목 — 스크립트가 판정할 수 없는 것
