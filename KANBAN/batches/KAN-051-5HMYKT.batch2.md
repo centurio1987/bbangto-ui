@@ -40,7 +40,7 @@ type import까지 옮겨야 `index.ts`에 쓰이지 않는 import가 남지 않�
 | `.github/workflows/release.yml` | `Build packages` 다음에 `pnpm test:unit` 단계를 넣어, 상한을 넘는 판이 배포되지 않게 한다 |
 | `.changeset/kan-051-*.md` | core·viz·sgc·vsgc patch 4개 |
 
-**완료 기준**: 게이트 5종 초록. `npm pack --dry-run` 파일 목록을 수행 내역에 남긴다. Node에서 `import('@centurio1987/bbangto-ui-core')` 스모크가 통과한다. rollup·rolldown으로 core `Button`을 한 번 더 잰 값을 남긴다. Storybook을 `storybook dev --force`로 한 번 띄워 미리 묶기 캐시 문제가 없는지 본다.
+**완료 기준**: 게이트 5종 초록. `npm pack --dry-run` 파일 목록을 수행 내역에 남긴다. Node에서 `import('@centurio1987/bbangto-ui-core')` 스모크가 통과한다. rollup·rolldown으로 core `Button`을 한 번 더 잰 값을 남긴다. Storybook 미리 묶기 캐시(`apps/storybook/node_modules/.cache/storybook`)를 지우고 `storybook dev`로 한 번 띄워 캐시 문제가 없는지 본다(계획 때는 `--force`로 적었으나 Storybook 10의 dev에는 그 옵션이 없어 S4에서 고쳤다).
 
 ## 2. 의존과 순서
 
@@ -62,4 +62,7 @@ S4 안에서는 `bundle-budget.json` 확정과 게이트 5종을 마지막에 �
 되돌리기 어려운 지점은 없다. work마다 `kan/KAN-051-5HMYKT/S<n>` 태그를 단다.
 
 ## 4. 착수 시점 판단
-<!-- 착수할 때 채운다 — 마지막 work 를 다음 배치로 미룰지 여기서 정한다. -->
+
+**같은 세션에서 S3·S4를 이어 간다(2026-10-07).** 배치1은 계획대로 끝났다. core Button 4,622B와 viz BarChart 8,958B가 전략 절의 메모리 재현값과 바이트까지 같고, export 목록도 그대로다. 남은 빨강은 sgc·vsgc 대표 export 둘뿐이다. 빌드 한 바퀴가 약 11초, Storybook build가 약 40초라 S4의 게이트 5종을 같은 세션에서 돌려도 예산 절반을 넘지 않는다고 보고 S4를 미루지 않는다.
+
+배치1에서 새로 안 것 하나: 파일 단위 출력 뒤 core의 「전체」 크기가 438,855B에서 464,763B로 6% 늘었다(청크 경계 비용). 상한 504,832B 안이고, S4에서 이 값을 새 basis로 삼는다.

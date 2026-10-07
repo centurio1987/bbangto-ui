@@ -76,10 +76,10 @@ style-guide-catalog와 visualization-style-guide-catalog에는 원인이 하나 
 플랜을 별도 Claude 세션(plan-reviewer, fable)에 부쳐 지적 5건을 받아 모두 반영했다. 이 카드에 걸린 것은 셋이다: 게이트가 다른 패키지 dist를 읽는다는 점을 선례와 구분해 적을 것, build 없이 돌리면 안내와 함께 실패할 것, tokens도 측정 대상에 넣을 것.
 
 ## 실행 계획
-- [ ] `S1` 크기 게이트 먼저 — foundations에 esbuild `~0.27.7` devDependency, 루트 `bundle-budget.json`(7개 패키지 대표 export·전체 상한, 상한 규칙), `bundleBudget.test.ts`(측정기 자체 시험 fixture · dist 실측 · dist 신선도). 완료 기준: `pnpm build && pnpm test:unit`이 core·viz·sgc·vsgc 크기로 빨강, foundations·hooks·tokens는 초록. src만 고치고 build 없이 돌리면 `pnpm build`를 먼저 하라는 안내와 함께 실패. 측정값을 수행 내역에 기록
-- [ ] `S2` tsup 설정 4개를 파일 단위 출력으로 — entry 글롭과 제외 패턴, `dts.entry` 명시, viz 배너 유지. 완료 기준: core·viz 초록, sgc·vsgc는 아직 빨강, export 목록 전후 동일, `find dist -name '*.d.ts'`가 index(viz는 typeMeta 포함)만
-- [ ] `S3` sgc·vsgc 배럴 분리 — catalog import·배열·map을 `src/catalog.ts`로. 완료 기준: 게이트 전부 초록, 공개 API 동일, sgc `genManifest`·`genTrendTable` 동작
-- [ ] `S4` 상한 확정과 정리 — 실측으로 `bundle-budget.json` 확정, `apps/storybook/.storybook/main.ts:16-20` 주석, `metadata-coverage.json` sourceModule 서술, `CLAUDE.md:39, 103` test:unit 설명에 "번들 크기" 추가, `release.yml` build 뒤 `pnpm test:unit` 단계, changeset 4개(core·viz·sgc·vsgc patch). 완료 기준: 게이트 5종 초록, `npm pack --dry-run` 목록 확인, Node에서 dist import 스모크, rollup·rolldown 교차 측정값 기록
+- [x] `S1` 크기 게이트 먼저 — foundations에 esbuild `~0.27.7` devDependency, 루트 `bundle-budget.json`(7개 패키지 대표 export·전체 상한, 상한 규칙), `bundleBudget.test.ts`(측정기 자체 시험 fixture · dist 실측 · dist 신선도). 완료 기준: `pnpm build && pnpm test:unit`이 core·viz·sgc·vsgc 크기로 빨강, foundations·hooks·tokens는 초록. src만 고치고 build 없이 돌리면 `pnpm build`를 먼저 하라는 안내와 함께 실패. 측정값을 수행 내역에 기록
+- [x] `S2` tsup 설정 4개를 파일 단위 출력으로 — entry 글롭과 제외 패턴, `dts.entry` 명시, viz 배너 유지. 완료 기준: core·viz 초록, sgc·vsgc는 아직 빨강, export 목록 전후 동일, `find dist -name '*.d.ts'`가 index(viz는 typeMeta 포함)만
+- [x] `S3` sgc·vsgc 배럴 분리 — catalog import·배열·map을 `src/catalog.ts`로. 완료 기준: 게이트 전부 초록, 공개 API 동일, sgc `genManifest`·`genTrendTable` 동작
+- [x] `S4` 상한 확정과 정리 — 실측으로 `bundle-budget.json` 확정, `apps/storybook/.storybook/main.ts:16-20` 주석, `metadata-coverage.json` sourceModule 서술, `CLAUDE.md:39, 103` test:unit 설명에 "번들 크기" 추가, `release.yml` build 뒤 `pnpm test:unit` 단계, changeset 4개(core·viz·sgc·vsgc patch). 완료 기준: 게이트 5종 초록, `npm pack --dry-run` 목록 확인, Node에서 dist import 스모크, rollup·rolldown 교차 측정값 기록
 
 ## 검증
 ### 게이트 5종 (전부 초록이어야 완료)
@@ -109,10 +109,20 @@ foundations만 빨리 보려면 `pnpm build && pnpm --filter @centurio1987/bbang
 - `npm pack --dry-run` — 파일 목록과 크기
 - Node에서 `import('@centurio1987/bbangto-ui-core')` 스모크
 - rollup·rolldown으로 core `Button`을 한 번 더 재서 수행 내역에 남긴다(게이트는 esbuild 하나)
-- Storybook 미리 묶기 캐시가 dist 변경을 못 볼 수 있으므로 한 번은 `storybook dev --force`로 띄운다
+- Storybook 미리 묶기 캐시가 dist 변경을 못 볼 수 있으므로 한 번은 캐시(`apps/storybook/node_modules/.cache/storybook`)를 지우고 `storybook dev`로 띄운다(Storybook 10의 dev에는 `--force`가 없다)
 
 ## 수행 내역
 <!-- KANBAN:LOG append-only — 아래로만 덧붙인다. 위를 고치지 않는다. -->
 - 2026-10-05T00:12 · s:bcc5b01f — `전략` 섹션 교체
 - 2026-10-05T00:12 · s:bcc5b01f — `실행 계획` 섹션 교체
 - 2026-10-05T00:12 · s:bcc5b01f — `검증` 섹션 교체
+- 2026-10-07T13:55 · s:f1219b38 · S1 doing — 착수
+- 2026-10-07T13:58 · s:f1219b38 · S1 done — 크기 게이트 bundleBudget.test.ts + bundle-budget.json. build 뒤 실측(대표/전체 B): core Button 324410/438855 · viz BarChart 171294/190989 · sgc NeobrutalismShowcase 829011/839953 · vsgc minimalLine01 335601/341908 · foundations amberLight 3579/271431 · hooks useDebounce 216/9619 · tokens cssVar 147/5387. 빨강 4(core·viz·sgc·vsgc 대표) · 초록 81. hooks src touch 후 build 없이 돌리면 「pnpm build 를 먼저」로 실패 확인. 측정기 자체 시험 초록
+- 2026-10-07T13:59 · s:f1219b38 · S2 doing — 착수
+- 2026-10-07T14:01 · s:f1219b38 · S2 done — tsup 4개 파일 단위 출력(entry 글롭 · splitting · dts.entry 명시 · viz jsdocSource/jsdocTags 제외 · DTS_BANNER 유지). 실측(대표/전체 B): core Button 4622/464763 · viz BarChart 8958/200547 · sgc 829010/840248 · vsgc 341138/347617. 게이트 빨강 2(sgc·vsgc 대표)만 남음. export 이름 목록 전후 동일(core 258 · viz 210 · type-meta 15 · sgc 174 · vsgc 41). d.ts 는 index(viz 는 typeMeta 포함)만. dist 에 node 내장 import 0건. typecheck·storybook build 초록. core dist 는 js 473개(청크 236)
+- 2026-10-07T14:01 · s:f1219b38 · S3 doing — 착수
+- 2026-10-07T14:03 · s:f1219b38 · S3 done — sgc·vsgc 배럴 분리 — 카탈로그 import·배열·맵을 src/catalog.ts 로, index.ts 는 다시 내보내기만. 실측(대표/전체 B): sgc NeobrutalismShowcase 101092/840248 · vsgc minimalLine01 11810/347617. 게이트 7개 패키지 전부 초록(foundations 85/85). export 목록 배치1 기준과 동일. gen:manifest(sgc 51·vsgc 30)·gen:trend-table 돌려 diff 0. typecheck 초록
+- 2026-10-07T14:03 · s:f1219b38 · S4 doing — 착수
+- 2026-10-07T14:09 · s:f1219b38 — `검증` 섹션 교체
+- 2026-10-07T14:10 · s:f1219b38 — test:unit 설명 「매니페스트·대비·명명·커버리지」가 CLAUDE.md 밖 다섯 곳에도 있다 — README.md:1211 · QUALITY_CHECKLIST.md:32,52,75 · _templates/CHECKLIST_INSTANCE.template.md:37. 뒤의 둘은 KAN-050 scope, README는 이 카드 scope 밖이라 고치지 않았다. 검토에서 처리 방향을 묻는다
+- 2026-10-07T14:10 · s:f1219b38 · S4 done — bundle-budget.json 을 S3 직후 실측으로 확정(core 7168/534528 · viz 13824/231424 · sgc 152064/966656 · vsgc 17920/400384 · 정상 3개 그대로). storybook main.ts 주석(옛 src alias 서술 → optimizeDeps 미리 묶기 + 캐시 경로) · metadata-coverage sourceModule → src/catalog.ts · CLAUDE.md:39,103 「번들 크기」 · release.yml build 뒤 test:unit · changeset 1장(core·viz·sgc·vsgc patch). 게이트 5종 초록(typecheck · build · test 184파일/1239 · storybook build · test:unit 572). npm pack: core 949파일 593KB(풀면 2.97MB) · viz 713/475KB · sgc 246/508KB · vsgc 154/295KB, d.ts 는 index 만. Node 이름 import 스모크 통과(export 수 동일). 교차 측정 core Button rollup 4510B · rolldown 4510B, viz BarChart 8679B · 8694B. storybook dev 캐시 지우고 기동 6초 · 7개 패키지 미리 묶기 확인. Storybook 10 dev 에 --force 없음 — 주석·검증 절·배치2 문서의 해당 서술 고침

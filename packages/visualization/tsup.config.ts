@@ -23,11 +23,21 @@ const DTS_BANNER = `/**
  */`;
 
 export default defineConfig({
-  dts: { banner: DTS_BANNER },
-  // 루트 배럴 + 유형 축 메타 서브패스(./type-meta). 후자는 컴포넌트를 import하지 않는 순수 데이터라
-  // 별도 엔트리로 분리해 컴포넌트 소비자 번들 오염을 막는다(KAN-020).
-  entry: ['src/index.ts', 'src/typeMeta/index.ts'],
+  // 선언은 공개 입구 둘만 낸다 — 루트 배럴 + 유형 축 메타 서브패스(./type-meta). 후자는 컴포넌트를
+  // import하지 않는 순수 데이터라 별도 입구로 분리해 컴포넌트 소비자 번들 오염을 막는다(KAN-020).
+  // entry 를 비우면 아래 글롭 전체가 dts 엔트리가 된다.
+  dts: { entry: ['src/index.ts', 'src/typeMeta/index.ts'], banner: DTS_BANNER },
+  // 파일 단위 출력(KAN-051). `sideEffects: false` 는 파일 단위로만 작동해서, dist 가 한 파일이면
+  // 하나만 가져와도 전부 딸려 온다. jsdocSource·jsdocTags 는 Node 전용(시험이 쓴다)이라 배포물에서 뺀다.
+  entry: [
+    'src/**/*.{ts,tsx}',
+    '!src/**/*.{test,stories}.{ts,tsx}',
+    '!src/**/*.d.ts',
+    '!src/typeMeta/jsdocSource.ts',
+    '!src/typeMeta/jsdocTags.ts',
+  ],
   format: ['esm'],
+  splitting: true,
   clean: true,
   sourcemap: true,
   treeshake: true,
