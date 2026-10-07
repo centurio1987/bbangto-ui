@@ -61,13 +61,13 @@ scope 를 넓히면 KAN-051 과의 용인 기록이 무효가 된다(scope 전�
 - [x] `S4` `METADATA_COVERAGE_AUDIT.md` §2-2 「파일럿 관찰」 → `FOUNDATION_METADATA_STRATEGY.md` §7 링크로. 지우기 전에 감사 쪽 문장마다 전략 §7 에 같은 사실이 있는지 대조하고, 없는 것은 전략 §7 로 옮긴다. 그다음 품질 게이트 5종. 완료 기준: 대조표 0건 누락 + 게이트 5종 초록
 
 ## 검증
-문서 카드라 **잔여 grep 0건 + 링크 무결 + 품질 게이트 5종 초록**이 끝의 기준이다. 아래 명령은 레포 루트에서 **bash 로** 돌린다 — zsh 는 `$EXC` 를 낱말로 쪼개지 않아 제외 옵션이 통째로 안 먹는다(S1 에서 실측). 2026-10-07 S2 에서 [1] 넷째 줄을 고쳤다 — 처음 쓴 `\b` 패턴은 `@centurio1987/hooks` 를 놓쳤다. S4 에서 셋째 줄에 `ARCHETYPE/` 거르기를 더했다 — 새 표기 `ARCHETYPE/Components/Atoms/*` 도 `Atoms/\*` 에 걸린다.
+문서 카드라 **잔여 grep 0건 + 링크 무결 + 품질 게이트 5종 초록**이 끝의 기준이다. 아래 명령은 레포 루트에서 **bash 로** 돌린다 — zsh 는 `$EXC` 를 낱말로 쪼개지 않아 제외 옵션이 통째로 안 먹는다(S1 에서 실측). 2026-10-07 S2 에서 [1] 넷째 줄을 고쳤다 — 처음 쓴 `\b` 패턴은 `@centurio1987/hooks` 를 놓쳤다. 검토 중(검토자 지적) 둘째 줄에 `every theme` 을 더했다 — `src/motion/README.md:34` 가 빠져 있었다. S4 에서 셋째 줄에 `ARCHETYPE/` 거르기를 더했다 — 새 표기 `ARCHETYPE/Components/Atoms/*` 도 `Atoms/\*` 에 걸린다.
 
 ```bash
 # [1] 잔여 표기 — 넷 다 0줄이어야 한다 (칸반 산출물·CHANGELOG·감사 기록 원문 제외)
 EXC='--exclude-dir=node_modules --exclude-dir=.git --exclude-dir=dist --exclude-dir=storybook-static --exclude-dir=KANBAN --exclude-dir=.kanban --exclude-dir=.claude --exclude=CHANGELOG.md --exclude=KANBAN.md --exclude=KANBAN.board.html --exclude=SATURATION_AUDIT.md'
 grep -rn $EXC 'theme-\*\|theme-light\|theme-dark\|theme-amber\|theme-high' .
-grep -rni $EXC '5개 테마\|5 themes\|all 5 theme' .
+grep -rni $EXC '5개 테마\|5 themes\|all 5 theme\|every theme' .
 grep -rn $EXC "'Foundations/Motion'\|'Atoms/\|'Molecules/\|Atoms/\*\|Molecules/\*" . | grep -v 'ARCHETYPE/'
 grep -rnE $EXC '@centurio1987/[a-z]' . | grep -v '@centurio1987/bbangto-ui'
 
@@ -108,3 +108,5 @@ pnpm typecheck && pnpm build && pnpm test && pnpm --filter storybook build && pn
 - 2026-10-07T14:18 · s:f6956d8e — `검증` 섹션 교체
 - 2026-10-07T14:19 · s:f6956d8e — `검증` 섹션 교체
 - 2026-10-07T14:23 · s:f6956d8e · S4 done — METADATA_COVERAGE_AUDIT §2-2 파일럿 관찰 → FOUNDATION_METADATA_STRATEGY §7 링크로. 대조 결과 전략 쪽에 없던 사실 2건(amber-dark background.base #0b0e11 · authored 변별 필드 summary·useWhen/avoidWhen)을 먼저 옮김, 누락 0. 검증 절 정정 2건(bash 로 돌린다 · [1c] ARCHETYPE 거르기). 새 워크트리라 pnpm build 선행 후 게이트 5종 초록 — typecheck · build · test 184 files/1239 · storybook build · test:unit(hooks 115·viz 257·foundations 62·sgc 76·vsgc 39). 검증 [1]~[3] 0줄
+- 2026-10-07T15:15 · s:f6956d8e — `검증` 섹션 교체
+- 2026-10-07T15:15 · s:f6956d8e — 검토자(opus) 지적 잔여 3건 수정 — src/motion/README.md:34 every theme → every foundation(같은 표현 레포 전역 검색 1건뿐) · README:25 링크 글자를 실제 경로로 · FOUNDATION_METADATA_STRATEGY §7 에 지운 감사 문단의 「고대비」 사실 복원. 검증 [1]~[3] 0줄 · gateDocs 18/18. 마크다운만 바뀌어 코드 게이트는 다시 안 돌림. 검토자가 짚은 「Hooks/* 행 삭제 + 새 지시」는 규칙 내용 변경 둘째 예외로 사람에게 보고

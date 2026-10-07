@@ -22,7 +22,7 @@ to port lives in `packages/core/motion-catalog.md` (the SSOT); this file is the
 
 Do **not** implement before the item's test + checklist exist. The per-item
 workflow (test → checklist → implement → gate → record) and the gate commands
-live in one place: [`../MOTION_QUALITY_CHECKLIST.md`](../../MOTION_QUALITY_CHECKLIST.md)
+live in one place: [`packages/core/MOTION_QUALITY_CHECKLIST.md`](../../MOTION_QUALITY_CHECKLIST.md)
 «Workflow (per item)». This file covers only the **implement** step — see
 «How to add a new animation atom» below.
 
@@ -31,7 +31,8 @@ live in one place: [`../MOTION_QUALITY_CHECKLIST.md`](../../MOTION_QUALITY_CHECK
 1. If it needs a new keyframe, add it to `KEYFRAME_NAMES` + `KEYFRAMES_CSS` in
    `keyframes.ts` (namespace `bbangto-`). If its timing is a loop that is not in
    the duration scale (e.g. spinner), add an `animation` shorthand to
-   `motion.preset` in the token layer + every theme.
+   `motion.preset` in the token layer + every foundation (the file list is in
+   `../../MOTION_QUALITY_CHECKLIST.md` «Architecture & tokens»).
 2. Create `MyAtom.tsx`. Classify it:
    - **Motion wrapper** (transitions children in/out): default `duration`/
      `easing` to tokens via `cssVar('motion', …)`; expose `duration`/`easing`/
