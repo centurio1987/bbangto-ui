@@ -1,5 +1,6 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { cssVar, breakpoints } from '@centurio1987/bbangto-ui-tokens';
+import { focusWhenReady, getDateGridTarget, toIsoDate } from '../a11y';
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 
@@ -128,8 +129,16 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
       seedDate ? seedDate.getMonth() : (min ? min.getMonth() : 0)
     );
 
-    // focused day for keyboard navigation (1-indexed within viewYear/viewMonth)
-    const [focusedDay, setFocusedDay] = useState<number | null>(null);
+    // date that holds keyboard focus (the grid's single Tab stop while visible)
+    const [focusedDate, setFocusedDate] = useState<Date | null>(null);
+    // set by a keyboard move: after the grid re-renders, move DOM focus to focusedDate
+    const pendingFocusRef = useRef(false);
+    const rootRef = useRef<HTMLDivElement | null>(null);
+    const setRootRef = (node: HTMLDivElement | null) => {
+      rootRef.current = node;
+      if (typeof ref === 'function') ref(node);
+      else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+    };
 
     const daysInMonth = getDaysInMonth(viewYear, viewMonth);
     const firstDay = getFirstDayOfMonth(viewYear, viewMonth);
@@ -168,7 +177,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
       } else {
         setViewMonth((m) => m - 1);
       }
-      setFocusedDay(null);
+      setFocusedDate(null);
     };
 
     const handleNextMonth = () => {
@@ -179,7 +188,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
       } else {
         setViewMonth((m) => m + 1);
       }
-      setFocusedDay(null);
+      setFocusedDate(null);
     };
 
     const handleSelectDay = useCallback(
@@ -213,30 +222,66 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
       [disabled, min, max, isControlled, onValueChange]
     );
 
-    // keyboard navigation within the grid
-    const handleDayKeyDown = useCallback(
-      (e: React.KeyboardEvent<HTMLButtonElement>, day: number) => {
-        let next: number | null = null;
-        if (e.key === 'ArrowRight') {
-          next = day < daysInMonth ? day + 1 : null;
-        } else if (e.key === 'ArrowLeft') {
-          next = day > 1 ? day - 1 : null;
-        } else if (e.key === 'ArrowDown') {
-          next = day + 7 <= daysInMonth ? day + 7 : null;
-        } else if (e.key === 'ArrowUp') {
-          next = day - 7 >= 1 ? day - 7 : null;
-        } else if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          handleSelectDay(day);
-          return;
-        }
-        if (next !== null) {
-          e.preventDefault();
-          setFocusedDay(next);
-        }
+    // which dates the grids render: the viewed month, plus the next month in
+    // the `dual` layout; the `week` layout only renders the anchor's week row
+    const isRenderedDate = (date: Date) => {
+      const sameMonth = (y: number, m: number) => date.getFullYear() === y && date.getMonth() === m;
+      if (sameMonth(viewYear, viewMonth)) {
+        if (layout !== 'week') return true;
+        const gridIndex = firstDay + date.getDate() - 1;
+        return gridIndex >= weekStartGridIndex && gridIndex < weekStartGridIndex + 7;
+      }
+      return layout === 'dual' && sameMonth(nextMonthYear, nextMonthMonth);
+    };
+
+    // the single Tab stop across the grids: the focused date, else the
+    // selected date, else day 1 of the viewed month (always rendered)
+    const tabStopDate =
+      focusedDate && isRenderedDate(focusedDate)
+        ? focusedDate
+        : selected && isRenderedDate(selected)
+          ? selected
+          : new Date(viewYear, viewMonth, 1);
+
+    // keyboard navigation within the grid (WAI-ARIA APG Date Picker Dialog):
+    // arrows by day / week, Home / End to the week's ends, PageUp / PageDown by
+    // month (Shift: year). Crossing out of the rendered month(s) turns the view.
+    const handleDateKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>, date: Date) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleSelectDateAt(date.getFullYear(), date.getMonth(), date.getDate());
+        return;
+      }
+      const next = getDateGridTarget(e.key, date, e.shiftKey);
+      if (!next) return;
+      e.preventDefault();
+      if (isDateDisabled(next, min, max)) return;
+      if (!isRenderedDate(next)) {
+        setViewYear(next.getFullYear());
+        setViewMonth(next.getMonth());
+      }
+      pendingFocusRef.current = true;
+      setFocusedDate(next);
+    };
+
+    useEffect(() => {
+      if (!pendingFocusRef.current || !focusedDate) return undefined;
+      pendingFocusRef.current = false;
+      const iso = toIsoDate(focusedDate);
+      return focusWhenReady(() =>
+        rootRef.current?.querySelector<HTMLElement>(`[data-bbangto-date="${iso}"]`),
+      );
+    }, [focusedDate, viewYear, viewMonth]);
+
+    // roving-tabindex + keyboard props shared by both grids' day buttons
+    const dayButtonA11y = (date: Date) => ({
+      'data-bbangto-date': toIsoDate(date),
+      tabIndex: isSameDay(date, tabStopDate) ? 0 : -1,
+      onKeyDown: (e: React.KeyboardEvent<HTMLButtonElement>) => handleDateKeyDown(e, date),
+      onFocus: () => {
+        if (!focusedDate || !isSameDay(focusedDate, date)) setFocusedDate(date);
       },
-      [daysInMonth, handleSelectDay]
-    );
+    });
 
     // ── styles ────────────────────────────────────────────────────────────────
 
@@ -495,7 +540,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
     // ── render ────────────────────────────────────────────────────────────────
 
     return (
-      <div ref={ref} data-bbangto-calendar-layout={layout} style={containerStyle} {...props}>
+      <div ref={setRootRef} data-bbangto-calendar-layout={layout} style={containerStyle} {...props}>
         {/*
           Scoped responsive style for scheduler-split: on desktop (≥ lg) the
           body grid reflows from a single stacked column into two tracks
@@ -607,16 +652,10 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
                       type="button"
                       aria-selected={isSelected}
                       aria-disabled={isOutOfRange || disabled || undefined}
-                      tabIndex={
-                        focusedDay !== null
-                          ? focusedDay === day ? 0 : -1
-                          : isSelected ? 0 : day === 1 ? 0 : -1
-                      }
+                      {...dayButtonA11y(cellDate)}
                       disabled={isOutOfRange || disabled}
                       style={getDayCellStyle(day, isSelected, isOutOfRange)}
                       onClick={() => handleSelectDay(day)}
-                      onKeyDown={(e) => handleDayKeyDown(e, day)}
-                      onFocus={() => setFocusedDay(day)}
                     >
                       {isFullscreen ? (
                         <>
@@ -673,7 +712,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
                           type="button"
                           aria-selected={isSelected}
                           aria-disabled={isOutOfRange || disabled || undefined}
-                          tabIndex={-1}
+                          {...dayButtonA11y(cellDate)}
                           disabled={isOutOfRange || disabled}
                           style={getDayCellStyle(day, isSelected, isOutOfRange)}
                           onClick={() => handleSelectDateAt(nextMonthYear, nextMonthMonth, day)}

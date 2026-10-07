@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useRef } from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
-import { composeHandlers } from '../a11y';
+import { composeHandlers, useTypeahead } from '../a11y';
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -85,6 +85,18 @@ export const TreeView = React.forwardRef<HTMLUListElement, TreeViewProps>(
 
     const treeRef = useRef<HTMLUListElement | null>(null);
 
+    // Roving tabindex (WAI-ARIA APG Tree View): one visible item is the Tab
+    // stop — the last focused one, else the selected one, else the first.
+    const [focusedId, setFocusedId] = useState<string | null>(null);
+    const visible = flattenVisible(nodes, expandedIds);
+    const isVisible = (id: string | null | undefined) => !!id && visible.some((f) => f.id === id);
+    const tabStopId = isVisible(focusedId)
+      ? focusedId
+      : isVisible(selectedId)
+        ? selectedId!
+        : visible[0]?.id ?? null;
+    const typeahead = useTypeahead();
+
     // Merge forwarded ref with internal ref
     const setRefs = useCallback(
       (node: HTMLUListElement | null) => {
@@ -129,16 +141,34 @@ export const TreeView = React.forwardRef<HTMLUListElement, TreeViewProps>(
       (e: React.KeyboardEvent<HTMLUListElement>) => {
         e.stopPropagation();
         const flat = flattenVisible(nodes, expandedIds);
-        const itemElements = treeRef.current
-          ? Array.from(
-              treeRef.current.querySelectorAll<HTMLElement>('[role="treeitem"]'),
-            )
-          : [];
+        // Only visible items take part — children of a collapsed node are in the
+        // DOM but `display: none`, and focusing one silently fails.
+        const itemElements = flat
+          .map((f) =>
+            treeRef.current?.querySelector<HTMLElement>(`[role="treeitem"][data-node-id="${CSS.escape(f.id)}"]`),
+          )
+          .filter((el): el is HTMLElement => !!el);
 
         const focusedEl = treeRef.current?.ownerDocument?.activeElement as HTMLElement | null;
         const focusedIndex = itemElements.indexOf(focusedEl as HTMLElement);
         const focusedId = focusedEl?.getAttribute('data-node-id') ?? null;
         const focusedFlatIndex = flat.findIndex((f) => f.id === focusedId);
+        if (focusedIndex < 0) return;
+
+        if (e.key === 'Home' || e.key === 'End') {
+          e.preventDefault();
+          itemElements[e.key === 'Home' ? 0 : itemElements.length - 1]?.focus();
+          return;
+        }
+        if (!e.altKey && !e.ctrlKey && !e.metaKey) {
+          const labels = flat.map((f) => findNodeLabel(nodes, f.id));
+          const match = typeahead(e.key, labels, labels.map(() => false), focusedIndex);
+          if (match !== null) {
+            e.preventDefault();
+            itemElements[match]?.focus();
+            return;
+          }
+        }
 
         switch (e.key) {
           case 'ArrowDown': {
@@ -203,7 +233,7 @@ export const TreeView = React.forwardRef<HTMLUListElement, TreeViewProps>(
             break;
         }
       },
-      [nodes, expandedIds, handleToggle, handleSelect],
+      [nodes, expandedIds, handleToggle, handleSelect, typeahead],
     );
 
     const isBordered = variant === 'bordered';
@@ -269,6 +299,8 @@ export const TreeView = React.forwardRef<HTMLUListElement, TreeViewProps>(
               variant={variant}
               onToggle={handleToggle}
               onSelect={handleSelect}
+              tabStopId={tabStopId}
+              onItemFocus={setFocusedId}
             />
           ))}
         </ul>
@@ -289,6 +321,20 @@ interface TreeItemProps {
   variant: TreeViewVariant;
   onToggle: (id: string) => void;
   onSelect: (id: string) => void;
+  /** The one item that is a Tab stop (roving tabindex). */
+  tabStopId: string | null;
+  onItemFocus: (id: string) => void;
+}
+
+function findNodeLabel(nodes: TreeNode[], id: string): string {
+  for (const node of nodes) {
+    if (node.id === id) return node.label;
+    if (node.children) {
+      const found = findNodeLabel(node.children, id);
+      if (found) return found;
+    }
+  }
+  return '';
 }
 
 function hasNodeChildren(nodes: TreeNode[], id: string): boolean {
@@ -312,6 +358,8 @@ const TreeItem: React.FC<TreeItemProps> = ({
   variant,
   onToggle,
   onSelect,
+  tabStopId,
+  onItemFocus,
 }) => {
   const hasChildren = Boolean(node.children && node.children.length > 0);
   const isExpanded = hasChildren && expandedIds.has(node.id);
@@ -373,9 +421,13 @@ const TreeItem: React.FC<TreeItemProps> = ({
       aria-selected={isSelected}
       aria-level={level}
       data-node-id={node.id}
-      tabIndex={0}
+      tabIndex={node.id === tabStopId ? 0 : -1}
       style={{ listStyle: 'none' }}
       onClick={handleClick}
+      onFocus={(e) => {
+        // Focus events bubble through ancestor items — only the target reports.
+        if (e.target === e.currentTarget) onItemFocus(node.id);
+      }}
     >
       <div style={itemRowStyles}>
         {/* Expand/collapse chevron or spacer */}
@@ -450,6 +502,8 @@ const TreeItem: React.FC<TreeItemProps> = ({
               variant={variant}
               onToggle={onToggle}
               onSelect={onSelect}
+              tabStopId={tabStopId}
+              onItemFocus={onItemFocus}
             />
           ))}
         </ul>

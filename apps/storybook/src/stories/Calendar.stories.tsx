@@ -410,3 +410,59 @@ export const NavigateMonths: Story = {
     });
   },
 };
+
+// ─── 키보드 (KAN-054) ──────────────────────────────────────────────────────────
+
+const dateCell = (root: HTMLElement, iso: string) =>
+  root.querySelector(`[data-bbangto-date="${iso}"]`) as HTMLElement | null;
+const focusedDate = () => (document.activeElement as HTMLElement | null)?.getAttribute('data-bbangto-date');
+
+/** 화살표가 실제 포커스를 옮기고 · 월 경계를 넘고 · Home/End(주) · PageUp/PageDown(달) · Enter 로 선택 */
+export const Keyboard: Story = {
+  args: { defaultValue: new Date(2025, 0, 15) },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    // 그리드의 Tab 정지점은 선택된 날 하나.
+    const dayButtons = Array.from(canvasElement.querySelectorAll<HTMLElement>('[data-bbangto-date]'));
+    await expect(dayButtons.filter((b) => b.tabIndex === 0)).toEqual([dateCell(canvasElement, '2025-01-15')]);
+    dateCell(canvasElement, '2025-01-15')!.focus();
+
+    await userEvent.keyboard('{ArrowRight}');
+    await waitFor(() => expect(focusedDate()).toBe('2025-01-16'));
+    await userEvent.keyboard('{ArrowDown}');
+    await waitFor(() => expect(focusedDate()).toBe('2025-01-23'));
+    await userEvent.keyboard('{End}');
+    await waitFor(() => expect(focusedDate()).toBe('2025-01-25'));
+    await userEvent.keyboard('{Home}');
+    await waitFor(() => expect(focusedDate()).toBe('2025-01-19'));
+    await userEvent.keyboard('{PageDown}');
+    await waitFor(() => expect(focusedDate()).toBe('2025-02-19'));
+    await userEvent.keyboard('{PageUp}');
+    await waitFor(() => expect(focusedDate()).toBe('2025-01-19'));
+
+    // 월 경계를 넘는다 — 1월 25일(토)에서 ↓ 는 2월 1일.
+    await userEvent.keyboard('{End}');
+    await userEvent.keyboard('{ArrowDown}');
+    await waitFor(() => expect(focusedDate()).toBe('2025-02-01'));
+    await userEvent.keyboard('{ArrowUp}');
+    await waitFor(() => expect(focusedDate()).toBe('2025-01-25'));
+
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => expect(dateCell(canvasElement, '2025-01-25')).toHaveAttribute('aria-selected', 'true'));
+  },
+};
+
+/** 두 달 보기: 첫 달 끝에서 → 로 둘째 달로 넘어가고, 둘째 달에서도 키가 돈다 */
+export const KeyboardDual: Story = {
+  args: { defaultValue: new Date(2025, 0, 31), layout: 'dual' },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    dateCell(canvasElement, '2025-01-31')!.focus();
+    await userEvent.keyboard('{ArrowRight}');
+    await waitFor(() => expect(focusedDate()).toBe('2025-02-01'));
+    // 둘째 달로 넘어가도 첫 달은 그대로 1월이다.
+    await expect(dateCell(canvasElement, '2025-01-01')).not.toBeNull();
+    await userEvent.keyboard('{ArrowDown}');
+    await waitFor(() => expect(focusedDate()).toBe('2025-02-08'));
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => expect(dateCell(canvasElement, '2025-02-08')).toHaveAttribute('aria-selected', 'true'));
+  },
+};

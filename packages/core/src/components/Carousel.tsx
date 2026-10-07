@@ -267,6 +267,8 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
         role="region"
         aria-roledescription="carousel"
         aria-label="Carousel"
+        // Reachable by Tab even with the arrow and dot buttons hidden, so ←/→ always land.
+        tabIndex={0}
         data-bbangto-carousel-size={size}
         data-bbangto-carousel-fade={fade ? 'true' : undefined}
         data-bbangto-carousel-variant={variant}
@@ -275,8 +277,10 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
         onKeyDown={composeHandlers(onKeyDown, (event: React.KeyboardEvent<HTMLDivElement>) => {
           if (count > 1) {
             if (event.key === 'ArrowLeft') {
+              event.preventDefault();
               prevSlide();
             } else if (event.key === 'ArrowRight') {
+              event.preventDefault();
               nextSlide();
             }
           }

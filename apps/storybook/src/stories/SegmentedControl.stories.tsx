@@ -168,3 +168,51 @@ export const DisabledIndexes: Story = {
     await expect(pro).toBeVisible();
   },
 };
+
+// ─── 키보드 (KAN-054) ──────────────────────────────────────────────────────────
+
+/** radiogroup: Tab 정지점은 선택된 조각 하나 · ←/→ 로 옮기며 선택 · 비활성 건너뜀 · 끝에서 처음으로 */
+export const Keyboard: Story = {
+  args: { segments: ['Day', 'Week', 'Month', 'Year'] },
+  render: () => {
+    const [index, setIndex] = useState(0);
+    return (
+      <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+        <button type="button">Before</button>
+        <SegmentedControl
+          aria-label="Range"
+          segments={['Day', 'Week', 'Month', 'Year']}
+          selectedIndex={index}
+          onChange={setIndex}
+          disabledIndexes={[2]}
+        />
+      </div>
+    );
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const group = await canvas.findByRole('radiogroup', { name: 'Range' });
+    const radios = within(group).getAllByRole('radio');
+    const [day, week, month, year] = radios;
+
+    await expect(day).toHaveAttribute('aria-checked', 'true');
+    await expect(month).toHaveAttribute('aria-disabled', 'true');
+    await expect(radios.filter((r) => r.tabIndex === 0)).toEqual([day]);
+
+    canvas.getByRole('button', { name: 'Before' }).focus();
+    await userEvent.tab();
+    await expect(day).toHaveFocus();
+
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(week).toHaveFocus();
+    await expect(week).toHaveAttribute('aria-checked', 'true');
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(year).toHaveFocus();
+    await expect(year).toHaveAttribute('aria-checked', 'true');
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(day).toHaveFocus();
+    await userEvent.keyboard('{ArrowLeft}');
+    await expect(year).toHaveFocus();
+    await expect(radios.filter((r) => r.tabIndex === 0)).toEqual([year]);
+  },
+};
