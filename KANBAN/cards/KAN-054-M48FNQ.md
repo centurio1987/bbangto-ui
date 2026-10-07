@@ -103,7 +103,7 @@ KAN-053 검토서(`KANBAN/reviews/KAN-053-TZ86NN.review.md` · 정본 `.kanban/r
 - [x] `S4` 오버레이 — Tooltip(Esc · `aria-describedby`), Popover(포커스 복귀 · ARIA를 실제 트리거로 · `useEscapeKey`), Menu 단독(화살표 · Home/End · 글자 검색), DropdownMenu(roving · Home/End · 글자 검색 · Tab은 닫기만). 실제 입력 항목에 Popover·DropdownMenu 추가. 완료 기준: 네 컴포넌트의 키보드 스토리와 실제 입력 항목 초록, 커버리지 게이트의 빨간 항목에서 넷이 빠짐
 - [x] `S5` 복합 위젯 — SegmentedControl(radiogroup · 화살표), TreeView(Home/End · roving · 글자 검색), Calendar(실제 포커스 이동 · 월 넘김 · 두 달 보기), DatePicker(기본 트리거 키 · 팝업 화살표 · 주간 띠 기준점 · 휠 목록), Carousel(region 포커스 · `preventDefault`). 실제 입력 항목에 DatePicker 추가. 완료 기준: 다섯 컴포넌트의 키보드 스토리 초록, 빨간 항목에서 다섯이 빠짐
 - [x] `S6` 나머지 + changeset — Pagination(기본 · 점), DataGrid(정렬 헤더 버튼 · `aria-sort` · 스토리 신설), Card(`onClick`만 줘도 키보드로 닿게), FileUploader(기본 드롭존), Accordion(키보드 테스트만), changeset(core minor). 완료 기준: 커버리지 게이트를 포함한 게이트 5종 초록
-- [ ] `S7` main 합치기 — `git merge main`, 칸반 파일 충돌은 병합 런북(`rebuild --salvage` → `reconcile` → `validate`)으로 풀고 직렬·용인 기록을 main 쪽과 대조해 잃은 것을 다시 건다. 완료 기준: 병합 커밋, `validate` 오류 0, `pnpm test:unit`(번들 크기 게이트 포함) 초록
+- [x] `S7` main 합치기 — `git merge main`, 칸반 파일 충돌은 병합 런북(`rebuild --salvage` → `reconcile` → `validate`)으로 풀고 직렬·용인 기록을 main 쪽과 대조해 잃은 것을 다시 건다. 완료 기준: 병합 커밋, `validate` 오류 0, `pnpm test:unit`(번들 크기 게이트 포함) 초록
 - [ ] `S8` 게이트 범위 넓히기 + FeatureGrid 탭 — 누락 검사를 `components/`·`blocks/`·`patterns/`·`motion/`으로 넓히고 `keyboard-coverage.json`에 FeatureGrid(스토리 `Keyboard`)를 더한다. 테스트 먼저: 게이트 빨강(FeatureGrid 스토리 없음) → FeatureGrid 키보드 스토리 빨강 → 탭에 `useRovingFocus`. 완료 기준: FeatureGrid 키보드 스토리·커버리지 게이트 초록
 - [ ] `S9` 포커스 표시 셋 — Card·Calendar 날짜 칸·DatePicker 기본 트리거에 키보드 포커스일 때만 테두리. 테스트 먼저: 실제 입력 테스트(Tab이면 테두리, 마우스 클릭이면 없음) 빨강 → 초록. 완료 기준: 세 실제 입력 테스트 초록, 기존 스토리 초록
 - [ ] `S10` DropdownMenu 닫힘 — 항목 실행 신호를 내부 문맥으로 받아 실행됐을 때만 닫는다. 테스트 먼저: 항목 `onClick`·`onKeyDown`에서 `preventDefault`하면 열린 채로, 아니면 닫히는 스토리 빨강 → 초록. 완료 기준: 그 스토리와 기존 Menu 스토리·실제 입력 초록
@@ -168,3 +168,5 @@ core를 고칠 때마다 `pnpm --filter @centurio1987/bbangto-ui-core build` 후
 - 2026-10-07T16:00 · s:b1c51cf9 — 검토 반려(검토자 재검토 §3-5·§3-6, 2026-10-07 유저가 추천대로 재작업 선택): ① 게이트를 blocks·patterns·motion 까지 넓히고 FeatureGrid 탭 키보드를 고친다 ② 이 카드가 키보드로 열어 준 셋(Card·Calendar 날짜 칸·DatePicker 기본 트리거)에 포커스 표시를 단다 — core 전체는 새 카드 ③ DropdownMenu 가 항목을 고르면 닫는 처리를 외부 preventDefault 로 막을 수 있게(§3-3 의견, 1번 합성 규칙과 맞춤, 유저 선택). 먼저 main(KAN-051 병합, 번들 크기 게이트)을 합친다
 - 2026-10-07T16:01 · s:b1c51cf9 — `전략` 섹션 교체
 - 2026-10-07T16:01 · s:b1c51cf9 — `실행 계획` 섹션 교체
+- 2026-10-07T16:02 · s:b1c51cf9 · S7 doing — 착수
+- 2026-10-07T16:05 · s:b1c51cf9 · S7 done — main 병합(4ee72e1, KAN-051 번들 트리 셰이킹·크기 게이트). 코드 충돌 0, 칸반 파일 4개 충돌 — KANBAN.md 는 할 일의 낡은 KAN-050·051 블록을 지우고(main 완료 칸에 있음) 진행 중 KAN-054 를 남김, state 는 rebuild --salvage. rebuild 가 우리 쪽 직렬·용인을 써서 잃은 셋을 main 사유로 다시 걸었다: KAN-051→055(전략 재수립 필요 — main 에서는 scope 변경으로 이미 조용히 무효였다), KAN-048→050, KAN-050·051 용인. validate 오류 0, test:unit 588건(번들 크기 게이트 포함) · pnpm test 1267건 초록
