@@ -54,6 +54,8 @@
   - 메모: KAN-054 검토 §3-6(2026-10-07 유저가 추천대로 재작업 선택)에서 나온 후속 · KAN-054는 Card·Calendar 날짜 칸·DatePicker 트리거 셋만 a11y/focusRing.ts 로 고쳤다 — 이 카드가 나머지를 같은 규칙으로
 
 ## 할 일
+
+## 진행 중
 - `KAN-058-G883EJ` style-guide-catalog Showcase 생성 카피 분할 — Showcase 하나가 51개 몫 카피를 끌고 오는 문제 — 생성:ai · 최종:ai · 갱신:2026-10-07
   - 짧은 제목: Showcase 카피 분할
   - 목적: 생성 카피 파일(_showcaseCopy.generated.ts)을 Showcase별로 나눠 Showcase 하나만 가져오면 그 카피만 딸려 오게 한다
@@ -62,8 +64,6 @@
   - 메모: KAN-051 검토 4항(2026-10-07 승인)에서 나온 후속 · 근거는 KANBAN/cards/KAN-051-5HMYKT.md 「전략」의 범위 밖 절
   - 실행 문서: KANBAN/cards/KAN-058-G883EJ.md (0/4 · 최근 10-07)
   - 계획 리포트: KANBAN/reports/KAN-058-G883EJ.report.html (낡음)
-
-## 진행 중
 
 ## 검토
 
