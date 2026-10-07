@@ -49,8 +49,8 @@ In short:
 4. **Zero runtime dependencies.** Inline `React.CSSProperties` + `cssVar()` only.
    No framer-motion / emotion / styled-components.
 5. Export from `motion/index.ts` (already re-exported by `src/index.ts`).
-6. Add a Storybook story in `apps/storybook/src/stories/` (`title: 'Foundations/Motion'`
-   or `'Atoms/…'`), `tags: ['autodocs']`, **with a `play` test** asserting its
+6. Add a Storybook story in `apps/storybook/src/stories/` (`title: 'ARCHETYPE/Foundations/Motion/…'`
+   — see `_templates/README.md` for the title rules), `tags: ['autodocs']`, **with a `play` test** asserting its
    contract (see `Motion.stories.tsx` for templates).
 7. Update the row in `packages/core/motion-catalog.md`: set `Status=implemented`
    and fill `Atom/Target`, and bump the progress summary count.

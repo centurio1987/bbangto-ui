@@ -203,7 +203,7 @@ Wave 0 (편제·인프라·토큰)
 
 | 산출물 | 계층 | Wave | 상태 | 담당 에이전트 | 비고 |
 |---|---|---|---|---|---|
-| `@centurio1987/hooks` 패키지 | hooks | 0 | **DONE** | orchestrator | 4 게이트 GREEN |
+| `@centurio1987/bbangto-ui-hooks` 패키지 | hooks | 0 | **DONE** | orchestrator | 4 게이트 GREEN |
 | `useIsMounted` | hook | 0 | **DONE** | orchestrator | 레퍼런스 훅 |
 | `blocks`/`patterns`/`motion.shaders` 배럴 | 편제 | 0 | **DONE** | orchestrator | core re-export 배선 |
 | 오서링 템플릿 (`/_templates`) | 인프라 | 0 | **DONE** | orchestrator | component/story/hook/checklist |

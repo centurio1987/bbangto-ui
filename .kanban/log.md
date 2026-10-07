@@ -1,6 +1,9 @@
 # KANBAN 변경 이력
 > 최근 50건. 이보다 오래된 이력은 archive.jsonl 로 압축 보관한다.
 
+- #191 2026-10-07 14:15 · ai · KAN-050-AJSQAY serialize
+- #190 2026-10-07 14:15 · ai · KAN-050-AJSQAY serialize
+- #189 2026-10-07 14:15 · ai · KAN-050-AJSQAY 독립성 겹침 용인 (상대 KAN-051-5HMYKT) — 같은 CLAUDE.md지만 050은 게이트 명령 4종을 손대지 않고 구조도·경로만 고친다고 적었다. 051은 test:unit 설명 두 줄(39, 103행)만 고친다 (2026-10-05 유저 승인 플랜). 2026-10-07 KAN-050 S2 중 옛 패키지 이름 전수 grep 으로 scope 에 주석 파일 3개(tokens/breakpoints.ts·hooks/index.ts·hooks/useIsMounted.ts — 051 scope 와 안 겹침)를 더해 무효가 된 기록을 겹침 그대로 다시 건다
 - #188 2026-10-07 14:13 · ai · KAN-050-AJSQAY 이동 할 일 → 진행 중
 - #187 2026-10-07 13:38 · ai · KAN-050-AJSQAY serialize
 - #186 2026-10-07 13:38 · ai · KAN-050-AJSQAY serialize
@@ -48,6 +51,3 @@
 - #160 2026-10-06 00:36 · ai · KAN-052-BYS4JN 이동 할 일 → 진행 중
 - #160 2026-10-06 00:22 · ai · KAN-049-CWBPP6 이동 할 일 → 진행 중
 - #159 2026-10-05 01:49 · 유저 · KAN-049-CWBPP6 독립성 겹침 용인 (상대 KAN-055-34A57K) — 049는 PLAN.md·visualization-catalog.md 흡수만 하고, 055가 viz에서 바꾸는 것은 CI Version PR이 만드는 package.json·CHANGELOG.md뿐이라 같은 파일을 건드리지 않는다 (2026-10-05 유저 선택)
-- #158 2026-10-05 00:14 · ai · KAN-050-AJSQAY 수정 메모
-- #157 2026-10-05 00:14 · ai · KAN-050-AJSQAY 독립성 겹침 용인 (상대 KAN-051-5HMYKT) — 같은 CLAUDE.md지만 050은 게이트 명령 4종을 손대지 않고 구조도·경로만 고친다고 적었다. 051은 test:unit 설명 두 줄(39, 103행)만 고친다 (2026-10-05 유저 승인 플랜)
-- #156 2026-10-05 00:14 · ai · KAN-049-CWBPP6 독립성 겹침 용인 (상대 KAN-052-BYS4JN) — 052는 viz Provider 코드·internal/ExternalFonts와 README 사용법 절만 고친다. 049는 PLAN·visualization-catalog 문서 흡수다 (2026-10-05 유저 승인 플랜)

@@ -179,7 +179,7 @@ UI 모양이 아니라 **움직임**을 담당하는 별도 계층. `packages/co
 ## 🔗 함께 보기
 
 - **분류 카탈로그**: [`packages/core/COMPONENT_CATALOG.md`](packages/core/COMPONENT_CATALOG.md) — 21st.dev → bbangto-ui 전수 분류
-- **구현 계획**: [`ASSET_INTEGRATION_PLAN.md`](ASSET_INTEGRATION_PLAN.md) — Wave 단위 실행 전략
+- **Wave 실행 기록**: [`packages/core/COMPONENT_CATALOG.md` 「Wave 실행 기록」](packages/core/COMPONENT_CATALOG.md#wave-실행-기록) — 위임 모델·leaf 계약·토큰 갭 감사 (옛 `ASSET_INTEGRATION_PLAN.md`·`WAVE0_REPORT.md` 흡수본)
 - **품질 게이트**: [`QUALITY_CHECKLIST.md`](QUALITY_CHECKLIST.md)
 - **모션 규약**: [`packages/core/motion-catalog.md`](packages/core/motion-catalog.md) · [`MOTION_QUALITY_CHECKLIST.md`](packages/core/MOTION_QUALITY_CHECKLIST.md)
 

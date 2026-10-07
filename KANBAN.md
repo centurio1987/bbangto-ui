@@ -100,7 +100,7 @@
   - 이유: packages/theme-* 4종이 실재하지 않는데 세 규율 문서가 그것을 구조도와 경로로 가리키고 있다
   - 목표: 규율 문서가 실제 레포 구조와 일치하고 모션 워크플로가 한 곳에만 적힌다
   - 메모: KAN-044 §13-D. 2026-10-07 전략 재수립(선행 KAN-048 완료) — 전수 grep 으로 scope 3파일 추가(COMPONENT_CATALOG·Overview.mdx·types.ts), motion-catalog:27 은 KAN-051 앞뒤 모두 참인 문장으로 고쳐 순서 의존을 없앤다. 상세는 카드 문서 「전략」
-  - 실행 문서: KANBAN/cards/KAN-050-AJSQAY.md (1/4 · 최근 10-07)
+  - 실행 문서: KANBAN/cards/KAN-050-AJSQAY.md (2/4 · 최근 10-07)
   - 계획 리포트: KANBAN/reports/KAN-050-AJSQAY.report.html (낡음)
 
 ## 검토
