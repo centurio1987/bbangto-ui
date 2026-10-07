@@ -80,6 +80,8 @@
     ```
 
 ## 진행 중
+
+## 검토
 - `KAN-051-5HMYKT` 번들 트리 셰이킹 복구 — 파일 단위 출력 + 크기 상한 게이트 (core·viz·sgc·vsgc) — 생성:ai · 최종:ai · 갱신:2026-10-07
   - 짧은 제목: 번들 트리 셰이킹 복구
   - 목적: core·visualization·style-guide-catalog·viz-style-guide-catalog를 하나만 가져와도 전부 딸려 오지 않게 빌드 출력을 파일 단위로 바꾸고 크기 상한 게이트를 건다
@@ -88,6 +90,7 @@
   - 메모: 외부 앱 소비 문제 대응 5장 중 1 · 근거와 측정값은 카드 문서 「전략」
   - 실행 문서: KANBAN/cards/KAN-051-5HMYKT.md (4/4 · 최근 10-07)
   - 계획 리포트: KANBAN/reports/KAN-051-5HMYKT.report.html (낡음)
+  - 검토 문서: KANBAN/reviews/KAN-051-5HMYKT.review.md (승인 0/4 · 검토 대기)
   - 원문:
     ```text
     [첨부 이미지]
@@ -102,8 +105,6 @@
     
     이 문제를 해결하기 위한 전략을 수립, 실행 계획 수립, 칸반 카드화 해라.
     ```
-
-## 검토
 
 ## 완료
 - `KAN-020` visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현 — 생성:유저 · 최종:유저 · 갱신:2026-08-14
