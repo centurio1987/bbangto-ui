@@ -96,7 +96,7 @@ export function Mindmap({
             height={n.height}
             shape={n.level === 0 ? 'rounded' : 'stadium'}
             fill={levelFill(n.level ?? 1, n.fill)}
-            stroke={n.stroke ?? '#111111'}
+            stroke={n.stroke}
             strokeWidth={n.level === 0 ? 2.5 : 1.5}
           />
           <NodeLabel
@@ -116,7 +116,6 @@ export function Mindmap({
           to={e.to}
           routing="curved"
           markerEnd="none"
-          stroke="#555555"
           strokeWidth={1.5}
         />
       ))}

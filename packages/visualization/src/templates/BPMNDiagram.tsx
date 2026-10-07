@@ -75,11 +75,10 @@ function BPMNEvent({ spec }: BPMNEventRendProps) {
   const { x: cx, y: cy } = spec;
   const stroke = vvar('edge', 'stroke');
   const strokeW = spec.kind === 'end' ? 3 : 1.5;
-  const fill = spec.kind === 'end' ? '#FFCCBC' : '#FFFFFF';
 
   return (
     <g data-bbangto-viz-bpmn-event data-bbangto-viz-bpmn-event-kind={spec.kind ?? 'start'}>
-      <circle cx={cx} cy={cy} r={r} style={{ fill, stroke, strokeWidth: strokeW }} />
+      <circle data-viz-part="shape" cx={cx} cy={cy} r={r} style={{ stroke, strokeWidth: strokeW }} />
       {spec.kind === 'intermediate' && (
         <circle cx={cx} cy={cy} r={r - 3} style={{ fill: 'none', stroke, strokeWidth: 1.5 }} />
       )}
@@ -123,7 +122,7 @@ function BPMNGateway({ spec }: BPMNGatewayRendProps) {
 
   return (
     <g data-bbangto-viz-bpmn-gateway data-bbangto-viz-bpmn-gateway-kind={spec.kind ?? 'exclusive'}>
-      <path d={d} style={{ fill: '#FFF9C4', stroke, strokeWidth: 1.5 }} />
+      <path data-viz-part="shape" d={d} style={{ fill: vvar('palette', 'p4'), stroke, strokeWidth: 1.5 }} />
       {symbol}
       {spec.label && (
         <text x={cx} y={cy + half + 14} textAnchor="middle" fontSize={9} fill={stroke}>
@@ -218,7 +217,7 @@ export function BPMNDiagram({
             width={t.width}
             height={t.height}
             shape="rounded"
-            fill={t.fill ?? '#FFFFFF'}
+            fill={t.fill}
             strokeWidth={1.5}
             data-bbangto-viz-bpmn-task
           />

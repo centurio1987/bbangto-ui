@@ -73,43 +73,65 @@
       "memo": "KAN-059 착수 전 계획에서 발견(2026-10-07 main dist 를 tokens contrastRatio 로 계산). 그라디언트 배경 style guide 는 아직 못 쟀다 · 테두리는 border.focus 를 실행 때 읽으므로 토큰만 고치면 KAN-059 결과에 그대로 반영된다",
       "memo_hash": "28769527373e45fa350b73cbf5d3496509be33e3"
     },
-    "KAN-056-D3V1MB": {
-      "col": "todo",
-      "title": "viz 템플릿 13개 리터럴 색 제거 — 스타일 가이드가 기본 채움·선 색까지 칠하게",
-      "verbatim": "만들어 (앞 답변 「앞서 여쭌 백로그 카드 두 가지(리터럴 색이 남은 템플릿 13개, 읽히지 않는 `edge.dashPattern` 토큰)는 아직 만들지 않았습니다.」에 대한 답)",
+    "KAN-061-K8V2HH": {
+      "col": "backlog",
+      "title": "viz 템플릿 라벨 대비 미달 정리 — 불투명 팔레트 면 · 글자 대비 기준 목록 줄이기",
+      "verbatim": "",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-10-07",
-      "title_hash": "dcd892fa317c4cd77bd72ee1413a42dbd8ccf2b8",
-      "verbatim_hash": "86e2d9d99304c4fb30f03389edf118d082025240",
-      "short": "템플릿 리터럴 색 제거",
-      "short_hash": "bd0a789042831cdd0f9ead59bb2ead9dac4d4a64",
-      "purpose": "템플릿 13개가 넣는 불투명 기본 채움·선 색을 계약 토큰으로 바꿔 스타일 가이드가 그 부분까지 칠하게 한다",
-      "purpose_hash": "9b40e9749f01282f0a9aad453c85be12b1756fef",
-      "reason": "기본값이 인라인 style 로 렌더돼 스타일 가이드를 바꿔도 그 색이 그대로다 — 구 PLAN 「이연」이 끝나지 않은 채 남았다(KAN-049 에서 발견)",
-      "reason_hash": "0dc69ed9735b874a76e6bf1ac70730555add1ef8",
-      "goal": "13개 템플릿에 불투명 리터럴 색이 0건이 되고 viz README 「알려진 한계」의 해당 항목이 지워진다",
-      "goal_hash": "e9bd1a33c52be356cf510bfa4d5bba51d6351e8f",
-      "memo": "목록과 셈 기준은 packages/visualization/README.md 「알려진 한계」. 반투명 검정 음영(Node cube 면·IsoPrism·IsometricScene 바닥 그림자·Lane)은 paint 무관 장치라 대상이 아니다",
-      "memo_hash": "58b92a097f7586fdfdadd09d47dd82ffec343dbe",
-      "scope": [
-        "packages/visualization/src/templates/ArchitectureDiagram.tsx",
-        "packages/visualization/src/templates/ArchiMateDiagram.tsx",
-        "packages/visualization/src/templates/BlockDiagram.tsx",
-        "packages/visualization/src/templates/BPMNDiagram.tsx",
-        "packages/visualization/src/templates/BPMNCollaborationDiagram.tsx",
-        "packages/visualization/src/templates/C4CodeDiagram.tsx",
-        "packages/visualization/src/templates/KanbanBoard.tsx",
-        "packages/visualization/src/templates/Mindmap.tsx",
-        "packages/visualization/src/templates/RequirementDiagram.tsx",
-        "packages/visualization/src/templates/TimelineDiagram.tsx",
-        "packages/visualization/src/templates/UMLComponentDiagram.tsx",
-        "packages/visualization/src/templates/UMLDeploymentDiagram.tsx",
-        "packages/visualization/src/templates/UMLSequenceDiagram.tsx",
-        "apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx",
-        "packages/visualization/README.md",
-        ".changeset/kan-056-*.md"
-      ]
+      "갱신": "2026-10-08",
+      "title_hash": "6285e23baabc6b2fa2beab8be835dd40558ac824",
+      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+      "short": "viz 라벨 대비 정리",
+      "short_hash": "55b0fcca95436608c8813aff4c20a2051d5a76f8",
+      "purpose": "viz 템플릿 글자가 카탈로그 가이드 30개 모두에서 4.5:1 이상 읽히게 한다 — KAN-056 기준 목록 204곳과 불투명 팔레트 면(Mindmap · ArchiMateViewpoint)부터",
+      "purpose_hash": "51a824aa2788b081a5b433f53a7b2b90ab778a2c",
+      "reason": "KAN-056 검토에서 가이드에 따라 글자가 바탕에 묻히는 곳이 확인됐다(Mindmap 92곳 · Requirement 64곳 등). 지금은 기준 목록으로 더 나빠지지만 않게 막아 둔 상태다",
+      "reason_hash": "415ad31a39197fa6ee9b8fe75a06743fade4a21b",
+      "goal": "_labelContrastBaseline.ts 가 비고, 글자 대비 검사가 13개 밖 템플릿(ArchiMateViewpoint 등)도 잰다",
+      "goal_hash": "a6ff20c2358551b3f6af694145a5ba1dd5f1ec1f",
+      "memo": "KAN-056 검토 항목 3(승인)·6에서 나왔다. KAN-056 병합 뒤 착수(검사와 기준 목록이 그 카드에 있다). 원인이 셋으로 갈린다: 불투명 팔레트 면 위 edge.stroke 글자, Requirement 반투명 글자(opacity 0.6·0.8)와 검정 6% 띠, riso-print 등의 shape.fill·edge.stroke 쌍. 카탈로그 대비 게이트가 shape.fill·edge.stroke 쌍을 재는지는 확인 안 함",
+      "memo_hash": "27ba934616243721eee5d524551ef6731a15be46"
+    },
+    "KAN-062-E02CMT": {
+      "col": "backlog",
+      "title": "SVG 속성 안 var() 브라우저 확인 — README 문장과 속성으로 색을 넣는 코드를 실제 동작에 맞추기",
+      "verbatim": "",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-08",
+      "title_hash": "6fbafab2f488b8415f62f14739e8a5d085808196",
+      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+      "short": "속성 안 var() 확인",
+      "short_hash": "2d23bee8a5d3fa49765c9f4a184d20474fe405bf",
+      "purpose": "Firefox·Safari 에서 SVG 속성(presentation attribute) 안의 var() 가 풀리는지 확인하고, README 문장과 그 형태로 색을 넣는 코드를 결과에 맞춘다",
+      "purpose_hash": "0fa83c7822adf8d292d309dce224fdd06471613c",
+      "reason": "viz README 는 속성 안 var() 가 무효라 적지만 chromium 에서는 풀린다. 코드에도 그 형태가 있어 안 풀리는 브라우저에서는 인터페이스 선이 사라지거나 라벨이 검정이 된다(KAN-056 검토 항목 3)",
+      "reason_hash": "3dde013bdad4741f7ce3d3b0e20675a80e1e675c",
+      "goal": "세 브라우저 결과가 README 에 적히고, 안 풀리는 브라우저가 있으면 속성 안 var() 가 모두 style 로 옮겨지고 검사로 막힌다",
+      "goal_hash": "51f4842a6493b580dcf7b3f86eb446d7bb955422",
+      "memo": "KAN-056 검토 항목 3(검토자 승인, 둘째 선택지)에서 나왔다. KAN-056 시점 줄: UMLComponentDiagram.tsx:65·97, BPMNDiagram.tsx:86·128, README.md 「명시한 prop 이 이긴다」 항목. 다른 템플릿·원자에도 같은 형태가 있는지는 확인 안 함",
+      "memo_hash": "870f645bcc5324338c2e042e36dcb5a90598a1d9"
+    },
+    "KAN-063-Q85EET": {
+      "col": "backlog",
+      "title": "viz Paint Gate 표본을 나머지 템플릿으로 넓히기 — 리터럴 · 글자 대비 검사가 모든 템플릿을 보게",
+      "verbatim": "",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-08",
+      "title_hash": "2eb1b920848ac4ef93835347ec822c4524605483",
+      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+      "short": "Paint Gate 표본 확장",
+      "short_hash": "ed96b5966c2a1dbe69940226971d22d5fefa8b77",
+      "purpose": "TemplatePaintGate 의 두 검사(리터럴 색 · 글자 대비)가 표본이 없는 템플릿도 그리게 표본(fixture)을 더한다",
+      "purpose_hash": "2c5e8d623846b81d1689c4473c0c90ce5f1631fe",
+      "reason": "지금 리터럴 검사는 템플릿 export 65개 중 31개, 글자 대비 검사는 13개만 본다. 나머지는 리터럴이 들어와도 걸리지 않고 README 가 그 한계를 적고 있다(KAN-056 검토 항목 5)",
+      "reason_hash": "228a83026b539955028c24a75afe641bff706475",
+      "goal": "templates 가 내보내는 모든 템플릿에 표본이 있고, 표본이 빠진 템플릿이 생기면 검사가 빨강이 된다",
+      "goal_hash": "69a8cbabf01a7a74e4137f982ef91d0417bf5741",
+      "memo": "KAN-056 검토 항목 5(검토자 승인, 추천안의 후속 부분)에서 나왔다. KAN-056 병합 뒤 착수. 글자 대비 검사를 넓히면 새 미달이 나와 viz 라벨 대비 정리 카드와 같은 파일을 고치게 되므로 착수 전에 순서를 정한다",
+      "memo_hash": "3346ccf1022424095774c27d7b1703521fad7f30"
     },
     "KAN-020": {
       "col": "done",
@@ -1072,65 +1094,44 @@
         ".changeset/kan-059-*.md"
       ]
     },
-    "KAN-061-K8V2HH": {
-      "col": "backlog",
-      "title": "viz 템플릿 라벨 대비 미달 정리 — 불투명 팔레트 면 · 글자 대비 기준 목록 줄이기",
-      "verbatim": "",
+    "KAN-056-D3V1MB": {
+      "col": "done",
+      "title": "viz 템플릿 13개 리터럴 색 제거 — 스타일 가이드가 기본 채움·선 색까지 칠하게",
+      "verbatim": "만들어 (앞 답변 「앞서 여쭌 백로그 카드 두 가지(리터럴 색이 남은 템플릿 13개, 읽히지 않는 `edge.dashPattern` 토큰)는 아직 만들지 않았습니다.」에 대한 답)",
       "생성": "ai",
       "최종": "ai",
       "갱신": "2026-10-08",
-      "title_hash": "6285e23baabc6b2fa2beab8be835dd40558ac824",
-      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
-      "short": "viz 라벨 대비 정리",
-      "short_hash": "55b0fcca95436608c8813aff4c20a2051d5a76f8",
-      "purpose": "viz 템플릿 글자가 카탈로그 가이드 30개 모두에서 4.5:1 이상 읽히게 한다 — KAN-056 기준 목록 204곳과 불투명 팔레트 면(Mindmap · ArchiMateViewpoint)부터",
-      "purpose_hash": "51a824aa2788b081a5b433f53a7b2b90ab778a2c",
-      "reason": "KAN-056 검토에서 가이드에 따라 글자가 바탕에 묻히는 곳이 확인됐다(Mindmap 92곳 · Requirement 64곳 등). 지금은 기준 목록으로 더 나빠지지만 않게 막아 둔 상태다",
-      "reason_hash": "415ad31a39197fa6ee9b8fe75a06743fade4a21b",
-      "goal": "_labelContrastBaseline.ts 가 비고, 글자 대비 검사가 13개 밖 템플릿(ArchiMateViewpoint 등)도 잰다",
-      "goal_hash": "a6ff20c2358551b3f6af694145a5ba1dd5f1ec1f",
-      "memo": "KAN-056 검토 항목 3(승인)·6에서 나왔다. KAN-056 병합 뒤 착수(검사와 기준 목록이 그 카드에 있다). 원인이 셋으로 갈린다: 불투명 팔레트 면 위 edge.stroke 글자, Requirement 반투명 글자(opacity 0.6·0.8)와 검정 6% 띠, riso-print 등의 shape.fill·edge.stroke 쌍. 카탈로그 대비 게이트가 shape.fill·edge.stroke 쌍을 재는지는 확인 안 함",
-      "memo_hash": "27ba934616243721eee5d524551ef6731a15be46"
-    },
-    "KAN-062-E02CMT": {
-      "col": "backlog",
-      "title": "SVG 속성 안 var() 브라우저 확인 — README 문장과 속성으로 색을 넣는 코드를 실제 동작에 맞추기",
-      "verbatim": "",
-      "생성": "ai",
-      "최종": "ai",
-      "갱신": "2026-10-08",
-      "title_hash": "6fbafab2f488b8415f62f14739e8a5d085808196",
-      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
-      "short": "속성 안 var() 확인",
-      "short_hash": "2d23bee8a5d3fa49765c9f4a184d20474fe405bf",
-      "purpose": "Firefox·Safari 에서 SVG 속성(presentation attribute) 안의 var() 가 풀리는지 확인하고, README 문장과 그 형태로 색을 넣는 코드를 결과에 맞춘다",
-      "purpose_hash": "0fa83c7822adf8d292d309dce224fdd06471613c",
-      "reason": "viz README 는 속성 안 var() 가 무효라 적지만 chromium 에서는 풀린다. 코드에도 그 형태가 있어 안 풀리는 브라우저에서는 인터페이스 선이 사라지거나 라벨이 검정이 된다(KAN-056 검토 항목 3)",
-      "reason_hash": "3dde013bdad4741f7ce3d3b0e20675a80e1e675c",
-      "goal": "세 브라우저 결과가 README 에 적히고, 안 풀리는 브라우저가 있으면 속성 안 var() 가 모두 style 로 옮겨지고 검사로 막힌다",
-      "goal_hash": "51f4842a6493b580dcf7b3f86eb446d7bb955422",
-      "memo": "KAN-056 검토 항목 3(검토자 승인, 둘째 선택지)에서 나왔다. KAN-056 시점 줄: UMLComponentDiagram.tsx:65·97, BPMNDiagram.tsx:86·128, README.md 「명시한 prop 이 이긴다」 항목. 다른 템플릿·원자에도 같은 형태가 있는지는 확인 안 함",
-      "memo_hash": "870f645bcc5324338c2e042e36dcb5a90598a1d9"
-    },
-    "KAN-063-Q85EET": {
-      "col": "backlog",
-      "title": "viz Paint Gate 표본을 나머지 템플릿으로 넓히기 — 리터럴 · 글자 대비 검사가 모든 템플릿을 보게",
-      "verbatim": "",
-      "생성": "ai",
-      "최종": "ai",
-      "갱신": "2026-10-08",
-      "title_hash": "2eb1b920848ac4ef93835347ec822c4524605483",
-      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
-      "short": "Paint Gate 표본 확장",
-      "short_hash": "ed96b5966c2a1dbe69940226971d22d5fefa8b77",
-      "purpose": "TemplatePaintGate 의 두 검사(리터럴 색 · 글자 대비)가 표본이 없는 템플릿도 그리게 표본(fixture)을 더한다",
-      "purpose_hash": "2c5e8d623846b81d1689c4473c0c90ce5f1631fe",
-      "reason": "지금 리터럴 검사는 템플릿 export 65개 중 31개, 글자 대비 검사는 13개만 본다. 나머지는 리터럴이 들어와도 걸리지 않고 README 가 그 한계를 적고 있다(KAN-056 검토 항목 5)",
-      "reason_hash": "228a83026b539955028c24a75afe641bff706475",
-      "goal": "templates 가 내보내는 모든 템플릿에 표본이 있고, 표본이 빠진 템플릿이 생기면 검사가 빨강이 된다",
-      "goal_hash": "69a8cbabf01a7a74e4137f982ef91d0417bf5741",
-      "memo": "KAN-056 검토 항목 5(검토자 승인, 추천안의 후속 부분)에서 나왔다. KAN-056 병합 뒤 착수. 글자 대비 검사를 넓히면 새 미달이 나와 viz 라벨 대비 정리 카드와 같은 파일을 고치게 되므로 착수 전에 순서를 정한다",
-      "memo_hash": "3346ccf1022424095774c27d7b1703521fad7f30"
+      "title_hash": "dcd892fa317c4cd77bd72ee1413a42dbd8ccf2b8",
+      "verbatim_hash": "86e2d9d99304c4fb30f03389edf118d082025240",
+      "short": "템플릿 리터럴 색 제거",
+      "short_hash": "bd0a789042831cdd0f9ead59bb2ead9dac4d4a64",
+      "purpose": "템플릿 13개가 넣는 불투명 기본 채움·선 색을 계약 토큰으로 바꿔 스타일 가이드가 그 부분까지 칠하게 한다",
+      "purpose_hash": "9b40e9749f01282f0a9aad453c85be12b1756fef",
+      "reason": "기본값이 인라인 style 로 렌더돼 스타일 가이드를 바꿔도 그 색이 그대로다 — 구 PLAN 「이연」이 끝나지 않은 채 남았다(KAN-049 에서 발견)",
+      "reason_hash": "0dc69ed9735b874a76e6bf1ac70730555add1ef8",
+      "goal": "13개 템플릿에 불투명 리터럴 색이 0건이 되고 viz README 「알려진 한계」의 해당 항목이 지워진다",
+      "goal_hash": "e9bd1a33c52be356cf510bfa4d5bba51d6351e8f",
+      "memo": "목록과 셈 기준은 packages/visualization/README.md 「알려진 한계」. 반투명 검정 음영(Node cube 면·IsoPrism·IsometricScene 바닥 그림자·Lane)은 paint 무관 장치라 대상이 아니다",
+      "memo_hash": "58b92a097f7586fdfdadd09d47dd82ffec343dbe",
+      "scope": [
+        "packages/visualization/src/templates/ArchitectureDiagram.tsx",
+        "packages/visualization/src/templates/ArchiMateDiagram.tsx",
+        "packages/visualization/src/templates/BlockDiagram.tsx",
+        "packages/visualization/src/templates/BPMNDiagram.tsx",
+        "packages/visualization/src/templates/BPMNCollaborationDiagram.tsx",
+        "packages/visualization/src/templates/C4CodeDiagram.tsx",
+        "packages/visualization/src/templates/KanbanBoard.tsx",
+        "packages/visualization/src/templates/Mindmap.tsx",
+        "packages/visualization/src/templates/RequirementDiagram.tsx",
+        "packages/visualization/src/templates/TimelineDiagram.tsx",
+        "packages/visualization/src/templates/UMLComponentDiagram.tsx",
+        "packages/visualization/src/templates/UMLDeploymentDiagram.tsx",
+        "packages/visualization/src/templates/UMLSequenceDiagram.tsx",
+        "apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx",
+        "apps/storybook/src/stories/visualization/_labelContrastBaseline.ts",
+        "packages/visualization/README.md",
+        ".changeset/kan-056-*.md"
+      ]
     }
   },
   "order": [
@@ -1140,7 +1141,6 @@
     "KAN-061-K8V2HH",
     "KAN-062-E02CMT",
     "KAN-063-Q85EET",
-    "KAN-056-D3V1MB",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1196,7 +1196,8 @@
     "KAN-051-5HMYKT",
     "KAN-054-M48FNQ",
     "KAN-058-G883EJ",
-    "KAN-059-62EAKB"
+    "KAN-059-62EAKB",
+    "KAN-056-D3V1MB"
   ],
   "recent": [
     {
@@ -1251,6 +1252,16 @@
       "memo": "KAN-056 검토 항목 3(승인)·6에서 나왔다. KAN-056 병합 뒤 착수(검사와 기준 목록이 그 카드에 있다). 원인이 셋으로 갈린다: 불투명 팔레트 면 위 edge.stroke 글자, Requirement 반투명 글자(opacity 0.6·0.8)와 검정 6% 띠, riso-print 등의 shape.fill·edge.stroke 쌍. 카탈로그 대비 게이트가 shape.fill·edge.stroke 쌍을 재는지는 확인 안 함"
     },
     {
+      "seq": 227,
+      "t": "2026-10-08T01:22",
+      "a": "ai",
+      "id": "KAN-056-D3V1MB",
+      "op": "move",
+      "w": "GEG7B8",
+      "from": "review",
+      "to": "done"
+    },
+    {
       "seq": 226,
       "t": "2026-10-08T00:15",
       "a": "ai",
@@ -1259,6 +1270,16 @@
       "w": "S7030N",
       "with_": "KAN-053-TZ86NN",
       "reason": "전략 재수립 완료"
+    },
+    {
+      "seq": 226,
+      "t": "2026-10-08T00:39",
+      "a": "ai",
+      "id": "KAN-056-D3V1MB",
+      "op": "move",
+      "w": "GEG7B8",
+      "from": "doing",
+      "to": "review"
     },
     {
       "seq": 225,
@@ -1271,6 +1292,16 @@
       "reason": "전략 재수립 완료"
     },
     {
+      "seq": 225,
+      "t": "2026-10-08T00:37",
+      "a": "ai",
+      "id": "KAN-055-34A57K",
+      "op": "waive",
+      "w": "GEG7B8",
+      "with_": "KAN-056-D3V1MB",
+      "reason": "2026-10-07 유저 용인을 다시 건다. KAN-056 재작업(검토 항목 4)에서 scope 에 새 파일 apps/storybook/.../_labelContrastBaseline.ts 하나를 더해 기록이 낡았을 뿐, 겹치는 경로는 그대로 .changeset/kan-056-*.md 하나다 — KAN-056 은 자기 changeset 만 더하고 KAN-055 는 배포 때 소비할 뿐이다"
+    },
+    {
       "seq": 224,
       "t": "2026-10-08T00:15",
       "a": "ai",
@@ -1279,6 +1310,16 @@
       "w": "S7030N",
       "with_": "KAN-051-5HMYKT",
       "reason": "전략 재수립 완료"
+    },
+    {
+      "seq": 224,
+      "t": "2026-10-08T00:24",
+      "a": "ai",
+      "id": "KAN-056-D3V1MB",
+      "op": "move",
+      "w": "GEG7B8",
+      "from": "review",
+      "to": "doing"
     },
     {
       "seq": 223,
@@ -1302,6 +1343,16 @@
       "to": "done"
     },
     {
+      "seq": 223,
+      "t": "2026-10-07T19:42",
+      "a": "ai",
+      "id": "KAN-056-D3V1MB",
+      "op": "move",
+      "w": "GEG7B8",
+      "from": "doing",
+      "to": "review"
+    },
+    {
       "seq": 222,
       "t": "2026-10-08T00:14",
       "a": "ai",
@@ -1320,6 +1371,16 @@
       "w": "GTA753",
       "from": "doing",
       "to": "review"
+    },
+    {
+      "seq": 222,
+      "t": "2026-10-07T19:32",
+      "a": "ai",
+      "id": "KAN-056-D3V1MB",
+      "op": "move",
+      "w": "GEG7B8",
+      "from": "todo",
+      "to": "doing"
     },
     {
       "seq": 221,
@@ -1681,66 +1742,6 @@
       "w": "728SB6",
       "from": "review",
       "to": "done"
-    },
-    {
-      "seq": 193,
-      "t": "2026-10-07T16:01",
-      "a": "유저",
-      "id": "KAN-054-M48FNQ",
-      "op": "serialize",
-      "w": "DJT5WZ",
-      "with_": "KAN-053-TZ86NN",
-      "reason": "전략 재수립 완료"
-    },
-    {
-      "seq": 192,
-      "t": "2026-10-07T14:24",
-      "a": "ai",
-      "id": "KAN-050-AJSQAY",
-      "op": "move",
-      "w": "728SB6",
-      "from": "doing",
-      "to": "review"
-    },
-    {
-      "seq": 192,
-      "t": "2026-10-07T16:01",
-      "a": "유저",
-      "id": "KAN-054-M48FNQ",
-      "op": "serialize",
-      "w": "DJT5WZ",
-      "with_": "KAN-053-TZ86NN",
-      "reason": "054가 053이 만든 packages/core/src/a11y/ 훅을 이어 쓴다. 053 훅 API를 보고 전략을 다시 세운다 (2026-10-05 유저 승인 플랜). 재작업 scope 확장으로 무효가 된 기록을 다시 건다"
-    },
-    {
-      "seq": 191,
-      "t": "2026-10-07T14:15",
-      "a": "ai",
-      "id": "KAN-050-AJSQAY",
-      "op": "serialize",
-      "w": "728SB6",
-      "with_": "KAN-048-R2KW3G",
-      "reason": "전략 재수립 완료"
-    },
-    {
-      "seq": 191,
-      "t": "2026-10-07T16:01",
-      "a": "유저",
-      "id": "KAN-054-M48FNQ",
-      "op": "waive",
-      "w": "DJT5WZ",
-      "with_": "KAN-055-34A57K",
-      "reason": "054의 changeset은 054가 끝나 main에 병합된 뒤에만 들어오므로 그 전 배포에 섞이지 않는다 (2026-10-05 유저 승인 플랜). 2026-10-07 검토 반려 재작업의 scope 확장(FeatureGrid)으로 무효가 된 기록을 다시 건다 — 겹침은 그대로 .changeset/ 하나"
-    },
-    {
-      "seq": 190,
-      "t": "2026-10-07T14:15",
-      "a": "ai",
-      "id": "KAN-050-AJSQAY",
-      "op": "serialize",
-      "w": "728SB6",
-      "with_": "KAN-048-R2KW3G",
-      "reason": "DESIGN_SYSTEM_GUIDE.md 를 둘 다 고친다. B 가 ASSET_INTEGRATION_PLAN 을 없애야 D 가 :182 링크를 고칠 수 있고, 순서가 뒤면 깨진 링크가 남는다. KAN-044 검토 5번에서 유저가 승인. 2026-10-07 KAN-050 scope 확장(S2 주석 파일 3개)으로 무효가 된 기록을 다시 건다"
     }
   ],
   "waivers": [

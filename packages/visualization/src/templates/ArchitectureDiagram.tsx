@@ -116,8 +116,8 @@ export function ArchitectureDiagram({
             width={s.width}
             height={s.height}
             shape={s.shape ?? 'rounded'}
-            fill={s.fill ?? '#FFFFFF'}
-            stroke={s.stroke ?? '#111111'}
+            fill={s.fill}
+            stroke={s.stroke}
             strokeWidth={2}
           />
           <NodeLabel x={s.x} y={s.y + s.height / 2} width={s.width} title={s.label} fontSize={11} />

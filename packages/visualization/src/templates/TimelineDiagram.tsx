@@ -107,8 +107,6 @@ export function TimelineDiagram({
               width={e.width}
               height={e.height}
               shape="rounded"
-              fill="#FFFFFF"
-              stroke="#111111"
               strokeWidth={2}
             />
             <NodeLabel x={boxX} y={e.y + e.height / 2} width={e.width} title={e.label} fontSize={11} />

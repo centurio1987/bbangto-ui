@@ -72,7 +72,7 @@ function CollabEvent({ spec }: { spec: BPMNCollabEventSpec }) {
   const strokeW = spec.kind === 'end' ? 3 : 1.5;
   return (
     <g data-bbangto-viz-bpmn-event data-bbangto-viz-bpmn-event-kind={spec.kind ?? 'start'}>
-      <circle data-viz-part="shape" cx={spec.x} cy={spec.y} r={r} style={{ fill: '#FFFFFF', stroke, strokeWidth: strokeW }} />
+      <circle data-viz-part="shape" cx={spec.x} cy={spec.y} r={r} style={{ stroke, strokeWidth: strokeW }} />
       {spec.label && (
         <text x={spec.x} y={spec.y + r + 11} textAnchor="middle" fontSize={9} style={{ fill: stroke }}>
           {spec.label}
@@ -163,7 +163,7 @@ export function BPMNCollaborationDiagram({
 
       {tasks.map((t) => (
         <React.Fragment key={t.id}>
-          <Node id={t.id} x={t.x} y={t.y} width={t.width} height={t.height} shape="rounded" fill={t.fill ?? '#FFFFFF'} strokeWidth={1.5} data-bbangto-viz-bpmn-task />
+          <Node id={t.id} x={t.x} y={t.y} width={t.width} height={t.height} shape="rounded" fill={t.fill} strokeWidth={1.5} data-bbangto-viz-bpmn-task />
           <NodeLabel x={t.x} y={t.y + t.height / 2} width={t.width} title={t.label} fontSize={10} />
         </React.Fragment>
       ))}

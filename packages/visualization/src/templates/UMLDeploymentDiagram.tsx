@@ -113,8 +113,8 @@ export function UMLDeploymentDiagram({
             width={n.width}
             height={n.height}
             shape="cube"
-            fill={n.fill ?? '#E8EDF4'}
-            stroke={n.stroke ?? '#111111'}
+            fill={n.fill}
+            stroke={n.stroke}
             strokeWidth={2}
           />
           <NodeLabel x={n.x} y={n.y + n.height / 2 + 6} width={n.width} title={n.name} fontSize={12} />

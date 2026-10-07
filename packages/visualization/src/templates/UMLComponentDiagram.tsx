@@ -51,7 +51,7 @@ interface LollipopProps {
   stroke?: string;
 }
 
-function Lollipop({ x, y, lineLen = 18, radius = 5, direction = 'right', stroke = '#111111' }: LollipopProps) {
+function Lollipop({ x, y, lineLen = 18, radius = 5, direction = 'right', stroke = vvar('edge', 'stroke') }: LollipopProps) {
   const isV = direction === 'top' || direction === 'bottom';
   const dirSign = direction === 'right' || direction === 'bottom' ? 1 : -1;
 
@@ -85,7 +85,7 @@ interface SocketProps {
   stroke?: string;
 }
 
-function Socket({ x, y, lineLen = 18, radius = 5, direction = 'right', stroke = '#111111' }: SocketProps) {
+function Socket({ x, y, lineLen = 18, radius = 5, direction = 'right', stroke = vvar('edge', 'stroke') }: SocketProps) {
   const dirSign = direction === 'right' || direction === 'bottom' ? 1 : -1;
   const endX = x + dirSign * lineLen;
   const cx = endX + dirSign * radius;
@@ -163,8 +163,6 @@ export function UMLComponentDiagram({
             width={c.width}
             height={c.height}
             shape="component"
-            fill="#FFFFFF"
-            stroke="#111111"
             strokeWidth={2}
           />
           <NodeLabel x={c.x} y={c.y + c.height / 2} width={c.width} title={c.name} fontSize={12} />
@@ -174,7 +172,7 @@ export function UMLComponentDiagram({
               x={iface.x}
               y={iface.y}
               direction={iface.direction ?? 'right'}
-              stroke={typeof stroke === 'string' ? stroke : '#111111'}
+              stroke={stroke}
             />
           ))}
           {c.requiredInterfaces?.map((iface, i) => (
@@ -183,7 +181,7 @@ export function UMLComponentDiagram({
               x={iface.x}
               y={iface.y}
               direction={iface.direction ?? 'right'}
-              stroke={typeof stroke === 'string' ? stroke : '#111111'}
+              stroke={stroke}
             />
           ))}
         </React.Fragment>

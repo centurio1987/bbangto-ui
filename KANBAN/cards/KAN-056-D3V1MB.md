@@ -2,7 +2,7 @@
 card: KAN-056-D3V1MB
 title: viz 템플릿 13개 리터럴 색 제거 — 스타일 가이드가 기본 채움·선 색까지 칠하게
 created: 2026-10-07
-scope: packages/visualization/src/templates/ArchitectureDiagram.tsx, packages/visualization/src/templates/ArchiMateDiagram.tsx, packages/visualization/src/templates/BlockDiagram.tsx, packages/visualization/src/templates/BPMNDiagram.tsx, packages/visualization/src/templates/BPMNCollaborationDiagram.tsx, packages/visualization/src/templates/C4CodeDiagram.tsx, packages/visualization/src/templates/KanbanBoard.tsx, packages/visualization/src/templates/Mindmap.tsx, packages/visualization/src/templates/RequirementDiagram.tsx, packages/visualization/src/templates/TimelineDiagram.tsx, packages/visualization/src/templates/UMLComponentDiagram.tsx, packages/visualization/src/templates/UMLDeploymentDiagram.tsx, packages/visualization/src/templates/UMLSequenceDiagram.tsx, apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx, packages/visualization/README.md, .changeset/kan-056-*.md
+scope: packages/visualization/src/templates/ArchitectureDiagram.tsx, packages/visualization/src/templates/ArchiMateDiagram.tsx, packages/visualization/src/templates/BlockDiagram.tsx, packages/visualization/src/templates/BPMNDiagram.tsx, packages/visualization/src/templates/BPMNCollaborationDiagram.tsx, packages/visualization/src/templates/C4CodeDiagram.tsx, packages/visualization/src/templates/KanbanBoard.tsx, packages/visualization/src/templates/Mindmap.tsx, packages/visualization/src/templates/RequirementDiagram.tsx, packages/visualization/src/templates/TimelineDiagram.tsx, packages/visualization/src/templates/UMLComponentDiagram.tsx, packages/visualization/src/templates/UMLDeploymentDiagram.tsx, packages/visualization/src/templates/UMLSequenceDiagram.tsx, apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx, apps/storybook/src/stories/visualization/_labelContrastBaseline.ts, packages/visualization/README.md, .changeset/kan-056-*.md
 ---
 
 # KAN-056-D3V1MB — viz 템플릿 13개 리터럴 색 제거 — 스타일 가이드가 기본 채움·선 색까지 칠하게
@@ -18,7 +18,7 @@ visualization 템플릿 13개가 기본 채움·선 색을 리터럴로 넣는�
 
 1. **흰 채움·검정 선 기본값은 지운다.** `Node` 는 prop 을 안 넘기면 계약 스타일시트가 `shape.fill`·`shape.stroke` 로 칠한다(`atoms/Node.tsx:36`). 날 SVG 요소는 `data-viz-part="shape"` 를 달고 style 에서 fill 을 뺀다. blueprint 에서는 `shape.fill` 이 `#FFFFFF`, `shape.stroke` 가 `#111111` 이라 기본 화면은 지금과 같다(`visualization-style-guide-catalog/src/blueprintTechnical.tsx:23·47-49`, `Headless.stories.tsx:52` 가 이미 단언한다).
 2. **회색 연결선 `#555555` 는 지운다.** 연결선은 `edge.stroke` 를 따른다. README 「paint 채널을 늘리지 않는다」에 따라 연결선 색 채널은 edge 하나다.
-3. **표기에 뜻이 있는 면 색은 팔레트로 옮긴다.** 형제 템플릿이 이미 고른 토큰을 따른다. BPMN 게이트웨이는 `palette.p4`(`BPMNCollaborationDiagram.tsx:96` 선례), UMLSequence 머리 테두리·글자는 `edge.stroke`(파일럿 `atoms/Lifeline.tsx:39`), 메시지 라벨은 `boundary.labelColor`(파일럿 `SequenceDiagram.tsx:193`)다. ArchiMate 계층색은 business→p4 · application→p5 · technology→p6 에 fill-opacity 0.35 를 준다(아래 근거).
+3. **표기에 뜻이 있는 면 색은 팔레트로 옮긴다.** 형제 템플릿이 이미 고른 토큰을 따른다. BPMN 게이트웨이는 `palette.p4`(`BPMNCollaborationDiagram.tsx:97` 선례), UMLSequence 머리 테두리·글자는 `edge.stroke`, 머리 바탕은 `canvas.bg`(파일럿 `atoms/Lifeline.tsx:30·39·40` 와 같은 짝 — 바탕 · 테두리 · 글자. 글자색만 옮기고 바탕을 팔레트로 두면 가이드에 따라 이름이 바탕에 묻힌다 — 검토 항목 4), 메시지 라벨은 `boundary.labelColor`(파일럿 `SequenceDiagram.tsx:193`)다. ArchiMate 계층색은 business→p4 · application→p5 · technology→p6 에 fill-opacity 0.35 를 준다(아래 근거).
 4. **표기에 뜻이 없는 장식 틴트는 기본 도형색으로 합친다.** BPMN 끝 이벤트 `#FFCCBC` 는 협업 다이어그램이 이미 흰색이고 끝 이벤트는 3px 테두리로 구분한다. UML 배치 노드 `#E8EDF4` 도 여기에 든다.
 
 | 템플릿 | 지금 | 바꾼 뒤 |
@@ -34,7 +34,7 @@ visualization 템플릿 13개가 기본 채움·선 색을 리터럴로 넣는�
 | Mindmap:99 | `?? '#111111'` | 지움(규칙 1) |
 | RequirementDiagram:61 | 바깥 사각형 `fill: '#FFFFFF'` | `data-viz-part="shape"`, fill 지움(규칙 1) |
 | ArchiMateDiagram:51-53·129 | 계층 파스텔 셋 · `stroke="#111111"` | 팔레트 35% · stroke 지움(규칙 3·1) |
-| UMLSequenceDiagram:51·61·161 | 머리 `#111111` · 죽은 대체값 `#E8EDF4` · 라벨 `#333333` | `edge.stroke` · 지움 · `boundary.labelColor`(규칙 3) |
+| UMLSequenceDiagram:51·61·161 | 머리 `#111111` · 머리 바탕 `palette.p2` · 죽은 대체값 `#E8EDF4` · 라벨 `#333333` | `edge.stroke` · `canvas.bg`(검토 항목 4) · 지움 · `boundary.labelColor`(규칙 3) |
 
 ### ArchiMate 를 옅게 칠하는 근거
 
@@ -64,17 +64,18 @@ visualization 템플릿 13개가 기본 채움·선 색을 리터럴로 넣는�
 
 ### 바뀌는 모습 (changeset 에 적는다)
 
-기본 가이드(blueprint)에서 눈에 띄게 바뀌는 곳은 다섯이다. 나머지 흰 채움·검정 선은 blueprint 토큰과 값이 같아 그대로다. 다른 가이드에서는 13개 템플릿의 이 부분이 이제 그 가이드 색을 따른다.
+기본 가이드(blueprint)에서 눈에 띄게 바뀌는 곳은 여섯이다. 나머지 흰 채움·검정 선은 blueprint 토큰과 값이 같아 그대로다. 다른 가이드에서는 13개 템플릿의 이 부분이 이제 그 가이드 색을 따른다.
 
 - C4Code·Mindmap·Requirement 연결선: `#555555` → `#111111`(edge.stroke)
 - BPMN 게이트웨이: `#FFF9C4` → `#E7E058`(p4, 협업 다이어그램과 같은 색)
 - BPMN 끝 이벤트: `#FFCCBC` → `#FFFFFF`(3px 테두리는 그대로)
 - UML 배치 노드: `#E8EDF4` → `#FFFFFF`
 - UML 시퀀스 메시지 라벨: `#333333` → `#555555`(boundary.labelColor)
+- UML 시퀀스 참여자 머리 바탕: `#C5B6EE`(p2) → `#F9F8F6`(canvas.bg). 이름 글자와 짝을 맞추려고 재작업에서 바꿨다(검토 항목 4)
 
 ArchiMate 계층 면은 위 표처럼 비슷한 밝기로 남는다.
 
-변경 등급은 patch 로 둔다. props 와 export 는 그대로이고, README 가 한계로 적어 둔 동작을 고치는 것이다. 다만 기본 가이드에서도 다섯 곳 모양이 바뀌므로 검토서 판단 항목에 올린다.
+변경 등급은 patch 로 둔다. props 와 export 는 그대로이고, README 가 한계로 적어 둔 동작을 고치는 것이다. 다만 기본 가이드에서도 여섯 곳 모양이 바뀌므로 검토서 판단 항목에 올린다.
 
 ### 범위 밖
 
@@ -89,10 +90,10 @@ ArchiMate 계층 면은 위 표처럼 비슷한 밝기로 남는다.
 - 새 워크트리에서는 `pnpm install` → `pnpm build` 를 먼저 한다(dist 가 없으면 typecheck 가 TS2307 로 실패한다).
 
 ## 실행 계획
-- [ ] `S1` 테스트 먼저 — `apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx` 를 새로 만든다. blueprint foundation 과 그 색 반전본, 두 가이드에서 같은 데이터를 그려 같은 자리 요소의 불투명 fill·stroke 가 같은 곳을 모은다. fixture 13개(6개는 `_matrixFixtures.tsx` 재사용, 7개는 새로). 나머지 matrix fixture 18개도 한 번 재 보고, 깨끗하면 함께 묶는다. 완료 기준: 새 스토리가 빨강이고, 걸린 자리가 13개 템플릿 모두에서 하나 이상 나온다. 다른 스토리는 초록이다
-- [ ] `S2` 기본값 지우기 — 흰 채움·검정 선·회색 연결선 기본값을 지운다(전략 규칙 1·2·4). 대상: ArchitectureDiagram·BlockDiagram·KanbanBoard·TimelineDiagram·UMLComponentDiagram·UMLDeploymentDiagram·BPMNCollaborationDiagram·C4CodeDiagram·Mindmap·RequirementDiagram, 그리고 BPMNDiagram 의 태스크·이벤트. 완료 기준: `pnpm typecheck` 초록 · 새 스토리에서 걸린 자리가 ArchiMateDiagram·BPMNDiagram 게이트웨이·UMLSequenceDiagram 에만 남는다
-- [ ] `S3` 표기 색 옮기기와 문서 — ArchiMate 계층색(팔레트 35%), BPMNDiagram 게이트웨이(p4), UMLSequenceDiagram 머리·메시지 라벨(전략 규칙 3). README 「알려진 한계」의 13개 항목과 138행의 예외 안내를 고치고, `.changeset/kan-056-template-paint.md`(visualization patch)를 쓴다. 완료 기준: 새 스토리 초록 · 13개 파일에서 불투명 색 리터럴 grep 0건 · README 에 13개 항목이 없다
-- [ ] `S4` 품질 게이트와 검토 준비 — 게이트 5종을 CLAUDE.md 순서대로 돌리고 검토서를 뜬다. 완료 기준: 5종 초록, 검토서 정본이 선다
+- [x] `S1` 테스트 먼저 — `apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx` 를 새로 만든다. blueprint foundation 과 그 색 반전본, 두 가이드에서 같은 데이터를 그려 같은 자리 요소의 불투명 fill·stroke 가 같은 곳을 모은다. fixture 13개(6개는 `_matrixFixtures.tsx` 재사용, 7개는 새로). 나머지 matrix fixture 18개도 한 번 재 보고, 깨끗하면 함께 묶는다. 완료 기준: 새 스토리가 빨강이고, 걸린 자리가 13개 템플릿 모두에서 하나 이상 나온다. 다른 스토리는 초록이다
+- [x] `S2` 기본값 지우기 — 흰 채움·검정 선·회색 연결선 기본값을 지운다(전략 규칙 1·2·4). 대상: ArchitectureDiagram·BlockDiagram·KanbanBoard·TimelineDiagram·UMLComponentDiagram·UMLDeploymentDiagram·BPMNCollaborationDiagram·C4CodeDiagram·Mindmap·RequirementDiagram, 그리고 BPMNDiagram 의 태스크·이벤트. 완료 기준: `pnpm typecheck` 초록 · 새 스토리에서 걸린 자리가 ArchiMateDiagram·BPMNDiagram 게이트웨이·UMLSequenceDiagram 에만 남는다
+- [x] `S3` 표기 색 옮기기와 문서 — ArchiMate 계층색(팔레트 35%), BPMNDiagram 게이트웨이(p4), UMLSequenceDiagram 머리·메시지 라벨(전략 규칙 3). README 「알려진 한계」의 13개 항목과 138행의 예외 안내를 고치고, `.changeset/kan-056-template-paint.md`(visualization patch)를 쓴다. 완료 기준: 새 스토리 초록 · 13개 파일에서 불투명 색 리터럴 grep 0건 · README 에 13개 항목이 없다
+- [x] `S4` 품질 게이트와 검토 준비 — 게이트 5종을 CLAUDE.md 순서대로 돌리고 검토서를 뜬다. 완료 기준: 5종 초록, 검토서 정본이 선다
 
 ## 검증
 ### 게이트 5종 (전부 초록이어야 완료)
@@ -100,7 +101,7 @@ ArchiMate 계층 면은 위 표처럼 비슷한 밝기로 남는다.
 ```bash
 pnpm typecheck
 pnpm build
-pnpm test                       # ← TemplatePaintGate 가 여기서 돈다
+pnpm test                       # ← TemplatePaintGate(리터럴 · 글자 대비 두 스토리)가 여기서 돈다
 pnpm --filter storybook build
 pnpm test:unit
 ```
@@ -118,10 +119,25 @@ pnpm test:unit
 - 리터럴 셈 — 13개 파일에서 `bash -c 'grep -nE "#[0-9a-fA-F]{3,8}\b|rgba?\(" <13개 파일>'` 를 돌리면 `rgba(0,0,0,` 두 줄(KanbanBoard 열 바탕 · RequirementDiagram 머리 띠)만 남는다.
 - ArchiMate 라벨 대비 — 전략의 계산을 바뀐 dist 로 다시 돌려, 30개 가이드 × 계층 3 중 4.5:1 미만이 11칸 이하인지 본다.
 - 기존 교차검증 — `TemplateStyleMatrix` 의 PilotMatrix·ExpandedMatrix 와 `Headless` 가 계속 초록이다.
-- 기본 가이드 모양 — S2 에서 지운 흰 채움·검정 선이 blueprint 토큰과 같은 값인지 `blueprintTechnical.tsx` 로 다시 확인하고, 바뀌는 다섯 곳이 changeset 목록과 같은지 본다.
+- 기본 가이드 모양 — S2 에서 지운 흰 채움·검정 선이 blueprint 토큰과 같은 값인지 `blueprintTechnical.tsx` 로 다시 확인하고, 바뀌는 여섯 곳이 changeset 목록과 같은지 본다.
+- 글자 대비(재작업에서 더함) — `LabelContrastGate` 가 13개 × 카탈로그 가이드 30개의 글자 대비를 재서 `_labelContrastBaseline.ts`(이미 있는 미달)와 견준다. 새 미달 · 0.01 넘게 떨어진 대비 · 이제 통과해 지울 항목이 모두 0이어야 한다. 카드 전 템플릿(a072197)으로 같은 검사를 돌린 값과 견줘, 이 카드가 만든 미달을 검토서에 따로 적는다.
 
 ## 수행 내역
 <!-- KANBAN:LOG append-only — 아래로만 덧붙인다. 위를 고치지 않는다. -->
 - 2026-10-07T18:09 · s:d6ba577d — `전략` 섹션 교체
 - 2026-10-07T18:09 · s:d6ba577d — `실행 계획` 섹션 교체
 - 2026-10-07T18:09 · s:d6ba577d — `검증` 섹션 교체
+- 2026-10-07T19:33 · s:d6ba577d · S1 doing — 착수
+- 2026-10-07T19:37 · s:d6ba577d · S1 done — TemplatePaintGate 스토리 추가. 빨강 82곳이 13개 템플릿 전부에서 나옴. matrix 나머지 18개는 <line> fill 오탐(20건)을 빼면 깨끗해 회귀 가드로 묶음
+- 2026-10-07T19:37 · s:d6ba577d · S2 doing — 착수
+- 2026-10-07T19:37 · s:d6ba577d · S2 done — 11개 파일 23곳 수정(기본값 지움, BPMN 이벤트 원·Requirement 바깥 사각형에 data-viz-part). typecheck 초록, 게이트 잔여는 ArchiMate·BPMN 게이트웨이·UMLSequence 13곳
+- 2026-10-07T19:38 · s:d6ba577d · S3 doing — 착수
+- 2026-10-07T19:39 · s:d6ba577d · S3 done — ArchiMate 팔레트 p4/p5/p6 35%, BPMN 게이트웨이 p4, UMLSequence edge.stroke·boundary.labelColor. 게이트·관련 스토리 7파일 34개 초록, 13개 파일 리터럴은 rgba(0,0,0, 두 줄만 남음. README 알려진 한계 절 삭제·구조 절에 예외 명시, changeset patch
+- 2026-10-07T19:40 · s:d6ba577d · S4 doing — 착수
+- 2026-10-07T19:41 · s:d6ba577d · S4 done — 게이트 5종 초록 — typecheck·build·test(193파일 1273개)·storybook build·test:unit. ArchiMate 대비 재계산 11/90, 13개 파일 리터럴은 rgba(0,0,0, 두 줄만
+- 2026-10-07T19:41 · s:d6ba577d — S1 게이트에서 <line> 요소의 fill(initial 검정)이 오탐으로 걸려 비교에서 뺐다. 선은 안쪽 면이 없어 fill 이 그려지지 않는다
+- 2026-10-08T00:24 · s:d6ba577d — 검토 반려 2건으로 같은 카드 재작업(2026-10-08, 검토자 2차 판정 · 유저가 3·4·5 판정을 검토자에게 위임). 항목 4: UML 시퀀스 참여자 이름 글자색을 edge.stroke 로 바꾼 탓에 머리 바탕(불투명 p2)과 대비가 무너짐(synthwave 는 두 색이 같음) — 30개 가이드 대비를 재서 고친다. 항목 5: README 의 Paint Gate 문장을 게이트에 표본이 있는 템플릿으로 좁힌다. 항목 3 승인에 따라 후속 백로그 카드 둘(불투명 팔레트 면 위 라벨 대비 · SVG 속성 안 var() 브라우저 확인)을 main 에 만든다.
+- 2026-10-08T00:36 · s:d6ba577d — `전략` 섹션 교체
+- 2026-10-08T00:36 · s:d6ba577d — `검증` 섹션 교체
+- 2026-10-08T00:37 · s:d6ba577d — 재작업 done — 항목 4: UMLSequence 머리 바탕 palette.p2 → canvas.bg(파일럿 Lifeline 과 같은 짝). 후보 7개를 30개 가이드로 재서 고름(캔버스 바탕 + edge.stroke 만 미달 0, 최저 5.93). 테스트 먼저: TemplatePaintGate 에 LabelContrastGate(13개 × 가이드 30개 글자 대비, _labelContrastBaseline.ts 와 대조)를 더해 시퀀스 이름 32곳 빨강 → 수정 뒤 초록. 같은 문제 전수: 카드 전 템플릿(a072197)으로 같은 검사를 돌려 견줌 — 미달 356 → 236(→ 수정 뒤 204), 이 카드가 새로 만들거나 더 떨어뜨린 곳은 시퀀스 이름 말고 53곳(Requirement 36 · ArchiMate 8 · Kanban 4 · BPMN 3 · BPMN 협업 2, 최저 2.29). 원인은 원래 있던 반투명 글자·띠와 가이드 shape.fill 쌍이라 기준 목록에 넣고 검토 항목으로 올림. 항목 5: README Paint Gate 문장을 표본이 있는 템플릿으로 좁히고, 글자색 토큰을 바탕 토큰과 짝지어 재라는 규칙을 공통 계약에 더함. changeset 여섯 곳으로. scope 에 기준 목록 파일 추가 → KAN-055 겹침 용인 AI 재기록. 게이트 5종 초록 — typecheck · build · test(193파일 1274개) · storybook build · test:unit
+- 2026-10-08T01:16 · s:d6ba577d — `전략` 섹션 교체

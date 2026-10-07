@@ -47,8 +47,10 @@ interface LifelineProps {
 function Lifeline({ participant, lifelineHeight }: LifelineProps) {
   const { x, width, name, fill, stroke } = participant;
   const cx = x + width / 2;
-  const headFill = fill ?? vvar('palette', 'p2');
-  const headStroke = stroke ?? '#111111';
+  // 머리 바탕은 파일럿 Lifeline 원자와 같은 캔버스 바탕이다. 이름 글자(edge.stroke)는 가이드가
+  // 캔버스 위에서 읽히게 고른 색이라, 팔레트 면 위에 두면 가이드에 따라 바탕에 묻힌다(KAN-056 검토 항목 4).
+  const headFill = fill ?? vvar('canvas', 'bg');
+  const headStroke = stroke ?? vvar('edge', 'stroke');
 
   return (
     <g data-bbangto-viz-lifeline data-bbangto-viz-lifeline-id={participant.id}>
@@ -58,17 +60,15 @@ function Lifeline({ participant, lifelineHeight }: LifelineProps) {
         y={HEAD_Y}
         width={width}
         height={HEAD_HEIGHT}
-        fill={typeof headFill === 'string' ? headFill : '#E8EDF4'}
-        stroke={headStroke}
-        strokeWidth={1.5}
         rx={4}
+        style={{ fill: headFill, stroke: headStroke, strokeWidth: 1.5 }}
       />
       <text
         x={cx}
         y={HEAD_Y + HEAD_HEIGHT / 2 + 5}
         textAnchor="middle"
         fontSize={12}
-        fill={headStroke}
+        style={{ fill: headStroke }}
       >
         {name}
       </text>
@@ -78,9 +78,7 @@ function Lifeline({ participant, lifelineHeight }: LifelineProps) {
         y1={LIFELINE_START_Y}
         x2={cx}
         y2={LIFELINE_START_Y + lifelineHeight}
-        stroke={headStroke}
-        strokeWidth={1.5}
-        strokeDasharray="6 4"
+        style={{ stroke: headStroke, strokeWidth: 1.5, strokeDasharray: '6 4' }}
       />
     </g>
   );
@@ -158,7 +156,7 @@ export function UMLSequenceDiagram({
                 y={y - 4}
                 textAnchor="middle"
                 fontSize={10}
-                fill="#333333"
+                style={{ fill: vvar('boundary', 'labelColor') }}
               >
                 {msg.label}
               </text>

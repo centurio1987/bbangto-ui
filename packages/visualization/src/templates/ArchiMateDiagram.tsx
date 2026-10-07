@@ -5,6 +5,7 @@ import { Node } from '../atoms/Node';
 import { Edge } from '../atoms/Edge';
 import { NodeLabel } from '../atoms/NodeLabel';
 import { Tag } from '../atoms/Tag';
+import { vvar } from '../tokens/contract';
 
 export type ArchiMateLayer = 'business' | 'application' | 'technology';
 
@@ -47,11 +48,14 @@ export interface ArchiMateDiagramProps extends Omit<CanvasProps, 'data' | 'child
   layer: ArchiMateLayer;
 }
 
-const LAYER_FILL: Record<ArchiMateLayer, string> = {
-  business:    '#FFF9C4',
-  application: '#DBEAFE',
-  technology:  '#DCFCE7',
+// 계층 면 색은 팔레트 키로 고르고 옅게 칠한다. 라벨 글자(edge.stroke)가 면 위에 놓이므로
+// 불투명 팔레트면 가이드에 따라 대비가 무너진다 — 35% 면 바탕 위 대비에 가까워진다(KAN-056).
+const LAYER_PALETTE: Record<ArchiMateLayer, string> = {
+  business:    'p4',
+  application: 'p5',
+  technology:  'p6',
 };
+const LAYER_FILL_OPACITY = 0.35;
 
 function relMarkerEnd(kind?: ArchiMateRelKind) {
   switch (kind) {
@@ -103,7 +107,7 @@ export function ArchiMateDiagram({
     return `0 0 ${maxX} ${maxY}`;
   })();
 
-  const layerFill = LAYER_FILL[layer];
+  const layerFill = vvar('palette', LAYER_PALETTE[layer]);
   const tagY = (e: ArchiMateElementSpec) => e.y + e.height - 8;
 
   return (
@@ -126,7 +130,8 @@ export function ArchiMateDiagram({
               height={e.height}
               shape="rect"
               fill={e.fill ?? layerFill}
-              stroke="#111111"
+              // Node 의 style 은 바깥 <g> 에 붙고 fill-opacity 는 도형으로 상속된다. 명시한 fill 은 불투명 그대로
+              style={e.fill ? undefined : { fillOpacity: LAYER_FILL_OPACITY }}
               strokeWidth={1.5}
               data-bbangto-viz-archimate-element
             />

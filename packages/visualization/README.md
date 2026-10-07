@@ -135,8 +135,14 @@ Provider는 기본으로 JetBrains Mono를 Google Fonts에서 불러온다. 글�
 ### 구조
 
 - **geometry 는 컴포넌트에, paint 는 스타일 레이어에.** 컴포넌트는 리터럴 색 대신 시맨틱 data 속성
-  (`data-viz-part="shape"` · `data-bbangto-viz-edge` · `data-bbangto-viz-pattern` …)을 낸다(예외는 아래 「알려진 한계」).
+  (`data-viz-part="shape"` · `data-bbangto-viz-edge` · `data-bbangto-viz-pattern` …)을 낸다.
   `src/provider/contractCss.ts` 의 계약 스타일시트가 그 속성을 `--bbangto-viz-*` 토큰에 묶는다.
+  예외는 면 위에 반투명 검정을 얹는 음영·틴트(`Node` cube 면, `IsoPrism`, `IsometricScene` 바닥 그림자, `Lane`,
+  `KanbanBoard` 열 바탕, `RequirementDiagram` 머리 띠)뿐이다 — 어떤 스타일 가이드 위에서도 같은 명암을 내는 장치라
+  토큰을 따르지 않는다. Storybook `VISUALIZATION/Templates/Paint Gate`
+  (`apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx`)가 이 규약을 검사하지만, 그 파일과
+  `_matrixFixtures.tsx` 에 표본(fixture)이 있는 템플릿만 본다. 표본이 없는 템플릿은 리터럴이 들어와도 걸리지 않으므로,
+  새 템플릿은 표본을 더해야 검사에 든다.
 - **명시한 prop 이 이긴다.** 사용자가 준 `fill`·`stroke` 는 인라인 `style` 로 렌더된다. SVG presentation
   attribute 는 author stylesheet 에 지고 `var()` 도 attribute 안에서는 무효라 쓰지 않는다.
 - **토큰 계층**: `VisualizationFoundation`(tokens 패키지) → `vvar()` 가 만드는 `var(--bbangto-viz-…)` →
@@ -176,6 +182,11 @@ Provider는 기본으로 JetBrains Mono를 Google Fonts에서 불러온다. 글�
   `-band-edge`·`-pattern` …)이고, `data-viz-part="shape"` 는 계약 스타일시트만 쓰는 내부 훅이다.
 - **paint 채널을 늘리지 않는다.** 계약 채널은 `shape`·`edge` 둘이다. 면을 갈라야 하는 유형은
   `vvar('palette', 'pN')` 인라인 fill 과 fill-opacity 상수로, 텍스트 위계는 `vvar('typography', …)` 로 낸다.
+- **글자색 토큰은 그 뒤 면 토큰과 짝지어 대비를 재고 고른다.** 기본 가이드에서 읽힌다고 다른 가이드에서도 읽히지는 않는다.
+  지금 카탈로그 30개에서 `edge.stroke` 는 `canvas.bg` 위에서 모두 4.5:1 이상이지만, 팔레트 면 위에서는 바탕과 같은 색이 되는
+  가이드가 있다(synthwave 의 `palette.p2` 와 `edge.stroke` 는 둘 다 `#28E0F0`). Paint Gate 와 같은 파일의 `LabelContrastGate` 가
+  KAN-056 대상 템플릿 13개를 카탈로그 가이드 전부에서 그려 글자 대비를 재고, 이미 있는 미달은
+  `_labelContrastBaseline.ts` 에 적혀 있다. 그 목록은 줄어들기만 해야 한다.
 - **접근성**: 루트 `Canvas` 는 `role="img"`(`accessible="structured"` 면 `group`)와 `title`(선택 `desc`)을 갖는다.
   값은 항상 텍스트로 함께 적는다 — 그래픽만으로 값을 말하지 않는다. 노드 글리프·아이콘 배지 같은 장식은 `aria-hidden` 이다.
 - **경계 입력**: 빈 데이터는 빈 캔버스다(throw 하지 않는다). 항목 하나도 그린다. `children`·`data` 를 함께 주면 `children` 이다.
@@ -184,16 +195,6 @@ Provider는 기본으로 JetBrains Mono를 Google Fonts에서 불러온다. 글�
 - **테스트는 두 갈래다.** 순수 geometry 는 `src/**/*.test.ts` 의 vitest 단위 테스트로, 컴포넌트 렌더는 Storybook `play()` 로 본다.
   `play()` 에서는 텍스트 bbox·computed width 를 대조하지 않는다(실행마다 흔들린다) — geometry 가 낸 값과
   attribute 정수를 ±1 로 대조한다.
-
-### 알려진 한계
-
-- **템플릿 13개는 기본 채움·선 색을 리터럴로 넣는다** — `ArchitectureDiagram` · `ArchiMateDiagram` · `BlockDiagram` ·
-  `BPMNDiagram` · `BPMNCollaborationDiagram` · `C4CodeDiagram` · `KanbanBoard` · `Mindmap` · `RequirementDiagram` ·
-  `TimelineDiagram` · `UMLComponentDiagram` · `UMLDeploymentDiagram` · `UMLSequenceDiagram`. 이 기본값이 인라인 style 로
-  렌더되므로 스타일 가이드를 바꿔도 그 부분 색은 그대로다. 구 PLAN 「이연」의 「파일럿 외 템플릿 리터럴 paint 제거」가 아직
-  남은 것이다. 센 기준은 불투명한 채움·선 색이다 — 면 위에 반투명 검정을 얹는 음영·틴트(`Node` cube 면, `IsoPrism`,
-  `IsometricScene` 바닥 그림자, `Lane`)는 어떤 스타일 가이드 위에서도 같은 명암을 내는 paint 무관 장치라 세지 않았다
-  (2026-10-06 `src/` 전체에서 hex·rgba·색 이름 검색).
 
 ## 함께 들어 있는 문서
 

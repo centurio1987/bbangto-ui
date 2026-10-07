@@ -109,7 +109,7 @@ export function C4CodeDiagram({
         );
       })}
       {relationships.map((r) => (
-        <Edge key={r.id} from={r.from} to={r.to} markerEnd="triangleOpen" stroke="#555555" strokeWidth={1.5} />
+        <Edge key={r.id} from={r.from} to={r.to} markerEnd="triangleOpen" strokeWidth={1.5} />
       ))}
     </Canvas>
   );

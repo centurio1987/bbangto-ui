@@ -87,8 +87,8 @@ export function BlockDiagram({
             width={n.width}
             height={n.height}
             shape="rect"
-            fill={n.fill ?? '#FFFFFF'}
-            stroke={n.stroke ?? '#111111'}
+            fill={n.fill}
+            stroke={n.stroke}
             strokeWidth={n.strokeWidth ?? 2.5}
           />
           {n.label && (
