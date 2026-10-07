@@ -135,8 +135,12 @@ Provider는 기본으로 JetBrains Mono를 Google Fonts에서 불러온다. 글�
 ### 구조
 
 - **geometry 는 컴포넌트에, paint 는 스타일 레이어에.** 컴포넌트는 리터럴 색 대신 시맨틱 data 속성
-  (`data-viz-part="shape"` · `data-bbangto-viz-edge` · `data-bbangto-viz-pattern` …)을 낸다(예외는 아래 「알려진 한계」).
+  (`data-viz-part="shape"` · `data-bbangto-viz-edge` · `data-bbangto-viz-pattern` …)을 낸다.
   `src/provider/contractCss.ts` 의 계약 스타일시트가 그 속성을 `--bbangto-viz-*` 토큰에 묶는다.
+  예외는 면 위에 반투명 검정을 얹는 음영·틴트(`Node` cube 면, `IsoPrism`, `IsometricScene` 바닥 그림자, `Lane`,
+  `KanbanBoard` 열 바탕, `RequirementDiagram` 머리 띠)뿐이다 — 어떤 스타일 가이드 위에서도 같은 명암을 내는 장치라
+  토큰을 따르지 않는다. 템플릿이 이 밖의 색을 리터럴로 넣으면 Storybook `VISUALIZATION/Templates/Paint Gate`
+  (`apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx`)가 빨강이 된다.
 - **명시한 prop 이 이긴다.** 사용자가 준 `fill`·`stroke` 는 인라인 `style` 로 렌더된다. SVG presentation
   attribute 는 author stylesheet 에 지고 `var()` 도 attribute 안에서는 무효라 쓰지 않는다.
 - **토큰 계층**: `VisualizationFoundation`(tokens 패키지) → `vvar()` 가 만드는 `var(--bbangto-viz-…)` →
@@ -184,16 +188,6 @@ Provider는 기본으로 JetBrains Mono를 Google Fonts에서 불러온다. 글�
 - **테스트는 두 갈래다.** 순수 geometry 는 `src/**/*.test.ts` 의 vitest 단위 테스트로, 컴포넌트 렌더는 Storybook `play()` 로 본다.
   `play()` 에서는 텍스트 bbox·computed width 를 대조하지 않는다(실행마다 흔들린다) — geometry 가 낸 값과
   attribute 정수를 ±1 로 대조한다.
-
-### 알려진 한계
-
-- **템플릿 13개는 기본 채움·선 색을 리터럴로 넣는다** — `ArchitectureDiagram` · `ArchiMateDiagram` · `BlockDiagram` ·
-  `BPMNDiagram` · `BPMNCollaborationDiagram` · `C4CodeDiagram` · `KanbanBoard` · `Mindmap` · `RequirementDiagram` ·
-  `TimelineDiagram` · `UMLComponentDiagram` · `UMLDeploymentDiagram` · `UMLSequenceDiagram`. 이 기본값이 인라인 style 로
-  렌더되므로 스타일 가이드를 바꿔도 그 부분 색은 그대로다. 구 PLAN 「이연」의 「파일럿 외 템플릿 리터럴 paint 제거」가 아직
-  남은 것이다. 센 기준은 불투명한 채움·선 색이다 — 면 위에 반투명 검정을 얹는 음영·틴트(`Node` cube 면, `IsoPrism`,
-  `IsometricScene` 바닥 그림자, `Lane`)는 어떤 스타일 가이드 위에서도 같은 명암을 내는 paint 무관 장치라 세지 않았다
-  (2026-10-06 `src/` 전체에서 hex·rgba·색 이름 검색).
 
 ## 함께 들어 있는 문서
 

@@ -48,7 +48,7 @@ function Lifeline({ participant, lifelineHeight }: LifelineProps) {
   const { x, width, name, fill, stroke } = participant;
   const cx = x + width / 2;
   const headFill = fill ?? vvar('palette', 'p2');
-  const headStroke = stroke ?? '#111111';
+  const headStroke = stroke ?? vvar('edge', 'stroke');
 
   return (
     <g data-bbangto-viz-lifeline data-bbangto-viz-lifeline-id={participant.id}>
@@ -58,17 +58,15 @@ function Lifeline({ participant, lifelineHeight }: LifelineProps) {
         y={HEAD_Y}
         width={width}
         height={HEAD_HEIGHT}
-        fill={typeof headFill === 'string' ? headFill : '#E8EDF4'}
-        stroke={headStroke}
-        strokeWidth={1.5}
         rx={4}
+        style={{ fill: headFill, stroke: headStroke, strokeWidth: 1.5 }}
       />
       <text
         x={cx}
         y={HEAD_Y + HEAD_HEIGHT / 2 + 5}
         textAnchor="middle"
         fontSize={12}
-        fill={headStroke}
+        style={{ fill: headStroke }}
       >
         {name}
       </text>
@@ -78,9 +76,7 @@ function Lifeline({ participant, lifelineHeight }: LifelineProps) {
         y1={LIFELINE_START_Y}
         x2={cx}
         y2={LIFELINE_START_Y + lifelineHeight}
-        stroke={headStroke}
-        strokeWidth={1.5}
-        strokeDasharray="6 4"
+        style={{ stroke: headStroke, strokeWidth: 1.5, strokeDasharray: '6 4' }}
       />
     </g>
   );
@@ -158,7 +154,7 @@ export function UMLSequenceDiagram({
                 y={y - 4}
                 textAnchor="middle"
                 fontSize={10}
-                fill="#333333"
+                style={{ fill: vvar('boundary', 'labelColor') }}
               >
                 {msg.label}
               </text>
