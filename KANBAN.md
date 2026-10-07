@@ -58,15 +58,6 @@
 ## 진행 중
 
 ## 검토
-- `KAN-058-G883EJ` style-guide-catalog Showcase 생성 카피 분할 — Showcase 하나가 51개 몫 카피를 끌고 오는 문제 — 생성:ai · 최종:ai · 갱신:2026-10-07
-  - 짧은 제목: Showcase 카피 분할
-  - 목적: 생성 카피 파일(_showcaseCopy.generated.ts)을 Showcase별로 나눠 Showcase 하나만 가져오면 그 카피만 딸려 오게 한다
-  - 이유: KAN-051 뒤에도 Showcase 하나가 약 101KB이고 그중 76,517B가 Showcase 51개가 함께 쓰는 생성 카피 파일 하나에서 온다
-  - 목표: Showcase 하나를 가져온 번들에 그 Showcase 카피만 들어가고, bundle-budget.json 의 sgc 대표 상한을 새 실측으로 낮춘다
-  - 메모: KAN-051 검토 4항(2026-10-07 승인)에서 나온 후속 · 근거는 KANBAN/cards/KAN-051-5HMYKT.md 「전략」의 범위 밖 절
-  - 실행 문서: KANBAN/cards/KAN-058-G883EJ.md (4/4 · 최근 10-07)
-  - 계획 리포트: KANBAN/reports/KAN-058-G883EJ.report.html
-  - 검토 문서: KANBAN/reviews/KAN-058-G883EJ.review.md (승인 2/2 · 추가 의견 총 2 · 승인)
 
 ## 완료
 - `KAN-020` visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현 — 생성:유저 · 최종:유저 · 갱신:2026-08-14
@@ -466,3 +457,12 @@
     
     이 문제를 해결하기 위한 전략을 수립, 실행 계획 수립, 칸반 카드화 해라.
     ```
+- `KAN-058-G883EJ` style-guide-catalog Showcase 생성 카피 분할 — Showcase 하나가 51개 몫 카피를 끌고 오는 문제 — 생성:ai · 최종:ai · 갱신:2026-10-07
+  - 짧은 제목: Showcase 카피 분할
+  - 목적: 생성 카피 파일(_showcaseCopy.generated.ts)을 Showcase별로 나눠 Showcase 하나만 가져오면 그 카피만 딸려 오게 한다
+  - 이유: KAN-051 뒤에도 Showcase 하나가 약 101KB이고 그중 76,517B가 Showcase 51개가 함께 쓰는 생성 카피 파일 하나에서 온다
+  - 목표: Showcase 하나를 가져온 번들에 그 Showcase 카피만 들어가고, bundle-budget.json 의 sgc 대표 상한을 새 실측으로 낮춘다
+  - 메모: KAN-051 검토 4항(2026-10-07 승인)에서 나온 후속 · 근거는 KANBAN/cards/KAN-051-5HMYKT.md 「전략」의 범위 밖 절
+  - 실행 문서: KANBAN/cards/KAN-058-G883EJ.md (4/4 · 최근 10-07)
+  - 계획 리포트: KANBAN/reports/KAN-058-G883EJ.report.html (낡음)
+  - 검토 문서: KANBAN/reviews/KAN-058-G883EJ.review.md (승인 2/2 · 추가 의견 총 2 · 승인)

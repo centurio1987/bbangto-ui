@@ -1,6 +1,6 @@
 {
   "next_id": 60,
-  "next_seq": 216,
+  "next_seq": 217,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -94,7 +94,7 @@
       "memo_hash": "7fbe9a3e7c8591b4e111b5ddf0800378fefb6ee4"
     },
     "KAN-058-G883EJ": {
-      "col": "review",
+      "col": "done",
       "title": "style-guide-catalog Showcase 생성 카피 분할 — Showcase 하나가 51개 몫 카피를 끌고 오는 문제",
       "verbatim": "",
       "생성": "ai",
@@ -1072,6 +1072,16 @@
   ],
   "recent": [
     {
+      "seq": 216,
+      "t": "2026-10-07T17:53",
+      "a": "ai",
+      "id": "KAN-058-G883EJ",
+      "op": "move",
+      "w": "T1CWJS",
+      "from": "review",
+      "to": "done"
+    },
+    {
       "seq": 215,
       "t": "2026-10-07T16:53",
       "a": "ai",
@@ -1575,16 +1585,6 @@
       "w": "S7030N",
       "with_": "KAN-053-TZ86NN",
       "reason": "전략 재수립 완료"
-    },
-    {
-      "seq": 179,
-      "t": "2026-10-07T13:35",
-      "a": "유저",
-      "id": "KAN-054-M48FNQ",
-      "op": "serialize",
-      "w": "S7030N",
-      "with_": "KAN-053-TZ86NN",
-      "reason": "054가 053이 만든 packages/core/src/a11y/ 훅을 이어 쓴다. 053 훅 API를 보고 전략을 다시 세운다 (2026-10-05 유저 승인 플랜). 2026-10-07 재수립의 scope 확장으로 무효가 된 기록을 다시 건다"
     }
   ],
   "waivers": [
