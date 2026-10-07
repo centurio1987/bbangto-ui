@@ -1,6 +1,7 @@
 # KANBAN 변경 이력
 > 최근 50건. 이보다 오래된 이력은 archive.jsonl 로 압축 보관한다.
 
+- #199 2026-10-07 16:37 · ai · KAN-058-G883EJ 이동 백로그 → 할 일
 - #198 2026-10-07 16:33 · ai · KAN-055-34A57K serialize
 - #197 2026-10-07 16:33 · ai · KAN-055-34A57K serialize
 - #196 2026-10-07 16:10 · ai · KAN-059-62EAKB 생성 "core 키보드 포커스 표시 통일 — :focus-visible 테두리를 모든 상호작용 컴포넌트에" → 백로그
@@ -50,4 +51,3 @@
 - #163 2026-10-06 00:31 · ai · KAN-049-CWBPP6 독립성 겹침 용인 (상대 KAN-052-BYS4JN) — 052는 viz Provider 코드·internal/ExternalFonts와 README 사용법 절만 고친다. 049는 PLAN·visualization-catalog 문서 흡수이고 README에는 새 절(구현 규약)을 더한다. 049 scope에 gateDocs.test.ts를 더해 재기록 — 겹침 내용 불변 (2026-10-06 유저 승인)
 - #162 2026-10-06 00:51 · 유저 · KAN-048-R2KW3G 독립성 겹침 용인 (상대 KAN-051-5HMYKT) — 같은 style-guide-catalog/src/index.ts지만 048은 46행 주석, 051은 77~195행(catalog import·배열·map) 이동이라 줄이 겹치지 않는다. 048 scope에 gateDocs 2파일을 더해 옛 용인이 무효가 된 뒤 2026-10-06 유저 재승인
 - #162 2026-10-06 00:26 · ai · KAN-047-TRYYRC 이동 진행 중 → 검토
-- #162 2026-10-06 16:13 · ai · KAN-052-BYS4JN 이동 검토 → 완료

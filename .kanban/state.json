@@ -1,6 +1,6 @@
 {
   "next_id": 60,
-  "next_seq": 199,
+  "next_seq": 200,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -960,7 +960,7 @@
       ]
     },
     "KAN-058-G883EJ": {
-      "col": "backlog",
+      "col": "todo",
       "title": "style-guide-catalog Showcase 생성 카피 분할 — Showcase 하나가 51개 몫 카피를 끌고 오는 문제",
       "verbatim": "",
       "생성": "ai",
@@ -1004,7 +1004,6 @@
     "KAN-055-34A57K",
     "KAN-056-D3V1MB",
     "KAN-057-CCH3E8",
-    "KAN-058-G883EJ",
     "KAN-059-62EAKB",
     "KAN-054-M48FNQ",
     "KAN-020",
@@ -1059,9 +1058,20 @@
     "KAN-048-R2KW3G",
     "KAN-053-TZ86NN",
     "KAN-050-AJSQAY",
-    "KAN-051-5HMYKT"
+    "KAN-051-5HMYKT",
+    "KAN-058-G883EJ"
   ],
   "recent": [
+    {
+      "seq": 199,
+      "t": "2026-10-07T16:37",
+      "a": "ai",
+      "id": "KAN-058-G883EJ",
+      "op": "move",
+      "w": "S7030N",
+      "from": "backlog",
+      "to": "todo"
+    },
     {
       "seq": 198,
       "t": "2026-10-07T16:33",
@@ -1583,16 +1593,6 @@
       "w": "JG08FN",
       "from": "doing",
       "to": "review"
-    },
-    {
-      "seq": 162,
-      "t": "2026-10-06T16:13",
-      "a": "ai",
-      "id": "KAN-052-BYS4JN",
-      "op": "move",
-      "w": "PP8AJM",
-      "from": "review",
-      "to": "done"
     }
   ],
   "waivers": [

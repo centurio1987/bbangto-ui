@@ -46,12 +46,6 @@
     ```text
     만들어 (앞 답변 「앞서 여쭌 백로그 카드 두 가지(리터럴 색이 남은 템플릿 13개, 읽히지 않는 `edge.dashPattern` 토큰)는 아직 만들지 않았습니다.」에 대한 답)
     ```
-- `KAN-058-G883EJ` style-guide-catalog Showcase 생성 카피 분할 — Showcase 하나가 51개 몫 카피를 끌고 오는 문제 — 생성:ai · 최종:ai · 갱신:2026-10-07
-  - 짧은 제목: Showcase 카피 분할
-  - 목적: 생성 카피 파일(_showcaseCopy.generated.ts)을 Showcase별로 나눠 Showcase 하나만 가져오면 그 카피만 딸려 오게 한다
-  - 이유: KAN-051 뒤에도 Showcase 하나가 약 101KB이고 그중 76,517B가 Showcase 51개가 함께 쓰는 생성 카피 파일 하나에서 온다
-  - 목표: Showcase 하나를 가져온 번들에 그 Showcase 카피만 들어가고, bundle-budget.json 의 sgc 대표 상한을 새 실측으로 낮춘다
-  - 메모: KAN-051 검토 4항(2026-10-07 승인)에서 나온 후속 · 근거는 KANBAN/cards/KAN-051-5HMYKT.md 「전략」의 범위 밖 절
 - `KAN-059-62EAKB` core 키보드 포커스 표시 통일 — :focus-visible 테두리를 모든 상호작용 컴포넌트에 — 생성:ai · 최종:ai · 갱신:2026-10-07
   - 짧은 제목: 포커스 표시 통일
   - 목적: 브라우저 기본 테두리를 끈 core 컴포넌트(components 13개·blocks 1개)에 키보드 포커스일 때만 보이는 테두리를 한 규칙으로 단다
@@ -82,6 +76,12 @@
     
     이 문제를 해결하기 위한 전략을 수립, 실행 계획 수립, 칸반 카드화 해라.
     ```
+- `KAN-058-G883EJ` style-guide-catalog Showcase 생성 카피 분할 — Showcase 하나가 51개 몫 카피를 끌고 오는 문제 — 생성:ai · 최종:ai · 갱신:2026-10-07
+  - 짧은 제목: Showcase 카피 분할
+  - 목적: 생성 카피 파일(_showcaseCopy.generated.ts)을 Showcase별로 나눠 Showcase 하나만 가져오면 그 카피만 딸려 오게 한다
+  - 이유: KAN-051 뒤에도 Showcase 하나가 약 101KB이고 그중 76,517B가 Showcase 51개가 함께 쓰는 생성 카피 파일 하나에서 온다
+  - 목표: Showcase 하나를 가져온 번들에 그 Showcase 카피만 들어가고, bundle-budget.json 의 sgc 대표 상한을 새 실측으로 낮춘다
+  - 메모: KAN-051 검토 4항(2026-10-07 승인)에서 나온 후속 · 근거는 KANBAN/cards/KAN-051-5HMYKT.md 「전략」의 범위 밖 절
 
 ## 진행 중
 
