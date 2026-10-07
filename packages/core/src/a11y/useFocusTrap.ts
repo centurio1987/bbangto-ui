@@ -26,17 +26,17 @@ export function useFocusTrap<T extends HTMLElement>(
       lastFocusedRef.current = document.activeElement;
       // The container may not exist yet: surfaces that animate their mount
       // (useAnimatedMount) render it one update after `active` turns on, and with
-      // real input that update can land after the next frame. Retry for a few
-      // frames instead of trying once. Leave focus alone if something inside
+      // real input that update can land after the next frame. A container that
+      // fades in through a `visibility` transition exists but refuses focus for
+      // the first frame or so. Retry for a few frames until focus is actually
+      // inside instead of trying once. Leave focus alone if something inside
       // already took it (autoFocus).
       let id = 0;
       let frames = 0;
       const moveFocus = () => {
         const container = containerRef.current;
-        if (container) {
-          if (!container.contains(document.activeElement)) container.focus();
-          return;
-        }
+        if (container && !container.contains(document.activeElement)) container.focus();
+        if (container?.contains(document.activeElement)) return;
         if (frames++ < MAX_FOCUS_FRAMES) id = requestAnimationFrame(moveFocus);
       };
       id = requestAnimationFrame(moveFocus);

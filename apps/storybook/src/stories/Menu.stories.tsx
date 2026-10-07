@@ -282,6 +282,8 @@ export const VariantCompact: Story = {
       expect(document.activeElement).toBe(items[0]);
     });
     await userEvent.keyboard('{ArrowDown}');
+    // ↓ 가 실제로 다음 항목으로 포커스를 옮긴다(KAN-054 — 전에는 누르고 확인하지 않았다).
+    await waitFor(() => expect(document.activeElement).toBe(items[1]));
   },
 };
 
@@ -319,6 +321,8 @@ export const VariantBordered: Story = {
       expect(document.activeElement).toBe(items[0]);
     });
     await userEvent.keyboard('{ArrowDown}');
+    // ↓ 가 실제로 다음 항목으로 포커스를 옮긴다(KAN-054 — 전에는 누르고 확인하지 않았다).
+    await waitFor(() => expect(document.activeElement).toBe(items[1]));
   },
 };
 
@@ -357,6 +361,8 @@ export const VariantFloating: Story = {
       expect(document.activeElement).toBe(items[0]);
     });
     await userEvent.keyboard('{ArrowDown}');
+    // ↓ 가 실제로 다음 항목으로 포커스를 옮긴다(KAN-054 — 전에는 누르고 확인하지 않았다).
+    await waitFor(() => expect(document.activeElement).toBe(items[1]));
   },
 };
 
@@ -400,7 +406,9 @@ export const Dock: Story = {
     await waitFor(() => {
       expect(document.activeElement).toBe(items[0]);
     });
-    await userEvent.keyboard('{ArrowDown}');
+    await userEvent.keyboard('{ArrowRight}');
+    // dock 은 가로 배치라 → 가 다음 항목으로 포커스를 옮긴다(KAN-054 — 전에는 ↓ 를 누르고 확인하지 않았다).
+    await waitFor(() => expect(document.activeElement).toBe(items[1]));
   },
 };
 
@@ -446,6 +454,8 @@ export const Segmented: Story = {
       expect(document.activeElement).toBe(items[0]);
     });
     await userEvent.keyboard('{ArrowDown}');
+    // ↓ 가 실제로 다음 항목으로 포커스를 옮긴다(KAN-054 — 전에는 누르고 확인하지 않았다).
+    await waitFor(() => expect(document.activeElement).toBe(items[1]));
   },
 };
 
@@ -489,6 +499,8 @@ export const Glow: Story = {
       expect(document.activeElement).toBe(items[0]);
     });
     await userEvent.keyboard('{ArrowDown}');
+    // ↓ 가 실제로 다음 항목으로 포커스를 옮긴다(KAN-054 — 전에는 누르고 확인하지 않았다).
+    await waitFor(() => expect(document.activeElement).toBe(items[1]));
   },
 };
 
@@ -537,5 +549,131 @@ export const Controlled: Story = {
       const sel = canvasElement.querySelector('[data-testid="controlled-selected"]');
       expect(sel?.textContent).toContain('Option 1');
     });
+  },
+};
+
+// ─── 키보드 (KAN-054) ──────────────────────────────────────────────────────────
+
+/** 단독 Menu: Tab 정지점 하나(roving) · ↑/↓ 순환 · Home/End · 글자 검색 · 비활성 건너뜀 · Enter 실행 */
+export const KeyboardMenu: Story = {
+  render: () => {
+    const [selected, setSelected] = useState<string | null>(null);
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'flex-start' }}>
+        <button type="button">Before</button>
+        <Menu aria-label="Actions">
+          <MenuItem onSelect={() => setSelected('Copy')}>Copy</MenuItem>
+          <MenuItem onSelect={() => setSelected('Cut')}>Cut</MenuItem>
+          <MenuItem disabled>Paste</MenuItem>
+          <MenuItem onSelect={() => setSelected('Rename')}>Rename</MenuItem>
+          <MenuItem onSelect={() => setSelected('Delete')}>Delete</MenuItem>
+        </Menu>
+        <output data-testid="menu-selected">{selected}</output>
+      </div>
+    );
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const before = await canvas.findByRole('button', { name: 'Before' });
+    const items = canvas.getAllByRole('menuitem');
+    const [copy, cut, , rename, del] = items;
+
+    // Tab 정지점은 하나 — Tab 으로 들어오면 첫 항목.
+    await waitFor(() => expect(items.filter((i) => i.tabIndex === 0)).toHaveLength(1));
+    before.focus();
+    await userEvent.tab();
+    await expect(copy).toHaveFocus();
+
+    // ↓ 이동, 비활성(Paste) 건너뜀, 끝에서 처음으로.
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(cut).toHaveFocus();
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(rename).toHaveFocus();
+    await userEvent.keyboard('{End}');
+    await expect(del).toHaveFocus();
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(copy).toHaveFocus();
+    await userEvent.keyboard('{ArrowUp}');
+    await expect(del).toHaveFocus();
+    await userEvent.keyboard('{Home}');
+    await expect(copy).toHaveFocus();
+
+    // 글자 검색 — r 로 시작하는 항목.
+    await userEvent.keyboard('r');
+    await expect(rename).toHaveFocus();
+
+    // 옮긴 자리가 Tab 정지점이 된다 — 나갔다 들어오면 같은 자리.
+    await waitFor(() => expect(rename.tabIndex).toBe(0));
+    await expect(items.filter((i) => i.tabIndex === 0)).toHaveLength(1);
+
+    // Enter 로 실행.
+    await userEvent.keyboard('{Enter}');
+    await expect(canvas.getByTestId('menu-selected')).toHaveTextContent('Rename');
+
+    // Shift+Tab 은 다른 항목이 아니라 메뉴 밖으로 나간다.
+    await userEvent.tab({ shift: true });
+    await expect(before).toHaveFocus();
+  },
+};
+
+/** DropdownMenu: ↑ 로 열면 끝 항목 · Home/End · 글자 검색 · Tab 은 고르지 않고 닫기 · Space 로 열기 · 항목은 Tab 정지점이 아님 */
+export const KeyboardHomeEndTypeahead: Story = {
+  render: () => {
+    const [selected, setSelected] = useState<string | null>(null);
+    return (
+      <div style={{ minHeight: '240px', display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+        <DropdownMenu trigger={<Button>Edit</Button>}>
+          <MenuItem onSelect={() => setSelected('Undo')}>Undo</MenuItem>
+          <MenuItem onSelect={() => setSelected('Redo')}>Redo</MenuItem>
+          <MenuItem onSelect={() => setSelected('Find')}>Find</MenuItem>
+          <MenuItem onSelect={() => setSelected('Replace')}>Replace</MenuItem>
+        </DropdownMenu>
+        <button type="button">After</button>
+        <output data-testid="dd-selected">{selected}</output>
+      </div>
+    );
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = await canvas.findByRole('button', { name: 'Edit' });
+    const items = canvas.getAllByRole('menuitem', { hidden: true });
+    const [undo, redo, , replace] = items;
+
+    // ↑ 로 열면 끝 항목에 포커스.
+    trigger.focus();
+    await userEvent.keyboard('{ArrowUp}');
+    await waitFor(() => expect(replace).toHaveFocus());
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+
+    // Home / End.
+    await userEvent.keyboard('{Home}');
+    await expect(undo).toHaveFocus();
+    await userEvent.keyboard('{End}');
+    await expect(replace).toHaveFocus();
+
+    // 글자 검색 — 다음 r 항목(끝에서 처음으로 돈다), 같은 글자를 거듭 치면 r 항목들을 돈다.
+    await userEvent.keyboard('r');
+    await expect(redo).toHaveFocus();
+    await userEvent.keyboard('r');
+    await expect(replace).toHaveFocus();
+
+    // Tab 은 고르지 않고 닫기만 한다.
+    await userEvent.tab();
+    await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'));
+    await expect(canvas.getByTestId('dd-selected')).toHaveTextContent('');
+
+    // Space 로 열면 첫 항목, Enter 로 고르면 닫히고 트리거로 돌아온다.
+    trigger.focus();
+    await userEvent.keyboard(' ');
+    await waitFor(() => expect(undo).toHaveFocus());
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(redo).toHaveFocus();
+    await userEvent.keyboard('{Enter}');
+    await expect(canvas.getByTestId('dd-selected')).toHaveTextContent('Redo');
+    await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'));
+    await waitFor(() => expect(trigger).toHaveFocus());
+
+    // 항목은 Tab 정지점이 아니다(트리거가 정지점).
+    await expect(items.filter((i) => i.tabIndex === 0).length).toBeLessThanOrEqual(1);
   },
 };

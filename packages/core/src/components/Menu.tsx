@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback, useId } from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
-import { composeHandlers } from '../a11y';
+import { composeHandlers, useRovingFocus, useTypeahead } from '../a11y';
 
 // ─── Menu ────────────────────────────────────────────────────────────────────
 
@@ -35,8 +35,59 @@ export interface MenuProps extends React.HTMLAttributes<HTMLUListElement> {
   variant?: MenuVariant;
 }
 
+const ITEM_SELECTOR = '[role="menuitem"]';
+
+/**
+ * Roving tabindex for menu items (WAI-ARIA APG Menu). The Menu owns which item is
+ * the single Tab stop; a MenuItem reads it here and reports when it takes focus.
+ */
+const MenuContext = React.createContext<{
+  tabStop: string | null;
+  setTabStop: (id: string) => void;
+} | null>(null);
+
 export const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
-  ({ children, style, variant = 'default', className, ...props }, ref) => {
+  ({ children, style, variant = 'default', className, onKeyDown, ...props }, ref) => {
+    const listRef = useRef<HTMLUListElement | null>(null);
+    const setRefs = (node: HTMLUListElement | null) => {
+      listRef.current = node;
+      if (typeof ref === 'function') ref(node);
+      else if (ref) (ref as React.MutableRefObject<HTMLUListElement | null>).current = node;
+    };
+
+    // `dock` lays items out in a row; every other variant stacks them.
+    const orientation = variant === 'dock' ? 'horizontal' : 'vertical';
+    const roving = useRovingFocus({ orientation });
+    const typeahead = useTypeahead();
+
+    // Exactly one enabled item is the Tab stop. Keep it valid as items change
+    // (first render, an item removed or disabled).
+    const [tabStop, setTabStop] = useState<string | null>(null);
+    useEffect(() => {
+      const ids = Array.from(
+        listRef.current?.querySelectorAll<HTMLElement>(`${ITEM_SELECTOR}:not([aria-disabled="true"])`) ?? [],
+      ).map((el) => el.dataset.bbangtoMenuitem);
+      if (tabStop !== null && ids.includes(tabStop)) return;
+      const first = ids[0] ?? null;
+      if (first !== tabStop) setTabStop(first);
+    });
+    const context = React.useMemo(() => ({ tabStop, setTabStop }), [tabStop]);
+
+    // Arrow keys / Home / End move between items (disabled ones are skipped);
+    // a printable character jumps to the next item starting with it. Enter and
+    // Space belong to the item.
+    const handleKeyDown = composeHandlers(onKeyDown, (e: React.KeyboardEvent<HTMLUListElement>) => {
+      const items = Array.from(listRef.current?.querySelectorAll<HTMLElement>(ITEM_SELECTOR) ?? []);
+      const current = items.indexOf(document.activeElement as HTMLElement);
+      if (current < 0) return;
+      const disabled = items.map((item) => item.getAttribute('aria-disabled') === 'true');
+      let next = roving(e, current, disabled);
+      if (next === null && !e.altKey && !e.ctrlKey && !e.metaKey) {
+        next = typeahead(e.key, items.map((item) => item.textContent?.trim() ?? ''), disabled, current);
+        if (next !== null) e.preventDefault();
+      }
+      if (next !== null && next !== current) items[next].focus();
+    });
     // A stable id scopes a `<style>` tag for the variants that have to reach
     // into their child MenuItems (override inline padding/layout or paint a
     // hover/focus chrome that React's inline style prop cannot express).
@@ -155,8 +206,9 @@ export const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
       <>
         {needsScopedStyle && <style>{scopedCss}</style>}
         <ul
-          ref={ref}
+          ref={setRefs}
           role="menu"
+          aria-orientation={orientation}
           data-bbangto-menu-variant={variant}
           className={
             needsScopedStyle
@@ -164,9 +216,10 @@ export const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
               : className
           }
           style={menuStyles}
+          onKeyDown={handleKeyDown}
           {...props}
         >
-          {children}
+          <MenuContext.Provider value={context}>{children}</MenuContext.Provider>
         </ul>
       </>
     );
@@ -205,6 +258,10 @@ export const MenuItem = React.forwardRef<HTMLLIElement, MenuItemProps>(
     ref,
   ) => {
     const [isHovered, setIsHovered] = useState(false);
+    const menu = React.useContext(MenuContext);
+    const itemId = useId();
+    // Inside a Menu only the Menu's chosen item is a Tab stop; arrow keys reach the rest.
+    const tabIndex = menu ? (menu.tabStop === itemId ? 0 : -1) : disabled ? -1 : 0;
 
     const handleClick = () => {
       if (!disabled) {
@@ -246,13 +303,17 @@ export const MenuItem = React.forwardRef<HTMLLIElement, MenuItemProps>(
         ref={ref}
         role="menuitem"
         aria-disabled={disabled || undefined}
-        tabIndex={disabled ? -1 : 0}
+        tabIndex={tabIndex}
+        data-bbangto-menuitem={itemId}
         style={itemStyles}
         onClick={composeHandlers(onClick, handleClick)}
         onKeyDown={composeHandlers(onKeyDown, handleKeyDown)}
         onMouseEnter={composeHandlers(onMouseEnter, () => setIsHovered(true))}
         onMouseLeave={composeHandlers(onMouseLeave, () => setIsHovered(false))}
-        onFocus={composeHandlers(onFocus, () => setIsHovered(true))}
+        onFocus={composeHandlers(onFocus, () => {
+          setIsHovered(true);
+          if (!disabled) menu?.setTabStop(itemId);
+        })}
         onBlur={composeHandlers(onBlur, () => setIsHovered(false))}
         {...props}
       >
@@ -391,10 +452,18 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
     const isControlled = controlledIsOpen !== undefined;
     const isOpen = isControlled ? controlledIsOpen : uncontrolledIsOpen;
 
-    const open = useCallback(() => {
-      if (!isControlled) setUncontrolledIsOpen(true);
-      onOpenChange?.(true);
-    }, [isControlled, onOpenChange]);
+    // Which end of the menu takes focus when it opens: ArrowUp on the trigger
+    // opens onto the last item, everything else onto the first (WAI-ARIA APG Menu Button).
+    const focusOnOpenRef = useRef<'first' | 'last'>('first');
+
+    const open = useCallback(
+      (focus: 'first' | 'last' = 'first') => {
+        focusOnOpenRef.current = focus;
+        if (!isControlled) setUncontrolledIsOpen(true);
+        onOpenChange?.(true);
+      },
+      [isControlled, onOpenChange]
+    );
 
     const close = useCallback(() => {
       if (!isControlled) setUncontrolledIsOpen(false);
@@ -409,12 +478,10 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
       }
     }, [isOpen, open, close]);
 
-    // Enter on the <button> trigger fires keydown AND a synthesized click; the
-    // click re-focuses the button (stealing focus from the menu). So keyboard
-    // navigation does not rely on DOM focus moving into the menu — it tracks an
-    // activeIndex on the trigger and activates the target item via .click().
+    // A keyboard Enter/Space on a <button> trigger may also synthesize a click.
+    // The keydown already opened or closed the menu, so that click must not
+    // toggle it back. The flag only lives until the current task ends.
     const suppressClickRef = useRef(false);
-    const [activeIndex, setActiveIndex] = useState(-1);
 
     const getMenuItems = useCallback(
       () =>
@@ -443,91 +510,75 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
       return () => document.removeEventListener('mousedown', handleClickOutside);
     }, [isOpen, close]);
 
-    // Focus first item when menu opens
+    // Move focus into the menu when it opens. The panel fades in through a
+    // `visibility` transition, so right after opening it can still be hidden and
+    // refuse focus; retry for a few frames until the item actually has it.
     useEffect(() => {
-      if (isOpen && menuRef.current) {
-        const firstItem = menuRef.current.querySelector<HTMLElement>(
-          '[role="menuitem"]:not([aria-disabled="true"])'
-        );
-        firstItem?.focus();
-      }
-    }, [isOpen]);
+      if (!isOpen) return undefined;
+      let id = 0;
+      let frames = 0;
+      const moveFocus = () => {
+        const items = getMenuItems();
+        const target = focusOnOpenRef.current === 'last' ? items[items.length - 1] : items[0];
+        if (!target) return;
+        target.focus();
+        if (document.activeElement !== target && frames++ < 10) id = requestAnimationFrame(moveFocus);
+      };
+      moveFocus();
+      return () => cancelAnimationFrame(id);
+    }, [isOpen, getMenuItems]);
 
-    // Keyboard navigation on the menu
+    const isEnabledItem = (target: EventTarget) => {
+      const item = (target as HTMLElement).closest?.('[role="menuitem"]');
+      return !!item && item.getAttribute('aria-disabled') !== 'true';
+    };
+
+    const closeToTrigger = useCallback(() => {
+      close();
+      triggerRef.current?.focus();
+    }, [close]);
+
+    // Keys inside the open menu. Arrow keys / Home / End / typeahead are the
+    // Menu's own; here: Esc closes back to the trigger, Tab closes without
+    // choosing, and choosing an item (Enter/Space, handled by the item) closes.
     const handleMenuKeyDown = useCallback(
       (e: React.KeyboardEvent<HTMLUListElement>) => {
-        if (!menuRef.current) return;
-
-        const items = Array.from(
-          menuRef.current.querySelectorAll<HTMLElement>(
-            '[role="menuitem"]:not([aria-disabled="true"])'
-          )
-        );
-        const currentIndex = items.indexOf(document.activeElement as HTMLElement);
-
-        if (e.key === 'ArrowDown') {
+        if (e.key === 'Escape') {
           e.preventDefault();
-          const next = currentIndex < items.length - 1 ? currentIndex + 1 : 0;
-          items[next]?.focus();
-        } else if (e.key === 'ArrowUp') {
-          e.preventDefault();
-          const prev = currentIndex > 0 ? currentIndex - 1 : items.length - 1;
-          items[prev]?.focus();
-        } else if (e.key === 'Escape') {
-          e.preventDefault();
-          close();
-          // Return focus to trigger
-          triggerRef.current?.focus();
+          closeToTrigger();
         } else if (e.key === 'Tab') {
           close();
+        } else if ((e.key === 'Enter' || e.key === ' ') && isEnabledItem(e.target)) {
+          closeToTrigger();
         }
       },
-      [close]
+      [close, closeToTrigger]
     );
 
-    // Keyboard on trigger (focus stays on the trigger button — see note above).
+    const handleMenuClick = (e: React.MouseEvent<HTMLUListElement>) => {
+      if (isEnabledItem(e.target)) closeToTrigger();
+    };
+
+    // Keys on the trigger: Enter / Space / ArrowDown open onto the first item,
+    // ArrowUp onto the last. Enter / Space on an open menu close it.
     const handleTriggerKeyDown = useCallback(
       (e: React.KeyboardEvent<HTMLElement>) => {
-        if (e.key === 'Enter' || e.key === ' ') {
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown' || e.key === 'ArrowUp') {
           e.preventDefault();
-          suppressClickRef.current = true; // neutralize the synthesized click's toggle
-          if (!isOpen) {
-            open();
-            setActiveIndex(0);
-          } else {
-            const items = getMenuItems();
-            const target = activeIndex >= 0 ? items[activeIndex] : items[0];
-            if (target) {
-              target.click();
-              close();
-              setActiveIndex(-1);
-            }
-          }
-        } else if (e.key === 'ArrowDown') {
-          e.preventDefault();
-          if (!isOpen) {
-            open();
-            setActiveIndex(0);
-          } else {
-            setActiveIndex((i) => {
-              const count = getMenuItems().length;
-              return count === 0 ? -1 : Math.min(i + 1, count - 1);
+          if (e.key === 'Enter' || e.key === ' ') {
+            suppressClickRef.current = true;
+            setTimeout(() => {
+              suppressClickRef.current = false;
             });
           }
-        } else if (e.key === 'ArrowUp') {
+          if (!isOpen) open(e.key === 'ArrowUp' ? 'last' : 'first');
+          else if (e.key === 'Enter' || e.key === ' ') close();
+        } else if (e.key === 'Escape' && isOpen) {
           e.preventDefault();
-          if (isOpen) {
-            setActiveIndex((i) => Math.max(i - 1, 0));
-          }
-        } else if (e.key === 'Escape') {
-          if (isOpen) {
-            e.preventDefault();
-            close();
-            setActiveIndex(-1);
-          }
+          close();
         }
       },
-      [isOpen, open, close, getMenuItems, activeIndex]
+      [isOpen, open, close]
     );
 
     // Positioning of the menu panel
@@ -580,10 +631,12 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
       visibility: isOpen ? 'visible' : 'hidden',
       transform: isOpen ? 'scale(1)' : 'scale(0.95)',
       transformOrigin: position === 'top' ? 'bottom left' : position === 'bottom' ? 'top left' : 'top left',
+      // Visibility flips at once on open (so focus can move into the menu right
+      // away) and only after the fade on close.
       transition: [
         `opacity ${cssVar('motion', 'duration', 'fast')} ${cssVar('motion', 'easing', 'out')}`,
         `transform ${cssVar('motion', 'duration', 'fast')} ${cssVar('motion', 'easing', 'out')}`,
-        `visibility ${cssVar('motion', 'duration', 'fast')}`,
+        isOpen ? 'visibility 0s' : `visibility 0s linear ${cssVar('motion', 'duration', 'fast')}`,
       ].join(', '),
     };
 
@@ -616,6 +669,7 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
             id={menuId}
             aria-labelledby={triggerId}
             onKeyDown={handleMenuKeyDown}
+            onClick={handleMenuClick}
             style={{ margin: 0, border: 'none', boxShadow: 'none', borderRadius: cssVar('radius', 'md') }}
           >
             {children}

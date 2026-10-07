@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
+import { useFocusTrap } from '../a11y';
 
 export type PopoverSize = 'sm' | 'md' | 'lg';
 /**
@@ -117,10 +118,10 @@ export const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(
       return () => document.removeEventListener('keydown', handleKeyDown);
     }, [isOpen, isControlled, onOpenChange]);
 
-    // a11y contract: move focus into the panel when it opens.
-    useEffect(() => {
-      if (isOpen) panelRef.current?.focus();
-    }, [isOpen]);
+    // a11y contract: move focus into the panel when it opens and back to where it
+    // was (the trigger) when it closes. The panel is non-modal, so the Tab trap
+    // handler useFocusTrap returns is deliberately not attached.
+    useFocusTrap(panelRef, isOpen);
 
     const containerStyle: React.CSSProperties = {
       position: 'relative',
@@ -339,14 +340,13 @@ export const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(
 
     return (
       <div ref={setRefs} style={containerStyle} {...props}>
-        <div
-          onClick={handleOpenToggle}
-          style={{ display: 'inline-block' }}
-          aria-haspopup="dialog"
-          aria-expanded={isOpen}
-          aria-controls={dialogId}
-        >
-          {children}
+        <div onClick={handleOpenToggle} style={{ display: 'inline-block' }}>
+          {/* The popup state belongs on the element that is focused and pressed. */}
+          {React.cloneElement(children as React.ReactElement<React.AriaAttributes>, {
+            'aria-haspopup': 'dialog',
+            'aria-expanded': isOpen,
+            'aria-controls': dialogId,
+          })}
         </div>
         <div
           ref={panelRef}
