@@ -51,7 +51,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
       padding = 'md',
       bordered = true,
       variant = 'elevated',
-      interactive = false,
+      interactive: interactiveProp,
       status = 'none',
       layout = 'vertical',
       media,
@@ -64,6 +64,9 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
     },
     ref
   ) => {
+    // A card with onClick is clickable, so it is interactive (keyboard-operable)
+    // unless the caller explicitly opts out with interactive={false}.
+    const interactive = interactiveProp ?? onClick !== undefined;
     const paddingMap: Record<NonNullable<CardProps['padding']>, string> = {
       none: '0',
       sm: cssVar('spacing', '12'),

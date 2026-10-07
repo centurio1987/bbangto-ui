@@ -105,6 +105,13 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
       );
     }
 
+    // Page items are not native buttons, so they need the button keys themselves.
+    const activateOnKey = (e: React.KeyboardEvent, page: number) => {
+      if (disabled || (e.key !== 'Enter' && e.key !== ' ')) return;
+      e.preventDefault();
+      onPageChange?.(page);
+    };
+
     // ── dot variant ──────────────────────────────────────────────────────────
     if (variant === 'dot') {
       const dotSize = size === 'sm' ? '6px' : size === 'lg' ? '10px' : '8px';
@@ -127,7 +134,13 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
                   cursor: disabled ? 'not-allowed' : 'pointer',
                   opacity: disabled ? 0.5 : 1,
                 }}
+                role="button"
+                aria-label={`Page ${idx + 1}`}
+                aria-current={isActive ? 'page' : undefined}
+                aria-disabled={disabled || undefined}
+                tabIndex={disabled ? -1 : 0}
                 onClick={() => !disabled && onPageChange?.(idx + 1)}
+                onKeyDown={(e) => activateOnKey(e, idx + 1)}
               />
             );
           })}
@@ -373,6 +386,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
             key={page}
             style={pageBtnStyle(page === currentPage)}
             onClick={() => !disabled && onPageChange?.(page)}
+            onKeyDown={(e) => activateOnKey(e, page)}
             role="button"
             aria-current={page === currentPage ? 'page' : undefined}
             aria-disabled={disabled}

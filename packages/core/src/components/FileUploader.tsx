@@ -405,8 +405,11 @@ export const FileUploader = React.forwardRef<HTMLDivElement, FileUploaderProps>(
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
+          role="button"
+          tabIndex={isInteractionDisabled ? -1 : 0}
+          aria-disabled={isInteractionDisabled || undefined}
           onClick={composeHandlers(onClick, handleZoneClick)}
-          onKeyDown={onKeyDown}
+          onKeyDown={composeHandlers(onKeyDown, handleZoneKeyDown)}
           {...props}
         >
           {hiddenInput}
