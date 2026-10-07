@@ -71,7 +71,30 @@
       "goal": "모든 foundation·style guide 색 스킴에서 border.focus 가 background.base·elevated 와 3:1 이상이고, 어기면 test:unit 이 빨강이 된다",
       "goal_hash": "ce40fef2b2f3e0ef1295d3ed4d85161f3fb80c28",
       "memo": "KAN-059 착수 전 계획에서 발견(2026-10-07 main dist 를 tokens contrastRatio 로 계산). 그라디언트 배경 style guide 는 아직 못 쟀다 · 테두리는 border.focus 를 실행 때 읽으므로 토큰만 고치면 KAN-059 결과에 그대로 반영된다",
-      "memo_hash": "28769527373e45fa350b73cbf5d3496509be33e3"
+      "memo_hash": "28769527373e45fa350b73cbf5d3496509be33e3",
+      "scope": [
+        "packages/tokens/src/contrast.ts",
+        "packages/tokens/src/index.ts",
+        "packages/foundations/src/themes/**",
+        "packages/foundations/src/focusContrast.test.ts",
+        "packages/style-guide-catalog/src/accessibilityAudit.ts",
+        "packages/style-guide-catalog/src/accessibility.test.ts",
+        "packages/style-guide-catalog/src/index.ts",
+        "packages/style-guide-catalog/src/neobrutalismEditorial.tsx",
+        "packages/style-guide-catalog/src/skeuomorphismTactile.tsx",
+        "packages/style-guide-catalog/src/kawaiiPastel.tsx",
+        "packages/style-guide-catalog/src/tactileTexture.tsx",
+        "packages/style-guide-catalog/src/halftoneDotPrint.tsx",
+        "packages/style-guide-catalog/src/punkGrungeGraffiti.tsx",
+        "packages/style-guide-catalog/src/aiSurrealGradient3d.tsx",
+        "packages/style-guide-catalog/src/pixelArtRetro.tsx",
+        "packages/style-guide-catalog/src/iridescentChrome.tsx",
+        "apps/storybook/src/real-input/FocusVisible.realinput.test.tsx",
+        "apps/storybook/src/real-input/mount.tsx",
+        "apps/storybook/src/stories/_catalogStory.tsx",
+        "README.md",
+        ".changeset/kan-060-*.md"
+      ]
     },
     "KAN-061-K8V2HH": {
       "col": "backlog",
@@ -1140,6 +1163,7 @@
     "KAN-061-K8V2HH",
     "KAN-062-E02CMT",
     "KAN-063-Q85EET",
+    "KAN-060-G9YKG6",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1196,8 +1220,7 @@
     "KAN-054-M48FNQ",
     "KAN-058-G883EJ",
     "KAN-059-62EAKB",
-    "KAN-056-D3V1MB",
-    "KAN-060-G9YKG6"
+    "KAN-056-D3V1MB"
   ],
   "recent": [
     {
