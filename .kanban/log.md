@@ -1,6 +1,7 @@
 # KANBAN 변경 이력
 > 최근 50건. 이보다 오래된 이력은 archive.jsonl 로 압축 보관한다.
 
+- #196 2026-10-07 16:10 · ai · KAN-059-62EAKB 생성 "core 키보드 포커스 표시 통일 — :focus-visible 테두리를 모든 상호작용 컴포넌트에" → 백로그
 - #195 2026-10-07 15:33 · ai · KAN-058-G883EJ 생성 "style-guide-catalog Showcase 생성 카피 분할 — Showcase 하나가 51개 몫 카피를 끌고 오는 문제" → 백로그
 - #194 2026-10-07 15:31 · ai · KAN-055-34A57K serialize
 - #193 2026-10-07 15:29 · ai · KAN-050-AJSQAY 이동 검토 → 완료
@@ -50,4 +51,3 @@
 - #162 2026-10-06 16:13 · ai · KAN-052-BYS4JN 이동 검토 → 완료
 - #162 2026-10-06 00:31 · ai · KAN-049-CWBPP6 독립성 겹침 용인 (상대 KAN-051-5HMYKT) — 049는 packages/visualization/**를 잡았지만 md 문서만 고친다. 051은 packages/visualization/tsup.config.ts만 고친다. 049 scope에 gateDocs.test.ts를 더해 재기록 — 겹침 내용 불변 (2026-10-06 유저 승인)
 - #161 2026-10-06 00:23 · ai · KAN-048-R2KW3G 수정 목표
-- #161 2026-10-06 00:22 · 유저 · KAN-047-TRYYRC 독립성 겹침 용인 (상대 KAN-049-CWBPP6) — 같은 파일(visualization-type-inventory.md)을 둘 다 고친다. A 는 :376 의 「ORDER.md 편집 금지」 조각, C 는 :12,13,14,29,30,343,369 의 SSOT 링크와 아마 :376 의 「catalog §4」 — 같은 줄이 겹칠 수 있다. 그래도 순서가 뒤집혀도 상대가 할 일이 그대로 남아 직렬은 불필요하고, C 는 착수 전이라 A 병합 뒤 출발하면 충돌이 없다. 2026-10-06 재확인: A 의 scope 에 gateDocs.test.ts 가 더해져 옛 용인이 무효가 된 것(겹침 내용은 불변). 유저 판단

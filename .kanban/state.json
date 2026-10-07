@@ -1,6 +1,6 @@
 {
-  "next_id": 59,
-  "next_seq": 196,
+  "next_id": 60,
+  "next_seq": 197,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -978,6 +978,26 @@
       "goal_hash": "71c5299de384df365a2fd7e75ae55fb406e86a88",
       "memo": "KAN-051 검토 4항(2026-10-07 승인)에서 나온 후속 · 근거는 KANBAN/cards/KAN-051-5HMYKT.md 「전략」의 범위 밖 절",
       "memo_hash": "dc58b3eff9274c7e083fe599351503fbdc62e3cb"
+    },
+    "KAN-059-62EAKB": {
+      "col": "backlog",
+      "title": "core 키보드 포커스 표시 통일 — :focus-visible 테두리를 모든 상호작용 컴포넌트에",
+      "verbatim": "",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-07",
+      "title_hash": "454b3b33551d3f0d5acc09ab739be73be2e07e7a",
+      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+      "short": "포커스 표시 통일",
+      "short_hash": "0ff5276bbdc388d471b7034a25e54bb8750c86c8",
+      "purpose": "브라우저 기본 테두리를 끈 core 컴포넌트(components 13개·blocks 1개)에 키보드 포커스일 때만 보이는 테두리를 한 규칙으로 단다",
+      "purpose_hash": "c387c9c1304e77daa3b48e200693742f9ea14fda",
+      "reason": "Button 등은 키보드로 포커스해도 화면에 아무 표시가 없어 키보드 사용자가 자기 위치를 모른다(KAN-054 검토 §3-6)",
+      "reason_hash": "cf245a9e3be93e9dd00fb5a011775faca68b688f",
+      "goal": "키보드로 닿는 core 컴포넌트마다 포커스 표시가 보이고, 빠지면 테스트가 빨강이 된다",
+      "goal_hash": "6e7f8f50d9bb950ccaaaa2dbf7768e17e0bbaac3",
+      "memo": "KAN-054 검토 §3-6(2026-10-07 유저가 추천대로 재작업 선택)에서 나온 후속 · KAN-054는 Card·Calendar 날짜 칸·DatePicker 트리거 셋만 a11y/focusRing.ts 로 고쳤다 — 이 카드가 나머지를 같은 규칙으로",
+      "memo_hash": "7fbe9a3e7c8591b4e111b5ddf0800378fefb6ee4"
     }
   },
   "order": [
@@ -1038,9 +1058,27 @@
     "KAN-048-R2KW3G",
     "KAN-053-TZ86NN",
     "KAN-050-AJSQAY",
-    "KAN-051-5HMYKT"
+    "KAN-051-5HMYKT",
+    "KAN-059-62EAKB"
   ],
   "recent": [
+    {
+      "seq": 196,
+      "t": "2026-10-07T16:10",
+      "a": "ai",
+      "id": "KAN-059-62EAKB",
+      "op": "create",
+      "w": "S7030N",
+      "col": "backlog",
+      "title": "core 키보드 포커스 표시 통일 — :focus-visible 테두리를 모든 상호작용 컴포넌트에",
+      "verbatim": "",
+      "parent": null,
+      "short": "포커스 표시 통일",
+      "purpose": "브라우저 기본 테두리를 끈 core 컴포넌트(components 13개·blocks 1개)에 키보드 포커스일 때만 보이는 테두리를 한 규칙으로 단다",
+      "reason": "Button 등은 키보드로 포커스해도 화면에 아무 표시가 없어 키보드 사용자가 자기 위치를 모른다(KAN-054 검토 §3-6)",
+      "goal": "키보드로 닿는 core 컴포넌트마다 포커스 표시가 보이고, 빠지면 테스트가 빨강이 된다",
+      "memo": "KAN-054 검토 §3-6(2026-10-07 유저가 추천대로 재작업 선택)에서 나온 후속 · KAN-054는 Card·Calendar 날짜 칸·DatePicker 트리거 셋만 a11y/focusRing.ts 로 고쳤다 — 이 카드가 나머지를 같은 규칙으로"
+    },
     {
       "seq": 195,
       "t": "2026-10-07T15:33",
@@ -1556,16 +1594,6 @@
       "field": "goal",
       "before": "core 문서가 47건 줄고 COMPONENT_CATALOG 의 실측 결함 2건이 함께 고쳐진다",
       "after": "md 47개가 사라지고 1개가 생겨 46개가 줄고, COMPONENT_CATALOG 의 실측 결함 2건이 함께 고쳐진다"
-    },
-    {
-      "seq": 161,
-      "t": "2026-10-06T00:22",
-      "a": "유저",
-      "id": "KAN-047-TRYYRC",
-      "op": "waive",
-      "w": "JG08FN",
-      "with_": "KAN-049-CWBPP6",
-      "reason": "같은 파일(visualization-type-inventory.md)을 둘 다 고친다. A 는 :376 의 「ORDER.md 편집 금지」 조각, C 는 :12,13,14,29,30,343,369 의 SSOT 링크와 아마 :376 의 「catalog §4」 — 같은 줄이 겹칠 수 있다. 그래도 순서가 뒤집혀도 상대가 할 일이 그대로 남아 직렬은 불필요하고, C 는 착수 전이라 A 병합 뒤 출발하면 충돌이 없다. 2026-10-06 재확인: A 의 scope 에 gateDocs.test.ts 가 더해져 옛 용인이 무효가 된 것(겹침 내용은 불변). 유저 판단"
     }
   ],
   "waivers": [
