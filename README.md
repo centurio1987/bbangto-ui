@@ -688,7 +688,7 @@ pnpm add @centurio1987/bbangto-ui-core @centurio1987/bbangto-ui-style-guide-cata
 
    나머지 선택 자리는 `wrapperBlocks`(Hero 같은 섹션 단위)와 `wrapperPatterns`(SignIn 같은 화면 단위)입니다. 각각 `useWrapperBlock`·`useWrapperPattern`이 읽습니다.
 
-   `makeShowcase`의 세 번째 인자는 표시용 이름이자 `SHOWCASE_COPY_EXT` 조회 키입니다. 등록되지 않은 이름을 주면 확장 카피가 비어 기본값으로 렌더돼요. 섹션 제목이 '구성 요소'로, 연락처가 `hello [at] example.invalid`로 나옵니다. 빌드는 초록입니다. 화면만 밋밋해지므로 눈으로 열어 보기 전에는 알 방법이 없어요.
+   `makeShowcase`의 세 번째 인자는 표시용 이름(컴포넌트 `displayName`)입니다. 메뉴 제목·철학 카드·연락처·푸터 같은 확장 카피는 네 번째 인자로 넘기거나 `copy`에 직접 넣어요(`ShowcaseCopy`가 그 필드를 선택으로 받습니다). 둘 다 없으면 확장 카피가 비어 기본값으로 렌더돼요. 섹션 제목이 '구성 요소'로, 연락처가 `hello [at] example.invalid`로 나옵니다. 빌드는 초록입니다. 화면만 밋밋해지므로 눈으로 열어 보기 전에는 알 방법이 없어요. 카탈로그 preset의 이름을 넘겨도 그 preset의 카피는 붙지 않습니다. 카탈로그 카피는 `src/_showcaseCopy/`에 preset마다 한 파일씩 있고, 각 preset이 자기 몫을 네 번째 인자로 직접 넘겨요.
 
    기존 preset의 Showcase를 참조할 일이 있으면 이름을 유추하지 마세요. 축약형이라 규칙이 없습니다. `maximalismDopamineStyleGuide`의 짝은 `MaxShowcase`이고 `frutigerAeroGlossyStyleGuide`의 짝은 `AeroShowcase`입니다. `packages/style-guide-catalog/src/index.ts`에서 실제 이름을 확인하고 쓰세요.
 

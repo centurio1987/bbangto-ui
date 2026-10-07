@@ -9,9 +9,10 @@ import type { WrapperComponents } from '@centurio1987/bbangto-ui-core';
  * 레이아웃·간격은 표준 semantic/typography/radius CSS 변수로만 그리므로, 실제 모티프(블러·네온·
  * 이중그림자 등)는 전달된 wrapper 컴포넌트(Button/Card/Tag)의 주입 CSS로 드러난다.
  *
- * 템플릿 구조는 결정론적으로 고정하고, 각 가이드의 정체성 텍스트는 `copy` + displayName 키의
- * `SHOWCASE_COPY_EXT`(결정론적 데이터 레지스트리)를 병합해 채운다. 신규 확장 필드는 전부 optional +
- * 기본값이라 데이터 조립 전에도 풀 템플릿이 렌더된다(빌드 초록 유지).
+ * 템플릿 구조는 결정론적으로 고정하고, 각 가이드의 정체성 텍스트는 `copy` + 4번째 인자 `ext`(확장 카피)를
+ * 병합해 채운다. 카탈로그 preset 은 `_showcaseCopy/<preset>.ts` 의 자기 몫만 넘긴다 — 51개 몫을 모은
+ * `SHOWCASE_COPY_EXT` 를 여기서 import 하면 Showcase 하나가 전부를 번들에 끌고 온다(KAN-058).
+ * 확장 필드는 전부 optional + 기본값이라 `ext` 가 없어도 풀 템플릿이 렌더된다.
  *
  * 콘텐츠는 전부 가상(fictional) placeholder다 — 개인/연락처/실제 제품명을 쓰지 않는다.
  * 표준 tone 키: 'accent' | 'muted' | 'solid' (모든 preset의 TagConfig가 제공).
@@ -74,7 +75,7 @@ export interface ShowcaseCopy {
   scrollLabel?: string;
 }
 
-/** `SHOWCASE_COPY_EXT` 레지스트리에 담는 확장 전용 부분집합(기존 필수 8필드는 카탈로그 소스에 유지). */
+/** `makeShowcase` 4번째 인자로 넘기는 확장 전용 부분집합(기존 필수 8필드는 카탈로그 소스에 유지). */
 export type ShowcaseCopyExt = Partial<
   Pick<
     ShowcaseCopy,
