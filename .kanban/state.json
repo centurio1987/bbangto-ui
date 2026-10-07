@@ -1,6 +1,6 @@
 {
   "next_id": 60,
-  "next_seq": 217,
+  "next_seq": 218,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -74,7 +74,7 @@
       "memo_hash": "fa79f4c6a72cc3d419b51e557a4bd9ae366539b9"
     },
     "KAN-059-62EAKB": {
-      "col": "backlog",
+      "col": "todo",
       "title": "core 키보드 포커스 표시 통일 — :focus-visible 테두리를 모든 상호작용 컴포넌트에",
       "verbatim": "",
       "생성": "ai",
@@ -1013,7 +1013,6 @@
     "KAN-055-34A57K",
     "KAN-056-D3V1MB",
     "KAN-057-CCH3E8",
-    "KAN-059-62EAKB",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1068,9 +1067,20 @@
     "KAN-050-AJSQAY",
     "KAN-051-5HMYKT",
     "KAN-054-M48FNQ",
-    "KAN-058-G883EJ"
+    "KAN-058-G883EJ",
+    "KAN-059-62EAKB"
   ],
   "recent": [
+    {
+      "seq": 217,
+      "t": "2026-10-07T18:03",
+      "a": "ai",
+      "id": "KAN-059-62EAKB",
+      "op": "move",
+      "w": "S7030N",
+      "from": "backlog",
+      "to": "todo"
+    },
     {
       "seq": 216,
       "t": "2026-10-07T17:53",
@@ -1575,16 +1585,6 @@
       "w": "S7030N",
       "with_": "KAN-051-5HMYKT",
       "reason": "같은 CLAUDE.md지만 050은 게이트 명령 4종을 손대지 않고 구조도·경로만 고친다고 적었다. 051은 test:unit 설명 두 줄(39, 103행)만 고친다 (2026-10-05 유저 승인 플랜). 2026-10-07 KAN-050 재수립의 scope 확장(COMPONENT_CATALOG·Overview.mdx·types.ts — 051 scope 와 안 겹침)으로 무효가 된 기록을 겹침 그대로 다시 건다"
-    },
-    {
-      "seq": 180,
-      "t": "2026-10-07T13:35",
-      "a": "유저",
-      "id": "KAN-054-M48FNQ",
-      "op": "serialize",
-      "w": "S7030N",
-      "with_": "KAN-053-TZ86NN",
-      "reason": "전략 재수립 완료"
     }
   ],
   "waivers": [
