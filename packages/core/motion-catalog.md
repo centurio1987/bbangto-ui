@@ -25,8 +25,8 @@ or `skipped` with a reason.** The big category counts in §4c are *context*
 (how many source variations exist), **not a to-do list**.
 
 > This file lives at the package root (outside `src/`) on purpose: the package's
-> `files` field is `["dist"]` and tsup's entry is `src/index.ts`, so this doc is
-> **never published to npm nor included in the bundle**.
+> `files` field is `["dist", "README.md"]` and every build entry lives under `src/`,
+> so this doc is **never published to npm nor included in the bundle**.
 
 ---
 
@@ -206,20 +206,13 @@ gate** workflow — never implement before the item's test + checklist exist.
 3. **Verify license** for the chosen 21st.dev item. Default `inspired-by`
    (re-implement from scratch, zero-dependency). Only `ported` with a recorded
    Source URL + License.
-4. **Write the test first**: add a `play` function to the item's Storybook story
-   asserting its contract (render / token-driven / global injection / a11y /
-   reduced-motion). Templates live in `Motion.stories.tsx`. It is red until you
-   implement — expected.
-5. **Instantiate the checklist** from `MOTION_QUALITY_CHECKLIST.md` for the item.
-6. **Implement** following the README conventions (token params → keyframe in
-   `keyframes.ts` if new → atom in `src/motion/*.tsx` → export → finish story).
-7. **Run the quality gate** — all must be green:
-   `pnpm typecheck && pnpm build && pnpm test && pnpm --filter storybook build && pnpm test:unit`.
-   (`pnpm test` runs the stories as Playwright/chromium browser tests.) Eyeball
-   the story across the 3 base foundations (Storybook toolbar) + the reduced-motion story.
-8. **Record**: flip the item's §4 row to `implemented` (+ Source URL/License if
-   `ported`), **bump §5 counts**, tick the §7 box. Every checklist box ticked.
-9. Repeat. Each item is independent — stop and resume at any task boundary.
+4. **Run the per-item workflow** in
+   [`MOTION_QUALITY_CHECKLIST.md`](MOTION_QUALITY_CHECKLIST.md) «Workflow (per item)» —
+   test first → checklist → implement (per `src/motion/README.md`) → quality gate →
+   record here (§4 row → `implemented` + Source URL/License if `ported`, §5 counts,
+   §7 box). That file is the single source for the steps and the gate commands;
+   this list does not repeat them.
+5. Repeat. Each item is independent — stop and resume at any task boundary.
 
 **Definition of done for the whole effort:** every pattern in the §4d inventory
 is either `implemented` (with a green gate + ticked checklist) or explicitly
@@ -237,8 +230,8 @@ Work is split into **waves**. A wave = a batch of items sharing a theme, with:
   worktrees for parallel agents).
 - **Exit gate** — applies to every wave: all its items `implemented` with a
   green per-item quality gate + ticked checklist (`MOTION_QUALITY_CHECKLIST.md`),
-  §4 rows + §5 counts updated, and the full gate green:
-  `pnpm typecheck && pnpm build && pnpm test && pnpm --filter storybook build && pnpm test:unit`.
+  §4 rows + §5 counts updated, and the full quality gate green (commands:
+  `MOTION_QUALITY_CHECKLIST.md` «Workflow (per item)» step 4).
 
 **Dependency graph:** Wave 0 → (Waves 1, 2, 3, 4, 5, 6 in parallel). Everything
 depends only on Wave 0, so after Wave 0 the remaining waves can run

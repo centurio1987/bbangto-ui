@@ -57,7 +57,7 @@ scope 를 넓히면 KAN-051 과의 용인 기록이 무효가 된다(scope 전�
 ## 실행 계획
 - [x] `S1` `theme-*` 경로·「5개 테마」·패키지 구조를 실제 구조로 — `CLAUDE.md` 구조도(패키지 7개·정확한 이름, 게이트 목록과 :39·:103 은 손대지 않음) · `QUALITY_CHECKLIST.md:15,59-64` · `DESIGN_SYSTEM_GUIDE.md:170` · `MOTION_QUALITY_CHECKLIST.md:70,103` · `src/motion/README.md:10` · `motion-catalog.md:219` · `COMPONENT_CATALOG.md:28` · `apps/storybook/src/Overview.mdx:34-35` · `_templates/CHECKLIST_INSTANCE.template.md:21`. 완료 기준: 검증 [1]의 `theme-*`·「5 테마」 grep 이 0건
 - [x] `S2` 깨진 링크와 템플릿 drift — `DESIGN_SYSTEM_GUIDE.md:182` 를 `COMPONENT_CATALOG.md` 「Wave 실행 기록」으로 · `_templates/README.md` 의 Wave 어휘와 Storybook 제목 규약을 `ARCHETYPE/…` 계층으로 · `Component.stories.template.tsx` 제목·import · `Component.template.tsx` import · `CHECKLIST_INSTANCE` 의 `Wave`·`21st 출처` 칸을 카드 id 로 · `src/motion/README.md:51-52` 스토리 제목 · `packages/tokens/src/types.ts:201` 주석 패키지 이름. 완료 기준: 검증 [1]의 옛 제목·옛 패키지 이름 grep 0건, 검증 [2] 링크 검사 통과
-- [ ] `S3` 모션 워크플로 단일화 — 정본 `MOTION_QUALITY_CHECKLIST.md` 「Workflow (per item)」. `src/motion/README.md` 「Workflow」와 `motion-catalog.md` §6 은 정본 링크 + 그 문서에만 있는 단계만 남김 · `motion-catalog.md:26-28` 을 KAN-051 앞뒤 모두 참인 문장으로. 완료 기준: 검증 [3] — 게이트 명령 목록이 모션 문서 셋 중 정본 한 곳에만 있다
+- [x] `S3` 모션 워크플로 단일화 — 정본 `MOTION_QUALITY_CHECKLIST.md` 「Workflow (per item)」. `src/motion/README.md` 「Workflow」와 `motion-catalog.md` §6 은 정본 링크 + 그 문서에만 있는 단계만 남김 · `motion-catalog.md:26-28` 을 KAN-051 앞뒤 모두 참인 문장으로. 완료 기준: 검증 [3] — 게이트 명령 목록이 모션 문서 셋 중 정본 한 곳에만 있다
 - [ ] `S4` `METADATA_COVERAGE_AUDIT.md` §2-2 「파일럿 관찰」 → `FOUNDATION_METADATA_STRATEGY.md` §7 링크로. 지우기 전에 감사 쪽 문장마다 전략 §7 에 같은 사실이 있는지 대조하고, 없는 것은 전략 §7 로 옮긴다. 그다음 품질 게이트 5종. 완료 기준: 대조표 0건 누락 + 게이트 5종 초록
 
 ## 검증
@@ -101,3 +101,6 @@ pnpm typecheck && pnpm build && pnpm test && pnpm --filter storybook build && pn
 - 2026-10-07T14:14 · s:f6956d8e — 검증 절의 $EXC grep 은 zsh 에서 낱말로 안 쪼개져 제외가 안 먹는다 — bash 로 돌려야 한다. 검증 절에 그 사실을 S4 에서 적는다
 - 2026-10-07T14:14 · s:f6956d8e · S2 doing — 착수
 - 2026-10-07T14:16 · s:f6956d8e · S2 done — 깨진 링크(DESIGN_SYSTEM_GUIDE:182 → COMPONENT_CATALOG 「Wave 실행 기록」)·템플릿 drift(Wave 어휘·title 규약을 ARCHETYPE 계층으로·옛 패키지 이름·hooks 테스트 하네스 문장)·motion README title·옛 패키지 이름 주석 5곳. 계획 때 grep(\b 패턴)이 놓친 @centurio1987/hooks 4곳을 찾아 scope 에 주석 파일 3개를 더하고 용인·직렬 기록을 다시 걸었다(ai). 검증 [1] 옛 제목·옛 이름 0줄, [2] 링크 0줄
+- 2026-10-07T14:16 · s:f6956d8e · S3 doing — 착수
+- 2026-10-07T14:17 · s:f6956d8e · S3 done — 모션 워크플로 정본을 MOTION_QUALITY_CHECKLIST 「Workflow (per item)」 한 곳으로 — README Workflow 는 링크+구현 단계 안내만, catalog §6 은 읽기·다음 항목·라이선스·반복만 남기고 4~8단계를 정본 링크로, §7 Exit gate 의 명령 목록도 정본 참조로. 걷은 단계는 전부 정본(Workflow·Test requirements·Checklist)에 있음을 단계별로 대조. files 표기 ["dist"]→["dist","README.md"](실측), tsup entry 문장은 「빌드 entry 는 전부 src/ 아래」로(KAN-051 앞뒤 참). 검증 [3] 정본 한 곳만, gateDocs 18/18
+- 2026-10-07T14:17 · s:f6956d8e — S3 에서 남긴 것: motion-catalog §7 Wave 0 완료 기록의 `Foundations/Motion` stories — 당시 제목을 적은 과거 기록이라 고치지 않는다(SATURATION_AUDIT 와 같은 이유)

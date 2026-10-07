@@ -5,13 +5,17 @@ component) must pass this gate. The workflow is **tests + checklist first →
 implement → gate** — do not implement before the test and checklist for the
 item exist. This file is the gate; copy the checklist into the PR/commit.
 
-> Lives at package root (outside `src/`, package `files: ["dist"]`) → never
-> published nor bundled. Companion to `motion-catalog.md` (SSOT) and
+> Lives at package root (outside `src/`, package `files: ["dist", "README.md"]`) →
+> never published nor bundled. Companion to `motion-catalog.md` (SSOT) and
 > `src/motion/README.md` (how-to).
 
 ---
 
 ## Workflow (per item)
+
+This is the **single source** for the motion workflow and its gate commands —
+`src/motion/README.md` «Workflow» and `motion-catalog.md` §6 point here instead
+of repeating the steps.
 
 1. **Write the test first.** Add a `play` function to the item's Storybook
    story asserting its contract (see "Test requirements"). It will fail/red

@@ -20,18 +20,11 @@ to port lives in `packages/core/motion-catalog.md` (the SSOT); this file is the
 
 ## Workflow: test-first → implement → quality gate
 
-Do **not** implement before the item's test + checklist exist. The full gate and
-the per-item checklist live in `../MOTION_QUALITY_CHECKLIST.md` (package root).
-In short:
-
-1. Write the Storybook `play` test first (red until implemented).
-2. Copy the checklist for the item.
-3. Implement (steps below).
-4. Gate — all green:
-   `pnpm typecheck && pnpm build && pnpm test && pnpm --filter storybook build && pnpm test:unit`.
-   `pnpm test` runs stories as Playwright/chromium browser tests via
-   `@storybook/addon-vitest`.
-5. Tick every checklist box; update `../motion-catalog.md`.
+Do **not** implement before the item's test + checklist exist. The per-item
+workflow (test → checklist → implement → gate → record) and the gate commands
+live in one place: [`../MOTION_QUALITY_CHECKLIST.md`](../../MOTION_QUALITY_CHECKLIST.md)
+«Workflow (per item)». This file covers only the **implement** step — see
+«How to add a new animation atom» below.
 
 ## How to add a new animation atom
 
