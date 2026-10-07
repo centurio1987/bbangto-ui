@@ -439,3 +439,49 @@ export const StackedDeck: Story = {
     await expect(items).toHaveLength(4);
   },
 };
+
+// ─── 키보드 (KAN-054) ──────────────────────────────────────────────────────────
+
+/** 패널 쇼케이스 탭: Tab 정지점 하나 · 세로 탭이라 ↑/↓ · Home/End · 옮기면 선택과 패널도 옮겨진다 */
+export const Keyboard: Story = {
+  parameters: {
+    viewport: { defaultViewport: 'desktop' },
+  },
+  args: {
+    layout: 'panel-showcase',
+    title: '패널 쇼케이스',
+    items: SAMPLE_ITEMS.slice(0, 4),
+  },
+  render: (args) => (
+    <div>
+      <button type="button">Before</button>
+      <FeatureGrid {...args} />
+    </div>
+  ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const tabs = canvas.getAllByRole('tab');
+    const stops = () => tabs.filter((t) => t.tabIndex === 0);
+
+    await expect(stops()).toEqual([tabs[0]]);
+    canvas.getByRole('button', { name: 'Before' }).focus();
+    await userEvent.tab();
+    await expect(tabs[0]).toHaveFocus();
+
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(tabs[1]).toHaveFocus();
+    await expect(tabs[1]).toHaveAttribute('aria-selected', 'true');
+    await expect(await canvas.findByRole('heading', { level: 3, name: '타입 안전' })).toBeVisible();
+
+    await userEvent.keyboard('{End}');
+    await expect(tabs[3]).toHaveFocus();
+    await expect(tabs[3]).toHaveAttribute('aria-selected', 'true');
+    await userEvent.keyboard('{Home}');
+    await expect(tabs[0]).toHaveFocus();
+    await userEvent.keyboard('{ArrowUp}');
+    await expect(tabs[3]).toHaveFocus();
+
+    // Tab 정지점이 선택을 따라간다.
+    await expect(stops()).toEqual([tabs[3]]);
+  },
+};

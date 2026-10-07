@@ -6,7 +6,7 @@
  * (SSOT 선언 = 저장소 루트 `keyboard-coverage.json`, 이 파일 = fs 없는 순수 함수, `.test.ts` = 실제 저장소 + fixture).
  *
  * 세 검사:
- *  1) 누락 — core `components/` 에서 상호작용 신호(아래 `findInteractiveSignals`)가 있는 파일이 선언(`components[].source`
+ *  1) 누락 — core `components/`·`blocks/`·`patterns/`·`motion/` 에서 상호작용 신호(아래 `findInteractiveSignals`)가 있는 파일이 선언(`components[].source`
  *     또는 `ignored[].source`)에 없으면 위반. 선언이 검사보다 넓은 것은 허용한다(DataGrid 처럼 컴포넌트 태그에
  *     `onClick` 을 단 경우는 신호로 안 잡힌다).
  *  2) 테스트 — 각 항목의 `keyboardStories` 가 스토리 파일에 `export const <이름>` 으로 있고, 그 블록에 play 함수와
@@ -49,7 +49,7 @@ export interface KeyboardCoverageDeclaration {
 
 /** 검사에 넘기는 저장소 상태(테스트가 fs 로 읽어 주입). 키는 repo 상대경로. */
 export interface KeyboardCoverageInput {
-  /** core `components/` 아래 `.tsx` 소스. */
+  /** core `components/`·`blocks/`·`patterns/`·`motion/` 아래 `.tsx` 소스. */
   readonly sources: Readonly<Record<string, string>>;
   /** 스토리 파일. 없으면 키가 없다. */
   readonly stories: Readonly<Record<string, string>>;

@@ -38,6 +38,12 @@ function readTree(absDir: string, suffix: string, acc: Record<string, string> = 
   return acc;
 }
 
+/**
+ * 누락 검사가 훑는 core 폴더. 처음에는 `components/` 만 봤는데, 같은 검사 함수로 나머지를 훑자
+ * `blocks/FeatureGrid.tsx` 의 탭이 키보드로 닿지 않는 결함이 나왔다(KAN-054 검토 §3-5).
+ */
+const CORE_UI_DIRS = ['components', 'blocks', 'patterns', 'motion'];
+
 function readDecl(): KeyboardCoverageDeclaration {
   return JSON.parse(readFileSync(join(repoRoot, 'keyboard-coverage.json'), 'utf8'));
 }
@@ -45,7 +51,10 @@ function readDecl(): KeyboardCoverageDeclaration {
 describe('keyboard-coverage — 실제 repo', () => {
   const decl = readDecl();
   const input: KeyboardCoverageInput = {
-    sources: readTree(join(repoRoot, 'packages/core/src/components'), '.tsx'),
+    sources: Object.assign(
+      {},
+      ...CORE_UI_DIRS.map((dir) => readTree(join(repoRoot, 'packages/core/src', dir), '.tsx')),
+    ),
     stories: readTree(join(repoRoot, 'apps/storybook/src/stories'), '.stories.tsx'),
     realInputTests: readTree(join(repoRoot, 'apps/storybook/src/real-input'), '.realinput.test.tsx'),
   };
@@ -56,7 +65,7 @@ describe('keyboard-coverage — 실제 repo', () => {
 
   it('선언한 스토리·소스 경로가 저장소 형식을 따른다', () => {
     for (const e of decl.components) {
-      expect(e.source).toMatch(/^packages\/core\/src\/components\/.+\.tsx$/);
+      expect(e.source).toMatch(/^packages\/core\/src\/(components|blocks|patterns|motion)\/.+\.tsx$/);
       expect(e.story).toMatch(/^apps\/storybook\/src\/stories\/.+\.stories\.tsx$/);
     }
   });

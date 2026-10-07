@@ -226,6 +226,18 @@
         "aria-expanded/aria-controls"
       ],
       "realInput": false
+    },
+    {
+      "component": "FeatureGrid",
+      "source": "packages/core/src/blocks/FeatureGrid.tsx",
+      "story": "apps/storybook/src/stories/FeatureGrid.stories.tsx",
+      "keyboardStories": ["Keyboard"],
+      "behaviors": [
+        "탭 묶음의 Tab 정지점은 선택된 탭 하나(roving tabindex)",
+        "세로 탭이라 ↑/↓·Home/End로 옮기며 선택도 함께 옮긴다(자동 활성화)",
+        "탭이 aria-controls로 패널을 가리킨다"
+      ],
+      "realInput": false
     }
   ],
   "ignored": [
