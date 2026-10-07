@@ -24,9 +24,12 @@ status: 검토 대기
 | 베이스 | `1c67396` |
 | 변경 훑기 | `git diff 1c67396...HEAD` |
 
-**커밋 5건**
+**커밋 8건**
 
 ```text
+fa050b8 KAN-050 검토 반영: 검토자 지적 잔여 3건 (README every theme · 링크 글자 · 전략 §7 고대비)
+db09d50 kanban: KAN-050 검토자(opus) 항목 판정 3건 승인 + 추가 의견 3건
+803270d kanban: KAN-050 검토서 발행(판단 항목 3, base 1c67396) + 검토로 이동 + 검토 리포트
 210eef3 KAN-050 S4: 메타데이터 감사 §2-2 → 전략 §7 단일화 + 게이트 5종 초록
 cc6c3a6 KAN-050 S3: 모션 워크플로를 MOTION_QUALITY_CHECKLIST 한 곳으로 (README·catalog §6·§7 은 링크)
 5439b79 KAN-050 S2: 깨진 링크·템플릿 drift·옛 패키지 이름 정리 (링크 0·잔여 grep 0줄)
@@ -34,18 +37,22 @@ cc6c3a6 KAN-050 S3: 모션 워크플로를 MOTION_QUALITY_CHECKLIST 한 곳으�
 4d0834f kanban: KAN-050 진행 중으로 이동
 ```
 
-**변경 파일 25개 (+186 −169)**
+**변경 파일 29개 (+1755 −184)**
 
 | 파일 | 상태 | 추가 | 삭제 |
 |---|:--:|---:|---:|
-| `.kanban/archive.jsonl` | M | 4 | 0 |
-| `.kanban/log.md` | M | 4 | 4 |
-| `.kanban/state.json` | M | 54 | 52 |
+| `.kanban/archive.jsonl` | M | 5 | 0 |
+| `.kanban/log.md` | M | 5 | 5 |
+| `.kanban/reviews/KAN-050-AJSQAY.events.jsonl` | M | 9 | 0 |
+| `.kanban/reviews/KAN-050-AJSQAY.review.json` | M | 21 | 0 |
+| `.kanban/state.json` | M | 65 | 63 |
 | `CLAUDE.md` | M | 9 | 7 |
 | `DESIGN_SYSTEM_GUIDE.md` | M | 2 | 2 |
 | `KANBAN.board.html` | M | 2 | 2 |
-| `KANBAN.md` | M | 8 | 8 |
-| `KANBAN/cards/KAN-050-AJSQAY.md` | M | 20 | 8 |
+| `KANBAN.md` | M | 9 | 8 |
+| `KANBAN/cards/KAN-050-AJSQAY.md` | M | 23 | 9 |
+| `KANBAN/reviews/KAN-050-AJSQAY.review.html` | M | 1268 | 0 |
+| `KANBAN/reviews/KAN-050-AJSQAY.review.md` | M | 251 | 0 |
 | `METADATA_COVERAGE_AUDIT.md` | M | 2 | 7 |
 | `QUALITY_CHECKLIST.md` | M | 6 | 7 |
 | `_templates/CHECKLIST_INSTANCE.template.md` | M | 4 | 4 |
@@ -57,8 +64,8 @@ cc6c3a6 KAN-050 S3: 모션 워크플로를 MOTION_QUALITY_CHECKLIST 한 곳으�
 | `packages/core/COMPONENT_CATALOG.md` | M | 2 | 2 |
 | `packages/core/MOTION_QUALITY_CHECKLIST.md` | M | 12 | 6 |
 | `packages/core/motion-catalog.md` | M | 11 | 18 |
-| `packages/core/src/motion/README.md` | M | 9 | 15 |
-| `packages/foundations/FOUNDATION_METADATA_STRATEGY.md` | M | 2 | 2 |
+| `packages/core/src/motion/README.md` | M | 11 | 16 |
+| `packages/foundations/FOUNDATION_METADATA_STRATEGY.md` | M | 3 | 3 |
 | `packages/hooks/src/index.ts` | M | 1 | 1 |
 | `packages/hooks/src/useIsMounted.ts` | M | 1 | 1 |
 | `packages/tokens/src/breakpoints.ts` | M | 1 | 1 |
@@ -83,13 +90,13 @@ kan/KAN-050-AJSQAY/batch1
 
 **기준**
 
-문서 카드라 **잔여 grep 0건 + 링크 무결 + 품질 게이트 5종 초록**이 끝의 기준이다. 아래 명령은 레포 루트에서 **bash 로** 돌린다 — zsh 는 `$EXC` 를 낱말로 쪼개지 않아 제외 옵션이 통째로 안 먹는다(S1 에서 실측). 2026-10-07 S2 에서 [1] 넷째 줄을 고쳤다 — 처음 쓴 `\b` 패턴은 `@centurio1987/hooks` 를 놓쳤다. S4 에서 셋째 줄에 `ARCHETYPE/` 거르기를 더했다 — 새 표기 `ARCHETYPE/Components/Atoms/*` 도 `Atoms/\*` 에 걸린다.
+문서 카드라 **잔여 grep 0건 + 링크 무결 + 품질 게이트 5종 초록**이 끝의 기준이다. 아래 명령은 레포 루트에서 **bash 로** 돌린다 — zsh 는 `$EXC` 를 낱말로 쪼개지 않아 제외 옵션이 통째로 안 먹는다(S1 에서 실측). 2026-10-07 S2 에서 [1] 넷째 줄을 고쳤다 — 처음 쓴 `\b` 패턴은 `@centurio1987/hooks` 를 놓쳤다. 검토 중(검토자 지적) 둘째 줄에 `every theme` 을 더했다 — `src/motion/README.md:34` 가 빠져 있었다. S4 에서 셋째 줄에 `ARCHETYPE/` 거르기를 더했다 — 새 표기 `ARCHETYPE/Components/Atoms/*` 도 `Atoms/\*` 에 걸린다.
 
 ```bash
 # [1] 잔여 표기 — 넷 다 0줄이어야 한다 (칸반 산출물·CHANGELOG·감사 기록 원문 제외)
 EXC='--exclude-dir=node_modules --exclude-dir=.git --exclude-dir=dist --exclude-dir=storybook-static --exclude-dir=KANBAN --exclude-dir=.kanban --exclude-dir=.claude --exclude=CHANGELOG.md --exclude=KANBAN.md --exclude=KANBAN.board.html --exclude=SATURATION_AUDIT.md'
 grep -rn $EXC 'theme-\*\|theme-light\|theme-dark\|theme-amber\|theme-high' .
-grep -rni $EXC '5개 테마\|5 themes\|all 5 theme' .
+grep -rni $EXC '5개 테마\|5 themes\|all 5 theme\|every theme' .
 grep -rn $EXC "'Foundations/Motion'\|'Atoms/\|'Molecules/\|Atoms/\*\|Molecules/\*" . | grep -v 'ARCHETYPE/'
 grep -rnE $EXC '@centurio1987/[a-z]' . | grep -v '@centurio1987/bbangto-ui'
 
@@ -128,6 +135,13 @@ pnpm typecheck && pnpm build && pnpm test && pnpm --filter storybook build && pn
     pnpm test                       rc=0  Test Files 184 passed · Tests 1239 passed
     pnpm --filter storybook build   rc=0  Storybook build completed successfully
     pnpm test:unit                  rc=0  hooks 115 · visualization 257 · foundations 62 (gateDocs 포함) · style-guide-catalog 76 · viz-style-guide-catalog 39
+
+[검토 반영 뒤 재확인 — fa050b8, 마크다운 3곳만 바뀜]
+[1a]~[1d] (1b 에 every theme 추가) → 0줄
+[2] 링크 → 깨진 링크 0개
+[3] → packages/core/MOTION_QUALITY_CHECKLIST.md 하나
+gateDocs (packages/foundations src/gateDocs.test.ts) → Tests 18 passed
+코드·스토리 변경이 없어 typecheck·build·test·storybook build 는 다시 돌리지 않음 (위 [4] 는 210eef3 기준)
 ```
 
 ## 3. 판단 항목 — 스크립트가 판정할 수 없는 것
