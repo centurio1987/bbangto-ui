@@ -90,7 +90,7 @@
   - 메모: 외부 앱 소비 문제 대응 5장 중 4 · KAN-053 뒤에 직렬 · KAN-053 넘김: onKeyDown 합성 규칙 통일(Tabs↔Modal·Drawer) + 실제 키 입력 게이트 — 전략 「KAN-053에서 넘어온 것」
   - 실행 문서: KANBAN/cards/KAN-054-M48FNQ.md (6/6 · 최근 10-07)
   - 계획 리포트: KANBAN/reports/KAN-054-M48FNQ.report.html
-  - 검토 문서: KANBAN/reviews/KAN-054-M48FNQ.review.md (승인 4/6 · 추가 의견 2 · 추가 의견 총 6 · 검토 대기)
+  - 검토 문서: KANBAN/reviews/KAN-054-M48FNQ.review.md (승인 4/6 · 반려 2 · 추가 의견 총 9 · 검토 대기)
   - 원문:
     ```text
     [첨부 이미지]
