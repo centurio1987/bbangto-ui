@@ -64,7 +64,7 @@
   - 이유: 기본값이 인라인 style 로 렌더돼 스타일 가이드를 바꿔도 그 색이 그대로다 — 구 PLAN 「이연」이 끝나지 않은 채 남았다(KAN-049 에서 발견)
   - 목표: 13개 템플릿에 불투명 리터럴 색이 0건이 되고 viz README 「알려진 한계」의 해당 항목이 지워진다
   - 메모: 목록과 셈 기준은 packages/visualization/README.md 「알려진 한계」. 반투명 검정 음영(Node cube 면·IsoPrism·IsometricScene 바닥 그림자·Lane)은 paint 무관 장치라 대상이 아니다
-  - 실행 문서: KANBAN/cards/KAN-056-D3V1MB.md (1/4 · 최근 10-07)
+  - 실행 문서: KANBAN/cards/KAN-056-D3V1MB.md (2/4 · 최근 10-07)
   - 계획 리포트: KANBAN/reports/KAN-056-D3V1MB.report.html (낡음)
   - 원문:
     ```text
