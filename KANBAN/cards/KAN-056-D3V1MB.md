@@ -92,7 +92,7 @@ ArchiMate 계층 면은 위 표처럼 비슷한 밝기로 남는다.
 - [x] `S1` 테스트 먼저 — `apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx` 를 새로 만든다. blueprint foundation 과 그 색 반전본, 두 가이드에서 같은 데이터를 그려 같은 자리 요소의 불투명 fill·stroke 가 같은 곳을 모은다. fixture 13개(6개는 `_matrixFixtures.tsx` 재사용, 7개는 새로). 나머지 matrix fixture 18개도 한 번 재 보고, 깨끗하면 함께 묶는다. 완료 기준: 새 스토리가 빨강이고, 걸린 자리가 13개 템플릿 모두에서 하나 이상 나온다. 다른 스토리는 초록이다
 - [x] `S2` 기본값 지우기 — 흰 채움·검정 선·회색 연결선 기본값을 지운다(전략 규칙 1·2·4). 대상: ArchitectureDiagram·BlockDiagram·KanbanBoard·TimelineDiagram·UMLComponentDiagram·UMLDeploymentDiagram·BPMNCollaborationDiagram·C4CodeDiagram·Mindmap·RequirementDiagram, 그리고 BPMNDiagram 의 태스크·이벤트. 완료 기준: `pnpm typecheck` 초록 · 새 스토리에서 걸린 자리가 ArchiMateDiagram·BPMNDiagram 게이트웨이·UMLSequenceDiagram 에만 남는다
 - [x] `S3` 표기 색 옮기기와 문서 — ArchiMate 계층색(팔레트 35%), BPMNDiagram 게이트웨이(p4), UMLSequenceDiagram 머리·메시지 라벨(전략 규칙 3). README 「알려진 한계」의 13개 항목과 138행의 예외 안내를 고치고, `.changeset/kan-056-template-paint.md`(visualization patch)를 쓴다. 완료 기준: 새 스토리 초록 · 13개 파일에서 불투명 색 리터럴 grep 0건 · README 에 13개 항목이 없다
-- [ ] `S4` 품질 게이트와 검토 준비 — 게이트 5종을 CLAUDE.md 순서대로 돌리고 검토서를 뜬다. 완료 기준: 5종 초록, 검토서 정본이 선다
+- [x] `S4` 품질 게이트와 검토 준비 — 게이트 5종을 CLAUDE.md 순서대로 돌리고 검토서를 뜬다. 완료 기준: 5종 초록, 검토서 정본이 선다
 
 ## 검증
 ### 게이트 5종 (전부 초록이어야 완료)
@@ -131,3 +131,6 @@ pnpm test:unit
 - 2026-10-07T19:37 · s:d6ba577d · S2 done — 11개 파일 23곳 수정(기본값 지움, BPMN 이벤트 원·Requirement 바깥 사각형에 data-viz-part). typecheck 초록, 게이트 잔여는 ArchiMate·BPMN 게이트웨이·UMLSequence 13곳
 - 2026-10-07T19:38 · s:d6ba577d · S3 doing — 착수
 - 2026-10-07T19:39 · s:d6ba577d · S3 done — ArchiMate 팔레트 p4/p5/p6 35%, BPMN 게이트웨이 p4, UMLSequence edge.stroke·boundary.labelColor. 게이트·관련 스토리 7파일 34개 초록, 13개 파일 리터럴은 rgba(0,0,0, 두 줄만 남음. README 알려진 한계 절 삭제·구조 절에 예외 명시, changeset patch
+- 2026-10-07T19:40 · s:d6ba577d · S4 doing — 착수
+- 2026-10-07T19:41 · s:d6ba577d · S4 done — 게이트 5종 초록 — typecheck·build·test(193파일 1273개)·storybook build·test:unit. ArchiMate 대비 재계산 11/90, 13개 파일 리터럴은 rgba(0,0,0, 두 줄만
+- 2026-10-07T19:41 · s:d6ba577d — S1 게이트에서 <line> 요소의 fill(initial 검정)이 오탐으로 걸려 비교에서 뺐다. 선은 안쪽 면이 없어 fill 이 그려지지 않는다
