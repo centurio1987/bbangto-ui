@@ -43,6 +43,11 @@ jobs:
       - name: Build packages
         run: pnpm build
 
+      # 배포 전에 패키지 vitest 게이트를 돈다. 번들 크기 상한(bundle-budget.json)을 넘는 판이 배포되지
+      # 않게 하려는 것이다(KAN-051). 크기 게이트는 빌드된 dist 를 재므로 Build 다음 자리여야 한다.
+      - name: Unit gates (bundle size included)
+        run: pnpm test:unit
+
       # 인증 토큰은 user-level ~/.npmrc 에 둔다. project .npmrc 에는 인증 라인이 없어
       # (pnpm 은 보안상 project .npmrc 의 ${ENV} 인증값을 전개하지 않으므로) 가려지지 않는다.
       # GITHUB_TOKEN 은 이 워크플로 실행 동안만 유효한 임시 토큰 — 개인 PAT 불필요.

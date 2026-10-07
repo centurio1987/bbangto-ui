@@ -40,7 +40,7 @@ type import까지 옮겨야 `index.ts`에 쓰이지 않는 import가 남지 않�
 | `.github/workflows/release.yml` | `Build packages` 다음에 `pnpm test:unit` 단계를 넣어, 상한을 넘는 판이 배포되지 않게 한다 |
 | `.changeset/kan-051-*.md` | core·viz·sgc·vsgc patch 4개 |
 
-**완료 기준**: 게이트 5종 초록. `npm pack --dry-run` 파일 목록을 수행 내역에 남긴다. Node에서 `import('@centurio1987/bbangto-ui-core')` 스모크가 통과한다. rollup·rolldown으로 core `Button`을 한 번 더 잰 값을 남긴다. Storybook을 `storybook dev --force`로 한 번 띄워 미리 묶기 캐시 문제가 없는지 본다.
+**완료 기준**: 게이트 5종 초록. `npm pack --dry-run` 파일 목록을 수행 내역에 남긴다. Node에서 `import('@centurio1987/bbangto-ui-core')` 스모크가 통과한다. rollup·rolldown으로 core `Button`을 한 번 더 잰 값을 남긴다. Storybook 미리 묶기 캐시(`apps/storybook/node_modules/.cache/storybook`)를 지우고 `storybook dev`로 한 번 띄워 캐시 문제가 없는지 본다(계획 때는 `--force`로 적었으나 Storybook 10의 dev에는 그 옵션이 없어 S4에서 고쳤다).
 
 ## 2. 의존과 순서
 
