@@ -93,9 +93,9 @@ foundationCatalog(SSOT) + foundationMetaRegistry(authored)
 향후 신규 foundation 프리셋이 추가되면 `metaStatus:'pending'`으로 잠시 존재할 수 있으나(계약상 유효), 위 게이트들이 백필 전까지 red로 막는다.
 
 ### 파일럿·전량 저작 관찰(스키마 검증 결과)
-foundations는 거의 전량 라이트-베이스(브랜드 accent 프리셋; base 라이트/다크 테마는 core 내장, 유일 다크-베이스는
-`amber-dark`). 76종 전량 저작 후에도 이 관찰은 유지된다: `colorScheme`은 75 light/1 dark로 편중, `baseTextContrast`도
-전량 ≥17.39(≈aaa 자명 통과)로 거의 상수 → **실질 변별은 authored `tags`(accent hue)·`mood`·`domains`가 담당**하며
+foundations는 거의 전량 라이트-베이스(브랜드 accent 프리셋; base 라이트/다크/고대비 foundation 은 core 내장, 유일 다크-베이스는
+`amber-dark`, `background.base` `#0b0e11`). 76종 전량 저작 후에도 이 관찰은 유지된다: `colorScheme`은 75 light/1 dark로 편중, `baseTextContrast`도
+전량 ≥17.39(≈aaa 자명 통과)로 거의 상수 → **실질 변별은 authored `tags`(accent hue·타이포)·`mood`·`domains`·`summary`·`useWhen`/`avoidWhen`이 담당**하며
 `StyleGuideMeta` 어휘 재사용이 76종 스케일에서도 충분함을 확인(스키마 변경 0). 저작은 description이 아니라 **실제
 accent 토큰**(`semantic.primary.base`)에 근거한다 — 다수 preset이 description상 "on dark/near-black"이라도 실제
 `background.base`는 흰색이기 때문(예: electric-void). `baseTextContrast` over-claim 게이트는 현재 자명 통과지만 향후

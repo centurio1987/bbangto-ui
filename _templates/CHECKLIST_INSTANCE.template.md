@@ -1,12 +1,12 @@
 # 체크리스트 인스턴스 — `<산출물명>` (`<Layer>`)
 
 > `QUALITY_CHECKLIST.md`의 해당 섹션을 복사한 작업 단위 체크리스트.
-> leaf subagent는 이 파일을 작업 메모/PR 본문에 첨부하고 항목을 채운다.
+> 작업자(사람·에이전트)는 이 파일을 작업 메모/PR 본문에 첨부하고 항목을 채운다.
 
 - **산출물**: `<Name>`
 - **계층**: atom | molecule | block | pattern | motion | shader | hook
-- **Wave**: 0 | 1 | 2 | 3 | 4 | 5 | 6
-- **21st 출처 카테고리**: `<예: Buttons / Heroes / Hooks>`
+- **카드**: `<KAN-###>`
+- **참고 출처** (있으면): `<예: 21st.dev Buttons / 디자인 시안 링크>`
 - **담당 에이전트**: `<id>`
 
 ## 테스트 우선 (먼저 RED여야 함)
@@ -18,7 +18,7 @@
 - [ ] 배럴에 export 추가 (`packages/core/src/index.ts` 또는 해당 하위 index)
 - [ ] `forwardRef` + `displayName` + `...props` + `ref` (컴포넌트)
 - [ ] 토큰은 `cssVar()`로만 참조 (하드코딩 금지)
-- [ ] 5개 테마 전체 렌더 확인 (light / dark / high-contrast / amber-light / amber-dark)
+- [ ] base foundation 3종 전체 렌더 확인 (light / dark / high-contrast — Storybook 상단 툴바 「Foundation」)
 
 ## 접근성
 - [ ] ARIA role/label/live region
@@ -34,7 +34,7 @@
 - [ ] `pnpm build`
 - [ ] `pnpm test` (Playwright/chromium)
 - [ ] `pnpm --filter storybook build`
-- [ ] `pnpm test:unit` (패키지 vitest — 매니페스트·대비·명명·커버리지)
+- [ ] `pnpm test:unit` (패키지 vitest — 매니페스트·대비·명명·커버리지·번들 크기)
 
 ## 반환(구조화)
 ```json

@@ -4,7 +4,7 @@
 // 규칙(QUALITY_CHECKLIST.md A): forwardRef + displayName + ...props + ref,
 //      토큰은 cssVar()로만(하드코딩 금지), document/window 직접접근 금지, any 금지.
 import React from 'react';
-import { cssVar } from '@centurio1987/tokens';
+import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 
 export type __Name__Variant = 'solid' | 'outline';
 export type __Name__Size = 'sm' | 'md' | 'lg';

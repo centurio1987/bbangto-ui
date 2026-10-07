@@ -5,7 +5,7 @@
       "id": "ui-style-guide",
       "package": "style-guide-catalog",
       "files": ["catalog.manifest.json"],
-      "sourceModule": "src/index.ts:styleGuideCatalog (각 StyleGuide.meta)",
+      "sourceModule": "src/catalog.ts:styleGuideCatalog (각 StyleGuide.meta)",
       "status": "covered",
       "gate": "src/manifest.test.ts + src/accessibility.test.ts",
       "note": "UI 스타일가이드 채택 메타(StyleGuideMeta). KAN-018/021."
@@ -14,7 +14,7 @@
       "id": "viz-style-guide",
       "package": "visualization-style-guide-catalog",
       "files": ["catalog.manifest.json"],
-      "sourceModule": "src/index.ts (각 VisualizationStyleGuide.meta)",
+      "sourceModule": "src/catalog.ts:vizStyleGuideCatalog (각 VisualizationStyleGuide.meta)",
       "status": "covered",
       "gate": "src/manifest.test.ts",
       "note": "viz 스타일(paint) 축 채택 메타. KAN-021/029~039."

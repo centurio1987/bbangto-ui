@@ -1,12 +1,27 @@
 # KANBAN 변경 이력
 > 최근 50건. 이보다 오래된 이력은 archive.jsonl 로 압축 보관한다.
 
+- #199 2026-10-07 16:03 · 유저 · KAN-050-AJSQAY 독립성 겹침 용인 (상대 KAN-051-5HMYKT) — 같은 CLAUDE.md지만 050은 게이트 명령 4종을 손대지 않고 구조도·경로만 고친다고 적었다. 051은 test:unit 설명 두 줄(39, 103행)만 고친다 (2026-10-05 유저 승인 플랜). 2026-10-07 KAN-050 S2 중 옛 패키지 이름 전수 grep 으로 scope 에 주석 파일 3개(tokens/breakpoints.ts·hooks/index.ts·hooks/useIsMounted.ts — 051 scope 와 안 겹침)를 더해 무효가 된 기록을 겹침 그대로 다시 건다
+- #198 2026-10-07 16:03 · 유저 · KAN-055-34A57K serialize
+- #197 2026-10-07 16:03 · 유저 · KAN-050-AJSQAY serialize
+- #196 2026-10-07 16:03 · 유저 · KAN-050-AJSQAY serialize
+- #195 2026-10-07 15:33 · ai · KAN-058-G883EJ 생성 "style-guide-catalog Showcase 생성 카피 분할 — Showcase 하나가 51개 몫 카피를 끌고 오는 문제" → 백로그
+- #194 2026-10-07 15:31 · ai · KAN-055-34A57K serialize
 - #193 2026-10-07 16:01 · 유저 · KAN-054-M48FNQ serialize
+- #193 2026-10-07 15:29 · ai · KAN-050-AJSQAY 이동 검토 → 완료
 - #192 2026-10-07 16:01 · 유저 · KAN-054-M48FNQ serialize
+- #192 2026-10-07 14:24 · ai · KAN-050-AJSQAY 이동 진행 중 → 검토
 - #191 2026-10-07 16:01 · 유저 · KAN-054-M48FNQ 독립성 겹침 용인 (상대 KAN-055-34A57K) — 054의 changeset은 054가 끝나 main에 병합된 뒤에만 들어오므로 그 전 배포에 섞이지 않는다 (2026-10-05 유저 승인 플랜). 2026-10-07 검토 반려 재작업의 scope 확장(FeatureGrid)으로 무효가 된 기록을 다시 건다 — 겹침은 그대로 .changeset/ 하나
+- #191 2026-10-07 14:15 · ai · KAN-050-AJSQAY serialize
 - #190 2026-10-07 16:00 · ai · KAN-054-M48FNQ 이동 검토 → 진행 중
+- #190 2026-10-07 14:15 · ai · KAN-050-AJSQAY serialize
+- #190 2026-10-07 15:29 · ai · KAN-051-5HMYKT 이동 검토 → 완료
 - #189 2026-10-07 14:30 · ai · KAN-054-M48FNQ 이동 진행 중 → 검토
+- #189 2026-10-07 14:15 · ai · KAN-050-AJSQAY 독립성 겹침 용인 (상대 KAN-051-5HMYKT) — 같은 CLAUDE.md지만 050은 게이트 명령 4종을 손대지 않고 구조도·경로만 고친다고 적었다. 051은 test:unit 설명 두 줄(39, 103행)만 고친다 (2026-10-05 유저 승인 플랜). 2026-10-07 KAN-050 S2 중 옛 패키지 이름 전수 grep 으로 scope 에 주석 파일 3개(tokens/breakpoints.ts·hooks/index.ts·hooks/useIsMounted.ts — 051 scope 와 안 겹침)를 더해 무효가 된 기록을 겹침 그대로 다시 건다
+- #189 2026-10-07 14:12 · ai · KAN-051-5HMYKT 이동 진행 중 → 검토
 - #188 2026-10-07 13:54 · ai · KAN-054-M48FNQ 이동 할 일 → 진행 중
+- #188 2026-10-07 14:13 · ai · KAN-050-AJSQAY 이동 할 일 → 진행 중
+- #188 2026-10-07 13:54 · ai · KAN-051-5HMYKT 이동 할 일 → 진행 중
 - #187 2026-10-07 13:38 · ai · KAN-050-AJSQAY serialize
 - #186 2026-10-07 13:38 · ai · KAN-050-AJSQAY serialize
 - #185 2026-10-07 13:38 · ai · KAN-050-AJSQAY 독립성 겹침 용인 (상대 KAN-051-5HMYKT) — 같은 CLAUDE.md지만 050은 게이트 명령 4종을 손대지 않고 구조도·경로만 고친다고 적었다. 051은 test:unit 설명 두 줄(39, 103행)만 고친다 (2026-10-05 유저 승인 플랜). 2026-10-07 KAN-050 재수립의 scope 확장(COMPONENT_CATALOG·Overview.mdx·types.ts — 051 scope 와 안 겹침)으로 무효가 된 기록을 겹침 그대로 다시 건다. #181 의 actor 표기 정정(ai 가 다시 건 것)
@@ -36,18 +51,3 @@
 - #166 2026-10-06 16:44 · ai · KAN-053-TZ86NN 이동 할 일 → 진행 중
 - #165 2026-10-06 00:49 · ai · KAN-049-CWBPP6 수정 메모
 - #165 2026-10-06 00:41 · ai · KAN-049-CWBPP6 이동 진행 중 → 검토
-- #164 2026-10-06 00:49 · ai · KAN-048-R2KW3G 수정 메모
-- #164 2026-10-06 00:31 · ai · KAN-047-TRYYRC 독립성 겹침 용인 (상대 KAN-049-CWBPP6) — 같은 줄을 둘 다 고친다 — visualization-type-inventory.md:376(047은 ORDER.md 조각, 049는 catalog §4 조각)과 gateDocs.test.ts:37-38(047은 ORDER.md 항목, 049는 PLAN.md 항목). 각자 자기 조각만 지우므로 순서가 바뀌어도 상대가 할 일이 그대로 남는다. 늦게 병합하는 쪽이 두 조각이 다 지워진 줄로 충돌을 푼다. 2026-08-25 사유('줄이 다르다')를 실측으로 바로잡아 재기록 (2026-10-06 유저 승인)
-- #163 2026-10-06 00:48 · ai · KAN-047-TRYYRC 이동 검토 → 완료
-- #163 2026-10-06 00:31 · ai · KAN-049-CWBPP6 독립성 겹침 용인 (상대 KAN-052-BYS4JN) — 052는 viz Provider 코드·internal/ExternalFonts와 README 사용법 절만 고친다. 049는 PLAN·visualization-catalog 문서 흡수이고 README에는 새 절(구현 규약)을 더한다. 049 scope에 gateDocs.test.ts를 더해 재기록 — 겹침 내용 불변 (2026-10-06 유저 승인)
-- #162 2026-10-06 00:51 · 유저 · KAN-048-R2KW3G 독립성 겹침 용인 (상대 KAN-051-5HMYKT) — 같은 style-guide-catalog/src/index.ts지만 048은 46행 주석, 051은 77~195행(catalog import·배열·map) 이동이라 줄이 겹치지 않는다. 048 scope에 gateDocs 2파일을 더해 옛 용인이 무효가 된 뒤 2026-10-06 유저 재승인
-- #162 2026-10-06 00:26 · ai · KAN-047-TRYYRC 이동 진행 중 → 검토
-- #162 2026-10-06 16:13 · ai · KAN-052-BYS4JN 이동 검토 → 완료
-- #162 2026-10-06 00:31 · ai · KAN-049-CWBPP6 독립성 겹침 용인 (상대 KAN-051-5HMYKT) — 049는 packages/visualization/**를 잡았지만 md 문서만 고친다. 051은 packages/visualization/tsup.config.ts만 고친다. 049 scope에 gateDocs.test.ts를 더해 재기록 — 겹침 내용 불변 (2026-10-06 유저 승인)
-- #161 2026-10-06 00:23 · ai · KAN-048-R2KW3G 수정 목표
-- #161 2026-10-06 00:22 · 유저 · KAN-047-TRYYRC 독립성 겹침 용인 (상대 KAN-049-CWBPP6) — 같은 파일(visualization-type-inventory.md)을 둘 다 고친다. A 는 :376 의 「ORDER.md 편집 금지」 조각, C 는 :12,13,14,29,30,343,369 의 SSOT 링크와 아마 :376 의 「catalog §4」 — 같은 줄이 겹칠 수 있다. 그래도 순서가 뒤집혀도 상대가 할 일이 그대로 남아 직렬은 불필요하고, C 는 착수 전이라 A 병합 뒤 출발하면 충돌이 없다. 2026-10-06 재확인: A 의 scope 에 gateDocs.test.ts 가 더해져 옛 용인이 무효가 된 것(겹침 내용은 불변). 유저 판단
-- #161 2026-10-06 00:51 · ai · KAN-052-BYS4JN 이동 진행 중 → 검토
-- #161 2026-10-06 00:31 · ai · KAN-049-CWBPP6 독립성 겹침 용인 (상대 KAN-055-34A57K) — 049는 PLAN.md·visualization-catalog.md 흡수만 하고, 055가 viz에서 바꾸는 것은 CI Version PR이 만드는 package.json·CHANGELOG.md뿐이라 같은 파일을 건드리지 않는다. 049 scope에 gateDocs.test.ts를 더해 재기록 — 겹침 내용 불변 (2026-10-06 유저 승인)
-- #160 2026-10-06 00:19 · ai · KAN-048-R2KW3G 이동 할 일 → 진행 중
-- #160 2026-10-06 00:18 · ai · KAN-047-TRYYRC 이동 할 일 → 진행 중
-- #160 2026-10-06 00:36 · ai · KAN-052-BYS4JN 이동 할 일 → 진행 중

@@ -1,4 +1,4 @@
-// 템플릿: 신규 헤드리스 훅 (@centurio1987/hooks)
+// 템플릿: 신규 헤드리스 훅 (@centurio1987/bbangto-ui-hooks)
 // 사용법: use__Name__ 치환 후 packages/hooks/src/use__Name__.ts 로 복사하고
 //        packages/hooks/src/index.ts 에 re-export 추가.
 // 규칙: JSX 반환 금지(로직만), zero runtime dependency(react peer만), any 금지,
@@ -26,4 +26,4 @@ export function use__Name__(options: Use__Name__Options = {}): boolean {
 }
 
 // 단위 테스트는 packages/hooks/src/use__Name__.test.ts 에 vitest 로 작성한다.
-// (테스트 하네스는 Wave 3 착수 시 packages/hooks 에 vitest + @testing-library/react 를 설치해 구성.)
+// (packages/hooks 에 vitest + @testing-library/react 가 이미 있다. 예: packages/hooks/src/useDebounce.test.ts)

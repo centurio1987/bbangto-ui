@@ -198,7 +198,7 @@ export interface BbangtoFoundation {
    * Only motion *parameters* live here (durations, easing curves, slide
    * distances, and ready-made `animation` shorthand presets). The `@keyframes`
    * rule bodies themselves are NOT tokens — CSS custom properties cannot hold a
-   * CSS rule — they live in `@centurio1987/core`'s motion layer
+   * CSS rule — they live in `@centurio1987/bbangto-ui-core`'s motion layer
    * (`src/motion/keyframes.ts`) and are injected once globally. Preset strings
    * reference those keyframes by their `bbangto-*` names.
    */

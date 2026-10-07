@@ -46,38 +46,14 @@
     ```text
     만들어 (앞 답변 「앞서 여쭌 백로그 카드 두 가지(리터럴 색이 남은 템플릿 13개, 읽히지 않는 `edge.dashPattern` 토큰)는 아직 만들지 않았습니다.」에 대한 답)
     ```
+- `KAN-058-G883EJ` style-guide-catalog Showcase 생성 카피 분할 — Showcase 하나가 51개 몫 카피를 끌고 오는 문제 — 생성:ai · 최종:ai · 갱신:2026-10-07
+  - 짧은 제목: Showcase 카피 분할
+  - 목적: 생성 카피 파일(_showcaseCopy.generated.ts)을 Showcase별로 나눠 Showcase 하나만 가져오면 그 카피만 딸려 오게 한다
+  - 이유: KAN-051 뒤에도 Showcase 하나가 약 101KB이고 그중 76,517B가 Showcase 51개가 함께 쓰는 생성 카피 파일 하나에서 온다
+  - 목표: Showcase 하나를 가져온 번들에 그 Showcase 카피만 들어가고, bundle-budget.json 의 sgc 대표 상한을 새 실측으로 낮춘다
+  - 메모: KAN-051 검토 4항(2026-10-07 승인)에서 나온 후속 · 근거는 KANBAN/cards/KAN-051-5HMYKT.md 「전략」의 범위 밖 절
 
 ## 할 일
-- `KAN-050-AJSQAY` 문서 정리 D — 규율 문서 실측 정합 (theme-* 부재 · 모션 5중 기재) — 생성:ai · 최종:ai · 갱신:2026-10-07
-  - 짧은 제목: 규율 문서 실측 정합
-  - 목적: CLAUDE.md·QUALITY_CHECKLIST·DESIGN_SYSTEM_GUIDE 의 실측 어긋남을 고치고 5곳에 흩어진 모션 워크플로 기재를 하나로 모은다
-  - 이유: packages/theme-* 4종이 실재하지 않는데 세 규율 문서가 그것을 구조도와 경로로 가리키고 있다
-  - 목표: 규율 문서가 실제 레포 구조와 일치하고 모션 워크플로가 한 곳에만 적힌다
-  - 메모: KAN-044 §13-D. 2026-10-07 전략 재수립(선행 KAN-048 완료) — 전수 grep 으로 scope 3파일 추가(COMPONENT_CATALOG·Overview.mdx·types.ts), motion-catalog:27 은 KAN-051 앞뒤 모두 참인 문장으로 고쳐 순서 의존을 없앤다. 상세는 카드 문서 「전략」
-  - 실행 문서: KANBAN/cards/KAN-050-AJSQAY.md (0/4 · 최근 10-07)
-  - 계획 리포트: KANBAN/reports/KAN-050-AJSQAY.report.html (낡음)
-- `KAN-051-5HMYKT` 번들 트리 셰이킹 복구 — 파일 단위 출력 + 크기 상한 게이트 (core·viz·sgc·vsgc) — 생성:ai · 최종:ai · 갱신:2026-10-05
-  - 짧은 제목: 번들 트리 셰이킹 복구
-  - 목적: core·visualization·style-guide-catalog·viz-style-guide-catalog를 하나만 가져와도 전부 딸려 오지 않게 빌드 출력을 파일 단위로 바꾸고 크기 상한 게이트를 건다
-  - 이유: Button 하나만 써도 core 320KB가 번들에 들어가 외부 앱(375KB)이 두 배 가까이 커진다
-  - 목표: dist 기준 core Button 단독이 7KB 이하이고, 상한을 넘으면 test:unit이 빨강이 된다
-  - 메모: 외부 앱 소비 문제 대응 5장 중 1 · 근거와 측정값은 카드 문서 「전략」
-  - 실행 문서: KANBAN/cards/KAN-051-5HMYKT.md (0/4 · 최근 10-05)
-  - 계획 리포트: KANBAN/reports/KAN-051-5HMYKT.report.html (낡음)
-  - 원문:
-    ```text
-    [첨부 이미지]
-    bbangto-ui 컴포넌트를 지금 들여오면 생기는 문제
-    - 워커가 시안의 화면 조각 42개를 나눴습니다. bbangto-ui에 이미 있는 것이 11개, 이 앱에서 만들 것이 22개, bbangto-ui에 요청할 것이 9개입니다.
-    - 그런데 bbangto-ui core(1.1.2)는 들여오는 입구가 하나뿐입니다. Button 하나만 써도 약 420KB가 번들에 들어갑니다. 지금 웹 앱 전체가 375KB이니 앱이 두 배 넘게 커집니다.
-    - 원인은 bbangto-ui 빌드에 있습니다. forwardRef 127곳에 「안 쓰면 버려도 된다」는 표시(__PURE__)가 없습니다. 이 두 가지는 제가 설치된 파일에서 직접 확인했습니다. 워커가 이 표시를 붙인 사본으로 다시 빌드하자 Button이 25KB로 줄었다고 보고했고, 이 재빌드는 제가 다시 해 보지 않았습니다.
-    - 번들 말고도 문제가 있다고 워커가 보고했습니다(제가 직접 확인하지는 않았습니다).
-      - Provider가 외부 글꼴을 늘 불러옵니다.
-      - Drawer에 Esc 닫기와 포커스 처리가 없습니다.
-      - Tabs·Select의 키보드 조작이 빠져 있습니다.
-    
-    이 문제를 해결하기 위한 전략을 수립, 실행 계획 수립, 칸반 카드화 해라.
-    ```
 
 ## 진행 중
 - `KAN-054-M48FNQ` 나머지 컴포넌트 키보드·포커스 일괄 + 키보드 커버리지 게이트 — 생성:ai · 최종:ai · 갱신:2026-10-07
@@ -435,6 +411,38 @@
   - 실행 문서: KANBAN/cards/KAN-053-TZ86NN.md (4/4 · 최근 10-06)
   - 계획 리포트: KANBAN/reports/KAN-053-TZ86NN.report.html (낡음)
   - 검토 문서: KANBAN/reviews/KAN-053-TZ86NN.review.md (승인 5/5 · 추가 의견 총 5 · 승인)
+  - 원문:
+    ```text
+    [첨부 이미지]
+    bbangto-ui 컴포넌트를 지금 들여오면 생기는 문제
+    - 워커가 시안의 화면 조각 42개를 나눴습니다. bbangto-ui에 이미 있는 것이 11개, 이 앱에서 만들 것이 22개, bbangto-ui에 요청할 것이 9개입니다.
+    - 그런데 bbangto-ui core(1.1.2)는 들여오는 입구가 하나뿐입니다. Button 하나만 써도 약 420KB가 번들에 들어갑니다. 지금 웹 앱 전체가 375KB이니 앱이 두 배 넘게 커집니다.
+    - 원인은 bbangto-ui 빌드에 있습니다. forwardRef 127곳에 「안 쓰면 버려도 된다」는 표시(__PURE__)가 없습니다. 이 두 가지는 제가 설치된 파일에서 직접 확인했습니다. 워커가 이 표시를 붙인 사본으로 다시 빌드하자 Button이 25KB로 줄었다고 보고했고, 이 재빌드는 제가 다시 해 보지 않았습니다.
+    - 번들 말고도 문제가 있다고 워커가 보고했습니다(제가 직접 확인하지는 않았습니다).
+      - Provider가 외부 글꼴을 늘 불러옵니다.
+      - Drawer에 Esc 닫기와 포커스 처리가 없습니다.
+      - Tabs·Select의 키보드 조작이 빠져 있습니다.
+    
+    이 문제를 해결하기 위한 전략을 수립, 실행 계획 수립, 칸반 카드화 해라.
+    ```
+- `KAN-050-AJSQAY` 문서 정리 D — 규율 문서 실측 정합 (theme-* 부재 · 모션 5중 기재) — 생성:ai · 최종:ai · 갱신:2026-10-07
+  - 짧은 제목: 규율 문서 실측 정합
+  - 목적: CLAUDE.md·QUALITY_CHECKLIST·DESIGN_SYSTEM_GUIDE 의 실측 어긋남을 고치고 5곳에 흩어진 모션 워크플로 기재를 하나로 모은다
+  - 이유: packages/theme-* 4종이 실재하지 않는데 세 규율 문서가 그것을 구조도와 경로로 가리키고 있다
+  - 목표: 규율 문서가 실제 레포 구조와 일치하고 모션 워크플로가 한 곳에만 적힌다
+  - 메모: KAN-044 §13-D. 2026-10-07 전략 재수립(선행 KAN-048 완료) — 전수 grep 으로 scope 3파일 추가(COMPONENT_CATALOG·Overview.mdx·types.ts), motion-catalog:27 은 KAN-051 앞뒤 모두 참인 문장으로 고쳐 순서 의존을 없앤다. 상세는 카드 문서 「전략」
+  - 실행 문서: KANBAN/cards/KAN-050-AJSQAY.md (4/4 · 최근 10-07)
+  - 계획 리포트: KANBAN/reports/KAN-050-AJSQAY.report.html (낡음)
+  - 검토 문서: KANBAN/reviews/KAN-050-AJSQAY.review.md (승인 3/3 · 추가 의견 총 3 · 승인)
+- `KAN-051-5HMYKT` 번들 트리 셰이킹 복구 — 파일 단위 출력 + 크기 상한 게이트 (core·viz·sgc·vsgc) — 생성:ai · 최종:ai · 갱신:2026-10-07
+  - 짧은 제목: 번들 트리 셰이킹 복구
+  - 목적: core·visualization·style-guide-catalog·viz-style-guide-catalog를 하나만 가져와도 전부 딸려 오지 않게 빌드 출력을 파일 단위로 바꾸고 크기 상한 게이트를 건다
+  - 이유: Button 하나만 써도 core 320KB가 번들에 들어가 외부 앱(375KB)이 두 배 가까이 커진다
+  - 목표: dist 기준 core Button 단독이 7KB 이하이고, 상한을 넘으면 test:unit이 빨강이 된다
+  - 메모: 외부 앱 소비 문제 대응 5장 중 1 · 근거와 측정값은 카드 문서 「전략」
+  - 실행 문서: KANBAN/cards/KAN-051-5HMYKT.md (4/4 · 최근 10-07)
+  - 계획 리포트: KANBAN/reports/KAN-051-5HMYKT.report.html (낡음)
+  - 검토 문서: KANBAN/reviews/KAN-051-5HMYKT.review.md (승인 4/4 · 추가 의견 총 2 · 승인)
   - 원문:
     ```text
     [첨부 이미지]

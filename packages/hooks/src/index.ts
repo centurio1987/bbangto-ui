@@ -1,4 +1,4 @@
-// @centurio1987/hooks — headless React hooks for bbangto-ui
+// @centurio1987/bbangto-ui-hooks — headless React hooks for bbangto-ui
 //
 // 21st.dev "Hooks (31)" 카테고리의 대응 계층. 각 훅은 JSX를 반환하지 않는
 // 순수 로직이며 zero runtime dependency를 유지한다 (react peer만 허용).

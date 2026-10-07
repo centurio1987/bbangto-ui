@@ -5,13 +5,17 @@ component) must pass this gate. The workflow is **tests + checklist first →
 implement → gate** — do not implement before the test and checklist for the
 item exist. This file is the gate; copy the checklist into the PR/commit.
 
-> Lives at package root (outside `src/`, package `files: ["dist"]`) → never
-> published nor bundled. Companion to `motion-catalog.md` (SSOT) and
+> Lives at package root (outside `src/`, package `files: ["dist", "README.md"]`) →
+> never published nor bundled. Companion to `motion-catalog.md` (SSOT) and
 > `src/motion/README.md` (how-to).
 
 ---
 
 ## Workflow (per item)
+
+This is the **single source** for the motion workflow and its gate commands —
+`src/motion/README.md` «Workflow» and `motion-catalog.md` §6 point here instead
+of repeating the steps.
 
 1. **Write the test first.** Add a `play` function to the item's Storybook
    story asserting its contract (see "Test requirements"). It will fail/red
@@ -67,8 +71,10 @@ Each animation item's story MUST have a `play` function asserting, as applicable
 - [ ] No `@keyframes` body in the token layer; new keyframes added to
       `src/motion/keyframes.ts` and namespaced `bbangto-*`.
 - [ ] New looping/preset animation (if any) added to `motion.preset` in tokens
-      **and every theme** (`theme-light` + `theme-amber` baseMotion;
-      dark/high-contrast inherit via spread).
+      **and every foundation** (`packages/core/src/foundations/light.ts` —
+      dark/high-contrast inherit via spread; `packages/foundations/src/amber.ts`
+      `baseMotion`; each of the 74 presets in `packages/foundations/src/themes/`).
+      `pnpm typecheck` flags any foundation that misses the new key.
 
 ### Accessibility
 - [ ] `prefers-reduced-motion` honored (global reset applies; verified in the
@@ -100,8 +106,8 @@ Each animation item's story MUST have a `play` function asserting, as applicable
 
 ### Tests & docs
 - [ ] `play` test added and green via `pnpm test`.
-- [ ] Story renders correctly across **all 5 themes** (light/dark/high-contrast/
-      amber-dark/amber-light) and in the reduced-motion story.
+- [ ] Story renders correctly across **all 3 base foundations** (light/dark/
+      high-contrast — the Storybook toolbar "Foundation") and in the reduced-motion story.
 - [ ] `motion-catalog.md` §4 row → `implemented` (+ Source URL/License if `ported`),
       §5 counts bumped, §7 checkbox ticked.
 

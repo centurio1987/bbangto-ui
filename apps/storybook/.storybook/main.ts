@@ -13,10 +13,12 @@ const config: StorybookConfig = {
     "@storybook/addon-mcp"
   ],
   "framework": "@storybook/react-vite",
-  // DEV 성능: @centurio1987/bbangto-ui-core 의 빌드된 dist 배럴(590KB 단일 파일)을 vite dev가
-  // on-demand 변환하면 스토리 첫 로드마다 ~55초가 걸린다(거대 단일 파일의 병리적
-  // 변환 비용). DEV 에서는 대신 src 로 alias 해 작은 소스 모듈들을 빠르게 변환·캐시
-  // 한다(HMR 도 됨). 프로덕션 build 는 그대로 dist 를 사용한다.
+  // 워크스페이스 패키지는 src 가 아니라 빌드된 dist 를 읽는다(alias 없음). DEV 에서는 아래
+  // optimizeDeps.include 로 vite 가 그 dist 를 미리 묶어 캐시한다(cd0d378: 콜드 로드 ~60s→<1s).
+  // core·visualization·두 카탈로그의 dist 는 파일 단위 출력이라(KAN-051) 패키지마다 js 가 75~473개다.
+  // 미리 묶은 캐시는 dist 를 다시 빌드해도 저절로 갱신되지 않으므로, 고친 것이 화면에 안 나오면
+  // apps/storybook/node_modules/.cache/storybook 을 지우고 다시 띄운다(Storybook 10 의 dev 에는
+  // --force 가 없다). 프로덕션 build 도 같은 dist 를 쓴다.
   async viteFinal(viteConfig) {
     const { mergeConfig } = await import('vite');
     return mergeConfig(viteConfig, {

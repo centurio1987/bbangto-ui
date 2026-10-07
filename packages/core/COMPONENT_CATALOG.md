@@ -25,7 +25,7 @@
 
 ```
 tokens (packages/tokens)
-  └─ themes (theme-light/dark/amber/high-contrast)
+  └─ foundations (base 3: packages/core/src/foundations · 확장 76: packages/foundations)
        └─ atoms / molecules  →  packages/core/src/components   [현존]
             └─ blocks (sections)  →  packages/core/src/blocks   [신설]
                  └─ patterns (templates/flows)  →  packages/core/src/patterns  [신설]
@@ -203,7 +203,7 @@ Wave 0 (편제·인프라·토큰)
 
 | 산출물 | 계층 | Wave | 상태 | 담당 에이전트 | 비고 |
 |---|---|---|---|---|---|
-| `@centurio1987/hooks` 패키지 | hooks | 0 | **DONE** | orchestrator | 4 게이트 GREEN |
+| `@centurio1987/bbangto-ui-hooks` 패키지 | hooks | 0 | **DONE** | orchestrator | 4 게이트 GREEN |
 | `useIsMounted` | hook | 0 | **DONE** | orchestrator | 레퍼런스 훅 |
 | `blocks`/`patterns`/`motion.shaders` 배럴 | 편제 | 0 | **DONE** | orchestrator | core re-export 배선 |
 | 오서링 템플릿 (`/_templates`) | 인프라 | 0 | **DONE** | orchestrator | component/story/hook/checklist |
