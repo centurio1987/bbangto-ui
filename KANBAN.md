@@ -68,7 +68,7 @@
   - 이유: Button 등은 키보드로 포커스해도 화면에 아무 표시가 없어 키보드 사용자가 자기 위치를 모른다(KAN-054 검토 §3-6)
   - 목표: 키보드로 닿는 core 컴포넌트마다 포커스 표시가 보이고, 빠지면 테스트가 빨강이 된다
   - 메모: KAN-054 검토 §3-6(2026-10-07 유저가 추천대로 재작업 선택)에서 나온 후속 · KAN-054는 Card·Calendar 날짜 칸·DatePicker 트리거 셋만 a11y/focusRing.ts 로 고쳤다 — 이 카드가 나머지를 같은 규칙으로
-  - 실행 문서: KANBAN/cards/KAN-059-62EAKB.md (3/6 · 최근 10-07)
+  - 실행 문서: KANBAN/cards/KAN-059-62EAKB.md (4/6 · 최근 10-07)
   - 계획 리포트: KANBAN/reports/KAN-059-62EAKB.report.html (낡음)
 
 ## 검토

@@ -1,5 +1,6 @@
 import React from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
+import { FOCUS_RING, useFocusVisible } from '../a11y';
 
 export type ScrollAreaOrientation = 'vertical' | 'horizontal' | 'both';
 
@@ -21,10 +22,13 @@ export const ScrollArea = React.forwardRef<HTMLDivElement, ScrollAreaProps>(
       maxWidth,
       children,
       style,
+      onFocus,
+      onBlur,
       ...props
     },
     ref
   ) => {
+    const { focusVisible, focusProps } = useFocusVisible<HTMLDivElement>({ onFocus, onBlur });
     // For the `always` variant, force scrollbars to remain visible by using
     // `scroll` instead of `auto` on the active axis (the axis the orientation enables).
     const activeOverflow = variant === 'always' ? 'scroll' : 'auto';
@@ -62,8 +66,8 @@ export const ScrollArea = React.forwardRef<HTMLDivElement, ScrollAreaProps>(
       scrollbarColor: `${cssVar('semantic', 'border', 'strong')} ${cssVar('semantic', 'background', 'sunken')}`,
       // Smooth scrolling, respecting reduced-motion
       scrollBehavior: 'smooth',
-      // Make container focusable for keyboard scrolling
-      outline: 'none',
+      // Focusable for keyboard scrolling; the ring shows only for keyboard focus (KAN-059).
+      ...(focusVisible ? FOCUS_RING : { outline: 'none' }),
       ...style,
     };
 
@@ -154,6 +158,7 @@ ${variantCss[variant].trim()}
           tabIndex={0}
           style={containerStyles}
           {...props}
+          {...focusProps}
         >
           {children}
         </div>

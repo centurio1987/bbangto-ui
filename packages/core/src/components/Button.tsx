@@ -1,6 +1,7 @@
 import React from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 import { Spinner } from '../motion/Spinner';
+import { FOCUS_RING, useFocusVisible } from '../a11y';
 
 export type ButtonVariant = 'solid' | 'outline' | 'ghost' | 'soft' | 'gradient' | 'link' | 'neon';
 export type ButtonColor = 'primary' | 'error' | 'success' | 'warning' | 'neutral';
@@ -32,10 +33,13 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       children,
       style,
       disabled,
+      onFocus,
+      onBlur,
       ...props
     },
     ref
   ) => {
+    const { focusVisible, focusProps } = useFocusVisible<HTMLButtonElement>({ onFocus, onBlur });
     // Loading behaves like disabled for interaction, but stays visually "loading".
     const isInteractionDisabled = disabled || loading;
     // Determine colors
@@ -150,7 +154,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       fontFamily: cssVar('typography', 'fontFamily', 'sans'),
       cursor: isInteractionDisabled ? 'not-allowed' : 'pointer',
       transition: `all ${cssVar('motion', 'duration', 'fast')} ${cssVar('motion', 'easing', 'default')}`,
-      outline: 'none',
+      ...(focusVisible ? FOCUS_RING : { outline: 'none' }),
       ...style,
     };
 
@@ -179,6 +183,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           }
         }}
         {...props}
+        {...focusProps}
       >
         {loading ? (
           <span style={{ display: 'inline-flex', alignItems: 'center', flexShrink: 0 }}>

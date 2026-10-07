@@ -142,7 +142,9 @@ describe('포커스 표시 — 실제 입력 (KAN-059)', () => {
     await tabIn(host);
     await vi.waitFor(() => expect(document.activeElement?.textContent).toBe('Save'));
     await vi.waitFor(() => expect(ringsIn(root)).toEqual(['solid 2px']));
+    await userEvent.click(byText(host, 'Before'));
     await userEvent.click(byText(host, 'Save'));
+    await vi.waitFor(() => expect(document.activeElement?.textContent).toBe('Save'));
     await vi.waitFor(() => expect(ringsIn(root)).toEqual([]));
   });
 
@@ -155,7 +157,9 @@ describe('포커스 표시 — 실제 입력 (KAN-059)', () => {
     await tabIn(host);
     await vi.waitFor(() => expect(document.activeElement?.textContent).toBe('Docs'));
     await vi.waitFor(() => expect(ringsIn(root)).toEqual(['solid 2px']));
+    await userEvent.click(byText(host, 'Before'));
     await userEvent.click(root.querySelector('a')!);
+    await vi.waitFor(() => expect(document.activeElement?.textContent).toBe('Docs'));
     await vi.waitFor(() => expect(ringsIn(root)).toEqual([]));
   });
 
@@ -254,7 +258,8 @@ describe('포커스 표시 — 실제 입력 (KAN-059)', () => {
     await vi.waitFor(() => expect(document.activeElement?.getAttribute('tabindex')).toBe('0'));
     await vi.waitFor(() => expect(ringsIn(root)).toEqual(['solid 2px']));
     await userEvent.click(byText(host, 'Before'));
-    await userEvent.click(root.querySelector('p')!);
+    await userEvent.click(root.querySelector<HTMLElement>('[data-bbangto-scrollarea]')!);
+    await vi.waitFor(() => expect(document.activeElement?.getAttribute('tabindex')).toBe('0'));
     await vi.waitFor(() => expect(ringsIn(root)).toEqual([]));
   });
 

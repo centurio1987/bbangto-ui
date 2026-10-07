@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback, useId } from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
-import { composeHandlers, useRovingFocus, useTypeahead } from '../a11y';
+import { composeHandlers, FOCUS_RING_INSET, useFocusVisible, useRovingFocus, useTypeahead } from '../a11y';
 
 // ─── Menu ────────────────────────────────────────────────────────────────────
 
@@ -271,6 +271,14 @@ export const MenuItem = React.forwardRef<HTMLLIElement, MenuItemProps>(
     const itemId = useId();
     // Inside a Menu only the Menu's chosen item is a Tab stop; arrow keys reach the rest.
     const tabIndex = menu ? (menu.tabStop === itemId ? 0 : -1) : disabled ? -1 : 0;
+    // Keyboard focus ring inside the edge — the menu panel would cut an outer one (KAN-059).
+    const { focusVisible, focusProps } = useFocusVisible<HTMLLIElement>({
+      onFocus: composeHandlers(onFocus, () => {
+        setIsHovered(true);
+        if (!disabled) menu?.setTabStop(itemId);
+      }),
+      onBlur: composeHandlers(onBlur, () => setIsHovered(false)),
+    });
 
     const handleClick = () => {
       if (!disabled) {
@@ -304,7 +312,7 @@ export const MenuItem = React.forwardRef<HTMLLIElement, MenuItemProps>(
       cursor: disabled ? 'not-allowed' : 'pointer',
       userSelect: 'none',
       transition: `background-color ${cssVar('motion', 'duration', 'fast')} ${cssVar('motion', 'easing', 'default')}`,
-      outline: 'none',
+      ...(focusVisible ? FOCUS_RING_INSET : { outline: 'none' }),
       listStyle: 'none',
       ...style,
     };
@@ -321,11 +329,7 @@ export const MenuItem = React.forwardRef<HTMLLIElement, MenuItemProps>(
         onKeyDown={composeHandlers(onKeyDown, handleKeyDown)}
         onMouseEnter={composeHandlers(onMouseEnter, () => setIsHovered(true))}
         onMouseLeave={composeHandlers(onMouseLeave, () => setIsHovered(false))}
-        onFocus={composeHandlers(onFocus, () => {
-          setIsHovered(true);
-          if (!disabled) menu?.setTabStop(itemId);
-        })}
-        onBlur={composeHandlers(onBlur, () => setIsHovered(false))}
+        {...focusProps}
         {...props}
       >
         {leftIcon && (
