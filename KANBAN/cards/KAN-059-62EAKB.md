@@ -8,7 +8,6 @@ scope: packages/core/src/a11y/**, packages/core/src/components/Button.tsx, packa
 # KAN-059-62EAKB — core 키보드 포커스 표시 통일 — :focus-visible 테두리를 모든 상호작용 컴포넌트에
 
 ## 전략
-## 전략
 카드 메모: KAN-054 검토 §3-6(2026-10-07 유저가 추천대로 재작업 선택)에서 나온 후속 · KAN-054는 Card·Calendar 날짜 칸·DatePicker 트리거 셋만 a11y/focusRing.ts 로 고쳤다 — 이 카드가 나머지를 같은 규칙으로
 
 ### 문제
@@ -159,3 +158,4 @@ pnpm test:unit                  # ← keyboardCoverage.test.ts 의 포커스 표
 - 2026-10-07T19:30 · s:adde175a · S5 done — Input(기본·composer)·Searchfield·RichTextEditor 는 감싼 상자, Textarea 는 자기 자신, NumberField 는 증감 버튼 각자(FOCUS_RING_INSET — 상자가 overflow:hidden)·입력은 바깥 상자·seven-segment 는 판 전체, Switch 는 트랙, Radio segmented 는 스타일 블록의 :has(input:focus-visible) 로 그 조각(이미 :has(input:checked) 를 쓰던 자리). Input 의 내부 onFocus/onBlur 를 {...props} 가 덮던 것을 합성으로 — 소비자 onFocus 가 와도 테두리 색·고리가 산다(실제 입력 항목으로 확인). 실제 입력 20건·스토리 6파일 80건 초록, test:unit 포커스 표시 게이트 27건 초록
 - 2026-10-07T19:31 · s:adde175a · S6 doing — 착수
 - 2026-10-07T19:34 · s:adde175a · S6 done — 빌드한 Storybook(127.0.0.1)에서 Playwright 실제 Tab 으로 19자리를 찍었다 — 모두 테두리 하나(2px)가 보이고, overflow 로 잘리는 조상이 없다(스크립트로 조상 상자와 고리 범위를 대조). Menu·TreeView 항목·NumberField 증감·Radio 조각은 안쪽 간격(-2px)으로 확정. TreeView 는 펼친 노드에서도 행 하나에만 그려진다. 스타일 가이드(Neobrutalism)에서는 그 가이드의 border.focus(금색)를 따른다 — 크림 배경에서 흐린 것은 KAN-060 몫. changeset kan-059-focus-ring.md(core minor). 게이트 5종 초록: typecheck · build · test 192파일 1289건 · storybook build · test:unit
+- 2026-10-07T19:36 · s:adde175a — `전략` 섹션 교체

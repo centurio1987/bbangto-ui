@@ -62,6 +62,8 @@
     ```
 
 ## 진행 중
+
+## 검토
 - `KAN-059-62EAKB` core 키보드 포커스 표시 통일 — :focus-visible 테두리를 모든 상호작용 컴포넌트에 — 생성:ai · 최종:ai · 갱신:2026-10-07
   - 짧은 제목: 포커스 표시 통일
   - 목적: 브라우저 기본 테두리를 끈 core 컴포넌트(components 13개·blocks 1개)에 키보드 포커스일 때만 보이는 테두리를 한 규칙으로 단다
@@ -70,8 +72,7 @@
   - 메모: KAN-054 검토 §3-6(2026-10-07 유저가 추천대로 재작업 선택)에서 나온 후속 · KAN-054는 Card·Calendar 날짜 칸·DatePicker 트리거 셋만 a11y/focusRing.ts 로 고쳤다 — 이 카드가 나머지를 같은 규칙으로
   - 실행 문서: KANBAN/cards/KAN-059-62EAKB.md (6/6 · 최근 10-07)
   - 계획 리포트: KANBAN/reports/KAN-059-62EAKB.report.html (낡음)
-
-## 검토
+  - 검토 문서: KANBAN/reviews/KAN-059-62EAKB.review.md (승인 0/4 · 검토 대기)
 
 ## 완료
 - `KAN-020` visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현 — 생성:유저 · 최종:유저 · 갱신:2026-08-14
