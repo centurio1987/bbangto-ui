@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 import { Button } from './Button';
+import { FOCUS_RING, useFocusVisible } from '../a11y';
 
 export interface RichTextEditorProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   value?: string;
@@ -12,6 +13,11 @@ export const RichTextEditor = React.forwardRef<HTMLDivElement, RichTextEditorPro
   ({ value, onChange, placeholder = 'Write something...', style, ...props }, ref) => {
     const editorRef = useRef<HTMLDivElement>(null);
     const [isFocused, setIsFocused] = useState(false);
+    // The editable area takes focus; the ring goes on the outer box (KAN-059).
+    const { focusVisible, focusProps } = useFocusVisible<HTMLDivElement>({
+      onFocus: () => setIsFocused(true),
+      onBlur: () => setIsFocused(false),
+    });
 
     // This is a simplified "shell" implementation. 
     // In a real scenario, you'd integrate Tiptap, Quill, or Slate here.
@@ -38,6 +44,7 @@ export const RichTextEditor = React.forwardRef<HTMLDivElement, RichTextEditorPro
       overflow: 'hidden',
       transition: 'border-color 0.2s',
       fontFamily: cssVar('typography', 'fontFamily', 'sans'),
+      ...(focusVisible ? FOCUS_RING : null),
       ...style,
     };
 
@@ -124,8 +131,7 @@ export const RichTextEditor = React.forwardRef<HTMLDivElement, RichTextEditorPro
           contentEditable
           style={editorAreaStyle}
           onInput={handleInput}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
+          {...focusProps}
           dangerouslySetInnerHTML={value ? { __html: value } : undefined}
           data-placeholder={placeholder}
         />

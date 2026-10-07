@@ -1,5 +1,6 @@
 import React from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
+import { FOCUS_RING, useFocusVisible } from '../a11y';
 
 export type SwitchSize = 'sm' | 'md' | 'lg';
 export type SwitchLabelPosition = 'right' | 'left';
@@ -54,11 +55,15 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
       className,
       disabled,
       checked,
+      onFocus,
+      onBlur,
       ...props
     },
     ref
   ) => {
     const isInteractionDisabled = disabled || loading;
+    // The input is visually hidden, so its keyboard focus ring goes on the track (KAN-059).
+    const { focusVisible, focusProps } = useFocusVisible<HTMLInputElement>({ onFocus, onBlur });
 
     const { trackWidth, trackHeight, knobSize, trackRadius } = SIZE_DIMENSIONS[size];
 
@@ -116,6 +121,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
       transition: `background-color ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'default')}, border-color ${cssVar('motion', 'duration', 'normal')} ${cssVar('motion', 'easing', 'default')}`,
       border: `1px solid ${trackBorderColor}`,
       flexShrink: 0,
+      ...(focusVisible ? FOCUS_RING : null),
     };
 
     const knobStyles: React.CSSProperties = {
@@ -165,6 +171,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
             whiteSpace: 'nowrap',
           }}
           {...props}
+          {...focusProps}
         />
         {labelPosition !== 'left' && label && (
           <span style={labelStyles}>{label}</span>

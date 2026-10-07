@@ -1,5 +1,6 @@
 import React from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
+import { FOCUS_RING, useFocusVisible } from '../a11y';
 
 export type TextareaSize = 'sm' | 'md' | 'lg';
 export type TextareaResize = 'none' | 'vertical' | 'horizontal' | 'both';
@@ -40,10 +41,13 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       style,
       className,
       disabled,
+      onFocus,
+      onBlur,
       ...props
     },
     ref
   ) => {
+    const { focusVisible, focusProps } = useFocusVisible<HTMLTextAreaElement>({ onFocus, onBlur });
     const isDisabled = disabled || loading;
 
     // Size → minHeight + padding + fontSize
@@ -114,7 +118,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       color: cssVar('semantic', 'foreground', 'base'),
       fontSize,
       fontFamily: cssVar('typography', 'fontFamily', 'sans'),
-      outline: 'none',
+      ...(focusVisible ? FOCUS_RING : { outline: 'none' }),
       resize,
       transition: 'border-color 0.2s',
       cursor: isDisabled ? 'not-allowed' : 'text',
@@ -135,6 +139,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           aria-busy={loading || undefined}
           aria-invalid={error ? true : undefined}
           {...props}
+          {...focusProps}
         />
         {(error || helperText) && (
           <span style={helperStyle}>{error || helperText}</span>

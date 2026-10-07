@@ -1,5 +1,6 @@
 import React from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
+import { FOCUS_RING, useFocusVisible } from '../a11y';
 
 export type LinkVariant =
   | 'default'
@@ -48,10 +49,13 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       style,
       target,
       rel,
+      onFocus,
+      onBlur,
       ...props
     },
     ref
   ) => {
+    const { focusVisible, focusProps } = useFocusVisible<HTMLAnchorElement>({ onFocus, onBlur });
     const scale = sizeScale[size];
 
     const isMuted = variant === 'muted';
@@ -111,10 +115,6 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
     const externalTarget = external ? '_blank' : target;
     const externalRel = external ? 'noopener noreferrer' : rel;
 
-    // Keyboard focus ring for the padded surfaces (they read as buttons, so a
-    // visible indicator matters). Legacy text variants keep their behavior.
-    const focusRing = `0 0 0 2px ${cssVar('semantic', 'border', 'focus')}`;
-
     const baseStyles: React.CSSProperties = {
       display: variant === 'inline' ? 'inline' : 'inline-flex',
       alignItems: variant === 'inline' ? undefined : 'center',
@@ -132,7 +132,8 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       letterSpacing: cssVar('typography', 'scale', scale, 'letterSpacing'),
       cursor: 'pointer',
       transition: `color ${cssVar('motion', 'duration', 'fast')} ${cssVar('motion', 'easing', 'default')}, background-color ${cssVar('motion', 'duration', 'fast')} ${cssVar('motion', 'easing', 'default')}`,
-      outline: 'none',
+      // Keyboard focus ring for every variant (KAN-059) — the same ring as the rest of core.
+      ...(focusVisible ? FOCUS_RING : { outline: 'none' }),
       ...style,
     };
 
@@ -157,17 +158,8 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
             e.currentTarget.style.backgroundColor = surfaceBg;
           }
         }}
-        onFocus={(e) => {
-          if (isSurface) {
-            e.currentTarget.style.boxShadow = focusRing;
-          }
-        }}
-        onBlur={(e) => {
-          if (isSurface) {
-            e.currentTarget.style.boxShadow = '';
-          }
-        }}
         {...props}
+        {...focusProps}
       >
         {children}
         {external && (

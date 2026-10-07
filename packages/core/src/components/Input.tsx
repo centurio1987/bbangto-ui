@@ -1,6 +1,7 @@
 import React from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 import { Spinner } from '../motion/Spinner';
+import { composeHandlers, FOCUS_RING, useFocusVisible } from '../a11y';
 
 export type InputSize = 'sm' | 'md' | 'lg';
 
@@ -44,11 +45,20 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       variant = 'outline',
       style,
       className,
+      onFocus,
+      onBlur,
       ...props
     },
     ref
   ) => {
     const wrapperRef = React.useRef<HTMLDivElement>(null);
+    // Keyboard focus ring on the box around the input (KAN-059). Text fields
+    // match :focus-visible on every focus, mouse included — as browsers do.
+    // The consumer's handlers run first and no longer replace the border paint.
+    const { focusVisible, focusProps } = useFocusVisible<HTMLInputElement>({
+      onFocus: composeHandlers(onFocus, () => paintWrapper(true)),
+      onBlur: composeHandlers(onBlur, () => paintWrapper(false)),
+    });
 
     // Loading acts like disabled for interaction
     const isInteractionDisabled = disabled || loading;
@@ -142,6 +152,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       boxShadow: cssVar('shadow', 'md'),
       transition: `border-color ${cssVar('motion', 'duration', 'fast')}, box-shadow ${cssVar('motion', 'duration', 'fast')}`,
       cursor: isInteractionDisabled ? 'not-allowed' : 'text',
+      ...(focusVisible ? FOCUS_RING : null),
     };
 
     const composerInputStyles: React.CSSProperties = {
@@ -211,6 +222,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       transition: `border-color ${cssVar('motion', 'duration', 'fast')}, background-color ${cssVar('motion', 'duration', 'fast')}`,
       cursor: isInteractionDisabled ? 'not-allowed' : 'text',
       overflow: 'hidden',
+      ...(focusVisible ? FOCUS_RING : null),
     };
 
     const inputStyles: React.CSSProperties = {
@@ -247,6 +259,22 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       ? cssVar('semantic', 'disabled', 'foreground')
       : cssVar('semantic', 'foreground', 'muted');
 
+    // Focus paints the wrapper border directly (variant-specific), as before KAN-059.
+    function paintWrapper(focused: boolean) {
+      const el = wrapperRef.current;
+      if (isInteractionDisabled || !el) return;
+      if (isComposer) {
+        el.style.borderColor = focused ? borderColorFocus : composerBorderColor;
+      } else if (variant === 'underline') {
+        el.style.borderBottomColor = focused ? borderColorFocus : borderColorIdle;
+      } else if (variant === 'ghost') {
+        el.style.borderColor = focused ? borderColorFocus : 'transparent';
+        el.style.backgroundColor = focused ? wrapperBaseBackground : 'transparent';
+      } else {
+        el.style.borderColor = focused ? borderColorFocus : borderColorIdle;
+      }
+    }
+
     if (isComposer) {
       return (
         <div style={containerStyles} className={className}>
@@ -261,17 +289,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
               ref={ref}
               disabled={isInteractionDisabled}
               style={composerInputStyles}
-              onFocus={() => {
-                if (!isInteractionDisabled && wrapperRef.current) {
-                  wrapperRef.current.style.borderColor = borderColorFocus;
-                }
-              }}
-              onBlur={() => {
-                if (!isInteractionDisabled && wrapperRef.current) {
-                  wrapperRef.current.style.borderColor = composerBorderColor;
-                }
-              }}
               {...props}
+              {...focusProps}
             />
             <div style={composerActionRowStyles}>
               <button
@@ -311,33 +330,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             disabled={isInteractionDisabled}
             style={inputStyles}
-            onFocus={() => {
-              if (!isInteractionDisabled && wrapperRef.current) {
-                const el = wrapperRef.current;
-                if (variant === 'underline') {
-                  el.style.borderBottomColor = borderColorFocus;
-                } else if (variant === 'ghost') {
-                  el.style.borderColor = borderColorFocus;
-                  el.style.backgroundColor = wrapperBaseBackground;
-                } else {
-                  el.style.borderColor = borderColorFocus;
-                }
-              }
-            }}
-            onBlur={() => {
-              if (!isInteractionDisabled && wrapperRef.current) {
-                const el = wrapperRef.current;
-                if (variant === 'underline') {
-                  el.style.borderBottomColor = borderColorIdle;
-                } else if (variant === 'ghost') {
-                  el.style.borderColor = 'transparent';
-                  el.style.backgroundColor = 'transparent';
-                } else {
-                  el.style.borderColor = borderColorIdle;
-                }
-              }
-            }}
             {...props}
+            {...focusProps}
           />
           {loading ? (
             <span style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>

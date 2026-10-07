@@ -1,6 +1,7 @@
 import React from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 import { Text } from '../components/Text';
+import { FOCUS_RING, useFocusVisible } from '../a11y';
 
 export interface DockItem {
   /** Icon node rendered in the dock button. */
@@ -153,6 +154,10 @@ interface DockButtonProps {
 
 function DockButton({ item, labeled = false, spotlight = false }: DockButtonProps) {
   const [hovered, setHovered] = React.useState(false);
+  const { focusVisible, focusProps } = useFocusVisible<HTMLButtonElement>({
+    onFocus: () => setHovered(true),
+    onBlur: () => setHovered(false),
+  });
 
   // In spotlight mode the active state is communicated by the glow beam, not a
   // painted pill — so the active background fill is suppressed.
@@ -181,7 +186,7 @@ function DockButton({ item, labeled = false, spotlight = false }: DockButtonProp
       ? cssVar('semantic', 'primary', 'base')
       : cssVar('semantic', 'foreground', 'base'),
     transition: `background-color ${cssVar('motion', 'duration', 'fast')} ${cssVar('motion', 'easing', 'default')}, transform ${cssVar('motion', 'duration', 'fast')} ${cssVar('motion', 'easing', 'default')}`,
-    outline: 'none',
+    ...(focusVisible ? FOCUS_RING : { outline: 'none' }),
     minWidth: '56px',
     // Spotlight establishes a local stacking context so the absolutely
     // positioned glow beam (z-index -1) stays behind the icon/label.
@@ -241,8 +246,8 @@ function DockButton({ item, labeled = false, spotlight = false }: DockButtonProp
       style={buttonStyle}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      onFocus={() => setHovered(true)}
-      onBlur={() => setHovered(false)}
+      onFocus={focusProps.onFocus}
+      onBlur={focusProps.onBlur}
       onClick={item.onClick}
     >
       {spotlight && item.active && (

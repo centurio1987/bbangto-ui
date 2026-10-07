@@ -193,7 +193,7 @@ export const Gallery = React.forwardRef<HTMLElement, GalleryProps>(
               }
             }
             .${GALLERY_ID}-scroller:focus-visible {
-              outline: 2px solid ${cssVar('semantic', 'primary', 'base')};
+              outline: 2px solid ${cssVar('semantic', 'border', 'focus')};
               outline-offset: 2px;
             }
             @media (prefers-reduced-motion: reduce) {

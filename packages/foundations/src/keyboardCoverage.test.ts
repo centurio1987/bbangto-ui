@@ -13,11 +13,15 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join, relative } from 'node:path';
 import { describe, it, expect } from 'vitest';
 import {
+  auditFocusRing,
   auditKeyboardCoverage,
+  findFocusRingSignals,
   findInteractiveSignals,
   realInputTestPath,
   storyBlock,
   usesKeyboardInput,
+  type FocusRingDeclaration,
+  type FocusRingInput,
   type KeyboardCoverageDeclaration,
   type KeyboardCoverageInput,
 } from './keyboardCoverage';
@@ -44,7 +48,7 @@ function readTree(absDir: string, suffix: string, acc: Record<string, string> = 
  */
 const CORE_UI_DIRS = ['components', 'blocks', 'patterns', 'motion'];
 
-function readDecl(): KeyboardCoverageDeclaration {
+function readDecl(): KeyboardCoverageDeclaration & FocusRingDeclaration {
   return JSON.parse(readFileSync(join(repoRoot, 'keyboard-coverage.json'), 'utf8'));
 }
 
@@ -220,5 +224,103 @@ describe('keyboard-coverage — fixture 실패 주입', () => {
     expect(v).toContain('Fake: keyboardStories 가 비었습니다');
     expect(v).toContain('Fake: behaviors 가 비었습니다');
     expect(v).toContain('x.tsx: ignored 에 사유가 없습니다');
+  });
+});
+
+describe('focus-ring — 실제 repo', () => {
+  const decl = readDecl();
+  const input: FocusRingInput = {
+    sources: Object.assign(
+      {},
+      ...CORE_UI_DIRS.map((dir) => readTree(join(repoRoot, 'packages/core/src', dir), '.tsx')),
+    ),
+    realInputTests: readTree(join(repoRoot, 'apps/storybook/src/real-input'), '.realinput.test.tsx'),
+  };
+
+  it('브라우저 테두리를 끄거나 입력을 숨긴 core 컴포넌트마다 포커스 표시 규칙과 실제 입력 테스트가 있다', () => {
+    expect(auditFocusRing(decl, input)).toEqual([]);
+  });
+
+  it('선언한 소스 경로가 저장소 형식을 따른다', () => {
+    for (const e of [...decl.focusRing, ...decl.focusRingIgnored]) {
+      expect(e.source).toMatch(/^packages\/core\/src\/(components|blocks|patterns|motion)\/.+\.tsx$/);
+    }
+  });
+});
+
+describe('focus-ring — 신호', () => {
+  it('인라인 객체와 스타일 문자열의 outline:none 을 잡는다', () => {
+    expect(findFocusRingSignals("const s = { outline: 'none' };")).toEqual(['outline:none']);
+    expect(findFocusRingSignals('const s = { outline: 0 };')).toEqual(['outline:none']);
+    expect(findFocusRingSignals('.x:focus { outline: none; }')).toEqual(['outline:none']);
+  });
+
+  it('1px 숨김 패턴을 잡는다', () => {
+    expect(findFocusRingSignals("style={{ clip: 'rect(0 0 0 0)' }}")).toEqual(['숨김']);
+    expect(findFocusRingSignals("style={{ clip: 'rect(0, 0, 0, 0)' }}")).toEqual(['숨김']);
+    expect(findFocusRingSignals("style={{ clipPath: 'inset(50%)' }}")).toEqual(['숨김']);
+    expect(findFocusRingSignals('.x input { clip-path: inset(50%); }')).toEqual(['숨김']);
+  });
+
+  it('outlineOffset·실제 테두리·부분 잘라내기는 잡지 않는다', () => {
+    expect(findFocusRingSignals("const s = { outlineOffset: 0, outline: '2px solid red' };")).toEqual([]);
+    expect(findFocusRingSignals('clipPath: `inset(0 0 0 ${p}%)`')).toEqual([]);
+  });
+});
+
+describe('focus-ring — fixture 실패 주입', () => {
+  const SRC = 'packages/core/src/components/Fake.tsx';
+  const TEST = 'apps/storybook/src/real-input/FocusVisible.realinput.test.tsx';
+  const base: FocusRingDeclaration = {
+    focusRing: [{ component: 'Fake', source: SRC, indicator: '자기 자신' }],
+    focusRingIgnored: [],
+  };
+  const input: FocusRingInput = {
+    sources: { [SRC]: "import { FOCUS_RING } from '../a11y'; const s = { outline: 'none' };" },
+    realInputTests: { [TEST]: "it('Fake: Tab 으로 오면 테두리', async () => {});" },
+  };
+
+  it('fixture 기준선은 통과한다', () => {
+    expect(auditFocusRing(base, input)).toEqual([]);
+  });
+
+  it('목록에 없는 파일의 outline:none 을 누락으로 잡는다', () => {
+    const extra = 'packages/core/src/components/Sneaky.tsx';
+    const v = auditFocusRing(base, { ...input, sources: { ...input.sources, [extra]: "{ outline: 'none' }" } });
+    expect(v).toEqual([`누락 ${extra}: 포커스 표시 신호(outline:none)가 있는데 focusRing 에 없습니다`]);
+  });
+
+  it('숨김 패턴만 있는 파일도 누락으로 잡는다', () => {
+    const extra = 'packages/core/src/components/Hidden.tsx';
+    const v = auditFocusRing(base, {
+      ...input,
+      sources: { ...input.sources, [extra]: "<input style={{ clip: 'rect(0 0 0 0)' }} />" },
+    });
+    expect(v).toEqual([`누락 ${extra}: 포커스 표시 신호(숨김)가 있는데 focusRing 에 없습니다`]);
+  });
+
+  it('목록에 있지만 공용 규칙을 안 쓰는 소스를 잡는다', () => {
+    const v = auditFocusRing(base, { ...input, sources: { [SRC]: "const s = { outline: 'none' };" } });
+    expect(v).toEqual([`Fake: ${SRC} 가 FOCUS_RING·useFocusVisible·:focus-visible 을 쓰지 않습니다`]);
+  });
+
+  it('목록에 있지만 실제 입력 항목이 없으면 잡는다', () => {
+    const v = auditFocusRing(base, {
+      ...input,
+      realInputTests: { [TEST]: "it('Other: Tab 으로 오면 테두리', async () => {});" },
+    });
+    expect(v).toEqual(["Fake: 실제 입력 테스트에 'Fake: …' 항목이 없습니다"]);
+  });
+
+  it('사유 없는 예외와 빈 indicator 를 잡는다', () => {
+    const v = auditFocusRing(
+      {
+        focusRing: [{ ...base.focusRing[0], indicator: ' ' }],
+        focusRingIgnored: [{ source: 'x.tsx', reason: '' }],
+      },
+      input,
+    );
+    expect(v).toContain('Fake: indicator 가 비었습니다');
+    expect(v).toContain('x.tsx: focusRingIgnored 에 사유가 없습니다');
   });
 });

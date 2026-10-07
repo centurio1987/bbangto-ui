@@ -225,3 +225,6 @@
 {"seq": 187, "t": "2026-10-07T13:38", "a": "ai", "id": "KAN-050-AJSQAY", "op": "serialize", "w": "S7030N", "with_": "KAN-048-R2KW3G", "reason": "전략 재수립 완료"}
 {"seq": 188, "t": "2026-10-07T13:54", "a": "ai", "id": "KAN-054-M48FNQ", "op": "move", "w": "DJT5WZ", "from": "todo", "to": "doing"}
 {"seq": 188, "t": "2026-10-07T13:54", "a": "ai", "id": "KAN-051-5HMYKT", "op": "move", "w": "199J5C", "from": "todo", "to": "doing"}
+{"seq": 189, "t": "2026-10-07T14:12", "a": "ai", "id": "KAN-051-5HMYKT", "op": "move", "w": "199J5C", "from": "doing", "to": "review"}
+{"seq": 189, "t": "2026-10-07T14:30", "a": "ai", "id": "KAN-054-M48FNQ", "op": "move", "w": "DJT5WZ", "from": "doing", "to": "review"}
+{"seq": 188, "t": "2026-10-07T14:13", "a": "ai", "id": "KAN-050-AJSQAY", "op": "move", "w": "728SB6", "from": "todo", "to": "doing"}

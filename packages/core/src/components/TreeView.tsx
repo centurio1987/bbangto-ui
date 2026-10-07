@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useRef } from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
-import { composeHandlers, useTypeahead } from '../a11y';
+import { composeHandlers, FOCUS_RING_INSET, useFocusVisible, useTypeahead } from '../a11y';
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -363,6 +363,14 @@ const TreeItem: React.FC<TreeItemProps> = ({
 }) => {
   const hasChildren = Boolean(node.children && node.children.length > 0);
   const isExpanded = hasChildren && expandedIds.has(node.id);
+  // The item (li) takes focus but also wraps its children, so the ring goes on
+  // its own row — not around the whole subtree (KAN-059).
+  const { focusVisible, focusProps } = useFocusVisible<HTMLLIElement>({
+    // Focus events bubble through ancestor items — only the target reports.
+    onFocus: (e) => {
+      if (e.target === e.currentTarget) onItemFocus(node.id);
+    },
+  });
   const isSelected = selectedId === node.id;
 
   const handleClick = (e: React.MouseEvent) => {
@@ -392,7 +400,7 @@ const TreeItem: React.FC<TreeItemProps> = ({
     color: isSelected
       ? cssVar('semantic', 'primary', 'base')
       : cssVar('semantic', 'foreground', 'base'),
-    outline: 'none',
+    ...(focusVisible ? FOCUS_RING_INSET : { outline: 'none' }),
     userSelect: 'none',
     transition: `background-color ${cssVar('motion', 'duration', 'fast')} ${cssVar('motion', 'easing', 'default')}`,
   };
@@ -422,12 +430,9 @@ const TreeItem: React.FC<TreeItemProps> = ({
       aria-level={level}
       data-node-id={node.id}
       tabIndex={node.id === tabStopId ? 0 : -1}
-      style={{ listStyle: 'none' }}
+      style={{ listStyle: 'none', outline: 'none' }}
       onClick={handleClick}
-      onFocus={(e) => {
-        // Focus events bubble through ancestor items — only the target reports.
-        if (e.target === e.currentTarget) onItemFocus(node.id);
-      }}
+      {...focusProps}
     >
       <div style={itemRowStyles}>
         {/* Expand/collapse chevron or spacer */}

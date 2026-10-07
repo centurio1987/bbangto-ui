@@ -21,7 +21,7 @@ KAN-054 가 빌드한 Storybook 을 실제 키로 돌아보다가 Button·Card �
 | Button | button | 없음 | `Button.tsx:153` |
 | Link | a | 상자 변형만 box-shadow 고리(마우스로 눌러도 생김), 글자 변형은 없음 | `Link.tsx:116, 135, 160-169` |
 | NumberField 증감 버튼 | button | 없음 | `NumberField.tsx:132` |
-| TreeView 항목 | treeitem | 선택 배경뿐(포커스와 무관) | `TreeView.tsx:395` |
+| TreeView 항목 | treeitem(`li`) | 브라우저 기본 테두리가 `li` 전체에 그려진다 — 펼친 노드면 자식 목록까지 감싼다. `outline: 'none'` 은 안쪽 행(`div`)에만 있다(S2 실측으로 바로잡음) | `TreeView.tsx:395, 418-432` |
 | Menu 항목 | menuitem | 포커스 때 마우스 올림과 같은 배경 | `Menu.tsx:307, 324` |
 | Dock 항목 | button | 포커스 때 마우스 올림과 같은 확대 | `blocks/Dock.tsx:184, 244` |
 | ScrollArea | `tabIndex=0` 상자 | 없음 | `ScrollArea.tsx:66, 154` |
@@ -34,7 +34,9 @@ KAN-054 가 빌드한 Storybook 을 실제 키로 돌아보다가 Button·Card �
 | Radio `segmented` | 숨긴 input | 없음 | `Radio.tsx:295-303` |
 | NumberField `seven-segment` | 숨긴 input | 없음 | `NumberField.tsx:203-212` |
 
-`Menu.tsx:208` 의 `outline: 'none'` 은 목록(`ul`) 상자에 붙어 있는데 그 상자에는 `tabIndex` 가 없어 Tab 으로 닿지 않는다. 고칠 자리가 아니라 게이트 예외로 사유를 적는다.
+TreeView 는 표시가 아예 없는 것은 아니지만 카드 목적의 목록에 있고, 고리가 항목 하나가 아니라 하위 트리 전체를 감싸 어느 항목인지 흐려진다. 그래서 다른 자리와 같은 테두리를 행에 그리는 쪽으로 맞춘다.
+
+`Menu.tsx:208` 의 `outline: 'none'` 은 목록(`ul`) 상자에 붙어 있는데 그 상자에는 `tabIndex` 가 없어 Tab 으로 닿지 않는다. 고칠 자리가 아니다. 파일 단위 검사라 Menu.tsx 는 항목 때문에 목록에 오르고, 이 사유는 그 항목의 `indicator` 에 적었다. 게이트 예외(`focusRingIgnored`)에는 화면 낭독 전용 글자를 숨기는 `motion/CountUp.tsx` 가 올라갔다(S1 에서 신호 정규식을 core 전체에 돌려 나왔다).
 
 ### 범위를 어떻게 읽었는가
 
@@ -94,12 +96,12 @@ KAN-054 가 빌드한 Storybook 을 실제 키로 돌아보다가 Button·Card �
 - visualization 패키지의 포커스 표시.
 
 ## 실행 계획
-- [ ] `S1` 게이트 먼저 — `keyboard-coverage.json` 에 `focusRing`(전략 표의 컴포넌트 + KAN-054 셋, 항목마다 `component`·`source`·`indicator`) 과 `focusRingIgnored`(`Menu.tsx` 목록 상자) 를 더하고, `packages/foundations/src/keyboardCoverage.ts` 에 검사 함수, `.test.ts` 에 실제 저장소 검사와 fixture 실패 주입을 더한다. 검사는 셋이다 — 신호가 나온 파일이 목록·예외에 있는가, 목록의 소스가 공용 규칙(`FOCUS_RING`·`useFocusVisible`·`:focus-visible`)을 쓰는가, 실제 입력 테스트에 `<컴포넌트>:` 항목이 있는가. 완료 기준: fixture 검사 초록, 실제 저장소 검사 빨강이고 위반 목록이 전략 표의 파일과 같다(KAN-054 셋은 위반에 없다)
-- [ ] `S2` 실제 입력 테스트 먼저 — `apps/storybook/src/real-input/FocusVisible.realinput.test.tsx` 에 전략 표의 자리마다 항목을 더한다. 실제 Tab 이면 표시 요소의 `outline` 이 `solid 2px`, 실제 클릭이면 `none`(글자 입력칸은 벗어나면 `none`). 완료 기준: 새 항목이 모두 빨강, KAN-054 셋은 초록
-- [ ] `S3` 공용 규칙 — `a11y/focusRing.ts` 색을 `border.focus` 로, 안쪽 간격 변형, `useFocusVisible()` 훅(외부 `onFocus`·`onBlur` 합성). Card·DatePicker 를 훅으로 바꾸고 Gallery·Testimonials 의 색 한 단어를 맞춘다. 완료 기준: KAN-054 실제 입력 셋과 Card·DatePicker·Calendar·Gallery·Testimonials 스토리 초록, core typecheck 통과
-- [ ] `S4` 자기 자신에 그리는 자리 — Button · Link(모든 변형, 상자 변형 box-shadow 고리 걷기) · Dock 항목 · TreeView 항목 · Menu 항목 · ScrollArea. 완료 기준: 해당 실제 입력 항목 초록, 해당 스토리 초록
-- [ ] `S5` 감싼 상자와 숨긴 입력 — Input(기본·composer) · Textarea · Searchfield · NumberField(입력은 상자, 증감 버튼은 자기 자신 — 한 파일이라 여기 몰았다) · RichTextEditor · Switch 트랙 · Radio `segmented` 조각 · NumberField `seven-segment` 판. 내부 `onFocus`·`onBlur` 를 `{...props}` 가 덮던 자리는 합성으로 바꾼다. 완료 기준: 실제 입력 항목 전부 초록, S1 게이트 초록
-- [ ] `S6` 화면 확인과 마무리 — 빌드한 Storybook 에서 Playwright 실제 Tab 으로 각 자리를 찍어 테두리가 잘리거나 이웃을 덮지 않는지 본다(Menu·TreeView 는 여기서 안쪽 간격 여부를 정한다). changeset(`.changeset/kan-059-focus-ring.md`, core minor), 게이트 5종, 검토서. 완료 기준: 게이트 5종 초록, 검토로 이동
+- [x] `S1` 게이트 먼저 — `keyboard-coverage.json` 에 `focusRing`(전략 표의 컴포넌트 + KAN-054 셋, 항목마다 `component`·`source`·`indicator`) 과 `focusRingIgnored`(S1 에서 `motion/CountUp.tsx` 로 확정 — Menu 목록 상자 사유는 Menu 항목의 `indicator` 로) 를 더하고, `packages/foundations/src/keyboardCoverage.ts` 에 검사 함수, `.test.ts` 에 실제 저장소 검사와 fixture 실패 주입을 더한다. 검사는 셋이다 — 신호가 나온 파일이 목록·예외에 있는가, 목록의 소스가 공용 규칙(`FOCUS_RING`·`useFocusVisible`·`:focus-visible`)을 쓰는가, 실제 입력 테스트에 `<컴포넌트>:` 항목이 있는가. 완료 기준: fixture 검사 초록, 실제 저장소 검사 빨강이고 위반 목록이 전략 표의 파일과 같다(KAN-054 셋은 위반에 없다)
+- [x] `S2` 실제 입력 테스트 먼저 — `apps/storybook/src/real-input/FocusVisible.realinput.test.tsx` 에 전략 표의 자리마다 항목을 더한다. 실제 Tab 이면 표시 요소의 `outline` 이 `solid 2px`, 실제 클릭이면 `none`(글자 입력칸은 벗어나면 `none`). 완료 기준: 새 항목이 모두 빨강, KAN-054 셋은 초록
+- [x] `S3` 공용 규칙 — `a11y/focusRing.ts` 색을 `border.focus` 로, 안쪽 간격 변형, `useFocusVisible()` 훅(외부 `onFocus`·`onBlur` 합성). Card·DatePicker 를 훅으로 바꾸고 Gallery·Testimonials 의 색 한 단어를 맞춘다. 완료 기준: KAN-054 실제 입력 셋과 Card·DatePicker·Calendar·Gallery·Testimonials 스토리 초록, core typecheck 통과
+- [x] `S4` 자기 자신에 그리는 자리 — Button · Link(모든 변형, 상자 변형 box-shadow 고리 걷기) · Dock 항목 · TreeView 항목 · Menu 항목 · ScrollArea. 완료 기준: 해당 실제 입력 항목 초록, 해당 스토리 초록
+- [x] `S5` 감싼 상자와 숨긴 입력 — Input(기본·composer) · Textarea · Searchfield · NumberField(입력은 상자, 증감 버튼은 자기 자신 — 한 파일이라 여기 몰았다) · RichTextEditor · Switch 트랙 · Radio `segmented` 조각 · NumberField `seven-segment` 판. 내부 `onFocus`·`onBlur` 를 `{...props}` 가 덮던 자리는 합성으로 바꾼다. 완료 기준: 실제 입력 항목 전부 초록, S1 게이트 초록
+- [x] `S6` 화면 확인과 마무리 — 빌드한 Storybook 에서 Playwright 실제 Tab 으로 각 자리를 찍어 테두리가 잘리거나 이웃을 덮지 않는지 본다(Menu·TreeView 는 여기서 안쪽 간격 여부를 정한다). changeset(`.changeset/kan-059-focus-ring.md`, core minor), 게이트 5종, 검토서. 완료 기준: 게이트 5종 초록, 검토로 이동
 
 ## 검증
 ### 게이트 5종 (전부 초록이어야 완료)
@@ -143,3 +145,19 @@ pnpm test:unit                  # ← keyboardCoverage.test.ts 의 포커스 표
 - 2026-10-07T18:08 · s:adde175a — `실행 계획` 섹션 교체
 - 2026-10-07T19:17 · s:adde175a — `전략` 섹션 교체
 - 2026-10-07T19:17 · s:adde175a — `전략` 섹션 교체
+- 2026-10-07T19:18 · s:adde175a · S1 doing — 착수
+- 2026-10-07T19:20 · s:adde175a · S1 done — keyboardCoverage.ts 에 auditFocusRing(신호: outline:none·1px 숨김 / 규칙: FOCUS_RING·useFocusVisible·:focus-visible / real-input 의 it('<component>:')) + keyboard-coverage.json focusRing 16 · focusRingIgnored 1(CountUp aria-live 글자). 신호 정규식을 core 전체에 돌린 결과가 전략 표 16파일 + CountUp 과 같았다. fixture 26건 초록, 실제 저장소 빨강 — 위반 26건 = 새 13파일 × (규칙 없음·실제 입력 없음), KAN-054 셋 없음
+- 2026-10-07T19:20 · s:adde175a · S2 doing — 착수
+- 2026-10-07T19:23 · s:adde175a — `전략` 섹션 교체
+- 2026-10-07T19:23 · s:adde175a · S2 done — FocusVisible.realinput.test.tsx 에 17항목(Button·Link 글자/상자·NumberField 증감/입력/seven-segment·TreeView·Menu·Dock·ScrollArea·Input 기본/composer·Textarea·Searchfield·RichTextEditor·Switch·Radio segmented). 도우미 ringsIn 은 컴포넌트 안에서 보이는(4px 초과·clip 없음) 테두리를 훑는다. 17건 모두 테두리 단정에서 빨강, KAN-054 셋 초록. 실측으로 바로잡은 것: TreeView 는 li 에 브라우저 기본 테두리(auto 1px)가 보인다 — 전략 표 고침. Radio 의 숨긴 입력은 크기 16px 에 clip 으로 숨어 도우미에서 clip 요소를 뺐다
+- 2026-10-07T19:23 · s:adde175a · S3 doing — 착수
+- 2026-10-07T19:25 · s:adde175a · S3 done — focusRing.ts 색을 border.focus 로 + FOCUS_RING_INSET(-2px), a11y/useFocusVisible.ts(focusProps 를 포커스 받는 요소에, focusVisible 은 테두리를 그리는 자리에서 읽음 · 외부 onFocus/onBlur 먼저 · 하위에서 올라온 포커스는 안 셈). Card·DatePicker 를 훅으로, Gallery·Testimonials 색 한 단어. core tsc 통과, KAN-054 실제 입력 3건 + 스토리 5파일 52건 초록, 새 17건은 빨강 그대로
+- 2026-10-07T19:25 · s:adde175a · S4 doing — 착수
+- 2026-10-07T19:28 · s:adde175a · S4 done — Button·Link(상자 변형 box-shadow 고리 걷음)·Dock·ScrollArea 는 자기 자신에 FOCUS_RING, TreeView 는 li 의 브라우저 테두리를 끄고 행에 FOCUS_RING_INSET, Menu 항목은 FOCUS_RING_INSET. 실제 입력 S4 7건 + KAN-054 3건 초록, 스토리 6파일 초록. 테스트 고침: Button·Link 는 포커스된 요소를 다시 눌러 확인했는데, 포커스가 안 옮겨 가면 판단도 안 바뀌어(브라우저와 같음) KAN-054 처럼 다른 곳을 먼저 누르게 했다. ScrollArea 는 잘린 안쪽 글자 대신 상자를 누른다
+- 2026-10-07T19:28 · s:adde175a · S5 doing — 착수
+- 2026-10-07T19:30 · s:adde175a · S5 done — Input(기본·composer)·Searchfield·RichTextEditor 는 감싼 상자, Textarea 는 자기 자신, NumberField 는 증감 버튼 각자(FOCUS_RING_INSET — 상자가 overflow:hidden)·입력은 바깥 상자·seven-segment 는 판 전체, Switch 는 트랙, Radio segmented 는 스타일 블록의 :has(input:focus-visible) 로 그 조각(이미 :has(input:checked) 를 쓰던 자리). Input 의 내부 onFocus/onBlur 를 {...props} 가 덮던 것을 합성으로 — 소비자 onFocus 가 와도 테두리 색·고리가 산다(실제 입력 항목으로 확인). 실제 입력 20건·스토리 6파일 80건 초록, test:unit 포커스 표시 게이트 27건 초록
+- 2026-10-07T19:31 · s:adde175a · S6 doing — 착수
+- 2026-10-07T19:34 · s:adde175a · S6 done — 빌드한 Storybook(127.0.0.1)에서 Playwright 실제 Tab 으로 19자리를 찍었다 — 모두 테두리 하나(2px)가 보이고, overflow 로 잘리는 조상이 없다(스크립트로 조상 상자와 고리 범위를 대조). Menu·TreeView 항목·NumberField 증감·Radio 조각은 안쪽 간격(-2px)으로 확정. TreeView 는 펼친 노드에서도 행 하나에만 그려진다. 스타일 가이드(Neobrutalism)에서는 그 가이드의 border.focus(금색)를 따른다 — 크림 배경에서 흐린 것은 KAN-060 몫. changeset kan-059-focus-ring.md(core minor). 게이트 5종 초록: typecheck · build · test 192파일 1289건 · storybook build · test:unit
+- 2026-10-07T19:36 · s:adde175a — `전략` 섹션 교체
+- 2026-10-07T19:49 · s:adde175a — `전략` 섹션 교체
+- 2026-10-07T19:49 · s:adde175a — `실행 계획` 섹션 교체
