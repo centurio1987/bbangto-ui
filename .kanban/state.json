@@ -1,6 +1,6 @@
 {
   "next_id": 61,
-  "next_seq": 224,
+  "next_seq": 225,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -34,12 +34,12 @@
       ]
     },
     "KAN-056-D3V1MB": {
-      "col": "review",
+      "col": "doing",
       "title": "viz 템플릿 13개 리터럴 색 제거 — 스타일 가이드가 기본 채움·선 색까지 칠하게",
       "verbatim": "만들어 (앞 답변 「앞서 여쭌 백로그 카드 두 가지(리터럴 색이 남은 템플릿 13개, 읽히지 않는 `edge.dashPattern` 토큰)는 아직 만들지 않았습니다.」에 대한 답)",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-10-07",
+      "갱신": "2026-10-08",
       "title_hash": "dcd892fa317c4cd77bd72ee1413a42dbd8ccf2b8",
       "verbatim_hash": "86e2d9d99304c4fb30f03389edf118d082025240",
       "short": "템플릿 리터럴 색 제거",
@@ -128,6 +128,8 @@
         "packages/core/src/components/Calendar.tsx",
         "packages/core/src/components/DatePicker.tsx",
         "packages/core/src/blocks/Dock.tsx",
+        "packages/core/src/blocks/Gallery.tsx",
+        "packages/core/src/blocks/Testimonials.tsx",
         "apps/storybook/src/real-input/**",
         "keyboard-coverage.json",
         "packages/foundations/src/keyboardCoverage.ts",
@@ -1074,6 +1076,8 @@
   "order": [
     "KAN-055-34A57K",
     "KAN-057-CCH3E8",
+    "KAN-060-G9YKG6",
+    "KAN-059-62EAKB",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1129,11 +1133,19 @@
     "KAN-051-5HMYKT",
     "KAN-054-M48FNQ",
     "KAN-058-G883EJ",
-    "KAN-059-62EAKB",
-    "KAN-060-G9YKG6",
     "KAN-056-D3V1MB"
   ],
   "recent": [
+    {
+      "seq": 224,
+      "t": "2026-10-08T00:24",
+      "a": "ai",
+      "id": "KAN-056-D3V1MB",
+      "op": "move",
+      "w": "GEG7B8",
+      "from": "review",
+      "to": "doing"
+    },
     {
       "seq": 223,
       "t": "2026-10-07T19:42",
@@ -1644,16 +1656,6 @@
       "w": "DJT5WZ",
       "from": "todo",
       "to": "doing"
-    },
-    {
-      "seq": 187,
-      "t": "2026-10-07T13:38",
-      "a": "ai",
-      "id": "KAN-050-AJSQAY",
-      "op": "serialize",
-      "w": "S7030N",
-      "with_": "KAN-048-R2KW3G",
-      "reason": "전략 재수립 완료"
     }
   ],
   "waivers": [

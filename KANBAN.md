@@ -58,21 +58,21 @@
   - 계획 리포트: KANBAN/reports/KAN-059-62EAKB.report.html (낡음)
 
 ## 진행 중
-
-## 검토
-- `KAN-056-D3V1MB` viz 템플릿 13개 리터럴 색 제거 — 스타일 가이드가 기본 채움·선 색까지 칠하게 — 생성:ai · 최종:ai · 갱신:2026-10-07
+- `KAN-056-D3V1MB` viz 템플릿 13개 리터럴 색 제거 — 스타일 가이드가 기본 채움·선 색까지 칠하게 — 생성:ai · 최종:ai · 갱신:2026-10-08
   - 짧은 제목: 템플릿 리터럴 색 제거
   - 목적: 템플릿 13개가 넣는 불투명 기본 채움·선 색을 계약 토큰으로 바꿔 스타일 가이드가 그 부분까지 칠하게 한다
   - 이유: 기본값이 인라인 style 로 렌더돼 스타일 가이드를 바꿔도 그 색이 그대로다 — 구 PLAN 「이연」이 끝나지 않은 채 남았다(KAN-049 에서 발견)
   - 목표: 13개 템플릿에 불투명 리터럴 색이 0건이 되고 viz README 「알려진 한계」의 해당 항목이 지워진다
   - 메모: 목록과 셈 기준은 packages/visualization/README.md 「알려진 한계」. 반투명 검정 음영(Node cube 면·IsoPrism·IsometricScene 바닥 그림자·Lane)은 paint 무관 장치라 대상이 아니다
-  - 실행 문서: KANBAN/cards/KAN-056-D3V1MB.md (4/4 · 최근 10-07)
+  - 실행 문서: KANBAN/cards/KAN-056-D3V1MB.md (4/4 · 최근 10-08)
   - 계획 리포트: KANBAN/reports/KAN-056-D3V1MB.report.html (낡음)
   - 검토 문서: KANBAN/reviews/KAN-056-D3V1MB.review.md (승인 3/5 · 반려 2 · 추가 의견 총 7 · 검토 대기)
   - 원문:
     ```text
     만들어 (앞 답변 「앞서 여쭌 백로그 카드 두 가지(리터럴 색이 남은 템플릿 13개, 읽히지 않는 `edge.dashPattern` 토큰)는 아직 만들지 않았습니다.」에 대한 답)
     ```
+
+## 검토
 
 ## 완료
 - `KAN-020` visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현 — 생성:유저 · 최종:유저 · 갱신:2026-08-14
