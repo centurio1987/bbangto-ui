@@ -104,7 +104,7 @@
   - 메모: KAN-044 §13-D. 2026-10-07 전략 재수립(선행 KAN-048 완료) — 전수 grep 으로 scope 3파일 추가(COMPONENT_CATALOG·Overview.mdx·types.ts), motion-catalog:27 은 KAN-051 앞뒤 모두 참인 문장으로 고쳐 순서 의존을 없앤다. 상세는 카드 문서 「전략」
   - 실행 문서: KANBAN/cards/KAN-050-AJSQAY.md (4/4 · 최근 10-07)
   - 계획 리포트: KANBAN/reports/KAN-050-AJSQAY.report.html (낡음)
-  - 검토 문서: KANBAN/reviews/KAN-050-AJSQAY.review.md (승인 3/3 · 추가 의견 총 3 · 검토 대기)
+  - 검토 문서: KANBAN/reviews/KAN-050-AJSQAY.review.md (승인 3/3 · 추가 의견 총 3 · 승인)
 
 ## 완료
 - `KAN-020` visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현 — 생성:유저 · 최종:유저 · 갱신:2026-08-14
