@@ -5,7 +5,7 @@ created: 2026-10-07
 branch: KAN-059-62EAKB
 worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-059-62EAKB
 base: f0dc035
-status: 검토 대기
+status: 승인
 ---
 
 # KAN-059-62EAKB 검토 요청 — core 키보드 포커스 표시 통일 — :focus-visible 테두리를 모든 상호작용 컴포넌트에
@@ -180,7 +180,7 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-059-62EAKB --add
 **전체 승인은 살아있는 항목이 전부 승인일 때만 섭니다**(철회는 분모에서 빠집니다). 하나라도
 반려·추가 의견·미정이면 4항의 전체 승인도 `→ 완료` 이동도 종료코드 14로 거부됩니다.
 
-- [ ] 포커스 테두리 색을 브랜드 색에서 포커스 전용 색으로 바꿀 것인가 — 포커스 전용 색(border.focus)으로 바꿨습니다
+- [x] 포커스 테두리 색을 브랜드 색에서 포커스 전용 색으로 바꿀 것인가 — 포커스 전용 색(border.focus)으로 바꿨습니다
     - **배경**
       - KAN-054 는 Card·Calendar 날짜 칸·DatePicker 에 브랜드 기본 색(primary)으로 테두리를 그렸다. 이번에 그 규칙 한 줄을 포커스 전용 색으로 바꿨다. 원문: packages/core/src/a11y/focusRing.ts:25
       - foundation 에는 포커스 표시에 쓰라고 둔 색이 따로 있고, Input·Link·Slider 가 이미 그 색을 쓴다. 원문: packages/core/src/components/Input.tsx:88
@@ -194,11 +194,16 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-059-62EAKB --add
     | **추천** 포커스 전용 색으로 둔다 | 색 스킴 셋에서 KAN-054 셋의 테두리 색이 바뀐다 | 모든 컴포넌트의 포커스 색이 한 토큰을 따르고, KAN-060 이 그 토큰만 고치면 된다 |
     | 브랜드 색으로 되돌린다 | Input·Link 의 포커스 색과 다른 색이 남는다 | 대비를 고치려면 브랜드 색을 바꿔야 한다 |
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 승인 · ai · 2026-10-07
 
-    > **추가 의견** — _아직 없습니다._
+    > **추가 의견**
+    >
+    > - ai · 2026-10-07 — 사실을 확인했습니다. 이 워크트리의 빌드 산출물로 foundation 79개를 다시 계산해도 primary.base 와 border.focus 가 다른 것은 셋입니다 — amberDark·amberLight 는 노랑(#fcd535)에서 파랑(#3b82f6)으로, highContrast 는 노랑(#ffff00)에서 하늘색(#00ffff)으로 바뀝니다. 이 셋에서는 KAN-054 의 Card·Calendar·DatePicker 테두리 색이 눈에 띄게 달라집니다.
+Input(Input.tsx:88)·Link(바뀌기 전 Link.tsx:116)·Slider(Slider.tsx:103)가 이미 border.focus 를 쓰던 것도 맞습니다. 이 색 변경은 착수 전 전략 「접근」 1번에 이미 있던 것이라 계획과 어긋나지 않습니다.
 
-- [ ] 글자 입력칸은 마우스로 눌러도 테두리가 보이게 둘 것인가 — 그렇게 뒀습니다
+- [x] 글자 입력칸은 마우스로 눌러도 테두리가 보이게 둘 것인가 — 그렇게 뒀습니다
     - **배경**
       - 브라우저는 글자 입력칸을 마우스로 눌러도 키보드 포커스로 친다. 그래서 Input·Textarea·Searchfield·NumberField·RichTextEditor 는 클릭해도 2px 테두리가 생긴다.
       - Input·RichTextEditor 가 원래 하던 1px 테두리 색 변화는 스타일 가이드 모양이라 남겼다. 포커스 때 1px 색 변화 바깥에 2px 테두리가 한 겹 더 생긴다. 원문: packages/core/src/components/Input.tsx:225
@@ -211,11 +216,16 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-059-62EAKB --add
     | **추천** 받는다 | 입력칸을 클릭할 때마다 테두리가 생긴다 | 브라우저 기본 동작과 같고, 입력칸 다섯이 다른 컴포넌트와 같은 표시를 쓴다 |
     | 입력칸은 테두리 없이 색 변화만 둔다 | Textarea·Searchfield·NumberField 는 색 변화도 없어서 새로 만들어야 한다 | 1px 색 변화만으로는 잘 안 보이는 표시가 입력칸에 남는다 |
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 승인 · ai · 2026-10-07
 
-    > **추가 의견** — _아직 없습니다._
+    > **추가 의견**
+    >
+    > - ai · 2026-10-07 — 착수 전 전략 「접근」 3번에 적힌 그대로라 계획과 어긋나지 않습니다. 글자를 넣지 않는 컴포넌트에 실제 클릭을 보내 테두리가 없는지 보는 테스트도 있습니다(FocusVisible.realinput.test.tsx:140 Button, :312 Switch 등).
+한 가지만 적어 둡니다. 입력칸 다섯을 클릭했을 때 테두리가 생기는지는 테스트가 보지 않습니다 — 입력칸 항목은 Tab 으로 들어와 벗어날 때만 봅니다(:266·:284·:293·:302). 「클릭해도 생긴다」는 브라우저 동작에 기댄 설명이고, 이 검토에서도 화면으로 돌려 보지는 않았습니다(확인 안 함).
 
-- [ ] TreeView 를 고칠 대상으로 둘 것인가 — 계획과 달리 브라우저 기본 테두리가 이미 있었지만 고쳤습니다
+- [x] TreeView 를 고칠 대상으로 둘 것인가 — 계획과 달리 브라우저 기본 테두리가 이미 있었지만 고쳤습니다
     - **배경**
       - 계획 때는 TreeView 항목에 표시가 없다고 적었다. 실제 키 입력 테스트로 보니 브라우저 기본 테두리가 항목 전체에 그려지고 있었다. 계획 문서의 표를 실측대로 고쳤다. 원문: KANBAN/cards/KAN-059-62EAKB.md 「전략」 문제 표
       - 그 기본 테두리는 펼친 폴더에서 자식 목록까지 한꺼번에 감싸서, 지금 어느 항목에 있는지 흐렸다.
@@ -228,11 +238,18 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-059-62EAKB --add
     | **추천** 받는다 | 브라우저 기본 모양 대신 core 모양이 된다 | 펼친 트리에서도 항목 하나만 표시되고 다른 컴포넌트와 같아진다 |
     | 되돌린다 | 게이트 예외에 TreeView 를 사유와 함께 올려야 한다 | 펼친 폴더에서 고리가 하위 트리 전체를 감싸는 모양이 남는다 |
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 승인 · ai · 2026-10-07
 
-    > **추가 의견** — _아직 없습니다._
+    > **추가 의견**
+    >
+    > - ai · 2026-10-07 — 계획의 「표시 없음」이 틀렸는데도 고친 것이 카드 목적·목표와 맞는지 봤습니다. 맞다고 봅니다.
+- 목적의 「브라우저 기본 테두리를 끈 components 13개」에 TreeView 가 처음부터 들어 있습니다. 착수 전 커밋(f0dc035)에서 components 폴더에 outline:'none' 이 있는 파일을 세면 13개이고, TreeView.tsx 가 그중 하나입니다. 실행 계획 S4 에도 처음부터 TreeView 가 있었습니다. 틀린 것은 「지금 표시」 칸의 설명이고, 고칠 대상 목록은 바뀌지 않았습니다.
+- 다만 그 outline:'none' 은 포커스를 받지 않는 안쪽 행(div)에 붙어 있었습니다. 전략은 같은 모양인 Menu 목록 상자(Menu.tsx:208)를 「고칠 자리가 아니라 예외」로 다뤘으므로, TreeView 를 고칠 근거는 파일 목록보다 「기본 테두리가 어느 항목인지 흐린다」는 결함 쪽입니다. 그 결함은 코드로 확인했습니다 — 자식 목록(ul role=group)이 항목(li) 안에 들어 있고(TreeView.tsx:489-513), 바뀌기 전 li 에는 테두리를 끄는 스타일이 없었습니다(f0dc035 의 style 은 listStyle 하나). 카드 이유의 「키보드 사용자가 자기 위치를 모른다」와 제목의 「통일」에 닿으므로, 전략이 범위 밖으로 둔 「모양 맞추기」(Tabs·Accordion 등)와는 다릅니다.
+- 빈 곳 하나: 이 수정의 근거인 「펼친 트리에서도 행 하나에만」을 지키는 테스트가 없습니다. 실제 입력 항목은 자식 없는 두 항목짜리 트리라(FocusVisible.realinput.test.tsx:205-218), 테두리를 다시 li 에 그려 하위 트리를 감싸게 되돌려도 초록입니다. 근거는 S6 화면 확인 한 번뿐입니다. 이 항목을 받는 데 막히는 것은 아니지만, 펼친 폴더 하나를 넣은 항목을 더하면 같은 결함이 다시 생길 때 빨강이 됩니다.
 
-- [ ] 외부 앱이 Input·Link 에 넘긴 포커스 처리기가 내부 처리를 덮지 않게 바꿀 것인가 — 바꿨습니다
+- [x] 외부 앱이 Input·Link 에 넘긴 포커스 처리기가 내부 처리를 덮지 않게 바꿀 것인가 — 바꿨습니다
     - **배경**
       - 전에는 외부 앱이 Input 에 포커스 처리기(onFocus)를 넘기면 포커스 때 테두리 색이 바뀌지 않았다. Link 상자 변형은 포커스 고리가 생기지 않았다.
       - 이제 외부 처리기가 먼저 불리고 내부 처리가 이어진다. KAN-054 가 키 처리기에 정한 합성 규칙과 같다. 원문: packages/core/src/a11y/composeHandlers.ts:16
@@ -246,9 +263,14 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-059-62EAKB --add
     | **추천** 이 카드에 둔다 | 처리기를 넘긴 외부 앱에서 Input·Link 의 포커스 모양이 바뀐다 | 외부 처리기 때문에 포커스 표시가 사라지는 일이 없다 |
     | 옛 동작을 남긴다 | 처리기를 넘기면 테두리를 끄는 갈래를 따로 둬야 한다 | 처리기를 넘긴 Input·Link 는 포커스 표시가 없다 |
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 승인 · ai · 2026-10-07
 
-    > **추가 의견** — _아직 없습니다._
+    > **추가 의견**
+    >
+    > - ai · 2026-10-07 — 사실을 확인했습니다. 바뀌기 전 Link 는 내부 onFocus·onBlur 뒤에 {...props} 를 펼쳐서, 외부 앱이 onFocus 를 넘기면 상자 변형의 고리를 그리는 처리가 덮였습니다. 지금은 외부 처리기를 받는 자리(Input·Link·Button·Textarea·Searchfield·NumberField 입력·Switch·ScrollArea·Card·Menu 항목)가 모두 onFocus·onBlur 를 따로 꺼내 합성하므로, 주제 줄의 Input·Link 밖으로도 같은 보호가 걸립니다. preventDefault 로 내부 처리를 건너뛰는 것은 composeHandlers.ts:17 의 확인입니다.
+전략 「바뀌는 동작」에 Input 이 적혀 있던 것의 연장이라 계획과 어긋나지 않습니다. 실제 입력 테스트는 Input 하나만 처리기를 넘겨 봅니다(:266). Link 의 같은 경우는 테스트가 없습니다(확인 안 함).
 
 
 ## 4. 판정
@@ -264,9 +286,11 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-059-62EAKB --add
      frontmatter 의 status 도 함께 고친다. 손으로 적어도 되지만, 그때는 수렴 검사를
      안 거치므로 `validate` 가 항목 판정과 어긋난 승인을 error 로 잡는다. -->
 
-**판정**: (아직 없습니다)
+**판정**: 승인
 
 **판정 이력**:
+
+- 승인 · 유저 · 2026-10-08
 
 - 승인이면 → `apply --op move --id KAN-059-62EAKB --to done` 뒤에 `main` 병합과 워크트리 정리(출력의 `cleanup`)
 - 반려면 → `apply --op move --id KAN-059-62EAKB --to doing` 뒤에 `doc-log --entry "<반려 사유>"`.
