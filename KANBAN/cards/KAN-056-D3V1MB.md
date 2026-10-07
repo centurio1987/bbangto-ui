@@ -18,7 +18,7 @@ visualization 템플릿 13개가 기본 채움·선 색을 리터럴로 넣는�
 
 1. **흰 채움·검정 선 기본값은 지운다.** `Node` 는 prop 을 안 넘기면 계약 스타일시트가 `shape.fill`·`shape.stroke` 로 칠한다(`atoms/Node.tsx:36`). 날 SVG 요소는 `data-viz-part="shape"` 를 달고 style 에서 fill 을 뺀다. blueprint 에서는 `shape.fill` 이 `#FFFFFF`, `shape.stroke` 가 `#111111` 이라 기본 화면은 지금과 같다(`visualization-style-guide-catalog/src/blueprintTechnical.tsx:23·47-49`, `Headless.stories.tsx:52` 가 이미 단언한다).
 2. **회색 연결선 `#555555` 는 지운다.** 연결선은 `edge.stroke` 를 따른다. README 「paint 채널을 늘리지 않는다」에 따라 연결선 색 채널은 edge 하나다.
-3. **표기에 뜻이 있는 면 색은 팔레트로 옮긴다.** 형제 템플릿이 이미 고른 토큰을 따른다. BPMN 게이트웨이는 `palette.p4`(`BPMNCollaborationDiagram.tsx:97` 선례), UMLSequence 머리 테두리·글자는 `edge.stroke`, 머리 바탕은 `canvas.bg`(파일럿 `atoms/Lifeline.tsx:30·39` 와 같은 짝. 글자색만 옮기고 바탕을 팔레트로 두면 가이드에 따라 이름이 바탕에 묻힌다 — 검토 항목 4), 메시지 라벨은 `boundary.labelColor`(파일럿 `SequenceDiagram.tsx:193`)다. ArchiMate 계층색은 business→p4 · application→p5 · technology→p6 에 fill-opacity 0.35 를 준다(아래 근거).
+3. **표기에 뜻이 있는 면 색은 팔레트로 옮긴다.** 형제 템플릿이 이미 고른 토큰을 따른다. BPMN 게이트웨이는 `palette.p4`(`BPMNCollaborationDiagram.tsx:97` 선례), UMLSequence 머리 테두리·글자는 `edge.stroke`, 머리 바탕은 `canvas.bg`(파일럿 `atoms/Lifeline.tsx:30·39·40` 와 같은 짝 — 바탕 · 테두리 · 글자. 글자색만 옮기고 바탕을 팔레트로 두면 가이드에 따라 이름이 바탕에 묻힌다 — 검토 항목 4), 메시지 라벨은 `boundary.labelColor`(파일럿 `SequenceDiagram.tsx:193`)다. ArchiMate 계층색은 business→p4 · application→p5 · technology→p6 에 fill-opacity 0.35 를 준다(아래 근거).
 4. **표기에 뜻이 없는 장식 틴트는 기본 도형색으로 합친다.** BPMN 끝 이벤트 `#FFCCBC` 는 협업 다이어그램이 이미 흰색이고 끝 이벤트는 3px 테두리로 구분한다. UML 배치 노드 `#E8EDF4` 도 여기에 든다.
 
 | 템플릿 | 지금 | 바꾼 뒤 |
@@ -140,3 +140,4 @@ pnpm test:unit
 - 2026-10-08T00:36 · s:d6ba577d — `전략` 섹션 교체
 - 2026-10-08T00:36 · s:d6ba577d — `검증` 섹션 교체
 - 2026-10-08T00:37 · s:d6ba577d — 재작업 done — 항목 4: UMLSequence 머리 바탕 palette.p2 → canvas.bg(파일럿 Lifeline 과 같은 짝). 후보 7개를 30개 가이드로 재서 고름(캔버스 바탕 + edge.stroke 만 미달 0, 최저 5.93). 테스트 먼저: TemplatePaintGate 에 LabelContrastGate(13개 × 가이드 30개 글자 대비, _labelContrastBaseline.ts 와 대조)를 더해 시퀀스 이름 32곳 빨강 → 수정 뒤 초록. 같은 문제 전수: 카드 전 템플릿(a072197)으로 같은 검사를 돌려 견줌 — 미달 356 → 236(→ 수정 뒤 204), 이 카드가 새로 만들거나 더 떨어뜨린 곳은 시퀀스 이름 말고 53곳(Requirement 36 · ArchiMate 8 · Kanban 4 · BPMN 3 · BPMN 협업 2, 최저 2.29). 원인은 원래 있던 반투명 글자·띠와 가이드 shape.fill 쌍이라 기준 목록에 넣고 검토 항목으로 올림. 항목 5: README Paint Gate 문장을 표본이 있는 템플릿으로 좁히고, 글자색 토큰을 바탕 토큰과 짝지어 재라는 규칙을 공통 계약에 더함. changeset 여섯 곳으로. scope 에 기준 목록 파일 추가 → KAN-055 겹침 용인 AI 재기록. 게이트 5종 초록 — typecheck · build · test(193파일 1274개) · storybook build · test:unit
+- 2026-10-08T01:16 · s:d6ba577d — `전략` 섹션 교체
