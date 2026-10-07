@@ -36,6 +36,16 @@
     ```text
     만들어 (앞 답변 「앞서 여쭌 백로그 카드 두 가지(리터럴 색이 남은 템플릿 13개, 읽히지 않는 `edge.dashPattern` 토큰)는 아직 만들지 않았습니다.」에 대한 답)
     ```
+- `KAN-060-G9YKG6` 포커스 테두리 색 대비 3:1 — border.focus 토큰 정리와 대비 게이트 — 생성:ai · 최종:ai · 갱신:2026-10-07
+  - 짧은 제목: 포커스 색 대비
+  - 목적: border.focus 가 배경과 3:1 이 안 되는 색 스킴(foundation 21개, style guide 13개 이상)의 값을 고치고 대비 게이트를 세운다
+  - 이유: KAN-059 가 모든 포커스 테두리를 border.focus 로 그리는데, 그 색 스킴에서는 테두리가 배경과 거의 같아 보이지 않는다(neonYellow 1.03, cosmonaut 1.00)
+  - 목표: 모든 foundation·style guide 색 스킴에서 border.focus 가 background.base·elevated 와 3:1 이상이고, 어기면 test:unit 이 빨강이 된다
+  - 메모: KAN-059 착수 전 계획에서 발견(2026-10-07 main dist 를 tokens contrastRatio 로 계산). 그라디언트 배경 style guide 는 아직 못 쟀다 · 테두리는 border.focus 를 실행 때 읽으므로 토큰만 고치면 KAN-059 결과에 그대로 반영된다
+  - 원문:
+    ```text
+    새 카드로 분리 (앞 질문 「border.focus 대비가 3:1에 못 미치는 색 스킴(foundation 21개, style guide 13개 이상)을 어떻게 할까요?」에 대한 답)
+    ```
 
 ## 할 일
 - `KAN-059-62EAKB` core 키보드 포커스 표시 통일 — :focus-visible 테두리를 모든 상호작용 컴포넌트에 — 생성:ai · 최종:ai · 갱신:2026-10-07
@@ -45,7 +55,7 @@
   - 목표: 키보드로 닿는 core 컴포넌트마다 포커스 표시가 보이고, 빠지면 테스트가 빨강이 된다
   - 메모: KAN-054 검토 §3-6(2026-10-07 유저가 추천대로 재작업 선택)에서 나온 후속 · KAN-054는 Card·Calendar 날짜 칸·DatePicker 트리거 셋만 a11y/focusRing.ts 로 고쳤다 — 이 카드가 나머지를 같은 규칙으로
   - 실행 문서: KANBAN/cards/KAN-059-62EAKB.md (0/6 · 최근 10-07)
-  - 계획 리포트: KANBAN/reports/KAN-059-62EAKB.report.html
+  - 계획 리포트: KANBAN/reports/KAN-059-62EAKB.report.html (낡음)
 - `KAN-056-D3V1MB` viz 템플릿 13개 리터럴 색 제거 — 스타일 가이드가 기본 채움·선 색까지 칠하게 — 생성:ai · 최종:ai · 갱신:2026-10-07
   - 짧은 제목: 템플릿 리터럴 색 제거
   - 목적: 템플릿 13개가 넣는 불투명 기본 채움·선 색을 계약 토큰으로 바꿔 스타일 가이드가 그 부분까지 칠하게 한다
@@ -53,6 +63,7 @@
   - 목표: 13개 템플릿에 불투명 리터럴 색이 0건이 되고 viz README 「알려진 한계」의 해당 항목이 지워진다
   - 메모: 목록과 셈 기준은 packages/visualization/README.md 「알려진 한계」. 반투명 검정 음영(Node cube 면·IsoPrism·IsometricScene 바닥 그림자·Lane)은 paint 무관 장치라 대상이 아니다
   - 실행 문서: KANBAN/cards/KAN-056-D3V1MB.md (0/4 · 최근 10-07)
+  - 계획 리포트: KANBAN/reports/KAN-056-D3V1MB.report.html (낡음)
   - 원문:
     ```text
     만들어 (앞 답변 「앞서 여쭌 백로그 카드 두 가지(리터럴 색이 남은 템플릿 13개, 읽히지 않는 `edge.dashPattern` 토큰)는 아직 만들지 않았습니다.」에 대한 답)

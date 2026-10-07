@@ -1,6 +1,6 @@
 {
-  "next_id": 60,
-  "next_seq": 219,
+  "next_id": 61,
+  "next_seq": 220,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -1049,6 +1049,26 @@
         "packages/foundations/src/keyboardCoverage.test.ts",
         ".changeset/kan-054-*.md"
       ]
+    },
+    "KAN-060-G9YKG6": {
+      "col": "backlog",
+      "title": "포커스 테두리 색 대비 3:1 — border.focus 토큰 정리와 대비 게이트",
+      "verbatim": "새 카드로 분리 (앞 질문 「border.focus 대비가 3:1에 못 미치는 색 스킴(foundation 21개, style guide 13개 이상)을 어떻게 할까요?」에 대한 답)",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-07",
+      "title_hash": "5506d93407f8bbd159163d5e882deb75b8cf5323",
+      "verbatim_hash": "c230601ba43602de2816c0366cd377a99dd46507",
+      "short": "포커스 색 대비",
+      "short_hash": "f1b76a4fc3518465ed5bea3ec94ad115ea6be48c",
+      "purpose": "border.focus 가 배경과 3:1 이 안 되는 색 스킴(foundation 21개, style guide 13개 이상)의 값을 고치고 대비 게이트를 세운다",
+      "purpose_hash": "623555c204fbab823794da068de82682dfd4c439",
+      "reason": "KAN-059 가 모든 포커스 테두리를 border.focus 로 그리는데, 그 색 스킴에서는 테두리가 배경과 거의 같아 보이지 않는다(neonYellow 1.03, cosmonaut 1.00)",
+      "reason_hash": "ef9e0ad037e557620b42303fb3ab1de7eee768c9",
+      "goal": "모든 foundation·style guide 색 스킴에서 border.focus 가 background.base·elevated 와 3:1 이상이고, 어기면 test:unit 이 빨강이 된다",
+      "goal_hash": "ce40fef2b2f3e0ef1295d3ed4d85161f3fb80c28",
+      "memo": "KAN-059 착수 전 계획에서 발견(2026-10-07 main dist 를 tokens contrastRatio 로 계산). 그라디언트 배경 style guide 는 아직 못 쟀다 · 테두리는 border.focus 를 실행 때 읽으므로 토큰만 고치면 KAN-059 결과에 그대로 반영된다",
+      "memo_hash": "28769527373e45fa350b73cbf5d3496509be33e3"
     }
   },
   "order": [
@@ -1110,9 +1130,27 @@
     "KAN-054-M48FNQ",
     "KAN-058-G883EJ",
     "KAN-059-62EAKB",
-    "KAN-056-D3V1MB"
+    "KAN-056-D3V1MB",
+    "KAN-060-G9YKG6"
   ],
   "recent": [
+    {
+      "seq": 219,
+      "t": "2026-10-07T19:16",
+      "a": "ai",
+      "id": "KAN-060-G9YKG6",
+      "op": "create",
+      "w": "S7030N",
+      "col": "backlog",
+      "title": "포커스 테두리 색 대비 3:1 — border.focus 토큰 정리와 대비 게이트",
+      "verbatim": "새 카드로 분리 (앞 질문 「border.focus 대비가 3:1에 못 미치는 색 스킴(foundation 21개, style guide 13개 이상)을 어떻게 할까요?」에 대한 답)",
+      "parent": null,
+      "short": "포커스 색 대비",
+      "purpose": "border.focus 가 배경과 3:1 이 안 되는 색 스킴(foundation 21개, style guide 13개 이상)의 값을 고치고 대비 게이트를 세운다",
+      "reason": "KAN-059 가 모든 포커스 테두리를 border.focus 로 그리는데, 그 색 스킴에서는 테두리가 배경과 거의 같아 보이지 않는다(neonYellow 1.03, cosmonaut 1.00)",
+      "goal": "모든 foundation·style guide 색 스킴에서 border.focus 가 background.base·elevated 와 3:1 이상이고, 어기면 test:unit 이 빨강이 된다",
+      "memo": "KAN-059 착수 전 계획에서 발견(2026-10-07 main dist 를 tokens contrastRatio 로 계산). 그라디언트 배경 style guide 는 아직 못 쟀다 · 테두리는 border.focus 를 실행 때 읽으므로 토큰만 고치면 KAN-059 결과에 그대로 반영된다"
+    },
     {
       "seq": 218,
       "t": "2026-10-07T18:06",
@@ -1617,16 +1655,6 @@
       "w": "S7030N",
       "with_": "KAN-048-R2KW3G",
       "reason": "전략 재수립 완료"
-    },
-    {
-      "seq": 182,
-      "t": "2026-10-07T13:37",
-      "a": "유저",
-      "id": "KAN-050-AJSQAY",
-      "op": "serialize",
-      "w": "S7030N",
-      "with_": "KAN-048-R2KW3G",
-      "reason": "DESIGN_SYSTEM_GUIDE.md 를 둘 다 고친다. B 가 ASSET_INTEGRATION_PLAN 을 없애야 D 가 :182 링크를 고칠 수 있고, 순서가 뒤면 깨진 링크가 남는다. KAN-044 검토 5번에서 유저가 승인. 2026-10-07 KAN-050 재수립의 scope 확장으로 무효가 된 기록을 다시 건다"
     }
   ],
   "waivers": [
