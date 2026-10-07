@@ -3,7 +3,7 @@ import { expect, within } from 'storybook/test';
 import React from 'react';
 import { StyleGuideProvider, resolveFoundationPreset } from '@centurio1987/bbangto-ui-core';
 import type { StyleGuide } from '@centurio1987/bbangto-ui-core';
-import { styleGuideMap } from '@centurio1987/bbangto-ui-style-guide-catalog';
+import { styleGuideMap, SHOWCASE_COPY_EXT } from '@centurio1987/bbangto-ui-style-guide-catalog';
 import { contrastRatio } from '@centurio1987/bbangto-ui-tokens';
 
 /*
@@ -305,6 +305,15 @@ export function makeCatalogStories(sg: StyleGuide): Record<string, Story> {
       ).toBeGreaterThanOrEqual(1);
       await expect(canvasElement.querySelector('[data-testid="showcase-contact"]')).not.toBeNull();
       await expect(canvasElement.querySelector('[data-testid="showcase-footer"]')).not.toBeNull();
+
+      // 3b') 확장 카피 배선 — Showcase 마다 자기 displayName 몫의 확장 카피가 붙는다(KAN-058).
+      //      카피가 preset 파일마다 나뉘어 있어서, 짝이 어긋나거나 빠져도 위 구조 단언은 기본값으로 통과한다.
+      const ext = SHOWCASE_COPY_EXT[sg.visualMotif!.example!.displayName ?? ''];
+      await expect(ext?.menuTitle).toBeTruthy();
+      await expect(canvasElement.querySelector('[data-section="menu"] h2')?.textContent).toBe(ext!.menuTitle);
+      await expect(
+        canvasElement.querySelector('[data-testid="showcase-footer"]')?.textContent?.trim(),
+      ).toBe(ext!.footer);
 
       // 3c) 반전 Craft 존 — 배경/전경 대비 4.5:1 이상(computed rgb).
       const craft = canvasElement.querySelector<HTMLElement>('[data-section="craft"]');

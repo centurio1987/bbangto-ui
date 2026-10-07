@@ -31,8 +31,8 @@
       "package": "@centurio1987/bbangto-ui-style-guide-catalog",
       "dir": "packages/style-guide-catalog",
       "representative": "NeobrutalismShowcase",
-      "basis": { "representative": 101092, "all": 840248 },
-      "max": { "representative": 152064, "all": 966656 }
+      "basis": { "representative": 26000, "all": 840248 },
+      "max": { "representative": 39424, "all": 966656 }
     },
     {
       "package": "@centurio1987/bbangto-ui-visualization-style-guide-catalog",
