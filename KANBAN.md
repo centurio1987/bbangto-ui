@@ -55,6 +55,7 @@
   - 목표: 규율 문서가 실제 레포 구조와 일치하고 모션 워크플로가 한 곳에만 적힌다
   - 메모: KAN-044 §13-D. 2026-10-07 전략 재수립(선행 KAN-048 완료) — 전수 grep 으로 scope 3파일 추가(COMPONENT_CATALOG·Overview.mdx·types.ts), motion-catalog:27 은 KAN-051 앞뒤 모두 참인 문장으로 고쳐 순서 의존을 없앤다. 상세는 카드 문서 「전략」
   - 실행 문서: KANBAN/cards/KAN-050-AJSQAY.md (0/4 · 최근 10-07)
+  - 계획 리포트: KANBAN/reports/KAN-050-AJSQAY.report.html
 - `KAN-051-5HMYKT` 번들 트리 셰이킹 복구 — 파일 단위 출력 + 크기 상한 게이트 (core·viz·sgc·vsgc) — 생성:ai · 최종:ai · 갱신:2026-10-05
   - 짧은 제목: 번들 트리 셰이킹 복구
   - 목적: core·visualization·style-guide-catalog·viz-style-guide-catalog를 하나만 가져와도 전부 딸려 오지 않게 빌드 출력을 파일 단위로 바꾸고 크기 상한 게이트를 건다
