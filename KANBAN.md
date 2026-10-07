@@ -62,6 +62,7 @@
   - 목표: dist 기준 core Button 단독이 7KB 이하이고, 상한을 넘으면 test:unit이 빨강이 된다
   - 메모: 외부 앱 소비 문제 대응 5장 중 1 · 근거와 측정값은 카드 문서 「전략」
   - 실행 문서: KANBAN/cards/KAN-051-5HMYKT.md (0/4 · 최근 10-05)
+  - 계획 리포트: KANBAN/reports/KAN-051-5HMYKT.report.html (낡음)
   - 원문:
     ```text
     [첨부 이미지]
@@ -82,7 +83,7 @@
   - 이유: 같은 결함이 11곳에 더 있어서 보고된 세 곳만 고치면 같은 문제가 다시 나온다
   - 목표: keyboard-coverage.json에 오른 모든 상호작용 컴포넌트에 키보드 play 테스트가 있고, 빠지면 test:unit이 빨강이 된다
   - 메모: 외부 앱 소비 문제 대응 5장 중 4 · KAN-053 뒤에 직렬 · KAN-053 넘김: onKeyDown 합성 규칙 통일(Tabs↔Modal·Drawer) + 실제 키 입력 게이트 — 전략 「KAN-053에서 넘어온 것」
-  - 실행 문서: KANBAN/cards/KAN-054-M48FNQ.md (0/4 · 최근 10-06)
+  - 실행 문서: KANBAN/cards/KAN-054-M48FNQ.md (0/6 · 최근 10-07)
   - 원문:
     ```text
     [첨부 이미지]
@@ -429,7 +430,7 @@
   - 목표: 세 컴포넌트의 키보드·포커스 동작이 실제 chromium 위 play 테스트로 확인된다
   - 메모: 외부 앱 소비 문제 대응 5장 중 3 · KAN-054의 선행
   - 실행 문서: KANBAN/cards/KAN-053-TZ86NN.md (4/4 · 최근 10-06)
-  - 계획 리포트: KANBAN/reports/KAN-053-TZ86NN.report.html
+  - 계획 리포트: KANBAN/reports/KAN-053-TZ86NN.report.html (낡음)
   - 검토 문서: KANBAN/reviews/KAN-053-TZ86NN.review.md (승인 5/5 · 추가 의견 총 5 · 승인)
   - 원문:
     ```text
