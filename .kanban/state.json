@@ -1,6 +1,6 @@
 {
   "next_id": 58,
-  "next_seq": 193,
+  "next_seq": 194,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -74,7 +74,7 @@
       "memo_hash": "fa79f4c6a72cc3d419b51e557a4bd9ae366539b9"
     },
     "KAN-050-AJSQAY": {
-      "col": "review",
+      "col": "done",
       "title": "문서 정리 D — 규율 문서 실측 정합 (theme-* 부재 · 모션 5중 기재)",
       "verbatim": "",
       "생성": "ai",
@@ -1021,6 +1021,16 @@
   ],
   "recent": [
     {
+      "seq": 193,
+      "t": "2026-10-07T15:29",
+      "a": "ai",
+      "id": "KAN-050-AJSQAY",
+      "op": "move",
+      "w": "728SB6",
+      "from": "review",
+      "to": "done"
+    },
+    {
       "seq": 192,
       "t": "2026-10-07T14:24",
       "a": "ai",
@@ -1526,16 +1536,6 @@
       "id": "KAN-052-BYS4JN",
       "op": "move",
       "w": "PP8AJM",
-      "from": "todo",
-      "to": "doing"
-    },
-    {
-      "seq": 160,
-      "t": "2026-10-06T00:22",
-      "a": "ai",
-      "id": "KAN-049-CWBPP6",
-      "op": "move",
-      "w": "HQ1ZBZ",
       "from": "todo",
       "to": "doing"
     }
