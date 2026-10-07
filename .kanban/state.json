@@ -1,6 +1,6 @@
 {
   "next_id": 58,
-  "next_seq": 188,
+  "next_seq": 189,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -74,7 +74,7 @@
       "memo_hash": "fa79f4c6a72cc3d419b51e557a4bd9ae366539b9"
     },
     "KAN-050-AJSQAY": {
-      "col": "todo",
+      "col": "doing",
       "title": "문서 정리 D — 규율 문서 실측 정합 (theme-* 부재 · 모션 5중 기재)",
       "verbatim": "",
       "생성": "ai",
@@ -961,7 +961,6 @@
     "KAN-055-34A57K",
     "KAN-056-D3V1MB",
     "KAN-057-CCH3E8",
-    "KAN-050-AJSQAY",
     "KAN-051-5HMYKT",
     "KAN-054-M48FNQ",
     "KAN-020",
@@ -1014,9 +1013,20 @@
     "KAN-047-TRYYRC",
     "KAN-052-BYS4JN",
     "KAN-048-R2KW3G",
-    "KAN-053-TZ86NN"
+    "KAN-053-TZ86NN",
+    "KAN-050-AJSQAY"
   ],
   "recent": [
+    {
+      "seq": 188,
+      "t": "2026-10-07T14:13",
+      "a": "ai",
+      "id": "KAN-050-AJSQAY",
+      "op": "move",
+      "w": "728SB6",
+      "from": "todo",
+      "to": "doing"
+    },
     {
       "seq": 187,
       "t": "2026-10-07T13:38",
@@ -1526,16 +1536,6 @@
       "w": "S7030N",
       "with_": "KAN-052-BYS4JN",
       "reason": "052는 viz Provider 코드·internal/ExternalFonts와 README 사용법 절만 고친다. 049는 PLAN·visualization-catalog 문서 흡수다 (2026-10-05 유저 승인 플랜)"
-    },
-    {
-      "seq": 155,
-      "t": "2026-10-05T00:14",
-      "a": "ai",
-      "id": "KAN-049-CWBPP6",
-      "op": "waive",
-      "w": "S7030N",
-      "with_": "KAN-051-5HMYKT",
-      "reason": "049는 packages/visualization/**를 잡았지만 md 문서만 고친다. 051은 packages/visualization/tsup.config.ts만 고친다 (2026-10-05 유저 승인 플랜)"
     }
   ],
   "waivers": [
