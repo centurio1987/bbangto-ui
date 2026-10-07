@@ -25,7 +25,7 @@
 
 ```
 tokens (packages/tokens)
-  └─ themes (theme-light/dark/amber/high-contrast)
+  └─ foundations (base 3: packages/core/src/foundations · 확장 76: packages/foundations)
        └─ atoms / molecules  →  packages/core/src/components   [현존]
             └─ blocks (sections)  →  packages/core/src/blocks   [신설]
                  └─ patterns (templates/flows)  →  packages/core/src/patterns  [신설]

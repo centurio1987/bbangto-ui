@@ -216,7 +216,7 @@ gate** workflow — never implement before the item's test + checklist exist.
 7. **Run the quality gate** — all must be green:
    `pnpm typecheck && pnpm build && pnpm test && pnpm --filter storybook build && pnpm test:unit`.
    (`pnpm test` runs the stories as Playwright/chromium browser tests.) Eyeball
-   the story across all 5 themes + the reduced-motion story.
+   the story across the 3 base foundations (Storybook toolbar) + the reduced-motion story.
 8. **Record**: flip the item's §4 row to `implemented` (+ Source URL/License if
    `ported`), **bump §5 counts**, tick the §7 box. Every checklist box ticked.
 9. Repeat. Each item is independent — stop and resume at any task boundary.

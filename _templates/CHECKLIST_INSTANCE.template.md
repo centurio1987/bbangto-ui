@@ -18,7 +18,7 @@
 - [ ] 배럴에 export 추가 (`packages/core/src/index.ts` 또는 해당 하위 index)
 - [ ] `forwardRef` + `displayName` + `...props` + `ref` (컴포넌트)
 - [ ] 토큰은 `cssVar()`로만 참조 (하드코딩 금지)
-- [ ] 5개 테마 전체 렌더 확인 (light / dark / high-contrast / amber-light / amber-dark)
+- [ ] base foundation 3종 전체 렌더 확인 (light / dark / high-contrast — Storybook 상단 툴바 「Foundation」)
 
 ## 접근성
 - [ ] ARIA role/label/live region

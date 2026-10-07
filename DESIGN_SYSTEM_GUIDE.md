@@ -167,7 +167,7 @@ UI 모양이 아니라 **움직임**을 담당하는 별도 계층. `packages/co
 
 | 레이어 | 위치 |
 |---|---|
-| 🎨 token | `packages/tokens` + `packages/theme-*` |
+| 🎨 token | `packages/tokens`(타입) + `packages/core/src/foundations`(base foundation 3종) + `packages/foundations`(확장 foundation 76종) |
 | ⚛️ atom / 🧬 molecule | `packages/core/src/components` |
 | 🦠 organism / block | `packages/core/src/blocks` |
 | 📄 pattern | `packages/core/src/patterns` |

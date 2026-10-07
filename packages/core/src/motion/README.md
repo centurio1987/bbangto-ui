@@ -7,7 +7,8 @@ to port lives in `packages/core/motion-catalog.md` (the SSOT); this file is the
 
 ## Architecture (3 layers)
 
-1. **Parameters → tokens** (`packages/tokens/src/types.ts`, `theme-*`):
+1. **Parameters → tokens** (`packages/tokens/src/types.ts`; values in every
+   foundation — `packages/core/src/foundations/*`, `packages/foundations/src/**`):
    `motion.duration`, `motion.easing`, `motion.distance`, `motion.preset`.
    Only *values* live here. **Never put `@keyframes` bodies in tokens** — CSS
    custom properties cannot hold a CSS rule.

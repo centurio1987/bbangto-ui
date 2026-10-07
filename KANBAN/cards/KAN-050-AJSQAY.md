@@ -55,7 +55,7 @@ scope 를 넓히면 KAN-051 과의 용인 기록이 무효가 된다(scope 전�
 - **모션 문서 셋을 하나로 합친다** — README 는 코드 옆 구현 규약, 체크리스트는 게이트, catalog 는 백로그로 자리가 다르다(인벤토리 §10 존치 판정). 중복된 절만 걷는다.
 
 ## 실행 계획
-- [ ] `S1` `theme-*` 경로·「5개 테마」·패키지 구조를 실제 구조로 — `CLAUDE.md` 구조도(패키지 7개·정확한 이름, 게이트 목록과 :39·:103 은 손대지 않음) · `QUALITY_CHECKLIST.md:15,59-64` · `DESIGN_SYSTEM_GUIDE.md:170` · `MOTION_QUALITY_CHECKLIST.md:70,103` · `src/motion/README.md:10` · `motion-catalog.md:219` · `COMPONENT_CATALOG.md:28` · `apps/storybook/src/Overview.mdx:34-35` · `_templates/CHECKLIST_INSTANCE.template.md:21`. 완료 기준: 검증 [1]의 `theme-*`·「5 테마」 grep 이 0건
+- [x] `S1` `theme-*` 경로·「5개 테마」·패키지 구조를 실제 구조로 — `CLAUDE.md` 구조도(패키지 7개·정확한 이름, 게이트 목록과 :39·:103 은 손대지 않음) · `QUALITY_CHECKLIST.md:15,59-64` · `DESIGN_SYSTEM_GUIDE.md:170` · `MOTION_QUALITY_CHECKLIST.md:70,103` · `src/motion/README.md:10` · `motion-catalog.md:219` · `COMPONENT_CATALOG.md:28` · `apps/storybook/src/Overview.mdx:34-35` · `_templates/CHECKLIST_INSTANCE.template.md:21`. 완료 기준: 검증 [1]의 `theme-*`·「5 테마」 grep 이 0건
 - [ ] `S2` 깨진 링크와 템플릿 drift — `DESIGN_SYSTEM_GUIDE.md:182` 를 `COMPONENT_CATALOG.md` 「Wave 실행 기록」으로 · `_templates/README.md` 의 Wave 어휘와 Storybook 제목 규약을 `ARCHETYPE/…` 계층으로 · `Component.stories.template.tsx` 제목·import · `Component.template.tsx` import · `CHECKLIST_INSTANCE` 의 `Wave`·`21st 출처` 칸을 카드 id 로 · `src/motion/README.md:51-52` 스토리 제목 · `packages/tokens/src/types.ts:201` 주석 패키지 이름. 완료 기준: 검증 [1]의 옛 제목·옛 패키지 이름 grep 0건, 검증 [2] 링크 검사 통과
 - [ ] `S3` 모션 워크플로 단일화 — 정본 `MOTION_QUALITY_CHECKLIST.md` 「Workflow (per item)」. `src/motion/README.md` 「Workflow」와 `motion-catalog.md` §6 은 정본 링크 + 그 문서에만 있는 단계만 남김 · `motion-catalog.md:26-28` 을 KAN-051 앞뒤 모두 참인 문장으로. 완료 기준: 검증 [3] — 게이트 명령 목록이 모션 문서 셋 중 정본 한 곳에만 있다
 - [ ] `S4` `METADATA_COVERAGE_AUDIT.md` §2-2 「파일럿 관찰」 → `FOUNDATION_METADATA_STRATEGY.md` §7 링크로. 지우기 전에 감사 쪽 문장마다 전략 §7 에 같은 사실이 있는지 대조하고, 없는 것은 전략 §7 로 옮긴다. 그다음 품질 게이트 5종. 완료 기준: 대조표 0건 누락 + 게이트 5종 초록
@@ -96,3 +96,6 @@ pnpm typecheck && pnpm build && pnpm test && pnpm --filter storybook build && pn
 - 2026-10-07T13:36 · s:f6956d8e — `전략` 섹션 교체
 - 2026-10-07T13:36 · s:f6956d8e — `실행 계획` 섹션 교체
 - 2026-10-07T13:36 · s:f6956d8e — `검증` 섹션 교체
+- 2026-10-07T14:13 · s:f6956d8e · S1 doing — 착수
+- 2026-10-07T14:14 · s:f6956d8e · S1 done — theme-* 경로·「5개 테마」·패키지 구조를 실측으로 — 9파일(CLAUDE 구조도 7패키지·QUALITY_CHECKLIST A·B·C·DESIGN_SYSTEM_GUIDE:170·MOTION_QUALITY_CHECKLIST:70,103·motion README:10·motion-catalog:219·COMPONENT_CATALOG:28·Overview.mdx·CHECKLIST_INSTANCE). 검증 [1] theme-*·5 테마 grep 0줄(bash)
+- 2026-10-07T14:14 · s:f6956d8e — 검증 절의 $EXC grep 은 zsh 에서 낱말로 안 쪼개져 제외가 안 먹는다 — bash 로 돌려야 한다. 검증 절에 그 사실을 S4 에서 적는다
