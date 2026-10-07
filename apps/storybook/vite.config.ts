@@ -36,6 +36,23 @@ export default defineConfig({
           }]
         }
       }
+    }, {
+      // 실제 키 입력 테스트(KAN-054). play 테스트의 userEvent 는 이벤트를 흉내 내서 렌더 순서에 걸린
+      // 포커스 결함을 못 잡는다. 여기서는 vitest/browser 의 userEvent 가 Playwright 로 실제 키를 보낸다.
+      // 어느 컴포넌트가 이 테스트를 가져야 하는지는 루트 keyboard-coverage.json 의 realInput 이 정한다.
+      extends: true,
+      test: {
+        name: 'real-input',
+        include: ['src/real-input/**/*.realinput.test.tsx'],
+        browser: {
+          enabled: true,
+          headless: true,
+          provider: playwright({}),
+          instances: [{
+            browser: 'chromium'
+          }]
+        }
+      }
     }]
   }
 });
