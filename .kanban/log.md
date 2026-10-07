@@ -1,6 +1,7 @@
 # KANBAN 변경 이력
 > 최근 50건. 이보다 오래된 이력은 archive.jsonl 로 압축 보관한다.
 
+- #188 2026-10-07 13:54 · ai · KAN-051-5HMYKT 이동 할 일 → 진행 중
 - #187 2026-10-07 13:38 · ai · KAN-050-AJSQAY serialize
 - #186 2026-10-07 13:38 · ai · KAN-050-AJSQAY serialize
 - #185 2026-10-07 13:38 · ai · KAN-050-AJSQAY 독립성 겹침 용인 (상대 KAN-051-5HMYKT) — 같은 CLAUDE.md지만 050은 게이트 명령 4종을 손대지 않고 구조도·경로만 고친다고 적었다. 051은 test:unit 설명 두 줄(39, 103행)만 고친다 (2026-10-05 유저 승인 플랜). 2026-10-07 KAN-050 재수립의 scope 확장(COMPONENT_CATALOG·Overview.mdx·types.ts — 051 scope 와 안 겹침)으로 무효가 된 기록을 겹침 그대로 다시 건다. #181 의 actor 표기 정정(ai 가 다시 건 것)
@@ -50,4 +51,3 @@
 - #158 2026-10-05 00:14 · ai · KAN-050-AJSQAY 수정 메모
 - #157 2026-10-05 00:14 · ai · KAN-050-AJSQAY 독립성 겹침 용인 (상대 KAN-051-5HMYKT) — 같은 CLAUDE.md지만 050은 게이트 명령 4종을 손대지 않고 구조도·경로만 고친다고 적었다. 051은 test:unit 설명 두 줄(39, 103행)만 고친다 (2026-10-05 유저 승인 플랜)
 - #156 2026-10-05 00:14 · ai · KAN-049-CWBPP6 독립성 겹침 용인 (상대 KAN-052-BYS4JN) — 052는 viz Provider 코드·internal/ExternalFonts와 README 사용법 절만 고친다. 049는 PLAN·visualization-catalog 문서 흡수다 (2026-10-05 유저 승인 플랜)
-- #155 2026-10-05 00:14 · ai · KAN-049-CWBPP6 독립성 겹침 용인 (상대 KAN-051-5HMYKT) — 049는 packages/visualization/**를 잡았지만 md 문서만 고친다. 051은 packages/visualization/tsup.config.ts만 고친다 (2026-10-05 유저 승인 플랜)
