@@ -107,7 +107,7 @@ KAN-053 검토서(`KANBAN/reviews/KAN-053-TZ86NN.review.md` · 정본 `.kanban/r
 - [x] `S8` 게이트 범위 넓히기 + FeatureGrid 탭 — 누락 검사를 `components/`·`blocks/`·`patterns/`·`motion/`으로 넓히고 `keyboard-coverage.json`에 FeatureGrid(스토리 `Keyboard`)를 더한다. 테스트 먼저: 게이트 빨강(FeatureGrid 스토리 없음) → FeatureGrid 키보드 스토리 빨강 → 탭에 `useRovingFocus`. 완료 기준: FeatureGrid 키보드 스토리·커버리지 게이트 초록
 - [x] `S9` 포커스 표시 셋 — Card·Calendar 날짜 칸·DatePicker 기본 트리거에 키보드 포커스일 때만 테두리. 테스트 먼저: 실제 입력 테스트(Tab이면 테두리, 마우스 클릭이면 없음) 빨강 → 초록. 완료 기준: 세 실제 입력 테스트 초록, 기존 스토리 초록
 - [x] `S10` DropdownMenu 닫힘 — 항목 실행 신호를 내부 문맥으로 받아 실행됐을 때만 닫는다. 테스트 먼저: 항목 `onClick`·`onKeyDown`에서 `preventDefault`하면 열린 채로, 아니면 닫히는 스토리 빨강 → 초록. 완료 기준: 그 스토리와 기존 Menu 스토리·실제 입력 초록
-- [ ] `S11` 마무리 — changeset 보강(FeatureGrid·포커스 표시·메뉴 닫힘), 게이트 5종, core 전체 포커스 표시 새 카드를 백로그에, 검토서 1·2항 갱신과 §3-6 상세 정정(components 13개). 완료 기준: 게이트 5종 초록, 검토로 이동
+- [x] `S11` 마무리 — changeset 보강(FeatureGrid·포커스 표시·메뉴 닫힘), 게이트 5종, core 전체 포커스 표시 새 카드를 백로그에, 검토서 1·2항 갱신과 §3-6 상세 정정(components 13개). 완료 기준: 게이트 5종 초록, 검토로 이동
 
 ## 검증
 ### 게이트 5종 (전부 초록이어야 완료)
@@ -176,3 +176,5 @@ core를 고칠 때마다 `pnpm --filter @centurio1987/bbangto-ui-core build` 후
 - 2026-10-07T16:08 · s:b1c51cf9 · S9 done — a11y/focusRing.ts(isFocusVisible = element.matches(':focus-visible'), FOCUS_RING = 2px solid primary.base·간격 2px — Gallery 선례) 를 Card(interactive 일 때)·Calendar 날짜 칸·DatePicker 기본 트리거에. 실제 입력 FocusVisible.realinput.test.tsx 3건 빨강(테두리 none) → 초록: Tab·화살표면 테두리, 마우스 클릭이면 없음. 관련 스토리 48건·실제 입력 10건 초록
 - 2026-10-07T16:09 · s:b1c51cf9 · S10 doing — 착수
 - 2026-10-07T16:10 · s:b1c51cf9 · S10 done — DropdownMenu 가 목록 쪽(Enter/Space·클릭)에서 닫던 것을 걷고, 항목이 실제로 실행될 때 MenuItemSelectContext 로 신호를 받아 닫는다. 외부가 항목 onClick·onKeyDown 에서 preventDefault 하면 onSelect 도 닫힘도 없다(1번 합성 규칙). 공개 API 변화 없음. SelectPreventDefault 스토리 빨강(막아도 닫힘) → 초록, Menu 스토리 16건·실제 입력 10건 초록
+- 2026-10-07T16:10 · s:b1c51cf9 · S11 doing — 착수
+- 2026-10-07T16:12 · s:b1c51cf9 · S11 done — changeset 보강(FeatureGrid·포커스 표시·DropdownMenu 닫힘), KAN-059-62EAKB(core 포커스 표시 통일) main 백로그 등록(b710c68), 검토서 §3-5·§3-6 상세를 재작업 결과로·§3-6 파일 수 13개로 정정, §3-3 에 ④ 수정 추가 의견. 게이트 5종 초록: typecheck · build · test 192파일 1272건 · storybook build · test:unit 588건(번들 크기 게이트 포함)

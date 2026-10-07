@@ -18,6 +18,8 @@
 - **Pagination** — 페이지 번호와 점 변형의 점을 Enter/Space로 누른다. 점에는 `Page n` 이름과 `aria-current`가 붙는다.
 - **DataGrid** — 정렬 가능한 열 머리 안에 버튼이 생겨 Tab으로 닿고 Enter/Space로 정렬한다. 열 머리에 `aria-sort`가 붙는다.
 - **FileUploader** — 기본 변형의 드롭존에 Tab으로 닿고 Enter/Space로 파일 선택 창을 연다.
+- **FeatureGrid** — `panel-showcase` 레이아웃의 탭 묶음이 Tab 정지점 하나가 됐고, ↑/↓·Home/End로 옮기면 선택과 패널도 함께 옮겨진다.
+- **포커스 표시** — 키보드로 포커스한 Card(클릭할 수 있는 카드)·Calendar 날짜 칸·DatePicker 기본 트리거에 테두리(2px, primary 색)가 보인다. 마우스로 누른 포커스에는 그리지 않는다.
 
 ### 바뀐 동작
 
@@ -26,7 +28,8 @@
 - **TreeView·MenuItem·FileUploader·Tooltip: 넘긴 처리기가 내부 처리기를 덮어쓰지 않는다.** 전에는 `onKeyDown`(TreeView), `onClick`·`onKeyDown`·포커스·마우스 처리기(MenuItem), `onClick`·`onKeyDown`(FileUploader), 포커스·마우스 처리기(Tooltip)를 넘기면 내부 동작이 사라졌다. 이제 둘 다 불린다.
 - **Card: `onClick`만 넘겨도 `interactive`로 동작한다** — `role="button"`, Tab 정지점, Enter/Space, 포인터 커서. 마우스 전용으로 두려면 `interactive={false}`를 명시한다.
 - **Menu·TreeView·SegmentedControl·DatePicker 휠: Tab 정지점이 묶음마다 하나로 줄었다.** 전에는 항목마다 Tab에 걸렸다. 묶음 안은 화살표로 움직인다.
-- **DropdownMenu: 키보드 이동이 실제 포커스로 바뀌었다.** 전에는 포커스를 트리거에 둔 채 내부 번호로 활성 항목을 셌고, 보조기술은 그것을 알 수 없었다. 메뉴는 열 때 바로 보이게 하고(닫을 때만 페이드 뒤에 숨는다), 항목을 고르면 닫힌다.
+- **DropdownMenu: 키보드 이동이 실제 포커스로 바뀌었다.** 전에는 포커스를 트리거에 둔 채 내부 번호로 활성 항목을 셌고, 보조기술은 그것을 알 수 없었다. 메뉴는 열 때 바로 보이게 한다(닫을 때만 페이드 뒤에 숨는다).
+- **DropdownMenu: 항목을 고르면 마우스로 골랐어도 메뉴가 닫히고 트리거로 돌아온다.** 전에는 키보드로 고를 때만 닫혔다. 항목의 `onClick`·`onKeyDown`에서 `preventDefault()`를 하면 그 항목의 `onSelect`도 닫힘도 일어나지 않는다 — 외부가 직접 처리하고 메뉴를 열어 둘 때 쓴다.
 - **TreeView: 접힌 노드에서 ↓를 누르면 숨은 자식이 아니라 다음에 보이는 항목으로 간다.**
 - **DatePicker 주간 띠: 날짜 칸에 Tab 정지점이 포커스를 따라간다.** 전에는 선택된 칸에 고정이었다.
 - **포커스 이동이 패널이 실제로 포커스를 받을 때까지 몇 프레임 다시 시도한다.** `visibility` 전환으로 나타나는 패널은 처음 한 프레임 동안 포커스를 거부한다. Modal·Drawer·Popover·DropdownMenu·DatePicker가 이 덕을 본다.
