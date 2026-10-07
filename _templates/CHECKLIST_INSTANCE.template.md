@@ -34,7 +34,7 @@
 - [ ] `pnpm build`
 - [ ] `pnpm test` (Playwright/chromium)
 - [ ] `pnpm --filter storybook build`
-- [ ] `pnpm test:unit` (패키지 vitest — 매니페스트·대비·명명·커버리지)
+- [ ] `pnpm test:unit` (패키지 vitest — 매니페스트·대비·명명·커버리지·번들 크기)
 
 ## 반환(구조화)
 ```json
