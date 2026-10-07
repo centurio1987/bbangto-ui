@@ -4,7 +4,7 @@
  * ⚠️ These are intentionally NOT CSS custom properties / `cssVar()` tokens:
  * CSS variables do not work inside `@media (min-width: …)` queries. Consume
  * these breakpoints from JavaScript (`matchMedia`) — e.g. via the
- * `useMediaQuery` hook in `@centurio1987/hooks` — or by interpolating the px
+ * `useMediaQuery` hook in `@centurio1987/bbangto-ui-hooks` — or by interpolating the px
  * value into a scoped `<style>` `@media` rule. For column reflow that does not
  * need a hard breakpoint, prefer intrinsic responsiveness
  * (`grid-template-columns: repeat(auto-fit, minmax(…, 1fr))`, `clamp()`).

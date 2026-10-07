@@ -7,7 +7,8 @@ to port lives in `packages/core/motion-catalog.md` (the SSOT); this file is the
 
 ## Architecture (3 layers)
 
-1. **Parameters → tokens** (`packages/tokens/src/types.ts`, `theme-*`):
+1. **Parameters → tokens** (`packages/tokens/src/types.ts`; values in every
+   foundation — `packages/core/src/foundations/*`, `packages/foundations/src/**`):
    `motion.duration`, `motion.easing`, `motion.distance`, `motion.preset`.
    Only *values* live here. **Never put `@keyframes` bodies in tokens** — CSS
    custom properties cannot hold a CSS rule.
@@ -19,25 +20,19 @@ to port lives in `packages/core/motion-catalog.md` (the SSOT); this file is the
 
 ## Workflow: test-first → implement → quality gate
 
-Do **not** implement before the item's test + checklist exist. The full gate and
-the per-item checklist live in `../MOTION_QUALITY_CHECKLIST.md` (package root).
-In short:
-
-1. Write the Storybook `play` test first (red until implemented).
-2. Copy the checklist for the item.
-3. Implement (steps below).
-4. Gate — all green:
-   `pnpm typecheck && pnpm build && pnpm test && pnpm --filter storybook build && pnpm test:unit`.
-   `pnpm test` runs stories as Playwright/chromium browser tests via
-   `@storybook/addon-vitest`.
-5. Tick every checklist box; update `../motion-catalog.md`.
+Do **not** implement before the item's test + checklist exist. The per-item
+workflow (test → checklist → implement → gate → record) and the gate commands
+live in one place: [`packages/core/MOTION_QUALITY_CHECKLIST.md`](../../MOTION_QUALITY_CHECKLIST.md)
+«Workflow (per item)». This file covers only the **implement** step — see
+«How to add a new animation atom» below.
 
 ## How to add a new animation atom
 
 1. If it needs a new keyframe, add it to `KEYFRAME_NAMES` + `KEYFRAMES_CSS` in
    `keyframes.ts` (namespace `bbangto-`). If its timing is a loop that is not in
    the duration scale (e.g. spinner), add an `animation` shorthand to
-   `motion.preset` in the token layer + every theme.
+   `motion.preset` in the token layer + every foundation (the file list is in
+   `../../MOTION_QUALITY_CHECKLIST.md` «Architecture & tokens»).
 2. Create `MyAtom.tsx`. Classify it:
    - **Motion wrapper** (transitions children in/out): default `duration`/
      `easing` to tokens via `cssVar('motion', …)`; expose `duration`/`easing`/
@@ -48,8 +43,8 @@ In short:
 4. **Zero runtime dependencies.** Inline `React.CSSProperties` + `cssVar()` only.
    No framer-motion / emotion / styled-components.
 5. Export from `motion/index.ts` (already re-exported by `src/index.ts`).
-6. Add a Storybook story in `apps/storybook/src/stories/` (`title: 'Foundations/Motion'`
-   or `'Atoms/…'`), `tags: ['autodocs']`, **with a `play` test** asserting its
+6. Add a Storybook story in `apps/storybook/src/stories/` (`title: 'ARCHETYPE/Foundations/Motion/…'`
+   — see `_templates/README.md` for the title rules), `tags: ['autodocs']`, **with a `play` test** asserting its
    contract (see `Motion.stories.tsx` for templates).
 7. Update the row in `packages/core/motion-catalog.md`: set `Status=implemented`
    and fill `Atom/Target`, and bump the progress summary count.

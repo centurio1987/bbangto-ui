@@ -12,7 +12,7 @@
 - [ ] `packages/core/src/index.ts`에 export 추가
 - [ ] `React.forwardRef` + `displayName` + `...props` + `ref` 지원
 - [ ] 토큰은 `cssVar()` 헬퍼로만 참조 (하드코딩 금지)
-- [ ] 5개 테마 전체에서 렌더링 확인 (light / dark / high-contrast / amber-light / amber-dark)
+- [ ] base foundation 3종 전체에서 렌더링 확인 (light / dark / high-contrast — Storybook 상단 툴바 「Foundation」)
 
 ### 접근성
 - [ ] 적절한 ARIA role/label/live region 적용
@@ -37,7 +37,7 @@
 
 ### 구현
 - [ ] 변경 전/후 DOM 구조 및 props API 일치 확인 (breaking change 없음)
-- [ ] 영향받는 테마 파일 함께 수정
+- [ ] 영향받는 foundation 파일 함께 수정 (목록은 C 절)
 - [ ] 기존 story가 여전히 통과
 
 ### 회귀 방지
@@ -57,11 +57,10 @@
 
 ### 구현
 - [ ] `packages/tokens/src/types.ts` 타입 정의 선행
-- [ ] 변경된 토큰을 사용하는 **모든** 테마 파일 업데이트
-  - `packages/theme-light/src/theme.ts`
-  - `packages/theme-amber/src/theme.ts`
-  - `packages/theme-dark/src/theme.ts`
-  - `packages/theme-high-contrast/src/theme.ts`
+- [ ] `BbangtoFoundation` 을 따르는 **모든** foundation 파일 업데이트 — 빠진 파일은 `pnpm typecheck` 가 잡는다
+  - `packages/core/src/foundations/light.ts` (`dark.ts`·`highContrast.ts` 는 light 를 spread 하므로 덮어쓴 값만 확인)
+  - `packages/foundations/src/amber.ts` (amber-light · amber-dark)
+  - `packages/foundations/src/themes/*.ts` (브랜드 프리셋 74개)
 - [ ] 기존 컴포넌트와의 호환성 유지
 
 ### 테스트

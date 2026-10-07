@@ -1,15 +1,16 @@
 // 템플릿: 컴포넌트 스토리 + play 테스트 (테스트 먼저!)
 // 사용법: __Name__ 치환 후 apps/storybook/src/stories/<Name>.stories.tsx 로 복사.
-//        title 의 'Layer' 는 Storybook 계층 규약(아래) 중 하나로 지정한다.
-//        Atoms | Molecules | Blocks | Patterns | Motion | Motion/Shaders | Hooks
+//        title 접두는 _templates/README.md 「Storybook title 계층 규약」 중 하나로 지정한다.
+//        ARCHETYPE/Components/{Atoms|Molecules|Organisms} | ARCHETYPE/Blocks | ARCHETYPE/Patterns
+//        | ARCHETYPE/Foundations/Motion | ARCHETYPE/Foundations/Motion/Shaders
 // 규칙(QUALITY_CHECKLIST.md A/E): 기본 렌더 story에 play 필수(요소 존재 + 인터랙션 1건),
 //        주요 variant/state 별 story 존재, addon-a11y 위반 없음.
 import type { Meta, StoryObj } from '@storybook/react';
-import { __Name__ } from '@centurio1987/core';
+import { __Name__ } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, within } from 'storybook/test';
 
 const meta = {
-  title: 'Atoms/__Name__',
+  title: 'ARCHETYPE/Components/Atoms/__Name__',
   component: __Name__,
   parameters: { layout: 'centered' },
   tags: ['autodocs'],

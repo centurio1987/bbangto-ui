@@ -54,14 +54,16 @@ pnpm test:unit                      # 패키지 vitest — 매니페스트·대�
 bbangto-ui/
 ├── apps/storybook/          # Storybook + Vitest + Playwright 테스트
 │   └── src/stories/         # 컴포넌트별 .stories.tsx (play 함수 = 테스트)
-├── packages/
-│   ├── core/                # React 컴포넌트 (@centurio1987/core)
+├── packages/                # 패키지 이름은 @centurio1987/bbangto-ui-<폴더명>
+│   ├── core/                # React 컴포넌트
+│   │   ├── src/foundations/ # base foundation 3종 (light · dark · high-contrast)
 │   │   └── src/motion/      # 모션 atom들
-│   ├── tokens/              # 디자인 토큰 타입 정의
-│   ├── theme-light/         # 라이트 테마
-│   ├── theme-amber/         # 앰버 테마
-│   ├── theme-dark/          # 다크 테마
-│   └── theme-high-contrast/ # 고대비 테마
+│   ├── tokens/              # 디자인 토큰 타입 정의 (BbangtoFoundation)
+│   ├── foundations/         # 확장 foundation 76종 (amber 2 + 브랜드 프리셋 74) + 저장소 전역 게이트
+│   ├── hooks/               # 헤드리스 React 훅
+│   ├── style-guide-catalog/ # 스타일 가이드 프리셋
+│   ├── visualization/       # headless 시각화 (다이어그램 · 인포그래픽)
+│   └── visualization-style-guide-catalog/ # 시각화 스타일 가이드 프리셋
 └── QUALITY_CHECKLIST.md     # 범용 품질 체크리스트 (이 파일의 동반 문서)
 ```
 

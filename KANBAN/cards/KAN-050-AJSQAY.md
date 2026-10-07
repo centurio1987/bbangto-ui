@@ -2,7 +2,7 @@
 card: KAN-050-AJSQAY
 title: 문서 정리 D — 규율 문서 실측 정합 (theme-* 부재 · 모션 5중 기재)
 created: 2026-08-25
-scope: CLAUDE.md, QUALITY_CHECKLIST.md, DESIGN_SYSTEM_GUIDE.md, _templates/**, packages/core/MOTION_QUALITY_CHECKLIST.md, packages/core/src/motion/README.md, packages/core/motion-catalog.md, METADATA_COVERAGE_AUDIT.md, packages/foundations/FOUNDATION_METADATA_STRATEGY.md, packages/core/COMPONENT_CATALOG.md, apps/storybook/src/Overview.mdx, packages/tokens/src/types.ts
+scope: CLAUDE.md, QUALITY_CHECKLIST.md, DESIGN_SYSTEM_GUIDE.md, _templates/**, packages/core/MOTION_QUALITY_CHECKLIST.md, packages/core/src/motion/README.md, packages/core/motion-catalog.md, METADATA_COVERAGE_AUDIT.md, packages/foundations/FOUNDATION_METADATA_STRATEGY.md, packages/core/COMPONENT_CATALOG.md, apps/storybook/src/Overview.mdx, packages/tokens/src/types.ts, packages/tokens/src/breakpoints.ts, packages/hooks/src/index.ts, packages/hooks/src/useIsMounted.ts
 ---
 
 # KAN-050-AJSQAY — 문서 정리 D — 규율 문서 실측 정합 (theme-* 부재 · 모션 5중 기재)
@@ -55,21 +55,21 @@ scope 를 넓히면 KAN-051 과의 용인 기록이 무효가 된다(scope 전�
 - **모션 문서 셋을 하나로 합친다** — README 는 코드 옆 구현 규약, 체크리스트는 게이트, catalog 는 백로그로 자리가 다르다(인벤토리 §10 존치 판정). 중복된 절만 걷는다.
 
 ## 실행 계획
-- [ ] `S1` `theme-*` 경로·「5개 테마」·패키지 구조를 실제 구조로 — `CLAUDE.md` 구조도(패키지 7개·정확한 이름, 게이트 목록과 :39·:103 은 손대지 않음) · `QUALITY_CHECKLIST.md:15,59-64` · `DESIGN_SYSTEM_GUIDE.md:170` · `MOTION_QUALITY_CHECKLIST.md:70,103` · `src/motion/README.md:10` · `motion-catalog.md:219` · `COMPONENT_CATALOG.md:28` · `apps/storybook/src/Overview.mdx:34-35` · `_templates/CHECKLIST_INSTANCE.template.md:21`. 완료 기준: 검증 [1]의 `theme-*`·「5 테마」 grep 이 0건
-- [ ] `S2` 깨진 링크와 템플릿 drift — `DESIGN_SYSTEM_GUIDE.md:182` 를 `COMPONENT_CATALOG.md` 「Wave 실행 기록」으로 · `_templates/README.md` 의 Wave 어휘와 Storybook 제목 규약을 `ARCHETYPE/…` 계층으로 · `Component.stories.template.tsx` 제목·import · `Component.template.tsx` import · `CHECKLIST_INSTANCE` 의 `Wave`·`21st 출처` 칸을 카드 id 로 · `src/motion/README.md:51-52` 스토리 제목 · `packages/tokens/src/types.ts:201` 주석 패키지 이름. 완료 기준: 검증 [1]의 옛 제목·옛 패키지 이름 grep 0건, 검증 [2] 링크 검사 통과
-- [ ] `S3` 모션 워크플로 단일화 — 정본 `MOTION_QUALITY_CHECKLIST.md` 「Workflow (per item)」. `src/motion/README.md` 「Workflow」와 `motion-catalog.md` §6 은 정본 링크 + 그 문서에만 있는 단계만 남김 · `motion-catalog.md:26-28` 을 KAN-051 앞뒤 모두 참인 문장으로. 완료 기준: 검증 [3] — 게이트 명령 목록이 모션 문서 셋 중 정본 한 곳에만 있다
-- [ ] `S4` `METADATA_COVERAGE_AUDIT.md` §2-2 「파일럿 관찰」 → `FOUNDATION_METADATA_STRATEGY.md` §7 링크로. 지우기 전에 감사 쪽 문장마다 전략 §7 에 같은 사실이 있는지 대조하고, 없는 것은 전략 §7 로 옮긴다. 그다음 품질 게이트 5종. 완료 기준: 대조표 0건 누락 + 게이트 5종 초록
+- [x] `S1` `theme-*` 경로·「5개 테마」·패키지 구조를 실제 구조로 — `CLAUDE.md` 구조도(패키지 7개·정확한 이름, 게이트 목록과 :39·:103 은 손대지 않음) · `QUALITY_CHECKLIST.md:15,59-64` · `DESIGN_SYSTEM_GUIDE.md:170` · `MOTION_QUALITY_CHECKLIST.md:70,103` · `src/motion/README.md:10` · `motion-catalog.md:219` · `COMPONENT_CATALOG.md:28` · `apps/storybook/src/Overview.mdx:34-35` · `_templates/CHECKLIST_INSTANCE.template.md:21`. 완료 기준: 검증 [1]의 `theme-*`·「5 테마」 grep 이 0건
+- [x] `S2` 깨진 링크와 템플릿 drift — `DESIGN_SYSTEM_GUIDE.md:182` 를 `COMPONENT_CATALOG.md` 「Wave 실행 기록」으로 · `_templates/README.md` 의 Wave 어휘와 Storybook 제목 규약을 `ARCHETYPE/…` 계층으로 · `Component.stories.template.tsx` 제목·import · `Component.template.tsx` import · `CHECKLIST_INSTANCE` 의 `Wave`·`21st 출처` 칸을 카드 id 로 · `src/motion/README.md:51-52` 스토리 제목 · `packages/tokens/src/types.ts:201` 주석 패키지 이름. 완료 기준: 검증 [1]의 옛 제목·옛 패키지 이름 grep 0건, 검증 [2] 링크 검사 통과
+- [x] `S3` 모션 워크플로 단일화 — 정본 `MOTION_QUALITY_CHECKLIST.md` 「Workflow (per item)」. `src/motion/README.md` 「Workflow」와 `motion-catalog.md` §6 은 정본 링크 + 그 문서에만 있는 단계만 남김 · `motion-catalog.md:26-28` 을 KAN-051 앞뒤 모두 참인 문장으로. 완료 기준: 검증 [3] — 게이트 명령 목록이 모션 문서 셋 중 정본 한 곳에만 있다
+- [x] `S4` `METADATA_COVERAGE_AUDIT.md` §2-2 「파일럿 관찰」 → `FOUNDATION_METADATA_STRATEGY.md` §7 링크로. 지우기 전에 감사 쪽 문장마다 전략 §7 에 같은 사실이 있는지 대조하고, 없는 것은 전략 §7 로 옮긴다. 그다음 품질 게이트 5종. 완료 기준: 대조표 0건 누락 + 게이트 5종 초록
 
 ## 검증
-문서 카드라 **잔여 grep 0건 + 링크 무결 + 품질 게이트 5종 초록**이 끝의 기준이다. 아래 명령은 레포 루트에서 돌린다.
+문서 카드라 **잔여 grep 0건 + 링크 무결 + 품질 게이트 5종 초록**이 끝의 기준이다. 아래 명령은 레포 루트에서 **bash 로** 돌린다 — zsh 는 `$EXC` 를 낱말로 쪼개지 않아 제외 옵션이 통째로 안 먹는다(S1 에서 실측). 2026-10-07 S2 에서 [1] 넷째 줄을 고쳤다 — 처음 쓴 `\b` 패턴은 `@centurio1987/hooks` 를 놓쳤다. 검토 중(검토자 지적) 둘째 줄에 `every theme` 을 더했다 — `src/motion/README.md:34` 가 빠져 있었다. S4 에서 셋째 줄에 `ARCHETYPE/` 거르기를 더했다 — 새 표기 `ARCHETYPE/Components/Atoms/*` 도 `Atoms/\*` 에 걸린다.
 
 ```bash
 # [1] 잔여 표기 — 넷 다 0줄이어야 한다 (칸반 산출물·CHANGELOG·감사 기록 원문 제외)
 EXC='--exclude-dir=node_modules --exclude-dir=.git --exclude-dir=dist --exclude-dir=storybook-static --exclude-dir=KANBAN --exclude-dir=.kanban --exclude-dir=.claude --exclude=CHANGELOG.md --exclude=KANBAN.md --exclude=KANBAN.board.html --exclude=SATURATION_AUDIT.md'
 grep -rn $EXC 'theme-\*\|theme-light\|theme-dark\|theme-amber\|theme-high' .
-grep -rni $EXC '5개 테마\|5 themes\|all 5 theme' .
-grep -rn $EXC "'Foundations/Motion'\|'Atoms/\|'Molecules/\|Atoms/\*\|Molecules/\*" .
-grep -rn $EXC '@centurio1987/core\b\|@centurio1987/tokens\b' .
+grep -rni $EXC '5개 테마\|5 themes\|all 5 theme\|every theme' .
+grep -rn $EXC "'Foundations/Motion'\|'Atoms/\|'Molecules/\|Atoms/\*\|Molecules/\*" . | grep -v 'ARCHETYPE/'
+grep -rnE $EXC '@centurio1987/[a-z]' . | grep -v '@centurio1987/bbangto-ui'
 
 # [2] 고친 문서의 상대 링크가 전부 실재하는 파일을 가리킨다 — 0줄이어야 한다
 for f in CLAUDE.md QUALITY_CHECKLIST.md DESIGN_SYSTEM_GUIDE.md METADATA_COVERAGE_AUDIT.md _templates/README.md \
@@ -96,3 +96,17 @@ pnpm typecheck && pnpm build && pnpm test && pnpm --filter storybook build && pn
 - 2026-10-07T13:36 · s:f6956d8e — `전략` 섹션 교체
 - 2026-10-07T13:36 · s:f6956d8e — `실행 계획` 섹션 교체
 - 2026-10-07T13:36 · s:f6956d8e — `검증` 섹션 교체
+- 2026-10-07T14:13 · s:f6956d8e · S1 doing — 착수
+- 2026-10-07T14:14 · s:f6956d8e · S1 done — theme-* 경로·「5개 테마」·패키지 구조를 실측으로 — 9파일(CLAUDE 구조도 7패키지·QUALITY_CHECKLIST A·B·C·DESIGN_SYSTEM_GUIDE:170·MOTION_QUALITY_CHECKLIST:70,103·motion README:10·motion-catalog:219·COMPONENT_CATALOG:28·Overview.mdx·CHECKLIST_INSTANCE). 검증 [1] theme-*·5 테마 grep 0줄(bash)
+- 2026-10-07T14:14 · s:f6956d8e — 검증 절의 $EXC grep 은 zsh 에서 낱말로 안 쪼개져 제외가 안 먹는다 — bash 로 돌려야 한다. 검증 절에 그 사실을 S4 에서 적는다
+- 2026-10-07T14:14 · s:f6956d8e · S2 doing — 착수
+- 2026-10-07T14:16 · s:f6956d8e · S2 done — 깨진 링크(DESIGN_SYSTEM_GUIDE:182 → COMPONENT_CATALOG 「Wave 실행 기록」)·템플릿 drift(Wave 어휘·title 규약을 ARCHETYPE 계층으로·옛 패키지 이름·hooks 테스트 하네스 문장)·motion README title·옛 패키지 이름 주석 5곳. 계획 때 grep(\b 패턴)이 놓친 @centurio1987/hooks 4곳을 찾아 scope 에 주석 파일 3개를 더하고 용인·직렬 기록을 다시 걸었다(ai). 검증 [1] 옛 제목·옛 이름 0줄, [2] 링크 0줄
+- 2026-10-07T14:16 · s:f6956d8e · S3 doing — 착수
+- 2026-10-07T14:17 · s:f6956d8e · S3 done — 모션 워크플로 정본을 MOTION_QUALITY_CHECKLIST 「Workflow (per item)」 한 곳으로 — README Workflow 는 링크+구현 단계 안내만, catalog §6 은 읽기·다음 항목·라이선스·반복만 남기고 4~8단계를 정본 링크로, §7 Exit gate 의 명령 목록도 정본 참조로. 걷은 단계는 전부 정본(Workflow·Test requirements·Checklist)에 있음을 단계별로 대조. files 표기 ["dist"]→["dist","README.md"](실측), tsup entry 문장은 「빌드 entry 는 전부 src/ 아래」로(KAN-051 앞뒤 참). 검증 [3] 정본 한 곳만, gateDocs 18/18
+- 2026-10-07T14:17 · s:f6956d8e — S3 에서 남긴 것: motion-catalog §7 Wave 0 완료 기록의 `Foundations/Motion` stories — 당시 제목을 적은 과거 기록이라 고치지 않는다(SATURATION_AUDIT 와 같은 이유)
+- 2026-10-07T14:17 · s:f6956d8e · S4 doing — 착수
+- 2026-10-07T14:18 · s:f6956d8e — `검증` 섹션 교체
+- 2026-10-07T14:19 · s:f6956d8e — `검증` 섹션 교체
+- 2026-10-07T14:23 · s:f6956d8e · S4 done — METADATA_COVERAGE_AUDIT §2-2 파일럿 관찰 → FOUNDATION_METADATA_STRATEGY §7 링크로. 대조 결과 전략 쪽에 없던 사실 2건(amber-dark background.base #0b0e11 · authored 변별 필드 summary·useWhen/avoidWhen)을 먼저 옮김, 누락 0. 검증 절 정정 2건(bash 로 돌린다 · [1c] ARCHETYPE 거르기). 새 워크트리라 pnpm build 선행 후 게이트 5종 초록 — typecheck · build · test 184 files/1239 · storybook build · test:unit(hooks 115·viz 257·foundations 62·sgc 76·vsgc 39). 검증 [1]~[3] 0줄
+- 2026-10-07T15:15 · s:f6956d8e — `검증` 섹션 교체
+- 2026-10-07T15:15 · s:f6956d8e — 검토자(opus) 지적 잔여 3건 수정 — src/motion/README.md:34 every theme → every foundation(같은 표현 레포 전역 검색 1건뿐) · README:25 링크 글자를 실제 경로로 · FOUNDATION_METADATA_STRATEGY §7 에 지운 감사 문단의 「고대비」 사실 복원. 검증 [1]~[3] 0줄 · gateDocs 18/18. 마크다운만 바뀌어 코드 게이트는 다시 안 돌림. 검토자가 짚은 「Hooks/* 행 삭제 + 새 지시」는 규칙 내용 변경 둘째 예외로 사람에게 보고
