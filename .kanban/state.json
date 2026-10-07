@@ -1,6 +1,6 @@
 {
   "next_id": 61,
-  "next_seq": 223,
+  "next_seq": 224,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -34,7 +34,7 @@
       ]
     },
     "KAN-056-D3V1MB": {
-      "col": "doing",
+      "col": "review",
       "title": "viz 템플릿 13개 리터럴 색 제거 — 스타일 가이드가 기본 채움·선 색까지 칠하게",
       "verbatim": "만들어 (앞 답변 「앞서 여쭌 백로그 카드 두 가지(리터럴 색이 남은 템플릿 13개, 읽히지 않는 `edge.dashPattern` 토큰)는 아직 만들지 않았습니다.」에 대한 답)",
       "생성": "ai",
@@ -1135,6 +1135,16 @@
   ],
   "recent": [
     {
+      "seq": 223,
+      "t": "2026-10-07T19:42",
+      "a": "ai",
+      "id": "KAN-056-D3V1MB",
+      "op": "move",
+      "w": "GEG7B8",
+      "from": "doing",
+      "to": "review"
+    },
+    {
       "seq": 222,
       "t": "2026-10-07T19:32",
       "a": "ai",
@@ -1644,16 +1654,6 @@
       "w": "S7030N",
       "with_": "KAN-048-R2KW3G",
       "reason": "전략 재수립 완료"
-    },
-    {
-      "seq": 186,
-      "t": "2026-10-07T13:38",
-      "a": "ai",
-      "id": "KAN-050-AJSQAY",
-      "op": "serialize",
-      "w": "S7030N",
-      "with_": "KAN-048-R2KW3G",
-      "reason": "DESIGN_SYSTEM_GUIDE.md 를 둘 다 고친다. B 가 ASSET_INTEGRATION_PLAN 을 없애야 D 가 :182 링크를 고칠 수 있고, 순서가 뒤면 깨진 링크가 남는다. KAN-044 검토 5번에서 유저가 승인. 2026-10-07 KAN-050 재수립의 scope 확장으로 무효가 된 기록을 다시 건다. #182 의 actor 표기 정정(ai 가 다시 건 것)"
     }
   ],
   "waivers": [
