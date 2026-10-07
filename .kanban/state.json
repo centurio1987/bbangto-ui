@@ -1,6 +1,6 @@
 {
   "next_id": 58,
-  "next_seq": 192,
+  "next_seq": 193,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -74,7 +74,7 @@
       "memo_hash": "fa79f4c6a72cc3d419b51e557a4bd9ae366539b9"
     },
     "KAN-050-AJSQAY": {
-      "col": "doing",
+      "col": "review",
       "title": "문서 정리 D — 규율 문서 실측 정합 (theme-* 부재 · 모션 5중 기재)",
       "verbatim": "",
       "생성": "ai",
@@ -966,7 +966,6 @@
     "KAN-057-CCH3E8",
     "KAN-051-5HMYKT",
     "KAN-054-M48FNQ",
-    "KAN-050-AJSQAY",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1017,9 +1016,20 @@
     "KAN-047-TRYYRC",
     "KAN-052-BYS4JN",
     "KAN-048-R2KW3G",
-    "KAN-053-TZ86NN"
+    "KAN-053-TZ86NN",
+    "KAN-050-AJSQAY"
   ],
   "recent": [
+    {
+      "seq": 192,
+      "t": "2026-10-07T14:24",
+      "a": "ai",
+      "id": "KAN-050-AJSQAY",
+      "op": "move",
+      "w": "728SB6",
+      "from": "doing",
+      "to": "review"
+    },
     {
       "seq": 191,
       "t": "2026-10-07T14:15",
@@ -1528,16 +1538,6 @@
       "w": "HQ1ZBZ",
       "from": "todo",
       "to": "doing"
-    },
-    {
-      "seq": 159,
-      "t": "2026-10-05T01:49",
-      "a": "유저",
-      "id": "KAN-049-CWBPP6",
-      "op": "waive",
-      "w": "S7030N",
-      "with_": "KAN-055-34A57K",
-      "reason": "049는 PLAN.md·visualization-catalog.md 흡수만 하고, 055가 viz에서 바꾸는 것은 CI Version PR이 만드는 package.json·CHANGELOG.md뿐이라 같은 파일을 건드리지 않는다 (2026-10-05 유저 선택)"
     }
   ],
   "waivers": [
