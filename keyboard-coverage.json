@@ -252,7 +252,7 @@
     { "component": "DatePicker", "source": "packages/core/src/components/DatePicker.tsx", "indicator": "기본 변형 트리거 — KAN-054" },
     { "component": "Button", "source": "packages/core/src/components/Button.tsx", "indicator": "버튼 자체" },
     { "component": "Link", "source": "packages/core/src/components/Link.tsx", "indicator": "링크 자체(모든 변형)" },
-    { "component": "NumberField", "source": "packages/core/src/components/NumberField.tsx", "indicator": "증감 버튼은 자기 자신, 입력은 바깥 상자, seven-segment 는 숫자 판" },
+    { "component": "NumberField", "source": "packages/core/src/components/NumberField.tsx", "indicator": "증감 버튼은 자기 자신(안쪽 간격), 입력은 바깥 상자, seven-segment 는 숨긴 입력 대신 판 전체" },
     { "component": "TreeView", "source": "packages/core/src/components/TreeView.tsx", "indicator": "포커스된 항목" },
     { "component": "Menu", "source": "packages/core/src/components/Menu.tsx", "indicator": "포커스된 항목. 목록(ul) 상자의 outline:none 은 tabIndex 가 없어 Tab 으로 닿지 않는다" },
     { "component": "ScrollArea", "source": "packages/core/src/components/ScrollArea.tsx", "indicator": "스크롤 상자(tabIndex=0) 자체" },

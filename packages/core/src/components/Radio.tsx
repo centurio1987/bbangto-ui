@@ -1,5 +1,6 @@
 import React from 'react';
 import { cssVar, breakpoints } from '@centurio1987/bbangto-ui-tokens';
+import { FOCUS_RING, FOCUS_RING_INSET } from '../a11y';
 
 // ─── Size ─────────────────────────────────────────────────────────────────────
 
@@ -306,6 +307,11 @@ export const RadioGroup = ({
       .${RADIO_GROUP_ID}-segmented-item:has(input:checked) {
         background-color: ${cssVar('semantic', 'background', 'elevated')};
         box-shadow: ${cssVar('shadow', 'sm')};
+      }
+      /* The input is visually hidden, so the segment shows its keyboard focus (KAN-059). */
+      .${RADIO_GROUP_ID}-segmented-item:has(input:focus-visible) {
+        outline: ${FOCUS_RING.outline};
+        outline-offset: ${FOCUS_RING_INSET.outlineOffset};
       }
     `;
   } else if (variant === 'glass') {

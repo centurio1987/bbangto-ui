@@ -1,6 +1,6 @@
 import React from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
-import { composeHandlers } from '../a11y';
+import { composeHandlers, FOCUS_RING, useFocusVisible } from '../a11y';
 import { Spinner } from '../motion/Spinner';
 
 export type SearchfieldSize = 'sm' | 'md' | 'lg';
@@ -55,6 +55,8 @@ export const Searchfield = React.forwardRef<HTMLInputElement, SearchfieldProps>(
       defaultValue,
       onChange,
       onKeyDown,
+      onFocus,
+      onBlur,
       ...props
     },
     ref
@@ -102,6 +104,9 @@ export const Searchfield = React.forwardRef<HTMLInputElement, SearchfieldProps>(
       }
     });
 
+    // Keyboard focus ring on the field box around the input (KAN-059).
+    const { focusVisible, focusProps } = useFocusVisible<HTMLInputElement>({ onFocus, onBlur });
+
     const iconSize = ICON_SIZE[size];
     const fontScalePath = FONT_SCALE[size];
 
@@ -116,6 +121,7 @@ export const Searchfield = React.forwardRef<HTMLInputElement, SearchfieldProps>(
       borderRadius: cssVar('radius', 'md'),
       transition: `border-color ${cssVar('motion', 'duration', 'fast')} ${cssVar('motion', 'easing', 'default')}`,
       opacity: loading ? 0.7 : 1,
+      ...(focusVisible ? FOCUS_RING : null),
       ...style,
     };
 
@@ -182,6 +188,7 @@ export const Searchfield = React.forwardRef<HTMLInputElement, SearchfieldProps>(
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           {...props}
+          {...focusProps}
         />
         {showClearBtn && (
           <button

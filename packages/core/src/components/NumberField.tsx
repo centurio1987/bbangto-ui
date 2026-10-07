@@ -1,5 +1,6 @@
 import React from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
+import { FOCUS_RING, FOCUS_RING_INSET, useFocusVisible } from '../a11y';
 
 export type NumberFieldSize = 'sm' | 'md' | 'lg';
 
@@ -55,10 +56,17 @@ export const NumberField = React.forwardRef<HTMLInputElement, NumberFieldProps>(
       variant = 'outline',
       style,
       className,
+      onFocus,
+      onBlur,
       ...props
     },
     ref
   ) => {
+    // Keyboard focus rings (KAN-059): each stepper button on itself (inside the
+    // edge — the box clips outside), the input on the whole box around it.
+    const decFocus = useFocusVisible<HTMLButtonElement>();
+    const incFocus = useFocusVisible<HTMLButtonElement>();
+    const inputFocus = useFocusVisible<HTMLInputElement>({ onFocus, onBlur });
     const isControlled = valueProp !== undefined;
     const [internalValue, setInternalValue] = React.useState<number>(
       defaultValue ?? 0
@@ -111,7 +119,7 @@ export const NumberField = React.forwardRef<HTMLInputElement, NumberFieldProps>(
         ? cssVar('typography', 'scale', 'h3', 'fontSize')
         : cssVar('typography', 'scale', 'body', 'fontSize');
 
-    const buttonStyles = (enabled: boolean): React.CSSProperties => ({
+    const buttonStyles = (enabled: boolean, focusVisible: boolean): React.CSSProperties => ({
       display: 'inline-flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -129,7 +137,7 @@ export const NumberField = React.forwardRef<HTMLInputElement, NumberFieldProps>(
         'easing',
         'default'
       )}`,
-      outline: 'none',
+      ...(focusVisible ? FOCUS_RING_INSET : { outline: 'none' }),
       flexShrink: 0,
     });
 
@@ -159,6 +167,7 @@ export const NumberField = React.forwardRef<HTMLInputElement, NumberFieldProps>(
         borderRadius: cssVar('radius', 'md'),
         fontFamily: cssVar('typography', 'fontFamily', 'mono'),
         overflow: 'hidden',
+        ...(inputFocus.focusVisible ? FOCUS_RING : null),
         ...style,
       };
 
@@ -225,7 +234,8 @@ export const NumberField = React.forwardRef<HTMLInputElement, NumberFieldProps>(
             aria-label="감소"
             disabled={!canDecrement}
             onClick={handleDecrement}
-            style={buttonStyles(canDecrement)}
+            style={buttonStyles(canDecrement, decFocus.focusVisible)}
+            {...decFocus.focusProps}
           >
             {'−'}
           </button>
@@ -263,13 +273,15 @@ export const NumberField = React.forwardRef<HTMLInputElement, NumberFieldProps>(
             onChange={handleInputChange}
             style={hiddenInputStyles}
             {...props}
+            {...inputFocus.focusProps}
           />
           <button
             type="button"
             aria-label="증가"
             disabled={!canIncrement}
             onClick={handleIncrement}
-            style={buttonStyles(canIncrement)}
+            style={buttonStyles(canIncrement, incFocus.focusVisible)}
+            {...incFocus.focusProps}
           >
             {'+'}
           </button>
@@ -289,6 +301,7 @@ export const NumberField = React.forwardRef<HTMLInputElement, NumberFieldProps>(
       borderRadius: cssVar('radius', 'md'),
       fontFamily: cssVar('typography', 'fontFamily', 'sans'),
       overflow: 'hidden',
+      ...(inputFocus.focusVisible ? FOCUS_RING : null),
       ...style,
     };
 
@@ -320,7 +333,8 @@ export const NumberField = React.forwardRef<HTMLInputElement, NumberFieldProps>(
           aria-label="감소"
           disabled={!canDecrement}
           onClick={handleDecrement}
-          style={buttonStyles(canDecrement)}
+          style={buttonStyles(canDecrement, decFocus.focusVisible)}
+          {...decFocus.focusProps}
         >
           {'−'}
         </button>
@@ -340,13 +354,15 @@ export const NumberField = React.forwardRef<HTMLInputElement, NumberFieldProps>(
           onChange={handleInputChange}
           style={inputStyles}
           {...props}
+          {...inputFocus.focusProps}
         />
         <button
           type="button"
           aria-label="증가"
           disabled={!canIncrement}
           onClick={handleIncrement}
-          style={buttonStyles(canIncrement)}
+          style={buttonStyles(canIncrement, incFocus.focusVisible)}
+          {...incFocus.focusProps}
         >
           {'+'}
         </button>
