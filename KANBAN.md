@@ -68,7 +68,7 @@
   - 메모: 목록과 셈 기준은 packages/visualization/README.md 「알려진 한계」. 반투명 검정 음영(Node cube 면·IsoPrism·IsometricScene 바닥 그림자·Lane)은 paint 무관 장치라 대상이 아니다
   - 실행 문서: KANBAN/cards/KAN-056-D3V1MB.md (4/4 · 최근 10-07)
   - 계획 리포트: KANBAN/reports/KAN-056-D3V1MB.report.html (낡음)
-  - 검토 문서: KANBAN/reviews/KAN-056-D3V1MB.review.md (승인 0/3 · 검토 대기)
+  - 검토 문서: KANBAN/reviews/KAN-056-D3V1MB.review.md (승인 2/5 · 추가 의견 1 · 추가 의견 총 4 · 검토 대기)
   - 원문:
     ```text
     만들어 (앞 답변 「앞서 여쭌 백로그 카드 두 가지(리터럴 색이 남은 템플릿 13개, 읽히지 않는 `edge.dashPattern` 토큰)는 아직 만들지 않았습니다.」에 대한 답)
