@@ -1,6 +1,6 @@
 {
   "next_id": 64,
-  "next_seq": 230,
+  "next_seq": 231,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -54,12 +54,12 @@
       "memo_hash": "fa79f4c6a72cc3d419b51e557a4bd9ae366539b9"
     },
     "KAN-060-G9YKG6": {
-      "col": "backlog",
+      "col": "todo",
       "title": "포커스 테두리 색 대비 3:1 — border.focus 토큰 정리와 대비 게이트",
       "verbatim": "새 카드로 분리 (앞 질문 「border.focus 대비가 3:1에 못 미치는 색 스킴(foundation 21개, style guide 13개 이상)을 어떻게 할까요?」에 대한 답)",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-10-07",
+      "갱신": "2026-10-08",
       "title_hash": "5506d93407f8bbd159163d5e882deb75b8cf5323",
       "verbatim_hash": "c230601ba43602de2816c0366cd377a99dd46507",
       "short": "포커스 색 대비",
@@ -1137,7 +1137,6 @@
   "order": [
     "KAN-055-34A57K",
     "KAN-057-CCH3E8",
-    "KAN-060-G9YKG6",
     "KAN-061-K8V2HH",
     "KAN-062-E02CMT",
     "KAN-063-Q85EET",
@@ -1197,9 +1196,20 @@
     "KAN-054-M48FNQ",
     "KAN-058-G883EJ",
     "KAN-059-62EAKB",
-    "KAN-056-D3V1MB"
+    "KAN-056-D3V1MB",
+    "KAN-060-G9YKG6"
   ],
   "recent": [
+    {
+      "seq": 230,
+      "t": "2026-10-08T01:29",
+      "a": "ai",
+      "id": "KAN-060-G9YKG6",
+      "op": "move",
+      "w": "S7030N",
+      "from": "backlog",
+      "to": "todo"
+    },
     {
       "seq": 229,
       "t": "2026-10-08T00:40",
@@ -1732,16 +1742,6 @@
       "w": "S7030N",
       "with_": "KAN-051-5HMYKT",
       "reason": "배포는 051·052·053이 main에 병합된 뒤에야 의미가 있다 (2026-10-05 유저 승인 플랜)"
-    },
-    {
-      "seq": 193,
-      "t": "2026-10-07T15:29",
-      "a": "ai",
-      "id": "KAN-050-AJSQAY",
-      "op": "move",
-      "w": "728SB6",
-      "from": "review",
-      "to": "done"
     }
   ],
   "waivers": [

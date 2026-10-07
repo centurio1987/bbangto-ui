@@ -36,16 +36,6 @@
     ```text
     만들어 (앞 답변 「앞서 여쭌 백로그 카드 두 가지(리터럴 색이 남은 템플릿 13개, 읽히지 않는 `edge.dashPattern` 토큰)는 아직 만들지 않았습니다.」에 대한 답)
     ```
-- `KAN-060-G9YKG6` 포커스 테두리 색 대비 3:1 — border.focus 토큰 정리와 대비 게이트 — 생성:ai · 최종:ai · 갱신:2026-10-07
-  - 짧은 제목: 포커스 색 대비
-  - 목적: border.focus 가 배경과 3:1 이 안 되는 색 스킴(foundation 21개, style guide 13개 이상)의 값을 고치고 대비 게이트를 세운다
-  - 이유: KAN-059 가 모든 포커스 테두리를 border.focus 로 그리는데, 그 색 스킴에서는 테두리가 배경과 거의 같아 보이지 않는다(neonYellow 1.03, cosmonaut 1.00)
-  - 목표: 모든 foundation·style guide 색 스킴에서 border.focus 가 background.base·elevated 와 3:1 이상이고, 어기면 test:unit 이 빨강이 된다
-  - 메모: KAN-059 착수 전 계획에서 발견(2026-10-07 main dist 를 tokens contrastRatio 로 계산). 그라디언트 배경 style guide 는 아직 못 쟀다 · 테두리는 border.focus 를 실행 때 읽으므로 토큰만 고치면 KAN-059 결과에 그대로 반영된다
-  - 원문:
-    ```text
-    새 카드로 분리 (앞 질문 「border.focus 대비가 3:1에 못 미치는 색 스킴(foundation 21개, style guide 13개 이상)을 어떻게 할까요?」에 대한 답)
-    ```
 - `KAN-061-K8V2HH` viz 템플릿 라벨 대비 미달 정리 — 불투명 팔레트 면 · 글자 대비 기준 목록 줄이기 — 생성:ai · 최종:ai · 갱신:2026-10-08
   - 짧은 제목: viz 라벨 대비 정리
   - 목적: viz 템플릿 글자가 카탈로그 가이드 30개 모두에서 4.5:1 이상 읽히게 한다 — KAN-056 기준 목록 204곳과 불투명 팔레트 면(Mindmap · ArchiMateViewpoint)부터
@@ -66,6 +56,16 @@
   - 메모: KAN-056 검토 항목 5(검토자 승인, 추천안의 후속 부분)에서 나왔다. KAN-056 병합 뒤 착수. 글자 대비 검사를 넓히면 새 미달이 나와 viz 라벨 대비 정리 카드와 같은 파일을 고치게 되므로 착수 전에 순서를 정한다
 
 ## 할 일
+- `KAN-060-G9YKG6` 포커스 테두리 색 대비 3:1 — border.focus 토큰 정리와 대비 게이트 — 생성:ai · 최종:ai · 갱신:2026-10-08
+  - 짧은 제목: 포커스 색 대비
+  - 목적: border.focus 가 배경과 3:1 이 안 되는 색 스킴(foundation 21개, style guide 13개 이상)의 값을 고치고 대비 게이트를 세운다
+  - 이유: KAN-059 가 모든 포커스 테두리를 border.focus 로 그리는데, 그 색 스킴에서는 테두리가 배경과 거의 같아 보이지 않는다(neonYellow 1.03, cosmonaut 1.00)
+  - 목표: 모든 foundation·style guide 색 스킴에서 border.focus 가 background.base·elevated 와 3:1 이상이고, 어기면 test:unit 이 빨강이 된다
+  - 메모: KAN-059 착수 전 계획에서 발견(2026-10-07 main dist 를 tokens contrastRatio 로 계산). 그라디언트 배경 style guide 는 아직 못 쟀다 · 테두리는 border.focus 를 실행 때 읽으므로 토큰만 고치면 KAN-059 결과에 그대로 반영된다
+  - 원문:
+    ```text
+    새 카드로 분리 (앞 질문 「border.focus 대비가 3:1에 못 미치는 색 스킴(foundation 21개, style guide 13개 이상)을 어떻게 할까요?」에 대한 답)
+    ```
 
 ## 진행 중
 
