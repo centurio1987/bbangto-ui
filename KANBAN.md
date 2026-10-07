@@ -66,7 +66,7 @@
   - 메모: KAN-051 검토 4항(2026-10-07 승인)에서 나온 후속 · 근거는 KANBAN/cards/KAN-051-5HMYKT.md 「전략」의 범위 밖 절
   - 실행 문서: KANBAN/cards/KAN-058-G883EJ.md (4/4 · 최근 10-07)
   - 계획 리포트: KANBAN/reports/KAN-058-G883EJ.report.html (낡음)
-  - 검토 문서: KANBAN/reviews/KAN-058-G883EJ.review.md (승인 0/2 · 검토 대기)
+  - 검토 문서: KANBAN/reviews/KAN-058-G883EJ.review.md (승인 2/2 · 추가 의견 총 2 · 검토 대기)
 
 ## 완료
 - `KAN-020` visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현 — 생성:유저 · 최종:유저 · 갱신:2026-08-14
