@@ -677,3 +677,58 @@ export const KeyboardHomeEndTypeahead: Story = {
     await expect(items.filter((i) => i.tabIndex === 0).length).toBeLessThanOrEqual(1);
   },
 };
+
+/** 합성 규칙: 항목 처리기에서 preventDefault 하면 항목 실행도 닫힘도 없다(외부가 직접 처리하고 메뉴를 열어 둔다). 막지 않은 항목은 고르면 닫힌다 */
+export const SelectPreventDefault: Story = {
+  render: () => {
+    const [bold, setBold] = useState(false);
+    const [picked, setPicked] = useState<string | null>(null);
+    return (
+      <div style={{ minHeight: '220px' }}>
+        <DropdownMenu trigger={<Button>Format</Button>}>
+          <MenuItem
+            onClick={(e) => {
+              e.preventDefault();
+              setBold((b) => !b);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                setBold((b) => !b);
+              }
+            }}
+          >
+            Bold
+          </MenuItem>
+          <MenuItem onSelect={() => setPicked('Clear')}>Clear</MenuItem>
+        </DropdownMenu>
+        <output data-testid="bold">{bold ? 'on' : 'off'}</output>
+        <output data-testid="picked">{picked}</output>
+      </div>
+    );
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = await canvas.findByRole('button', { name: 'Format' });
+    const [bold, clear] = canvas.getAllByRole('menuitem', { hidden: true });
+
+    // 마우스: 막은 항목은 열린 채로.
+    await userEvent.click(trigger);
+    await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'true'));
+    await userEvent.click(bold);
+    await expect(canvas.getByTestId('bold')).toHaveTextContent('on');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+
+    // 키보드: 막은 항목은 열린 채로, 막지 않은 항목은 고르면 닫히고 트리거로.
+    bold.focus();
+    await userEvent.keyboard('{Enter}');
+    await expect(canvas.getByTestId('bold')).toHaveTextContent('off');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(clear).toHaveFocus();
+    await userEvent.keyboard('{Enter}');
+    await expect(canvas.getByTestId('picked')).toHaveTextContent('Clear');
+    await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'));
+    await waitFor(() => expect(trigger).toHaveFocus());
+  },
+};

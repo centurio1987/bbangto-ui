@@ -46,6 +46,14 @@ const MenuContext = React.createContext<{
   setTabStop: (id: string) => void;
 } | null>(null);
 
+/**
+ * Told by a MenuItem when it actually ran (onSelect). DropdownMenu closes on it.
+ * Signalling from the item — instead of closing on any Enter / click in the list —
+ * keeps the composition rule: a consumer handler that calls preventDefault()
+ * skips the item's own handling, so neither onSelect nor the close happens.
+ */
+const MenuItemSelectContext = React.createContext<(() => void) | null>(null);
+
 export const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
   ({ children, style, variant = 'default', className, onKeyDown, ...props }, ref) => {
     const listRef = useRef<HTMLUListElement | null>(null);
@@ -259,6 +267,7 @@ export const MenuItem = React.forwardRef<HTMLLIElement, MenuItemProps>(
   ) => {
     const [isHovered, setIsHovered] = useState(false);
     const menu = React.useContext(MenuContext);
+    const onItemSelected = React.useContext(MenuItemSelectContext);
     const itemId = useId();
     // Inside a Menu only the Menu's chosen item is a Tab stop; arrow keys reach the rest.
     const tabIndex = menu ? (menu.tabStop === itemId ? 0 : -1) : disabled ? -1 : 0;
@@ -266,6 +275,7 @@ export const MenuItem = React.forwardRef<HTMLLIElement, MenuItemProps>(
     const handleClick = () => {
       if (!disabled) {
         onSelect?.();
+        onItemSelected?.();
       }
     };
 
@@ -273,6 +283,7 @@ export const MenuItem = React.forwardRef<HTMLLIElement, MenuItemProps>(
       if (!disabled && (e.key === 'Enter' || e.key === ' ')) {
         e.preventDefault();
         onSelect?.();
+        onItemSelected?.();
       }
     };
 
@@ -528,19 +539,14 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
       return () => cancelAnimationFrame(id);
     }, [isOpen, getMenuItems]);
 
-    const isEnabledItem = (target: EventTarget) => {
-      const item = (target as HTMLElement).closest?.('[role="menuitem"]');
-      return !!item && item.getAttribute('aria-disabled') !== 'true';
-    };
-
     const closeToTrigger = useCallback(() => {
       close();
       triggerRef.current?.focus();
     }, [close]);
 
     // Keys inside the open menu. Arrow keys / Home / End / typeahead are the
-    // Menu's own; here: Esc closes back to the trigger, Tab closes without
-    // choosing, and choosing an item (Enter/Space, handled by the item) closes.
+    // Menu's own; here: Esc closes back to the trigger and Tab closes without
+    // choosing. Choosing an item closes through MenuItemSelectContext.
     const handleMenuKeyDown = useCallback(
       (e: React.KeyboardEvent<HTMLUListElement>) => {
         if (e.key === 'Escape') {
@@ -548,16 +554,10 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
           closeToTrigger();
         } else if (e.key === 'Tab') {
           close();
-        } else if ((e.key === 'Enter' || e.key === ' ') && isEnabledItem(e.target)) {
-          closeToTrigger();
         }
       },
       [close, closeToTrigger]
     );
-
-    const handleMenuClick = (e: React.MouseEvent<HTMLUListElement>) => {
-      if (isEnabledItem(e.target)) closeToTrigger();
-    };
 
     // Keys on the trigger: Enter / Space / ArrowDown open onto the first item,
     // ArrowUp onto the last. Enter / Space on an open menu close it.
@@ -664,16 +664,17 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
       <div ref={setRefs} style={containerStyle} {...props}>
         {clonedTrigger}
         <div style={menuWrapperStyle} aria-hidden={!isOpen}>
-          <Menu
-            ref={menuRef}
-            id={menuId}
-            aria-labelledby={triggerId}
-            onKeyDown={handleMenuKeyDown}
-            onClick={handleMenuClick}
-            style={{ margin: 0, border: 'none', boxShadow: 'none', borderRadius: cssVar('radius', 'md') }}
-          >
-            {children}
-          </Menu>
+          <MenuItemSelectContext.Provider value={closeToTrigger}>
+            <Menu
+              ref={menuRef}
+              id={menuId}
+              aria-labelledby={triggerId}
+              onKeyDown={handleMenuKeyDown}
+              style={{ margin: 0, border: 'none', boxShadow: 'none', borderRadius: cssVar('radius', 'md') }}
+            >
+              {children}
+            </Menu>
+          </MenuItemSelectContext.Provider>
         </div>
       </div>
     );
