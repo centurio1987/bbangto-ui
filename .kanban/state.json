@@ -1,6 +1,6 @@
 {
   "next_id": 58,
-  "next_seq": 188,
+  "next_seq": 189,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -147,12 +147,12 @@
       ]
     },
     "KAN-054-M48FNQ": {
-      "col": "todo",
+      "col": "doing",
       "title": "나머지 컴포넌트 키보드·포커스 일괄 + 키보드 커버리지 게이트",
       "verbatim": "[첨부 이미지]\nbbangto-ui 컴포넌트를 지금 들여오면 생기는 문제\n- 워커가 시안의 화면 조각 42개를 나눴습니다. bbangto-ui에 이미 있는 것이 11개, 이 앱에서 만들 것이 22개, bbangto-ui에 요청할 것이 9개입니다.\n- 그런데 bbangto-ui core(1.1.2)는 들여오는 입구가 하나뿐입니다. Button 하나만 써도 약 420KB가 번들에 들어갑니다. 지금 웹 앱 전체가 375KB이니 앱이 두 배 넘게 커집니다.\n- 원인은 bbangto-ui 빌드에 있습니다. forwardRef 127곳에 「안 쓰면 버려도 된다」는 표시(__PURE__)가 없습니다. 이 두 가지는 제가 설치된 파일에서 직접 확인했습니다. 워커가 이 표시를 붙인 사본으로 다시 빌드하자 Button이 25KB로 줄었다고 보고했고, 이 재빌드는 제가 다시 해 보지 않았습니다.\n- 번들 말고도 문제가 있다고 워커가 보고했습니다(제가 직접 확인하지는 않았습니다).\n  - Provider가 외부 글꼴을 늘 불러옵니다.\n  - Drawer에 Esc 닫기와 포커스 처리가 없습니다.\n  - Tabs·Select의 키보드 조작이 빠져 있습니다.\n\n이 문제를 해결하기 위한 전략을 수립, 실행 계획 수립, 칸반 카드화 해라.",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-10-06",
+      "갱신": "2026-10-07",
       "title_hash": "c53fa866f35ffbecf1f9f1de448ba098ed6907b5",
       "verbatim_hash": "3b3af68e102bf6abbeb1ecda50a4b415f6bfbbf8",
       "short": "나머지 키보드 일괄 + 커버리지 게이트",
@@ -963,7 +963,6 @@
     "KAN-057-CCH3E8",
     "KAN-050-AJSQAY",
     "KAN-051-5HMYKT",
-    "KAN-054-M48FNQ",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1014,9 +1013,20 @@
     "KAN-047-TRYYRC",
     "KAN-052-BYS4JN",
     "KAN-048-R2KW3G",
-    "KAN-053-TZ86NN"
+    "KAN-053-TZ86NN",
+    "KAN-054-M48FNQ"
   ],
   "recent": [
+    {
+      "seq": 188,
+      "t": "2026-10-07T13:54",
+      "a": "ai",
+      "id": "KAN-054-M48FNQ",
+      "op": "move",
+      "w": "DJT5WZ",
+      "from": "todo",
+      "to": "doing"
+    },
     {
       "seq": 187,
       "t": "2026-10-07T13:38",
@@ -1526,16 +1536,6 @@
       "w": "S7030N",
       "with_": "KAN-052-BYS4JN",
       "reason": "052는 viz Provider 코드·internal/ExternalFonts와 README 사용법 절만 고친다. 049는 PLAN·visualization-catalog 문서 흡수다 (2026-10-05 유저 승인 플랜)"
-    },
-    {
-      "seq": 155,
-      "t": "2026-10-05T00:14",
-      "a": "ai",
-      "id": "KAN-049-CWBPP6",
-      "op": "waive",
-      "w": "S7030N",
-      "with_": "KAN-051-5HMYKT",
-      "reason": "049는 packages/visualization/**를 잡았지만 md 문서만 고친다. 051은 packages/visualization/tsup.config.ts만 고친다 (2026-10-05 유저 승인 플랜)"
     }
   ],
   "waivers": [
