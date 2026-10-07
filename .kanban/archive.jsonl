@@ -224,3 +224,4 @@
 {"seq": 186, "t": "2026-10-07T13:38", "a": "ai", "id": "KAN-050-AJSQAY", "op": "serialize", "w": "S7030N", "with_": "KAN-048-R2KW3G", "reason": "DESIGN_SYSTEM_GUIDE.md 를 둘 다 고친다. B 가 ASSET_INTEGRATION_PLAN 을 없애야 D 가 :182 링크를 고칠 수 있고, 순서가 뒤면 깨진 링크가 남는다. KAN-044 검토 5번에서 유저가 승인. 2026-10-07 KAN-050 재수립의 scope 확장으로 무효가 된 기록을 다시 건다. #182 의 actor 표기 정정(ai 가 다시 건 것)"}
 {"seq": 187, "t": "2026-10-07T13:38", "a": "ai", "id": "KAN-050-AJSQAY", "op": "serialize", "w": "S7030N", "with_": "KAN-048-R2KW3G", "reason": "전략 재수립 완료"}
 {"seq": 188, "t": "2026-10-07T13:54", "a": "ai", "id": "KAN-054-M48FNQ", "op": "move", "w": "DJT5WZ", "from": "todo", "to": "doing"}
+{"seq": 188, "t": "2026-10-07T13:54", "a": "ai", "id": "KAN-051-5HMYKT", "op": "move", "w": "199J5C", "from": "todo", "to": "doing"}

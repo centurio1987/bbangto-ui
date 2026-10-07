@@ -1,6 +1,6 @@
 {
   "next_id": 61,
-  "next_seq": 226,
+  "next_seq": 227,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -34,7 +34,7 @@
       ]
     },
     "KAN-056-D3V1MB": {
-      "col": "doing",
+      "col": "review",
       "title": "viz 템플릿 13개 리터럴 색 제거 — 스타일 가이드가 기본 채움·선 색까지 칠하게",
       "verbatim": "만들어 (앞 답변 「앞서 여쭌 백로그 카드 두 가지(리터럴 색이 남은 템플릿 13개, 읽히지 않는 `edge.dashPattern` 토큰)는 아직 만들지 않았습니다.」에 대한 답)",
       "생성": "ai",
@@ -1079,7 +1079,6 @@
     "KAN-057-CCH3E8",
     "KAN-060-G9YKG6",
     "KAN-059-62EAKB",
-    "KAN-056-D3V1MB",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1134,9 +1133,20 @@
     "KAN-050-AJSQAY",
     "KAN-051-5HMYKT",
     "KAN-054-M48FNQ",
-    "KAN-058-G883EJ"
+    "KAN-058-G883EJ",
+    "KAN-056-D3V1MB"
   ],
   "recent": [
+    {
+      "seq": 226,
+      "t": "2026-10-08T00:39",
+      "a": "ai",
+      "id": "KAN-056-D3V1MB",
+      "op": "move",
+      "w": "GEG7B8",
+      "from": "doing",
+      "to": "review"
+    },
     {
       "seq": 225,
       "t": "2026-10-08T00:37",
@@ -1645,16 +1655,6 @@
       "id": "KAN-050-AJSQAY",
       "op": "move",
       "w": "728SB6",
-      "from": "todo",
-      "to": "doing"
-    },
-    {
-      "seq": 188,
-      "t": "2026-10-07T13:54",
-      "a": "ai",
-      "id": "KAN-051-5HMYKT",
-      "op": "move",
-      "w": "199J5C",
       "from": "todo",
       "to": "doing"
     }
