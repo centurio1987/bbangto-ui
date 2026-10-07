@@ -90,7 +90,7 @@
   - 메모: 외부 앱 소비 문제 대응 5장 중 1 · 근거와 측정값은 카드 문서 「전략」
   - 실행 문서: KANBAN/cards/KAN-051-5HMYKT.md (4/4 · 최근 10-07)
   - 계획 리포트: KANBAN/reports/KAN-051-5HMYKT.report.html (낡음)
-  - 검토 문서: KANBAN/reviews/KAN-051-5HMYKT.review.md (승인 0/4 · 검토 대기)
+  - 검토 문서: KANBAN/reviews/KAN-051-5HMYKT.review.md (승인 4/4 · 추가 의견 총 2 · 검토 대기)
   - 원문:
     ```text
     [첨부 이미지]
