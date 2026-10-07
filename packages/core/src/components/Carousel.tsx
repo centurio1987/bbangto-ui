@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
+import { composeHandlers } from '../a11y';
 
 export type CarouselSize = 'sm' | 'md' | 'lg';
 export type CarouselIndicatorVariant = 'dots' | 'numbers';
@@ -266,21 +267,24 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
         role="region"
         aria-roledescription="carousel"
         aria-label="Carousel"
+        // Reachable by Tab even with the arrow and dot buttons hidden, so ←/→ always land.
+        tabIndex={0}
         data-bbangto-carousel-size={size}
         data-bbangto-carousel-fade={fade ? 'true' : undefined}
         data-bbangto-carousel-variant={variant}
         style={containerStyle}
         {...props}
-        onKeyDown={(event) => {
+        onKeyDown={composeHandlers(onKeyDown, (event: React.KeyboardEvent<HTMLDivElement>) => {
           if (count > 1) {
             if (event.key === 'ArrowLeft') {
+              event.preventDefault();
               prevSlide();
             } else if (event.key === 'ArrowRight') {
+              event.preventDefault();
               nextSlide();
             }
           }
-          onKeyDown?.(event);
-        }}
+        })}
         onMouseEnter={(event) => {
           setIsPaused(true);
           onMouseEnter?.(event);

@@ -1,6 +1,6 @@
 {
   "next_id": 60,
-  "next_seq": 200,
+  "next_seq": 213,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -73,65 +73,51 @@
       "memo": "잇는 쪽이면 스타일 가이드 기본값을 개별 prop(strokeDasharray)이 덮는 순서를 지킨다. 잇기와 걷기 중 무엇을 할지는 착수 때 정한다",
       "memo_hash": "fa79f4c6a72cc3d419b51e557a4bd9ae366539b9"
     },
-    "KAN-054-M48FNQ": {
-      "col": "todo",
-      "title": "나머지 컴포넌트 키보드·포커스 일괄 + 키보드 커버리지 게이트",
-      "verbatim": "[첨부 이미지]\nbbangto-ui 컴포넌트를 지금 들여오면 생기는 문제\n- 워커가 시안의 화면 조각 42개를 나눴습니다. bbangto-ui에 이미 있는 것이 11개, 이 앱에서 만들 것이 22개, bbangto-ui에 요청할 것이 9개입니다.\n- 그런데 bbangto-ui core(1.1.2)는 들여오는 입구가 하나뿐입니다. Button 하나만 써도 약 420KB가 번들에 들어갑니다. 지금 웹 앱 전체가 375KB이니 앱이 두 배 넘게 커집니다.\n- 원인은 bbangto-ui 빌드에 있습니다. forwardRef 127곳에 「안 쓰면 버려도 된다」는 표시(__PURE__)가 없습니다. 이 두 가지는 제가 설치된 파일에서 직접 확인했습니다. 워커가 이 표시를 붙인 사본으로 다시 빌드하자 Button이 25KB로 줄었다고 보고했고, 이 재빌드는 제가 다시 해 보지 않았습니다.\n- 번들 말고도 문제가 있다고 워커가 보고했습니다(제가 직접 확인하지는 않았습니다).\n  - Provider가 외부 글꼴을 늘 불러옵니다.\n  - Drawer에 Esc 닫기와 포커스 처리가 없습니다.\n  - Tabs·Select의 키보드 조작이 빠져 있습니다.\n\n이 문제를 해결하기 위한 전략을 수립, 실행 계획 수립, 칸반 카드화 해라.",
+    "KAN-059-62EAKB": {
+      "col": "backlog",
+      "title": "core 키보드 포커스 표시 통일 — :focus-visible 테두리를 모든 상호작용 컴포넌트에",
+      "verbatim": "",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-10-06",
-      "title_hash": "c53fa866f35ffbecf1f9f1de448ba098ed6907b5",
-      "verbatim_hash": "3b3af68e102bf6abbeb1ecda50a4b415f6bfbbf8",
-      "short": "나머지 키보드 일괄 + 커버리지 게이트",
-      "short_hash": "9e6b83116dda11d8a39231d880986e194a85c4ac",
-      "purpose": "나머지 11곳의 키보드·포커스 결함을 고치고, 상호작용 컴포넌트마다 키보드 테스트가 있는지 test:unit이 검사하게 한다",
-      "purpose_hash": "51b1fb8ad915e3340cf3f41b20bc68485e08bd75",
-      "reason": "같은 결함이 11곳에 더 있어서 보고된 세 곳만 고치면 같은 문제가 다시 나온다",
-      "reason_hash": "51d55c25b51142dad396b48a03e25f4997102a21",
-      "goal": "keyboard-coverage.json에 오른 모든 상호작용 컴포넌트에 키보드 play 테스트가 있고, 빠지면 test:unit이 빨강이 된다",
-      "goal_hash": "b52648a97d41672d0fbdebedf45c8971d39dccc0",
-      "memo": "외부 앱 소비 문제 대응 5장 중 4 · KAN-053 뒤에 직렬 · KAN-053 넘김: onKeyDown 합성 규칙 통일(Tabs↔Modal·Drawer) + 실제 키 입력 게이트 — 전략 「KAN-053에서 넘어온 것」",
-      "memo_hash": "762927f4deccdaf1d13c964c0457bef70fb744da",
+      "갱신": "2026-10-07",
+      "title_hash": "454b3b33551d3f0d5acc09ab739be73be2e07e7a",
+      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+      "short": "포커스 표시 통일",
+      "short_hash": "0ff5276bbdc388d471b7034a25e54bb8750c86c8",
+      "purpose": "브라우저 기본 테두리를 끈 core 컴포넌트(components 13개·blocks 1개)에 키보드 포커스일 때만 보이는 테두리를 한 규칙으로 단다",
+      "purpose_hash": "c387c9c1304e77daa3b48e200693742f9ea14fda",
+      "reason": "Button 등은 키보드로 포커스해도 화면에 아무 표시가 없어 키보드 사용자가 자기 위치를 모른다(KAN-054 검토 §3-6)",
+      "reason_hash": "cf245a9e3be93e9dd00fb5a011775faca68b688f",
+      "goal": "키보드로 닿는 core 컴포넌트마다 포커스 표시가 보이고, 빠지면 테스트가 빨강이 된다",
+      "goal_hash": "6e7f8f50d9bb950ccaaaa2dbf7768e17e0bbaac3",
+      "memo": "KAN-054 검토 §3-6(2026-10-07 유저가 추천대로 재작업 선택)에서 나온 후속 · KAN-054는 Card·Calendar 날짜 칸·DatePicker 트리거 셋만 a11y/focusRing.ts 로 고쳤다 — 이 카드가 나머지를 같은 규칙으로",
+      "memo_hash": "7fbe9a3e7c8591b4e111b5ddf0800378fefb6ee4"
+    },
+    "KAN-058-G883EJ": {
+      "col": "todo",
+      "title": "style-guide-catalog Showcase 생성 카피 분할 — Showcase 하나가 51개 몫 카피를 끌고 오는 문제",
+      "verbatim": "",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-07",
+      "title_hash": "4919c048537be88734dbb1a48db5d6c3067b26f9",
+      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+      "short": "Showcase 카피 분할",
+      "short_hash": "7543f4a9d41a22d9b1f64b6ccc7bf84acae4df2e",
+      "purpose": "생성 카피 파일(_showcaseCopy.generated.ts)을 Showcase별로 나눠 Showcase 하나만 가져오면 그 카피만 딸려 오게 한다",
+      "purpose_hash": "14394a2c448289e654ff4dfaa1ec7e1f27a713e8",
+      "reason": "KAN-051 뒤에도 Showcase 하나가 약 101KB이고 그중 76,517B가 Showcase 51개가 함께 쓰는 생성 카피 파일 하나에서 온다",
+      "reason_hash": "fd4d64000cf7b1055ac570ff537cd291c728687f",
+      "goal": "Showcase 하나를 가져온 번들에 그 Showcase 카피만 들어가고, bundle-budget.json 의 sgc 대표 상한을 새 실측으로 낮춘다",
+      "goal_hash": "71c5299de384df365a2fd7e75ae55fb406e86a88",
+      "memo": "KAN-051 검토 4항(2026-10-07 승인)에서 나온 후속 · 근거는 KANBAN/cards/KAN-051-5HMYKT.md 「전략」의 범위 밖 절",
+      "memo_hash": "dc58b3eff9274c7e083fe599351503fbdc62e3cb",
       "scope": [
-        "packages/core/src/a11y/**",
-        "packages/core/src/components/Popover.tsx",
-        "packages/core/src/components/Tooltip.tsx",
-        "packages/core/src/components/Menu.tsx",
-        "packages/core/src/components/SegmentedControl.tsx",
-        "packages/core/src/components/Calendar.tsx",
-        "packages/core/src/components/DatePicker.tsx",
-        "packages/core/src/components/Pagination.tsx",
-        "packages/core/src/components/DataGrid.tsx",
-        "packages/core/src/components/TreeView.tsx",
-        "packages/core/src/components/Carousel.tsx",
-        "packages/core/src/components/Card.tsx",
-        "packages/core/src/components/FileUploader.tsx",
-        "packages/core/src/components/Modal.tsx",
-        "packages/core/src/components/Drawer.tsx",
-        "packages/core/src/components/Tabs.tsx",
-        "packages/core/src/components/Select.tsx",
-        "packages/core/src/components/Searchfield.tsx",
-        "apps/storybook/src/stories/Popover.stories.tsx",
-        "apps/storybook/src/stories/Tooltip.stories.tsx",
-        "apps/storybook/src/stories/Menu.stories.tsx",
-        "apps/storybook/src/stories/SegmentedControl.stories.tsx",
-        "apps/storybook/src/stories/Calendar.stories.tsx",
-        "apps/storybook/src/stories/DatePicker.stories.tsx",
-        "apps/storybook/src/stories/Pagination.stories.tsx",
-        "apps/storybook/src/stories/DataGrid.stories.tsx",
-        "apps/storybook/src/stories/TreeView.stories.tsx",
-        "apps/storybook/src/stories/Carousel.stories.tsx",
-        "apps/storybook/src/stories/Card.stories.tsx",
-        "apps/storybook/src/stories/FileUploader.stories.tsx",
-        "apps/storybook/src/stories/Accordion.stories.tsx",
-        "apps/storybook/src/stories/Modal.stories.tsx",
-        "apps/storybook/src/stories/Select.stories.tsx",
-        "apps/storybook/vite.config.ts",
-        "apps/storybook/src/real-input/**",
-        "keyboard-coverage.json",
-        "packages/foundations/src/keyboardCoverage.ts",
-        "packages/foundations/src/keyboardCoverage.test.ts",
-        ".changeset/kan-054-*.md"
+        "packages/style-guide-catalog/src/**",
+        "apps/storybook/src/stories/_catalogStory.tsx",
+        "bundle-budget.json",
+        "README.md",
+        ".changeset/kan-058-*.md"
       ]
     },
     "KAN-020": {
@@ -959,52 +945,68 @@
         ".changeset/kan-051-*.md"
       ]
     },
-    "KAN-058-G883EJ": {
-      "col": "todo",
-      "title": "style-guide-catalog Showcase 생성 카피 분할 — Showcase 하나가 51개 몫 카피를 끌고 오는 문제",
-      "verbatim": "",
+    "KAN-054-M48FNQ": {
+      "col": "done",
+      "title": "나머지 컴포넌트 키보드·포커스 일괄 + 키보드 커버리지 게이트",
+      "verbatim": "[첨부 이미지]\nbbangto-ui 컴포넌트를 지금 들여오면 생기는 문제\n- 워커가 시안의 화면 조각 42개를 나눴습니다. bbangto-ui에 이미 있는 것이 11개, 이 앱에서 만들 것이 22개, bbangto-ui에 요청할 것이 9개입니다.\n- 그런데 bbangto-ui core(1.1.2)는 들여오는 입구가 하나뿐입니다. Button 하나만 써도 약 420KB가 번들에 들어갑니다. 지금 웹 앱 전체가 375KB이니 앱이 두 배 넘게 커집니다.\n- 원인은 bbangto-ui 빌드에 있습니다. forwardRef 127곳에 「안 쓰면 버려도 된다」는 표시(__PURE__)가 없습니다. 이 두 가지는 제가 설치된 파일에서 직접 확인했습니다. 워커가 이 표시를 붙인 사본으로 다시 빌드하자 Button이 25KB로 줄었다고 보고했고, 이 재빌드는 제가 다시 해 보지 않았습니다.\n- 번들 말고도 문제가 있다고 워커가 보고했습니다(제가 직접 확인하지는 않았습니다).\n  - Provider가 외부 글꼴을 늘 불러옵니다.\n  - Drawer에 Esc 닫기와 포커스 처리가 없습니다.\n  - Tabs·Select의 키보드 조작이 빠져 있습니다.\n\n이 문제를 해결하기 위한 전략을 수립, 실행 계획 수립, 칸반 카드화 해라.",
       "생성": "ai",
       "최종": "ai",
       "갱신": "2026-10-07",
-      "title_hash": "4919c048537be88734dbb1a48db5d6c3067b26f9",
-      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
-      "short": "Showcase 카피 분할",
-      "short_hash": "7543f4a9d41a22d9b1f64b6ccc7bf84acae4df2e",
-      "purpose": "생성 카피 파일(_showcaseCopy.generated.ts)을 Showcase별로 나눠 Showcase 하나만 가져오면 그 카피만 딸려 오게 한다",
-      "purpose_hash": "14394a2c448289e654ff4dfaa1ec7e1f27a713e8",
-      "reason": "KAN-051 뒤에도 Showcase 하나가 약 101KB이고 그중 76,517B가 Showcase 51개가 함께 쓰는 생성 카피 파일 하나에서 온다",
-      "reason_hash": "fd4d64000cf7b1055ac570ff537cd291c728687f",
-      "goal": "Showcase 하나를 가져온 번들에 그 Showcase 카피만 들어가고, bundle-budget.json 의 sgc 대표 상한을 새 실측으로 낮춘다",
-      "goal_hash": "71c5299de384df365a2fd7e75ae55fb406e86a88",
-      "memo": "KAN-051 검토 4항(2026-10-07 승인)에서 나온 후속 · 근거는 KANBAN/cards/KAN-051-5HMYKT.md 「전략」의 범위 밖 절",
-      "memo_hash": "dc58b3eff9274c7e083fe599351503fbdc62e3cb",
+      "title_hash": "c53fa866f35ffbecf1f9f1de448ba098ed6907b5",
+      "verbatim_hash": "3b3af68e102bf6abbeb1ecda50a4b415f6bfbbf8",
+      "short": "나머지 키보드 일괄 + 커버리지 게이트",
+      "short_hash": "9e6b83116dda11d8a39231d880986e194a85c4ac",
+      "purpose": "나머지 11곳의 키보드·포커스 결함을 고치고, 상호작용 컴포넌트마다 키보드 테스트가 있는지 test:unit이 검사하게 한다",
+      "purpose_hash": "51b1fb8ad915e3340cf3f41b20bc68485e08bd75",
+      "reason": "같은 결함이 11곳에 더 있어서 보고된 세 곳만 고치면 같은 문제가 다시 나온다",
+      "reason_hash": "51d55c25b51142dad396b48a03e25f4997102a21",
+      "goal": "keyboard-coverage.json에 오른 모든 상호작용 컴포넌트에 키보드 play 테스트가 있고, 빠지면 test:unit이 빨강이 된다",
+      "goal_hash": "b52648a97d41672d0fbdebedf45c8971d39dccc0",
+      "memo": "외부 앱 소비 문제 대응 5장 중 4 · KAN-053 뒤에 직렬 · KAN-053 넘김: onKeyDown 합성 규칙 통일(Tabs↔Modal·Drawer) + 실제 키 입력 게이트 — 전략 「KAN-053에서 넘어온 것」",
+      "memo_hash": "762927f4deccdaf1d13c964c0457bef70fb744da",
       "scope": [
-        "packages/style-guide-catalog/src/**",
-        "apps/storybook/src/stories/_catalogStory.tsx",
-        "bundle-budget.json",
-        "README.md",
-        ".changeset/kan-058-*.md"
+        "packages/core/src/a11y/**",
+        "packages/core/src/components/Popover.tsx",
+        "packages/core/src/components/Tooltip.tsx",
+        "packages/core/src/components/Menu.tsx",
+        "packages/core/src/components/SegmentedControl.tsx",
+        "packages/core/src/components/Calendar.tsx",
+        "packages/core/src/components/DatePicker.tsx",
+        "packages/core/src/components/Pagination.tsx",
+        "packages/core/src/components/DataGrid.tsx",
+        "packages/core/src/components/TreeView.tsx",
+        "packages/core/src/components/Carousel.tsx",
+        "packages/core/src/components/Card.tsx",
+        "packages/core/src/components/FileUploader.tsx",
+        "packages/core/src/components/Modal.tsx",
+        "packages/core/src/components/Drawer.tsx",
+        "packages/core/src/components/Tabs.tsx",
+        "packages/core/src/components/Select.tsx",
+        "packages/core/src/components/Searchfield.tsx",
+        "apps/storybook/src/stories/Popover.stories.tsx",
+        "apps/storybook/src/stories/Tooltip.stories.tsx",
+        "apps/storybook/src/stories/Menu.stories.tsx",
+        "apps/storybook/src/stories/SegmentedControl.stories.tsx",
+        "apps/storybook/src/stories/Calendar.stories.tsx",
+        "apps/storybook/src/stories/DatePicker.stories.tsx",
+        "apps/storybook/src/stories/Pagination.stories.tsx",
+        "apps/storybook/src/stories/DataGrid.stories.tsx",
+        "apps/storybook/src/stories/TreeView.stories.tsx",
+        "apps/storybook/src/stories/Carousel.stories.tsx",
+        "apps/storybook/src/stories/Card.stories.tsx",
+        "apps/storybook/src/stories/FileUploader.stories.tsx",
+        "apps/storybook/src/stories/Accordion.stories.tsx",
+        "apps/storybook/src/stories/Modal.stories.tsx",
+        "apps/storybook/src/stories/Select.stories.tsx",
+        "apps/storybook/vite.config.ts",
+        "apps/storybook/src/real-input/**",
+        "packages/core/src/blocks/FeatureGrid.tsx",
+        "apps/storybook/src/stories/FeatureGrid.stories.tsx",
+        "keyboard-coverage.json",
+        "packages/foundations/src/keyboardCoverage.ts",
+        "packages/foundations/src/keyboardCoverage.test.ts",
+        ".changeset/kan-054-*.md"
       ]
-    },
-    "KAN-059-62EAKB": {
-      "col": "backlog",
-      "title": "core 키보드 포커스 표시 통일 — :focus-visible 테두리를 모든 상호작용 컴포넌트에",
-      "verbatim": "",
-      "생성": "ai",
-      "최종": "ai",
-      "갱신": "2026-10-07",
-      "title_hash": "454b3b33551d3f0d5acc09ab739be73be2e07e7a",
-      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
-      "short": "포커스 표시 통일",
-      "short_hash": "0ff5276bbdc388d471b7034a25e54bb8750c86c8",
-      "purpose": "브라우저 기본 테두리를 끈 core 컴포넌트(components 13개·blocks 1개)에 키보드 포커스일 때만 보이는 테두리를 한 규칙으로 단다",
-      "purpose_hash": "c387c9c1304e77daa3b48e200693742f9ea14fda",
-      "reason": "Button 등은 키보드로 포커스해도 화면에 아무 표시가 없어 키보드 사용자가 자기 위치를 모른다(KAN-054 검토 §3-6)",
-      "reason_hash": "cf245a9e3be93e9dd00fb5a011775faca68b688f",
-      "goal": "키보드로 닿는 core 컴포넌트마다 포커스 표시가 보이고, 빠지면 테스트가 빨강이 된다",
-      "goal_hash": "6e7f8f50d9bb950ccaaaa2dbf7768e17e0bbaac3",
-      "memo": "KAN-054 검토 §3-6(2026-10-07 유저가 추천대로 재작업 선택)에서 나온 후속 · KAN-054는 Card·Calendar 날짜 칸·DatePicker 트리거 셋만 a11y/focusRing.ts 로 고쳤다 — 이 카드가 나머지를 같은 규칙으로",
-      "memo_hash": "7fbe9a3e7c8591b4e111b5ddf0800378fefb6ee4"
     }
   },
   "order": [
@@ -1012,7 +1014,7 @@
     "KAN-056-D3V1MB",
     "KAN-057-CCH3E8",
     "KAN-059-62EAKB",
-    "KAN-054-M48FNQ",
+    "KAN-058-G883EJ",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1066,9 +1068,139 @@
     "KAN-053-TZ86NN",
     "KAN-050-AJSQAY",
     "KAN-051-5HMYKT",
-    "KAN-058-G883EJ"
+    "KAN-054-M48FNQ"
   ],
   "recent": [
+    {
+      "seq": 212,
+      "t": "2026-10-07T16:44",
+      "a": "ai",
+      "id": "KAN-054-M48FNQ",
+      "op": "waive",
+      "w": "S7030N",
+      "with_": "KAN-055-34A57K",
+      "reason": "054의 changeset은 054가 끝나 main에 병합된 뒤에만 들어오므로 그 전 배포에 섞이지 않는다 (2026-10-05 유저 승인 플랜). 2026-10-07 검토 반려 재작업의 scope 확장(FeatureGrid)으로 무효가 된 기록을 다시 건다 — 겹침은 그대로 .changeset/ 하나"
+    },
+    {
+      "seq": 211,
+      "t": "2026-10-07T16:44",
+      "a": "ai",
+      "id": "KAN-054-M48FNQ",
+      "op": "serialize",
+      "w": "S7030N",
+      "with_": "KAN-053-TZ86NN",
+      "reason": "전략 재수립 완료"
+    },
+    {
+      "seq": 210,
+      "t": "2026-10-07T16:44",
+      "a": "ai",
+      "id": "KAN-054-M48FNQ",
+      "op": "serialize",
+      "w": "S7030N",
+      "with_": "KAN-053-TZ86NN",
+      "reason": "054가 053이 만든 packages/core/src/a11y/ 훅을 이어 쓴다. 053 훅 API를 보고 전략을 다시 세운다 (2026-10-05 유저 승인 플랜). 재작업 scope 확장으로 무효가 된 기록을 다시 건다"
+    },
+    {
+      "seq": 209,
+      "t": "2026-10-07T16:44",
+      "a": "ai",
+      "id": "KAN-054-M48FNQ",
+      "op": "move",
+      "w": "DJT5WZ",
+      "from": "review",
+      "to": "done"
+    },
+    {
+      "seq": 208,
+      "t": "2026-10-07T16:39",
+      "a": "ai",
+      "id": "KAN-050-AJSQAY",
+      "op": "waive",
+      "w": "DJT5WZ",
+      "with_": "KAN-051-5HMYKT",
+      "reason": "같은 CLAUDE.md지만 050은 게이트 명령 4종을 손대지 않고 구조도·경로만 고친다고 적었다. 051은 test:unit 설명 두 줄(39, 103행)만 고친다 (2026-10-05 유저 승인 플랜). 2026-10-07 KAN-050 S2 중 옛 패키지 이름 전수 grep 으로 scope 에 주석 파일 3개(tokens/breakpoints.ts·hooks/index.ts·hooks/useIsMounted.ts — 051 scope 와 안 겹침)를 더해 무효가 된 기록을 겹침 그대로 다시 건다"
+    },
+    {
+      "seq": 207,
+      "t": "2026-10-07T16:39",
+      "a": "ai",
+      "id": "KAN-055-34A57K",
+      "op": "serialize",
+      "w": "DJT5WZ",
+      "with_": "KAN-052-BYS4JN",
+      "reason": "배포는 051·052·053이 main에 병합된 뒤에야 의미가 있다 (2026-10-05 유저 승인 플랜). 2026-10-07 재기록: 052 병합(123e2e3)의 rebuild 가 재수립 필요 표시를 잃었다 — 055 는 052 의 fonts prop 을 보고 전략을 다시 세워야 한다"
+    },
+    {
+      "seq": 206,
+      "t": "2026-10-07T16:39",
+      "a": "ai",
+      "id": "KAN-055-34A57K",
+      "op": "serialize",
+      "w": "DJT5WZ",
+      "with_": "KAN-051-5HMYKT",
+      "reason": "배포는 051·052·053이 main에 병합된 뒤에야 의미가 있다 (2026-10-05 유저 승인 플랜). 2026-10-07 재기록: 이전 기록의 scope_hash 가 현재 scope 와 어긋나 조용히 무효였다 — 055 는 051 의 파일 단위 dist·크기 게이트를 보고 전략을 다시 세워야 한다"
+    },
+    {
+      "seq": 205,
+      "t": "2026-10-07T16:39",
+      "a": "ai",
+      "id": "KAN-050-AJSQAY",
+      "op": "serialize",
+      "w": "DJT5WZ",
+      "with_": "KAN-048-R2KW3G",
+      "reason": "전략 재수립 완료"
+    },
+    {
+      "seq": 204,
+      "t": "2026-10-07T16:39",
+      "a": "ai",
+      "id": "KAN-050-AJSQAY",
+      "op": "serialize",
+      "w": "DJT5WZ",
+      "with_": "KAN-048-R2KW3G",
+      "reason": "DESIGN_SYSTEM_GUIDE.md 를 둘 다 고친다. B 가 ASSET_INTEGRATION_PLAN 을 없애야 D 가 :182 링크를 고칠 수 있고, 순서가 뒤면 깨진 링크가 남는다. KAN-044 검토 5번에서 유저가 승인. 2026-10-07 KAN-050 scope 확장(S2 주석 파일 3개)으로 무효가 된 기록을 다시 건다"
+    },
+    {
+      "seq": 203,
+      "t": "2026-10-07T16:39",
+      "a": "ai",
+      "id": "KAN-054-M48FNQ",
+      "op": "waive",
+      "w": "DJT5WZ",
+      "with_": "KAN-055-34A57K",
+      "reason": "054의 changeset은 054가 끝나 main에 병합된 뒤에만 들어오므로 그 전 배포에 섞이지 않는다 (2026-10-05 유저 승인 플랜). 2026-10-07 검토 반려 재작업의 scope 확장(FeatureGrid)으로 무효가 된 기록을 다시 건다 — 겹침은 그대로 .changeset/ 하나"
+    },
+    {
+      "seq": 202,
+      "t": "2026-10-07T16:39",
+      "a": "ai",
+      "id": "KAN-054-M48FNQ",
+      "op": "serialize",
+      "w": "DJT5WZ",
+      "with_": "KAN-053-TZ86NN",
+      "reason": "전략 재수립 완료"
+    },
+    {
+      "seq": 201,
+      "t": "2026-10-07T16:39",
+      "a": "ai",
+      "id": "KAN-054-M48FNQ",
+      "op": "serialize",
+      "w": "DJT5WZ",
+      "with_": "KAN-053-TZ86NN",
+      "reason": "054가 053이 만든 packages/core/src/a11y/ 훅을 이어 쓴다. 053 훅 API를 보고 전략을 다시 세운다 (2026-10-05 유저 승인 플랜). 재작업 scope 확장으로 무효가 된 기록을 다시 건다"
+    },
+    {
+      "seq": 200,
+      "t": "2026-10-07T16:13",
+      "a": "ai",
+      "id": "KAN-054-M48FNQ",
+      "op": "move",
+      "w": "DJT5WZ",
+      "from": "doing",
+      "to": "review"
+    },
     {
       "seq": 199,
       "t": "2026-10-07T16:37",
@@ -1078,6 +1210,16 @@
       "w": "S7030N",
       "from": "backlog",
       "to": "todo"
+    },
+    {
+      "seq": 199,
+      "t": "2026-10-07T16:03",
+      "a": "유저",
+      "id": "KAN-050-AJSQAY",
+      "op": "waive",
+      "w": "DJT5WZ",
+      "with_": "KAN-051-5HMYKT",
+      "reason": "같은 CLAUDE.md지만 050은 게이트 명령 4종을 손대지 않고 구조도·경로만 고친다고 적었다. 051은 test:unit 설명 두 줄(39, 103행)만 고친다 (2026-10-05 유저 승인 플랜). 2026-10-07 KAN-050 S2 중 옛 패키지 이름 전수 grep 으로 scope 에 주석 파일 3개(tokens/breakpoints.ts·hooks/index.ts·hooks/useIsMounted.ts — 051 scope 와 안 겹침)를 더해 무효가 된 기록을 겹침 그대로 다시 건다"
     },
     {
       "seq": 198,
@@ -1090,6 +1232,16 @@
       "reason": "배포는 051·052·053이 main에 병합된 뒤에야 의미가 있다 (2026-10-05 유저 승인 플랜). 2026-10-07 재기록: 052 병합(123e2e3)의 rebuild 가 재수립 필요 표시를 잃었다 — 055 는 052 의 fonts prop 을 보고 전략을 다시 세워야 한다"
     },
     {
+      "seq": 198,
+      "t": "2026-10-07T16:03",
+      "a": "유저",
+      "id": "KAN-055-34A57K",
+      "op": "serialize",
+      "w": "DJT5WZ",
+      "with_": "KAN-051-5HMYKT",
+      "reason": "배포는 051·052·053이 main에 병합된 뒤에야 의미가 있다 (2026-10-05 유저 승인 플랜)"
+    },
+    {
       "seq": 197,
       "t": "2026-10-07T16:33",
       "a": "ai",
@@ -1098,6 +1250,16 @@
       "w": "S7030N",
       "with_": "KAN-051-5HMYKT",
       "reason": "배포는 051·052·053이 main에 병합된 뒤에야 의미가 있다 (2026-10-05 유저 승인 플랜). 2026-10-07 재기록: 이전 기록의 scope_hash 가 현재 scope 와 어긋나 조용히 무효였다 — 055 는 051 의 파일 단위 dist·크기 게이트를 보고 전략을 다시 세워야 한다"
+    },
+    {
+      "seq": 197,
+      "t": "2026-10-07T16:03",
+      "a": "유저",
+      "id": "KAN-050-AJSQAY",
+      "op": "serialize",
+      "w": "DJT5WZ",
+      "with_": "KAN-048-R2KW3G",
+      "reason": "전략 재수립 완료"
     },
     {
       "seq": 196,
@@ -1115,6 +1277,16 @@
       "reason": "Button 등은 키보드로 포커스해도 화면에 아무 표시가 없어 키보드 사용자가 자기 위치를 모른다(KAN-054 검토 §3-6)",
       "goal": "키보드로 닿는 core 컴포넌트마다 포커스 표시가 보이고, 빠지면 테스트가 빨강이 된다",
       "memo": "KAN-054 검토 §3-6(2026-10-07 유저가 추천대로 재작업 선택)에서 나온 후속 · KAN-054는 Card·Calendar 날짜 칸·DatePicker 트리거 셋만 a11y/focusRing.ts 로 고쳤다 — 이 카드가 나머지를 같은 규칙으로"
+    },
+    {
+      "seq": 196,
+      "t": "2026-10-07T16:03",
+      "a": "유저",
+      "id": "KAN-050-AJSQAY",
+      "op": "serialize",
+      "w": "DJT5WZ",
+      "with_": "KAN-048-R2KW3G",
+      "reason": "DESIGN_SYSTEM_GUIDE.md 를 둘 다 고친다. B 가 ASSET_INTEGRATION_PLAN 을 없애야 D 가 :182 링크를 고칠 수 있고, 순서가 뒤면 깨진 링크가 남는다. KAN-044 검토 5번에서 유저가 승인. 2026-10-07 KAN-050 scope 확장(S2 주석 파일 3개)으로 무효가 된 기록을 다시 건다"
     },
     {
       "seq": 195,
@@ -1154,6 +1326,16 @@
       "to": "done"
     },
     {
+      "seq": 193,
+      "t": "2026-10-07T16:01",
+      "a": "유저",
+      "id": "KAN-054-M48FNQ",
+      "op": "serialize",
+      "w": "DJT5WZ",
+      "with_": "KAN-053-TZ86NN",
+      "reason": "전략 재수립 완료"
+    },
+    {
       "seq": 192,
       "t": "2026-10-07T14:24",
       "a": "ai",
@@ -1164,6 +1346,16 @@
       "to": "review"
     },
     {
+      "seq": 192,
+      "t": "2026-10-07T16:01",
+      "a": "유저",
+      "id": "KAN-054-M48FNQ",
+      "op": "serialize",
+      "w": "DJT5WZ",
+      "with_": "KAN-053-TZ86NN",
+      "reason": "054가 053이 만든 packages/core/src/a11y/ 훅을 이어 쓴다. 053 훅 API를 보고 전략을 다시 세운다 (2026-10-05 유저 승인 플랜). 재작업 scope 확장으로 무효가 된 기록을 다시 건다"
+    },
+    {
       "seq": 191,
       "t": "2026-10-07T14:15",
       "a": "ai",
@@ -1172,6 +1364,16 @@
       "w": "728SB6",
       "with_": "KAN-048-R2KW3G",
       "reason": "전략 재수립 완료"
+    },
+    {
+      "seq": 191,
+      "t": "2026-10-07T16:01",
+      "a": "유저",
+      "id": "KAN-054-M48FNQ",
+      "op": "waive",
+      "w": "DJT5WZ",
+      "with_": "KAN-055-34A57K",
+      "reason": "054의 changeset은 054가 끝나 main에 병합된 뒤에만 들어오므로 그 전 배포에 섞이지 않는다 (2026-10-05 유저 승인 플랜). 2026-10-07 검토 반려 재작업의 scope 확장(FeatureGrid)으로 무효가 된 기록을 다시 건다 — 겹침은 그대로 .changeset/ 하나"
     },
     {
       "seq": 190,
@@ -1194,6 +1396,16 @@
       "to": "done"
     },
     {
+      "seq": 190,
+      "t": "2026-10-07T16:00",
+      "a": "ai",
+      "id": "KAN-054-M48FNQ",
+      "op": "move",
+      "w": "DJT5WZ",
+      "from": "review",
+      "to": "doing"
+    },
+    {
       "seq": 189,
       "t": "2026-10-07T14:15",
       "a": "ai",
@@ -1214,6 +1426,16 @@
       "to": "review"
     },
     {
+      "seq": 189,
+      "t": "2026-10-07T14:30",
+      "a": "ai",
+      "id": "KAN-054-M48FNQ",
+      "op": "move",
+      "w": "DJT5WZ",
+      "from": "doing",
+      "to": "review"
+    },
+    {
       "seq": 188,
       "t": "2026-10-07T14:13",
       "a": "ai",
@@ -1230,6 +1452,16 @@
       "id": "KAN-051-5HMYKT",
       "op": "move",
       "w": "199J5C",
+      "from": "todo",
+      "to": "doing"
+    },
+    {
+      "seq": 188,
+      "t": "2026-10-07T13:54",
+      "a": "ai",
+      "id": "KAN-054-M48FNQ",
+      "op": "move",
+      "w": "DJT5WZ",
       "from": "todo",
       "to": "doing"
     },
@@ -1353,253 +1585,6 @@
       "w": "S7030N",
       "with_": "KAN-053-TZ86NN",
       "reason": "054가 053이 만든 packages/core/src/a11y/ 훅을 이어 쓴다. 053 훅 API를 보고 전략을 다시 세운다 (2026-10-05 유저 승인 플랜)"
-    },
-    {
-      "seq": 175,
-      "t": "2026-10-06T17:58",
-      "a": "ai",
-      "id": "KAN-054-M48FNQ",
-      "op": "edit",
-      "w": "S7030N",
-      "field": "memo",
-      "before": "외부 앱 소비 문제 대응 5장 중 4 · KAN-053 뒤에 직렬",
-      "after": "외부 앱 소비 문제 대응 5장 중 4 · KAN-053 뒤에 직렬 · KAN-053 넘김: onKeyDown 합성 규칙 통일(Tabs↔Modal·Drawer) + 실제 키 입력 게이트 — 전략 「KAN-053에서 넘어온 것」"
-    },
-    {
-      "seq": 174,
-      "t": "2026-10-06T17:54",
-      "a": "ai",
-      "id": "KAN-057-CCH3E8",
-      "op": "create",
-      "w": "S7030N",
-      "col": "backlog",
-      "title": "viz edge.dashPattern 토큰 정리 — 선언만 있고 읽히지 않는 커넥터 대시 토큰을 잇거나 걷기",
-      "verbatim": "만들어 (앞 답변 「앞서 여쭌 백로그 카드 두 가지(리터럴 색이 남은 템플릿 13개, 읽히지 않는 `edge.dashPattern` 토큰)는 아직 만들지 않았습니다.」에 대한 답)",
-      "parent": null,
-      "short": "엣지 대시 토큰 정리",
-      "purpose": "선언만 된 edge.dashPattern 토큰을 계약 스타일시트나 Edge 가 읽게 잇거나, 쓸 계획이 없으면 걷어낸다",
-      "reason": "토큰 자리(packages/tokens/src/visualization.ts:66)는 있는데 아무도 읽지 않아, 스타일 가이드가 그 값을 넣어도 엣지 선 모양이 바뀌지 않는다(KAN-049 에서 발견)",
-      "goal": "토큰이 실제로 엣지에 반영되거나 타입에서 사라져, 선언과 동작이 어긋난 자리가 없어진다. style-classification 횡단 규칙 3 의 상태 문장도 갱신된다",
-      "memo": "잇는 쪽이면 스타일 가이드 기본값을 개별 prop(strokeDasharray)이 덮는 순서를 지킨다. 잇기와 걷기 중 무엇을 할지는 착수 때 정한다"
-    },
-    {
-      "seq": 173,
-      "t": "2026-10-06T17:54",
-      "a": "ai",
-      "id": "KAN-056-D3V1MB",
-      "op": "create",
-      "w": "S7030N",
-      "col": "backlog",
-      "title": "viz 템플릿 13개 리터럴 색 제거 — 스타일 가이드가 기본 채움·선 색까지 칠하게",
-      "verbatim": "만들어 (앞 답변 「앞서 여쭌 백로그 카드 두 가지(리터럴 색이 남은 템플릿 13개, 읽히지 않는 `edge.dashPattern` 토큰)는 아직 만들지 않았습니다.」에 대한 답)",
-      "parent": null,
-      "short": "템플릿 리터럴 색 제거",
-      "purpose": "템플릿 13개가 넣는 불투명 기본 채움·선 색을 계약 토큰으로 바꿔 스타일 가이드가 그 부분까지 칠하게 한다",
-      "reason": "기본값이 인라인 style 로 렌더돼 스타일 가이드를 바꿔도 그 색이 그대로다 — 구 PLAN 「이연」이 끝나지 않은 채 남았다(KAN-049 에서 발견)",
-      "goal": "13개 템플릿에 불투명 리터럴 색이 0건이 되고 viz README 「알려진 한계」의 해당 항목이 지워진다",
-      "memo": "목록과 셈 기준은 packages/visualization/README.md 「알려진 한계」. 반투명 검정 음영(Node cube 면·IsoPrism·IsometricScene 바닥 그림자·Lane)은 paint 무관 장치라 대상이 아니다"
-    },
-    {
-      "seq": 172,
-      "t": "2026-10-06T17:28",
-      "a": "유저",
-      "id": "KAN-050-AJSQAY",
-      "op": "serialize",
-      "w": "S7030N",
-      "with_": "KAN-048-R2KW3G",
-      "reason": "DESIGN_SYSTEM_GUIDE.md 를 둘 다 고친다. B 가 ASSET_INTEGRATION_PLAN 을 없애야 D 가 :182 링크를 고칠 수 있고, 순서가 뒤면 깨진 링크가 남는다. KAN-044 검토 5번에서 유저가 승인. KAN-048 scope 확장으로 무효가 된 기록을 2026-10-06 유저 지시로 다시 건다"
-    },
-    {
-      "seq": 171,
-      "t": "2026-10-06T17:28",
-      "a": "ai",
-      "id": "KAN-049-CWBPP6",
-      "op": "move",
-      "w": "HQ1ZBZ",
-      "from": "review",
-      "to": "done"
-    },
-    {
-      "seq": 170,
-      "t": "2026-10-06T16:23",
-      "a": "ai",
-      "id": "KAN-049-CWBPP6",
-      "op": "move",
-      "w": "HQ1ZBZ",
-      "from": "doing",
-      "to": "review"
-    },
-    {
-      "seq": 169,
-      "t": "2026-10-06T16:19",
-      "a": "ai",
-      "id": "KAN-049-CWBPP6",
-      "op": "move",
-      "w": "HQ1ZBZ",
-      "from": "review",
-      "to": "doing"
-    },
-    {
-      "seq": 168,
-      "t": "2026-10-06T16:19",
-      "a": "ai",
-      "id": "KAN-049-CWBPP6",
-      "op": "move",
-      "w": "HQ1ZBZ",
-      "from": "review",
-      "to": "review"
-    },
-    {
-      "seq": 168,
-      "t": "2026-10-06T17:54",
-      "a": "ai",
-      "id": "KAN-053-TZ86NN",
-      "op": "move",
-      "w": "F2R3GB",
-      "from": "review",
-      "to": "done"
-    },
-    {
-      "seq": 167,
-      "t": "2026-10-06T16:48",
-      "a": "ai",
-      "id": "KAN-048-R2KW3G",
-      "op": "move",
-      "w": "VP2A2W",
-      "from": "review",
-      "to": "done"
-    },
-    {
-      "seq": 167,
-      "t": "2026-10-06T00:56",
-      "a": "ai",
-      "id": "KAN-049-CWBPP6",
-      "op": "move",
-      "w": "HQ1ZBZ",
-      "from": "doing",
-      "to": "review"
-    },
-    {
-      "seq": 167,
-      "t": "2026-10-06T17:05",
-      "a": "ai",
-      "id": "KAN-053-TZ86NN",
-      "op": "move",
-      "w": "F2R3GB",
-      "from": "doing",
-      "to": "review"
-    },
-    {
-      "seq": 166,
-      "t": "2026-10-06T01:04",
-      "a": "ai",
-      "id": "KAN-048-R2KW3G",
-      "op": "move",
-      "w": "VP2A2W",
-      "from": "doing",
-      "to": "review"
-    },
-    {
-      "seq": 166,
-      "t": "2026-10-06T00:54",
-      "a": "ai",
-      "id": "KAN-049-CWBPP6",
-      "op": "move",
-      "w": "HQ1ZBZ",
-      "from": "review",
-      "to": "doing"
-    },
-    {
-      "seq": 166,
-      "t": "2026-10-06T16:44",
-      "a": "ai",
-      "id": "KAN-053-TZ86NN",
-      "op": "move",
-      "w": "F2R3GB",
-      "from": "todo",
-      "to": "doing"
-    },
-    {
-      "seq": 165,
-      "t": "2026-10-06T00:49",
-      "a": "ai",
-      "id": "KAN-049-CWBPP6",
-      "op": "edit",
-      "w": "S7030N",
-      "field": "memo",
-      "before": "KAN-044 §13-C. 위험: visualization-catalog.md 는 참조 11건으로 통합 대상 중 최다 — 링크를 한 번에 다 고치지 않으면 SSOT 지목이 허공을 가리킨다. 완료 기준에 type-inventory grep 0건을 넣는다. work 4개",
-      "after": "KAN-044 §13-C. 위험: visualization-catalog.md 는 참조 11건으로 통합 대상 중 최다 — 링크를 한 번에 다 고치지 않으면 SSOT 지목이 허공을 가리킨다. 완료 기준에 type-inventory grep 0건을 넣는다. work 4개 · KAN-047 넘김: packages/foundations/src/gateDocs.test.ts:38 주석의 packages/visualization/PLAN.md 항목도 지운다. scope 에 이 파일을 더하면 :37 을 고칠 B(KAN-048)와 겹친다"
-    },
-    {
-      "seq": 165,
-      "t": "2026-10-06T00:41",
-      "a": "ai",
-      "id": "KAN-049-CWBPP6",
-      "op": "move",
-      "w": "HQ1ZBZ",
-      "from": "doing",
-      "to": "review"
-    },
-    {
-      "seq": 164,
-      "t": "2026-10-06T00:49",
-      "a": "ai",
-      "id": "KAN-048-R2KW3G",
-      "op": "edit",
-      "w": "S7030N",
-      "field": "memo",
-      "before": "KAN-044 §13-B. 위험: packages/core/style-guide-catalog.md 38–92줄은 자동 생성 구간이라 이동·개명·삭제하면 trendTable.test.ts 가 readFileSync 에서 red 가 된다 — 출처 절만 손댄다. D 의 선행(직렬 중재). work 4개",
-      "after": "KAN-044 §13-B. 위험: packages/core/style-guide-catalog.md 38–92줄은 자동 생성 구간이라 이동·개명·삭제하면 trendTable.test.ts 가 readFileSync 에서 red 가 된다 — 출처 절만 손댄다. D 의 선행(직렬 중재). work 4개 · KAN-047 넘김: packages/foundations/src/gateDocs.test.ts 도 고친다 — :37 주석의 ASSET_INTEGRATION_PLAN.md 항목, :44–45 ALLOWLIST 의 WAVE0_REPORT.md(지우면 발화 안 하는 항목이 되고 :144 fixture 테스트도 함께 손봐야 한다). scope 에 이 파일을 더하면 :38 을 고칠 C(KAN-049)와 겹친다"
-    },
-    {
-      "seq": 164,
-      "t": "2026-10-06T00:31",
-      "a": "ai",
-      "id": "KAN-047-TRYYRC",
-      "op": "waive",
-      "w": "HQ1ZBZ",
-      "with_": "KAN-049-CWBPP6",
-      "reason": "같은 줄을 둘 다 고친다 — visualization-type-inventory.md:376(047은 ORDER.md 조각, 049는 catalog §4 조각)과 gateDocs.test.ts:37-38(047은 ORDER.md 항목, 049는 PLAN.md 항목). 각자 자기 조각만 지우므로 순서가 바뀌어도 상대가 할 일이 그대로 남는다. 늦게 병합하는 쪽이 두 조각이 다 지워진 줄로 충돌을 푼다. 2026-08-25 사유('줄이 다르다')를 실측으로 바로잡아 재기록 (2026-10-06 유저 승인)"
-    },
-    {
-      "seq": 163,
-      "t": "2026-10-06T00:48",
-      "a": "ai",
-      "id": "KAN-047-TRYYRC",
-      "op": "move",
-      "w": "JG08FN",
-      "from": "review",
-      "to": "done"
-    },
-    {
-      "seq": 163,
-      "t": "2026-10-06T00:31",
-      "a": "ai",
-      "id": "KAN-049-CWBPP6",
-      "op": "waive",
-      "w": "HQ1ZBZ",
-      "with_": "KAN-052-BYS4JN",
-      "reason": "052는 viz Provider 코드·internal/ExternalFonts와 README 사용법 절만 고친다. 049는 PLAN·visualization-catalog 문서 흡수이고 README에는 새 절(구현 규약)을 더한다. 049 scope에 gateDocs.test.ts를 더해 재기록 — 겹침 내용 불변 (2026-10-06 유저 승인)"
-    },
-    {
-      "seq": 162,
-      "t": "2026-10-06T00:51",
-      "a": "유저",
-      "id": "KAN-048-R2KW3G",
-      "op": "waive",
-      "w": "VP2A2W",
-      "with_": "KAN-051-5HMYKT",
-      "reason": "같은 style-guide-catalog/src/index.ts지만 048은 46행 주석, 051은 77~195행(catalog import·배열·map) 이동이라 줄이 겹치지 않는다. 048 scope에 gateDocs 2파일을 더해 옛 용인이 무효가 된 뒤 2026-10-06 유저 재승인"
-    },
-    {
-      "seq": 162,
-      "t": "2026-10-06T00:26",
-      "a": "ai",
-      "id": "KAN-047-TRYYRC",
-      "op": "move",
-      "w": "JG08FN",
-      "from": "doing",
-      "to": "review"
     }
   ],
   "waivers": [
@@ -1639,17 +1624,17 @@
       "by": "유저"
     },
     {
-      "pair": "KAN-054-M48FNQ|KAN-055-34A57K",
-      "scope_hash": "84dd2b8fdef74b9f",
-      "reason": "054의 changeset은 054가 끝나 main에 병합된 뒤에만 들어오므로 그 전 배포에 섞이지 않는다 (2026-10-05 유저 승인 플랜). 2026-10-07 재수립의 scope 확장으로 무효가 된 기록을 다시 건다 — 겹침은 그대로 .changeset/ 하나",
-      "created": "2026-10-07T13:35",
-      "by": "유저"
-    },
-    {
       "pair": "KAN-050-AJSQAY|KAN-051-5HMYKT",
       "scope_hash": "f9ffced7be615222",
       "reason": "같은 CLAUDE.md지만 050은 게이트 명령 4종을 손대지 않고 구조도·경로만 고친다고 적었다. 051은 test:unit 설명 두 줄(39, 103행)만 고친다 (2026-10-05 유저 승인 플랜). 2026-10-07 KAN-050 S2 중 옛 패키지 이름 전수 grep 으로 scope 에 주석 파일 3개(tokens/breakpoints.ts·hooks/index.ts·hooks/useIsMounted.ts — 051 scope 와 안 겹침)를 더해 무효가 된 기록을 겹침 그대로 다시 건다",
       "created": "2026-10-07T14:15",
+      "by": "ai"
+    },
+    {
+      "pair": "KAN-054-M48FNQ|KAN-055-34A57K",
+      "scope_hash": "dfb6efa5d7a0b005",
+      "reason": "054의 changeset은 054가 끝나 main에 병합된 뒤에만 들어오므로 그 전 배포에 섞이지 않는다 (2026-10-05 유저 승인 플랜). 2026-10-07 검토 반려 재작업의 scope 확장(FeatureGrid)으로 무효가 된 기록을 다시 건다 — 겹침은 그대로 .changeset/ 하나",
+      "created": "2026-10-07T16:44",
       "by": "ai"
     }
   ],
@@ -1665,19 +1650,6 @@
       "created": "2026-10-06T17:58",
       "by": "ai",
       "restrategy_required": true
-    },
-    {
-      "pair": "KAN-053-TZ86NN|KAN-054-M48FNQ",
-      "order": [
-        "KAN-053-TZ86NN",
-        "KAN-054-M48FNQ"
-      ],
-      "scope_hash": "4b3bb0dab52b3ac3",
-      "reason": "054가 053이 만든 packages/core/src/a11y/ 훅을 이어 쓴다. 053 훅 API를 보고 전략을 다시 세운다 (2026-10-05 유저 승인 플랜). 2026-10-07 재수립의 scope 확장으로 무효가 된 기록을 다시 건다",
-      "created": "2026-10-07T13:35",
-      "by": "유저",
-      "restrategy_required": false,
-      "restrategy_done": "2026-10-07T13:35"
     },
     {
       "pair": "KAN-048-R2KW3G|KAN-050-AJSQAY",
@@ -1715,6 +1687,19 @@
       "created": "2026-10-07T16:33",
       "by": "ai",
       "restrategy_required": true
+    },
+    {
+      "pair": "KAN-053-TZ86NN|KAN-054-M48FNQ",
+      "order": [
+        "KAN-053-TZ86NN",
+        "KAN-054-M48FNQ"
+      ],
+      "scope_hash": "36a42543c08b2092",
+      "reason": "054가 053이 만든 packages/core/src/a11y/ 훅을 이어 쓴다. 053 훅 API를 보고 전략을 다시 세운다 (2026-10-05 유저 승인 플랜). 재작업 scope 확장으로 무효가 된 기록을 다시 건다",
+      "created": "2026-10-07T16:44",
+      "by": "ai",
+      "restrategy_required": false,
+      "restrategy_done": "2026-10-07T16:44"
     }
   ]
 }

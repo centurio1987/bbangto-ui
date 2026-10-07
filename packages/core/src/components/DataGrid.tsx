@@ -80,6 +80,20 @@ export function DataGrid<T>({
     originalIndex: data.indexOf(item)
   }));
 
+  const sortButtonStyle: React.CSSProperties = {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '4px',
+    padding: 0,
+    margin: 0,
+    border: 'none',
+    background: 'none',
+    font: 'inherit',
+    color: 'inherit',
+    textAlign: 'inherit',
+    cursor: 'pointer',
+  };
+
   const allSelected = data.length > 0 && selectedIndices.size === data.length;
   const indeterminate = selectedIndices.size > 0 && selectedIndices.size < data.length;
 
@@ -102,17 +116,29 @@ export function DataGrid<T>({
             {columns.map((col) => (
               <TableHeader
                 key={String(col.key)}
-                onClick={() => col.sortable && handleSort(String(col.key))}
-                style={{ cursor: col.sortable ? 'pointer' : 'default', userSelect: 'none' }}
+                aria-sort={
+                  col.sortable
+                    ? sortKey === col.key
+                      ? sortDirection === 'asc' ? 'ascending' : 'descending'
+                      : 'none'
+                    : undefined
+                }
+                style={{ userSelect: 'none' }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  {col.header}
-                  {col.sortable && sortKey === col.key && (
-                    <span style={{ fontSize: '0.8em' }}>
-                      {sortDirection === 'asc' ? '▲' : '▼'}
-                    </span>
-                  )}
-                </div>
+                {col.sortable ? (
+                  // A real button makes the sortable header reachable by Tab and
+                  // operable by Enter / Space; the browser keeps its focus ring.
+                  <button type="button" onClick={() => handleSort(String(col.key))} style={sortButtonStyle}>
+                    {col.header}
+                    {sortKey === col.key && (
+                      <span aria-hidden="true" style={{ fontSize: '0.8em' }}>
+                        {sortDirection === 'asc' ? '▲' : '▼'}
+                      </span>
+                    )}
+                  </button>
+                ) : (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>{col.header}</div>
+                )}
               </TableHeader>
             ))}
           </TableRow>

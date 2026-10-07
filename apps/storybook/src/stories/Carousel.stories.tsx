@@ -355,3 +355,42 @@ export const Elevated: Story = {
     );
   },
 };
+
+// ─── 키보드 (KAN-054) ──────────────────────────────────────────────────────────
+
+/** 화살표·점을 꺼도 region 에 Tab 으로 닿고 ←/→ 로 넘기며, 페이지 스크롤은 막는다 */
+export const Keyboard: Story = {
+  args: { children: [] },
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: 360 }}>
+      <button type="button">Before</button>
+      <Carousel showArrows={false} showDots={false}>
+        <Slide tone="var(--bbangto-semantic-background-elevated)">Key slide 1</Slide>
+        <Slide tone="var(--bbangto-semantic-primary-subtle)">Key slide 2</Slide>
+        <Slide tone="var(--bbangto-semantic-warning-subtle)">Key slide 3</Slide>
+      </Carousel>
+    </div>
+  ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const region = await canvas.findByRole('region');
+    const shown = (text: string) => canvas.getByText(text).closest('[aria-hidden]')?.getAttribute('aria-hidden');
+
+    canvas.getByRole('button', { name: 'Before' }).focus();
+    await userEvent.tab();
+    await expect(region).toHaveFocus();
+
+    let prevented = false;
+    const spy = (e: KeyboardEvent) => {
+      prevented = e.defaultPrevented;
+    };
+    document.addEventListener('keydown', spy);
+    await userEvent.keyboard('{ArrowRight}');
+    document.removeEventListener('keydown', spy);
+    await expect(shown('Key slide 2')).toBe('false');
+    await expect(prevented).toBe(true);
+
+    await userEvent.keyboard('{ArrowLeft}');
+    await expect(shown('Key slide 1')).toBe('false');
+  },
+};

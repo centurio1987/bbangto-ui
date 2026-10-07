@@ -266,3 +266,41 @@ export const Pixel: Story = {
     await expect(active).toHaveTextContent('5');
   },
 };
+
+// ─── 키보드 (KAN-054) ──────────────────────────────────────────────────────────
+
+/** 페이지 번호와 점에 Tab 으로 닿고 Enter/Space 로 옮긴다 */
+export const Keyboard: Story = {
+  render: () => {
+    const [page, setPage] = useState(1);
+    const [dot, setDot] = useState(1);
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <Pagination totalPages={5} currentPage={page} onPageChange={setPage} />
+        <Pagination variant="dot" totalPages={4} currentPage={dot} onPageChange={setDot} />
+      </div>
+    );
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const page3 = await canvas.findByRole('button', { name: '3' });
+    await expect(page3.tabIndex).toBe(0);
+    page3.focus();
+    await userEvent.keyboard('{Enter}');
+    await expect(canvas.getByRole('button', { name: '3' })).toHaveAttribute('aria-current', 'page');
+    canvas.getByRole('button', { name: '4' }).focus();
+    await userEvent.keyboard(' ');
+    await expect(canvas.getByRole('button', { name: '4' })).toHaveAttribute('aria-current', 'page');
+
+    // 점 변형 — 이름이 있는 버튼이고 Tab 으로 닿는다.
+    const dot2 = canvas.getByRole('button', { name: 'Page 2' });
+    await expect(dot2.tabIndex).toBe(0);
+    dot2.focus();
+    await userEvent.keyboard('{Enter}');
+    await expect(canvas.getByRole('button', { name: 'Page 2' })).toHaveAttribute('aria-current', 'page');
+    await userEvent.tab();
+    await expect(canvas.getByRole('button', { name: 'Page 3' })).toHaveFocus();
+    await userEvent.keyboard(' ');
+    await expect(canvas.getByRole('button', { name: 'Page 3' })).toHaveAttribute('aria-current', 'page');
+  },
+};

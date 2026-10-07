@@ -1,3 +1,4 @@
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { DatePicker } from '@centurio1987/bbangto-ui-core';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
@@ -245,5 +246,109 @@ export const SizeLg: Story = {
     const trigger = canvasElement.querySelector('[data-datepicker-trigger]') as HTMLElement;
     const style = getComputedStyle(trigger);
     await expect(style.fontSize).not.toBe('');
+  },
+};
+
+// ─── 키보드 (KAN-054) ──────────────────────────────────────────────────────────
+
+const dateCell = (root: HTMLElement, iso: string) =>
+  root.querySelector(`[data-bbangto-date="${iso}"]`) as HTMLElement | null;
+const focusedDate = () => (document.activeElement as HTMLElement | null)?.getAttribute('data-bbangto-date');
+
+function KeyboardPicker({ variant }: { variant?: 'default' | 'inline-week-strip' | 'wheel' }) {
+  const [value, setValue] = React.useState<Date>(new Date(2025, 0, 15));
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'flex-start', minHeight: 420 }}>
+      <button type="button">Before</button>
+      <DatePicker value={value} onChange={setValue} variant={variant} label="Due" />
+      <output data-testid="picked">{value.toDateString()}</output>
+    </div>
+  );
+}
+
+/** 기본: 트리거에 Tab 으로 닿고 Enter 로 열면 선택된 날에 포커스 · 화살표·PageDown · Enter 로 고르면 닫히고 트리거로 · ↓ 로 열고 Esc 로 닫기 */
+export const Keyboard: Story = {
+  render: () => <KeyboardPicker />,
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    await canvas.findByRole('button', { name: 'Before' });
+    canvas.getByRole('button', { name: 'Before' }).focus();
+    await userEvent.tab();
+    const trigger = canvasElement.querySelector('[data-datepicker-trigger]') as HTMLElement;
+    await expect(trigger).toHaveFocus();
+    await expect(trigger).toHaveAttribute('role', 'button');
+    await expect(trigger).toHaveAttribute('aria-haspopup', 'dialog');
+
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => expect(focusedDate()).toBe('2025-01-15'));
+    await userEvent.keyboard('{ArrowRight}');
+    await waitFor(() => expect(focusedDate()).toBe('2025-01-16'));
+    await userEvent.keyboard('{PageDown}');
+    await waitFor(() => expect(focusedDate()).toBe('2025-02-16'));
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => expect(canvas.getByTestId('picked')).toHaveTextContent('Sun Feb 16 2025'));
+    await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'));
+    await waitFor(() => expect(trigger).toHaveFocus());
+
+    await userEvent.keyboard('{ArrowDown}');
+    await waitFor(() => expect(focusedDate()).toBe('2025-02-16'));
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'));
+    await waitFor(() => expect(trigger).toHaveFocus());
+  },
+};
+
+/** 주간 띠: 화살표를 여러 번 누르면 계속 이동하고 주 경계를 넘는다 */
+export const KeyboardWeekStrip: Story = {
+  render: () => <KeyboardPicker variant="inline-week-strip" />,
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const cell = await waitFor(() => {
+      const c = dateCell(canvasElement, '2025-01-15');
+      if (!c) throw new Error('no cell');
+      return c;
+    });
+    await expect(cell.tabIndex).toBe(0);
+    cell.focus();
+    await userEvent.keyboard('{ArrowRight}');
+    await waitFor(() => expect(focusedDate()).toBe('2025-01-16'));
+    await userEvent.keyboard('{ArrowRight}');
+    await waitFor(() => expect(focusedDate()).toBe('2025-01-17'));
+    await userEvent.keyboard('{ArrowRight}');
+    await waitFor(() => expect(focusedDate()).toBe('2025-01-18'));
+    // 토요일 다음은 다음 주 일요일.
+    await userEvent.keyboard('{ArrowRight}');
+    await waitFor(() => expect(focusedDate()).toBe('2025-01-19'));
+    await userEvent.keyboard('{ArrowLeft}');
+    await waitFor(() => expect(focusedDate()).toBe('2025-01-18'));
+  },
+};
+
+/** 휠: 열마다 Tab 정지점 하나 · ↑/↓ 로 옮기면 그 값이 고른 값 · Home/End */
+export const KeyboardWheel: Story = {
+  render: () => <KeyboardPicker variant="wheel" />,
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const dayList = await canvas.findByRole('listbox', { name: 'Day' });
+    const options = () => within(dayList).getAllByRole('option');
+    await expect(options().filter((o) => o.tabIndex === 0)).toHaveLength(1);
+
+    canvas.getByRole('button', { name: 'Before' }).focus();
+    await userEvent.tab();
+    await expect(document.activeElement).toBe(options()[14]);
+
+    await userEvent.keyboard('{ArrowDown}');
+    await waitFor(() => expect(document.activeElement).toBe(options()[15]));
+    await waitFor(() => expect(options()[15]).toHaveAttribute('aria-selected', 'true'));
+    await expect(canvas.getByTestId('picked')).toHaveTextContent('Thu Jan 16 2025');
+    await userEvent.keyboard('{Home}');
+    await waitFor(() => expect(document.activeElement).toBe(options()[0]));
+    await userEvent.keyboard('{End}');
+    await waitFor(() => expect(document.activeElement).toBe(options()[30]));
+
+    // 다음 Tab 은 같은 열의 다른 날이 아니라 달 열로 간다.
+    await userEvent.tab();
+    await expect(within(canvas.getByRole('listbox', { name: 'Month' })).getAllByRole('option')).toContain(
+      document.activeElement,
+    );
   },
 };

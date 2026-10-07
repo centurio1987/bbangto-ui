@@ -2,6 +2,7 @@ import React from 'react';
 import { cssVar, breakpoints } from '@centurio1987/bbangto-ui-tokens';
 import { Card } from '../components/Card';
 import { Text } from '../components/Text';
+import { useRovingFocus } from '../a11y';
 
 export interface FeatureGridItem {
   /** Optional icon element displayed above the title. */
@@ -68,6 +69,19 @@ export const FeatureGrid = React.forwardRef<HTMLElement, FeatureGridProps>(
   ({ title, subtitle, items, layout = 'grid', style, ...props }, ref) => {
     // panel-showcase keeps a single selection synced to the shared panel.
     const [activeIndex, setActiveIndex] = React.useState(0);
+    // Panel-showcase tabs follow the Tabs contract (WAI-ARIA APG Tabs): the tab
+    // list is one Tab stop, ↑/↓ (vertical list) and Home / End move focus and
+    // selection together.
+    const roving = useRovingFocus({ orientation: 'vertical' });
+    const handleTabsKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+      const tabs = Array.from(e.currentTarget.querySelectorAll<HTMLElement>('[role="tab"]'));
+      const current = tabs.indexOf(document.activeElement as HTMLElement);
+      if (current < 0) return;
+      const next = roving(e, current, tabs.map(() => false));
+      if (next === null || next === current) return;
+      tabs[next].focus();
+      setActiveIndex(next);
+    };
     const safeActive = Math.min(activeIndex, Math.max(0, items.length - 1));
     const activeItem = items[safeActive];
 
@@ -368,6 +382,7 @@ export const FeatureGrid = React.forwardRef<HTMLElement, FeatureGridProps>(
               aria-orientation="vertical"
               aria-label={title ?? 'Features'}
               style={tablistStyle}
+              onKeyDown={handleTabsKeyDown}
             >
               {items.map((item, index) => {
                 const selected = index === safeActive;

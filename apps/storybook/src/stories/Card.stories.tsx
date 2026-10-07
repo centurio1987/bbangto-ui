@@ -395,3 +395,40 @@ export const Overlay: Story = {
     await expect(canvas.getByRole('img', { name: 'Sample media' })).toBeInTheDocument();
   },
 };
+
+// ─── 키보드 (KAN-054) ──────────────────────────────────────────────────────────
+
+/** onClick 만 줘도 Tab 으로 닿고 Enter/Space 로 누른다. interactive={false} 를 명시하면 마우스 전용으로 남는다 */
+export const Keyboard: Story = {
+  render: () => {
+    const [count, setCount] = React.useState(0);
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: 320 }}>
+        <button type="button">Before</button>
+        <Card onClick={() => setCount((c) => c + 1)} aria-label="Open project">
+          <Text>Project Atlas</Text>
+        </Card>
+        <Card onClick={() => {}} interactive={false} data-testid="mouse-only">
+          <Text>Mouse only</Text>
+        </Card>
+        <output data-testid="count">{count}</output>
+      </div>
+    );
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const card = await canvas.findByRole('button', { name: 'Open project' });
+
+    canvas.getByRole('button', { name: 'Before' }).focus();
+    await userEvent.tab();
+    await expect(card).toHaveFocus();
+    await userEvent.keyboard('{Enter}');
+    await expect(canvas.getByTestId('count')).toHaveTextContent('1');
+    await userEvent.keyboard(' ');
+    await expect(canvas.getByTestId('count')).toHaveTextContent('2');
+
+    const mouseOnly = canvas.getByTestId('mouse-only');
+    await expect(mouseOnly).not.toHaveAttribute('role');
+    await expect(mouseOnly).not.toHaveAttribute('tabindex');
+  },
+};

@@ -366,3 +366,51 @@ export const FileTree: Story = {
     </div>
   ),
 };
+
+// ─── 키보드 (KAN-054) ──────────────────────────────────────────────────────────
+
+/** Tab 정지점 하나(roving) · 접힌 노드의 자식은 건너뜀 · Home/End · 글자 검색 · 옮긴 자리가 정지점 */
+export const KeyboardHomeEndTypeahead: Story = {
+  args: { nodes: sampleNodes },
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'flex-start' }}>
+      <button type="button">Before</button>
+      <TreeView nodes={sampleNodes} defaultExpandedIds={['src']} aria-label="Files" />
+    </div>
+  ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const before = await canvas.findByRole('button', { name: 'Before' });
+    const item = (id: string) => canvasElement.querySelector(`[data-node-id="${id}"]`) as HTMLElement;
+    const items = () => Array.from(canvasElement.querySelectorAll<HTMLElement>('[role="treeitem"]'));
+
+    // Tab 정지점은 하나 — 첫 항목.
+    await waitFor(() => expect(items().filter((i) => i.tabIndex === 0)).toEqual([item('src')]));
+    before.focus();
+    await userEvent.tab();
+    await expect(item('src')).toHaveFocus();
+
+    // ↓ — 접힌 components 의 자식은 건너뛴다.
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(item('components')).toHaveFocus();
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(item('utils')).toHaveFocus();
+
+    // End 는 보이는 마지막, Home 은 처음.
+    await userEvent.keyboard('{End}');
+    await expect(item('readme')).toHaveFocus();
+    await userEvent.keyboard('{Home}');
+    await expect(item('src')).toHaveFocus();
+
+    // 글자 검색.
+    await userEvent.keyboard('p');
+    await expect(item('public')).toHaveFocus();
+
+    // 옮긴 자리가 Tab 정지점이 된다 — 나갔다 들어오면 같은 자리.
+    await waitFor(() => expect(items().filter((i) => i.tabIndex === 0)).toEqual([item('public')]));
+    await userEvent.tab({ shift: true });
+    await expect(before).toHaveFocus();
+    await userEvent.tab();
+    await expect(item('public')).toHaveFocus();
+  },
+};

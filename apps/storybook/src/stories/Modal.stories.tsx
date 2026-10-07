@@ -360,3 +360,80 @@ export const SideSheet: Story = {
     await waitFor(() => expect(canvas.queryByRole('dialog')).toBeNull());
   },
 };
+
+// ── 키보드 (KAN-054) ────────────────────────────────────────────────
+
+function KeyboardModalDemo({ onKeyDown }: { onKeyDown?: React.KeyboardEventHandler<HTMLDivElement> }) {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open settings</Button>
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title="Settings" onKeyDown={onKeyDown}>
+        <label>
+          Name <input name="name" />
+        </label>
+        <Button onClick={() => setIsOpen(false)}>Done</Button>
+      </Modal>
+    </>
+  );
+}
+
+export const Keyboard: Story = {
+  args: { isOpen: false, onClose: () => {}, children: null },
+  render: () => <KeyboardModalDemo />,
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = await canvas.findByRole('button', { name: 'Open settings' });
+
+    // 키보드만으로 연다 — 포커스가 대화상자 안으로 들어간다.
+    trigger.focus();
+    await userEvent.keyboard('{Enter}');
+    const dialog = await canvas.findByRole('dialog');
+    await waitFor(() => expect(dialog.contains(document.activeElement)).toBe(true));
+
+    // Tab 이 대화상자 안에서 돈다 — 마지막 요소 다음은 첫 요소다.
+    const input = within(dialog).getByRole('textbox');
+    const done = within(dialog).getByRole('button', { name: 'Done' });
+    done.focus();
+    await userEvent.tab();
+    await expect(dialog.contains(document.activeElement)).toBe(true);
+    input.focus();
+    await userEvent.tab({ shift: true });
+    await expect(dialog.contains(document.activeElement)).toBe(true);
+
+    // Esc 로 닫히고 연 버튼으로 포커스가 돌아온다.
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(canvas.queryByRole('dialog')).toBeNull());
+    await waitFor(() => expect(trigger).toHaveFocus());
+  },
+};
+
+// 합성 규칙(KAN-054): 외부 onKeyDown 이 먼저 돌고, preventDefault 하면 내부 처리(Esc 닫기)를 건너뛴다.
+export const KeyDownPreventDefault: Story = {
+  args: { isOpen: false, onClose: () => {}, children: null },
+  render: () => (
+    <KeyboardModalDemo
+      onKeyDown={(e) => {
+        if (e.key === 'Escape') e.preventDefault();
+      }}
+    />
+  ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = await canvas.findByRole('button', { name: 'Open settings' });
+    trigger.focus();
+    await userEvent.keyboard('{Enter}');
+    const dialog = await canvas.findByRole('dialog');
+    await waitFor(() => expect(dialog.contains(document.activeElement)).toBe(true));
+
+    // 외부가 Esc 를 막았으므로 열린 채로 남는다.
+    await userEvent.keyboard('{Escape}');
+    await new Promise((r) => setTimeout(r, 300));
+    await expect(canvas.getByRole('dialog')).toBeInTheDocument();
+
+    // 막지 않은 키(Tab 가두기)는 그대로 돈다.
+    within(dialog).getByRole('button', { name: 'Done' }).focus();
+    await userEvent.tab();
+    await expect(dialog.contains(document.activeElement)).toBe(true);
+  },
+};

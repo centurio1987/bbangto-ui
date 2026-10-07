@@ -1,5 +1,6 @@
 import React from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
+import { composeHandlers, getRovingIndex } from '../a11y';
 
 export type SegmentedControlSize = 'sm' | 'md' | 'lg';
 
@@ -28,6 +29,7 @@ export const SegmentedControl = React.forwardRef<HTMLDivElement, SegmentedContro
       disabledIndexes = [],
       style,
       className,
+      onKeyDown,
       ...props
     },
     ref
@@ -95,6 +97,35 @@ export const SegmentedControl = React.forwardRef<HTMLDivElement, SegmentedContro
       onChange?.(index);
     };
 
+    // Radio group keyboard contract (WAI-ARIA APG Radio Group): one Tab stop —
+    // the selected segment, or the first enabled one — and the arrow keys move
+    // focus and selection together, skipping disabled segments and wrapping.
+    const segmentDisabled = segments.map((_, i) => disabled || disabledIndexes.includes(i));
+    const tabStopIndex = !segmentDisabled[selectedIndex]
+      ? selectedIndex
+      : segmentDisabled.findIndex((d) => !d);
+
+    const handleKeyDown = composeHandlers(onKeyDown, (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (disabled || e.altKey || e.ctrlKey || e.metaKey) return;
+      const radios = Array.from(e.currentTarget.querySelectorAll<HTMLElement>('[role="radio"]'));
+      const current = radios.indexOf(document.activeElement as HTMLElement);
+      if (current < 0) return;
+      if (e.key === ' ') {
+        e.preventDefault();
+        handleSegmentClick(current);
+        return;
+      }
+      // Both arrow pairs move, as in the APG pattern; Home / End are not part of it.
+      if (e.key === 'Home' || e.key === 'End') return;
+      const next =
+        getRovingIndex(e.key, current, segmentDisabled, { orientation: 'horizontal' }) ??
+        getRovingIndex(e.key, current, segmentDisabled, { orientation: 'vertical' });
+      if (next === null || next === current) return;
+      e.preventDefault();
+      radios[next].focus();
+      handleSegmentClick(next);
+    });
+
     return (
       <div
         ref={ref}
@@ -102,6 +133,9 @@ export const SegmentedControl = React.forwardRef<HTMLDivElement, SegmentedContro
         className={className}
         data-size={size}
         data-disabled={disabled ? 'true' : undefined}
+        role="radiogroup"
+        aria-disabled={disabled || undefined}
+        onKeyDown={handleKeyDown}
         {...props}
       >
         {segments.map((segment, index) => {
@@ -111,6 +145,10 @@ export const SegmentedControl = React.forwardRef<HTMLDivElement, SegmentedContro
               key={segment}
               style={segmentStyle(index === selectedIndex, isSegmentDisabled)}
               data-segment-disabled={isSegmentDisabled ? 'true' : undefined}
+              role="radio"
+              aria-checked={index === selectedIndex}
+              aria-disabled={segmentDisabled[index] || undefined}
+              tabIndex={index === tabStopIndex ? 0 : -1}
               onClick={() => handleSegmentClick(index)}
             >
               {segment}

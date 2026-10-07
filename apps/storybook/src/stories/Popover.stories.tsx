@@ -295,3 +295,46 @@ export const Elevated: Story = {
     });
   },
 };
+
+// ─── 키보드 (KAN-054) ──────────────────────────────────────────────────────────
+
+/** Enter 로 열면 포커스가 패널로 · Esc 로 닫으면 트리거로 복귀 · ARIA 가 실제 트리거에 붙는다 */
+export const Keyboard: Story = {
+  args: { content: null, children: <Button>Filters</Button> },
+  render: () => (
+    <div style={{ minHeight: 240 }}>
+      <Popover
+        content={
+          <div style={{ padding: 12 }}>
+            <label>
+              Keyword <input name="keyword" />
+            </label>
+          </div>
+        }
+      >
+        <Button>Filters</Button>
+      </Popover>
+    </div>
+  ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = await canvas.findByRole('button', { name: 'Filters' });
+    const panel = canvas.getByRole('dialog', { hidden: true });
+
+    // ARIA 는 감싼 div 가 아니라 실제 트리거에.
+    await expect(trigger).toHaveAttribute('aria-haspopup', 'dialog');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    await expect(trigger).toHaveAttribute('aria-controls', panel.id);
+
+    // Enter 로 열면 포커스가 패널 안으로.
+    trigger.focus();
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'true'));
+    await waitFor(() => expect(panel.contains(document.activeElement)).toBe(true));
+
+    // Esc 로 닫으면 트리거로 돌아온다.
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'));
+    await waitFor(() => expect(trigger).toHaveFocus());
+  },
+};

@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { FileUploader } from '@centurio1987/bbangto-ui-core';
-import { expect, within } from 'storybook/test';
+import { expect, userEvent, within } from 'storybook/test';
 
 const meta = {
   title: 'ARCHETYPE/Components/Molecules/FileUploader',
@@ -187,5 +187,37 @@ export const Avatar: Story = {
     await expect(slot).toHaveAttribute('tabindex', '0');
     const fileInput = canvasElement.querySelector('input[type="file"]');
     await expect(fileInput).not.toBeNull();
+  },
+};
+
+// ─── 키보드 (KAN-054) ──────────────────────────────────────────────────────────
+
+/** 기본 드롭존에 Tab 으로 닿고 Enter/Space 로 파일 선택 창을 연다 */
+export const Keyboard: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: 360 }}>
+      <button type="button">Before</button>
+      <FileUploader onFilesSelected={() => {}} />
+    </div>
+  ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const zone = canvas.getByTestId('file-uploader-dropzone');
+    const input = canvasElement.querySelector('input[type="file"]') as HTMLInputElement;
+    // 실제 파일 창은 띄우지 않고, 숨은 input 이 눌렸는지만 센다.
+    let opened = 0;
+    input.addEventListener('click', (e) => {
+      opened += 1;
+      e.preventDefault();
+    });
+
+    await expect(zone).toHaveAttribute('role', 'button');
+    canvas.getByRole('button', { name: 'Before' }).focus();
+    await userEvent.tab();
+    await expect(zone).toHaveFocus();
+    await userEvent.keyboard('{Enter}');
+    await expect(opened).toBe(1);
+    await userEvent.keyboard(' ');
+    await expect(opened).toBe(2);
   },
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
+import { composeHandlers } from '../a11y';
 import { Spinner } from '../motion/Spinner';
 
 export type SearchfieldSize = 'sm' | 'md' | 'lg';
@@ -95,12 +96,11 @@ export const Searchfield = React.forwardRef<HTMLInputElement, SearchfieldProps>(
       if (onSearch) onSearch('');
     };
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const handleKeyDown = composeHandlers(onKeyDown, (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Enter' && onSearch) {
         onSearch(e.currentTarget.value);
       }
-      if (onKeyDown) onKeyDown(e);
-    };
+    });
 
     const iconSize = ICON_SIZE[size];
     const fontScalePath = FONT_SCALE[size];

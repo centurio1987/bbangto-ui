@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Tooltip, Button } from '@centurio1987/bbangto-ui-core';
-import { expect, userEvent, within } from 'storybook/test';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 
 const meta = {
   title: 'ARCHETYPE/Components/Atoms/Tooltip',
@@ -264,4 +264,48 @@ export const AllSizes: Story = {
       </Tooltip>
     </div>
   ),
+};
+
+// ─── 키보드 (KAN-054) ──────────────────────────────────────────────────────────
+
+/** 포커스로 보이고 · Esc 로 숨고 · 트리거의 aria-describedby 가 말풍선을 가리킨다 */
+export const Keyboard: Story = {
+  args: { content: 'Copies the link', children: <Button>Share</Button> },
+  render: () => (
+    <div style={{ display: 'flex', gap: 12, padding: 48 }}>
+      <button type="button">Before</button>
+      <Tooltip content="Copies the link">
+        <Button>Share</Button>
+      </Tooltip>
+    </div>
+  ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const before = await canvas.findByRole('button', { name: 'Before' });
+    const trigger = canvas.getByRole('button', { name: 'Share' });
+    const tip = canvas.getByRole('tooltip', { hidden: true });
+
+    // 트리거가 말풍선을 설명으로 가리킨다.
+    await expect(tip.id).not.toBe('');
+    await expect(trigger).toHaveAttribute('aria-describedby', tip.id);
+    await expect(trigger).toHaveAccessibleDescription('Copies the link');
+
+    // Tab 으로 오면 보인다.
+    before.focus();
+    await userEvent.tab();
+    await expect(trigger).toHaveFocus();
+    await waitFor(() => expect(getComputedStyle(tip).visibility).toBe('visible'));
+
+    // Esc 로 숨는다 — 포커스는 그대로.
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(getComputedStyle(tip).visibility).toBe('hidden'));
+    await expect(trigger).toHaveFocus();
+
+    // 다시 들어오면 다시 보이고, 나가면 숨는다.
+    await userEvent.tab({ shift: true });
+    await userEvent.tab();
+    await waitFor(() => expect(getComputedStyle(tip).visibility).toBe('visible'));
+    await userEvent.tab({ shift: true });
+    await waitFor(() => expect(getComputedStyle(tip).visibility).toBe('hidden'));
+  },
 };

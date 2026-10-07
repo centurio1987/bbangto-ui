@@ -1,5 +1,6 @@
 import React from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
+import { composeHandlers, useEscapeKey } from '../a11y';
 
 export type TooltipVariant = 'dark' | 'light' | 'error' | 'elevated';
 export type TooltipSize = 'sm' | 'md' | 'lg';
@@ -26,6 +27,11 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
       size = 'md',
       disabled = false,
       style,
+      onMouseEnter,
+      onMouseLeave,
+      onFocus,
+      onBlur,
+      onKeyDown,
       ...props
     },
     ref
@@ -36,6 +42,12 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
       if (!disabled) setIsVisible(true);
     };
     const hide = () => setIsVisible(false);
+    // a11y contract (WAI-ARIA APG Tooltip): Escape dismisses, and the trigger is
+    // described by the bubble.
+    const handleEscape = useEscapeKey(hide, isVisible);
+    const tooltipId = React.useId();
+    const child = children as React.ReactElement<{ 'aria-describedby'?: string }>;
+    const describedBy = [child.props['aria-describedby'], tooltipId].filter(Boolean).join(' ');
 
     const containerStyle: React.CSSProperties = {
       position: 'relative',
@@ -131,14 +143,15 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
         ref={ref}
         style={containerStyle}
         data-bbangto-tooltip-variant={variant}
-        onMouseEnter={show}
-        onMouseLeave={hide}
-        onFocus={show}
-        onBlur={hide}
+        onMouseEnter={composeHandlers(onMouseEnter, show)}
+        onMouseLeave={composeHandlers(onMouseLeave, hide)}
+        onFocus={composeHandlers(onFocus, show)}
+        onBlur={composeHandlers(onBlur, hide)}
+        onKeyDown={composeHandlers(onKeyDown, handleEscape)}
         {...props}
       >
-        {children}
-        <div style={tooltipStyle} role="tooltip">
+        {React.cloneElement(child, { 'aria-describedby': describedBy })}
+        <div id={tooltipId} style={tooltipStyle} role="tooltip">
           {content}
         </div>
       </div>

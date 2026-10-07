@@ -1,5 +1,6 @@
 import React from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
+import { composeHandlers, FOCUS_RING, isFocusVisible } from '../a11y';
 
 export type CardVariant = 'elevated' | 'outlined' | 'filled' | 'retro' | 'pixel';
 export type CardStatus = 'none' | 'error' | 'success' | 'warning';
@@ -50,7 +51,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
       padding = 'md',
       bordered = true,
       variant = 'elevated',
-      interactive = false,
+      interactive: interactiveProp,
       status = 'none',
       layout = 'vertical',
       media,
@@ -58,11 +59,18 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
       role,
       tabIndex,
       onKeyDown,
+      onFocus,
+      onBlur,
       onClick,
       ...props
     },
     ref
   ) => {
+    // A card with onClick is clickable, so it is interactive (keyboard-operable)
+    // unless the caller explicitly opts out with interactive={false}.
+    const interactive = interactiveProp ?? onClick !== undefined;
+    // Keyboard focus ring for interactive cards (mouse focus stays unmarked).
+    const [focusVisible, setFocusVisible] = React.useState(false);
     const paddingMap: Record<NonNullable<CardProps['padding']>, string> = {
       none: '0',
       sm: cssVar('spacing', '12'),
@@ -159,7 +167,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
       transition: interactive
         ? `box-shadow ${cssVar('motion', 'duration', 'fast')} ${cssVar('motion', 'easing', 'default')}, opacity ${cssVar('motion', 'duration', 'fast')} ${cssVar('motion', 'easing', 'default')}`
         : undefined,
-      outline: 'none',
+      ...(interactive && focusVisible ? FOCUS_RING : { outline: 'none' }),
       // Layout-specific container flow.
       ...(hasMedia && layout === 'horizontal'
         ? { display: 'flex', flexDirection: 'row', alignItems: 'stretch', gap: resolvedPadding }
@@ -172,13 +180,12 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
     const resolvedRole = interactive ? (role ?? 'button') : role;
     const resolvedTabIndex = interactive ? (tabIndex ?? 0) : tabIndex;
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const handleKeyDown = composeHandlers(onKeyDown, (e: React.KeyboardEvent<HTMLDivElement>) => {
       if (interactive && (e.key === 'Enter' || e.key === ' ')) {
         e.preventDefault();
         (e.currentTarget as HTMLDivElement).click();
       }
-      onKeyDown?.(e);
-    };
+    });
 
     // Media slot styling per layout.
     const horizontalMediaStyle: React.CSSProperties = {
@@ -257,6 +264,10 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
         data-bbangto-card-layout={layout}
         onClick={onClick}
         onKeyDown={interactive ? handleKeyDown : onKeyDown}
+        onFocus={composeHandlers(onFocus, (e: React.FocusEvent<HTMLDivElement>) =>
+          setFocusVisible(e.target === e.currentTarget && isFocusVisible(e.currentTarget)),
+        )}
+        onBlur={composeHandlers(onBlur, () => setFocusVisible(false))}
         {...props}
       >
         {body}

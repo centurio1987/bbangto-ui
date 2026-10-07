@@ -324,3 +324,28 @@ export const HorizontalPanels: Story = {
     await expect(await canvas.findByText(/expands open via flex-grow/)).toBeInTheDocument();
   },
 };
+
+// ─── 키보드 (KAN-054) ──────────────────────────────────────────────────────────
+
+/** 헤더에 Tab 으로 닿고 Enter/Space 로 펼치고 접는다 · aria-controls 가 내용을 가리킨다 */
+export const Keyboard: Story = {
+  args: {
+    title: 'Shipping',
+    children: 'Orders ship within two business days.',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const header = await canvas.findByRole('button', { name: 'Shipping' });
+    await expect(header.tabIndex).toBe(0);
+    await expect(document.getElementById(header.getAttribute('aria-controls')!)).not.toBeNull();
+
+    header.focus();
+    await userEvent.keyboard('{Enter}');
+    await expect(header).toHaveAttribute('aria-expanded', 'true');
+    await userEvent.keyboard(' ');
+    await expect(header).toHaveAttribute('aria-expanded', 'false');
+    await userEvent.tab({ shift: true });
+    await userEvent.tab();
+    await waitFor(() => expect(header).toHaveFocus());
+  },
+};

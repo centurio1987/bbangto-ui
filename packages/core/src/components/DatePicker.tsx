@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 import { Button } from './Button';
 import { Popover } from './Popover';
+import { FOCUS_RING, focusWhenReady, getDateGridTarget, getRovingIndex, isFocusVisible, toIsoDate } from '../a11y';
 
 export type DatePickerSize = 'sm' | 'md' | 'lg';
 
@@ -74,8 +75,20 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
     const [currentYear, setCurrentYear] = useState(value ? value.getFullYear() : new Date().getFullYear());
     const [isOpen, setIsOpen] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
+    // Keyboard focus on the default trigger (ghost keeps its own ring below).
+    const [isTriggerFocusVisible, setIsTriggerFocusVisible] = useState(false);
     // Week-rail anchor: the strip shows the Sun–Sat week containing this date.
     const [weekAnchor, setWeekAnchor] = useState<Date>(value ?? new Date());
+    // Date that holds keyboard focus in the popup grid / week rail (roving tabindex).
+    const [focusedDate, setFocusedDate] = useState<Date | null>(null);
+    // Set by a keyboard move: once the grid re-renders, move DOM focus to focusedDate.
+    const pendingFocusRef = useRef(false);
+    const rootRef = useRef<HTMLDivElement | null>(null);
+    const setRootRef = (node: HTMLDivElement | null) => {
+      rootRef.current = node;
+      if (typeof ref === 'function') ref(node);
+      else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+    };
 
     const daysInMonth = getDaysInMonth(currentYear, currentMonth);
     const firstDay = getFirstDayOfMonth(currentYear, currentMonth);
@@ -116,6 +129,57 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
       onChange?.(date);
     };
 
+    // Move keyboard focus to `date`, turning the popup month when needed.
+    const moveFocusTo = (date: Date) => {
+      if (date.getFullYear() !== currentYear || date.getMonth() !== currentMonth) {
+        setCurrentYear(date.getFullYear());
+        setCurrentMonth(date.getMonth());
+      }
+      pendingFocusRef.current = true;
+      setFocusedDate(date);
+    };
+
+    useEffect(() => {
+      if (!pendingFocusRef.current || !focusedDate) return undefined;
+      pendingFocusRef.current = false;
+      const iso = toIsoDate(focusedDate);
+      return focusWhenReady(() => rootRef.current?.querySelector<HTMLElement>(`[data-bbangto-date="${iso}"]`));
+    }, [focusedDate, currentYear, currentMonth, weekAnchor]);
+
+    // Popup grid keys (WAI-ARIA APG Date Picker Dialog): arrows by day / week,
+    // Home / End to the week's ends, PageUp / PageDown by month (Shift: year).
+    // Enter / Space are the day buttons' own click.
+    const handleGridKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>, date: Date) => {
+      const next = getDateGridTarget(e.key, date, e.shiftKey);
+      if (!next) return;
+      e.preventDefault();
+      moveFocusTo(next);
+    };
+
+    // The popup grid's single Tab stop: the focused date if it is in the shown
+    // month, else the selected date, else today, else day 1.
+    const inShownMonth = (d: Date | null | undefined): d is Date =>
+      !!d && d.getFullYear() === currentYear && d.getMonth() === currentMonth;
+    const gridTabStop = inShownMonth(focusedDate)
+      ? focusedDate
+      : inShownMonth(value)
+        ? value
+        : inShownMonth(new Date())
+          ? new Date()
+          : new Date(currentYear, currentMonth, 1);
+
+    // Opening the popup puts focus on the grid's Tab stop. Popover moves focus to
+    // its panel first; this runs after and lands it on the day.
+    useEffect(() => {
+      if (!isOpen) return undefined;
+      setFocusedDate(gridTabStop);
+      const iso = toIsoDate(gridTabStop);
+      return focusWhenReady(() =>
+        rootRef.current?.querySelector<HTMLElement>(`[data-bbangto-date-picker-popup] [data-bbangto-date="${iso}"]`),
+      );
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isOpen]);
+
     // ── size tokens ────────────────────────────────────────────────
     const paddingY =
       size === 'sm' ? cssVar('spacing', '6') :
@@ -137,7 +201,7 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
                  cssVar('semantic', 'border', 'base');
 
     const calendarContent = (
-      <div style={{ padding: cssVar('spacing', '16'), width: '280px', fontFamily: cssVar('typography', 'fontFamily', 'sans') }}>
+      <div data-bbangto-date-picker-popup style={{ padding: cssVar('spacing', '16'), width: '280px', fontFamily: cssVar('typography', 'fontFamily', 'sans') }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: cssVar('spacing', '16') }}>
           <Button variant="ghost" size="sm" onClick={handlePrevMonth} aria-label="Previous month">&lt;</Button>
           <div style={{ fontWeight: 'bold', fontSize: cssVar('typography', 'scale', 'body', 'fontSize') }}>
@@ -163,10 +227,19 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
             const isSelected = value && value.getDate() === day && value.getMonth() === currentMonth && value.getFullYear() === currentYear;
             const isToday = today.getDate() === day && today.getMonth() === currentMonth && today.getFullYear() === currentYear;
 
+            const cellDate = new Date(currentYear, currentMonth, day);
             return (
               <button
                 key={day}
+                type="button"
+                data-bbangto-date={toIsoDate(cellDate)}
+                aria-selected={!!isSelected}
+                tabIndex={sameDay(gridTabStop, cellDate) ? 0 : -1}
                 onClick={() => handleSelectDate(day)}
+                onKeyDown={(e) => handleGridKeyDown(e, cellDate)}
+                onFocus={() => {
+                  if (!sameDay(focusedDate ?? undefined, cellDate)) setFocusedDate(cellDate);
+                }}
                 style={{
                   width: '32px',
                   height: '32px',
@@ -221,7 +294,7 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
       width: '100%',
       minWidth: '200px',
       opacity: disabled ? '0.6' : '1',
-      outline: 'none',
+      ...(!isGhost && isTriggerFocusVisible ? FOCUS_RING : { outline: 'none' }),
       ...style,
     };
 
@@ -269,26 +342,35 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
 
       const selectedIndex = Math.max(0, weekDays.findIndex(d => sameDay(value, d)));
 
+      // The rail's Tab stop: the focused day if it is in this week, else the selected one.
+      const railStop = weekDays.find((d) => sameDay(focusedDate ?? undefined, d)) ?? weekDays[selectedIndex];
+
+      // ←/→ move a day at a time from the focused cell and roll the week over at
+      // its ends; Home / End go to the week's ends. Enter / Space are the cells' click.
       const handleRailKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
         if (disabled) return;
-        const focusCell = (idx: number) => {
-          const cell = e.currentTarget.querySelectorAll<HTMLButtonElement>('[role="gridcell"]')[idx];
-          cell?.focus();
-        };
-        const current = weekDays.findIndex(d => sameDay(value, d));
-        const from = current < 0 ? selectedIndex : current;
-        if (e.key === 'ArrowRight') {
-          e.preventDefault();
-          if (from >= 6) { shiftWeek(1); } else { focusCell(from + 1); }
-        } else if (e.key === 'ArrowLeft') {
-          e.preventDefault();
-          if (from <= 0) { shiftWeek(-1); } else { focusCell(from - 1); }
-        }
+        const iso = (document.activeElement as HTMLElement | null)?.getAttribute('data-bbangto-date');
+        const from = weekDays.find((d) => toIsoDate(d) === iso);
+        if (!from) return;
+        const step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        const next =
+          step !== 0
+            ? new Date(from.getFullYear(), from.getMonth(), from.getDate() + step)
+            : e.key === 'Home'
+              ? weekDays[0]
+              : e.key === 'End'
+                ? weekDays[6]
+                : null;
+        if (!next) return;
+        e.preventDefault();
+        setWeekAnchor(next);
+        pendingFocusRef.current = true;
+        setFocusedDate(next);
       };
 
       return (
         <div
-          ref={ref}
+          ref={setRootRef}
           data-bbangto-date-picker-variant="inline-week-strip"
           className={`${DP_ID}-root`}
           style={{ display: 'inline-block', width: '100%', minWidth: '280px', fontFamily: cssVar('typography', 'fontFamily', 'sans'), ...style }}
@@ -321,7 +403,7 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
                 minWidth: 0,
               }}
             >
-              {weekDays.map((d, i) => {
+              {weekDays.map((d) => {
                 const isSelected = sameDay(value, d);
                 return (
                   <button
@@ -329,9 +411,13 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
                     type="button"
                     role="gridcell"
                     aria-selected={isSelected}
-                    tabIndex={i === selectedIndex ? 0 : -1}
+                    data-bbangto-date={toIsoDate(d)}
+                    tabIndex={sameDay(railStop, d) ? 0 : -1}
                     disabled={disabled}
                     onClick={() => { selectExactDate(d); setWeekAnchor(d); }}
+                    onFocus={() => {
+                      if (!sameDay(focusedDate ?? undefined, d)) setFocusedDate(d);
+                    }}
                     style={{
                       display: 'flex',
                       flexDirection: 'column',
@@ -407,15 +493,35 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
         renderLabel: (v: number) => React.ReactNode,
         onPick: (v: number) => void
       ) => (
-        <div key={key} role="listbox" aria-label={ariaLabel} className={`${DP_ID}-wheel-track`} style={trackStyle}>
-          {items.map(v => {
+        <div
+          key={key}
+          role="listbox"
+          aria-label={ariaLabel}
+          className={`${DP_ID}-wheel-track`}
+          style={trackStyle}
+          onKeyDown={(e) => {
+            // One Tab stop per column; ↑/↓/Home/End move like turning the drum and
+            // pick the value they land on (WAI-ARIA APG Listbox, selection follows focus).
+            if (disabled) return;
+            const current = items.findIndex(isSelected);
+            const next = getRovingIndex(e.key, current, items.map(() => false), { orientation: 'vertical', loop: false });
+            if (next === null) return;
+            e.preventDefault();
+            onPick(items[next]);
+            const options = e.currentTarget.querySelectorAll<HTMLElement>('[role="option"]');
+            focusWhenReady(() => options[next]);
+          }}
+        >
+          {items.map((v, i) => {
             const selected = isSelected(v);
+            const stop = items.some(isSelected) ? selected : i === 0;
             return (
               <button
                 key={v}
                 type="button"
                 role="option"
                 aria-selected={selected}
+                tabIndex={stop ? 0 : -1}
                 disabled={disabled}
                 onClick={() => { if (!disabled) onPick(v); }}
                 style={itemStyle(selected)}
@@ -429,7 +535,7 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
 
       return (
         <div
-          ref={ref}
+          ref={setRootRef}
           data-bbangto-date-picker-variant="wheel"
           className={`${DP_ID}-root`}
           style={{ display: 'inline-block', width: '100%', minWidth: '280px', fontFamily: cssVar('typography', 'fontFamily', 'sans'), ...style }}
@@ -501,6 +607,7 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
 
     return (
       <div
+        ref={rootRef}
         data-bbangto-date-picker-variant={variant}
         className={`${DP_ID}-root`}
         style={{ display: 'inline-block', width: '100%', minWidth: '200px' }}
@@ -521,10 +628,25 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
           <div
             data-datepicker-trigger
             style={inputTriggerStyle}
+            role="button"
             tabIndex={disabled ? -1 : 0}
             onClick={handleTriggerClick}
-            onFocus={isGhost ? () => setIsFocused(true) : undefined}
-            onBlur={isGhost ? () => setIsFocused(false) : undefined}
+            onKeyDown={(e) => {
+              // Enter / Space / ↓ open the calendar (WAI-ARIA APG Date Picker Dialog).
+              if (disabled || isOpen) return;
+              if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown') {
+                e.preventDefault();
+                setIsOpen(true);
+              }
+            }}
+            onFocus={(e) => {
+              if (isGhost) setIsFocused(true);
+              else setIsTriggerFocusVisible(e.target === e.currentTarget && isFocusVisible(e.currentTarget));
+            }}
+            onBlur={() => {
+              if (isGhost) setIsFocused(false);
+              else setIsTriggerFocusVisible(false);
+            }}
             aria-disabled={disabled || undefined}
           >
             {value ? formatDate(value) : placeholder}

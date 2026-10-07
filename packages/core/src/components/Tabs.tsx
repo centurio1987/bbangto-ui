@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useId, useRef, useState } from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
-import { useRovingFocus } from '../a11y';
+import { composeHandlers, useRovingFocus } from '../a11y';
 
 // --- Types ---
 export type TabsVariant = 'underline' | 'pill' | 'enclosed' | 'segmented';
@@ -127,9 +127,7 @@ export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
 
     // Arrow keys / Home / End move focus and selection together (APG automatic
     // activation). Disabled tabs are skipped.
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-      onKeyDown?.(e);
-      if (e.defaultPrevented) return;
+    const handleKeyDown = composeHandlers(onKeyDown, (e: React.KeyboardEvent<HTMLDivElement>) => {
       const triggers = getTriggers();
       const current = triggers.indexOf(document.activeElement as HTMLButtonElement);
       if (current < 0) return;
@@ -137,7 +135,7 @@ export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
       if (next === null || next === current) return;
       triggers[next].focus();
       onValueChange(triggers[next].dataset.bbangtoTabTrigger!);
-    };
+    });
 
     // Underline sliding indicator — only for the 'underline' variant.
     useEffect(() => {
