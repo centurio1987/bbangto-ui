@@ -36,7 +36,7 @@ KAN-054 가 빌드한 Storybook 을 실제 키로 돌아보다가 Button·Card �
 
 TreeView 는 표시가 아예 없는 것은 아니지만 카드 목적의 목록에 있고, 고리가 항목 하나가 아니라 하위 트리 전체를 감싸 어느 항목인지 흐려진다. 그래서 다른 자리와 같은 테두리를 행에 그리는 쪽으로 맞춘다.
 
-`Menu.tsx:208` 의 `outline: 'none'` 은 목록(`ul`) 상자에 붙어 있는데 그 상자에는 `tabIndex` 가 없어 Tab 으로 닿지 않는다. 고칠 자리가 아니라 게이트 예외로 사유를 적는다.
+`Menu.tsx:208` 의 `outline: 'none'` 은 목록(`ul`) 상자에 붙어 있는데 그 상자에는 `tabIndex` 가 없어 Tab 으로 닿지 않는다. 고칠 자리가 아니다. 파일 단위 검사라 Menu.tsx 는 항목 때문에 목록에 오르고, 이 사유는 그 항목의 `indicator` 에 적었다. 게이트 예외(`focusRingIgnored`)에는 화면 낭독 전용 글자를 숨기는 `motion/CountUp.tsx` 가 올라갔다(S1 에서 신호 정규식을 core 전체에 돌려 나왔다).
 
 ### 범위를 어떻게 읽었는가
 
@@ -96,7 +96,7 @@ TreeView 는 표시가 아예 없는 것은 아니지만 카드 목적의 목록
 - visualization 패키지의 포커스 표시.
 
 ## 실행 계획
-- [x] `S1` 게이트 먼저 — `keyboard-coverage.json` 에 `focusRing`(전략 표의 컴포넌트 + KAN-054 셋, 항목마다 `component`·`source`·`indicator`) 과 `focusRingIgnored`(`Menu.tsx` 목록 상자) 를 더하고, `packages/foundations/src/keyboardCoverage.ts` 에 검사 함수, `.test.ts` 에 실제 저장소 검사와 fixture 실패 주입을 더한다. 검사는 셋이다 — 신호가 나온 파일이 목록·예외에 있는가, 목록의 소스가 공용 규칙(`FOCUS_RING`·`useFocusVisible`·`:focus-visible`)을 쓰는가, 실제 입력 테스트에 `<컴포넌트>:` 항목이 있는가. 완료 기준: fixture 검사 초록, 실제 저장소 검사 빨강이고 위반 목록이 전략 표의 파일과 같다(KAN-054 셋은 위반에 없다)
+- [x] `S1` 게이트 먼저 — `keyboard-coverage.json` 에 `focusRing`(전략 표의 컴포넌트 + KAN-054 셋, 항목마다 `component`·`source`·`indicator`) 과 `focusRingIgnored`(S1 에서 `motion/CountUp.tsx` 로 확정 — Menu 목록 상자 사유는 Menu 항목의 `indicator` 로) 를 더하고, `packages/foundations/src/keyboardCoverage.ts` 에 검사 함수, `.test.ts` 에 실제 저장소 검사와 fixture 실패 주입을 더한다. 검사는 셋이다 — 신호가 나온 파일이 목록·예외에 있는가, 목록의 소스가 공용 규칙(`FOCUS_RING`·`useFocusVisible`·`:focus-visible`)을 쓰는가, 실제 입력 테스트에 `<컴포넌트>:` 항목이 있는가. 완료 기준: fixture 검사 초록, 실제 저장소 검사 빨강이고 위반 목록이 전략 표의 파일과 같다(KAN-054 셋은 위반에 없다)
 - [x] `S2` 실제 입력 테스트 먼저 — `apps/storybook/src/real-input/FocusVisible.realinput.test.tsx` 에 전략 표의 자리마다 항목을 더한다. 실제 Tab 이면 표시 요소의 `outline` 이 `solid 2px`, 실제 클릭이면 `none`(글자 입력칸은 벗어나면 `none`). 완료 기준: 새 항목이 모두 빨강, KAN-054 셋은 초록
 - [x] `S3` 공용 규칙 — `a11y/focusRing.ts` 색을 `border.focus` 로, 안쪽 간격 변형, `useFocusVisible()` 훅(외부 `onFocus`·`onBlur` 합성). Card·DatePicker 를 훅으로 바꾸고 Gallery·Testimonials 의 색 한 단어를 맞춘다. 완료 기준: KAN-054 실제 입력 셋과 Card·DatePicker·Calendar·Gallery·Testimonials 스토리 초록, core typecheck 통과
 - [x] `S4` 자기 자신에 그리는 자리 — Button · Link(모든 변형, 상자 변형 box-shadow 고리 걷기) · Dock 항목 · TreeView 항목 · Menu 항목 · ScrollArea. 완료 기준: 해당 실제 입력 항목 초록, 해당 스토리 초록
@@ -159,3 +159,5 @@ pnpm test:unit                  # ← keyboardCoverage.test.ts 의 포커스 표
 - 2026-10-07T19:31 · s:adde175a · S6 doing — 착수
 - 2026-10-07T19:34 · s:adde175a · S6 done — 빌드한 Storybook(127.0.0.1)에서 Playwright 실제 Tab 으로 19자리를 찍었다 — 모두 테두리 하나(2px)가 보이고, overflow 로 잘리는 조상이 없다(스크립트로 조상 상자와 고리 범위를 대조). Menu·TreeView 항목·NumberField 증감·Radio 조각은 안쪽 간격(-2px)으로 확정. TreeView 는 펼친 노드에서도 행 하나에만 그려진다. 스타일 가이드(Neobrutalism)에서는 그 가이드의 border.focus(금색)를 따른다 — 크림 배경에서 흐린 것은 KAN-060 몫. changeset kan-059-focus-ring.md(core minor). 게이트 5종 초록: typecheck · build · test 192파일 1289건 · storybook build · test:unit
 - 2026-10-07T19:36 · s:adde175a — `전략` 섹션 교체
+- 2026-10-07T19:49 · s:adde175a — `전략` 섹션 교체
+- 2026-10-07T19:49 · s:adde175a — `실행 계획` 섹션 교체
