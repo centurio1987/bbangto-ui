@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { frutigerAeroGlossyCopyExt } from './_showcaseCopy/frutigerAeroGlossy';
 
 /*
  * FrutigerAero_Glossy_01 — 2000s 프루티거 에어로 글로스.
@@ -213,7 +214,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'AeroShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'AeroShowcase', frutigerAeroGlossyCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   surface: {

@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { collageScrapbookCopyExt } from './_showcaseCopy/collageScrapbook';
 
 /*
  * Collage_Scrapbook_01 — 크라프트 종이 위 콜라주/스크랩북.
@@ -230,7 +231,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'CollageShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'CollageShowcase', collageScrapbookCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   surface: {

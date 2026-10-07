@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { mixedMediaCollageCopyExt } from './_showcaseCopy/mixedMediaCollage';
 
 /*
  * Mixed_Media_Collage_01 — 멀티미디어 합성 레이어 콜라주 미학.
@@ -207,7 +208,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'MixedMediaCollageShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'MixedMediaCollageShowcase', mixedMediaCollageCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   layout: {

@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { skeuomorphismTactileCopyExt } from './_showcaseCopy/skeuomorphismTactile';
 
 /*
  * Skeuomorphism_Tactile_01 — 실물 질감(가죽/노트) 스큐어모피즘.
@@ -193,7 +194,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'SkeuoShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'SkeuoShowcase', skeuomorphismTactileCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   surface: {

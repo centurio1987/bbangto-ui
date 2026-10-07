@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { glassmorphismAuroraCopyExt } from './_showcaseCopy/glassmorphismAurora';
 
 /*
  * Glassmorphism_Aurora_01 — 반투명 frosted glass + 오로라 배경.
@@ -209,7 +210,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'GlassmorphismShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'GlassmorphismShowcase', glassmorphismAuroraCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   surface: {

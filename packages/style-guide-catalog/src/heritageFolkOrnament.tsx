@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { heritageFolkOrnamentCopyExt } from './_showcaseCopy/heritageFolkOrnament';
 
 /*
  * Heritage_Folk_Ornament_01 — 패밀리 노스탤지어 공예 오너먼트 미학.
@@ -268,7 +269,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'HeritageFolkOrnamentShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'HeritageFolkOrnamentShowcase', heritageFolkOrnamentCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   layout: {

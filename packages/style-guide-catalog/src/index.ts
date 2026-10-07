@@ -9,7 +9,7 @@ export {
   type ShowcaseContact,
   type ShowcaseCopyExt,
 } from './_showcase';
-export { SHOWCASE_COPY_EXT } from './_showcaseCopy.generated';
+export { SHOWCASE_COPY_EXT } from './_showcaseCopy';
 
 // P1 카탈로그 presets.
 export { neobrutalismEditorialStyleGuide, NeobrutalismShowcase, neobrutalismEditorialWrappers } from './neobrutalismEditorial';

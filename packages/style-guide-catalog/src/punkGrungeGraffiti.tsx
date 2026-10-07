@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { punkGrungeGraffitiCopyExt } from './_showcaseCopy/punkGrungeGraffiti';
 
 /*
  * Punk_Grunge_Graffiti_01 — 제록스로 복사하고 찢어 벽에 덧붙인 펑크 진(zine)·그래피티 미학.
@@ -257,7 +258,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'PunkGrungeGraffitiShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'PunkGrungeGraffitiShowcase', punkGrungeGraffitiCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   layout: {

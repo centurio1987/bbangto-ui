@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { photoTypeEditorialCopyExt } from './_showcaseCopy/photoTypeEditorial';
 
 /*
  * Photo_Type_Editorial_01 — 포토·타입 에디토리얼 미학.
@@ -199,7 +200,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'PhotoTypeEditorialShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'PhotoTypeEditorialShowcase', photoTypeEditorialCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   layout: {

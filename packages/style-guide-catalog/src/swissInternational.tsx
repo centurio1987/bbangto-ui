@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { swissInternationalCopyExt } from './_showcaseCopy/swissInternational';
 
 /*
  * Swiss_International_01 — 그리드 · 비대칭 정렬 · 산세리프 · 적/흑/백.
@@ -166,7 +167,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'SwissShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'SwissShowcase', swissInternationalCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   layout: {

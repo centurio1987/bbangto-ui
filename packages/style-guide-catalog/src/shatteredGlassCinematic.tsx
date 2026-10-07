@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { shatteredGlassCinematicCopyExt } from './_showcaseCopy/shatteredGlassCinematic';
 
 /*
  * Shattered_Glass_Cinematic_01 — 깨진 유리 시네마틱 미학.
@@ -257,7 +258,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'ShatteredGlassCinematicShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'ShatteredGlassCinematicShowcase', shatteredGlassCinematicCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   layout: {

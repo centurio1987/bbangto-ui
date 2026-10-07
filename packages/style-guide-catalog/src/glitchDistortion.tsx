@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { glitchDistortionCopyExt } from './_showcaseCopy/glitchDistortion';
 
 /*
  * Glitch_Distortion_01 — '데이터 손상'을 미감으로 삼는 듀오톤 글리치.
@@ -217,7 +218,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'GlitchDistortionShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'GlitchDistortionShowcase', glitchDistortionCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   layout: {

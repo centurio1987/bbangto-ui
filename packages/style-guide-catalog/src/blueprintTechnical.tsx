@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { blueprintTechnicalCopyExt } from './_showcaseCopy/blueprintTechnical';
 
 /*
  * Blueprint_Technical_01 — 엔지니어링 청사진 제도(製圖) 미학.
@@ -215,7 +216,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'BlueprintTechnicalShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'BlueprintTechnicalShowcase', blueprintTechnicalCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   layout: {

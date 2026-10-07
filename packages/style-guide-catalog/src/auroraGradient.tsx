@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { auroraGradientCopyExt } from './_showcaseCopy/auroraGradient';
 
 /*
  * Aurora_Gradient_01 — 오로라 메시 그라디언트 (AI/SaaS 랜딩).
@@ -230,7 +231,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'AuroraShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'AuroraShowcase', auroraGradientCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   surface: {

@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { scandiWarmCopyExt } from './_showcaseCopy/scandiWarm';
 
 /*
  * Scandi_Warm_01 — 북유럽 따뜻한 미니멀.
@@ -183,7 +184,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'ScandiShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'ScandiShowcase', scandiWarmCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   surface: {

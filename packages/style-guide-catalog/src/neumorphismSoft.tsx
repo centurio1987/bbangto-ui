@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { neumorphismSoftCopyExt } from './_showcaseCopy/neumorphismSoft';
 
 /*
  * Neumorphism_Soft_01 — 단색 표면 + 이중 그림자 압출감.
@@ -180,7 +181,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'NeumorphismShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'NeumorphismShowcase', neumorphismSoftCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   surface: {

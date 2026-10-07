@@ -1,6 +1,5 @@
 import React from 'react';
 import type { WrapperComponents } from '@centurio1987/bbangto-ui-core';
-import { SHOWCASE_COPY_EXT } from './_showcaseCopy.generated';
 
 /*
  * Style Guide Catalog — 공통 Showcase(구현 예시) 빌더.
@@ -90,18 +89,19 @@ const CONTACT_DEFAULT: Required<ShowcaseContact> = {
 };
 
 /** wrapper 세트 + 카피로 3섹션 에디토리얼 Showcase 컴포넌트를 만든다.
-    섹션은 콘텐츠 높이 + 넉넉한 패딩으로 그린다 — 100vh 강제 금지(짧은 카피에서 빈 화면 방지). */
+    섹션은 콘텐츠 높이 + 넉넉한 패딩으로 그린다 — 100vh 강제 금지(짧은 카피에서 빈 화면 방지).
+    `ext` 는 확장 카피이고 `copy` 의 같은 필드보다 우선한다. 카탈로그 preset 은 `_showcaseCopy/` 의 자기 몫을 넘긴다. */
 export function makeShowcase(
   W: WrapperComponents,
   copy: ShowcaseCopy,
-  displayName: string
+  displayName: string,
+  ext: ShowcaseCopyExt = {}
 ): React.FC<React.HTMLAttributes<HTMLDivElement>> {
   const Button = W.Button as React.ElementType;
   const Card = W.Card as React.ElementType;
   const Tag = W.Tag as React.ElementType;
 
-  // 결정론적 병합: 카탈로그 소스의 base copy + displayName 키 확장 데이터.
-  const ext = SHOWCASE_COPY_EXT[displayName] ?? {};
+  // 결정론적 병합: 카탈로그 소스의 base copy + 넘겨받은 확장 데이터.
   const c: ShowcaseCopy = { ...copy, ...ext };
 
   const menuEyebrow = c.menuEyebrow ?? 'COMPONENTS';

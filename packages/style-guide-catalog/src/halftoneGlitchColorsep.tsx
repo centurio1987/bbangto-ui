@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { halftoneGlitchColorsepCopyExt } from './_showcaseCopy/halftoneGlitchColorsep';
 
 /*
  * Halftone_Glitch_Colorsep_01 — CMYK 망점 스크린 + 색분해(채널 어긋남) 글리치 미학.
@@ -217,7 +218,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'HalftoneGlitchColorsepShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'HalftoneGlitchColorsepShowcase', halftoneGlitchColorsepCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   layout: {

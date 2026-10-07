@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { ukiyoeWoodblockCopyExt } from './_showcaseCopy/ukiyoeWoodblock';
 
 /*
  * Ukiyoe_Woodblock_01 — 전통 목판화(우키요에) 미학.
@@ -204,7 +205,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'UkiyoeWoodblockShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'UkiyoeWoodblockShowcase', ukiyoeWoodblockCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   layout: {

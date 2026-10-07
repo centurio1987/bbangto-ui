@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { bentoModularCopyExt } from './_showcaseCopy/bentoModular';
 
 /*
  * Bento_Modular_01 — 도시락(bento)형 모듈 그리드 미학.
@@ -178,7 +179,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'BentoShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'BentoShowcase', bentoModularCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   layout: {

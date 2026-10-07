@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { opArtKineticCopyExt } from './_showcaseCopy/opArtKinetic';
 
 /*
  * Op_Art_Kinetic_01 — 옵아트 키네틱 미학.
@@ -223,7 +224,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'OpArtKineticShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'OpArtKineticShowcase', opArtKineticCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   layout: {

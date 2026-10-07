@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { flatMaterialCopyExt } from './_showcaseCopy/flatMaterial';
 
 /*
  * Flat_Material_01 — Material You 톤 + elevation 그림자 + 상태 레이어.
@@ -167,7 +168,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'FlatMaterialShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'FlatMaterialShowcase', flatMaterialCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   surface: {

@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { vaporwaveSynthCopyExt } from './_showcaseCopy/vaporwaveSynth';
 
 /*
  * Vaporwave_Synth_01 — 베이퍼웨이브/신스웨이브.
@@ -207,7 +208,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'VaporShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'VaporShowcase', vaporwaveSynthCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   surface: {

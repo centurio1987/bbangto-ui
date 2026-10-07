@@ -62,7 +62,7 @@
   - 이유: KAN-051 뒤에도 Showcase 하나가 약 101KB이고 그중 76,517B가 Showcase 51개가 함께 쓰는 생성 카피 파일 하나에서 온다
   - 목표: Showcase 하나를 가져온 번들에 그 Showcase 카피만 들어가고, bundle-budget.json 의 sgc 대표 상한을 새 실측으로 낮춘다
   - 메모: KAN-051 검토 4항(2026-10-07 승인)에서 나온 후속 · 근거는 KANBAN/cards/KAN-051-5HMYKT.md 「전략」의 범위 밖 절
-  - 실행 문서: KANBAN/cards/KAN-058-G883EJ.md (1/4 · 최근 10-07)
+  - 실행 문서: KANBAN/cards/KAN-058-G883EJ.md (2/4 · 최근 10-07)
   - 계획 리포트: KANBAN/reports/KAN-058-G883EJ.report.html (낡음)
 
 ## 검토

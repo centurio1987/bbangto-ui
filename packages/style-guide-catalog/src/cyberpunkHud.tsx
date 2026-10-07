@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { cyberpunkHudCopyExt } from './_showcaseCopy/cyberpunkHud';
 
 /*
  * Cyberpunk_Hud_01 — near-black 베이스 + 네온 HUD.
@@ -231,7 +232,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'CyberShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'CyberShowcase', cyberpunkHudCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   surface: {

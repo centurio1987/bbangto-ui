@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { organicFluidBlobCopyExt } from './_showcaseCopy/organicFluidBlob';
 
 /*
  * Organic_Fluid_Blob_01 — 바이오모픽 유체 블롭/리본 미학.
@@ -212,7 +213,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'OrganicFluidBlobShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'OrganicFluidBlobShowcase', organicFluidBlobCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   layout: {

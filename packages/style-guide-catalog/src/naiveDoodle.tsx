@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { naiveDoodleCopyExt } from './_showcaseCopy/naiveDoodle';
 
 /*
  * Naive_Doodle_01 — 비숙련 어린아이의 크레용 낙서·스크리블 미학.
@@ -215,7 +216,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'NaiveDoodleShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'NaiveDoodleShowcase', naiveDoodleCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   layout: {

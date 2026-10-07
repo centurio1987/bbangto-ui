@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { iridescentChromeCopyExt } from './_showcaseCopy/iridescentChrome';
 
 /*
  * Iridescent_Chrome_01 — 근흑 무대 위 불투명 홀로그래픽 포일 + 액체 크롬 메탈 미학.
@@ -238,7 +239,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'IridescentChromeShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'IridescentChromeShowcase', iridescentChromeCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   layout: {

@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { bauhausGeometricCopyExt } from './_showcaseCopy/bauhausGeometric';
 
 /*
  * Bauhaus_Geometric_01 — 바우하우스 기하 구성.
@@ -210,7 +211,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'BauhausShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'BauhausShowcase', bauhausGeometricCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   surface: {

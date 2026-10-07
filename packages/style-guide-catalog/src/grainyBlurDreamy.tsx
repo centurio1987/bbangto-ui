@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { grainyBlurDreamyCopyExt } from './_showcaseCopy/grainyBlurDreamy';
 
 /*
  * Grainy_Blur_Dreamy_01 — 필름 그레인 + 아웃포커스 블러의 몽환적 포토그래픽 헤이즈.
@@ -279,7 +280,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'GrainyBlurDreamyShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'GrainyBlurDreamyShowcase', grainyBlurDreamyCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   layout: {
