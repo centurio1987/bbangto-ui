@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { cssVar } from '@centurio1987/bbangto-ui-tokens';
 import { Button } from './Button';
 import { Popover } from './Popover';
-import { focusWhenReady, getDateGridTarget, getRovingIndex, toIsoDate } from '../a11y';
+import { FOCUS_RING, focusWhenReady, getDateGridTarget, getRovingIndex, isFocusVisible, toIsoDate } from '../a11y';
 
 export type DatePickerSize = 'sm' | 'md' | 'lg';
 
@@ -75,6 +75,8 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
     const [currentYear, setCurrentYear] = useState(value ? value.getFullYear() : new Date().getFullYear());
     const [isOpen, setIsOpen] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
+    // Keyboard focus on the default trigger (ghost keeps its own ring below).
+    const [isTriggerFocusVisible, setIsTriggerFocusVisible] = useState(false);
     // Week-rail anchor: the strip shows the Sun–Sat week containing this date.
     const [weekAnchor, setWeekAnchor] = useState<Date>(value ?? new Date());
     // Date that holds keyboard focus in the popup grid / week rail (roving tabindex).
@@ -292,7 +294,7 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
       width: '100%',
       minWidth: '200px',
       opacity: disabled ? '0.6' : '1',
-      outline: 'none',
+      ...(!isGhost && isTriggerFocusVisible ? FOCUS_RING : { outline: 'none' }),
       ...style,
     };
 
@@ -637,8 +639,14 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
                 setIsOpen(true);
               }
             }}
-            onFocus={isGhost ? () => setIsFocused(true) : undefined}
-            onBlur={isGhost ? () => setIsFocused(false) : undefined}
+            onFocus={(e) => {
+              if (isGhost) setIsFocused(true);
+              else setIsTriggerFocusVisible(e.target === e.currentTarget && isFocusVisible(e.currentTarget));
+            }}
+            onBlur={() => {
+              if (isGhost) setIsFocused(false);
+              else setIsTriggerFocusVisible(false);
+            }}
             aria-disabled={disabled || undefined}
           >
             {value ? formatDate(value) : placeholder}

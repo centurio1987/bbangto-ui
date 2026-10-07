@@ -62,7 +62,7 @@
   - 이유: 같은 결함이 11곳에 더 있어서 보고된 세 곳만 고치면 같은 문제가 다시 나온다
   - 목표: keyboard-coverage.json에 오른 모든 상호작용 컴포넌트에 키보드 play 테스트가 있고, 빠지면 test:unit이 빨강이 된다
   - 메모: 외부 앱 소비 문제 대응 5장 중 4 · KAN-053 뒤에 직렬 · KAN-053 넘김: onKeyDown 합성 규칙 통일(Tabs↔Modal·Drawer) + 실제 키 입력 게이트 — 전략 「KAN-053에서 넘어온 것」
-  - 실행 문서: KANBAN/cards/KAN-054-M48FNQ.md (8/11 · 최근 10-07)
+  - 실행 문서: KANBAN/cards/KAN-054-M48FNQ.md (9/11 · 최근 10-07)
   - 계획 리포트: KANBAN/reports/KAN-054-M48FNQ.report.html (낡음)
   - 검토 문서: KANBAN/reviews/KAN-054-M48FNQ.review.md (승인 4/6 · 반려 2 · 추가 의견 총 9 · 검토 대기)
   - 원문:

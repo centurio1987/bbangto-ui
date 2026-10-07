@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { cssVar, breakpoints } from '@centurio1987/bbangto-ui-tokens';
-import { focusWhenReady, getDateGridTarget, toIsoDate } from '../a11y';
+import { FOCUS_RING, focusWhenReady, getDateGridTarget, isFocusVisible, toIsoDate } from '../a11y';
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 
@@ -133,6 +133,8 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
     const [focusedDate, setFocusedDate] = useState<Date | null>(null);
     // set by a keyboard move: after the grid re-renders, move DOM focus to focusedDate
     const pendingFocusRef = useRef(false);
+    // whether the focused day got keyboard focus (paints the focus ring)
+    const [focusVisible, setFocusVisible] = useState(false);
     const rootRef = useRef<HTMLDivElement | null>(null);
     const setRootRef = (node: HTMLDivElement | null) => {
       rootRef.current = node;
@@ -278,10 +280,16 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
       'data-bbangto-date': toIsoDate(date),
       tabIndex: isSameDay(date, tabStopDate) ? 0 : -1,
       onKeyDown: (e: React.KeyboardEvent<HTMLButtonElement>) => handleDateKeyDown(e, date),
-      onFocus: () => {
+      onFocus: (e: React.FocusEvent<HTMLButtonElement>) => {
+        setFocusVisible(isFocusVisible(e.currentTarget));
         if (!focusedDate || !isSameDay(focusedDate, date)) setFocusedDate(date);
       },
+      onBlur: () => setFocusVisible(false),
     });
+
+    // focus ring on the day that has keyboard focus
+    const focusRingFor = (date: Date): React.CSSProperties =>
+      focusVisible && focusedDate && isSameDay(focusedDate, date) ? FOCUS_RING : {};
 
     // ── styles ────────────────────────────────────────────────────────────────
 
@@ -654,7 +662,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
                       aria-disabled={isOutOfRange || disabled || undefined}
                       {...dayButtonA11y(cellDate)}
                       disabled={isOutOfRange || disabled}
-                      style={getDayCellStyle(day, isSelected, isOutOfRange)}
+                      style={{ ...getDayCellStyle(day, isSelected, isOutOfRange), ...focusRingFor(cellDate) }}
                       onClick={() => handleSelectDay(day)}
                     >
                       {isFullscreen ? (
@@ -714,7 +722,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
                           aria-disabled={isOutOfRange || disabled || undefined}
                           {...dayButtonA11y(cellDate)}
                           disabled={isOutOfRange || disabled}
-                          style={getDayCellStyle(day, isSelected, isOutOfRange)}
+                          style={{ ...getDayCellStyle(day, isSelected, isOutOfRange), ...focusRingFor(cellDate) }}
                           onClick={() => handleSelectDateAt(nextMonthYear, nextMonthMonth, day)}
                         >
                           {day}
