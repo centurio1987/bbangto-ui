@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { kineticTypographyCopyExt } from './_showcaseCopy/kineticTypography';
 
 /*
  * Kinetic_Typography_01 — 움직이는 · 커서 반응 타이포그래피 (타이포/편집, P2).
@@ -209,7 +210,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'KineticShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'KineticShowcase', kineticTypographyCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   layout: {

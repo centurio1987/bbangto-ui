@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { radiantGlowDarkCopyExt } from './_showcaseCopy/radiantGlowDark';
 
 /*
  * Radiant_Glow_Dark_01 — 다크 무드 라디언트 글로우 미학(테크/다크 패밀리).
@@ -221,7 +222,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'RadiantGlowDarkShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'RadiantGlowDarkShowcase', radiantGlowDarkCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   layout: {

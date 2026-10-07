@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { y2kFuturismCopyExt } from './_showcaseCopy/y2kFuturism';
 
 /*
  * Y2K_Futurism_01 — 크롬/실버 메탈 + 네온 글로우.
@@ -215,7 +216,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'Y2KShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'Y2KShowcase', y2kFuturismCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   surface: {

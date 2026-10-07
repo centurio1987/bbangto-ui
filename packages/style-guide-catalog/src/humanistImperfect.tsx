@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { humanistImperfectCopyExt } from './_showcaseCopy/humanistImperfect';
 
 /*
  * Humanist_Imperfect_01 — 손그림 · 유기 곡선 · 의도적 결함 레터폼.
@@ -204,7 +205,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'HumanistShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'HumanistShowcase', humanistImperfectCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   layout: {

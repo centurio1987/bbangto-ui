@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { spatial3dCopyExt } from './_showcaseCopy/spatial3d';
 
 /*
  * Spatial_3D_01 — WebGL/3D · 공간 UI 미학을 CSS로 모사.
@@ -206,7 +207,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'Spatial3DShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'Spatial3DShowcase', spatial3dCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   layout: {

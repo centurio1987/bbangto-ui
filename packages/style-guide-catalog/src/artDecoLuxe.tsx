@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { artDecoLuxeCopyExt } from './_showcaseCopy/artDecoLuxe';
 
 /*
  * ArtDeco_Luxe_01 — 1920s 아르데코 럭셔리.
@@ -225,7 +226,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'ArtDecoShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'ArtDecoShowcase', artDecoLuxeCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   surface: {

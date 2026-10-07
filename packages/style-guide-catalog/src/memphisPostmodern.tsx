@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { memphisPostmodernCopyExt } from './_showcaseCopy/memphisPostmodern';
 
 /*
  * Memphis_Postmodern_01 — 멤피스 포스트모던. 고채도 충돌 + 파스텔.
@@ -205,7 +206,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'MemphisShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'MemphisShowcase', memphisPostmodernCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   surface: {

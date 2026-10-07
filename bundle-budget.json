@@ -1,5 +1,5 @@
 {
-  "$comment": "번들 크기 상한 정본 (KAN-051). 게이트는 packages/foundations/src/bundleBudget.test.ts — `pnpm build` 뒤 `pnpm test:unit` 에서 돈다. 각 패키지 dist 를 esbuild 로 묶어(minify, react·react-dom·@centurio1987/* 는 바깥) 바이트를 잰다. representative 는 대표 export 하나만 가져왔을 때, all 은 export * 전부를 가져왔을 때다. max 는 손으로 정하지 않는다 — basis(그 상한을 계산한 측정값)에 아래 rule 을 적용한 값이고, 게이트가 그 일치를 검사한다. 상한을 바꾸려면 basis 를 다시 재서 고친다. basis 는 2026-10-07 KAN-051 S3 직후 실측이다.",
+  "$comment": "번들 크기 상한 정본 (KAN-051). 게이트는 packages/foundations/src/bundleBudget.test.ts — `pnpm build` 뒤 `pnpm test:unit` 에서 돈다. 각 패키지 dist 를 esbuild 로 묶어(minify, react·react-dom·@centurio1987/* 는 바깥) 바이트를 잰다. representative 는 대표 export 하나만 가져왔을 때, all 은 export * 전부를 가져왔을 때다. max 는 손으로 정하지 않는다 — basis(그 상한을 계산한 측정값)에 아래 rule 을 적용한 값이고, 게이트가 그 일치를 검사한다. 상한을 바꾸려면 basis 를 다시 재서 고친다. basis 는 2026-10-07 KAN-051 S3 직후 실측이다. 다만 style-guide-catalog 의 representative 는 Showcase 카피를 preset 파일마다 나눈 KAN-058 S2 직후 실측이다(101,092 → 25,649, 같은 날). 그때 잰 all 은 840,904 로 상한 안이라 basis 를 그대로 뒀다.",
   "rule": {
     "representative": "ceil(max(basis × 1.5, basis + 2048) / 512) × 512",
     "all": "ceil(basis × 1.15 / 1024) × 1024"
@@ -31,8 +31,8 @@
       "package": "@centurio1987/bbangto-ui-style-guide-catalog",
       "dir": "packages/style-guide-catalog",
       "representative": "NeobrutalismShowcase",
-      "basis": { "representative": 101092, "all": 840248 },
-      "max": { "representative": 152064, "all": 966656 }
+      "basis": { "representative": 25649, "all": 840248 },
+      "max": { "representative": 38912, "all": 966656 }
     },
     {
       "package": "@centurio1987/bbangto-ui-visualization-style-guide-catalog",

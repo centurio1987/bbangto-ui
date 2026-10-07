@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { halftoneDotPrintCopyExt } from './_showcaseCopy/halftoneDotPrint';
 
 /*
  * Halftone_Dot_Print_01 — CMYK 망점 인쇄(halftone) 미학.
@@ -257,7 +258,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'HalftoneDotPrintShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'HalftoneDotPrintShowcase', halftoneDotPrintCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   layout: {

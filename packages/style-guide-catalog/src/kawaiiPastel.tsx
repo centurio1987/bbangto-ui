@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { kawaiiPastelCopyExt } from './_showcaseCopy/kawaiiPastel';
 
 /*
  * Kawaii_Pastel_01 — 카와이 파스텔 + 둥글둥글 마스코트.
@@ -235,7 +236,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'KawaiiShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'KawaiiShowcase', kawaiiPastelCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   surface: {

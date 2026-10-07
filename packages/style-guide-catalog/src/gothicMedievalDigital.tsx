@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { gothicMedievalDigitalCopyExt } from './_showcaseCopy/gothicMedievalDigital';
 
 /*
  * Gothic_Medieval_Digital_01 — 다크 신비주의 × 디지털 충돌 미학.
@@ -222,7 +223,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'GothicMedievalDigitalShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'GothicMedievalDigitalShowcase', gothicMedievalDigitalCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   layout: {

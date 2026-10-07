@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { warpedCheckerboardCopyExt } from './_showcaseCopy/warpedCheckerboard';
 
 /*
  * WarpedCheckerboard_01 — 액화·물결 왜곡된 2색 체크 격자 미학.
@@ -219,7 +220,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'WarpedCheckerboardShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'WarpedCheckerboardShowcase', warpedCheckerboardCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   layout: {

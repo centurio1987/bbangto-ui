@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { pixelArtRetroCopyExt } from './_showcaseCopy/pixelArtRetro';
 
 /*
  * Pixel_Art_Retro_01 — 의도적 저해상 8비트 도트 미감.
@@ -218,7 +219,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'PixelArtRetroShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'PixelArtRetroShowcase', pixelArtRetroCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   layout: {

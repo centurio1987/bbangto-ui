@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { terminalMonoCopyExt } from './_showcaseCopy/terminalMono';
 
 /*
  * Terminal_Mono_01 — 모노스페이스 전면 + 다크 콘솔 + 포스포 그린.
@@ -178,7 +179,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'TerminalShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'TerminalShowcase', terminalMonoCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   surface: {

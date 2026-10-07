@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { claymorphismPlayfulCopyExt } from './_showcaseCopy/claymorphismPlayful';
 
 /*
  * Claymorphism_Playful_01 — 두툼한 3D 점토 표면.
@@ -184,7 +185,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'ClayShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'ClayShowcase', claymorphismPlayfulCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   surface: {

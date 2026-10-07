@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { minimalSaasCopyExt } from './_showcaseCopy/minimalSaas';
 
 /*
  * Minimal_Saas_01 — 중립 그레이 + 단일 액센트, 넉넉한 여백, 얇은 보더.
@@ -168,7 +169,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'MinimalSaasShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'MinimalSaasShowcase', minimalSaasCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   color: {

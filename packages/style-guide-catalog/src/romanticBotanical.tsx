@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { romanticBotanicalCopyExt } from './_showcaseCopy/romanticBotanical';
 
 /*
  * Romantic_Botanical_01 — 파스텔 정원 + 화이트 핸드드로잉 라인아트 미학.
@@ -195,7 +196,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'RomanticBotanicalShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'RomanticBotanicalShowcase', romanticBotanicalCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   layout: {

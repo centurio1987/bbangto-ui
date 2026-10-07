@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { darkLuxeEditorialCopyExt } from './_showcaseCopy/darkLuxeEditorial';
 
 /*
  * DarkLuxe_Editorial_01 — 다크 편집 럭셔리.
@@ -203,7 +204,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'DarkLuxeShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'DarkLuxeShowcase', darkLuxeEditorialCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   surface: {

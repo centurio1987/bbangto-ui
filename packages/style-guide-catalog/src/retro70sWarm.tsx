@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { retro70sWarmCopyExt } from './_showcaseCopy/retro70sWarm';
 
 /*
  * Retro70s_Warm_01 — 70년대 따뜻한 레트로.
@@ -198,7 +199,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'RetroShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'RetroShowcase', retro70sWarmCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   surface: {

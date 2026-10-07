@@ -1,6 +1,5 @@
 import React from 'react';
 import type { WrapperComponents } from '@centurio1987/bbangto-ui-core';
-import { SHOWCASE_COPY_EXT } from './_showcaseCopy.generated';
 
 /*
  * Style Guide Catalog — 공통 Showcase(구현 예시) 빌더.
@@ -10,9 +9,10 @@ import { SHOWCASE_COPY_EXT } from './_showcaseCopy.generated';
  * 레이아웃·간격은 표준 semantic/typography/radius CSS 변수로만 그리므로, 실제 모티프(블러·네온·
  * 이중그림자 등)는 전달된 wrapper 컴포넌트(Button/Card/Tag)의 주입 CSS로 드러난다.
  *
- * 템플릿 구조는 결정론적으로 고정하고, 각 가이드의 정체성 텍스트는 `copy` + displayName 키의
- * `SHOWCASE_COPY_EXT`(결정론적 데이터 레지스트리)를 병합해 채운다. 신규 확장 필드는 전부 optional +
- * 기본값이라 데이터 조립 전에도 풀 템플릿이 렌더된다(빌드 초록 유지).
+ * 템플릿 구조는 결정론적으로 고정하고, 각 가이드의 정체성 텍스트는 `copy` + 4번째 인자 `ext`(확장 카피)를
+ * 병합해 채운다. 카탈로그 preset 은 `_showcaseCopy/<preset>.ts` 의 자기 몫만 넘긴다 — 51개 몫을 모은
+ * `SHOWCASE_COPY_EXT` 를 여기서 import 하면 Showcase 하나가 전부를 번들에 끌고 온다(KAN-058).
+ * 확장 필드는 전부 optional + 기본값이라 `ext` 가 없어도 풀 템플릿이 렌더된다.
  *
  * 콘텐츠는 전부 가상(fictional) placeholder다 — 개인/연락처/실제 제품명을 쓰지 않는다.
  * 표준 tone 키: 'accent' | 'muted' | 'solid' (모든 preset의 TagConfig가 제공).
@@ -75,7 +75,7 @@ export interface ShowcaseCopy {
   scrollLabel?: string;
 }
 
-/** `SHOWCASE_COPY_EXT` 레지스트리에 담는 확장 전용 부분집합(기존 필수 8필드는 카탈로그 소스에 유지). */
+/** `makeShowcase` 4번째 인자로 넘기는 확장 전용 부분집합(기존 필수 8필드는 카탈로그 소스에 유지). */
 export type ShowcaseCopyExt = Partial<
   Pick<
     ShowcaseCopy,
@@ -90,18 +90,19 @@ const CONTACT_DEFAULT: Required<ShowcaseContact> = {
 };
 
 /** wrapper 세트 + 카피로 3섹션 에디토리얼 Showcase 컴포넌트를 만든다.
-    섹션은 콘텐츠 높이 + 넉넉한 패딩으로 그린다 — 100vh 강제 금지(짧은 카피에서 빈 화면 방지). */
+    섹션은 콘텐츠 높이 + 넉넉한 패딩으로 그린다 — 100vh 강제 금지(짧은 카피에서 빈 화면 방지).
+    `ext` 는 확장 카피이고 `copy` 의 같은 필드보다 우선한다. 카탈로그 preset 은 `_showcaseCopy/` 의 자기 몫을 넘긴다. */
 export function makeShowcase(
   W: WrapperComponents,
   copy: ShowcaseCopy,
-  displayName: string
+  displayName: string,
+  ext: ShowcaseCopyExt = {}
 ): React.FC<React.HTMLAttributes<HTMLDivElement>> {
   const Button = W.Button as React.ElementType;
   const Card = W.Card as React.ElementType;
   const Tag = W.Tag as React.ElementType;
 
-  // 결정론적 병합: 카탈로그 소스의 base copy + displayName 키 확장 데이터.
-  const ext = SHOWCASE_COPY_EXT[displayName] ?? {};
+  // 결정론적 병합: 카탈로그 소스의 base copy + 넘겨받은 확장 데이터.
   const c: ShowcaseCopy = { ...copy, ...ext };
 
   const menuEyebrow = c.menuEyebrow ?? 'COMPONENTS';

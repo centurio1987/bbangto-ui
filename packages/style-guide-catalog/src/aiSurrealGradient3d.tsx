@@ -2,6 +2,7 @@ import type { StyleGuide, VisualMotif } from '@centurio1987/bbangto-ui-core';
 import { makeFoundations, makeSemantic, makeColorway } from './_foundation';
 import { makeMotifWrappers } from './_motif';
 import { makeShowcase, type ShowcaseCopy } from './_showcase';
+import { aiSurrealGradient3dCopyExt } from './_showcaseCopy/aiSurrealGradient3d';
 
 /*
  * Ai_Surreal_Gradient3d_01 — AI 생성 초현실 3D 렌더 + 이리데센트 미학.
@@ -227,7 +228,7 @@ const copy: ShowcaseCopy = {
   ],
 };
 
-const Showcase = makeShowcase(wrapperComponents, copy, 'AiSurrealGradient3dShowcase');
+const Showcase = makeShowcase(wrapperComponents, copy, 'AiSurrealGradient3dShowcase', aiSurrealGradient3dCopyExt);
 
 const guidelines: Record<string, Record<string, unknown>> = {
   layout: {
