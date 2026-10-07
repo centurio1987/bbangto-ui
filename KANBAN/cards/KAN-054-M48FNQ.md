@@ -88,7 +88,7 @@ KAN-053 검토서(`KANBAN/reviews/KAN-053-TZ86NN.review.md` · 정본 `.kanban/r
 - RadioGroup·Switch·Slider — 브라우저 기본 입력 요소라 키보드가 이미 된다
 
 ## 실행 계획
-- [ ] `S1` 정적 키보드 커버리지 게이트 — 루트 `keyboard-coverage.json`(컴포넌트 → 소스 파일 · 스토리 파일 · 키보드 스토리 이름 · 필요한 동작 · `realInput`)과 `packages/foundations/src/keyboardCoverage.ts`·`.test.ts`(누락 검사 · 테스트 검사 · 실제 입력 표시 검사 · fixture 실패 주입). 목록은 이 단계에서 끝까지 채운다(전략 표 14개 + KAN-053의 4개). 완료 기준: 실제 저장소 검사가 빨강이고, 빨간 항목이 전략 표의 14개와 일치. fixture 검사는 초록
+- [x] `S1` 정적 키보드 커버리지 게이트 — 루트 `keyboard-coverage.json`(컴포넌트 → 소스 파일 · 스토리 파일 · 키보드 스토리 이름 · 필요한 동작 · `realInput`)과 `packages/foundations/src/keyboardCoverage.ts`·`.test.ts`(누락 검사 · 테스트 검사 · 실제 입력 표시 검사 · fixture 실패 주입). 목록은 이 단계에서 끝까지 채운다(전략 표 14개 + KAN-053의 4개). 완료 기준: 실제 저장소 검사가 빨강이고, 빨간 항목이 전략 표의 14개와 일치. fixture 검사는 초록
 - [ ] `S2` 실제 키 입력 게이트 — `apps/storybook/vite.config.ts`에 `real-input` 프로젝트, `apps/storybook/src/real-input/`에 Modal·Drawer·Select·Tabs 항목(`vitest/browser`의 `userEvent`). 첫 일은 수단 확인: `useFocusTrap` 프레임 재시도를 잠시 걷어내면 Modal(Enter로 열기 → 포커스가 대화상자 안) 항목이 빨강이 되는지. 완료 기준: 지금 코드에서 초록, 재시도를 걷어내면 빨강(걷어낸 것은 커밋하지 않는다). `pnpm test`가 두 프로젝트를 모두 돈다
 - [ ] `S3` 합성 규칙 통일 — `a11y/composeHandlers.ts`(외부 먼저, `preventDefault`면 내부 건너뜀)를 Modal·Drawer·Tabs·Select·Card·Searchfield·Carousel·DropdownMenu 트리거·TreeView·MenuItem·FileUploader avatar·Tooltip에 적용. 테스트 먼저: Modal(Esc를 막으면 열린 채로)·Select(키를 막으면 안 열림) 스토리. 완료 기준: 두 스토리 빨강 → 초록, 기존 스토리 초록, `grep -n "onKeyDown?.(e)" packages/core/src/components`가 0건
 - [ ] `S4` 오버레이 — Tooltip(Esc · `aria-describedby`), Popover(포커스 복귀 · ARIA를 실제 트리거로 · `useEscapeKey`), Menu 단독(화살표 · Home/End · 글자 검색), DropdownMenu(roving · Home/End · 글자 검색 · Tab은 닫기만). 실제 입력 항목에 Popover·DropdownMenu 추가. 완료 기준: 네 컴포넌트의 키보드 스토리와 실제 입력 항목 초록, 커버리지 게이트의 빨간 항목에서 넷이 빠짐
@@ -137,3 +137,6 @@ core를 고칠 때마다 `pnpm --filter @centurio1987/bbangto-ui-core build` 후
 - 2026-10-07T13:35 · s:b1c51cf9 — `전략` 섹션 교체
 - 2026-10-07T13:35 · s:b1c51cf9 — `실행 계획` 섹션 교체
 - 2026-10-07T13:35 · s:b1c51cf9 — `검증` 섹션 교체
+- 2026-10-07T13:55 · s:b1c51cf9 · S1 doing — 착수
+- 2026-10-07T13:58 · s:b1c51cf9 · S1 done — keyboard-coverage.json(18항목·ignored Radio) + keyboardCoverage.ts/.test.ts. 실제 저장소 빨강 — 키보드 스토리 없음 15곳(전략 표 14 + Modal: 기존 스토리가 fireEvent로만 Esc 확인) · 실제 입력 테스트 없음 6곳(Modal·Drawer·Select·Popover·DropdownMenu·DatePicker). 누락 검사 위반 0(신호 15파일 전부 선언, Tooltip·Carousel·DataGrid는 신호 밖이라 직접 선언). fixture 15건 초록, foundations tsc 통과
+- 2026-10-07T13:58 · s:b1c51cf9 — 관찰: core blocks/FeatureGrid.tsx 에 role=tablist 가 있다. 게이트 스캔 범위(components/) 밖이라 이 카드에서는 다루지 않는다 — 검토서에 올린다

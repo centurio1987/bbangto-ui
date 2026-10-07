@@ -1,0 +1,237 @@
+{
+  "$comment": "KAN-054 키보드 커버리지 SSOT. core 상호작용 컴포넌트마다 키보드 동작을 확인하는 스토리(이름 단위)와, 열 때 포커스가 옮겨 가는 오버레이면 실제 입력 테스트를 요구한다. 게이트: packages/foundations/src/keyboardCoverage.test.ts(test:unit). 검사 규칙과 한계는 keyboardCoverage.ts 파일 주석. behaviors 는 WAI-ARIA APG 기준 사람이 읽는 값이라 검사하지 않는다.",
+  "components": [
+    {
+      "component": "Modal",
+      "source": "packages/core/src/components/Modal.tsx",
+      "story": "apps/storybook/src/stories/Modal.stories.tsx",
+      "keyboardStories": ["Keyboard"],
+      "behaviors": [
+        "트리거를 Enter/Space로 누르면 열리고 포커스가 대화상자 안으로 간다",
+        "Tab/Shift+Tab이 대화상자 안에서 돈다",
+        "Esc로 닫힌다(loading 중 제외)",
+        "닫히면 트리거로 포커스가 돌아온다",
+        "외부 onKeyDown이 Esc에 preventDefault를 하면 열린 채로 남는다"
+      ],
+      "realInput": true
+    },
+    {
+      "component": "Drawer",
+      "source": "packages/core/src/components/Drawer.tsx",
+      "story": "apps/storybook/src/stories/Drawer.stories.tsx",
+      "keyboardStories": ["Keyboard"],
+      "behaviors": [
+        "열면 포커스가 패널 안으로 간다",
+        "Tab/Shift+Tab이 패널 안에서 돈다",
+        "Esc로 닫힌다",
+        "닫히면 트리거로 포커스가 돌아온다"
+      ],
+      "realInput": true
+    },
+    {
+      "component": "Tabs",
+      "source": "packages/core/src/components/Tabs.tsx",
+      "story": "apps/storybook/src/stories/Tabs.stories.tsx",
+      "keyboardStories": ["Keyboard", "KeyboardVertical"],
+      "behaviors": [
+        "Tab 정지점은 선택된 탭 하나(roving tabindex)",
+        "화살표로 이동하며 선택도 옮긴다(자동 활성화), 세로는 ↑/↓",
+        "Home/End, 비활성 탭 건너뜀",
+        "aria-controls/aria-labelledby로 탭과 패널이 이어진다"
+      ],
+      "realInput": false
+    },
+    {
+      "component": "Select",
+      "source": "packages/core/src/components/Select.tsx",
+      "story": "apps/storybook/src/stories/Select.stories.tsx",
+      "keyboardStories": ["Keyboard", "KeyboardDisabled"],
+      "behaviors": [
+        "Tab으로 combobox에 닿고 ↓/Enter/Space로 열린다",
+        "↑/↓/Home/End로 활성 옵션 이동(aria-activedescendant), 비활성 옵션 건너뜀",
+        "Enter로 고르고 닫히며 포커스는 combobox에 남는다",
+        "Esc·Tab은 고르지 않고 닫기만 한다",
+        "글자 검색",
+        "비활성이면 aria-disabled이고 Tab으로 안 닿는다"
+      ],
+      "realInput": true
+    },
+    {
+      "component": "Tooltip",
+      "source": "packages/core/src/components/Tooltip.tsx",
+      "story": "apps/storybook/src/stories/Tooltip.stories.tsx",
+      "keyboardStories": ["Keyboard"],
+      "behaviors": [
+        "트리거가 포커스를 받으면 보이고 잃으면 숨는다",
+        "Esc로 숨는다",
+        "트리거의 aria-describedby가 말풍선 id를 가리킨다"
+      ],
+      "realInput": false
+    },
+    {
+      "component": "Popover",
+      "source": "packages/core/src/components/Popover.tsx",
+      "story": "apps/storybook/src/stories/Popover.stories.tsx",
+      "keyboardStories": ["Keyboard"],
+      "behaviors": [
+        "트리거를 Enter/Space로 누르면 열리고 포커스가 패널로 간다",
+        "Esc로 닫히고 트리거로 포커스가 돌아온다",
+        "aria-expanded/aria-controls/aria-haspopup이 실제 트리거에 붙는다"
+      ],
+      "realInput": true
+    },
+    {
+      "component": "Menu",
+      "source": "packages/core/src/components/Menu.tsx",
+      "story": "apps/storybook/src/stories/Menu.stories.tsx",
+      "keyboardStories": ["KeyboardMenu"],
+      "behaviors": [
+        "Tab 정지점은 하나(roving tabindex)",
+        "↑/↓로 항목 이동, Home/End",
+        "글자 검색",
+        "Enter/Space로 항목 실행, 비활성 항목 건너뜀"
+      ],
+      "realInput": false
+    },
+    {
+      "component": "DropdownMenu",
+      "source": "packages/core/src/components/Menu.tsx",
+      "story": "apps/storybook/src/stories/Menu.stories.tsx",
+      "keyboardStories": ["KeyboardNavigation", "EscapeToClose", "KeyboardHomeEndTypeahead"],
+      "behaviors": [
+        "트리거에서 Enter/Space/↓로 열면 첫 항목, ↑로 열면 끝 항목에 포커스",
+        "↑/↓·Home/End·글자 검색, 항목은 roving tabindex",
+        "Tab은 고르지 않고 닫기만 한다",
+        "Esc로 닫고 트리거로 포커스가 돌아온다"
+      ],
+      "realInput": true
+    },
+    {
+      "component": "SegmentedControl",
+      "source": "packages/core/src/components/SegmentedControl.tsx",
+      "story": "apps/storybook/src/stories/SegmentedControl.stories.tsx",
+      "keyboardStories": ["Keyboard"],
+      "behaviors": [
+        "role=radiogroup/radio, aria-checked",
+        "Tab 정지점은 선택된 조각 하나",
+        "←/→로 이동하며 선택, 비활성 조각 건너뜀"
+      ],
+      "realInput": false
+    },
+    {
+      "component": "TreeView",
+      "source": "packages/core/src/components/TreeView.tsx",
+      "story": "apps/storybook/src/stories/TreeView.stories.tsx",
+      "keyboardStories": ["KeyboardNavigation", "KeyboardHomeEndTypeahead"],
+      "behaviors": [
+        "↑/↓ 이동, →/←로 펼치기·접기·부모로",
+        "Home/End, 글자 검색",
+        "Tab 정지점은 하나(roving tabindex)",
+        "Enter/Space로 선택"
+      ],
+      "realInput": false
+    },
+    {
+      "component": "Calendar",
+      "source": "packages/core/src/components/Calendar.tsx",
+      "story": "apps/storybook/src/stories/Calendar.stories.tsx",
+      "keyboardStories": ["Keyboard"],
+      "behaviors": [
+        "화살표로 날짜를 옮기면 실제 포커스도 옮겨 간다",
+        "월 경계에서 이전/다음 달로 넘어간다",
+        "Home/End는 주의 처음·끝, PageUp/PageDown은 이전/다음 달",
+        "Enter/Space로 선택",
+        "두 달 보기의 둘째 달도 같은 키로 다룬다"
+      ],
+      "realInput": false
+    },
+    {
+      "component": "DatePicker",
+      "source": "packages/core/src/components/DatePicker.tsx",
+      "story": "apps/storybook/src/stories/DatePicker.stories.tsx",
+      "keyboardStories": ["Keyboard", "KeyboardWeekStrip", "KeyboardWheel"],
+      "behaviors": [
+        "기본 트리거에 Tab으로 닿고 Enter/Space/↓로 열린다",
+        "열면 포커스가 날짜 칸으로 가고 화살표로 이동한다",
+        "Esc로 닫히고 트리거로 포커스가 돌아온다",
+        "주간 띠에서 화살표를 여러 번 누르면 계속 이동한다",
+        "휠 목록은 ↑/↓로 이동한다(roving tabindex)"
+      ],
+      "realInput": true
+    },
+    {
+      "component": "Carousel",
+      "source": "packages/core/src/components/Carousel.tsx",
+      "story": "apps/storybook/src/stories/Carousel.stories.tsx",
+      "keyboardStories": ["Keyboard"],
+      "behaviors": [
+        "region에 Tab으로 닿는다",
+        "←/→로 슬라이드를 옮기고 페이지 스크롤은 막는다",
+        "화살표·점 버튼을 꺼도 키가 닿는다"
+      ],
+      "realInput": false
+    },
+    {
+      "component": "Pagination",
+      "source": "packages/core/src/components/Pagination.tsx",
+      "story": "apps/storybook/src/stories/Pagination.stories.tsx",
+      "keyboardStories": ["Keyboard"],
+      "behaviors": [
+        "페이지 번호에 Tab으로 닿고 Enter/Space로 이동한다",
+        "점 변형도 Tab·Enter/Space로 다룬다",
+        "현재 쪽은 aria-current"
+      ],
+      "realInput": false
+    },
+    {
+      "component": "DataGrid",
+      "source": "packages/core/src/components/DataGrid.tsx",
+      "story": "apps/storybook/src/stories/DataGrid.stories.tsx",
+      "keyboardStories": ["Keyboard"],
+      "behaviors": [
+        "정렬 가능한 헤더에 Tab으로 닿고 Enter/Space로 정렬한다",
+        "aria-sort가 정렬 상태를 말한다"
+      ],
+      "realInput": false
+    },
+    {
+      "component": "Card",
+      "source": "packages/core/src/components/Card.tsx",
+      "story": "apps/storybook/src/stories/Card.stories.tsx",
+      "keyboardStories": ["Keyboard"],
+      "behaviors": [
+        "onClick을 주면 Tab으로 닿고 Enter/Space로 누른다",
+        "interactive={false}를 명시하면 마우스 전용으로 남는다"
+      ],
+      "realInput": false
+    },
+    {
+      "component": "FileUploader",
+      "source": "packages/core/src/components/FileUploader.tsx",
+      "story": "apps/storybook/src/stories/FileUploader.stories.tsx",
+      "keyboardStories": ["Keyboard"],
+      "behaviors": [
+        "기본 드롭존에 Tab으로 닿고 Enter/Space로 파일 선택 창을 연다",
+        "avatar 변형도 Enter/Space로 연다"
+      ],
+      "realInput": false
+    },
+    {
+      "component": "Accordion",
+      "source": "packages/core/src/components/Accordion.tsx",
+      "story": "apps/storybook/src/stories/Accordion.stories.tsx",
+      "keyboardStories": ["Keyboard"],
+      "behaviors": [
+        "헤더에 Tab으로 닿고 Enter/Space로 펼치고 접는다",
+        "aria-expanded/aria-controls"
+      ],
+      "realInput": false
+    }
+  ],
+  "ignored": [
+    {
+      "source": "packages/core/src/components/Radio.tsx",
+      "reason": "role=radiogroup 이지만 항목이 네이티브 <input type=\"radio\"> 라 화살표 이동을 브라우저가 한다"
+    }
+  ]
+}
