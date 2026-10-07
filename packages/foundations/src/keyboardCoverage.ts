@@ -18,6 +18,15 @@
  *
  * **커버리지 한계**: 스토리 블록은 다음 `export const` 까지 정규식으로 자른다. 블록 밖 헬퍼 함수 안에서 키를
  * 누르면 못 본다. 키를 누른 뒤 무엇을 확인하는지는 보지 않는다 — 그것은 `behaviors` 를 읽는 사람의 몫이다.
+ *
+ * **포커스 표시 검사**(KAN-059, `auditFocusRing`)는 같은 선언 파일의 `focusRing`·`focusRingIgnored` 를 본다.
+ * 키보드로 닿아도 화면에 표시가 없던 원인은 둘이었다 — 인라인 `outline: 'none'` 으로 브라우저 기본 테두리를 끄고
+ * 대신 그리는 것이 없거나, 입력 요소를 1px 로 숨겨(`clip: rect(0 0 0 0)` 등) 브라우저 테두리가 보이지 않는 것.
+ *  1) 누락 — 그 신호(`findFocusRingSignals`)가 나온 파일이 `focusRing[].source` 나 `focusRingIgnored[].source` 에 없으면 위반.
+ *  2) 규칙 — `focusRing` 의 소스가 공용 규칙(`FOCUS_RING`·`useFocusVisible`) 이나 `:focus-visible` 스타일을 쓰지 않으면 위반.
+ *  3) 실제 입력 — 키보드 포커스인지(`:focus-visible`)는 흉내 낸 입력으로 믿기 어려워, `real-input` 테스트 어딘가에
+ *     `it('<component>: …')` 항목이 있어야 한다.
+ * 한계: 신호는 정규식이라 스타일을 변수에 담아 계산하면 못 본다. 테두리가 실제로 보이는지는 실제 입력 테스트가 진다.
  */
 
 /** 선언 1행 — 키보드 테스트가 있어야 하는 컴포넌트. */
@@ -217,6 +226,102 @@ export function auditKeyboardCoverage(
     if (test === undefined) violations.push(`${e.component}: 실제 입력 테스트 ${path} 가 없습니다`);
     else if (!/from ['"]vitest\/browser['"]/.test(test)) {
       violations.push(`${e.component}: ${path} 가 vitest/browser 의 입력을 쓰지 않습니다`);
+    }
+  }
+
+  return violations;
+}
+
+/** 포커스 표시 선언 1행 — 브라우저 기본 테두리를 끄거나 입력을 숨겨서, 표시를 직접 그려야 하는 컴포넌트(KAN-059). */
+export interface FocusRingEntry {
+  /** 실제 입력 테스트의 `it('<component>: …')` 접두. */
+  readonly component: string;
+  /** core 소스 파일(repo 상대경로). */
+  readonly source: string;
+  /** 테두리를 그리는 자리(사람이 읽는 값, 검사 대상 아님). */
+  readonly indicator: string;
+}
+
+/** keyboard-coverage.json 의 포커스 표시 부분. */
+export interface FocusRingDeclaration {
+  readonly focusRing: readonly FocusRingEntry[];
+  /** 신호에 걸리지만 포커스를 받지 않는 파일. 사유 필수. */
+  readonly focusRingIgnored: readonly KeyboardCoverageIgnored[];
+}
+
+/** 포커스 표시 검사에 넘기는 저장소 상태. 키는 repo 상대경로. */
+export interface FocusRingInput {
+  /** core `components/`·`blocks/`·`patterns/`·`motion/` 아래 `.tsx` 소스. */
+  readonly sources: Readonly<Record<string, string>>;
+  /** `apps/storybook/src/real-input/` 아래 실제 입력 테스트 전부. */
+  readonly realInputTests: Readonly<Record<string, string>>;
+}
+
+/**
+ * 소스 한 파일의 포커스 표시 신호. 빈 배열이면 신호 없음.
+ *  - `outline: none|0` — 인라인 객체(`outline: 'none'`)와 스타일 문자열(`outline: none;`) 둘 다
+ *  - 1px 숨김 — `clip: rect(0 …)`, `clipPath: 'inset(50%)'`·`clip-path: inset(50%)`
+ */
+export function findFocusRingSignals(src: string): string[] {
+  const signals: string[] = [];
+  if (/\boutline\s*:\s*['"]?\s*(?:none|0)\b/.test(src)) signals.push('outline:none');
+  if (/\bclip\s*:\s*['"]?rect\(\s*0[\s,)]|\bclip(?:Path|-path)\s*:\s*['"]?inset\(\s*50%\s*\)/.test(src)) {
+    signals.push('숨김');
+  }
+  return signals;
+}
+
+/** 소스가 공용 포커스 표시 규칙을 쓰는가. */
+export function usesFocusRingRule(src: string): boolean {
+  return /\b(?:FOCUS_RING\w*|useFocusVisible)\b|:focus-visible\b/.test(src);
+}
+
+/** 실제 입력 테스트 묶음 중 하나라도 `it('<component>: …')` 항목을 갖는가. */
+export function hasFocusRingTest(tests: Readonly<Record<string, string>>, component: string): boolean {
+  const re = new RegExp(`\\bit\\(\\s*['"\`]${component}:`);
+  return Object.values(tests).some((t) => re.test(t));
+}
+
+/**
+ * 포커스 표시 선언과 저장소 상태를 대조해 위반 목록을 낸다(빈 배열 = 통과).
+ * 위반 문자열은 컴포넌트·파일 이름으로 시작한다.
+ */
+export function auditFocusRing(decl: FocusRingDeclaration, input: FocusRingInput): string[] {
+  const violations: string[] = [];
+
+  // 0) 구조
+  const seen = new Set<string>();
+  for (const e of decl.focusRing) {
+    if (seen.has(e.component)) violations.push(`${e.component}: focusRing 선언이 둘입니다`);
+    seen.add(e.component);
+    if (!e.indicator.trim()) violations.push(`${e.component}: indicator 가 비었습니다`);
+  }
+  for (const ig of decl.focusRingIgnored) {
+    if (!ig.reason.trim()) violations.push(`${ig.source}: focusRingIgnored 에 사유가 없습니다`);
+  }
+
+  // 1) 누락
+  const declared = new Set([...decl.focusRing.map((e) => e.source), ...decl.focusRingIgnored.map((i) => i.source)]);
+  for (const [path, src] of Object.entries(input.sources)) {
+    const signals = findFocusRingSignals(src);
+    if (signals.length > 0 && !declared.has(path)) {
+      violations.push(`누락 ${path}: 포커스 표시 신호(${signals.join(', ')})가 있는데 focusRing 에 없습니다`);
+    }
+  }
+
+  // 2) 규칙
+  for (const e of decl.focusRing) {
+    const src = input.sources[e.source];
+    if (src === undefined) violations.push(`${e.component}: 소스 ${e.source} 가 없습니다`);
+    else if (!usesFocusRingRule(src)) {
+      violations.push(`${e.component}: ${e.source} 가 FOCUS_RING·useFocusVisible·:focus-visible 을 쓰지 않습니다`);
+    }
+  }
+
+  // 3) 실제 입력
+  for (const e of decl.focusRing) {
+    if (!hasFocusRingTest(input.realInputTests, e.component)) {
+      violations.push(`${e.component}: 실제 입력 테스트에 '${e.component}: …' 항목이 없습니다`);
     }
   }
 

@@ -1,5 +1,5 @@
 {
-  "$comment": "KAN-054 키보드 커버리지 SSOT. core 상호작용 컴포넌트마다 키보드 동작을 확인하는 스토리(이름 단위)와, 열 때 포커스가 옮겨 가는 오버레이면 실제 입력 테스트를 요구한다. 게이트: packages/foundations/src/keyboardCoverage.test.ts(test:unit). 검사 규칙과 한계는 keyboardCoverage.ts 파일 주석. behaviors 는 WAI-ARIA APG 기준 사람이 읽는 값이라 검사하지 않는다.",
+  "$comment": "KAN-054 키보드 커버리지 SSOT. core 상호작용 컴포넌트마다 키보드 동작을 확인하는 스토리(이름 단위)와, 열 때 포커스가 옮겨 가는 오버레이면 실제 입력 테스트를 요구한다. 게이트: packages/foundations/src/keyboardCoverage.test.ts(test:unit). 검사 규칙과 한계는 keyboardCoverage.ts 파일 주석. behaviors 는 WAI-ARIA APG 기준 사람이 읽는 값이라 검사하지 않는다. KAN-059: focusRing 은 브라우저 기본 테두리를 끄거나(outline:none) 입력을 숨겨서 포커스 표시를 직접 그려야 하는 컴포넌트다. 소스가 공용 규칙(a11y/focusRing.ts 의 FOCUS_RING·useFocusVisible 또는 :focus-visible)을 쓰고, apps/storybook/src/real-input/ 테스트에 it('<component>: …') 항목이 있어야 한다. indicator 는 테두리를 그리는 자리(사람이 읽는 값).",
   "components": [
     {
       "component": "Modal",
@@ -245,5 +245,26 @@
       "source": "packages/core/src/components/Radio.tsx",
       "reason": "role=radiogroup 이지만 항목이 네이티브 <input type=\"radio\"> 라 화살표 이동을 브라우저가 한다"
     }
+  ],
+  "focusRing": [
+    { "component": "Card", "source": "packages/core/src/components/Card.tsx", "indicator": "카드 자체(interactive 일 때) — KAN-054" },
+    { "component": "Calendar", "source": "packages/core/src/components/Calendar.tsx", "indicator": "포커스된 날짜 칸 — KAN-054" },
+    { "component": "DatePicker", "source": "packages/core/src/components/DatePicker.tsx", "indicator": "기본 변형 트리거 — KAN-054" },
+    { "component": "Button", "source": "packages/core/src/components/Button.tsx", "indicator": "버튼 자체" },
+    { "component": "Link", "source": "packages/core/src/components/Link.tsx", "indicator": "링크 자체(모든 변형)" },
+    { "component": "NumberField", "source": "packages/core/src/components/NumberField.tsx", "indicator": "증감 버튼은 자기 자신, 입력은 바깥 상자, seven-segment 는 숫자 판" },
+    { "component": "TreeView", "source": "packages/core/src/components/TreeView.tsx", "indicator": "포커스된 항목" },
+    { "component": "Menu", "source": "packages/core/src/components/Menu.tsx", "indicator": "포커스된 항목. 목록(ul) 상자의 outline:none 은 tabIndex 가 없어 Tab 으로 닿지 않는다" },
+    { "component": "ScrollArea", "source": "packages/core/src/components/ScrollArea.tsx", "indicator": "스크롤 상자(tabIndex=0) 자체" },
+    { "component": "Input", "source": "packages/core/src/components/Input.tsx", "indicator": "안쪽 input 을 감싼 상자(기본·composer)" },
+    { "component": "Textarea", "source": "packages/core/src/components/Textarea.tsx", "indicator": "textarea 자체" },
+    { "component": "Searchfield", "source": "packages/core/src/components/Searchfield.tsx", "indicator": "안쪽 input 을 감싼 상자" },
+    { "component": "RichTextEditor", "source": "packages/core/src/components/RichTextEditor.tsx", "indicator": "편집 영역을 감싼 바깥 상자" },
+    { "component": "Switch", "source": "packages/core/src/components/Switch.tsx", "indicator": "숨긴 input 대신 트랙" },
+    { "component": "Radio", "source": "packages/core/src/components/Radio.tsx", "indicator": "segmented 변형에서 숨긴 input 대신 그 조각" },
+    { "component": "Dock", "source": "packages/core/src/blocks/Dock.tsx", "indicator": "항목 버튼 자체" }
+  ],
+  "focusRingIgnored": [
+    { "source": "packages/core/src/motion/CountUp.tsx", "reason": "숨김 패턴은 화면 낭독기에만 읽히는 aria-live 글자(span)라 포커스를 받지 않는다" }
   ]
 }
