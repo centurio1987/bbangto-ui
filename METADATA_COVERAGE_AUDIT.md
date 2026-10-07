@@ -51,13 +51,8 @@
 > 게이트(`registry.test`의 registry≡catalog)가 이제 pending 0을 hard-fail로 집행한다.
 
 #### 파일럿 관찰 — 스키마 적합성 확인
-- foundations 카탈로그는 **거의 전량 라이트-베이스**(흰 표면 + 어두운 텍스트, 브랜드 accent 프리셋)다.
-  base 라이트/다크/고대비 테마는 **core에 내장**이고, 유일한 다크-베이스는 `amber-dark`(#0b0e11).
-- 따라서 파생 `colorScheme`은 정확하되 편중되고(75 light / 1 dark), 파생 `baseTextContrast`도 전량 ~aaa(≈18)로
-  거의 상수다 → **실질 변별은 authored 필드**(`tags`=accent 색/타이포, `mood`, `domains`, `summary`,
-  `useWhen`/`avoidWhen`)가 담당한다. 이는 `StyleGuideMeta` 어휘(`Domain`/`Tag`/`StyleMood`) **재사용 결정을 확인**한다
-  (스키마 변경 불필요).
-- `baseTextContrast` over-claim 게이트는 현재 자명 통과지만, 향후 **다크/저대비 foundation** 추가 대비 forward guard로 유지한다.
+관찰(라이트-베이스 편중 75/1 · `baseTextContrast` 거의 상수 · 실질 변별은 authored 필드 · `StyleGuideMeta` 어휘 재사용 확인 · over-claim 게이트는 forward guard)은
+KAN-041 전량 저작 뒤 값으로 [`FOUNDATION_METADATA_STRATEGY.md` §7 「파일럿·전량 저작 관찰」](./packages/foundations/FOUNDATION_METADATA_STRATEGY.md#파일럿전량-저작-관찰스키마-검증-결과)에 한 곳으로 모았다.
 
 ### 2-3. 부수 drift 수리 — catalog.json 이중 SSOT
 `catalog.json`(74) ≠ `foundationCatalog`(76): `amber-dark`/`amber-light`가 catalog.json에서 누락돼 있었다.
