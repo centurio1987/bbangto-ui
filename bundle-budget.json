@@ -1,0 +1,70 @@
+{
+  "$comment": "번들 크기 상한 정본 (KAN-051). 게이트는 packages/foundations/src/bundleBudget.test.ts — `pnpm build` 뒤 `pnpm test:unit` 에서 돈다. 각 패키지 dist 를 esbuild 로 묶어(minify, react·react-dom·@centurio1987/* 는 바깥) 바이트를 잰다. representative 는 대표 export 하나만 가져왔을 때, all 은 export * 전부를 가져왔을 때다. max 는 손으로 정하지 않는다 — basis(그 상한을 계산한 측정값)에 아래 rule 을 적용한 값이고, 게이트가 그 일치를 검사한다. 상한을 바꾸려면 basis 를 다시 재서 고친다.",
+  "rule": {
+    "representative": "ceil(max(basis × 1.5, basis + 2048) / 512) × 512",
+    "all": "ceil(basis × 1.15 / 1024) × 1024"
+  },
+  "measure": {
+    "tool": "esbuild",
+    "version": "~0.27.7",
+    "minify": true,
+    "format": "esm",
+    "platform": "browser",
+    "external": ["react", "react-dom", "@centurio1987/*"]
+  },
+  "packages": [
+    {
+      "package": "@centurio1987/bbangto-ui-core",
+      "dir": "packages/core",
+      "representative": "Button",
+      "basis": { "representative": 4622, "all": 438855 },
+      "basisNote": "representative 는 파일 단위 출력 메모리 재현값(추정, S4 에서 실측으로 확정)",
+      "max": { "representative": 7168, "all": 504832 }
+    },
+    {
+      "package": "@centurio1987/bbangto-ui-visualization",
+      "dir": "packages/visualization",
+      "representative": "BarChart",
+      "basis": { "representative": 8958, "all": 190989 },
+      "basisNote": "representative 는 파일 단위 출력 메모리 재현값(추정, S4 에서 실측으로 확정)",
+      "max": { "representative": 13824, "all": 220160 }
+    },
+    {
+      "package": "@centurio1987/bbangto-ui-style-guide-catalog",
+      "dir": "packages/style-guide-catalog",
+      "representative": "NeobrutalismShowcase",
+      "basis": { "representative": 101135, "all": 839953 },
+      "basisNote": "representative 는 배럴 분리 메모리 재현값(추정, S4 에서 실측으로 확정)",
+      "max": { "representative": 152064, "all": 966656 }
+    },
+    {
+      "package": "@centurio1987/bbangto-ui-visualization-style-guide-catalog",
+      "dir": "packages/visualization-style-guide-catalog",
+      "representative": "minimalLine01VizStyleGuide",
+      "basis": { "representative": 11810, "all": 341908 },
+      "basisNote": "representative 는 배럴 분리 메모리 재현값(추정, S4 에서 실측으로 확정)",
+      "max": { "representative": 17920, "all": 393216 }
+    },
+    {
+      "package": "@centurio1987/bbangto-ui-foundations",
+      "dir": "packages/foundations",
+      "representative": "amberLightFoundation",
+      "basis": { "representative": 3579, "all": 271431 },
+      "max": { "representative": 5632, "all": 312320 }
+    },
+    {
+      "package": "@centurio1987/bbangto-ui-hooks",
+      "dir": "packages/hooks",
+      "representative": "useDebounce",
+      "basis": { "representative": 216, "all": 9619 },
+      "max": { "representative": 2560, "all": 11264 }
+    },
+    {
+      "package": "@centurio1987/bbangto-ui-tokens",
+      "dir": "packages/tokens",
+      "representative": "cssVar",
+      "basis": { "representative": 147, "all": 5387 },
+      "max": { "representative": 2560, "all": 7168 }
+    }
+  ]
+}
