@@ -4,7 +4,7 @@ title: 나머지 컴포넌트 키보드·포커스 일괄 + 키보드 커버리�
 created: 2026-10-07
 branch: KAN-054-M48FNQ
 worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-054-M48FNQ
-base: e41b97a
+base: 1ebedb33b9b7e2b373d26a31297016ccb7768a67
 status: 검토 대기
 ---
 
@@ -21,12 +21,25 @@ status: 검토 대기
 |---|---|
 | 브랜치 | `KAN-054-M48FNQ` |
 | 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-054-M48FNQ` |
-| 베이스 | `e41b97a` |
-| 변경 훑기 | `git diff e41b97a...HEAD` |
+| 베이스 | `1ebedb33b9b7e2b373d26a31297016ccb7768a67` |
+| 변경 훑기 | `git diff 1ebedb33b9b7e2b373d26a31297016ccb7768a67...HEAD` |
 
-**커밋 7건**
+**커밋 20건**
 
 ```text
+1ee38d0 KAN-054 S11: changeset 보강 + 게이트 5종 + 검토서 §3-5·§3-6 재작업 결과 반영
+40ba448 KAN-054 S10: DropdownMenu 닫힘을 합성 규칙에 맞춤 — 항목 실행 신호로만 닫는다
+9b4c507 KAN-054 S9: 키보드로 열어 준 셋에 포커스 표시 — Card·Calendar 날짜 칸·DatePicker 트리거
+88c5c26 KAN-054 S8: 키보드 게이트 범위를 blocks·patterns·motion 까지 + FeatureGrid 탭 키보드
+8a51d22 kanban: KAN-054 S7 완료 — main 병합 후 직렬·용인 기록 복원(KAN-051→055 외 2)
+4ee72e1 Merge branch 'main' into KAN-054-M48FNQ — KAN-051(번들 트리 셰이킹·크기 게이트) 반영
+8022aaa kanban: KAN-054 재작업 계획 — 전략 덧붙임·S7~S11·배치4·5·scope(FeatureGrid) + 용인·직렬 재기록
+d161b02 kanban: KAN-054 진행 중으로 — 검토 반려(§3-5·§3-6) 재작업
+bcf7e2d kanban: KAN-054 재검토(kanban-reviewer) — §3-3 승인, §3-5·§3-6 반려(추천대로 재작업)
+4fd7399 kanban: KAN-054 검토서 §3-3·§3-5·§3-6 상세 정정 — 검토자가 짚은 사실 반영
+89a4ecd kanban: KAN-054 검토 대행(kanban-reviewer) — 항목 승인 4 · 추가 의견 6
+cd9a529 kanban: KAN-054 계획 리포트 다시 그림(6/6 진행 반영)
+47b8d76 kanban: KAN-054 검토로 이동 — 검토서(판단 항목 6건)·검토 리포트
 7a9e114 KAN-054 S6: Pagination·DataGrid·Card·FileUploader·Accordion + changeset
 72974cc KAN-054 S5: 복합 위젯 키보드 — SegmentedControl·TreeView·Calendar·DatePicker·Carousel
 82ead62 KAN-054 S4: 오버레이 키보드 — Tooltip·Popover·Menu·DropdownMenu
@@ -36,23 +49,31 @@ e69616f KAN-054 S1: 키보드 커버리지 게이트 — keyboard-coverage.json 
 bffb5fa kanban: KAN-054 진행 중으로 이동
 ```
 
-**변경 파일 58개 (+2578 −252)**
+**변경 파일 69개 (+4818 −410)**
 
 | 파일 | 상태 | 추가 | 삭제 |
 |---|:--:|---:|---:|
-| `.changeset/kan-054-keyboard.md` | M | 32 | 0 |
-| `.kanban/archive.jsonl` | M | 1 | 0 |
-| `.kanban/log.md` | M | 1 | 1 |
-| `.kanban/state.json` | M | 15 | 15 |
+| `.changeset/kan-054-keyboard.md` | M | 35 | 0 |
+| `.kanban/archive.jsonl` | M | 10 | 0 |
+| `.kanban/log.md` | M | 10 | 10 |
+| `.kanban/reviews/KAN-054-M48FNQ.events.jsonl` | M | 29 | 0 |
+| `.kanban/reviews/KAN-054-M48FNQ.review.json` | M | 21 | 0 |
+| `.kanban/state.json` | M | 140 | 140 |
 | `KANBAN.board.html` | M | 2 | 2 |
 | `KANBAN.md` | M | 5 | 4 |
 | `KANBAN/batches/KAN-054-M48FNQ.batch1.md` | M | 2 | 0 |
 | `KANBAN/batches/KAN-054-M48FNQ.batch2.md` | M | 2 | 1 |
 | `KANBAN/batches/KAN-054-M48FNQ.batch3.md` | M | 2 | 1 |
-| `KANBAN/cards/KAN-054-M48FNQ.md` | M | 20 | 6 |
+| `KANBAN/batches/KAN-054-M48FNQ.batch4.md` | M | 53 | 0 |
+| `KANBAN/batches/KAN-054-M48FNQ.batch5.md` | M | 46 | 0 |
+| `KANBAN/cards/KAN-054-M48FNQ.md` | M | 48 | 7 |
+| `KANBAN/reports/KAN-054-M48FNQ.report.html` | M | 7 | 7 |
+| `KANBAN/reviews/KAN-054-M48FNQ.review.html` | M | 1279 | 0 |
+| `KANBAN/reviews/KAN-054-M48FNQ.review.md` | M | 349 | 0 |
 | `apps/storybook/src/real-input/DatePicker.realinput.test.tsx` | M | 31 | 0 |
 | `apps/storybook/src/real-input/Drawer.realinput.test.tsx` | M | 49 | 0 |
 | `apps/storybook/src/real-input/DropdownMenu.realinput.test.tsx` | M | 44 | 0 |
+| `apps/storybook/src/real-input/FocusVisible.realinput.test.tsx` | M | 78 | 0 |
 | `apps/storybook/src/real-input/Modal.realinput.test.tsx` | M | 41 | 0 |
 | `apps/storybook/src/real-input/Popover.realinput.test.tsx` | M | 28 | 0 |
 | `apps/storybook/src/real-input/Select.realinput.test.tsx` | M | 44 | 0 |
@@ -63,8 +84,9 @@ bffb5fa kanban: KAN-054 진행 중으로 이동
 | `apps/storybook/src/stories/Carousel.stories.tsx` | M | 39 | 0 |
 | `apps/storybook/src/stories/DataGrid.stories.tsx` | M | 82 | 0 |
 | `apps/storybook/src/stories/DatePicker.stories.tsx` | M | 105 | 0 |
+| `apps/storybook/src/stories/FeatureGrid.stories.tsx` | M | 46 | 0 |
 | `apps/storybook/src/stories/FileUploader.stories.tsx` | M | 33 | 1 |
-| `apps/storybook/src/stories/Menu.stories.tsx` | M | 139 | 1 |
+| `apps/storybook/src/stories/Menu.stories.tsx` | M | 194 | 1 |
 | `apps/storybook/src/stories/Modal.stories.tsx` | M | 77 | 0 |
 | `apps/storybook/src/stories/Pagination.stories.tsx` | M | 38 | 0 |
 | `apps/storybook/src/stories/Popover.stories.tsx` | M | 43 | 0 |
@@ -73,20 +95,22 @@ bffb5fa kanban: KAN-054 진행 중으로 이동
 | `apps/storybook/src/stories/Tooltip.stories.tsx` | M | 45 | 1 |
 | `apps/storybook/src/stories/TreeView.stories.tsx` | M | 48 | 0 |
 | `apps/storybook/vite.config.ts` | M | 17 | 0 |
-| `keyboard-coverage.json` | M | 237 | 0 |
+| `keyboard-coverage.json` | M | 249 | 0 |
 | `packages/core/src/a11y/composeHandlers.ts` | M | 19 | 0 |
 | `packages/core/src/a11y/dateGridKeys.ts` | M | 44 | 0 |
+| `packages/core/src/a11y/focusRing.ts` | M | 25 | 0 |
 | `packages/core/src/a11y/focusWhenReady.ts` | M | 20 | 0 |
-| `packages/core/src/a11y/index.ts` | M | 3 | 0 |
+| `packages/core/src/a11y/index.ts` | M | 4 | 0 |
 | `packages/core/src/a11y/useFocusTrap.ts` | M | 6 | 6 |
-| `packages/core/src/components/Calendar.tsx` | M | 76 | 37 |
-| `packages/core/src/components/Card.tsx` | M | 7 | 4 |
+| `packages/core/src/blocks/FeatureGrid.tsx` | M | 15 | 0 |
+| `packages/core/src/components/Calendar.tsx` | M | 86 | 39 |
+| `packages/core/src/components/Card.tsx` | M | 16 | 5 |
 | `packages/core/src/components/Carousel.tsx` | M | 7 | 3 |
 | `packages/core/src/components/DataGrid.tsx` | M | 36 | 10 |
-| `packages/core/src/components/DatePicker.tsx` | M | 135 | 21 |
+| `packages/core/src/components/DatePicker.tsx` | M | 146 | 24 |
 | `packages/core/src/components/Drawer.tsx` | M | 3 | 4 |
 | `packages/core/src/components/FileUploader.tsx` | M | 12 | 3 |
-| `packages/core/src/components/Menu.tsx` | M | 159 | 91 |
+| `packages/core/src/components/Menu.tsx` | M | 170 | 101 |
 | `packages/core/src/components/Modal.tsx` | M | 3 | 4 |
 | `packages/core/src/components/Pagination.tsx` | M | 14 | 0 |
 | `packages/core/src/components/Popover.tsx` | M | 12 | 12 |
@@ -96,21 +120,28 @@ bffb5fa kanban: KAN-054 진행 중으로 이동
 | `packages/core/src/components/Tabs.tsx` | M | 3 | 5 |
 | `packages/core/src/components/Tooltip.tsx` | M | 19 | 6 |
 | `packages/core/src/components/TreeView.tsx` | M | 64 | 8 |
-| `packages/foundations/src/keyboardCoverage.test.ts` | M | 215 | 0 |
+| `packages/foundations/src/keyboardCoverage.test.ts` | M | 224 | 0 |
 | `packages/foundations/src/keyboardCoverage.ts` | M | 224 | 0 |
 
-**롤백 태그 9개**
+**롤백 태그 16개**
 
 ```text
 kan/KAN-054-M48FNQ/S1
+kan/KAN-054-M48FNQ/S10
+kan/KAN-054-M48FNQ/S11
 kan/KAN-054-M48FNQ/S2
 kan/KAN-054-M48FNQ/S3
 kan/KAN-054-M48FNQ/S4
 kan/KAN-054-M48FNQ/S5
 kan/KAN-054-M48FNQ/S6
+kan/KAN-054-M48FNQ/S7
+kan/KAN-054-M48FNQ/S8
+kan/KAN-054-M48FNQ/S9
 kan/KAN-054-M48FNQ/batch1
 kan/KAN-054-M48FNQ/batch2
 kan/KAN-054-M48FNQ/batch3
+kan/KAN-054-M48FNQ/batch4
+kan/KAN-054-M48FNQ/batch5
 ```
 
 ## 2. 검증 — 기준과 실행 결과
@@ -158,18 +189,15 @@ core를 고칠 때마다 `pnpm --filter @centurio1987/bbangto-ui-core build` 후
 
 ```text
 pnpm typecheck — exit 0
-.../visualization-style-guide-catalog typecheck: Done
 pnpm build — exit 0
-.../visualization-style-guide-catalog build: Done
 pnpm test — exit 0
- Test Files  191 passed (191)
-      Tests  1267 passed (1267)
+ Test Files  192 passed (192)
+      Tests  1272 passed (1272)
 pnpm --filter storybook build — exit 0
-
-pnpm test:unit — exit 0
+pnpm test:unit — exit 0 (번들 크기 게이트 포함)
 packages/hooks test:       Tests  115 passed (115)
-packages/foundations test:       Tests  78 passed (78)
 packages/visualization test:       Tests  257 passed (257)
+packages/foundations test:       Tests  101 passed (101)
 packages/style-guide-catalog test:       Tests  76 passed (76)
 .../visualization-style-guide-catalog test:       Tests  39 passed (39)
 ```
