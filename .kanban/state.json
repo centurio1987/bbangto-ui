@@ -1,6 +1,6 @@
 {
   "next_id": 60,
-  "next_seq": 198,
+  "next_seq": 199,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -1063,6 +1063,16 @@
   ],
   "recent": [
     {
+      "seq": 198,
+      "t": "2026-10-07T16:33",
+      "a": "ai",
+      "id": "KAN-055-34A57K",
+      "op": "serialize",
+      "w": "S7030N",
+      "with_": "KAN-052-BYS4JN",
+      "reason": "배포는 051·052·053이 main에 병합된 뒤에야 의미가 있다 (2026-10-05 유저 승인 플랜). 2026-10-07 재기록: 052 병합(123e2e3)의 rebuild 가 재수립 필요 표시를 잃었다 — 055 는 052 의 fonts prop 을 보고 전략을 다시 세워야 한다"
+    },
+    {
       "seq": 197,
       "t": "2026-10-07T16:33",
       "a": "ai",
@@ -1583,16 +1593,6 @@
       "w": "PP8AJM",
       "from": "review",
       "to": "done"
-    },
-    {
-      "seq": 162,
-      "t": "2026-10-06T00:31",
-      "a": "ai",
-      "id": "KAN-049-CWBPP6",
-      "op": "waive",
-      "w": "HQ1ZBZ",
-      "with_": "KAN-051-5HMYKT",
-      "reason": "049는 packages/visualization/**를 잡았지만 md 문서만 고친다. 051은 packages/visualization/tsup.config.ts만 고친다. 049 scope에 gateDocs.test.ts를 더해 재기록 — 겹침 내용 불변 (2026-10-06 유저 승인)"
     }
   ],
   "waivers": [
@@ -1648,18 +1648,6 @@
   ],
   "serials": [
     {
-      "pair": "KAN-052-BYS4JN|KAN-055-34A57K",
-      "order": [
-        "KAN-052-BYS4JN",
-        "KAN-055-34A57K"
-      ],
-      "scope_hash": "a2a038f52cf2b557",
-      "reason": "배포는 051·052·053이 main에 병합된 뒤에야 의미가 있다 (2026-10-05 유저 승인 플랜)",
-      "created": "2026-10-05T00:14",
-      "by": "ai",
-      "restrategy_required": false
-    },
-    {
       "pair": "KAN-053-TZ86NN|KAN-055-34A57K",
       "order": [
         "KAN-053-TZ86NN",
@@ -1705,6 +1693,18 @@
       ],
       "scope_hash": "b5de3566a5872edf",
       "reason": "배포는 051·052·053이 main에 병합된 뒤에야 의미가 있다 (2026-10-05 유저 승인 플랜). 2026-10-07 재기록: 이전 기록의 scope_hash 가 현재 scope 와 어긋나 조용히 무효였다 — 055 는 051 의 파일 단위 dist·크기 게이트를 보고 전략을 다시 세워야 한다",
+      "created": "2026-10-07T16:33",
+      "by": "ai",
+      "restrategy_required": true
+    },
+    {
+      "pair": "KAN-052-BYS4JN|KAN-055-34A57K",
+      "order": [
+        "KAN-052-BYS4JN",
+        "KAN-055-34A57K"
+      ],
+      "scope_hash": "a2a038f52cf2b557",
+      "reason": "배포는 051·052·053이 main에 병합된 뒤에야 의미가 있다 (2026-10-05 유저 승인 플랜). 2026-10-07 재기록: 052 병합(123e2e3)의 rebuild 가 재수립 필요 표시를 잃었다 — 055 는 052 의 fonts prop 을 보고 전략을 다시 세워야 한다",
       "created": "2026-10-07T16:33",
       "by": "ai",
       "restrategy_required": true
