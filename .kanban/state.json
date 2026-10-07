@@ -1,6 +1,6 @@
 {
   "next_id": 58,
-  "next_seq": 181,
+  "next_seq": 185,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -79,7 +79,7 @@
       "verbatim": "",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-10-05",
+      "갱신": "2026-10-07",
       "title_hash": "18c8839bf1a2bbfbde0d66a13dc03393b71ce8b2",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
       "short": "규율 문서 실측 정합",
@@ -90,8 +90,8 @@
       "reason_hash": "0181869b53f48c4ed990e346897502629e09fa6f",
       "goal": "규율 문서가 실제 레포 구조와 일치하고 모션 워크플로가 한 곳에만 적힌다",
       "goal_hash": "1b98bba47a59d6f31f2f166fb9f6d7788594bf14",
-      "memo": "KAN-044 §13-D. B 의 후행(직렬 중재) — DESIGN_SYSTEM_GUIDE.md:182 는 B 가 ASSET_INTEGRATION_PLAN 을 없앤 뒤에 고쳐야 한다. KAN-046 과 CLAUDE.md 를 함께 건드리지만 절이 달라 dep-waive 대상(§14). 게이트 명령 4종은 손대지 않고 구조도·경로만 고친다. work 4개 추가(KAN-051 넘김): KAN-051이 tsup 출력을 파일 단위로 바꾸면 packages/core/motion-catalog.md:28 「tsup entry는 src/index.ts」 서술이 어긋나므로 함께 고친다.",
-      "memo_hash": "93a0e6d76043ed72073c4d97c1b0069a2377a476",
+      "memo": "KAN-044 §13-D. 2026-10-07 전략 재수립(선행 KAN-048 완료) — 전수 grep 으로 scope 3파일 추가(COMPONENT_CATALOG·Overview.mdx·types.ts), motion-catalog:27 은 KAN-051 앞뒤 모두 참인 문장으로 고쳐 순서 의존을 없앤다. 상세는 카드 문서 「전략」",
+      "memo_hash": "a1057bb2e28cc1c14b3d9a4264c7fbb04e305237",
       "scope": [
         "CLAUDE.md",
         "QUALITY_CHECKLIST.md",
@@ -101,7 +101,10 @@
         "packages/core/src/motion/README.md",
         "packages/core/motion-catalog.md",
         "METADATA_COVERAGE_AUDIT.md",
-        "packages/foundations/FOUNDATION_METADATA_STRATEGY.md"
+        "packages/foundations/FOUNDATION_METADATA_STRATEGY.md",
+        "packages/core/COMPONENT_CATALOG.md",
+        "apps/storybook/src/Overview.mdx",
+        "packages/tokens/src/types.ts"
       ]
     },
     "KAN-051-5HMYKT": {
@@ -1015,6 +1018,47 @@
   ],
   "recent": [
     {
+      "seq": 184,
+      "t": "2026-10-07T13:37",
+      "a": "ai",
+      "id": "KAN-050-AJSQAY",
+      "op": "edit",
+      "w": "S7030N",
+      "field": "memo",
+      "before": "KAN-044 §13-D. B 의 후행(직렬 중재) — DESIGN_SYSTEM_GUIDE.md:182 는 B 가 ASSET_INTEGRATION_PLAN 을 없앤 뒤에 고쳐야 한다. KAN-046 과 CLAUDE.md 를 함께 건드리지만 절이 달라 dep-waive 대상(§14). 게이트 명령 4종은 손대지 않고 구조도·경로만 고친다. work 4개 추가(KAN-051 넘김): KAN-051이 tsup 출력을 파일 단위로 바꾸면 packages/core/motion-catalog.md:28 「tsup entry는 src/index.ts」 서술이 어긋나므로 함께 고친다.",
+      "after": "KAN-044 §13-D. 2026-10-07 전략 재수립(선행 KAN-048 완료) — 전수 grep 으로 scope 3파일 추가(COMPONENT_CATALOG·Overview.mdx·types.ts), motion-catalog:27 은 KAN-051 앞뒤 모두 참인 문장으로 고쳐 순서 의존을 없앤다. 상세는 카드 문서 「전략」"
+    },
+    {
+      "seq": 183,
+      "t": "2026-10-07T13:37",
+      "a": "유저",
+      "id": "KAN-050-AJSQAY",
+      "op": "serialize",
+      "w": "S7030N",
+      "with_": "KAN-048-R2KW3G",
+      "reason": "전략 재수립 완료"
+    },
+    {
+      "seq": 182,
+      "t": "2026-10-07T13:37",
+      "a": "유저",
+      "id": "KAN-050-AJSQAY",
+      "op": "serialize",
+      "w": "S7030N",
+      "with_": "KAN-048-R2KW3G",
+      "reason": "DESIGN_SYSTEM_GUIDE.md 를 둘 다 고친다. B 가 ASSET_INTEGRATION_PLAN 을 없애야 D 가 :182 링크를 고칠 수 있고, 순서가 뒤면 깨진 링크가 남는다. KAN-044 검토 5번에서 유저가 승인. 2026-10-07 KAN-050 재수립의 scope 확장으로 무효가 된 기록을 다시 건다"
+    },
+    {
+      "seq": 181,
+      "t": "2026-10-07T13:37",
+      "a": "유저",
+      "id": "KAN-050-AJSQAY",
+      "op": "waive",
+      "w": "S7030N",
+      "with_": "KAN-051-5HMYKT",
+      "reason": "같은 CLAUDE.md지만 050은 게이트 명령 4종을 손대지 않고 구조도·경로만 고친다고 적었다. 051은 test:unit 설명 두 줄(39, 103행)만 고친다 (2026-10-05 유저 승인 플랜). 2026-10-07 KAN-050 재수립의 scope 확장(COMPONENT_CATALOG·Overview.mdx·types.ts — 051 scope 와 안 겹침)으로 무효가 된 기록을 겹침 그대로 다시 건다"
+    },
+    {
       "seq": 180,
       "t": "2026-10-07T13:35",
       "a": "유저",
@@ -1492,56 +1536,6 @@
       "w": "S7030N",
       "with_": "KAN-053-TZ86NN",
       "reason": "배포는 051·052·053이 main에 병합된 뒤에야 의미가 있다 (2026-10-05 유저 승인 플랜)"
-    },
-    {
-      "seq": 151,
-      "t": "2026-10-05T00:14",
-      "a": "ai",
-      "id": "KAN-055-34A57K",
-      "op": "serialize",
-      "w": "S7030N",
-      "with_": "KAN-052-BYS4JN",
-      "reason": "배포는 051·052·053이 main에 병합된 뒤에야 의미가 있다 (2026-10-05 유저 승인 플랜)"
-    },
-    {
-      "seq": 150,
-      "t": "2026-10-05T00:14",
-      "a": "ai",
-      "id": "KAN-055-34A57K",
-      "op": "serialize",
-      "w": "S7030N",
-      "with_": "KAN-051-5HMYKT",
-      "reason": "배포는 051·052·053이 main에 병합된 뒤에야 의미가 있다 (2026-10-05 유저 승인 플랜)"
-    },
-    {
-      "seq": 149,
-      "t": "2026-10-05T00:14",
-      "a": "ai",
-      "id": "KAN-054-M48FNQ",
-      "op": "serialize",
-      "w": "S7030N",
-      "with_": "KAN-053-TZ86NN",
-      "reason": "054가 053이 만든 packages/core/src/a11y/ 훅을 이어 쓴다. 053 훅 API를 보고 전략을 다시 세운다 (2026-10-05 유저 승인 플랜)"
-    },
-    {
-      "seq": 148,
-      "t": "2026-10-05T00:12",
-      "a": "ai",
-      "id": "KAN-054-M48FNQ",
-      "op": "brief",
-      "w": "S7030N",
-      "fields": {
-        "short": "나머지 키보드 일괄 + 커버리지 게이트",
-        "purpose": "나머지 11곳의 키보드·포커스 결함을 고치고, 상호작용 컴포넌트마다 키보드 테스트가 있는지 test:unit이 검사하게 한다",
-        "reason": "같은 결함이 11곳에 더 있어서 보고된 세 곳만 고치면 같은 문제가 다시 나온다",
-        "goal": "keyboard-coverage.json에 오른 모든 상호작용 컴포넌트에 키보드 play 테스트가 있고, 빠지면 test:unit이 빨강이 된다"
-      },
-      "before": {
-        "short": "나머지 키보드 일괄 + 커버리지 게이트",
-        "purpose": "나머지 12곳의 키보드·포커스 결함을 고치고, 상호작용 컴포넌트마다 키보드 테스트가 있는지 test:unit이 검사하게 한다",
-        "reason": "같은 결함이 12곳에 더 있어서 보고된 세 곳만 고치면 같은 문제가 다시 나온다",
-        "goal": "keyboard-coverage.json에 오른 모든 상호작용 컴포넌트에 키보드 play 테스트가 있고, 빠지면 test:unit이 빨강이 된다"
-      }
     }
   ],
   "waivers": [
@@ -1567,13 +1561,6 @@
       "by": "ai"
     },
     {
-      "pair": "KAN-050-AJSQAY|KAN-051-5HMYKT",
-      "scope_hash": "1fbb2b79c2863518",
-      "reason": "같은 CLAUDE.md지만 050은 게이트 명령 4종을 손대지 않고 구조도·경로만 고친다고 적었다. 051은 test:unit 설명 두 줄(39, 103행)만 고친다 (2026-10-05 유저 승인 플랜)",
-      "created": "2026-10-05T00:14",
-      "by": "ai"
-    },
-    {
       "pair": "KAN-049-CWBPP6|KAN-055-34A57K",
       "scope_hash": "416343d60ccfae08",
       "reason": "049는 PLAN.md·visualization-catalog.md 흡수만 하고, 055가 viz에서 바꾸는 것은 CI Version PR이 만드는 package.json·CHANGELOG.md뿐이라 같은 파일을 건드리지 않는다 (2026-10-05 유저 선택)",
@@ -1592,6 +1579,13 @@
       "scope_hash": "84dd2b8fdef74b9f",
       "reason": "054의 changeset은 054가 끝나 main에 병합된 뒤에만 들어오므로 그 전 배포에 섞이지 않는다 (2026-10-05 유저 승인 플랜). 2026-10-07 재수립의 scope 확장으로 무효가 된 기록을 다시 건다 — 겹침은 그대로 .changeset/ 하나",
       "created": "2026-10-07T13:35",
+      "by": "유저"
+    },
+    {
+      "pair": "KAN-050-AJSQAY|KAN-051-5HMYKT",
+      "scope_hash": "5d2b8c1144e4bb0f",
+      "reason": "같은 CLAUDE.md지만 050은 게이트 명령 4종을 손대지 않고 구조도·경로만 고친다고 적었다. 051은 test:unit 설명 두 줄(39, 103행)만 고친다 (2026-10-05 유저 승인 플랜). 2026-10-07 KAN-050 재수립의 scope 확장(COMPONENT_CATALOG·Overview.mdx·types.ts — 051 scope 와 안 겹침)으로 무효가 된 기록을 겹침 그대로 다시 건다",
+      "created": "2026-10-07T13:37",
       "by": "유저"
     }
   ],
@@ -1621,18 +1615,6 @@
       "restrategy_required": false
     },
     {
-      "pair": "KAN-048-R2KW3G|KAN-050-AJSQAY",
-      "order": [
-        "KAN-048-R2KW3G",
-        "KAN-050-AJSQAY"
-      ],
-      "scope_hash": "d91d7ccf595645c5",
-      "reason": "DESIGN_SYSTEM_GUIDE.md 를 둘 다 고친다. B 가 ASSET_INTEGRATION_PLAN 을 없애야 D 가 :182 링크를 고칠 수 있고, 순서가 뒤면 깨진 링크가 남는다. KAN-044 검토 5번에서 유저가 승인. KAN-048 scope 확장으로 무효가 된 기록을 2026-10-06 유저 지시로 다시 건다",
-      "created": "2026-10-06T17:28",
-      "by": "유저",
-      "restrategy_required": true
-    },
-    {
       "pair": "KAN-053-TZ86NN|KAN-055-34A57K",
       "order": [
         "KAN-053-TZ86NN",
@@ -1656,6 +1638,19 @@
       "by": "유저",
       "restrategy_required": false,
       "restrategy_done": "2026-10-07T13:35"
+    },
+    {
+      "pair": "KAN-048-R2KW3G|KAN-050-AJSQAY",
+      "order": [
+        "KAN-048-R2KW3G",
+        "KAN-050-AJSQAY"
+      ],
+      "scope_hash": "09d626b8ea6c2877",
+      "reason": "DESIGN_SYSTEM_GUIDE.md 를 둘 다 고친다. B 가 ASSET_INTEGRATION_PLAN 을 없애야 D 가 :182 링크를 고칠 수 있고, 순서가 뒤면 깨진 링크가 남는다. KAN-044 검토 5번에서 유저가 승인. 2026-10-07 KAN-050 재수립의 scope 확장으로 무효가 된 기록을 다시 건다",
+      "created": "2026-10-07T13:37",
+      "by": "유저",
+      "restrategy_required": false,
+      "restrategy_done": "2026-10-07T13:37"
     }
   ]
 }
