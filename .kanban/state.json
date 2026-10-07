@@ -51,7 +51,25 @@
       "goal": "13개 템플릿에 불투명 리터럴 색이 0건이 되고 viz README 「알려진 한계」의 해당 항목이 지워진다",
       "goal_hash": "e9bd1a33c52be356cf510bfa4d5bba51d6351e8f",
       "memo": "목록과 셈 기준은 packages/visualization/README.md 「알려진 한계」. 반투명 검정 음영(Node cube 면·IsoPrism·IsometricScene 바닥 그림자·Lane)은 paint 무관 장치라 대상이 아니다",
-      "memo_hash": "58b92a097f7586fdfdadd09d47dd82ffec343dbe"
+      "memo_hash": "58b92a097f7586fdfdadd09d47dd82ffec343dbe",
+      "scope": [
+        "packages/visualization/src/templates/ArchitectureDiagram.tsx",
+        "packages/visualization/src/templates/ArchiMateDiagram.tsx",
+        "packages/visualization/src/templates/BlockDiagram.tsx",
+        "packages/visualization/src/templates/BPMNDiagram.tsx",
+        "packages/visualization/src/templates/BPMNCollaborationDiagram.tsx",
+        "packages/visualization/src/templates/C4CodeDiagram.tsx",
+        "packages/visualization/src/templates/KanbanBoard.tsx",
+        "packages/visualization/src/templates/Mindmap.tsx",
+        "packages/visualization/src/templates/RequirementDiagram.tsx",
+        "packages/visualization/src/templates/TimelineDiagram.tsx",
+        "packages/visualization/src/templates/UMLComponentDiagram.tsx",
+        "packages/visualization/src/templates/UMLDeploymentDiagram.tsx",
+        "packages/visualization/src/templates/UMLSequenceDiagram.tsx",
+        "apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx",
+        "packages/visualization/README.md",
+        ".changeset/kan-056-*.md"
+      ]
     },
     "KAN-057-CCH3E8": {
       "col": "backlog",
