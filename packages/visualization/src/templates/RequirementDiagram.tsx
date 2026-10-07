@@ -58,7 +58,7 @@ function ReqNode({ req }: ReqNodeProps) {
   return (
     <g data-bbangto-viz-requirement data-bbangto-viz-requirement-id={req.id}>
       {/* outer box */}
-      <rect x={x} y={y} width={width} height={height} style={{ fill: '#FFFFFF', stroke, strokeWidth: 1.5 }} />
+      <rect data-viz-part="shape" x={x} y={y} width={width} height={height} style={{ stroke, strokeWidth: 1.5 }} />
       {/* header background */}
       <rect x={x} y={y} width={width} height={HEADER_H} style={{ fill: headerFill, stroke, strokeWidth: 1.5 }} />
       {/* stereotype */}
@@ -161,7 +161,6 @@ export function RequirementDiagram({
           from={e.from}
           to={e.to}
           markerEnd="arrowOpen"
-          stroke="#555555"
           strokeWidth={1.5}
           strokeDasharray="5 3"
         />

@@ -101,8 +101,8 @@ export function KanbanBoard({
             width={card.width}
             height={card.height}
             shape="rounded"
-            fill={card.fill ?? '#FFFFFF'}
-            stroke={card.stroke ?? '#111111'}
+            fill={card.fill}
+            stroke={card.stroke}
             strokeWidth={1.5}
           />
           <NodeLabel
