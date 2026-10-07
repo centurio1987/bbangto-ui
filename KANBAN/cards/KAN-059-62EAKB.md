@@ -102,7 +102,7 @@ TreeView 는 표시가 아예 없는 것은 아니지만 카드 목적의 목록
 - [x] `S3` 공용 규칙 — `a11y/focusRing.ts` 색을 `border.focus` 로, 안쪽 간격 변형, `useFocusVisible()` 훅(외부 `onFocus`·`onBlur` 합성). Card·DatePicker 를 훅으로 바꾸고 Gallery·Testimonials 의 색 한 단어를 맞춘다. 완료 기준: KAN-054 실제 입력 셋과 Card·DatePicker·Calendar·Gallery·Testimonials 스토리 초록, core typecheck 통과
 - [x] `S4` 자기 자신에 그리는 자리 — Button · Link(모든 변형, 상자 변형 box-shadow 고리 걷기) · Dock 항목 · TreeView 항목 · Menu 항목 · ScrollArea. 완료 기준: 해당 실제 입력 항목 초록, 해당 스토리 초록
 - [x] `S5` 감싼 상자와 숨긴 입력 — Input(기본·composer) · Textarea · Searchfield · NumberField(입력은 상자, 증감 버튼은 자기 자신 — 한 파일이라 여기 몰았다) · RichTextEditor · Switch 트랙 · Radio `segmented` 조각 · NumberField `seven-segment` 판. 내부 `onFocus`·`onBlur` 를 `{...props}` 가 덮던 자리는 합성으로 바꾼다. 완료 기준: 실제 입력 항목 전부 초록, S1 게이트 초록
-- [ ] `S6` 화면 확인과 마무리 — 빌드한 Storybook 에서 Playwright 실제 Tab 으로 각 자리를 찍어 테두리가 잘리거나 이웃을 덮지 않는지 본다(Menu·TreeView 는 여기서 안쪽 간격 여부를 정한다). changeset(`.changeset/kan-059-focus-ring.md`, core minor), 게이트 5종, 검토서. 완료 기준: 게이트 5종 초록, 검토로 이동
+- [x] `S6` 화면 확인과 마무리 — 빌드한 Storybook 에서 Playwright 실제 Tab 으로 각 자리를 찍어 테두리가 잘리거나 이웃을 덮지 않는지 본다(Menu·TreeView 는 여기서 안쪽 간격 여부를 정한다). changeset(`.changeset/kan-059-focus-ring.md`, core minor), 게이트 5종, 검토서. 완료 기준: 게이트 5종 초록, 검토로 이동
 
 ## 검증
 ### 게이트 5종 (전부 초록이어야 완료)
@@ -157,3 +157,5 @@ pnpm test:unit                  # ← keyboardCoverage.test.ts 의 포커스 표
 - 2026-10-07T19:28 · s:adde175a · S4 done — Button·Link(상자 변형 box-shadow 고리 걷음)·Dock·ScrollArea 는 자기 자신에 FOCUS_RING, TreeView 는 li 의 브라우저 테두리를 끄고 행에 FOCUS_RING_INSET, Menu 항목은 FOCUS_RING_INSET. 실제 입력 S4 7건 + KAN-054 3건 초록, 스토리 6파일 초록. 테스트 고침: Button·Link 는 포커스된 요소를 다시 눌러 확인했는데, 포커스가 안 옮겨 가면 판단도 안 바뀌어(브라우저와 같음) KAN-054 처럼 다른 곳을 먼저 누르게 했다. ScrollArea 는 잘린 안쪽 글자 대신 상자를 누른다
 - 2026-10-07T19:28 · s:adde175a · S5 doing — 착수
 - 2026-10-07T19:30 · s:adde175a · S5 done — Input(기본·composer)·Searchfield·RichTextEditor 는 감싼 상자, Textarea 는 자기 자신, NumberField 는 증감 버튼 각자(FOCUS_RING_INSET — 상자가 overflow:hidden)·입력은 바깥 상자·seven-segment 는 판 전체, Switch 는 트랙, Radio segmented 는 스타일 블록의 :has(input:focus-visible) 로 그 조각(이미 :has(input:checked) 를 쓰던 자리). Input 의 내부 onFocus/onBlur 를 {...props} 가 덮던 것을 합성으로 — 소비자 onFocus 가 와도 테두리 색·고리가 산다(실제 입력 항목으로 확인). 실제 입력 20건·스토리 6파일 80건 초록, test:unit 포커스 표시 게이트 27건 초록
+- 2026-10-07T19:31 · s:adde175a · S6 doing — 착수
+- 2026-10-07T19:34 · s:adde175a · S6 done — 빌드한 Storybook(127.0.0.1)에서 Playwright 실제 Tab 으로 19자리를 찍었다 — 모두 테두리 하나(2px)가 보이고, overflow 로 잘리는 조상이 없다(스크립트로 조상 상자와 고리 범위를 대조). Menu·TreeView 항목·NumberField 증감·Radio 조각은 안쪽 간격(-2px)으로 확정. TreeView 는 펼친 노드에서도 행 하나에만 그려진다. 스타일 가이드(Neobrutalism)에서는 그 가이드의 border.focus(금색)를 따른다 — 크림 배경에서 흐린 것은 KAN-060 몫. changeset kan-059-focus-ring.md(core minor). 게이트 5종 초록: typecheck · build · test 192파일 1289건 · storybook build · test:unit
