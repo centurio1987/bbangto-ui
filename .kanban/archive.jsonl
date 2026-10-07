@@ -166,3 +166,6 @@
 {"seq": 149, "t": "2026-10-05T00:14", "a": "ai", "id": "KAN-054-M48FNQ", "op": "serialize", "w": "S7030N", "with_": "KAN-053-TZ86NN", "reason": "054가 053이 만든 packages/core/src/a11y/ 훅을 이어 쓴다. 053 훅 API를 보고 전략을 다시 세운다 (2026-10-05 유저 승인 플랜)"}
 {"seq": 150, "t": "2026-10-05T00:14", "a": "ai", "id": "KAN-055-34A57K", "op": "serialize", "w": "S7030N", "with_": "KAN-051-5HMYKT", "reason": "배포는 051·052·053이 main에 병합된 뒤에야 의미가 있다 (2026-10-05 유저 승인 플랜)"}
 {"seq": 151, "t": "2026-10-05T00:14", "a": "ai", "id": "KAN-055-34A57K", "op": "serialize", "w": "S7030N", "with_": "KAN-052-BYS4JN", "reason": "배포는 051·052·053이 main에 병합된 뒤에야 의미가 있다 (2026-10-05 유저 승인 플랜)"}
+{"seq": 152, "t": "2026-10-05T00:14", "a": "ai", "id": "KAN-055-34A57K", "op": "serialize", "w": "S7030N", "with_": "KAN-053-TZ86NN", "reason": "배포는 051·052·053이 main에 병합된 뒤에야 의미가 있다 (2026-10-05 유저 승인 플랜)"}
+{"seq": 153, "t": "2026-10-05T00:14", "a": "ai", "id": "KAN-054-M48FNQ", "op": "waive", "w": "S7030N", "with_": "KAN-055-34A57K", "reason": "054의 changeset은 054가 끝나 main에 병합된 뒤에만 들어오므로 그 전 배포에 섞이지 않는다 (2026-10-05 유저 승인 플랜)"}
+{"seq": 154, "t": "2026-10-05T00:14", "a": "ai", "id": "KAN-048-R2KW3G", "op": "waive", "w": "S7030N", "with_": "KAN-051-5HMYKT", "reason": "같은 style-guide-catalog/src/index.ts지만 048은 46행 주석, 051은 77~195행(catalog import·배열·map) 이동이라 줄이 겹치지 않는다 (2026-10-05 유저 승인 플랜)"}
