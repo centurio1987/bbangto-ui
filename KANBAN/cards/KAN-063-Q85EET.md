@@ -41,7 +41,7 @@ Paint Gate(`apps/storybook/src/stories/visualization/TemplatePaintGate.stories.t
 - 수행 방식은 단일 에이전트다(2026-10-08 유저 선택).
 
 ## 실행 계획
-- [ ] `S1` 표본 누락 검사 세우기 — `packages/foundations/src/vizPaintGateCoverage.ts`·`.test.ts`. 완료 기준: 실패 주입 표본 셋(누락·중복·없는 이름)에서 위반을 내고, 실제 저장소 검사는 표본 파일이 아직 없어 68개 누락으로 빨강이다.
+- [x] `S1` 표본 누락 검사 세우기 — `packages/foundations/src/vizPaintGateCoverage.ts`·`.test.ts`. 완료 기준: 실패 주입 표본 셋(누락·중복·없는 이름)에서 위반을 내고, 실제 저장소 검사는 표본 파일이 아직 없어 68개 누락으로 빨강이다.
 - [ ] `S2` 표본 68개 작성 — `_paintGateFixtures.tsx`(matrix 24개 가져오기 · 스토리 안 7개 옮기기 · 새 37개). 스토리가 이 목록을 쓰게 바꾼다. 완료 기준: S1 검사 초록, storybook typecheck 통과.
 - [ ] `S3` 리터럴 검사를 68개로 — `LiteralPaintGate` 가 표본 전부를 그린다. 위반은 템플릿을 고쳐 없앤다. 완료 기준: `LiteralPaintGate` 초록, 표본마다 비교한 paint 수가 0보다 크다. 고친 템플릿과 줄을 수행 내역에 남긴다(없으면 없다고 남긴다).
 - [ ] `S4` 글자 대비 검사를 68개 × 가이드 30개로 — 새 미달은 기준 목록에 올리고 머리 주석을 고친다. 완료 기준: `LabelContrastGate` 초록, 표본마다 잰 글자 수가 0보다 크다(글자를 그리지 않는 템플릿이면 그 사유를 표본에 적고 따로 뺀다). 늘어난 항목 수를 템플릿별로 수행 내역에 남긴다.
@@ -60,3 +60,5 @@ Paint Gate(`apps/storybook/src/stories/visualization/TemplatePaintGate.stories.t
 - 2026-10-08T17:18 · s:04d9de55 — `실행 계획` 섹션 교체
 - 2026-10-08T17:18 · s:04d9de55 — `검증` 섹션 교체
 - 2026-10-08T17:35 · s:04d9de55 — `전략` 섹션 교체
+- 2026-10-08T17:36 · s:04d9de55 · S1 doing — 착수
+- 2026-10-08T17:37 · s:04d9de55 · S1 done — foundations 에 vizPaintGateCoverage.ts·.test.ts — 누락·중복·없는 이름·렌더 불일치·matrix key 검사. 실패 주입 8건 초록, 템플릿 이름 68개 읽기 확인, 실제 저장소 검사는 표본 파일이 없어 빨강(69건: 파일 없음 + 누락 68)
