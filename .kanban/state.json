@@ -1,6 +1,6 @@
 {
   "next_id": 67,
-  "next_seq": 247,
+  "next_seq": 248,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -103,7 +103,7 @@
       ]
     },
     "KAN-064-AC0H6M": {
-      "col": "backlog",
+      "col": "doing",
       "title": "AI 채택 매니페스트 재편 — 메타 필드는 유지, 매니페스트는 얇은 색인으로 축소 + 동기화 장치 단순화",
       "verbatim": "이 레포에는 ai agent가 라이브러리를 효율적으로 사용할 수 있도록 매니페스트를 제공하고 있는데, 매니페스트가 실제로 이득이 되는지, 아니면, 오버헤드가 더 큰지 판단해줘\n(진단 후) 너의 진단을 반영한 전략을 수립하고 칸반 카드를 만들어라",
       "생성": "ai",
@@ -1307,7 +1307,6 @@
     "KAN-057-CCH3E8",
     "KAN-061-K8V2HH",
     "KAN-062-E02CMT",
-    "KAN-064-AC0H6M",
     "KAN-066-T6NR80",
     "KAN-065-XSHEMV",
     "KAN-020",
@@ -1368,9 +1367,20 @@
     "KAN-059-62EAKB",
     "KAN-056-D3V1MB",
     "KAN-063-Q85EET",
-    "KAN-060-G9YKG6"
+    "KAN-060-G9YKG6",
+    "KAN-064-AC0H6M"
   ],
   "recent": [
+    {
+      "seq": 247,
+      "t": "2026-10-08T18:33",
+      "a": "ai",
+      "id": "KAN-064-AC0H6M",
+      "op": "move",
+      "w": "7E5YYM",
+      "from": "backlog",
+      "to": "doing"
+    },
     {
       "seq": 246,
       "t": "2026-10-08T18:32",
@@ -1913,16 +1923,6 @@
       "w": "T1CWJS",
       "from": "doing",
       "to": "review"
-    },
-    {
-      "seq": 214,
-      "t": "2026-10-07T16:45",
-      "a": "ai",
-      "id": "KAN-058-G883EJ",
-      "op": "move",
-      "w": "T1CWJS",
-      "from": "todo",
-      "to": "doing"
     }
   ],
   "waivers": [
