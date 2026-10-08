@@ -47,7 +47,7 @@ const foundations = makeFoundations({
     border: '#F3D3DD',
     borderMuted: '#F7E2E9',
     borderStrong: '#EBB9C8',
-    focus: CANDY,
+    focus: '#EB5D94', // CANDY 를 어둡게 — 밝은 바탕과 3:1 (KAN-060)
     primaryBase: CANDY,
     primaryHover: '#FF5896',
     primaryActive: '#F0427F',

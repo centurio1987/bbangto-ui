@@ -45,7 +45,7 @@ export const sunsetFoundation: BbangtoFoundation = {
       base: '#DDDDDD',
       muted: '#EEEEEE',
       strong: '#888888',
-      focus: '#FF7000',
+      focus: '#EE6801',
     },
     primary: {
       base: '#FF7000',

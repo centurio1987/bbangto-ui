@@ -15,6 +15,8 @@ import {
   contrastRatio,
   effectiveBgColors,
   CONTRAST_THRESHOLDS,
+  FOCUS_CONTRAST_MIN,
+  focusContrast,
 } from '@centurio1987/bbangto-ui-tokens';
 import type { BbangtoFoundation, FoundationPreset, StyleGuideMeta } from '@centurio1987/bbangto-ui-tokens';
 
@@ -87,5 +89,44 @@ export function auditContrast(catalog: readonly AuditableEntry[]): ContrastViola
     }
   }
 
+  return out;
+}
+
+/** 포커스 대비 미달 1건. `measured:null` 은 포커스 색이나 표면 색을 못 읽은 것이다. */
+export interface FocusContrastViolation {
+  readonly name: string;
+  readonly presetKey: string;
+  readonly focus: string;
+  readonly required: number;
+  readonly measured: number | null;
+  /** 최저 대비가 나온 표면. 측정 불가면 null. */
+  readonly against: 'base' | 'elevated' | null;
+  readonly reason: 'below-threshold' | 'unparseable';
+}
+
+/**
+ * 포커스 테두리 대비 감사 — 모든 색 스킴(foundationPreset)에서 `semantic.border.focus` 가 화면 표면
+ * (`background.base`·`elevated`)과 3:1(WCAG 1.4.11) 이상인지 본다. `contrastIntent` 선언과 무관하게
+ * 전부 본다 — 포커스 표시는 저대비를 고른 style guide 에서도 보여야 한다. 반투명 elevated 는 base 위에
+ * 합성해 잰다(`surfaceColors`). 빈 배열 = 미달 없음. (KAN-060)
+ */
+export function auditFocusContrast(catalog: readonly AuditableEntry[]): FocusContrastViolation[] {
+  const out: FocusContrastViolation[] = [];
+  for (const sg of catalog) {
+    const presets: readonly { key: string; foundations: BbangtoFoundation }[] =
+      sg.foundationPresets?.length
+        ? sg.foundationPresets
+        : [{ key: 'default', foundations: sg.foundations }];
+    for (const p of presets) {
+      const semantic = p.foundations.semantic;
+      const base = { name: sg.name, presetKey: p.key, focus: semantic.border.focus, required: FOCUS_CONTRAST_MIN };
+      const fc = focusContrast(semantic);
+      if (!fc) {
+        out.push({ ...base, measured: null, against: null, reason: 'unparseable' });
+      } else if (fc.ratio + 1e-6 < FOCUS_CONTRAST_MIN) {
+        out.push({ ...base, measured: round(fc.ratio), against: fc.against, reason: 'below-threshold' });
+      }
+    }
+  }
   return out;
 }

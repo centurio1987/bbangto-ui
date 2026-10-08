@@ -83,7 +83,7 @@ const arcadePaperFoundations = makeColorway(foundations, {
   semantic: makeSemantic({
     bg: '#F4F1E8', bgElevated: '#FFFFFF', bgSunken: '#E7E2D2', overlay: 'rgba(20,18,10,0.45)',
     fg: '#1A1710', fgMuted: '#4A4535', fgSubtle: '#7A7460', fgInverse: '#F4F1E8',
-    border: '#C7BFA8', borderMuted: '#DED7C4', borderStrong: '#8A836B', focus: '#FF4D4D',
+    border: '#C7BFA8', borderMuted: '#DED7C4', borderStrong: '#8A836B', focus: '#FB494A',
     primaryBase: COBALT, primaryHover: '#1A47E6', primaryActive: '#1238C0',
     primarySubtle: '#D6DEFF', primaryFg: '#FFFFFF',
     accent: COBALT, accent2: '#2E9E52', accent3: '#E23B3B',

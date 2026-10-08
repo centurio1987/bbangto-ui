@@ -45,7 +45,7 @@ export const warmParchmentFoundation: BbangtoFoundation = {
       base: '#DDDDDD',
       muted: '#EEEEEE',
       strong: '#888888',
-      focus: '#FF6B6B',
+      focus: '#F26061',
     },
     primary: {
       base: '#FF6B6B',

@@ -130,3 +130,56 @@ export function effectiveBgColors(stops: readonly RGBA[]): RGBA[] {
   const backdrop = opaque.length ? opaque[opaque.length - 1] : WHITE;
   return stops.map((s) => (s.a >= 1 ? s : compositeOver(s, backdrop)));
 }
+
+/** 포커스 표시(테두리)가 이웃 배경과 가져야 하는 대비 하한 — WCAG 1.4.11 비텍스트 대비. (KAN-060) */
+export const FOCUS_CONTRAST_MIN = 3;
+
+/** 화면 표면 둘(base·elevated)의 실효 불투명색. 그라디언트면 스톱마다 한 색이다. */
+export interface SurfaceColors {
+  readonly base: RGBA[];
+  readonly elevated: RGBA[];
+}
+
+/**
+ * `background.base`·`background.elevated` 를 실제로 화면에 깔리는 불투명색으로 푼다.
+ *
+ * base 는 `effectiveBgColors` 그대로다. elevated 는 불투명 색(스톱)이 하나도 없으면 흰색이 아니라 **base 의 각 색
+ * 위에** 합성한다 — 유리 효과 카드처럼 `rgba(255,255,255,0.08)` 인 표면은 실제로 어두운 base 위에 깔리므로, 흰색
+ * 위로 재면 있지도 않은 저대비가 나온다. 불투명 스톱이 있으면 그 자체로 푼다. 색을 못 읽은 표면은 빈 배열이다.
+ */
+export function surfaceColors(background: { readonly base: string; readonly elevated: string }): SurfaceColors {
+  const base = effectiveBgColors(extractColors(background.base));
+  const elevStops = extractColors(background.elevated);
+  const elevated = elevStops.some((s) => s.a >= 1)
+    ? effectiveBgColors(elevStops)
+    : elevStops.flatMap((s) => base.map((b) => compositeOver(s, b)));
+  return { base, elevated };
+}
+
+/** `focusContrast` 결과 — 최저 대비와 그 값이 나온 표면. */
+export interface FocusContrast {
+  readonly ratio: number;
+  readonly against: 'base' | 'elevated';
+}
+
+/**
+ * `border.focus` 와 화면 표면(base·elevated, `surfaceColors`) 사이의 최저 대비. 포커스 테두리는 페이지 바탕에도
+ * 카드·팝오버 위에도 그려지므로 둘 중 낮은 쪽이 그 색 스킴의 값이다. 포커스 색이나 표면 색을 못 읽으면 null —
+ * 감사는 null 을 통과로 두지 않는다. foundation·style guide 포커스 대비 게이트가 공유한다. (KAN-060)
+ */
+export function focusContrast(semantic: {
+  readonly border: { readonly focus: string };
+  readonly background: { readonly base: string; readonly elevated: string };
+}): FocusContrast | null {
+  const focus = parseColor(semantic.border.focus);
+  const surfaces = surfaceColors(semantic.background);
+  if (!focus || !surfaces.base.length || !surfaces.elevated.length) return null;
+  let worst: FocusContrast | null = null;
+  for (const against of ['base', 'elevated'] as const) {
+    for (const bg of surfaces[against]) {
+      const ratio = contrastRatio(focus, bg);
+      if (ratio != null && (worst == null || ratio < worst.ratio)) worst = { ratio, against };
+    }
+  }
+  return worst;
+}

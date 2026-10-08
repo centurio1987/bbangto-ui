@@ -45,7 +45,7 @@ export const neonYellowFoundation: BbangtoFoundation = {
       base: '#DDDDDD',
       muted: '#EEEEEE',
       strong: '#888888',
-      focus: '#FAFF69',
+      focus: '#939603',
     },
     primary: {
       base: '#FAFF69',

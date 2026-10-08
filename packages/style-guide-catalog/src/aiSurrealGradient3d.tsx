@@ -84,7 +84,7 @@ const lightFoundations = makeColorway(foundations, {
   semantic: makeSemantic({
     bg: '#F4F2FB', bgElevated: '#FFFFFF', bgSunken: '#E9E5F5', overlay: 'rgba(20,16,32,0.28)',
     fg: '#141020', fgMuted: '#4A4560', fgSubtle: '#7C7794', fgInverse: '#F4F2FB',
-    border: '#D8D2EC', borderMuted: '#E9E5F5', borderStrong: '#B3ABD0', focus: '#0EA5C4',
+    border: '#D8D2EC', borderMuted: '#E9E5F5', borderStrong: '#B3ABD0', focus: '#0B99B6',
     primaryBase: '#7C3AED', primaryHover: '#6D28D9', primaryActive: '#5B21B6',
     primarySubtle: '#E9E2FB', primaryFg: '#FFFFFF',
     accent: '#0EA5C4', accent2: '#DB2777', accent3: '#65A30D',
@@ -167,7 +167,7 @@ const CSS = `
 }
 .bbangto-ai-surreal-gradient3d-btn:active { transform: translateY(1px) scale(0.99) !important; }
 .bbangto-ai-surreal-gradient3d-btn:focus-visible {
-  outline: 2px solid var(--bbangto-semantic-focus, #5BE1FF) !important;
+  outline: 2px solid var(--bbangto-semantic-border-focus, #5BE1FF) !important;
   outline-offset: 2px;
 }
 @media (prefers-reduced-motion: reduce) {

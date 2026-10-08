@@ -96,12 +96,15 @@ export {
   type CriterionWeights,
 } from './select';
 
-// accessibility over-claim 감사 (팔레트 실측 WCAG 대비 vs contrastIntent 선언, KAN-024).
+// accessibility over-claim 감사 (팔레트 실측 WCAG 대비 vs contrastIntent 선언, KAN-024)
+// + 포커스 테두리 대비 감사 (border.focus vs 표면 3:1, KAN-060).
 export {
   auditContrast,
+  auditFocusContrast,
   CONTRAST_THRESHOLDS,
   type AuditableEntry,
   type ContrastViolation,
+  type FocusContrastViolation,
 } from './accessibilityAudit';
 
 // 트렌드 표 자동생성 (매니페스트 → style-guide-catalog.md 색인 표, KAN-025).

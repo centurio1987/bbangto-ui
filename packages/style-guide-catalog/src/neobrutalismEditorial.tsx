@@ -23,6 +23,7 @@ const NEO = {
   creamSunken: '#F3E8C9',
   gold: '#E9C766',
   goldHover: '#DDB94E',
+  goldFocus: '#A9881C',
   green: '#C2D3B4',
   pink: '#ECC3C8',
   muted: '#4A463C',
@@ -59,7 +60,7 @@ const foundations = makeFoundations({
   semantic: makeSemantic({
     bg: NEO.cream, bgElevated: NEO.paper, bgSunken: NEO.creamSunken, overlay: 'rgba(28,27,23,0.55)',
     fg: NEO.ink, fgMuted: NEO.muted, fgSubtle: NEO.subtle, fgInverse: NEO.cream,
-    border: NEO.ink, borderMuted: '#3A3833', borderStrong: NEO.ink, focus: NEO.gold,
+    border: NEO.ink, borderMuted: '#3A3833', borderStrong: NEO.ink, focus: NEO.goldFocus, // gold 를 어둡게 — 크림 바탕과 3:1 (KAN-060)
     primaryBase: NEO.ink, primaryHover: NEO.inkHover, primaryActive: NEO.inkActive,
     primarySubtle: NEO.gold, primaryFg: NEO.cream,
     accent: NEO.gold, accent2: NEO.green, accent3: NEO.pink,

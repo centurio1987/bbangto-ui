@@ -45,7 +45,7 @@ export const mintCodeFoundation: BbangtoFoundation = {
       base: '#DDDDDD',
       muted: '#EEEEEE',
       strong: '#888888',
-      focus: '#3ECF8E',
+      focus: '#07A56B',
     },
     primary: {
       base: '#3ECF8E',

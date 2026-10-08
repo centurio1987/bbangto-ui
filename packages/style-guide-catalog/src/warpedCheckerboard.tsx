@@ -146,7 +146,7 @@ const CSS = `
   border-color: var(--bbangto-semantic-border-strong, #B3122B) !important;
 }
 .bbangto-warped-checkerboard-card:focus-visible {
-  outline: 3px solid var(--bbangto-semantic-focus, #B3122B) !important;
+  outline: 3px solid var(--bbangto-semantic-border-focus, #B3122B) !important;
   outline-offset: 3px;
 }
 .bbangto-warped-checkerboard-btn {
@@ -163,7 +163,7 @@ const CSS = `
 .bbangto-warped-checkerboard-btn:hover { background: var(--bbangto-semantic-primary-hover, #8F0E22) !important; }
 .bbangto-warped-checkerboard-btn:active { transform: translateY(1px) scale(0.98) !important; background: var(--bbangto-semantic-primary-active, #6E0A1A) !important; }
 .bbangto-warped-checkerboard-btn:focus-visible {
-  outline: 3px solid var(--bbangto-semantic-focus, #B3122B) !important;
+  outline: 3px solid var(--bbangto-semantic-border-focus, #B3122B) !important;
   outline-offset: 3px;
 }
 @media (prefers-reduced-motion: reduce) {

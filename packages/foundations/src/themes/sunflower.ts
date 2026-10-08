@@ -45,7 +45,7 @@ export const sunflowerFoundation: BbangtoFoundation = {
       base: '#DDDDDD',
       muted: '#EEEEEE',
       strong: '#888888',
-      focus: '#FFD02F',
+      focus: '#AF8C08',
     },
     primary: {
       base: '#FFD02F',

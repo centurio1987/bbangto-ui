@@ -208,7 +208,7 @@ const CSS = `
 .bbangto-heritage-folk-ornament-btn:hover { background: var(--bbangto-semantic-primary-hover, #C0452A) !important; }
 .bbangto-heritage-folk-ornament-btn:active { transform: translateY(1px) scale(0.99) !important; }
 .bbangto-heritage-folk-ornament-btn:focus-visible {
-  outline: 3px solid var(--bbangto-semantic-focus-ring, ${INDIGO}) !important;
+  outline: 3px solid var(--bbangto-semantic-border-focus, ${INDIGO}) !important;
   outline-offset: 3px !important;
 }
 @media (prefers-reduced-motion: reduce) {

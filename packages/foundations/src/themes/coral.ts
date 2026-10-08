@@ -45,7 +45,7 @@ export const coralFoundation: BbangtoFoundation = {
       base: '#DDDDDD',
       muted: '#EEEEEE',
       strong: '#888888',
-      focus: '#FF5A5F',
+      focus: '#FB575C',
     },
     primary: {
       base: '#FF5A5F',

@@ -45,7 +45,7 @@ export const darkChromeFoundation: BbangtoFoundation = {
       base: '#DDDDDD',
       muted: '#EEEEEE',
       strong: '#888888',
-      focus: '#FF6363',
+      focus: '#F85C5D',
     },
     primary: {
       base: '#FF6363',

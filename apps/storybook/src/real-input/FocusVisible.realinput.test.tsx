@@ -21,6 +21,8 @@ import {
   Textarea,
   TreeView,
 } from '@centurio1987/bbangto-ui-core';
+import { neonYellowFoundation } from '@centurio1987/bbangto-ui-foundations';
+import { focusContrast, FOCUS_CONTRAST_MIN, type BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens';
 import { mount, unmountAll } from './mount';
 
 /**
@@ -52,13 +54,14 @@ const ringsIn = (root: Element) =>
     .map(outlineOf);
 
 /** Before 버튼 · 컴포넌트 · After 버튼을 나란히 그리고, 컴포넌트를 감싼 요소를 돌려준다. */
-function mountBetween(ui: React.ReactElement) {
+function mountBetween(ui: React.ReactElement, foundation?: BbangtoFoundation) {
   const host = mount(
     <>
       <button type="button">Before</button>
       <div data-under-test>{ui}</div>
       <button type="button">After</button>
     </>,
+    foundation,
   );
   return { host, root: host.querySelector<HTMLElement>('[data-under-test]')! };
 }
@@ -337,5 +340,31 @@ describe('포커스 표시 — 실제 입력 (KAN-059)', () => {
     await userEvent.click(root.querySelectorAll('label')[0]!);
     await vi.waitFor(() => expect((document.activeElement as HTMLInputElement | null)?.value).toBe('s'));
     expect(ringsIn(root)).toEqual([]);
+  });
+});
+
+/**
+ * 테두리가 보이는 것만으로는 부족하다 — 배경과 3:1(WCAG 1.4.11)이 안 되면 그려져 있어도 못 본다(KAN-060).
+ * 브라우저가 실제로 칠한 테두리 색을 읽어, 그 foundation 의 표면(base·elevated) 변수와 tokens 의 같은 규칙으로 잰다.
+ * neon-yellow 는 포커스 색이 밝은 노랑(#FAFF69)이라 고치기 전에는 밝은 표면과 1.03 이었다.
+ * Button 은 `transition: all` 이라 테두리 색도 전환 중간값으로 읽힌다 — 전환이 끝난 뒤에 읽는다.
+ */
+describe('포커스 표시 색 — 실제 입력 (KAN-060)', () => {
+  it('Button: neon-yellow foundation 에서 Tab 으로 오면 테두리 색이 배경과 3:1 이상', async () => {
+    const { host, root } = mountBetween(<Button>Save</Button>, neonYellowFoundation);
+    await tabIn(host);
+    await vi.waitFor(() => expect(document.activeElement?.textContent).toBe('Save'));
+    await vi.waitFor(() => expect(ringsIn(root)).toEqual(['solid 2px']));
+    const save = byText(host, 'Save');
+    await Promise.all(save.getAnimations().map((a) => a.finished));
+    const provider = host.querySelector('[data-bbangto-foundation]')!;
+    const surface = (name: string) =>
+      getComputedStyle(provider).getPropertyValue(`--bbangto-semantic-background-${name}`).trim();
+    const fc = focusContrast({
+      border: { focus: getComputedStyle(save).outlineColor },
+      background: { base: surface('base'), elevated: surface('elevated') },
+    });
+    expect(fc, '테두리 색이나 표면 변수를 못 읽음').not.toBeNull();
+    expect(fc!.ratio).toBeGreaterThanOrEqual(FOCUS_CONTRAST_MIN);
   });
 });

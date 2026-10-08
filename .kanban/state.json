@@ -158,49 +158,6 @@
       "memo": "KAN-060 검토 항목 3(2026-10-08 유저 선택)에서 나왔다. KAN-060 이 포커스 테두리의 없는 변수 12곳을 고친 뒤 착수. 18곳과 남는 미달 색 스킴 약 10개는 KAN-060 검토서 항목 3 검토자 의견(소스 값 계산, 브라우저로 잰 값 아님). 포커스 밖 없는 변수 4곳: aiSurrealGradient3d.tsx:200·201 태그 색, blueprintTechnical.tsx:128 배경, scandiWarm.tsx:161·spatial3d.tsx:185 태그 테두리",
       "memo_hash": "3008513fb5c83976ae515a4f4d1c156370af8769"
     },
-    "KAN-060-G9YKG6": {
-      "col": "todo",
-      "title": "포커스 테두리 색 대비 3:1 — border.focus 토큰 정리와 대비 게이트",
-      "verbatim": "새 카드로 분리 (앞 질문 「border.focus 대비가 3:1에 못 미치는 색 스킴(foundation 21개, style guide 13개 이상)을 어떻게 할까요?」에 대한 답)",
-      "생성": "ai",
-      "최종": "ai",
-      "갱신": "2026-10-08",
-      "title_hash": "5506d93407f8bbd159163d5e882deb75b8cf5323",
-      "verbatim_hash": "c230601ba43602de2816c0366cd377a99dd46507",
-      "short": "포커스 색 대비",
-      "short_hash": "f1b76a4fc3518465ed5bea3ec94ad115ea6be48c",
-      "purpose": "border.focus 가 배경과 3:1 이 안 되는 색 스킴(foundation 21개, style guide 13개 이상)의 값을 고치고 대비 게이트를 세운다",
-      "purpose_hash": "623555c204fbab823794da068de82682dfd4c439",
-      "reason": "KAN-059 가 모든 포커스 테두리를 border.focus 로 그리는데, 그 색 스킴에서는 테두리가 배경과 거의 같아 보이지 않는다(neonYellow 1.03, cosmonaut 1.00)",
-      "reason_hash": "ef9e0ad037e557620b42303fb3ab1de7eee768c9",
-      "goal": "모든 foundation·style guide 색 스킴에서 border.focus 가 background.base·elevated 와 3:1 이상이고, 어기면 test:unit 이 빨강이 된다",
-      "goal_hash": "ce40fef2b2f3e0ef1295d3ed4d85161f3fb80c28",
-      "memo": "KAN-059 착수 전 계획에서 발견(2026-10-07 main dist 를 tokens contrastRatio 로 계산). 그라디언트 배경 style guide 는 아직 못 쟀다 · 테두리는 border.focus 를 실행 때 읽으므로 토큰만 고치면 KAN-059 결과에 그대로 반영된다",
-      "memo_hash": "28769527373e45fa350b73cbf5d3496509be33e3",
-      "scope": [
-        "packages/tokens/src/contrast.ts",
-        "packages/tokens/src/index.ts",
-        "packages/foundations/src/themes/**",
-        "packages/foundations/src/focusContrast.test.ts",
-        "packages/style-guide-catalog/src/accessibilityAudit.ts",
-        "packages/style-guide-catalog/src/accessibility.test.ts",
-        "packages/style-guide-catalog/src/index.ts",
-        "packages/style-guide-catalog/src/neobrutalismEditorial.tsx",
-        "packages/style-guide-catalog/src/skeuomorphismTactile.tsx",
-        "packages/style-guide-catalog/src/kawaiiPastel.tsx",
-        "packages/style-guide-catalog/src/tactileTexture.tsx",
-        "packages/style-guide-catalog/src/halftoneDotPrint.tsx",
-        "packages/style-guide-catalog/src/punkGrungeGraffiti.tsx",
-        "packages/style-guide-catalog/src/aiSurrealGradient3d.tsx",
-        "packages/style-guide-catalog/src/pixelArtRetro.tsx",
-        "packages/style-guide-catalog/src/iridescentChrome.tsx",
-        "apps/storybook/src/real-input/FocusVisible.realinput.test.tsx",
-        "apps/storybook/src/real-input/mount.tsx",
-        "apps/storybook/src/stories/_catalogStory.tsx",
-        "README.md",
-        ".changeset/kan-060-*.md"
-      ]
-    },
     "KAN-020": {
       "col": "done",
       "title": "visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현",
@@ -1230,6 +1187,58 @@
         "packages/foundations/src/vizPaintGateCoverage.test.ts",
         ".changeset/kan-063-*.md"
       ]
+    },
+    "KAN-060-G9YKG6": {
+      "col": "done",
+      "title": "포커스 테두리 색 대비 3:1 — border.focus 토큰 정리와 대비 게이트",
+      "verbatim": "새 카드로 분리 (앞 질문 「border.focus 대비가 3:1에 못 미치는 색 스킴(foundation 21개, style guide 13개 이상)을 어떻게 할까요?」에 대한 답)",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-08",
+      "title_hash": "5506d93407f8bbd159163d5e882deb75b8cf5323",
+      "verbatim_hash": "c230601ba43602de2816c0366cd377a99dd46507",
+      "short": "포커스 색 대비",
+      "short_hash": "f1b76a4fc3518465ed5bea3ec94ad115ea6be48c",
+      "purpose": "border.focus 가 배경과 3:1 이 안 되는 색 스킴(foundation 21개, style guide 13개 이상)의 값을 고치고 대비 게이트를 세운다",
+      "purpose_hash": "623555c204fbab823794da068de82682dfd4c439",
+      "reason": "KAN-059 가 모든 포커스 테두리를 border.focus 로 그리는데, 그 색 스킴에서는 테두리가 배경과 거의 같아 보이지 않는다(neonYellow 1.03, cosmonaut 1.00)",
+      "reason_hash": "ef9e0ad037e557620b42303fb3ab1de7eee768c9",
+      "goal": "모든 foundation·style guide 색 스킴에서 border.focus 가 background.base·elevated 와 3:1 이상이고, 어기면 test:unit 이 빨강이 된다",
+      "goal_hash": "ce40fef2b2f3e0ef1295d3ed4d85161f3fb80c28",
+      "memo": "KAN-059 착수 전 계획에서 발견(2026-10-07 main dist 를 tokens contrastRatio 로 계산). 그라디언트 배경 style guide 는 아직 못 쟀다 · 테두리는 border.focus 를 실행 때 읽으므로 토큰만 고치면 KAN-059 결과에 그대로 반영된다",
+      "memo_hash": "28769527373e45fa350b73cbf5d3496509be33e3",
+      "scope": [
+        "packages/tokens/src/contrast.ts",
+        "packages/tokens/src/index.ts",
+        "packages/foundations/src/themes/**",
+        "packages/foundations/src/focusContrast.test.ts",
+        "packages/style-guide-catalog/src/accessibilityAudit.ts",
+        "packages/style-guide-catalog/src/accessibility.test.ts",
+        "packages/style-guide-catalog/src/index.ts",
+        "packages/style-guide-catalog/src/neobrutalismEditorial.tsx",
+        "packages/style-guide-catalog/src/skeuomorphismTactile.tsx",
+        "packages/style-guide-catalog/src/kawaiiPastel.tsx",
+        "packages/style-guide-catalog/src/tactileTexture.tsx",
+        "packages/style-guide-catalog/src/halftoneDotPrint.tsx",
+        "packages/style-guide-catalog/src/punkGrungeGraffiti.tsx",
+        "packages/style-guide-catalog/src/aiSurrealGradient3d.tsx",
+        "packages/style-guide-catalog/src/pixelArtRetro.tsx",
+        "packages/style-guide-catalog/src/iridescentChrome.tsx",
+        "packages/style-guide-catalog/src/blueprintTechnical.tsx",
+        "packages/style-guide-catalog/src/glitchDistortion.tsx",
+        "packages/style-guide-catalog/src/grainyBlurDreamy.tsx",
+        "packages/style-guide-catalog/src/halftoneGlitchColorsep.tsx",
+        "packages/style-guide-catalog/src/heritageFolkOrnament.tsx",
+        "packages/style-guide-catalog/src/naiveDoodle.tsx",
+        "packages/style-guide-catalog/src/opArtKinetic.tsx",
+        "packages/style-guide-catalog/src/romanticBotanical.tsx",
+        "packages/style-guide-catalog/src/warpedCheckerboard.tsx",
+        "apps/storybook/src/real-input/FocusVisible.realinput.test.tsx",
+        "apps/storybook/src/real-input/mount.tsx",
+        "apps/storybook/src/stories/_catalogStory.tsx",
+        "README.md",
+        ".changeset/kan-060-*.md"
+      ]
     }
   },
   "order": [
@@ -1239,7 +1248,6 @@
     "KAN-062-E02CMT",
     "KAN-064-AC0H6M",
     "KAN-065-XSHEMV",
-    "KAN-060-G9YKG6",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1297,7 +1305,8 @@
     "KAN-058-G883EJ",
     "KAN-059-62EAKB",
     "KAN-056-D3V1MB",
-    "KAN-063-Q85EET"
+    "KAN-063-Q85EET",
+    "KAN-060-G9YKG6"
   ],
   "recent": [
     {
@@ -1375,6 +1384,16 @@
       "to": "doing"
     },
     {
+      "seq": 237,
+      "t": "2026-10-08T18:09",
+      "a": "ai",
+      "id": "KAN-060-G9YKG6",
+      "op": "move",
+      "w": "00EBGW",
+      "from": "review",
+      "to": "done"
+    },
+    {
       "seq": 236,
       "t": "2026-10-08T17:35",
       "a": "유저",
@@ -1385,6 +1404,16 @@
       "reason": "KAN-063 은 S3 에서 템플릿을 고쳤을 때만 자기 changeset 파일(.changeset/kan-063-*.md) 하나를 더하고 KAN-055 는 배포 때 그것을 읽어 소비할 뿐이라 같은 파일을 고치지 않는다. 063 이 먼저 병합되면 다음 배포에 함께 나간다. KAN-056·058·059·060 과 같은 처리 (2026-10-08 유저 선택)"
     },
     {
+      "seq": 236,
+      "t": "2026-10-08T17:58",
+      "a": "ai",
+      "id": "KAN-060-G9YKG6",
+      "op": "move",
+      "w": "00EBGW",
+      "from": "doing",
+      "to": "review"
+    },
+    {
       "seq": 235,
       "t": "2026-10-08T17:17",
       "a": "ai",
@@ -1393,6 +1422,16 @@
       "w": "S7030N",
       "with_": "KAN-063-Q85EET",
       "reason": "둘 다 TemplatePaintGate.stories.tsx 와 _labelContrastBaseline.ts 를 고치고, 061 목표의 「13개 밖 템플릿도 잰다」가 063 일과 같다. 063 이 두 검사를 모든 템플릿으로 넓히고 새 글자 대비 미달을 기준 목록에 올린 뒤, 061 이 넓어진 목록을 보고 전략을 다시 세운다 (2026-10-08 유저 선택). 같은 날 063 scope 에 foundations 표본 누락 검사 파일을 더해 무효가 된 기록을 다시 건다"
+    },
+    {
+      "seq": 235,
+      "t": "2026-10-08T17:54",
+      "a": "ai",
+      "id": "KAN-055-34A57K",
+      "op": "waive",
+      "w": "00EBGW",
+      "with_": "KAN-060-G9YKG6",
+      "reason": "KAN-060 은 자기 changeset 파일(.changeset/kan-060-*.md) 하나만 더하고 KAN-055 는 배포 때 그것을 읽어 소비할 뿐이라 같은 파일을 고치지 않는다. 060 이 먼저 병합되면 다음 배포에 tokens·foundations 도 함께 나간다. KAN-056·058·059 와 같은 처리 (2026-10-08 유저 선택). 2026-10-08 재기록: 검토 항목 3 재작업으로 scope 에 style guide 9파일이 더해져 무효가 된 기록을 다시 건다 — 겹침은 그대로 .changeset/ 하나"
     },
     {
       "seq": 234,
@@ -1406,6 +1445,16 @@
       "after": "_labelContrastBaseline.ts 가 빈다(모든 템플릿으로 넓히는 일은 KAN-063 이 먼저 한다)"
     },
     {
+      "seq": 234,
+      "t": "2026-10-08T17:53",
+      "a": "ai",
+      "id": "KAN-060-G9YKG6",
+      "op": "move",
+      "w": "00EBGW",
+      "from": "review",
+      "to": "doing"
+    },
+    {
       "seq": 233,
       "t": "2026-10-08T17:15",
       "a": "유저",
@@ -1416,6 +1465,16 @@
       "reason": "둘 다 TemplatePaintGate.stories.tsx 와 _labelContrastBaseline.ts 를 고치고, 061 목표의 「13개 밖 템플릿도 잰다」가 063 일과 같다. 063 이 두 검사를 모든 템플릿으로 넓히고 새 글자 대비 미달을 기준 목록에 올린 뒤, 061 이 넓어진 목록을 보고 전략을 다시 세운다 (2026-10-08 유저 선택)"
     },
     {
+      "seq": 233,
+      "t": "2026-10-08T17:26",
+      "a": "ai",
+      "id": "KAN-060-G9YKG6",
+      "op": "move",
+      "w": "00EBGW",
+      "from": "doing",
+      "to": "review"
+    },
+    {
       "seq": 232,
       "t": "2026-10-08T17:15",
       "a": "ai",
@@ -1424,6 +1483,16 @@
       "w": "S7030N",
       "from": "backlog",
       "to": "todo"
+    },
+    {
+      "seq": 232,
+      "t": "2026-10-08T17:14",
+      "a": "ai",
+      "id": "KAN-060-G9YKG6",
+      "op": "move",
+      "w": "00EBGW",
+      "from": "todo",
+      "to": "doing"
     },
     {
       "seq": 231,
@@ -1783,66 +1852,6 @@
       "w": "DJT5WZ",
       "with_": "KAN-051-5HMYKT",
       "reason": "같은 CLAUDE.md지만 050은 게이트 명령 4종을 손대지 않고 구조도·경로만 고친다고 적었다. 051은 test:unit 설명 두 줄(39, 103행)만 고친다 (2026-10-05 유저 승인 플랜). 2026-10-07 KAN-050 S2 중 옛 패키지 이름 전수 grep 으로 scope 에 주석 파일 3개(tokens/breakpoints.ts·hooks/index.ts·hooks/useIsMounted.ts — 051 scope 와 안 겹침)를 더해 무효가 된 기록을 겹침 그대로 다시 건다"
-    },
-    {
-      "seq": 207,
-      "t": "2026-10-07T16:39",
-      "a": "ai",
-      "id": "KAN-055-34A57K",
-      "op": "serialize",
-      "w": "DJT5WZ",
-      "with_": "KAN-052-BYS4JN",
-      "reason": "배포는 051·052·053이 main에 병합된 뒤에야 의미가 있다 (2026-10-05 유저 승인 플랜). 2026-10-07 재기록: 052 병합(123e2e3)의 rebuild 가 재수립 필요 표시를 잃었다 — 055 는 052 의 fonts prop 을 보고 전략을 다시 세워야 한다"
-    },
-    {
-      "seq": 206,
-      "t": "2026-10-07T16:39",
-      "a": "ai",
-      "id": "KAN-055-34A57K",
-      "op": "serialize",
-      "w": "DJT5WZ",
-      "with_": "KAN-051-5HMYKT",
-      "reason": "배포는 051·052·053이 main에 병합된 뒤에야 의미가 있다 (2026-10-05 유저 승인 플랜). 2026-10-07 재기록: 이전 기록의 scope_hash 가 현재 scope 와 어긋나 조용히 무효였다 — 055 는 051 의 파일 단위 dist·크기 게이트를 보고 전략을 다시 세워야 한다"
-    },
-    {
-      "seq": 205,
-      "t": "2026-10-07T16:39",
-      "a": "ai",
-      "id": "KAN-050-AJSQAY",
-      "op": "serialize",
-      "w": "DJT5WZ",
-      "with_": "KAN-048-R2KW3G",
-      "reason": "전략 재수립 완료"
-    },
-    {
-      "seq": 204,
-      "t": "2026-10-07T16:39",
-      "a": "ai",
-      "id": "KAN-050-AJSQAY",
-      "op": "serialize",
-      "w": "DJT5WZ",
-      "with_": "KAN-048-R2KW3G",
-      "reason": "DESIGN_SYSTEM_GUIDE.md 를 둘 다 고친다. B 가 ASSET_INTEGRATION_PLAN 을 없애야 D 가 :182 링크를 고칠 수 있고, 순서가 뒤면 깨진 링크가 남는다. KAN-044 검토 5번에서 유저가 승인. 2026-10-07 KAN-050 scope 확장(S2 주석 파일 3개)으로 무효가 된 기록을 다시 건다"
-    },
-    {
-      "seq": 203,
-      "t": "2026-10-07T16:39",
-      "a": "ai",
-      "id": "KAN-054-M48FNQ",
-      "op": "waive",
-      "w": "DJT5WZ",
-      "with_": "KAN-055-34A57K",
-      "reason": "054의 changeset은 054가 끝나 main에 병합된 뒤에만 들어오므로 그 전 배포에 섞이지 않는다 (2026-10-05 유저 승인 플랜). 2026-10-07 검토 반려 재작업의 scope 확장(FeatureGrid)으로 무효가 된 기록을 다시 건다 — 겹침은 그대로 .changeset/ 하나"
-    },
-    {
-      "seq": 202,
-      "t": "2026-10-07T16:39",
-      "a": "ai",
-      "id": "KAN-054-M48FNQ",
-      "op": "serialize",
-      "w": "DJT5WZ",
-      "with_": "KAN-053-TZ86NN",
-      "reason": "전략 재수립 완료"
     }
   ],
   "waivers": [

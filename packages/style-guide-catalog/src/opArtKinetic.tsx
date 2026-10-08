@@ -166,7 +166,7 @@ const CSS = `
 }
 .bbangto-op-art-kinetic-btn:active { transform: translateY(1px) !important; }
 .bbangto-op-art-kinetic-btn:focus-visible {
-  outline: 2px solid var(--bbangto-semantic-focus, ${COBALT}) !important;
+  outline: 2px solid var(--bbangto-semantic-border-focus, ${COBALT}) !important;
   outline-offset: 2px;
 }
 @media (prefers-reduced-motion: reduce) {

@@ -155,7 +155,7 @@ const CSS = `
   color: var(--bbangto-semantic-primary-foreground, ${BOARD}) !important;
 }
 .bbangto-blueprint-technical-btn:focus-visible {
-  outline: 2px solid var(--bbangto-semantic-focus, ${AMBER}) !important;
+  outline: 2px solid var(--bbangto-semantic-border-focus, ${AMBER}) !important;
   outline-offset: 2px;
 }
 @media (prefers-reduced-motion: reduce) {

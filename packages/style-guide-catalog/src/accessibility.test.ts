@@ -1,8 +1,22 @@
+import { readFileSync, readdirSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
 import { describe, it, expect } from 'vitest';
-import { parseColor, extractColors, compositeOver, contrastRatio } from '@centurio1987/bbangto-ui-tokens';
+import {
+  parseColor,
+  extractColors,
+  compositeOver,
+  contrastRatio,
+  surfaceColors,
+  focusContrast,
+  flattenToCSSVars,
+  FOCUS_CONTRAST_MIN,
+} from '@centurio1987/bbangto-ui-tokens';
+import { darkFoundation, highContrastFoundation, lightFoundation } from '@centurio1987/bbangto-ui-core';
 import { styleGuideCatalog } from './index';
 import {
   auditContrast,
+  auditFocusContrast,
   CONTRAST_THRESHOLDS,
   type AuditableEntry,
 } from './accessibilityAudit';
@@ -153,5 +167,188 @@ describe('auditContrast — 실 카탈로그 게이트 (over-claim 방지)', () 
         ).toBeGreaterThan(0);
       }
     }
+  });
+});
+
+// ── 포커스 테두리 대비 (KAN-060) ──────────────────────────────────────────────
+
+/** border.focus · base · elevated 만 담은 최소 semantic. */
+const focusSemantic = (focus: string, base: string, elevated: string) => ({
+  border: { focus },
+  background: { base, elevated },
+});
+
+/** 포커스 감사용 fixture — foundationPresets 없이 base foundations 하나. */
+function focusEntry(name: string, focus: string, base: string, elevated = base): AuditableEntry {
+  return {
+    name,
+    foundations: { semantic: focusSemantic(focus, base, elevated) } as unknown as AuditableEntry['foundations'],
+  };
+}
+
+/** 위반 목록을 고칠 사람이 바로 읽는 한 줄씩으로. */
+const describeFocus = (v: ReturnType<typeof auditFocusContrast>) =>
+  v.map((x) => `${x.name}/${x.presetKey}: border.focus ${x.focus} — ${x.measured ?? '측정 불가'}:1 (${x.against ?? x.reason})`).join('\n');
+
+describe('surfaceColors · focusContrast (tokens)', () => {
+  it('하한은 WCAG 1.4.11 의 3:1', () => {
+    expect(FOCUS_CONTRAST_MIN).toBe(3);
+  });
+
+  it('반투명 elevated 는 흰색이 아니라 base 위에 합성한다', () => {
+    const s = surfaceColors({ base: '#0D0F24', elevated: 'rgba(255,255,255,0.08)' });
+    expect(s.base).toHaveLength(1);
+    expect(s.elevated).toHaveLength(1);
+    // 어두운 base 위 8% 흰색 → 여전히 어둡다(흰색 위였다면 255 가 된다).
+    expect(s.elevated[0].r).toBeLessThan(40);
+    expect(s.elevated[0].a).toBe(1);
+  });
+
+  it('반투명 elevated 를 그라디언트 base 의 스톱마다 합성한다', () => {
+    const s = surfaceColors({
+      base: 'linear-gradient(180deg, #101010 0%, #303030 100%)',
+      elevated: 'rgba(255,255,255,0.1)',
+    });
+    expect(s.base).toHaveLength(2);
+    expect(s.elevated).toHaveLength(2);
+  });
+
+  it('노랑 포커스 + 흰 배경 → 3:1 미달, 자리는 base', () => {
+    const fc = focusContrast(focusSemantic('#FAFF69', '#FFFFFF', '#FFFFFF'))!;
+    expect(fc.ratio).toBeLessThan(1.1);
+    expect(fc.against).toBe('base');
+  });
+
+  it('base 는 통과하고 elevated 만 미달이면 자리는 elevated', () => {
+    // 진한 파랑 포커스: 흰 base 와는 높고, 같은 파랑 계열 elevated 와는 낮다.
+    const fc = focusContrast(focusSemantic('#1D4ED8', '#FFFFFF', '#2563EB'))!;
+    expect(fc.ratio).toBeLessThan(FOCUS_CONTRAST_MIN);
+    expect(fc.against).toBe('elevated');
+  });
+
+  it('포커스 색이나 표면 색을 못 읽으면 null', () => {
+    expect(focusContrast(focusSemantic('var(--x)', '#FFFFFF', '#FFFFFF'))).toBeNull();
+    expect(focusContrast(focusSemantic('#000000', 'var(--page)', '#FFFFFF'))).toBeNull();
+  });
+});
+
+describe('auditFocusContrast — 미달 감지 (fixture)', () => {
+  it('(a) 노랑 포커스 + 흰 배경 → below-threshold', () => {
+    const v = auditFocusContrast([focusEntry('x', '#FAFF69', '#FFFFFF')]);
+    expect(v).toHaveLength(1);
+    expect(v[0]).toMatchObject({ name: 'x', presetKey: 'default', reason: 'below-threshold', against: 'base', required: 3 });
+    expect(v[0].measured).toBeLessThan(1.1);
+  });
+
+  it('(b) 어두운 포커스 + 흰 배경 → 위반 없음', () => {
+    expect(auditFocusContrast([focusEntry('x', '#1D4ED8', '#FFFFFF')])).toEqual([]);
+  });
+
+  it('(c) 반투명 elevated 를 어두운 base 위에 두면 base 위 합성으로 재서 통과한다', () => {
+    // 흰색 위로 재면 #8AB4FF 대 거의 흰색 → 2:1 남짓의 거짓 미달이 난다.
+    const glass = 'rgba(255,255,255,0.08)';
+    expect(contrastRatio('#8AB4FF', glass)!).toBeLessThan(FOCUS_CONTRAST_MIN);
+    const grad = 'radial-gradient(125% 125% at 8% 0%, #232861 0%, #0D0F24 58%)';
+    expect(auditFocusContrast([focusEntry('glass', '#8AB4FF', grad, glass)])).toEqual([]);
+  });
+
+  it('(d) 그라디언트 base 는 가장 낮은 스톱으로 잰다 — 한 스톱만 미달이어도 위반', () => {
+    const v = auditFocusContrast([
+      focusEntry('mix', '#E9C766', 'linear-gradient(160deg, #1C1B17 0%, #FAF2DD 100%)', '#1C1B17'),
+    ]);
+    expect(v).toHaveLength(1);
+    expect(v[0].against).toBe('base');
+  });
+
+  it('(e) 색을 못 읽으면 조용히 통과하지 않고 unparseable', () => {
+    const v = auditFocusContrast([focusEntry('x', 'var(--focus)', '#FFFFFF')]);
+    expect(v).toHaveLength(1);
+    expect(v[0]).toMatchObject({ reason: 'unparseable', measured: null, against: null });
+  });
+
+  it('(f) contrastIntent 선언과 무관하게 본다(low 도 감사 대상)', () => {
+    const e = { ...focusEntry('x', '#FAFF69', '#FFFFFF'), meta: { accessibility: { contrastIntent: 'low' } } };
+    expect(auditFocusContrast([e as AuditableEntry])).toHaveLength(1);
+  });
+});
+
+describe('auditFocusContrast — 실 카탈로그 게이트', () => {
+  it('모든 style guide 색 스킴에서 border.focus 가 표면과 3:1 이상이다', () => {
+    const violations = auditFocusContrast(styleGuideCatalog);
+    expect(violations, describeFocus(violations)).toEqual([]);
+  });
+
+  it('core base foundation 3종(light·dark·high-contrast)도 3:1 이상이다', () => {
+    // foundations 패키지는 core 를 가져올 수 없어(rootDir·의존) core 에 의존하는 여기서 잰다.
+    const base: AuditableEntry[] = [
+      { name: 'core-light', foundations: lightFoundation },
+      { name: 'core-dark', foundations: darkFoundation },
+      { name: 'core-high-contrast', foundations: highContrastFoundation },
+    ];
+    const violations = auditFocusContrast(base);
+    expect(violations, describeFocus(violations)).toEqual([]);
+  });
+});
+
+// ── 포커스 테두리 변수 (KAN-060 검토 항목 3) ─────────────────────────────────
+
+/**
+ * style guide 가 자기 CSS 로 그리는 포커스 테두리(`outline` 선언)가 읽는 `--bbangto-semantic-*` 변수 중
+ * 실제로 만들어지지 않는 것을 `파일:줄 변수` 로 모은다. 없는 변수는 어느 색 스킴에서도 대체값(고정 색)으로만
+ * 그려져, 포커스 색 토큰을 고쳐도 테두리가 따라가지 않는다(`--bbangto-semantic-focus` 12곳이 그랬다).
+ * `outline` 이 아닌 줄은 보지 않는다 — 태그 색·배경처럼 포커스가 아닌 자리는 KAN-065 몫이다.
+ */
+function undefinedOutlineVars(
+  files: readonly { path: string; text: string }[],
+  defined: ReadonlySet<string>,
+): string[] {
+  const out: string[] = [];
+  for (const f of files) {
+    f.text.split('\n').forEach((line, i) => {
+      if (!/\boutline\s*:/.test(line)) return;
+      for (const m of line.matchAll(/var\(\s*(--bbangto-semantic-[a-z0-9-]+)/g)) {
+        if (!defined.has(m[1])) out.push(`${f.path}:${i + 1} ${m[1]}`);
+      }
+    });
+  }
+  return out;
+}
+
+/** 모든 foundation 이 같은 semantic 구조라 변수 이름은 하나만 펼쳐도 같다. */
+const definedVars = new Set(Object.keys(flattenToCSSVars(lightFoundation as unknown as Record<string, unknown>)));
+
+describe('포커스 테두리 변수 — fixture', () => {
+  const run = (text: string) => undefinedOutlineVars([{ path: 'x.tsx', text }], definedVars);
+
+  it('없는 변수(--bbangto-semantic-focus)를 읽는 outline 은 잡힌다', () => {
+    expect(run('.b:focus-visible {\n  outline: 2px solid var(--bbangto-semantic-focus, #5BE1FF) !important;\n}')).toEqual([
+      'x.tsx:2 --bbangto-semantic-focus',
+    ]);
+  });
+
+  it('포커스 색 토큰(--bbangto-semantic-border-focus)은 통과한다', () => {
+    expect(definedVars.has('--bbangto-semantic-border-focus')).toBe(true);
+    expect(run('  outline: 3px solid var(--bbangto-semantic-border-focus, #000) !important;')).toEqual([]);
+  });
+
+  it('outline 이 아닌 줄의 없는 변수는 이 검사 대상이 아니다', () => {
+    expect(run("  color: 'var(--bbangto-semantic-focus, #5BE1FF)',")).toEqual([]);
+  });
+
+  it('한 줄짜리 규칙과 -focus-ring 도 잡힌다', () => {
+    expect(run('.b:focus-visible { outline: 3px solid var(--bbangto-semantic-focus-ring, #123) !important; }')).toEqual([
+      'x.tsx:1 --bbangto-semantic-focus-ring',
+    ]);
+  });
+});
+
+describe('포커스 테두리 변수 — 실제 style guide 소스', () => {
+  it('style guide CSS 의 포커스 테두리가 읽는 semantic 변수는 모두 실제로 만들어진다', () => {
+    const dir = dirname(fileURLToPath(import.meta.url));
+    const files = readdirSync(dir)
+      .filter((name) => name.endsWith('.tsx'))
+      .map((name) => ({ path: name, text: readFileSync(join(dir, name), 'utf8') }));
+    const violations = undefinedOutlineVars(files, definedVars);
+    expect(violations, violations.join('\n')).toEqual([]);
   });
 });

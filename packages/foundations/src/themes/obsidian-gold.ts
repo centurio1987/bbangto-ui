@@ -45,7 +45,7 @@ export const obsidianGoldFoundation: BbangtoFoundation = {
       base: '#DDDDDD',
       muted: '#EEEEEE',
       strong: '#888888',
-      focus: '#DAA520',
+      focus: '#B98A04',
     },
     primary: {
       base: '#DAA520',

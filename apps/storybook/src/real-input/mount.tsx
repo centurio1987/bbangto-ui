@@ -10,15 +10,16 @@ import React from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { flushSync } from 'react-dom';
 import { FoundationProvider, lightFoundation } from '@centurio1987/bbangto-ui-core';
+import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens';
 
 const mounted: { root: Root; host: HTMLElement }[] = [];
 
-/** ui 를 light foundation 아래 document.body 에 그린다. */
-export function mount(ui: React.ReactElement): HTMLElement {
+/** ui 를 foundation(기본 light) 아래 document.body 에 그린다. */
+export function mount(ui: React.ReactElement, foundation: BbangtoFoundation = lightFoundation): HTMLElement {
   const host = document.createElement('div');
   document.body.appendChild(host);
   const root = createRoot(host);
-  flushSync(() => root.render(<FoundationProvider foundation={lightFoundation}>{ui}</FoundationProvider>));
+  flushSync(() => root.render(<FoundationProvider foundation={foundation}>{ui}</FoundationProvider>));
   mounted.push({ root, host });
   return host;
 }

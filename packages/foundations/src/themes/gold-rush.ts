@@ -45,7 +45,7 @@ export const goldRushFoundation: BbangtoFoundation = {
       base: '#DDDDDD',
       muted: '#EEEEEE',
       strong: '#888888',
-      focus: '#F3BA2F',
+      focus: '#B88A06',
     },
     primary: {
       base: '#F3BA2F',

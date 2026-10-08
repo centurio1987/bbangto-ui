@@ -45,7 +45,7 @@ export const voltEmeraldFoundation: BbangtoFoundation = {
       base: '#DDDDDD',
       muted: '#EEEEEE',
       strong: '#888888',
-      focus: '#F59E0B',
+      focus: '#CA8105',
     },
     primary: {
       base: '#F59E0B',
