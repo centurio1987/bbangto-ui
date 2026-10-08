@@ -24,9 +24,15 @@ status: 검토 대기
 | 베이스 | `5ed8f1f` |
 | 변경 훑기 | `git diff 5ed8f1f...HEAD` |
 
-**커밋 6건**
+**커밋 12건**
 
 ```text
+77dac78 fix(KAN-060): S7 — style guide 포커스 테두리의 없는 변수 12곳을 border-focus 토큰으로
+1dc5f4c test(KAN-060): S6 — style guide 포커스 테두리 변수 게이트 (빨강: 없는 변수 12곳)
+ec0f407 kanban: KAN-060 재작업 계획 — scope 에 style guide 9파일 · S6·S7 · 배치3 · KAN-055 겹침 용인 재기록(ai)
+311b1d7 kanban: KAN-060 검토 → 진행 중 — 항목 3 반려(유저: 없는 변수 12곳은 이 카드에서, 18곳은 새 카드) 같은 카드 재작업
+f1d556a kanban: KAN-060 검토 대행(kanban-reviewer) — 항목 1·2 승인 · 항목 3 추가 의견 2건(판정 보류) (ai · 검토자)
+d309873 kanban: KAN-060 검토로 이동 — 검토서(판단 항목 3) · 검토 리포트 · 계획 리포트 다시 그림
 10e4a92 chore(KAN-060): S5 — README 포커스 대비 단락 · changeset · 게이트 5종 초록 · 화면 확인
 ac4bef4 fix(KAN-060): S4 — style guide 9개 · 색 스킴 10개 border.focus 를 표면과 3:1 이상으로
 adc94c3 fix(KAN-060): S3 — foundation 21개 border.focus 를 표면과 3:1 이상으로
@@ -35,18 +41,24 @@ d719e7f test(KAN-060): S2 — 포커스 테두리 색 브라우저 확인 (빨�
 8c884cf kanban: KAN-060 진행 중으로 이동 (워크트리 착수)
 ```
 
-**변경 파일 48개 (+457 −72)**
+**변경 파일 63개 (+2285 −134)**
 
 | 파일 | 상태 | 추가 | 삭제 |
 |---|:--:|---:|---:|
-| `.changeset/kan-060-focus-contrast.md` | M | 23 | 0 |
-| `.kanban/archive.jsonl` | M | 1 | 0 |
-| `.kanban/log.md` | M | 1 | 1 |
-| `.kanban/state.json` | M | 14 | 21 |
+| `.changeset/kan-060-focus-contrast.md` | M | 29 | 0 |
+| `.kanban/archive.jsonl` | M | 4 | 0 |
+| `.kanban/log.md` | M | 4 | 4 |
+| `.kanban/reviews/KAN-060-G9YKG6.events.jsonl` | M | 10 | 0 |
+| `.kanban/reviews/KAN-060-G9YKG6.review.json` | M | 21 | 0 |
+| `.kanban/state.json` | M | 55 | 60 |
 | `KANBAN.board.html` | M | 2 | 2 |
-| `KANBAN.md` | M | 3 | 3 |
+| `KANBAN.md` | M | 4 | 3 |
 | `KANBAN/batches/KAN-060-G9YKG6.batch2.md` | M | 2 | 1 |
-| `KANBAN/cards/KAN-060-G9YKG6.md` | M | 15 | 5 |
+| `KANBAN/batches/KAN-060-G9YKG6.batch3.md` | M | 50 | 0 |
+| `KANBAN/cards/KAN-060-G9YKG6.md` | M | 53 | 6 |
+| `KANBAN/reports/KAN-060-G9YKG6.report.html` | M | 7 | 7 |
+| `KANBAN/reviews/KAN-060-G9YKG6.review.html` | M | 1283 | 0 |
+| `KANBAN/reviews/KAN-060-G9YKG6.review.md` | M | 286 | 0 |
 | `README.md` | M | 13 | 0 |
 | `apps/storybook/src/real-input/FocusVisible.realinput.test.tsx` | M | 30 | 1 |
 | `apps/storybook/src/real-input/mount.tsx` | M | 4 | 3 |
@@ -73,22 +85,31 @@ d719e7f test(KAN-060): S2 — 포커스 테두리 색 브라우저 확인 (빨�
 | `packages/foundations/src/themes/sunset.ts` | M | 1 | 1 |
 | `packages/foundations/src/themes/volt-emerald.ts` | M | 1 | 1 |
 | `packages/foundations/src/themes/warm-parchment.ts` | M | 1 | 1 |
-| `packages/style-guide-catalog/src/accessibility.test.ts` | M | 131 | 1 |
+| `packages/style-guide-catalog/src/accessibility.test.ts` | M | 198 | 1 |
 | `packages/style-guide-catalog/src/accessibilityAudit.ts` | M | 41 | 0 |
-| `packages/style-guide-catalog/src/aiSurrealGradient3d.tsx` | M | 1 | 1 |
-| `packages/style-guide-catalog/src/halftoneDotPrint.tsx` | M | 1 | 1 |
+| `packages/style-guide-catalog/src/aiSurrealGradient3d.tsx` | M | 2 | 2 |
+| `packages/style-guide-catalog/src/blueprintTechnical.tsx` | M | 1 | 1 |
+| `packages/style-guide-catalog/src/glitchDistortion.tsx` | M | 1 | 1 |
+| `packages/style-guide-catalog/src/grainyBlurDreamy.tsx` | M | 1 | 1 |
+| `packages/style-guide-catalog/src/halftoneDotPrint.tsx` | M | 2 | 2 |
+| `packages/style-guide-catalog/src/halftoneGlitchColorsep.tsx` | M | 1 | 1 |
+| `packages/style-guide-catalog/src/heritageFolkOrnament.tsx` | M | 1 | 1 |
 | `packages/style-guide-catalog/src/index.ts` | M | 4 | 1 |
 | `packages/style-guide-catalog/src/iridescentChrome.tsx` | M | 1 | 1 |
 | `packages/style-guide-catalog/src/kawaiiPastel.tsx` | M | 1 | 1 |
+| `packages/style-guide-catalog/src/naiveDoodle.tsx` | M | 1 | 1 |
 | `packages/style-guide-catalog/src/neobrutalismEditorial.tsx` | M | 2 | 1 |
+| `packages/style-guide-catalog/src/opArtKinetic.tsx` | M | 1 | 1 |
 | `packages/style-guide-catalog/src/pixelArtRetro.tsx` | M | 1 | 1 |
 | `packages/style-guide-catalog/src/punkGrungeGraffiti.tsx` | M | 1 | 1 |
+| `packages/style-guide-catalog/src/romanticBotanical.tsx` | M | 1 | 1 |
 | `packages/style-guide-catalog/src/skeuomorphismTactile.tsx` | M | 2 | 2 |
 | `packages/style-guide-catalog/src/tactileTexture.tsx` | M | 1 | 1 |
+| `packages/style-guide-catalog/src/warpedCheckerboard.tsx` | M | 2 | 2 |
 | `packages/tokens/src/contrast.ts` | M | 53 | 0 |
 | `packages/tokens/src/index.ts` | M | 4 | 1 |
 
-**롤백 태그 5개**
+**롤백 태그 7개**
 
 ```text
 kan/KAN-060-G9YKG6/S1
@@ -96,6 +117,8 @@ kan/KAN-060-G9YKG6/S2
 kan/KAN-060-G9YKG6/S3
 kan/KAN-060-G9YKG6/S4
 kan/KAN-060-G9YKG6/S5
+kan/KAN-060-G9YKG6/S6
+kan/KAN-060-G9YKG6/S7
 ```
 
 ## 2. 검증 — 기준과 실행 결과
@@ -139,26 +162,34 @@ pnpm test:unit                  # ← foundations focusContrast.test.ts · style
 - 값 — 바꾼 31칸이 전략 「새 값」 표와 같은지 `git diff` 로 대조한다. `focus:` 칸 밖의 색(특히 같은 상수를 쓰는 `primary`·장식)이 바뀌지 않았는지 함께 본다.
 - 화면 — 빌드한 Storybook 에서 neon-yellow·cosmonaut·Neobrutalism default 셋을 골라 실제 Tab 으로 Button 테두리를 찍어 본다(색이 보이는지).
 
+### 재작업 확인 (검토 항목 3)
+
+- `S6` 직후: `test:unit` 의 「포커스 테두리 변수」 검사가 빨강이고 위반이 전략 「재작업」 표의 12곳(11개 파일)과 같다. fixture 는 초록이다.
+- `S7` 직후: 그 검사가 초록이고 게이트 5종이 초록이다. `git diff` 에서 12줄의 변수 이름만 바뀌었는지(대체값·다른 줄 그대로) 본다.
+
 **실행 결과**
 
 ```text
-2026-10-08 KAN-060-G9YKG6 워크트리(10e4a92)에서 카드 「검증」 절을 실행한 결과
+2026-10-08 KAN-060-G9YKG6 워크트리(77dac78, 검토 항목 3 재작업 뒤)에서 카드 「검증」 절을 실행한 결과
 
 게이트 5종 (CLAUDE.md 순서)
 - pnpm typecheck              rc=0
 - pnpm build                  rc=0
 - pnpm test                   rc=0  Test Files 193 passed · Tests 1292 passed
 - pnpm --filter storybook build  rc=0  Storybook build completed successfully
-- pnpm test:unit              rc=0  foundations 117 passed · style-guide-catalog 90 passed · hooks 115 · visualization 257 · visualization-style-guide-catalog 39
+- pnpm test:unit              rc=0  foundations 117 passed · style-guide-catalog 95 passed · hooks 115 · visualization 257 · visualization-style-guide-catalog 39
 
 빨강 → 초록
 - S1 직후 test:unit 포커스 대비 검사 빨강 — foundation 21 · style guide 색 스킴 10, 전략 표와 이름·값 일치. core base 3 통과. fixture 초록
 - S2 직후 real-input neon-yellow 항목 빨강(1.03, 두 번 같은 값) · FoundationPresets 스토리 빨강 9개, 43개 초록
 - S3 직후 foundations vitest 117 초록 · real-input 21 초록
 - S4 직후 style-guide-catalog vitest 90 초록 · 카탈로그 스토리 52파일 359건 초록
+- S6 직후(재작업) 포커스 테두리 변수 검사 빨강 — 없는 변수 12곳(11파일), 전략 「재작업」 표와 같음. fixture 4 초록
+- S7 직후 그 검사 초록(style-guide-catalog 95)
 
 추가 확인
 - 값 대조: git diff 에서 foundation 21칸 · style guide 10칸만 바뀜, focus: 밖의 줄 0(상수 NEO.gold·CANDY·CYAN·MAGENTA 그대로, NEO.goldFocus 1줄 추가)
+- 재작업 대조: 11개 파일 12줄에서 변수 이름만 바뀜(대체값 그대로)
 - 화면: chromium 실제 Tab 으로 core Button 을 neon-yellow·cosmonaut·Neobrutalism default 에서 찍음 — 테두리 셋 다 바탕과 구분됨
 ```
 
