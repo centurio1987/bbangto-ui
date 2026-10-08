@@ -1,6 +1,6 @@
 {
-  "next_id": 66,
-  "next_seq": 243,
+  "next_id": 67,
+  "next_seq": 244,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -1262,6 +1262,26 @@
         "README.md",
         ".changeset/kan-060-*.md"
       ]
+    },
+    "KAN-066-T6NR80": {
+      "col": "backlog",
+      "title": "워크스페이스 소스 경로 해석 — 새 워크트리에서 build 없이 typecheck·test:unit 통과",
+      "verbatim": "좁히고 새 카드 (앞 질문 「카드 목표인 「새 워크트리에서 build 없이 typecheck·test:unit 통과」를 어떻게 할까요? 패키지끼리 타입을 dist/index.d.ts 에서 찾고 루트 tsconfig 에 paths 가 없어서, 매니페스트와 상관없이 첫 typecheck 가 TS2307 로 실패합니다.」에 대한 답)",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-08",
+      "title_hash": "7800f1102ddd32a6183946c66fc00dcde04f9b30",
+      "verbatim_hash": "21cbf29e2f8b677e49c5e6d5f966eb8b1b7255c9",
+      "short": "build 없는 게이트",
+      "short_hash": "6d5fcc4915ad8c47eebe33fe5b168437ea23f4ce",
+      "purpose": "패키지끼리 타입과 모듈을 dist 대신 소스에서 찾게 해, 새 워크트리에서 pnpm build 없이 typecheck·test:unit 이 돈다",
+      "purpose_hash": "dfc62269262e560a2e8c890167b2ddf5dff299f2",
+      "reason": "패키지 exports 가 dist 만 가리키고 루트 tsconfig 에 paths 가 없어, 새 워크트리의 첫 typecheck 가 TS2307 로 실패한다(2026-10-07 KAN-050). KAN-064 착수 전 계획에서 매니페스트 카드 범위 밖으로 확인됐다",
+      "reason_hash": "88a42906505f4bfefe4577d3f96b235efac9ffb0",
+      "goal": "새 워크트리(또는 rm -rf packages/*/dist 뒤)에서 pnpm typecheck·pnpm test:unit 이 build 선행 없이 초록이고, build 를 먼저 돌리라는 규칙을 걷을 수 있다",
+      "goal_hash": "7d7f3c5965fa48fc4f7935443f259db4fe8be211",
+      "memo": "KAN-064 목표에서 갈라져 나왔다(2026-10-08 유저 선택). 고칠 자리 후보: 패키지 package.json exports 의 소스 조건 또는 tsconfig paths, vitest resolve. KAN-055 와 package.json 이 겹칠 것이다",
+      "memo_hash": "2d69b33becebe6a5d6af6ac29847dfc600699c06"
     }
   },
   "order": [
@@ -1329,9 +1349,27 @@
     "KAN-056-D3V1MB",
     "KAN-063-Q85EET",
     "KAN-060-G9YKG6",
-    "KAN-065-XSHEMV"
+    "KAN-065-XSHEMV",
+    "KAN-066-T6NR80"
   ],
   "recent": [
+    {
+      "seq": 243,
+      "t": "2026-10-08T18:31",
+      "a": "ai",
+      "id": "KAN-066-T6NR80",
+      "op": "create",
+      "w": "S7030N",
+      "col": "backlog",
+      "title": "워크스페이스 소스 경로 해석 — 새 워크트리에서 build 없이 typecheck·test:unit 통과",
+      "verbatim": "좁히고 새 카드 (앞 질문 「카드 목표인 「새 워크트리에서 build 없이 typecheck·test:unit 통과」를 어떻게 할까요? 패키지끼리 타입을 dist/index.d.ts 에서 찾고 루트 tsconfig 에 paths 가 없어서, 매니페스트와 상관없이 첫 typecheck 가 TS2307 로 실패합니다.」에 대한 답)",
+      "parent": null,
+      "short": "build 없는 게이트",
+      "purpose": "패키지끼리 타입과 모듈을 dist 대신 소스에서 찾게 해, 새 워크트리에서 pnpm build 없이 typecheck·test:unit 이 돈다",
+      "reason": "패키지 exports 가 dist 만 가리키고 루트 tsconfig 에 paths 가 없어, 새 워크트리의 첫 typecheck 가 TS2307 로 실패한다(2026-10-07 KAN-050). KAN-064 착수 전 계획에서 매니페스트 카드 범위 밖으로 확인됐다",
+      "goal": "새 워크트리(또는 rm -rf packages/*/dist 뒤)에서 pnpm typecheck·pnpm test:unit 이 build 선행 없이 초록이고, build 를 먼저 돌리라는 규칙을 걷을 수 있다",
+      "memo": "KAN-064 목표에서 갈라져 나왔다(2026-10-08 유저 선택). 고칠 자리 후보: 패키지 package.json exports 의 소스 조건 또는 tsconfig paths, vitest resolve. KAN-055 와 package.json 이 겹칠 것이다"
+    },
     {
       "seq": 242,
       "t": "2026-10-08T18:30",
@@ -1866,16 +1904,6 @@
       "w": "S7030N",
       "with_": "KAN-053-TZ86NN",
       "reason": "전략 재수립 완료"
-    },
-    {
-      "seq": 210,
-      "t": "2026-10-07T16:44",
-      "a": "ai",
-      "id": "KAN-054-M48FNQ",
-      "op": "serialize",
-      "w": "S7030N",
-      "with_": "KAN-053-TZ86NN",
-      "reason": "054가 053이 만든 packages/core/src/a11y/ 훅을 이어 쓴다. 053 훅 API를 보고 전략을 다시 세운다 (2026-10-05 유저 승인 플랜). 재작업 scope 확장으로 무효가 된 기록을 다시 건다"
     }
   ],
   "waivers": [
