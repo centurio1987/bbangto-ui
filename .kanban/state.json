@@ -1,6 +1,6 @@
 {
   "next_id": 66,
-  "next_seq": 243,
+  "next_seq": 244,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -79,7 +79,7 @@
       ]
     },
     "KAN-062-E02CMT": {
-      "col": "backlog",
+      "col": "doing",
       "title": "SVG 속성 안 var() 브라우저 확인 — README 문장과 속성으로 색을 넣는 코드를 실제 동작에 맞추기",
       "verbatim": "",
       "생성": "ai",
@@ -1268,8 +1268,8 @@
     "KAN-055-34A57K",
     "KAN-057-CCH3E8",
     "KAN-061-K8V2HH",
-    "KAN-062-E02CMT",
     "KAN-064-AC0H6M",
+    "KAN-065-XSHEMV",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1329,9 +1329,19 @@
     "KAN-056-D3V1MB",
     "KAN-063-Q85EET",
     "KAN-060-G9YKG6",
-    "KAN-065-XSHEMV"
+    "KAN-062-E02CMT"
   ],
   "recent": [
+    {
+      "seq": 243,
+      "t": "2026-10-08T18:31",
+      "a": "ai",
+      "id": "KAN-062-E02CMT",
+      "op": "move",
+      "w": "P5ESS2",
+      "from": "backlog",
+      "to": "doing"
+    },
     {
       "seq": 242,
       "t": "2026-10-08T18:30",
@@ -1866,16 +1876,6 @@
       "w": "S7030N",
       "with_": "KAN-053-TZ86NN",
       "reason": "전략 재수립 완료"
-    },
-    {
-      "seq": 210,
-      "t": "2026-10-07T16:44",
-      "a": "ai",
-      "id": "KAN-054-M48FNQ",
-      "op": "serialize",
-      "w": "S7030N",
-      "with_": "KAN-053-TZ86NN",
-      "reason": "054가 053이 만든 packages/core/src/a11y/ 훅을 이어 쓴다. 053 훅 API를 보고 전략을 다시 세운다 (2026-10-05 유저 승인 플랜). 재작업 scope 확장으로 무효가 된 기록을 다시 건다"
     }
   ],
   "waivers": [
