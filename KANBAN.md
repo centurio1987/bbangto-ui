@@ -75,7 +75,7 @@
   - 메모: KAN-056 검토 항목 5(검토자 승인, 추천안의 후속 부분)에서 나왔다. KAN-056 병합 뒤 착수. 글자 대비 검사를 넓히면 새 미달이 나와 viz 라벨 대비 정리 카드와 같은 파일을 고치게 되므로 착수 전에 순서를 정한다
   - 실행 문서: KANBAN/cards/KAN-063-Q85EET.md (5/5 · 최근 10-08)
   - 계획 리포트: KANBAN/reports/KAN-063-Q85EET.report.html (낡음)
-  - 검토 문서: KANBAN/reviews/KAN-063-Q85EET.review.md (승인 0/1 · 검토 대기)
+  - 검토 문서: KANBAN/reviews/KAN-063-Q85EET.review.md (승인 1/1 · 추가 의견 총 1 · 검토 대기)
 
 ## 완료
 - `KAN-020` visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현 — 생성:유저 · 최종:유저 · 갱신:2026-08-14

@@ -1,5 +1,5 @@
 <meta charset="utf-8">
-<!-- kanban-fp:9c72859a6e006d803ba335b7e3a53f4a192803df -->
+<!-- kanban-fp:0cab17b64ceb7208dcb303784879bc3eb39e898f -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>KAN-063-Q85EET 검토 요청</title>
 <style>
@@ -623,24 +623,24 @@ textarea { line-height: 1.6; resize: vertical; }
 
 <div class="dh">
   <div class="dh-cv"><span class="meta">수렴</span>
-    <b>0<i> / </i>1</b>
-    <span class="dh-sub">남은 1</span></div>
+    <b>1<i> / </i>1</b>
+    <span class="dh-sub">살아있는 항목 전부 승인</span></div>
   <div class="dh-sep"></div>
   <div class="dh-rail">
     <div class="dh-rail-head"><span class="meta">항목 레일 — 누르면 그 항목으로</span>
       <span class="meta">1칸</span></div>
-    <div class="rail"><a class="rail-c st-open rail-cur" href="#item-1" title="§3-1 미정 — Paint Gate 검사 전용 스토리 둘에서 axe 접근성 검사를 끈 것">1</a></div>
+    <div class="rail"><a class="rail-c st-approved" href="#item-1" title="§3-1 승인 — Paint Gate 검사 전용 스토리 둘에서 axe 접근성 검사를 끈 것">1</a></div>
   </div>
   <div class="dh-sep"></div>
   <div class="dh-act">
     <span class="tag tag-doing">검토 대기</span>
-    <a class="dh-next" href="#item-1">다음 미해결 &#9656; 1번</a></div>
+    </div>
 </div>
-<div class="dh-meta">변경 12파일 · +2727 −223 · 커밋 6 · 롤백 태그 7 · 추가 의견 0</div>
+<div class="dh-meta">변경 12파일 · +2727 −223 · 커밋 6 · 롤백 태그 7 · 추가 의견 1</div>
 
 
 
-<h2 class="h2-row">판단 항목 1<span class="meta">열린 것 1 · 닫힌 것 0</span></h2>
+<h2 class="h2-row">판단 항목 1<span class="meta">열린 것 0 · 닫힌 것 1</span></h2>
 <p class="note">번호는 의견 순서입니다. <b>의견마다 판정과 추가 의견이 따로 붙습니다</b> — 판정은 상태이고
 추가 의견은 말입니다. 승인/반려를 아직 안 정했어도 추가 의견만 달 수 있고, 반대로 의견 하나만 먼저 닫을 수도
 있습니다. <b>판정과 추가 의견, 의견 추가는 이 화면에서 바로 합니다</b> — 누른 것은 왼쪽 아래
@@ -662,7 +662,7 @@ python3 scripts/kanban.py review-item  &lt;project-root&gt; --card KAN-063-Q85EE
   <select id="rv-by" style="width:auto"><option>유저</option><option>ai</option></select>
   <span class="meta">이 화면에서 내는 판정·추가 의견에 붙습니다 — 기본은 유저입니다</span>
 </div>
-<ol id="rv-list"><li id="item-1" class="jd"><div class="jd-head"><span class="jd-num st-open">1</span><span class="jd-title">Paint Gate 검사 전용 스토리 둘에서 axe 접근성 검사를 끈 것을 그대로 둘 것인가 — 끈 채로 두었습니다</span><span class="tag tag-todo">미정</span><span class="meta">판정 0 · 의견 0</span></div><div class="jd-band jd-band-ctx"><span class="jd-g">배경</span><span class="jd-rule"></span><div class="jd-body"><ul class="jd-facts"><li><span class="jd-fact">템플릿 68개를 가이드 30개로 그리면 한 화면에 2천 장이 넘는다. 테스트가 끝난 뒤 axe(접근성 자동 검사)가 이 화면을 훑는 데 41초가 걸렸고, 세 번 재도 같았다.</span><span class="jd-src">원문 KANBAN/cards/KAN-063-Q85EET.md 수행 내역 S4</span></li><li><span class="jd-fact">테스트 하나의 제한 시간은 60초다.</span><span class="jd-src">원문 apps/storybook/vite.config.ts:29</span></li><li><span class="jd-fact">이 스토리 둘에서만 axe를 끄자 2초로 줄었다.</span><span class="jd-src">원문 apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx:36</span></li><li><span class="jd-fact">저장소 전체 설정은 접근성 위반을 실패로 치지 않고 경고로만 남긴다. 그래서 끄면 잃는 것은 경고뿐이고, 같은 템플릿의 개별 스토리에서 같은 경고가 나온다.</span><span class="jd-src">원문 apps/storybook/.storybook/preview.tsx:21-23</span></li></ul></div></div><div class="jd-band jd-band-ctx"><span class="jd-g">정할 것</span><span class="jd-rule"></span><div class="jd-body"><p>이 두 스토리에서 axe를 끈 채로 둘 것인가.</p><div class="scroll jd-tbl"><table><thead><tr><th>선택지</th><th>대가</th><th>그러면 어떻게 되는가</th></tr></thead><tbody><tr class="jd-rec"><td><span class="tag tag-done">추천</span> 끈 채로 둔다</td><td>이 화면에서 나오던 접근성 경고가 안 남는다</td><td>검사가 2초에 끝나고 제한 시간에 가까워질 일이 없다</td></tr><tr><td>스토리를 가이드 묶음으로 나누고 axe를 켠다</td><td>전체 테스트가 40초가량 늘어난다</td><td>묶음마다 제한 시간 안에 들지만, 개별 스토리와 같은 경고가 한 번 더 남는다</td></tr></tbody></table></div></div></div><div class="jd-band jd-band-v"><span class="jd-g">판정 0</span><span class="jd-rule"></span><div class="jd-body"><p class="jd-empty">판정 없음 — <code>review-judge --card KAN-063-Q85EET --item 1 --verdict 승인</code></p><ul class="jd-vs"></ul></div></div><div class="jd-band jd-band-n"><span class="jd-g">의견 0</span><span class="jd-rule"></span><div class="jd-body"><p class="jd-empty">추가 의견 없음 — <code>review-note --card KAN-063-Q85EET --item 1 --text "&lt;추가 의견&gt;"</code></p><ul class="jd-ns"></ul></div></div><div class="jd-band jd-band-ops is-static"><span class="jd-g">조작</span><span class="jd-rule"></span><div class="jd-body"><div class="rv-ops" data-item="1"><div class="row"><label>판정</label><button data-judge="승인">승인</button><button data-judge="반려">반려</button><button data-judge="철회">철회</button><span class="tag tag-wait" data-pending="1" hidden></span></div><div class="row"><label>추가 의견</label><input data-note placeholder="추가 의견 — 판정을 안 바꾸고 말만 남깁니다"><button data-note-add>추가 의견 달기</button></div></div></div></div></li></ol>
+<ol id="rv-list"><li id="item-1" class="jd jd-closed"><details class="jd-fold"><summary><span class="jd-num st-approved">1</span><span class="jd-title">Paint Gate 검사 전용 스토리 둘에서 axe 접근성 검사를 끈 것을 그대로 둘 것인가 — 끈 채로 두었습니다</span><span class="tag tag-done">승인</span><span class="meta">판정 1 · 의견 1</span><span class="meta jd-tog"></span></summary><div class="jd-band jd-band-ctx"><span class="jd-g">배경</span><span class="jd-rule"></span><div class="jd-body"><ul class="jd-facts"><li><span class="jd-fact">템플릿 68개를 가이드 30개로 그리면 한 화면에 2천 장이 넘는다. 테스트가 끝난 뒤 axe(접근성 자동 검사)가 이 화면을 훑는 데 41초가 걸렸고, 세 번 재도 같았다.</span><span class="jd-src">원문 KANBAN/cards/KAN-063-Q85EET.md 수행 내역 S4</span></li><li><span class="jd-fact">테스트 하나의 제한 시간은 60초다.</span><span class="jd-src">원문 apps/storybook/vite.config.ts:29</span></li><li><span class="jd-fact">이 스토리 둘에서만 axe를 끄자 2초로 줄었다.</span><span class="jd-src">원문 apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx:36</span></li><li><span class="jd-fact">저장소 전체 설정은 접근성 위반을 실패로 치지 않고 경고로만 남긴다. 그래서 끄면 잃는 것은 경고뿐이고, 같은 템플릿의 개별 스토리에서 같은 경고가 나온다.</span><span class="jd-src">원문 apps/storybook/.storybook/preview.tsx:21-23</span></li></ul></div></div><div class="jd-band jd-band-ctx"><span class="jd-g">정할 것</span><span class="jd-rule"></span><div class="jd-body"><p>이 두 스토리에서 axe를 끈 채로 둘 것인가.</p><div class="scroll jd-tbl"><table><thead><tr><th>선택지</th><th>대가</th><th>그러면 어떻게 되는가</th></tr></thead><tbody><tr class="jd-rec"><td><span class="tag tag-done">추천</span> 끈 채로 둔다</td><td>이 화면에서 나오던 접근성 경고가 안 남는다</td><td>검사가 2초에 끝나고 제한 시간에 가까워질 일이 없다</td></tr><tr><td>스토리를 가이드 묶음으로 나누고 axe를 켠다</td><td>전체 테스트가 40초가량 늘어난다</td><td>묶음마다 제한 시간 안에 들지만, 개별 스토리와 같은 경고가 한 번 더 남는다</td></tr></tbody></table></div></div></div><div class="jd-band jd-band-v"><span class="jd-g">판정 1</span><span class="jd-rule"></span><div class="jd-body"><ul class="jd-vs"><li><span class="meta">1회차</span><span class="tag tag-done">승인</span><span><span class="meta">ai · 2026-10-08</span> </span></li></ul></div></div><div class="jd-band jd-band-n"><span class="jd-g">의견 1</span><span class="jd-rule"></span><div class="jd-body"><ul class="jd-ns"><li><span class="meta">ai · 2026-10-08</span> 검토자 대조: 인용 셋(vite.config.ts:29 의 60초, TemplatePaintGate.stories.tsx:36 의 test: &#x27;off&#x27;, preview.tsx:21-23 의 test: &#x27;todo&#x27;)은 원문과 맞습니다. 다만 「같은 경고가 개별 스토리에서 나온다」는 절반만 맞습니다. 개별 스토리는 테스트에서 기본 가이드 blueprint 하나로 그리므로(preview.tsx:143) 나머지 가이드 29개에서만 나는 경고는 다시 나오지 않습니다. 그 빈자리 가운데 글자 대비는 같은 화면의 LabelContrastGate 가 새 미달이면 실패로 잡으므로 axe 경고보다 엄하게 덮습니다(axe 가 SVG 글자 대비를 재는지는 확인 안 함). 템플릿 68개 중 ArchiMateDiagram 만 개별 스토리가 없지만 세 층 변형이 같은 함수를 부릅니다(ArchiMateDiagram.tsx:180-205). 배경 첫 항목의 「세 번 재도 같았다」는 인용한 카드 수행 내역 S4 에 없습니다(거기에는 41초만 적혀 있습니다). 전략은 「넘치면 스토리를 나눈다」였고 실측(axe 41초)은 60초를 넘지 않았으므로, axe 를 끈 것은 전략에 없던 조치이고 이 항목이 그것을 묻는 자리입니다. 이를 감안해도 잃는 것은 실패가 아닌 경고뿐이라 추천안에 동의합니다.</li></ul></div></div><div class="jd-band jd-band-ops is-static"><span class="jd-g">조작</span><span class="jd-rule"></span><div class="jd-body"><div class="rv-ops" data-item="1"><div class="row"><label>판정</label><button data-judge="승인">승인</button><button data-judge="반려">반려</button><button data-judge="철회">철회</button><span class="tag tag-wait" data-pending="1" hidden></span></div><div class="row"><label>추가 의견</label><input data-note placeholder="추가 의견 — 판정을 안 바꾸고 말만 남깁니다"><button data-note-add>추가 의견 달기</button></div></div></div></div></details></li></ol>
 
 <h3>의견 추가</h3>
 <section class="card rv-panel" id="rv-add">
@@ -692,7 +692,7 @@ python3 scripts/kanban.py review-item  &lt;project-root&gt; --card KAN-063-Q85EE
 <h2>전체 판정</h2>
 
 <section class="card rv-panel" id="rv-all">
-<p class="note"><span class="tag tag-warn">경고</span> 살아있는 항목 1개(1번)가 안 닫혀 전체 승인은 아직 안 섭니다.</p>
+
 <p class="note">문서 전체에 대한 판정입니다 — <b>항목 판정과 다른 자리</b>입니다. 전체
 승인은 살아있는 항목이 전부 승인일 때만 섭니다(철회는 분모에서 빠집니다). <b>철회는
 항목에만</b> 있습니다 — 문서 전체를 철회하는 일은 검토를 닫는 것이 아니라 카드를 닫는
