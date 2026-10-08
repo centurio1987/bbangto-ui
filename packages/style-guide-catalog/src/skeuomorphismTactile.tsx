@@ -40,7 +40,7 @@ const foundations = makeFoundations({
     border: '#A48A60',
     borderMuted: 'rgba(58,46,32,0.22)',
     borderStrong: '#6E5635',
-    focus: '#2F6FB0',
+    focus: '#2566A6',
     primaryBase: PRIMARY,
     primaryHover: '#7A4E24',
     primaryActive: '#67411D',
@@ -90,7 +90,7 @@ const greenFoundations = makeColorway(foundations, {
   semantic: makeSemantic({
     bg: 'linear-gradient(180deg, #D6D3B0 0%, #C3C298 100%)', bgElevated: '#E8E7C8', bgSunken: '#B0AF85', overlay: 'rgba(28,32,16,0.55)',
     fg: '#2C3320', fgMuted: '#4C5636', fgSubtle: '#6B7550', fgInverse: '#F4F4E4',
-    border: '#93A06A', borderMuted: 'rgba(44,51,32,0.22)', borderStrong: '#5C6B38', focus: '#B4762B',
+    border: '#93A06A', borderMuted: 'rgba(44,51,32,0.22)', borderStrong: '#5C6B38', focus: '#955A00',
     primaryBase: '#4E7A44', primaryHover: '#436B3A', primaryActive: '#385C31',
     primarySubtle: 'rgba(78,122,68,0.16)', primaryFg: '#F4F4E4',
     accent: '#5C8A4E', accent2: '#8A7A47', accent3: '#A85A3C',

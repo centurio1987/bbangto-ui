@@ -50,7 +50,7 @@ const foundations = makeFoundations({
     border: '#D9D4C8',
     borderMuted: '#ECE8DD',
     borderStrong: KEY,
-    focus: CYAN,
+    focus: '#0596D1', // CYAN 을 어둡게 — 종이 바탕과 3:1 (KAN-060)
     primaryBase: MAGENTA,
     primaryHover: '#A3005A',
     primaryActive: '#840049',

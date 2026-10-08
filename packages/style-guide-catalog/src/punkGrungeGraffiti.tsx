@@ -51,7 +51,7 @@ const foundations = makeFoundations({
     border: '#1A1714',
     borderMuted: '#B8B2A6',
     borderStrong: INK,
-    focus: MAGENTA,
+    focus: '#F92574', // MAGENTA 를 어둡게 — 뉴스프린트 바탕과 3:1 (KAN-060)
     primaryBase: INK,
     primaryHover: '#000000',
     primaryActive: '#000000',

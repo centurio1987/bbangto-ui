@@ -116,7 +116,7 @@ const lavenderFoundations = makeColorway(foundations, {
     border: '#D9C9F4',
     borderMuted: '#EDE3FB',
     borderStrong: '#B9A2EA',
-    focus: '#FF7FB6',
+    focus: '#DF639A',
     primaryBase: '#9B7DE8',
     primaryHover: '#8A6ADB',
     primaryActive: '#7A58CE',

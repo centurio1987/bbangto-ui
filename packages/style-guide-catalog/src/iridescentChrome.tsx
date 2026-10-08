@@ -89,7 +89,7 @@ const lightFoundations = makeColorway(foundations, {
   semantic: makeSemantic({
     bg: '#F4F2F8', bgElevated: '#FFFFFF', bgSunken: '#E7E3F0', overlay: 'rgba(0,0,0,0.35)',
     fg: '#1A1826', fgMuted: '#4A4660', fgSubtle: '#7A7690', fgInverse: '#F4F2F8',
-    border: '#D4CFE2', borderMuted: '#E7E3F0', borderStrong: '#8A85A0', focus: '#2AA9C9',
+    border: '#D4CFE2', borderMuted: '#E7E3F0', borderStrong: '#8A85A0', focus: '#0599B9',
     primaryBase: '#6A4FD0', primaryHover: '#5A40C0', primaryActive: '#4A32A8',
     primarySubtle: '#E4DCFA', primaryFg: '#FFFFFF',
     accent: '#6A4FD0', accent2: '#1F9E8A', accent3: '#2AA9C9',

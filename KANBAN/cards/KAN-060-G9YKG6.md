@@ -100,7 +100,7 @@ KAN-059 가 키보드 포커스 테두리를 모든 상호작용 컴포넌트에
 - [x] `S1` 게이트 먼저 — `packages/tokens/src/contrast.ts` 에 `FOCUS_CONTRAST_MIN` · `surfaceColors` · `focusContrast` 를 더하고 배럴(`index.ts`)로 낸다. `packages/foundations/src/focusContrast.test.ts`(76개 실제 검사 + fixture), `packages/style-guide-catalog/src/accessibilityAudit.ts` 의 `auditFocusContrast` 와 `accessibility.test.ts`(153개 색 스킴 + core base 3개 실제 검사 + fixture). 완료 기준: fixture 초록 — 노랑 포커스+흰 배경은 위반, 반투명 `elevated` 는 `base` 위 합성으로 재서 통과. 실제 검사 빨강이고 위반 목록이 전략 「새 값」 표 31건과 같다(base 3개는 없음)
 - [x] `S2` 브라우저 확인 먼저 — `apps/storybook/src/real-input/mount.tsx` 에 foundation 인자(기본 light), `FocusVisible.realinput.test.tsx` 에 「Button: neon-yellow foundation 에서 Tab 테두리 색이 배경과 3:1 이상」, `_catalogStory.tsx` 의 `FoundationPresets` 7번에 `focusContrast` 확인. 완료 기준: 새 실제 입력 항목 빨강(약 1.03), 기존 실제 입력 항목 초록, 미달 style guide 9개의 `FoundationPresets` 스토리 빨강·나머지 초록
 - [x] `S3` foundation 21개 값 — 전략 「새 값」 표대로 각 테마 파일의 `border.focus` 한 칸만 바꾼다. 완료 기준: `focusContrast.test.ts` 초록, foundations 패키지 vitest 전체 초록, S2 실제 입력 항목 초록
-- [ ] `S4` style guide 9개 파일 10개 색 스킴 값 — 같은 표대로 미달 색 스킴의 `focus:` 칸만 바꾼다. 상수(`NEO.gold`·`CANDY`·`CYAN`·`MAGENTA`)는 그대로 두고 그 칸에 새 값을 쓴다. 완료 기준: style-guide-catalog vitest 전체 초록, 9개 `FoundationPresets` 스토리 초록
+- [x] `S4` style guide 9개 파일 10개 색 스킴 값 — 같은 표대로 미달 색 스킴의 `focus:` 칸만 바꾼다. 상수(`NEO.gold`·`CANDY`·`CYAN`·`MAGENTA`)는 그대로 두고 그 칸에 새 값을 쓴다. 완료 기준: style-guide-catalog vitest 전체 초록, 9개 `FoundationPresets` 스토리 초록
 - [ ] `S5` 문서와 마무리 — README 의 style guide 저작 「대비 게이트」 단계에 포커스 대비(3:1, `focusContrast`)를 더한다. changeset(`.changeset/kan-060-focus-contrast.md` — tokens minor · foundations patch · style-guide-catalog patch). 게이트 5종, 검토서. 완료 기준: 게이트 5종 초록, 검토로 이동
 
 ## 검증
@@ -147,3 +147,5 @@ pnpm test:unit                  # ← foundations focusContrast.test.ts · style
 - 2026-10-08T17:19 · s:d775e6fd · S2 done — mount.tsx 에 foundation 인자(기본 light), FocusVisible 에 neon-yellow Button 테두리 색 대비 항목 — Button 이 transition: all 이라 첫 실행에서 전환 중간값(1.00~1.01)을 읽어 getAnimations().finished 를 기다린 뒤 읽게 고침. 빨강 1.03(두 번 같은 값), 기존 실제 입력 20건 초록. _catalogStory 8번에 focusContrast — FoundationPresets 빨강 9개(전략 표의 style guide 9개와 같음), 43개 초록. pnpm typecheck 통과
 - 2026-10-08T17:20 · s:d775e6fd · S3 doing — 착수
 - 2026-10-08T17:20 · s:d775e6fd · S3 done — foundation 21개 테마 파일의 border.focus 한 칸씩을 전략 표 값으로. diff 에 focus: 밖의 줄 0. foundations vitest 117건 초록(focusContrast 포함 — 첫 실행의 bundleBudget 4건 빨강은 빌드 전에 돌려 dist 가 낡았던 것, 빌드 뒤 초록). 실제 입력 21건 초록(neon-yellow 항목 포함)
+- 2026-10-08T17:21 · s:d775e6fd · S4 doing — 착수
+- 2026-10-08T17:21 · s:d775e6fd · S4 done — style guide 9개 파일 10칸을 전략 표 값으로. 상수를 쓰던 넷 중 Neobrutalism 은 NEO.goldFocus 를 더해 default 만 쓰고(midnight 은 NEO.gold 그대로), CANDY·CYAN·MAGENTA 셋은 focus: 칸에만 리터럴 + 한 줄 주석. sgc vitest 90건 초록, 카탈로그 스토리 52파일 359건 초록(FoundationPresets 9개 포함)
