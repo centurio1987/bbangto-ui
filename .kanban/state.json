@@ -1,6 +1,6 @@
 {
   "next_id": 64,
-  "next_seq": 234,
+  "next_seq": 235,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -54,7 +54,7 @@
       "memo_hash": "fa79f4c6a72cc3d419b51e557a4bd9ae366539b9"
     },
     "KAN-060-G9YKG6": {
-      "col": "review",
+      "col": "doing",
       "title": "포커스 테두리 색 대비 3:1 — border.focus 토큰 정리와 대비 게이트",
       "verbatim": "새 카드로 분리 (앞 질문 「border.focus 대비가 3:1에 못 미치는 색 스킴(foundation 21개, style guide 13개 이상)을 어떻게 할까요?」에 대한 답)",
       "생성": "ai",
@@ -1224,6 +1224,16 @@
   ],
   "recent": [
     {
+      "seq": 234,
+      "t": "2026-10-08T17:53",
+      "a": "ai",
+      "id": "KAN-060-G9YKG6",
+      "op": "move",
+      "w": "00EBGW",
+      "from": "review",
+      "to": "doing"
+    },
+    {
       "seq": 233,
       "t": "2026-10-08T17:26",
       "a": "ai",
@@ -1741,23 +1751,6 @@
       "w": "DJT5WZ",
       "with_": "KAN-048-R2KW3G",
       "reason": "전략 재수립 완료"
-    },
-    {
-      "seq": 196,
-      "t": "2026-10-07T16:10",
-      "a": "ai",
-      "id": "KAN-059-62EAKB",
-      "op": "create",
-      "w": "S7030N",
-      "col": "backlog",
-      "title": "core 키보드 포커스 표시 통일 — :focus-visible 테두리를 모든 상호작용 컴포넌트에",
-      "verbatim": "",
-      "parent": null,
-      "short": "포커스 표시 통일",
-      "purpose": "브라우저 기본 테두리를 끈 core 컴포넌트(components 13개·blocks 1개)에 키보드 포커스일 때만 보이는 테두리를 한 규칙으로 단다",
-      "reason": "Button 등은 키보드로 포커스해도 화면에 아무 표시가 없어 키보드 사용자가 자기 위치를 모른다(KAN-054 검토 §3-6)",
-      "goal": "키보드로 닿는 core 컴포넌트마다 포커스 표시가 보이고, 빠지면 테스트가 빨강이 된다",
-      "memo": "KAN-054 검토 §3-6(2026-10-07 유저가 추천대로 재작업 선택)에서 나온 후속 · KAN-054는 Card·Calendar 날짜 칸·DatePicker 트리거 셋만 a11y/focusRing.ts 로 고쳤다 — 이 카드가 나머지를 같은 규칙으로"
     }
   ],
   "waivers": [
