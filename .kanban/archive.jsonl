@@ -232,3 +232,4 @@
 {"seq": 190, "t": "2026-10-07T16:00", "a": "ai", "id": "KAN-054-M48FNQ", "op": "move", "w": "DJT5WZ", "from": "review", "to": "doing"}
 {"seq": 190, "t": "2026-10-07T15:29", "a": "ai", "id": "KAN-051-5HMYKT", "op": "move", "w": "199J5C", "from": "review", "to": "done"}
 {"seq": 190, "t": "2026-10-07T14:15", "a": "ai", "id": "KAN-050-AJSQAY", "op": "serialize", "w": "728SB6", "with_": "KAN-048-R2KW3G", "reason": "DESIGN_SYSTEM_GUIDE.md 를 둘 다 고친다. B 가 ASSET_INTEGRATION_PLAN 을 없애야 D 가 :182 링크를 고칠 수 있고, 순서가 뒤면 깨진 링크가 남는다. KAN-044 검토 5번에서 유저가 승인. 2026-10-07 KAN-050 scope 확장(S2 주석 파일 3개)으로 무효가 된 기록을 다시 건다"}
+{"seq": 191, "t": "2026-10-07T16:01", "a": "유저", "id": "KAN-054-M48FNQ", "op": "waive", "w": "DJT5WZ", "with_": "KAN-055-34A57K", "reason": "054의 changeset은 054가 끝나 main에 병합된 뒤에만 들어오므로 그 전 배포에 섞이지 않는다 (2026-10-05 유저 승인 플랜). 2026-10-07 검토 반려 재작업의 scope 확장(FeatureGrid)으로 무효가 된 기록을 다시 건다 — 겹침은 그대로 .changeset/ 하나"}
