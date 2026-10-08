@@ -88,6 +88,13 @@ style guide 51개는 저마다 모티프 버튼(그 style guide 모양을 덧칠
 - 확장 변수(`--bbangto-ext-*`)가 색 스킴 일부에만 정의돼 대체값이 쓰이는 경우는 「없는 semantic 변수」가 아니다. 포커스 테두리라면 2의 게이트가 대체값으로 재므로 대비는 잡힌다.
 - 모티프 버튼이 아닌 자리의 포커스(카드 규칙 2곳 포함)도 같은 게이트가 재지만, 지금 모두 토큰을 읽어 통과한다.
 
+### 수행 중 확인 (2026-10-08, S5)
+
+빌드한 Storybook 에서 실제 Tab 으로 재 보니, core 는 포커스 테두리를 **인라인 스타일**(2px, `border.focus`)로 그린다(`packages/core/src/a11y/focusRing.ts`). 인라인 스타일은 `!important` 가 없는 스타일시트 규칙을 이긴다. 그래서 모티프 포커스 선언 53곳 중 `!important` 가 없는 2곳(tactile-texture, collage-scrapbook)은 처음부터 화면에 안 나왔고, core 테두리가 대신 그려졌다.
+
+- 「문제」 표의 tactile-texture 3개(1.00~1.35)는 CSS 에 적힌 값이지 화면에 그려진 값이 아니다. 실제로 바탕에 묻히던 것은 style guide 5개, 색 스킴 7개다. tactile 은 KAN-060 이 `border.focus` 를 고친 뒤로 이미 3:1 이상이 그려지고 있었다.
+- 게이트는 가려진 선언도 잰다. 놓치는 쪽이 아니라 더 엄하게 잡는 쪽이고, 이번 수정으로 두 곳도 같은 토큰을 읽으므로 화면과 CSS 의 색이 같아졌다. 두께는 CSS 의 3px 가 아니라 core 의 2px 로 그려진다(이 카드 전부터).
+
 ## 실행 계획
 - [x] `S1` 게이트 먼저 — `_motif.tsx` 에 래퍼 → CSS 대응표와 `motifCssOf`(배럴에는 안 냄), `accessibilityAudit.ts` 에 포커스 선언을 꺼내는 함수와 `auditMotifFocusContrast`, `accessibility.test.ts` 에 fixture 와 실제 검사, 없는 semantic 변수 검사를 `outline` 줄에서 모든 줄로 넓힌다. 완료 기준: fixture 초록 — 확장 변수를 색 스킴 값으로 풂 · 색 스킴에 없는 변수는 대체값 · `box-shadow` 고리 · `outline: none` 건너뜀 · `@media` 안 규칙 · 못 푼 색은 `unparseable`. 실제 검사 빨강 — 모티프 포커스 위반이 전략 표의 10건과 같고, 없는 변수 위반이 5줄과 같다. 모든 style guide 에서 CSS 를 찾는다(51/51)
 - [x] `S2` 브라우저 확인 먼저 — `apps/storybook/src/real-input/mount.tsx` 에 style guide 와 색 스킴을 받는 마운트(`StyleGuideProvider`), `FocusVisible.realinput.test.tsx` 에 「Neobrutalism default 모티프 Button 에 Tab 으로 오면 테두리 색이 배경과 3:1 이상」. 완료 기준: 새 항목 빨강(약 1.47), 기존 실제 입력 항목 초록
@@ -145,3 +152,5 @@ pnpm test:unit                  # ← style-guide-catalog accessibility.test.ts 
 - 2026-10-08T18:46 · s:0882524c · S4 done — 없는 변수 5줄을 이름이 가리키던 토큰으로(aiSurreal 태그 → border-focus, blueprint 카드 → background-elevated, scandi·spatial3d 태그 → border-base). 대체값 그대로. 없는 semantic 변수 검사 초록, style-guide-catalog vitest 108/108
 - 2026-10-08T18:46 · s:0882524c · S5 doing — 착수
 - 2026-10-08T18:54 · s:0882524c · S5 done — README 포커스 대비 단락에 모티프 CSS 검사, changeset(style-guide-catalog patch). 게이트 5종 초록(typecheck·build·test 1293·storybook build·test:unit — 첫 test:unit 은 foundations bundleBudget 자체 시험 5초 시간 초과, 단독·재실행 통과). 추가 확인: 빌드한 Storybook 에서 실제 Tab — neobrutalism #A9881C 2px, tactile #EB5D94, minimal-saas #4F46E5 3px 고리. tactile·collage 모티프 규칙은 !important 가 없어 core 2px 테두리가 그려진다(색은 같은 토큰, 이 카드 전부터) — tactile 소개 문구의 3px 를 걷음
+- 2026-10-08T18:55 · s:0882524c — `전략` 섹션 교체
+- 2026-10-08T18:55 · s:0882524c — S5 화면 확인에서 core 포커스 테두리가 인라인 스타일이라 !important 없는 모티프 규칙(tactile·collage)은 가려져 왔다는 것을 확인 — 실제 미달은 5개·색 스킴 7개. changeset·전략 절 바로잡음
