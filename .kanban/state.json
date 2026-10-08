@@ -1203,7 +1203,10 @@
         "packages/visualization/src/typeMeta/manifest.ts",
         "packages/visualization/scripts/**",
         "packages/visualization/type.manifest.json",
-        "packages/*/src/**/manifest.test.ts",
+        "packages/style-guide-catalog/src/manifest.test.ts",
+        "packages/visualization-style-guide-catalog/src/manifest.test.ts",
+        "packages/foundations/src/meta/manifest.test.ts",
+        "packages/visualization/src/typeMeta/manifest.test.ts",
         "metadata-coverage.json",
         "packages/style-guide-catalog/METADATA_STRATEGY.md"
       ]
@@ -1214,6 +1217,7 @@
     "KAN-057-CCH3E8",
     "KAN-061-K8V2HH",
     "KAN-062-E02CMT",
+    "KAN-064-AC0H6M",
     "KAN-060-G9YKG6",
     "KAN-063-Q85EET",
     "KAN-020",
@@ -1272,8 +1276,7 @@
     "KAN-054-M48FNQ",
     "KAN-058-G883EJ",
     "KAN-059-62EAKB",
-    "KAN-056-D3V1MB",
-    "KAN-064-AC0H6M"
+    "KAN-056-D3V1MB"
   ],
   "recent": [
     {

@@ -2,7 +2,7 @@
 card: KAN-064-AC0H6M
 title: AI 채택 매니페스트 재편 — 메타 필드는 유지, 매니페스트는 얇은 색인으로 축소 + 동기화 장치 단순화
 created: 2026-10-08
-scope: packages/style-guide-catalog/src/manifest.ts, packages/style-guide-catalog/scripts/**, packages/style-guide-catalog/catalog.manifest.json, packages/visualization-style-guide-catalog/src/manifest.ts, packages/visualization-style-guide-catalog/scripts/**, packages/visualization-style-guide-catalog/catalog.manifest.json, packages/foundations/src/meta/manifest.ts, packages/foundations/scripts/**, packages/foundations/foundation.manifest.json, packages/visualization/src/typeMeta/manifest.ts, packages/visualization/scripts/**, packages/visualization/type.manifest.json, packages/*/src/**/manifest.test.ts, metadata-coverage.json, packages/style-guide-catalog/METADATA_STRATEGY.md
+scope: packages/style-guide-catalog/src/manifest.ts, packages/style-guide-catalog/scripts/**, packages/style-guide-catalog/catalog.manifest.json, packages/visualization-style-guide-catalog/src/manifest.ts, packages/visualization-style-guide-catalog/scripts/**, packages/visualization-style-guide-catalog/catalog.manifest.json, packages/foundations/src/meta/manifest.ts, packages/foundations/scripts/**, packages/foundations/foundation.manifest.json, packages/visualization/src/typeMeta/manifest.ts, packages/visualization/scripts/**, packages/visualization/type.manifest.json, packages/style-guide-catalog/src/manifest.test.ts, packages/visualization-style-guide-catalog/src/manifest.test.ts, packages/foundations/src/meta/manifest.test.ts, packages/visualization/src/typeMeta/manifest.test.ts, metadata-coverage.json, packages/style-guide-catalog/METADATA_STRATEGY.md
 ---
 
 # KAN-064-AC0H6M — AI 채택 매니페스트 재편 — 메타 필드는 유지, 매니페스트는 얇은 색인으로 축소 + 동기화 장치 단순화
