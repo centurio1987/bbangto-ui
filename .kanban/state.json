@@ -1,6 +1,6 @@
 {
   "next_id": 66,
-  "next_seq": 244,
+  "next_seq": 245,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -79,7 +79,7 @@
       ]
     },
     "KAN-062-E02CMT": {
-      "col": "doing",
+      "col": "review",
       "title": "SVG 속성 안 var() 브라우저 확인 — README 문장과 속성으로 색을 넣는 코드를 실제 동작에 맞추기",
       "verbatim": "",
       "생성": "ai",
@@ -1333,6 +1333,16 @@
   ],
   "recent": [
     {
+      "seq": 244,
+      "t": "2026-10-08T18:36",
+      "a": "ai",
+      "id": "KAN-062-E02CMT",
+      "op": "move",
+      "w": "P5ESS2",
+      "from": "doing",
+      "to": "review"
+    },
+    {
       "seq": 243,
       "t": "2026-10-08T18:31",
       "a": "ai",
@@ -1866,16 +1876,6 @@
       "w": "S7030N",
       "with_": "KAN-055-34A57K",
       "reason": "054의 changeset은 054가 끝나 main에 병합된 뒤에만 들어오므로 그 전 배포에 섞이지 않는다 (2026-10-05 유저 승인 플랜). 2026-10-07 검토 반려 재작업의 scope 확장(FeatureGrid)으로 무효가 된 기록을 다시 건다 — 겹침은 그대로 .changeset/ 하나"
-    },
-    {
-      "seq": 211,
-      "t": "2026-10-07T16:44",
-      "a": "ai",
-      "id": "KAN-054-M48FNQ",
-      "op": "serialize",
-      "w": "S7030N",
-      "with_": "KAN-053-TZ86NN",
-      "reason": "전략 재수립 완료"
     }
   ],
   "waivers": [
