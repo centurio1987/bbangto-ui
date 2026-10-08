@@ -156,7 +156,26 @@
       "goal": "모티프 버튼 포커스 테두리의 대비를 재는 검사가 생기고 18곳이 모두 3:1 이상이 된다. style guide 소스에 없는 semantic 변수 참조가 0이 된다",
       "goal_hash": "3dcfc8d51c710957422afcedbe97a59c6131d766",
       "memo": "KAN-060 검토 항목 3(2026-10-08 유저 선택)에서 나왔다. KAN-060 이 포커스 테두리의 없는 변수 12곳을 고친 뒤 착수. 18곳과 남는 미달 색 스킴 약 10개는 KAN-060 검토서 항목 3 검토자 의견(소스 값 계산, 브라우저로 잰 값 아님). 포커스 밖 없는 변수 4곳: aiSurrealGradient3d.tsx:200·201 태그 색, blueprintTechnical.tsx:128 배경, scandiWarm.tsx:161·spatial3d.tsx:185 태그 테두리",
-      "memo_hash": "3008513fb5c83976ae515a4f4d1c156370af8769"
+      "memo_hash": "3008513fb5c83976ae515a4f4d1c156370af8769",
+      "scope": [
+        "packages/style-guide-catalog/src/_motif.tsx",
+        "packages/style-guide-catalog/src/accessibilityAudit.ts",
+        "packages/style-guide-catalog/src/accessibility.test.ts",
+        "packages/style-guide-catalog/src/neobrutalismEditorial.tsx",
+        "packages/style-guide-catalog/src/minimalSaas.tsx",
+        "packages/style-guide-catalog/src/tactileTexture.tsx",
+        "packages/style-guide-catalog/src/gothicMedievalDigital.tsx",
+        "packages/style-guide-catalog/src/shatteredGlassCinematic.tsx",
+        "packages/style-guide-catalog/src/iridescentChrome.tsx",
+        "packages/style-guide-catalog/src/aiSurrealGradient3d.tsx",
+        "packages/style-guide-catalog/src/blueprintTechnical.tsx",
+        "packages/style-guide-catalog/src/scandiWarm.tsx",
+        "packages/style-guide-catalog/src/spatial3d.tsx",
+        "README.md",
+        "apps/storybook/src/real-input/mount.tsx",
+        "apps/storybook/src/real-input/FocusVisible.realinput.test.tsx",
+        ".changeset/kan-065-motif-focus.md"
+      ]
     },
     "KAN-020": {
       "col": "done",

@@ -56,6 +56,7 @@
   - 목표: AI가 색인 하나로 1차 후보를 고르고 상세 meta는 ./meta 서브패스나 객체에서 읽는다. 매니페스트 재생성 단계가 전부 prebuild로 통일되거나 커밋 대상에서 빠지고, 새 워크트리에서 build 선행 없이 typecheck·test:unit이 통과한다
   - 메모: 선행 확인: 실제 토크나이저로 4종 크기 실측(어림값 검증). 전부 걷어내는 안은 버림 — foundation 76종은 메타가 유일한 선택 근거
   - 실행 문서: KANBAN/cards/KAN-064-AC0H6M.md (0/5 · 최근 10-08)
+  - 계획 리포트: KANBAN/reports/KAN-064-AC0H6M.report.html
   - 원문:
     ```text
     이 레포에는 ai agent가 라이브러리를 효율적으로 사용할 수 있도록 매니페스트를 제공하고 있는데, 매니페스트가 실제로 이득이 되는지, 아니면, 오버헤드가 더 큰지 판단해줘
@@ -69,6 +70,7 @@
   - 이유: KAN-060 검토에서 모티프 버튼 테두리가 border.focus 를 안 따르는 자리가 확인됐다 — 강조색·고정색 18곳이고 Neobrutalism 금색은 크림 바탕에서 1.47 이다
   - 목표: 모티프 버튼 포커스 테두리의 대비를 재는 검사가 생기고 18곳이 모두 3:1 이상이 된다. style guide 소스에 없는 semantic 변수 참조가 0이 된다
   - 메모: KAN-060 검토 항목 3(2026-10-08 유저 선택)에서 나왔다. KAN-060 이 포커스 테두리의 없는 변수 12곳을 고친 뒤 착수. 18곳과 남는 미달 색 스킴 약 10개는 KAN-060 검토서 항목 3 검토자 의견(소스 값 계산, 브라우저로 잰 값 아님). 포커스 밖 없는 변수 4곳: aiSurrealGradient3d.tsx:200·201 태그 색, blueprintTechnical.tsx:128 배경, scandiWarm.tsx:161·spatial3d.tsx:185 태그 테두리
+  - 실행 문서: KANBAN/cards/KAN-065-XSHEMV.md (0/5 · 최근 10-08)
   - 원문:
     ```text
     12곳은 여기서, 18곳은 새 카드 (앞 질문 「항목 3(style guide 자체 CSS의 버튼 포커스 테두리 30곳)을 어떻게 처리할까요?」에 대한 답)
@@ -523,7 +525,7 @@
   - 목표: 모든 foundation·style guide 색 스킴에서 border.focus 가 background.base·elevated 와 3:1 이상이고, 어기면 test:unit 이 빨강이 된다
   - 메모: KAN-059 착수 전 계획에서 발견(2026-10-07 main dist 를 tokens contrastRatio 로 계산). 그라디언트 배경 style guide 는 아직 못 쟀다 · 테두리는 border.focus 를 실행 때 읽으므로 토큰만 고치면 KAN-059 결과에 그대로 반영된다
   - 실행 문서: KANBAN/cards/KAN-060-G9YKG6.md (7/7 · 최근 10-08)
-  - 계획 리포트: KANBAN/reports/KAN-060-G9YKG6.report.html
+  - 계획 리포트: KANBAN/reports/KAN-060-G9YKG6.report.html (낡음)
   - 검토 문서: KANBAN/reviews/KAN-060-G9YKG6.review.md (승인 3/3 · 추가 의견 총 6 · 승인)
   - 원문:
     ```text
