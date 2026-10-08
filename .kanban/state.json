@@ -1,6 +1,6 @@
 {
   "next_id": 64,
-  "next_seq": 235,
+  "next_seq": 236,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -89,6 +89,15 @@
         "packages/style-guide-catalog/src/aiSurrealGradient3d.tsx",
         "packages/style-guide-catalog/src/pixelArtRetro.tsx",
         "packages/style-guide-catalog/src/iridescentChrome.tsx",
+        "packages/style-guide-catalog/src/blueprintTechnical.tsx",
+        "packages/style-guide-catalog/src/glitchDistortion.tsx",
+        "packages/style-guide-catalog/src/grainyBlurDreamy.tsx",
+        "packages/style-guide-catalog/src/halftoneGlitchColorsep.tsx",
+        "packages/style-guide-catalog/src/heritageFolkOrnament.tsx",
+        "packages/style-guide-catalog/src/naiveDoodle.tsx",
+        "packages/style-guide-catalog/src/opArtKinetic.tsx",
+        "packages/style-guide-catalog/src/romanticBotanical.tsx",
+        "packages/style-guide-catalog/src/warpedCheckerboard.tsx",
         "apps/storybook/src/real-input/FocusVisible.realinput.test.tsx",
         "apps/storybook/src/real-input/mount.tsx",
         "apps/storybook/src/stories/_catalogStory.tsx",
@@ -1163,6 +1172,7 @@
     "KAN-061-K8V2HH",
     "KAN-062-E02CMT",
     "KAN-063-Q85EET",
+    "KAN-060-G9YKG6",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1219,10 +1229,19 @@
     "KAN-054-M48FNQ",
     "KAN-058-G883EJ",
     "KAN-059-62EAKB",
-    "KAN-056-D3V1MB",
-    "KAN-060-G9YKG6"
+    "KAN-056-D3V1MB"
   ],
   "recent": [
+    {
+      "seq": 235,
+      "t": "2026-10-08T17:54",
+      "a": "ai",
+      "id": "KAN-055-34A57K",
+      "op": "waive",
+      "w": "00EBGW",
+      "with_": "KAN-060-G9YKG6",
+      "reason": "KAN-060 은 자기 changeset 파일(.changeset/kan-060-*.md) 하나만 더하고 KAN-055 는 배포 때 그것을 읽어 소비할 뿐이라 같은 파일을 고치지 않는다. 060 이 먼저 병합되면 다음 배포에 tokens·foundations 도 함께 나간다. KAN-056·058·059 와 같은 처리 (2026-10-08 유저 선택). 2026-10-08 재기록: 검토 항목 3 재작업으로 scope 에 style guide 9파일이 더해져 무효가 된 기록을 다시 건다 — 겹침은 그대로 .changeset/ 하나"
+    },
     {
       "seq": 234,
       "t": "2026-10-08T17:53",
@@ -1741,16 +1760,6 @@
       "w": "S7030N",
       "with_": "KAN-051-5HMYKT",
       "reason": "배포는 051·052·053이 main에 병합된 뒤에야 의미가 있다 (2026-10-05 유저 승인 플랜). 2026-10-07 재기록: 이전 기록의 scope_hash 가 현재 scope 와 어긋나 조용히 무효였다 — 055 는 051 의 파일 단위 dist·크기 게이트를 보고 전략을 다시 세워야 한다"
-    },
-    {
-      "seq": 197,
-      "t": "2026-10-07T16:03",
-      "a": "유저",
-      "id": "KAN-050-AJSQAY",
-      "op": "serialize",
-      "w": "DJT5WZ",
-      "with_": "KAN-048-R2KW3G",
-      "reason": "전략 재수립 완료"
     }
   ],
   "waivers": [
@@ -1826,10 +1835,10 @@
     },
     {
       "pair": "KAN-055-34A57K|KAN-060-G9YKG6",
-      "scope_hash": "784b989c9e450dd2",
-      "reason": "KAN-060 은 자기 changeset 파일(.changeset/kan-060-*.md) 하나만 더하고 KAN-055 는 배포 때 그것을 읽어 소비할 뿐이라 같은 파일을 고치지 않는다. 060 이 먼저 병합되면 다음 배포에 tokens·foundations 도 함께 나간다. KAN-056·058·059 와 같은 처리 (2026-10-08 유저 선택)",
-      "created": "2026-10-08T17:14",
-      "by": "유저"
+      "scope_hash": "f551c8c99f8ff324",
+      "reason": "KAN-060 은 자기 changeset 파일(.changeset/kan-060-*.md) 하나만 더하고 KAN-055 는 배포 때 그것을 읽어 소비할 뿐이라 같은 파일을 고치지 않는다. 060 이 먼저 병합되면 다음 배포에 tokens·foundations 도 함께 나간다. KAN-056·058·059 와 같은 처리 (2026-10-08 유저 선택). 2026-10-08 재기록: 검토 항목 3 재작업으로 scope 에 style guide 9파일이 더해져 무효가 된 기록을 다시 건다 — 겹침은 그대로 .changeset/ 하나",
+      "created": "2026-10-08T17:54",
+      "by": "ai"
     }
   ],
   "serials": [

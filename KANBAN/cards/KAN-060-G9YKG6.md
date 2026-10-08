@@ -2,7 +2,7 @@
 card: KAN-060-G9YKG6
 title: 포커스 테두리 색 대비 3:1 — border.focus 토큰 정리와 대비 게이트
 created: 2026-10-08
-scope: packages/tokens/src/contrast.ts, packages/tokens/src/index.ts, packages/foundations/src/themes/**, packages/foundations/src/focusContrast.test.ts, packages/style-guide-catalog/src/accessibilityAudit.ts, packages/style-guide-catalog/src/accessibility.test.ts, packages/style-guide-catalog/src/index.ts, packages/style-guide-catalog/src/neobrutalismEditorial.tsx, packages/style-guide-catalog/src/skeuomorphismTactile.tsx, packages/style-guide-catalog/src/kawaiiPastel.tsx, packages/style-guide-catalog/src/tactileTexture.tsx, packages/style-guide-catalog/src/halftoneDotPrint.tsx, packages/style-guide-catalog/src/punkGrungeGraffiti.tsx, packages/style-guide-catalog/src/aiSurrealGradient3d.tsx, packages/style-guide-catalog/src/pixelArtRetro.tsx, packages/style-guide-catalog/src/iridescentChrome.tsx, apps/storybook/src/real-input/FocusVisible.realinput.test.tsx, apps/storybook/src/real-input/mount.tsx, apps/storybook/src/stories/_catalogStory.tsx, README.md, .changeset/kan-060-*.md
+scope: packages/tokens/src/contrast.ts, packages/tokens/src/index.ts, packages/foundations/src/themes/**, packages/foundations/src/focusContrast.test.ts, packages/style-guide-catalog/src/accessibilityAudit.ts, packages/style-guide-catalog/src/accessibility.test.ts, packages/style-guide-catalog/src/index.ts, packages/style-guide-catalog/src/neobrutalismEditorial.tsx, packages/style-guide-catalog/src/skeuomorphismTactile.tsx, packages/style-guide-catalog/src/kawaiiPastel.tsx, packages/style-guide-catalog/src/tactileTexture.tsx, packages/style-guide-catalog/src/halftoneDotPrint.tsx, packages/style-guide-catalog/src/punkGrungeGraffiti.tsx, packages/style-guide-catalog/src/aiSurrealGradient3d.tsx, packages/style-guide-catalog/src/pixelArtRetro.tsx, packages/style-guide-catalog/src/iridescentChrome.tsx, packages/style-guide-catalog/src/blueprintTechnical.tsx, packages/style-guide-catalog/src/glitchDistortion.tsx, packages/style-guide-catalog/src/grainyBlurDreamy.tsx, packages/style-guide-catalog/src/halftoneGlitchColorsep.tsx, packages/style-guide-catalog/src/heritageFolkOrnament.tsx, packages/style-guide-catalog/src/naiveDoodle.tsx, packages/style-guide-catalog/src/opArtKinetic.tsx, packages/style-guide-catalog/src/romanticBotanical.tsx, packages/style-guide-catalog/src/warpedCheckerboard.tsx, apps/storybook/src/real-input/FocusVisible.realinput.test.tsx, apps/storybook/src/real-input/mount.tsx, apps/storybook/src/stories/_catalogStory.tsx, README.md, .changeset/kan-060-*.md
 ---
 
 # KAN-060-G9YKG6 — 포커스 테두리 색 대비 3:1 — border.focus 토큰 정리와 대비 게이트
@@ -96,12 +96,36 @@ KAN-059 가 키보드 포커스 테두리를 모든 상호작용 컴포넌트에
 - `cosmonaut` 는 `primary` 도 흰 배경에 흰색(`#FFFFFF`)이라 기본 버튼이 안 보인다. 포커스 색만 회색(`#909090`)으로 고치고 나머지는 건드리지 않는다.
 - 시각화 패키지 — 시각화 foundation 에는 `border.focus` 가 없다.
 
+### 재작업 — 검토 항목 3 (2026-10-08 유저 선택)
+
+검토자가 style guide 자체 CSS 의 포커스 테두리 53곳을 읽어 보니, 23곳은 포커스 색 토큰을 읽고 12곳은 **없는 변수**(`--bbangto-semantic-focus` 11곳 · `--bbangto-semantic-focus-ring` 1곳)를 읽고 18곳은 그 style guide 의 강조색·고정 색을 쓴다. 없는 변수는 어느 색 스킴에서도 만들어지지 않아 늘 대체값(고정 색)이 그려지고, 색 스킴을 바꿔도 테두리 색이 따라가지 않는다. 유저는 **12곳은 이 카드에서 고치고 18곳은 새 카드(KAN-065-XSHEMV)로 빼기**를 골랐다.
+
+고칠 12곳 — 변수 이름만 `--bbangto-semantic-border-focus` 로 바꾸고 대체값은 그대로 둔다. 이 변수는 위 게이트를 이미 통과한 `border.focus` 라서, 바꾸는 순간 그 style guide 의 버튼 테두리가 색 스킴마다 3:1 이상이 된다(검토자 계산: 미달 색 스킴 22개 중 12개가 이것으로 넘어선다).
+
+| 파일 | 줄 | 지금 변수 |
+|---|---|---|
+| `aiSurrealGradient3d.tsx` | 170 | `--bbangto-semantic-focus` |
+| `blueprintTechnical.tsx` | 158 | `--bbangto-semantic-focus` |
+| `glitchDistortion.tsx` | 162 | `--bbangto-semantic-focus` |
+| `grainyBlurDreamy.tsx` | 225 | `--bbangto-semantic-focus` |
+| `halftoneDotPrint.tsx` | 200 | `--bbangto-semantic-focus` |
+| `halftoneGlitchColorsep.tsx` | 163 | `--bbangto-semantic-focus` |
+| `heritageFolkOrnament.tsx` | 211 | `--bbangto-semantic-focus-ring` |
+| `naiveDoodle.tsx` | 159 | `--bbangto-semantic-focus` |
+| `opArtKinetic.tsx` | 169 | `--bbangto-semantic-focus` |
+| `romanticBotanical.tsx` | 144 | `--bbangto-semantic-focus` |
+| `warpedCheckerboard.tsx` | 149 · 166 | `--bbangto-semantic-focus` |
+
+게이트는 「포커스 테두리(`outline`) 선언이 읽는 `--bbangto-semantic-*` 변수가 실제로 만들어지는가」다. 대비를 다시 재지 않는 이유는, 토큰을 읽게 되면 대비는 이미 있는 `border.focus` 게이트가 지기 때문이다. 같은 없는 변수가 포커스 테두리 **밖**에도 넷 있다 — `aiSurrealGradient3d.tsx:200·201`(태그 색), `blueprintTechnical.tsx:128`(배경, `--bbangto-semantic-bg-elevated`), `scandiWarm.tsx:161`·`spatial3d.tsx:185`(태그 테두리, `--bbangto-semantic-border`). 포커스가 아니고 무엇으로 바꿀지 디자인 판단이 필요해 KAN-065 메모로 넘겼다. 그래서 이 게이트는 `outline` 선언만 본다.
+
 ## 실행 계획
 - [x] `S1` 게이트 먼저 — `packages/tokens/src/contrast.ts` 에 `FOCUS_CONTRAST_MIN` · `surfaceColors` · `focusContrast` 를 더하고 배럴(`index.ts`)로 낸다. `packages/foundations/src/focusContrast.test.ts`(76개 실제 검사 + fixture), `packages/style-guide-catalog/src/accessibilityAudit.ts` 의 `auditFocusContrast` 와 `accessibility.test.ts`(153개 색 스킴 + core base 3개 실제 검사 + fixture). 완료 기준: fixture 초록 — 노랑 포커스+흰 배경은 위반, 반투명 `elevated` 는 `base` 위 합성으로 재서 통과. 실제 검사 빨강이고 위반 목록이 전략 「새 값」 표 31건과 같다(base 3개는 없음)
 - [x] `S2` 브라우저 확인 먼저 — `apps/storybook/src/real-input/mount.tsx` 에 foundation 인자(기본 light), `FocusVisible.realinput.test.tsx` 에 「Button: neon-yellow foundation 에서 Tab 테두리 색이 배경과 3:1 이상」, `_catalogStory.tsx` 의 `FoundationPresets` 7번에 `focusContrast` 확인. 완료 기준: 새 실제 입력 항목 빨강(약 1.03), 기존 실제 입력 항목 초록, 미달 style guide 9개의 `FoundationPresets` 스토리 빨강·나머지 초록
 - [x] `S3` foundation 21개 값 — 전략 「새 값」 표대로 각 테마 파일의 `border.focus` 한 칸만 바꾼다. 완료 기준: `focusContrast.test.ts` 초록, foundations 패키지 vitest 전체 초록, S2 실제 입력 항목 초록
 - [x] `S4` style guide 9개 파일 10개 색 스킴 값 — 같은 표대로 미달 색 스킴의 `focus:` 칸만 바꾼다. 상수(`NEO.gold`·`CANDY`·`CYAN`·`MAGENTA`)는 그대로 두고 그 칸에 새 값을 쓴다. 완료 기준: style-guide-catalog vitest 전체 초록, 9개 `FoundationPresets` 스토리 초록
 - [x] `S5` 문서와 마무리 — README 의 style guide 저작 「대비 게이트」 단계에 포커스 대비(3:1, `focusContrast`)를 더한다. changeset(`.changeset/kan-060-focus-contrast.md` — tokens minor · foundations patch · style-guide-catalog patch). 게이트 5종, 검토서. 완료 기준: 게이트 5종 초록, 검토로 이동
+- [ ] `S6` 재작업 게이트 먼저(검토 항목 3) — `accessibility.test.ts` 에 「style guide CSS 의 포커스 테두리(`outline`) 선언이 읽는 `--bbangto-semantic-*` 변수는 실제로 만들어지는 변수다」 검사를 더한다. 만들어지는 변수 목록은 tokens 의 `flattenToCSSVars` 로 얻고, 소스는 style-guide-catalog `src/*.tsx` 를 읽는다. fixture: 없는 변수(`--bbangto-semantic-focus`)는 위반, `--bbangto-semantic-border-focus` 는 통과, `outline` 이 아닌 줄의 없는 변수는 이 검사 대상이 아님, 한 줄짜리 규칙도 잡힘. 완료 기준: fixture 초록, 실제 검사 빨강이고 위반이 전략 「재작업」 절의 12곳과 같다
+- [ ] `S7` 없는 변수 12곳 바로잡기와 마무리 — 12곳의 변수 이름만 `--bbangto-semantic-border-focus` 로 바꾼다(대체값은 그대로). changeset 에 한 줄 더한다. 게이트 5종, 검토서 1·2항 새로 고침, 검토로 이동. 완료 기준: S6 검사 초록, 게이트 5종 초록, 검토로 이동
 
 ## 검증
 ### 게이트 5종 (전부 초록이어야 완료)
@@ -136,6 +160,11 @@ pnpm test:unit                  # ← foundations focusContrast.test.ts · style
 - 값 — 바꾼 31칸이 전략 「새 값」 표와 같은지 `git diff` 로 대조한다. `focus:` 칸 밖의 색(특히 같은 상수를 쓰는 `primary`·장식)이 바뀌지 않았는지 함께 본다.
 - 화면 — 빌드한 Storybook 에서 neon-yellow·cosmonaut·Neobrutalism default 셋을 골라 실제 Tab 으로 Button 테두리를 찍어 본다(색이 보이는지).
 
+### 재작업 확인 (검토 항목 3)
+
+- `S6` 직후: `test:unit` 의 「포커스 테두리 변수」 검사가 빨강이고 위반이 전략 「재작업」 표의 12곳(11개 파일)과 같다. fixture 는 초록이다.
+- `S7` 직후: 그 검사가 초록이고 게이트 5종이 초록이다. `git diff` 에서 12줄의 변수 이름만 바뀌었는지(대체값·다른 줄 그대로) 본다.
+
 ## 수행 내역
 <!-- KANBAN:LOG append-only — 아래로만 덧붙인다. 위를 고치지 않는다. -->
 - 2026-10-08T01:36 · s:d775e6fd — `전략` 섹션 교체
@@ -152,3 +181,6 @@ pnpm test:unit                  # ← foundations focusContrast.test.ts · style
 - 2026-10-08T17:21 · s:d775e6fd · S5 doing — 착수
 - 2026-10-08T17:25 · s:d775e6fd · S5 done — README 대비 게이트 단계에 포커스 대비 단락(auditFocusContrast·focusContrast·반투명 elevated), changeset kan-060-focus-contrast.md(tokens minor · foundations patch · sgc patch). 게이트 5종 초록 — typecheck · build · test 193파일 1292건 · storybook build · test:unit(foundations 117 · sgc 90 등). 화면: chromium 실제 Tab 으로 core Button 을 neon-yellow · cosmonaut · Neobrutalism default 에서 찍음 — 테두리 셋 다 바탕과 구분됨. 같은 화면에서 neon-yellow 버튼 글자(흰색 on 노랑)와 cosmonaut 버튼(흰색 on 흰색)이 바탕에 묻힘 — primary 색 문제라 범위 밖. Storybook 카탈로그의 Neobrutalism 모티프 버튼 테두리는 자기 CSS 의 금색(#E9C766)이라 1.47 그대로 — 판단 항목으로
 - 2026-10-08T17:53 · s:d775e6fd — 검토 항목 3 반려(유저) — style guide 자체 포커스 CSS 중 없는 변수(--bbangto-semantic-focus·-focus-ring) 12곳을 이 카드에서 고친다. 나머지 18곳은 새 카드. 같은 카드 재작업 경로
+- 2026-10-08T17:55 · s:d775e6fd — `전략` 섹션 교체
+- 2026-10-08T17:55 · s:d775e6fd — `실행 계획` 섹션 교체
+- 2026-10-08T17:55 · s:d775e6fd — `검증` 섹션 교체
