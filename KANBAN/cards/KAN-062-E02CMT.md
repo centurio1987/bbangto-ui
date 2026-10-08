@@ -25,7 +25,7 @@ scope: packages/visualization/README.md, packages/visualization/src/atoms/Marker
 - 정식 계획(배치 문서·계획 리포트) — 단계 셋, 고칠 파일 둘이라 인스턴트 예외로 생략(2026-10-08 유저 동의).
 
 ## 실행 계획
-- [ ] `S1` 측정 기록 — 세 브라우저 측정 방법과 결과를 수행 내역에 남긴다. 완료 기준: 측정 판·속성별 결과·화면 확인 여부가 한 줄로 적혀 있다.
+- [x] `S1` 측정 기록 — 세 브라우저 측정 방법과 결과를 수행 내역에 남긴다. 완료 기준: 측정 판·속성별 결과·화면 확인 여부가 한 줄로 적혀 있다.
 - [ ] `S2` README·주석 수정 — README 「명시한 prop 이 이긴다」 항목과 `Marker.tsx:26` 주석을 측정 결과에 맞춘다. 완료 기준: 두 파일에 「속성 안 var() 무효/미지원」 문장이 없고, README 에 측정 판·날짜와 `transform` 예외가 적혀 있다.
 - [ ] `S3` 품질 게이트 — 게이트 5종을 돌린다. 완료 기준: typecheck · build · test · storybook build · test:unit 모두 초록.
 
@@ -41,3 +41,5 @@ scope: packages/visualization/README.md, packages/visualization/src/atoms/Marker
 - 2026-10-08T18:30 · s:37aebb27 — `검증` 섹션 교체
 - 2026-10-08T18:30 · s:37aebb27 — 인스턴트 예외로 배치 문서·계획 리포트 생략, 회귀 검사 없음 (2026-10-08 유저 선택: 바로 진행)
 - 2026-10-08T18:30 · s:37aebb27 — `검증` 섹션 교체
+- 2026-10-08T18:31 · s:37aebb27 · S1 doing — 착수
+- 2026-10-08T18:31 · s:37aebb27 · S1 done — 측정(2026-10-08, Playwright 1.61.0 빌드 chromium 149·firefox 151·webkit 26.5): SVG 안 line stroke="var(--c)"·중첩 var(--없음, var(--c))·text fill="var(--c)"·font-family="var(--f)"·중첩 모두 getComputedStyle 이 변수 값으로 풀림, 스크린샷에서도 빨강 선·빨강 글자·monospace 로 그려짐 / transform="translate(var(--x), 0)" 은 단위 없음·px 둘 다 세 브라우저 모두 안 움직임(style transform 대조는 20px 이동) / 표본 68개 서버 렌더 훑기: font-family 속성 var() 67개 템플릿, 색 속성 var() 4개(UMLComponentDiagram stroke·BPMNDiagram·RequirementDiagram·TimelineDiagram fill), transform 속성 var() 0 / 출시판 Safari·옛 판 확인 안 함
