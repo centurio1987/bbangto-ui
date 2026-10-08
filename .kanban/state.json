@@ -1,6 +1,6 @@
 {
   "next_id": 64,
-  "next_seq": 231,
+  "next_seq": 232,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -1224,6 +1224,16 @@
   ],
   "recent": [
     {
+      "seq": 231,
+      "t": "2026-10-08T17:14",
+      "a": "유저",
+      "id": "KAN-055-34A57K",
+      "op": "waive",
+      "w": "S7030N",
+      "with_": "KAN-060-G9YKG6",
+      "reason": "KAN-060 은 자기 changeset 파일(.changeset/kan-060-*.md) 하나만 더하고 KAN-055 는 배포 때 그것을 읽어 소비할 뿐이라 같은 파일을 고치지 않는다. 060 이 먼저 병합되면 다음 배포에 tokens·foundations 도 함께 나간다. KAN-056·058·059 와 같은 처리 (2026-10-08 유저 선택)"
+    },
+    {
       "seq": 230,
       "t": "2026-10-08T01:29",
       "a": "ai",
@@ -1755,16 +1765,6 @@
       "reason": "KAN-051 뒤에도 Showcase 하나가 약 101KB이고 그중 76,517B가 Showcase 51개가 함께 쓰는 생성 카피 파일 하나에서 온다",
       "goal": "Showcase 하나를 가져온 번들에 그 Showcase 카피만 들어가고, bundle-budget.json 의 sgc 대표 상한을 새 실측으로 낮춘다",
       "memo": "KAN-051 검토 4항(2026-10-07 승인)에서 나온 후속 · 근거는 KANBAN/cards/KAN-051-5HMYKT.md 「전략」의 범위 밖 절"
-    },
-    {
-      "seq": 194,
-      "t": "2026-10-07T15:31",
-      "a": "ai",
-      "id": "KAN-055-34A57K",
-      "op": "serialize",
-      "w": "S7030N",
-      "with_": "KAN-051-5HMYKT",
-      "reason": "배포는 051·052·053이 main에 병합된 뒤에야 의미가 있다 (2026-10-05 유저 승인 플랜)"
     }
   ],
   "waivers": [
@@ -1837,6 +1837,13 @@
       "reason": "059의 changeset은 059가 main에 병합된 뒤에만 들어오므로 그 전 배포에 섞이지 않는다. 먼저 병합되면 함께 배포된다. KAN-054·058과 같은 처리 (2026-10-07 유저 선택). 2026-10-08 재기록: 059 scope에 blocks/Gallery·Testimonials가 더해진 것이 reconcile로 반영되며 무효가 된 기록을 다시 건다 — 겹침은 그대로 .changeset/ 하나",
       "created": "2026-10-08T00:14",
       "by": "ai"
+    },
+    {
+      "pair": "KAN-055-34A57K|KAN-060-G9YKG6",
+      "scope_hash": "784b989c9e450dd2",
+      "reason": "KAN-060 은 자기 changeset 파일(.changeset/kan-060-*.md) 하나만 더하고 KAN-055 는 배포 때 그것을 읽어 소비할 뿐이라 같은 파일을 고치지 않는다. 060 이 먼저 병합되면 다음 배포에 tokens·foundations 도 함께 나간다. KAN-056·058·059 와 같은 처리 (2026-10-08 유저 선택)",
+      "created": "2026-10-08T17:14",
+      "by": "유저"
     }
   ],
   "serials": [

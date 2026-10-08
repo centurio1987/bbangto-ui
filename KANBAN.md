@@ -63,6 +63,7 @@
   - 목표: 모든 foundation·style guide 색 스킴에서 border.focus 가 background.base·elevated 와 3:1 이상이고, 어기면 test:unit 이 빨강이 된다
   - 메모: KAN-059 착수 전 계획에서 발견(2026-10-07 main dist 를 tokens contrastRatio 로 계산). 그라디언트 배경 style guide 는 아직 못 쟀다 · 테두리는 border.focus 를 실행 때 읽으므로 토큰만 고치면 KAN-059 결과에 그대로 반영된다
   - 실행 문서: KANBAN/cards/KAN-060-G9YKG6.md (0/5 · 최근 10-08)
+  - 계획 리포트: KANBAN/reports/KAN-060-G9YKG6.report.html (낡음)
   - 원문:
     ```text
     새 카드로 분리 (앞 질문 「border.focus 대비가 3:1에 못 미치는 색 스킴(foundation 21개, style guide 13개 이상)을 어떻게 할까요?」에 대한 답)
