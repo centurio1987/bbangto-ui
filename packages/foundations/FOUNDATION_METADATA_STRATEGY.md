@@ -22,13 +22,16 @@ foundation 축으로 미러링**한다.
 
 ```
 foundationCatalog(SSOT) + foundationMetaRegistry(authored)
-        └──(buildFoundationManifest, 결정적)──▶ foundation.manifest.json ──▶ AI 채택 판단
+        └──(buildFoundationManifest, 결정적)──▶ foundation.manifest.json(색인) + manifest/<slug>.json(상세) ──▶ AI 채택 판단
         └──(selectFoundations, 런타임 스코어링)──────────────────────────────┘
 ```
 
 - **SSOT = `foundationCatalog`(slug 정체성) + `foundationMetaRegistry`(authored 메타)**. 린 설계: slug 목록이
   이미 `foundationCatalog`에 있으므로 registry는 **authored만** 담는다(pending 슬롯 나열 불필요).
-- **투영 = `foundation.manifest.json`** — `foundationCatalog` 키를 순회하며 파생 필드 + meta를 병합해 생성.
+- **투영은 두 층이다(KAN-064)** — `foundationCatalog` 키를 순회하며 파생 필드 + meta를 병합해 생성한 뒤,
+  색인 `foundation.manifest.json`(slug·`displayName`·`colorScheme`·`summary`·`tags`·`domains`·`metaStatus`,
+  열 이름을 한 번만 적은 표)과 항목별 상세 `manifest/<slug>.json`(전체 메타·`baseTextContrast`)으로 나눠 쓴다.
+  색인은 8,029토큰이다(예전 전체 파일은 37,081토큰, `claude-opus-5-5` 토크나이저 기준, KAN-064 S1·S2).
 - **셀렉터 = `selectFoundations`** — colorScheme/domains/tags/mood로 soft-weighted 스코어링·랭킹.
 
 ## 3. `FoundationMeta` 스키마 — 통제 어휘 **재사용**
@@ -47,18 +50,22 @@ foundationCatalog(SSOT) + foundationMetaRegistry(authored)
 | `accessibility` | `{contrastIntent, colorblindConsidered, darkFirst}` | 접근성 **설계 의도(advisory)** |
 | `related?` | `string[]` | 인접 foundation slug(생성기가 정합성 검증) |
 
-**파생 필드(저작 안 함, 생성기가 계산)** — 매니페스트에만 존재:
+**파생 필드(저작 안 함, 생성기가 계산)** — 매니페스트에만 존재(`colorScheme` 은 색인과 상세 둘 다, `baseTextContrast` 는 상세에만):
 - `colorScheme`: `semantic.background.base` 실효 휘도로 파생(≥0.5 light, <0.5 dark). 알파는 흰 페이지 위 합성 후 판정.
 - `baseTextContrast`: `foreground.base` vs `background.base` 실측 대비(소수 2자리). 이름을 `baseTextContrast`로 **좁힌** 이유는
   `contrastIntent`가 **대표 base 텍스트 쌍 한정** advisory임을 명시하기 위함(전 조합 보장 아님).
 
 ## 4. 매니페스트 계약
 
+- 색인(`FoundationManifestIndex`)은 `{ axis, detail, columns, rows }` 다. `rows` 의 각 배열이 `columns` 순서를 따르고,
+  `detail` 은 상세 파일 자리(`manifest/{slug}.json`)다. 메타가 없으면 `displayName` 은 label 로, 나머지 메타 열은 `null` 로 채운다.
 - `metaStatus`: `authored`(meta 저작) | `pending`(백필 대기). **'pending'은 "해당 없음"이 아니다.**
 - 생성기가 hard-fail하는 것: **over-claim**(`contrastIntent`가 실측 `baseTextContrast`보다 높음, KAN-024 패턴,
   base 쌍 한정), **related 정합성**(존재·self-ref·중복), **phantom registry 키**(catalog에 없는 slug 저작).
-- 커밋 `foundation.manifest.json`은 `meta/manifest.test.ts`가 생성 결과와 **바이트 일치** 검증(drift 게이트).
-  생성은 `pnpm --filter …-foundations gen:foundation-manifest`(수동). prebuild 미배선(코어 blast radius↓, viz/KAN-025 선례).
+- 커밋하는 것은 색인뿐이고, `meta/manifest.test.ts`가 생성 결과와 **바이트 일치** 검증(drift 게이트).
+  생성은 `pnpm build` 의 `prebuild` 가 한다(KAN-064). 생성기는 대비 계산을 tokens 런타임에서 가져오므로
+  tokens 의 `dist` 가 있어야 돈다 — `pnpm build` 가 tokens 를 먼저 빌드하므로 그 순서를 지킨다.
+  상세 `manifest/` 는 `.gitignore` 대상이고 `package.json` 의 `files` 로 npm 패키지에만 실린다.
 - **catalog.json은 생성물**: `foundationCatalog`에서 파생 emit → 이중-SSOT drift(amber 누락 등) 구조적 불가. 3자 slug-set(76) 일치 테스트가 강제.
 
 ## 5. 거버넌스 + 번들 격리
@@ -72,8 +79,9 @@ foundationCatalog(SSOT) + foundationMetaRegistry(authored)
 ## 6. AI 소비 흐름 (스타일/유형 축 §6 미러)
 
 ```
-가진 맥락(도메인/무드/다크여부) → selectFoundations({colorScheme, domains, tags, mood}) → 상위 N shortlist
-  → 각 후보 useWhen/avoidWhen으로 AI 최종 판단 → foundationCatalog[slug]로 채택
+가진 맥락(도메인/무드/다크여부) → 색인에서 colorScheme·domains·tags·summary 로 후보 2~3개
+  (코드에서는 selectFoundations({colorScheme, domains, tags, mood}) → 상위 N shortlist)
+  → 후보마다 상세 manifest/<slug>.json 의 useWhen/avoidWhen으로 AI 최종 판단 → foundationCatalog[slug]로 채택
 ```
 셀렉터는 soft-weighted(하드 필터 아님) — criteria 불일치로 후보가 탈락하지 않아 shortlist가 붕괴하지 않는다.
 

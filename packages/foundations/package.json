@@ -16,7 +16,8 @@
       "import": "./dist/meta/index.js"
     },
     "./catalog": "./src/catalog.json",
-    "./foundation.manifest.json": "./foundation.manifest.json"
+    "./foundation.manifest.json": "./foundation.manifest.json",
+    "./manifest/*": "./manifest/*"
   },
   "files": [
     "dist",

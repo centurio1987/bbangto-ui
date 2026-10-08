@@ -15,7 +15,8 @@
       "types": "./dist/typeMeta/index.d.ts",
       "import": "./dist/typeMeta/index.js"
     },
-    "./type.manifest.json": "./type.manifest.json"
+    "./type.manifest.json": "./type.manifest.json",
+    "./manifest/*": "./manifest/*"
   },
   "files": [
     "dist",

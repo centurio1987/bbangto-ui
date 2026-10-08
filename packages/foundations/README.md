@@ -11,7 +11,8 @@ import { selectFoundations } from '@centurio1987/bbangto-ui-foundations/meta';
 | ---- | ---- |
 | `.` | 프리셋 값 + `foundationCatalog` |
 | `./meta` | 채택 메타·선택 helper(어떤 색 스킴을 언제 쓰는가) |
-| `./foundation.manifest.json` | 76 엔트리 매니페스트(파일로 읽기용) |
+| `./foundation.manifest.json` | 76종 색인 — 후보를 고를 때 읽는 표(`columns` + 한 줄에 한 항목인 `rows`) |
+| `./manifest/<slug>.json` | 항목 하나의 상세 — 고른 후보의 `useWhen`·`avoidWhen`·`baseTextContrast` |
 
 전 엔트리가 채택 메타를 갖는다(pending 0). 스타일 가이드는 이 foundation 위에 모티프를 얹는 구조다.
 

@@ -53,7 +53,7 @@ Flowchart(VT-201)와 Process Steps(VT-202)는 `dataShape`가 똑같이 `['proces
 | 경로 | 언제 쓰나 |
 | ---- | --------- |
 | `.../type-meta`의 `vizTypeRegistry` | 코드에서 질의할 때(**코드 SSOT**) |
-| `type.manifest.json` (패키지 동봉, 87 엔트리) | 파일 하나로 통째로 읽을 때 |
+| `type.manifest.json` 색인 + `manifest/<id>.json` 상세 (패키지 동봉, 87종) | 파일로 고를 때 — 색인으로 후보를 좁히고 후보의 상세만 연다 |
 | 각 컴포넌트 선언 위 JSDoc `@vizType`/`@useWhen`/`@avoidWhen` | IDE 툴팁·`d.ts`를 읽을 때 |
 
 셋은 `vizTypeRegistry`에서 생성·투영된 것이라 어긋나지 않는다(생성기 + 최신성 테스트가 강제).
@@ -73,9 +73,25 @@ defaultVizTypeForExport(vizTypeRegistry, 'Statistics');  // VT-601 — prop 없�
 vizTypeForVariant(vizTypeRegistry, 'Statistics', 'waffle'); // VT-513
 ```
 
-매니페스트의 `variants`는 `{ prop, value, isDefault? }` 꼴이라 **값을 어느 prop에 넣을지**까지 담는다.
+상세 파일의 `variants`는 `{ prop, value, isDefault? }` 꼴이라 **값을 어느 prop에 넣을지**까지 담는다.
 
 ## 매니페스트 스키마
+
+색인 `type.manifest.json` 은 열 이름을 한 번만 적고 유형을 한 줄씩 늘어놓은 표다.
+
+```jsonc
+{
+  "axis": "viz-type",
+  "detail": "manifest/{id}.json",         // 상세 파일 자리(패키지 루트 기준)
+  "columns": ["id","name","kind","category","exportNames","aliases","summary","tags","metaStatus"],
+  "rows": [
+    ["VT-202","Process Steps","pattern","process-flow",["ProcessSteps"],["process infographic","how-to","step-by-step"],"순차 스텝 체인(배지+커넥터)",["infographic"],"authored"]
+    // …87행
+  ]
+}
+```
+
+상세 `manifest/VT-202.json` 은 그 유형 하나의 전체다.
 
 ```jsonc
 {
@@ -92,10 +108,10 @@ vizTypeForVariant(vizTypeRegistry, 'Statistics', 'waffle'); // VT-513
     "dataShape": ["process"],
     "structuralTraits": ["sequential"],
     "primitives": ["node", "leader", "grid"],
-    "aliases": [], "tags": ["infographic"],
+    "aliases": ["process infographic", "how-to", "step-by-step"], "tags": ["infographic"],
     "useWhen": ["튜토리얼/워크플로를 순서대로 안내할 때", "…"],
     "avoidWhen": ["조건 분기가 있으면 Flowchart(VT-201) 사용", "…"],
-    "related": ["VT-201"]
+    "related": ["VT-201", "VT-208"]
   }
 }
 ```

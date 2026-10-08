@@ -24,14 +24,17 @@ visualization 패키지의 패턴 22종·템플릿 68 export(채택 유형 **87�
 ## 2. 전략 — "타입 필드 + 생성 매니페스트 + 셀렉터" (스타일 축 미러)
 
 ```
-vizTypeRegistry(entry.meta)  ──(buildTypeManifest, 결정적)──▶  type.manifest.json  ──▶  AI 채택 판단
-   (코드 SSOT)                                                    (압축 투영, 1파일)      ▲
+vizTypeRegistry(entry.meta)  ──(buildTypeManifest, 결정적)──▶  type.manifest.json(색인) + manifest/<id>.json(상세)  ──▶  AI 채택 판단
+   (코드 SSOT)                                                                                                         ▲
         └────────────────────(selectVizTypes, 런타임 스코어링)──────────────────────────┘
 ```
 
 - **SSOT = `src/typeMeta/registry.ts`의 각 엔트리**. 슬롯 정체성(`id/name/exportNames/kind`)은 항상,
   rich `meta`(`VizTypeMeta`)는 저작된 유형만. 인벤토리 §5/§6의 87 채택 VT 행을 전사한다.
-- **투영 = `type.manifest.json`** — 레지스트리에서 `buildTypeManifest`가 파생(id 오름차순·고정 키 순서).
+- **투영은 두 층이다(KAN-064)** — 레지스트리에서 `buildTypeManifest`가 파생(id 오름차순·고정 키 순서)한 뒤,
+  색인 `type.manifest.json`(id·name·kind·`category`·`exportNames`·`aliases`·`summary`·`tags`·`metaStatus`, 열 이름을
+  한 번만 적은 표)과 항목별 상세 `manifest/<id>.json`(전체 메타·`variants`·`completeness`)으로 나눠 쓴다.
+  색인은 6,675토큰이다(예전 전체 파일은 38,474토큰, `claude-opus-5-5` 토크나이저 기준, KAN-064 S1·S2).
 - **셀렉터 = `selectVizTypes`** — dataShape/category/primitives/tags/priority로 스코어링·랭킹.
 
 ## 3. `VizTypeMeta` 스키마 (통제 어휘)
@@ -51,12 +54,15 @@ vizTypeRegistry(entry.meta)  ──(buildTypeManifest, 결정적)──▶  type
 
 ## 4. 매니페스트 계약
 
+- 색인(`VizTypeManifestIndex`)은 `{ axis, detail, columns, rows }` 다. `rows` 의 각 배열이 `columns` 순서를 따르고,
+  `detail` 은 상세 파일 자리(`manifest/{id}.json`)다. pending 행은 메타에서 오는 열이 `null` 이다.
 - `metaStatus`: `authored`(meta 저작) | `pending`(백필 대기). **'pending'은 "해당 없음"이 아니다.**
 - `completeness`: 구조에서 계산(저작 대상 아님) — exportCount·hasVariant·useWhenCount·primitiveCount.
 - `related` 참조 정합성(존재·self-ref·중복)은 **authored 전체**에 대해 생성기가 throw로 강제.
-- 커밋 `type.manifest.json`은 `manifest.test.ts`가 재생성 결과와 **바이트 일치** 검증(drift 게이트).
-  생성은 `pnpm gen:type-manifest`(수동). prebuild 자동배선은 **안 함**(코어 패키지 blast radius 최소화 —
-  trendTable/KAN-025 선례). 커버리지는 `registry.test.ts`가 배럴 정적 스캔으로 양방향 검증.
+- 커밋하는 것은 색인뿐이고, `manifest.test.ts`가 재생성 결과와 **바이트 일치** 검증(drift 게이트).
+  생성은 `pnpm build` 의 `prebuild` 가 한다(KAN-064). 레지스트리가 순수 데이터라 이 생성기만은 다른 패키지의
+  `dist` 없이도 돈다. 상세 `manifest/` 는 `.gitignore` 대상이고 `package.json` 의 `files` 로 npm 패키지에만 실린다.
+  커버리지는 `registry.test.ts`가 배럴 정적 스캔으로 양방향 검증.
 
 ## 5. 거버넌스 + 번들 격리
 
@@ -71,7 +77,8 @@ vizTypeRegistry(entry.meta)  ──(buildTypeManifest, 결정적)──▶  type
 
 용도별로 분리한다:
 
-1. **파일 읽기** — `type.manifest.json` 한 개를 로드해 전 유형을 비교(오프라인·컨텍스트 창 스캔용, 런타임 무의존).
+1. **파일 읽기** — 색인 `type.manifest.json` 으로 후보 2~3개를 좁히고, 후보마다 상세 `manifest/<id>.json` 을 연다
+   (오프라인·컨텍스트 창 스캔용, 런타임 무의존).
 2. **런타임 셀렉터** — `import { selectVizTypes, vizTypeRegistry } from '@centurio1987/bbangto-ui-visualization/type-meta'`
    로 프로그래밍적 shortlist·재랭크.
 

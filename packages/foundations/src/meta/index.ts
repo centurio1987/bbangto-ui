@@ -2,8 +2,9 @@
  * foundation(색 스킴 base) 축 채택 메타데이터 인프라 배럴 (KAN-035).
  *
  * 서브패스 `@centurio1987/bbangto-ui-foundations/meta`로 노출된다(루트 배럴 미오염 → 토큰 소비자 번들에
- * registry가 딸려오지 않음). AI 소비자는 여기서 `selectFoundations`·`foundationMetaRegistry`를 import하거나
- * 커밋된 `foundation.manifest.json`을 파일로 읽는다. 전략은 패키지 루트 FOUNDATION_METADATA_STRATEGY.md 참고.
+ * registry가 딸려오지 않음). AI 소비자는 여기서 `selectFoundations`·`foundationMetaRegistry`를 import하거나,
+ * 색인 `foundation.manifest.json`으로 후보를 좁히고 상세 `manifest/<slug>.json`을 파일로 읽는다. 전략은 패키지 루트
+ * FOUNDATION_METADATA_STRATEGY.md 참고.
  */
 export type {
   FoundationMeta,

@@ -25,13 +25,20 @@ catalog 51종(UI) + 6종(viz)의 각 `StyleGuide` 객체가 런타임에 노출�
 
 - **SSOT = 각 StyleGuide 객체의 `meta` 필드**(`StyleGuideMeta`). 저작 위치가 곧 진실이라 drift가
   구조적으로 억제된다. 문서 표의 채택 정보를 객체로 흡수한다.
-- **투영 = `catalog.manifest.json`** — `styleGuideCatalog` 배열에서 생성기(`buildManifest`)가 파생.
-  AI는 이 JSON **한 개**만 로드해 전 항목을 비교한다 → "코드 전수 검토 없이" 요건 충족.
+- **투영은 두 층이다(KAN-064)** — `styleGuideCatalog` 배열에서 생성기(`buildManifest`)가 파생한다.
+  - **색인 `catalog.manifest.json`**: 후보를 고를 때 읽는 표. 이름·`displayName`·`family`·`priority`·
+    `summary`·`tags`·`domains`·`metaStatus` 만 싣고, 열 이름을 한 번만 적은 뒤 항목을 한 줄씩 늘어놓는다.
+  - **상세 `manifest/<name>.json`**: 고른 후보에서만 읽는 항목 하나의 전체 메타(`useWhen`·`avoidWhen`·
+    `mood`·`characteristics`·`accessibility`·`related`·`completeness`).
+  AI는 색인으로 후보 2~3개를 좁히고 그 후보의 상세만 연다 → "코드 전수 검토 없이" 요건을 지키면서
+  읽는 양이 후보 수에 비례한다. 예전에는 전체를 한 파일에 담았는데, 실측해 보니 그 한 파일이
+  50,325토큰이라 "한 파일만 읽고 고른다"는 전제가 무너져 있었다(색인은 8,709토큰, KAN-064 S1·S2,
+  `claude-opus-5-5` 토크나이저 기준).
   (선례: `packages/foundations/src/catalog.json` — 다만 그건 `{id,label,file}` 3필드뿐.)
 
 ```
-StyleGuide.meta  ──(buildManifest, 결정적)──▶  catalog.manifest.json  ──▶  AI 채택 판단
-   (SSOT)                                          (압축 투영, 1파일)
+StyleGuide.meta ─(buildManifest, 결정적)─┬─▶ catalog.manifest.json (색인) ──▶ 후보 2~3개
+   (SSOT)                                └─▶ manifest/<name>.json   (상세) ──▶ 후보마다 최종 판단
 ```
 
 ## 3. `StyleGuideMeta` 스키마
@@ -98,14 +105,19 @@ StyleGuide.meta  ──(buildManifest, 결정적)──▶  catalog.manifest.jso
 
 ## 4. 매니페스트 계약
 
-각 엔트리(`ManifestEntry`, [`src/manifest.ts`](src/manifest.ts)):
+색인(`ManifestIndex`, [`src/manifest.ts`](src/manifest.ts))은 `{ axis, detail, columns, rows }` 다.
+`columns` 가 열 이름이고 `rows` 의 각 배열이 그 순서를 따른다. `detail` 은 상세 파일 자리
+(`manifest/{name}.json`, 패키지 루트 기준)다. `pending` 행은 메타에서 오는 열이 `null` 이다.
+
+상세 파일 하나가 엔트리 하나다(`ManifestEntry`):
 
 - `metaStatus: 'authored' | 'pending'` — rich/thin을 명시 구분. **`pending`은 "아직 백필 안 됨"이지
   "해당 없음"이 아니다.** 소비자는 `pending` 항목을 "정보 부족"으로 다루고 후속 백필을 기대해야 한다.
 - `completeness`(생성기가 객체 구조에서 계산, 저작 대상 아님):
   `hasWrappers = wrapperComponents 키>0`, `hasPatterns = patterns 키>0`,
   `foundationPresetCount = foundationPresets.length ?? 1`, `hasVisualMotif = !!visualMotif`.
-- 결정성: `name` 오름차순 정렬, 고정 키 순서, 2-space indent + 말미 개행. `undefined` 값은 생략.
+- 결정성: `name` 오름차순 정렬, 고정 키 순서. 색인은 행 하나가 한 줄, 상세는 2-space indent.
+  둘 다 말미 개행. `undefined` 값은 생략.
 
 ## 5. 거버넌스 + 패키지 의존 방향
 
@@ -116,8 +128,10 @@ StyleGuide.meta  ──(buildManifest, 결정적)──▶  catalog.manifest.jso
   6/6 authored, 두 매니페스트 pending 0) → 매니페스트 동기 테스트에 "전량 authored·pending 0" DoD
   assertion을 추가해 gate를 승격했다. 타입 시그니처의 `?`(optional) 제거는 소비 helper 도입 시점
   (KAN-022)에 병행한다(현재는 테스트 게이트가 필수성을 강제).
-- **재생성 강제**: `catalog.manifest.json`은 생성물이다. `prebuild`가 `gen:manifest`를 자동 실행하고,
-  vitest 동기 테스트(`buildManifest(styleGuideCatalog) === 커밋본`)가 stale 매니페스트를 CI에서 잡는다.
+- **재생성 강제**: 색인과 상세는 생성물이다. `prebuild`가 `gen:manifest`를 자동 실행해 둘을 다시 쓴다.
+  커밋하는 것은 색인뿐이고, vitest 동기 테스트(색인 직렬화 === 커밋본)가 stale 색인을 CI에서 잡는다.
+  상세 `manifest/` 는 `.gitignore` 대상이고 `package.json` 의 `files` 로 npm 패키지에만 실린다 —
+  저장소 안에서 상세가 필요하면 각 preset 소스의 `meta` 를 읽거나 `pnpm build` 뒤 폴더를 연다.
 - **drift 최소화**: 매니페스트를 채택 필드의 기계 SSOT로 삼고, `style-guide-catalog.md` 트렌드 표는
   **KAN-025로 매니페스트에서 자동생성**한다(`buildTrendTable` → md의 `<!-- gen:trend-table -->` 마커
   구간, `gen:trend-table` 스크립트로 갱신). sync 테스트(`trendTable.test.ts`, `test:unit`)가 stale md를
@@ -125,13 +139,14 @@ StyleGuide.meta  ──(buildManifest, 결정적)──▶  catalog.manifest.jso
 
 ## 6. AI 소비 흐름
 
-1. `@centurio1987/bbangto-ui-style-guide-catalog/manifest.json`(또는 패키지 `catalog.manifest.json`)
-   **한 파일**을 로드한다.
-2. `domains` / `mood` / `tags` / `characteristics`로 후보 3–5종을 필터·랭크한다.
-   (예: "다크 게이밍 대시보드" → `domains∋gaming` + `characteristics.colorScheme='dark'` +
-   `mood.energy≥4` → `cyberpunk-hud-01` 식별.) **이 2단계는 KAN-022의 `selectStyleGuides(catalog,
-   criteria)`가 코드로 수행**한다 — soft-weighted 스코어링으로 상위 N을 결정적으로 반환.
-3. 필요 시 해당 슬러그의 `useWhen`/`avoidWhen`·`summary`로 최종 판단한다(여전히 `.tsx` 전수 열람 불필요).
+1. 색인 `@centurio1987/bbangto-ui-style-guide-catalog/manifest.json`(패키지의 `catalog.manifest.json`)을
+   읽는다. 축 하나라 약 8,700토큰이다.
+2. `domains` / `tags` / `family` / `summary`로 후보 2~3종을 좁힌다.
+   (예: "다크 게이밍 대시보드" → `domains∋gaming` + `tags∋dark` → `cyberpunk-hud-01` 식별.)
+   코드에서는 **KAN-022의 `selectStyleGuides(catalog, criteria)`가 같은 일을 한다** — 카탈로그 객체를
+   받아 `mood`·`characteristics` 까지 soft-weighted 로 스코어링해 상위 N을 결정적으로 반환한다.
+3. 후보마다 상세 `manifest/<name>.json`(항목 하나에 약 1,000토큰 안쪽, 글자·토큰 비율로 환산)을 열어 `useWhen`/`avoidWhen`·
+   `mood`·`characteristics`로 최종 판단한다(여전히 `.tsx` 전수 열람 불필요).
 4. `styleGuideMap[slug]`로 채택한다.
 
 > **KAN-022 완료**: `selectStyleGuides`가 위 2단계를 구현한다(`src/select.ts`, UI·viz 양쪽 export).

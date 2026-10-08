@@ -18,7 +18,7 @@ const DTS_BANNER = `/**
  *     match: 'all',                     // 지정한 축을 전부 만족하는 것만
  *   });
  *
- * 파일로 읽으려면 패키지에 동봉된 type.manifest.json(87 엔트리). 전체 문서는 README.md.
+ * 파일로 읽으려면 패키지에 동봉된 type.manifest.json(87종 색인)으로 후보를 좁히고 manifest/<id>.json(상세)을 연다. 전체 문서는 README.md.
  * 한 이름이 여러 유형을 겸하면(Statistics·Cycle·Hierarchy) defaultVizTypeForExport 로 기본 렌더 유형을 확인한다.
  */`;
 

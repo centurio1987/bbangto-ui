@@ -5,8 +5,9 @@
  * 있도록, 각 preset의 "언제/어디에 쓰는가"를 기계가독으로 선언한다. 스타일 축(`StyleGuideMeta`)과 동형이며,
  * 통제 어휘(`Domain`/`Tag`/`StyleMood`)를 **재사용**해 축 간 어휘 일관성을 지킨다(중복 union 금지).
  *
- * SSOT = `packages/foundations`의 `foundationMetaRegistry`(authored만). 이를 `foundation.manifest.json`으로
- * 투영해 AI가 파일 하나로 후보를 좁힌다. 전략은 foundations 패키지 FOUNDATION_METADATA_STRATEGY.md 참고.
+ * SSOT = `packages/foundations`의 `foundationMetaRegistry`(authored만). 이를 색인 `foundation.manifest.json`과
+ * 항목별 상세 `manifest/<slug>.json`으로 투영해, AI가 색인으로 후보를 좁히고 후보의 상세만 읽는다(KAN-064).
+ * 전략은 foundations 패키지 FOUNDATION_METADATA_STRATEGY.md 참고.
  *
  * **파일럿 관찰(KAN-035)**: foundations 카탈로그는 거의 전량 **라이트-베이스**(흰 표면 + 어두운 텍스트, 브랜드
  * accent 프리셋)다 — base 라이트/다크/고대비 테마는 core에 내장이고, 유일한 다크-베이스는 `amber-dark`.

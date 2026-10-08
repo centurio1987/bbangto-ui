@@ -1,6 +1,8 @@
 # KANBAN 변경 이력
 > 최근 50건. 이보다 오래된 이력은 archive.jsonl 로 압축 보관한다.
 
+- #253 2026-10-08 19:14 · ai · KAN-064-AC0H6M 독립성 겹침 용인 (상대 KAN-065-XSHEMV) — 재기록(scope 에 release.yml 을 더해 무효, KAN-065 와 겹치는 파일은 그대로): 유저 선택(2026-10-08 「둘 다 용인」). 루트 README.md 에서 KAN-064 는 매니페스트 갱신 단락(사례 7·9·10)과 게이트 설명의 예시 한 줄만, KAN-065 는 포커스 대비 단락만 고친다
+- #252 2026-10-08 19:14 · ai · KAN-064-AC0H6M 독립성 겹침 용인 (상대 KAN-055-34A57K) — 재기록(scope 에 release.yml 을 더해 무효, KAN-055 와 겹치는 파일은 그대로): 유저 선택(2026-10-08 「둘 다 용인」). package.json 3개는 KAN-064 가 scripts.prebuild·files·exports 의 manifest 자리만, KAN-055 는 version 만 고친다. changeset 은 KAN-064 가 kan-064-manifest-index.md 한 장을 더할 뿐이다. 배포 전에 병합되면 major 가 그 배포에 실리므로 병합 때 KAN-055 상태를 확인한다
 - #251 2026-10-08 19:05 · ai · KAN-064-AC0H6M 독립성 겹침 용인 (상대 KAN-065-XSHEMV) — 재기록(scope 에 jsdoc.test.ts·visualization README 를 더해 무효, KAN-065 와 겹치는 파일은 그대로): 유저 선택(2026-10-08 「둘 다 용인」). 루트 README.md 에서 KAN-064 는 기여 절차 4단계의 매니페스트 표와 그 아래 단락만, KAN-065 는 포커스 대비 단락만 고친다
 - #250 2026-10-08 19:05 · ai · KAN-064-AC0H6M 독립성 겹침 용인 (상대 KAN-055-34A57K) — 재기록(scope 에 jsdoc.test.ts·visualization README 를 더해 무효, KAN-055 와 겹치는 파일은 그대로): 유저 선택(2026-10-08 「둘 다 용인」). package.json 3개는 KAN-064 가 scripts.prebuild·files 만, KAN-055 는 version 만 고친다. changeset 은 KAN-064 가 kan-064-manifest-index.md 한 장을 더할 뿐이다. 배포 전에 병합되면 major 가 그 배포에 실리므로 병합 때 KAN-055 상태를 확인한다
 - #249 2026-10-08 18:43 · ai · KAN-064-AC0H6M 독립성 겹침 용인 (상대 KAN-065-XSHEMV) — 재기록(scope 에 census 게이트·상세 폴더를 더해 무효, 겹치는 파일은 그대로): 유저 선택(2026-10-08 「둘 다 용인」). 루트 README.md 에서 KAN-064 는 기여 절차 4단계의 매니페스트 표와 그 아래 단락만, KAN-065 는 포커스 대비 단락만 고친다
@@ -49,5 +51,3 @@
 - #222 2026-10-07 19:32 · ai · KAN-056-D3V1MB 이동 할 일 → 진행 중
 - #221 2026-10-07 19:32 · 유저 · KAN-055-34A57K 독립성 겹침 용인 (상대 KAN-056-D3V1MB) — KAN-056 은 자기 changeset 파일(.changeset/kan-056-*.md) 하나만 더하고 KAN-055 는 배포 때 그것을 읽어 소비할 뿐이라 같은 파일을 고치지 않는다. 어느 쪽이 먼저 끝나도 깨지지 않는다 (2026-10-07 유저 선택)
 - #221 2026-10-07 19:17 · ai · KAN-059-62EAKB 이동 할 일 → 진행 중
-- #220 2026-10-07 19:16 · 유저 · KAN-055-34A57K 독립성 겹침 용인 (상대 KAN-059-62EAKB) — 059의 changeset은 059가 main에 병합된 뒤에만 들어오므로 그 전 배포에 섞이지 않는다. 먼저 병합되면 함께 배포된다. KAN-054·058과 같은 처리 (2026-10-07 유저 선택)
-- #219 2026-10-07 19:16 · ai · KAN-060-G9YKG6 생성 "포커스 테두리 색 대비 3:1 — border.focus 토큰 정리와 대비 게이트" → 백로그

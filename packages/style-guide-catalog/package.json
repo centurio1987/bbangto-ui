@@ -11,7 +11,8 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./manifest.json": "./catalog.manifest.json"
+    "./manifest.json": "./catalog.manifest.json",
+    "./manifest/*": "./manifest/*"
   },
   "files": [
     "dist",
