@@ -9,7 +9,6 @@ import { compositeOver, contrastRatio, parseColor } from '@centurio1987/bbangto-
 import type { RGBA } from '@centurio1987/bbangto-ui-tokens';
 import { expect } from 'storybook/test';
 import { LABEL_CONTRAST_BASELINE } from './_labelContrastBaseline';
-import { MATRIX_FIXTURES } from './_matrixFixtures';
 import { PAINT_GATE_FIXTURES } from './_paintGateFixtures';
 
 /**
@@ -90,13 +89,8 @@ const KAN056_TARGET_KEYS = [
 ];
 const TARGET_FIXTURES = PAINT_GATE_FIXTURES.filter((f) => KAN056_TARGET_KEYS.includes(f.key));
 
-/**
- * 리터럴 검사가 그리는 표본 — KAN-056 대상 13개와, 회귀 가드로 matrix 의 나머지 18개.
- * KAN-056 S1 에서 같은 게이트로 재 보니 그 18개는 이미 깨끗했다. 새 리터럴이 들어오면 여기서 걸린다.
- */
-const GATE_FIXTURES = PAINT_GATE_FIXTURES.filter(
-  (f) => KAN056_TARGET_KEYS.includes(f.key) || MATRIX_FIXTURES.some((m) => m.key === f.key),
-);
+/** 리터럴 검사는 표본 전부를 그린다. 표본이 빠진 템플릿은 `vizPaintGateCoverage.test.ts` 가 `test:unit` 에서 잡는다. */
+const GATE_FIXTURES = PAINT_GATE_FIXTURES;
 
 // ────────────────────────────────────────────────────────────────────────
 // 비교
