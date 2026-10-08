@@ -40,7 +40,7 @@
   - 짧은 제목: viz 라벨 대비 정리
   - 목적: viz 템플릿 글자가 카탈로그 가이드 30개 모두에서 4.5:1 이상 읽히게 한다 — KAN-056 기준 목록 204곳과 불투명 팔레트 면(Mindmap · ArchiMateViewpoint)부터
   - 이유: KAN-056 검토에서 가이드에 따라 글자가 바탕에 묻히는 곳이 확인됐다(Mindmap 92곳 · Requirement 64곳 등). 지금은 기준 목록으로 더 나빠지지만 않게 막아 둔 상태다
-  - 목표: _labelContrastBaseline.ts 가 비고, 글자 대비 검사가 13개 밖 템플릿(ArchiMateViewpoint 등)도 잰다
+  - 목표: _labelContrastBaseline.ts 가 빈다(모든 템플릿으로 넓히는 일은 KAN-063 이 먼저 한다)
   - 메모: KAN-056 검토 항목 3(승인)·6에서 나왔다. KAN-056 병합 뒤 착수(검사와 기준 목록이 그 카드에 있다). 원인이 셋으로 갈린다: 불투명 팔레트 면 위 edge.stroke 글자, Requirement 반투명 글자(opacity 0.6·0.8)와 검정 6% 띠, riso-print 등의 shape.fill·edge.stroke 쌍. 카탈로그 대비 게이트가 shape.fill·edge.stroke 쌍을 재는지는 확인 안 함
   - 실행 문서: KANBAN/cards/KAN-061-K8V2HH.md (0/1 · 최근 10-08)
 - `KAN-062-E02CMT` SVG 속성 안 var() 브라우저 확인 — README 문장과 속성으로 색을 넣는 코드를 실제 동작에 맞추기 — 생성:ai · 최종:ai · 갱신:2026-10-08

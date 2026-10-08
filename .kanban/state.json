@@ -1,6 +1,6 @@
 {
   "next_id": 64,
-  "next_seq": 234,
+  "next_seq": 235,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -111,8 +111,8 @@
       "purpose_hash": "51a824aa2788b081a5b433f53a7b2b90ab778a2c",
       "reason": "KAN-056 검토에서 가이드에 따라 글자가 바탕에 묻히는 곳이 확인됐다(Mindmap 92곳 · Requirement 64곳 등). 지금은 기준 목록으로 더 나빠지지만 않게 막아 둔 상태다",
       "reason_hash": "415ad31a39197fa6ee9b8fe75a06743fade4a21b",
-      "goal": "_labelContrastBaseline.ts 가 비고, 글자 대비 검사가 13개 밖 템플릿(ArchiMateViewpoint 등)도 잰다",
-      "goal_hash": "a6ff20c2358551b3f6af694145a5ba1dd5f1ec1f",
+      "goal": "_labelContrastBaseline.ts 가 빈다(모든 템플릿으로 넓히는 일은 KAN-063 이 먼저 한다)",
+      "goal_hash": "64f7c6e57d81c2bb6c986481d714cc36b98103e6",
       "memo": "KAN-056 검토 항목 3(승인)·6에서 나왔다. KAN-056 병합 뒤 착수(검사와 기준 목록이 그 카드에 있다). 원인이 셋으로 갈린다: 불투명 팔레트 면 위 edge.stroke 글자, Requirement 반투명 글자(opacity 0.6·0.8)와 검정 6% 띠, riso-print 등의 shape.fill·edge.stroke 쌍. 카탈로그 대비 게이트가 shape.fill·edge.stroke 쌍을 재는지는 확인 안 함",
       "memo_hash": "27ba934616243721eee5d524551ef6731a15be46",
       "scope": [
@@ -1237,6 +1237,17 @@
   ],
   "recent": [
     {
+      "seq": 234,
+      "t": "2026-10-08T17:15",
+      "a": "ai",
+      "id": "KAN-061-K8V2HH",
+      "op": "edit",
+      "w": "S7030N",
+      "field": "goal",
+      "before": "_labelContrastBaseline.ts 가 비고, 글자 대비 검사가 13개 밖 템플릿(ArchiMateViewpoint 등)도 잰다",
+      "after": "_labelContrastBaseline.ts 가 빈다(모든 템플릿으로 넓히는 일은 KAN-063 이 먼저 한다)"
+    },
+    {
       "seq": 233,
       "t": "2026-10-08T17:15",
       "a": "유저",
@@ -1754,23 +1765,6 @@
       "w": "DJT5WZ",
       "with_": "KAN-048-R2KW3G",
       "reason": "전략 재수립 완료"
-    },
-    {
-      "seq": 196,
-      "t": "2026-10-07T16:10",
-      "a": "ai",
-      "id": "KAN-059-62EAKB",
-      "op": "create",
-      "w": "S7030N",
-      "col": "backlog",
-      "title": "core 키보드 포커스 표시 통일 — :focus-visible 테두리를 모든 상호작용 컴포넌트에",
-      "verbatim": "",
-      "parent": null,
-      "short": "포커스 표시 통일",
-      "purpose": "브라우저 기본 테두리를 끈 core 컴포넌트(components 13개·blocks 1개)에 키보드 포커스일 때만 보이는 테두리를 한 규칙으로 단다",
-      "reason": "Button 등은 키보드로 포커스해도 화면에 아무 표시가 없어 키보드 사용자가 자기 위치를 모른다(KAN-054 검토 §3-6)",
-      "goal": "키보드로 닿는 core 컴포넌트마다 포커스 표시가 보이고, 빠지면 테스트가 빨강이 된다",
-      "memo": "KAN-054 검토 §3-6(2026-10-07 유저가 추천대로 재작업 선택)에서 나온 후속 · KAN-054는 Card·Calendar 날짜 칸·DatePicker 트리거 셋만 a11y/focusRing.ts 로 고쳤다 — 이 카드가 나머지를 같은 규칙으로"
     }
   ],
   "waivers": [
