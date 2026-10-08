@@ -1,6 +1,6 @@
 {
   "next_id": 64,
-  "next_seq": 238,
+  "next_seq": 239,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -142,7 +142,7 @@
       "memo_hash": "870f645bcc5324338c2e042e36dcb5a90598a1d9"
     },
     "KAN-063-Q85EET": {
-      "col": "doing",
+      "col": "review",
       "title": "viz Paint Gate 표본을 나머지 템플릿으로 넓히기 — 리터럴 · 글자 대비 검사가 모든 템플릿을 보게",
       "verbatim": "",
       "생성": "ai",
@@ -1239,6 +1239,16 @@
   ],
   "recent": [
     {
+      "seq": 238,
+      "t": "2026-10-08T17:50",
+      "a": "ai",
+      "id": "KAN-063-Q85EET",
+      "op": "move",
+      "w": "VKFJ1X",
+      "from": "doing",
+      "to": "review"
+    },
+    {
       "seq": 237,
       "t": "2026-10-08T17:35",
       "a": "ai",
@@ -1757,16 +1767,6 @@
       "w": "DJT5WZ",
       "with_": "KAN-051-5HMYKT",
       "reason": "같은 CLAUDE.md지만 050은 게이트 명령 4종을 손대지 않고 구조도·경로만 고친다고 적었다. 051은 test:unit 설명 두 줄(39, 103행)만 고친다 (2026-10-05 유저 승인 플랜). 2026-10-07 KAN-050 S2 중 옛 패키지 이름 전수 grep 으로 scope 에 주석 파일 3개(tokens/breakpoints.ts·hooks/index.ts·hooks/useIsMounted.ts — 051 scope 와 안 겹침)를 더해 무효가 된 기록을 겹침 그대로 다시 건다"
-    },
-    {
-      "seq": 198,
-      "t": "2026-10-07T16:33",
-      "a": "ai",
-      "id": "KAN-055-34A57K",
-      "op": "serialize",
-      "w": "S7030N",
-      "with_": "KAN-052-BYS4JN",
-      "reason": "배포는 051·052·053이 main에 병합된 뒤에야 의미가 있다 (2026-10-05 유저 승인 플랜). 2026-10-07 재기록: 052 병합(123e2e3)의 rebuild 가 재수립 필요 표시를 잃었다 — 055 는 052 의 fonts prop 을 보고 전략을 다시 세워야 한다"
     }
   ],
   "waivers": [
