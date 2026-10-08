@@ -93,5 +93,19 @@ export function makeMotifWrappers(cfg: MotifConfig): WrapperComponents {
   );
   MotifTag.displayName = `${cfg.displayPrefix}Tag`;
 
-  return { Button: MotifButton, Card: MotifCard, Tag: MotifTag };
+  const wrappers = { Button: MotifButton, Card: MotifCard, Tag: MotifTag };
+  motifCss.set(wrappers, cfg.css);
+  return wrappers;
+}
+
+/*
+ * 래퍼 → 주입할 모티프 CSS. CSS 는 preset 파일마다 이 함수의 인자로만 있어 바깥에서 볼 길이 없었다.
+ * 모티프 포커스 테두리 대비 감사(accessibility.test.ts)가 이것으로 화면에 들어갈 CSS 를 그대로 읽는다 —
+ * 소스 글자를 읽으면 `${LILAC}` 같은 상수 치환을 못 푼다. 배럴(index.ts)로는 내지 않는다. (KAN-065)
+ */
+const motifCss = new WeakMap<WrapperComponents, string>();
+
+/** makeMotifWrappers 가 만든 래퍼의 모티프 CSS. 다른 길로 만든 래퍼면 undefined. */
+export function motifCssOf(wrappers: WrapperComponents | undefined): string | undefined {
+  return wrappers ? motifCss.get(wrappers) : undefined;
 }
