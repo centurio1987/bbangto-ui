@@ -5,13 +5,21 @@ import { describe, it, expect } from 'vitest';
 import { vizStyleGuideCatalog } from './index';
 import {
   buildManifest,
-  serializeManifest,
+  buildManifestIndex,
+  serializeManifestIndex,
+  serializeManifestEntry,
+  MANIFEST_INDEX_COLUMNS,
   type CatalogEntryLike,
-  type ManifestEntry,
+  type ManifestIndex,
 } from './manifest';
 
 const committedPath = join(dirname(fileURLToPath(import.meta.url)), '..', 'catalog.manifest.json');
-const committed: ManifestEntry[] = JSON.parse(readFileSync(committedPath, 'utf8'));
+const committed: ManifestIndex = JSON.parse(readFileSync(committedPath, 'utf8'));
+
+/** 색인 한 행에서 열 이름으로 값을 꺼낸다. */
+function cell(index: ManifestIndex, row: readonly unknown[], column: string): unknown {
+  return row[index.columns.indexOf(column as (typeof index.columns)[number])];
+}
 
 describe('buildManifest — rich/pending 분기 (fixture, 상태 독립)', () => {
   const authoredMeta = {
@@ -131,30 +139,74 @@ describe('related 참조 정합성 검증', () => {
   });
 });
 
+describe('색인과 상세 — 2단 읽기 (KAN-064)', () => {
+  const manifest = buildManifest(vizStyleGuideCatalog);
+  const index = buildManifestIndex(manifest);
+
+  it('색인 열에는 고를 때 쓰는 필드만 있고 상세 필드는 없다', () => {
+    expect(index.columns).toEqual(MANIFEST_INDEX_COLUMNS);
+    for (const detail of ['description', 'completeness', 'mood', 'characteristics', 'useWhen', 'avoidWhen', 'accessibility', 'related']) {
+      expect(index.columns as readonly string[]).not.toContain(detail);
+    }
+  });
+
+  it('색인 머리가 축 이름과 상세 자리를 알려 준다', () => {
+    expect(index.axis).toBe('viz-style-guide');
+    expect(index.detail).toBe('manifest/{name}.json');
+  });
+
+  it('색인 한 행은 같은 항목의 매니페스트 값과 같다', () => {
+    expect(index.rows).toHaveLength(manifest.length);
+    manifest.forEach((e, i) => {
+      const row = index.rows[i];
+      expect(row).toHaveLength(index.columns.length);
+      expect(cell(index, row, 'name')).toBe(e.name);
+      expect(cell(index, row, 'displayName')).toBe(e.meta?.displayName ?? null);
+      expect(cell(index, row, 'family')).toBe(e.meta?.family ?? null);
+      expect(cell(index, row, 'summary')).toBe(e.meta?.summary ?? null);
+      expect(cell(index, row, 'tags')).toEqual(e.meta?.tags ?? null);
+      expect(cell(index, row, 'domains')).toEqual(e.meta?.domains ?? null);
+      expect(cell(index, row, 'metaStatus')).toBe(e.metaStatus);
+    });
+  });
+
+  it('pending 항목은 메타에서 오는 열이 null 이다 — fixture', () => {
+    const [row] = buildManifestIndex(buildManifest([{ name: 'fixture-pending' }])).rows;
+    expect(row).toEqual(['fixture-pending', null, null, null, null, null, 'pending']);
+  });
+
+  it('상세 직렬화는 항목 하나를 잃지 않는다(useWhen·avoidWhen 포함)', () => {
+    for (const e of manifest) {
+      const raw = serializeManifestEntry(e);
+      expect(raw.endsWith('\n')).toBe(true);
+      expect(JSON.parse(raw)).toEqual(JSON.parse(JSON.stringify(e)));
+      if (e.metaStatus === 'authored') expect(raw).toContain('"useWhen"');
+    }
+  });
+});
+
 describe('재생성 동기 + 아티팩트 무결성', () => {
-  it('buildManifest(vizStyleGuideCatalog)가 커밋된 catalog.manifest.json과 일치한다', () => {
+  it('색인이 커밋된 catalog.manifest.json과 일치한다', () => {
     // 불일치 시: `pnpm --filter ...visualization-style-guide-catalog gen:manifest` 재실행 필요.
-    expect(buildManifest(vizStyleGuideCatalog)).toEqual(committed);
+    expect(buildManifestIndex(buildManifest(vizStyleGuideCatalog))).toEqual(committed);
   });
 
-  it('직렬화가 결정적이다(2-space + 말미 개행) — 커밋 파일과 바이트 동일', () => {
+  it('색인 직렬화가 결정적이다(한 행 한 줄 + 말미 개행) — 커밋 파일과 바이트 동일', () => {
     const raw = readFileSync(committedPath, 'utf8');
-    expect(serializeManifest(buildManifest(vizStyleGuideCatalog))).toBe(raw);
+    expect(serializeManifestIndex(buildManifestIndex(buildManifest(vizStyleGuideCatalog)))).toBe(raw);
   });
 
-  it('커밋 매니페스트가 최소 스키마를 만족한다(런타임 손상 가드)', () => {
-    for (const e of committed) {
-      expect(typeof e.name).toBe('string');
-      expect(['authored', 'pending']).toContain(e.metaStatus);
-      expect(typeof e.completeness.hasWrappers).toBe('boolean');
-      expect(typeof e.completeness.foundationPresetCount).toBe('number');
-      if (e.metaStatus === 'authored') {
-        expect(e.meta).toBeDefined();
-        expect(typeof e.meta!.family).toBe('string');
-        expect(Array.isArray(e.meta!.tags)).toBe(true);
-        expect(Array.isArray(e.meta!.domains)).toBe(true);
-      } else {
-        expect(e.meta).toBeUndefined();
+  it('커밋 색인이 최소 스키마를 만족한다(런타임 손상 가드)', () => {
+    expect(committed.columns).toEqual(MANIFEST_INDEX_COLUMNS);
+    for (const row of committed.rows) {
+      expect(row).toHaveLength(committed.columns.length);
+      expect(typeof cell(committed, row, 'name')).toBe('string');
+      const status = cell(committed, row, 'metaStatus');
+      expect(['authored', 'pending']).toContain(status);
+      if (status === 'authored') {
+        expect(typeof cell(committed, row, 'family')).toBe('string');
+        expect(Array.isArray(cell(committed, row, 'tags'))).toBe(true);
+        expect(Array.isArray(cell(committed, row, 'domains'))).toBe(true);
       }
     }
   });

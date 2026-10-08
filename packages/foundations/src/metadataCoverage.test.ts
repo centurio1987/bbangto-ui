@@ -34,14 +34,23 @@ function readDecl(): CoverageDeclaration {
   return JSON.parse(readFileSync(join(repoRoot, 'metadata-coverage.json'), 'utf8'));
 }
 
-/** 축의 .manifest.json에서 {total, authored} 통계 산출. */
+/**
+ * 축의 .manifest.json(색인, KAN-064)에서 {total, authored} 통계 산출.
+ * 색인은 `{ columns, rows }` 표 형태라 `metaStatus` 열의 위치를 머리에서 찾는다.
+ */
 function manifestStat(pkg: string, files: readonly string[]): { total: number; authored: number } {
   const rel = files.find((f) => f.endsWith('.manifest.json'));
   if (!rel) return { total: 0, authored: 0 };
-  const arr = JSON.parse(readFileSync(join(repoRoot, 'packages', pkg, rel), 'utf8')) as {
-    metaStatus?: string;
-  }[];
-  return { total: arr.length, authored: arr.filter((e) => e.metaStatus === 'authored').length };
+  const index = JSON.parse(readFileSync(join(repoRoot, 'packages', pkg, rel), 'utf8')) as {
+    columns: readonly string[];
+    rows: readonly (readonly unknown[])[];
+  };
+  const status = index.columns.indexOf('metaStatus');
+  if (status < 0) throw new Error(`${pkg}/${rel}: 색인에 metaStatus 열이 없습니다`);
+  return {
+    total: index.rows.length,
+    authored: index.rows.filter((row) => row[status] === 'authored').length,
+  };
 }
 
 describe('metadata-coverage census — 실제 repo', () => {

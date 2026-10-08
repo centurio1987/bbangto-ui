@@ -1,7 +1,8 @@
 /**
- * foundation 채택 매니페스트 생성기 — `foundationCatalog`를 AI가 파일 하나로 읽는 압축 매니페스트로
- * 투영한다 (KAN-035). 스타일 축(style-guide-catalog/manifest.ts)·유형 축(visualization typeMeta/manifest.ts)의
- * 동형 생성기를 foundation 축으로 미러링한 것.
+ * foundation 채택 매니페스트 생성기 — `foundationCatalog`를 색인(`foundation.manifest.json`, 후보를 고를 때
+ * 읽는 표)과 항목별 상세(`manifest/<slug>.json`)로 투영한다 (KAN-035, 두 층은 KAN-064). 스타일 축
+ * (style-guide-catalog/manifest.ts)·유형 축(visualization typeMeta/manifest.ts)의 동형 생성기를 foundation 축으로
+ * 미러링한 것.
  *
  * SSOT = `foundationCatalog`(slug 정체성) + `foundationMetaRegistry`(authored 메타). `buildFoundationManifest`는:
  *  - `colorScheme`을 `semantic.background.base` 실효 휘도로 **파생**(저작 아님),
@@ -132,9 +133,68 @@ export function buildFoundationManifest(
   return entries;
 }
 
-/** 매니페스트를 결정적 JSON 문자열로 직렬화(2-space indent + 말미 개행). */
+/** 매니페스트 전체 배열을 결정적 JSON 문자열로 직렬화(2-space indent + 말미 개행). 색인 파일은 `serializeFoundationManifestIndex`. */
 export function serializeFoundationManifest(entries: readonly FoundationManifestEntry[]): string {
   return JSON.stringify(entries, null, 2) + '\n';
+}
+
+/**
+ * 색인 열 — 후보를 고를 때 쓰는 필드만 싣는다. 고른 뒤 읽는 근거(useWhen·avoidWhen·mood·accessibility·related)와
+ * label·baseTextContrast 는 항목별 상세 파일에 있다. `displayName` 은 메타가 없으면 label 로 채운다.
+ */
+export const FOUNDATION_MANIFEST_INDEX_COLUMNS = [
+  'slug',
+  'displayName',
+  'colorScheme',
+  'summary',
+  'tags',
+  'domains',
+  'metaStatus',
+] as const;
+
+export type FoundationManifestIndexColumn = (typeof FOUNDATION_MANIFEST_INDEX_COLUMNS)[number];
+
+/** 색인 파일(`foundation.manifest.json`) 모양. 행의 값 순서는 `columns` 를 따른다. pending 행의 메타 열은 null. */
+export interface FoundationManifestIndex {
+  readonly axis: 'foundation';
+  /** 항목 상세 파일 자리(패키지 루트 기준). `{slug}` 를 행의 slug 값으로 바꾼다. */
+  readonly detail: 'manifest/{slug}.json';
+  readonly columns: readonly FoundationManifestIndexColumn[];
+  readonly rows: readonly (readonly unknown[])[];
+}
+
+/** 매니페스트(정렬된 항목 배열)를 색인으로 줄인다. 순서는 입력 순서 그대로다. */
+export function buildFoundationManifestIndex(
+  entries: readonly FoundationManifestEntry[],
+): FoundationManifestIndex {
+  return {
+    axis: 'foundation',
+    detail: 'manifest/{slug}.json',
+    columns: FOUNDATION_MANIFEST_INDEX_COLUMNS,
+    rows: entries.map((e) => [
+      e.slug,
+      e.meta?.displayName ?? e.label,
+      e.colorScheme,
+      e.meta?.summary ?? null,
+      e.meta?.tags ?? null,
+      e.meta?.domains ?? null,
+      e.metaStatus,
+    ]),
+  };
+}
+
+/** 색인을 결정적 JSON 문자열로 직렬화한다 — 머리 필드는 한 줄씩, 행은 한 줄에 하나(+ 말미 개행). */
+export function serializeFoundationManifestIndex(index: FoundationManifestIndex): string {
+  const head = (['axis', 'detail', 'columns'] as const)
+    .map((k) => `  ${JSON.stringify(k)}: ${JSON.stringify(index[k])}`)
+    .join(',\n');
+  const rows = index.rows.map((r) => `    ${JSON.stringify(r)}`).join(',\n');
+  return `{\n${head},\n  "rows": [\n${rows}\n  ]\n}\n`;
+}
+
+/** 항목 하나의 상세를 결정적 JSON 문자열로 직렬화(2-space indent + 말미 개행). */
+export function serializeFoundationManifestEntry(entry: FoundationManifestEntry): string {
+  return JSON.stringify(entry, null, 2) + '\n';
 }
 
 /**

@@ -1,5 +1,7 @@
 /**
- * Catalog manifest 생성기 — style guide 배열을 AI가 파일 하나로 읽는 압축 매니페스트로 투영한다.
+ * Catalog manifest 생성기 — style guide 배열을 두 층으로 투영한다(KAN-064).
+ *  - 색인(`catalog.manifest.json`): AI가 후보를 고를 때 읽는 표. 열 이름을 한 번만 적고 항목은 한 줄씩.
+ *  - 상세(`manifest/<name>.json`): 고른 후보에서만 읽는 항목 하나의 전체 메타.
  *
  * SSOT는 각 StyleGuide 객체의 `meta` 필드다. `buildManifest`는 이를 병합하고, 객체 구조에서
  * `completeness`를 계산하며(렌더 없이 구조만 읽음 → Node 실행 안전), 결정적으로 정렬한다.
@@ -88,7 +90,66 @@ export function buildManifest(catalog: readonly CatalogEntryLike[]): ManifestEnt
   return entries;
 }
 
-/** 매니페스트를 결정적 JSON 문자열로 직렬화(2-space indent + 말미 개행). */
+/** 매니페스트 전체 배열을 결정적 JSON 문자열로 직렬화(2-space indent + 말미 개행). 색인 파일은 `serializeManifestIndex`. */
 export function serializeManifest(entries: readonly ManifestEntry[]): string {
   return JSON.stringify(entries, null, 2) + '\n';
+}
+
+/**
+ * 색인 열 — 후보를 고를 때 쓰는 필드만 싣는다. 고른 뒤 읽는 근거(useWhen·avoidWhen·mood·characteristics·
+ * accessibility·related)와 completeness·description 은 항목별 상세 파일에 있다.
+ */
+export const MANIFEST_INDEX_COLUMNS = [
+  'name',
+  'displayName',
+  'family',
+  'priority',
+  'summary',
+  'tags',
+  'domains',
+  'metaStatus',
+] as const;
+
+export type ManifestIndexColumn = (typeof MANIFEST_INDEX_COLUMNS)[number];
+
+/** 색인 파일(`catalog.manifest.json`) 모양. 행의 값 순서는 `columns` 를 따른다. pending 행의 메타 열은 null. */
+export interface ManifestIndex {
+  readonly axis: 'ui-style-guide';
+  /** 항목 상세 파일 자리(패키지 루트 기준). `{name}` 을 행의 name 값으로 바꾼다. */
+  readonly detail: 'manifest/{name}.json';
+  readonly columns: readonly ManifestIndexColumn[];
+  readonly rows: readonly (readonly unknown[])[];
+}
+
+/** 매니페스트(정렬된 항목 배열)를 색인으로 줄인다. 순서는 입력 순서 그대로다. */
+export function buildManifestIndex(entries: readonly ManifestEntry[]): ManifestIndex {
+  return {
+    axis: 'ui-style-guide',
+    detail: 'manifest/{name}.json',
+    columns: MANIFEST_INDEX_COLUMNS,
+    rows: entries.map((e) => [
+      e.name,
+      e.meta?.displayName ?? null,
+      e.meta?.family ?? null,
+      e.meta?.priority ?? null,
+      e.meta?.summary ?? null,
+      e.meta?.tags ?? null,
+      e.meta?.domains ?? null,
+      e.metaStatus,
+    ]),
+  };
+}
+
+/** 색인을 결정적 JSON 문자열로 직렬화한다 — 머리 필드는 한 줄씩, 행은 한 줄에 하나(+ 말미 개행). */
+export function serializeManifestIndex(index: ManifestIndex): string {
+  const head = (['axis', 'detail', 'columns'] as const)
+    .map((k) => `  ${JSON.stringify(k)}: ${JSON.stringify(index[k])}`)
+    .join(',\n');
+  const rows = index.rows.map((r) => `    ${JSON.stringify(r)}`).join(',\n');
+  return `{\n${head},\n  "rows": [\n${rows}\n  ]\n}\n`;
+}
+
+/** 항목 하나의 상세를 결정적 JSON 문자열로 직렬화(2-space indent + 말미 개행). */
+export function serializeManifestEntry(entry: ManifestEntry): string {
+  return JSON.stringify(entry, null, 2) + '\n';
 }
