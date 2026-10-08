@@ -47,7 +47,7 @@ style guide 51개는 저마다 모티프 버튼(그 style guide 모양을 덧칠
 4. **브라우저 확인을 하나 둔다.** 2의 계산이 브라우저와 같은지, Neobrutalism default 모티프 버튼에 실제 Tab 으로 와서 칠해진 테두리 색을 읽어 잰다(지금 1.47). 확장 변수(`--bbangto-ext-*`)는 `StyleGuideProvider` 가 깔므로 `mount.tsx` 에 style guide 와 색 스킴을 받는 마운트를 더한다.
 5. **고칠 값 — 미달 6곳은 포커스 색 토큰을 읽게 한다.** `var(--bbangto-semantic-border-focus, <그 style guide default 의 포커스 색>)` 이다. 이 토큰은 style guide 마다 자기 색 스킴에 맞춰 이미 3:1 을 넘게 정해 둔 값이라, 새 색을 짓지 않아도 된다. 같은 확장 변수를 hover 나 광택에도 쓰는 파일이 있어(gothic 의 neon-block, tactile 의 hyperreal-gloss), 변수 값은 그대로 두고 포커스 선언만 바꾼다. minimal-saas 는 `outline: none` + `box-shadow` 고리 모양은 그대로 두고 색만 토큰으로 바꾼다.
 
-   바뀌는 색은 아래와 같다. 미달 10개가 넘어서고, 통과하던 색 스킴 2개(shattered rose, iridescent default)도 그 색 스킴의 포커스 색으로 바뀐다. 나머지 6개는 지금 색과 토큰 값이 같아 그대로다.
+   바뀌는 색은 아래와 같다. 미달 10개가 넘어서고, 통과하던 색 스킴 1개(iridescent default)도 그 색 스킴의 포커스 색으로 바뀐다. 나머지 7개는 지금 색과 토큰 값이 같아 그대로다. shattered rose 는 처음 계획에서 시안으로 바뀌었으나, 검토 항목 1(2026-10-08 유저 선택)에서 rose 의 포커스 색 토큰을 금색으로 바꿔 그대로 금색이다(아래 「수행 중 확인」).
 
    | style guide · 색 스킴 | 지금 | 바뀐 뒤 | 대비 |
    |---|---|---|---|
@@ -60,7 +60,7 @@ style guide 51개는 저마다 모티프 버튼(그 style guide 모양을 덧칠
    | tactile-texture · sky | 반투명 흰색 1.00 | `#3B92E8` | 3.04 |
    | gothic · light | `#E8C25A` 1.38 | `#3E5A00` | 6.34 |
    | shattered-glass · light | `#FFC53D` 1.40 | `#B26A00` | 3.77 |
-   | shattered-glass · rose (통과하던 것) | `#FFC53D` 11.56 | `#34E5FF` | 11.98 |
+   | shattered-glass · rose (통과하던 것) | `#FFC53D` 11.56 | `#FFC53D` (토큰을 금색으로, 검토 항목 1) | 11.56 |
    | iridescent · light | `#B7A6FF` 1.91 | `#0599B9` | 3.02 |
    | iridescent · default (통과하던 것) | `#B7A6FF` 8.21 | `#7FE0FF` | 11.60 |
 
@@ -94,6 +94,7 @@ style guide 51개는 저마다 모티프 버튼(그 style guide 모양을 덧칠
 
 - 「문제」 표의 tactile-texture 3개(1.00~1.35)는 CSS 에 적힌 값이지 화면에 그려진 값이 아니다. 실제로 바탕에 묻히던 것은 style guide 5개, 색 스킴 7개다. tactile 은 KAN-060 이 `border.focus` 를 고친 뒤로 이미 3:1 이상이 그려지고 있었다.
 - 게이트는 가려진 선언도 잰다. 놓치는 쪽이 아니라 더 엄하게 잡는 쪽이다. 이번 수정으로 tactile 도 토큰을 읽으므로 화면과 CSS 의 색이 같아졌다. 두께는 CSS 의 3px 가 아니라 core 의 2px 로 그려진다(이 카드 전부터).
+- 검토 항목 1(2026-10-08, 검토자 반려 → 유저 선택): shattered-glass 의 접근성 규칙은 「포커스 링은 굴절 색과 구분되는 골드」인데, rose 의 포커스 색 토큰은 원래 시안(`#34E5FF`)이라 rose 의 core 컴포넌트 포커스도 시안이었고 모티프 버튼까지 그 시안을 따르게 됐다. 이 시안은 버튼 테두리 그라디언트의 시안(`#22D3EE`)과 같은 계열이다. 유저 선택으로 rose 의 `border.focus` 를 `GOLD`(`#FFC53D`, 바탕과 11.56)로 바꿨다 — 모티프 버튼과 core 컴포넌트 포커스가 모두 금색이 되고, 포커스 색은 계속 토큰 하나에서 나온다.
 
 ## 실행 계획
 - [x] `S1` 게이트 먼저 — `_motif.tsx` 에 래퍼 → CSS 대응표와 `motifCssOf`(배럴에는 안 냄), `accessibilityAudit.ts` 에 포커스 선언을 꺼내는 함수와 `auditMotifFocusContrast`, `accessibility.test.ts` 에 fixture 와 실제 검사, 없는 semantic 변수 검사를 `outline` 줄에서 모든 줄로 넓힌다. 완료 기준: fixture 초록 — 확장 변수를 색 스킴 값으로 풂 · 색 스킴에 없는 변수는 대체값 · `box-shadow` 고리 · `outline: none` 건너뜀 · `@media` 안 규칙 · 못 푼 색은 `unparseable`. 실제 검사 빨강 — 모티프 포커스 위반이 전략 표의 10건과 같고, 없는 변수 위반이 5줄과 같다. 모든 style guide 에서 CSS 를 찾는다(51/51)
@@ -156,3 +157,5 @@ pnpm test:unit                  # ← style-guide-catalog accessibility.test.ts 
 - 2026-10-08T18:55 · s:0882524c — S5 화면 확인에서 core 포커스 테두리가 인라인 스타일이라 !important 없는 모티프 규칙(tactile·collage)은 가려져 왔다는 것을 확인 — 실제 미달은 5개·색 스킴 7개. changeset·전략 절 바로잡음
 - 2026-10-08T19:08 · s:0882524c — 검토 항목 1 반려(검토자) — 소개 문구 두 곳(shattered 280 · neobrutalism 237)이 바뀐 포커스 색과 어긋남 · rose 의 새 포커스 시안이 테두리 굴절 시안과 같은 계열이라는 사실이 배경에 없음. 같은 카드 재작업
 - 2026-10-08T19:08 · s:0882524c — `전략` 섹션 교체
+- 2026-10-08T23:57 · s:0882524c — `전략` 섹션 교체
+- 2026-10-08T23:58 · s:0882524c — 검토 항목 1 재작업(유저 선택): shattered-glass rose 의 border.focus 를 #34E5FF → GOLD(#FFC53D, 11.56). 모티프·core 포커스 모두 금색, 280줄 규칙과 맞음. changeset·전략 절 갱신

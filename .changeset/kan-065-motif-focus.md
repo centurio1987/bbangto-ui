@@ -10,8 +10,10 @@ style guide 가 자기 CSS 로 그리는 모티프 버튼 포커스 테두리가
 `gothic-medieval-digital-01`(light) · `shattered-glass-cinematic-01`(light) · `iridescent-chrome-01`(light).
 `tactile-texture-01` 의 포커스 규칙도 같은 토큰을 읽게 바꿨지만, 이 규칙은 `!important` 가 없어 core 가 그리는 포커스
 테두리(같은 토큰)에 가려 왔으므로 화면은 그대로다.
-같은 토큰을 따르게 되면서 `shattered-glass-cinematic-01`(rose)은 금색에서 시안으로, `iridescent-chrome-01`(default)은
-라일락에서 시안으로 포커스 테두리 색이 바뀐다 — 둘 다 그 색 스킴의 포커스 색이다.
+같은 토큰을 따르게 되면서 `iridescent-chrome-01`(default)의 포커스 테두리는 라일락에서 그 색 스킴의 포커스 색인 시안으로
+바뀐다. `shattered-glass-cinematic-01`(rose)은 포커스 색 토큰을 시안 `#34E5FF` 에서 금색 `#FFC53D` 로 바꿔, 모티프 버튼과
+입력·링크 같은 core 컴포넌트의 포커스가 모두 금색이 된다 — 「포커스 링은 굴절 색과 구분되는 골드」라는 이 style guide 의
+접근성 규칙에 맞춘 것이다.
 
 어느 색 스킴에서도 만들어지지 않는 semantic 변수를 읽어 늘 고정 색이던 다섯 자리가 색 스킴을 따른다:
 `ai-surreal-gradient3d-01` accent 태그 글자·테두리(`--bbangto-semantic-border-focus`) ·

@@ -121,7 +121,7 @@ const roseFoundations = makeColorway(foundations, {
   semantic: makeSemantic({
     bg: '#100A11', bgElevated: '#1A1220', bgSunken: '#0A060B', overlay: 'rgba(8,4,10,0.72)',
     fg: '#F7F0FB', fgMuted: '#C0AECB', fgSubtle: '#8A7E92', fgInverse: '#100A11',
-    border: '#352A3A', borderMuted: '#201826', borderStrong: '#4A3C50', focus: '#34E5FF',
+    border: '#352A3A', borderMuted: '#201826', borderStrong: '#4A3C50', focus: GOLD, // 굴절 시안과 구분되는 골드 — 접근성 규칙의 포커스 링 (KAN-065)
     primaryBase: MAGENTA, primaryHover: '#F06FD3', primaryActive: '#C23BA3',
     primarySubtle: '#2A1226', primaryFg: '#150912',
     accent: MAGENTA, accent2: CYAN, accent3: LIME,
