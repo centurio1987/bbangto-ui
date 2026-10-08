@@ -1,6 +1,6 @@
 {
   "next_id": 67,
-  "next_seq": 248,
+  "next_seq": 249,
   "cards": {
     "KAN-057-CCH3E8": {
       "col": "backlog",
@@ -150,7 +150,7 @@
       "memo_hash": "2d69b33becebe6a5d6af6ac29847dfc600699c06"
     },
     "KAN-065-XSHEMV": {
-      "col": "todo",
+      "col": "doing",
       "title": "style guide 모티프 버튼 포커스 테두리 정리 — 자체 CSS 18곳 대비와 없는 semantic 변수 참조",
       "verbatim": "12곳은 여기서, 18곳은 새 카드 (앞 질문 「항목 3(style guide 자체 CSS의 버튼 포커스 테두리 30곳)을 어떻게 처리할까요?」에 대한 답)",
       "생성": "ai",
@@ -1308,7 +1308,6 @@
     "KAN-062-E02CMT",
     "KAN-064-AC0H6M",
     "KAN-066-T6NR80",
-    "KAN-065-XSHEMV",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1368,9 +1367,20 @@
     "KAN-056-D3V1MB",
     "KAN-063-Q85EET",
     "KAN-060-G9YKG6",
-    "KAN-055-34A57K"
+    "KAN-055-34A57K",
+    "KAN-065-XSHEMV"
   ],
   "recent": [
+    {
+      "seq": 248,
+      "t": "2026-10-08T18:40",
+      "a": "ai",
+      "id": "KAN-065-XSHEMV",
+      "op": "move",
+      "w": "ZTJ9MG",
+      "from": "todo",
+      "to": "doing"
+    },
     {
       "seq": 247,
       "t": "2026-10-08T18:39",
@@ -1913,16 +1923,6 @@
       "reason": "KAN-059 가 모든 포커스 테두리를 border.focus 로 그리는데, 그 색 스킴에서는 테두리가 배경과 거의 같아 보이지 않는다(neonYellow 1.03, cosmonaut 1.00)",
       "goal": "모든 foundation·style guide 색 스킴에서 border.focus 가 background.base·elevated 와 3:1 이상이고, 어기면 test:unit 이 빨강이 된다",
       "memo": "KAN-059 착수 전 계획에서 발견(2026-10-07 main dist 를 tokens contrastRatio 로 계산). 그라디언트 배경 style guide 는 아직 못 쟀다 · 테두리는 border.focus 를 실행 때 읽으므로 토큰만 고치면 KAN-059 결과에 그대로 반영된다"
-    },
-    {
-      "seq": 218,
-      "t": "2026-10-07T18:06",
-      "a": "ai",
-      "id": "KAN-056-D3V1MB",
-      "op": "move",
-      "w": "S7030N",
-      "from": "backlog",
-      "to": "todo"
     }
   ],
   "waivers": [

@@ -270,3 +270,4 @@
 {"seq": 215, "t": "2026-10-07T16:53", "a": "ai", "id": "KAN-058-G883EJ", "op": "move", "w": "T1CWJS", "from": "doing", "to": "review"}
 {"seq": 214, "t": "2026-10-07T16:45", "a": "ai", "id": "KAN-058-G883EJ", "op": "move", "w": "T1CWJS", "from": "todo", "to": "doing"}
 {"seq": 217, "t": "2026-10-07T18:03", "a": "ai", "id": "KAN-059-62EAKB", "op": "move", "w": "S7030N", "from": "backlog", "to": "todo"}
+{"seq": 218, "t": "2026-10-07T18:06", "a": "ai", "id": "KAN-056-D3V1MB", "op": "move", "w": "S7030N", "from": "backlog", "to": "todo"}
