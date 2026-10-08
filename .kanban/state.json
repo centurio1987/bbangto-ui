@@ -1,6 +1,6 @@
 {
   "next_id": 66,
-  "next_seq": 242,
+  "next_seq": 243,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -96,7 +96,11 @@
       "goal": "세 브라우저 결과가 README 에 적히고, 안 풀리는 브라우저가 있으면 속성 안 var() 가 모두 style 로 옮겨지고 검사로 막힌다",
       "goal_hash": "51f4842a6493b580dcf7b3f86eb446d7bb955422",
       "memo": "KAN-056 검토 항목 3(검토자 승인, 둘째 선택지)에서 나왔다. KAN-056 시점 줄: UMLComponentDiagram.tsx:65·97, BPMNDiagram.tsx:86·128, README.md 「명시한 prop 이 이긴다」 항목. 다른 템플릿·원자에도 같은 형태가 있는지는 확인 안 함",
-      "memo_hash": "870f645bcc5324338c2e042e36dcb5a90598a1d9"
+      "memo_hash": "870f645bcc5324338c2e042e36dcb5a90598a1d9",
+      "scope": [
+        "packages/visualization/README.md",
+        "packages/visualization/src/atoms/Marker.tsx"
+      ]
     },
     "KAN-064-AC0H6M": {
       "col": "backlog",
@@ -155,8 +159,8 @@
       "reason_hash": "6a302b8d689585ce711e8c0d5f20011a1494f41e",
       "goal": "모티프 버튼 포커스 테두리의 대비를 재는 검사가 생기고 18곳이 모두 3:1 이상이 된다. style guide 소스에 없는 semantic 변수 참조가 0이 된다",
       "goal_hash": "3dcfc8d51c710957422afcedbe97a59c6131d766",
-      "memo": "KAN-060 검토 항목 3(2026-10-08 유저 선택)에서 나왔다. KAN-060 이 포커스 테두리의 없는 변수 12곳을 고친 뒤 착수. 18곳과 남는 미달 색 스킴 약 10개는 KAN-060 검토서 항목 3 검토자 의견(소스 값 계산, 브라우저로 잰 값 아님). 포커스 밖 없는 변수 4곳: aiSurrealGradient3d.tsx:200·201 태그 색, blueprintTechnical.tsx:128 배경, scandiWarm.tsx:161·spatial3d.tsx:185 태그 테두리",
-      "memo_hash": "3008513fb5c83976ae515a4f4d1c156370af8769",
+      "memo": "KAN-060 검토 항목 3(2026-10-08 유저 선택)에서 나왔다. 잰 값과 고칠 자리는 실행 문서 「전략」 절",
+      "memo_hash": "7cf27f78e54b70211b981bd76c149abdc57573c1",
       "scope": [
         "packages/style-guide-catalog/src/_motif.tsx",
         "packages/style-guide-catalog/src/accessibilityAudit.ts",
@@ -1329,6 +1333,17 @@
   ],
   "recent": [
     {
+      "seq": 242,
+      "t": "2026-10-08T18:30",
+      "a": "ai",
+      "id": "KAN-065-XSHEMV",
+      "op": "edit",
+      "w": "S7030N",
+      "field": "memo",
+      "before": "KAN-060 검토 항목 3(2026-10-08 유저 선택)에서 나왔다. KAN-060 이 포커스 테두리의 없는 변수 12곳을 고친 뒤 착수. 18곳과 남는 미달 색 스킴 약 10개는 KAN-060 검토서 항목 3 검토자 의견(소스 값 계산, 브라우저로 잰 값 아님). 포커스 밖 없는 변수 4곳: aiSurrealGradient3d.tsx:200·201 태그 색, blueprintTechnical.tsx:128 배경, scandiWarm.tsx:161·spatial3d.tsx:185 태그 테두리",
+      "after": "KAN-060 검토 항목 3(2026-10-08 유저 선택)에서 나왔다. 잰 값과 고칠 자리는 실행 문서 「전략」 절"
+    },
+    {
       "seq": 241,
       "t": "2026-10-08T18:24",
       "a": "ai",
@@ -1861,16 +1876,6 @@
       "w": "S7030N",
       "with_": "KAN-053-TZ86NN",
       "reason": "054가 053이 만든 packages/core/src/a11y/ 훅을 이어 쓴다. 053 훅 API를 보고 전략을 다시 세운다 (2026-10-05 유저 승인 플랜). 재작업 scope 확장으로 무효가 된 기록을 다시 건다"
-    },
-    {
-      "seq": 209,
-      "t": "2026-10-07T16:44",
-      "a": "ai",
-      "id": "KAN-054-M48FNQ",
-      "op": "move",
-      "w": "DJT5WZ",
-      "from": "review",
-      "to": "done"
     }
   ],
   "waivers": [
