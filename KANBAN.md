@@ -78,7 +78,7 @@
   - 이유: viz README 는 속성 안 var() 가 무효라 적지만 chromium 에서는 풀린다. 코드에도 그 형태가 있어 안 풀리는 브라우저에서는 인터페이스 선이 사라지거나 라벨이 검정이 된다(KAN-056 검토 항목 3)
   - 목표: 세 브라우저 결과가 README 에 적히고, 안 풀리는 브라우저가 있으면 속성 안 var() 가 모두 style 로 옮겨지고 검사로 막힌다
   - 메모: KAN-056 검토 항목 3(검토자 승인, 둘째 선택지)에서 나왔다. KAN-056 시점 줄: UMLComponentDiagram.tsx:65·97, BPMNDiagram.tsx:86·128, README.md 「명시한 prop 이 이긴다」 항목. 다른 템플릿·원자에도 같은 형태가 있는지는 확인 안 함
-  - 실행 문서: KANBAN/cards/KAN-062-E02CMT.md (1/3 · 최근 10-08)
+  - 실행 문서: KANBAN/cards/KAN-062-E02CMT.md (2/3 · 최근 10-08)
 
 ## 검토
 

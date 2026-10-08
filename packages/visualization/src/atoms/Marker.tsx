@@ -23,7 +23,8 @@ export interface MarkersProps {
 }
 
 // headless: paint 기본값은 vvar() 참조 — Provider의 CSS 변수 스코프에서 해석된다.
-// SVG presentation attribute는 var()를 지원하지 않으므로 반드시 style로 적용한다.
+// paint는 style로 적용한다 — presentation attribute는 author stylesheet에 진다(README 「명시한 prop 이 이긴다」).
+// attribute 안 var() 자체는 chromium·firefox·webkit 모두 푼다.
 
 function mkId(uid: string, variant: string): string {
   return `${uid}-${variant}`;
