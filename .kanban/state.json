@@ -2,37 +2,6 @@
   "next_id": 67,
   "next_seq": 247,
   "cards": {
-    "KAN-055-34A57K": {
-      "col": "backlog",
-      "title": "트리 셰이킹·글꼴·키보드 수정분 배포 (사용자 실행 지시 후)",
-      "verbatim": "[첨부 이미지]\nbbangto-ui 컴포넌트를 지금 들여오면 생기는 문제\n- 워커가 시안의 화면 조각 42개를 나눴습니다. bbangto-ui에 이미 있는 것이 11개, 이 앱에서 만들 것이 22개, bbangto-ui에 요청할 것이 9개입니다.\n- 그런데 bbangto-ui core(1.1.2)는 들여오는 입구가 하나뿐입니다. Button 하나만 써도 약 420KB가 번들에 들어갑니다. 지금 웹 앱 전체가 375KB이니 앱이 두 배 넘게 커집니다.\n- 원인은 bbangto-ui 빌드에 있습니다. forwardRef 127곳에 「안 쓰면 버려도 된다」는 표시(__PURE__)가 없습니다. 이 두 가지는 제가 설치된 파일에서 직접 확인했습니다. 워커가 이 표시를 붙인 사본으로 다시 빌드하자 Button이 25KB로 줄었다고 보고했고, 이 재빌드는 제가 다시 해 보지 않았습니다.\n- 번들 말고도 문제가 있다고 워커가 보고했습니다(제가 직접 확인하지는 않았습니다).\n  - Provider가 외부 글꼴을 늘 불러옵니다.\n  - Drawer에 Esc 닫기와 포커스 처리가 없습니다.\n  - Tabs·Select의 키보드 조작이 빠져 있습니다.\n\n이 문제를 해결하기 위한 전략을 수립, 실행 계획 수립, 칸반 카드화 해라.",
-      "생성": "ai",
-      "최종": "ai",
-      "갱신": "2026-10-08",
-      "title_hash": "64634d01e8b0fd34721f56ed0d6f56ae6d592030",
-      "verbatim_hash": "3b3af68e102bf6abbeb1ecda50a4b415f6bfbbf8",
-      "short": "수정분 배포",
-      "short_hash": "4bdfd7d59f233374ff3b0ffbff9c0cd43fd286c9",
-      "purpose": "KAN-051~054·058 결과를 GitHub Packages에 배포하고, 배포본으로 크기를 다시 잰 뒤 외부 앱에 버전을 알린다",
-      "purpose_hash": "7ba9a01fd1d1198622d2fff41161820927642934",
-      "reason": "외부 앱은 배포된 버전만 설치할 수 있다",
-      "reason_hash": "10f58f865a1f46736c734b7e5362a6757e225430",
-      "goal": "배포된 core 새 버전에서 Button 단독이 크기 상한 이하로 확인된다",
-      "goal_hash": "f7597fc0e1f5d343379d8e502b57a11fdd25b56a",
-      "memo": "외부 앱 소비 문제 대응 5장 중 5 · push·배포는 사용자의 분명한 실행 지시 뒤에만. 열 이동은 승인이 아니다",
-      "memo_hash": "0821287e5953d28612ee4cad800b57f033b779f0",
-      "scope": [
-        "packages/core/package.json",
-        "packages/core/CHANGELOG.md",
-        "packages/visualization/package.json",
-        "packages/visualization/CHANGELOG.md",
-        "packages/style-guide-catalog/package.json",
-        "packages/style-guide-catalog/CHANGELOG.md",
-        "packages/visualization-style-guide-catalog/package.json",
-        "packages/visualization-style-guide-catalog/CHANGELOG.md",
-        ".changeset/*.md"
-      ]
-    },
     "KAN-057-CCH3E8": {
       "col": "backlog",
       "title": "viz edge.dashPattern 토큰 정리 — 선언만 있고 읽히지 않는 커넥터 대시 토큰을 잇거나 걷기",
@@ -159,6 +128,26 @@
         "packages/foundations/src/meta/index.ts",
         ".gitignore"
       ]
+    },
+    "KAN-066-T6NR80": {
+      "col": "backlog",
+      "title": "워크스페이스 소스 경로 해석 — 새 워크트리에서 build 없이 typecheck·test:unit 통과",
+      "verbatim": "좁히고 새 카드 (앞 질문 「카드 목표인 「새 워크트리에서 build 없이 typecheck·test:unit 통과」를 어떻게 할까요? 패키지끼리 타입을 dist/index.d.ts 에서 찾고 루트 tsconfig 에 paths 가 없어서, 매니페스트와 상관없이 첫 typecheck 가 TS2307 로 실패합니다.」에 대한 답)",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-08",
+      "title_hash": "7800f1102ddd32a6183946c66fc00dcde04f9b30",
+      "verbatim_hash": "21cbf29e2f8b677e49c5e6d5f966eb8b1b7255c9",
+      "short": "build 없는 게이트",
+      "short_hash": "6d5fcc4915ad8c47eebe33fe5b168437ea23f4ce",
+      "purpose": "패키지끼리 타입과 모듈을 dist 대신 소스에서 찾게 해, 새 워크트리에서 pnpm build 없이 typecheck·test:unit 이 돈다",
+      "purpose_hash": "dfc62269262e560a2e8c890167b2ddf5dff299f2",
+      "reason": "패키지 exports 가 dist 만 가리키고 루트 tsconfig 에 paths 가 없어, 새 워크트리의 첫 typecheck 가 TS2307 로 실패한다(2026-10-07 KAN-050). KAN-064 착수 전 계획에서 매니페스트 카드 범위 밖으로 확인됐다",
+      "reason_hash": "88a42906505f4bfefe4577d3f96b235efac9ffb0",
+      "goal": "새 워크트리(또는 rm -rf packages/*/dist 뒤)에서 pnpm typecheck·pnpm test:unit 이 build 선행 없이 초록이고, build 를 먼저 돌리라는 규칙을 걷을 수 있다",
+      "goal_hash": "7d7f3c5965fa48fc4f7935443f259db4fe8be211",
+      "memo": "KAN-064 목표에서 갈라져 나왔다(2026-10-08 유저 선택). 고칠 자리 후보: 패키지 package.json exports 의 소스 조건 또는 tsconfig paths, vitest resolve. KAN-055 와 package.json 이 겹칠 것이다",
+      "memo_hash": "2d69b33becebe6a5d6af6ac29847dfc600699c06"
     },
     "KAN-065-XSHEMV": {
       "col": "todo",
@@ -1281,29 +1270,39 @@
         ".changeset/kan-060-*.md"
       ]
     },
-    "KAN-066-T6NR80": {
-      "col": "backlog",
-      "title": "워크스페이스 소스 경로 해석 — 새 워크트리에서 build 없이 typecheck·test:unit 통과",
-      "verbatim": "좁히고 새 카드 (앞 질문 「카드 목표인 「새 워크트리에서 build 없이 typecheck·test:unit 통과」를 어떻게 할까요? 패키지끼리 타입을 dist/index.d.ts 에서 찾고 루트 tsconfig 에 paths 가 없어서, 매니페스트와 상관없이 첫 typecheck 가 TS2307 로 실패합니다.」에 대한 답)",
+    "KAN-055-34A57K": {
+      "col": "done",
+      "title": "트리 셰이킹·글꼴·키보드 수정분 배포 (사용자 실행 지시 후)",
+      "verbatim": "[첨부 이미지]\nbbangto-ui 컴포넌트를 지금 들여오면 생기는 문제\n- 워커가 시안의 화면 조각 42개를 나눴습니다. bbangto-ui에 이미 있는 것이 11개, 이 앱에서 만들 것이 22개, bbangto-ui에 요청할 것이 9개입니다.\n- 그런데 bbangto-ui core(1.1.2)는 들여오는 입구가 하나뿐입니다. Button 하나만 써도 약 420KB가 번들에 들어갑니다. 지금 웹 앱 전체가 375KB이니 앱이 두 배 넘게 커집니다.\n- 원인은 bbangto-ui 빌드에 있습니다. forwardRef 127곳에 「안 쓰면 버려도 된다」는 표시(__PURE__)가 없습니다. 이 두 가지는 제가 설치된 파일에서 직접 확인했습니다. 워커가 이 표시를 붙인 사본으로 다시 빌드하자 Button이 25KB로 줄었다고 보고했고, 이 재빌드는 제가 다시 해 보지 않았습니다.\n- 번들 말고도 문제가 있다고 워커가 보고했습니다(제가 직접 확인하지는 않았습니다).\n  - Provider가 외부 글꼴을 늘 불러옵니다.\n  - Drawer에 Esc 닫기와 포커스 처리가 없습니다.\n  - Tabs·Select의 키보드 조작이 빠져 있습니다.\n\n이 문제를 해결하기 위한 전략을 수립, 실행 계획 수립, 칸반 카드화 해라.",
       "생성": "ai",
       "최종": "ai",
       "갱신": "2026-10-08",
-      "title_hash": "7800f1102ddd32a6183946c66fc00dcde04f9b30",
-      "verbatim_hash": "21cbf29e2f8b677e49c5e6d5f966eb8b1b7255c9",
-      "short": "build 없는 게이트",
-      "short_hash": "6d5fcc4915ad8c47eebe33fe5b168437ea23f4ce",
-      "purpose": "패키지끼리 타입과 모듈을 dist 대신 소스에서 찾게 해, 새 워크트리에서 pnpm build 없이 typecheck·test:unit 이 돈다",
-      "purpose_hash": "dfc62269262e560a2e8c890167b2ddf5dff299f2",
-      "reason": "패키지 exports 가 dist 만 가리키고 루트 tsconfig 에 paths 가 없어, 새 워크트리의 첫 typecheck 가 TS2307 로 실패한다(2026-10-07 KAN-050). KAN-064 착수 전 계획에서 매니페스트 카드 범위 밖으로 확인됐다",
-      "reason_hash": "88a42906505f4bfefe4577d3f96b235efac9ffb0",
-      "goal": "새 워크트리(또는 rm -rf packages/*/dist 뒤)에서 pnpm typecheck·pnpm test:unit 이 build 선행 없이 초록이고, build 를 먼저 돌리라는 규칙을 걷을 수 있다",
-      "goal_hash": "7d7f3c5965fa48fc4f7935443f259db4fe8be211",
-      "memo": "KAN-064 목표에서 갈라져 나왔다(2026-10-08 유저 선택). 고칠 자리 후보: 패키지 package.json exports 의 소스 조건 또는 tsconfig paths, vitest resolve. KAN-055 와 package.json 이 겹칠 것이다",
-      "memo_hash": "2d69b33becebe6a5d6af6ac29847dfc600699c06"
+      "title_hash": "64634d01e8b0fd34721f56ed0d6f56ae6d592030",
+      "verbatim_hash": "3b3af68e102bf6abbeb1ecda50a4b415f6bfbbf8",
+      "short": "수정분 배포",
+      "short_hash": "4bdfd7d59f233374ff3b0ffbff9c0cd43fd286c9",
+      "purpose": "KAN-051~054·058 결과를 GitHub Packages에 배포하고, 배포본으로 크기를 다시 잰 뒤 외부 앱에 버전을 알린다",
+      "purpose_hash": "7ba9a01fd1d1198622d2fff41161820927642934",
+      "reason": "외부 앱은 배포된 버전만 설치할 수 있다",
+      "reason_hash": "10f58f865a1f46736c734b7e5362a6757e225430",
+      "goal": "배포된 core 새 버전에서 Button 단독이 크기 상한 이하로 확인된다",
+      "goal_hash": "f7597fc0e1f5d343379d8e502b57a11fdd25b56a",
+      "memo": "외부 앱 소비 문제 대응 5장 중 5 · push·배포는 사용자의 분명한 실행 지시 뒤에만. 열 이동은 승인이 아니다",
+      "memo_hash": "0821287e5953d28612ee4cad800b57f033b779f0",
+      "scope": [
+        "packages/core/package.json",
+        "packages/core/CHANGELOG.md",
+        "packages/visualization/package.json",
+        "packages/visualization/CHANGELOG.md",
+        "packages/style-guide-catalog/package.json",
+        "packages/style-guide-catalog/CHANGELOG.md",
+        "packages/visualization-style-guide-catalog/package.json",
+        "packages/visualization-style-guide-catalog/CHANGELOG.md",
+        ".changeset/*.md"
+      ]
     }
   },
   "order": [
-    "KAN-055-34A57K",
     "KAN-057-CCH3E8",
     "KAN-061-K8V2HH",
     "KAN-062-E02CMT",
@@ -1368,7 +1367,8 @@
     "KAN-059-62EAKB",
     "KAN-056-D3V1MB",
     "KAN-063-Q85EET",
-    "KAN-060-G9YKG6"
+    "KAN-060-G9YKG6",
+    "KAN-055-34A57K"
   ],
   "recent": [
     {
@@ -1626,6 +1626,16 @@
       "to": "doing"
     },
     {
+      "seq": 232,
+      "t": "2026-10-08T18:33",
+      "a": "ai",
+      "id": "KAN-055-34A57K",
+      "op": "move",
+      "w": "HMFE04",
+      "from": "review",
+      "to": "done"
+    },
+    {
       "seq": 231,
       "t": "2026-10-08T17:14",
       "a": "유저",
@@ -1636,6 +1646,16 @@
       "reason": "KAN-060 은 자기 changeset 파일(.changeset/kan-060-*.md) 하나만 더하고 KAN-055 는 배포 때 그것을 읽어 소비할 뿐이라 같은 파일을 고치지 않는다. 060 이 먼저 병합되면 다음 배포에 tokens·foundations 도 함께 나간다. KAN-056·058·059 와 같은 처리 (2026-10-08 유저 선택)"
     },
     {
+      "seq": 231,
+      "t": "2026-10-08T18:21",
+      "a": "ai",
+      "id": "KAN-055-34A57K",
+      "op": "move",
+      "w": "HMFE04",
+      "from": "doing",
+      "to": "review"
+    },
+    {
       "seq": 230,
       "t": "2026-10-08T01:29",
       "a": "ai",
@@ -1644,6 +1664,16 @@
       "w": "S7030N",
       "from": "backlog",
       "to": "todo"
+    },
+    {
+      "seq": 230,
+      "t": "2026-10-08T01:13",
+      "a": "ai",
+      "id": "KAN-055-34A57K",
+      "op": "move",
+      "w": "HMFE04",
+      "from": "backlog",
+      "to": "doing"
     },
     {
       "seq": 229,
@@ -1893,36 +1923,6 @@
       "w": "S7030N",
       "from": "backlog",
       "to": "todo"
-    },
-    {
-      "seq": 216,
-      "t": "2026-10-07T17:53",
-      "a": "ai",
-      "id": "KAN-058-G883EJ",
-      "op": "move",
-      "w": "T1CWJS",
-      "from": "review",
-      "to": "done"
-    },
-    {
-      "seq": 215,
-      "t": "2026-10-07T16:53",
-      "a": "ai",
-      "id": "KAN-058-G883EJ",
-      "op": "move",
-      "w": "T1CWJS",
-      "from": "doing",
-      "to": "review"
-    },
-    {
-      "seq": 214,
-      "t": "2026-10-07T16:45",
-      "a": "ai",
-      "id": "KAN-058-G883EJ",
-      "op": "move",
-      "w": "T1CWJS",
-      "from": "todo",
-      "to": "doing"
     }
   ],
   "waivers": [
