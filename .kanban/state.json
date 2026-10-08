@@ -1,6 +1,6 @@
 {
   "next_id": 64,
-  "next_seq": 233,
+  "next_seq": 234,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -1237,6 +1237,16 @@
   ],
   "recent": [
     {
+      "seq": 233,
+      "t": "2026-10-08T17:15",
+      "a": "유저",
+      "id": "KAN-061-K8V2HH",
+      "op": "serialize",
+      "w": "S7030N",
+      "with_": "KAN-063-Q85EET",
+      "reason": "둘 다 TemplatePaintGate.stories.tsx 와 _labelContrastBaseline.ts 를 고치고, 061 목표의 「13개 밖 템플릿도 잰다」가 063 일과 같다. 063 이 두 검사를 모든 템플릿으로 넓히고 새 글자 대비 미달을 기준 목록에 올린 뒤, 061 이 넓어진 목록을 보고 전략을 다시 세운다 (2026-10-08 유저 선택)"
+    },
+    {
       "seq": 232,
       "t": "2026-10-08T17:15",
       "a": "ai",
@@ -1761,16 +1771,6 @@
       "reason": "Button 등은 키보드로 포커스해도 화면에 아무 표시가 없어 키보드 사용자가 자기 위치를 모른다(KAN-054 검토 §3-6)",
       "goal": "키보드로 닿는 core 컴포넌트마다 포커스 표시가 보이고, 빠지면 테스트가 빨강이 된다",
       "memo": "KAN-054 검토 §3-6(2026-10-07 유저가 추천대로 재작업 선택)에서 나온 후속 · KAN-054는 Card·Calendar 날짜 칸·DatePicker 트리거 셋만 a11y/focusRing.ts 로 고쳤다 — 이 카드가 나머지를 같은 규칙으로"
-    },
-    {
-      "seq": 196,
-      "t": "2026-10-07T16:03",
-      "a": "유저",
-      "id": "KAN-050-AJSQAY",
-      "op": "serialize",
-      "w": "DJT5WZ",
-      "with_": "KAN-048-R2KW3G",
-      "reason": "DESIGN_SYSTEM_GUIDE.md 를 둘 다 고친다. B 가 ASSET_INTEGRATION_PLAN 을 없애야 D 가 :182 링크를 고칠 수 있고, 순서가 뒤면 깨진 링크가 남는다. KAN-044 검토 5번에서 유저가 승인. 2026-10-07 KAN-050 scope 확장(S2 주석 파일 3개)으로 무효가 된 기록을 다시 건다"
     }
   ],
   "waivers": [
@@ -1917,6 +1917,18 @@
       "by": "ai",
       "restrategy_required": false,
       "restrategy_done": "2026-10-08T00:15"
+    },
+    {
+      "pair": "KAN-061-K8V2HH|KAN-063-Q85EET",
+      "order": [
+        "KAN-063-Q85EET",
+        "KAN-061-K8V2HH"
+      ],
+      "scope_hash": "22f6ab35f6842349",
+      "reason": "둘 다 TemplatePaintGate.stories.tsx 와 _labelContrastBaseline.ts 를 고치고, 061 목표의 「13개 밖 템플릿도 잰다」가 063 일과 같다. 063 이 두 검사를 모든 템플릿으로 넓히고 새 글자 대비 미달을 기준 목록에 올린 뒤, 061 이 넓어진 목록을 보고 전략을 다시 세운다 (2026-10-08 유저 선택)",
+      "created": "2026-10-08T17:15",
+      "by": "유저",
+      "restrategy_required": false
     }
   ]
 }
