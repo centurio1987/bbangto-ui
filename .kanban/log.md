@@ -1,6 +1,7 @@
 # KANBAN 변경 이력
 > 최근 50건. 이보다 오래된 이력은 archive.jsonl 로 압축 보관한다.
 
+- #241 2026-10-08 18:24 · ai · KAN-065-XSHEMV 이동 백로그 → 할 일
 - #240 2026-10-08 18:02 · ai · KAN-061-K8V2HH serialize
 - #239 2026-10-08 18:01 · ai · KAN-063-Q85EET 이동 검토 → 완료
 - #238 2026-10-08 17:54 · ai · KAN-065-XSHEMV 생성 "style guide 모티프 버튼 포커스 테두리 정리 — 자체 CSS 18곳 대비와 없는 semantic 변수 참조" → 백로그
@@ -50,4 +51,3 @@
 - #211 2026-10-07 16:44 · ai · KAN-054-M48FNQ serialize
 - #210 2026-10-07 16:44 · ai · KAN-054-M48FNQ serialize
 - #209 2026-10-07 16:44 · ai · KAN-054-M48FNQ 이동 검토 → 완료
-- #208 2026-10-07 16:39 · ai · KAN-050-AJSQAY 독립성 겹침 용인 (상대 KAN-051-5HMYKT) — 같은 CLAUDE.md지만 050은 게이트 명령 4종을 손대지 않고 구조도·경로만 고친다고 적었다. 051은 test:unit 설명 두 줄(39, 103행)만 고친다 (2026-10-05 유저 승인 플랜). 2026-10-07 KAN-050 S2 중 옛 패키지 이름 전수 grep 으로 scope 에 주석 파일 3개(tokens/breakpoints.ts·hooks/index.ts·hooks/useIsMounted.ts — 051 scope 와 안 겹침)를 더해 무효가 된 기록을 겹침 그대로 다시 건다

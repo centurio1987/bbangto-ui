@@ -61,6 +61,8 @@
     이 레포에는 ai agent가 라이브러리를 효율적으로 사용할 수 있도록 매니페스트를 제공하고 있는데, 매니페스트가 실제로 이득이 되는지, 아니면, 오버헤드가 더 큰지 판단해줘
     (진단 후) 너의 진단을 반영한 전략을 수립하고 칸반 카드를 만들어라
     ```
+
+## 할 일
 - `KAN-065-XSHEMV` style guide 모티프 버튼 포커스 테두리 정리 — 자체 CSS 18곳 대비와 없는 semantic 변수 참조 — 생성:ai · 최종:ai · 갱신:2026-10-08
   - 짧은 제목: 모티프 포커스 테두리
   - 목적: style guide 가 자기 CSS 로 그리는 버튼 포커스 테두리 18곳이 표면과 3:1 이상이 되게 하고, 없는 semantic 변수를 읽는 4곳도 바로잡는다
@@ -71,8 +73,6 @@
     ```text
     12곳은 여기서, 18곳은 새 카드 (앞 질문 「항목 3(style guide 자체 CSS의 버튼 포커스 테두리 30곳)을 어떻게 처리할까요?」에 대한 답)
     ```
-
-## 할 일
 
 ## 진행 중
 
@@ -523,7 +523,7 @@
   - 목표: 모든 foundation·style guide 색 스킴에서 border.focus 가 background.base·elevated 와 3:1 이상이고, 어기면 test:unit 이 빨강이 된다
   - 메모: KAN-059 착수 전 계획에서 발견(2026-10-07 main dist 를 tokens contrastRatio 로 계산). 그라디언트 배경 style guide 는 아직 못 쟀다 · 테두리는 border.focus 를 실행 때 읽으므로 토큰만 고치면 KAN-059 결과에 그대로 반영된다
   - 실행 문서: KANBAN/cards/KAN-060-G9YKG6.md (7/7 · 최근 10-08)
-  - 계획 리포트: KANBAN/reports/KAN-060-G9YKG6.report.html (낡음)
+  - 계획 리포트: KANBAN/reports/KAN-060-G9YKG6.report.html
   - 검토 문서: KANBAN/reviews/KAN-060-G9YKG6.review.md (승인 3/3 · 추가 의견 총 6 · 승인)
   - 원문:
     ```text
