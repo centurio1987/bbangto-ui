@@ -42,7 +42,7 @@ Paint Gate(`apps/storybook/src/stories/visualization/TemplatePaintGate.stories.t
 
 ## 실행 계획
 - [x] `S1` 표본 누락 검사 세우기 — `packages/foundations/src/vizPaintGateCoverage.ts`·`.test.ts`. 완료 기준: 실패 주입 표본 셋(누락·중복·없는 이름)에서 위반을 내고, 실제 저장소 검사는 표본 파일이 아직 없어 68개 누락으로 빨강이다.
-- [ ] `S2` 표본 68개 작성 — `_paintGateFixtures.tsx`(matrix 24개 가져오기 · 스토리 안 7개 옮기기 · 새 37개). 스토리가 이 목록을 쓰게 바꾼다. 완료 기준: S1 검사 초록, storybook typecheck 통과.
+- [x] `S2` 표본 68개 작성 — `_paintGateFixtures.tsx`(matrix 24개 가져오기 · 스토리 안 7개 옮기기 · 새 37개). 스토리가 이 목록을 쓰게 바꾼다. 완료 기준: S1 검사 초록, storybook typecheck 통과.
 - [ ] `S3` 리터럴 검사를 68개로 — `LiteralPaintGate` 가 표본 전부를 그린다. 위반은 템플릿을 고쳐 없앤다. 완료 기준: `LiteralPaintGate` 초록, 표본마다 비교한 paint 수가 0보다 크다. 고친 템플릿과 줄을 수행 내역에 남긴다(없으면 없다고 남긴다).
 - [ ] `S4` 글자 대비 검사를 68개 × 가이드 30개로 — 새 미달은 기준 목록에 올리고 머리 주석을 고친다. 완료 기준: `LabelContrastGate` 초록, 표본마다 잰 글자 수가 0보다 크다(글자를 그리지 않는 템플릿이면 그 사유를 표본에 적고 따로 뺀다). 늘어난 항목 수를 템플릿별로 수행 내역에 남긴다.
 - [ ] `S5` 문서와 마무리 — README 두 문단, changeset(S3 에서 템플릿을 고쳤을 때만), 품질 게이트 5종. 완료 기준: 게이트 5종 초록.
@@ -62,3 +62,5 @@ Paint Gate(`apps/storybook/src/stories/visualization/TemplatePaintGate.stories.t
 - 2026-10-08T17:35 · s:04d9de55 — `전략` 섹션 교체
 - 2026-10-08T17:36 · s:04d9de55 · S1 doing — 착수
 - 2026-10-08T17:37 · s:04d9de55 · S1 done — foundations 에 vizPaintGateCoverage.ts·.test.ts — 누락·중복·없는 이름·렌더 불일치·matrix key 검사. 실패 주입 8건 초록, 템플릿 이름 68개 읽기 확인, 실제 저장소 검사는 표본 파일이 없어 빨강(69건: 파일 없음 + 누락 68)
+- 2026-10-08T17:37 · s:04d9de55 · S2 doing — 착수
+- 2026-10-08T17:41 · s:04d9de55 · S2 done — _paintGateFixtures.tsx 에 표본 68개(matrix 24 fromMatrix · KAN-056 7 key 그대로 옮김 · 새 37). 스토리는 이 목록을 쓰고 범위는 그대로(리터럴 31 · 글자 대비 13). vizPaintGateCoverage 11건 초록, pnpm typecheck 통과, storybook tsc 오류 수 변경 전후 725건 같음(기존 오류), Paint Gate 두 스토리 초록 3.36초. 전략의 「0.5초」는 main 의 낡은 dist 로 검사가 일찍 실패한 값이었다

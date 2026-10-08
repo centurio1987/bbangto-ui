@@ -1,15 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import type { ReactNode } from 'react';
-import {
-  ArchiMateBusinessDiagram,
-  BPMNCollaborationDiagram,
-  C4CodeDiagram,
-  RequirementDiagram,
-  TimelineDiagram,
-  UMLDeploymentDiagram,
-  UMLSequenceDiagram,
-  VisualizationStyleGuideProvider,
-} from '@centurio1987/bbangto-ui-visualization';
+import { VisualizationStyleGuideProvider } from '@centurio1987/bbangto-ui-visualization';
 import type { VisualizationStyleGuide } from '@centurio1987/bbangto-ui-visualization';
 import {
   blueprintTechnical01VizStyleGuide,
@@ -20,6 +10,7 @@ import type { RGBA } from '@centurio1987/bbangto-ui-tokens';
 import { expect } from 'storybook/test';
 import { LABEL_CONTRAST_BASELINE } from './_labelContrastBaseline';
 import { MATRIX_FIXTURES } from './_matrixFixtures';
+import { PAINT_GATE_FIXTURES } from './_paintGateFixtures';
 
 /**
  * 템플릿 paint 게이트 — 스타일 가이드를 바꾸면 템플릿의 색도 바뀌는가 (KAN-056).
@@ -78,179 +69,34 @@ const GUIDE_B: VisualizationStyleGuide = {
 };
 
 // ────────────────────────────────────────────────────────────────────────
-// fixture — KAN-056 대상 13개 + 회귀 가드로 나머지 matrix fixture
+// fixture — `_paintGateFixtures.tsx` 에 templates 가 내보내는 템플릿마다 하나씩 있다(KAN-063)
 // ────────────────────────────────────────────────────────────────────────
 
-interface GateFixture {
-  key: string;
-  render: () => ReactNode;
-}
-
-/** KAN-056 대상 중 `_matrixFixtures.tsx` 에 이미 있는 6개. */
-const REUSED_KEYS = ['architecture', 'block-diagram', 'kanban-board', 'mindmap', 'uml-component', 'bpmn'];
-
-/** 나머지 7개 — G1·G2·G4·DiagramsP3 스토리의 검증된 데이터를 줄여 옮겼다. */
-const NEW_FIXTURES: GateFixture[] = [
-  {
-    key: 'archimate-business',
-    render: () => (
-      <ArchiMateBusinessDiagram
-        data={{
-          elements: [
-            { id: 'role1', x: 20, y: 40, width: 120, height: 70, name: 'Customer', kind: 'role' },
-            { id: 'process1', x: 190, y: 40, width: 120, height: 70, name: 'Order Proc', kind: 'process' },
-          ],
-          relationships: [{ id: 'r1', from: 'role1', to: 'process1', kind: 'triggering' }],
-        }}
-        viewBox="0 0 340 150"
-        width={340}
-        height={150}
-        title="ArchiMate Business"
-      />
-    ),
-  },
-  {
-    key: 'bpmn-collaboration',
-    render: () => (
-      <BPMNCollaborationDiagram
-        data={{
-          pools: [
-            { id: 'customer', label: 'Customer', x: 20, y: 20, width: 520, height: 90 },
-            { id: 'shop', label: 'Shop', x: 20, y: 130, width: 520, height: 90 },
-          ],
-          events: [
-            { id: 'start', x: 90, y: 65, kind: 'start' },
-            { id: 'end', x: 500, y: 175, kind: 'end' },
-          ],
-          tasks: [
-            { id: 'order', x: 160, y: 45, width: 100, height: 40, label: 'Place order' },
-            { id: 'fulfil', x: 300, y: 155, width: 100, height: 40, label: 'Fulfil order' },
-          ],
-          gateways: [{ id: 'g1', x: 430, y: 175, kind: 'exclusive' }],
-          sequenceFlows: [
-            { id: 's1', from: 'start', to: 'order' },
-            { id: 's2', from: 'fulfil', to: 'g1' },
-            { id: 's3', from: 'g1', to: 'end' },
-          ],
-          messageFlows: [{ id: 'm1', from: 'order', to: 'fulfil', label: 'order msg' }],
-        }}
-        viewBox="0 0 560 240"
-        width={560}
-        height={240}
-        title="BPMN collaboration"
-      />
-    ),
-  },
-  {
-    key: 'c4-code',
-    render: () => (
-      <C4CodeDiagram
-        data={{
-          elements: [
-            { id: 'cls1', x: 20, y: 20, width: 160, height: 120, name: 'User', kind: 'class', attributes: ['- id: string'], methods: ['+ login(): void'] },
-            { id: 'cls2', x: 220, y: 20, width: 160, height: 120, name: 'Account', kind: 'class', attributes: ['- balance: number'], methods: ['+ deposit(n): void'] },
-          ],
-          relationships: [{ id: 'r1', from: 'cls1', to: 'cls2', label: 'has' }],
-        }}
-        viewBox="0 0 420 170"
-        width={420}
-        height={170}
-        title="C4 Code"
-      />
-    ),
-  },
-  {
-    key: 'requirement',
-    render: () => (
-      <RequirementDiagram
-        data={{
-          requirements: [
-            { id: 'r1', x: 20, y: 20, width: 160, height: 100, name: 'Authenticate', text: 'User must log in', kind: 'requirement' },
-            { id: 'r2', x: 220, y: 20, width: 160, height: 100, name: 'Authorize', text: 'Role-based access', kind: 'functionalRequirement' },
-          ],
-          edges: [{ id: 're1', from: 'r1', to: 'r2', kind: 'derives' }],
-        }}
-        viewBox="0 0 420 150"
-        width={420}
-        height={150}
-        title="Requirement diagram"
-      />
-    ),
-  },
-  {
-    key: 'timeline',
-    render: () => (
-      <TimelineDiagram
-        data={{
-          axisY: 110,
-          events: [
-            { id: 'ev1', x: 80, y: 20, width: 110, height: 50, label: 'Phase 1', date: '2024 Q1' },
-            { id: 'ev2', x: 230, y: 20, width: 110, height: 50, label: 'Phase 2', date: '2024 Q2' },
-          ],
-        }}
-        viewBox="0 0 360 160"
-        width={360}
-        height={160}
-        title="Timeline"
-      />
-    ),
-  },
-  {
-    key: 'uml-deployment',
-    render: () => (
-      <UMLDeploymentDiagram
-        data={{
-          environments: [{ x: 10, y: 10, width: 420, height: 170, label: 'Production' }],
-          nodes: [
-            { id: 'web', x: 30, y: 40, width: 160, height: 100, name: 'Web Server' },
-            { id: 'db', x: 240, y: 40, width: 160, height: 100, name: 'DB Server' },
-          ],
-          edges: [{ id: 'e1', from: 'web', to: 'db', label: 'JDBC' }],
-        }}
-        viewBox="0 0 450 200"
-        width={450}
-        height={200}
-        title="UML Deployment"
-      />
-    ),
-  },
-  {
-    key: 'uml-sequence',
-    render: () => (
-      <UMLSequenceDiagram
-        data={{
-          participants: [
-            { id: 'client', x: 40, name: 'Client', width: 100 },
-            { id: 'server', x: 240, name: 'Server', width: 100 },
-          ],
-          messages: [
-            { id: 'm1', from: 'client', to: 'server', y: 100, label: 'POST /login', kind: 'sync' },
-            { id: 'm2', from: 'server', to: 'client', y: 140, label: '200 OK', kind: 'return' },
-          ],
-        }}
-        lifelineHeight={140}
-        viewBox="0 0 380 200"
-        width={380}
-        height={200}
-        title="UML Sequence"
-      />
-    ),
-  },
+/** KAN-056 이 고친 13개. 글자 대비 검사는 아직 이 13개만 그린다. play 가 이 수를 확인한다. */
+const KAN056_TARGET_KEYS = [
+  'architecture',
+  'block-diagram',
+  'kanban-board',
+  'mindmap',
+  'uml-component',
+  'bpmn',
+  'archimate-business',
+  'bpmn-collaboration',
+  'c4-code',
+  'requirement',
+  'timeline',
+  'uml-deployment',
+  'uml-sequence',
 ];
-
-/** KAN-056 이 고친 13개. play 가 이 수를 확인한다. */
-const TARGET_FIXTURES: GateFixture[] = [
-  ...MATRIX_FIXTURES.filter((f) => REUSED_KEYS.includes(f.key)),
-  ...NEW_FIXTURES,
-];
+const TARGET_FIXTURES = PAINT_GATE_FIXTURES.filter((f) => KAN056_TARGET_KEYS.includes(f.key));
 
 /**
- * 회귀 가드 — matrix 의 나머지 fixture. KAN-056 S1 에서 같은 게이트로 재 보니 이미 깨끗했다.
- * 새 리터럴이 들어오면 여기서 걸린다.
+ * 리터럴 검사가 그리는 표본 — KAN-056 대상 13개와, 회귀 가드로 matrix 의 나머지 18개.
+ * KAN-056 S1 에서 같은 게이트로 재 보니 그 18개는 이미 깨끗했다. 새 리터럴이 들어오면 여기서 걸린다.
  */
-const GUARD_FIXTURES: GateFixture[] = MATRIX_FIXTURES.filter((f) => !REUSED_KEYS.includes(f.key));
-
-const GATE_FIXTURES: GateFixture[] = [...TARGET_FIXTURES, ...GUARD_FIXTURES];
+const GATE_FIXTURES = PAINT_GATE_FIXTURES.filter(
+  (f) => KAN056_TARGET_KEYS.includes(f.key) || MATRIX_FIXTURES.some((m) => m.key === f.key),
+);
 
 // ────────────────────────────────────────────────────────────────────────
 // 비교
