@@ -159,3 +159,4 @@ pnpm test:unit                  # ← style-guide-catalog accessibility.test.ts 
 - 2026-10-08T19:08 · s:0882524c — `전략` 섹션 교체
 - 2026-10-08T23:57 · s:0882524c — `전략` 섹션 교체
 - 2026-10-08T23:58 · s:0882524c — 검토 항목 1 재작업(유저 선택): shattered-glass rose 의 border.focus 를 #34E5FF → GOLD(#FFC53D, 11.56). 모티프·core 포커스 모두 금색, 280줄 규칙과 맞음. changeset·전략 절 갱신
+- 2026-10-09T00:05 · s:0882524c — 재검토 승인 3/3 뒤 검토자 의견 반영: shattered 280줄 접근성 규칙의 포커스 색을 「기본·rose #FFC53D, light #B26A00」으로(문구만). iridescent 278 specs 는 default 기준 관례라 그대로. 게이트 5종 다시 초록(test 1293)
