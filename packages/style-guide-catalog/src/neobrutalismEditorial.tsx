@@ -155,7 +155,7 @@ const CSS = `
   box-shadow: none !important;
 }
 .bbangto-neo-btn:focus-visible {
-  outline: 2px solid var(--bbangto-ext-accent, #E9C766) !important;
+  outline: 2px solid var(--bbangto-semantic-border-focus, ${NEO.goldFocus}) !important;
   outline-offset: 2px;
 }
 .bbangto-neo-card {

@@ -180,7 +180,7 @@ const CSS = `
 }
 .bbangto-iridescent-chrome-btn:hover { background-position: 100% 50% !important; }
 .bbangto-iridescent-chrome-btn:active { transform: translateY(1px) scale(0.99) !important; }
-.bbangto-iridescent-chrome-btn:focus-visible { outline: 2px solid ${LILAC} !important; outline-offset: 2px; }
+.bbangto-iridescent-chrome-btn:focus-visible { outline: 2px solid var(--bbangto-semantic-border-focus, ${CYAN}) !important; outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) {
   .bbangto-iridescent-chrome-card { transition: none !important; }
   .bbangto-iridescent-chrome-card:hover { transform: none !important; background-position: center, 0% 50% !important; }
@@ -275,7 +275,7 @@ const visualMotif: VisualMotif = {
   components: {
     Button: {
       description: '액체 크롬 fill + 상단 specular 하이라이트의 둥근 ChromeButton. hover 시 sheen이 흐르고 press 시 가라앉는다.',
-      specs: ['모서리: full pill(액체 블롭)', '채움: 이리데센트 라일락→민트→피치→시안', '하이라이트: 상단 광원 specular ::after', 'hover: background-position sheen 이동', 'active: translateY/scale press', 'focus-visible: 라일락 outline'],
+      specs: ['모서리: full pill(액체 블롭)', '채움: 이리데센트 라일락→민트→피치→시안', '하이라이트: 상단 광원 specular ::after', 'hover: background-position sheen 이동', 'active: translateY/scale press', 'focus-visible: 시안 outline'],
     },
     Card: {
       description: '불투명 솔리드 패널 + 이리데센트 테두리 + 포일 노이즈/specular 오버레이의 FoilCard. hover에서 3px 떠오르며 테두리 색이 시프트한다.',

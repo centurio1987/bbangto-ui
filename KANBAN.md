@@ -62,7 +62,7 @@
   - 이유: KAN-060 검토에서 모티프 버튼 테두리가 border.focus 를 안 따르는 자리가 확인됐다 — 강조색·고정색 18곳이고 Neobrutalism 금색은 크림 바탕에서 1.47 이다
   - 목표: 모티프 버튼 포커스 테두리의 대비를 재는 검사가 생기고 18곳이 모두 3:1 이상이 된다. style guide 소스에 없는 semantic 변수 참조가 0이 된다
   - 메모: KAN-060 검토 항목 3(2026-10-08 유저 선택)에서 나왔다. 잰 값과 고칠 자리는 실행 문서 「전략」 절
-  - 실행 문서: KANBAN/cards/KAN-065-XSHEMV.md (2/5 · 최근 10-08)
+  - 실행 문서: KANBAN/cards/KAN-065-XSHEMV.md (3/5 · 최근 10-08)
   - 계획 리포트: KANBAN/reports/KAN-065-XSHEMV.report.html (낡음)
   - 원문:
     ```text

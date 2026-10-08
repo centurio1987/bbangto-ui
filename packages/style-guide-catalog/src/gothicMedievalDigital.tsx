@@ -160,7 +160,7 @@ const CSS = `
 }
 .bbangto-gothic-medieval-digital-btn:active { transform: translateY(1px) !important; }
 .bbangto-gothic-medieval-digital-btn:focus-visible {
-  outline: 2px solid var(--bbangto-ext-neon-block, ${NEON}) !important;
+  outline: 2px solid var(--bbangto-semantic-border-focus, ${NEON}) !important;
   outline-offset: 2px;
 }
 @media (prefers-reduced-motion: reduce) {

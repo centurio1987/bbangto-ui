@@ -192,7 +192,7 @@ const CSS = `
 .bbangto-shattered-glass-cinematic-btn:hover { box-shadow: var(--bbangto-ext-glass-edge-glow, 0 0 22px rgba(232,84,197,0.28)) !important; }
 .bbangto-shattered-glass-cinematic-btn:hover::after { transform: translateX(120%); }
 .bbangto-shattered-glass-cinematic-btn:active { transform: translateY(1px) scale(0.99); }
-.bbangto-shattered-glass-cinematic-btn:focus-visible { outline: 2px solid ${GOLD} !important; outline-offset: 2px; }
+.bbangto-shattered-glass-cinematic-btn:focus-visible { outline: 2px solid var(--bbangto-semantic-border-focus, ${GOLD}) !important; outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) {
   .bbangto-shattered-glass-cinematic-card { transition: none !important; }
   .bbangto-shattered-glass-cinematic-card:hover { transform: none !important; }
