@@ -12,10 +12,16 @@
   "worktree": "/Users/centurio/orca/workspaces/bbangto-ui/KAN-062-E02CMT"
  },
  "inherited_md": "",
- "md_fp": "5b762122bc7463713f62c2477a672ca073516705",
- "md_src_fp": "7b3d77cc210a32e0e4ba4b37f494cdf2fc3fab4e",
+ "md_fp": "4374b846450457af67ae44384a43d42be9f673f5",
+ "md_src_fp": "91430f837484b3f2ab15b1b2869bc4cd85621dae",
  "schema": 1,
  "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `KAN-062-E02CMT` |\n| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-062-E02CMT` |\n| 베이스 | `d3d22e8` |\n| 변경 훑기 | `git diff d3d22e8...HEAD` |\n\n**커밋 4건**\n\n```text\n4874ee8 kanban: KAN-062 S3 — 품질 게이트 5종 초록\n7275d6a docs(visualization): SVG 속성 안 var() 설명을 세 브라우저 측정에 맞춤 (KAN-062 S2)\n01c4b25 kanban: KAN-062 S1 — 세 브라우저 측정 기록 (색·글꼴 속성 var() 풀림, transform 속성 var() 안 풀림)\naf86dcf kanban: KAN-062 진행 중으로 이동 (착수)\n```\n\n**변경 파일 8개 (+41 −30)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.kanban/archive.jsonl` | M | 1 | 0 |\n| `.kanban/log.md` | M | 1 | 1 |\n| `.kanban/state.json` | M | 14 | 14 |\n| `KANBAN.board.html` | M | 2 | 2 |\n| `KANBAN.md` | M | 8 | 8 |\n| `KANBAN/cards/KAN-062-E02CMT.md` | M | 9 | 3 |\n| `packages/visualization/README.md` | M | 4 | 1 |\n| `packages/visualization/src/atoms/Marker.tsx` | M | 2 | 1 |\n\n**롤백 태그 3개**\n\n```text\nkan/KAN-062-E02CMT/S1\nkan/KAN-062-E02CMT/S2\nkan/KAN-062-E02CMT/S3\n```",
- "verdicts": [],
+ "verdicts": [
+  {
+   "at": "2026-10-08",
+   "by": "유저",
+   "verdict": "승인"
+  }
+ ],
  "verify_md": "<!-- 기준은 카드 실행 문서 「검증」 절의 사본이다. 정본은 KANBAN/cards/KAN-062-E02CMT.md 이므로\n     기준이 바뀌면 그쪽을 고치고 review-init --refresh 로 이 항만 다시 뜬다.\n     결과는 착수한 쪽이 이미 돌린 것이다 — 검토자에게 다시 돌리라고 시키지 않는다.\n     **다시 돌려 아래와 다르게 나오면 그 자체가 반려 사유다.** -->\n\n**기준**\n\n- `bash -c 'grep -rnE \"var\\(\\).{0,40}(무효|지원하지 않)|(무효|지원하지 않).{0,40}var\\(\\)\" packages/visualization/README.md packages/visualization/src'` 결과 0줄.\n- README 「명시한 prop 이 이긴다」 항목에 측정 판(chromium 149 · firefox 151 · webkit 26.5)·날짜·`transform` 예외가 있다.\n- 품질 게이트 5종 초록: `pnpm typecheck` · `pnpm build` · `pnpm test` · `pnpm --filter storybook build` · `pnpm test:unit`.\n\n**실행 결과**\n\n```text\n- 「속성 안 var() 무효/미지원」 grep: 0줄 (README·visualization src)\n- README 측정 판 문장: 1곳 · transform 예외 문장: 1곳 (packages/visualization/README.md:148-151)\n- pnpm typecheck: 통과\n- pnpm build: 통과\n- pnpm test: 통과 — 193파일 1292건\n- pnpm --filter storybook build: 통과\n- pnpm test:unit: 통과 — hooks 115 · visualization 257 · foundations 128 · style-guide-catalog 95 · visualization-style-guide-catalog 39\n```"
 }

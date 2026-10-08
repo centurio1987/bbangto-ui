@@ -65,7 +65,7 @@
   - 목표: 모티프 버튼 포커스 테두리의 대비를 재는 검사가 생기고 18곳이 모두 3:1 이상이 된다. style guide 소스에 없는 semantic 변수 참조가 0이 된다
   - 메모: KAN-060 검토 항목 3(2026-10-08 유저 선택)에서 나왔다. 잰 값과 고칠 자리는 실행 문서 「전략」 절
   - 실행 문서: KANBAN/cards/KAN-065-XSHEMV.md (0/5 · 최근 10-08)
-  - 계획 리포트: KANBAN/reports/KAN-065-XSHEMV.report.html
+  - 계획 리포트: KANBAN/reports/KAN-065-XSHEMV.report.html (낡음)
   - 원문:
     ```text
     12곳은 여기서, 18곳은 새 카드 (앞 질문 「항목 3(style guide 자체 CSS의 버튼 포커스 테두리 30곳)을 어떻게 처리할까요?」에 대한 답)
@@ -74,14 +74,6 @@
 ## 진행 중
 
 ## 검토
-- `KAN-062-E02CMT` SVG 속성 안 var() 브라우저 확인 — README 문장과 속성으로 색을 넣는 코드를 실제 동작에 맞추기 — 생성:ai · 최종:ai · 갱신:2026-10-08
-  - 짧은 제목: 속성 안 var() 확인
-  - 목적: Firefox·Safari 에서 SVG 속성(presentation attribute) 안의 var() 가 풀리는지 확인하고, README 문장과 그 형태로 색을 넣는 코드를 결과에 맞춘다
-  - 이유: viz README 는 속성 안 var() 가 무효라 적지만 chromium 에서는 풀린다. 코드에도 그 형태가 있어 안 풀리는 브라우저에서는 인터페이스 선이 사라지거나 라벨이 검정이 된다(KAN-056 검토 항목 3)
-  - 목표: 세 브라우저 결과가 README 에 적히고, 안 풀리는 브라우저가 있으면 속성 안 var() 가 모두 style 로 옮겨지고 검사로 막힌다
-  - 메모: KAN-056 검토 항목 3(검토자 승인, 둘째 선택지)에서 나왔다. KAN-056 시점 줄: UMLComponentDiagram.tsx:65·97, BPMNDiagram.tsx:86·128, README.md 「명시한 prop 이 이긴다」 항목. 다른 템플릿·원자에도 같은 형태가 있는지는 확인 안 함
-  - 실행 문서: KANBAN/cards/KAN-062-E02CMT.md (3/3 · 최근 10-08)
-  - 검토 문서: KANBAN/reviews/KAN-062-E02CMT.review.md (승인 1/1 · 추가 의견 총 2 · 검토 대기)
 
 ## 완료
 - `KAN-020` visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현 — 생성:유저 · 최종:유저 · 갱신:2026-08-14
@@ -534,3 +526,11 @@
     ```text
     새 카드로 분리 (앞 질문 「border.focus 대비가 3:1에 못 미치는 색 스킴(foundation 21개, style guide 13개 이상)을 어떻게 할까요?」에 대한 답)
     ```
+- `KAN-062-E02CMT` SVG 속성 안 var() 브라우저 확인 — README 문장과 속성으로 색을 넣는 코드를 실제 동작에 맞추기 — 생성:ai · 최종:ai · 갱신:2026-10-08
+  - 짧은 제목: 속성 안 var() 확인
+  - 목적: Firefox·Safari 에서 SVG 속성(presentation attribute) 안의 var() 가 풀리는지 확인하고, README 문장과 그 형태로 색을 넣는 코드를 결과에 맞춘다
+  - 이유: viz README 는 속성 안 var() 가 무효라 적지만 chromium 에서는 풀린다. 코드에도 그 형태가 있어 안 풀리는 브라우저에서는 인터페이스 선이 사라지거나 라벨이 검정이 된다(KAN-056 검토 항목 3)
+  - 목표: 세 브라우저 결과가 README 에 적히고, 안 풀리는 브라우저가 있으면 속성 안 var() 가 모두 style 로 옮겨지고 검사로 막힌다
+  - 메모: KAN-056 검토 항목 3(검토자 승인, 둘째 선택지)에서 나왔다. KAN-056 시점 줄: UMLComponentDiagram.tsx:65·97, BPMNDiagram.tsx:86·128, README.md 「명시한 prop 이 이긴다」 항목. 다른 템플릿·원자에도 같은 형태가 있는지는 확인 안 함
+  - 실행 문서: KANBAN/cards/KAN-062-E02CMT.md (3/3 · 최근 10-08)
+  - 검토 문서: KANBAN/reviews/KAN-062-E02CMT.review.md (승인 1/1 · 추가 의견 총 2 · 승인)

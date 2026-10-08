@@ -5,7 +5,7 @@ created: 2026-10-08
 branch: KAN-062-E02CMT
 worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-062-E02CMT
 base: d3d22e8
-status: 검토 대기
+status: 승인
 ---
 
 # KAN-062-E02CMT 검토 요청 — SVG 속성 안 var() 브라우저 확인 — README 문장과 속성으로 색을 넣는 코드를 실제 동작에 맞추기
@@ -121,7 +121,7 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-062-E02CMT --add
 **전체 승인은 살아있는 항목이 전부 승인일 때만 섭니다**(철회는 분모에서 빠집니다). 하나라도
 반려·추가 의견·미정이면 4항의 전체 승인도 `→ 완료` 이동도 종료코드 14로 거부됩니다.
 
-- [ ] 출시판 Safari 로 확인하지 않은 채 README 에 「풀린다」고 적어도 되는가 — 측정한 판과 Safari 미확인 사실을 함께 적었습니다
+- [x] 출시판 Safari 로 확인하지 않은 채 README 에 「풀린다」고 적어도 되는가 — 측정한 판과 Safari 미확인 사실을 함께 적었습니다
     - **배경**
       - README 에는 원래 「SVG 속성 안의 var() 는 무효」라고 적혀 있었지만, 실제로는 chromium 에서 풀렸습니다. 다른 브라우저에서 확인하는 것이 이 카드의 일이었습니다. 원문: packages/visualization/README.md:147
       - 이번에 쓴 브라우저는 Playwright(브라우저 자동화 도구) 1.61.0 이 함께 내려받는 chromium 149 · firefox 151 · webkit 26.5 입니다. 세 브라우저 모두 선 색·글자 색·글꼴 속성 안의 var() 를 풀었고 화면에도 그렇게 그려졌습니다. 원문: KANBAN/cards/KAN-062-E02CMT.md 수행 내역 S1
@@ -136,9 +136,14 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-062-E02CMT --add
     | 출시판 Safari 로 직접 확인한 뒤 적는다 | 누군가 Safari 에서 Storybook 을 열어 눈으로 봐야 한다 | 문장에서 미확인 단서를 뗄 수 있다 |
     | chromium 에서 확인했다고만 적는다 | firefox·webkit 측정 결과를 버린다 | 문장은 좁아지지만 이 카드의 목표(세 브라우저 결과 기록)를 못 채운다 |
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 승인 · ai · 2026-10-08
 
-    > **추가 의견** — _아직 없습니다._
+    > **추가 의견**
+    >
+    > - ai · 2026-10-08 — 검토자 확인 — 추천(지금 문장 그대로)을 받치는 사실이 하나 있습니다. 이 Mac 에 깔린 출시판 Safari 는 26.5.2(/Applications/Safari.app 의 Info.plist)이고, 측정에 쓴 Playwright webkit 은 26.5(node_modules/.pnpm/playwright-core@1.61.0 의 browsers.json)라 같은 26.5 계열입니다. 다만 표의 「대가」 칸은 'README 가 다시 틀린다'로만 적혀 있는데, 실제로 걸린 것은 문서가 아니라 화면입니다. 출시판이나 옛 판 Safari 가 속성 안 var() 를 못 풀면 카드 이유 칸의 증상(인터페이스 선이 사라지고 라벨이 검정이 됨)이 그 사용자에게 그대로 남고, 목표의 조건(안 풀리는 브라우저가 있으면 style 로 옮기고 검사로 막는다)은 발동하지 않은 채 카드가 닫힙니다. 이 항목을 승인하는 것은 그 부담까지 받아들인다는 뜻입니다.
+    > - ai · 2026-10-08 — 선택지 2의 대가 「누군가 Safari 에서 Storybook 을 열어 눈으로 봐야 한다」는 사람 손이 꼭 필요한 일처럼 읽히지만, 이 Mac 에는 Safari 26.5.2 에 딸린 safaridriver(/usr/bin/safaridriver)가 있어서 원격 자동화가 켜져 있다면 AI 가 S1 과 같은 측정을 출시판 Safari 로 돌릴 수 있습니다. 켜져 있는지는 확인 안 함입니다. 그리고 배경 첫 항목의 원문 줄은 원래 문장이 있던 기준 커밋 d3d22e8 의 README.md:148 이고(README.md:147 은 항목 머리 줄), 넷째 항목의 미확인 단서는 지금 README.md:149-150 에 있습니다. 판정에는 영향이 없습니다.
 
 
 ## 4. 판정
@@ -154,9 +159,11 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-062-E02CMT --add
      frontmatter 의 status 도 함께 고친다. 손으로 적어도 되지만, 그때는 수렴 검사를
      안 거치므로 `validate` 가 항목 판정과 어긋난 승인을 error 로 잡는다. -->
 
-**판정**: (아직 없습니다)
+**판정**: 승인
 
 **판정 이력**:
+
+- 승인 · 유저 · 2026-10-08
 
 - 승인이면 → `apply --op move --id KAN-062-E02CMT --to done` 뒤에 `main` 병합과 워크트리 정리(출력의 `cleanup`)
 - 반려면 → `apply --op move --id KAN-062-E02CMT --to doing` 뒤에 `doc-log --entry "<반려 사유>"`.
