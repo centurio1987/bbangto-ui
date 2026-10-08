@@ -4,7 +4,7 @@ import React from 'react';
 import { StyleGuideProvider, resolveFoundationPreset } from '@centurio1987/bbangto-ui-core';
 import type { StyleGuide } from '@centurio1987/bbangto-ui-core';
 import { styleGuideMap, SHOWCASE_COPY_EXT } from '@centurio1987/bbangto-ui-style-guide-catalog';
-import { contrastRatio } from '@centurio1987/bbangto-ui-tokens';
+import { contrastRatio, focusContrast, FOCUS_CONTRAST_MIN } from '@centurio1987/bbangto-ui-tokens';
 
 /*
  * Style Guide Catalog — 공통 스토리 팩토리.
@@ -433,6 +433,16 @@ export function makeCatalogStories(sg: StyleGuide): Record<string, Story> {
           p.foundations.semantic.background.base,
         );
         if (ratio != null) await expect(ratio).toBeGreaterThanOrEqual(4.5);
+      }
+
+      // 8) 포커스 테두리 — 각 preset의 border.focus 가 표면(base·elevated)과 3:1 이상(KAN-060, WCAG 1.4.11).
+      //    반투명 elevated 는 base 위에 합성해 잰다. 색을 못 읽으면 통과가 아니라 실패다.
+      for (const p of presets) {
+        const fc = focusContrast(p.foundations.semantic);
+        await expect(fc, `${sg.name}/${p.key} border.focus 측정 불가`).not.toBeNull();
+        await expect(fc!.ratio, `${sg.name}/${p.key} border.focus (${fc!.against})`).toBeGreaterThanOrEqual(
+          FOCUS_CONTRAST_MIN,
+        );
       }
     },
   };
