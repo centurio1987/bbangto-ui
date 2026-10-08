@@ -114,7 +114,12 @@
       "goal": "_labelContrastBaseline.ts 가 비고, 글자 대비 검사가 13개 밖 템플릿(ArchiMateViewpoint 등)도 잰다",
       "goal_hash": "a6ff20c2358551b3f6af694145a5ba1dd5f1ec1f",
       "memo": "KAN-056 검토 항목 3(승인)·6에서 나왔다. KAN-056 병합 뒤 착수(검사와 기준 목록이 그 카드에 있다). 원인이 셋으로 갈린다: 불투명 팔레트 면 위 edge.stroke 글자, Requirement 반투명 글자(opacity 0.6·0.8)와 검정 6% 띠, riso-print 등의 shape.fill·edge.stroke 쌍. 카탈로그 대비 게이트가 shape.fill·edge.stroke 쌍을 재는지는 확인 안 함",
-      "memo_hash": "27ba934616243721eee5d524551ef6731a15be46"
+      "memo_hash": "27ba934616243721eee5d524551ef6731a15be46",
+      "scope": [
+        "apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx",
+        "apps/storybook/src/stories/visualization/_labelContrastBaseline.ts",
+        "packages/visualization/src/templates/**"
+      ]
     },
     "KAN-062-E02CMT": {
       "col": "backlog",
