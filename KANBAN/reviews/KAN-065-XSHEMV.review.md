@@ -24,9 +24,13 @@ status: 검토 대기
 | 베이스 | `00c525f` |
 | 변경 훑기 | `git diff 00c525f...HEAD` |
 
-**커밋 12건**
+**커밋 16건**
 
 ```text
+7b27605 fix(KAN-065): shattered-glass 접근성 규칙 문구의 포커스 색을 색 스킴별 값으로 (검토자 의견)
+3bf03cc kanban: KAN-065 재검토 대행(kanban-reviewer) — 항목 4 승인 · 승인 3/3 수렴 (ai · 검토자)
+54ef72b kanban: KAN-065 검토서 발행본 다시 뽑음 (1·2항 새로 고침 · 항목 4)
+2fc2d0b kanban: KAN-065 진행 중 → 검토 — 항목 1 재작업 끝(rose 금색 토큰 · 소개 문구) · 항목 1 철회 → 항목 4(iridescent) · 검토서 1·2항 새로 고침
 e6c1b2d fix(KAN-065): 검토 항목 1 — shattered-glass rose 포커스 색 토큰을 금색으로(굴절 시안과 구분, 유저 선택)
 30a17cf fix(KAN-065): 검토 항목 1·3 의견 반영 — neobrutalism 색 사용 문구(포커스 링은 토큰) · changeset 「밝은 바탕」 · 전략 절 collage 설명 바로잡음
 a67fd54 kanban: KAN-065 검토 → 진행 중 — 항목 1 반려(검토자) 같은 카드 재작업
@@ -41,22 +45,22 @@ de5f68c fix(KAN-065): S3 — 모티프 포커스 테두리 미달 6곳(색 스�
 bb38da6 kanban: KAN-065 진행 중으로 이동 (워크트리 착수)
 ```
 
-**변경 파일 28개 (+2074 −100)**
+**변경 파일 28개 (+2155 −119)**
 
 | 파일 | 상태 | 추가 | 삭제 |
 |---|:--:|---:|---:|
 | `.changeset/kan-065-motif-focus.md` | M | 21 | 0 |
-| `.kanban/archive.jsonl` | M | 3 | 0 |
-| `.kanban/log.md` | M | 3 | 3 |
-| `.kanban/reviews/KAN-065-XSHEMV.events.jsonl` | M | 9 | 0 |
+| `.kanban/archive.jsonl` | M | 4 | 0 |
+| `.kanban/log.md` | M | 4 | 4 |
+| `.kanban/reviews/KAN-065-XSHEMV.events.jsonl` | M | 14 | 0 |
 | `.kanban/reviews/KAN-065-XSHEMV.review.json` | M | 21 | 0 |
-| `.kanban/state.json` | M | 34 | 41 |
+| `.kanban/state.json` | M | 45 | 52 |
 | `KANBAN.board.html` | M | 2 | 2 |
-| `KANBAN.md` | M | 4 | 3 |
-| `KANBAN/cards/KAN-065-XSHEMV.md` | M | 31 | 7 |
-| `KANBAN/reports/KAN-065-XSHEMV.report.html` | M | 14 | 8 |
-| `KANBAN/reviews/KAN-065-XSHEMV.review.html` | M | 1282 | 0 |
-| `KANBAN/reviews/KAN-065-XSHEMV.review.md` | M | 260 | 0 |
+| `KANBAN.md` | M | 7 | 6 |
+| `KANBAN/cards/KAN-065-XSHEMV.md` | M | 32 | 7 |
+| `KANBAN/reports/KAN-065-XSHEMV.report.html` | M | 18 | 11 |
+| `KANBAN/reviews/KAN-065-XSHEMV.review.html` | M | 1290 | 0 |
+| `KANBAN/reviews/KAN-065-XSHEMV.review.md` | M | 306 | 0 |
 | `README.md` | M | 2 | 0 |
 | `apps/storybook/src/real-input/FocusVisible.realinput.test.tsx` | M | 44 | 1 |
 | `apps/storybook/src/real-input/mount.tsx` | M | 20 | 4 |
@@ -70,7 +74,7 @@ bb38da6 kanban: KAN-065 진행 중으로 이동 (워크트리 착수)
 | `packages/style-guide-catalog/src/minimalSaas.tsx` | M | 1 | 1 |
 | `packages/style-guide-catalog/src/neobrutalismEditorial.tsx` | M | 2 | 2 |
 | `packages/style-guide-catalog/src/scandiWarm.tsx` | M | 1 | 1 |
-| `packages/style-guide-catalog/src/shatteredGlassCinematic.tsx` | M | 2 | 2 |
+| `packages/style-guide-catalog/src/shatteredGlassCinematic.tsx` | M | 3 | 3 |
 | `packages/style-guide-catalog/src/spatial3d.tsx` | M | 1 | 1 |
 | `packages/style-guide-catalog/src/tactileTexture.tsx` | M | 3 | 3 |
 
@@ -132,7 +136,7 @@ pnpm test:unit                  # ← style-guide-catalog accessibility.test.ts 
 **실행 결과**
 
 ```text
-게이트 5종 (2026-10-08, 워크트리 KAN-065-XSHEMV, 검토 항목 1 재작업 뒤 e6c1b2d 시점 — 다시 돌림)
+게이트 5종 (2026-10-08, 워크트리 KAN-065-XSHEMV, 재검토 뒤 마지막 소스 변경(shattered 280줄 문구) 시점 — 다시 돌림)
 pnpm typecheck                  → 통과 (rc=0)
 pnpm build                      → 통과 (rc=0)
 pnpm test                       → 통과 — Test Files 193 passed · Tests 1293 passed (real-input 의 Neobrutalism 모티프 항목 포함)
@@ -263,7 +267,7 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-065-XSHEMV --add
     >
     > - ai · 2026-10-08 — 검토자 의견 — 핵심 사실은 맞습니다. 모티프 포커스 선언 53곳 중 !important 가 없는 것이 2곳인 것, 화면 기준 미달이 style guide 5개·색 스킴 7개인 것을 소스와 계산으로 다시 확인했습니다. 표현이 조금 넘치는 곳이 둘 있습니다. ① collage-scrapbook 쪽은 버튼이 아니라 카드의 :focus-within 규칙(packages/style-guide-catalog/src/collageScrapbook.tsx:164)이고, 이 카드 전부터 포커스 색 토큰을 읽고 있었습니다. 그래서 「이번 수정으로 두 곳도 같은 토큰을 읽어」는 tactile 한 곳에만 맞습니다. 또 core Card 는 카드 자체에 포커스가 없으면 인라인 outline: none 을 두므로(packages/core/src/components/Card.tsx:170), 자식에 포커스가 간 경우에는 「core 테두리가 대신 그려졌다」가 아니라 카드 테두리가 그냥 안 그려진 것입니다. ② changeset 의 「밝은 바탕에 묻히던 style guide 5개(색 스킴 7개)」에는 어두운 바탕(#0F172A)인 minimal-saas dark 가 들어 있습니다. 둘 다 이 항목의 판단에는 영향이 없습니다.
 
-- [ ] iridescent default 의 포커스 테두리가 라일락에서 시안으로 바뀐 것을 받아들일 것인가 — 받아들이기를 추천합니다. 그 색 스킴이 정해 둔 포커스 색입니다
+- [x] iridescent default 의 포커스 테두리가 라일락에서 시안으로 바뀐 것을 받아들일 것인가 — 받아들이기를 추천합니다. 그 색 스킴이 정해 둔 포커스 색입니다
       이 의견은 §3-1 「통과하던 색 스킴 2개도 포커스 테두리 색이 바뀐 것을」 의 추가 의견에서 갈라져 나왔습니다 (추가 2026-10-09).
     - **배경**
       - 미달 자리를 고칠 때 새 색을 만들지 않고 포커스 색 토큰을 읽게 했다. 그 결과 통과하던 iridescent default 도 라일락 #B7A6FF 에서 그 색 스킴의 포커스 색인 시안 #7FE0FF 로 바뀌었다(바탕 대비 8.21 → 11.60). 원문: packages/style-guide-catalog/src/iridescentChrome.tsx:183
@@ -278,9 +282,13 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-065-XSHEMV --add
     | **추천** 받아들인다 | 버튼 포커스 색이 라일락에서 시안으로 바뀐다 | 포커스 색이 토큰 하나에서 나오고, 그 색 스킴의 다른 컴포넌트 포커스와 같은 색이 된다 |
     | 라일락으로 되돌린다 | iridescent default 의 포커스 색 토큰을 라일락으로 바꾼다 | 모티프 버튼은 옛 색으로 돌아가고 core 컴포넌트 포커스도 시안에서 라일락이 된다 |
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 승인 · ai · 2026-10-09
 
-    > **추가 의견** — _아직 없습니다._
+    > **추가 의견**
+    >
+    > - ai · 2026-10-09 — 검토자 의견 — 추천(받아들인다)에 동의합니다. iridescent 의 접근성 규칙(packages/style-guide-catalog/src/iridescentChrome.tsx:257-264)에는 포커스 색을 정한 규칙이 없고, default 의 core 컴포넌트 포커스는 이미 시안 #7FE0FF 이며, 바탕 대비도 8.21 에서 11.60 으로 오릅니다. 사실 몇 가지를 보탭니다. ① 배경 둘째 줄의 「접근성 규칙이 없다」 원문은 278줄(specs)이 아니라 257-264줄입니다. ② 278줄 specs 의 「focus-visible: 시안 outline」은 default·light 에는 맞지만, cyan 색 스킴은 포커스 색 토큰이 라일락(115줄)이라 그대로 라일락입니다. ③ 배경 넷째 줄의 「shattered 280줄 규칙은 그대로 맞다」는 rose 에는 맞습니다. 다만 light 의 모티프 포커스는 #B26A00(짙은 호박색, 바탕 대비 3.77)이라 규칙에 적힌 #FFC53D 와 다릅니다. 색 계열은 금색 쪽이라 규칙의 취지(굴절 색과 구분)는 지켜지며, 이 항목의 판단에는 영향이 없습니다.
 
 
 ## 4. 판정
