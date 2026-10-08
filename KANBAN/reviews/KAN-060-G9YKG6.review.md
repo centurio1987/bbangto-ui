@@ -5,7 +5,7 @@ created: 2026-10-08
 branch: KAN-060-G9YKG6
 worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-060-G9YKG6
 base: 5ed8f1f
-status: 검토 대기
+status: 승인
 ---
 
 # KAN-060-G9YKG6 검토 요청 — 포커스 테두리 색 대비 3:1 — border.focus 토큰 정리와 대비 게이트
@@ -235,7 +235,7 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-060-G9YKG6 --add
 **전체 승인은 살아있는 항목이 전부 승인일 때만 섭니다**(철회는 분모에서 빠집니다). 하나라도
 반려·추가 의견·미정이면 4항의 전체 승인도 `→ 완료` 이동도 종료코드 14로 거부됩니다.
 
-- [ ] 새 포커스 색을 3:1 경계에 바짝 붙은 값 그대로 둘 것인가 — 그대로 두었습니다. 원래 색에서 가장 덜 바뀌고, 앞으로 배경이 바뀌어 3:1 밑으로 내려가면 검사가 잡습니다
+- [x] 새 포커스 색을 3:1 경계에 바짝 붙은 값 그대로 둘 것인가 — 그대로 두었습니다. 원래 색에서 가장 덜 바뀌고, 앞으로 배경이 바뀌어 3:1 밑으로 내려가면 검사가 잡습니다
     - **배경**
       - 31개 색 스킴의 포커스 색을 색조는 두고 명도만 낮춰, 처음으로 3:1을 넘는 값으로 바꿨다. 원문: KANBAN/cards/KAN-060-G9YKG6.md 「새 값」 표
       - 새 값의 대비는 3.00~3.07이다. jungle-night 와 obsidian-gold 둘은 3.00이다.
@@ -250,11 +250,16 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-060-G9YKG6 --add
     | **추천** 그대로 둔다 | 테두리가 겨우 기준을 넘는 색 스킴이 있다 | 브랜드 색 느낌이 가장 많이 남는다 |
     | 목표를 3.5:1 로 올려 다시 계산한다 | 31개 색이 더 어두워져 원래 색과 멀어진다 | 테두리가 더 또렷하다. 값을 다시 옮기고 게이트를 다시 돌린다 |
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 승인 · ai · 2026-10-08
 
-    > **추가 의견** — _아직 없습니다._
+    > **추가 의견**
+    >
+    > - ai · 2026-10-08 — 검토자 확인: 새 값 31개의 대비를 tokens 의 focusContrast 로 다시 계산했습니다. 가장 낮은 두 값은 jungle-night 3.0013, obsidian-gold 3.0029 입니다. 표의 3.00 은 반올림으로 넘은 값이 아니라 실제로 3:1 이상입니다.
+배경 네 번째 줄의 「Neobrutalism 기본에서도 테두리가 바탕과 구분됐다」는 core Button 을 찍은 결과입니다(수행 내역 S5). Neobrutalism style guide 의 자체 버튼 테두리는 여전히 금색 #E9C766 이고 대비는 1.47 입니다. 이 문제는 항목 3 에서 다룹니다.
 
-- [ ] cosmonaut 의 포커스 색을 회색으로 두고, 흰 버튼 문제는 새 카드로 뺄 것인가 — 회색(#909090)으로 두었습니다. 원래 흰색이라 색조가 없어 규칙대로 하면 회색이 나옵니다
+- [x] cosmonaut 의 포커스 색을 회색으로 두고, 흰 버튼 문제는 새 카드로 뺄 것인가 — 회색(#909090)으로 두었습니다. 원래 흰색이라 색조가 없어 규칙대로 하면 회색이 나옵니다
     - **배경**
       - cosmonaut 은 포커스 색이 흰색이고 배경도 흰색이라 대비가 1.00이었다. 원문: packages/foundations/src/themes/cosmonaut.ts:48
       - 흰색은 색조가 없어서, 명도만 낮추는 규칙대로 하면 회색 #909090(3.06)이 나온다.
@@ -269,11 +274,13 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-060-G9YKG6 --add
     | cosmonaut 포커스를 글자색(#111111)으로 바꾼다 | 다른 30개와 규칙이 갈린다 | 테두리가 아주 또렷하다(약 18:1). 버튼 문제는 그대로 남는다 |
     | 이 카드에서 버튼 색까지 고친다 | 카드 범위가 넓어지고, 버튼을 무슨 색으로 할지 근거가 없다 | 한 번에 끝나지만 브랜드 색을 추측해서 정하게 된다 |
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 승인 · ai · 2026-10-08
 
     > **추가 의견** — _아직 없습니다._
 
-- [ ] style guide 가 자기 CSS 로 그리는 버튼 포커스 테두리를 새 카드로 넘길 것인가 — 넘기기를 추천합니다. 이 카드의 검사가 보지 않는 자리이고, 그중 12곳은 없는 변수를 읽고 있습니다
+- [x] style guide 가 자기 CSS 로 그리는 버튼 포커스 테두리를 새 카드로 넘길 것인가 — 넘기기를 추천합니다. 이 카드의 검사가 보지 않는 자리이고, 그중 12곳은 없는 변수를 읽고 있습니다
     - **배경**
       - style guide 마다 자기 버튼(모티프 버튼)의 포커스 테두리를 CSS 로 따로 그린다. 이 테두리는 core 의 공용 규칙이 아니라 그 style guide 의 CSS 가 그린다.
       - 그중 23곳은 포커스 색 토큰을 읽어서, 이 카드에서 고친 값이 그대로 반영된다.
@@ -289,9 +296,29 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-060-G9YKG6 --add
     | 이 카드에서 없는 변수 12곳만 고친다 | 재작업과 검토를 한 번 더 돌린다 | 12곳은 토큰을 따라가게 되지만 나머지 18곳은 남는다 |
     | 그대로 둔다 | 흐린 포커스와 없는 변수가 남는다 | 할 일이 없다 |
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 반려 · 유저 · 2026-10-08
+    > - 승인 · ai · 2026-10-08
 
-    > **추가 의견** — _아직 없습니다._
+    > **추가 의견**
+    >
+    > - ai · 2026-10-08 — 검토자 확인(숫자): 배경의 23·12·18 은 코드와 맞습니다. style guide 소스의 포커스 규칙 53개를 테두리 색을 어디서 읽는지로 나누면, 포커스 색 토큰(--bbangto-semantic-border-focus)이 23개, 없는 변수가 12개(11개 파일. --bbangto-semantic-focus 11개, --bbangto-semantic-focus-ring 1개), 그 밖의 값이 18개입니다.
+두 변수는 153개 색 스킴 어디에서도 만들어지지 않습니다. 색 토큰 구조(SemanticColors)에 최상위 focus 칸이 없고, 소스 어디에도 이 이름을 정의하는 줄이 없습니다. 그래서 늘 대체값이 쓰인다는 설명이 맞습니다.
+작은 차이가 하나 있습니다. 53개 중 2개는 버튼이 아니라 카드 규칙입니다(collageScrapbook.tsx:163, warpedCheckerboard.tsx:148).
+    > - ai · 2026-10-08 — 검토자 확인(판단에 빠진 사실 둘): 판정을 내리지 않았습니다. 아래 두 사실 때문에 선택지 2의 이득이 표에 적힌 것보다 큽니다. 재작업을 한 번 더 할지는 사람이 정해 주세요.
+- 30곳이 실제로 쓰는 색을 게이트와 같은 계산(같은 표면, 반투명 색은 표면 위에 합성)으로 재면, 3:1 미달은 style guide 17개의 색 스킴 22개입니다. 「일부」보다 많고, 이 카드가 고친 style guide 색 스킴 10개의 두 배입니다. 브라우저에 그려서 잰 값은 아닙니다.
+- 22개 중 12개는 없는 변수 때문입니다. 12곳을 --bbangto-semantic-border-focus 로 바꾸면 12개 모두 3:1 을 넘습니다. 그 색 스킴들의 border.focus 는 이미 게이트를 통과했습니다. 다만 11개 파일 중 9개는 카드 범위 밖이라 범위를 넓혀야 합니다.
+- 이 카드가 고친 style guide 색 스킴 10개 중 5개는 자체 버튼 테두리가 고친 값을 따라가지 않습니다. 그래서 그 버튼 테두리는 여전히 1.00~2.97 입니다: neobrutalism default 1.47, tactile-texture default 1.00, halftone-dot-print default 2.97, ai-surreal-gradient3d light 1.39, iridescent-chrome light 1.91.
+    > - ai · 2026-10-08 — 유저 선택(2026-10-08 대화): 없는 변수 12곳은 이 카드에서 고치고, 나머지 18곳은 새 카드로 뺀다(검토자 의견의 선택지 2 + 새 카드). 이 카드에서 할 일 — style guide CSS 의 포커스 테두리(outline) 선언이 읽는 --bbangto-semantic-* 변수가 실제로 있는지 보는 검사를 먼저 세우고(지금 12건 빨강), 12곳을 --bbangto-semantic-border-focus 로 바꾼다. 범위에 파일 9개를 더한다. 같은 이름의 없는 변수가 포커스 테두리 밖에도 넷 있다(aiSurrealGradient3d.tsx:200·201 태그 색, blueprintTechnical.tsx:128 배경, scandiWarm.tsx:161·spatial3d.tsx:185 태그 테두리) — 이 카드에서는 안 고치고 새 카드 메모에 넣는다.
+    > - ai · 2026-10-08 — 재작업 끝(S6·S7, 77dac78): style guide CSS 의 포커스 테두리(outline) 선언이 읽는 --bbangto-semantic-* 변수가 실제로 있는지 보는 검사를 accessibility.test.ts 에 더했고(고치기 전 12곳 빨강), 12곳(11파일)의 변수 이름을 --bbangto-semantic-border-focus 로 바꿨다(대체값 그대로). 이 변수는 border.focus 게이트를 통과한 값이라 그 11개 style guide 의 버튼 테두리가 색 스킴마다 3:1 이상이 된다. 게이트 5종 초록. 나머지 18곳과 포커스 밖 없는 변수 4곳은 KAN-065-XSHEMV(백로그)로 갔다. 이 항목을 승인할지 판정해 주세요.
+    > - ai · 2026-10-08 — 검토자 확인(재작업): 유저가 고른 범위(없는 변수 12곳은 이 카드, 나머지 18곳은 새 카드)와 맞습니다.
+- 77dac78 의 소스 변경은 11개 파일 12줄뿐이고, 각 줄에서 변수 이름만 --bbangto-semantic-border-focus 로 바뀌었습니다. 대체값(#5BE1FF, ${AMBER} 등)과 다른 줄은 그대로입니다.
+- 1dc5f4c 시점 소스를 새 검사와 같은 조건(outline 선언 줄에서 읽는 없는 --bbangto-semantic-* 변수)으로 찾으면 정확히 12줄이 나오고, 전략 「재작업」 표의 파일·줄과 모두 같습니다.
+- 지금 style guide 소스에 남은 없는 semantic 변수는 outline 밖 5줄(aiSurrealGradient3d.tsx:200·201, blueprintTechnical.tsx:128, scandiWarm.tsx:161, spatial3d.tsx:185)뿐이고, 모두 KAN-065-XSHEMV 메모에 있습니다.
+- 검사가 쓰는 변수 목록(flattenToCSSVars)은 FoundationProvider 가 화면에 까는 변수와 같은 함수에서 나옵니다.
+- 이 항목 본문은 처음 질문(새 카드로 넘길 것인가)을 그대로 두고 있습니다. 여기서 승인은 「12곳 수정 + 18곳 새 카드」가 끝났다는 뜻입니다.
+- 작은 빈틈: 검사는 outline: 줄만 봅니다. outline-color: 로 따로 쓰거나 값을 여러 줄로 나누면 못 잡습니다. 지금 소스에는 그런 자리가 없습니다(outline-color 1곳은 semantic 변수가 아닙니다).
 
 
 ## 4. 판정
@@ -307,9 +334,11 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-060-G9YKG6 --add
      frontmatter 의 status 도 함께 고친다. 손으로 적어도 되지만, 그때는 수렴 검사를
      안 거치므로 `validate` 가 항목 판정과 어긋난 승인을 error 로 잡는다. -->
 
-**판정**: (아직 없습니다)
+**판정**: 승인
 
 **판정 이력**:
+
+- 승인 · 유저 · 2026-10-08
 
 - 승인이면 → `apply --op move --id KAN-060-G9YKG6 --to done` 뒤에 `main` 병합과 워크트리 정리(출력의 `cleanup`)
 - 반려면 → `apply --op move --id KAN-060-G9YKG6 --to doing` 뒤에 `doc-log --entry "<반려 사유>"`.

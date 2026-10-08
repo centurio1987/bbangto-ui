@@ -60,19 +60,6 @@
 ## 진행 중
 
 ## 검토
-- `KAN-060-G9YKG6` 포커스 테두리 색 대비 3:1 — border.focus 토큰 정리와 대비 게이트 — 생성:ai · 최종:ai · 갱신:2026-10-08
-  - 짧은 제목: 포커스 색 대비
-  - 목적: border.focus 가 배경과 3:1 이 안 되는 색 스킴(foundation 21개, style guide 13개 이상)의 값을 고치고 대비 게이트를 세운다
-  - 이유: KAN-059 가 모든 포커스 테두리를 border.focus 로 그리는데, 그 색 스킴에서는 테두리가 배경과 거의 같아 보이지 않는다(neonYellow 1.03, cosmonaut 1.00)
-  - 목표: 모든 foundation·style guide 색 스킴에서 border.focus 가 background.base·elevated 와 3:1 이상이고, 어기면 test:unit 이 빨강이 된다
-  - 메모: KAN-059 착수 전 계획에서 발견(2026-10-07 main dist 를 tokens contrastRatio 로 계산). 그라디언트 배경 style guide 는 아직 못 쟀다 · 테두리는 border.focus 를 실행 때 읽으므로 토큰만 고치면 KAN-059 결과에 그대로 반영된다
-  - 실행 문서: KANBAN/cards/KAN-060-G9YKG6.md (7/7 · 최근 10-08)
-  - 계획 리포트: KANBAN/reports/KAN-060-G9YKG6.report.html
-  - 검토 문서: KANBAN/reviews/KAN-060-G9YKG6.review.md (승인 3/3 · 추가 의견 총 6 · 검토 대기)
-  - 원문:
-    ```text
-    새 카드로 분리 (앞 질문 「border.focus 대비가 3:1에 못 미치는 색 스킴(foundation 21개, style guide 13개 이상)을 어떻게 할까요?」에 대한 답)
-    ```
 
 ## 완료
 - `KAN-020` visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현 — 생성:유저 · 최종:유저 · 갱신:2026-08-14
@@ -502,4 +489,17 @@
   - 원문:
     ```text
     만들어 (앞 답변 「앞서 여쭌 백로그 카드 두 가지(리터럴 색이 남은 템플릿 13개, 읽히지 않는 `edge.dashPattern` 토큰)는 아직 만들지 않았습니다.」에 대한 답)
+    ```
+- `KAN-060-G9YKG6` 포커스 테두리 색 대비 3:1 — border.focus 토큰 정리와 대비 게이트 — 생성:ai · 최종:ai · 갱신:2026-10-08
+  - 짧은 제목: 포커스 색 대비
+  - 목적: border.focus 가 배경과 3:1 이 안 되는 색 스킴(foundation 21개, style guide 13개 이상)의 값을 고치고 대비 게이트를 세운다
+  - 이유: KAN-059 가 모든 포커스 테두리를 border.focus 로 그리는데, 그 색 스킴에서는 테두리가 배경과 거의 같아 보이지 않는다(neonYellow 1.03, cosmonaut 1.00)
+  - 목표: 모든 foundation·style guide 색 스킴에서 border.focus 가 background.base·elevated 와 3:1 이상이고, 어기면 test:unit 이 빨강이 된다
+  - 메모: KAN-059 착수 전 계획에서 발견(2026-10-07 main dist 를 tokens contrastRatio 로 계산). 그라디언트 배경 style guide 는 아직 못 쟀다 · 테두리는 border.focus 를 실행 때 읽으므로 토큰만 고치면 KAN-059 결과에 그대로 반영된다
+  - 실행 문서: KANBAN/cards/KAN-060-G9YKG6.md (7/7 · 최근 10-08)
+  - 계획 리포트: KANBAN/reports/KAN-060-G9YKG6.report.html (낡음)
+  - 검토 문서: KANBAN/reviews/KAN-060-G9YKG6.review.md (승인 3/3 · 추가 의견 총 6 · 승인)
+  - 원문:
+    ```text
+    새 카드로 분리 (앞 질문 「border.focus 대비가 3:1에 못 미치는 색 스킴(foundation 21개, style guide 13개 이상)을 어떻게 할까요?」에 대한 답)
     ```

@@ -1,6 +1,6 @@
 {
   "next_id": 64,
-  "next_seq": 237,
+  "next_seq": 238,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -54,7 +54,7 @@
       "memo_hash": "fa79f4c6a72cc3d419b51e557a4bd9ae366539b9"
     },
     "KAN-060-G9YKG6": {
-      "col": "review",
+      "col": "done",
       "title": "포커스 테두리 색 대비 3:1 — border.focus 토큰 정리와 대비 게이트",
       "verbatim": "새 카드로 분리 (앞 질문 「border.focus 대비가 3:1에 못 미치는 색 스킴(foundation 21개, style guide 13개 이상)을 어떻게 할까요?」에 대한 답)",
       "생성": "ai",
@@ -1233,6 +1233,16 @@
   ],
   "recent": [
     {
+      "seq": 237,
+      "t": "2026-10-08T18:09",
+      "a": "ai",
+      "id": "KAN-060-G9YKG6",
+      "op": "move",
+      "w": "00EBGW",
+      "from": "review",
+      "to": "done"
+    },
+    {
       "seq": 236,
       "t": "2026-10-08T17:58",
       "a": "ai",
@@ -1750,16 +1760,6 @@
       "w": "S7030N",
       "with_": "KAN-052-BYS4JN",
       "reason": "배포는 051·052·053이 main에 병합된 뒤에야 의미가 있다 (2026-10-05 유저 승인 플랜). 2026-10-07 재기록: 052 병합(123e2e3)의 rebuild 가 재수립 필요 표시를 잃었다 — 055 는 052 의 fonts prop 을 보고 전략을 다시 세워야 한다"
-    },
-    {
-      "seq": 198,
-      "t": "2026-10-07T16:03",
-      "a": "유저",
-      "id": "KAN-055-34A57K",
-      "op": "serialize",
-      "w": "DJT5WZ",
-      "with_": "KAN-051-5HMYKT",
-      "reason": "배포는 051·052·053이 main에 병합된 뒤에야 의미가 있다 (2026-10-05 유저 승인 플랜)"
     }
   ],
   "waivers": [
