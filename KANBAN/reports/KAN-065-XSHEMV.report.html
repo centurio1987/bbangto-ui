@@ -1,5 +1,5 @@
 <meta charset="utf-8">
-<!-- kanban-fp:a962fe8e2635ded40151db1e9e37abcb0c6be46a -->
+<!-- kanban-fp:fab5cfcbef45f51d285f8edb926c2a6361091ad2 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>KAN-065-XSHEMV 실행 계획</title>
 <style>
@@ -470,8 +470,8 @@ details[open] > summary::before { content: "\25BE\00a0"; }
 <li><strong>브라우저 확인을 하나 둔다.</strong> 2의 계산이 브라우저와 같은지, Neobrutalism default 모티프 버튼에 실제 Tab 으로 와서 칠해진 테두리 색을 읽어 잰다(지금 1.47). 확장 변수(<code>--bbangto-ext-*</code>)는 <code>StyleGuideProvider</code> 가 깔므로 <code>mount.tsx</code> 에 style guide 와 색 스킴을 받는 마운트를 더한다.</li>
 <li><strong>고칠 값 — 미달 6곳은 포커스 색 토큰을 읽게 한다.</strong> <code>var(--bbangto-semantic-border-focus, &lt;그 style guide default 의 포커스 색&gt;)</code> 이다. 이 토큰은 style guide 마다 자기 색 스킴에 맞춰 이미 3:1 을 넘게 정해 둔 값이라, 새 색을 짓지 않아도 된다. 같은 확장 변수를 hover 나 광택에도 쓰는 파일이 있어(gothic 의 neon-block, tactile 의 hyperreal-gloss), 변수 값은 그대로 두고 포커스 선언만 바꾼다. minimal-saas 는 <code>outline: none</code> + <code>box-shadow</code> 고리 모양은 그대로 두고 색만 토큰으로 바꾼다.</li>
 </ol>
-<p>바뀌는 색은 아래와 같다. 미달 10개가 넘어서고, 통과하던 색 스킴 2개(shattered rose, iridescent default)도 그 색 스킴의 포커스 색으로 바뀐다. 나머지 6개는 지금 색과 토큰 값이 같아 그대로다.</p>
-<p>| style guide · 색 스킴 | 지금 | 바뀐 뒤 | 대비 | |---|---|---|---| | neobrutalism · default | <code>#E9C766</code> 1.47 | <code>#A9881C</code> | 3.02 | | minimal-saas · default | 반투명 인디고 1.91 | <code>#4F46E5</code> | 6.29 | | minimal-saas · dark | 반투명 인디고 2.10 | <code>#818CF8</code> | 4.90 | | minimal-saas · warm | 반투명 갈색 1.64 | <code>#B45309</code> | 4.86 | | tactile-texture · default | 반투명 흰색 1.00 | <code>#EB5D94</code> | 3.01 | | tactile-texture · dark | 반투명 흰색 1.35 | <code>#FF8FBB</code> | 7.10 | | tactile-texture · sky | 반투명 흰색 1.00 | <code>#3B92E8</code> | 3.04 | | gothic · light | <code>#E8C25A</code> 1.38 | <code>#3E5A00</code> | 6.34 | | shattered-glass · light | <code>#FFC53D</code> 1.40 | <code>#B26A00</code> | 3.77 | | shattered-glass · rose (통과하던 것) | <code>#FFC53D</code> 11.56 | <code>#34E5FF</code> | 11.98 | | iridescent · light | <code>#B7A6FF</code> 1.91 | <code>#0599B9</code> | 3.02 | | iridescent · default (통과하던 것) | <code>#B7A6FF</code> 8.21 | <code>#7FE0FF</code> | 11.60 |</p>
+<p>바뀌는 색은 아래와 같다. 미달 10개가 넘어서고, 통과하던 색 스킴 1개(iridescent default)도 그 색 스킴의 포커스 색으로 바뀐다. 나머지 7개는 지금 색과 토큰 값이 같아 그대로다. shattered rose 는 처음 계획에서 시안으로 바뀌었으나, 검토 항목 1(2026-10-08 유저 선택)에서 rose 의 포커스 색 토큰을 금색으로 바꿔 그대로 금색이다(아래 「수행 중 확인」).</p>
+<p>| style guide · 색 스킴 | 지금 | 바뀐 뒤 | 대비 | |---|---|---|---| | neobrutalism · default | <code>#E9C766</code> 1.47 | <code>#A9881C</code> | 3.02 | | minimal-saas · default | 반투명 인디고 1.91 | <code>#4F46E5</code> | 6.29 | | minimal-saas · dark | 반투명 인디고 2.10 | <code>#818CF8</code> | 4.90 | | minimal-saas · warm | 반투명 갈색 1.64 | <code>#B45309</code> | 4.86 | | tactile-texture · default | 반투명 흰색 1.00 | <code>#EB5D94</code> | 3.01 | | tactile-texture · dark | 반투명 흰색 1.35 | <code>#FF8FBB</code> | 7.10 | | tactile-texture · sky | 반투명 흰색 1.00 | <code>#3B92E8</code> | 3.04 | | gothic · light | <code>#E8C25A</code> 1.38 | <code>#3E5A00</code> | 6.34 | | shattered-glass · light | <code>#FFC53D</code> 1.40 | <code>#B26A00</code> | 3.77 | | shattered-glass · rose (통과하던 것) | <code>#FFC53D</code> 11.56 | <code>#FFC53D</code> (토큰을 금색으로, 검토 항목 1) | 11.56 | | iridescent · light | <code>#B7A6FF</code> 1.91 | <code>#0599B9</code> | 3.02 | | iridescent · default (통과하던 것) | <code>#B7A6FF</code> 8.21 | <code>#7FE0FF</code> | 11.60 |</p>
 <p>소개 문구(<code>specs</code>·<code>rules</code>)에 적힌 포커스 색이 바뀐 색과 어긋나면 함께 고친다.</p>
 <ol>
 <li><strong>없는 변수 5줄은 이름이 가리키던 토큰으로 바꾼다.</strong> 대체값은 그대로 둔다. default 색 스킴에서는 토큰 값이 지금 대체값과 같거나(넷) 거의 같아(spatial3d, 반투명 회색을 바탕에 겹친 <code>#32383F</code> → <code>#2A323D</code>) 화면이 사실상 안 바뀌고, 다른 색 스킴에서 그 색 스킴의 색을 따라간다.</li>
@@ -492,10 +492,11 @@ details[open] > summary::before { content: "\25BE\00a0"; }
 <li>모티프 버튼이 아닌 자리의 포커스(카드 규칙 2곳 포함)도 같은 게이트가 재지만, 지금 모두 토큰을 읽어 통과한다.</li>
 </ul>
 <h4>수행 중 확인 (2026-10-08, S5)</h4>
-<p>빌드한 Storybook 에서 실제 Tab 으로 재 보니, core 는 포커스 테두리를 <strong>인라인 스타일</strong>(2px, <code>border.focus</code>)로 그린다(<code>packages/core/src/a11y/focusRing.ts</code>). 인라인 스타일은 <code>!important</code> 가 없는 스타일시트 규칙을 이긴다. 그래서 모티프 포커스 선언 53곳 중 <code>!important</code> 가 없는 2곳(tactile-texture, collage-scrapbook)은 처음부터 화면에 안 나왔고, core 테두리가 대신 그려졌다.</p>
+<p>빌드한 Storybook 에서 실제 Tab 으로 재 보니, core 는 포커스 테두리를 <strong>인라인 스타일</strong>(2px, <code>border.focus</code>)로 그린다(<code>packages/core/src/a11y/focusRing.ts</code>). 인라인 스타일은 <code>!important</code> 가 없는 스타일시트 규칙을 이긴다. 그래서 모티프 포커스 선언 53곳 중 <code>!important</code> 가 없는 2곳은 처음부터 화면에 안 나왔다. tactile-texture 버튼 규칙은 core 테두리가 대신 그려졌다. collage-scrapbook 은 버튼이 아니라 카드의 <code>:focus-within</code> 규칙이고(이 카드 전부터 토큰을 읽었다), core Card 는 카드 자체에 포커스가 없으면 인라인 <code>outline: none</code> 을 두므로 자식에 포커스가 간 경우 카드 테두리는 그냥 안 그려진다(<code>packages/core/src/components/Card.tsx:170</code>).</p>
 <ul>
 <li>「문제」 표의 tactile-texture 3개(1.00~1.35)는 CSS 에 적힌 값이지 화면에 그려진 값이 아니다. 실제로 바탕에 묻히던 것은 style guide 5개, 색 스킴 7개다. tactile 은 KAN-060 이 <code>border.focus</code> 를 고친 뒤로 이미 3:1 이상이 그려지고 있었다.</li>
-<li>게이트는 가려진 선언도 잰다. 놓치는 쪽이 아니라 더 엄하게 잡는 쪽이고, 이번 수정으로 두 곳도 같은 토큰을 읽으므로 화면과 CSS 의 색이 같아졌다. 두께는 CSS 의 3px 가 아니라 core 의 2px 로 그려진다(이 카드 전부터).</li>
+<li>게이트는 가려진 선언도 잰다. 놓치는 쪽이 아니라 더 엄하게 잡는 쪽이다. 이번 수정으로 tactile 도 토큰을 읽으므로 화면과 CSS 의 색이 같아졌다. 두께는 CSS 의 3px 가 아니라 core 의 2px 로 그려진다(이 카드 전부터).</li>
+<li>검토 항목 1(2026-10-08, 검토자 반려 → 유저 선택): shattered-glass 의 접근성 규칙은 「포커스 링은 굴절 색과 구분되는 골드」인데, rose 의 포커스 색 토큰은 원래 시안(<code>#34E5FF</code>)이라 rose 의 core 컴포넌트 포커스도 시안이었고 모티프 버튼까지 그 시안을 따르게 됐다. 이 시안은 버튼 테두리 그라디언트의 시안(<code>#22D3EE</code>)과 같은 계열이다. 유저 선택으로 rose 의 <code>border.focus</code> 를 <code>GOLD</code>(<code>#FFC53D</code>, 바탕과 11.56)로 바꿨다 — 모티프 버튼과 core 컴포넌트 포커스가 모두 금색이 되고, 포커스 색은 계속 토큰 하나에서 나온다.</li>
 </ul></section>
 
 <h2>실행 계획 (WBS)</h2>
@@ -549,5 +550,5 @@ pnpm test:unit                  # ← style-guide-catalog accessibility.test.ts 
 </ul></section>
 
 <p class="meta">생성 근거: KANBAN.md
-KANBAN/cards/KAN-065-XSHEMV.md · 갱신 2026-10-08</p>
+KANBAN/cards/KAN-065-XSHEMV.md · 갱신 2026-10-09</p>
 </div>

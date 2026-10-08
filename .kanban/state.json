@@ -1,6 +1,6 @@
 {
   "next_id": 67,
-  "next_seq": 251,
+  "next_seq": 252,
   "cards": {
     "KAN-057-CCH3E8": {
       "col": "backlog",
@@ -150,12 +150,12 @@
       "memo_hash": "2d69b33becebe6a5d6af6ac29847dfc600699c06"
     },
     "KAN-065-XSHEMV": {
-      "col": "doing",
+      "col": "review",
       "title": "style guide 모티프 버튼 포커스 테두리 정리 — 자체 CSS 18곳 대비와 없는 semantic 변수 참조",
       "verbatim": "12곳은 여기서, 18곳은 새 카드 (앞 질문 「항목 3(style guide 자체 CSS의 버튼 포커스 테두리 30곳)을 어떻게 처리할까요?」에 대한 답)",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-10-08",
+      "갱신": "2026-10-09",
       "title_hash": "55c3fc457945f4174c162e13877c5fc2db730e90",
       "verbatim_hash": "7fa2890d715a97e27a22728fa28a4a3d79560911",
       "short": "모티프 포커스 테두리",
@@ -1372,6 +1372,16 @@
   ],
   "recent": [
     {
+      "seq": 251,
+      "t": "2026-10-09T00:00",
+      "a": "ai",
+      "id": "KAN-065-XSHEMV",
+      "op": "move",
+      "w": "ZTJ9MG",
+      "from": "doing",
+      "to": "review"
+    },
+    {
       "seq": 250,
       "t": "2026-10-08T19:08",
       "a": "ai",
@@ -1906,16 +1916,6 @@
       "w": "S7030N",
       "with_": "KAN-056-D3V1MB",
       "reason": "KAN-056 은 자기 changeset 파일(.changeset/kan-056-*.md) 하나만 더하고 KAN-055 는 배포 때 그것을 읽어 소비할 뿐이라 같은 파일을 고치지 않는다. 어느 쪽이 먼저 끝나도 깨지지 않는다 (2026-10-07 유저 선택)"
-    },
-    {
-      "seq": 221,
-      "t": "2026-10-07T19:17",
-      "a": "ai",
-      "id": "KAN-059-62EAKB",
-      "op": "move",
-      "w": "GTA753",
-      "from": "todo",
-      "to": "doing"
     }
   ],
   "waivers": [
