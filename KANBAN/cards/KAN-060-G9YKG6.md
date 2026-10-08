@@ -97,7 +97,7 @@ KAN-059 가 키보드 포커스 테두리를 모든 상호작용 컴포넌트에
 - 시각화 패키지 — 시각화 foundation 에는 `border.focus` 가 없다.
 
 ## 실행 계획
-- [ ] `S1` 게이트 먼저 — `packages/tokens/src/contrast.ts` 에 `FOCUS_CONTRAST_MIN` · `surfaceColors` · `focusContrast` 를 더하고 배럴(`index.ts`)로 낸다. `packages/foundations/src/focusContrast.test.ts`(76개 실제 검사 + fixture), `packages/style-guide-catalog/src/accessibilityAudit.ts` 의 `auditFocusContrast` 와 `accessibility.test.ts`(153개 색 스킴 + core base 3개 실제 검사 + fixture). 완료 기준: fixture 초록 — 노랑 포커스+흰 배경은 위반, 반투명 `elevated` 는 `base` 위 합성으로 재서 통과. 실제 검사 빨강이고 위반 목록이 전략 「새 값」 표 31건과 같다(base 3개는 없음)
+- [x] `S1` 게이트 먼저 — `packages/tokens/src/contrast.ts` 에 `FOCUS_CONTRAST_MIN` · `surfaceColors` · `focusContrast` 를 더하고 배럴(`index.ts`)로 낸다. `packages/foundations/src/focusContrast.test.ts`(76개 실제 검사 + fixture), `packages/style-guide-catalog/src/accessibilityAudit.ts` 의 `auditFocusContrast` 와 `accessibility.test.ts`(153개 색 스킴 + core base 3개 실제 검사 + fixture). 완료 기준: fixture 초록 — 노랑 포커스+흰 배경은 위반, 반투명 `elevated` 는 `base` 위 합성으로 재서 통과. 실제 검사 빨강이고 위반 목록이 전략 「새 값」 표 31건과 같다(base 3개는 없음)
 - [ ] `S2` 브라우저 확인 먼저 — `apps/storybook/src/real-input/mount.tsx` 에 foundation 인자(기본 light), `FocusVisible.realinput.test.tsx` 에 「Button: neon-yellow foundation 에서 Tab 테두리 색이 배경과 3:1 이상」, `_catalogStory.tsx` 의 `FoundationPresets` 7번에 `focusContrast` 확인. 완료 기준: 새 실제 입력 항목 빨강(약 1.03), 기존 실제 입력 항목 초록, 미달 style guide 9개의 `FoundationPresets` 스토리 빨강·나머지 초록
 - [ ] `S3` foundation 21개 값 — 전략 「새 값」 표대로 각 테마 파일의 `border.focus` 한 칸만 바꾼다. 완료 기준: `focusContrast.test.ts` 초록, foundations 패키지 vitest 전체 초록, S2 실제 입력 항목 초록
 - [ ] `S4` style guide 9개 파일 10개 색 스킴 값 — 같은 표대로 미달 색 스킴의 `focus:` 칸만 바꾼다. 상수(`NEO.gold`·`CANDY`·`CYAN`·`MAGENTA`)는 그대로 두고 그 칸에 새 값을 쓴다. 완료 기준: style-guide-catalog vitest 전체 초록, 9개 `FoundationPresets` 스토리 초록
@@ -141,3 +141,5 @@ pnpm test:unit                  # ← foundations focusContrast.test.ts · style
 - 2026-10-08T01:36 · s:d775e6fd — `전략` 섹션 교체
 - 2026-10-08T01:36 · s:d775e6fd — `실행 계획` 섹션 교체
 - 2026-10-08T01:36 · s:d775e6fd — `검증` 섹션 교체
+- 2026-10-08T17:14 · s:d775e6fd · S1 doing — 착수
+- 2026-10-08T17:17 · s:d775e6fd · S1 done — tokens contrast.ts 에 FOCUS_CONTRAST_MIN·surfaceColors(반투명 elevated 는 base 위 합성)·focusContrast + 배럴. foundations focusContrast.test.ts(76개 + fixture 4), sgc auditFocusContrast(index 로 내보냄) + accessibility.test.ts(fixture 12 · 153개 · core base 3). 실제 검사 빨강 — foundation 21 · style guide 10, 전략 표와 이름·값 일치(foundation 미달은 모두 elevated 쪽이 더 낮다). core base 3 통과. 3패키지 typecheck 통과

@@ -44,8 +44,11 @@ export {
   contrastRatio,
   effectiveBgColors,
   CONTRAST_THRESHOLDS,
+  FOCUS_CONTRAST_MIN,
+  surfaceColors,
+  focusContrast,
 } from './contrast';
-export type { RGBA } from './contrast';
+export type { RGBA, SurfaceColors, FocusContrast } from './contrast';
 export { mergeFoundation } from './utils';
 export { breakpoints, up, down } from './breakpoints';
 export type { Breakpoint } from './breakpoints';
