@@ -30,7 +30,7 @@ steps: S3, S4, S5
 
 생성기의 `dist` 의존은 UI·viz style guide 둘에만 있다. 프리셋 파일 하나에 메타와 런타임 wrapper 가 함께 있어서다(`packages/style-guide-catalog/src/artDecoLuxe.tsx:3`·`:290`). 걷어내려면 프리셋 81개(UI 51 · viz 30)에서 메타를 떼어 내야 하고, UI 쪽 프리셋은 KAN-065 가 고칠 파일과 겹친다. 기본안은 **걷어내지 않고** `prebuild` 순서(`pnpm -r` 이 core·visualization 을 먼저 빌드한다)에 맡긴 뒤 그 사유를 기록하는 것이다.
 
-**완료 기준**: 매니페스트를 다시 만드는 길이 전부 `prebuild` 다. `rm -rf packages/*/dist` 뒤 어떤 명령이 무엇 때문에 실패하는지가 카드 문서에 기록된다. 검증 범위는 착수 전에 정한다(4항).
+**완료 기준**: 매니페스트를 다시 만드는 길이 전부 `prebuild` 다. `rm -rf packages/*/dist` 뒤 어떤 명령이 무엇 때문에 실패하는지가 카드 문서에 기록된다. 워크스페이스 전체를 build 없이 돌리는 일은 KAN-066 이 맡는다(4항).
 
 ### WP2 · `S4` 2단 읽기 문서·주석
 
@@ -61,8 +61,8 @@ steps: S3, S4, S5
 
 배치 밖 의존이 둘이다.
 
-- **KAN-055(배포)와 같은 파일을 고친다.** S3 의 `prebuild` 는 `packages/foundations/package.json` · `packages/visualization/package.json` 을, 상세 파일을 npm 에 싣는 일은 UI·viz style guide 의 `package.json` `files` 를, S5 는 `.changeset/*.md` 를 고친다. 지금 카드 scope 에는 이 파일들이 없어서 루트 독립성 검사가 겹침을 못 본다. 착수 전에 scope 를 넓히고 겹침을 중재한다.
-- **KAN-062 와 같은 문서를 고칠 수 있다.** KAN-062 는 `packages/visualization/README.md` 의 문장을 고치는 카드인데 scope 가 비어 있다. 이 카드는 같은 파일의 56번 줄 표만 고친다.
+- **KAN-055(배포)와 같은 파일을 고친다.** S3 의 `prebuild` 는 `packages/foundations/package.json` · `packages/visualization/package.json` 을, 상세 파일을 npm 에 싣는 일은 UI·viz style guide 의 `package.json` `files` 를, S5 는 `.changeset/kan-064-manifest-index.md` 를 고친다. 착수 전에 scope 에 넣었고, KAN-055 와의 겹침(package.json 3개 · changeset)과 KAN-065 와의 겹침(루트 README.md)은 용인으로 기록했다(2026-10-08 유저 선택).
+- **KAN-062 와 같은 문서를 고친다.** KAN-062 의 scope 에 `packages/visualization/README.md` 가 있다(2026-10-08 기록). 이 카드는 같은 파일의 56번 줄 표를 고쳐야 하는데, 이 겹침은 아직 중재하지 않아 그 파일을 scope 에 넣지 않았다. S4 전에 묻는다.
 
 ## 3. 리스크
 
@@ -77,11 +77,11 @@ steps: S3, S4, S5
 
 ## 4. 착수 시점 판단
 
-수행 관점은 배치1과 같은 것을 따른다. 이 배치는 세 work 가 앞 결정에 차례로 기대므로 오케스트레이션으로 나눌 자리가 없다.
+**수행 관점: 단일 에이전트(2026-10-08 유저 선택).** 이 배치는 세 work 가 앞 결정에 차례로 기대므로 오케스트레이션으로 나눌 자리가 없다.
 
 | 관점 | 배치 수 | 병렬 폭 | 리스크 |
 |---|---|---|---|
-| **단일 에이전트(추천)** | 2 | 1 | S3 → S4 → S5 가 순차라 그대로 한 세션이 한다 |
+| **단일 에이전트(채택)** | 2 | 1 | S3 → S4 → S5 가 순차라 그대로 한 세션이 한다 |
 | 오케스트레이션 | 2 | 이 배치는 1 | S4 의 문서 고침만 자리별로 나눌 수 있지만 문장이 S3 결정 하나에서 나와 나눌 이득이 거의 없다 |
 
-S3 의 검증 범위는 착수 전에 정한다. 카드 목표는 「새 워크트리에서 build 선행 없이 typecheck·test:unit 이 통과한다」인데, 패키지들이 서로의 타입을 `dist/index.d.ts` 로 찾고(`packages/core/package.json` 의 `exports.types`, 루트 `tsconfig.json` 에 `paths` 없음) 새 워크트리의 첫 typecheck 가 foundations → tokens 에서 TS2307 로 실패한 기록이 있다(메모리 `fresh-worktree-gate-order`, 2026-10-07 KAN-050). 매니페스트를 아무리 고쳐도 이 목표는 이 카드 안에서 서지 않는다.
+**S3 의 검증 범위: 매니페스트 생성·검사까지로 좁히고, 워크스페이스 전체를 build 없이 돌리는 일은 KAN-066 으로 뗐다(2026-10-08 유저 선택).** 원래 카드 목표는 「새 워크트리에서 build 선행 없이 typecheck·test:unit 이 통과한다」인데, 패키지들이 서로의 타입을 `dist/index.d.ts` 로 찾고(`packages/core/package.json` 의 `exports.types`, 루트 `tsconfig.json` 에 `paths` 없음) 새 워크트리의 첫 typecheck 가 foundations → tokens 에서 TS2307 로 실패한 기록이 있다(메모리 `fresh-worktree-gate-order`, 2026-10-07 KAN-050). 매니페스트를 아무리 고쳐도 이 목표는 이 카드 안에서 서지 않는다.

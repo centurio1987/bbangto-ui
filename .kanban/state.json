@@ -1,6 +1,6 @@
 {
   "next_id": 67,
-  "next_seq": 244,
+  "next_seq": 247,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -117,8 +117,8 @@
       "purpose_hash": "926a996d15ec64548004c9176dd0943d470817e8",
       "reason": "매니페스트 진단 결과 메타 필드는 채택 근거로 이득이지만 투영 JSON 파일은 통째로 읽기엔 너무 크고 선택 함수도 읽지 않으며, 동기화 장치(바이트 테스트 4종·수동 gen 2개·prebuild dist 의존·census 게이트)가 실제 비용의 대부분이다",
       "reason_hash": "ca32cc1f8774f28f9d973212c76a4e5f6ee932cd",
-      "goal": "AI가 색인 하나로 1차 후보를 고르고 상세 meta는 ./meta 서브패스나 객체에서 읽는다. 매니페스트 재생성 단계가 전부 prebuild로 통일되거나 커밋 대상에서 빠지고, 새 워크트리에서 build 선행 없이 typecheck·test:unit이 통과한다",
-      "goal_hash": "a0845cc7ccd1516cdcbe3277d479b4c8da45859b",
+      "goal": "AI가 색인 하나로 1차 후보를 고르고 상세 meta는 후보마다 따로 읽는다. 매니페스트 재생성 단계가 전부 prebuild로 통일되고, 동기화 테스트가 색인처럼 좀처럼 안 바뀌는 자리만 지킨다",
+      "goal_hash": "a98dc4c7cc9ae4ee8c454ae3c1f694cc33f82bef",
       "memo": "선행 확인: 실제 토크나이저로 4종 크기 실측(어림값 검증). 전부 걷어내는 안은 버림 — foundation 76종은 메타가 유일한 선택 근거",
       "memo_hash": "e78d0f200a22f1e4b57c6f2c6bd84fc75fb79931",
       "scope": [
@@ -139,7 +139,25 @@
         "packages/foundations/src/meta/manifest.test.ts",
         "packages/visualization/src/typeMeta/manifest.test.ts",
         "metadata-coverage.json",
-        "packages/style-guide-catalog/METADATA_STRATEGY.md"
+        "packages/style-guide-catalog/METADATA_STRATEGY.md",
+        "packages/foundations/package.json",
+        "packages/visualization/package.json",
+        "packages/style-guide-catalog/package.json",
+        "packages/visualization-style-guide-catalog/package.json",
+        ".changeset/kan-064-manifest-index.md",
+        "README.md",
+        "packages/foundations/README.md",
+        "packages/style-guide-catalog/README.md",
+        "packages/visualization-style-guide-catalog/README.md",
+        "packages/foundations/FOUNDATION_METADATA_STRATEGY.md",
+        "packages/visualization/TYPE_METADATA_STRATEGY.md",
+        "packages/tokens/src/styleGuideMeta.ts",
+        "packages/tokens/src/foundationMeta.ts",
+        "packages/visualization/src/index.ts",
+        "packages/visualization/tsup.config.ts",
+        "packages/visualization/src/typeMeta/index.ts",
+        "packages/foundations/src/meta/index.ts",
+        ".gitignore"
       ]
     },
     "KAN-065-XSHEMV": {
@@ -1290,6 +1308,8 @@
     "KAN-061-K8V2HH",
     "KAN-062-E02CMT",
     "KAN-064-AC0H6M",
+    "KAN-066-T6NR80",
+    "KAN-065-XSHEMV",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1348,11 +1368,40 @@
     "KAN-059-62EAKB",
     "KAN-056-D3V1MB",
     "KAN-063-Q85EET",
-    "KAN-060-G9YKG6",
-    "KAN-065-XSHEMV",
-    "KAN-066-T6NR80"
+    "KAN-060-G9YKG6"
   ],
   "recent": [
+    {
+      "seq": 246,
+      "t": "2026-10-08T18:32",
+      "a": "ai",
+      "id": "KAN-064-AC0H6M",
+      "op": "waive",
+      "w": "S7030N",
+      "with_": "KAN-065-XSHEMV",
+      "reason": "유저 선택(2026-10-08 「둘 다 용인」): 루트 README.md 에서 KAN-064 는 기여 절차 4단계의 매니페스트 표와 그 아래 단락만, KAN-065 는 포커스 대비 단락만 고친다"
+    },
+    {
+      "seq": 245,
+      "t": "2026-10-08T18:32",
+      "a": "ai",
+      "id": "KAN-064-AC0H6M",
+      "op": "waive",
+      "w": "S7030N",
+      "with_": "KAN-055-34A57K",
+      "reason": "유저 선택(2026-10-08 「둘 다 용인」): package.json 3개는 KAN-064 가 scripts.prebuild·files 만, KAN-055 는 version 만 고친다. changeset 은 KAN-064 가 kan-064-manifest-index.md 한 장을 더할 뿐이고 KAN-055 는 쌓인 것을 소진한다. 배포 전에 병합되면 major 가 그 배포에 실리므로 병합 때 KAN-055 상태를 확인한다"
+    },
+    {
+      "seq": 244,
+      "t": "2026-10-08T18:32",
+      "a": "ai",
+      "id": "KAN-064-AC0H6M",
+      "op": "edit",
+      "w": "S7030N",
+      "field": "goal",
+      "before": "AI가 색인 하나로 1차 후보를 고르고 상세 meta는 ./meta 서브패스나 객체에서 읽는다. 매니페스트 재생성 단계가 전부 prebuild로 통일되거나 커밋 대상에서 빠지고, 새 워크트리에서 build 선행 없이 typecheck·test:unit이 통과한다",
+      "after": "AI가 색인 하나로 1차 후보를 고르고 상세 meta는 후보마다 따로 읽는다. 매니페스트 재생성 단계가 전부 prebuild로 통일되고, 동기화 테스트가 색인처럼 좀처럼 안 바뀌는 자리만 지킨다"
+    },
     {
       "seq": 243,
       "t": "2026-10-08T18:31",
@@ -1874,36 +1923,6 @@
       "w": "T1CWJS",
       "from": "todo",
       "to": "doing"
-    },
-    {
-      "seq": 213,
-      "t": "2026-10-07T16:45",
-      "a": "유저",
-      "id": "KAN-055-34A57K",
-      "op": "waive",
-      "w": "S7030N",
-      "with_": "KAN-058-G883EJ",
-      "reason": "058의 changeset은 058이 main에 병합된 뒤에만 들어오므로 그 전 배포에 섞이지 않는다. 먼저 병합되면 함께 배포된다. KAN-054와 같은 처리 (2026-10-07 유저 선택)"
-    },
-    {
-      "seq": 212,
-      "t": "2026-10-07T16:44",
-      "a": "ai",
-      "id": "KAN-054-M48FNQ",
-      "op": "waive",
-      "w": "S7030N",
-      "with_": "KAN-055-34A57K",
-      "reason": "054의 changeset은 054가 끝나 main에 병합된 뒤에만 들어오므로 그 전 배포에 섞이지 않는다 (2026-10-05 유저 승인 플랜). 2026-10-07 검토 반려 재작업의 scope 확장(FeatureGrid)으로 무효가 된 기록을 다시 건다 — 겹침은 그대로 .changeset/ 하나"
-    },
-    {
-      "seq": 211,
-      "t": "2026-10-07T16:44",
-      "a": "ai",
-      "id": "KAN-054-M48FNQ",
-      "op": "serialize",
-      "w": "S7030N",
-      "with_": "KAN-053-TZ86NN",
-      "reason": "전략 재수립 완료"
     }
   ],
   "waivers": [
@@ -1990,6 +2009,20 @@
       "reason": "KAN-063 은 S3 에서 템플릿을 고쳤을 때만 자기 changeset 파일(.changeset/kan-063-*.md) 하나를 더하고 KAN-055 는 배포 때 그것을 읽어 소비할 뿐이라 같은 파일을 고치지 않는다. 063 이 먼저 병합되면 다음 배포에 함께 나간다. KAN-056·058·059·060 과 같은 처리 (2026-10-08 유저 선택)",
       "created": "2026-10-08T17:35",
       "by": "유저"
+    },
+    {
+      "pair": "KAN-055-34A57K|KAN-064-AC0H6M",
+      "scope_hash": "981070c342ff4f88",
+      "reason": "유저 선택(2026-10-08 「둘 다 용인」): package.json 3개는 KAN-064 가 scripts.prebuild·files 만, KAN-055 는 version 만 고친다. changeset 은 KAN-064 가 kan-064-manifest-index.md 한 장을 더할 뿐이고 KAN-055 는 쌓인 것을 소진한다. 배포 전에 병합되면 major 가 그 배포에 실리므로 병합 때 KAN-055 상태를 확인한다",
+      "created": "2026-10-08T18:32",
+      "by": "ai"
+    },
+    {
+      "pair": "KAN-064-AC0H6M|KAN-065-XSHEMV",
+      "scope_hash": "e5ae2bee2e9620c4",
+      "reason": "유저 선택(2026-10-08 「둘 다 용인」): 루트 README.md 에서 KAN-064 는 기여 절차 4단계의 매니페스트 표와 그 아래 단락만, KAN-065 는 포커스 대비 단락만 고친다",
+      "created": "2026-10-08T18:32",
+      "by": "ai"
     }
   ],
   "serials": [
