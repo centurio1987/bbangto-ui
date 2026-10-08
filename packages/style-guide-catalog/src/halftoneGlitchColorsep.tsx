@@ -160,7 +160,7 @@ const CSS = `
   box-shadow: 4px 0 0 rgba(200,16,46,0.80), -4px 0 0 rgba(23,138,76,0.80) !important;
 }
 .bbangto-halftone-glitch-colorsep-btn:focus-visible {
-  outline: 2px solid var(--bbangto-semantic-focus, #00AEEF) !important;
+  outline: 2px solid var(--bbangto-semantic-border-focus, #00AEEF) !important;
   outline-offset: 2px;
 }
 @media (prefers-reduced-motion: reduce) {

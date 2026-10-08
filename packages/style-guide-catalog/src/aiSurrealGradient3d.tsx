@@ -167,7 +167,7 @@ const CSS = `
 }
 .bbangto-ai-surreal-gradient3d-btn:active { transform: translateY(1px) scale(0.99) !important; }
 .bbangto-ai-surreal-gradient3d-btn:focus-visible {
-  outline: 2px solid var(--bbangto-semantic-focus, #5BE1FF) !important;
+  outline: 2px solid var(--bbangto-semantic-border-focus, #5BE1FF) !important;
   outline-offset: 2px;
 }
 @media (prefers-reduced-motion: reduce) {

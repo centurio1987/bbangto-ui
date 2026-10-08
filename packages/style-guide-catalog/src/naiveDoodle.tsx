@@ -156,7 +156,7 @@ const CSS = `
   box-shadow: 0 0 0 rgba(31,36,48,0.85) !important;
 }
 .bbangto-naive-doodle-btn:focus-visible {
-  outline: 3px solid var(--bbangto-semantic-focus, ${MARKER_BLUE}) !important;
+  outline: 3px solid var(--bbangto-semantic-border-focus, ${MARKER_BLUE}) !important;
   outline-offset: 3px;
 }
 @media (prefers-reduced-motion: reduce) {

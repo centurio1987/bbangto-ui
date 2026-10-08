@@ -222,7 +222,7 @@ const CSS = `
 }
 .bbangto-grainy-blur-dreamy-btn:active { transform: translateY(1px) scale(0.99) !important; }
 .bbangto-grainy-blur-dreamy-btn:focus-visible {
-  outline: 3px solid var(--bbangto-semantic-focus, #1E2A6B) !important;
+  outline: 3px solid var(--bbangto-semantic-border-focus, #1E2A6B) !important;
   outline-offset: 2px !important;
 }
 @media (prefers-reduced-motion: reduce) {

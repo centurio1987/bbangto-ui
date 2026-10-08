@@ -141,7 +141,7 @@ const CSS = `
 }
 .bbangto-romantic-botanical-btn:hover { background: var(--bbangto-semantic-primary-hover, #8C3656) !important; }
 .bbangto-romantic-botanical-btn:active { transform: translateY(1px) scale(0.99) !important; background: var(--bbangto-semantic-primary-active, #7A2E4A) !important; }
-.bbangto-romantic-botanical-btn:focus-visible { outline: 2px solid var(--bbangto-semantic-focus, #7A2E4A) !important; outline-offset: 2px; }
+.bbangto-romantic-botanical-btn:focus-visible { outline: 2px solid var(--bbangto-semantic-border-focus, #7A2E4A) !important; outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) {
   .bbangto-romantic-botanical-card { transition: none !important; }
   .bbangto-romantic-botanical-card:hover { transform: none !important; }

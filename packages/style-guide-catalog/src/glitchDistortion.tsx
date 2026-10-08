@@ -159,7 +159,7 @@ const CSS = `
 }
 .bbangto-glitch-distortion-btn:active { transform: translateX(-2px) scale(0.99) !important; }
 .bbangto-glitch-distortion-btn:focus-visible {
-  outline: 2px solid var(--bbangto-semantic-focus, ${CYAN}) !important;
+  outline: 2px solid var(--bbangto-semantic-border-focus, ${CYAN}) !important;
   outline-offset: 2px;
 }
 @media (prefers-reduced-motion: reduce) {

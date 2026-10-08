@@ -197,7 +197,7 @@ const CSS = `
 }
 .bbangto-halftone-dot-print-btn:active { transform: translateY(1px) !important; }
 .bbangto-halftone-dot-print-btn:focus-visible {
-  outline: 3px solid var(--bbangto-semantic-focus, ${CYAN}) !important;
+  outline: 3px solid var(--bbangto-semantic-border-focus, ${CYAN}) !important;
   outline-offset: 2px;
 }
 @media (prefers-reduced-motion: reduce) {
