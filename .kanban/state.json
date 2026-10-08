@@ -1189,7 +1189,24 @@
       "goal": "AI가 색인 하나로 1차 후보를 고르고 상세 meta는 ./meta 서브패스나 객체에서 읽는다. 매니페스트 재생성 단계가 전부 prebuild로 통일되거나 커밋 대상에서 빠지고, 새 워크트리에서 build 선행 없이 typecheck·test:unit이 통과한다",
       "goal_hash": "a0845cc7ccd1516cdcbe3277d479b4c8da45859b",
       "memo": "선행 확인: 실제 토크나이저로 4종 크기 실측(어림값 검증). 전부 걷어내는 안은 버림 — foundation 76종은 메타가 유일한 선택 근거",
-      "memo_hash": "e78d0f200a22f1e4b57c6f2c6bd84fc75fb79931"
+      "memo_hash": "e78d0f200a22f1e4b57c6f2c6bd84fc75fb79931",
+      "scope": [
+        "packages/style-guide-catalog/src/manifest.ts",
+        "packages/style-guide-catalog/scripts/**",
+        "packages/style-guide-catalog/catalog.manifest.json",
+        "packages/visualization-style-guide-catalog/src/manifest.ts",
+        "packages/visualization-style-guide-catalog/scripts/**",
+        "packages/visualization-style-guide-catalog/catalog.manifest.json",
+        "packages/foundations/src/meta/manifest.ts",
+        "packages/foundations/scripts/**",
+        "packages/foundations/foundation.manifest.json",
+        "packages/visualization/src/typeMeta/manifest.ts",
+        "packages/visualization/scripts/**",
+        "packages/visualization/type.manifest.json",
+        "packages/*/src/**/manifest.test.ts",
+        "metadata-coverage.json",
+        "packages/style-guide-catalog/METADATA_STRATEGY.md"
+      ]
     }
   },
   "order": [
