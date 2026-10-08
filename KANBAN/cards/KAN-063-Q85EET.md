@@ -35,9 +35,10 @@ Paint Gate(`apps/storybook/src/stories/visualization/TemplatePaintGate.stories.t
 - **패키지 루트 export 를 돌며 템플릿을 고른다.** 루트는 atom·molecule·pattern 도 함께 내보내서 템플릿만 가를 수 없다.
 - **글자 대비 미달을 이 카드에서 고친다.** KAN-061 과 같은 일을 두 카드가 나눠 하게 된다.
 
-### 열린 것
+### 정해진 것
 
-- KAN-055(배포)와의 `.changeset/` 겹침 처리 — 유저 확인 대기.
+- KAN-055(배포)와의 `.changeset/` 겹침은 그대로 둔다(2026-10-08 유저 선택, 용인 기록). 이 카드는 S3 에서 템플릿을 고쳤을 때만 changeset 한 장을 더한다.
+- 수행 방식은 단일 에이전트다(2026-10-08 유저 선택).
 
 ## 실행 계획
 - [ ] `S1` 표본 누락 검사 세우기 — `packages/foundations/src/vizPaintGateCoverage.ts`·`.test.ts`. 완료 기준: 실패 주입 표본 셋(누락·중복·없는 이름)에서 위반을 내고, 실제 저장소 검사는 표본 파일이 아직 없어 68개 누락으로 빨강이다.
@@ -58,3 +59,4 @@ Paint Gate(`apps/storybook/src/stories/visualization/TemplatePaintGate.stories.t
 - 2026-10-08T17:18 · s:04d9de55 — `전략` 섹션 교체
 - 2026-10-08T17:18 · s:04d9de55 — `실행 계획` 섹션 교체
 - 2026-10-08T17:18 · s:04d9de55 — `검증` 섹션 교체
+- 2026-10-08T17:35 · s:04d9de55 — `전략` 섹션 교체
