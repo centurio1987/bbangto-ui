@@ -4,7 +4,7 @@
 
 style guide 가 자기 CSS 로 그리는 모티프 버튼 포커스 테두리가 모든 색 스킴에서 화면 표면과 3:1 이상이 된다(KAN-065, WCAG 1.4.11).
 
-포커스 테두리가 강조색이나 고정 색을 써서 밝은 바탕에 묻히던 style guide 5개(색 스킴 7개)가 이제 포커스 색 토큰
+포커스 테두리가 강조색이나 고정 색을 써서 바탕에 묻히던 style guide 5개(색 스킴 7개)가 이제 포커스 색 토큰
 (`--bbangto-semantic-border-focus`)을 읽는다:
 `neobrutalism-editorial-01`(default) · `minimal-saas-01`(default · dark · warm, 3px 고리 모양은 그대로) ·
 `gothic-medieval-digital-01`(light) · `shattered-glass-cinematic-01`(light) · `iridescent-chrome-01`(light).

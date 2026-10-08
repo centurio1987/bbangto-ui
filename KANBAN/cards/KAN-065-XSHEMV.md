@@ -90,10 +90,10 @@ style guide 51개는 저마다 모티프 버튼(그 style guide 모양을 덧칠
 
 ### 수행 중 확인 (2026-10-08, S5)
 
-빌드한 Storybook 에서 실제 Tab 으로 재 보니, core 는 포커스 테두리를 **인라인 스타일**(2px, `border.focus`)로 그린다(`packages/core/src/a11y/focusRing.ts`). 인라인 스타일은 `!important` 가 없는 스타일시트 규칙을 이긴다. 그래서 모티프 포커스 선언 53곳 중 `!important` 가 없는 2곳(tactile-texture, collage-scrapbook)은 처음부터 화면에 안 나왔고, core 테두리가 대신 그려졌다.
+빌드한 Storybook 에서 실제 Tab 으로 재 보니, core 는 포커스 테두리를 **인라인 스타일**(2px, `border.focus`)로 그린다(`packages/core/src/a11y/focusRing.ts`). 인라인 스타일은 `!important` 가 없는 스타일시트 규칙을 이긴다. 그래서 모티프 포커스 선언 53곳 중 `!important` 가 없는 2곳은 처음부터 화면에 안 나왔다. tactile-texture 버튼 규칙은 core 테두리가 대신 그려졌다. collage-scrapbook 은 버튼이 아니라 카드의 `:focus-within` 규칙이고(이 카드 전부터 토큰을 읽었다), core Card 는 카드 자체에 포커스가 없으면 인라인 `outline: none` 을 두므로 자식에 포커스가 간 경우 카드 테두리는 그냥 안 그려진다(`packages/core/src/components/Card.tsx:170`).
 
 - 「문제」 표의 tactile-texture 3개(1.00~1.35)는 CSS 에 적힌 값이지 화면에 그려진 값이 아니다. 실제로 바탕에 묻히던 것은 style guide 5개, 색 스킴 7개다. tactile 은 KAN-060 이 `border.focus` 를 고친 뒤로 이미 3:1 이상이 그려지고 있었다.
-- 게이트는 가려진 선언도 잰다. 놓치는 쪽이 아니라 더 엄하게 잡는 쪽이고, 이번 수정으로 두 곳도 같은 토큰을 읽으므로 화면과 CSS 의 색이 같아졌다. 두께는 CSS 의 3px 가 아니라 core 의 2px 로 그려진다(이 카드 전부터).
+- 게이트는 가려진 선언도 잰다. 놓치는 쪽이 아니라 더 엄하게 잡는 쪽이다. 이번 수정으로 tactile 도 토큰을 읽으므로 화면과 CSS 의 색이 같아졌다. 두께는 CSS 의 3px 가 아니라 core 의 2px 로 그려진다(이 카드 전부터).
 
 ## 실행 계획
 - [x] `S1` 게이트 먼저 — `_motif.tsx` 에 래퍼 → CSS 대응표와 `motifCssOf`(배럴에는 안 냄), `accessibilityAudit.ts` 에 포커스 선언을 꺼내는 함수와 `auditMotifFocusContrast`, `accessibility.test.ts` 에 fixture 와 실제 검사, 없는 semantic 변수 검사를 `outline` 줄에서 모든 줄로 넓힌다. 완료 기준: fixture 초록 — 확장 변수를 색 스킴 값으로 풂 · 색 스킴에 없는 변수는 대체값 · `box-shadow` 고리 · `outline: none` 건너뜀 · `@media` 안 규칙 · 못 푼 색은 `unparseable`. 실제 검사 빨강 — 모티프 포커스 위반이 전략 표의 10건과 같고, 없는 변수 위반이 5줄과 같다. 모든 style guide 에서 CSS 를 찾는다(51/51)
@@ -155,3 +155,4 @@ pnpm test:unit                  # ← style-guide-catalog accessibility.test.ts 
 - 2026-10-08T18:55 · s:0882524c — `전략` 섹션 교체
 - 2026-10-08T18:55 · s:0882524c — S5 화면 확인에서 core 포커스 테두리가 인라인 스타일이라 !important 없는 모티프 규칙(tactile·collage)은 가려져 왔다는 것을 확인 — 실제 미달은 5개·색 스킴 7개. changeset·전략 절 바로잡음
 - 2026-10-08T19:08 · s:0882524c — 검토 항목 1 반려(검토자) — 소개 문구 두 곳(shattered 280 · neobrutalism 237)이 바뀐 포커스 색과 어긋남 · rose 의 새 포커스 시안이 테두리 굴절 시안과 같은 계열이라는 사실이 배경에 없음. 같은 카드 재작업
+- 2026-10-08T19:08 · s:0882524c — `전략` 섹션 교체
