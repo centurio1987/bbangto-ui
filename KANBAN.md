@@ -56,8 +56,6 @@
 ## 할 일
 
 ## 진행 중
-
-## 검토
 - `KAN-065-XSHEMV` style guide 모티프 버튼 포커스 테두리 정리 — 자체 CSS 18곳 대비와 없는 semantic 변수 참조 — 생성:ai · 최종:ai · 갱신:2026-10-08
   - 짧은 제목: 모티프 포커스 테두리
   - 목적: style guide 가 자기 CSS 로 그리는 버튼 포커스 테두리 18곳이 표면과 3:1 이상이 되게 하고, 없는 semantic 변수를 읽는 4곳도 바로잡는다
@@ -65,12 +63,14 @@
   - 목표: 모티프 버튼 포커스 테두리의 대비를 재는 검사가 생기고 18곳이 모두 3:1 이상이 된다. style guide 소스에 없는 semantic 변수 참조가 0이 된다
   - 메모: KAN-060 검토 항목 3(2026-10-08 유저 선택)에서 나왔다. 잰 값과 고칠 자리는 실행 문서 「전략」 절
   - 실행 문서: KANBAN/cards/KAN-065-XSHEMV.md (5/5 · 최근 10-08)
-  - 계획 리포트: KANBAN/reports/KAN-065-XSHEMV.report.html
+  - 계획 리포트: KANBAN/reports/KAN-065-XSHEMV.report.html (낡음)
   - 검토 문서: KANBAN/reviews/KAN-065-XSHEMV.review.md (승인 2/3 · 반려 1 · 추가 의견 총 3 · 검토 대기)
   - 원문:
     ```text
     12곳은 여기서, 18곳은 새 카드 (앞 질문 「항목 3(style guide 자체 CSS의 버튼 포커스 테두리 30곳)을 어떻게 처리할까요?」에 대한 답)
     ```
+
+## 검토
 
 ## 완료
 - `KAN-020` visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현 — 생성:유저 · 최종:유저 · 갱신:2026-08-14

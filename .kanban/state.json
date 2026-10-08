@@ -1,6 +1,6 @@
 {
   "next_id": 67,
-  "next_seq": 250,
+  "next_seq": 251,
   "cards": {
     "KAN-057-CCH3E8": {
       "col": "backlog",
@@ -150,7 +150,7 @@
       "memo_hash": "2d69b33becebe6a5d6af6ac29847dfc600699c06"
     },
     "KAN-065-XSHEMV": {
-      "col": "review",
+      "col": "doing",
       "title": "style guide 모티프 버튼 포커스 테두리 정리 — 자체 CSS 18곳 대비와 없는 semantic 변수 참조",
       "verbatim": "12곳은 여기서, 18곳은 새 카드 (앞 질문 「항목 3(style guide 자체 CSS의 버튼 포커스 테두리 30곳)을 어떻게 처리할까요?」에 대한 답)",
       "생성": "ai",
@@ -1372,6 +1372,16 @@
   ],
   "recent": [
     {
+      "seq": 250,
+      "t": "2026-10-08T19:08",
+      "a": "ai",
+      "id": "KAN-065-XSHEMV",
+      "op": "move",
+      "w": "ZTJ9MG",
+      "from": "review",
+      "to": "doing"
+    },
+    {
       "seq": 249,
       "t": "2026-10-08T18:56",
       "a": "ai",
@@ -1906,16 +1916,6 @@
       "w": "GTA753",
       "from": "todo",
       "to": "doing"
-    },
-    {
-      "seq": 220,
-      "t": "2026-10-07T19:16",
-      "a": "유저",
-      "id": "KAN-055-34A57K",
-      "op": "waive",
-      "w": "S7030N",
-      "with_": "KAN-059-62EAKB",
-      "reason": "059의 changeset은 059가 main에 병합된 뒤에만 들어오므로 그 전 배포에 섞이지 않는다. 먼저 병합되면 함께 배포된다. KAN-054·058과 같은 처리 (2026-10-07 유저 선택)"
     }
   ],
   "waivers": [

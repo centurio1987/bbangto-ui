@@ -154,3 +154,4 @@ pnpm test:unit                  # ← style-guide-catalog accessibility.test.ts 
 - 2026-10-08T18:54 · s:0882524c · S5 done — README 포커스 대비 단락에 모티프 CSS 검사, changeset(style-guide-catalog patch). 게이트 5종 초록(typecheck·build·test 1293·storybook build·test:unit — 첫 test:unit 은 foundations bundleBudget 자체 시험 5초 시간 초과, 단독·재실행 통과). 추가 확인: 빌드한 Storybook 에서 실제 Tab — neobrutalism #A9881C 2px, tactile #EB5D94, minimal-saas #4F46E5 3px 고리. tactile·collage 모티프 규칙은 !important 가 없어 core 2px 테두리가 그려진다(색은 같은 토큰, 이 카드 전부터) — tactile 소개 문구의 3px 를 걷음
 - 2026-10-08T18:55 · s:0882524c — `전략` 섹션 교체
 - 2026-10-08T18:55 · s:0882524c — S5 화면 확인에서 core 포커스 테두리가 인라인 스타일이라 !important 없는 모티프 규칙(tactile·collage)은 가려져 왔다는 것을 확인 — 실제 미달은 5개·색 스킴 7개. changeset·전략 절 바로잡음
+- 2026-10-08T19:08 · s:0882524c — 검토 항목 1 반려(검토자) — 소개 문구 두 곳(shattered 280 · neobrutalism 237)이 바뀐 포커스 색과 어긋남 · rose 의 새 포커스 시안이 테두리 굴절 시안과 같은 계열이라는 사실이 배경에 없음. 같은 카드 재작업
