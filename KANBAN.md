@@ -65,8 +65,8 @@
   - 목표: 모티프 버튼 포커스 테두리의 대비를 재는 검사가 생기고 18곳이 모두 3:1 이상이 된다. style guide 소스에 없는 semantic 변수 참조가 0이 된다
   - 메모: KAN-060 검토 항목 3(2026-10-08 유저 선택)에서 나왔다. 잰 값과 고칠 자리는 실행 문서 「전략」 절
   - 실행 문서: KANBAN/cards/KAN-065-XSHEMV.md (5/5 · 최근 10-08)
-  - 계획 리포트: KANBAN/reports/KAN-065-XSHEMV.report.html (낡음)
-  - 검토 문서: KANBAN/reviews/KAN-065-XSHEMV.review.md (승인 2/3 · 철회 1 · 추가 의견 총 4 · 검토 대기)
+  - 계획 리포트: KANBAN/reports/KAN-065-XSHEMV.report.html
+  - 검토 문서: KANBAN/reviews/KAN-065-XSHEMV.review.md (승인 3/3 · 철회 1 · 추가 의견 총 5 · 검토 대기)
   - 원문:
     ```text
     12곳은 여기서, 18곳은 새 카드 (앞 질문 「항목 3(style guide 자체 CSS의 버튼 포커스 테두리 30곳)을 어떻게 처리할까요?」에 대한 답)
