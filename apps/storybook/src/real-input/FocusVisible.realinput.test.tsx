@@ -22,8 +22,12 @@ import {
   TreeView,
 } from '@centurio1987/bbangto-ui-core';
 import { neonYellowFoundation } from '@centurio1987/bbangto-ui-foundations';
+import {
+  neobrutalismEditorialStyleGuide,
+  neobrutalismEditorialWrappers,
+} from '@centurio1987/bbangto-ui-style-guide-catalog';
 import { focusContrast, FOCUS_CONTRAST_MIN, type BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens';
-import { mount, unmountAll } from './mount';
+import { mount, mountStyleGuide, unmountAll } from './mount';
 
 /**
  * 키보드로 닿게 만든 자리에는 포커스 표시가 보여야 한다(KAN-054 검토 §3-6).
@@ -358,6 +362,45 @@ describe('포커스 표시 색 — 실제 입력 (KAN-060)', () => {
     const save = byText(host, 'Save');
     await Promise.all(save.getAnimations().map((a) => a.finished));
     const provider = host.querySelector('[data-bbangto-foundation]')!;
+    const surface = (name: string) =>
+      getComputedStyle(provider).getPropertyValue(`--bbangto-semantic-background-${name}`).trim();
+    const fc = focusContrast({
+      border: { focus: getComputedStyle(save).outlineColor },
+      background: { base: surface('base'), elevated: surface('elevated') },
+    });
+    expect(fc, '테두리 색이나 표면 변수를 못 읽음').not.toBeNull();
+    expect(fc!.ratio).toBeGreaterThanOrEqual(FOCUS_CONTRAST_MIN);
+  });
+});
+
+/**
+ * style guide 가 자기 CSS 로 그리는 모티프 버튼 포커스 테두리도 표면과 3:1 이어야 한다(KAN-065).
+ * 단위 검사(style-guide-catalog accessibility.test.ts)는 모티프 CSS 의 변수를 색 스킴 값으로 풀어 계산한다 —
+ * 그 계산이 브라우저가 실제로 칠한 색과 같은지 여기서 한 건 대조한다. Neobrutalism default 는 확장 변수 accent
+ * (#E9C766, 금색)를 읽어 크림 바탕과 1.47 이었다. 확장 변수는 StyleGuideProvider 가 깔므로 mountStyleGuide 로 그린다.
+ */
+describe('모티프 포커스 테두리 색 — 실제 입력 (KAN-065)', () => {
+  it('Neobrutalism default 모티프 Button 에 Tab 으로 오면 테두리 색이 배경과 3:1 이상', async () => {
+    const MotifButton = neobrutalismEditorialWrappers.Button;
+    const host = mountStyleGuide(
+      <>
+        <button type="button">Before</button>
+        <div data-under-test>
+          <MotifButton>Save</MotifButton>
+        </div>
+        <button type="button">After</button>
+      </>,
+      neobrutalismEditorialStyleGuide,
+      'default',
+    );
+    const root = host.querySelector<HTMLElement>('[data-under-test]')!;
+    await tabIn(host);
+    await vi.waitFor(() => expect(document.activeElement?.textContent).toBe('Save'));
+    await vi.waitFor(() => expect(ringsIn(root)).toEqual(['solid 2px']));
+    const save = byText(host, 'Save');
+    await Promise.all(save.getAnimations().map((a) => a.finished));
+    const provider = host.querySelector('[data-bbangto-foundation]')!;
+    expect(provider.getAttribute('data-bbangto-foundation')).toBe('default');
     const surface = (name: string) =>
       getComputedStyle(provider).getPropertyValue(`--bbangto-semantic-background-${name}`).trim();
     const fc = focusContrast({

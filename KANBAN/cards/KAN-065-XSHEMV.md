@@ -90,7 +90,7 @@ style guide 51개는 저마다 모티프 버튼(그 style guide 모양을 덧칠
 
 ## 실행 계획
 - [x] `S1` 게이트 먼저 — `_motif.tsx` 에 래퍼 → CSS 대응표와 `motifCssOf`(배럴에는 안 냄), `accessibilityAudit.ts` 에 포커스 선언을 꺼내는 함수와 `auditMotifFocusContrast`, `accessibility.test.ts` 에 fixture 와 실제 검사, 없는 semantic 변수 검사를 `outline` 줄에서 모든 줄로 넓힌다. 완료 기준: fixture 초록 — 확장 변수를 색 스킴 값으로 풂 · 색 스킴에 없는 변수는 대체값 · `box-shadow` 고리 · `outline: none` 건너뜀 · `@media` 안 규칙 · 못 푼 색은 `unparseable`. 실제 검사 빨강 — 모티프 포커스 위반이 전략 표의 10건과 같고, 없는 변수 위반이 5줄과 같다. 모든 style guide 에서 CSS 를 찾는다(51/51)
-- [ ] `S2` 브라우저 확인 먼저 — `apps/storybook/src/real-input/mount.tsx` 에 style guide 와 색 스킴을 받는 마운트(`StyleGuideProvider`), `FocusVisible.realinput.test.tsx` 에 「Neobrutalism default 모티프 Button 에 Tab 으로 오면 테두리 색이 배경과 3:1 이상」. 완료 기준: 새 항목 빨강(약 1.47), 기존 실제 입력 항목 초록
+- [x] `S2` 브라우저 확인 먼저 — `apps/storybook/src/real-input/mount.tsx` 에 style guide 와 색 스킴을 받는 마운트(`StyleGuideProvider`), `FocusVisible.realinput.test.tsx` 에 「Neobrutalism default 모티프 Button 에 Tab 으로 오면 테두리 색이 배경과 3:1 이상」. 완료 기준: 새 항목 빨강(약 1.47), 기존 실제 입력 항목 초록
 - [ ] `S3` 미달 6곳을 포커스 색 토큰으로 — neobrutalism · minimal-saas(고리 모양은 두고 색만) · tactile-texture · gothic-medieval-digital · shattered-glass-cinematic · iridescent-chrome 의 포커스 선언을 `var(--bbangto-semantic-border-focus, <default 포커스 색>)` 로 바꾼다. 확장 변수 값은 그대로 둔다. 소개 문구의 포커스 색이 어긋나면 함께 고친다. 완료 기준: 모티프 포커스 검사 초록(위반 0), S2 항목 초록, 바뀐 색이 전략 표 12행과 같다
 - [ ] `S4` 없는 변수 5줄 바로잡기 — aiSurreal 200·201 → `--bbangto-semantic-border-focus`, blueprint 128 → `--bbangto-semantic-background-elevated`, scandi 161 · spatial3d 185 → `--bbangto-semantic-border-base`. 대체값은 그대로. 완료 기준: 없는 semantic 변수 검사 초록(0줄)
 - [ ] `S5` 문서와 마무리 — 루트 `README.md` 포커스 대비 단락에 「모티프 CSS 의 포커스 테두리도 같은 규칙으로 잰다」를 더한다. changeset(`.changeset/kan-065-motif-focus.md` — style-guide-catalog patch). 게이트 5종, 검토서. 완료 기준: 게이트 5종 초록, 검토로 이동
@@ -137,3 +137,5 @@ pnpm test:unit                  # ← style-guide-catalog accessibility.test.ts 
 - 2026-10-08T18:28 · s:0882524c — `검증` 섹션 교체
 - 2026-10-08T18:40 · s:0882524c · S1 doing — 착수
 - 2026-10-08T18:43 · s:0882524c · S1 done — 모티프 CSS 대응표(motifCssOf, 배럴 밖)·auditMotifFocusContrast·없는 semantic 변수 검사를 모든 줄로. fixture 초록, 51/51 CSS 찾음. 실제 검사 빨강 — 모티프 포커스 10건(계획 표와 같음)·없는 변수 5줄
+- 2026-10-08T18:43 · s:0882524c · S2 doing — 착수
+- 2026-10-08T18:44 · s:0882524c · S2 done — mount.tsx 에 mountStyleGuide(StyleGuideProvider, fonts none). 실제 Tab 으로 Neobrutalism default 모티프 Button 테두리 1.47 빨강 — 단위 검사 계산과 같다. 기존 실제 입력 21개 초록, typecheck 통과
