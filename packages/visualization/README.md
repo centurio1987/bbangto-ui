@@ -140,9 +140,10 @@ Provider는 기본으로 JetBrains Mono를 Google Fonts에서 불러온다. 글�
   예외는 면 위에 반투명 검정을 얹는 음영·틴트(`Node` cube 면, `IsoPrism`, `IsometricScene` 바닥 그림자, `Lane`,
   `KanbanBoard` 열 바탕, `RequirementDiagram` 머리 띠)뿐이다 — 어떤 스타일 가이드 위에서도 같은 명암을 내는 장치라
   토큰을 따르지 않는다. Storybook `VISUALIZATION/Templates/Paint Gate`
-  (`apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx`)가 이 규약을 검사하지만, 그 파일과
-  `_matrixFixtures.tsx` 에 표본(fixture)이 있는 템플릿만 본다. 표본이 없는 템플릿은 리터럴이 들어와도 걸리지 않으므로,
-  새 템플릿은 표본을 더해야 검사에 든다.
+  (`apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx`)가 이 규약을 검사한다. 검사는
+  `_paintGateFixtures.tsx` 의 표본(fixture)을 그리고, `src/templates/index.ts` 가 내보내는 템플릿마다 표본이 하나씩
+  있어야 한다. 새 템플릿을 내보내고 표본을 더하지 않으면 `test:unit` 에서
+  `packages/foundations/src/vizPaintGateCoverage.test.ts` 가 그 템플릿 이름으로 실패한다.
 - **명시한 prop 이 이긴다.** 사용자가 준 `fill`·`stroke` 는 인라인 `style` 로 렌더된다. SVG presentation
   attribute 는 author stylesheet 에 지고 `var()` 도 attribute 안에서는 무효라 쓰지 않는다.
 - **토큰 계층**: `VisualizationFoundation`(tokens 패키지) → `vvar()` 가 만드는 `var(--bbangto-viz-…)` →
@@ -185,7 +186,7 @@ Provider는 기본으로 JetBrains Mono를 Google Fonts에서 불러온다. 글�
 - **글자색 토큰은 그 뒤 면 토큰과 짝지어 대비를 재고 고른다.** 기본 가이드에서 읽힌다고 다른 가이드에서도 읽히지는 않는다.
   지금 카탈로그 30개에서 `edge.stroke` 는 `canvas.bg` 위에서 모두 4.5:1 이상이지만, 팔레트 면 위에서는 바탕과 같은 색이 되는
   가이드가 있다(synthwave 의 `palette.p2` 와 `edge.stroke` 는 둘 다 `#28E0F0`). Paint Gate 와 같은 파일의 `LabelContrastGate` 가
-  KAN-056 대상 템플릿 13개를 카탈로그 가이드 전부에서 그려 글자 대비를 재고, 이미 있는 미달은
+  표본 전부를 카탈로그 가이드 전부에서 그려 글자 대비를 재고, 이미 있는 미달은
   `_labelContrastBaseline.ts` 에 적혀 있다. 그 목록은 줄어들기만 해야 한다.
 - **접근성**: 루트 `Canvas` 는 `role="img"`(`accessible="structured"` 면 `group`)와 `title`(선택 `desc`)을 갖는다.
   값은 항상 텍스트로 함께 적는다 — 그래픽만으로 값을 말하지 않는다. 노드 글리프·아이콘 배지 같은 장식은 `aria-hidden` 이다.
