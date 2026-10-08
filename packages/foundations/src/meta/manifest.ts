@@ -10,7 +10,8 @@
  *  - authored 항목의 `accessibility.contrastIntent` over-claim(선언 > 실측)을 **hard-fail**,
  *  - `related` 참조 정합성(존재·self-ref·중복)을 검증,
  *  - slug 오름차순으로 결정적 정렬한다.
- * 순수 데이터(렌더 없음)라 Node에서 안전 실행. 최신성은 manifest.test.ts 바이트 동기 테스트가 강제.
+ * 렌더는 없지만 대비 계산을 tokens 런타임에서 가져오므로 Node 에서 돌리려면 tokens 의 dist 가 있어야 한다(KAN-064 실측).
+ * 최신성은 manifest.test.ts 의 색인 바이트 동기 테스트가 강제.
  */
 import type { BbangtoFoundation, FoundationMeta, FoundationColorScheme } from '@centurio1987/bbangto-ui-tokens';
 import {

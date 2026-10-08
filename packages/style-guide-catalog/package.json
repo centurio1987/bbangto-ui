@@ -16,6 +16,7 @@
   "files": [
     "dist",
     "catalog.manifest.json",
+    "manifest",
     "README.md"
   ],
   "scripts": {

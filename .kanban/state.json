@@ -1,6 +1,6 @@
 {
   "next_id": 67,
-  "next_seq": 250,
+  "next_seq": 252,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -162,7 +162,9 @@
         "packages/style-guide-catalog/manifest/**",
         "packages/visualization-style-guide-catalog/manifest/**",
         "packages/foundations/manifest/**",
-        "packages/visualization/manifest/**"
+        "packages/visualization/manifest/**",
+        "packages/visualization/src/typeMeta/jsdoc.test.ts",
+        "packages/visualization/README.md"
       ]
     },
     "KAN-065-XSHEMV": {
@@ -1377,6 +1379,26 @@
   ],
   "recent": [
     {
+      "seq": 251,
+      "t": "2026-10-08T19:05",
+      "a": "ai",
+      "id": "KAN-064-AC0H6M",
+      "op": "waive",
+      "w": "7E5YYM",
+      "with_": "KAN-065-XSHEMV",
+      "reason": "재기록(scope 에 jsdoc.test.ts·visualization README 를 더해 무효, KAN-065 와 겹치는 파일은 그대로): 유저 선택(2026-10-08 「둘 다 용인」). 루트 README.md 에서 KAN-064 는 기여 절차 4단계의 매니페스트 표와 그 아래 단락만, KAN-065 는 포커스 대비 단락만 고친다"
+    },
+    {
+      "seq": 250,
+      "t": "2026-10-08T19:05",
+      "a": "ai",
+      "id": "KAN-064-AC0H6M",
+      "op": "waive",
+      "w": "7E5YYM",
+      "with_": "KAN-055-34A57K",
+      "reason": "재기록(scope 에 jsdoc.test.ts·visualization README 를 더해 무효, KAN-055 와 겹치는 파일은 그대로): 유저 선택(2026-10-08 「둘 다 용인」). package.json 3개는 KAN-064 가 scripts.prebuild·files 만, KAN-055 는 version 만 고친다. changeset 은 KAN-064 가 kan-064-manifest-index.md 한 장을 더할 뿐이다. 배포 전에 병합되면 major 가 그 배포에 실리므로 병합 때 KAN-055 상태를 확인한다"
+    },
+    {
       "seq": 249,
       "t": "2026-10-08T18:43",
       "a": "ai",
@@ -1908,26 +1930,6 @@
       "reason": "KAN-059 가 모든 포커스 테두리를 border.focus 로 그리는데, 그 색 스킴에서는 테두리가 배경과 거의 같아 보이지 않는다(neonYellow 1.03, cosmonaut 1.00)",
       "goal": "모든 foundation·style guide 색 스킴에서 border.focus 가 background.base·elevated 와 3:1 이상이고, 어기면 test:unit 이 빨강이 된다",
       "memo": "KAN-059 착수 전 계획에서 발견(2026-10-07 main dist 를 tokens contrastRatio 로 계산). 그라디언트 배경 style guide 는 아직 못 쟀다 · 테두리는 border.focus 를 실행 때 읽으므로 토큰만 고치면 KAN-059 결과에 그대로 반영된다"
-    },
-    {
-      "seq": 218,
-      "t": "2026-10-07T18:06",
-      "a": "ai",
-      "id": "KAN-056-D3V1MB",
-      "op": "move",
-      "w": "S7030N",
-      "from": "backlog",
-      "to": "todo"
-    },
-    {
-      "seq": 217,
-      "t": "2026-10-07T18:03",
-      "a": "ai",
-      "id": "KAN-059-62EAKB",
-      "op": "move",
-      "w": "S7030N",
-      "from": "backlog",
-      "to": "todo"
     }
   ],
   "waivers": [
@@ -2017,16 +2019,16 @@
     },
     {
       "pair": "KAN-055-34A57K|KAN-064-AC0H6M",
-      "scope_hash": "8709b6816eff07e1",
-      "reason": "재기록(scope 에 census 게이트·상세 폴더를 더해 무효, 겹치는 파일은 그대로): 유저 선택(2026-10-08 「둘 다 용인」). package.json 3개는 KAN-064 가 scripts.prebuild·files 만, KAN-055 는 version 만 고친다. changeset 은 KAN-064 가 kan-064-manifest-index.md 한 장을 더할 뿐이다. 배포 전에 병합되면 major 가 그 배포에 실리므로 병합 때 KAN-055 상태를 확인한다",
-      "created": "2026-10-08T18:43",
+      "scope_hash": "5d89d86a1be83c95",
+      "reason": "재기록(scope 에 jsdoc.test.ts·visualization README 를 더해 무효, KAN-055 와 겹치는 파일은 그대로): 유저 선택(2026-10-08 「둘 다 용인」). package.json 3개는 KAN-064 가 scripts.prebuild·files 만, KAN-055 는 version 만 고친다. changeset 은 KAN-064 가 kan-064-manifest-index.md 한 장을 더할 뿐이다. 배포 전에 병합되면 major 가 그 배포에 실리므로 병합 때 KAN-055 상태를 확인한다",
+      "created": "2026-10-08T19:05",
       "by": "ai"
     },
     {
       "pair": "KAN-064-AC0H6M|KAN-065-XSHEMV",
-      "scope_hash": "b2847caacbd81f8e",
-      "reason": "재기록(scope 에 census 게이트·상세 폴더를 더해 무효, 겹치는 파일은 그대로): 유저 선택(2026-10-08 「둘 다 용인」). 루트 README.md 에서 KAN-064 는 기여 절차 4단계의 매니페스트 표와 그 아래 단락만, KAN-065 는 포커스 대비 단락만 고친다",
-      "created": "2026-10-08T18:43",
+      "scope_hash": "16086500b90f77d0",
+      "reason": "재기록(scope 에 jsdoc.test.ts·visualization README 를 더해 무효, KAN-065 와 겹치는 파일은 그대로): 유저 선택(2026-10-08 「둘 다 용인」). 루트 README.md 에서 KAN-064 는 기여 절차 4단계의 매니페스트 표와 그 아래 단락만, KAN-065 는 포커스 대비 단락만 고친다",
+      "created": "2026-10-08T19:05",
       "by": "ai"
     }
   ],

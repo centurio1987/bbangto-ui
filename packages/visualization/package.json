@@ -20,11 +20,13 @@
   "files": [
     "dist",
     "type.manifest.json",
+    "manifest",
     "README.md",
     "visualization-type-inventory.md",
     "TYPE_METADATA_STRATEGY.md"
   ],
   "scripts": {
+    "prebuild": "pnpm gen:type-manifest",
     "build": "tsup",
     "typecheck": "tsc --noEmit",
     "test": "vitest --run",

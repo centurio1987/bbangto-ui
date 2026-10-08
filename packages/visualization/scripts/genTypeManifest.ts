@@ -4,7 +4,7 @@
  * vizTypeRegistry(SSOT)에서 유형 축 매니페스트를 파생해 패키지 루트에 색인(type.manifest.json)과
  * 항목별 상세(manifest/<id>.json)를 결정적 JSON으로 쓴다(KAN-064). 상세 폴더는 매번 비우고 다시 쓴다.
  * 레지스트리는 **순수 데이터**(컴포넌트 import 없음)라 dist 빌드 없이 Node에서 안전하게 실행된다.
- * 최신성은 manifest.test.ts의 바이트 동기 테스트가 강제한다(prebuild 자동배선 없음 — 코어 패키지 blast radius 최소화).
+ * `pnpm build` 가 prebuild 로 부른다(KAN-064). 최신성은 manifest.test.ts 의 색인 바이트 동기 테스트가 강제한다.
  */
 import { mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
