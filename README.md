@@ -731,6 +731,19 @@ pnpm add @centurio1987/bbangto-ui-core @centurio1987/bbangto-ui-style-guide-cata
 
    전경색에 `var(--x)` 같은 값을 넣으면 측정이 안 됩니다. 이때 조용히 넘어가지 않고 `unparseable-foreground` 위반으로 올라옵니다. 게이트가 소리 없이 비는 상태를 막는 장치입니다.
 
+   포커스 테두리 색도 같은 자리에서 잽니다. `semantic.border.focus`가 `background.base`·`background.elevated`와 3:1(WCAG 1.4.11 비텍스트 대비) 이상이어야 하고, 이쪽은 `contrastIntent` 선언과 상관없이 모든 색 스킴을 봅니다. 키보드 포커스 테두리는 모든 상호작용 컴포넌트가 이 색으로 그리니, 낮은 대비를 고른 스타일 가이드에서도 보여야 하기 때문이에요.
+
+   ```ts
+   import { auditFocusContrast } from '@centurio1987/bbangto-ui-style-guide-catalog';
+   import { focusContrast, FOCUS_CONTRAST_MIN } from '@centurio1987/bbangto-ui-tokens';
+
+   FOCUS_CONTRAST_MIN;                                         // 3
+   auditFocusContrast([coastalGridStyleGuide]);                // [] 이면 통과
+   focusContrast(coastalGridStyleGuide.foundations.semantic);  // { ratio, against: 'base' | 'elevated' }
+   ```
+
+   흰 바탕에 노랑 포커스(`#FAFF69`)를 두면 약 1.07:1이라 `{ reason: 'below-threshold', against: 'base' }`가 나옵니다. 고칠 때는 색조를 두고 명도만 낮추면 브랜드 느낌이 덜 깨집니다. `elevated`가 `rgba(255,255,255,0.08)`처럼 반투명이면 흰색이 아니라 `base` 위에 겹쳐 잽니다. 유리 효과 카드는 실제로 어두운 바탕 위에 깔리기 때문입니다. foundation을 새로 만들 때는 `packages/foundations/src/focusContrast.test.ts`가 같은 규칙으로 잽니다.
+
    ```bash
    pnpm --filter @centurio1987/bbangto-ui-style-guide-catalog test
    ```

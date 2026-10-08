@@ -64,7 +64,7 @@
   - 이유: KAN-059 가 모든 포커스 테두리를 border.focus 로 그리는데, 그 색 스킴에서는 테두리가 배경과 거의 같아 보이지 않는다(neonYellow 1.03, cosmonaut 1.00)
   - 목표: 모든 foundation·style guide 색 스킴에서 border.focus 가 background.base·elevated 와 3:1 이상이고, 어기면 test:unit 이 빨강이 된다
   - 메모: KAN-059 착수 전 계획에서 발견(2026-10-07 main dist 를 tokens contrastRatio 로 계산). 그라디언트 배경 style guide 는 아직 못 쟀다 · 테두리는 border.focus 를 실행 때 읽으므로 토큰만 고치면 KAN-059 결과에 그대로 반영된다
-  - 실행 문서: KANBAN/cards/KAN-060-G9YKG6.md (4/5 · 최근 10-08)
+  - 실행 문서: KANBAN/cards/KAN-060-G9YKG6.md (5/5 · 최근 10-08)
   - 계획 리포트: KANBAN/reports/KAN-060-G9YKG6.report.html (낡음)
   - 원문:
     ```text
