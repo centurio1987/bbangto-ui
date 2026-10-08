@@ -30,7 +30,10 @@ import { PAINT_GATE_FIXTURES } from './_paintGateFixtures';
 const meta = {
   title: 'VISUALIZATION/Templates/Paint Gate',
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  // 검사 전용 화면이다. 템플릿을 가이드 30개 × 68개로 2천 장 넘게 그려서, 플레이 뒤 axe 접근성 검사가 40초 가까이
+  // 걸린다(KAN-063 실측, 끄면 몇 초). 전역 설정이 'todo'(실패로 치지 않음)라 여기서 끄면 잃는 것은 템플릿마다 있는
+  // 개별 스토리에서도 나오는 같은 경고뿐이다.
+  parameters: { layout: 'padded', a11y: { test: 'off' } },
 } satisfies Meta;
 
 export default meta;
@@ -71,25 +74,7 @@ const GUIDE_B: VisualizationStyleGuide = {
 // fixture — `_paintGateFixtures.tsx` 에 templates 가 내보내는 템플릿마다 하나씩 있다(KAN-063)
 // ────────────────────────────────────────────────────────────────────────
 
-/** KAN-056 이 고친 13개. 글자 대비 검사는 아직 이 13개만 그린다. play 가 이 수를 확인한다. */
-const KAN056_TARGET_KEYS = [
-  'architecture',
-  'block-diagram',
-  'kanban-board',
-  'mindmap',
-  'uml-component',
-  'bpmn',
-  'archimate-business',
-  'bpmn-collaboration',
-  'c4-code',
-  'requirement',
-  'timeline',
-  'uml-deployment',
-  'uml-sequence',
-];
-const TARGET_FIXTURES = PAINT_GATE_FIXTURES.filter((f) => KAN056_TARGET_KEYS.includes(f.key));
-
-/** 리터럴 검사는 표본 전부를 그린다. 표본이 빠진 템플릿은 `vizPaintGateCoverage.test.ts` 가 `test:unit` 에서 잡는다. */
+/** 두 검사 모두 표본 전부를 그린다. 표본이 빠진 템플릿은 `vizPaintGateCoverage.test.ts` 가 `test:unit` 에서 잡는다. */
 const GATE_FIXTURES = PAINT_GATE_FIXTURES;
 
 // ────────────────────────────────────────────────────────────────────────
@@ -156,10 +141,9 @@ export const LiteralPaintGate: Story = {
     </div>
   ),
   play: async ({ canvasElement }) => {
-    // fixture 가드 — KAN-056 대상 13개가 모두 있고 key 가 겹치지 않는다
+    // fixture 가드 — key 가 겹치지 않는다
     const keys = GATE_FIXTURES.map((f) => f.key);
     await expect(new Set(keys).size).toBe(keys.length);
-    await expect(TARGET_FIXTURES.length).toBe(13);
 
     const rows = Array.from(canvasElement.querySelectorAll<HTMLElement>('[data-paint-gate-row]'));
     await expect(rows.length).toBe(GATE_FIXTURES.length);
@@ -189,7 +173,7 @@ export const LiteralPaintGate: Story = {
 /**
  * 리터럴을 토큰으로 바꾸면 글자색과 그 뒤 면 색이 서로 다른 토큰에서 오게 된다. 기본 가이드에서
  * 멀쩡해도 다른 가이드에서는 두 토큰이 같은 색일 수 있다(KAN-056 검토 항목 4: synthwave 에서
- * 시퀀스 머리 바탕 p2 와 이름 글자 edge.stroke 가 둘 다 #28E0F0 이었다). 그래서 대상 13개를
+ * 시퀀스 머리 바탕 p2 와 이름 글자 edge.stroke 가 둘 다 #28E0F0 이었다). 그래서 표본 전부를
  * 카탈로그 가이드 전부에서 그리고, 글자마다 그 아래 깔린 면을 합성해 대비를 잰다.
  *
  * - 배경: 캔버스 바탕(svg background) 위에, 글자 중심점을 칠하는 도형(rect·circle·ellipse·path·
@@ -271,7 +255,7 @@ export const LabelContrastGate: Story = {
             styleGuide={{ name: sg.name, foundations: sg.foundations }}
             style={{ display: 'flex', gap: 8, flexWrap: 'wrap', padding: 8 }}
           >
-            {TARGET_FIXTURES.map((fx) => (
+            {GATE_FIXTURES.map((fx) => (
               <div key={fx.key} data-contrast-gate-cell={fx.key}>
                 {fx.render()}
               </div>
@@ -289,7 +273,7 @@ export const LabelContrastGate: Story = {
     for (const section of sections) {
       const guide = section.dataset.contrastGateGuide!;
       const cells = Array.from(section.querySelectorAll<HTMLElement>('[data-contrast-gate-cell]'));
-      await expect(cells.length).toBe(TARGET_FIXTURES.length);
+      await expect(cells.length).toBe(GATE_FIXTURES.length);
       for (const cell of cells) {
         const key = cell.dataset.contrastGateCell!;
         const result = collectLowContrast(guide, key, cell);
@@ -303,7 +287,8 @@ export const LabelContrastGate: Story = {
     for (const { id, ratio } of low) {
       seen.add(id);
       const floor = LABEL_CONTRAST_BASELINE[id];
-      if (floor === undefined) problems.push(`새 미달 ${id} ${ratio.toFixed(2)}`);
+      // 새 미달은 기준 목록에 그대로 옮겨 적을 수 있는 줄로 낸다
+      if (floor === undefined) problems.push(`새 미달 — ${JSON.stringify(id)}: ${Number(ratio.toFixed(2))},`);
       else if (ratio < floor - 0.01) problems.push(`더 떨어짐 ${id} ${floor} → ${ratio.toFixed(2)}`);
     }
     for (const id of Object.keys(LABEL_CONTRAST_BASELINE)) {

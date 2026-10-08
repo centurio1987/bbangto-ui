@@ -44,7 +44,7 @@ Paint Gate(`apps/storybook/src/stories/visualization/TemplatePaintGate.stories.t
 - [x] `S1` 표본 누락 검사 세우기 — `packages/foundations/src/vizPaintGateCoverage.ts`·`.test.ts`. 완료 기준: 실패 주입 표본 셋(누락·중복·없는 이름)에서 위반을 내고, 실제 저장소 검사는 표본 파일이 아직 없어 68개 누락으로 빨강이다.
 - [x] `S2` 표본 68개 작성 — `_paintGateFixtures.tsx`(matrix 24개 가져오기 · 스토리 안 7개 옮기기 · 새 37개). 스토리가 이 목록을 쓰게 바꾼다. 완료 기준: S1 검사 초록, storybook typecheck 통과.
 - [x] `S3` 리터럴 검사를 68개로 — `LiteralPaintGate` 가 표본 전부를 그린다. 위반은 템플릿을 고쳐 없앤다. 완료 기준: `LiteralPaintGate` 초록, 표본마다 비교한 paint 수가 0보다 크다. 고친 템플릿과 줄을 수행 내역에 남긴다(없으면 없다고 남긴다).
-- [ ] `S4` 글자 대비 검사를 68개 × 가이드 30개로 — 새 미달은 기준 목록에 올리고 머리 주석을 고친다. 완료 기준: `LabelContrastGate` 초록, 표본마다 잰 글자 수가 0보다 크다(글자를 그리지 않는 템플릿이면 그 사유를 표본에 적고 따로 뺀다). 늘어난 항목 수를 템플릿별로 수행 내역에 남긴다.
+- [x] `S4` 글자 대비 검사를 68개 × 가이드 30개로 — 새 미달은 기준 목록에 올리고 머리 주석을 고친다. 완료 기준: `LabelContrastGate` 초록, 표본마다 잰 글자 수가 0보다 크다(글자를 그리지 않는 템플릿이면 그 사유를 표본에 적고 따로 뺀다). 늘어난 항목 수를 템플릿별로 수행 내역에 남긴다.
 - [ ] `S5` 문서와 마무리 — README 두 문단, changeset(S3 에서 템플릿을 고쳤을 때만), 품질 게이트 5종. 완료 기준: 게이트 5종 초록.
 
 ## 검증
@@ -66,3 +66,5 @@ Paint Gate(`apps/storybook/src/stories/visualization/TemplatePaintGate.stories.t
 - 2026-10-08T17:41 · s:04d9de55 · S2 done — _paintGateFixtures.tsx 에 표본 68개(matrix 24 fromMatrix · KAN-056 7 key 그대로 옮김 · 새 37). 스토리는 이 목록을 쓰고 범위는 그대로(리터럴 31 · 글자 대비 13). vizPaintGateCoverage 11건 초록, pnpm typecheck 통과, storybook tsc 오류 수 변경 전후 725건 같음(기존 오류), Paint Gate 두 스토리 초록 3.36초. 전략의 「0.5초」는 main 의 낡은 dist 로 검사가 일찍 실패한 값이었다
 - 2026-10-08T17:41 · s:04d9de55 · S3 doing — 착수
 - 2026-10-08T17:42 · s:04d9de55 · S3 done — LiteralPaintGate 가 표본 68개 전부를 그린다. 위반 0 — 새 37개 템플릿에 리터럴 색도 칠하지 않은 자리도 없었다. 고친 템플릿 없음, 그래서 changeset 도 없음. 실패 주입 확인: 가이드 B 를 A 와 같게 두면 68개 key 가 모두 위반으로 잡힌다(확인 뒤 되돌림)
+- 2026-10-08T17:42 · s:04d9de55 · S4 doing — 착수
+- 2026-10-08T17:47 · s:04d9de55 · S4 done — LabelContrastGate 가 표본 68개 × 가이드 30개를 잰다. 새 미달 1334곳(전부 새 항목, 기존 13개에서 더 떨어짐·이제 통과 0)을 기준 목록 「KAN-063」 묶음에 올림(목록 약 200 → 1534). 템플릿별: wbs 204 · treemap 197 · er-diagram 165 · packet 116 · stacked-bar 114 · archimate-viewpoint 96 · heatmap 78 · dmn 69 · user-journey-gantt 57 · c4-dynamic 35 · choropleth 27 · c4-container·archimate-technology·quadrant·archimate-application 각 16 · fishbone 15 · archimate·c4-context·data-lineage 각 12 · sankey 10 · class-diagram·sysml-block 각 8 · c4-system-landscape·sitemap-tree·isometric-scene 각 4 · flowchart·data-flow·activity·concept-map·uml-package·network-topology·network-graph 각 3 · use-case 2. 대비 1.2 이하 127곳(최저 1.0, 예: minimal-line 에서 ArchiMate viewpoint 노드 바탕 p2 와 글자색이 둘 다 #1A1A1A). 기본 가이드 blueprint 에서도 25곳(treemap 10 · stacked-bar 6 · packet 6 · user-journey-gantt 3). 글자를 안 그리는 템플릿 없음. 새 미달 실패 메시지를 기준 목록에 옮겨 적을 줄 형식으로 바꿈. 두 스토리의 axe 접근성 검사를 끔(test: off) — 2천 장을 그린 화면에서 플레이 뒤 axe 가 41초 걸려 60초 제한에 가까웠다. 끈 뒤 2초. 전역이 todo 라 잃는 것은 개별 스토리에도 있는 경고뿐. 실패 주입: 기준 목록에서 한 줄을 빼면 그 줄이 새 미달로 잡힘(확인 뒤 되돌림)
