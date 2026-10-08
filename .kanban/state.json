@@ -1,6 +1,6 @@
 {
-  "next_id": 65,
-  "next_seq": 238,
+  "next_id": 66,
+  "next_seq": 239,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -1210,6 +1210,26 @@
         "metadata-coverage.json",
         "packages/style-guide-catalog/METADATA_STRATEGY.md"
       ]
+    },
+    "KAN-065-XSHEMV": {
+      "col": "backlog",
+      "title": "style guide 모티프 버튼 포커스 테두리 정리 — 자체 CSS 18곳 대비와 없는 semantic 변수 참조",
+      "verbatim": "12곳은 여기서, 18곳은 새 카드 (앞 질문 「항목 3(style guide 자체 CSS의 버튼 포커스 테두리 30곳)을 어떻게 처리할까요?」에 대한 답)",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-08",
+      "title_hash": "55c3fc457945f4174c162e13877c5fc2db730e90",
+      "verbatim_hash": "7fa2890d715a97e27a22728fa28a4a3d79560911",
+      "short": "모티프 포커스 테두리",
+      "short_hash": "027df8b7329aae685d9ac02ec5c5468f53e8391c",
+      "purpose": "style guide 가 자기 CSS 로 그리는 버튼 포커스 테두리 18곳이 표면과 3:1 이상이 되게 하고, 없는 semantic 변수를 읽는 4곳도 바로잡는다",
+      "purpose_hash": "0002a056e0a6fcbf73ed6da55498e70c141bba41",
+      "reason": "KAN-060 검토에서 모티프 버튼 테두리가 border.focus 를 안 따르는 자리가 확인됐다 — 강조색·고정색 18곳이고 Neobrutalism 금색은 크림 바탕에서 1.47 이다",
+      "reason_hash": "6a302b8d689585ce711e8c0d5f20011a1494f41e",
+      "goal": "모티프 버튼 포커스 테두리의 대비를 재는 검사가 생기고 18곳이 모두 3:1 이상이 된다. style guide 소스에 없는 semantic 변수 참조가 0이 된다",
+      "goal_hash": "3dcfc8d51c710957422afcedbe97a59c6131d766",
+      "memo": "KAN-060 검토 항목 3(2026-10-08 유저 선택)에서 나왔다. KAN-060 이 포커스 테두리의 없는 변수 12곳을 고친 뒤 착수. 18곳과 남는 미달 색 스킴 약 10개는 KAN-060 검토서 항목 3 검토자 의견(소스 값 계산, 브라우저로 잰 값 아님). 포커스 밖 없는 변수 4곳: aiSurrealGradient3d.tsx:200·201 태그 색, blueprintTechnical.tsx:128 배경, scandiWarm.tsx:161·spatial3d.tsx:185 태그 테두리",
+      "memo_hash": "3008513fb5c83976ae515a4f4d1c156370af8769"
     }
   },
   "order": [
@@ -1276,9 +1296,27 @@
     "KAN-054-M48FNQ",
     "KAN-058-G883EJ",
     "KAN-059-62EAKB",
-    "KAN-056-D3V1MB"
+    "KAN-056-D3V1MB",
+    "KAN-065-XSHEMV"
   ],
   "recent": [
+    {
+      "seq": 238,
+      "t": "2026-10-08T17:54",
+      "a": "ai",
+      "id": "KAN-065-XSHEMV",
+      "op": "create",
+      "w": "S7030N",
+      "col": "backlog",
+      "title": "style guide 모티프 버튼 포커스 테두리 정리 — 자체 CSS 18곳 대비와 없는 semantic 변수 참조",
+      "verbatim": "12곳은 여기서, 18곳은 새 카드 (앞 질문 「항목 3(style guide 자체 CSS의 버튼 포커스 테두리 30곳)을 어떻게 처리할까요?」에 대한 답)",
+      "parent": null,
+      "short": "모티프 포커스 테두리",
+      "purpose": "style guide 가 자기 CSS 로 그리는 버튼 포커스 테두리 18곳이 표면과 3:1 이상이 되게 하고, 없는 semantic 변수를 읽는 4곳도 바로잡는다",
+      "reason": "KAN-060 검토에서 모티프 버튼 테두리가 border.focus 를 안 따르는 자리가 확인됐다 — 강조색·고정색 18곳이고 Neobrutalism 금색은 크림 바탕에서 1.47 이다",
+      "goal": "모티프 버튼 포커스 테두리의 대비를 재는 검사가 생기고 18곳이 모두 3:1 이상이 된다. style guide 소스에 없는 semantic 변수 참조가 0이 된다",
+      "memo": "KAN-060 검토 항목 3(2026-10-08 유저 선택)에서 나왔다. KAN-060 이 포커스 테두리의 없는 변수 12곳을 고친 뒤 착수. 18곳과 남는 미달 색 스킴 약 10개는 KAN-060 검토서 항목 3 검토자 의견(소스 값 계산, 브라우저로 잰 값 아님). 포커스 밖 없는 변수 4곳: aiSurrealGradient3d.tsx:200·201 태그 색, blueprintTechnical.tsx:128 배경, scandiWarm.tsx:161·spatial3d.tsx:185 태그 테두리"
+    },
     {
       "seq": 237,
       "t": "2026-10-08T17:44",
@@ -1805,16 +1843,6 @@
       "w": "DJT5WZ",
       "with_": "KAN-051-5HMYKT",
       "reason": "같은 CLAUDE.md지만 050은 게이트 명령 4종을 손대지 않고 구조도·경로만 고친다고 적었다. 051은 test:unit 설명 두 줄(39, 103행)만 고친다 (2026-10-05 유저 승인 플랜). 2026-10-07 KAN-050 S2 중 옛 패키지 이름 전수 grep 으로 scope 에 주석 파일 3개(tokens/breakpoints.ts·hooks/index.ts·hooks/useIsMounted.ts — 051 scope 와 안 겹침)를 더해 무효가 된 기록을 겹침 그대로 다시 건다"
-    },
-    {
-      "seq": 198,
-      "t": "2026-10-07T16:33",
-      "a": "ai",
-      "id": "KAN-055-34A57K",
-      "op": "serialize",
-      "w": "S7030N",
-      "with_": "KAN-052-BYS4JN",
-      "reason": "배포는 051·052·053이 main에 병합된 뒤에야 의미가 있다 (2026-10-05 유저 승인 플랜). 2026-10-07 재기록: 052 병합(123e2e3)의 rebuild 가 재수립 필요 표시를 잃었다 — 055 는 052 의 fonts prop 을 보고 전략을 다시 세워야 한다"
     }
   ],
   "waivers": [
