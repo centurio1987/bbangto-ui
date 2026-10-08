@@ -68,7 +68,7 @@
   - 목표: 배포된 core 새 버전에서 Button 단독이 크기 상한 이하로 확인된다
   - 메모: 외부 앱 소비 문제 대응 5장 중 5 · push·배포는 사용자의 분명한 실행 지시 뒤에만. 열 이동은 승인이 아니다
   - 실행 문서: KANBAN/cards/KAN-055-34A57K.md (3/3 · 최근 10-08)
-  - 검토 문서: KANBAN/reviews/KAN-055-34A57K.review.md (승인 0/1 · 검토 대기)
+  - 검토 문서: KANBAN/reviews/KAN-055-34A57K.review.md (승인 1/1 · 승인)
   - 원문:
     ```text
     [첨부 이미지]
