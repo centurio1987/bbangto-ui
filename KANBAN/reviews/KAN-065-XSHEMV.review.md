@@ -24,9 +24,14 @@ status: 검토 대기
 | 베이스 | `00c525f` |
 | 변경 훑기 | `git diff 00c525f...HEAD` |
 
-**커밋 7건**
+**커밋 12건**
 
 ```text
+e6c1b2d fix(KAN-065): 검토 항목 1 — shattered-glass rose 포커스 색 토큰을 금색으로(굴절 시안과 구분, 유저 선택)
+30a17cf fix(KAN-065): 검토 항목 1·3 의견 반영 — neobrutalism 색 사용 문구(포커스 링은 토큰) · changeset 「밝은 바탕」 · 전략 절 collage 설명 바로잡음
+a67fd54 kanban: KAN-065 검토 → 진행 중 — 항목 1 반려(검토자) 같은 카드 재작업
+b421155 kanban: KAN-065 검토 대행(kanban-reviewer) — 항목 2·3 승인 · 항목 1 반려(소개 문구 두 곳 · rose 시안이 굴절 시안과 같은 계열) (ai · 검토자)
+3b34b79 kanban: KAN-065 검토로 이동 — 검토서(판단 항목 3) · 검토 리포트 · 계획 리포트 다시 그림
 7fbbc16 docs(KAN-065): tactile 모티프 규칙은 core 인라인 테두리에 가려 왔음 — changeset·전략 절의 미달 수를 화면 기준(5개·색 스킴 7개)으로 바로잡음
 fadd22a chore(KAN-065): S5 — README 모티프 포커스 검사 단락 · changeset · 게이트 5종 초록 · 화면 확인
 5034867 fix(KAN-065): S4 — style guide 소스의 없는 semantic 변수 5줄을 실제 토큰으로
@@ -36,17 +41,22 @@ de5f68c fix(KAN-065): S3 — 모티프 포커스 테두리 미달 6곳(색 스�
 bb38da6 kanban: KAN-065 진행 중으로 이동 (워크트리 착수)
 ```
 
-**변경 파일 23개 (+452 −59)**
+**변경 파일 28개 (+2074 −100)**
 
 | 파일 | 상태 | 추가 | 삭제 |
 |---|:--:|---:|---:|
-| `.changeset/kan-065-motif-focus.md` | M | 19 | 0 |
-| `.kanban/archive.jsonl` | M | 1 | 0 |
-| `.kanban/log.md` | M | 1 | 1 |
-| `.kanban/state.json` | M | 14 | 14 |
+| `.changeset/kan-065-motif-focus.md` | M | 21 | 0 |
+| `.kanban/archive.jsonl` | M | 3 | 0 |
+| `.kanban/log.md` | M | 3 | 3 |
+| `.kanban/reviews/KAN-065-XSHEMV.events.jsonl` | M | 9 | 0 |
+| `.kanban/reviews/KAN-065-XSHEMV.review.json` | M | 21 | 0 |
+| `.kanban/state.json` | M | 34 | 41 |
 | `KANBAN.board.html` | M | 2 | 2 |
-| `KANBAN.md` | M | 3 | 3 |
-| `KANBAN/cards/KAN-065-XSHEMV.md` | M | 24 | 5 |
+| `KANBAN.md` | M | 4 | 3 |
+| `KANBAN/cards/KAN-065-XSHEMV.md` | M | 31 | 7 |
+| `KANBAN/reports/KAN-065-XSHEMV.report.html` | M | 14 | 8 |
+| `KANBAN/reviews/KAN-065-XSHEMV.review.html` | M | 1282 | 0 |
+| `KANBAN/reviews/KAN-065-XSHEMV.review.md` | M | 260 | 0 |
 | `README.md` | M | 2 | 0 |
 | `apps/storybook/src/real-input/FocusVisible.realinput.test.tsx` | M | 44 | 1 |
 | `apps/storybook/src/real-input/mount.tsx` | M | 20 | 4 |
@@ -58,9 +68,9 @@ bb38da6 kanban: KAN-065 진행 중으로 이동 (워크트리 착수)
 | `packages/style-guide-catalog/src/gothicMedievalDigital.tsx` | M | 1 | 1 |
 | `packages/style-guide-catalog/src/iridescentChrome.tsx` | M | 2 | 2 |
 | `packages/style-guide-catalog/src/minimalSaas.tsx` | M | 1 | 1 |
-| `packages/style-guide-catalog/src/neobrutalismEditorial.tsx` | M | 1 | 1 |
+| `packages/style-guide-catalog/src/neobrutalismEditorial.tsx` | M | 2 | 2 |
 | `packages/style-guide-catalog/src/scandiWarm.tsx` | M | 1 | 1 |
-| `packages/style-guide-catalog/src/shatteredGlassCinematic.tsx` | M | 1 | 1 |
+| `packages/style-guide-catalog/src/shatteredGlassCinematic.tsx` | M | 2 | 2 |
 | `packages/style-guide-catalog/src/spatial3d.tsx` | M | 1 | 1 |
 | `packages/style-guide-catalog/src/tactileTexture.tsx` | M | 3 | 3 |
 
@@ -122,13 +132,13 @@ pnpm test:unit                  # ← style-guide-catalog accessibility.test.ts 
 **실행 결과**
 
 ```text
-게이트 5종 (2026-10-08, 워크트리 KAN-065-XSHEMV, S5 커밋 시점)
+게이트 5종 (2026-10-08, 워크트리 KAN-065-XSHEMV, 검토 항목 1 재작업 뒤 e6c1b2d 시점 — 다시 돌림)
 pnpm typecheck                  → 통과 (rc=0)
 pnpm build                      → 통과 (rc=0)
 pnpm test                       → 통과 — Test Files 193 passed · Tests 1293 passed (real-input 의 Neobrutalism 모티프 항목 포함)
 pnpm --filter storybook build   → 통과 (rc=0)
 pnpm test:unit                  → 통과 — hooks 115 · visualization 257 · foundations 128 · style-guide-catalog 108 · viz-style-guide-catalog 39
-  (첫 실행에서 foundations bundleBudget.test.ts 「측정기 자체 시험」 1건이 5초 시간 초과로 실패. 단독 실행 23/23 통과, 전체 재실행 통과. 이 카드는 foundations 를 건드리지 않는다)
+  (S5 때 첫 실행에서 foundations bundleBudget.test.ts 「측정기 자체 시험」 1건이 5초 시간 초과로 실패했고 재실행에서 통과했다. 재작업 뒤 실행은 한 번에 통과)
 
 빨강 → 초록
 S1 직후: 모티프 포커스 검사 빨강 10건(계획 표와 같음) · 없는 semantic 변수 검사 빨강 5줄 · fixture 초록 · 51/51 style guide 에서 모티프 CSS 찾음
@@ -140,6 +150,9 @@ S4 직후: 없는 semantic 변수 검사 초록 · style-guide-catalog 108/108
 neobrutalism default  → outline solid 2px rgb(169,136,28) = #A9881C
 tactile-texture default → outline solid 2px rgb(235,93,148) = #EB5D94 (core 인라인 테두리 — 모티프 규칙은 !important 가 없어 가려짐)
 minimal-saas default  → box-shadow 0 0 0 3px rgb(79,70,229) = #4F46E5
+
+검토 항목 1 재작업 (유저 선택)
+shattered-glass rose border.focus #34E5FF → #FFC53D: 모티프 포커스 default #FFC53D 11.35 · light #B26A00 3.77 · rose #FFC53D 11.56 (KAN-060 포커스 대비 검사·모티프 검사 초록)
 ```
 
 ## 3. 판단 항목 — 스크립트가 판정할 수 없는 것
@@ -197,11 +210,17 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-065-XSHEMV --add
     | **추천** 받아들인다 | 두 색 스킴의 버튼 포커스 색이 바뀐다 | 포커스 색이 토큰 하나에서만 나와, 색 스킴의 포커스 색을 고치면 모티프 버튼도 따라간다 |
     | 두 색 스킴만 옛 색으로 되돌린다 | style guide 2개에 색 스킴별 모티프 포커스 변수를 새로 둔다 | 옛 색은 남지만 포커스 색이 두 군데에서 나온다 |
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 반려 · ai · 2026-10-08
+    > - 철회 · ai · 2026-10-09
 
-    > **추가 의견** — _아직 없습니다._
+    > **추가 의견**
+    >
+    > - ai · 2026-10-08 — 검토자 의견 — 고칠 것이 있어 반려합니다. ① 전략 「접근」 5가 약속한 「소개 문구(specs·rules)에 적힌 포커스 색이 바뀐 색과 어긋나면 함께 고친다」가 두 곳에서 지켜지지 않았습니다. packages/style-guide-catalog/src/shatteredGlassCinematic.tsx:280 에는 아직 「포커스 링은 굴절 색과 구분되는 솔리드 컬러(골드 #FFC53D)로 그려」라고 적혀 있는데, 포커스 색이 light 에서는 #B26A00, rose 에서는 시안 #34E5FF 로 바뀌었습니다. packages/style-guide-catalog/src/neobrutalismEditorial.tsx:237 에는 포커스 링이 --bbangto-ext-accent 를 쓴다고 적혀 있지만, 이제 포커스 링은 포커스 색 토큰을 읽고 default 에서는 #E9C766 이 아니라 #A9881C 입니다. ② 이 항목의 배경에 판단에 필요한 사실이 하나 빠졌습니다. rose 의 버튼 테두리는 마젠타→시안(#22D3EE)→라임 그라디언트(shatteredGlassCinematic.tsx:117)이고, 새 포커스 색 #34E5FF 는 그 시안과 같은 색 계열입니다. 280줄 규칙이 금색을 고른 이유가 굴절 색과 구분하려는 것이므로, rose 의 변화를 받아들이면 이 style guide 의 접근성 규칙 하나를 바꾸는 셈이 됩니다(바탕과의 대비는 11.98 로 충분합니다). 두 소개 문구를 고치고, 이 사실을 배경에 넣어 다시 올려 주시면 사람이 판단할 수 있습니다.
+    > - ai · 2026-10-09 — 재작업(2026-10-08): 소개 문구 두 곳을 고쳤고(neobrutalism 237 · shattered 280 은 rose 결정으로 그대로 맞음), rose 는 유저 선택으로 포커스 색 토큰을 금색 #FFC53D 로 바꿨다. 이 항목의 질문(통과하던 2개의 색 변화)이 rose 결정으로 바뀌어, 남은 iridescent default 만 묻는 항목 4 로 다시 올리고 이 항목은 철회한다.
 
-- [ ] minimal-saas 포커스 고리가 버튼 채움색과 같은 색이라 「버튼이 3px 커짐」으로만 보이는 것을 그대로 둘 것인가 — 그대로 두기를 추천합니다. 바탕과의 대비는 4.86 이상입니다
+- [x] minimal-saas 포커스 고리가 버튼 채움색과 같은 색이라 「버튼이 3px 커짐」으로만 보이는 것을 그대로 둘 것인가 — 그대로 두기를 추천합니다. 바탕과의 대비는 4.86 이상입니다
     - **배경**
       - minimal-saas 모티프 버튼은 테두리 대신 버튼 둘레의 3px 고리로 포커스를 그린다. 원문: packages/style-guide-catalog/src/minimalSaas.tsx:110
       - 전에는 고리가 반투명 인디고라 바탕과 1.64~2.10 이었다(3:1 미달). 이제 포커스 색 토큰이라 바탕과 4.86~6.29 다.
@@ -214,11 +233,15 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-065-XSHEMV --add
     | **추천** 이대로 둔다 | 포커스 전후 차이가 둘레 3px 뿐이다 | 바탕과는 3:1 을 넘고 이 카드에서 끝난다 |
     | 바탕색 틈을 둔 두 겹 고리로 바꾼다 | minimal-saas CSS 한 줄과 확인을 한 번 더 한다 | 버튼과 고리 사이에 바탕색 띠가 생겨 포커스가 더 또렷하다 |
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 승인 · ai · 2026-10-08
 
-    > **추가 의견** — _아직 없습니다._
+    > **추가 의견**
+    >
+    > - ai · 2026-10-08 — 검토자 의견 — 포커스 색과 버튼 채움색이 같은 것은 default 만이 아닙니다. minimal-saas 세 색 스킴 모두 포커스 색 토큰이 primary 색과 같습니다(default #4F46E5, dark #818CF8, warm #B45309, 서로 대비 1.00. 원문: packages/style-guide-catalog/src/minimalSaas.tsx:45·70·87). 그래서 「버튼이 3px 커진 것처럼 보임」은 세 색 스킴 모두에서 생깁니다. 바탕과는 4.86 이상이라 카드 목표(표면과 3:1)는 맞고, 두 겹 고리는 이 카드 목표 밖의 개선이므로 추천(이대로 둔다)은 그대로 맞다고 봅니다.
 
-- [ ] 가려져 화면에 안 나오는 모티프 포커스 규칙도 검사가 재는 것을 그대로 둘 것인가 — 그대로 두기를 추천합니다. 놓치지 않고 더 엄하게 잡는 쪽입니다
+- [x] 가려져 화면에 안 나오는 모티프 포커스 규칙도 검사가 재는 것을 그대로 둘 것인가 — 그대로 두기를 추천합니다. 놓치지 않고 더 엄하게 잡는 쪽입니다
     - **배경**
       - core 는 포커스 테두리를 인라인 스타일(2px, 포커스 색 토큰)로 그린다. 인라인 스타일은 !important 가 없는 CSS 규칙을 이긴다. 원문: packages/core/src/a11y/focusRing.ts:24
       - 모티프 포커스 규칙 53곳 중 !important 가 없는 2곳(tactile-texture, collage-scrapbook)은 처음부터 화면에 안 나왔고 core 테두리가 대신 그려졌다. 원문: packages/style-guide-catalog/src/tactileTexture.tsx:124
@@ -231,6 +254,29 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-065-XSHEMV --add
     | --- | --- | --- |
     | **추천** 지금처럼 다 잰다 | 화면에 안 나오는 규칙도 고치라고 할 때가 있다 | 규칙이 언제 다시 보이게 되든 대비는 이미 맞다 |
     | !important 없는 outline 은 건너뛴다 | 검사가 core 의 그리는 방식을 알아야 하고, core 가 바뀌면 같이 고쳐야 한다 | 화면과 같은 것만 잡지만, 가려진 규칙이 드러나는 순간은 못 잡는다 |
+
+    > **판정**
+    >
+    > - 승인 · ai · 2026-10-08
+
+    > **추가 의견**
+    >
+    > - ai · 2026-10-08 — 검토자 의견 — 핵심 사실은 맞습니다. 모티프 포커스 선언 53곳 중 !important 가 없는 것이 2곳인 것, 화면 기준 미달이 style guide 5개·색 스킴 7개인 것을 소스와 계산으로 다시 확인했습니다. 표현이 조금 넘치는 곳이 둘 있습니다. ① collage-scrapbook 쪽은 버튼이 아니라 카드의 :focus-within 규칙(packages/style-guide-catalog/src/collageScrapbook.tsx:164)이고, 이 카드 전부터 포커스 색 토큰을 읽고 있었습니다. 그래서 「이번 수정으로 두 곳도 같은 토큰을 읽어」는 tactile 한 곳에만 맞습니다. 또 core Card 는 카드 자체에 포커스가 없으면 인라인 outline: none 을 두므로(packages/core/src/components/Card.tsx:170), 자식에 포커스가 간 경우에는 「core 테두리가 대신 그려졌다」가 아니라 카드 테두리가 그냥 안 그려진 것입니다. ② changeset 의 「밝은 바탕에 묻히던 style guide 5개(색 스킴 7개)」에는 어두운 바탕(#0F172A)인 minimal-saas dark 가 들어 있습니다. 둘 다 이 항목의 판단에는 영향이 없습니다.
+
+- [ ] iridescent default 의 포커스 테두리가 라일락에서 시안으로 바뀐 것을 받아들일 것인가 — 받아들이기를 추천합니다. 그 색 스킴이 정해 둔 포커스 색입니다
+      이 의견은 §3-1 「통과하던 색 스킴 2개도 포커스 테두리 색이 바뀐 것을」 의 추가 의견에서 갈라져 나왔습니다 (추가 2026-10-09).
+    - **배경**
+      - 미달 자리를 고칠 때 새 색을 만들지 않고 포커스 색 토큰을 읽게 했다. 그 결과 통과하던 iridescent default 도 라일락 #B7A6FF 에서 그 색 스킴의 포커스 색인 시안 #7FE0FF 로 바뀌었다(바탕 대비 8.21 → 11.60). 원문: packages/style-guide-catalog/src/iridescentChrome.tsx:183
+      - 라일락과 시안 둘 다 이 버튼의 채움 그라디언트(라일락→민트→피치→시안)에 들어 있는 색이라, 바뀌어도 채움과 겹치는 정도는 같다. 이 style guide 에는 포커스 색을 정한 접근성 규칙이 없다. 원문: packages/style-guide-catalog/src/iridescentChrome.tsx:278
+      - 같은 질문에 있던 shattered-glass rose 는 항목 1 반려 뒤 유저 선택으로 포커스 색 토큰 자체를 금색 #FFC53D 로 바꿨다(바탕 대비 11.56). 「포커스 링은 굴절 색과 구분되는 골드」라는 그 style guide 의 규칙에 맞춘 것이고, rose 의 입력·링크 같은 core 컴포넌트 포커스도 시안에서 금색이 된다. 원문: packages/style-guide-catalog/src/shatteredGlassCinematic.tsx:124
+      - 항목 1 이 짚은 소개 문구 두 곳은 고쳤다. neobrutalism 237줄은 포커스 링이 토큰을 쓴다고 적었고, shattered 280줄 규칙은 rose 가 금색이 되면서 그대로 맞다. 원문: packages/style-guide-catalog/src/neobrutalismEditorial.tsx:237
+    - **정할 것**
+      iridescent default 의 색 변화를 받아들일 것인가.
+
+    | 선택지 | 대가 | 그러면 어떻게 되는가 |
+    | --- | --- | --- |
+    | **추천** 받아들인다 | 버튼 포커스 색이 라일락에서 시안으로 바뀐다 | 포커스 색이 토큰 하나에서 나오고, 그 색 스킴의 다른 컴포넌트 포커스와 같은 색이 된다 |
+    | 라일락으로 되돌린다 | iridescent default 의 포커스 색 토큰을 라일락으로 바꾼다 | 모티프 버튼은 옛 색으로 돌아가고 core 컴포넌트 포커스도 시안에서 라일락이 된다 |
 
     > **판정** — _아직 없습니다._
 
