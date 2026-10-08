@@ -166,6 +166,8 @@
         "apps/storybook/src/stories/visualization/_labelContrastBaseline.ts",
         "packages/visualization/src/templates/**",
         "packages/visualization/README.md",
+        "packages/foundations/src/vizPaintGateCoverage.ts",
+        "packages/foundations/src/vizPaintGateCoverage.test.ts",
         ".changeset/kan-063-*.md"
       ]
     },
@@ -1176,6 +1178,7 @@
     "KAN-061-K8V2HH",
     "KAN-062-E02CMT",
     "KAN-060-G9YKG6",
+    "KAN-063-Q85EET",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1232,8 +1235,7 @@
     "KAN-054-M48FNQ",
     "KAN-058-G883EJ",
     "KAN-059-62EAKB",
-    "KAN-056-D3V1MB",
-    "KAN-063-Q85EET"
+    "KAN-056-D3V1MB"
   ],
   "recent": [
     {

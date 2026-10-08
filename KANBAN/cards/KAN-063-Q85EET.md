@@ -2,7 +2,7 @@
 card: KAN-063-Q85EET
 title: viz Paint Gate 표본을 나머지 템플릿으로 넓히기 — 리터럴 · 글자 대비 검사가 모든 템플릿을 보게
 created: 2026-10-08
-scope: apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx, apps/storybook/src/stories/visualization/_paintGateFixtures.tsx, apps/storybook/src/stories/visualization/_labelContrastBaseline.ts, packages/visualization/src/templates/**, packages/visualization/README.md, .changeset/kan-063-*.md
+scope: apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx, apps/storybook/src/stories/visualization/_paintGateFixtures.tsx, apps/storybook/src/stories/visualization/_labelContrastBaseline.ts, packages/visualization/src/templates/**, packages/visualization/README.md, packages/foundations/src/vizPaintGateCoverage.ts, packages/foundations/src/vizPaintGateCoverage.test.ts, .changeset/kan-063-*.md
 ---
 
 # KAN-063-Q85EET — viz Paint Gate 표본을 나머지 템플릿으로 넓히기 — 리터럴 · 글자 대비 검사가 모든 템플릿을 보게
