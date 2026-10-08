@@ -71,7 +71,7 @@ scope: packages/style-guide-catalog/src/manifest.ts, packages/style-guide-catalo
 - [x] `S2` 얇은 색인 스키마 확정: 4축 공통 필드(name·displayName·family/category·tags·domains·summary·metaStatus)와 축별 추가 필드를 정하고, 생성기 4종이 tier 1 색인을 내도록 바꾼다. 완료 기준: `buildManifest`류 4종이 새 형태를 내고 기존 `manifest.test.ts`가 새 형태로 초록.
 - [x] `S3` 커밋본·동기화 정책 결정: 색인 커밋 유지 여부, 바이트 일치 테스트 축소 범위, 수동 gen 2개의 prebuild 통일, 생성기의 dist 의존을 걷을지 여부. 완료 기준: 매니페스트를 다시 만드는 길이 전부 `prebuild` 이고, `rm -rf packages/*/dist` 뒤 매니페스트 생성·검사 가운데 무엇이 무엇 때문에 실패하는지가 기록된다. 워크스페이스 전체를 build 없이 돌리는 일은 KAN-066 이 맡는다(2026-10-08 유저 선택).
 - [x] `S4` 상세 메타 2단 읽기 경로 정리: `./meta`·`./type-meta` 서브패스와 README 사례를 "색인 → 후보 상세" 흐름으로 고치고, METADATA_STRATEGY.md 3종의 "파일 하나만 읽는다" 서술을 갱신한다. 완료 기준: README·전략 문서에서 옛 서술이 0건(grep).
-- [ ] `S5` 게이트 통과와 census 갱신: metadata-coverage.json 등록 갱신, 5종 게이트 전부 초록, 메모리 fresh-worktree-gate-order 갱신 여부 판단. 완료 기준: typecheck·build·test·storybook build·test:unit 모두 초록.
+- [x] `S5` 게이트 통과와 census 갱신: metadata-coverage.json 등록 갱신, 5종 게이트 전부 초록, 메모리 fresh-worktree-gate-order 갱신 여부 판단. 완료 기준: typecheck·build·test·storybook build·test:unit 모두 초록.
 
 ## 검증
 - 실측 토큰 표가 「전략」 절에 있고, 얇은 색인 4종 합계가 1만 토큰 안쪽이다(넘으면 사유와 함께 기록).
@@ -105,3 +105,6 @@ scope: packages/style-guide-catalog/src/manifest.ts, packages/style-guide-catalo
 - 2026-10-08T19:15 · s:bea40e0e — S4 결정 1: 상세 파일도 import 로 열리게 4개 패키지 exports 에 ./manifest/* 를 더했다(require.resolve 로 VT-101.json 확인)
 - 2026-10-08T19:15 · s:bea40e0e — S4 결정 2: CI(release.yml)는 build 다음에 test:unit 이라 prebuild 가 색인을 다시 쓴 뒤 바이트 동기 테스트가 돌아 커밋 누락을 못 잡는다(UI·viz style guide 는 원래 그랬고 이번에 4개로 넓어짐). 빌드 직후 git diff --exit-code 로 색인 4개+foundations src/catalog.json 을 커밋본과 대조하는 단계를 더했다(일부러 바꾼 파일로 exit 1 확인). 검토 판단 항목
 - 2026-10-08T19:15 · s:bea40e0e · S4 done — README 루트·패키지 3개·전략 문서 3개·주석 6곳을 색인→상세 2단 읽기로. 옛 서술 grep 0건, 메타 타입 파일은 주석만. pnpm build·test:unit 초록
+- 2026-10-08T19:15 · s:bea40e0e · S5 doing — 착수
+- 2026-10-08T19:18 · s:bea40e0e — S5: metadata-coverage.json 은 그대로 — 색인 파일 이름이 안 바뀌었고 상세 manifest/<이름>.json 은 census 가 찾는 파일 형태(*.manifest.json·src/catalog.json)가 아니다. 메모리 fresh-worktree-gate-order 도 그대로 — 새 워크트리는 여전히 build 먼저(KAN-066 이 풀 때까지)
+- 2026-10-08T19:18 · s:bea40e0e · S5 done — changeset kan-064-manifest-index.md(4패키지 major) · 게이트 5종 초록: typecheck · build · test 193파일/1292 · storybook build · test:unit
