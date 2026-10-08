@@ -81,7 +81,7 @@
   - 목표: 세 브라우저 결과가 README 에 적히고, 안 풀리는 브라우저가 있으면 속성 안 var() 가 모두 style 로 옮겨지고 검사로 막힌다
   - 메모: KAN-056 검토 항목 3(검토자 승인, 둘째 선택지)에서 나왔다. KAN-056 시점 줄: UMLComponentDiagram.tsx:65·97, BPMNDiagram.tsx:86·128, README.md 「명시한 prop 이 이긴다」 항목. 다른 템플릿·원자에도 같은 형태가 있는지는 확인 안 함
   - 실행 문서: KANBAN/cards/KAN-062-E02CMT.md (3/3 · 최근 10-08)
-  - 검토 문서: KANBAN/reviews/KAN-062-E02CMT.review.md (승인 0/1 · 검토 대기)
+  - 검토 문서: KANBAN/reviews/KAN-062-E02CMT.review.md (승인 1/1 · 추가 의견 총 2 · 검토 대기)
 
 ## 완료
 - `KAN-020` visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현 — 생성:유저 · 최종:유저 · 갱신:2026-08-14
