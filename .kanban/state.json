@@ -1,6 +1,6 @@
 {
   "next_id": 64,
-  "next_seq": 237,
+  "next_seq": 238,
   "cards": {
     "KAN-055-34A57K": {
       "col": "backlog",
@@ -142,7 +142,7 @@
       "memo_hash": "870f645bcc5324338c2e042e36dcb5a90598a1d9"
     },
     "KAN-063-Q85EET": {
-      "col": "todo",
+      "col": "doing",
       "title": "viz Paint Gate 표본을 나머지 템플릿으로 넓히기 — 리터럴 · 글자 대비 검사가 모든 템플릿을 보게",
       "verbatim": "",
       "생성": "ai",
@@ -1178,7 +1178,6 @@
     "KAN-061-K8V2HH",
     "KAN-062-E02CMT",
     "KAN-060-G9YKG6",
-    "KAN-063-Q85EET",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1235,9 +1234,20 @@
     "KAN-054-M48FNQ",
     "KAN-058-G883EJ",
     "KAN-059-62EAKB",
-    "KAN-056-D3V1MB"
+    "KAN-056-D3V1MB",
+    "KAN-063-Q85EET"
   ],
   "recent": [
+    {
+      "seq": 237,
+      "t": "2026-10-08T17:35",
+      "a": "ai",
+      "id": "KAN-063-Q85EET",
+      "op": "move",
+      "w": "VKFJ1X",
+      "from": "todo",
+      "to": "doing"
+    },
     {
       "seq": 236,
       "t": "2026-10-08T17:35",
@@ -1757,16 +1767,6 @@
       "w": "S7030N",
       "with_": "KAN-052-BYS4JN",
       "reason": "배포는 051·052·053이 main에 병합된 뒤에야 의미가 있다 (2026-10-05 유저 승인 플랜). 2026-10-07 재기록: 052 병합(123e2e3)의 rebuild 가 재수립 필요 표시를 잃었다 — 055 는 052 의 fonts prop 을 보고 전략을 다시 세워야 한다"
-    },
-    {
-      "seq": 198,
-      "t": "2026-10-07T16:03",
-      "a": "유저",
-      "id": "KAN-055-34A57K",
-      "op": "serialize",
-      "w": "DJT5WZ",
-      "with_": "KAN-051-5HMYKT",
-      "reason": "배포는 051·052·053이 main에 병합된 뒤에야 의미가 있다 (2026-10-05 유저 승인 플랜)"
     }
   ],
   "waivers": [
