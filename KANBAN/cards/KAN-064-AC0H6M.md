@@ -96,3 +96,4 @@ scope: packages/style-guide-catalog/src/manifest.ts, packages/style-guide-catalo
 - 2026-10-08T18:41 · s:bea40e0e · S2 doing — 착수
 - 2026-10-08T18:52 · s:bea40e0e — S2 결정: 상세 자리는 배치1 문서의 meta/<이름>.json 이 아니라 카드 전략대로 manifest/<이름>.json 이다 — foundations 의 ./meta 서브패스(dist/meta)와 이름이 겹치지 않게. 색인 파일 이름은 그대로, 공개 export 는 늘리지 않음
 - 2026-10-08T18:52 · s:bea40e0e · S2 done — 색인 4종을 {axis,detail,columns,rows} 표 형태로, 상세는 manifest/<이름>.json 244개. 커밋 색인 실측 8,709·5,179·8,029·6,675(합계 28,592). census 게이트도 색인을 읽게 고침. 4패키지 test·typecheck 초록
+- 2026-10-08T18:52 · s:bea40e0e — 배치1 끝. 다음 세션 메모: KAN-062 가 main 에 완료·병합됐다(a4e293e) — packages/visualization/README.md 겹침은 더 묻지 않고 S4 시작 때 scope 에 넣는다(용인 2건은 scope 바뀌면 다시 ai 로 재기록). 상세 파일 244개는 아직 untracked, S3 에서 .gitignore 처리
