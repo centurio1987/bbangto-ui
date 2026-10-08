@@ -182,7 +182,7 @@ const wrapperComponents = makeMotifWrappers({
       muted: {
         background: 'var(--bbangto-semantic-background-sunken, rgba(154,167,180,0.12))',
         color: 'var(--bbangto-semantic-foreground-muted, #9AA7B4)',
-        border: '1px solid var(--bbangto-semantic-border, rgba(154,167,180,0.26))',
+        border: '1px solid var(--bbangto-semantic-border-base, rgba(154,167,180,0.26))',
       },
       solid: {
         background: `linear-gradient(180deg, var(--bbangto-semantic-primary-base, ${BLUE}), ${VIOLET})`,

@@ -125,7 +125,7 @@ const CSS = `
   border-radius: 4px !important;
   border: var(--bbangto-ext-draft-stroke, 1px) solid var(--bbangto-ext-draft-ink, ${INK}) !important;
   box-shadow: none !important;
-  background-color: var(--bbangto-semantic-bg-elevated, #103A86) !important;
+  background-color: var(--bbangto-semantic-background-elevated, #103A86) !important;
   background-image:
     linear-gradient(var(--bbangto-ext-grid-line, ${GRID_LINE}) 1px, transparent 1px),
     linear-gradient(90deg, var(--bbangto-ext-grid-line, ${GRID_LINE}) 1px, transparent 1px) !important;
