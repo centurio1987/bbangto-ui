@@ -22,13 +22,6 @@
   - 목표: _labelContrastBaseline.ts 가 빈다(모든 템플릿으로 넓히는 일은 KAN-063 이 먼저 한다)
   - 메모: KAN-056 검토 항목 3(승인)·6에서 나왔다. KAN-056 병합 뒤 착수(검사와 기준 목록이 그 카드에 있다). 원인이 셋으로 갈린다: 불투명 팔레트 면 위 edge.stroke 글자, Requirement 반투명 글자(opacity 0.6·0.8)와 검정 6% 띠, riso-print 등의 shape.fill·edge.stroke 쌍. 카탈로그 대비 게이트가 shape.fill·edge.stroke 쌍을 재는지는 확인 안 함
   - 실행 문서: KANBAN/cards/KAN-061-K8V2HH.md (0/1 · 최근 10-08)
-- `KAN-062-E02CMT` SVG 속성 안 var() 브라우저 확인 — README 문장과 속성으로 색을 넣는 코드를 실제 동작에 맞추기 — 생성:ai · 최종:ai · 갱신:2026-10-08
-  - 짧은 제목: 속성 안 var() 확인
-  - 목적: Firefox·Safari 에서 SVG 속성(presentation attribute) 안의 var() 가 풀리는지 확인하고, README 문장과 그 형태로 색을 넣는 코드를 결과에 맞춘다
-  - 이유: viz README 는 속성 안 var() 가 무효라 적지만 chromium 에서는 풀린다. 코드에도 그 형태가 있어 안 풀리는 브라우저에서는 인터페이스 선이 사라지거나 라벨이 검정이 된다(KAN-056 검토 항목 3)
-  - 목표: 세 브라우저 결과가 README 에 적히고, 안 풀리는 브라우저가 있으면 속성 안 var() 가 모두 style 로 옮겨지고 검사로 막힌다
-  - 메모: KAN-056 검토 항목 3(검토자 승인, 둘째 선택지)에서 나왔다. KAN-056 시점 줄: UMLComponentDiagram.tsx:65·97, BPMNDiagram.tsx:86·128, README.md 「명시한 prop 이 이긴다」 항목. 다른 템플릿·원자에도 같은 형태가 있는지는 확인 안 함
-  - 실행 문서: KANBAN/cards/KAN-062-E02CMT.md (0/3 · 최근 10-08)
 - `KAN-064-AC0H6M` AI 채택 매니페스트 재편 — 메타 필드는 유지, 매니페스트는 얇은 색인으로 축소 + 동기화 장치 단순화 — 생성:ai · 최종:ai · 갱신:2026-10-08
   - 짧은 제목: 매니페스트 얇은 색인화
   - 목적: 4종 매니페스트(약 11만 토큰 어림)를 이름·family·tags·domains·summary 중심의 얇은 색인(합계 1만 토큰 안쪽)으로 줄이고, 바이트 일치 테스트·수동 재생성·dist 의존 빌드 순서 함정을 걷어낸다
@@ -544,3 +537,11 @@
     
     이 문제를 해결하기 위한 전략을 수립, 실행 계획 수립, 칸반 카드화 해라.
     ```
+- `KAN-062-E02CMT` SVG 속성 안 var() 브라우저 확인 — README 문장과 속성으로 색을 넣는 코드를 실제 동작에 맞추기 — 생성:ai · 최종:ai · 갱신:2026-10-08
+  - 짧은 제목: 속성 안 var() 확인
+  - 목적: Firefox·Safari 에서 SVG 속성(presentation attribute) 안의 var() 가 풀리는지 확인하고, README 문장과 그 형태로 색을 넣는 코드를 결과에 맞춘다
+  - 이유: viz README 는 속성 안 var() 가 무효라 적지만 chromium 에서는 풀린다. 코드에도 그 형태가 있어 안 풀리는 브라우저에서는 인터페이스 선이 사라지거나 라벨이 검정이 된다(KAN-056 검토 항목 3)
+  - 목표: 세 브라우저 결과가 README 에 적히고, 안 풀리는 브라우저가 있으면 속성 안 var() 가 모두 style 로 옮겨지고 검사로 막힌다
+  - 메모: KAN-056 검토 항목 3(검토자 승인, 둘째 선택지)에서 나왔다. KAN-056 시점 줄: UMLComponentDiagram.tsx:65·97, BPMNDiagram.tsx:86·128, README.md 「명시한 prop 이 이긴다」 항목. 다른 템플릿·원자에도 같은 형태가 있는지는 확인 안 함
+  - 실행 문서: KANBAN/cards/KAN-062-E02CMT.md (3/3 · 최근 10-08)
+  - 검토 문서: KANBAN/reviews/KAN-062-E02CMT.review.md (승인 1/1 · 추가 의견 총 2 · 승인)

@@ -145,7 +145,10 @@ Provider는 기본으로 JetBrains Mono를 Google Fonts에서 불러온다. 글�
   있어야 한다. 새 템플릿을 내보내고 표본을 더하지 않으면 `test:unit` 에서
   `packages/foundations/src/vizPaintGateCoverage.test.ts` 가 그 템플릿 이름으로 실패한다.
 - **명시한 prop 이 이긴다.** 사용자가 준 `fill`·`stroke` 는 인라인 `style` 로 렌더된다. SVG presentation
-  attribute 는 author stylesheet 에 지고 `var()` 도 attribute 안에서는 무효라 쓰지 않는다.
+  attribute 는 author stylesheet 에 지기 때문이다. attribute 안의 `var()` 는 색·글꼴 속성(`fill`·`stroke`·
+  `font-family`)에서는 풀린다 — 2026-10-08 Playwright 1.61.0 의 chromium 149 · firefox 151 · webkit 26.5 에서
+  확인했고, 출시판 Safari 와 옛 판 브라우저는 확인하지 않았다. `transform` 속성 안의 `var()` 는 세 브라우저 모두
+  풀지 않으므로 쓰지 않는다.
 - **토큰 계층**: `VisualizationFoundation`(tokens 패키지) → `vvar()` 가 만드는 `var(--bbangto-viz-…)` →
   `VisualizationStyleGuideProvider` 가 CSS 변수를 주입한다. Provider 밖에서는 무채색 `baseVisualizationFoundation` 으로 떨어진다.
 - **스타일 가이드는 core 와 같은 모양이고 core 에 기대지 않는다.** `VisualizationStyleGuide` 는 core `StyleGuide` 의
