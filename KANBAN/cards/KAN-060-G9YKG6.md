@@ -124,7 +124,7 @@ KAN-059 가 키보드 포커스 테두리를 모든 상호작용 컴포넌트에
 - [x] `S3` foundation 21개 값 — 전략 「새 값」 표대로 각 테마 파일의 `border.focus` 한 칸만 바꾼다. 완료 기준: `focusContrast.test.ts` 초록, foundations 패키지 vitest 전체 초록, S2 실제 입력 항목 초록
 - [x] `S4` style guide 9개 파일 10개 색 스킴 값 — 같은 표대로 미달 색 스킴의 `focus:` 칸만 바꾼다. 상수(`NEO.gold`·`CANDY`·`CYAN`·`MAGENTA`)는 그대로 두고 그 칸에 새 값을 쓴다. 완료 기준: style-guide-catalog vitest 전체 초록, 9개 `FoundationPresets` 스토리 초록
 - [x] `S5` 문서와 마무리 — README 의 style guide 저작 「대비 게이트」 단계에 포커스 대비(3:1, `focusContrast`)를 더한다. changeset(`.changeset/kan-060-focus-contrast.md` — tokens minor · foundations patch · style-guide-catalog patch). 게이트 5종, 검토서. 완료 기준: 게이트 5종 초록, 검토로 이동
-- [ ] `S6` 재작업 게이트 먼저(검토 항목 3) — `accessibility.test.ts` 에 「style guide CSS 의 포커스 테두리(`outline`) 선언이 읽는 `--bbangto-semantic-*` 변수는 실제로 만들어지는 변수다」 검사를 더한다. 만들어지는 변수 목록은 tokens 의 `flattenToCSSVars` 로 얻고, 소스는 style-guide-catalog `src/*.tsx` 를 읽는다. fixture: 없는 변수(`--bbangto-semantic-focus`)는 위반, `--bbangto-semantic-border-focus` 는 통과, `outline` 이 아닌 줄의 없는 변수는 이 검사 대상이 아님, 한 줄짜리 규칙도 잡힘. 완료 기준: fixture 초록, 실제 검사 빨강이고 위반이 전략 「재작업」 절의 12곳과 같다
+- [x] `S6` 재작업 게이트 먼저(검토 항목 3) — `accessibility.test.ts` 에 「style guide CSS 의 포커스 테두리(`outline`) 선언이 읽는 `--bbangto-semantic-*` 변수는 실제로 만들어지는 변수다」 검사를 더한다. 만들어지는 변수 목록은 tokens 의 `flattenToCSSVars` 로 얻고, 소스는 style-guide-catalog `src/*.tsx` 를 읽는다. fixture: 없는 변수(`--bbangto-semantic-focus`)는 위반, `--bbangto-semantic-border-focus` 는 통과, `outline` 이 아닌 줄의 없는 변수는 이 검사 대상이 아님, 한 줄짜리 규칙도 잡힘. 완료 기준: fixture 초록, 실제 검사 빨강이고 위반이 전략 「재작업」 절의 12곳과 같다
 - [ ] `S7` 없는 변수 12곳 바로잡기와 마무리 — 12곳의 변수 이름만 `--bbangto-semantic-border-focus` 로 바꾼다(대체값은 그대로). changeset 에 한 줄 더한다. 게이트 5종, 검토서 1·2항 새로 고침, 검토로 이동. 완료 기준: S6 검사 초록, 게이트 5종 초록, 검토로 이동
 
 ## 검증
@@ -184,3 +184,5 @@ pnpm test:unit                  # ← foundations focusContrast.test.ts · style
 - 2026-10-08T17:55 · s:d775e6fd — `전략` 섹션 교체
 - 2026-10-08T17:55 · s:d775e6fd — `실행 계획` 섹션 교체
 - 2026-10-08T17:55 · s:d775e6fd — `검증` 섹션 교체
+- 2026-10-08T17:55 · s:d775e6fd · S6 doing — 착수
+- 2026-10-08T17:56 · s:d775e6fd · S6 done — accessibility.test.ts 에 undefinedOutlineVars(outline 선언이 읽는 --bbangto-semantic-* 를 flattenToCSSVars 목록과 대조) + fixture 4(없는 변수·토큰 통과·outline 밖 제외·한 줄 규칙과 -focus-ring). 실제 소스 검사 빨강 — 12곳(11파일), 전략 「재작업」 표와 같음. sgc typecheck 통과

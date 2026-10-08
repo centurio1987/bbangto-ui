@@ -1,3 +1,6 @@
+import { readFileSync, readdirSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
 import { describe, it, expect } from 'vitest';
 import {
   parseColor,
@@ -6,6 +9,7 @@ import {
   contrastRatio,
   surfaceColors,
   focusContrast,
+  flattenToCSSVars,
   FOCUS_CONTRAST_MIN,
 } from '@centurio1987/bbangto-ui-tokens';
 import { darkFoundation, highContrastFoundation, lightFoundation } from '@centurio1987/bbangto-ui-core';
@@ -283,5 +287,68 @@ describe('auditFocusContrast — 실 카탈로그 게이트', () => {
     ];
     const violations = auditFocusContrast(base);
     expect(violations, describeFocus(violations)).toEqual([]);
+  });
+});
+
+// ── 포커스 테두리 변수 (KAN-060 검토 항목 3) ─────────────────────────────────
+
+/**
+ * style guide 가 자기 CSS 로 그리는 포커스 테두리(`outline` 선언)가 읽는 `--bbangto-semantic-*` 변수 중
+ * 실제로 만들어지지 않는 것을 `파일:줄 변수` 로 모은다. 없는 변수는 어느 색 스킴에서도 대체값(고정 색)으로만
+ * 그려져, 포커스 색 토큰을 고쳐도 테두리가 따라가지 않는다(`--bbangto-semantic-focus` 12곳이 그랬다).
+ * `outline` 이 아닌 줄은 보지 않는다 — 태그 색·배경처럼 포커스가 아닌 자리는 KAN-065 몫이다.
+ */
+function undefinedOutlineVars(
+  files: readonly { path: string; text: string }[],
+  defined: ReadonlySet<string>,
+): string[] {
+  const out: string[] = [];
+  for (const f of files) {
+    f.text.split('\n').forEach((line, i) => {
+      if (!/\boutline\s*:/.test(line)) return;
+      for (const m of line.matchAll(/var\(\s*(--bbangto-semantic-[a-z0-9-]+)/g)) {
+        if (!defined.has(m[1])) out.push(`${f.path}:${i + 1} ${m[1]}`);
+      }
+    });
+  }
+  return out;
+}
+
+/** 모든 foundation 이 같은 semantic 구조라 변수 이름은 하나만 펼쳐도 같다. */
+const definedVars = new Set(Object.keys(flattenToCSSVars(lightFoundation as unknown as Record<string, unknown>)));
+
+describe('포커스 테두리 변수 — fixture', () => {
+  const run = (text: string) => undefinedOutlineVars([{ path: 'x.tsx', text }], definedVars);
+
+  it('없는 변수(--bbangto-semantic-focus)를 읽는 outline 은 잡힌다', () => {
+    expect(run('.b:focus-visible {\n  outline: 2px solid var(--bbangto-semantic-focus, #5BE1FF) !important;\n}')).toEqual([
+      'x.tsx:2 --bbangto-semantic-focus',
+    ]);
+  });
+
+  it('포커스 색 토큰(--bbangto-semantic-border-focus)은 통과한다', () => {
+    expect(definedVars.has('--bbangto-semantic-border-focus')).toBe(true);
+    expect(run('  outline: 3px solid var(--bbangto-semantic-border-focus, #000) !important;')).toEqual([]);
+  });
+
+  it('outline 이 아닌 줄의 없는 변수는 이 검사 대상이 아니다', () => {
+    expect(run("  color: 'var(--bbangto-semantic-focus, #5BE1FF)',")).toEqual([]);
+  });
+
+  it('한 줄짜리 규칙과 -focus-ring 도 잡힌다', () => {
+    expect(run('.b:focus-visible { outline: 3px solid var(--bbangto-semantic-focus-ring, #123) !important; }')).toEqual([
+      'x.tsx:1 --bbangto-semantic-focus-ring',
+    ]);
+  });
+});
+
+describe('포커스 테두리 변수 — 실제 style guide 소스', () => {
+  it('style guide CSS 의 포커스 테두리가 읽는 semantic 변수는 모두 실제로 만들어진다', () => {
+    const dir = dirname(fileURLToPath(import.meta.url));
+    const files = readdirSync(dir)
+      .filter((name) => name.endsWith('.tsx'))
+      .map((name) => ({ path: name, text: readFileSync(join(dir, name), 'utf8') }));
+    const violations = undefinedOutlineVars(files, definedVars);
+    expect(violations, violations.join('\n')).toEqual([]);
   });
 });
