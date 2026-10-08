@@ -203,7 +203,7 @@ const visualMotif: VisualMotif = {
   components: {
     Button: {
       description: '두툼한 모서리에 푹신한 이중 그림자를 두른 버튼. 누르면 살짝 쪼그라드는 스퀴시 반응.',
-      specs: ['모서리: radius 24px(청키)', '그림자: 바깥 드롭 + 안쪽 하이라이트 이중', 'active: scale(0.96) 스퀴시', 'reduce-motion: 모션/트랜지션 비활성', 'focus-visible: 3px 캔디 핑크 outline'],
+      specs: ['모서리: radius 24px(청키)', '그림자: 바깥 드롭 + 안쪽 하이라이트 이중', 'active: scale(0.96) 스퀴시', 'reduce-motion: 모션/트랜지션 비활성', 'focus-visible: 캔디 핑크 outline'],
     },
     Card: {
       description: '파스텔 표면에 푹신한 이중 그림자와 하이퍼리얼 광택을 올린 말랑한 표면.',

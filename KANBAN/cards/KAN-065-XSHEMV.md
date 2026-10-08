@@ -93,7 +93,7 @@ style guide 51개는 저마다 모티프 버튼(그 style guide 모양을 덧칠
 - [x] `S2` 브라우저 확인 먼저 — `apps/storybook/src/real-input/mount.tsx` 에 style guide 와 색 스킴을 받는 마운트(`StyleGuideProvider`), `FocusVisible.realinput.test.tsx` 에 「Neobrutalism default 모티프 Button 에 Tab 으로 오면 테두리 색이 배경과 3:1 이상」. 완료 기준: 새 항목 빨강(약 1.47), 기존 실제 입력 항목 초록
 - [x] `S3` 미달 6곳을 포커스 색 토큰으로 — neobrutalism · minimal-saas(고리 모양은 두고 색만) · tactile-texture · gothic-medieval-digital · shattered-glass-cinematic · iridescent-chrome 의 포커스 선언을 `var(--bbangto-semantic-border-focus, <default 포커스 색>)` 로 바꾼다. 확장 변수 값은 그대로 둔다. 소개 문구의 포커스 색이 어긋나면 함께 고친다. 완료 기준: 모티프 포커스 검사 초록(위반 0), S2 항목 초록, 바뀐 색이 전략 표 12행과 같다
 - [x] `S4` 없는 변수 5줄 바로잡기 — aiSurreal 200·201 → `--bbangto-semantic-border-focus`, blueprint 128 → `--bbangto-semantic-background-elevated`, scandi 161 · spatial3d 185 → `--bbangto-semantic-border-base`. 대체값은 그대로. 완료 기준: 없는 semantic 변수 검사 초록(0줄)
-- [ ] `S5` 문서와 마무리 — 루트 `README.md` 포커스 대비 단락에 「모티프 CSS 의 포커스 테두리도 같은 규칙으로 잰다」를 더한다. changeset(`.changeset/kan-065-motif-focus.md` — style-guide-catalog patch). 게이트 5종, 검토서. 완료 기준: 게이트 5종 초록, 검토로 이동
+- [x] `S5` 문서와 마무리 — 루트 `README.md` 포커스 대비 단락에 「모티프 CSS 의 포커스 테두리도 같은 규칙으로 잰다」를 더한다. changeset(`.changeset/kan-065-motif-focus.md` — style-guide-catalog patch). 게이트 5종, 검토서. 완료 기준: 게이트 5종 초록, 검토로 이동
 
 ## 검증
 ### 게이트 5종 (전부 초록이어야 완료)
@@ -143,3 +143,5 @@ pnpm test:unit                  # ← style-guide-catalog accessibility.test.ts 
 - 2026-10-08T18:45 · s:0882524c · S3 done — 6곳 포커스 선언을 var(--bbangto-semantic-border-focus, <default 포커스 색>) 로(minimal-saas 는 고리 모양 유지, 확장 변수 값은 그대로). 모티프 포커스 검사 초록, 바뀐 색 12행이 전략 표와 같음(최저 3.01), 브라우저 항목 초록(22/22). tactile·iridescent 소개 문구의 포커스 색을 고침
 - 2026-10-08T18:46 · s:0882524c · S4 doing — 착수
 - 2026-10-08T18:46 · s:0882524c · S4 done — 없는 변수 5줄을 이름이 가리키던 토큰으로(aiSurreal 태그 → border-focus, blueprint 카드 → background-elevated, scandi·spatial3d 태그 → border-base). 대체값 그대로. 없는 semantic 변수 검사 초록, style-guide-catalog vitest 108/108
+- 2026-10-08T18:46 · s:0882524c · S5 doing — 착수
+- 2026-10-08T18:54 · s:0882524c · S5 done — README 포커스 대비 단락에 모티프 CSS 검사, changeset(style-guide-catalog patch). 게이트 5종 초록(typecheck·build·test 1293·storybook build·test:unit — 첫 test:unit 은 foundations bundleBudget 자체 시험 5초 시간 초과, 단독·재실행 통과). 추가 확인: 빌드한 Storybook 에서 실제 Tab — neobrutalism #A9881C 2px, tactile #EB5D94, minimal-saas #4F46E5 3px 고리. tactile·collage 모티프 규칙은 !important 가 없어 core 2px 테두리가 그려진다(색은 같은 토큰, 이 카드 전부터) — tactile 소개 문구의 3px 를 걷음
