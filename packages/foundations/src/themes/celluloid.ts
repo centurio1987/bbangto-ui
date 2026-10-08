@@ -45,7 +45,7 @@ export const celluloidFoundation: BbangtoFoundation = {
       base: '#DDDDDD',
       muted: '#EEEEEE',
       strong: '#888888',
-      focus: '#00D1B2',
+      focus: '#0DA38A',
     },
     primary: {
       base: '#00D1B2',

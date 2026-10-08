@@ -45,7 +45,7 @@ export const auroraYellowFoundation: BbangtoFoundation = {
       base: '#DDDDDD',
       muted: '#EEEEEE',
       strong: '#888888',
-      focus: '#EFDF00',
+      focus: '#9E9301',
     },
     primary: {
       base: '#EFDF00',

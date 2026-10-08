@@ -45,7 +45,7 @@ export const magazineLightFoundation: BbangtoFoundation = {
       base: '#DDDDDD',
       muted: '#EEEEEE',
       strong: '#888888',
-      focus: '#F6F600',
+      focus: '#969604',
     },
     primary: {
       base: '#F6F600',

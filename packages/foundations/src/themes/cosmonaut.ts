@@ -45,7 +45,7 @@ export const cosmonautFoundation: BbangtoFoundation = {
       base: '#DDDDDD',
       muted: '#EEEEEE',
       strong: '#888888',
-      focus: '#FFFFFF',
+      focus: '#909090',
     },
     primary: {
       base: '#FFFFFF',

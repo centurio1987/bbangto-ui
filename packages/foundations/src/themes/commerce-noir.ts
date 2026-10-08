@@ -45,7 +45,7 @@ export const commerceNoirFoundation: BbangtoFoundation = {
       base: '#DDDDDD',
       muted: '#EEEEEE',
       strong: '#888888',
-      focus: '#96BF48',
+      focus: '#779E1E',
     },
     primary: {
       base: '#96BF48',

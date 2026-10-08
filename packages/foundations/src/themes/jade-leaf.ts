@@ -45,7 +45,7 @@ export const jadeLeafFoundation: BbangtoFoundation = {
       base: '#DDDDDD',
       muted: '#EEEEEE',
       strong: '#888888',
-      focus: '#00ED64',
+      focus: '#07A745',
     },
     primary: {
       base: '#00ED64',

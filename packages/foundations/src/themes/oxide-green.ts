@@ -45,7 +45,7 @@ export const oxideGreenFoundation: BbangtoFoundation = {
       base: '#DDDDDD',
       muted: '#EEEEEE',
       strong: '#888888',
-      focus: '#76B900',
+      focus: '#66A103',
     },
     primary: {
       base: '#76B900',

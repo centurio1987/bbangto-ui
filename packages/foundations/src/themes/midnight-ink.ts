@@ -45,7 +45,7 @@ export const midnightInkFoundation: BbangtoFoundation = {
       base: '#DDDDDD',
       muted: '#EEEEEE',
       strong: '#888888',
-      focus: '#F5A623',
+      focus: '#C78303',
     },
     primary: {
       base: '#F5A623',

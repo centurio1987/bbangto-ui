@@ -45,7 +45,7 @@ export const jungleNightFoundation: BbangtoFoundation = {
       base: '#DDDDDD',
       muted: '#EEEEEE',
       strong: '#888888',
-      focus: '#1DB954',
+      focus: '#07A848',
     },
     primary: {
       base: '#1DB954',

@@ -45,7 +45,7 @@ export const limeFoundation: BbangtoFoundation = {
       base: '#DDDDDD',
       muted: '#EEEEEE',
       strong: '#888888',
-      focus: '#9FE870',
+      focus: '#5DA224',
     },
     primary: {
       base: '#9FE870',

@@ -45,7 +45,7 @@ export const charcoalWarmFoundation: BbangtoFoundation = {
       base: '#DDDDDD',
       muted: '#EEEEEE',
       strong: '#888888',
-      focus: '#01A4FF',
+      focus: '#0197EC',
     },
     primary: {
       base: '#01A4FF',
