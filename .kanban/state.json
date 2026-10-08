@@ -1,6 +1,6 @@
 {
   "next_id": 67,
-  "next_seq": 247,
+  "next_seq": 248,
   "cards": {
     "KAN-057-CCH3E8": {
       "col": "backlog",
@@ -1372,6 +1372,16 @@
   ],
   "recent": [
     {
+      "seq": 247,
+      "t": "2026-10-08T18:39",
+      "a": "유저",
+      "id": "KAN-055-34A57K",
+      "op": "waive",
+      "w": "S7030N",
+      "with_": "KAN-065-XSHEMV",
+      "reason": "KAN-065 는 자기 changeset 파일(.changeset/kan-065-motif-focus.md) 하나만 더하고 KAN-055 는 배포 때 그것을 읽어 소비할 뿐이라 같은 파일을 고치지 않는다. 065 가 먼저 병합되면 다음 배포에 style-guide-catalog 가 함께 나간다. KAN-056·058·059·060·063 과 같은 처리 (2026-10-08 유저 선택)"
+    },
+    {
       "seq": 246,
       "t": "2026-10-08T18:32",
       "a": "ai",
@@ -1913,16 +1923,6 @@
       "w": "S7030N",
       "from": "backlog",
       "to": "todo"
-    },
-    {
-      "seq": 217,
-      "t": "2026-10-07T18:03",
-      "a": "ai",
-      "id": "KAN-059-62EAKB",
-      "op": "move",
-      "w": "S7030N",
-      "from": "backlog",
-      "to": "todo"
     }
   ],
   "waivers": [
@@ -2023,6 +2023,13 @@
       "reason": "유저 선택(2026-10-08 「둘 다 용인」): 루트 README.md 에서 KAN-064 는 기여 절차 4단계의 매니페스트 표와 그 아래 단락만, KAN-065 는 포커스 대비 단락만 고친다",
       "created": "2026-10-08T18:32",
       "by": "ai"
+    },
+    {
+      "pair": "KAN-055-34A57K|KAN-065-XSHEMV",
+      "scope_hash": "def182197f9b68bb",
+      "reason": "KAN-065 는 자기 changeset 파일(.changeset/kan-065-motif-focus.md) 하나만 더하고 KAN-055 는 배포 때 그것을 읽어 소비할 뿐이라 같은 파일을 고치지 않는다. 065 가 먼저 병합되면 다음 배포에 style-guide-catalog 가 함께 나간다. KAN-056·058·059·060·063 과 같은 처리 (2026-10-08 유저 선택)",
+      "created": "2026-10-08T18:39",
+      "by": "유저"
     }
   ],
   "serials": [
