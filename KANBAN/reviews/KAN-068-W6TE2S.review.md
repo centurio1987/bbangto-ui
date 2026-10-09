@@ -5,7 +5,7 @@ created: 2026-10-10
 branch: KAN-068-W6TE2S
 worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-068-W6TE2S
 base: 7093fcd
-status: 검토 대기
+status: 승인
 ---
 
 # KAN-068-W6TE2S 검토 요청 — 미배포 수정분 배포 — KAN-056·060·065 를 KAN-064 major 전에 (사용자 실행 지시 후)
@@ -139,7 +139,7 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-068-W6TE2S --add
 **전체 승인은 살아있는 항목이 전부 승인일 때만 섭니다**(철회는 분모에서 빠집니다). 하나라도
 반려·추가 의견·미정이면 4항의 전체 승인도 `→ 완료` 이동도 종료코드 14로 거부됩니다.
 
-- [ ] 배포된 visualization 이 저장소 빌드와 파일 나눔만 다른 것을 「내용이 같다」로 받아도 되는가 — 다시 묶어 견주니 코드는 같고 파일을 나눈 방식과 이름만 달랐습니다
+- [x] 배포된 visualization 이 저장소 빌드와 파일 나눔만 다른 것을 「내용이 같다」로 받아도 되는가 — 다시 묶어 견주니 코드는 같고 파일을 나눈 방식과 이름만 달랐습니다
     - **배경**
       - 배포본을 받아, push 직전 점검 때 저장소에서 빌드한 결과와 파일마다 견줬습니다. 다섯 패키지는 모든 파일이 바이트까지 같았고, visualization 만 708개 중 562개가 같았습니다. 원문: KANBAN/cards/KAN-068-W6TE2S.md:96
       - 다른 것은 코드를 여러 조각 파일(chunk)로 나눈 방식과 그 파일 이름입니다. 외부 앱처럼 esbuild 로 다시 묶어 줄이면 크기가 전체 200,330B, BarChart 8,958B, C4CodeDiagram 13,569B 로 양쪽이 같습니다. 원문: bundle-budget.json:7
@@ -154,11 +154,15 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-068-W6TE2S --add
     | **추천** 그대로 받는다 | visualization 은 배포본과 저장소 빌드를 파일 단위로 견주면 계속 어긋난다 | 이 카드는 지금 상태로 끝난다 |
     | 후속 카드를 만든다 | 빌드 입구 순서를 고정하는 일이 백로그에 하나 는다 | 다음 배포부터 파일 단위로도 같아지는지 볼 수 있다(그렇게 될지는 확인 안 함) |
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 승인 · ai · 2026-10-10
 
-    > **추가 의견** — _아직 없습니다._
+    > **추가 의견**
+    >
+    > - ai · 2026-10-10 — 검토자 대조 — 「내용이 같다」로 받아도 된다는 근거를 더 확인했습니다. 배포를 만든 커밋 adb851c 는 점검 커밋 7093fcd 와 version 줄·CHANGELOG·changeset 15파일만 다르고 소스는 같습니다(git diff --stat 7093fcd adb851c). 두 빌드 모두 pnpm install --frozen-lockfile 로 같은 잠금 파일에서 도구를 받았습니다(release.yml:41, 점검 스크립트 gates.sh). visualization 에는 prepack·prepublishOnly 가 없어서, release.yml:43-49 에서 빌드하고 크기 게이트를 돈 dist 가 다시 빌드되지 않고 그대로 올라갔습니다. all-pub.txt·all-loc.txt 에서 이름 끝 숫자를 지우고 줄 묶음으로 견주니 다른 줄은 react/jsx-runtime 을 불러오는 2줄뿐이었습니다. 다만 차이는 「이름 순서」가 아니라, Fragment 에 「as Fragment」 별칭이 붙은 줄이 어느 쪽이냐입니다. 뜻은 같습니다. 이 견줌은 이름 둘이 서로 뒤바뀐 경우까지는 못 가르지만, 소스와 잠금 파일이 같아 그런 일이 생길 까닭이 없습니다.
 
-- [ ] 외부 앱에 보낼 전달 문구를 이대로 지금 보내도 되는가 — changeset 세 장의 「바뀐 동작」을 빠짐없이 옮겼습니다
+- [x] 외부 앱에 보낼 전달 문구를 이대로 지금 보내도 되는가 — changeset 세 장의 「바뀐 동작」을 빠짐없이 옮겼습니다
     - **배경**
       - 외부 앱은 배포본만 설치하므로, 이번 수정이 그쪽 화면에서 무엇을 바꾸는지는 이 문구로만 알 수 있습니다. 원문: KANBAN/cards/KAN-068-W6TE2S.md:95
       - 문구는 다섯 갈래입니다. 새 버전 6개, 포커스 테두리 색이 짙어진 색 스킴(foundation 21개, style guide 색 스킴 10개), 모티프 버튼 포커스(shattered-glass rose 가 시안에서 금색으로 바뀌는 것 포함), viz 템플릿 13개의 기본 색, 그리고 KAN-055 때 알린 「흐린 포커스 테두리」 한계가 풀렸다는 소식입니다.
@@ -174,9 +178,25 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-068-W6TE2S --add
     | 줄여서 보낸다 | 어느 색 스킴이 바뀌었는지는 외부 앱이 CHANGELOG 를 따로 봐야 한다 | 문구가 짧아진다 |
     | KAN-064 배포 때 함께 보낸다 | 그때까지 외부 앱은 이번 수정이 나온 것을 모른다 | 안내가 한 번으로 줄지만 major 안내와 섞인다 |
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 반려 · ai · 2026-10-10
+    > - 승인 · ai · 2026-10-10
 
-    > **추가 의견** — _아직 없습니다._
+    > **추가 의견**
+    >
+    > - ai · 2026-10-10 — 검토자 대조 — 문구(KANBAN/cards/KAN-068-W6TE2S.md:95)를 changeset 세 장(7093fcd)과 KAN-055·KAN-065 실행 문서에 견주니, 이대로 보내면 틀리거나 빠지는 곳이 네 군데 있습니다. 그래서 「이대로 지금 보낸다」는 반려합니다. 고친 뒤 보내는 시점(지금 · KAN-064 때)은 다시 고르시면 됩니다.
+① ③의 첫 문장 「모티프 버튼 포커스 테두리가 포커스 색 토큰을 따른다」는 사실과 다릅니다. KAN-065 는 자기 색을 쓰던 18곳 가운데 3:1 미달 6곳만 토큰으로 바꿨고, 나머지 12곳은 이미 3:1 이상이라 자기 색을 그대로 씁니다. 원문: KANBAN/cards/KAN-065-XSHEMV.md:22·79, 예 packages/style-guide-catalog/src/bauhausGeometric.tsx:139(--bbangto-ext-shape-circle). changeset 원문은 「3:1 이상이 된다」입니다. 원문: .changeset/kan-065-motif-focus.md:5
+② KAN-055 때 외부 앱에 「style guide 가 자기 CSS 로 그리는 버튼 포커스 테두리 18곳은 KAN-065 에서 고친다」고 알렸습니다. 원문: KANBAN/cards/KAN-055-34A57K.md:106. 그런데 ⑤는 색 스킴 한계만 풀렸다고 하고, 18곳이 어떻게 됐는지(6곳 바뀜 · 12곳은 이미 통과라 그대로)는 말하지 않습니다.
+③ foundation 21개는 이름을 다 적었지만 style guide 쪽은 「색 스킴 10개」「style guide 11개」로 개수만 있습니다. 외부 앱이 자기가 쓰는 style guide 가 바뀌었는지 알 수 없어서, 검증 절의 「포커스 테두리 색이 바뀐 색 스킴을 빠뜨리지 않는다」에 못 미칩니다. 이름을 적거나 style-guide-catalog 0.3.3 CHANGELOG 를 가리키면 됩니다. 원문: .changeset/kan-060-focus-contrast.md
+④ ①의 「export 는 그대로」가 ②의 「tokens 는 … 를, style-guide-catalog 는 auditFocusContrast 를 새로 내보낸다」와 부딪힙니다. 「기존 export 는 그대로이고 새 export 가 붙는다」로 써야 맞습니다.
+    > - ai · 2026-10-10 — main 상태 참고(main 4d60413 기준) — 이 배포 뒤 main 에 patch changeset 두 장이 새로 들어왔습니다. .changeset/kan-057-edge-dash-token.md(visualization·tokens patch, 가이드의 edge.dashPattern 이 연결선 기본 대시를 정하는 동작 변경)와 .changeset/kan-067-extend-when-missing.md(core·visualization patch)입니다. KAN-064 는 아직 main 에 병합되지 않았습니다. 지금 KAN-064 를 병합하면 이 둘이 major 4개와 같은 배포에 실려서, §3-5 에서 피하려던 일(외부 앱이 지금 범위로는 수정분을 못 받는 일)이 KAN-057 에서 다시 생깁니다. 이 카드 범위(changeset 세 장) 밖이라 판단 항목으로는 세우지 않았습니다. KAN-064 병합 전에 정할 일입니다. 배경의 「다음 배포에는 KAN-064 의 major 4개가 실려」에도 이 두 장을 함께 적어야 맞습니다.
+    > - ai · 2026-10-10 — 재작업 — 반려 ①~④를 반영한 정정본을 실행 문서 수행 내역 KANBAN/cards/KAN-068-W6TE2S.md:97 에 덧붙였습니다(:95 옛 문구는 append 전용이라 그대로 두고, 보낼 것은 :97). ① 모티프 포커스 첫 문장을 changeset 원문대로 「3:1 이상이 된다」로 좁혔습니다. ② KAN-055 때 알린 18곳이 어떻게 됐는지(미달 style guide 6개는 토큰으로, 이미 3:1 이상인 12개는 자기 색 그대로, 화면이 바뀌는 것은 5개·색 스킴 7개)를 ③-나로 넣었습니다. ③ style guide 쪽도 이름을 모두 적었습니다(KAN-060 색 스킴 10개 · 고정 색 11개 · KAN-065 5개). ④ 「기존 import 경로·props·export 는 그대로이고 새 export 가 붙는다」로 고쳤습니다. 보내는 시점의 추천(지금 보낸다)은 그대로입니다.
+    > - ai · 2026-10-10 — 재검토(정정본 :97) — 반려를 유지합니다. 남은 틀린 곳은 하나입니다.
+- ③-(나)의 예시 「memphis 검정」이 사실과 다릅니다. memphis 의 모티프 포커스는 포커스 색 토큰을 읽습니다(7093fcd packages/style-guide-catalog/src/memphisPostmodern.tsx:132 「var(--bbangto-semantic-border-focus, ${INK})」). 검은 것은 그 색 스킴의 포커스 토큰이 검정이기 때문이라, 「자기 색을 그대로 쓰는 12개」가 아니라 토큰을 따르는 쪽입니다. 이 예시는 KANBAN/cards/KAN-065-XSHEMV.md:79 에서 옮겨 온 것으로 보입니다.
+- 7093fcd 의 style guide 소스에서 모티프 포커스 선언 53곳을 세어 보니, 토큰을 안 읽는 곳은 12곳으로 문구의 수와 맞았습니다. bauhaus-geometric · bento-modular · humanist-imperfect · kinetic-typography · organic-fluid-blob · photo-type-editorial · radiant-glow-dark · risograph-print · spatial-3d · swiss-international · terminal-mono · ukiyoe-woodblock 입니다. 예시를 이 중에서 고르면(예: bauhaus 빨강 · swiss 빨강) 됩니다.
+- 나머지는 원문과 맞았습니다. ①의 새 export 서술, ②의 foundation 21개와 style guide 9개·색 스킴 10개 이름, ③ 첫 문장(「3:1 이상이 된다」), (가)의 11개 이름, (나)의 6개·12개 수와 5개·색 스킴 7개 이름, tactile-texture-01 이 그대로인 것, (다)(라), ④, ⑤를 changeset 세 장(7093fcd)·KAN-055 :106·KAN-065 :22 와 견줬습니다. 예시 하나만 고치면 승인할 수 있습니다.
+    > - ai · 2026-10-10 — 재작업 2 — ③-(나)의 예시를 「bauhaus 빨강 · swiss 빨강 등」으로 고친 줄을 KANBAN/cards/KAN-068-W6TE2S.md:99 에 덧붙였습니다. bauhaus-geometric 은 --bbangto-ext-shape-circle(#E63946), swiss-international 은 --bbangto-ext-accent-red(#E2231A)를 그대로 씁니다(7093fcd 의 bauhausGeometric.tsx:139 · swissInternational.tsx:111). 같은 틀린 예시의 출처인 KAN-065 실행 문서 「버린 대안」(KANBAN/cards/KAN-065-XSHEMV.md:79)은 main 에서 따로 고칩니다.
 
 
 ## 4. 판정
@@ -192,9 +212,11 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-068-W6TE2S --add
      frontmatter 의 status 도 함께 고친다. 손으로 적어도 되지만, 그때는 수렴 검사를
      안 거치므로 `validate` 가 항목 판정과 어긋난 승인을 error 로 잡는다. -->
 
-**판정**: (아직 없습니다)
+**판정**: 승인
 
 **판정 이력**:
+
+- 승인 · 유저 · 2026-10-10
 
 - 승인이면 → `apply --op move --id KAN-068-W6TE2S --to done` 뒤에 `main` 병합과 워크트리 정리(출력의 `cleanup`)
 - 반려면 → `apply --op move --id KAN-068-W6TE2S --to doing` 뒤에 `doc-log --entry "<반려 사유>"`.
