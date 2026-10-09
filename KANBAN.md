@@ -57,7 +57,8 @@
   - 이유: 토큰 자리(packages/tokens/src/visualization.ts:66)는 있는데 아무도 읽지 않아, 스타일 가이드가 그 값을 넣어도 엣지 선 모양이 바뀌지 않는다(KAN-049 에서 발견)
   - 목표: 토큰이 실제로 엣지에 반영되거나 타입에서 사라져, 선언과 동작이 어긋난 자리가 없어진다. style-classification 횡단 규칙 3 의 상태 문장도 갱신된다
   - 메모: 잇는 쪽이면 스타일 가이드 기본값을 개별 prop(strokeDasharray)이 덮는 순서를 지킨다. 잇기와 걷기 중 무엇을 할지는 착수 때 정한다
-  - 실행 문서: KANBAN/cards/KAN-057-CCH3E8.md (0/4 · 최근 10-09)
+  - 실행 문서: KANBAN/cards/KAN-057-CCH3E8.md (1/4 · 최근 10-10)
+  - 계획 리포트: KANBAN/reports/KAN-057-CCH3E8.report.html (낡음)
   - 원문:
     ```text
     만들어 (앞 답변 「앞서 여쭌 백로그 카드 두 가지(리터럴 색이 남은 템플릿 13개, 읽히지 않는 `edge.dashPattern` 토큰)는 아직 만들지 않았습니다.」에 대한 답)
