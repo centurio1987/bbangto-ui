@@ -299,3 +299,4 @@
 {"seq": 231, "t": "2026-10-08T18:21", "a": "ai", "id": "KAN-055-34A57K", "op": "move", "w": "HMFE04", "from": "doing", "to": "review"}
 {"seq": 230, "t": "2026-10-08T01:29", "a": "ai", "id": "KAN-060-G9YKG6", "op": "move", "w": "S7030N", "from": "backlog", "to": "todo"}
 {"seq": 232, "t": "2026-10-08T18:33", "a": "ai", "id": "KAN-055-34A57K", "op": "move", "w": "HMFE04", "from": "review", "to": "done"}
+{"seq": 232, "t": "2026-10-08T17:14", "a": "ai", "id": "KAN-060-G9YKG6", "op": "move", "w": "00EBGW", "from": "todo", "to": "doing"}

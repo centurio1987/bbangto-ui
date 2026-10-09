@@ -1,6 +1,6 @@
 {
-  "next_id": 72,
-  "next_seq": 265,
+  "next_id": 73,
+  "next_seq": 266,
   "cards": {
     "KAN-061-K8V2HH": {
       "col": "backlog",
@@ -1449,6 +1449,26 @@
       "goal_hash": "e95b4042b9c9383777d31707bda88f5f95447b20",
       "memo": "KAN-067 검토 항목 1(2026-10-10 승인)에서 나왔다. 실제 사례(앱 지시문·프롬프트·모델)는 유저에게 받는다. 루트 README 두 자리 카드와 같은 경로를 본다",
       "memo_hash": "2291195c63c8e7a482820e7243681798b3544909"
+    },
+    "KAN-072-KW0G9B": {
+      "col": "backlog",
+      "title": "루트 README 의 「컴포넌트가 없을 때」 길과 viz Provider 서술 바로잡기",
+      "verbatim": "최종 승인한다 (KAN-067 검토 항목 2 「루트 README 의 두 자리를 어디서 고칠 것인가」의 추천 「새 카드 하나로 연다」를 포함한 전체 승인)",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-10",
+      "title_hash": "7e2415391c7ebf1795750e7120f7c08522122b47",
+      "verbatim_hash": "a392e80c8b7b37415472babbe1e4251095b169d2",
+      "short": "루트 README 두 자리",
+      "short_hash": "4197938c33b32163ca03dfee33a23365813ebb6b",
+      "purpose": "루트 README 길잡이 표(README.md:28)에 컴포넌트·유형이 없을 때 앱 안에서 확장하는 길을 잇고, README.md:858 의 「Provider 없이 그리면 무채색」 서술을 실측대로 고친다",
+      "purpose_hash": "2f12865635237e6ca26fe95fcd020e0d08cf0f18",
+      "reason": "길잡이 표에서 컴포넌트가 없을 때 갈 곳이 「이 레포에 기여한다」뿐이라 앱 에이전트가 개선 요청으로 읽을 수 있고, :858 은 chromium 실측(도형 검은 채움·엣지 안 보임)과 다르다. KAN-067 scope 밖이었다",
+      "reason_hash": "01b513edd8072fce84ee7a2712c37c1dd52b53cf",
+      "goal": "루트 README 가 배포 README 의 「원하는 것이 없을 때」 절로 이어지고, Provider 서술이 실측과 같아진다",
+      "goal_hash": "327fac73461bdde8ba72bc4b8cad1302ade13bc3",
+      "memo": "KAN-067 검토 항목 2(2026-10-10 승인)에서 나왔다. README.md 는 KAN-064 scope 에도 있다(KAN-064 는 KAN-068 뒤 병합 대기). KAN-071(실제 사례 재현)과 같은 경로를 보므로 그 카드의 전후 비교에 쓴다",
+      "memo_hash": "851301bace69a1f95e144da38fef72a54178d819"
     }
   },
   "order": [
@@ -1522,9 +1542,27 @@
     "KAN-065-XSHEMV",
     "KAN-057-CCH3E8",
     "KAN-067-WDY7N1",
-    "KAN-071-FK1W8K"
+    "KAN-071-FK1W8K",
+    "KAN-072-KW0G9B"
   ],
   "recent": [
+    {
+      "seq": 265,
+      "t": "2026-10-10T01:03",
+      "a": "ai",
+      "id": "KAN-072-KW0G9B",
+      "op": "create",
+      "w": "S7030N",
+      "col": "backlog",
+      "title": "루트 README 의 「컴포넌트가 없을 때」 길과 viz Provider 서술 바로잡기",
+      "verbatim": "최종 승인한다 (KAN-067 검토 항목 2 「루트 README 의 두 자리를 어디서 고칠 것인가」의 추천 「새 카드 하나로 연다」를 포함한 전체 승인)",
+      "parent": null,
+      "short": "루트 README 두 자리",
+      "purpose": "루트 README 길잡이 표(README.md:28)에 컴포넌트·유형이 없을 때 앱 안에서 확장하는 길을 잇고, README.md:858 의 「Provider 없이 그리면 무채색」 서술을 실측대로 고친다",
+      "reason": "길잡이 표에서 컴포넌트가 없을 때 갈 곳이 「이 레포에 기여한다」뿐이라 앱 에이전트가 개선 요청으로 읽을 수 있고, :858 은 chromium 실측(도형 검은 채움·엣지 안 보임)과 다르다. KAN-067 scope 밖이었다",
+      "goal": "루트 README 가 배포 README 의 「원하는 것이 없을 때」 절로 이어지고, Provider 서술이 실측과 같아진다",
+      "memo": "KAN-067 검토 항목 2(2026-10-10 승인)에서 나왔다. README.md 는 KAN-064 scope 에도 있다(KAN-064 는 KAN-068 뒤 병합 대기). KAN-071(실제 사례 재현)과 같은 경로를 보므로 그 카드의 전후 비교에 쓴다"
+    },
     {
       "seq": 264,
       "t": "2026-10-10T01:02",
@@ -2074,16 +2112,6 @@
       "w": "S7030N",
       "from": "backlog",
       "to": "todo"
-    },
-    {
-      "seq": 232,
-      "t": "2026-10-08T17:14",
-      "a": "ai",
-      "id": "KAN-060-G9YKG6",
-      "op": "move",
-      "w": "00EBGW",
-      "from": "todo",
-      "to": "doing"
     }
   ],
   "waivers": [
