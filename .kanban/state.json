@@ -1,6 +1,6 @@
 {
-  "next_id": 74,
-  "next_seq": 273,
+  "next_id": 75,
+  "next_seq": 274,
   "cards": {
     "KAN-066-T6NR80": {
       "col": "backlog",
@@ -1477,6 +1477,44 @@
         "packages/visualization/README.md",
         ".changeset/kan-061-*.md"
       ]
+    },
+    "KAN-074-KAZBTF": {
+      "col": "todo",
+      "title": "미배포 변경 배포 — KAN-057·061·067 과 KAN-064 major 4개 (tokens 1.5.0 · core 1.2.2 · visualization·style-guide-catalog·visualization-style-guide-catalog 1.0.0 · foundations 2.0.0)",
+      "verbatim": "배포 카드 만들고 push 배포 진행",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-10",
+      "title_hash": "2a445eca2838ac3fc6fffbaedd19fb1f352d0909",
+      "verbatim_hash": "80b3a9bc2097b464ea9f5d91021bd14375737cae",
+      "short": "major 포함 배포",
+      "short_hash": "9e44497442877fd310e9455eddf1bb36de38b500",
+      "purpose": "main 에 쌓인 changeset 네 장(KAN-057·061·064·067)으로 패키지 6개 버전을 올려 GitHub Packages 에 배포한다",
+      "purpose_hash": "b3567c9722df6ae51242e82c34400d882ee9daf4",
+      "reason": "KAN-073 보관 때 057·061·067 을 KAN-064 major 와 함께 내기로 정했고(2026-10-10 유저), 외부 앱은 배포된 버전만 받는다",
+      "reason_hash": "13dcc42e14491eb0182b937b8cbf65422729d3a8",
+      "goal": "레지스트리에 새 버전 6개가 올라가고, 배포본에서 changeset 마다 변경 하나씩이 확인되며, 외부 앱에 major 업그레이드 안내 문구가 남는다",
+      "goal_hash": "615bb11121ddb222400bed3ffee950f1416f73c2",
+      "memo": "push 하면 main 로컬 커밋 전부와 release.yml 이 나간다. 절차는 KAN-068 과 같다(S1 점검 → S2 push·Version PR 대조·병합 → S3 배포본 확인과 전달)",
+      "memo_hash": "820873e1794404d47656f994cdb865cd88dbd6c6",
+      "scope": [
+        "packages/tokens/package.json",
+        "packages/tokens/CHANGELOG.md",
+        "packages/core/package.json",
+        "packages/core/CHANGELOG.md",
+        "packages/foundations/package.json",
+        "packages/foundations/CHANGELOG.md",
+        "packages/style-guide-catalog/package.json",
+        "packages/style-guide-catalog/CHANGELOG.md",
+        "packages/visualization/package.json",
+        "packages/visualization/CHANGELOG.md",
+        "packages/visualization-style-guide-catalog/package.json",
+        "packages/visualization-style-guide-catalog/CHANGELOG.md",
+        ".changeset/kan-057-edge-dash-token.md",
+        ".changeset/kan-061-on-ink.md",
+        ".changeset/kan-064-manifest-index.md",
+        ".changeset/kan-067-extend-when-missing.md"
+      ]
     }
   },
   "order": [
@@ -1551,9 +1589,27 @@
     "KAN-067-WDY7N1",
     "KAN-068-W6TE2S",
     "KAN-061-K8V2HH",
-    "KAN-064-AC0H6M"
+    "KAN-064-AC0H6M",
+    "KAN-074-KAZBTF"
   ],
   "recent": [
+    {
+      "seq": 273,
+      "t": "2026-10-10T03:57",
+      "a": "ai",
+      "id": "KAN-074-KAZBTF",
+      "op": "create",
+      "w": "S7030N",
+      "col": "todo",
+      "title": "미배포 변경 배포 — KAN-057·061·067 과 KAN-064 major 4개 (tokens 1.5.0 · core 1.2.2 · visualization·style-guide-catalog·visualization-style-guide-catalog 1.0.0 · foundations 2.0.0)",
+      "verbatim": "배포 카드 만들고 push 배포 진행",
+      "parent": null,
+      "short": "major 포함 배포",
+      "purpose": "main 에 쌓인 changeset 네 장(KAN-057·061·064·067)으로 패키지 6개 버전을 올려 GitHub Packages 에 배포한다",
+      "reason": "KAN-073 보관 때 057·061·067 을 KAN-064 major 와 함께 내기로 정했고(2026-10-10 유저), 외부 앱은 배포된 버전만 받는다",
+      "goal": "레지스트리에 새 버전 6개가 올라가고, 배포본에서 changeset 마다 변경 하나씩이 확인되며, 외부 앱에 major 업그레이드 안내 문구가 남는다",
+      "memo": "push 하면 main 로컬 커밋 전부와 release.yml 이 나간다. 절차는 KAN-068 과 같다(S1 점검 → S2 push·Version PR 대조·병합 → S3 배포본 확인과 전달)"
+    },
     {
       "seq": 272,
       "t": "2026-10-10T03:48",
@@ -2098,16 +2154,6 @@
       "w": "S7030N",
       "with_": "KAN-065-XSHEMV",
       "reason": "KAN-065 는 자기 changeset 파일(.changeset/kan-065-motif-focus.md) 하나만 더하고 KAN-055 는 배포 때 그것을 읽어 소비할 뿐이라 같은 파일을 고치지 않는다. 065 가 먼저 병합되면 다음 배포에 style-guide-catalog 가 함께 나간다. KAN-056·058·059·060·063 과 같은 처리 (2026-10-08 유저 선택)"
-    },
-    {
-      "seq": 247,
-      "t": "2026-10-08T18:33",
-      "a": "ai",
-      "id": "KAN-064-AC0H6M",
-      "op": "move",
-      "w": "7E5YYM",
-      "from": "backlog",
-      "to": "doing"
     }
   ],
   "waivers": [

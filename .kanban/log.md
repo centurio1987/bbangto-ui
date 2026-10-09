@@ -1,6 +1,7 @@
 # KANBAN 변경 이력
 > 최근 50건. 이보다 오래된 이력은 archive.jsonl 로 압축 보관한다.
 
+- #273 2026-10-10 03:57 · ai · KAN-074-KAZBTF 생성 "미배포 변경 배포 — KAN-057·061·067 과 KAN-064 major 4개 (tokens 1.5.0 · core 1.2.2 · visualization·style-guide-catalog·visualization-style-guide-catalog 1.0.0 · foundations 2.0.0)" → 할 일
 - #272 2026-10-10 03:48 · ai · KAN-064-AC0H6M 이동 검토 → 완료
 - #271 2026-10-10 03:48 · ai · KAN-064-AC0H6M 수정 메모
 - #270 2026-10-10 03:46 · ai · KAN-073-6YWHN9 보관 (백로그)
@@ -50,4 +51,3 @@
 - #248 2026-10-08 18:40 · ai · KAN-065-XSHEMV 이동 할 일 → 진행 중
 - #248 2026-10-08 18:43 · ai · KAN-064-AC0H6M 독립성 겹침 용인 (상대 KAN-055-34A57K) — 재기록(scope 에 census 게이트·상세 폴더를 더해 무효, 겹치는 파일은 그대로): 유저 선택(2026-10-08 「둘 다 용인」). package.json 3개는 KAN-064 가 scripts.prebuild·files 만, KAN-055 는 version 만 고친다. changeset 은 KAN-064 가 kan-064-manifest-index.md 한 장을 더할 뿐이다. 배포 전에 병합되면 major 가 그 배포에 실리므로 병합 때 KAN-055 상태를 확인한다
 - #247 2026-10-08 18:39 · 유저 · KAN-055-34A57K 독립성 겹침 용인 (상대 KAN-065-XSHEMV) — KAN-065 는 자기 changeset 파일(.changeset/kan-065-motif-focus.md) 하나만 더하고 KAN-055 는 배포 때 그것을 읽어 소비할 뿐이라 같은 파일을 고치지 않는다. 065 가 먼저 병합되면 다음 배포에 style-guide-catalog 가 함께 나간다. KAN-056·058·059·060·063 과 같은 처리 (2026-10-08 유저 선택)
-- #247 2026-10-08 18:33 · ai · KAN-064-AC0H6M 이동 백로그 → 진행 중
