@@ -33,7 +33,7 @@ export function Rating({ label, value, onChange, max = 5 }: RatingProps) {
       role="radiogroup"
       aria-label={label}
       onKeyDown={onKeyDown}
-      style={{ display: 'inline-flex', gap: 'var(--bbangto-spacing-1)' }}
+      style={{ display: 'inline-flex', gap: 'var(--bbangto-spacing-4)' }}
     >
       {Array.from({ length: max }, (_, i) => {
         const n = i + 1;
@@ -51,7 +51,7 @@ export function Rating({ label, value, onChange, max = 5 }: RatingProps) {
             tabIndex={n === Math.max(value, 1) ? 0 : -1}
             onClick={() => select(n)}
             style={{
-              padding: 'var(--bbangto-spacing-1)',
+              padding: 'var(--bbangto-spacing-4)',
               border: 0,
               borderRadius: 'var(--bbangto-radius-sm)',
               background: 'transparent',

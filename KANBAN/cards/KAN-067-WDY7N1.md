@@ -12,7 +12,7 @@ scope: packages/core/README.md, packages/visualization/README.md, packages/visua
 
 앱을 만드는 에이전트가 bbangto-ui 에 원하는 컴포넌트가 없을 때, 앱 안에 확장 컴포넌트를 만들지 않고 라이브러리를 떠나거나 개선 요청으로 결론을 낸다. 2026-10-09 진단에서 원인은 매니페스트의 문구가 아니라 배포 문서의 짜임새로 나왔다. 매니페스트 네 개에는 이탈이나 요청을 권하는 문구가 없다. 이 카드는 원인 셋 중 둘을 고친다.
 
-1. **배포 README 에 「목록에 없을 때」의 길이 없다.** `packages/core/README.md` 는 짧은 소개뿐이고 컴포넌트 목록도 확장 방법도 없다. `packages/visualization/README.md:36` 은 빈 결과를 두고 「"그런 유형은 없다"가 답이다. 축을 줄여 다시 묻는다.」에서 끝난다. 확장할 부품은 이미 있다. core 컴포넌트 파일 57개 중 54개가 `forwardRef` 를 쓰고, 테마 값은 `--bbangto-*` CSS 변수 148개로 흐른다(`flattenToCSSVars(lightFoundation)` 실측). viz 는 `Canvas`·`Node`·`Edge` 같은 atom 과 molecule 을 내보낸다(`packages/visualization/src/atoms/index.ts`).
+1. **배포 README 에 「목록에 없을 때」의 길이 없다.** `packages/core/README.md` 는 짧은 소개뿐이고 컴포넌트 목록도 확장 방법도 없다. `packages/visualization/README.md:36` 은 빈 결과를 두고 「"그런 유형은 없다"가 답이다. 축을 줄여 다시 묻는다.」에서 끝난다. 확장할 부품은 이미 있다. core 컴포넌트 파일 56개 중 53개가 `forwardRef` 를 쓰고, 테마 값은 `--bbangto-*` CSS 변수 148개로 흐른다(`flattenToCSSVars(lightFoundation)` 실측). viz 는 `Canvas`·`Node`·`Edge` 같은 atom 과 molecule 을 내보낸다(`packages/visualization/src/atoms/index.ts`).
 2. **배포물에 저장소 관리 지시가 섞여 있다.** `packages/visualization/package.json:24-25` 의 `files` 가 `visualization-type-inventory.md`·`TYPE_METADATA_STRATEGY.md` 를 싣는다. 인벤토리 367~370번째 줄의 「문맥 없는 에이전트의 이어받기」 절은 「새 export/갭이 보이면 §5 해당 대역 끝에 행 추가」라고 지시한다. 앱 에이전트는 이것을 라이브러리 백로그에 올리라는 말로 읽을 수 있다.
 
 나머지 하나(매니페스트에 조립 경로가 없다)는 이 카드 밖이다.
@@ -52,7 +52,7 @@ scope: packages/core/README.md, packages/visualization/README.md, packages/visua
 
 ## 실행 계획
 - [x] `S1` 검사 먼저 — `packages/foundations/src/publishedDocs.ts`·`.test.ts`, `apps/storybook/src/stories/ExtendWhenMissing.stories.tsx`, 예제 파일 둘(`_readmeExamples/coreExtend.tsx`·`vizCompose.tsx`). 완료 기준: 실패 주입 표본 넷(README 밖 마크다운을 실은 files · 깨진 상대 링크 · 절 없음 · 예제 불일치)이 각각 위반을 내고, 실제 저장소 검사는 빨강이다(viz files 의 문서 2개, 두 README 의 절 없음). 스토리는 라이브러리를 고치지 않은 지금도 초록이다.
-- [ ] `S2` core README 「원하는 것이 없을 때」 절 — 순서 넷, CSS 변수 갈래, `className`·`ref` 전달(전달하지 않는 컴포넌트 명시), `coreExtend.tsx` 와 같은 예제. 완료 기준: S1 검사의 core 항목 초록.
+- [x] `S2` core README 「원하는 것이 없을 때」 절 — 순서 넷, CSS 변수 갈래, `className`·`ref` 전달(전달하지 않는 컴포넌트 명시), `coreExtend.tsx` 와 같은 예제. 완료 기준: S1 검사의 core 항목 초록.
 - [ ] `S3` visualization README 정리 — 「원하는 것이 없을 때」 절(`vizCompose.tsx` 와 같은 예제), 36번째 줄의 빈 결과 안내를 그 절로 잇기, 범위 밖 3종 사유를 README 에 직접 쓰기, 문서 목록을 「저장소에만 있는 문서」로 합치기. 완료 기준: S1 검사의 viz README 항목 초록, 배포되지 않는 문서를 배포물에 있는 것처럼 가리키는 문장 0.
 - [ ] `S4` 관리용 문서 배포 제외 — `package.json` `files` 에서 두 문서를 빼고 주석 4곳을 저장소 링크로 바꾼다. 완료 기준: S1 검사 전부 초록, `pnpm pack` 목록에 두 문서 없음, 빌드한 `dist` 의 `.d.ts` 에서 두 문서 이름이 나오는 줄은 모두 저장소 링크다.
 - [ ] `S5` 배포물 재현 시험 — 고치기 전 main 과 고친 브랜치의 `pnpm pack` 결과물을 각각 서브에이전트에게 주고 같은 과제 둘(core 에 없는 컴포넌트 · viz 에 없는 유형)을 낸다. 완료 기준: 네 번의 결론(전후 × 과제 둘)과 에이전트가 읽은 파일을 수행 내역에 남긴다. 게이트가 아니다.
@@ -78,3 +78,6 @@ scope: packages/core/README.md, packages/visualization/README.md, packages/visua
 - 2026-10-09T23:05 · s:2504f49d — `검증` 섹션 교체
 - 2026-10-09T23:06 · s:2504f49d · S1 doing — 착수
 - 2026-10-09T23:11 · s:2504f49d · S1 done — publishedDocs.ts·.test.ts(불변식 넷: files 의 README 밖 마크다운 · 배포물에 없는 .md 참조 · 절 없음 · 예제 불일치) — 실패 주입 9건 초록, 실제 저장소 검사 빨강 6건(viz files 문서 2 · viz README 208·209줄 저장소 문서 코드 표기 2 · 두 README 절 없음). 예제 coreExtend(별점 Rating, 네이티브 button+토큰 — StarIcon 은 색이 박혀 있고 Button 은 hover 때 인라인 color 를 덮어써 쓰지 않음)·vizCompose(Canvas·Node·NodeLabel·Edge 결정 그림)와 ExtendWhenMissing 스토리 2건 chromium 초록. 새 파일 타입 오류 0
+- 2026-10-09T23:12 · s:2504f49d · S2 doing — 착수
+- 2026-10-09T23:13 · s:2504f49d — `전략` 섹션 교체
+- 2026-10-09T23:13 · s:2504f49d · S2 done — core README 에 「원하는 것이 없을 때」 절 — 순서 넷 · 변수 갈래 표(이름은 flattenToCSSVars(lightFoundation) 실측) · ref/className 예외 셋(DataGrid 는 셋 다 안 받음, Skeleton·Text 는 ref 가 React 19 에서만) · 감쌀 때 걸리는 자리 둘(아이콘 107종 전부 색이 박혀 있음, Button 은 hover 때 인라인 색을 다시 씀) · 별점 예제. 예제 간격을 spacing-1(=1px) → spacing-4 로 고침. 게이트의 core 항목 초록, 스토리 2건 초록. 전략 절의 「57개 중 54개」를 「56개 중 53개」로 바로잡음(57 에 atoms 폴더가 섞였다)
