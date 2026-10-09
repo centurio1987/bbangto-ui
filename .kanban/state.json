@@ -1,6 +1,6 @@
 {
   "next_id": 74,
-  "next_seq": 271,
+  "next_seq": 273,
   "cards": {
     "KAN-066-T6NR80": {
       "col": "backlog",
@@ -103,7 +103,7 @@
       "memo_hash": "851301bace69a1f95e144da38fef72a54178d819"
     },
     "KAN-064-AC0H6M": {
-      "col": "review",
+      "col": "done",
       "title": "AI 채택 매니페스트 재편 — 메타 필드는 유지, 매니페스트는 얇은 색인으로 축소 + 동기화 장치 단순화",
       "verbatim": "이 레포에는 ai agent가 라이브러리를 효율적으로 사용할 수 있도록 매니페스트를 제공하고 있는데, 매니페스트가 실제로 이득이 되는지, 아니면, 오버헤드가 더 큰지 판단해줘\n(진단 후) 너의 진단을 반영한 전략을 수립하고 칸반 카드를 만들어라",
       "생성": "ai",
@@ -119,8 +119,8 @@
       "reason_hash": "ca32cc1f8774f28f9d973212c76a4e5f6ee932cd",
       "goal": "AI가 색인 하나로 1차 후보를 고르고 상세 meta는 후보마다 따로 읽는다. 매니페스트 재생성 단계가 전부 prebuild로 통일되고, 동기화 테스트가 색인처럼 좀처럼 안 바뀌는 자리만 지킨다",
       "goal_hash": "a98dc4c7cc9ae4ee8c454ae3c1f694cc33f82bef",
-      "memo": "병합 대기 — KAN-061 을 KAN-057·067 과 함께 0.x 줄로 먼저 배포한 뒤 main 에 병합(2026-10-10 유저 선택). 토큰 실측·버린 안은 실행 문서 전략 절",
-      "memo_hash": "841155c250a2acc2904684c4a797c9f921e671e6",
+      "memo": "KAN-068 배포 뒤 병합. KAN-057·061·067 은 이 카드와 함께 다음 배포로(visualization 0.5.0 도 ^0.4 범위 밖이라 범위를 한 번만 올리게, 2026-10-10 유저 선택). 토큰 실측·버린 안은 실행 문서 전략 절",
+      "memo_hash": "d249a921d1fb33df3288c7795d368c35cd1cb996",
       "scope": [
         "packages/style-guide-catalog/src/manifest.ts",
         "packages/style-guide-catalog/scripts/**",
@@ -1485,7 +1485,6 @@
     "KAN-070-RCG2QV",
     "KAN-071-FK1W8K",
     "KAN-072-KW0G9B",
-    "KAN-064-AC0H6M",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1551,9 +1550,31 @@
     "KAN-057-CCH3E8",
     "KAN-067-WDY7N1",
     "KAN-068-W6TE2S",
-    "KAN-061-K8V2HH"
+    "KAN-061-K8V2HH",
+    "KAN-064-AC0H6M"
   ],
   "recent": [
+    {
+      "seq": 272,
+      "t": "2026-10-10T03:48",
+      "a": "ai",
+      "id": "KAN-064-AC0H6M",
+      "op": "move",
+      "w": "7E5YYM",
+      "from": "review",
+      "to": "done"
+    },
+    {
+      "seq": 271,
+      "t": "2026-10-10T03:48",
+      "a": "ai",
+      "id": "KAN-064-AC0H6M",
+      "op": "edit",
+      "w": "7E5YYM",
+      "field": "memo",
+      "before": "병합 대기 — KAN-061 을 KAN-057·067 과 함께 0.x 줄로 먼저 배포한 뒤 main 에 병합(2026-10-10 유저 선택). 토큰 실측·버린 안은 실행 문서 전략 절",
+      "after": "KAN-068 배포 뒤 병합. KAN-057·061·067 은 이 카드와 함께 다음 배포로(visualization 0.5.0 도 ^0.4 범위 밖이라 범위를 한 번만 올리게, 2026-10-10 유저 선택). 토큰 실측·버린 안은 실행 문서 전략 절"
+    },
     {
       "seq": 270,
       "t": "2026-10-10T03:46",
@@ -2087,26 +2108,6 @@
       "w": "7E5YYM",
       "from": "backlog",
       "to": "doing"
-    },
-    {
-      "seq": 246,
-      "t": "2026-10-08T18:32",
-      "a": "ai",
-      "id": "KAN-064-AC0H6M",
-      "op": "waive",
-      "w": "S7030N",
-      "with_": "KAN-065-XSHEMV",
-      "reason": "유저 선택(2026-10-08 「둘 다 용인」): 루트 README.md 에서 KAN-064 는 기여 절차 4단계의 매니페스트 표와 그 아래 단락만, KAN-065 는 포커스 대비 단락만 고친다"
-    },
-    {
-      "seq": 245,
-      "t": "2026-10-08T18:32",
-      "a": "ai",
-      "id": "KAN-064-AC0H6M",
-      "op": "waive",
-      "w": "S7030N",
-      "with_": "KAN-055-34A57K",
-      "reason": "유저 선택(2026-10-08 「둘 다 용인」): package.json 3개는 KAN-064 가 scripts.prebuild·files 만, KAN-055 는 version 만 고친다. changeset 은 KAN-064 가 kan-064-manifest-index.md 한 장을 더할 뿐이고 KAN-055 는 쌓인 것을 소진한다. 배포 전에 병합되면 major 가 그 배포에 실리므로 병합 때 KAN-055 상태를 확인한다"
     }
   ],
   "waivers": [
