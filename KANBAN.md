@@ -83,6 +83,8 @@
     ```
 
 ## 진행 중
+
+## 검토
 - `KAN-061-K8V2HH` viz 템플릿 라벨 대비 미달 정리 — 불투명 팔레트 면 · 글자 대비 기준 목록 줄이기 — 생성:ai · 최종:ai · 갱신:2026-10-10
   - 짧은 제목: viz 라벨 대비 정리
   - 목적: viz 템플릿 글자가 카탈로그 가이드 30개 모두에서 4.5:1 이상 읽히게 한다 — KAN-056 기준 목록 204곳과 불투명 팔레트 면(Mindmap · ArchiMateViewpoint)부터
@@ -91,8 +93,7 @@
   - 메모: KAN-056 검토 항목 3(승인)·6에서 나왔다. KAN-056 병합 뒤 착수(검사와 기준 목록이 그 카드에 있다). 원인이 셋으로 갈린다: 불투명 팔레트 면 위 edge.stroke 글자, Requirement 반투명 글자(opacity 0.6·0.8)와 검정 6% 띠, riso-print 등의 shape.fill·edge.stroke 쌍. 카탈로그 대비 게이트가 shape.fill·edge.stroke 쌍을 재는지는 확인 안 함
   - 실행 문서: KANBAN/cards/KAN-061-K8V2HH.md (8/8 · 최근 10-10)
   - 계획 리포트: KANBAN/reports/KAN-061-K8V2HH.report.html (낡음)
-
-## 검토
+  - 검토 문서: KANBAN/reviews/KAN-061-K8V2HH.review.md (승인 0/4 · 검토 대기)
 
 ## 완료
 - `KAN-020` visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현 — 생성:유저 · 최종:유저 · 갱신:2026-08-14

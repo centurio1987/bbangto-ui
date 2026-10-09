@@ -1,6 +1,6 @@
 {
   "next_id": 73,
-  "next_seq": 267,
+  "next_seq": 268,
   "cards": {
     "KAN-064-AC0H6M": {
       "col": "backlog",
@@ -198,7 +198,7 @@
       ]
     },
     "KAN-061-K8V2HH": {
-      "col": "doing",
+      "col": "review",
       "title": "viz 템플릿 라벨 대비 미달 정리 — 불투명 팔레트 면 · 글자 대비 기준 목록 줄이기",
       "verbatim": "",
       "생성": "ai",
@@ -1479,7 +1479,6 @@
     "KAN-071-FK1W8K",
     "KAN-072-KW0G9B",
     "KAN-068-W6TE2S",
-    "KAN-061-K8V2HH",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1543,9 +1542,20 @@
     "KAN-062-E02CMT",
     "KAN-065-XSHEMV",
     "KAN-057-CCH3E8",
-    "KAN-067-WDY7N1"
+    "KAN-067-WDY7N1",
+    "KAN-061-K8V2HH"
   ],
   "recent": [
+    {
+      "seq": 267,
+      "t": "2026-10-10T01:27",
+      "a": "ai",
+      "id": "KAN-061-K8V2HH",
+      "op": "move",
+      "w": "HTKBTA",
+      "from": "doing",
+      "to": "review"
+    },
     {
       "seq": 266,
       "t": "2026-10-10T01:03",
@@ -2103,16 +2113,6 @@
       "w": "00EBGW",
       "from": "review",
       "to": "doing"
-    },
-    {
-      "seq": 233,
-      "t": "2026-10-08T17:15",
-      "a": "유저",
-      "id": "KAN-061-K8V2HH",
-      "op": "serialize",
-      "w": "S7030N",
-      "with_": "KAN-063-Q85EET",
-      "reason": "둘 다 TemplatePaintGate.stories.tsx 와 _labelContrastBaseline.ts 를 고치고, 061 목표의 「13개 밖 템플릿도 잰다」가 063 일과 같다. 063 이 두 검사를 모든 템플릿으로 넓히고 새 글자 대비 미달을 기준 목록에 올린 뒤, 061 이 넓어진 목록을 보고 전략을 다시 세운다 (2026-10-08 유저 선택)"
     }
   ],
   "waivers": [

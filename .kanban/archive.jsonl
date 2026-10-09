@@ -302,3 +302,4 @@
 {"seq": 232, "t": "2026-10-08T17:14", "a": "ai", "id": "KAN-060-G9YKG6", "op": "move", "w": "00EBGW", "from": "todo", "to": "doing"}
 {"seq": 232, "t": "2026-10-08T17:15", "a": "ai", "id": "KAN-063-Q85EET", "op": "move", "w": "S7030N", "from": "backlog", "to": "todo"}
 {"seq": 233, "t": "2026-10-08T17:26", "a": "ai", "id": "KAN-060-G9YKG6", "op": "move", "w": "00EBGW", "from": "doing", "to": "review"}
+{"seq": 233, "t": "2026-10-08T17:15", "a": "유저", "id": "KAN-061-K8V2HH", "op": "serialize", "w": "S7030N", "with_": "KAN-063-Q85EET", "reason": "둘 다 TemplatePaintGate.stories.tsx 와 _labelContrastBaseline.ts 를 고치고, 061 목표의 「13개 밖 템플릿도 잰다」가 063 일과 같다. 063 이 두 검사를 모든 템플릿으로 넓히고 새 글자 대비 미달을 기준 목록에 올린 뒤, 061 이 넓어진 목록을 보고 전략을 다시 세운다 (2026-10-08 유저 선택)"}
