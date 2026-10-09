@@ -1,6 +1,6 @@
 {
   "name": "@centurio1987/bbangto-ui-visualization",
-  "version": "0.4.1",
+  "version": "1.0.0",
   "description": "Headless Visualization Design System (diagram / infographic) for bbangto-ui",
   "type": "module",
   "main": "./dist/index.js",
