@@ -20,9 +20,7 @@
   "files": [
     "dist",
     "type.manifest.json",
-    "README.md",
-    "visualization-type-inventory.md",
-    "TYPE_METADATA_STRATEGY.md"
+    "README.md"
   ],
   "scripts": {
     "build": "tsup",

@@ -54,7 +54,7 @@ scope: packages/core/README.md, packages/visualization/README.md, packages/visua
 - [x] `S1` 검사 먼저 — `packages/foundations/src/publishedDocs.ts`·`.test.ts`, `apps/storybook/src/stories/ExtendWhenMissing.stories.tsx`, 예제 파일 둘(`_readmeExamples/coreExtend.tsx`·`vizCompose.tsx`). 완료 기준: 실패 주입 표본 넷(README 밖 마크다운을 실은 files · 깨진 상대 링크 · 절 없음 · 예제 불일치)이 각각 위반을 내고, 실제 저장소 검사는 빨강이다(viz files 의 문서 2개, 두 README 의 절 없음). 스토리는 라이브러리를 고치지 않은 지금도 초록이다.
 - [x] `S2` core README 「원하는 것이 없을 때」 절 — 순서 넷, CSS 변수 갈래, `className`·`ref` 전달(전달하지 않는 컴포넌트 명시), `coreExtend.tsx` 와 같은 예제. 완료 기준: S1 검사의 core 항목 초록.
 - [x] `S3` visualization README 정리 — 「원하는 것이 없을 때」 절(`vizCompose.tsx` 와 같은 예제), 36번째 줄의 빈 결과 안내를 그 절로 잇기, 범위 밖 3종 사유를 README 에 직접 쓰기, 문서 목록을 「저장소에만 있는 문서」로 합치기. 완료 기준: S1 검사의 viz README 항목 초록, 배포되지 않는 문서를 배포물에 있는 것처럼 가리키는 문장 0.
-- [ ] `S4` 관리용 문서 배포 제외 — `package.json` `files` 에서 두 문서를 빼고 주석 4곳을 저장소 링크로 바꾼다. 완료 기준: S1 검사 전부 초록, `pnpm pack` 목록에 두 문서 없음, 빌드한 `dist` 의 `.d.ts` 에서 두 문서 이름이 나오는 줄은 모두 저장소 링크다.
+- [x] `S4` 관리용 문서 배포 제외 — `package.json` `files` 에서 두 문서를 빼고 주석 4곳을 저장소 링크로 바꾼다. 완료 기준: S1 검사 전부 초록, `pnpm pack` 목록에 두 문서 없음, 빌드한 `dist` 의 `.d.ts` 에서 두 문서 이름이 나오는 줄은 모두 저장소 링크다.
 - [ ] `S5` 배포물 재현 시험 — 고치기 전 main 과 고친 브랜치의 `pnpm pack` 결과물을 각각 서브에이전트에게 주고 같은 과제 둘(core 에 없는 컴포넌트 · viz 에 없는 유형)을 낸다. 완료 기준: 네 번의 결론(전후 × 과제 둘)과 에이전트가 읽은 파일을 수행 내역에 남긴다. 게이트가 아니다.
 - [ ] `S6` 마무리 — changeset(core·visualization patch), 품질 게이트 5종. 완료 기준: 게이트 5종 초록.
 
@@ -84,3 +84,5 @@ scope: packages/core/README.md, packages/visualization/README.md, packages/visua
 - 2026-10-09T23:14 · s:2504f49d · S3 doing — 착수
 - 2026-10-09T23:15 · s:2504f49d — `전략` 섹션 교체
 - 2026-10-09T23:15 · s:2504f49d · S3 done — viz README 네 군데 — 36줄 빈 결과 안내를 새 절로 잇기 · 범위 밖 3종 사유를 README 에 직접(인벤토리 182·199·200행 사유 옮김, VT-520 은 core Table·DataGrid 로 안내) · 「원하는 것이 없을 때」 절을 「구현 규약」 앞에(순서 넷 · atom 23·molecule 16·배치 계산 7 표, export 실측 · 결정 그림 예제) · 「함께 들어 있는 문서」를 「저장소에만 있는 문서」 GitHub 링크 넷으로. 게이트의 viz README 항목 초록, 남은 위반은 S4 몫 files 2건. 새 절 위치를 전략의 203번째 줄 앞에서 구현 규약 앞으로 바꿈(앱 사용자 절이 기여자용 절 뒤에 묻히지 않게, KAN-064 의 53~115줄과도 안 겹침)
+- 2026-10-09T23:16 · s:2504f49d · S4 doing — 착수
+- 2026-10-09T23:17 · s:2504f49d · S4 done — visualization files 에서 두 문서 제거 + 주석 4곳(types.ts·registry.ts·typeMeta/index.ts·src/index.ts)을 GitHub 링크로. publishedDocs 게이트 10/10 초록. pnpm pack tarball = package.json·type.manifest.json·README.md·dist(708) — 두 문서 없음, CHANGELOG 도 안 실림(검증기 주석에 실측으로 반영). 빌드한 dist d.ts 에서 두 문서 이름이 나오는 3줄 모두 github.com 링크

@@ -66,7 +66,7 @@ export const EXTEND_SECTION_RULES: readonly ExtendSectionRule[] = [
   { dir: 'packages/visualization', examplePath: 'apps/storybook/src/stories/_readmeExamples/vizCompose.tsx' },
 ];
 
-/** npm 이 `files` 와 무관하게 언제나 싣는 파일. CHANGELOG 는 여기 없다 — 실리는지 확인하지 않았다. */
+/** `files` 와 무관하게 언제나 실리는 파일. CHANGELOG 는 실리지 않는다(2026-10-09 visualization `pnpm pack` 실측). */
 const ALWAYS_SHIPPED = new Set(['README.md', 'package.json']);
 
 const SCHEME = /^[a-z][a-z0-9+.-]*:/i;
