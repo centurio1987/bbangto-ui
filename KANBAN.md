@@ -51,7 +51,9 @@
     ```
 
 ## 진행 중
-- `KAN-057-CCH3E8` viz edge.dashPattern 토큰 정리 — 선언만 있고 읽히지 않는 커넥터 대시 토큰을 잇거나 걷기 — 생성:ai · 최종:ai · 갱신:2026-10-09
+
+## 검토
+- `KAN-057-CCH3E8` viz edge.dashPattern 토큰 정리 — 선언만 있고 읽히지 않는 커넥터 대시 토큰을 잇거나 걷기 — 생성:ai · 최종:ai · 갱신:2026-10-10
   - 짧은 제목: 엣지 대시 토큰 정리
   - 목적: 선언만 된 edge.dashPattern 토큰을 계약 스타일시트나 Edge 가 읽게 잇거나, 쓸 계획이 없으면 걷어낸다
   - 이유: 토큰 자리(packages/tokens/src/visualization.ts:66)는 있는데 아무도 읽지 않아, 스타일 가이드가 그 값을 넣어도 엣지 선 모양이 바뀌지 않는다(KAN-049 에서 발견)
@@ -59,12 +61,11 @@
   - 메모: 잇는 쪽이면 스타일 가이드 기본값을 개별 prop(strokeDasharray)이 덮는 순서를 지킨다. 잇기와 걷기 중 무엇을 할지는 착수 때 정한다
   - 실행 문서: KANBAN/cards/KAN-057-CCH3E8.md (4/4 · 최근 10-10)
   - 계획 리포트: KANBAN/reports/KAN-057-CCH3E8.report.html (낡음)
+  - 검토 문서: KANBAN/reviews/KAN-057-CCH3E8.review.md (승인 0/3 · 검토 대기)
   - 원문:
     ```text
     만들어 (앞 답변 「앞서 여쭌 백로그 카드 두 가지(리터럴 색이 남은 템플릿 13개, 읽히지 않는 `edge.dashPattern` 토큰)는 아직 만들지 않았습니다.」에 대한 답)
     ```
-
-## 검토
 
 ## 완료
 - `KAN-020` visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현 — 생성:유저 · 최종:유저 · 갱신:2026-08-14

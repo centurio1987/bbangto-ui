@@ -283,3 +283,4 @@
 {"seq": 222, "t": "2026-10-07T19:32", "a": "ai", "id": "KAN-056-D3V1MB", "op": "move", "w": "GEG7B8", "from": "todo", "to": "doing"}
 {"seq": 223, "t": "2026-10-07T19:42", "a": "ai", "id": "KAN-056-D3V1MB", "op": "move", "w": "GEG7B8", "from": "doing", "to": "review"}
 {"seq": 223, "t": "2026-10-08T00:17", "a": "ai", "id": "KAN-059-62EAKB", "op": "move", "w": "GTA753", "from": "review", "to": "done"}
+{"seq": 223, "t": "2026-10-08T00:15", "a": "ai", "id": "KAN-055-34A57K", "op": "edit", "w": "S7030N", "field": "purpose", "before": "KAN-051~053 결과를 GitHub Packages에 배포하고, 배포본으로 크기 게이트를 다시 돌린 뒤 외부 앱에 버전을 알린다", "after": "KAN-051~054·058 결과를 GitHub Packages에 배포하고, 배포본으로 크기를 다시 잰 뒤 외부 앱에 버전을 알린다"}
