@@ -65,7 +65,7 @@ KAN-063 이 글자 대비 검사(`LabelContrastGate`)를 표본 68개 전부로 
 - [x] `S5` 불투명 팔레트 면 — wbs · treemap · packet · stacked-bar · archimate-viewpoint · mindmap · dmn · user-journey-gantt · fishbone 의 팔레트 면 위 글자를 `on-palette-*` 로. 완료 기준: 아홉 템플릿의 기준 목록 줄 960곳이 빠지고 게이트 초록.
 - [x] `S6` 투명도가 바뀌는 면과 C4 — heatmap · choropleth · sankey · archimate 4종은 칸마다 계산 함수로, C4 넷(context · container · dynamic · system-landscape)은 `C4Box`·`PersonNode`·`ExternalNode` 의 글자를 `on-c4-*`·`on-node-*` 로. 완료 기준: 열한 템플릿의 기준 목록 줄 238곳이 빠지고 게이트 초록.
 - [x] `S7` 기준 목록 닫기 — `_labelContrastBaseline.ts` 를 빈 목록으로 두고 머리 주석을 「새 미달은 목록에 올리지 말고 `on-*` 로 고친다」로 바꾼다. README 189~193번째 줄의 글자색 규칙과 기준 목록 설명을 `--bbangto-viz-on-*` 규칙으로 고친다. 완료 기준: `LABEL_CONTRAST_BASELINE` 0개, 게이트 초록.
-- [ ] `S8` 마무리 — changeset(tokens minor · visualization minor), 품질 게이트 5종. 완료 기준: 게이트 5종 초록.
+- [x] `S8` 마무리 — changeset(tokens minor · visualization minor), 품질 게이트 5종. 완료 기준: 게이트 5종 초록.
 
 ## 검증
 - `pnpm --filter storybook exec vitest run --project storybook src/stories/visualization/TemplatePaintGate.stories.tsx` → `LiteralPaintGate`·`LabelContrastGate` 초록, `LABEL_CONTRAST_BASELINE` 항목 0개.
@@ -100,3 +100,5 @@ KAN-063 이 글자 대비 검사(`LabelContrastGate`)를 표본 68개 전부로 
 - 2026-10-10T01:12 · s:add35787 · S6 done — Heatmap·Choropleth 칸마다 pickOnInk(surfacesFor(p1, 투명도)) · Sankey 이름은 canvas+리본 면 전부에서 읽히는 글자색 하나 · C4 dynamic 순번 on-palette-p3 · 의미 노드 7종 태그도 이름과 같은 글자색 · pickOnInk 대체 규칙(첫 면 우선). 139곳 지움 → 기준 목록 0, 게이트 두 검사·typecheck·pnpm test 1293·카탈로그 테스트 초록
 - 2026-10-10T01:12 · s:add35787 · S7 doing — 착수
 - 2026-10-10T01:13 · s:add35787 · S7 done — _labelContrastBaseline.ts 를 빈 목록 + 「새 미달은 올리지 말고 on-* 로 고친다」 머리 주석으로, 게이트 주석 두 곳 갱신, README 189~193번째 줄을 「면 위 글자는 그 면의 on-* 글자색」 규칙으로(KAN-067 겹침 용인 범위 안). 게이트 두 검사 초록
+- 2026-10-10T01:19 · s:add35787 · S8 doing — 착수
+- 2026-10-10T01:20 · s:add35787 · S8 done — changeset(tokens minor · visualization minor) · main(KAN-057·KAN-067 병합분) 따라잡기 병합 — contract.ts 충돌을 두 변경 모두 남겨 해소 · 병합 뒤 게이트 5종 초록(build · typecheck · test 1299 · storybook build · test:unit). 검증 절: 기준 목록 0 · 가이드 파일 변경 0 · 공개 index 변경 0(merge-base 기준)
