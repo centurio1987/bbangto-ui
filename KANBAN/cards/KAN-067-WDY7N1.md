@@ -19,17 +19,10 @@ scope: packages/core/README.md, packages/visualization/README.md, packages/visua
 
 ### 접근
 
-1. **검사를 먼저 세운다.** 자리는 `packages/foundations` 의 저장소 전역 검사다. `gateDocs.ts`·`gateDocs.test.ts` 와 같은 구조로 검증기, 실제 저장소 검사, 실패 주입 표본(일부러 틀리게 만든 입력)을 함께 둔다. `publishedDocs.ts` 가 넷을 본다.
-   - 공개 패키지 일곱의 `files` 에 `README.md` 말고는 마크다운이 없다.
-   - 배포 README 의 상대 링크가 배포물 안의 파일을 가리킨다.
-   - core·visualization README 에 「원하는 것이 없을 때」 절이 있다.
-   - 그 절의 예제 코드 블록이 `apps/storybook/src/stories/_readmeExamples/` 의 파일과 글자 그대로 같다. README 에서만 고쳐진 예제가 깨진 채 배포되는 일을 막는다.
+1. **검사를 먼저 세운다.** 자리는 `packages/foundations` 의 저장소 전역 검사다. `gateDocs.ts`·`gateDocs.test.ts` 와 같은 구조로 검증기, 실제 저장소 검사, 실패 주입 표본(일부러 틀리게 만든 입력)을 함께 둔다. `publishedDocs.ts` 가 보는 것은 넷이다. 공개 패키지 일곱의 `files` 에 `README.md` 말고는 마크다운이 없는가, 배포 README 의 상대 링크가 배포물 안의 파일을 가리키는가, core·visualization README 에 「원하는 것이 없을 때」 절이 있는가, 그 절의 예제 코드 블록이 `apps/storybook/src/stories/_readmeExamples/` 의 파일과 글자 그대로 같은가. 마지막 검사는 README 에서만 고쳐진 예제가 깨진 채 배포되는 일을 막는다.
 2. **예제는 브라우저에서 돌려 본다.** `ExtendWhenMissing.stories.tsx` 가 `_readmeExamples/` 의 예제를 그리고 play 함수로 확인한다. core 쪽은 확장 컴포넌트가 Provider 안에서 토큰 값을 받는지 본다(계산된 색이 `--bbangto-semantic-primary-base` 값과 같은가). viz 쪽은 atom 조합이 노드와 엣지를 실제로 그리는지 본다.
 3. **README 절은 순서 하나로 쓴다.** ① export 와 매니페스트에서 찾는다. ② 없으면 가장 가까운 컴포넌트를 감싸거나 토큰·atom 으로 앱 안에 확장 컴포넌트를 만든다. ③ 라이브러리를 빼거나 다른 라이브러리로 바꾸지 않는다. ④ 개선 요청은 앱을 완성한 뒤 덧붙이는 선택이다. core 절에는 쓸 수 있는 CSS 변수 갈래(semantic·spacing·radius·shadow·typography)와 `className`·`ref` 전달을 적는다. viz 절에는 atom·molecule 목록과 Canvas 자식 등록 규칙(README 173~176번째 줄)을 잇는다.
-4. **관리용 문서 둘을 배포물에서 뺀다.** 예전 I3 결정(`packages/visualization/CHANGELOG.md:77`)으로 일부러 실은 문서이고, 그 이유는 `.d.ts` 주석이 가리키던 죽은 참조를 살리는 것이었다. 그래서 빼면서 그 참조를 함께 고친다.
-   - `src/typeMeta/types.ts:9-11`·`src/typeMeta/registry.ts:4`·`src/typeMeta/index.ts:6`·`src/index.ts:28` 의 주석에서 「두 문서 모두 패키지에 동봉된다」를 지우고 저장소 링크로 바꾼다.
-   - README 108번째 줄은 범위 밖 3종(VT-520·VT-610·VT-611)의 사유를 인벤토리로 미룬다. 사유 세 줄을 README 에 직접 적는다.
-   - README 「함께 들어 있는 문서」 절(203~206번째 줄)은 바로 아래 「저장소에만 있는 문서」 줄과 합친다.
+4. **관리용 문서 둘을 배포물에서 뺀다.** 예전 I3 결정(`packages/visualization/CHANGELOG.md:77`)으로 일부러 실은 문서이고, 그 이유는 `.d.ts` 주석이 가리키던 죽은 참조를 살리는 것이었다. 그래서 빼면서 그 참조를 함께 고친다. 주석 네 곳(`src/typeMeta/types.ts:9-11`·`src/typeMeta/registry.ts:4`·`src/typeMeta/index.ts:6`·`src/index.ts:28`)에서는 「두 문서 모두 패키지에 동봉된다」를 지우고 저장소 링크로 바꾼다. README 108번째 줄은 범위 밖 3종(VT-520·VT-610·VT-611)의 사유를 인벤토리로 미루는데, 그 사유 세 줄을 README 에 직접 적는다. README 「함께 들어 있는 문서」 절(203~206번째 줄)은 바로 아래 「저장소에만 있는 문서」 줄과 합친다.
 5. **배포물만 읽은 에이전트로 전후를 견준다.** 고치기 전 main 과 고친 뒤 브랜치에서 각각 `pnpm pack` 으로 배포물을 만들고, 그것만 준 서브에이전트에게 core 에 없는 컴포넌트와 viz 에 없는 유형이 필요한 과제를 준다. 결론이 「앱 안에 확장 컴포넌트를 만든다」로 바뀌는지 본다. 결과가 매번 같지 않으므로 게이트로 쓰지 않고 수행 내역에 기록으로 남긴다.
 
 ### 제약
@@ -68,3 +61,4 @@ scope: packages/core/README.md, packages/visualization/README.md, packages/visua
 - 2026-10-09T22:49 · s:2504f49d — `전략` 섹션 교체
 - 2026-10-09T22:49 · s:2504f49d — `실행 계획` 섹션 교체
 - 2026-10-09T22:49 · s:2504f49d — `검증` 섹션 교체
+- 2026-10-09T22:51 · s:2504f49d — `전략` 섹션 교체

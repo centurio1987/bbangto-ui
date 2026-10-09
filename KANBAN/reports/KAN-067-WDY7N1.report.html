@@ -1,5 +1,5 @@
 <meta charset="utf-8">
-<!-- kanban-fp:9759ffb6edca2a2a27afbd85563974ada3102031 -->
+<!-- kanban-fp:0937603718aec908544f27403a5bdce2991c4edf -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>KAN-067-WDY7N1 실행 계획</title>
 <style>
@@ -459,17 +459,10 @@ details[open] > summary::before { content: "\25BE\00a0"; }
 <p>나머지 하나(매니페스트에 조립 경로가 없다)는 이 카드 밖이다.</p>
 <h4>접근</h4>
 <ol>
-<li><strong>검사를 먼저 세운다.</strong> 자리는 <code>packages/foundations</code> 의 저장소 전역 검사다. <code>gateDocs.ts</code>·<code>gateDocs.test.ts</code> 와 같은 구조로 검증기, 실제 저장소 검사, 실패 주입 표본(일부러 틀리게 만든 입력)을 함께 둔다. <code>publishedDocs.ts</code> 가 넷을 본다.</li>
-<li>공개 패키지 일곱의 <code>files</code> 에 <code>README.md</code> 말고는 마크다운이 없다.</li>
-<li>배포 README 의 상대 링크가 배포물 안의 파일을 가리킨다.</li>
-<li>core·visualization README 에 「원하는 것이 없을 때」 절이 있다.</li>
-<li>그 절의 예제 코드 블록이 <code>apps/storybook/src/stories/_readmeExamples/</code> 의 파일과 글자 그대로 같다. README 에서만 고쳐진 예제가 깨진 채 배포되는 일을 막는다.</li>
+<li><strong>검사를 먼저 세운다.</strong> 자리는 <code>packages/foundations</code> 의 저장소 전역 검사다. <code>gateDocs.ts</code>·<code>gateDocs.test.ts</code> 와 같은 구조로 검증기, 실제 저장소 검사, 실패 주입 표본(일부러 틀리게 만든 입력)을 함께 둔다. <code>publishedDocs.ts</code> 가 보는 것은 넷이다. 공개 패키지 일곱의 <code>files</code> 에 <code>README.md</code> 말고는 마크다운이 없는가, 배포 README 의 상대 링크가 배포물 안의 파일을 가리키는가, core·visualization README 에 「원하는 것이 없을 때」 절이 있는가, 그 절의 예제 코드 블록이 <code>apps/storybook/src/stories/_readmeExamples/</code> 의 파일과 글자 그대로 같은가. 마지막 검사는 README 에서만 고쳐진 예제가 깨진 채 배포되는 일을 막는다.</li>
 <li><strong>예제는 브라우저에서 돌려 본다.</strong> <code>ExtendWhenMissing.stories.tsx</code> 가 <code>_readmeExamples/</code> 의 예제를 그리고 play 함수로 확인한다. core 쪽은 확장 컴포넌트가 Provider 안에서 토큰 값을 받는지 본다(계산된 색이 <code>--bbangto-semantic-primary-base</code> 값과 같은가). viz 쪽은 atom 조합이 노드와 엣지를 실제로 그리는지 본다.</li>
 <li><strong>README 절은 순서 하나로 쓴다.</strong> ① export 와 매니페스트에서 찾는다. ② 없으면 가장 가까운 컴포넌트를 감싸거나 토큰·atom 으로 앱 안에 확장 컴포넌트를 만든다. ③ 라이브러리를 빼거나 다른 라이브러리로 바꾸지 않는다. ④ 개선 요청은 앱을 완성한 뒤 덧붙이는 선택이다. core 절에는 쓸 수 있는 CSS 변수 갈래(semantic·spacing·radius·shadow·typography)와 <code>className</code>·<code>ref</code> 전달을 적는다. viz 절에는 atom·molecule 목록과 Canvas 자식 등록 규칙(README 173~176번째 줄)을 잇는다.</li>
-<li><strong>관리용 문서 둘을 배포물에서 뺀다.</strong> 예전 I3 결정(<code>packages/visualization/CHANGELOG.md:77</code>)으로 일부러 실은 문서이고, 그 이유는 <code>.d.ts</code> 주석이 가리키던 죽은 참조를 살리는 것이었다. 그래서 빼면서 그 참조를 함께 고친다.</li>
-<li><code>src/typeMeta/types.ts:9-11</code>·<code>src/typeMeta/registry.ts:4</code>·<code>src/typeMeta/index.ts:6</code>·<code>src/index.ts:28</code> 의 주석에서 「두 문서 모두 패키지에 동봉된다」를 지우고 저장소 링크로 바꾼다.</li>
-<li>README 108번째 줄은 범위 밖 3종(VT-520·VT-610·VT-611)의 사유를 인벤토리로 미룬다. 사유 세 줄을 README 에 직접 적는다.</li>
-<li>README 「함께 들어 있는 문서」 절(203~206번째 줄)은 바로 아래 「저장소에만 있는 문서」 줄과 합친다.</li>
+<li><strong>관리용 문서 둘을 배포물에서 뺀다.</strong> 예전 I3 결정(<code>packages/visualization/CHANGELOG.md:77</code>)으로 일부러 실은 문서이고, 그 이유는 <code>.d.ts</code> 주석이 가리키던 죽은 참조를 살리는 것이었다. 그래서 빼면서 그 참조를 함께 고친다. 주석 네 곳(<code>src/typeMeta/types.ts:9-11</code>·<code>src/typeMeta/registry.ts:4</code>·<code>src/typeMeta/index.ts:6</code>·<code>src/index.ts:28</code>)에서는 「두 문서 모두 패키지에 동봉된다」를 지우고 저장소 링크로 바꾼다. README 108번째 줄은 범위 밖 3종(VT-520·VT-610·VT-611)의 사유를 인벤토리로 미루는데, 그 사유 세 줄을 README 에 직접 적는다. README 「함께 들어 있는 문서」 절(203~206번째 줄)은 바로 아래 「저장소에만 있는 문서」 줄과 합친다.</li>
 <li><strong>배포물만 읽은 에이전트로 전후를 견준다.</strong> 고치기 전 main 과 고친 뒤 브랜치에서 각각 <code>pnpm pack</code> 으로 배포물을 만들고, 그것만 준 서브에이전트에게 core 에 없는 컴포넌트와 viz 에 없는 유형이 필요한 과제를 준다. 결론이 「앱 안에 확장 컴포넌트를 만든다」로 바뀌는지 본다. 결과가 매번 같지 않으므로 게이트로 쓰지 않고 수행 내역에 기록으로 남긴다.</li>
 </ol>
 <h4>제약</h4>
