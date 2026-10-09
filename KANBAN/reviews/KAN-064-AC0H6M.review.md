@@ -24,9 +24,13 @@ status: 검토 대기
 | 베이스 | `c8f6c86` |
 | 변경 훑기 | `git diff c8f6c86...HEAD` |
 
-**커밋 9건**
+**커밋 13건**
 
 ```text
+e1767a4 docs(KAN-064): 검토 반영 — 바이트 동기 테스트가 지키는 범위를 실제대로 · 카드 전략 3번을 한 일로
+889df16 kanban: KAN-064 검토 — 항목 5 승인(수정분 먼저 따로 배포) · 항목 4 철회 (유저 선택) · 승인 4/4 수렴
+839705c kanban: KAN-064 검토 대행(kanban-reviewer) — 항목 1·2·3 승인 · 추가 의견 4건 · 항목 5 신설(미배포 수정분과 major 배포 시점) · 항목 4 판정 보류 (ai · 검토자)
+f28ea2b kanban: KAN-064 진행 중 → 검토 — 검토서(판단 항목 4) · 검토 리포트
 a1eca39 chore(KAN-064): S5 — changeset(4패키지 major) · 게이트 5종 초록
 6b837ac kanban: KAN-064↔KAN-065 겹침 용인 사유의 README 절 번호 정정 (ai)
 45a7952 docs(KAN-064): S4 — 매니페스트를 색인→상세 2단으로 읽는다고 문서·주석을 고침
@@ -38,30 +42,34 @@ f5d2f12 kanban: KAN-064 scope 에 census 게이트·상세 폴더 4개 추가 ·
 47105d0 kanban: KAN-064 진행 중으로 이동 (워크트리 착수)
 ```
 
-**변경 파일 44개 (+1264 −13882)**
+**변경 파일 48개 (+2840 −13895)**
 
 | 파일 | 상태 | 추가 | 삭제 |
 |---|:--:|---:|---:|
 | `.changeset/kan-064-manifest-index.md` | M | 44 | 0 |
 | `.github/workflows/release.yml` | M | 12 | 0 |
 | `.gitignore` | M | 7 | 0 |
-| `.kanban/archive.jsonl` | M | 8 | 0 |
-| `.kanban/log.md` | M | 8 | 8 |
-| `.kanban/state.json` | M | 98 | 97 |
+| `.kanban/archive.jsonl` | M | 9 | 0 |
+| `.kanban/log.md` | M | 9 | 9 |
+| `.kanban/reviews/KAN-064-AC0H6M.events.jsonl` | M | 14 | 0 |
+| `.kanban/reviews/KAN-064-AC0H6M.review.json` | M | 21 | 0 |
+| `.kanban/state.json` | M | 109 | 108 |
 | `KANBAN.board.html` | M | 2 | 2 |
-| `KANBAN.md` | M | 13 | 13 |
-| `KANBAN/cards/KAN-064-AC0H6M.md` | M | 53 | 16 |
+| `KANBAN.md` | M | 14 | 13 |
+| `KANBAN/cards/KAN-064-AC0H6M.md` | M | 56 | 17 |
+| `KANBAN/reviews/KAN-064-AC0H6M.review.html` | M | 1251 | 0 |
+| `KANBAN/reviews/KAN-064-AC0H6M.review.md` | M | 265 | 0 |
 | `README.md` | M | 16 | 14 |
-| `packages/foundations/FOUNDATION_METADATA_STRATEGY.md` | M | 15 | 7 |
+| `packages/foundations/FOUNDATION_METADATA_STRATEGY.md` | M | 16 | 7 |
 | `packages/foundations/README.md` | M | 2 | 1 |
 | `packages/foundations/foundation.manifest.json` | M | 83 | 3701 |
 | `packages/foundations/package.json` | M | 4 | 1 |
-| `packages/foundations/scripts/genFoundationManifest.ts` | M | 15 | 6 |
+| `packages/foundations/scripts/genFoundationManifest.ts` | M | 16 | 6 |
 | `packages/foundations/src/meta/index.ts` | M | 3 | 2 |
 | `packages/foundations/src/meta/manifest.test.ts` | M | 62 | 7 |
-| `packages/foundations/src/meta/manifest.ts` | M | 66 | 5 |
+| `packages/foundations/src/meta/manifest.ts` | M | 67 | 5 |
 | `packages/foundations/src/metadataCoverage.test.ts` | M | 14 | 5 |
-| `packages/style-guide-catalog/METADATA_STRATEGY.md` | M | 30 | 15 |
+| `packages/style-guide-catalog/METADATA_STRATEGY.md` | M | 32 | 15 |
 | `packages/style-guide-catalog/README.md` | M | 5 | 3 |
 | `packages/style-guide-catalog/catalog.manifest.json` | M | 58 | 3645 |
 | `packages/style-guide-catalog/package.json` | M | 3 | 1 |
@@ -76,9 +84,9 @@ f5d2f12 kanban: KAN-064 scope 에 census 게이트·상세 폴더 4개 추가 ·
 | `packages/visualization-style-guide-catalog/src/manifest.test.ts` | M | 74 | 22 |
 | `packages/visualization-style-guide-catalog/src/manifest.ts` | M | 62 | 4 |
 | `packages/visualization/README.md` | M | 20 | 4 |
-| `packages/visualization/TYPE_METADATA_STRATEGY.md` | M | 14 | 7 |
+| `packages/visualization/TYPE_METADATA_STRATEGY.md` | M | 15 | 7 |
 | `packages/visualization/package.json` | M | 4 | 1 |
-| `packages/visualization/scripts/genTypeManifest.ts` | M | 16 | 6 |
+| `packages/visualization/scripts/genTypeManifest.ts` | M | 18 | 6 |
 | `packages/visualization/src/index.ts` | M | 2 | 1 |
 | `packages/visualization/src/typeMeta/index.ts` | M | 3 | 2 |
 | `packages/visualization/src/typeMeta/jsdoc.test.ts` | M | 1 | 1 |
@@ -124,6 +132,7 @@ kan/KAN-064-AC0H6M/S5
 5) 메타 타입 파일 diff(c8f6c86..HEAD): 1 file changed, 3 insertions(+), 2 deletions(-) · 주석 밖 줄 0건
 6) changeset: '@centurio1987/bbangto-ui-style-guide-catalog': major '@centurio1987/bbangto-ui-visualization-style-guide-catalog': major '@centurio1987/bbangto-ui-foundations': major '@centurio1987/bbangto-ui-visualization': major
 7) CI 커밋 확인 단계: 색인 하나를 일부러 바꾸면 exit=1, 되돌리면 exit=0 (S4)
+8) 검토 반영(e1767a4) 뒤 다시 돌린 것: build=0 · test:unit=0 · typecheck=0, 색인 4개 바이트 그대로. 그 사이 바뀐 것은 문서·주석뿐이라 pnpm test·storybook build 는 a1eca39 의 초록 결과를 그대로 둠
 ```
 
 ## 3. 판단 항목 — 스크립트가 판정할 수 없는 것
