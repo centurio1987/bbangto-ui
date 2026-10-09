@@ -1,14 +1,14 @@
 {
   "next_id": 68,
-  "next_seq": 254,
+  "next_seq": 255,
   "cards": {
     "KAN-057-CCH3E8": {
-      "col": "backlog",
+      "col": "doing",
       "title": "viz edge.dashPattern 토큰 정리 — 선언만 있고 읽히지 않는 커넥터 대시 토큰을 잇거나 걷기",
       "verbatim": "만들어 (앞 답변 「앞서 여쭌 백로그 카드 두 가지(리터럴 색이 남은 템플릿 13개, 읽히지 않는 `edge.dashPattern` 토큰)는 아직 만들지 않았습니다.」에 대한 답)",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-10-06",
+      "갱신": "2026-10-09",
       "title_hash": "4097b80c18139cf5aaab3f604df4da91bf5f7bdb",
       "verbatim_hash": "86e2d9d99304c4fb30f03389edf118d082025240",
       "short": "엣지 대시 토큰 정리",
@@ -1337,7 +1337,6 @@
     }
   },
   "order": [
-    "KAN-057-CCH3E8",
     "KAN-061-K8V2HH",
     "KAN-064-AC0H6M",
     "KAN-066-T6NR80",
@@ -1403,9 +1402,20 @@
     "KAN-060-G9YKG6",
     "KAN-055-34A57K",
     "KAN-062-E02CMT",
-    "KAN-065-XSHEMV"
+    "KAN-065-XSHEMV",
+    "KAN-057-CCH3E8"
   ],
   "recent": [
+    {
+      "seq": 254,
+      "t": "2026-10-09T22:51",
+      "a": "ai",
+      "id": "KAN-057-CCH3E8",
+      "op": "move",
+      "w": "WXJKQG",
+      "from": "backlog",
+      "to": "doing"
+    },
     {
       "seq": 253,
       "t": "2026-10-09T22:46",
@@ -1948,16 +1958,6 @@
       "field": "purpose",
       "before": "KAN-051~053 결과를 GitHub Packages에 배포하고, 배포본으로 크기 게이트를 다시 돌린 뒤 외부 앱에 버전을 알린다",
       "after": "KAN-051~054·058 결과를 GitHub Packages에 배포하고, 배포본으로 크기를 다시 잰 뒤 외부 앱에 버전을 알린다"
-    },
-    {
-      "seq": 223,
-      "t": "2026-10-08T00:17",
-      "a": "ai",
-      "id": "KAN-059-62EAKB",
-      "op": "move",
-      "w": "GTA753",
-      "from": "review",
-      "to": "done"
     }
   ],
   "waivers": [
