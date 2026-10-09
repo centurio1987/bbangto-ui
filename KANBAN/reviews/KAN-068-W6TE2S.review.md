@@ -24,25 +24,31 @@ status: 검토 대기
 | 베이스 | `7093fcd` |
 | 변경 훑기 | `git diff 7093fcd...HEAD` |
 
-**커밋 4건**
+**커밋 6건**
 
 ```text
+e58883a kanban: KAN-068 검토 대행(kanban-reviewer) — 항목 1 승인 · 항목 2 반려(전달 문구가 changeset 보다 넓음 · 18곳 약속 누락 · style guide 이름 없음 · export 서술 충돌) (ai · 검토자)
+b2f21ce kanban: KAN-068 검토로 이동 — 검토서(판단 항목 2: visualization 파일 나눔 차이 · 외부 앱 전달 문구) · 검토 리포트
 0f41c41 kanban: KAN-068 S2·S3 — 배포 확인(release 둘 초록 · 새 버전 6개) · 배포본 설치·import·수정 4건 확인 · 외부 앱 전달 문구
 6e09ff5 kanban: KAN-068 S2 진행 기록 — push · Version PR #10 대조·병합(adb851c), 배포 확인 대기
 1fe02e7 kanban: KAN-068 S1 — push 직전 점검 (게이트 5종 초록 · 다음 버전 표 · 나갈 커밋 126개)
 01b0efe kanban: KAN-068 진행 중으로 이동 (워크트리 착수)
 ```
 
-**변경 파일 6개 (+33 −25)**
+**변경 파일 10개 (+1531 −45)**
 
 | 파일 | 상태 | 추가 | 삭제 |
 |---|:--:|---:|---:|
-| `.kanban/archive.jsonl` | M | 1 | 0 |
-| `.kanban/log.md` | M | 1 | 1 |
-| `.kanban/state.json` | M | 14 | 14 |
+| `.kanban/archive.jsonl` | M | 2 | 0 |
+| `.kanban/log.md` | M | 2 | 2 |
+| `.kanban/reviews/KAN-068-W6TE2S.events.jsonl` | M | 13 | 0 |
+| `.kanban/reviews/KAN-068-W6TE2S.review.json` | M | 21 | 0 |
+| `.kanban/state.json` | M | 24 | 31 |
 | `KANBAN.board.html` | M | 2 | 2 |
-| `KANBAN.md` | M | 4 | 5 |
+| `KANBAN.md` | M | 7 | 7 |
 | `KANBAN/cards/KAN-068-W6TE2S.md` | M | 11 | 3 |
+| `KANBAN/reviews/KAN-068-W6TE2S.review.html` | M | 1253 | 0 |
+| `KANBAN/reviews/KAN-068-W6TE2S.review.md` | M | 196 | 0 |
 
 **롤백 태그 0개** — 없음(`--tags` 를 넘기지 않았거나 아직 태그가 없습니다)
 
@@ -86,7 +92,7 @@ KAN-068 검증 결과 (2026-10-10, 카드 「검증」 절 기준)
 4) 의존: core·foundations·visualization → tokens 1.4.0 · style-guide-catalog → core 1.2.1·tokens 1.4.0 · visualization-style-guide-catalog → visualization 0.4.1·tokens 1.4.0, workspace:* 0건. Node 이름 import 6개 exit=0
 5) 수정 4건: tokens focusContrast·surfaceColors 함수 · FOCUS_CONTRAST_MIN 3 / foundations aurora-yellow 포커스 #9E9301 / style-guide-catalog var(--bbangto-semantic-border-focus 53건 / visualization C4CodeDiagram.js 의 #555555 0건
 6) 배포 dist ↔ push 직전 점검 때의 저장소 빌드: tokens 3 · foundations 6 · core 967 · style-guide-catalog 447 · visualization-style-guide-catalog 151 파일 바이트 같음. visualization 708개 중 562개 같음, 다시 묶은 minify 크기 같음(3항 1)
-7) 외부 앱 전달 문구: 카드 수행 내역에 기록(3항 2)
+7) 외부 앱 전달 문구: 카드 수행 내역에 기록 — 보낼 것은 정정본 KANBAN/cards/KAN-068-W6TE2S.md:97 (3항 2 반려 반영)
 8) 게이트 5종(push 직전 점검, main 7093fcd 와 같은 코드): typecheck · build · test 1293/1293(193파일) · storybook build · test:unit 647 초록
 배포 변경 자체(버전·CHANGELOG·changeset 소진 15파일)는 카드 브랜치가 아니라 main 의 7e3f287(Version PR #10)에 있음
 ```

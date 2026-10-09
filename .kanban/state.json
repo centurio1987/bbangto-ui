@@ -1,6 +1,6 @@
 {
   "next_id": 70,
-  "next_seq": 264,
+  "next_seq": 266,
   "cards": {
     "KAN-057-CCH3E8": {
       "col": "backlog",
@@ -1474,6 +1474,26 @@
   ],
   "recent": [
     {
+      "seq": 265,
+      "t": "2026-10-10T01:18",
+      "a": "ai",
+      "id": "KAN-068-W6TE2S",
+      "op": "move",
+      "w": "V5ZA3M",
+      "from": "doing",
+      "to": "review"
+    },
+    {
+      "seq": 264,
+      "t": "2026-10-10T01:17",
+      "a": "ai",
+      "id": "KAN-068-W6TE2S",
+      "op": "move",
+      "w": "V5ZA3M",
+      "from": "review",
+      "to": "doing"
+    },
+    {
       "seq": 263,
       "t": "2026-10-10T01:07",
       "a": "ai",
@@ -1998,40 +2018,6 @@
       "w": "HMFE04",
       "from": "backlog",
       "to": "doing"
-    },
-    {
-      "seq": 229,
-      "t": "2026-10-08T00:40",
-      "a": "ai",
-      "id": "KAN-063-Q85EET",
-      "op": "create",
-      "w": "S7030N",
-      "col": "backlog",
-      "title": "viz Paint Gate 표본을 나머지 템플릿으로 넓히기 — 리터럴 · 글자 대비 검사가 모든 템플릿을 보게",
-      "verbatim": "",
-      "parent": null,
-      "short": "Paint Gate 표본 확장",
-      "purpose": "TemplatePaintGate 의 두 검사(리터럴 색 · 글자 대비)가 표본이 없는 템플릿도 그리게 표본(fixture)을 더한다",
-      "reason": "지금 리터럴 검사는 템플릿 export 65개 중 31개, 글자 대비 검사는 13개만 본다. 나머지는 리터럴이 들어와도 걸리지 않고 README 가 그 한계를 적고 있다(KAN-056 검토 항목 5)",
-      "goal": "templates 가 내보내는 모든 템플릿에 표본이 있고, 표본이 빠진 템플릿이 생기면 검사가 빨강이 된다",
-      "memo": "KAN-056 검토 항목 5(검토자 승인, 추천안의 후속 부분)에서 나왔다. KAN-056 병합 뒤 착수. 글자 대비 검사를 넓히면 새 미달이 나와 viz 라벨 대비 정리 카드와 같은 파일을 고치게 되므로 착수 전에 순서를 정한다"
-    },
-    {
-      "seq": 228,
-      "t": "2026-10-08T00:40",
-      "a": "ai",
-      "id": "KAN-062-E02CMT",
-      "op": "create",
-      "w": "S7030N",
-      "col": "backlog",
-      "title": "SVG 속성 안 var() 브라우저 확인 — README 문장과 속성으로 색을 넣는 코드를 실제 동작에 맞추기",
-      "verbatim": "",
-      "parent": null,
-      "short": "속성 안 var() 확인",
-      "purpose": "Firefox·Safari 에서 SVG 속성(presentation attribute) 안의 var() 가 풀리는지 확인하고, README 문장과 그 형태로 색을 넣는 코드를 결과에 맞춘다",
-      "reason": "viz README 는 속성 안 var() 가 무효라 적지만 chromium 에서는 풀린다. 코드에도 그 형태가 있어 안 풀리는 브라우저에서는 인터페이스 선이 사라지거나 라벨이 검정이 된다(KAN-056 검토 항목 3)",
-      "goal": "세 브라우저 결과가 README 에 적히고, 안 풀리는 브라우저가 있으면 속성 안 var() 가 모두 style 로 옮겨지고 검사로 막힌다",
-      "memo": "KAN-056 검토 항목 3(검토자 승인, 둘째 선택지)에서 나왔다. KAN-056 시점 줄: UMLComponentDiagram.tsx:65·97, BPMNDiagram.tsx:86·128, README.md 「명시한 prop 이 이긴다」 항목. 다른 템플릿·원자에도 같은 형태가 있는지는 확인 안 함"
     }
   ],
   "waivers": [
