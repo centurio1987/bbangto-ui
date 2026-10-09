@@ -1319,7 +1319,21 @@
       "goal": "앱 에이전트가 배포물만 읽고 없는 것을 확장 컴포넌트로 만들 수 있고, 배포물에 저장소 관리 지시가 0건이며, 검사가 둘 다 지킨다",
       "goal_hash": "e163bc92032be408112528bae2986e2cb1046686",
       "memo": "2026-10-09 매니페스트 진단의 고칠 방법 1·2. 3번(매니페스트에 조립 경로 필드)은 이 카드 밖이고 KAN-064 와 함께 정한다",
-      "memo_hash": "041e6695e82400eb43ce14fa31a94ea9d6eec21c"
+      "memo_hash": "041e6695e82400eb43ce14fa31a94ea9d6eec21c",
+      "scope": [
+        "packages/core/README.md",
+        "packages/visualization/README.md",
+        "packages/visualization/package.json",
+        "packages/visualization/src/index.ts",
+        "packages/visualization/src/typeMeta/index.ts",
+        "packages/visualization/src/typeMeta/types.ts",
+        "packages/visualization/src/typeMeta/registry.ts",
+        "packages/foundations/src/publishedDocs.ts",
+        "packages/foundations/src/publishedDocs.test.ts",
+        "apps/storybook/src/stories/ExtendWhenMissing.stories.tsx",
+        "apps/storybook/src/stories/_readmeExamples/**",
+        ".changeset/kan-067-extend-when-missing.md"
+      ]
     }
   },
   "order": [
@@ -1327,6 +1341,7 @@
     "KAN-061-K8V2HH",
     "KAN-064-AC0H6M",
     "KAN-066-T6NR80",
+    "KAN-067-WDY7N1",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1388,8 +1403,7 @@
     "KAN-060-G9YKG6",
     "KAN-055-34A57K",
     "KAN-062-E02CMT",
-    "KAN-065-XSHEMV",
-    "KAN-067-WDY7N1"
+    "KAN-065-XSHEMV"
   ],
   "recent": [
     {
