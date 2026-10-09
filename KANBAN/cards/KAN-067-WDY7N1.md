@@ -46,7 +46,7 @@ scope: packages/core/README.md, packages/visualization/README.md, packages/visua
   - `packages/visualization/package.json` 의 `files` — KAN-064 는 `manifest` 를 더하고 이 카드는 문서 두 개를 뺀다.
   - `src/typeMeta/index.ts:5-6` — KAN-064 는 「색인 → 상세」 읽기로 고쳤고 「전략은 패키지 루트 TYPE_METADATA_STRATEGY.md 참고」를 남겼다. 이 카드는 그 참조를 저장소 링크로 바꾼다.
   - `src/index.ts` — KAN-064 는 21번째 줄(매니페스트 동봉)을, 이 카드는 28번째 줄(전략 문서)을 고친다.
-  - `packages/visualization/README.md` — KAN-064 가 scope 밖에서 53~115번째 줄(매니페스트 표·스키마)을 고쳤다. 이 카드는 그 구간을 건드리지 않는다. 새 절은 「구현 규약」 절 앞(130번째 줄)에 두고, 36번째 줄에는 문장 하나만 붙인다.
+  - `packages/visualization/README.md` — KAN-064 가 scope 밖에서 53~101번째 줄(매니페스트 표·스키마)을 고쳤다. 이 카드도 그 범위 근처인 106~108번째 줄(범위 밖 3종 사유)을 고쳤다. 2026-10-10 검토자의 가상 병합(`git merge-tree`)으로는 README 가 충돌 없이 합쳐지고, 실제 충돌은 `package.json` 과 `src/typeMeta/index.ts` 두 곳이다. 새 절은 「구현 규약」 절 앞(130번째 줄)에 두고, 36번째 줄에는 문장 하나만 붙인다.
 - **「동봉」이라는 낱말 자체는 막지 않는다.** 매니페스트 파일(`type.manifest.json`·`manifest/<id>.json`)은 실제로 실려 있으므로 KAN-064 의 「패키지에 동봉」 문장은 맞다. 이 카드의 검사는 관리용 문서 두 개를 배포물에 있는 것처럼 가리키는 문장만 막는다. 처음 적은 「`.d.ts` 에 「동봉」 0건」 기준은 이 문장들까지 잡아서 고쳤다.
 - **수행 방식은 단일 에이전트다**(2026-10-09 유저 선택). S5 재현 시험 4건만 서브에이전트로 띄운다.
 
@@ -91,3 +91,6 @@ scope: packages/core/README.md, packages/visualization/README.md, packages/visua
 - 2026-10-09T23:25 · s:2504f49d — S5 부산물 수정: viz README 146줄(이 카드가 쓴 새 절)·217줄의 「Provider 밖에서는 무채색」 서술을 실측(도형 rgb(0,0,0) 채움·엣지 stroke none — atom 예제·Flowchart·Mindmap)으로 고치고, ExtendWhenMissing 스토리에 Provider 안에서 엣지가 보이고 도형이 검지 않다는 단언을 더함. 같은 서술이 루트 README.md:858 에도 있으나 scope 밖(KAN-064 scope)이라 후속 후보로 남김. useVizFoundation 주석(base.ts:13·Provider.tsx:100)은 JS 값 폴백이라 맞다
 - 2026-10-09T23:27 · s:2504f49d · S6 doing — 착수
 - 2026-10-09T23:29 · s:2504f49d · S6 done — changeset(core·visualization patch, README Provider 서술 정정 포함). 게이트 5종 초록 — typecheck · build(매니페스트 변경 없음) · test(194파일 1295건) · storybook build · test:unit(foundations 138건 등). 손 확인: core README 예제의 aria-label 한 줄을 바꾸면 publishedDocs 가 example-drift 로 빨강, 되돌리면 초록
+- 2026-10-10T00:24 · s:2504f49d — `전략` 섹션 교체
+- 2026-10-10T00:24 · s:2504f49d — S5 과제 원문(검토자 지적으로 보충, 4건 모두 같은 틀) — 「당신은 이 React 앱을 만드는 개발 에이전트입니다. 앱 폴더: <app-before|app-after>. 이 앱은 bbangto-ui(@centurio1987/bbangto-ui-core · -tokens · -visualization)를 쓰고 있고, 패키지는 앱 폴더의 node_modules 에 설치돼 있습니다. 과제: <A|B>. 이 과제를 어떻게 구현할지 방침을 정해 주세요. 코드는 쓰지 않아도 됩니다. 앱 폴더 안의 파일만 읽으세요. 앱 폴더 밖의 경로, 인터넷, 다른 저장소는 보지 않습니다. 파일을 만들거나 고치지 마세요. 형식: 방침/이유/읽은 파일/쓸 부품」. A=「팀 대시보드 설정 화면에 「팀 색상」을 고르는 색 선택기가 필요합니다. 미리 정한 색 칸 8개 중에서 고르거나 HEX 값을 직접 입력할 수 있어야 합니다.」 B=「장애 회고 페이지에 결함 나무(fault tree) 그림이 필요합니다. 맨 위 사건 「결제 실패」 아래에 AND/OR 게이트로 원인 사건 4~5개가 이어지는 그림입니다.」 이 틀은 인터넷·저장소(루트 README 의 「기여한다」 경로)와 구현을 막았으므로, 그 두 경로는 이 시험이 보지 못했다
+- 2026-10-10T00:24 · s:2504f49d — S5 읽은 파일 수(검토자 지적으로 보충, 각 에이전트 보고 원문 기준): 전·색 21(코어 README·d.ts·Radio/Input/FormRow 구현 chunk·tokens) / 후·색 14(코어 README 새 절·d.ts·Chip/RadioGroup chunk·tokens) / 전·나무 25(viz README·type.manifest·인벤토리(검색)·TYPE_METADATA_STRATEGY·Canvas/Edge/Node/Provider 구현) / 후·나무 19(viz README 새 절·type.manifest·Canvas/Node/Edge/Provider 구현·tidyTreeLayout). 전체 경로 목록은 세션 기록의 각 에이전트 보고에 있다
