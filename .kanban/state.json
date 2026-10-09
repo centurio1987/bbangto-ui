@@ -1,9 +1,9 @@
 {
   "next_id": 68,
-  "next_seq": 256,
+  "next_seq": 257,
   "cards": {
     "KAN-057-CCH3E8": {
-      "col": "review",
+      "col": "done",
       "title": "viz edge.dashPattern 토큰 정리 — 선언만 있고 읽히지 않는 커넥터 대시 토큰을 잇거나 걷기",
       "verbatim": "만들어 (앞 답변 「앞서 여쭌 백로그 카드 두 가지(리터럴 색이 남은 템플릿 13개, 읽히지 않는 `edge.dashPattern` 토큰)는 아직 만들지 않았습니다.」에 대한 답)",
       "생성": "ai",
@@ -1416,6 +1416,16 @@
   ],
   "recent": [
     {
+      "seq": 256,
+      "t": "2026-10-10T00:54",
+      "a": "ai",
+      "id": "KAN-057-CCH3E8",
+      "op": "move",
+      "w": "WXJKQG",
+      "from": "review",
+      "to": "done"
+    },
+    {
       "seq": 255,
       "t": "2026-10-10T00:26",
       "a": "ai",
@@ -1956,16 +1966,6 @@
       "w": "S7030N",
       "with_": "KAN-051-5HMYKT",
       "reason": "전략 재수립 완료"
-    },
-    {
-      "seq": 224,
-      "t": "2026-10-08T00:24",
-      "a": "ai",
-      "id": "KAN-056-D3V1MB",
-      "op": "move",
-      "w": "GEG7B8",
-      "from": "review",
-      "to": "doing"
     }
   ],
   "waivers": [
