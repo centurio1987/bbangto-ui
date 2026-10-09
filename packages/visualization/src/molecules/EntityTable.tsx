@@ -35,7 +35,7 @@ export const EntityTable = React.forwardRef<SVGGElement, EntityTableProps>(
       width,
       name,
       attributes = [],
-      fill = vvar('shape', 'fill'),
+      fill: fillProp,
       headerFill,
       stroke,
       strokeWidth = 1.5,
@@ -43,10 +43,13 @@ export const EntityTable = React.forwardRef<SVGGElement, EntityTableProps>(
     },
     ref,
   ) => {
+    const fill = fillProp ?? vvar('shape', 'fill');
     const effectiveStroke = stroke ?? vvar('edge', 'stroke');
     const effectiveHeaderFill = headerFill ?? vvar('canvas', 'grid');
     const titleFont = vvar('typography', 'titleFont');
     const textColor = vvar('edge', 'stroke');
+    // 속성 줄은 표 면(shape.fill) 위에 놓인다. fill 을 직접 주면 그 면의 대비는 준 쪽 몫이라 종전 글자색을 둔다(KAN-061).
+    const rowTextColor = fillProp === undefined ? vvar('on', 'shape', 'fill') : textColor;
 
     const totalH = HEADER_H + attributes.length * ROW_H;
     const lineStyle: React.CSSProperties = {
@@ -103,7 +106,7 @@ export const EntityTable = React.forwardRef<SVGGElement, EntityTableProps>(
                   fontFamily={resolveLabelFont(attr.key)}
                   fontSize={9}
                   fontWeight={700}
-                  style={{ fill: textColor }}
+                  style={{ fill: rowTextColor }}
                 >
                   {attr.key}
                 </text>
@@ -115,7 +118,7 @@ export const EntityTable = React.forwardRef<SVGGElement, EntityTableProps>(
                 dominantBaseline="central"
                 fontFamily={resolveLabelFont(attr.name)}
                 fontSize={10}
-                style={{ fill: textColor }}
+                style={{ fill: rowTextColor }}
               >
                 {attr.name}
               </text>
@@ -125,9 +128,9 @@ export const EntityTable = React.forwardRef<SVGGElement, EntityTableProps>(
                 textAnchor="end"
                 dominantBaseline="central"
                 fontFamily={resolveLabelFont(attr.type)}
-                fontSize={10}
-                style={{ fill: textColor }}
-                opacity={0.6}
+                // 타입은 이름보다 작게 써서 구분한다. 흐리게(opacity) 쓰면 가이드에 따라 바탕에 묻힌다(KAN-061).
+                fontSize={9}
+                style={{ fill: rowTextColor }}
               >
                 {attr.type}
               </text>

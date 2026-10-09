@@ -78,11 +78,12 @@ export function DataLineage({
         return (
           <g key={n.id} data-bbangto-viz-lineage-node data-bbangto-viz-lineage-node-id={n.id}>
             <Node id={n.id} x={n.x} y={n.y} width={w} height={h} shape="rounded" />
-            <text x={n.x + 10} y={n.y + 22} fontSize={13} fontWeight={700} fontFamily={vvar('typography', 'titleFont')} style={{ fill: vvar('shape', 'stroke') }}>
+            {/* 이름과 설명은 노드 면(shape.fill) 위 글자색. 설명은 크기로 구분하고 흐리게 쓰지 않는다(KAN-061) */}
+            <text x={n.x + 10} y={n.y + 22} fontSize={13} fontWeight={700} fontFamily={vvar('typography', 'titleFont')} style={{ fill: vvar('on', 'shape', 'fill') }}>
               {n.label}
             </text>
             {n.detail && (
-              <text x={n.x + 10} y={n.y + 40} fontSize={11} fontFamily={resolveLabelFont(n.detail)} style={{ fill: vvar('edge', 'stroke'), opacity: 0.8 }}>
+              <text x={n.x + 10} y={n.y + 40} fontSize={11} fontFamily={resolveLabelFont(n.detail)} style={{ fill: vvar('on', 'shape', 'fill') }}>
                 {n.detail}
               </text>
             )}

@@ -61,7 +61,7 @@ KAN-063 이 글자 대비 검사(`LabelContrastGate`)를 표본 68개 전부로 
 - [x] `S1` 빨간 테스트 먼저 — 계산 함수 단위 테스트(`packages/visualization/src/tokens/onInk.test.ts`: 후보 순서, 검정·흰색 대체, 가이드 `on` 값 우선, 반투명·`transparent` 면)와 카탈로그 전수 테스트(`packages/visualization-style-guide-catalog/src/onInk.test.ts`: 가이드 30개 × 면 전부에서 `--bbangto-viz-on-*` 값이 면과 4.5:1 이상). 완료 기준: 두 테스트가 함수와 변수가 없어서 빨갛다.
 - [x] `S2` 계산 함수와 CSS 변수 — `tokens/onInk.ts`, `visualizationFoundationToStyleObject` 가 `--bbangto-viz-on-*` 를 함께 낸다, tokens `VisualizationFoundation` 에 선택 필드 `on`(JSDoc 에 규칙). 완료 기준: S1 두 테스트 초록, `pnpm build`·`pnpm typecheck` 초록, `LiteralPaintGate` 초록.
 - [x] `S3` 노드 글자 기본값 — `NodeLabel` 기본 글자색을 `on-shape-fill` 로 바꾸고, 같은 원인의 템플릿 21개(class-diagram · sysml-block · c4-code · kanban-board · bpmn 등)를 정리한다. 완료 기준: 그 템플릿의 기준 목록 줄 83곳이 빠지고 Paint Gate 두 검사 초록.
-- [ ] `S4` 흐린 보조 글자 — er-diagram · quadrant · data-lineage · requirement 의 글자 opacity 를 걷고 면에 맞춘 글자색을 쓴다. requirement 검정 6% 띠 위 글자는 합성한 색으로 고른다. 완료 기준: 네 템플릿의 기준 목록 줄 257곳이 빠지고 게이트 초록.
+- [x] `S4` 흐린 보조 글자 — er-diagram · quadrant · data-lineage · requirement 의 글자 opacity 를 걷고 면에 맞춘 글자색을 쓴다. requirement 검정 6% 띠 위 글자는 합성한 색으로 고른다. 완료 기준: 네 템플릿의 기준 목록 줄 257곳이 빠지고 게이트 초록.
 - [ ] `S5` 불투명 팔레트 면 — wbs · treemap · packet · stacked-bar · archimate-viewpoint · mindmap · dmn · user-journey-gantt · fishbone 의 팔레트 면 위 글자를 `on-palette-*` 로. 완료 기준: 아홉 템플릿의 기준 목록 줄 960곳이 빠지고 게이트 초록.
 - [ ] `S6` 투명도가 바뀌는 면과 C4 — heatmap · choropleth · sankey · archimate 4종은 칸마다 계산 함수로, C4 넷(context · container · dynamic · system-landscape)은 `C4Box`·`PersonNode`·`ExternalNode` 의 글자를 `on-c4-*`·`on-node-*` 로. 완료 기준: 열한 템플릿의 기준 목록 줄 238곳이 빠지고 게이트 초록.
 - [ ] `S7` 기준 목록 닫기 — `_labelContrastBaseline.ts` 를 빈 목록으로 두고 머리 주석을 「새 미달은 목록에 올리지 말고 `on-*` 로 고친다」로 바꾼다. README 189~193번째 줄의 글자색 규칙과 기준 목록 설명을 `--bbangto-viz-on-*` 규칙으로 고친다. 완료 기준: `LABEL_CONTRAST_BASELINE` 0개, 게이트 초록.
@@ -91,3 +91,5 @@ KAN-063 이 글자 대비 검사(`LabelContrastGate`)를 표본 68개 전부로 
 - 2026-10-10T00:50 · s:add35787 · S3 doing — 착수
 - 2026-10-10T00:59 · s:add35787 — S3 범위 조정: NodeLabel 기본값을 바꾸자 shape.fill 아닌 면 위에서 기본값을 쓰던 템플릿이 새로 미달이 됐다(게이트는 새 미달을 막는다). 그래서 Mindmap·DMN·ArchiMate viewpoint(S5 몫)와 C4Box·의미 노드 7종·ArchiMate 4종(S6 몫)의 노드 글자·태그를 S3 에서 고쳤다. 반투명·none 면은 canvas 위와 검정 30%(ON_INK_SHADE) 음영 위 둘 다에서 4.5:1 을 넘게 고른다 — riso-print 22% 면이 레인 띠 위에서 4.4 로 떨어진 실측 때문이다
 - 2026-10-10T00:59 · s:add35787 · S3 done — NodeLabel 기본 on-shape-fill·보조 글자 opacity 걷음 · ClassBox·C4Box·의미 노드 7종·Mindmap·DMN·ArchiMate viewpoint·ArchiMate·IsometricScene 글자색 · 반투명 면 음영 규칙. 기준 목록 1538→1089(S3 83 + 덩달아 통과 366). Paint Gate 두 검사·pnpm test 1293·typecheck 초록
+- 2026-10-10T01:02 · s:add35787 · S4 doing — 착수
+- 2026-10-10T01:03 · s:add35787 · S4 done — EntityTable 속성 줄 on-shape-fill·타입 opacity 0.6 걷고 9px · Quadrant 사분면 이름 on-canvas-bg(0.7 걷음) · DataLineage 이름·설명 on-shape-fill(0.8 걷음) · Requirement 머리 띠는 shape.fill+검정 6% 합성색으로 고르고 본문 on-shape-fill(0.6·0.8 걷음). 257곳 지움(1089→832), 게이트 두 검사·typecheck 초록

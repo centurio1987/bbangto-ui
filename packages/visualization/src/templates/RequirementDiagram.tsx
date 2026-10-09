@@ -2,8 +2,11 @@ import { type ReactNode } from 'react';
 import { Canvas } from '../atoms/Canvas';
 import type { CanvasProps } from '../atoms/Canvas';
 import { Edge } from '../atoms/Edge';
+import { compositeOver } from '@centurio1987/bbangto-ui-tokens';
 import { vvar } from '../tokens/contract';
 import { resolveLabelFont } from '../tokens/labelFont';
+import { pickOnInk, surfacesFor } from '../tokens/onInk';
+import { useVizFoundation } from '../styleGuide/VisualizationStyleGuideProvider';
 
 export interface RequirementNodeSpec {
   id: string;
@@ -34,6 +37,8 @@ export interface RequirementDiagramProps extends Omit<CanvasProps, 'data' | 'chi
 }
 
 const HEADER_H = 38;
+/** 머리 띠 음영 — 표 면 위에 얹는 반투명 검정(가이드와 무관한 음영 장치). */
+const HEADER_SHADE = 0.06;
 const PAD = 7;
 const LINE_H = 14;
 
@@ -45,8 +50,15 @@ function ReqNode({ req }: ReqNodeProps) {
   const stroke = vvar('edge', 'stroke');
   const titleFont = vvar('typography', 'titleFont');
   const monoFont = vvar('typography', 'monoFont');
-  const textColor = vvar('edge', 'stroke');
-  const headerFill = 'rgba(0,0,0,0.06)';
+  const headerFill = `rgba(0,0,0,${HEADER_SHADE})`;
+  // 머리 글자는 표 면(shape.fill)에 검정 6% 를 얹은 띠 위에 있어, 그 합성색으로 글자색을 고른다.
+  // 본문은 표 면 위라 on-shape-fill 이다. 둘 다 흐리게(opacity) 쓰지 않는다(KAN-061).
+  const foundation = useVizFoundation();
+  const headerInk = pickOnInk(
+    foundation,
+    surfacesFor(foundation, foundation.shape.fill).map((s) => compositeOver({ r: 0, g: 0, b: 0, a: HEADER_SHADE }, s)),
+  );
+  const bodyInk = vvar('on', 'shape', 'fill');
 
   const { x, y, width, height, name, text, risk, verifyMethod, kind = 'requirement' } = req;
 
@@ -69,8 +81,7 @@ function ReqNode({ req }: ReqNodeProps) {
         dominantBaseline="central"
         fontFamily={monoFont}
         fontSize={9}
-        fill={textColor}
-        opacity={0.6}
+        style={{ fill: headerInk }}
       >
         {`«${kind}»`}
       </text>
@@ -84,7 +95,7 @@ function ReqNode({ req }: ReqNodeProps) {
         fontFamily={titleFont}
         fontSize={12}
         fontWeight={700}
-        fill={textColor}
+        style={{ fill: headerInk }}
       >
         {name}
       </text>
@@ -100,8 +111,7 @@ function ReqNode({ req }: ReqNodeProps) {
           dominantBaseline="central"
           fontFamily={resolveLabelFont(line)}
           fontSize={9}
-          fill={textColor}
-          opacity={0.8}
+          style={{ fill: bodyInk }}
         >
           {line}
         </text>
