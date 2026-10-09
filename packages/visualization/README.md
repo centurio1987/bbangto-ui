@@ -33,7 +33,8 @@ selectVizTypes(vizTypeRegistry, {
 // → VT-201 Flowchart · VT-106 UML Activity · VT-122 BPMN … (ProcessSteps는 분기가 없어 탈락)
 ```
 
-`match: 'all'`이 빈 배열을 주면 **"그런 유형은 없다"가 답이다.** 축을 줄여 다시 묻는다.
+`match: 'all'`이 빈 배열을 주면 **"그런 유형은 없다"가 답이다.** 축을 줄여 다시 묻는다. 축을 줄여도 맞는 유형이 없으면
+[원하는 것이 없을 때](#원하는-것이-없을-때)로 간다 — atom 으로 조립한다.
 
 > `match`를 생략하면 기본값 `'any'`(soft-weighted)다. `'any'`는 후보가 탈락하지 않는 대신
 > **criterion을 더할수록 정답이 아래로 내려갈 수 있다** — 구체적으로 묻는 중이라면 `'all'`을 쓴다.
@@ -103,9 +104,12 @@ vizTypeForVariant(vizTypeRegistry, 'Statistics', 'waffle'); // VT-513
 `id` 체계: `VT-1xx` 엔지니어링 · `2xx` 프로세스 · `3xx` 계층/관계 · `4xx` 시간축 ·
 `5xx` 데이터 차트 · `6xx` 인포그래픽/에디토리얼 · `7xx` 개념 프레임워크.
 
-> 인벤토리 문서에는 VT 행이 **90개**지만 레지스트리·매니페스트는 **87개**다. 차이 3은
-> 제품 범위 밖으로 판정된 행(VT-520 Data Table · VT-610 Infographic Resume · VT-611 Scrollytelling)이고,
-> 이들은 컴포넌트가 없다. 누락이 아니라 의도적 제외다 — 사유는 `visualization-type-inventory.md`에 행별로 적혀 있다.
+> 인벤토리 문서에는 VT 행이 **90개**지만 레지스트리·매니페스트는 **87개**다. 차이 3은 제품 범위 밖으로
+> 정한 유형이고 컴포넌트가 없다. 누락이 아니라 의도적 제외다.
+>
+> - VT-520 Data Table — 행·열 원자료를 조회하는 일은 SVG 그림이 아니라 DOM 표의 일이다. core 의 `Table`·`DataGrid` 를 쓴다.
+> - VT-610 Infographic Resume — 개인 문서에 특화된 조합이라 유형으로 두지 않았다. 아래 「원하는 것이 없을 때」처럼 조립한다.
+> - VT-611 Scrollytelling — 스크롤 연동은 정적 SVG 컴포넌트의 범위 밖이다. 그림은 이 패키지로 그리고 스크롤 연동은 앱이 맡는다.
 
 ## 스타일(paint) 축은 별개다
 
@@ -126,6 +130,66 @@ Provider는 기본으로 JetBrains Mono를 Google Fonts에서 불러온다. 글�
 (`#bbangto-font-jetbrains-mono`) core Provider 안에 겹쳐도 요청이 두 번 나가지 않는다.
 외부 요청을 0건으로 만들려면 문서 안의 Provider 전부에 `fonts="none"`을 준다. SSR HTML에는 `@import`가
 들어가지 않고 화면이 켜진 뒤에 불러온다.
+
+## 원하는 것이 없을 때
+
+87종 중 맞는 유형이 없으면 **atom 과 molecule 로 그림을 조립한다.** 라이브러리를 빼거나 다른 차트·다이어그램
+라이브러리로 바꿀 일이 아니다. 87종도 같은 atom 으로 만들어져 있어서, 조립한 그림도 스타일 가이드를 바꾸면 함께
+다시 칠해진다. 순서는 넷이다.
+
+1. **유형에서 찾는다.** `selectVizTypes` 로 좁히고 `useWhen`/`avoidWhen` 으로 확정한다(위 「유형 고르는 순서」).
+   이름이 달라도 `aliases` 에 같은 그림이 있을 수 있다. `match: 'all'` 이 빈 배열이면 축을 하나씩 빼고 다시 묻는다.
+2. **가까운 유형이 있으면 그 컴포넌트의 prop 부터 본다.** prop 과 채택 근거(`@useWhen`·`@avoidWhen`)는
+   `dist/index.d.ts` 의 JSDoc 에 있다.
+3. **없으면 atom 으로 조립한다.** 부품은 아래 표에 있다. 노드-엣지 그림은 좌표를 호출자가 정한다(자동 배치 없음).
+   트리·트리맵처럼 배치를 계산해야 하면 `geometry` 의 순수 함수를 쓴다. 색·선은 비워 둔다 — 비워 두면
+   `VisualizationStyleGuideProvider` 의 스타일 가이드가 칠하고, Provider 밖에서는 무채색 기본값으로 그려진다.
+   `Node` 는 `Canvas` 바로 아래에 둔다. `<g>`·Fragment 안에 넣거나 `id`·`x`·`y`·`width`·`height` 를 props 로
+   받지 않는 래퍼로 감싸면 `Edge` 가 id 로 노드를 찾지 못한다(「구현 규약 · 작성 모델」).
+4. **개선 요청은 그다음이다.** 그림을 완성한 뒤, 다른 앱에도 쓸모 있는 유형이면 저장소에 제안한다. 요청을 이유로
+   구현을 멈추거나 라이브러리를 바꾸지 않는다.
+
+| 층 | 부품 |
+| --- | --- |
+| atom | `Canvas` · `Node` · `NodeLabel` · `Edge` · `EdgeLabel` · `Markers` · `Tag` · `Boundary` · `Lane` · `Lifeline` · `GridLayer` · `Axis` · `BandEdge` · `StatNumber` · `IndexBadge` · `IconBadge` · `RingSegment` · `ProportionBlock` · `PictographUnit` · `MilestoneMarker` · `PyramidLayer` · `VsDivider` · `IsoPrism` |
+| molecule | `PersonNode` · `ExternalNode` · `ContainerNode` · `DatabaseNode` · `QueueNode` · `DecisionNode` · `ProcessNode` · `C4Box` · `ClassBox` · `StateNode` · `EntityTable` · `StepConnector` · `CalloutLeader` · `StatCard` · `MockupNode` · `ActorGlyph` |
+| 배치 계산(`geometry`) | `tidyTreeLayout` · `squarifyLayout` · `sankeyLayout` · `chordLayout` · `fishboneLayout` · `icebergLayout` · `hexLayout` |
+
+### 예제 — 결정 그림
+
+노드 셋과 엣지 둘로 그린 작은 결정 그림이다. 색을 주지 않았으므로 감싼 Provider 의 스타일 가이드가 칠한다.
+이 예제는 저장소 Storybook 의 `Overview/Extend When Missing` 이 실제로 그려 확인한다.
+
+```tsx
+import { Canvas, Edge, Node, NodeLabel } from '@centurio1987/bbangto-ui-visualization';
+
+// 87종 어디에도 맞지 않는 그림은 atom 으로 조립한다. 좌표는 호출자가 정하고(자동 배치 없음),
+// 색·선은 비워 둔다 — 비워 두면 VisualizationStyleGuideProvider 의 스타일 가이드가 칠한다.
+// Node 는 Canvas 바로 아래에 둔다. 그래야 Edge 가 id 로 노드를 찾는다.
+
+const W = 140;
+const H = 56;
+const nodes = [
+  { id: 'ask', x: 170, y: 16, title: '예산이 1억을 넘는가', shape: 'diamond' as const },
+  { id: 'vendor', x: 40, y: 136, title: '외주 입찰', shape: 'rounded' as const },
+  { id: 'inhouse', x: 300, y: 136, title: '내부 개발', shape: 'rounded' as const },
+];
+
+export function DecisionSketch() {
+  return (
+    <Canvas viewBox="0 0 480 208" width={480} height={208} title="예산에 따른 개발 방식 결정">
+      {nodes.map((n) => (
+        <Node key={n.id} id={n.id} x={n.x} y={n.y} width={W} height={H} shape={n.shape} />
+      ))}
+      {nodes.map((n) => (
+        <NodeLabel key={`${n.id}-label`} x={n.x} y={n.y + H / 2} width={W} title={n.title} />
+      ))}
+      <Edge from="ask" to="vendor" fromSide="left" toSide="top" routing="orthogonal" markerEnd="arrow" label="예" />
+      <Edge from="ask" to="inhouse" fromSide="right" toSide="top" routing="orthogonal" markerEnd="arrow" label="아니오" />
+    </Canvas>
+  );
+}
+```
 
 ## 구현 규약 (구 PLAN §C-2)
 
@@ -200,13 +264,14 @@ Provider는 기본으로 JetBrains Mono를 Google Fonts에서 불러온다. 글�
   `play()` 에서는 텍스트 bbox·computed width 를 대조하지 않는다(실행마다 흔들린다) — geometry 가 낸 값과
   attribute 정수를 ±1 로 대조한다.
 
-## 함께 들어 있는 문서
+## 저장소에만 있는 문서
 
-- `visualization-type-inventory.md` — 유형 축 인벤토리(VT 행 90, 사람용 SSOT)
-- `TYPE_METADATA_STRATEGY.md` — 유형 메타 레이어 설계·저작 규약
+아래 문서는 npm 배포물에 없다. 이 패키지를 고치는 사람을 위한 설계·관리 문서라, 앱을 만들 때 따를 절차가 아니다.
 
-저장소에만 있는 문서(npm 배포물에는 없다): `style-classification.md` — 88장 레퍼런스 기반 스타일 패밀리 분류와 횡단 구현 규칙,
-`viz-style-expansion.md` — 88장 밖 스타일 확장 계획.
+- [`visualization-type-inventory.md`](https://github.com/centurio1987/bbangto-ui/blob/main/packages/visualization/visualization-type-inventory.md) — 유형 축 인벤토리(VT 행 90, 사람용 SSOT)
+- [`TYPE_METADATA_STRATEGY.md`](https://github.com/centurio1987/bbangto-ui/blob/main/packages/visualization/TYPE_METADATA_STRATEGY.md) — 유형 메타 레이어 설계·저작 규약
+- [`style-classification.md`](https://github.com/centurio1987/bbangto-ui/blob/main/packages/visualization/style-classification.md) — 88장 레퍼런스 기반 스타일 패밀리 분류와 횡단 구현 규칙
+- [`viz-style-expansion.md`](https://github.com/centurio1987/bbangto-ui/blob/main/packages/visualization/viz-style-expansion.md) — 88장 밖 스타일 확장 계획
 
 ## 라이선스·저장소
 

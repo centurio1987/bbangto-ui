@@ -46,14 +46,14 @@ scope: packages/core/README.md, packages/visualization/README.md, packages/visua
   - `packages/visualization/package.json` 의 `files` — KAN-064 는 `manifest` 를 더하고 이 카드는 문서 두 개를 뺀다.
   - `src/typeMeta/index.ts:5-6` — KAN-064 는 「색인 → 상세」 읽기로 고쳤고 「전략은 패키지 루트 TYPE_METADATA_STRATEGY.md 참고」를 남겼다. 이 카드는 그 참조를 저장소 링크로 바꾼다.
   - `src/index.ts` — KAN-064 는 21번째 줄(매니페스트 동봉)을, 이 카드는 28번째 줄(전략 문서)을 고친다.
-  - `packages/visualization/README.md` — KAN-064 가 scope 밖에서 53~115번째 줄(매니페스트 표·스키마)을 고쳤다. 이 카드는 그 구간을 건드리지 않는다. 새 절은 203번째 줄 앞에 두고, 36번째 줄에는 문장 하나만 붙인다.
+  - `packages/visualization/README.md` — KAN-064 가 scope 밖에서 53~115번째 줄(매니페스트 표·스키마)을 고쳤다. 이 카드는 그 구간을 건드리지 않는다. 새 절은 「구현 규약」 절 앞(130번째 줄)에 두고, 36번째 줄에는 문장 하나만 붙인다.
 - **「동봉」이라는 낱말 자체는 막지 않는다.** 매니페스트 파일(`type.manifest.json`·`manifest/<id>.json`)은 실제로 실려 있으므로 KAN-064 의 「패키지에 동봉」 문장은 맞다. 이 카드의 검사는 관리용 문서 두 개를 배포물에 있는 것처럼 가리키는 문장만 막는다. 처음 적은 「`.d.ts` 에 「동봉」 0건」 기준은 이 문장들까지 잡아서 고쳤다.
 - **수행 방식은 단일 에이전트다**(2026-10-09 유저 선택). S5 재현 시험 4건만 서브에이전트로 띄운다.
 
 ## 실행 계획
 - [x] `S1` 검사 먼저 — `packages/foundations/src/publishedDocs.ts`·`.test.ts`, `apps/storybook/src/stories/ExtendWhenMissing.stories.tsx`, 예제 파일 둘(`_readmeExamples/coreExtend.tsx`·`vizCompose.tsx`). 완료 기준: 실패 주입 표본 넷(README 밖 마크다운을 실은 files · 깨진 상대 링크 · 절 없음 · 예제 불일치)이 각각 위반을 내고, 실제 저장소 검사는 빨강이다(viz files 의 문서 2개, 두 README 의 절 없음). 스토리는 라이브러리를 고치지 않은 지금도 초록이다.
 - [x] `S2` core README 「원하는 것이 없을 때」 절 — 순서 넷, CSS 변수 갈래, `className`·`ref` 전달(전달하지 않는 컴포넌트 명시), `coreExtend.tsx` 와 같은 예제. 완료 기준: S1 검사의 core 항목 초록.
-- [ ] `S3` visualization README 정리 — 「원하는 것이 없을 때」 절(`vizCompose.tsx` 와 같은 예제), 36번째 줄의 빈 결과 안내를 그 절로 잇기, 범위 밖 3종 사유를 README 에 직접 쓰기, 문서 목록을 「저장소에만 있는 문서」로 합치기. 완료 기준: S1 검사의 viz README 항목 초록, 배포되지 않는 문서를 배포물에 있는 것처럼 가리키는 문장 0.
+- [x] `S3` visualization README 정리 — 「원하는 것이 없을 때」 절(`vizCompose.tsx` 와 같은 예제), 36번째 줄의 빈 결과 안내를 그 절로 잇기, 범위 밖 3종 사유를 README 에 직접 쓰기, 문서 목록을 「저장소에만 있는 문서」로 합치기. 완료 기준: S1 검사의 viz README 항목 초록, 배포되지 않는 문서를 배포물에 있는 것처럼 가리키는 문장 0.
 - [ ] `S4` 관리용 문서 배포 제외 — `package.json` `files` 에서 두 문서를 빼고 주석 4곳을 저장소 링크로 바꾼다. 완료 기준: S1 검사 전부 초록, `pnpm pack` 목록에 두 문서 없음, 빌드한 `dist` 의 `.d.ts` 에서 두 문서 이름이 나오는 줄은 모두 저장소 링크다.
 - [ ] `S5` 배포물 재현 시험 — 고치기 전 main 과 고친 브랜치의 `pnpm pack` 결과물을 각각 서브에이전트에게 주고 같은 과제 둘(core 에 없는 컴포넌트 · viz 에 없는 유형)을 낸다. 완료 기준: 네 번의 결론(전후 × 과제 둘)과 에이전트가 읽은 파일을 수행 내역에 남긴다. 게이트가 아니다.
 - [ ] `S6` 마무리 — changeset(core·visualization patch), 품질 게이트 5종. 완료 기준: 게이트 5종 초록.
@@ -81,3 +81,6 @@ scope: packages/core/README.md, packages/visualization/README.md, packages/visua
 - 2026-10-09T23:12 · s:2504f49d · S2 doing — 착수
 - 2026-10-09T23:13 · s:2504f49d — `전략` 섹션 교체
 - 2026-10-09T23:13 · s:2504f49d · S2 done — core README 에 「원하는 것이 없을 때」 절 — 순서 넷 · 변수 갈래 표(이름은 flattenToCSSVars(lightFoundation) 실측) · ref/className 예외 셋(DataGrid 는 셋 다 안 받음, Skeleton·Text 는 ref 가 React 19 에서만) · 감쌀 때 걸리는 자리 둘(아이콘 107종 전부 색이 박혀 있음, Button 은 hover 때 인라인 색을 다시 씀) · 별점 예제. 예제 간격을 spacing-1(=1px) → spacing-4 로 고침. 게이트의 core 항목 초록, 스토리 2건 초록. 전략 절의 「57개 중 54개」를 「56개 중 53개」로 바로잡음(57 에 atoms 폴더가 섞였다)
+- 2026-10-09T23:14 · s:2504f49d · S3 doing — 착수
+- 2026-10-09T23:15 · s:2504f49d — `전략` 섹션 교체
+- 2026-10-09T23:15 · s:2504f49d · S3 done — viz README 네 군데 — 36줄 빈 결과 안내를 새 절로 잇기 · 범위 밖 3종 사유를 README 에 직접(인벤토리 182·199·200행 사유 옮김, VT-520 은 core Table·DataGrid 로 안내) · 「원하는 것이 없을 때」 절을 「구현 규약」 앞에(순서 넷 · atom 23·molecule 16·배치 계산 7 표, export 실측 · 결정 그림 예제) · 「함께 들어 있는 문서」를 「저장소에만 있는 문서」 GitHub 링크 넷으로. 게이트의 viz README 항목 초록, 남은 위반은 S4 몫 files 2건. 새 절 위치를 전략의 203번째 줄 앞에서 구현 규약 앞으로 바꿈(앱 사용자 절이 기여자용 절 뒤에 묻히지 않게, KAN-064 의 53~115줄과도 안 겹침)
