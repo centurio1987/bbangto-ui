@@ -93,7 +93,7 @@
   - 메모: KAN-056 검토 항목 3(승인)·6에서 나왔다. KAN-056 병합 뒤 착수(검사와 기준 목록이 그 카드에 있다). 원인이 셋으로 갈린다: 불투명 팔레트 면 위 edge.stroke 글자, Requirement 반투명 글자(opacity 0.6·0.8)와 검정 6% 띠, riso-print 등의 shape.fill·edge.stroke 쌍. 카탈로그 대비 게이트가 shape.fill·edge.stroke 쌍을 재는지는 확인 안 함
   - 실행 문서: KANBAN/cards/KAN-061-K8V2HH.md (8/8 · 최근 10-10)
   - 계획 리포트: KANBAN/reports/KAN-061-K8V2HH.report.html (낡음)
-  - 검토 문서: KANBAN/reviews/KAN-061-K8V2HH.review.md (승인 3/5 · 추가 의견 2 · 추가 의견 총 8 · 검토 대기)
+  - 검토 문서: KANBAN/reviews/KAN-061-K8V2HH.review.md (승인 4/5 · 반려 1 · 추가 의견 총 11 · 검토 대기)
 
 ## 완료
 - `KAN-020` visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현 — 생성:유저 · 최종:유저 · 갱신:2026-08-14
