@@ -59,6 +59,8 @@
 ## 할 일
 
 ## 진행 중
+
+## 검토
 - `KAN-067-WDY7N1` 배포 문서에 「원하는 것이 없을 때」 길 — core·viz README 확장 절 + viz 관리용 문서 배포 제외 — 생성:ai · 최종:ai · 갱신:2026-10-09
   - 짧은 제목: 없을 때 확장 길 안내
   - 목적: core·visualization 배포 README에 원하는 컴포넌트·유형이 없을 때 앱 안에서 확장하는 길을 적고, 관리용 문서 두 개를 npm 배포물에서 뺀다
@@ -67,13 +69,12 @@
   - 메모: 2026-10-09 매니페스트 진단의 고칠 방법 1·2. 3번(매니페스트에 조립 경로 필드)은 이 카드 밖이고 KAN-064 와 함께 정한다
   - 실행 문서: KANBAN/cards/KAN-067-WDY7N1.md (6/6 · 최근 10-09)
   - 계획 리포트: KANBAN/reports/KAN-067-WDY7N1.report.html (낡음)
+  - 검토 문서: KANBAN/reviews/KAN-067-WDY7N1.review.md (승인 0/3 · 검토 대기)
   - 원문:
     ```text
     ai agent가 bbangto-ui library를 사용해서 앱을 구현할 때, 원하는 컴포넌트가 없으면, 확장 컴포넌트를 만들지 않고, 탈 라이브러리를 하려고 하거나, bbangto-ui에 개선 요청을 하는 결론을 내린다. 이 라이브러리의 매니페스트에 원인이 있나?
     (진단 후) 1,2번 칸반 카드로 올려 ㅣㄴ행해 (앞 답변 「고칠 방법」 1. core와 visualization의 배포 README에 「원하는 것이 없을 때」 절을 넣는다 · 2. 관리용 문서 두 개(visualization-type-inventory.md · TYPE_METADATA_STRATEGY.md)를 files 에서 뺀다 에 대한 지시)
     ```
-
-## 검토
 
 ## 완료
 - `KAN-020` visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현 — 생성:유저 · 최종:유저 · 갱신:2026-08-14
