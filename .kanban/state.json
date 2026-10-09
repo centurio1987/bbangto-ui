@@ -1,41 +1,7 @@
 {
-  "next_id": 73,
-  "next_seq": 269,
+  "next_id": 74,
+  "next_seq": 271,
   "cards": {
-    "KAN-061-K8V2HH": {
-      "col": "backlog",
-      "title": "viz 템플릿 라벨 대비 미달 정리 — 불투명 팔레트 면 · 글자 대비 기준 목록 줄이기",
-      "verbatim": "",
-      "생성": "ai",
-      "최종": "ai",
-      "갱신": "2026-10-08",
-      "title_hash": "6285e23baabc6b2fa2beab8be835dd40558ac824",
-      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
-      "short": "viz 라벨 대비 정리",
-      "short_hash": "55b0fcca95436608c8813aff4c20a2051d5a76f8",
-      "purpose": "viz 템플릿 글자가 카탈로그 가이드 30개 모두에서 4.5:1 이상 읽히게 한다 — KAN-056 기준 목록 204곳과 불투명 팔레트 면(Mindmap · ArchiMateViewpoint)부터",
-      "purpose_hash": "51a824aa2788b081a5b433f53a7b2b90ab778a2c",
-      "reason": "KAN-056 검토에서 가이드에 따라 글자가 바탕에 묻히는 곳이 확인됐다(Mindmap 92곳 · Requirement 64곳 등). 지금은 기준 목록으로 더 나빠지지만 않게 막아 둔 상태다",
-      "reason_hash": "415ad31a39197fa6ee9b8fe75a06743fade4a21b",
-      "goal": "_labelContrastBaseline.ts 가 빈다(모든 템플릿으로 넓히는 일은 KAN-063 이 먼저 한다)",
-      "goal_hash": "64f7c6e57d81c2bb6c986481d714cc36b98103e6",
-      "memo": "KAN-056 검토 항목 3(승인)·6에서 나왔다. KAN-056 병합 뒤 착수(검사와 기준 목록이 그 카드에 있다). 원인이 셋으로 갈린다: 불투명 팔레트 면 위 edge.stroke 글자, Requirement 반투명 글자(opacity 0.6·0.8)와 검정 6% 띠, riso-print 등의 shape.fill·edge.stroke 쌍. 카탈로그 대비 게이트가 shape.fill·edge.stroke 쌍을 재는지는 확인 안 함",
-      "memo_hash": "27ba934616243721eee5d524551ef6731a15be46",
-      "scope": [
-        "apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx",
-        "apps/storybook/src/stories/visualization/_labelContrastBaseline.ts",
-        "packages/visualization/src/templates/**",
-        "packages/visualization/src/molecules/**",
-        "packages/visualization/src/atoms/NodeLabel.tsx",
-        "packages/visualization/src/tokens/contract.ts",
-        "packages/visualization/src/tokens/onInk.ts",
-        "packages/visualization/src/tokens/onInk.test.ts",
-        "packages/tokens/src/visualization.ts",
-        "packages/visualization-style-guide-catalog/src/onInk.test.ts",
-        "packages/visualization/README.md",
-        ".changeset/kan-061-*.md"
-      ]
-    },
     "KAN-066-T6NR80": {
       "col": "backlog",
       "title": "워크스페이스 소스 경로 해석 — 새 워크트리에서 build 없이 typecheck·test:unit 통과",
@@ -1477,10 +1443,43 @@
         ".changeset/kan-060-focus-contrast.md",
         ".changeset/kan-065-motif-focus.md"
       ]
+    },
+    "KAN-061-K8V2HH": {
+      "col": "done",
+      "title": "viz 템플릿 라벨 대비 미달 정리 — 불투명 팔레트 면 · 글자 대비 기준 목록 줄이기",
+      "verbatim": "",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-10",
+      "title_hash": "6285e23baabc6b2fa2beab8be835dd40558ac824",
+      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+      "short": "viz 라벨 대비 정리",
+      "short_hash": "55b0fcca95436608c8813aff4c20a2051d5a76f8",
+      "purpose": "viz 템플릿 글자가 카탈로그 가이드 30개 모두에서 4.5:1 이상 읽히게 한다 — KAN-056 기준 목록 204곳과 불투명 팔레트 면(Mindmap · ArchiMateViewpoint)부터",
+      "purpose_hash": "51a824aa2788b081a5b433f53a7b2b90ab778a2c",
+      "reason": "KAN-056 검토에서 가이드에 따라 글자가 바탕에 묻히는 곳이 확인됐다(Mindmap 92곳 · Requirement 64곳 등). 지금은 기준 목록으로 더 나빠지지만 않게 막아 둔 상태다",
+      "reason_hash": "415ad31a39197fa6ee9b8fe75a06743fade4a21b",
+      "goal": "_labelContrastBaseline.ts 가 빈다(모든 템플릿으로 넓히는 일은 KAN-063 이 먼저 한다)",
+      "goal_hash": "64f7c6e57d81c2bb6c986481d714cc36b98103e6",
+      "memo": "KAN-056 검토 항목 3(승인)·6에서 나왔다. KAN-056 병합 뒤 착수(검사와 기준 목록이 그 카드에 있다). 원인이 셋으로 갈린다: 불투명 팔레트 면 위 edge.stroke 글자, Requirement 반투명 글자(opacity 0.6·0.8)와 검정 6% 띠, riso-print 등의 shape.fill·edge.stroke 쌍. 카탈로그 대비 게이트가 shape.fill·edge.stroke 쌍을 재는지는 확인 안 함",
+      "memo_hash": "27ba934616243721eee5d524551ef6731a15be46",
+      "scope": [
+        "apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx",
+        "apps/storybook/src/stories/visualization/_labelContrastBaseline.ts",
+        "packages/visualization/src/templates/**",
+        "packages/visualization/src/molecules/**",
+        "packages/visualization/src/atoms/NodeLabel.tsx",
+        "packages/visualization/src/tokens/contract.ts",
+        "packages/visualization/src/tokens/onInk.ts",
+        "packages/visualization/src/tokens/onInk.test.ts",
+        "packages/tokens/src/visualization.ts",
+        "packages/visualization-style-guide-catalog/src/onInk.test.ts",
+        "packages/visualization/README.md",
+        ".changeset/kan-061-*.md"
+      ]
     }
   },
   "order": [
-    "KAN-061-K8V2HH",
     "KAN-066-T6NR80",
     "KAN-069-G0FGTJ",
     "KAN-070-RCG2QV",
@@ -1551,9 +1550,42 @@
     "KAN-065-XSHEMV",
     "KAN-057-CCH3E8",
     "KAN-067-WDY7N1",
-    "KAN-068-W6TE2S"
+    "KAN-068-W6TE2S",
+    "KAN-061-K8V2HH"
   ],
   "recent": [
+    {
+      "seq": 270,
+      "t": "2026-10-10T03:46",
+      "a": "ai",
+      "id": "KAN-073-6YWHN9",
+      "op": "archive",
+      "w": "S7030N",
+      "col": "backlog",
+      "title": "미배포 수정분 배포 2 — KAN-057·067·061 을 KAN-064 major 전에 (사용자 실행 지시 후)",
+      "memo": "보관(2026-10-10 유저 선택) — KAN-061 이 visualization minor 라 먼저 배포해도 0.5.0 이 되어 ^0.4 범위로는 받지 못한다. 범위를 한 번만 올리도록 057·061·067 은 KAN-064 와 함께 다음 배포로 보낸다"
+    },
+    {
+      "seq": 269,
+      "t": "2026-10-10T03:46",
+      "a": "ai",
+      "id": "KAN-073-6YWHN9",
+      "op": "edit",
+      "w": "S7030N",
+      "field": "memo",
+      "before": "KAN-061 이 완료·main 병합된 뒤 착수. push·배포는 사용자 실행 지시 뒤에만. 이 배포 직후 KAN-064 병합(그 사이 다른 카드는 기다리지 않음). 흐름은 KAN-068 과 같다",
+      "after": "보관(2026-10-10 유저 선택) — KAN-061 이 visualization minor 라 먼저 배포해도 0.5.0 이 되어 ^0.4 범위로는 받지 못한다. 범위를 한 번만 올리도록 057·061·067 은 KAN-064 와 함께 다음 배포로 보낸다"
+    },
+    {
+      "seq": 268,
+      "t": "2026-10-10T03:38",
+      "a": "ai",
+      "id": "KAN-061-K8V2HH",
+      "op": "move",
+      "w": "HTKBTA",
+      "from": "review",
+      "to": "done"
+    },
     {
       "seq": 268,
       "t": "2026-10-10T03:01",
@@ -1564,6 +1596,33 @@
       "field": "memo",
       "before": "선행 확인: 실제 토크나이저로 4종 크기 실측(어림값 검증). 전부 걷어내는 안은 버림 — foundation 76종은 메타가 유일한 선택 근거",
       "after": "병합 대기 — KAN-061 을 KAN-057·067 과 함께 0.x 줄로 먼저 배포한 뒤 main 에 병합(2026-10-10 유저 선택). 토큰 실측·버린 안은 실행 문서 전략 절"
+    },
+    {
+      "seq": 267,
+      "t": "2026-10-10T01:27",
+      "a": "ai",
+      "id": "KAN-061-K8V2HH",
+      "op": "move",
+      "w": "HTKBTA",
+      "from": "doing",
+      "to": "review"
+    },
+    {
+      "seq": 267,
+      "t": "2026-10-10T03:02",
+      "a": "ai",
+      "id": "KAN-073-6YWHN9",
+      "op": "create",
+      "w": "S7030N",
+      "col": "backlog",
+      "title": "미배포 수정분 배포 2 — KAN-057·067·061 을 KAN-064 major 전에 (사용자 실행 지시 후)",
+      "verbatim": "KAN-061 먼저 (앞 질문 「검토 중인 KAN-061(템플릿 글자 대비 1,538곳, viz·tokens minor)을 KAN-064 major 보다 먼저 내보낼까요?」에 대한 답)",
+      "parent": null,
+      "short": "미배포 수정분 배포 2",
+      "purpose": "main 의 changeset(KAN-057 연결선 대시 · KAN-067 배포 문서 · KAN-061 템플릿 글자 대비)을 지금 버전 줄(0.x 등)로 GitHub Packages 에 먼저 배포한다",
+      "reason": "KAN-061 이 템플릿 글자 1,538곳의 대비를 고쳐 그림이 바뀌는데, KAN-064 major 와 함께 나가면 visualization ^0.4 앱은 1.0 으로 올려야 받는다",
+      "goal": "세 카드의 수정이 major 없이 배포되고, 그 직후 KAN-064 를 main 에 병합할 수 있다",
+      "memo": "KAN-061 이 완료·main 병합된 뒤 착수. push·배포는 사용자 실행 지시 뒤에만. 이 배포 직후 KAN-064 병합(그 사이 다른 카드는 기다리지 않음). 흐름은 KAN-068 과 같다"
     },
     {
       "seq": 267,
@@ -1648,6 +1707,16 @@
       "op": "move",
       "w": "V5ZA3M",
       "from": "review",
+      "to": "doing"
+    },
+    {
+      "seq": 263,
+      "t": "2026-10-10T00:46",
+      "a": "ai",
+      "id": "KAN-061-K8V2HH",
+      "op": "move",
+      "w": "HTKBTA",
+      "from": "backlog",
       "to": "doing"
     },
     {
@@ -2038,75 +2107,6 @@
       "w": "S7030N",
       "with_": "KAN-055-34A57K",
       "reason": "유저 선택(2026-10-08 「둘 다 용인」): package.json 3개는 KAN-064 가 scripts.prebuild·files 만, KAN-055 는 version 만 고친다. changeset 은 KAN-064 가 kan-064-manifest-index.md 한 장을 더할 뿐이고 KAN-055 는 쌓인 것을 소진한다. 배포 전에 병합되면 major 가 그 배포에 실리므로 병합 때 KAN-055 상태를 확인한다"
-    },
-    {
-      "seq": 245,
-      "t": "2026-10-08T18:49",
-      "a": "ai",
-      "id": "KAN-062-E02CMT",
-      "op": "move",
-      "w": "P5ESS2",
-      "from": "review",
-      "to": "done"
-    },
-    {
-      "seq": 244,
-      "t": "2026-10-08T18:32",
-      "a": "ai",
-      "id": "KAN-064-AC0H6M",
-      "op": "edit",
-      "w": "S7030N",
-      "field": "goal",
-      "before": "AI가 색인 하나로 1차 후보를 고르고 상세 meta는 ./meta 서브패스나 객체에서 읽는다. 매니페스트 재생성 단계가 전부 prebuild로 통일되거나 커밋 대상에서 빠지고, 새 워크트리에서 build 선행 없이 typecheck·test:unit이 통과한다",
-      "after": "AI가 색인 하나로 1차 후보를 고르고 상세 meta는 후보마다 따로 읽는다. 매니페스트 재생성 단계가 전부 prebuild로 통일되고, 동기화 테스트가 색인처럼 좀처럼 안 바뀌는 자리만 지킨다"
-    },
-    {
-      "seq": 244,
-      "t": "2026-10-08T18:36",
-      "a": "ai",
-      "id": "KAN-062-E02CMT",
-      "op": "move",
-      "w": "P5ESS2",
-      "from": "doing",
-      "to": "review"
-    },
-    {
-      "seq": 243,
-      "t": "2026-10-08T18:31",
-      "a": "ai",
-      "id": "KAN-066-T6NR80",
-      "op": "create",
-      "w": "S7030N",
-      "col": "backlog",
-      "title": "워크스페이스 소스 경로 해석 — 새 워크트리에서 build 없이 typecheck·test:unit 통과",
-      "verbatim": "좁히고 새 카드 (앞 질문 「카드 목표인 「새 워크트리에서 build 없이 typecheck·test:unit 통과」를 어떻게 할까요? 패키지끼리 타입을 dist/index.d.ts 에서 찾고 루트 tsconfig 에 paths 가 없어서, 매니페스트와 상관없이 첫 typecheck 가 TS2307 로 실패합니다.」에 대한 답)",
-      "parent": null,
-      "short": "build 없는 게이트",
-      "purpose": "패키지끼리 타입과 모듈을 dist 대신 소스에서 찾게 해, 새 워크트리에서 pnpm build 없이 typecheck·test:unit 이 돈다",
-      "reason": "패키지 exports 가 dist 만 가리키고 루트 tsconfig 에 paths 가 없어, 새 워크트리의 첫 typecheck 가 TS2307 로 실패한다(2026-10-07 KAN-050). KAN-064 착수 전 계획에서 매니페스트 카드 범위 밖으로 확인됐다",
-      "goal": "새 워크트리(또는 rm -rf packages/*/dist 뒤)에서 pnpm typecheck·pnpm test:unit 이 build 선행 없이 초록이고, build 를 먼저 돌리라는 규칙을 걷을 수 있다",
-      "memo": "KAN-064 목표에서 갈라져 나왔다(2026-10-08 유저 선택). 고칠 자리 후보: 패키지 package.json exports 의 소스 조건 또는 tsconfig paths, vitest resolve. KAN-055 와 package.json 이 겹칠 것이다"
-    },
-    {
-      "seq": 243,
-      "t": "2026-10-08T18:31",
-      "a": "ai",
-      "id": "KAN-062-E02CMT",
-      "op": "move",
-      "w": "P5ESS2",
-      "from": "backlog",
-      "to": "doing"
-    },
-    {
-      "seq": 242,
-      "t": "2026-10-08T18:30",
-      "a": "ai",
-      "id": "KAN-065-XSHEMV",
-      "op": "edit",
-      "w": "S7030N",
-      "field": "memo",
-      "before": "KAN-060 검토 항목 3(2026-10-08 유저 선택)에서 나왔다. KAN-060 이 포커스 테두리의 없는 변수 12곳을 고친 뒤 착수. 18곳과 남는 미달 색 스킴 약 10개는 KAN-060 검토서 항목 3 검토자 의견(소스 값 계산, 브라우저로 잰 값 아님). 포커스 밖 없는 변수 4곳: aiSurrealGradient3d.tsx:200·201 태그 색, blueprintTechnical.tsx:128 배경, scandiWarm.tsx:161·spatial3d.tsx:185 태그 테두리",
-      "after": "KAN-060 검토 항목 3(2026-10-08 유저 선택)에서 나왔다. 잰 값과 고칠 자리는 실행 문서 「전략」 절"
     }
   ],
   "waivers": [

@@ -5,14 +5,6 @@
 
 ## 백로그
 <!-- 아직 착수 결정 전. 우선순위 미정 후보 풀. 백로그→할 일 이동이 "할지 고민" → "하기로 확정" 전환점. -->
-- `KAN-061-K8V2HH` viz 템플릿 라벨 대비 미달 정리 — 불투명 팔레트 면 · 글자 대비 기준 목록 줄이기 — 생성:ai · 최종:ai · 갱신:2026-10-08
-  - 짧은 제목: viz 라벨 대비 정리
-  - 목적: viz 템플릿 글자가 카탈로그 가이드 30개 모두에서 4.5:1 이상 읽히게 한다 — KAN-056 기준 목록 204곳과 불투명 팔레트 면(Mindmap · ArchiMateViewpoint)부터
-  - 이유: KAN-056 검토에서 가이드에 따라 글자가 바탕에 묻히는 곳이 확인됐다(Mindmap 92곳 · Requirement 64곳 등). 지금은 기준 목록으로 더 나빠지지만 않게 막아 둔 상태다
-  - 목표: _labelContrastBaseline.ts 가 빈다(모든 템플릿으로 넓히는 일은 KAN-063 이 먼저 한다)
-  - 메모: KAN-056 검토 항목 3(승인)·6에서 나왔다. KAN-056 병합 뒤 착수(검사와 기준 목록이 그 카드에 있다). 원인이 셋으로 갈린다: 불투명 팔레트 면 위 edge.stroke 글자, Requirement 반투명 글자(opacity 0.6·0.8)와 검정 6% 띠, riso-print 등의 shape.fill·edge.stroke 쌍. 카탈로그 대비 게이트가 shape.fill·edge.stroke 쌍을 재는지는 확인 안 함
-  - 실행 문서: KANBAN/cards/KAN-061-K8V2HH.md (0/8 · 최근 10-10)
-  - 계획 리포트: KANBAN/reports/KAN-061-K8V2HH.report.html (낡음)
 - `KAN-066-T6NR80` 워크스페이스 소스 경로 해석 — 새 워크트리에서 build 없이 typecheck·test:unit 통과 — 생성:ai · 최종:ai · 갱신:2026-10-08
   - 짧은 제목: build 없는 게이트
   - 목적: 패키지끼리 타입과 모듈을 dist 대신 소스에서 찾게 해, 새 워크트리에서 pnpm build 없이 typecheck·test:unit 이 돈다
@@ -617,3 +609,12 @@
     ```text
     수정분 먼저 배포 (앞 질문 「§3-5 — 아직 배포하지 않은 수정분 세 건(KAN-056 viz 템플릿 색 · KAN-060 포커스 대비 · KAN-065 모티프 포커스)을 이 카드의 큰 버전 올림(visualization 0.4.0→1.0.0 · foundations 1.1.1→2.0.0 · 룩 카탈로그 2개 0.3.x→1.0.0)보다 먼저 따로 배포할까요?」에 대한 답)
     ```
+- `KAN-061-K8V2HH` viz 템플릿 라벨 대비 미달 정리 — 불투명 팔레트 면 · 글자 대비 기준 목록 줄이기 — 생성:ai · 최종:ai · 갱신:2026-10-10
+  - 짧은 제목: viz 라벨 대비 정리
+  - 목적: viz 템플릿 글자가 카탈로그 가이드 30개 모두에서 4.5:1 이상 읽히게 한다 — KAN-056 기준 목록 204곳과 불투명 팔레트 면(Mindmap · ArchiMateViewpoint)부터
+  - 이유: KAN-056 검토에서 가이드에 따라 글자가 바탕에 묻히는 곳이 확인됐다(Mindmap 92곳 · Requirement 64곳 등). 지금은 기준 목록으로 더 나빠지지만 않게 막아 둔 상태다
+  - 목표: _labelContrastBaseline.ts 가 빈다(모든 템플릿으로 넓히는 일은 KAN-063 이 먼저 한다)
+  - 메모: KAN-056 검토 항목 3(승인)·6에서 나왔다. KAN-056 병합 뒤 착수(검사와 기준 목록이 그 카드에 있다). 원인이 셋으로 갈린다: 불투명 팔레트 면 위 edge.stroke 글자, Requirement 반투명 글자(opacity 0.6·0.8)와 검정 6% 띠, riso-print 등의 shape.fill·edge.stroke 쌍. 카탈로그 대비 게이트가 shape.fill·edge.stroke 쌍을 재는지는 확인 안 함
+  - 실행 문서: KANBAN/cards/KAN-061-K8V2HH.md (8/8 · 최근 10-10)
+  - 계획 리포트: KANBAN/reports/KAN-061-K8V2HH.report.html (낡음)
+  - 검토 문서: KANBAN/reviews/KAN-061-K8V2HH.review.md (승인 5/5 · 추가 의견 총 14 · 승인)

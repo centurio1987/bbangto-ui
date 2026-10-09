@@ -88,7 +88,8 @@ export function Fishbone({
           fontSize={12}
           fontWeight={800}
           fontFamily={vvar('typography', 'titleFont')}
-          style={{ fill: vvar('shape', 'stroke') }}
+          // 머리 면(palette.p2) 위 글자색(KAN-061)
+          style={{ fill: vvar('on', 'palette', 'p2') }}
         >
           {problem}
         </text>

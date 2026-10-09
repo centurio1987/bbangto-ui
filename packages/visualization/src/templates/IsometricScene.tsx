@@ -1,6 +1,10 @@
+import { compositeOver, parseColor } from '@centurio1987/bbangto-ui-tokens';
 import { Canvas, type CanvasProps } from '../atoms/Canvas';
 import { IsoPrism } from '../atoms/IsoPrism';
 import { vvar } from '../tokens/contract';
+import { pickOnInk, surfacesFor } from '../tokens/onInk';
+import type { VisualizationFoundation } from '../tokens/types';
+import { useVizFoundation } from '../styleGuide/VisualizationStyleGuideProvider';
 import { parseViewBox } from '../geometry/layout';
 import {
   type Box3,
@@ -12,6 +16,26 @@ import {
   fitIsoProjection,
   depthSortBoxes,
 } from '../geometry/isometric';
+
+/** 바닥 그림자 — 가이드와 무관한 음영 장치(반투명 검정). */
+const FLOOR_SHADOW = 0.08;
+/** IsoPrism 오른쪽 옆면 음영의 기본값(atoms/IsoPrism.tsx). 장면이 까는 음영 중 가장 짙다. */
+const PRISM_RIGHT_SHADE = 0.22;
+
+/**
+ * 라벨 글자색. 라벨은 윗면 가운데에 얹히지만 앞 칸의 오른쪽 옆면(검정 22%)과 바닥 그림자(8%)에 걸칠 수 있고,
+ * 윗면이 반투명이면 그 음영이 비쳐 보인다. 기본 음영(5%)보다 짙어서 이 장면이 그 면들로 직접 고른다(KAN-061).
+ */
+function isoLabelInk(f: VisualizationFoundation): string {
+  const black = { r: 0, g: 0, b: 0 };
+  const [top, ...lightlyShaded] = surfacesFor(f, f.shape.fill);
+  const canvas = surfacesFor(f, 'none')[0]!;
+  const behind = compositeOver({ ...black, a: PRISM_RIGHT_SHADE }, compositeOver({ ...black, a: FLOOR_SHADOW }, canvas));
+  const fill = parseColor(f.shape.fill);
+  const topOverShade = fill ? compositeOver(fill, behind) : behind;
+  const rightFace = compositeOver({ ...black, a: PRISM_RIGHT_SHADE }, top!);
+  return pickOnInk(f, [top!, ...lightlyShaded, topOverShade, rightFace]);
+}
 
 export interface IsoCellSpec {
   id: string;
@@ -84,6 +108,7 @@ export function IsometricScene({
   ...canvasProps
 }: IsometricSceneProps) {
   const vb = parseViewBox(viewBox, [0, 0, 480, 360]);
+  const labelInk = isoLabelInk(useVizFoundation());
   const cells = data.cells;
   const boxes = cells.map(cellBox);
   const proj = projection ?? fitIsoProjection(boxes, vb, { angleDeg });
@@ -141,7 +166,7 @@ export function IsometricScene({
               offset: { dx: shadowOffset, dy: shadowOffset },
             }),
           )}
-          style={{ fill: '#000000', fillOpacity: 0.08, stroke: 'none' }}
+          style={{ fill: '#000000', fillOpacity: FLOOR_SHADOW, stroke: 'none' }}
         />
       ))}
 
@@ -188,7 +213,7 @@ export function IsometricScene({
             dominantBaseline="central"
             fontSize={labelFontSize}
             fontFamily={vvar('typography', 'titleFont')}
-            style={{ fill: vvar('shape', 'stroke') }}
+            style={{ fill: labelInk }}
           >
             {it.cell.label}
           </text>

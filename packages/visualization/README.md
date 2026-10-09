@@ -270,11 +270,17 @@ export function DecisionSketch() {
   `-band-edge`·`-pattern` …)이고, `data-viz-part="shape"` 는 계약 스타일시트만 쓰는 내부 훅이다.
 - **paint 채널을 늘리지 않는다.** 계약 채널은 `shape`·`edge` 둘이다. 면을 갈라야 하는 유형은
   `vvar('palette', 'pN')` 인라인 fill 과 fill-opacity 상수로, 텍스트 위계는 `vvar('typography', …)` 로 낸다.
-- **글자색 토큰은 그 뒤 면 토큰과 짝지어 대비를 재고 고른다.** 기본 가이드에서 읽힌다고 다른 가이드에서도 읽히지는 않는다.
-  지금 카탈로그 30개에서 `edge.stroke` 는 `canvas.bg` 위에서 모두 4.5:1 이상이지만, 팔레트 면 위에서는 바탕과 같은 색이 되는
-  가이드가 있다(synthwave 의 `palette.p2` 와 `edge.stroke` 는 둘 다 `#28E0F0`). Paint Gate 와 같은 파일의 `LabelContrastGate` 가
-  표본 전부를 카탈로그 가이드 전부에서 그려 글자 대비를 재고, 이미 있는 미달은
-  `_labelContrastBaseline.ts` 에 적혀 있다. 그 목록은 줄어들기만 해야 한다.
+- **면 위 글자는 그 면의 `on-*` 글자색을 쓴다.** 기본 가이드에서 읽힌다고 다른 가이드에서도 읽히지는 않는다
+  (synthwave 의 `palette.p2` 와 `edge.stroke` 는 둘 다 `#28E0F0`). 그래서 Provider 가 면 토큰(`palette.p1~p8`·`shape.fill`·
+  `canvas.bg`·`c4.l1~l3.bgTint`·`node.<kind>.fill`)마다 그 위에 쓸 글자색을 `--bbangto-viz-on-*` 로 함께 낸다.
+  `vvar('palette', 'p2')` 면 위 글자는 `vvar('on', 'palette', 'p2')` 를 쓴다. 값은 가이드 글자색 넷(`edge.stroke` →
+  `shape.stroke` → `boundary.labelColor` → `canvas.bg`) 중 처음으로 면과 4.5:1 을 넘는 것이고, 없으면 검정·흰색 중 대비가
+  큰 쪽이다. 반투명 면은 밑에 레인 띠 정도(검정 5%)의 음영이 깔려도 읽히는 쪽을 고르고, 그보다 짙은 음영을 까는
+  템플릿(IsometricScene)은 자기 음영을 얹은 면으로 따로 고른다. 가이드는 `foundations.on` 에 값을 직접 적어 계산값을
+  덮을 수 있다. 데이터마다 투명도가 바뀌는 면(heatmap 칸 등)은 미리 계산할 수 없어 `useVizFoundation()` 과 같은 계산
+  (`src/tokens/onInk.ts`)으로 칸마다 고른다. 글자를 흐리게(opacity) 쓰지 않는다 — 위계는 크기와 굵기로 낸다.
+  Paint Gate 와 같은 파일의 `LabelContrastGate` 가 표본 전부를 카탈로그 가이드 전부에서 그려 글자 대비를 재고,
+  기준 목록(`_labelContrastBaseline.ts`)은 비어 있다. 새 미달은 목록에 올리지 말고 고친다.
 - **접근성**: 루트 `Canvas` 는 `role="img"`(`accessible="structured"` 면 `group`)와 `title`(선택 `desc`)을 갖는다.
   값은 항상 텍스트로 함께 적는다 — 그래픽만으로 값을 말하지 않는다. 노드 글리프·아이콘 배지 같은 장식은 `aria-hidden` 이다.
 - **경계 입력**: 빈 데이터는 빈 캔버스다(throw 하지 않는다). 항목 하나도 그린다. `children`·`data` 를 함께 주면 `children` 이다.

@@ -48,7 +48,8 @@ export const NodeLabel = React.forwardRef<SVGGElement, NodeLabelProps>(
     },
     ref,
   ) => {
-    const effectiveFill = fill ?? vvar('edge', 'stroke');
+    // 기본 노드 면(shape.fill) 위 글자색. 다른 면 위에 쓰면 그 면의 `vvar('on', …)` 를 fill 로 넘긴다(KAN-061).
+    const effectiveFill = fill ?? vvar('on', 'shape', 'fill');
     const effectiveFont = fontFamily ?? vvar('typography', 'titleFont');
     const lineHeight = fontSize * 1.25;
 
@@ -129,7 +130,6 @@ export const NodeLabel = React.forwardRef<SVGGElement, NodeLabelProps>(
             fontSize={fontSize - 2}
             fontWeight={400}
             style={{ fill: effectiveFill }}
-            opacity={0.7}
           >
             {subtitle}
           </text>

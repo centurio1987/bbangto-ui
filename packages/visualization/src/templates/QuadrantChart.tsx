@@ -91,7 +91,8 @@ export function QuadrantChart({
           fontSize={12}
           fontWeight={700}
           fontFamily={vvar('typography', 'titleFont')}
-          style={{ fill: vvar('shape', 'stroke'), opacity: 0.7 }}
+          // 사분면 이름은 canvas 위 글자색으로 쓴다. 흐리게(opacity) 쓰면 가이드에 따라 바탕에 묻힌다(KAN-061).
+          style={{ fill: vvar('on', 'canvas', 'bg') }}
         >
           {lbl}
         </text>

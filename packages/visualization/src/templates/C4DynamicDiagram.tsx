@@ -84,7 +84,7 @@ export function C4DynamicDiagram({
             {s.label && <EdgeLabel x={mx} y={my - 12} label={s.label} fontSize={10} />}
             <g data-bbangto-viz-order data-bbangto-viz-order-value={String(s.order)}>
               <circle cx={mx} cy={my} r={9} data-viz-part="shape" style={{ fill: vvar('palette', 'p3'), stroke: vvar('shape', 'stroke'), strokeWidth: 1 }} />
-              <text x={mx} y={my} textAnchor="middle" dominantBaseline="central" fontSize={11} fontWeight={800} fontFamily={vvar('typography', 'monoFont')} style={{ fill: vvar('shape', 'stroke') }}>
+              <text x={mx} y={my} textAnchor="middle" dominantBaseline="central" fontSize={11} fontWeight={800} fontFamily={vvar('typography', 'monoFont')} style={{ fill: vvar('on', 'palette', 'p3') }}>
                 {s.order}
               </text>
             </g>

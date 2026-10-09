@@ -24,6 +24,9 @@ export interface ContainerNodeProps {
 export const ContainerNode = React.forwardRef<SVGGElement, ContainerNodeProps>(
   ({ id, x, y, width, height, title, subtitle, tag = 'container', fill, stroke, strokeWidth, strokeDasharray, children }, ref) => {
     const effectiveFill = fill ?? vvar('node', 'container', 'fill');
+    // 기본 면(node.container.fill) 위 글자색 — 이름과 태그가 같은 면 위에 있다.
+    // fill 을 직접 주면 그 면의 대비는 준 쪽 몫이라 종전 글자색을 둔다(KAN-061).
+    const labelFill = fill === undefined ? vvar('on', 'node', 'container', 'fill') : vvar('edge', 'stroke');
     const effectiveStroke = stroke ?? vvar('node', 'container', 'keyline');
     const effectiveStrokeWidth = strokeWidth ?? vvar('node', 'container', 'keylineWidth');
 
@@ -60,8 +63,16 @@ export const ContainerNode = React.forwardRef<SVGGElement, ContainerNodeProps>(
         >
           <StackedRectGlyph stroke={effectiveStroke} />
         </svg>
-        <NodeLabel x={x} y={labelY} width={width} title={title} subtitle={subtitle} fontSize={12} />
-        <Tag x={x + width / 2} y={tagY} label={tag} />
+        <NodeLabel
+          x={x}
+          y={labelY}
+          width={width}
+          title={title}
+          subtitle={subtitle}
+          fontSize={12}
+          fill={labelFill}
+        />
+        <Tag x={x + width / 2} y={tagY} label={tag} fill={labelFill} />
         {children}
       </g>
     );

@@ -39,7 +39,7 @@ export interface ArchiMateViewpointDiagramProps extends Omit<CanvasProps, 'data'
 }
 
 // ArchiMate 확장 viewpoint 밴드 컬러(motivation=보라, strategy=주황, implementation=핑크).
-const VIEWPOINT_FILL: Record<ArchiMateViewpoint, string> = {
+const VIEWPOINT_FILL: Record<ArchiMateViewpoint, 'p1' | 'p2' | 'p3'> = {
   motivation: 'p2',
   strategy: 'p1',
   implementation: 'p3',
@@ -132,8 +132,23 @@ export function ArchiMateViewpointDiagram({
       {elements.map((e) => (
         <g key={e.id} data-bbangto-viz-archimate-element data-bbangto-viz-archimate-element-id={e.id}>
           <Node id={e.id} x={e.x} y={e.y} width={e.width} height={e.height} shape="rounded" fill={e.fill ?? bandFill} stroke={stroke} strokeWidth={1.5} />
-          <NodeLabel x={e.x} y={e.y + e.height / 2 - 6} width={e.width} title={e.name} fontSize={12} />
-          {e.kind && <Tag x={e.x + e.width / 2} y={e.y + e.height - 8} label={e.kind} />}
+          <NodeLabel
+            x={e.x}
+            y={e.y + e.height / 2 - 6}
+            width={e.width}
+            title={e.name}
+            fontSize={12}
+            // 밴드 면과 같은 팔레트 키의 글자색. fill 을 직접 주면 종전 글자색을 둔다(KAN-061).
+            fill={e.fill === undefined ? vvar('on', 'palette', VIEWPOINT_FILL[viewpoint]) : vvar('edge', 'stroke')}
+          />
+          {e.kind && (
+            <Tag
+              x={e.x + e.width / 2}
+              y={e.y + e.height - 8}
+              label={e.kind}
+              fill={e.fill === undefined ? vvar('on', 'palette', VIEWPOINT_FILL[viewpoint]) : vvar('edge', 'stroke')}
+            />
+          )}
         </g>
       ))}
     </Canvas>

@@ -34,16 +34,18 @@ export const ClassBox = React.forwardRef<SVGGElement, ClassBoxProps>(
       stereotype,
       attributes = [],
       methods = [],
-      fill = vvar('shape', 'fill'),
+      fill: fillProp,
       stroke,
       strokeWidth = 2,
       children,
     },
     ref,
   ) => {
+    const fill = fillProp ?? vvar('shape', 'fill');
     const effectiveStroke = stroke ?? vvar('edge', 'stroke');
     const titleFont = vvar('typography', 'titleFont');
-    const textColor = vvar('edge', 'stroke');
+    // 기본 면(shape.fill) 위 글자색. fill 을 직접 주면 그 면의 대비는 준 쪽 몫이라 종전 글자색을 둔다(KAN-061).
+    const textColor = fillProp === undefined ? vvar('on', 'shape', 'fill') : vvar('edge', 'stroke');
 
     // Distribute height into 3 sections
     const attrH = Math.max(HEADER_H, attributes.length * ROW_H + PAD * 2);

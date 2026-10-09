@@ -49,6 +49,8 @@ export const C4Box = React.forwardRef<SVGGElement, C4BoxProps>(
     const effectiveStroke = stroke ?? vvar('edge', 'stroke');
     const borderWidth = LEVEL_BORDER_WIDTH[level];
     const effectiveTag = tag ?? level;
+    // 기본 면(c4 bgTint) 위 글자색. fill 을 직접 주면 그 면의 대비는 준 쪽 몫이라 종전 글자색을 둔다(KAN-061).
+    const labelFill = fill === undefined ? vvar('on', 'c4', level, 'bgTint') : vvar('edge', 'stroke');
 
     const tagY = y + height - 10;
     const labelY = y + height / 2 - 6;
@@ -77,8 +79,9 @@ export const C4Box = React.forwardRef<SVGGElement, C4BoxProps>(
           title={title}
           subtitle={subtitle}
           fontSize={12}
+          fill={labelFill}
         />
-        <Tag x={x + width / 2} y={tagY} label={effectiveTag} />
+        <Tag x={x + width / 2} y={tagY} label={effectiveTag} fill={labelFill} />
         {children}
       </g>
     );

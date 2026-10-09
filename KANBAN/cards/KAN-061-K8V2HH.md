@@ -58,14 +58,14 @@ KAN-063 이 글자 대비 검사(`LabelContrastGate`)를 표본 68개 전부로 
 ## 실행 계획
 각 단계는 테스트를 먼저 빨갛게 만든 뒤 고친다. S3~S6 은 기준 목록에서 그 단계가 맡은 템플릿의 줄을 먼저 지워 `LabelContrastGate` 를 빨갛게 하고, 고쳐서 초록으로 돌린다. 곳 수는 2026-10-10 진단 기준이다.
 
-- [ ] `S1` 빨간 테스트 먼저 — 계산 함수 단위 테스트(`packages/visualization/src/tokens/onInk.test.ts`: 후보 순서, 검정·흰색 대체, 가이드 `on` 값 우선, 반투명·`transparent` 면)와 카탈로그 전수 테스트(`packages/visualization-style-guide-catalog/src/onInk.test.ts`: 가이드 30개 × 면 전부에서 `--bbangto-viz-on-*` 값이 면과 4.5:1 이상). 완료 기준: 두 테스트가 함수와 변수가 없어서 빨갛다.
-- [ ] `S2` 계산 함수와 CSS 변수 — `tokens/onInk.ts`, `visualizationFoundationToStyleObject` 가 `--bbangto-viz-on-*` 를 함께 낸다, tokens `VisualizationFoundation` 에 선택 필드 `on`(JSDoc 에 규칙). 완료 기준: S1 두 테스트 초록, `pnpm build`·`pnpm typecheck` 초록, `LiteralPaintGate` 초록.
-- [ ] `S3` 노드 글자 기본값 — `NodeLabel` 기본 글자색을 `on-shape-fill` 로 바꾸고, 같은 원인의 템플릿 21개(class-diagram · sysml-block · c4-code · kanban-board · bpmn 등)를 정리한다. 완료 기준: 그 템플릿의 기준 목록 줄 83곳이 빠지고 Paint Gate 두 검사 초록.
-- [ ] `S4` 흐린 보조 글자 — er-diagram · quadrant · data-lineage · requirement 의 글자 opacity 를 걷고 면에 맞춘 글자색을 쓴다. requirement 검정 6% 띠 위 글자는 합성한 색으로 고른다. 완료 기준: 네 템플릿의 기준 목록 줄 257곳이 빠지고 게이트 초록.
-- [ ] `S5` 불투명 팔레트 면 — wbs · treemap · packet · stacked-bar · archimate-viewpoint · mindmap · dmn · user-journey-gantt · fishbone 의 팔레트 면 위 글자를 `on-palette-*` 로. 완료 기준: 아홉 템플릿의 기준 목록 줄 960곳이 빠지고 게이트 초록.
-- [ ] `S6` 투명도가 바뀌는 면과 C4 — heatmap · choropleth · sankey · archimate 4종은 칸마다 계산 함수로, C4 넷(context · container · dynamic · system-landscape)은 `C4Box`·`PersonNode`·`ExternalNode` 의 글자를 `on-c4-*`·`on-node-*` 로. 완료 기준: 열한 템플릿의 기준 목록 줄 238곳이 빠지고 게이트 초록.
-- [ ] `S7` 기준 목록 닫기 — `_labelContrastBaseline.ts` 를 빈 목록으로 두고 머리 주석을 「새 미달은 목록에 올리지 말고 `on-*` 로 고친다」로 바꾼다. README 189~193번째 줄의 글자색 규칙과 기준 목록 설명을 `--bbangto-viz-on-*` 규칙으로 고친다. 완료 기준: `LABEL_CONTRAST_BASELINE` 0개, 게이트 초록.
-- [ ] `S8` 마무리 — changeset(tokens minor · visualization minor), 품질 게이트 5종. 완료 기준: 게이트 5종 초록.
+- [x] `S1` 빨간 테스트 먼저 — 계산 함수 단위 테스트(`packages/visualization/src/tokens/onInk.test.ts`: 후보 순서, 검정·흰색 대체, 가이드 `on` 값 우선, 반투명·`transparent` 면)와 카탈로그 전수 테스트(`packages/visualization-style-guide-catalog/src/onInk.test.ts`: 가이드 30개 × 면 전부에서 `--bbangto-viz-on-*` 값이 면과 4.5:1 이상). 완료 기준: 두 테스트가 함수와 변수가 없어서 빨갛다.
+- [x] `S2` 계산 함수와 CSS 변수 — `tokens/onInk.ts`, `visualizationFoundationToStyleObject` 가 `--bbangto-viz-on-*` 를 함께 낸다, tokens `VisualizationFoundation` 에 선택 필드 `on`(JSDoc 에 규칙). 완료 기준: S1 두 테스트 초록, `pnpm build`·`pnpm typecheck` 초록, `LiteralPaintGate` 초록.
+- [x] `S3` 노드 글자 기본값 — `NodeLabel` 기본 글자색을 `on-shape-fill` 로 바꾸고, 같은 원인의 템플릿 21개(class-diagram · sysml-block · c4-code · kanban-board · bpmn 등)를 정리한다. 완료 기준: 그 템플릿의 기준 목록 줄 83곳이 빠지고 Paint Gate 두 검사 초록.
+- [x] `S4` 흐린 보조 글자 — er-diagram · quadrant · data-lineage · requirement 의 글자 opacity 를 걷고 면에 맞춘 글자색을 쓴다. requirement 검정 6% 띠 위 글자는 합성한 색으로 고른다. 완료 기준: 네 템플릿의 기준 목록 줄 257곳이 빠지고 게이트 초록.
+- [x] `S5` 불투명 팔레트 면 — wbs · treemap · packet · stacked-bar · archimate-viewpoint · mindmap · dmn · user-journey-gantt · fishbone 의 팔레트 면 위 글자를 `on-palette-*` 로. 완료 기준: 아홉 템플릿의 기준 목록 줄 960곳이 빠지고 게이트 초록.
+- [x] `S6` 투명도가 바뀌는 면과 C4 — heatmap · choropleth · sankey · archimate 4종은 칸마다 계산 함수로, C4 넷(context · container · dynamic · system-landscape)은 `C4Box`·`PersonNode`·`ExternalNode` 의 글자를 `on-c4-*`·`on-node-*` 로. 완료 기준: 열한 템플릿의 기준 목록 줄 238곳이 빠지고 게이트 초록.
+- [x] `S7` 기준 목록 닫기 — `_labelContrastBaseline.ts` 를 빈 목록으로 두고 머리 주석을 「새 미달은 목록에 올리지 말고 `on-*` 로 고친다」로 바꾼다. README 189~193번째 줄의 글자색 규칙과 기준 목록 설명을 `--bbangto-viz-on-*` 규칙으로 고친다. 완료 기준: `LABEL_CONTRAST_BASELINE` 0개, 게이트 초록.
+- [x] `S8` 마무리 — changeset(tokens minor · visualization minor), 품질 게이트 5종. 완료 기준: 게이트 5종 초록.
 
 ## 검증
 - `pnpm --filter storybook exec vitest run --project storybook src/stories/visualization/TemplatePaintGate.stories.tsx` → `LiteralPaintGate`·`LabelContrastGate` 초록, `LABEL_CONTRAST_BASELINE` 항목 0개.
@@ -84,3 +84,25 @@ KAN-063 이 글자 대비 검사(`LabelContrastGate`)를 표본 68개 전부로 
 - 2026-10-10T00:24 · s:add35787 — `검증` 섹션 교체
 - 2026-10-10T00:46 · s:add35787 — `전략` 섹션 교체
 - 2026-10-10T00:46 · s:add35787 — `실행 계획` 섹션 교체
+- 2026-10-10T00:46 · s:add35787 · S1 doing — 착수
+- 2026-10-10T00:48 · s:add35787 · S1 done — 빨간 테스트 둘 — tokens/onInk.test.ts(후보 순서·검정흰색 대체·합성·on 우선·변수 이름, 모듈 없음으로 빨강), 카탈로그 onInk.test.ts(가이드·preset 전부 × 면 20개, 변수 없음으로 빨강)
+- 2026-10-10T00:48 · s:add35787 · S2 doing — 착수
+- 2026-10-10T00:50 · s:add35787 · S2 done — tokens/onInk.ts(surfaceOver·pickOnInk·deriveOnInk, 내부 전용) · contract.ts 가 --bbangto-viz-on-* 를 함께 냄 · tokens VisualizationFoundation.on 선택 필드. 단위 17·카탈로그 2 초록, typecheck 초록, Paint Gate 두 검사 초록
+- 2026-10-10T00:50 · s:add35787 · S3 doing — 착수
+- 2026-10-10T00:59 · s:add35787 — S3 범위 조정: NodeLabel 기본값을 바꾸자 shape.fill 아닌 면 위에서 기본값을 쓰던 템플릿이 새로 미달이 됐다(게이트는 새 미달을 막는다). 그래서 Mindmap·DMN·ArchiMate viewpoint(S5 몫)와 C4Box·의미 노드 7종·ArchiMate 4종(S6 몫)의 노드 글자·태그를 S3 에서 고쳤다. 반투명·none 면은 canvas 위와 검정 30%(ON_INK_SHADE) 음영 위 둘 다에서 4.5:1 을 넘게 고른다 — riso-print 22% 면이 레인 띠 위에서 4.4 로 떨어진 실측 때문이다
+- 2026-10-10T00:59 · s:add35787 · S3 done — NodeLabel 기본 on-shape-fill·보조 글자 opacity 걷음 · ClassBox·C4Box·의미 노드 7종·Mindmap·DMN·ArchiMate viewpoint·ArchiMate·IsometricScene 글자색 · 반투명 면 음영 규칙. 기준 목록 1538→1089(S3 83 + 덩달아 통과 366). Paint Gate 두 검사·pnpm test 1293·typecheck 초록
+- 2026-10-10T01:02 · s:add35787 · S4 doing — 착수
+- 2026-10-10T01:03 · s:add35787 · S4 done — EntityTable 속성 줄 on-shape-fill·타입 opacity 0.6 걷고 9px · Quadrant 사분면 이름 on-canvas-bg(0.7 걷음) · DataLineage 이름·설명 on-shape-fill(0.8 걷음) · Requirement 머리 띠는 shape.fill+검정 6% 합성색으로 고르고 본문 on-shape-fill(0.6·0.8 걷음). 257곳 지움(1089→832), 게이트 두 검사·typecheck 초록
+- 2026-10-10T01:04 · s:add35787 · S5 doing — 착수
+- 2026-10-10T01:06 · s:add35787 · S5 done — Treemap·WBS(번호 배지 포함)·Packet·StackedBar·UserJourneyGantt 의 팔레트 면 글자를 on-palette-*(color 직접 지정이면 종전), Treemap·Packet 값 글자 opacity 0.85 걷음, Fishbone 머리 on-palette-p2. Mindmap·DMN·ArchiMate viewpoint 는 S3 에서 먼저 끝남. 693곳 지움(832→139), 게이트 두 검사·typecheck·pnpm test 1293 초록
+- 2026-10-10T01:08 · s:add35787 · S6 doing — 착수
+- 2026-10-10T01:12 · s:add35787 — S6 규칙 조정: 중간 밝기 반투명 칸(heatmap·choropleth)에서는 canvas 위와 검정 30% 음영 위를 함께 넘는 색이 없다. 그때 두 면 중 낮은 쪽을 최대로 하던 대체가 실제 바탕에서 3.81 로 떨어져, 실제 바탕(첫 면)에서 대비가 큰 검정·흰색을 고르게 바꿨다 — 첫 면은 늘 4.5:1 이상
+- 2026-10-10T01:12 · s:add35787 · S6 done — Heatmap·Choropleth 칸마다 pickOnInk(surfacesFor(p1, 투명도)) · Sankey 이름은 canvas+리본 면 전부에서 읽히는 글자색 하나 · C4 dynamic 순번 on-palette-p3 · 의미 노드 7종 태그도 이름과 같은 글자색 · pickOnInk 대체 규칙(첫 면 우선). 139곳 지움 → 기준 목록 0, 게이트 두 검사·typecheck·pnpm test 1293·카탈로그 테스트 초록
+- 2026-10-10T01:12 · s:add35787 · S7 doing — 착수
+- 2026-10-10T01:13 · s:add35787 · S7 done — _labelContrastBaseline.ts 를 빈 목록 + 「새 미달은 올리지 말고 on-* 로 고친다」 머리 주석으로, 게이트 주석 두 곳 갱신, README 189~193번째 줄을 「면 위 글자는 그 면의 on-* 글자색」 규칙으로(KAN-067 겹침 용인 범위 안). 게이트 두 검사 초록
+- 2026-10-10T01:19 · s:add35787 · S8 doing — 착수
+- 2026-10-10T01:20 · s:add35787 · S8 done — changeset(tokens minor · visualization minor) · main(KAN-057·KAN-067 병합분) 따라잡기 병합 — contract.ts 충돌을 두 변경 모두 남겨 해소 · 병합 뒤 게이트 5종 초록(build · typecheck · test 1299 · storybook build · test:unit). 검증 절: 기준 목록 0 · 가이드 파일 변경 0 · 공개 index 변경 0(merge-base 기준)
+- 2026-10-10T01:48 · s:add35787 — 검토 2번 재작업(유저 선택 「기본 5% + 아이소메트릭만 따로」): ON_INK_SHADE 0.3 → 0.05, IsometricScene 라벨은 윗면·바닥 그림자 8%·오른쪽 옆면 22% 를 얹은 면들로 직접 고름. 음영 규칙 때문에 바뀌는 면 24 → 5(모두 riso-print, #1E5AA8 → 같은 가이드 #182234), ink-line-duotone 파랑 유지. tokens on 필드 JSDoc 에 음영·대체 규칙을 적음
+- 2026-10-10T01:48 · s:add35787 — 검토 5번 재작업(유저 선택 「이 카드에서 고침」): Sankey 노드 이름은 그 노드에서 나가는 리본 면을 첫 면으로 두고 고름. TemplatePaintGate 에 SankeyRibbonLabelGate(팔레트 8색 리본 × 가이드 30개) 를 먼저 더해 neon-gradient-dark Source 7 4.16 빨강을 재현한 뒤 초록. changeset 문구를 실제 동작에 맞춤. 게이트 5종 초록(test 1300 · viz 단위 280)
+- 2026-10-10T03:03 · s:add35787 — 검토 5번 재반려(재검토 검토자): 나가는 리본은 노드 위쪽부터 쌓이고(sankey.ts:82) 이름은 노드 가운데라, 나가는 값 < 받는 값의 절반인 노드는 이름이 바탕 위에 선다 — 리본에 맞춘 글자색이 1.27:1. 표본에 그런 노드를 넣고 이름 가운데를 실제로 덮는 면으로 고르게 고친다
+- 2026-10-10T03:05 · s:add35787 — 검토 5번 재작업 2: SankeyRibbonLabelGate 표본에 60 받고 20 내보내는 일곱째 노드(p7)를 넣어 neon-gradient-dark 1.27 빨강을 재현한 뒤, 이름 가운데를 실제로 덮는 나가는 리본이 있으면 그 리본, 없으면 canvas 를 첫 면으로 고르게 고쳐 초록. 게이트 5종 초록(test 1300 · viz 단위 280). 이름이 리본과 바탕에 걸치는 경우(neon-gradient-dark p7 등 가이드 30개 중 1)는 남는다
