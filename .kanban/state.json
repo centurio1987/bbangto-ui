@@ -1,6 +1,6 @@
 {
   "next_id": 70,
-  "next_seq": 257,
+  "next_seq": 260,
   "cards": {
     "KAN-057-CCH3E8": {
       "col": "backlog",
@@ -1336,12 +1336,12 @@
       ]
     },
     "KAN-068-W6TE2S": {
-      "col": "backlog",
+      "col": "todo",
       "title": "미배포 수정분 배포 — KAN-056·060·065 를 KAN-064 major 전에 (사용자 실행 지시 후)",
       "verbatim": "수정분 먼저 배포 (앞 질문 「§3-5 — 아직 배포하지 않은 수정분 세 건(KAN-056 viz 템플릿 색 · KAN-060 포커스 대비 · KAN-065 모티프 포커스)을 이 카드의 큰 버전 올림(visualization 0.4.0→1.0.0 · foundations 1.1.1→2.0.0 · 룩 카탈로그 2개 0.3.x→1.0.0)보다 먼저 따로 배포할까요?」에 대한 답)",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-10-09",
+      "갱신": "2026-10-10",
       "title_hash": "7a09c667f7ceaa9a157ee90826e9137d49624251",
       "verbatim_hash": "ed0ed6941e6b816064739c5db16ce51e0c1e3a3c",
       "short": "미배포 수정분 배포",
@@ -1352,8 +1352,25 @@
       "reason_hash": "f9dd1573fbab7b201bab3a78fab2d4670bae0448",
       "goal": "세 수정분이 major 없이 배포되고, 그 뒤에 KAN-064 를 main 에 병합할 수 있다",
       "goal_hash": "052306f610fd57a2dfba8775b28954fb8b627e10",
-      "memo": "push·배포는 사용자의 분명한 실행 지시 뒤에만(KAN-055 와 같은 규율). KAN-064 는 이 카드가 끝난 뒤 병합한다. 그 사이 끝난 다른 카드(예: KAN-067)의 changeset 을 함께 실을지는 착수 때 정한다",
-      "memo_hash": "542d88faf9311a19a50a81f44a0d6ac9279c5489"
+      "memo": "push·배포는 사용자 실행 지시 뒤에만(2026-10-10 「진행」). KAN-064 는 이 카드가 끝난 뒤 병합한다. 버전 표·순서는 실행 문서 전략 절",
+      "memo_hash": "23c974032137cc38579e33a15e21635d9bad927e",
+      "scope": [
+        "packages/tokens/package.json",
+        "packages/tokens/CHANGELOG.md",
+        "packages/foundations/package.json",
+        "packages/foundations/CHANGELOG.md",
+        "packages/core/package.json",
+        "packages/core/CHANGELOG.md",
+        "packages/style-guide-catalog/package.json",
+        "packages/style-guide-catalog/CHANGELOG.md",
+        "packages/visualization/package.json",
+        "packages/visualization/CHANGELOG.md",
+        "packages/visualization-style-guide-catalog/package.json",
+        "packages/visualization-style-guide-catalog/CHANGELOG.md",
+        ".changeset/kan-056-template-paint.md",
+        ".changeset/kan-060-focus-contrast.md",
+        ".changeset/kan-065-motif-focus.md"
+      ]
     },
     "KAN-069-G0FGTJ": {
       "col": "backlog",
@@ -1381,7 +1398,7 @@
     "KAN-061-K8V2HH",
     "KAN-064-AC0H6M",
     "KAN-066-T6NR80",
-    "KAN-068-W6TE2S",
+    "KAN-069-G0FGTJ",
     "KAN-067-WDY7N1",
     "KAN-020",
     "KAN-025",
@@ -1445,9 +1462,40 @@
     "KAN-055-34A57K",
     "KAN-062-E02CMT",
     "KAN-065-XSHEMV",
-    "KAN-069-G0FGTJ"
+    "KAN-068-W6TE2S"
   ],
   "recent": [
+    {
+      "seq": 259,
+      "t": "2026-10-10T00:21",
+      "a": "ai",
+      "id": "KAN-068-W6TE2S",
+      "op": "edit",
+      "w": "S7030N",
+      "field": "memo",
+      "before": "push·배포는 사용자의 분명한 실행 지시 뒤에만(KAN-055 와 같은 규율). KAN-064 는 이 카드가 끝난 뒤 병합한다. 그 사이 끝난 다른 카드(예: KAN-067)의 changeset 을 함께 실을지는 착수 때 정한다",
+      "after": "push·배포는 사용자 실행 지시 뒤에만(2026-10-10 「진행」). KAN-064 는 이 카드가 끝난 뒤 병합한다. 버전 표·순서는 실행 문서 전략 절"
+    },
+    {
+      "seq": 258,
+      "t": "2026-10-10T00:21",
+      "a": "ai",
+      "id": "KAN-068-W6TE2S",
+      "op": "move",
+      "w": "S7030N",
+      "from": "backlog",
+      "to": "todo"
+    },
+    {
+      "seq": 257,
+      "t": "2026-10-10T00:21",
+      "a": "ai",
+      "id": "KAN-064-AC0H6M",
+      "op": "waive",
+      "w": "S7030N",
+      "with_": "KAN-068-W6TE2S",
+      "reason": "같은 package.json 4개를 건드리지만 순서가 정해져 있음 — KAN-068 배포를 먼저 끝낸 뒤 KAN-064 를 main 에 병합(KAN-064 검토 §3-5, 2026-10-09 유저 선택). KAN-068 은 version 줄, KAN-064 는 files·exports 줄"
+    },
     {
       "seq": 256,
       "t": "2026-10-10T00:16",
@@ -1983,36 +2031,6 @@
       "w": "GEG7B8",
       "from": "doing",
       "to": "review"
-    },
-    {
-      "seq": 225,
-      "t": "2026-10-08T00:15",
-      "a": "ai",
-      "id": "KAN-055-34A57K",
-      "op": "serialize",
-      "w": "S7030N",
-      "with_": "KAN-052-BYS4JN",
-      "reason": "전략 재수립 완료"
-    },
-    {
-      "seq": 225,
-      "t": "2026-10-08T00:37",
-      "a": "ai",
-      "id": "KAN-055-34A57K",
-      "op": "waive",
-      "w": "GEG7B8",
-      "with_": "KAN-056-D3V1MB",
-      "reason": "2026-10-07 유저 용인을 다시 건다. KAN-056 재작업(검토 항목 4)에서 scope 에 새 파일 apps/storybook/.../_labelContrastBaseline.ts 하나를 더해 기록이 낡았을 뿐, 겹치는 경로는 그대로 .changeset/kan-056-*.md 하나다 — KAN-056 은 자기 changeset 만 더하고 KAN-055 는 배포 때 소비할 뿐이다"
-    },
-    {
-      "seq": 224,
-      "t": "2026-10-08T00:15",
-      "a": "ai",
-      "id": "KAN-055-34A57K",
-      "op": "serialize",
-      "w": "S7030N",
-      "with_": "KAN-051-5HMYKT",
-      "reason": "전략 재수립 완료"
     }
   ],
   "waivers": [
@@ -2126,6 +2144,13 @@
       "scope_hash": "56ea8b2cf3cfdca0",
       "reason": "유저 선택(2026-10-09 「용인」): visualization package.json 의 files 배열은 KAN-064 가 manifest 를 더하고 KAN-067 이 관리용 문서 2개를 뺀다 — 나중에 합치는 쪽이 두 변경을 다 남긴다. 주석은 src/index.ts 가 KAN-064 21줄·KAN-067 28줄로 갈리고, src/typeMeta/index.ts:6 은 같은 문장이라 나중에 합치는 쪽이 2단 읽기와 저장소 링크 두 뜻으로 다시 쓴다. KAN-064 scope 의 tsup.config.ts:21·src/index.ts:21 에 남은 「동봉」은 KAN-064 병합 때 KAN-067 검사에 맞춰 고친다",
       "created": "2026-10-09T22:52",
+      "by": "ai"
+    },
+    {
+      "pair": "KAN-064-AC0H6M|KAN-068-W6TE2S",
+      "scope_hash": "d5ae6dc2720ba4d8",
+      "reason": "같은 package.json 4개를 건드리지만 순서가 정해져 있음 — KAN-068 배포를 먼저 끝낸 뒤 KAN-064 를 main 에 병합(KAN-064 검토 §3-5, 2026-10-09 유저 선택). KAN-068 은 version 줄, KAN-064 는 files·exports 줄",
+      "created": "2026-10-10T00:21",
       "by": "ai"
     }
   ],
