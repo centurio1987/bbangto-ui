@@ -259,7 +259,8 @@ export function DecisionSketch() {
   `canvas.bg`·`c4.l1~l3.bgTint`·`node.<kind>.fill`)마다 그 위에 쓸 글자색을 `--bbangto-viz-on-*` 로 함께 낸다.
   `vvar('palette', 'p2')` 면 위 글자는 `vvar('on', 'palette', 'p2')` 를 쓴다. 값은 가이드 글자색 넷(`edge.stroke` →
   `shape.stroke` → `boundary.labelColor` → `canvas.bg`) 중 처음으로 면과 4.5:1 을 넘는 것이고, 없으면 검정·흰색 중 대비가
-  큰 쪽이다. 반투명 면은 밑에 검정 음영이 깔려도 읽히는 쪽을 고른다. 가이드는 `foundations.on` 에 값을 직접 적어 계산값을
+  큰 쪽이다. 반투명 면은 밑에 레인 띠 정도(검정 5%)의 음영이 깔려도 읽히는 쪽을 고르고, 그보다 짙은 음영을 까는
+  템플릿(IsometricScene)은 자기 음영을 얹은 면으로 따로 고른다. 가이드는 `foundations.on` 에 값을 직접 적어 계산값을
   덮을 수 있다. 데이터마다 투명도가 바뀌는 면(heatmap 칸 등)은 미리 계산할 수 없어 `useVizFoundation()` 과 같은 계산
   (`src/tokens/onInk.ts`)으로 칸마다 고른다. 글자를 흐리게(opacity) 쓰지 않는다 — 위계는 크기와 굵기로 낸다.
   Paint Gate 와 같은 파일의 `LabelContrastGate` 가 표본 전부를 카탈로그 가이드 전부에서 그려 글자 대비를 재고,

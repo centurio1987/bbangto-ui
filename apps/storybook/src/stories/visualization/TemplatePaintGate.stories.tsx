@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { VisualizationStyleGuideProvider } from '@centurio1987/bbangto-ui-visualization';
+import { SankeyDiagram, VisualizationStyleGuideProvider } from '@centurio1987/bbangto-ui-visualization';
 import type { VisualizationStyleGuide } from '@centurio1987/bbangto-ui-visualization';
 import {
   blueprintTechnical01VizStyleGuide,
@@ -298,3 +298,55 @@ export const LabelContrastGate: Story = {
     await expect(problems).toEqual([]);
   },
 };
+
+// ────────────────────────────────────────────────────────────────────────
+// Sankey 리본 위 노드 이름 — 표본(노드 넷)이 못 재는 리본 색까지
+// ────────────────────────────────────────────────────────────────────────
+
+/**
+ * Sankey 노드 이름은 막대 오른쪽, 그 노드에서 나가는 리본(팔레트 42%) 위에 놓인다. 게이트 표본은 노드가 넷이라
+ * 리본 색이 p1·p2 둘뿐이다. 그래서 팔레트 8색이 모두 나가는 리본이 되게 노드 여덟을 세우고 가이드 전부에서 잰다
+ * (KAN-061 검토 5번: neon-gradient-dark 에서 p7 리본 위 이름이 4.16:1 이었다).
+ */
+const SANKEY_RIBBON_NODES = Array.from({ length: 8 }, (_, i) => ({ id: `s${i + 1}`, label: `Source ${i + 1}`, x: 20, y: 10 + i * 34 }));
+
+function SankeyRibbonSample() {
+  return (
+    <SankeyDiagram
+      viewBox="0 0 360 290"
+      width={360}
+      height={290}
+      data={{
+        nodes: [...SANKEY_RIBBON_NODES, { id: 'sink', label: 'Sink', x: 300, y: 10 }],
+        links: SANKEY_RIBBON_NODES.map((n) => ({ source: n.id, target: 'sink', value: 24 })),
+      }}
+    />
+  );
+}
+
+export const SankeyRibbonLabelGate: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+      {vizStyleGuideCatalog.map((sg) => (
+        <div key={sg.name} data-sankey-gate-guide={sg.name}>
+          <VisualizationStyleGuideProvider styleGuide={{ name: sg.name, foundations: sg.foundations }} style={{ padding: 8 }}>
+            <SankeyRibbonSample />
+          </VisualizationStyleGuideProvider>
+        </div>
+      ))}
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const cells = Array.from(canvasElement.querySelectorAll<HTMLElement>('[data-sankey-gate-guide]'));
+    await expect(cells.length).toBe(vizStyleGuideCatalog.length);
+    const low: string[] = [];
+    for (const cell of cells) {
+      const guide = cell.dataset.sankeyGateGuide!;
+      const result = collectLowContrast(guide, 'sankey-ribbons', cell);
+      await expect(result.measured, `${guide}: 잰 글자 수`).toBe(SANKEY_RIBBON_NODES.length + 1);
+      low.push(...result.low.map((l) => `${l.id}: ${l.ratio.toFixed(2)}`));
+    }
+    await expect(low).toEqual([]);
+  },
+};
+

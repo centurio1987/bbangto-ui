@@ -57,11 +57,18 @@ export function SankeyDiagram({
   const specById = new Map(data.nodes.map((n) => [n.id, n]));
   const layout = sankeyLayout(data.nodes, data.links, { scale, nodeWidth });
   const colorIndex = new Map(data.nodes.map((n, i) => [n.id, i]));
-  // 노드 이름 밑으로 어느 리본이든 지나갈 수 있다 — canvas 와 리본 면 전부에서 4.5:1 을 넘는 글자색 하나(KAN-061)
-  const labelInk = pickOnInk(foundation, [
+  // 노드 이름은 막대 오른쪽, 그 노드에서 나가는 리본 위에 놓인다. 그 리본이 실제 바탕이라 첫 면으로 두고,
+  // 이름 끝이 걸칠 수 있는 canvas 와 다른 리본에서도 읽히면 그 색을 쓴다. 다 못 맞추면 실제 바탕이 이긴다(KAN-061).
+  const outgoing = new Set(layout.links.map((l) => l.source));
+  const otherFaces = [
     ...surfacesFor(foundation, foundation.canvas.bg),
     ...PALETTE_KEYS.flatMap((k) => surfacesFor(foundation, foundation.palette[k], RIBBON_OPACITY)),
-  ]);
+  ];
+  const labelInkFor = (id: string) => {
+    const key = PALETTE_KEYS[(colorIndex.get(id) ?? 0) % PALETTE_KEYS.length];
+    const own = outgoing.has(id) ? surfacesFor(foundation, foundation.palette[key], RIBBON_OPACITY) : [];
+    return pickOnInk(foundation, [...own, ...otherFaces]);
+  };
 
   return (
     <Canvas viewBox={viewBox} title={title} data-bbangto-viz-chart="sankey" {...canvasProps}>
@@ -101,7 +108,7 @@ export function SankeyDiagram({
               fontSize={11}
               fontWeight={600}
               fontFamily={vvar('typography', 'titleFont')}
-              style={{ fill: labelInk }}
+              style={{ fill: labelInkFor(n.id) }}
             >
               {spec.label}
             </text>

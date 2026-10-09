@@ -13,19 +13,20 @@ import type { NodeSemanticKind, VisualizationFoundation } from './types';
  * `vvar('on', 'palette', 'p1')` 를 쓴다. 데이터마다 투명도가 바뀌는 면만 `useVizFoundation()` 으로
  * 값을 받아 `pickOnInk(f, surfacesFor(f, 면색, 투명도))` 를 칸마다 부른다.
  *
- * 반투명 면(알파 < 1 · `none` · `transparent`)은 밑에 무엇이 깔릴지 모른다. 레인 띠나 입체 옆면 음영처럼
- * 템플릿이 까는 반투명 검정이 비쳐 보이므로, canvas 위와 검정 `ON_INK_SHADE` 를 얹은 canvas 위
- * 두 곳에서 모두 4.5:1 을 넘는 글자색을 고른다.
+ * 반투명 면(알파 < 1 · `none` · `transparent`)은 밑에 무엇이 깔릴지 모른다. 레인 띠처럼 템플릿이 까는
+ * 옅은 반투명 검정이 비쳐 보이므로, canvas 위와 검정 `ON_INK_SHADE` 를 얹은 canvas 위 두 곳에서 모두
+ * 4.5:1 을 넘는 글자색을 고른다. 그보다 짙은 음영을 까는 템플릿(IsometricScene)은 자기 음영을 얹은 면을
+ * 넘겨 따로 고른다.
  */
 
 /** 면 위 글자의 대비 하한. 면 하나에 글자색 하나라 글씨 크기를 모르므로 큰 글씨 기준(3)은 쓰지 않는다. */
 export const ON_INK_MIN = 4.5;
 
 /**
- * 반투명 면 밑에 깔릴 수 있는 검정 음영의 깊이. 지금 가장 짙은 곳은 IsometricScene 에서 바닥 그림자(8%)와
- * 입체 옆면(22%)이 겹친 자리로 약 28% 다.
+ * 반투명 면 밑에 깔릴 수 있는 검정 음영의 깊이 — 레인·풀 띠(2~3%)를 덮는 값이다. 30% 로 두면 칠하지 않은 면의
+ * 글자가 가이드 강조색을 잃어(ink-line-duotone 파랑 → 검정) 입체 음영은 그 템플릿이 따로 고른다(KAN-061 검토 2번).
  */
-export const ON_INK_SHADE = 0.3;
+export const ON_INK_SHADE = 0.05;
 
 const WHITE: RGBA = { r: 255, g: 255, b: 255, a: 1 };
 const BLACK: RGBA = { r: 0, g: 0, b: 0, a: 1 };

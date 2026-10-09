@@ -102,3 +102,5 @@ KAN-063 이 글자 대비 검사(`LabelContrastGate`)를 표본 68개 전부로 
 - 2026-10-10T01:13 · s:add35787 · S7 done — _labelContrastBaseline.ts 를 빈 목록 + 「새 미달은 올리지 말고 on-* 로 고친다」 머리 주석으로, 게이트 주석 두 곳 갱신, README 189~193번째 줄을 「면 위 글자는 그 면의 on-* 글자색」 규칙으로(KAN-067 겹침 용인 범위 안). 게이트 두 검사 초록
 - 2026-10-10T01:19 · s:add35787 · S8 doing — 착수
 - 2026-10-10T01:20 · s:add35787 · S8 done — changeset(tokens minor · visualization minor) · main(KAN-057·KAN-067 병합분) 따라잡기 병합 — contract.ts 충돌을 두 변경 모두 남겨 해소 · 병합 뒤 게이트 5종 초록(build · typecheck · test 1299 · storybook build · test:unit). 검증 절: 기준 목록 0 · 가이드 파일 변경 0 · 공개 index 변경 0(merge-base 기준)
+- 2026-10-10T01:48 · s:add35787 — 검토 2번 재작업(유저 선택 「기본 5% + 아이소메트릭만 따로」): ON_INK_SHADE 0.3 → 0.05, IsometricScene 라벨은 윗면·바닥 그림자 8%·오른쪽 옆면 22% 를 얹은 면들로 직접 고름. 음영 규칙 때문에 바뀌는 면 24 → 5(모두 riso-print, #1E5AA8 → 같은 가이드 #182234), ink-line-duotone 파랑 유지. tokens on 필드 JSDoc 에 음영·대체 규칙을 적음
+- 2026-10-10T01:48 · s:add35787 — 검토 5번 재작업(유저 선택 「이 카드에서 고침」): Sankey 노드 이름은 그 노드에서 나가는 리본 면을 첫 면으로 두고 고름. TemplatePaintGate 에 SankeyRibbonLabelGate(팔레트 8색 리본 × 가이드 30개) 를 먼저 더해 neon-gradient-dark Source 7 4.16 빨강을 재현한 뒤 초록. changeset 문구를 실제 동작에 맞춤. 게이트 5종 초록(test 1300 · viz 단위 280)

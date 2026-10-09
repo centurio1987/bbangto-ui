@@ -121,6 +121,13 @@ describe('surfacesFor — 반투명 면은 밑에 무엇이 깔릴지 모른다'
     expect(surfacesFor(f, '#3366CC', 0.35)).toHaveLength(2);
   });
 
+  it('음영은 레인 띠 수준이라, 칠하지 않은 면 위에서도 가이드 강조색을 지킨다', () => {
+    // ink-line-duotone: shape.fill none · edge.stroke 파랑. 음영 30% 였을 때는 #111111 로 바뀌었다(KAN-061 검토 2번).
+    const inkLine = foundation({ canvasBg: '#FFFFFF', edgeStroke: '#2B44E0', shapeStroke: '#111111' });
+    expect(ON_INK_SHADE).toBeLessThanOrEqual(0.05);
+    expect(pickOnInk(inkLine, surfacesFor(inkLine, 'none'))).toBe('#2B44E0');
+  });
+
   it('음영 깊이는 ON_INK_SHADE 다', () => {
     const f = foundation({ canvasBg: '#FFFFFF' });
     const [, shaded] = surfacesFor(f, 'none');
