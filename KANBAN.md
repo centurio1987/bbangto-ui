@@ -25,16 +25,6 @@
     ```text
     후속 카드 1장 (Recommended) — main에서 백로그 카드를 하나 만들어, 토큰마다 잇기와 걷기를 정합니다. 그림이 바로 바뀌는 경계선을 첫 단계로 둡니다. KAN-057은 엣지 대시만 다룹니다. (앞 질문 「선언만 있고 읽히지 않는 viz 토큰 20여 개(경계선 dashPattern·width·radius, c4.* 9개, typography.sizes.* 4개 등)를 어떻게 다룰까요?」에 대한 답)
     ```
-- `KAN-070-RCG2QV` viz 연결선 대시 범위 — 어느 선이 스타일 가이드 대시를 따르는가 (Edge 밖 관계선 넷 · 실선이 뜻을 갖는 Edge 선) — 생성:ai · 최종:ai · 갱신:2026-10-10
-  - 짧은 제목: 연결선 대시 범위
-  - 목적: 스타일 가이드의 연결선 대시(edge.dashPattern)를 따라야 하는 선과 따르면 안 되는 선을 가르고, 그대로 그려지게 맞춘다
-  - 이유: KAN-057 검토(3·4번)에서 Edge 없이 그린 관계선 넷은 가이드 대시를 못 따르고, 실선이 뜻을 갖는 Edge 선(UML 상속 등)은 가이드 대시를 받아 표기 구분이 흐려지는 것을 확인했다
-  - 목표: 대시 가이드에서도 관계선은 템플릿과 상관없이 같은 모양이고, 표기법상 실선인 선과 축은 실선으로 남는다
-  - 메모: 못 따르는 선(Edge 미사용): SitemapTree:71 · WorkBreakdownStructure:80 · GitGraph:92 · IsometricScene:161. 따르면 안 되는 선(Edge 사용, 대시 값을 안 넘겨 실선을 표현): ClassDiagram:58-62 · SequenceDiagram:183 · UMLSequenceDiagram:140 · BPMNCollaborationDiagram:176,182 · UseCaseDiagram:102 · Flowchart:127 · DMNDiagram:100-102 · ArchiMateDiagram:69-70 · ArchiMateViewpointDiagram:57-58 · SysMLBlockDiagram:43-46 · molecules/StepConnector:23, 그리고 patterns/TimelineRoadmap:52 시간 축. Edge 를 쓰는 38개 중 22개, Edge 없이 선을 그리는 24개 중 17개는 아직 안 봤다. 지금 카탈로그 가이드는 모두 실선이라 그림에 나타나는 문제는 아직 없다. KAN-057(edge.dashPattern 연결) 병합 뒤에 착수한다
-  - 원문:
-    ```text
-    새 후속 카드 (Recommended) — main에 백로그 카드 하나를 만들어 「어느 선이 가이드 대시를 따르는가」를 다룹니다. 그 뒤 3·4번을 승인으로 닫고, KAN-057은 문서 전체 승인만 남깁니다. 지금 그림은 바뀌지 않습니다. (앞 질문 「3·4번(가이드 대시를 따라가지 못하는 관계선 넷 + 따라가면 안 되는 실선 의미선 11곳과 TimelineRoadmap 축)을 어디서 다룰까요?」에 대한 답)
-    ```
 - `KAN-071-FK1W8K` 앱 에이전트의 라이브러리 이탈·개선 요청 실제 사례 재현 — 저장소 열람과 구현까지 연 시험 — 생성:ai · 최종:ai · 갱신:2026-10-10
   - 짧은 제목: 이탈 현상 실제 재현
   - 목적: 겪은 상황(앱 지시문·과제 문구·모델)을 받아, 저장소·인터넷 열람과 구현을 막지 않은 조건으로 배포물 전후 시험을 다시 돌린다
@@ -59,6 +49,16 @@
 ## 할 일
 
 ## 진행 중
+- `KAN-070-RCG2QV` viz 연결선 대시 범위 — 어느 선이 스타일 가이드 대시를 따르는가 (Edge 밖 관계선 넷 · 실선이 뜻을 갖는 Edge 선) — 생성:ai · 최종:ai · 갱신:2026-10-10
+  - 짧은 제목: 연결선 대시 범위
+  - 목적: 스타일 가이드의 연결선 대시(edge.dashPattern)를 따라야 하는 선과 따르면 안 되는 선을 가르고, 그대로 그려지게 맞춘다
+  - 이유: KAN-057 검토(3·4번)에서 Edge 없이 그린 관계선 넷은 가이드 대시를 못 따르고, 실선이 뜻을 갖는 Edge 선(UML 상속 등)은 가이드 대시를 받아 표기 구분이 흐려지는 것을 확인했다
+  - 목표: 대시 가이드에서도 관계선은 템플릿과 상관없이 같은 모양이고, 표기법상 실선인 선과 축은 실선으로 남는다
+  - 메모: 못 따르는 선(Edge 미사용): SitemapTree:71 · WorkBreakdownStructure:80 · GitGraph:92 · IsometricScene:161. 따르면 안 되는 선(Edge 사용, 대시 값을 안 넘겨 실선을 표현): ClassDiagram:58-62 · SequenceDiagram:183 · UMLSequenceDiagram:140 · BPMNCollaborationDiagram:176,182 · UseCaseDiagram:102 · Flowchart:127 · DMNDiagram:100-102 · ArchiMateDiagram:69-70 · ArchiMateViewpointDiagram:57-58 · SysMLBlockDiagram:43-46 · molecules/StepConnector:23, 그리고 patterns/TimelineRoadmap:52 시간 축. Edge 를 쓰는 38개 중 22개, Edge 없이 선을 그리는 24개 중 17개는 아직 안 봤다. 지금 카탈로그 가이드는 모두 실선이라 그림에 나타나는 문제는 아직 없다. KAN-057(edge.dashPattern 연결) 병합 뒤에 착수한다
+  - 원문:
+    ```text
+    새 후속 카드 (Recommended) — main에 백로그 카드 하나를 만들어 「어느 선이 가이드 대시를 따르는가」를 다룹니다. 그 뒤 3·4번을 승인으로 닫고, KAN-057은 문서 전체 승인만 남깁니다. 지금 그림은 바뀌지 않습니다. (앞 질문 「3·4번(가이드 대시를 따라가지 못하는 관계선 넷 + 따라가면 안 되는 실선 의미선 11곳과 TimelineRoadmap 축)을 어디서 다룰까요?」에 대한 답)
+    ```
 
 ## 검토
 

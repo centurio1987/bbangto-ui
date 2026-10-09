@@ -1,6 +1,6 @@
 {
   "next_id": 74,
-  "next_seq": 273,
+  "next_seq": 274,
   "cards": {
     "KAN-066-T6NR80": {
       "col": "backlog",
@@ -43,7 +43,7 @@
       "memo_hash": "cffeea0b71d91e3d5794889ca0199a7879189a3c"
     },
     "KAN-070-RCG2QV": {
-      "col": "backlog",
+      "col": "doing",
       "title": "viz 연결선 대시 범위 — 어느 선이 스타일 가이드 대시를 따르는가 (Edge 밖 관계선 넷 · 실선이 뜻을 갖는 Edge 선)",
       "verbatim": "새 후속 카드 (Recommended) — main에 백로그 카드 하나를 만들어 「어느 선이 가이드 대시를 따르는가」를 다룹니다. 그 뒤 3·4번을 승인으로 닫고, KAN-057은 문서 전체 승인만 남깁니다. 지금 그림은 바뀌지 않습니다. (앞 질문 「3·4번(가이드 대시를 따라가지 못하는 관계선 넷 + 따라가면 안 되는 실선 의미선 11곳과 TimelineRoadmap 축)을 어디서 다룰까요?」에 대한 답)",
       "생성": "ai",
@@ -1482,7 +1482,6 @@
   "order": [
     "KAN-066-T6NR80",
     "KAN-069-G0FGTJ",
-    "KAN-070-RCG2QV",
     "KAN-071-FK1W8K",
     "KAN-072-KW0G9B",
     "KAN-020",
@@ -1551,9 +1550,20 @@
     "KAN-067-WDY7N1",
     "KAN-068-W6TE2S",
     "KAN-061-K8V2HH",
-    "KAN-064-AC0H6M"
+    "KAN-064-AC0H6M",
+    "KAN-070-RCG2QV"
   ],
   "recent": [
+    {
+      "seq": 273,
+      "t": "2026-10-10T03:55",
+      "a": "ai",
+      "id": "KAN-070-RCG2QV",
+      "op": "move",
+      "w": "QZV2GZ",
+      "from": "backlog",
+      "to": "doing"
+    },
     {
       "seq": 272,
       "t": "2026-10-10T03:48",
@@ -2098,16 +2108,6 @@
       "w": "S7030N",
       "with_": "KAN-065-XSHEMV",
       "reason": "KAN-065 는 자기 changeset 파일(.changeset/kan-065-motif-focus.md) 하나만 더하고 KAN-055 는 배포 때 그것을 읽어 소비할 뿐이라 같은 파일을 고치지 않는다. 065 가 먼저 병합되면 다음 배포에 style-guide-catalog 가 함께 나간다. KAN-056·058·059·060·063 과 같은 처리 (2026-10-08 유저 선택)"
-    },
-    {
-      "seq": 247,
-      "t": "2026-10-08T18:33",
-      "a": "ai",
-      "id": "KAN-064-AC0H6M",
-      "op": "move",
-      "w": "7E5YYM",
-      "from": "backlog",
-      "to": "doing"
     }
   ],
   "waivers": [
