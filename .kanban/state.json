@@ -100,7 +100,13 @@
       "goal": "루트 README 가 배포 README 의 「원하는 것이 없을 때」 절로 이어지고, Provider 서술이 실측과 같아진다",
       "goal_hash": "327fac73461bdde8ba72bc4b8cad1302ade13bc3",
       "memo": "KAN-067 검토 항목 2(2026-10-10 승인)에서 나왔다. README.md 는 KAN-064 scope 에도 있다(KAN-064 는 KAN-068 뒤 병합 대기). KAN-071(실제 사례 재현)과 같은 경로를 보므로 그 카드의 전후 비교에 쓴다",
-      "memo_hash": "851301bace69a1f95e144da38fef72a54178d819"
+      "memo_hash": "851301bace69a1f95e144da38fef72a54178d819",
+      "scope": [
+        "README.md",
+        "packages/foundations/src/publishedDocs.ts",
+        "packages/foundations/src/publishedDocs.test.ts",
+        "apps/storybook/src/stories/ExtendWhenMissing.stories.tsx"
+      ]
     },
     "KAN-064-AC0H6M": {
       "col": "done",

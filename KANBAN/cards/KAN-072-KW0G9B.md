@@ -1,0 +1,63 @@
+---
+card: KAN-072-KW0G9B
+title: 루트 README 의 「컴포넌트가 없을 때」 길과 viz Provider 서술 바로잡기
+created: 2026-10-10
+scope: README.md, packages/foundations/src/publishedDocs.ts, packages/foundations/src/publishedDocs.test.ts, apps/storybook/src/stories/ExtendWhenMissing.stories.tsx
+---
+
+# KAN-072-KW0G9B — 루트 README 의 「컴포넌트가 없을 때」 길과 viz Provider 서술 바로잡기
+
+## 전략
+<!-- 왜 이 접근인가 · 제약 · 버린 대안. 사람이 자유롭게 편집한다. -->
+### 문제
+
+루트 README 두 자리가 KAN-067 의 결론과 어긋난다. KAN-067 은 배포 README 둘에 「원하는 것이 없을 때」 절을 세웠지만(`packages/core/README.md:15`·`packages/visualization/README.md:150`), 루트 README 는 그 절로 잇지 않고 서술 하나도 실측과 다르다.
+
+1. **길잡이 표에서 「없을 때」 갈 곳이 기여뿐이다.** 「무엇을 하려고 오셨나요」 표(`README.md:17-28`)에서 앱에 원하는 컴포넌트나 그림 유형이 없을 때 고를 수 있는 줄은 「10 · 이 레포에 기여한다」 하나다. 2026-10-09 진단이 원인 후보로 꼽은 자리다. 앱 에이전트는 core README 맨 끝의 저장소 링크(`packages/core/README.md:154`)로 여기에 실제로 닿고, 그 눈에 이 줄은 라이브러리에 요청하는 길로 읽힌다.
+2. **Provider 서술이 틀렸다.** `README.md:858` 은 Provider 없이 그리면 무채색 base foundation 으로 떨어져 캔버스는 흰색, 선은 `#333333` 이라고 적는다. 2026-10-09 chromium 실측(KAN-067 S5)에서 색 prop 을 주지 않은 도형은 검게 채워지고 엣지는 `stroke: none` 이라 보이지 않았다. 무채색 값으로 떨어지는 것은 `useVizFoundation()` 이 돌려주는 JS 값뿐이다. viz README 는 같은 서술을 이미 고쳤다(`packages/visualization/README.md:235-237`).
+
+### 접근
+
+1. **검사를 먼저 세운다.**
+   - `publishedDocs.ts` 에 루트 README 검사를 더한다. 「무엇을 하려고 오셨나요」 절 안에 `EXTEND_SECTION_RULES` 의 패키지마다 `<패키지 경로>/README.md#원하는-것이-없을-때` 링크가 있는지 본다. 앵커는 `EXTEND_SECTION_TITLE` 에서 GitHub 규칙으로 만든다. 그래서 배포 README 의 절 제목이 바뀌면 루트 링크도 함께 깨진 것으로 잡힌다. 기존 `auditPublishedDocs` 의 인자는 건드리지 않고 함수를 하나 더 둔다.
+   - `ExtendWhenMissing.stories.tsx` 에 Provider 밖 스토리를 더한다(`parameters.bbangtoProviders: false`). 루트 README 사례 8 의 Flowchart 예제와 atom 조립 예제(`DecisionSketch`)를 Provider 없이 그리고 도형 채움·엣지 선·글자 채움·캔버스 배경을 잰다. 잰 값을 단언으로 박아 두면, 라이브러리가 나중에 기본 색을 갖게 될 때 이 스토리가 먼저 빨개져 README 두 곳을 다시 보게 한다.
+2. **길잡이 표에 줄을 더한다.** 「쓰려는 컴포넌트나 그림이 목록에 없다」 줄이 core·visualization README 의 「원하는 것이 없을 때」 절로 간다. 10번 줄은 문구로 「저장소 자체에 넣는 사람」의 줄임을 밝힌다. 사례 10 머리에는 「앱을 만들다 원하는 것이 없어 왔다면 앱 안에서 먼저 만들고, 기여는 앱을 완성한 뒤」라는 한 문단을 둔다. core README 순서 넷의 4번과 같은 말이다. 사례 1·8 의 「그다음」에도 한 문장씩 잇는다. 컴포넌트와 그림 유형을 처음 소개하는 자리라서다.
+3. **`README.md:858` 을 S1 실측대로 고친다.** viz README:235-237 과 같은 사실을 루트 README 문체(합쇼체·해요체)로 쓴다.
+
+### 제약
+
+- 루트 README 에 확장 예제를 복제하지 않는다. 예제는 배포 README 두 곳에만 있고 `publishedDocs` 가 예제 파일과 글자 그대로 대조한다. 루트에 세 번째 사본을 두면 그 대조 밖에서 낡는다. 루트는 링크로 잇는다.
+- 배포 README 와 라이브러리 코드는 고치지 않는다.
+- changeset 을 달지 않는다. 루트 README 는 배포물이 아니고, `publishedDocs` 는 `packages/foundations/package.json` 의 `files` 밖이라 배포물에 실리지 않는다. KAN-067 도 검사 파일 변경에는 foundations changeset 을 달지 않았다.
+- 카드 메모의 「KAN-064 는 KAN-068 뒤 병합 대기」는 낡았다. KAN-064 는 main `0a81094` 로 병합됐다. scope 를 적은 미완료 카드 가운데 README.md 를 둔 것은 이 카드 하나다.
+
+### 버린 대안
+
+- **루트 README 에 사례 11 을 통째로 쓴다.** 위 제약의 예제 사본 문제다. 루트 README 는 「사례마다 다른 문서를 먼저 읽지 않아도 된다」고 약속하는데, 새 줄은 사례가 아니라 배포 README 로 가는 길잡이라 표 아래 한 줄로 그 차이를 밝힌다.
+- **10번 줄을 지운다.** 저장소에 컴포넌트나 preset 을 넣는 사람에게는 필요한 줄이다.
+- **「무채색」 낱말을 검사로 막는다.** `useVizFoundation` 폴백 설명처럼 맞는 쓰임까지 막는다. 사실은 스토리가 잰다.
+
+### 정해진 것
+
+- KAN-071(실제 사례 재현)이 견줄 「고치기 전」은 이 카드가 갈라져 나온 main `0a81094` 다. KAN-071 은 그 커밋과 이 카드의 병합 뒤를 견준다.
+- 루트 독립성: `dep-check` 위반 0(2026-10-10). 미완료 루트 다섯 중 넷은 scope 미기재다. 그중 KAN-070 은 다른 세션이 막 착수했고 viz 연결선을 다루므로 이 카드와 자리가 갈린다.
+
+## 실행 계획
+<!-- `S<n>`은 고정 id — 이름을 바꾸지 않는다. 체크 상태는 doc-step 이 갱신한다. -->
+- [ ] `S1` 검사 먼저 — `publishedDocs.ts`·`.test.ts` 에 루트 README 길잡이 검사와 실패 주입 넷(링크 없음 · 앵커 틀림 · 다른 절에만 있음 · 길잡이 절 없음), `ExtendWhenMissing.stories.tsx` 에 Provider 밖 스토리. 완료 기준: 실패 주입 넷이 각각 위반을 내고, 실제 저장소 검사는 빨강이다(core·visualization 링크 둘 없음). Provider 밖 스토리는 지금도 초록이고, 잰 값(도형 채움 · 엣지 선 · 글자 채움 · 캔버스 배경)을 수행 내역에 남긴다.
+- [ ] `S2` 길잡이 잇기 — 표에 「목록에 없다」 줄, 10번 줄 문구, 사례 10 머리 문단, 사례 1·8 「그다음」 한 문장씩. 완료 기준: S1 루트 검사가 초록이다.
+- [ ] `S3` Provider 서술 — `README.md:858` 을 S1 에서 잰 값대로 고친다. 완료 기준: 「캔버스는 흰색, 선은 `#333333`」 문장이 0이고, 새 서술이 스토리 단언과 같은 사실을 말한다.
+- [ ] `S4` 마무리 — 품질 게이트 5종. 완료 기준: 다섯 다 초록.
+
+## 검증
+<!-- 무엇을 실행해 무엇이 나오면 이 카드가 끝난 것인가. -->
+- `pnpm --filter @centurio1987/bbangto-ui-foundations exec vitest run src/publishedDocs.test.ts` — 실패 주입 넷과 실제 저장소 검사가 모두 초록.
+- `pnpm test` 안의 `ExtendWhenMissing` 스토리 셋(CoreRating · VizCompose · Provider 밖) 초록.
+- 품질 게이트 5종: `pnpm typecheck` · `pnpm build` · `pnpm test` · `pnpm --filter storybook build` · `pnpm test:unit`.
+- 사람이 볼 것: 루트 README 표의 새 줄과 사례 10 머리 문단이 「앱 안에서 먼저 만든다」로 읽히는가, `README.md:858` 의 새 서술이 Provider 밖 스토리의 단언과 같은 사실인가.
+
+## 수행 내역
+<!-- KANBAN:LOG append-only — 아래로만 덧붙인다. 위를 고치지 않는다. -->
+- 2026-10-10T03:59 · s:dc094364 — `전략` 섹션 교체
+- 2026-10-10T03:59 · s:dc094364 — `실행 계획` 섹션 교체
+- 2026-10-10T03:59 · s:dc094364 — `검증` 섹션 교체
