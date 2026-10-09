@@ -298,3 +298,4 @@
 {"seq": 231, "t": "2026-10-08T17:14", "a": "유저", "id": "KAN-055-34A57K", "op": "waive", "w": "S7030N", "with_": "KAN-060-G9YKG6", "reason": "KAN-060 은 자기 changeset 파일(.changeset/kan-060-*.md) 하나만 더하고 KAN-055 는 배포 때 그것을 읽어 소비할 뿐이라 같은 파일을 고치지 않는다. 060 이 먼저 병합되면 다음 배포에 tokens·foundations 도 함께 나간다. KAN-056·058·059 와 같은 처리 (2026-10-08 유저 선택)"}
 {"seq": 231, "t": "2026-10-08T18:21", "a": "ai", "id": "KAN-055-34A57K", "op": "move", "w": "HMFE04", "from": "doing", "to": "review"}
 {"seq": 230, "t": "2026-10-08T01:29", "a": "ai", "id": "KAN-060-G9YKG6", "op": "move", "w": "S7030N", "from": "backlog", "to": "todo"}
+{"seq": 232, "t": "2026-10-08T18:33", "a": "ai", "id": "KAN-055-34A57K", "op": "move", "w": "HMFE04", "from": "review", "to": "done"}
