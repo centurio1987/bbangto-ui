@@ -1,6 +1,6 @@
 {
   "next_id": 70,
-  "next_seq": 263,
+  "next_seq": 264,
   "cards": {
     "KAN-057-CCH3E8": {
       "col": "backlog",
@@ -23,12 +23,12 @@
       "memo_hash": "fa79f4c6a72cc3d419b51e557a4bd9ae366539b9"
     },
     "KAN-061-K8V2HH": {
-      "col": "backlog",
+      "col": "doing",
       "title": "viz 템플릿 라벨 대비 미달 정리 — 불투명 팔레트 면 · 글자 대비 기준 목록 줄이기",
       "verbatim": "",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-10-08",
+      "갱신": "2026-10-10",
       "title_hash": "6285e23baabc6b2fa2beab8be835dd40558ac824",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
       "short": "viz 라벨 대비 정리",
@@ -1404,7 +1404,6 @@
   },
   "order": [
     "KAN-057-CCH3E8",
-    "KAN-061-K8V2HH",
     "KAN-064-AC0H6M",
     "KAN-066-T6NR80",
     "KAN-069-G0FGTJ",
@@ -1471,9 +1470,20 @@
     "KAN-060-G9YKG6",
     "KAN-055-34A57K",
     "KAN-062-E02CMT",
-    "KAN-065-XSHEMV"
+    "KAN-065-XSHEMV",
+    "KAN-061-K8V2HH"
   ],
   "recent": [
+    {
+      "seq": 263,
+      "t": "2026-10-10T00:46",
+      "a": "ai",
+      "id": "KAN-061-K8V2HH",
+      "op": "move",
+      "w": "HTKBTA",
+      "from": "backlog",
+      "to": "doing"
+    },
     {
       "seq": 262,
       "t": "2026-10-10T00:45",
@@ -2023,23 +2033,6 @@
       "reason": "viz README 는 속성 안 var() 가 무효라 적지만 chromium 에서는 풀린다. 코드에도 그 형태가 있어 안 풀리는 브라우저에서는 인터페이스 선이 사라지거나 라벨이 검정이 된다(KAN-056 검토 항목 3)",
       "goal": "세 브라우저 결과가 README 에 적히고, 안 풀리는 브라우저가 있으면 속성 안 var() 가 모두 style 로 옮겨지고 검사로 막힌다",
       "memo": "KAN-056 검토 항목 3(검토자 승인, 둘째 선택지)에서 나왔다. KAN-056 시점 줄: UMLComponentDiagram.tsx:65·97, BPMNDiagram.tsx:86·128, README.md 「명시한 prop 이 이긴다」 항목. 다른 템플릿·원자에도 같은 형태가 있는지는 확인 안 함"
-    },
-    {
-      "seq": 227,
-      "t": "2026-10-08T00:40",
-      "a": "ai",
-      "id": "KAN-061-K8V2HH",
-      "op": "create",
-      "w": "S7030N",
-      "col": "backlog",
-      "title": "viz 템플릿 라벨 대비 미달 정리 — 불투명 팔레트 면 · 글자 대비 기준 목록 줄이기",
-      "verbatim": "",
-      "parent": null,
-      "short": "viz 라벨 대비 정리",
-      "purpose": "viz 템플릿 글자가 카탈로그 가이드 30개 모두에서 4.5:1 이상 읽히게 한다 — KAN-056 기준 목록 204곳과 불투명 팔레트 면(Mindmap · ArchiMateViewpoint)부터",
-      "reason": "KAN-056 검토에서 가이드에 따라 글자가 바탕에 묻히는 곳이 확인됐다(Mindmap 92곳 · Requirement 64곳 등). 지금은 기준 목록으로 더 나빠지지만 않게 막아 둔 상태다",
-      "goal": "_labelContrastBaseline.ts 가 비고, 글자 대비 검사가 13개 밖 템플릿(ArchiMateViewpoint 등)도 잰다",
-      "memo": "KAN-056 검토 항목 3(승인)·6에서 나왔다. KAN-056 병합 뒤 착수(검사와 기준 목록이 그 카드에 있다). 원인이 셋으로 갈린다: 불투명 팔레트 면 위 edge.stroke 글자, Requirement 반투명 글자(opacity 0.6·0.8)와 검정 6% 띠, riso-print 등의 shape.fill·edge.stroke 쌍. 카탈로그 대비 게이트가 shape.fill·edge.stroke 쌍을 재는지는 확인 안 함"
     }
   ],
   "waivers": [
