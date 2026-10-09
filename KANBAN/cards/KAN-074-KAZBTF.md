@@ -52,8 +52,8 @@ main 에 쌓인 changeset 네 장(KAN-057 연결선 대시 토큰 · KAN-061 viz
 - 크기 게이트가 배포본도 재게 고치는 일
 
 ## 실행 계획
-- [ ] `S1` push 직전 점검 — main 체크아웃에 MERGE_HEAD·충돌 표시(UU)가 없는지 본다. `.changeset/*.md` 목록과 `pnpm changeset status --verbose` 로 버전 표를 다시 내고, push 할 main 커밋에서 게이트 5종을 돌린다. 빌드 뒤 release.yml 과 같은 `git diff --exit-code` 로 생성 파일 5개가 커밋본과 같은지 본다. origin 보다 앞선 커밋 수를 세고, 열린 PR 이 없는지 본다. 완료 기준: 패키지·배포본·다음 버전 표(major 4개 · 그 밖 2개), 게이트 5종 초록, 생성 파일 diff 0, 점검한 커밋 해시와 나갈 커밋 수
-- [ ] `S2` 배포 — main 이 S1 커밋 뒤에 움직였으면 새 커밋이 칸반 파일뿐인지 확인한다 → `git push origin main` → release 실행 초록 · Version PR 생성 확인 → PR 의 버전·CHANGELOG·changeset 소진을 S1 표와 대조 → 같으면 병합, 다르면 멈춘다 → release 실행 초록 확인 → 로컬 main 에 origin/main 반영. 완료 기준: 레지스트리에 새 버전 6개, release 실행 둘(PR 생성·배포) 초록
+- [x] `S1` push 직전 점검 — main 체크아웃에 MERGE_HEAD·충돌 표시(UU)가 없는지 본다. `.changeset/*.md` 목록과 `pnpm changeset status --verbose` 로 버전 표를 다시 내고, push 할 main 커밋에서 게이트 5종을 돌린다. 빌드 뒤 release.yml 과 같은 `git diff --exit-code` 로 생성 파일 5개가 커밋본과 같은지 본다. origin 보다 앞선 커밋 수를 세고, 열린 PR 이 없는지 본다. 완료 기준: 패키지·배포본·다음 버전 표(major 4개 · 그 밖 2개), 게이트 5종 초록, 생성 파일 diff 0, 점검한 커밋 해시와 나갈 커밋 수
+- [>] `S2` 배포 — main 이 S1 커밋 뒤에 움직였으면 새 커밋이 칸반 파일뿐인지 확인한다 → `git push origin main` → release 실행 초록 · Version PR 생성 확인 → PR 의 버전·CHANGELOG·changeset 소진을 S1 표와 대조 → 같으면 병합, 다르면 멈춘다 → release 실행 초록 확인 → 로컬 main 에 origin/main 반영. 완료 기준: 레지스트리에 새 버전 6개, release 실행 둘(PR 생성·배포) 초록 <!-- claim:s=bcc5b01f t=2026-10-10T04:09 -->
 - [ ] `S3` 배포본 확인과 전달 — 스크래치 폴더에 외부 앱과 같은 길(`npm install`)로 새 버전 6개와 react·react-dom 을 받는다. 배포된 package.json 의 의존이 `workspace:*` 가 아니라 실제 버전인지, Node 에서 이름으로 import 되는지 본다. changeset 마다 배포본에서 변경 하나 이상을 찾는다 — 057: visualization dist 에 `--bbangto-viz-edge-dash-pattern` 과 `data-viz-part` connector · 061: visualization dist 에 `--bbangto-viz-on-` 변수, tokens 타입의 `VisualizationFoundation` 에 `on` · 064: 색인 서브패스 4개가 `{ axis, detail, columns, rows }` 이고 상세 파일 수가 색인 rows 수와 같으며 상세 하나가 서브패스 이름으로 import 됨 · 067: core README 에 「원하는 것이 없을 때」 절, visualization 배포물에 `visualization-type-inventory.md`·`TYPE_METADATA_STRATEGY.md` 없음. 외부 앱에 전할 문구를 수행 내역에 남긴다. 완료 기준: 6개 설치·import 성공, 변경 4건 확인, 문구 기록
 
 ## 검증
@@ -84,3 +84,6 @@ gh run list --workflow release.yml --limit 2
 - 2026-10-10T03:58 · s:bcc5b01f — `실행 계획` 섹션 교체
 - 2026-10-10T03:58 · s:bcc5b01f — `검증` 섹션 교체
 - 2026-10-10T04:07 · s:bcc5b01f — 인스턴트 예외 동의(2026-10-10 유저) — work 3개(S1~S3)가 점검 → push·배포 → 배포본 확인 순서로만 돌고, 저장소에서 바꾸는 파일은 칸반 기록뿐(버전·CHANGELOG 는 CI Version PR). 배치 문서·계획 리포트 생략
+- 2026-10-10T04:07 · s:bcc5b01f · S1 doing — 착수
+- 2026-10-10T04:09 · s:bcc5b01f · S1 done — 점검 커밋 main 9cbd196(워크트리 바탕과 같음), MERGE_HEAD·UU 없음. changeset 4장(057·061·064·067). 다음 버전: tokens 1.4.0→1.5.0 · core 1.2.1→1.2.2 · foundations 1.1.2→2.0.0 · style-guide-catalog 0.3.3→1.0.0 · visualization 0.4.1→1.0.0 · visualization-style-guide-catalog 0.3.2→1.0.0, major 4개(064) · hooks 0.3.1 미대상(npm view 배포본 = 로컬 version). 게이트 5종 초록: install · build · 생성 파일 5개 git diff 0 · typecheck · test:unit 702(hooks 115 · visualization 285 · foundations 143 · style-guide-catalog 113 · visualization-style-guide-catalog 46) · test 1300/1300(194파일) · storybook build. 나갈 커밋 92개(칸반만 59 · 코드·문서 24 · 병합 9), origin 쪽 새 커밋 없음, 열린 PR 없음
+- 2026-10-10T04:09 · s:bcc5b01f · S2 doing — 착수
