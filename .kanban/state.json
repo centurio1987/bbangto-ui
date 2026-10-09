@@ -154,40 +154,6 @@
       "memo": "못 따르는 선(Edge 미사용): SitemapTree:71 · WorkBreakdownStructure:80 · GitGraph:92 · IsometricScene:161. 따르면 안 되는 선(Edge 사용, 대시 값을 안 넘겨 실선을 표현): ClassDiagram:58-62 · SequenceDiagram:183 · UMLSequenceDiagram:140 · BPMNCollaborationDiagram:176,182 · UseCaseDiagram:102 · Flowchart:127 · DMNDiagram:100-102 · ArchiMateDiagram:69-70 · ArchiMateViewpointDiagram:57-58 · SysMLBlockDiagram:43-46 · molecules/StepConnector:23, 그리고 patterns/TimelineRoadmap:52 시간 축. Edge 를 쓰는 38개 중 22개, Edge 없이 선을 그리는 24개 중 17개는 아직 안 봤다. 지금 카탈로그 가이드는 모두 실선이라 그림에 나타나는 문제는 아직 없다. KAN-057(edge.dashPattern 연결) 병합 뒤에 착수한다",
       "memo_hash": "28f7c0b5ca1b3b47210bef953c672d08cb8766db"
     },
-    "KAN-067-WDY7N1": {
-      "col": "todo",
-      "title": "배포 문서에 「원하는 것이 없을 때」 길 — core·viz README 확장 절 + viz 관리용 문서 배포 제외",
-      "verbatim": "ai agent가 bbangto-ui library를 사용해서 앱을 구현할 때, 원하는 컴포넌트가 없으면, 확장 컴포넌트를 만들지 않고, 탈 라이브러리를 하려고 하거나, bbangto-ui에 개선 요청을 하는 결론을 내린다. 이 라이브러리의 매니페스트에 원인이 있나?\n(진단 후) 1,2번 칸반 카드로 올려 ㅣㄴ행해 (앞 답변 「고칠 방법」 1. core와 visualization의 배포 README에 「원하는 것이 없을 때」 절을 넣는다 · 2. 관리용 문서 두 개(visualization-type-inventory.md · TYPE_METADATA_STRATEGY.md)를 files 에서 뺀다 에 대한 지시)",
-      "생성": "ai",
-      "최종": "ai",
-      "갱신": "2026-10-09",
-      "title_hash": "88c3a1429efceb9b17d7ced2b424c5fc5241d8c8",
-      "verbatim_hash": "e5198283dec794a635d8acdf92c0c53421435f98",
-      "short": "없을 때 확장 길 안내",
-      "short_hash": "6aef3513b347e16c9a09a349063ec8f1a0c5f355",
-      "purpose": "core·visualization 배포 README에 원하는 컴포넌트·유형이 없을 때 앱 안에서 확장하는 길을 적고, 관리용 문서 두 개를 npm 배포물에서 뺀다",
-      "purpose_hash": "31c732071512bbcca3068b27fa16275607246755",
-      "reason": "배포 문서가 고르는 법만 알려 주고, 함께 실린 인벤토리 문서가 「갭이 보이면 백로그에 행 추가」를 지시해 앱을 만드는 에이전트가 라이브러리 이탈이나 개선 요청으로 결론을 낸다",
-      "reason_hash": "763bb403198f7dec95d9d3a30e5452f5c9143ba2",
-      "goal": "앱 에이전트가 배포물만 읽고 없는 것을 확장 컴포넌트로 만들 수 있고, 배포물에 저장소 관리 지시가 0건이며, 검사가 둘 다 지킨다",
-      "goal_hash": "e163bc92032be408112528bae2986e2cb1046686",
-      "memo": "2026-10-09 매니페스트 진단의 고칠 방법 1·2. 3번(매니페스트에 조립 경로 필드)은 이 카드 밖이고 KAN-064 와 함께 정한다",
-      "memo_hash": "041e6695e82400eb43ce14fa31a94ea9d6eec21c",
-      "scope": [
-        "packages/core/README.md",
-        "packages/visualization/README.md",
-        "packages/visualization/package.json",
-        "packages/visualization/src/index.ts",
-        "packages/visualization/src/typeMeta/index.ts",
-        "packages/visualization/src/typeMeta/types.ts",
-        "packages/visualization/src/typeMeta/registry.ts",
-        "packages/foundations/src/publishedDocs.ts",
-        "packages/foundations/src/publishedDocs.test.ts",
-        "apps/storybook/src/stories/ExtendWhenMissing.stories.tsx",
-        "apps/storybook/src/stories/_readmeExamples/**",
-        ".changeset/kan-067-extend-when-missing.md"
-      ]
-    },
     "KAN-068-W6TE2S": {
       "col": "todo",
       "title": "미배포 수정분 배포 — KAN-056·060·065 를 KAN-064 major 전에 (사용자 실행 지시 후)",
@@ -1429,6 +1395,40 @@
         "apps/storybook/src/stories/visualization/Headless.stories.tsx",
         ".changeset/kan-057-edge-dash-token.md"
       ]
+    },
+    "KAN-067-WDY7N1": {
+      "col": "done",
+      "title": "배포 문서에 「원하는 것이 없을 때」 길 — core·viz README 확장 절 + viz 관리용 문서 배포 제외",
+      "verbatim": "ai agent가 bbangto-ui library를 사용해서 앱을 구현할 때, 원하는 컴포넌트가 없으면, 확장 컴포넌트를 만들지 않고, 탈 라이브러리를 하려고 하거나, bbangto-ui에 개선 요청을 하는 결론을 내린다. 이 라이브러리의 매니페스트에 원인이 있나?\n(진단 후) 1,2번 칸반 카드로 올려 ㅣㄴ행해 (앞 답변 「고칠 방법」 1. core와 visualization의 배포 README에 「원하는 것이 없을 때」 절을 넣는다 · 2. 관리용 문서 두 개(visualization-type-inventory.md · TYPE_METADATA_STRATEGY.md)를 files 에서 뺀다 에 대한 지시)",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-10",
+      "title_hash": "88c3a1429efceb9b17d7ced2b424c5fc5241d8c8",
+      "verbatim_hash": "e5198283dec794a635d8acdf92c0c53421435f98",
+      "short": "없을 때 확장 길 안내",
+      "short_hash": "6aef3513b347e16c9a09a349063ec8f1a0c5f355",
+      "purpose": "core·visualization 배포 README에 원하는 컴포넌트·유형이 없을 때 앱 안에서 확장하는 길을 적고, 관리용 문서 두 개를 npm 배포물에서 뺀다",
+      "purpose_hash": "31c732071512bbcca3068b27fa16275607246755",
+      "reason": "배포 문서가 고르는 법만 알려 주고, 함께 실린 인벤토리 문서가 「갭이 보이면 백로그에 행 추가」를 지시해 앱을 만드는 에이전트가 라이브러리 이탈이나 개선 요청으로 결론을 낸다",
+      "reason_hash": "763bb403198f7dec95d9d3a30e5452f5c9143ba2",
+      "goal": "앱 에이전트가 배포물만 읽고 없는 것을 확장 컴포넌트로 만들 수 있고, 배포물에 저장소 관리 지시가 0건이며, 검사가 둘 다 지킨다",
+      "goal_hash": "e163bc92032be408112528bae2986e2cb1046686",
+      "memo": "2026-10-09 매니페스트 진단의 고칠 방법 1·2. 3번(매니페스트에 조립 경로 필드)은 이 카드 밖이고 KAN-064 와 함께 정한다",
+      "memo_hash": "041e6695e82400eb43ce14fa31a94ea9d6eec21c",
+      "scope": [
+        "packages/core/README.md",
+        "packages/visualization/README.md",
+        "packages/visualization/package.json",
+        "packages/visualization/src/index.ts",
+        "packages/visualization/src/typeMeta/index.ts",
+        "packages/visualization/src/typeMeta/types.ts",
+        "packages/visualization/src/typeMeta/registry.ts",
+        "packages/foundations/src/publishedDocs.ts",
+        "packages/foundations/src/publishedDocs.test.ts",
+        "apps/storybook/src/stories/ExtendWhenMissing.stories.tsx",
+        "apps/storybook/src/stories/_readmeExamples/**",
+        ".changeset/kan-067-extend-when-missing.md"
+      ]
     }
   },
   "order": [
@@ -1437,7 +1437,6 @@
     "KAN-066-T6NR80",
     "KAN-069-G0FGTJ",
     "KAN-070-RCG2QV",
-    "KAN-067-WDY7N1",
     "KAN-068-W6TE2S",
     "KAN-020",
     "KAN-025",
@@ -1501,7 +1500,8 @@
     "KAN-055-34A57K",
     "KAN-062-E02CMT",
     "KAN-065-XSHEMV",
-    "KAN-057-CCH3E8"
+    "KAN-057-CCH3E8",
+    "KAN-067-WDY7N1"
   ],
   "recent": [
     {
@@ -1573,6 +1573,16 @@
       "to": "todo"
     },
     {
+      "seq": 258,
+      "t": "2026-10-10T00:39",
+      "a": "ai",
+      "id": "KAN-067-WDY7N1",
+      "op": "move",
+      "w": "Y3FJNF",
+      "from": "review",
+      "to": "done"
+    },
+    {
       "seq": 257,
       "t": "2026-10-10T00:21",
       "a": "ai",
@@ -1581,6 +1591,16 @@
       "w": "S7030N",
       "with_": "KAN-068-W6TE2S",
       "reason": "같은 package.json 4개를 건드리지만 순서가 정해져 있음 — KAN-068 배포를 먼저 끝낸 뒤 KAN-064 를 main 에 병합(KAN-064 검토 §3-5, 2026-10-09 유저 선택). KAN-068 은 version 줄, KAN-064 는 files·exports 줄"
+    },
+    {
+      "seq": 257,
+      "t": "2026-10-09T23:31",
+      "a": "ai",
+      "id": "KAN-067-WDY7N1",
+      "op": "move",
+      "w": "Y3FJNF",
+      "from": "doing",
+      "to": "review"
     },
     {
       "seq": 256,
@@ -1608,6 +1628,16 @@
       "w": "WXJKQG",
       "from": "review",
       "to": "done"
+    },
+    {
+      "seq": 256,
+      "t": "2026-10-09T23:05",
+      "a": "ai",
+      "id": "KAN-067-WDY7N1",
+      "op": "move",
+      "w": "Y3FJNF",
+      "from": "todo",
+      "to": "doing"
     },
     {
       "seq": 255,
@@ -2026,36 +2056,6 @@
       "w": "HMFE04",
       "from": "review",
       "to": "done"
-    },
-    {
-      "seq": 231,
-      "t": "2026-10-08T17:14",
-      "a": "유저",
-      "id": "KAN-055-34A57K",
-      "op": "waive",
-      "w": "S7030N",
-      "with_": "KAN-060-G9YKG6",
-      "reason": "KAN-060 은 자기 changeset 파일(.changeset/kan-060-*.md) 하나만 더하고 KAN-055 는 배포 때 그것을 읽어 소비할 뿐이라 같은 파일을 고치지 않는다. 060 이 먼저 병합되면 다음 배포에 tokens·foundations 도 함께 나간다. KAN-056·058·059 와 같은 처리 (2026-10-08 유저 선택)"
-    },
-    {
-      "seq": 231,
-      "t": "2026-10-08T18:21",
-      "a": "ai",
-      "id": "KAN-055-34A57K",
-      "op": "move",
-      "w": "HMFE04",
-      "from": "doing",
-      "to": "review"
-    },
-    {
-      "seq": 230,
-      "t": "2026-10-08T01:29",
-      "a": "ai",
-      "id": "KAN-060-G9YKG6",
-      "op": "move",
-      "w": "S7030N",
-      "from": "backlog",
-      "to": "todo"
     }
   ],
   "waivers": [
