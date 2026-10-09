@@ -1,6 +1,6 @@
 {
   "next_id": 74,
-  "next_seq": 268,
+  "next_seq": 269,
   "cards": {
     "KAN-064-AC0H6M": {
       "col": "backlog",
@@ -181,7 +181,7 @@
       "memo_hash": "e95c2910d95acf1c8f155af87bddd6defa7b287a"
     },
     "KAN-061-K8V2HH": {
-      "col": "review",
+      "col": "done",
       "title": "viz 템플릿 라벨 대비 미달 정리 — 불투명 팔레트 면 · 글자 대비 기준 목록 줄이기",
       "verbatim": "",
       "생성": "ai",
@@ -1499,7 +1499,6 @@
     "KAN-071-FK1W8K",
     "KAN-072-KW0G9B",
     "KAN-073-6YWHN9",
-    "KAN-061-K8V2HH",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1564,9 +1563,20 @@
     "KAN-065-XSHEMV",
     "KAN-057-CCH3E8",
     "KAN-067-WDY7N1",
-    "KAN-068-W6TE2S"
+    "KAN-068-W6TE2S",
+    "KAN-061-K8V2HH"
   ],
   "recent": [
+    {
+      "seq": 268,
+      "t": "2026-10-10T03:38",
+      "a": "ai",
+      "id": "KAN-061-K8V2HH",
+      "op": "move",
+      "w": "HTKBTA",
+      "from": "review",
+      "to": "done"
+    },
     {
       "seq": 267,
       "t": "2026-10-10T01:27",
@@ -2130,16 +2140,6 @@
       "w": "VKFJ1X",
       "from": "todo",
       "to": "doing"
-    },
-    {
-      "seq": 237,
-      "t": "2026-10-08T18:09",
-      "a": "ai",
-      "id": "KAN-060-G9YKG6",
-      "op": "move",
-      "w": "00EBGW",
-      "from": "review",
-      "to": "done"
     }
   ],
   "waivers": [
