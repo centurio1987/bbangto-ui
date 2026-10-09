@@ -5,7 +5,7 @@ created: 2026-10-08
 branch: KAN-065-XSHEMV
 worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-065-XSHEMV
 base: 00c525f
-status: 검토 대기
+status: 승인
 ---
 
 # KAN-065-XSHEMV 검토 요청 — style guide 모티프 버튼 포커스 테두리 정리 — 자체 CSS 18곳 대비와 없는 semantic 변수 참조
@@ -304,9 +304,11 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-065-XSHEMV --add
      frontmatter 의 status 도 함께 고친다. 손으로 적어도 되지만, 그때는 수렴 검사를
      안 거치므로 `validate` 가 항목 판정과 어긋난 승인을 error 로 잡는다. -->
 
-**판정**: (아직 없습니다)
+**판정**: 승인
 
 **판정 이력**:
+
+- 승인 · 유저 · 2026-10-09
 
 - 승인이면 → `apply --op move --id KAN-065-XSHEMV --to done` 뒤에 `main` 병합과 워크트리 정리(출력의 `cleanup`)
 - 반려면 → `apply --op move --id KAN-065-XSHEMV --to doing` 뒤에 `doc-log --entry "<반려 사유>"`.
