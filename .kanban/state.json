@@ -20,7 +20,16 @@
       "goal": "토큰이 실제로 엣지에 반영되거나 타입에서 사라져, 선언과 동작이 어긋난 자리가 없어진다. style-classification 횡단 규칙 3 의 상태 문장도 갱신된다",
       "goal_hash": "14c470d0fdb4c6c54cdf0d1eee4dd2567623589b",
       "memo": "잇는 쪽이면 스타일 가이드 기본값을 개별 prop(strokeDasharray)이 덮는 순서를 지킨다. 잇기와 걷기 중 무엇을 할지는 착수 때 정한다",
-      "memo_hash": "fa79f4c6a72cc3d419b51e557a4bd9ae366539b9"
+      "memo_hash": "fa79f4c6a72cc3d419b51e557a4bd9ae366539b9",
+      "scope": [
+        "packages/visualization/src/provider/contractCss.ts",
+        "packages/visualization/src/atoms/Edge.tsx",
+        "packages/visualization/src/tokens/contract.ts",
+        "packages/tokens/src/visualization.ts",
+        "packages/visualization/style-classification.md",
+        "apps/storybook/src/stories/visualization/Headless.stories.tsx",
+        ".changeset/kan-057-edge-dash-token.md"
+      ]
     },
     "KAN-061-K8V2HH": {
       "col": "backlog",
