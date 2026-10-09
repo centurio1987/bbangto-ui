@@ -180,6 +180,7 @@ export const LiteralPaintGate: Story = {
  *   polygon 중 문서 순서상 글자보다 앞선 것)의 fill 을 fill-opacity·opacity 까지 반영해 차례로 얹는다.
  * - 기준: WCAG AA — 보통 글자 4.5:1, 큰 글자(화면 24px 이상, 굵게면 18.66px 이상) 3:1.
  * - wrapperComponents 는 넣지 않는다. 모티프 장식은 템플릿 몫이 아니다.
+ * - 면 위 글자는 그 면에 맞춘 글자색 `vvar('on', …)`(`--bbangto-viz-on-*`)을 쓴다. 기준 목록은 KAN-061 에서 비웠다.
  */
 const TEXT_CONTRAST_MIN = 4.5;
 const LARGE_TEXT_CONTRAST_MIN = 3;
@@ -287,7 +288,7 @@ export const LabelContrastGate: Story = {
     for (const { id, ratio } of low) {
       seen.add(id);
       const floor = LABEL_CONTRAST_BASELINE[id];
-      // 새 미달은 기준 목록에 그대로 옮겨 적을 수 있는 줄로 낸다
+      // 새 미달은 기준 목록에 올리지 말고 글자를 그 뒤 면의 on-* 로 고친다(KAN-061). 키는 원인을 찾기 쉽게 그대로 보인다
       if (floor === undefined) problems.push(`새 미달 — ${JSON.stringify(id)}: ${Number(ratio.toFixed(2))},`);
       else if (ratio < floor - 0.01) problems.push(`더 떨어짐 ${id} ${floor} → ${ratio.toFixed(2)}`);
     }
