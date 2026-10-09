@@ -154,42 +154,45 @@
       "memo": "못 따르는 선(Edge 미사용): SitemapTree:71 · WorkBreakdownStructure:80 · GitGraph:92 · IsometricScene:161. 따르면 안 되는 선(Edge 사용, 대시 값을 안 넘겨 실선을 표현): ClassDiagram:58-62 · SequenceDiagram:183 · UMLSequenceDiagram:140 · BPMNCollaborationDiagram:176,182 · UseCaseDiagram:102 · Flowchart:127 · DMNDiagram:100-102 · ArchiMateDiagram:69-70 · ArchiMateViewpointDiagram:57-58 · SysMLBlockDiagram:43-46 · molecules/StepConnector:23, 그리고 patterns/TimelineRoadmap:52 시간 축. Edge 를 쓰는 38개 중 22개, Edge 없이 선을 그리는 24개 중 17개는 아직 안 봤다. 지금 카탈로그 가이드는 모두 실선이라 그림에 나타나는 문제는 아직 없다. KAN-057(edge.dashPattern 연결) 병합 뒤에 착수한다",
       "memo_hash": "28f7c0b5ca1b3b47210bef953c672d08cb8766db"
     },
-    "KAN-068-W6TE2S": {
-      "col": "todo",
-      "title": "미배포 수정분 배포 — KAN-056·060·065 를 KAN-064 major 전에 (사용자 실행 지시 후)",
-      "verbatim": "수정분 먼저 배포 (앞 질문 「§3-5 — 아직 배포하지 않은 수정분 세 건(KAN-056 viz 템플릿 색 · KAN-060 포커스 대비 · KAN-065 모티프 포커스)을 이 카드의 큰 버전 올림(visualization 0.4.0→1.0.0 · foundations 1.1.1→2.0.0 · 룩 카탈로그 2개 0.3.x→1.0.0)보다 먼저 따로 배포할까요?」에 대한 답)",
+    "KAN-071-FK1W8K": {
+      "col": "backlog",
+      "title": "앱 에이전트의 라이브러리 이탈·개선 요청 실제 사례 재현 — 저장소 열람과 구현까지 연 시험",
+      "verbatim": "최종 승인한다 (KAN-067 검토 항목 1 「재현 시험이 겪으신 현상을 재현하지 못했는데 이 카드를 닫을 것인가」의 추천 「닫고, 실제 사례로 재현하는 후속 카드를 연다」를 포함한 전체 승인)",
       "생성": "ai",
       "최종": "ai",
       "갱신": "2026-10-10",
-      "title_hash": "7a09c667f7ceaa9a157ee90826e9137d49624251",
-      "verbatim_hash": "ed0ed6941e6b816064739c5db16ce51e0c1e3a3c",
-      "short": "미배포 수정분 배포",
-      "short_hash": "8766eedba6a573f3bb6bee3e588b8e925e5cc5fa",
-      "purpose": "main 에 남은 changeset 세 장(KAN-056 viz 템플릿 색 · KAN-060 포커스 대비 · KAN-065 모티프 포커스)을 지금 버전 줄로 GitHub Packages 에 먼저 배포한다",
-      "purpose_hash": "8e6903998bdc66cc026836ee34005924fafd6c7d",
-      "reason": "KAN-064 의 major 4개가 같은 배포에 섞이면 외부 앱이 지금 범위(^0.4.0 등)로는 이 수정분을 받지 못한다(KAN-064 검토 §3-5)",
-      "reason_hash": "f9dd1573fbab7b201bab3a78fab2d4670bae0448",
-      "goal": "세 수정분이 major 없이 배포되고, 그 뒤에 KAN-064 를 main 에 병합할 수 있다",
-      "goal_hash": "052306f610fd57a2dfba8775b28954fb8b627e10",
-      "memo": "push·배포는 사용자 실행 지시 뒤에만(2026-10-10 「진행」). KAN-064 는 이 카드가 끝난 뒤 병합한다. 버전 표·순서는 실행 문서 전략 절",
-      "memo_hash": "23c974032137cc38579e33a15e21635d9bad927e",
-      "scope": [
-        "packages/tokens/package.json",
-        "packages/tokens/CHANGELOG.md",
-        "packages/foundations/package.json",
-        "packages/foundations/CHANGELOG.md",
-        "packages/core/package.json",
-        "packages/core/CHANGELOG.md",
-        "packages/style-guide-catalog/package.json",
-        "packages/style-guide-catalog/CHANGELOG.md",
-        "packages/visualization/package.json",
-        "packages/visualization/CHANGELOG.md",
-        "packages/visualization-style-guide-catalog/package.json",
-        "packages/visualization-style-guide-catalog/CHANGELOG.md",
-        ".changeset/kan-056-template-paint.md",
-        ".changeset/kan-060-focus-contrast.md",
-        ".changeset/kan-065-motif-focus.md"
-      ]
+      "title_hash": "e74f32b7b1fafbe7d75f212ae882f292680d47b0",
+      "verbatim_hash": "ee4c73df063bc021a59c4053a2e623a3f7cdf13a",
+      "short": "이탈 현상 실제 재현",
+      "short_hash": "3fe976002d64e57596f14267838ec81645a4fec8",
+      "purpose": "겪은 상황(앱 지시문·과제 문구·모델)을 받아, 저장소·인터넷 열람과 구현을 막지 않은 조건으로 배포물 전후 시험을 다시 돌린다",
+      "purpose_hash": "dc211e9a1871d72419760d7de35090fc498403c8",
+      "reason": "KAN-067 S5 는 저장소 열람과 구현을 막은 조건이라 고치기 전에도 현상이 재현되지 않았고, 진단이 꼽은 경로(core README 저장소 링크 → 루트 README 「기여한다」)는 시험하지 못했다",
+      "reason_hash": "e4c17be2d8438e41255df9eebcfb56be09879120",
+      "goal": "현상이 재현되는 조건과 남은 원인이 기록되고, 배포 README 와 루트 README 수정 전후로 결론이 바뀌는지 확인된다",
+      "goal_hash": "e95b4042b9c9383777d31707bda88f5f95447b20",
+      "memo": "KAN-067 검토 항목 1(2026-10-10 승인)에서 나왔다. 실제 사례(앱 지시문·프롬프트·모델)는 유저에게 받는다. KAN-072(루트 README 두 자리)와 같은 경로를 보므로 그 카드 전후로 비교한다",
+      "memo_hash": "d9424b73f2e50a0509ad0572ab459e121ea7edf7"
+    },
+    "KAN-072-KW0G9B": {
+      "col": "backlog",
+      "title": "루트 README 의 「컴포넌트가 없을 때」 길과 viz Provider 서술 바로잡기",
+      "verbatim": "최종 승인한다 (KAN-067 검토 항목 2 「루트 README 의 두 자리를 어디서 고칠 것인가」의 추천 「새 카드 하나로 연다」를 포함한 전체 승인)",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-10",
+      "title_hash": "7e2415391c7ebf1795750e7120f7c08522122b47",
+      "verbatim_hash": "a392e80c8b7b37415472babbe1e4251095b169d2",
+      "short": "루트 README 두 자리",
+      "short_hash": "4197938c33b32163ca03dfee33a23365813ebb6b",
+      "purpose": "루트 README 길잡이 표(README.md:28)에 컴포넌트·유형이 없을 때 앱 안에서 확장하는 길을 잇고, README.md:858 의 「Provider 없이 그리면 무채색」 서술을 실측대로 고친다",
+      "purpose_hash": "2f12865635237e6ca26fe95fcd020e0d08cf0f18",
+      "reason": "길잡이 표에서 컴포넌트가 없을 때 갈 곳이 「이 레포에 기여한다」뿐이라 앱 에이전트가 개선 요청으로 읽을 수 있고, :858 은 chromium 실측(도형 검은 채움·엣지 안 보임)과 다르다. KAN-067 scope 밖이었다",
+      "reason_hash": "01b513edd8072fce84ee7a2712c37c1dd52b53cf",
+      "goal": "루트 README 가 배포 README 의 「원하는 것이 없을 때」 절로 이어지고, Provider 서술이 실측과 같아진다",
+      "goal_hash": "327fac73461bdde8ba72bc4b8cad1302ade13bc3",
+      "memo": "KAN-067 검토 항목 2(2026-10-10 승인)에서 나왔다. README.md 는 KAN-064 scope 에도 있다(KAN-064 는 KAN-068 뒤 병합 대기). KAN-071(실제 사례 재현)과 같은 경로를 보므로 그 카드의 전후 비교에 쓴다",
+      "memo_hash": "851301bace69a1f95e144da38fef72a54178d819"
     },
     "KAN-020": {
       "col": "done",
@@ -1430,45 +1433,42 @@
         ".changeset/kan-067-extend-when-missing.md"
       ]
     },
-    "KAN-071-FK1W8K": {
-      "col": "backlog",
-      "title": "앱 에이전트의 라이브러리 이탈·개선 요청 실제 사례 재현 — 저장소 열람과 구현까지 연 시험",
-      "verbatim": "최종 승인한다 (KAN-067 검토 항목 1 「재현 시험이 겪으신 현상을 재현하지 못했는데 이 카드를 닫을 것인가」의 추천 「닫고, 실제 사례로 재현하는 후속 카드를 연다」를 포함한 전체 승인)",
+    "KAN-068-W6TE2S": {
+      "col": "done",
+      "title": "미배포 수정분 배포 — KAN-056·060·065 를 KAN-064 major 전에 (사용자 실행 지시 후)",
+      "verbatim": "수정분 먼저 배포 (앞 질문 「§3-5 — 아직 배포하지 않은 수정분 세 건(KAN-056 viz 템플릿 색 · KAN-060 포커스 대비 · KAN-065 모티프 포커스)을 이 카드의 큰 버전 올림(visualization 0.4.0→1.0.0 · foundations 1.1.1→2.0.0 · 룩 카탈로그 2개 0.3.x→1.0.0)보다 먼저 따로 배포할까요?」에 대한 답)",
       "생성": "ai",
       "최종": "ai",
       "갱신": "2026-10-10",
-      "title_hash": "e74f32b7b1fafbe7d75f212ae882f292680d47b0",
-      "verbatim_hash": "ee4c73df063bc021a59c4053a2e623a3f7cdf13a",
-      "short": "이탈 현상 실제 재현",
-      "short_hash": "3fe976002d64e57596f14267838ec81645a4fec8",
-      "purpose": "겪은 상황(앱 지시문·과제 문구·모델)을 받아, 저장소·인터넷 열람과 구현을 막지 않은 조건으로 배포물 전후 시험을 다시 돌린다",
-      "purpose_hash": "dc211e9a1871d72419760d7de35090fc498403c8",
-      "reason": "KAN-067 S5 는 저장소 열람과 구현을 막은 조건이라 고치기 전에도 현상이 재현되지 않았고, 진단이 꼽은 경로(core README 저장소 링크 → 루트 README 「기여한다」)는 시험하지 못했다",
-      "reason_hash": "e4c17be2d8438e41255df9eebcfb56be09879120",
-      "goal": "현상이 재현되는 조건과 남은 원인이 기록되고, 배포 README 와 루트 README 수정 전후로 결론이 바뀌는지 확인된다",
-      "goal_hash": "e95b4042b9c9383777d31707bda88f5f95447b20",
-      "memo": "KAN-067 검토 항목 1(2026-10-10 승인)에서 나왔다. 실제 사례(앱 지시문·프롬프트·모델)는 유저에게 받는다. KAN-072(루트 README 두 자리)와 같은 경로를 보므로 그 카드 전후로 비교한다",
-      "memo_hash": "d9424b73f2e50a0509ad0572ab459e121ea7edf7"
-    },
-    "KAN-072-KW0G9B": {
-      "col": "backlog",
-      "title": "루트 README 의 「컴포넌트가 없을 때」 길과 viz Provider 서술 바로잡기",
-      "verbatim": "최종 승인한다 (KAN-067 검토 항목 2 「루트 README 의 두 자리를 어디서 고칠 것인가」의 추천 「새 카드 하나로 연다」를 포함한 전체 승인)",
-      "생성": "ai",
-      "최종": "ai",
-      "갱신": "2026-10-10",
-      "title_hash": "7e2415391c7ebf1795750e7120f7c08522122b47",
-      "verbatim_hash": "a392e80c8b7b37415472babbe1e4251095b169d2",
-      "short": "루트 README 두 자리",
-      "short_hash": "4197938c33b32163ca03dfee33a23365813ebb6b",
-      "purpose": "루트 README 길잡이 표(README.md:28)에 컴포넌트·유형이 없을 때 앱 안에서 확장하는 길을 잇고, README.md:858 의 「Provider 없이 그리면 무채색」 서술을 실측대로 고친다",
-      "purpose_hash": "2f12865635237e6ca26fe95fcd020e0d08cf0f18",
-      "reason": "길잡이 표에서 컴포넌트가 없을 때 갈 곳이 「이 레포에 기여한다」뿐이라 앱 에이전트가 개선 요청으로 읽을 수 있고, :858 은 chromium 실측(도형 검은 채움·엣지 안 보임)과 다르다. KAN-067 scope 밖이었다",
-      "reason_hash": "01b513edd8072fce84ee7a2712c37c1dd52b53cf",
-      "goal": "루트 README 가 배포 README 의 「원하는 것이 없을 때」 절로 이어지고, Provider 서술이 실측과 같아진다",
-      "goal_hash": "327fac73461bdde8ba72bc4b8cad1302ade13bc3",
-      "memo": "KAN-067 검토 항목 2(2026-10-10 승인)에서 나왔다. README.md 는 KAN-064 scope 에도 있다(KAN-064 는 KAN-068 뒤 병합 대기). KAN-071(실제 사례 재현)과 같은 경로를 보므로 그 카드의 전후 비교에 쓴다",
-      "memo_hash": "851301bace69a1f95e144da38fef72a54178d819"
+      "title_hash": "7a09c667f7ceaa9a157ee90826e9137d49624251",
+      "verbatim_hash": "ed0ed6941e6b816064739c5db16ce51e0c1e3a3c",
+      "short": "미배포 수정분 배포",
+      "short_hash": "8766eedba6a573f3bb6bee3e588b8e925e5cc5fa",
+      "purpose": "main 에 남은 changeset 세 장(KAN-056 viz 템플릿 색 · KAN-060 포커스 대비 · KAN-065 모티프 포커스)을 지금 버전 줄로 GitHub Packages 에 먼저 배포한다",
+      "purpose_hash": "8e6903998bdc66cc026836ee34005924fafd6c7d",
+      "reason": "KAN-064 의 major 4개가 같은 배포에 섞이면 외부 앱이 지금 범위(^0.4.0 등)로는 이 수정분을 받지 못한다(KAN-064 검토 §3-5)",
+      "reason_hash": "f9dd1573fbab7b201bab3a78fab2d4670bae0448",
+      "goal": "세 수정분이 major 없이 배포되고, 그 뒤에 KAN-064 를 main 에 병합할 수 있다",
+      "goal_hash": "052306f610fd57a2dfba8775b28954fb8b627e10",
+      "memo": "push·배포는 사용자 실행 지시 뒤에만(2026-10-10 「진행」). KAN-064 는 이 카드가 끝난 뒤 병합한다. 버전 표·순서는 실행 문서 전략 절",
+      "memo_hash": "23c974032137cc38579e33a15e21635d9bad927e",
+      "scope": [
+        "packages/tokens/package.json",
+        "packages/tokens/CHANGELOG.md",
+        "packages/foundations/package.json",
+        "packages/foundations/CHANGELOG.md",
+        "packages/core/package.json",
+        "packages/core/CHANGELOG.md",
+        "packages/style-guide-catalog/package.json",
+        "packages/style-guide-catalog/CHANGELOG.md",
+        "packages/visualization/package.json",
+        "packages/visualization/CHANGELOG.md",
+        "packages/visualization-style-guide-catalog/package.json",
+        "packages/visualization-style-guide-catalog/CHANGELOG.md",
+        ".changeset/kan-056-template-paint.md",
+        ".changeset/kan-060-focus-contrast.md",
+        ".changeset/kan-065-motif-focus.md"
+      ]
     }
   },
   "order": [
@@ -1477,7 +1477,8 @@
     "KAN-066-T6NR80",
     "KAN-069-G0FGTJ",
     "KAN-070-RCG2QV",
-    "KAN-068-W6TE2S",
+    "KAN-071-FK1W8K",
+    "KAN-072-KW0G9B",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1542,8 +1543,7 @@
     "KAN-065-XSHEMV",
     "KAN-057-CCH3E8",
     "KAN-067-WDY7N1",
-    "KAN-071-FK1W8K",
-    "KAN-072-KW0G9B"
+    "KAN-068-W6TE2S"
   ],
   "recent": [
     {
@@ -1556,6 +1556,16 @@
       "field": "memo",
       "before": "KAN-067 검토 항목 1(2026-10-10 승인)에서 나왔다. 실제 사례(앱 지시문·프롬프트·모델)는 유저에게 받는다. 루트 README 두 자리 카드와 같은 경로를 본다",
       "after": "KAN-067 검토 항목 1(2026-10-10 승인)에서 나왔다. 실제 사례(앱 지시문·프롬프트·모델)는 유저에게 받는다. KAN-072(루트 README 두 자리)와 같은 경로를 보므로 그 카드 전후로 비교한다"
+    },
+    {
+      "seq": 266,
+      "t": "2026-10-10T01:43",
+      "a": "ai",
+      "id": "KAN-068-W6TE2S",
+      "op": "move",
+      "w": "V5ZA3M",
+      "from": "review",
+      "to": "done"
     },
     {
       "seq": 265,
@@ -1575,6 +1585,16 @@
       "memo": "KAN-067 검토 항목 2(2026-10-10 승인)에서 나왔다. README.md 는 KAN-064 scope 에도 있다(KAN-064 는 KAN-068 뒤 병합 대기). KAN-071(실제 사례 재현)과 같은 경로를 보므로 그 카드의 전후 비교에 쓴다"
     },
     {
+      "seq": 265,
+      "t": "2026-10-10T01:18",
+      "a": "ai",
+      "id": "KAN-068-W6TE2S",
+      "op": "move",
+      "w": "V5ZA3M",
+      "from": "doing",
+      "to": "review"
+    },
+    {
       "seq": 264,
       "t": "2026-10-10T01:02",
       "a": "ai",
@@ -1590,6 +1610,16 @@
       "reason": "KAN-067 S5 는 저장소 열람과 구현을 막은 조건이라 고치기 전에도 현상이 재현되지 않았고, 진단이 꼽은 경로(core README 저장소 링크 → 루트 README 「기여한다」)는 시험하지 못했다",
       "goal": "현상이 재현되는 조건과 남은 원인이 기록되고, 배포 README 와 루트 README 수정 전후로 결론이 바뀌는지 확인된다",
       "memo": "KAN-067 검토 항목 1(2026-10-10 승인)에서 나왔다. 실제 사례(앱 지시문·프롬프트·모델)는 유저에게 받는다. 루트 README 두 자리 카드와 같은 경로를 본다"
+    },
+    {
+      "seq": 264,
+      "t": "2026-10-10T01:17",
+      "a": "ai",
+      "id": "KAN-068-W6TE2S",
+      "op": "move",
+      "w": "V5ZA3M",
+      "from": "review",
+      "to": "doing"
     },
     {
       "seq": 263,
@@ -1609,6 +1639,16 @@
       "memo": "못 따르는 선(Edge 미사용): SitemapTree:71 · WorkBreakdownStructure:80 · GitGraph:92 · IsometricScene:161. 따르면 안 되는 선(Edge 사용, 대시 값을 안 넘겨 실선을 표현): ClassDiagram:58-62 · SequenceDiagram:183 · UMLSequenceDiagram:140 · BPMNCollaborationDiagram:176,182 · UseCaseDiagram:102 · Flowchart:127 · DMNDiagram:100-102 · ArchiMateDiagram:69-70 · ArchiMateViewpointDiagram:57-58 · SysMLBlockDiagram:43-46 · molecules/StepConnector:23, 그리고 patterns/TimelineRoadmap:52 시간 축. Edge 를 쓰는 38개 중 22개, Edge 없이 선을 그리는 24개 중 17개는 아직 안 봤다. 지금 카탈로그 가이드는 모두 실선이라 그림에 나타나는 문제는 아직 없다. KAN-057(edge.dashPattern 연결) 병합 뒤에 착수한다"
     },
     {
+      "seq": 263,
+      "t": "2026-10-10T01:07",
+      "a": "ai",
+      "id": "KAN-068-W6TE2S",
+      "op": "move",
+      "w": "V5ZA3M",
+      "from": "doing",
+      "to": "review"
+    },
+    {
       "seq": 262,
       "t": "2026-10-10T00:45",
       "a": "ai",
@@ -1617,6 +1657,16 @@
       "w": "S7030N",
       "with_": "KAN-067-WDY7N1",
       "reason": "packages/visualization/README.md 를 함께 고치지만 자리가 다르다 — KAN-061 은 189~193번째 줄(글자색 고르는 규칙·기준 목록 설명을 --bbangto-viz-on-* 규칙으로), KAN-067 은 36·108번째 줄·203번째 줄 앞 새 절·203~208번째 줄. 나중에 병합하는 쪽이 두 변경을 다 남긴다 (2026-10-10 유저 선택)"
+    },
+    {
+      "seq": 262,
+      "t": "2026-10-10T00:40",
+      "a": "ai",
+      "id": "KAN-068-W6TE2S",
+      "op": "move",
+      "w": "V5ZA3M",
+      "from": "todo",
+      "to": "doing"
     },
     {
       "seq": 261,
@@ -2062,57 +2112,6 @@
       "w": "S7030N",
       "with_": "KAN-063-Q85EET",
       "reason": "둘 다 TemplatePaintGate.stories.tsx 와 _labelContrastBaseline.ts 를 고치고, 061 목표의 「13개 밖 템플릿도 잰다」가 063 일과 같다. 063 이 두 검사를 모든 템플릿으로 넓히고 새 글자 대비 미달을 기준 목록에 올린 뒤, 061 이 넓어진 목록을 보고 전략을 다시 세운다 (2026-10-08 유저 선택). 같은 날 063 scope 에 foundations 표본 누락 검사 파일을 더해 무효가 된 기록을 다시 건다"
-    },
-    {
-      "seq": 235,
-      "t": "2026-10-08T17:54",
-      "a": "ai",
-      "id": "KAN-055-34A57K",
-      "op": "waive",
-      "w": "00EBGW",
-      "with_": "KAN-060-G9YKG6",
-      "reason": "KAN-060 은 자기 changeset 파일(.changeset/kan-060-*.md) 하나만 더하고 KAN-055 는 배포 때 그것을 읽어 소비할 뿐이라 같은 파일을 고치지 않는다. 060 이 먼저 병합되면 다음 배포에 tokens·foundations 도 함께 나간다. KAN-056·058·059 와 같은 처리 (2026-10-08 유저 선택). 2026-10-08 재기록: 검토 항목 3 재작업으로 scope 에 style guide 9파일이 더해져 무효가 된 기록을 다시 건다 — 겹침은 그대로 .changeset/ 하나"
-    },
-    {
-      "seq": 234,
-      "t": "2026-10-08T17:15",
-      "a": "ai",
-      "id": "KAN-061-K8V2HH",
-      "op": "edit",
-      "w": "S7030N",
-      "field": "goal",
-      "before": "_labelContrastBaseline.ts 가 비고, 글자 대비 검사가 13개 밖 템플릿(ArchiMateViewpoint 등)도 잰다",
-      "after": "_labelContrastBaseline.ts 가 빈다(모든 템플릿으로 넓히는 일은 KAN-063 이 먼저 한다)"
-    },
-    {
-      "seq": 234,
-      "t": "2026-10-08T17:53",
-      "a": "ai",
-      "id": "KAN-060-G9YKG6",
-      "op": "move",
-      "w": "00EBGW",
-      "from": "review",
-      "to": "doing"
-    },
-    {
-      "seq": 233,
-      "t": "2026-10-08T17:15",
-      "a": "유저",
-      "id": "KAN-061-K8V2HH",
-      "op": "serialize",
-      "w": "S7030N",
-      "with_": "KAN-063-Q85EET",
-      "reason": "둘 다 TemplatePaintGate.stories.tsx 와 _labelContrastBaseline.ts 를 고치고, 061 목표의 「13개 밖 템플릿도 잰다」가 063 일과 같다. 063 이 두 검사를 모든 템플릿으로 넓히고 새 글자 대비 미달을 기준 목록에 올린 뒤, 061 이 넓어진 목록을 보고 전략을 다시 세운다 (2026-10-08 유저 선택)"
-    },
-    {
-      "seq": 233,
-      "t": "2026-10-08T17:26",
-      "a": "ai",
-      "id": "KAN-060-G9YKG6",
-      "op": "move",
-      "w": "00EBGW",
-      "from": "doing",
-      "to": "review"
     }
   ],
   "waivers": [
