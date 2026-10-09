@@ -119,6 +119,27 @@ export interface VisualizationFoundation {
     readonly duration: string;
     readonly easing: string;
   };
+
+  /**
+   * 면 위 글자색. 선택 필드다.
+   * 면 토큰(팔레트·shape.fill·canvas.bg·c4 bgTint·node fill)마다 그 위에 쓸 글자색을
+   * `--bbangto-viz-on-*` CSS 변수로 낸다(예: `palette.p1` 위 글자 → `--bbangto-viz-on-palette-p1`).
+   * 적지 않은 자리는 visualization 패키지가 계산한다. 가이드 글자색 넷(`edge.stroke` →
+   * `shape.stroke` → `boundary.labelColor` → `canvas.bg`) 중 처음으로 면과 4.5:1 을 넘는 것을
+   * 쓰고, 넘는 것이 없으면 검정·흰색 중 대비가 큰 쪽을 쓴다. 반투명 면은 `canvas.bg` 위에 합성해 잰다.
+   * 여기 적은 값은 계산값을 이긴다 — 대비는 적은 쪽이 책임진다.
+   */
+  readonly on?: {
+    readonly palette?: Partial<Record<'p1' | 'p2' | 'p3' | 'p4' | 'p5' | 'p6' | 'p7' | 'p8', string>>;
+    readonly shape?: { readonly fill?: string };
+    readonly canvas?: { readonly bg?: string };
+    readonly c4?: {
+      readonly l1?: { readonly bgTint?: string };
+      readonly l2?: { readonly bgTint?: string };
+      readonly l3?: { readonly bgTint?: string };
+    };
+    readonly node?: Partial<Record<VizNodeSemanticKind, { readonly fill?: string }>>;
+  };
 }
 
 /**
