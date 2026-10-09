@@ -51,7 +51,7 @@ scope: packages/core/README.md, packages/visualization/README.md, packages/visua
 - **수행 방식은 단일 에이전트다**(2026-10-09 유저 선택). S5 재현 시험 4건만 서브에이전트로 띄운다.
 
 ## 실행 계획
-- [ ] `S1` 검사 먼저 — `packages/foundations/src/publishedDocs.ts`·`.test.ts`, `apps/storybook/src/stories/ExtendWhenMissing.stories.tsx`, 예제 파일 둘(`_readmeExamples/coreExtend.tsx`·`vizCompose.tsx`). 완료 기준: 실패 주입 표본 넷(README 밖 마크다운을 실은 files · 깨진 상대 링크 · 절 없음 · 예제 불일치)이 각각 위반을 내고, 실제 저장소 검사는 빨강이다(viz files 의 문서 2개, 두 README 의 절 없음). 스토리는 라이브러리를 고치지 않은 지금도 초록이다.
+- [x] `S1` 검사 먼저 — `packages/foundations/src/publishedDocs.ts`·`.test.ts`, `apps/storybook/src/stories/ExtendWhenMissing.stories.tsx`, 예제 파일 둘(`_readmeExamples/coreExtend.tsx`·`vizCompose.tsx`). 완료 기준: 실패 주입 표본 넷(README 밖 마크다운을 실은 files · 깨진 상대 링크 · 절 없음 · 예제 불일치)이 각각 위반을 내고, 실제 저장소 검사는 빨강이다(viz files 의 문서 2개, 두 README 의 절 없음). 스토리는 라이브러리를 고치지 않은 지금도 초록이다.
 - [ ] `S2` core README 「원하는 것이 없을 때」 절 — 순서 넷, CSS 변수 갈래, `className`·`ref` 전달(전달하지 않는 컴포넌트 명시), `coreExtend.tsx` 와 같은 예제. 완료 기준: S1 검사의 core 항목 초록.
 - [ ] `S3` visualization README 정리 — 「원하는 것이 없을 때」 절(`vizCompose.tsx` 와 같은 예제), 36번째 줄의 빈 결과 안내를 그 절로 잇기, 범위 밖 3종 사유를 README 에 직접 쓰기, 문서 목록을 「저장소에만 있는 문서」로 합치기. 완료 기준: S1 검사의 viz README 항목 초록, 배포되지 않는 문서를 배포물에 있는 것처럼 가리키는 문장 0.
 - [ ] `S4` 관리용 문서 배포 제외 — `package.json` `files` 에서 두 문서를 빼고 주석 4곳을 저장소 링크로 바꾼다. 완료 기준: S1 검사 전부 초록, `pnpm pack` 목록에 두 문서 없음, 빌드한 `dist` 의 `.d.ts` 에서 두 문서 이름이 나오는 줄은 모두 저장소 링크다.
@@ -76,3 +76,5 @@ scope: packages/core/README.md, packages/visualization/README.md, packages/visua
 - 2026-10-09T23:05 · s:2504f49d — `전략` 섹션 교체
 - 2026-10-09T23:05 · s:2504f49d — `실행 계획` 섹션 교체
 - 2026-10-09T23:05 · s:2504f49d — `검증` 섹션 교체
+- 2026-10-09T23:06 · s:2504f49d · S1 doing — 착수
+- 2026-10-09T23:11 · s:2504f49d · S1 done — publishedDocs.ts·.test.ts(불변식 넷: files 의 README 밖 마크다운 · 배포물에 없는 .md 참조 · 절 없음 · 예제 불일치) — 실패 주입 9건 초록, 실제 저장소 검사 빨강 6건(viz files 문서 2 · viz README 208·209줄 저장소 문서 코드 표기 2 · 두 README 절 없음). 예제 coreExtend(별점 Rating, 네이티브 button+토큰 — StarIcon 은 색이 박혀 있고 Button 은 hover 때 인라인 color 를 덮어써 쓰지 않음)·vizCompose(Canvas·Node·NodeLabel·Edge 결정 그림)와 ExtendWhenMissing 스토리 2건 chromium 초록. 새 파일 타입 오류 0
