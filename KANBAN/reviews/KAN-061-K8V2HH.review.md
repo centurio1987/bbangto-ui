@@ -5,7 +5,7 @@ created: 2026-10-10
 branch: KAN-061-K8V2HH
 worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-061-K8V2HH
 base: 4d60413bf9432192b02f46cdbdbebf8a0e08fbb5
-status: 검토 대기
+status: 승인
 ---
 
 # KAN-061-K8V2HH 검토 요청 — viz 템플릿 라벨 대비 미달 정리 — 불투명 팔레트 면 · 글자 대비 기준 목록 줄이기
@@ -330,9 +330,11 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-061-K8V2HH --add
      frontmatter 의 status 도 함께 고친다. 손으로 적어도 되지만, 그때는 수렴 검사를
      안 거치므로 `validate` 가 항목 판정과 어긋난 승인을 error 로 잡는다. -->
 
-**판정**: (아직 없습니다)
+**판정**: 승인
 
 **판정 이력**:
+
+- 승인 · 유저 · 2026-10-10
 
 - 승인이면 → `apply --op move --id KAN-061-K8V2HH --to done` 뒤에 `main` 병합과 워크트리 정리(출력의 `cleanup`)
 - 반려면 → `apply --op move --id KAN-061-K8V2HH --to doing` 뒤에 `doc-log --entry "<반려 사유>"`.
