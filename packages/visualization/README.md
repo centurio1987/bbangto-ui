@@ -143,7 +143,8 @@ Provider는 기본으로 JetBrains Mono를 Google Fonts에서 불러온다. 글�
    `dist/index.d.ts` 의 JSDoc 에 있다.
 3. **없으면 atom 으로 조립한다.** 부품은 아래 표에 있다. 노드-엣지 그림은 좌표를 호출자가 정한다(자동 배치 없음).
    트리·트리맵처럼 배치를 계산해야 하면 `geometry` 의 순수 함수를 쓴다. 색·선은 비워 둔다 — 비워 두면
-   `VisualizationStyleGuideProvider` 의 스타일 가이드가 칠하고, Provider 밖에서는 무채색 기본값으로 그려진다.
+   `VisualizationStyleGuideProvider` 의 스타일 가이드가 칠한다. 그래서 그림은 Provider 안에 둔다. 밖에 두면 기본 색
+   규칙이 없어 도형은 검게 채워지고 엣지는 보이지 않는다.
    `Node` 는 `Canvas` 바로 아래에 둔다. `<g>`·Fragment 안에 넣거나 `id`·`x`·`y`·`width`·`height` 를 props 로
    받지 않는 래퍼로 감싸면 `Edge` 가 id 로 노드를 찾지 못한다(「구현 규약 · 작성 모델」).
 4. **개선 요청은 그다음이다.** 그림을 완성한 뒤, 다른 앱에도 쓸모 있는 유형이면 저장소에 제안한다. 요청을 이유로
@@ -214,7 +215,10 @@ export function DecisionSketch() {
   확인했고, 출시판 Safari 와 옛 판 브라우저는 확인하지 않았다. `transform` 속성 안의 `var()` 는 세 브라우저 모두
   풀지 않으므로 쓰지 않는다.
 - **토큰 계층**: `VisualizationFoundation`(tokens 패키지) → `vvar()` 가 만드는 `var(--bbangto-viz-…)` →
-  `VisualizationStyleGuideProvider` 가 CSS 변수를 주입한다. Provider 밖에서는 무채색 `baseVisualizationFoundation` 으로 떨어진다.
+  `VisualizationStyleGuideProvider` 가 CSS 변수와 계약 스타일시트(`[data-bbangto-viz-style-guide]` 범위)를 주입한다.
+  Provider 밖에는 둘 다 없어서, 색 prop 을 주지 않은 도형은 SVG 기본값(검은 채움 · 선 없음)으로 그려지고 엣지는
+  보이지 않는다(2026-10-09 chromium 실측 — atom 조립 예제와 Flowchart·Mindmap). 무채색 `baseVisualizationFoundation`
+  으로 떨어지는 것은 `useVizFoundation()` 이 돌려주는 JS 값뿐이다.
 - **스타일 가이드는 core 와 같은 모양이고 core 에 기대지 않는다.** `VisualizationStyleGuide` 는 core `StyleGuide` 의
   구조를 로컬로 다시 선언했다. 이 패키지의 런타임 의존은 `@centurio1987/bbangto-ui-tokens` 하나다.
 - **레이어**: `atoms/` → `molecules/` → `patterns/` · `templates/`(다이어그램·인포그래픽 유형). 배치 계산은 `geometry/` 의 순수 함수다.

@@ -79,5 +79,12 @@ export const VizCompose: Story = {
     const edges = svg!.querySelectorAll('path[data-bbangto-viz-edge]');
     await expect(edges).toHaveLength(2);
     for (const e of Array.from(edges)) await expect((e.getAttribute('d') ?? '').length).toBeGreaterThan(4);
+
+    // 색을 비워 둔 그림은 Provider 안에서만 칠해진다 — README 가 「Provider 안에 둔다」고 적는 근거다.
+    // 밖이면 도형은 검게 채워지고(rgb(0, 0, 0)) 엣지 stroke 는 none 이다(2026-10-09 chromium 실측).
+    await expect(svg!.closest('[data-bbangto-viz-style-guide]')).not.toBeNull();
+    for (const e of Array.from(edges)) await expect(getComputedStyle(e).stroke).not.toBe('none');
+    const diamond = svg!.querySelector('[data-bbangto-viz-node-shape="diamond"]')!;
+    await expect(getComputedStyle(diamond).fill).not.toBe('rgb(0, 0, 0)');
   },
 };
