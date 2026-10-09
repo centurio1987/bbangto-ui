@@ -76,7 +76,7 @@ style guide 51개는 저마다 모티프 버튼(그 style guide 모양을 덧칠
 
 ### 버린 대안
 
-- **18곳 전부를 포커스 색 토큰으로 바꾸기** — 통과하는 12곳(bauhaus 빨강, memphis 검정 등)의 모티프 색까지 바뀐다. 카드 목표는 3:1 이고, 게이트가 그 12곳도 계속 잰다.
+- **18곳 전부를 포커스 색 토큰으로 바꾸기** — 통과하는 12곳(bauhaus 빨강, swiss 빨강 등)의 모티프 색까지 바뀐다. 카드 목표는 3:1 이고, 게이트가 그 12곳도 계속 잰다.
 - **미달 색 스킴만 고치도록 색 스킴마다 모티프 포커스 변수를 새로 두기** — 통과하던 두 색 스킴의 색은 안 바뀌지만, style guide 6개에 색 값을 새로 지어야 하고 토큰과 다른 포커스 색이 하나 더 생긴다. 포커스 색의 출처를 토큰 하나로 모으는 쪽을 골랐다.
 - **소스 글자를 읽어 재기(KAN-060 S6 방식 확장)** — 상수 치환(`${GOLD}` 등)과 색 스킴마다 바뀌는 확장 변수를 못 푼다.
 - **Storybook 스토리에서 모든 style guide 를 브라우저로 재기** — 51개 × 3 을 실제 Tab 으로 도는 비용에 비해, 계산 게이트 + 브라우저 대조 1건으로 같은 결과를 얻는다.
@@ -160,3 +160,5 @@ pnpm test:unit                  # ← style-guide-catalog accessibility.test.ts 
 - 2026-10-08T23:57 · s:0882524c — `전략` 섹션 교체
 - 2026-10-08T23:58 · s:0882524c — 검토 항목 1 재작업(유저 선택): shattered-glass rose 의 border.focus 를 #34E5FF → GOLD(#FFC53D, 11.56). 모티프·core 포커스 모두 금색, 280줄 규칙과 맞음. changeset·전략 절 갱신
 - 2026-10-09T00:05 · s:0882524c — 재검토 승인 3/3 뒤 검토자 의견 반영: shattered 280줄 접근성 규칙의 포커스 색을 「기본·rose #FFC53D, light #B26A00」으로(문구만). iridescent 278 specs 는 default 기준 관례라 그대로. 게이트 5종 다시 초록(test 1293)
+- 2026-10-10T01:21 · s:bea40e0e — `전략` 섹션 교체
+- 2026-10-10T01:21 · s:bea40e0e — 전략 「버린 대안」의 예시 정정 — 「통과하는 12곳(bauhaus 빨강, memphis 검정 등)」의 memphis 는 틀렸다. memphis-postmodern 의 모티프 포커스는 포커스 색 토큰을 읽고(packages/style-guide-catalog/src/memphisPostmodern.tsx:132) 검은 것은 그 색 스킴의 토큰 값이다. 예시를 swiss 빨강(swissInternational.tsx:111, --bbangto-ext-accent-red)으로 바꿨다. KAN-068 검토자가 외부 앱 전달 문구에서 찾았다
