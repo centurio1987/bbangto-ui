@@ -27,7 +27,7 @@ scope: packages/core/README.md, packages/visualization/README.md, packages/visua
 
 ### 제약
 
-- 매니페스트 파일과 생성기는 고치지 않는다. KAN-064 가 재편 중인 자리다.
+- 매니페스트 파일과 생성기는 고치지 않는다. KAN-064 가 재편한 자리다.
 - 루트 `README.md` 는 고치지 않는다. npm 배포물이 아니고 KAN-064 scope 에 들어 있다. 길잡이 표에서 컴포넌트가 없을 때 갈 수 있는 줄이 「사례 10 · 이 레포에 기여한다」뿐인 문제(`README.md:28`)는 후속 후보로 수행 내역에 남긴다.
 - core 는 `cssVar` 를 다시 내보내지 않는다. 앱이 tokens 를 따로 설치하지 않아도 되게, 예제는 `var(--bbangto-…)` 문자열을 직접 쓰고 `cssVar` 는 tokens 를 설치했을 때의 선택으로 적는다.
 - `forwardRef` 를 쓰지 않는 파일 셋(DataGrid·Skeleton·Text)은 S2 에서 ref 가 실제로 안 넘어가는지 확인해 README 에 그대로 적는다. 이 카드에서 고치지 않는다.
@@ -39,11 +39,22 @@ scope: packages/core/README.md, packages/visualization/README.md, packages/visua
 - **예제를 README 에만 두고 검사하지 않는다.** 예제가 틀리면 에이전트가 따라 하다 실패하고 다시 라이브러리를 떠난다. 진단한 원인을 다른 모양으로 되살린다.
 - **core 컴포넌트 매니페스트를 새로 만든다.** 진단의 고칠 방법 3에 속하고 `metadata-coverage.json` 의 범위 밖 결정을 다시 여는 일이라 KAN-064 와 함께 정한다.
 
+### 정해진 것
+
+- **KAN-064 와의 겹침은 용인한다**(2026-10-09 유저가 KAN-064 세션에서 선택, `.kanban/state.json` waivers 15). 이 세션에서 고른 「직렬 · KAN-067 먼저」는 기록하지 않았다. 그 선택은 "KAN-064 는 아직 백로그"라는 AI 의 잘못된 전제 위에서 나왔다. 실제로 KAN-064 는 자기 브랜치에서 S1~S5 를 끝내고 검토 전체 승인을 받은 상태이고, 병합은 KAN-068(미배포 수정분 배포) 뒤다. 직렬로 걸면 승인된 카드가 이 카드에 묶인다.
+- **병합 때 맞출 자리는 넷이다.** 어느 카드가 먼저 main 에 들어가든 나중에 합치는 쪽이 두 변경을 다 남긴다.
+  - `packages/visualization/package.json` 의 `files` — KAN-064 는 `manifest` 를 더하고 이 카드는 문서 두 개를 뺀다.
+  - `src/typeMeta/index.ts:5-6` — KAN-064 는 「색인 → 상세」 읽기로 고쳤고 「전략은 패키지 루트 TYPE_METADATA_STRATEGY.md 참고」를 남겼다. 이 카드는 그 참조를 저장소 링크로 바꾼다.
+  - `src/index.ts` — KAN-064 는 21번째 줄(매니페스트 동봉)을, 이 카드는 28번째 줄(전략 문서)을 고친다.
+  - `packages/visualization/README.md` — KAN-064 가 scope 밖에서 53~115번째 줄(매니페스트 표·스키마)을 고쳤다. 이 카드는 그 구간을 건드리지 않는다. 새 절은 203번째 줄 앞에 두고, 36번째 줄에는 문장 하나만 붙인다.
+- **「동봉」이라는 낱말 자체는 막지 않는다.** 매니페스트 파일(`type.manifest.json`·`manifest/<id>.json`)은 실제로 실려 있으므로 KAN-064 의 「패키지에 동봉」 문장은 맞다. 이 카드의 검사는 관리용 문서 두 개를 배포물에 있는 것처럼 가리키는 문장만 막는다. 처음 적은 「`.d.ts` 에 「동봉」 0건」 기준은 이 문장들까지 잡아서 고쳤다.
+- **수행 방식은 단일 에이전트다**(2026-10-09 유저 선택). S5 재현 시험 4건만 서브에이전트로 띄운다.
+
 ## 실행 계획
 - [ ] `S1` 검사 먼저 — `packages/foundations/src/publishedDocs.ts`·`.test.ts`, `apps/storybook/src/stories/ExtendWhenMissing.stories.tsx`, 예제 파일 둘(`_readmeExamples/coreExtend.tsx`·`vizCompose.tsx`). 완료 기준: 실패 주입 표본 넷(README 밖 마크다운을 실은 files · 깨진 상대 링크 · 절 없음 · 예제 불일치)이 각각 위반을 내고, 실제 저장소 검사는 빨강이다(viz files 의 문서 2개, 두 README 의 절 없음). 스토리는 라이브러리를 고치지 않은 지금도 초록이다.
 - [ ] `S2` core README 「원하는 것이 없을 때」 절 — 순서 넷, CSS 변수 갈래, `className`·`ref` 전달(전달하지 않는 컴포넌트 명시), `coreExtend.tsx` 와 같은 예제. 완료 기준: S1 검사의 core 항목 초록.
 - [ ] `S3` visualization README 정리 — 「원하는 것이 없을 때」 절(`vizCompose.tsx` 와 같은 예제), 36번째 줄의 빈 결과 안내를 그 절로 잇기, 범위 밖 3종 사유를 README 에 직접 쓰기, 문서 목록을 「저장소에만 있는 문서」로 합치기. 완료 기준: S1 검사의 viz README 항목 초록, 배포되지 않는 문서를 배포물에 있는 것처럼 가리키는 문장 0.
-- [ ] `S4` 관리용 문서 배포 제외 — `package.json` `files` 에서 두 문서를 빼고 주석 4곳을 저장소 링크로 바꾼다. 완료 기준: S1 검사 전부 초록, `pnpm pack` 목록에 두 문서 없음, 빌드한 `dist` 의 `.d.ts` 에 「동봉」 0건.
+- [ ] `S4` 관리용 문서 배포 제외 — `package.json` `files` 에서 두 문서를 빼고 주석 4곳을 저장소 링크로 바꾼다. 완료 기준: S1 검사 전부 초록, `pnpm pack` 목록에 두 문서 없음, 빌드한 `dist` 의 `.d.ts` 에서 두 문서 이름이 나오는 줄은 모두 저장소 링크다.
 - [ ] `S5` 배포물 재현 시험 — 고치기 전 main 과 고친 브랜치의 `pnpm pack` 결과물을 각각 서브에이전트에게 주고 같은 과제 둘(core 에 없는 컴포넌트 · viz 에 없는 유형)을 낸다. 완료 기준: 네 번의 결론(전후 × 과제 둘)과 에이전트가 읽은 파일을 수행 내역에 남긴다. 게이트가 아니다.
 - [ ] `S6` 마무리 — changeset(core·visualization patch), 품질 게이트 5종. 완료 기준: 게이트 5종 초록.
 
@@ -52,7 +63,7 @@ scope: packages/core/README.md, packages/visualization/README.md, packages/visua
 - `pnpm --filter storybook exec vitest run --project storybook src/stories/ExtendWhenMissing.stories.tsx` — core 확장 예제가 Provider 안에서 토큰 색을 받고, viz 조합 예제가 노드와 엣지를 그린다.
 - README 예제 한 줄을 바꾸면 `pnpm test:unit` 이 예제 불일치로 빨강이 된다. 손으로 한 번 확인하고 되돌린다.
 - `packages/visualization` 에서 `pnpm pack` 한 tarball 목록(`tar -tzf`)에 `visualization-type-inventory.md`·`TYPE_METADATA_STRATEGY.md` 가 없다.
-- `pnpm build` 뒤 `grep -rn '동봉' packages/visualization/dist --include='*.d.ts'` 가 0건이다.
+- `pnpm build` 뒤 `grep -rnE 'visualization-type-inventory|TYPE_METADATA_STRATEGY' packages/visualization/dist --include='*.d.ts'` 의 모든 줄이 `github.com` 링크다. 매니페스트를 가리키는 「동봉」 문장은 맞는 문장이므로 세지 않는다.
 - 재현 시험(S5) 결과가 수행 내역에 전후 × 과제 둘로 남아 있다.
 - 품질 게이트 5종 — `pnpm typecheck` · `pnpm build` · `pnpm test` · `pnpm --filter storybook build` · `pnpm test:unit`.
 
@@ -62,3 +73,6 @@ scope: packages/core/README.md, packages/visualization/README.md, packages/visua
 - 2026-10-09T22:49 · s:2504f49d — `실행 계획` 섹션 교체
 - 2026-10-09T22:49 · s:2504f49d — `검증` 섹션 교체
 - 2026-10-09T22:51 · s:2504f49d — `전략` 섹션 교체
+- 2026-10-09T23:05 · s:2504f49d — `전략` 섹션 교체
+- 2026-10-09T23:05 · s:2504f49d — `실행 계획` 섹션 교체
+- 2026-10-09T23:05 · s:2504f49d — `검증` 섹션 교체
