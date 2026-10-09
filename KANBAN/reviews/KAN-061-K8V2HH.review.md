@@ -24,9 +24,12 @@ status: 검토 대기
 | 베이스 | `4d60413bf9432192b02f46cdbdbebf8a0e08fbb5` |
 | 변경 훑기 | `git diff 4d60413bf9432192b02f46cdbdbebf8a0e08fbb5...HEAD` |
 
-**커밋 14건**
+**커밋 17건**
 
 ```text
+7cbec02 KAN-061 검토 5번 재작업 2 — Sankey 이름은 가운데를 실제로 덮는 면으로
+e46d8a6 kanban: KAN-061 재검토 대행 — 2번 승인 · 5번 반려(ai·검토자) · 검토서 발행본 다시 뽑음
+c3519cd kanban: KAN-061 검토서 1·2항 갱신(재작업 뒤 검증) · 2·4·5번 착수한 쪽 의견(ai)
 ec8b117 KAN-061 검토 재작업 — 2번 음영 5% + 아이소메트릭 따로 · 5번 Sankey 노드별 리본 면
 432be74 kanban: KAN-061 검토자 대행 — 항목 1·3·4 승인(ai·검토자) · 2 의견 · 5 신설(Sankey 노드 이름 4.16:1)
 45ca7f1 kanban: KAN-061 진행 중 → 검토 — 검토서(판단 항목 4) · 검토 리포트
@@ -43,22 +46,22 @@ d551585 KAN-061 S1: 면 위 글자색 테스트 먼저 (빨강)
 8cbb382 kanban: KAN-061 진행 중으로 이동 (단일 에이전트, 배치1 S1부터)
 ```
 
-**변경 파일 48개 (+2526 −1749)**
+**변경 파일 48개 (+2611 −1750)**
 
 | 파일 | 상태 | 추가 | 삭제 |
 |---|:--:|---:|---:|
 | `.changeset/kan-061-on-ink.md` | M | 36 | 0 |
 | `.kanban/archive.jsonl` | M | 2 | 0 |
 | `.kanban/log.md` | M | 2 | 2 |
-| `.kanban/reviews/KAN-061-K8V2HH.events.jsonl` | M | 13 | 0 |
+| `.kanban/reviews/KAN-061-K8V2HH.events.jsonl` | M | 21 | 0 |
 | `.kanban/reviews/KAN-061-K8V2HH.review.json` | M | 21 | 0 |
 | `.kanban/state.json` | M | 98 | 98 |
 | `KANBAN.board.html` | M | 2 | 2 |
 | `KANBAN.md` | M | 9 | 8 |
-| `KANBAN/cards/KAN-061-K8V2HH.md` | M | 28 | 8 |
-| `KANBAN/reviews/KAN-061-K8V2HH.review.html` | M | 1264 | 0 |
-| `KANBAN/reviews/KAN-061-K8V2HH.review.md` | M | 278 | 0 |
-| `apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx` | M | 55 | 2 |
+| `KANBAN/cards/KAN-061-K8V2HH.md` | M | 30 | 8 |
+| `KANBAN/reviews/KAN-061-K8V2HH.review.html` | M | 1268 | 0 |
+| `KANBAN/reviews/KAN-061-K8V2HH.review.md` | M | 334 | 0 |
+| `apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx` | M | 66 | 2 |
 | `apps/storybook/src/stories/visualization/_labelContrastBaseline.ts` | M | 7 | 1552 |
 | `packages/tokens/src/visualization.ts` | M | 23 | 0 |
 | `packages/visualization-style-guide-catalog/src/onInk.test.ts` | M | 64 | 0 |
@@ -87,7 +90,7 @@ d551585 KAN-061 S1: 면 위 글자색 테스트 먼저 (빨강)
 | `packages/visualization/src/templates/PacketDiagram.tsx` | M | 6 | 2 |
 | `packages/visualization/src/templates/QuadrantChart.tsx` | M | 2 | 1 |
 | `packages/visualization/src/templates/RequirementDiagram.tsx` | M | 17 | 7 |
-| `packages/visualization/src/templates/SankeyDiagram.tsx` | M | 19 | 2 |
+| `packages/visualization/src/templates/SankeyDiagram.tsx` | M | 23 | 3 |
 | `packages/visualization/src/templates/StackedBarChart.tsx` | M | 5 | 2 |
 | `packages/visualization/src/templates/Treemap.tsx` | M | 7 | 4 |
 | `packages/visualization/src/templates/UserJourneyGantt.tsx` | M | 2 | 1 |
@@ -132,14 +135,13 @@ kan/KAN-061-K8V2HH/batch3
 **실행 결과**
 
 ```text
-## 검증 실행 결과 (2026-10-10 검토 재작업 뒤, main 4d60413 을 합친 브랜치 위)
-- TemplatePaintGate.stories.tsx(LiteralPaintGate · LabelContrastGate · SankeyRibbonLabelGate):  Tests 3 passed (3)
+## 검증 실행 결과 (2026-10-10 검토 5번 재작업 2 뒤, 커밋 7cbec02)
+- TemplatePaintGate.stories.tsx(LiteralPaintGate · LabelContrastGate · SankeyRibbonLabelGate — 팔레트 8색 리본 + 나가는 값이 받는 값의 절반보다 작은 노드 × 가이드 30개):  Tests 3 passed (3)
 - LABEL_CONTRAST_BASELINE 항목 수: 0
 - visualization 단위(onInk.test.ts 포함): Tests  280 passed (280)
 - 카탈로그(가이드·preset 전부 × 면 on 글자색 ≥ 4.5): Tests  41 passed (41)
 - 음영 규칙(검정 5%) 때문에 글자색이 바뀌는 면: 반투명·none 면 170개 중 5개(전부 riso-print, #1E5AA8 → #182234)
-- 가이드 파일 변경(merge-base 기준): 0줄
-- 공개 index 변경: 0줄
+- 가이드 파일 변경(merge-base 기준): 0줄 · 공개 index 변경: 0줄
 - changeset: --- '@centurio1987/bbangto-ui-tokens': minor '@centurio1987/bbangto-ui-visualization': minor --- 
 - pnpm build: 종료코드 0 · pnpm typecheck: 종료코드 0
 - pnpm test:  Test Files 194 passed (194)  Tests 1300 passed (1300) 
@@ -235,6 +237,7 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-061-K8V2HH --add
     > - ai · 2026-10-10 — 검토자 정정과 덧붙임: 바로 앞 의견의 「칠하지 않은 노드 7종」은 6종(person · external · database · queue · decision · process)이 맞습니다. 10개는 노드 6 · shape.fill 1 · C4 면 3 입니다. 덧붙여, 규칙을 그대로 두더라도 고칠 곳이 하나 있습니다. tokens 패키지 공개 타입 설명(packages/tokens/src/visualization.ts 의 on 필드 JSDoc)은 아직 「반투명 면은 canvas.bg 위에 합성해 잰다」라고만 적어, 음영 규칙과 첫 면 우선 대체가 빠져 있습니다(README · changeset 에는 들어가 있습니다). 마지막 줄의 「첫 면(실제 바탕) 우선」 대체는 히트맵 · 코로플레스처럼 첫 면이 실제 바탕이고 둘째 면이 가정한 음영일 때는 맞게 돕니다(가이드 · preset 62개 × 투명도 0.15~1 을 0.05 간격으로 돌려 대체 44번, 실제 바탕에서 4.5 미만 0번). Sankey 는 리본 면들도 실제 바탕인데 첫 면(canvas)만 보고 고르게 되어, 이 문제는 새 항목(5번)으로 따로 세웠습니다.
     > - ai · 2026-10-10 — 착수한 쪽: 2026-10-10 유저가 「기본 5% + 아이소메트릭만 따로」를 골라 재작업했습니다(커밋 ec8b117). 기본 음영을 30% → 5% 로 낮췄고(onInk.ts 의 ON_INK_SHADE), IsometricScene 라벨은 윗면·바닥 그림자 8%·오른쪽 옆면 22% 를 얹은 면들로 직접 고릅니다. 음영 규칙 때문에 글자색이 바뀌는 면은 24 → 5 이고, 다섯 모두 riso-print 의 파랑 #1E5AA8 이 같은 가이드의 남색 #182234(boundary.labelColor)로 바뀌는 것입니다. ink-line-duotone 의 파랑은 그대로 남습니다. 지적하신 tokens 공개 타입 설명(on 필드 JSDoc)에도 음영·대체 규칙을 적었습니다. Paint Gate 세 검사와 게이트 5종이 초록입니다.
     > - ai · 2026-10-10 — 검토자 재확인(재작업 ec8b117): 유저가 고른 「기본 5% + 아이소메트릭만 따로」대로 됐습니다. ON_INK_SHADE 가 0.05 이고(onInk.ts:29), 다시 세어 보니 음영 규칙 때문에 바뀌는 면은 가이드 30개 기준 5개, 모두 riso-print 입니다(지난번 깊이별 표의 5% 값과 같습니다). ink-line-duotone 의 파랑은 IsometricScene 밖에서 남고, 새 단위 테스트가 그것을 지킵니다. IsometricScene 라벨은 윗면 · 그림자와 옆면이 비치는 윗면 · 오른쪽 옆면 세 곳에서 고르고, 가이드 30개와 preset 전부에서 세 곳 모두 4.5 이상입니다(가장 낮은 곳 5.39). 그 결과 IsometricScene 안에서만 기본 가이드 셋의 라벨 색이 on-shape-fill 과 다릅니다: ink-line-duotone #2B44E0 → #111111, neon-gradient-dark #1E1A3D → #000000, iso-color-block #3A4149 → #000000. 뒤의 둘은 불투명한 윗면에도 옆면을 함께 따지게 되어 바뀐 것이고, changeset 에 적혀 있습니다. tokens on 필드 설명도 이제 실제 동작과 맞습니다. 3항의 이 항목 제목은 아직 「30% · 24개 면」이라, 이 승인은 재작업된 5% 규칙에 대한 것입니다.
+    > - ai · 2026-10-10 — 착수한 쪽 정리: 이 항목의 제목(「검정 30% 음영 · 24개 면」)은 처음 올릴 때의 규칙을 가리킵니다. 유저 선택으로 바뀐 지금 규칙은 「기본 5% + IsometricScene 만 자기 음영으로 따로」이고, 음영 규칙 때문에 바뀌는 면은 5개(전부 riso-print)입니다. 검토자의 승인도 이 5% 규칙에 대한 것입니다.
 
 - [x] 앱이 노드·칸 색을 직접 넘기면 글자색을 예전 그대로 둘 것인가 — 지금은 예전 그대로입니다
     - **배경**
@@ -309,6 +312,7 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-061-K8V2HH --add
     > - ai · 2026-10-10 — 착수한 쪽: 2026-10-10 유저가 「이 카드에서 고침」을 골라 재작업했습니다(커밋 ec8b117). 먼저 TemplatePaintGate 에 SankeyRibbonLabelGate(팔레트 8색이 모두 나가는 리본이 되는 노드 여덟 × 카탈로그 가이드 30개)를 더해 neon-gradient-dark 「Source 7」 4.16 을 빨강으로 재현했고, 노드 이름이 그 노드에서 나가는 리본 면을 첫 면(실제 바탕)으로 두고 고르게 바꿔 초록이 됐습니다. 마지막 열 노드처럼 나가는 리본이 없으면 canvas 가 첫 면입니다. changeset 문구도 「노드마다 그 노드에서 나가는 리본 면으로」로 실제 동작에 맞췄습니다.
     > - ai · 2026-10-10 — 검토자 재확인(재작업 ec8b117) — 반려 사유: 방향은 유저가 고른 「이 카드에서 고친다」대로이고, 새 SankeyRibbonLabelGate 는 지난번 지적한 경우(이름이 자기 리본 위)를 실제로 잽니다. 표본 노드는 받는 값 0 · 내보내는 값 24 라 이름(11px)이 24px 리본 한가운데 놓이고, 게이트는 글자 상자 가운데 한 점의 바탕을 잽니다(TemplatePaintGate.stories.tsx:205-207). 재작업 전 흰 글자의 p7 리본 대비를 다시 계산하면 4.16 으로, 착수한 쪽이 재현했다는 빨강과 같습니다. 그런데 고친 방식의 전제인 「이름은 그 노드에서 나가는 리본 위에 놓인다」(SankeyDiagram.tsx:60 주석)가 늘 맞지는 않습니다. 나가는 리본은 노드 위쪽부터 쌓이고(sankey.ts:82), 이름은 노드 높이의 가운데에 놓입니다(SankeyDiagram.tsx:106). 그래서 내보내는 값이 받는 값의 절반보다 작은 노드는 이름 전체가 canvas 위에 있습니다. 예를 들어 neon-gradient-dark 에서 일곱 번째 노드가 60 을 받고 20 을 내보내면, 리본은 y 40~60 이고 이름은 64.5~75.5 입니다. 리본에 맞춰 고른 검정이 canvas #1E1A3D 위에 놓여 1.27:1 이 되고, 재작업 전 흰색(canvas 위 16.53)보다 나빠졌습니다. 이 경우는 이름이 실제로 놓이는 면을 첫 면으로 두면 풀립니다. 게이트 표본에 이런 노드(내보내는 값 < 받는 값의 절반)를 하나 넣어 두면 다시 생기지 않게 막을 수 있습니다.
     > - ai · 2026-10-10 — 검토자 덧붙임: 리본이 글자보다 얇아 이름이 리본과 canvas 에 걸치는 경우는, 고를 때 대가로 적은 「canvas 위로 넘어가 다시 갈린다」 그대로입니다. 다만 그 크기를 적어 둡니다. neon-gradient-dark 에서는 p7 리본과 canvas 둘 다 4.5 를 넘는 글자색이 계산상 없습니다. 검정은 리본 쪽 5.05 · canvas 쪽 1.27 이고, 흰색은 리본 쪽 4.16 · canvas 쪽 16.53 입니다. 지금 방식은 검정을 골라 걸친 부분이 거의 안 보입니다. 이런 조합은 가이드 30개 중 neon-gradient-dark p7 하나이고, preset 까지 넣으면 neon-gradient-dark aurora p7 과 marker-sketchnote darkboard p1 을 더해 셋입니다. 또 검토서 2항 실행 결과는 재작업 전 값(Paint Gate 2 passed · pnpm test 1299 · viz 단위 279)이 그대로라, 새 게이트를 돌린 결과가 검토서에는 없습니다. 카드 수행 내역에는 1300 · 280 으로 적혀 있습니다.
+    > - ai · 2026-10-10 — 착수한 쪽(재작업 2, 커밋 7cbec02): 검토자 지적이 맞았습니다 — 나가는 리본은 노드 위쪽부터 쌓이고 이름은 노드 가운데라, 「이름은 자기 리본 위」 전제가 틀리는 노드가 있었습니다. 먼저 SankeyRibbonLabelGate 표본에 60 을 받고 20 만 내보내는 일곱째 노드(p7)를 넣어 neon-gradient-dark 「Source 7」 1.27 을 빨강으로 재현했고, 이름 가운데를 실제로 덮는 나가는 리본이 있으면 그 리본, 없으면 canvas 를 첫 면으로 두고 고르게 고쳐 초록이 됐습니다. 이름이 리본과 canvas 에 걸치는 경우(neon-gradient-dark p7 등)는 검토자 의견대로 남아 있습니다. 검토서 2항은 재작업 뒤 값으로 다시 만들었고, 이번에는 발행본(review.md)도 함께 다시 뽑았습니다.
 
 
 ## 4. 판정
