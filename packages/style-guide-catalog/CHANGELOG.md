@@ -1,5 +1,55 @@
 # @centurio1987/bbangto-ui-style-guide-catalog
 
+## 0.3.3
+
+### Patch Changes
+
+- 10e4a92: 키보드 포커스 테두리 색(`semantic.border.focus`)이 모든 색 스킴에서 화면 표면과 3:1 이상이 된다(KAN-060, WCAG 1.4.11).
+
+  **tokens** — 포커스 대비를 재는 `FOCUS_CONTRAST_MIN`(3) · `surfaceColors` · `focusContrast` 를 내보낸다.
+  `focusContrast(semantic)` 은 `border.focus` 와 `background.base`·`elevated` 사이의 최저 대비와 그 자리를 돌려준다.
+  반투명 `elevated` 는 흰색이 아니라 `base` 위에 합성해 잰다.
+
+  **foundations** — 포커스 색이 밝은 표면에 묻히던 21개를 색조는 두고 명도만 낮춘 값으로 바꾼다:
+  `aurora-yellow` · `celluloid` · `charcoal-warm` · `commerce-noir` · `coral` · `cosmonaut` · `dark-chrome` ·
+  `gold-rush` · `jade-leaf` · `jungle-night` · `lime` · `magazine-light` · `midnight-ink` · `mint-code` ·
+  `neon-yellow` · `obsidian-gold` · `oxide-green` · `sunflower` · `sunset` · `volt-emerald` · `warm-parchment`.
+  `border.focus` 를 쓰는 Input·Link·Slider·RichTextEditor 의 포커스 테두리 색도 함께 바뀐다.
+
+  **style-guide-catalog** — 같은 규칙으로 색 스킴 10개의 포커스 색을 바꾼다:
+  `neobrutalism-editorial-01`(default) · `skeuomorphism-tactile-01`(default · green) · `kawaii-pastel-01`(lavender) ·
+  `tactile-texture-01`(default) · `halftone-dot-print-01`(default) · `punk-grunge-graffiti-01`(default) ·
+  `ai-surreal-gradient3d-01`(light) · `pixel-art-retro-01`(arcade-paper) · `iridescent-chrome-01`(light).
+  `auditFocusContrast(catalog)` 를 내보낸다 — 모든 색 스킴에서 포커스 대비 미달을 목록으로 돌려준다.
+
+  모티프 버튼의 포커스 테두리가 없는 변수(`--bbangto-semantic-focus`·`-focus-ring`)를 읽어 늘 고정 색이던 style guide 11개가
+  이제 `--bbangto-semantic-border-focus` 를 읽어 색 스킴마다 포커스 색을 따른다:
+  `ai-surreal-gradient3d-01` · `blueprint-technical-01` · `glitch-distortion-01` · `grainy-blur-dreamy-01` ·
+  `halftone-dot-print-01` · `halftone-glitch-colorsep-01` · `heritage-folk-ornament-01` · `naive-doodle-01` ·
+  `op-art-kinetic-01` · `romantic-botanical-01` · `warped-checkerboard-01`.
+
+- fadd22a: style guide 가 자기 CSS 로 그리는 모티프 버튼 포커스 테두리가 모든 색 스킴에서 화면 표면과 3:1 이상이 된다(KAN-065, WCAG 1.4.11).
+
+  포커스 테두리가 강조색이나 고정 색을 써서 바탕에 묻히던 style guide 5개(색 스킴 7개)가 이제 포커스 색 토큰
+  (`--bbangto-semantic-border-focus`)을 읽는다:
+  `neobrutalism-editorial-01`(default) · `minimal-saas-01`(default · dark · warm, 3px 고리 모양은 그대로) ·
+  `gothic-medieval-digital-01`(light) · `shattered-glass-cinematic-01`(light) · `iridescent-chrome-01`(light).
+  `tactile-texture-01` 의 포커스 규칙도 같은 토큰을 읽게 바꿨지만, 이 규칙은 `!important` 가 없어 core 가 그리는 포커스
+  테두리(같은 토큰)에 가려 왔으므로 화면은 그대로다.
+  같은 토큰을 따르게 되면서 `iridescent-chrome-01`(default)의 포커스 테두리는 라일락에서 그 색 스킴의 포커스 색인 시안으로
+  바뀐다. `shattered-glass-cinematic-01`(rose)은 포커스 색 토큰을 시안 `#34E5FF` 에서 금색 `#FFC53D` 로 바꿔, 모티프 버튼과
+  입력·링크 같은 core 컴포넌트의 포커스가 모두 금색이 된다 — 「포커스 링은 굴절 색과 구분되는 골드」라는 이 style guide 의
+  접근성 규칙에 맞춘 것이다.
+
+  어느 색 스킴에서도 만들어지지 않는 semantic 변수를 읽어 늘 고정 색이던 다섯 자리가 색 스킴을 따른다:
+  `ai-surreal-gradient3d-01` accent 태그 글자·테두리(`--bbangto-semantic-border-focus`) ·
+  `blueprint-technical-01` 카드 배경(`--bbangto-semantic-background-elevated`, whiteprint 에서 짙은 남색 카드가 밝아진다) ·
+  `scandi-warm-01`·`spatial-3d-01` muted 태그 테두리(`--bbangto-semantic-border-base`).
+
+- Updated dependencies [10e4a92]
+  - @centurio1987/bbangto-ui-tokens@1.4.0
+  - @centurio1987/bbangto-ui-core@1.2.1
+
 ## 0.3.2
 
 ### Patch Changes
