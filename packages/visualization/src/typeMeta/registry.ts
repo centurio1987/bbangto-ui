@@ -1,7 +1,8 @@
 /**
  * vizTypeRegistry — 유형 축 코드 SSOT (KAN-020, 전량 backfill KAN-040, 구조 술어 축 KAN-043).
  *
- * `visualization-type-inventory.md` §5(VT 행)/§6(export 매핑)의 **채택 87 유형**을 코드 슬롯으로 전사한다.
+ * 저장소 문서 https://github.com/centurio1987/bbangto-ui/blob/main/packages/visualization/visualization-type-inventory.md
+ * §5(VT 행)/§6(export 매핑)의 **채택 87 유형**을 코드 슬롯으로 전사한다(npm 배포물에는 없는 문서다).
  * 각 엔트리는 `id/name/exportNames/kind` 슬롯 정체성 + rich `meta`(`VizTypeMeta`)를 가진다 — KAN-040으로
  * pending 81종을 전량 backfill해 **전 엔트리 authored**(pending 0). ⛔ 범위외 3행(VT-520/610/611, 컴포넌트
  * 없음)은 제외한다.

@@ -63,6 +63,11 @@ export interface VisualizationFoundation {
   readonly edge: {
     readonly stroke: string;
     readonly width: number;
+    /**
+     * `Edge` 연결선의 기본 대시(SVG `stroke-dasharray` 값, 예: `'4 4'`). 빈 문자열은 실선이다.
+     * 계약 스타일시트가 연결선에만 건다 — 축선·눈금처럼 같은 edge 채널을 쓰는 구조선은 실선으로 남는다.
+     * `Edge` 의 `strokeDasharray` prop 이 이 값을 덮는다.
+     */
     readonly dashPattern: string;
     readonly cornerRadius: number;
     readonly marker: {

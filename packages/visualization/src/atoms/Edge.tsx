@@ -103,6 +103,8 @@ export const Edge = React.forwardRef<SVGPathElement, EdgeProps>(
     const d = buildPath(fromPt, resolvedTo, routing, effectiveCornerRadius, waypoints);
 
     // headless: stroke 기본값은 계약 스타일시트([data-bbangto-viz-edge])가 공급한다.
+    // 대시 기본값(edge.dashPattern)은 연결선 훅(data-viz-part="connector")에만 걸린다 —
+    // 같은 edge 채널을 쓰는 축선·눈금 같은 구조선은 실선으로 남는다.
     // 명시적 prop만 인라인 style로 렌더(사용자 오버라이드 우선 보장).
     const paintStyle = Object.fromEntries(
       Object.entries({ stroke, strokeWidth, strokeDasharray }).filter(([, v]) => v !== undefined),
@@ -112,6 +114,7 @@ export const Edge = React.forwardRef<SVGPathElement, EdgeProps>(
       <path
         ref={ref}
         data-bbangto-viz-edge
+        data-viz-part="connector"
         data-bbangto-viz-edge-id={id}
         d={d}
         markerEnd={markerEnd && markerEnd !== 'none' ? markerRef(uid, markerEnd) : undefined}
