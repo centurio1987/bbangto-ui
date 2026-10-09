@@ -1,6 +1,6 @@
 {
-  "next_id": 70,
-  "next_seq": 263,
+  "next_id": 71,
+  "next_seq": 264,
   "cards": {
     "KAN-057-CCH3E8": {
       "col": "backlog",
@@ -1400,6 +1400,26 @@
       "goal_hash": "4237d5c61fd97a0671b835214a4c8765c02a2e47",
       "memo": "대상: canvas.gridUnit · node.*.tagColor · edge.marker.size · c4.l1/l2/l3.{borderWidth,bgTint,labelColor} 9개 · boundary.{dashPattern,width,radius}(Boundary.tsx 가 JS 기본값 '8 6'/1.5/8 사용, 카탈로그 값은 제각각이라 그림이 바뀜) · typography.titleWeight · typography.sizes.{title,label,tag,mono} · iconStyle · spacing.{nodePad,laneGap} · motion.{duration,easing}. 잇는 방식은 KAN-057(edge.dashPattern)의 훅·계약 스타일시트 규칙을 따른다",
       "memo_hash": "cffeea0b71d91e3d5794889ca0199a7879189a3c"
+    },
+    "KAN-070-RCG2QV": {
+      "col": "backlog",
+      "title": "viz 연결선 대시 범위 — 어느 선이 스타일 가이드 대시를 따르는가 (Edge 밖 관계선 넷 · 실선이 뜻을 갖는 Edge 선)",
+      "verbatim": "새 후속 카드 (Recommended) — main에 백로그 카드 하나를 만들어 「어느 선이 가이드 대시를 따르는가」를 다룹니다. 그 뒤 3·4번을 승인으로 닫고, KAN-057은 문서 전체 승인만 남깁니다. 지금 그림은 바뀌지 않습니다. (앞 질문 「3·4번(가이드 대시를 따라가지 못하는 관계선 넷 + 따라가면 안 되는 실선 의미선 11곳과 TimelineRoadmap 축)을 어디서 다룰까요?」에 대한 답)",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-10",
+      "title_hash": "8bd7f105fef3b53fd33f5f52becdc91f2aed33d3",
+      "verbatim_hash": "4ddf4639110564468e08a7454e79458c320dd80e",
+      "short": "연결선 대시 범위",
+      "short_hash": "533403bdbeeaa03859e7315d046a808d7e850aa3",
+      "purpose": "스타일 가이드의 연결선 대시(edge.dashPattern)를 따라야 하는 선과 따르면 안 되는 선을 가르고, 그대로 그려지게 맞춘다",
+      "purpose_hash": "36a6a3a4cfd6ef4e8fa4b650239e02f72e3a1bfe",
+      "reason": "KAN-057 검토(3·4번)에서 Edge 없이 그린 관계선 넷은 가이드 대시를 못 따르고, 실선이 뜻을 갖는 Edge 선(UML 상속 등)은 가이드 대시를 받아 표기 구분이 흐려지는 것을 확인했다",
+      "reason_hash": "ff8799c03482e9ad508c4b0464e3b03d3118fbae",
+      "goal": "대시 가이드에서도 관계선은 템플릿과 상관없이 같은 모양이고, 표기법상 실선인 선과 축은 실선으로 남는다",
+      "goal_hash": "149141a0c47980d9c65d20b239a590be1bb27f95",
+      "memo": "못 따르는 선(Edge 미사용): SitemapTree:71 · WorkBreakdownStructure:80 · GitGraph:92 · IsometricScene:161. 따르면 안 되는 선(Edge 사용, 대시 값을 안 넘겨 실선을 표현): ClassDiagram:58-62 · SequenceDiagram:183 · UMLSequenceDiagram:140 · BPMNCollaborationDiagram:176,182 · UseCaseDiagram:102 · Flowchart:127 · DMNDiagram:100-102 · ArchiMateDiagram:69-70 · ArchiMateViewpointDiagram:57-58 · SysMLBlockDiagram:43-46 · molecules/StepConnector:23, 그리고 patterns/TimelineRoadmap:52 시간 축. Edge 를 쓰는 38개 중 22개, Edge 없이 선을 그리는 24개 중 17개는 아직 안 봤다. 지금 카탈로그 가이드는 모두 실선이라 그림에 나타나는 문제는 아직 없다. KAN-057(edge.dashPattern 연결) 병합 뒤에 착수한다",
+      "memo_hash": "28f7c0b5ca1b3b47210bef953c672d08cb8766db"
     }
   },
   "order": [
@@ -1471,9 +1491,27 @@
     "KAN-060-G9YKG6",
     "KAN-055-34A57K",
     "KAN-062-E02CMT",
-    "KAN-065-XSHEMV"
+    "KAN-065-XSHEMV",
+    "KAN-070-RCG2QV"
   ],
   "recent": [
+    {
+      "seq": 263,
+      "t": "2026-10-10T00:52",
+      "a": "ai",
+      "id": "KAN-070-RCG2QV",
+      "op": "create",
+      "w": "S7030N",
+      "col": "backlog",
+      "title": "viz 연결선 대시 범위 — 어느 선이 스타일 가이드 대시를 따르는가 (Edge 밖 관계선 넷 · 실선이 뜻을 갖는 Edge 선)",
+      "verbatim": "새 후속 카드 (Recommended) — main에 백로그 카드 하나를 만들어 「어느 선이 가이드 대시를 따르는가」를 다룹니다. 그 뒤 3·4번을 승인으로 닫고, KAN-057은 문서 전체 승인만 남깁니다. 지금 그림은 바뀌지 않습니다. (앞 질문 「3·4번(가이드 대시를 따라가지 못하는 관계선 넷 + 따라가면 안 되는 실선 의미선 11곳과 TimelineRoadmap 축)을 어디서 다룰까요?」에 대한 답)",
+      "parent": null,
+      "short": "연결선 대시 범위",
+      "purpose": "스타일 가이드의 연결선 대시(edge.dashPattern)를 따라야 하는 선과 따르면 안 되는 선을 가르고, 그대로 그려지게 맞춘다",
+      "reason": "KAN-057 검토(3·4번)에서 Edge 없이 그린 관계선 넷은 가이드 대시를 못 따르고, 실선이 뜻을 갖는 Edge 선(UML 상속 등)은 가이드 대시를 받아 표기 구분이 흐려지는 것을 확인했다",
+      "goal": "대시 가이드에서도 관계선은 템플릿과 상관없이 같은 모양이고, 표기법상 실선인 선과 축은 실선으로 남는다",
+      "memo": "못 따르는 선(Edge 미사용): SitemapTree:71 · WorkBreakdownStructure:80 · GitGraph:92 · IsometricScene:161. 따르면 안 되는 선(Edge 사용, 대시 값을 안 넘겨 실선을 표현): ClassDiagram:58-62 · SequenceDiagram:183 · UMLSequenceDiagram:140 · BPMNCollaborationDiagram:176,182 · UseCaseDiagram:102 · Flowchart:127 · DMNDiagram:100-102 · ArchiMateDiagram:69-70 · ArchiMateViewpointDiagram:57-58 · SysMLBlockDiagram:43-46 · molecules/StepConnector:23, 그리고 patterns/TimelineRoadmap:52 시간 축. Edge 를 쓰는 38개 중 22개, Edge 없이 선을 그리는 24개 중 17개는 아직 안 봤다. 지금 카탈로그 가이드는 모두 실선이라 그림에 나타나는 문제는 아직 없다. KAN-057(edge.dashPattern 연결) 병합 뒤에 착수한다"
+    },
     {
       "seq": 262,
       "t": "2026-10-10T00:45",
@@ -2023,23 +2061,6 @@
       "reason": "viz README 는 속성 안 var() 가 무효라 적지만 chromium 에서는 풀린다. 코드에도 그 형태가 있어 안 풀리는 브라우저에서는 인터페이스 선이 사라지거나 라벨이 검정이 된다(KAN-056 검토 항목 3)",
       "goal": "세 브라우저 결과가 README 에 적히고, 안 풀리는 브라우저가 있으면 속성 안 var() 가 모두 style 로 옮겨지고 검사로 막힌다",
       "memo": "KAN-056 검토 항목 3(검토자 승인, 둘째 선택지)에서 나왔다. KAN-056 시점 줄: UMLComponentDiagram.tsx:65·97, BPMNDiagram.tsx:86·128, README.md 「명시한 prop 이 이긴다」 항목. 다른 템플릿·원자에도 같은 형태가 있는지는 확인 안 함"
-    },
-    {
-      "seq": 227,
-      "t": "2026-10-08T00:40",
-      "a": "ai",
-      "id": "KAN-061-K8V2HH",
-      "op": "create",
-      "w": "S7030N",
-      "col": "backlog",
-      "title": "viz 템플릿 라벨 대비 미달 정리 — 불투명 팔레트 면 · 글자 대비 기준 목록 줄이기",
-      "verbatim": "",
-      "parent": null,
-      "short": "viz 라벨 대비 정리",
-      "purpose": "viz 템플릿 글자가 카탈로그 가이드 30개 모두에서 4.5:1 이상 읽히게 한다 — KAN-056 기준 목록 204곳과 불투명 팔레트 면(Mindmap · ArchiMateViewpoint)부터",
-      "reason": "KAN-056 검토에서 가이드에 따라 글자가 바탕에 묻히는 곳이 확인됐다(Mindmap 92곳 · Requirement 64곳 등). 지금은 기준 목록으로 더 나빠지지만 않게 막아 둔 상태다",
-      "goal": "_labelContrastBaseline.ts 가 비고, 글자 대비 검사가 13개 밖 템플릿(ArchiMateViewpoint 등)도 잰다",
-      "memo": "KAN-056 검토 항목 3(승인)·6에서 나왔다. KAN-056 병합 뒤 착수(검사와 기준 목록이 그 카드에 있다). 원인이 셋으로 갈린다: 불투명 팔레트 면 위 edge.stroke 글자, Requirement 반투명 글자(opacity 0.6·0.8)와 검정 6% 띠, riso-print 등의 shape.fill·edge.stroke 쌍. 카탈로그 대비 게이트가 shape.fill·edge.stroke 쌍을 재는지는 확인 안 함"
     }
   ],
   "waivers": [
