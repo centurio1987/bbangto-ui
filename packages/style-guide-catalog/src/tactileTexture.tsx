@@ -121,7 +121,7 @@ const CSS = `
   transition: transform 140ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 140ms ease !important;
 }
 .bbangto-tactile-btn:active { transform: var(--bbangto-ext-squish, scale(0.96)); }
-.bbangto-tactile-btn:focus-visible { outline: 3px solid var(--bbangto-ext-hyperreal-gloss, rgba(255,255,255,0.6)); outline-offset: 2px; }
+.bbangto-tactile-btn:focus-visible { outline: 3px solid var(--bbangto-semantic-border-focus, #EB5D94); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) {
   .bbangto-tactile-btn { transition: none !important; }
   .bbangto-tactile-btn:active { transform: none !important; }
@@ -188,7 +188,7 @@ const guidelines: Record<string, Record<string, unknown>> = {
     rules: [
       'squish 모션은 prefers-reduced-motion: reduce에서 비활성화한다.',
       '텍스처/광택 위 텍스트는 대비를 보강해 가독성을 유지한다.',
-      'focus-visible는 광택 outline으로 분명히 표시한다.',
+      'focus-visible는 포커스 색(캔디 핑크) outline으로 분명히 표시한다.',
     ],
   },
   typography: {
@@ -203,7 +203,7 @@ const visualMotif: VisualMotif = {
   components: {
     Button: {
       description: '두툼한 모서리에 푹신한 이중 그림자를 두른 버튼. 누르면 살짝 쪼그라드는 스퀴시 반응.',
-      specs: ['모서리: radius 24px(청키)', '그림자: 바깥 드롭 + 안쪽 하이라이트 이중', 'active: scale(0.96) 스퀴시', 'reduce-motion: 모션/트랜지션 비활성', 'focus-visible: 광택 outline'],
+      specs: ['모서리: radius 24px(청키)', '그림자: 바깥 드롭 + 안쪽 하이라이트 이중', 'active: scale(0.96) 스퀴시', 'reduce-motion: 모션/트랜지션 비활성', 'focus-visible: 캔디 핑크 outline'],
     },
     Card: {
       description: '파스텔 표면에 푹신한 이중 그림자와 하이퍼리얼 광택을 올린 말랑한 표면.',

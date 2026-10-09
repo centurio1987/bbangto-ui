@@ -107,7 +107,7 @@ const CSS = `
 .bbangto-saas-btn:active { filter: brightness(0.93); }
 .bbangto-saas-btn:focus-visible {
   outline: none !important;
-  box-shadow: 0 0 0 3px var(--bbangto-ext-ring, rgba(79,70,229,0.40)) !important;
+  box-shadow: 0 0 0 3px var(--bbangto-semantic-border-focus, #4F46E5) !important;
 }
 .bbangto-saas-card {
   border: 1px solid var(--bbangto-semantic-border-base, #E5E7EB) !important;

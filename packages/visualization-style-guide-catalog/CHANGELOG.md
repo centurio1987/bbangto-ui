@@ -1,5 +1,14 @@
 # @centurio1987/bbangto-ui-visualization-style-guide-catalog
 
+## 0.3.2
+
+### Patch Changes
+
+- Updated dependencies [d881cf0]
+- Updated dependencies [10e4a92]
+  - @centurio1987/bbangto-ui-visualization@0.4.1
+  - @centurio1987/bbangto-ui-tokens@1.4.0
+
 ## 0.3.1
 
 ### Patch Changes

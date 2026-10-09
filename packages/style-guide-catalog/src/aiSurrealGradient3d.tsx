@@ -197,8 +197,8 @@ const wrapperComponents = makeMotifWrappers({
     tones: {
       accent: {
         background: 'var(--bbangto-semantic-primary-subtle, rgba(91,225,255,0.12))',
-        color: 'var(--bbangto-semantic-focus, #5BE1FF)',
-        border: '1px solid var(--bbangto-semantic-focus, #5BE1FF)',
+        color: 'var(--bbangto-semantic-border-focus, #5BE1FF)',
+        border: '1px solid var(--bbangto-semantic-border-focus, #5BE1FF)',
       },
       muted: {
         background: 'var(--bbangto-semantic-background-sunken, #1B1E2A)',

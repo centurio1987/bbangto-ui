@@ -155,7 +155,7 @@ const CSS = `
   box-shadow: none !important;
 }
 .bbangto-neo-btn:focus-visible {
-  outline: 2px solid var(--bbangto-ext-accent, #E9C766) !important;
+  outline: 2px solid var(--bbangto-semantic-border-focus, ${NEO.goldFocus}) !important;
   outline-offset: 2px;
 }
 .bbangto-neo-card {
@@ -234,7 +234,7 @@ const guidelines: Record<string, Record<string, unknown>> = {
   color: {
     title: '색 사용',
     dos: [
-      '골드(--bbangto-ext-accent)는 강조(배지·포커스 링·버튼 오프셋 그림자)에만 쓴다.',
+      '골드(--bbangto-ext-accent)는 강조(배지·버튼 오프셋 그림자)에만 쓴다. 포커스 링은 포커스 색 토큰(--bbangto-semantic-border-focus, 기본 짙은 골드 #A9881C)으로 그린다.',
       '색 위 텍스트는 항상 잉크(ink-on-color)로 올려 대비를 확보한다.',
     ],
     donts: [

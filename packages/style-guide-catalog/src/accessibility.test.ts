@@ -14,11 +14,15 @@ import {
 } from '@centurio1987/bbangto-ui-tokens';
 import { darkFoundation, highContrastFoundation, lightFoundation } from '@centurio1987/bbangto-ui-core';
 import { styleGuideCatalog } from './index';
+import { motifCssOf } from './_motif';
 import {
   auditContrast,
   auditFocusContrast,
+  auditMotifFocusContrast,
+  motifFocusDecls,
   CONTRAST_THRESHOLDS,
   type AuditableEntry,
+  type MotifAuditEntry,
 } from './accessibilityAudit';
 
 // ── fixture: fg/bg + contrastIntent만 담은 최소 AuditableEntry(캐스팅). ──
@@ -290,22 +294,21 @@ describe('auditFocusContrast — 실 카탈로그 게이트', () => {
   });
 });
 
-// ── 포커스 테두리 변수 (KAN-060 검토 항목 3) ─────────────────────────────────
+// ── 없는 semantic 변수 (KAN-060 검토 항목 3 → KAN-065 에서 모든 줄로) ───────────
 
 /**
- * style guide 가 자기 CSS 로 그리는 포커스 테두리(`outline` 선언)가 읽는 `--bbangto-semantic-*` 변수 중
- * 실제로 만들어지지 않는 것을 `파일:줄 변수` 로 모은다. 없는 변수는 어느 색 스킴에서도 대체값(고정 색)으로만
- * 그려져, 포커스 색 토큰을 고쳐도 테두리가 따라가지 않는다(`--bbangto-semantic-focus` 12곳이 그랬다).
- * `outline` 이 아닌 줄은 보지 않는다 — 태그 색·배경처럼 포커스가 아닌 자리는 KAN-065 몫이다.
+ * style guide 소스가 읽는 `--bbangto-semantic-*` 변수 중 실제로 만들어지지 않는 것을 `파일:줄 변수` 로 모은다.
+ * 없는 변수는 어느 색 스킴에서도 대체값(고정 색)으로만 그려져 색 스킴을 바꿔도 따라가지 않는다 — 포커스 테두리
+ * 12곳(`--bbangto-semantic-focus`, KAN-060)과 태그 색·카드 배경 5줄(KAN-065)이 그랬다. 처음에는 포커스 테두리
+ * (`outline`) 줄만 봤고, KAN-065 에서 모든 줄로 넓혔다.
  */
-function undefinedOutlineVars(
+function undefinedSemanticVars(
   files: readonly { path: string; text: string }[],
   defined: ReadonlySet<string>,
 ): string[] {
   const out: string[] = [];
   for (const f of files) {
     f.text.split('\n').forEach((line, i) => {
-      if (!/\boutline\s*:/.test(line)) return;
       for (const m of line.matchAll(/var\(\s*(--bbangto-semantic-[a-z0-9-]+)/g)) {
         if (!defined.has(m[1])) out.push(`${f.path}:${i + 1} ${m[1]}`);
       }
@@ -317,8 +320,8 @@ function undefinedOutlineVars(
 /** 모든 foundation 이 같은 semantic 구조라 변수 이름은 하나만 펼쳐도 같다. */
 const definedVars = new Set(Object.keys(flattenToCSSVars(lightFoundation as unknown as Record<string, unknown>)));
 
-describe('포커스 테두리 변수 — fixture', () => {
-  const run = (text: string) => undefinedOutlineVars([{ path: 'x.tsx', text }], definedVars);
+describe('없는 semantic 변수 — fixture', () => {
+  const run = (text: string) => undefinedSemanticVars([{ path: 'x.tsx', text }], definedVars);
 
   it('없는 변수(--bbangto-semantic-focus)를 읽는 outline 은 잡힌다', () => {
     expect(run('.b:focus-visible {\n  outline: 2px solid var(--bbangto-semantic-focus, #5BE1FF) !important;\n}')).toEqual([
@@ -331,8 +334,11 @@ describe('포커스 테두리 변수 — fixture', () => {
     expect(run('  outline: 3px solid var(--bbangto-semantic-border-focus, #000) !important;')).toEqual([]);
   });
 
-  it('outline 이 아닌 줄의 없는 변수는 이 검사 대상이 아니다', () => {
-    expect(run("  color: 'var(--bbangto-semantic-focus, #5BE1FF)',")).toEqual([]);
+  it('outline 이 아닌 줄(태그 color, 카드 background-color)의 없는 변수도 잡힌다', () => {
+    expect(run("  color: 'var(--bbangto-semantic-focus, #5BE1FF)',")).toEqual(['x.tsx:1 --bbangto-semantic-focus']);
+    expect(run('  background-color: var(--bbangto-semantic-bg-elevated, #103A86) !important;')).toEqual([
+      'x.tsx:1 --bbangto-semantic-bg-elevated',
+    ]);
   });
 
   it('한 줄짜리 규칙과 -focus-ring 도 잡힌다', () => {
@@ -342,13 +348,149 @@ describe('포커스 테두리 변수 — fixture', () => {
   });
 });
 
-describe('포커스 테두리 변수 — 실제 style guide 소스', () => {
-  it('style guide CSS 의 포커스 테두리가 읽는 semantic 변수는 모두 실제로 만들어진다', () => {
+describe('없는 semantic 변수 — 실제 style guide 소스', () => {
+  it('style guide 소스가 읽는 semantic 변수는 모두 실제로 만들어진다', () => {
     const dir = dirname(fileURLToPath(import.meta.url));
     const files = readdirSync(dir)
       .filter((name) => name.endsWith('.tsx'))
       .map((name) => ({ path: name, text: readFileSync(join(dir, name), 'utf8') }));
-    const violations = undefinedOutlineVars(files, definedVars);
+    const violations = undefinedSemanticVars(files, definedVars);
     expect(violations, violations.join('\n')).toEqual([]);
+  });
+});
+
+// ── 모티프 포커스 테두리 대비 (KAN-065) ──────────────────────────────────────────
+
+/** 모티프 감사 fixture — 색 스킴마다 표면 둘·포커스 토큰·확장 변수를 받는다. */
+function motifEntry(
+  name: string,
+  css: string | undefined,
+  presets: { key: string; base: string; elevated?: string; focus?: string; ext?: Record<string, string> }[],
+): MotifAuditEntry {
+  const found = (base: string, elevated: string, focus: string) =>
+    ({ semantic: { background: { base, elevated }, border: { focus } } }) as unknown as AuditableEntry['foundations'];
+  const ps = presets.map((p) => ({
+    key: p.key,
+    label: p.key,
+    foundations: found(p.base, p.elevated ?? p.base, p.focus ?? '#000000'),
+    extendedFoundations: p.ext,
+  }));
+  return { name, css, foundations: ps[0].foundations, foundationPresets: ps };
+}
+
+/** 위반 목록을 고칠 사람이 바로 읽는 한 줄씩으로. */
+const describeMotif = (v: ReturnType<typeof auditMotifFocusContrast>) =>
+  v
+    .map((x) =>
+      x.reason === 'no-css'
+        ? `${x.name}: 모티프 CSS 를 못 찾음`
+        : `${x.name}/${x.presetKey}: ${x.selector} ${x.prop}: ${x.resolved} — ${x.measured ?? '측정 불가'}:1 (${x.against ?? x.reason})`,
+    )
+    .join('\n');
+
+describe('motifFocusDecls — 포커스 선언 꺼내기', () => {
+  it(':focus 가 든 규칙의 outline·outline-color·box-shadow 만 꺼내고 !important 를 뗀다', () => {
+    const d = motifFocusDecls(
+      '.b { outline: 2px solid red; }\n.b:hover { box-shadow: 0 0 4px #000; }\n' +
+        '.b:focus-visible { outline: 2px solid var(--x, #E9C766) !important; outline-offset: 2px; }\n' +
+        '.c:focus { outline-color: #123456; box-shadow: 0 0 0 3px rgba(0,0,0,0.4); }',
+    );
+    expect(d).toEqual([
+      { selector: '.b:focus-visible', prop: 'outline', value: '2px solid var(--x, #E9C766)' },
+      { selector: '.c:focus', prop: 'outline-color', value: '#123456' },
+      { selector: '.c:focus', prop: 'box-shadow', value: '0 0 0 3px rgba(0,0,0,0.4)' },
+    ]);
+  });
+
+  it('outline: none 은 건너뛰고 같은 규칙의 box-shadow 고리는 잡는다', () => {
+    const d = motifFocusDecls('.b:focus-visible { outline: none; box-shadow: 0 0 0 3px #4F46E5; }');
+    expect(d.map((x) => x.prop)).toEqual(['box-shadow']);
+  });
+
+  it('@media 안에 든 포커스 규칙도 잡고, 주석 속 규칙은 안 잡는다', () => {
+    const d = motifFocusDecls(
+      '/* .z:focus { outline: 1px solid #fff; } */\n@media (forced-colors: none) {\n  .b:focus-visible { outline: 2px solid #000; }\n}',
+    );
+    expect(d).toEqual([{ selector: '.b:focus-visible', prop: 'outline', value: '2px solid #000' }]);
+  });
+});
+
+describe('auditMotifFocusContrast — 미달 감지 (fixture)', () => {
+  const css = '.b:focus-visible { outline: 2px solid var(--bbangto-ext-accent, #E9C766) !important; }';
+
+  it('(a) 확장 변수를 색 스킴 값으로 풀어 잰다 — 한 색 스킴만 미달이어도 위반이고 그 키가 적힌다', () => {
+    const v = auditMotifFocusContrast([
+      motifEntry('x', css, [
+        { key: 'light', base: '#FAF2DD', ext: { '--bbangto-ext-accent': '#E9C766' } },
+        { key: 'dark', base: '#1C1B17', ext: { '--bbangto-ext-accent': '#E9C766' } },
+      ]),
+    ]);
+    expect(v).toHaveLength(1);
+    expect(v[0]).toMatchObject({ name: 'x', presetKey: 'light', prop: 'outline', reason: 'below-threshold', against: 'base' });
+    expect(v[0].resolved).toBe('2px solid #E9C766');
+  });
+
+  it('(b) 색 스킴에 없는 변수는 대체값으로 잰다', () => {
+    const v = auditMotifFocusContrast([motifEntry('x', css, [{ key: 'light', base: '#FFFFFF' }])]);
+    expect(v).toHaveLength(1);
+    expect(v[0].resolved).toBe('2px solid #E9C766');
+    // 대체값이 어두우면 통과한다.
+    const dark = '.b:focus-visible { outline: 2px solid var(--bbangto-ext-accent, #1C1B17); }';
+    expect(auditMotifFocusContrast([motifEntry('x', dark, [{ key: 'light', base: '#FFFFFF' }])])).toEqual([]);
+  });
+
+  it('(c) semantic 변수는 그 색 스킴의 토큰 값으로 푼다', () => {
+    const tok = '.b:focus-visible { outline: 2px solid var(--bbangto-semantic-border-focus, #FAFF69); }';
+    expect(auditMotifFocusContrast([motifEntry('x', tok, [{ key: 'light', base: '#FFFFFF', focus: '#1D4ED8' }])])).toEqual([]);
+  });
+
+  it('(d) box-shadow 반투명 고리는 표면 위에 합성해 잰다', () => {
+    const ring = '.b:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(79,70,229,0.40); }';
+    const v = auditMotifFocusContrast([motifEntry('x', ring, [{ key: 'light', base: '#FFFFFF' }])]);
+    expect(v).toHaveLength(1);
+    expect(v[0]).toMatchObject({ prop: 'box-shadow', reason: 'below-threshold' });
+    // 같은 색이 불투명이면 통과한다.
+    const solid = '.b:focus-visible { outline: none; box-shadow: 0 0 0 3px #4F46E5; }';
+    expect(auditMotifFocusContrast([motifEntry('x', solid, [{ key: 'light', base: '#FFFFFF' }])])).toEqual([]);
+  });
+
+  it('(e) elevated 만 미달이어도 위반이고 자리는 elevated', () => {
+    const blue = '.b:focus-visible { outline: 2px solid #1D4ED8; }';
+    const v = auditMotifFocusContrast([motifEntry('x', blue, [{ key: 'k', base: '#FFFFFF', elevated: '#2563EB' }])]);
+    expect(v).toHaveLength(1);
+    expect(v[0].against).toBe('elevated');
+  });
+
+  it('(f) 색을 못 풀면 조용히 통과하지 않고 unparseable', () => {
+    const noFb = '.b:focus-visible { outline: 2px solid var(--bbangto-ext-missing); }';
+    const named = '.b:focus-visible { outline: 2px solid currentColor; }';
+    for (const c of [noFb, named]) {
+      const v = auditMotifFocusContrast([motifEntry('x', c, [{ key: 'k', base: '#FFFFFF' }])]);
+      expect(v).toHaveLength(1);
+      expect(v[0]).toMatchObject({ reason: 'unparseable', measured: null });
+    }
+  });
+
+  it('(g) CSS 를 못 찾으면 no-css — 그 style guide 가 검사에서 조용히 빠지지 않는다', () => {
+    const v = auditMotifFocusContrast([motifEntry('x', undefined, [{ key: 'k', base: '#FFFFFF' }])]);
+    expect(v).toEqual([expect.objectContaining({ name: 'x', reason: 'no-css', presetKey: null })]);
+  });
+
+  it('(h) 포커스 규칙이 없는 CSS 는 위반이 없다(core Button 의 포커스 테두리가 그대로 쓰인다)', () => {
+    expect(auditMotifFocusContrast([motifEntry('x', '.b { border: 1px solid red; }', [{ key: 'k', base: '#FFFFFF' }])])).toEqual([]);
+  });
+});
+
+describe('auditMotifFocusContrast — 실 카탈로그 게이트', () => {
+  const entries: MotifAuditEntry[] = styleGuideCatalog.map((sg) => ({ ...sg, css: motifCssOf(sg.wrapperComponents) }));
+
+  it('모든 style guide 에서 모티프 CSS 를 찾는다', () => {
+    expect(entries.filter((e) => e.css == null).map((e) => e.name)).toEqual([]);
+    expect(entries).toHaveLength(styleGuideCatalog.length);
+  });
+
+  it('모든 style guide 색 스킴에서 모티프 포커스 테두리가 표면과 3:1 이상이다', () => {
+    const violations = auditMotifFocusContrast(entries);
+    expect(violations, describeMotif(violations)).toEqual([]);
   });
 });

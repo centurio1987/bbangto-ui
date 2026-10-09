@@ -26,7 +26,8 @@
  * 컴포넌트 이름 하나가 여러 유형을 겸하기도 한다(`Statistics`·`Cycle`·`Hierarchy`) — 그때는
  * `defaultVizTypeForExport`/`vizTypeForVariant`로 **자기가 받을 그림의** 유형을 확인한다.
  *
- * 전체 문서는 패키지 루트 `README.md`, 유형 축 설계는 `TYPE_METADATA_STRATEGY.md`에 있다.
+ * 전체 문서는 패키지 루트 `README.md` 에 있다. 유형 축 설계는 저장소 문서
+ * https://github.com/centurio1987/bbangto-ui/blob/main/packages/visualization/TYPE_METADATA_STRATEGY.md (npm 배포물에는 없다).
  */
 export type { VisualizationFoundation, NodeSemanticKind, NodeSemanticStyle } from './tokens/types';
 export {
