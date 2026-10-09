@@ -65,7 +65,7 @@
   - 이유: KAN-073 보관 때 057·061·067 을 KAN-064 major 와 함께 내기로 정했고(2026-10-10 유저), 외부 앱은 배포된 버전만 받는다
   - 목표: 레지스트리에 새 버전 6개가 올라가고, 배포본에서 changeset 마다 변경 하나씩이 확인되며, 외부 앱에 major 업그레이드 안내 문구가 남는다
   - 메모: push 하면 main 로컬 커밋 전부와 release.yml 이 나간다. 절차는 KAN-068 과 같다(S1 점검 → S2 push·Version PR 대조·병합 → S3 배포본 확인과 전달)
-  - 실행 문서: KANBAN/cards/KAN-074-KAZBTF.md (1/3 · 최근 10-10)
+  - 실행 문서: KANBAN/cards/KAN-074-KAZBTF.md (3/3 · 최근 10-10)
   - 원문:
     ```text
     배포 카드 만들고 push 배포 진행
