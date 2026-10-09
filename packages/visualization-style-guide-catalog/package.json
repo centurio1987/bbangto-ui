@@ -11,11 +11,13 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./manifest.json": "./catalog.manifest.json"
+    "./manifest.json": "./catalog.manifest.json",
+    "./manifest/*": "./manifest/*"
   },
   "files": [
     "dist",
     "catalog.manifest.json",
+    "manifest",
     "README.md"
   ],
   "scripts": {

@@ -5,8 +5,9 @@
  * 각 style guide의 "언제/어디에 쓰는가"를 기계가독(machine-readable) 형태로 선언한다.
  * 통제 어휘(controlled vocabulary)를 const union으로 강제해 51종+ 저작 간 일관성을 유지한다.
  *
- * SSOT = 각 StyleGuide 객체의 `meta` 필드. 이를 `catalog.manifest.json`으로 투영해 AI가 파일
- * 하나만 읽고 후보를 좁힌다. 자세한 전략은 style-guide-catalog 패키지의 METADATA_STRATEGY.md 참고.
+ * SSOT = 각 StyleGuide 객체의 `meta` 필드. 이를 색인 `catalog.manifest.json`과 항목별 상세 `manifest/<name>.json`
+ * 으로 투영해, AI가 색인으로 후보를 좁히고 후보의 상세만 읽는다(KAN-064). 자세한 전략은 style-guide-catalog 패키지의
+ * METADATA_STRATEGY.md 참고.
  */
 
 // ─────────────────────────────────────────────────────────────────────────────

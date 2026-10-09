@@ -43,6 +43,18 @@ jobs:
       - name: Build packages
         run: pnpm build
 
+      # 빌드의 prebuild 가 매니페스트 색인 4개와 foundation 목록을 다시 쓴다(KAN-064). 커밋본과 다르면
+      # 메타를 고친 뒤 다시 만든 결과를 커밋하지 않은 것이다 — 그 판을 배포하지 않는다. 뒤의 바이트 동기
+      # 테스트는 방금 다시 쓴 파일끼리 비교하므로 이 경우를 못 잡아서 여기서 본다.
+      - name: Generated manifests are committed
+        run: >-
+          git diff --exit-code --
+          packages/style-guide-catalog/catalog.manifest.json
+          packages/visualization-style-guide-catalog/catalog.manifest.json
+          packages/foundations/foundation.manifest.json
+          packages/foundations/src/catalog.json
+          packages/visualization/type.manifest.json
+
       # 배포 전에 패키지 vitest 게이트를 돈다. 번들 크기 상한(bundle-budget.json)을 넘는 판이 배포되지
       # 않게 하려는 것이다(KAN-051). 크기 게이트는 빌드된 dist 를 재므로 Build 다음 자리여야 한다.
       - name: Unit gates (bundle size included)

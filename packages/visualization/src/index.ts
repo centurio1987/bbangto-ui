@@ -17,8 +17,9 @@
  * ```
  *
  * ```jsonc
- * // 2) 파일로 읽기 — 87 엔트리 매니페스트(패키지에 동봉)
+ * // 2) 파일로 읽기 — 87종 색인으로 후보를 좁히고, 후보의 상세만 연다(패키지에 동봉)
  * // node_modules/@centurio1987/bbangto-ui-visualization/type.manifest.json
+ * // node_modules/@centurio1987/bbangto-ui-visualization/manifest/<id>.json
  * ```
  *
  * **고르는 순서**: `dataShape`+`structuralTraits`로 후보를 좁히고 → 각 후보의 `useWhen`/`avoidWhen`으로 확정한다.

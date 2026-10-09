@@ -2,7 +2,7 @@
  * jsdoc.test.ts — 컴포넌트 소스 JSDoc ↔ 레지스트리 최신성 게이트 (KAN-043 / 상류 I2).
  *
  * `gen:type-jsdoc`이 주입한 태그가 레지스트리와 어긋나면(유형 추가·useWhen 수정 후 재생성 누락) 여기서 실패한다.
- * `type.manifest.json` 바이트동기 테스트와 같은 정책이다 — 생성기는 수동 실행이고, 최신성은 테스트가 강제한다.
+ * 생성기는 수동 실행이고 최신성은 이 테스트가 강제한다. (`type.manifest.json` 은 KAN-064 부터 prebuild 로 다시 만든다.)
  */
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';

@@ -14,7 +14,11 @@ import { foundationCatalog } from '../index';
 import { foundationMetaRegistry } from './registry';
 import {
   buildFoundationManifest,
-  serializeFoundationManifest,
+  buildFoundationManifestIndex,
+  serializeFoundationManifestIndex,
+  serializeFoundationManifestEntry,
+  FOUNDATION_MANIFEST_INDEX_COLUMNS,
+  type FoundationManifestIndex,
   buildCatalogList,
   serializeCatalogList,
   deriveColorScheme,
@@ -24,6 +28,11 @@ import {
 const here = dirname(fileURLToPath(import.meta.url));
 const manifestPath = join(here, '..', '..', 'foundation.manifest.json');
 const catalogPath = join(here, '..', 'catalog.json');
+
+/** 색인 한 행에서 열 이름으로 값을 꺼낸다. */
+function cell(index: FoundationManifestIndex, row: readonly unknown[], column: string): unknown {
+  return row[index.columns.indexOf(column as (typeof index.columns)[number])];
+}
 
 describe('buildFoundationManifest — 결정성·파생', () => {
   const m = buildFoundationManifest(foundationCatalog, foundationMetaRegistry);
@@ -116,10 +125,57 @@ describe('over-claim / related 정합(throw)', () => {
   });
 });
 
+describe('색인과 상세 — 2단 읽기 (KAN-064)', () => {
+  const m = buildFoundationManifest(foundationCatalog, foundationMetaRegistry);
+  const index = buildFoundationManifestIndex(m);
+
+  it('색인 열에는 고를 때 쓰는 필드만 있고 상세 필드는 없다', () => {
+    expect(index.columns).toEqual(FOUNDATION_MANIFEST_INDEX_COLUMNS);
+    for (const detail of ['label', 'baseTextContrast', 'mood', 'useWhen', 'avoidWhen', 'accessibility', 'related']) {
+      expect(index.columns as readonly string[]).not.toContain(detail);
+    }
+  });
+
+  it('색인 머리가 축 이름과 상세 자리를 알려 준다', () => {
+    expect(index.axis).toBe('foundation');
+    expect(index.detail).toBe('manifest/{slug}.json');
+  });
+
+  it('색인 한 행은 같은 항목의 매니페스트 값과 같다', () => {
+    expect(index.rows).toHaveLength(m.length);
+    m.forEach((e, i) => {
+      const row = index.rows[i];
+      expect(row).toHaveLength(index.columns.length);
+      expect(cell(index, row, 'slug')).toBe(e.slug);
+      expect(cell(index, row, 'displayName')).toBe(e.meta?.displayName ?? e.label);
+      expect(cell(index, row, 'colorScheme')).toBe(e.colorScheme);
+      expect(cell(index, row, 'summary')).toBe(e.meta?.summary ?? null);
+      expect(cell(index, row, 'tags')).toEqual(e.meta?.tags ?? null);
+      expect(cell(index, row, 'domains')).toEqual(e.meta?.domains ?? null);
+      expect(cell(index, row, 'metaStatus')).toBe(e.metaStatus);
+    });
+  });
+
+  it('pending 항목은 메타에서 오는 열이 null 이고 이름은 label 로 채운다', () => {
+    const pending = buildFoundationManifest(foundationCatalog, {});
+    const [row] = buildFoundationManifestIndex(pending).rows;
+    expect(row).toEqual([pending[0].slug, pending[0].label, pending[0].colorScheme, null, null, null, 'pending']);
+  });
+
+  it('상세 직렬화는 항목 하나를 잃지 않는다(useWhen·avoidWhen 포함)', () => {
+    for (const e of m) {
+      const raw = serializeFoundationManifestEntry(e);
+      expect(raw.endsWith('\n')).toBe(true);
+      expect(JSON.parse(raw)).toEqual(JSON.parse(JSON.stringify(e)));
+      if (e.metaStatus === 'authored') expect(raw).toContain('"useWhen"');
+    }
+  });
+});
+
 describe('커밋 아티팩트 바이트 동기 + 3자 slug-set 일치', () => {
-  it('foundation.manifest.json 바이트 일치', () => {
-    const generated = serializeFoundationManifest(
-      buildFoundationManifest(foundationCatalog, foundationMetaRegistry),
+  it('foundation.manifest.json(색인) 바이트 일치', () => {
+    const generated = serializeFoundationManifestIndex(
+      buildFoundationManifestIndex(buildFoundationManifest(foundationCatalog, foundationMetaRegistry)),
     );
     expect(readFileSync(manifestPath, 'utf8')).toBe(generated);
   });
@@ -133,9 +189,8 @@ describe('커밋 아티팩트 바이트 동기 + 3자 slug-set 일치', () => {
     const catIds = new Set(
       (JSON.parse(readFileSync(catalogPath, 'utf8')) as { id: string }[]).map((e) => e.id),
     );
-    const manSlugs = new Set(
-      (JSON.parse(readFileSync(manifestPath, 'utf8')) as { slug: string }[]).map((e) => e.slug),
-    );
+    const committed = JSON.parse(readFileSync(manifestPath, 'utf8')) as FoundationManifestIndex;
+    const manSlugs = new Set(committed.rows.map((row) => cell(committed, row, 'slug') as string));
     const catalogKeys = new Set(Object.keys(foundationCatalog));
     expect(catIds).toEqual(catalogKeys);
     expect(manSlugs).toEqual(catalogKeys);

@@ -1,5 +1,6 @@
 /**
- * 유형 축 매니페스트 생성기 — 레지스트리를 AI가 파일 하나로 읽는 압축 매니페스트로 투영한다 (KAN-020).
+ * 유형 축 매니페스트 생성기 — 레지스트리를 색인(`type.manifest.json`, 후보를 고를 때 읽는 표)과 항목별
+ * 상세(`manifest/<id>.json`)로 투영한다 (KAN-020, 두 층은 KAN-064).
  *
  * style-guide-catalog/manifest.ts의 동형 생성기를 유형 축으로 미러링한 것. SSOT는 `vizTypeRegistry`의 각
  * 엔트리다. `buildTypeManifest`는 `related` 참조 정합성을 authored 전체에 대해 검증하고, 완성도를 구조에서
@@ -82,7 +83,69 @@ export function buildTypeManifest(
   return entries;
 }
 
-/** 매니페스트를 결정적 JSON 문자열로 직렬화(2-space indent + 말미 개행). */
+/** 매니페스트 전체 배열을 결정적 JSON 문자열로 직렬화(2-space indent + 말미 개행). 색인 파일은 `serializeTypeManifestIndex`. */
 export function serializeTypeManifest(entries: readonly VizTypeManifestEntry[]): string {
   return JSON.stringify(entries, null, 2) + '\n';
+}
+
+/**
+ * 색인 열 — 후보를 고를 때 쓰는 필드만 싣는다. 고른 뒤 읽는 근거(useWhen·avoidWhen·dataShape·structuralTraits·
+ * primitives·related)와 variants·completeness 는 항목별 상세 파일에 있다. `exportNames` 는 고른 뒤 바로 import 할
+ * 이름이라 색인에 둔다.
+ */
+export const TYPE_MANIFEST_INDEX_COLUMNS = [
+  'id',
+  'name',
+  'kind',
+  'category',
+  'exportNames',
+  'aliases',
+  'summary',
+  'tags',
+  'metaStatus',
+] as const;
+
+export type VizTypeManifestIndexColumn = (typeof TYPE_MANIFEST_INDEX_COLUMNS)[number];
+
+/** 색인 파일(`type.manifest.json`) 모양. 행의 값 순서는 `columns` 를 따른다. pending 행의 메타 열은 null. */
+export interface VizTypeManifestIndex {
+  readonly axis: 'viz-type';
+  /** 항목 상세 파일 자리(패키지 루트 기준). `{id}` 를 행의 id 값으로 바꾼다. */
+  readonly detail: 'manifest/{id}.json';
+  readonly columns: readonly VizTypeManifestIndexColumn[];
+  readonly rows: readonly (readonly unknown[])[];
+}
+
+/** 매니페스트(정렬된 항목 배열)를 색인으로 줄인다. 순서는 입력 순서 그대로다. */
+export function buildTypeManifestIndex(entries: readonly VizTypeManifestEntry[]): VizTypeManifestIndex {
+  return {
+    axis: 'viz-type',
+    detail: 'manifest/{id}.json',
+    columns: TYPE_MANIFEST_INDEX_COLUMNS,
+    rows: entries.map((e) => [
+      e.id,
+      e.name,
+      e.kind,
+      e.meta?.category ?? null,
+      e.exportNames,
+      e.meta?.aliases ?? null,
+      e.meta?.summary ?? null,
+      e.meta?.tags ?? null,
+      e.metaStatus,
+    ]),
+  };
+}
+
+/** 색인을 결정적 JSON 문자열로 직렬화한다 — 머리 필드는 한 줄씩, 행은 한 줄에 하나(+ 말미 개행). */
+export function serializeTypeManifestIndex(index: VizTypeManifestIndex): string {
+  const head = (['axis', 'detail', 'columns'] as const)
+    .map((k) => `  ${JSON.stringify(k)}: ${JSON.stringify(index[k])}`)
+    .join(',\n');
+  const rows = index.rows.map((r) => `    ${JSON.stringify(r)}`).join(',\n');
+  return `{\n${head},\n  "rows": [\n${rows}\n  ]\n}\n`;
+}
+
+/** 항목 하나의 상세를 결정적 JSON 문자열로 직렬화(2-space indent + 말미 개행). */
+export function serializeTypeManifestEntry(entry: VizTypeManifestEntry): string {
+  return JSON.stringify(entry, null, 2) + '\n';
 }

@@ -16,15 +16,18 @@
       "import": "./dist/meta/index.js"
     },
     "./catalog": "./src/catalog.json",
-    "./foundation.manifest.json": "./foundation.manifest.json"
+    "./foundation.manifest.json": "./foundation.manifest.json",
+    "./manifest/*": "./manifest/*"
   },
   "files": [
     "dist",
     "src/catalog.json",
     "foundation.manifest.json",
+    "manifest",
     "README.md"
   ],
   "scripts": {
+    "prebuild": "pnpm gen:foundation-manifest",
     "build": "tsup",
     "typecheck": "tsc --noEmit",
     "test": "vitest --run",
