@@ -188,7 +188,8 @@ export function IsometricScene({
             dominantBaseline="central"
             fontSize={labelFontSize}
             fontFamily={vvar('typography', 'titleFont')}
-            style={{ fill: vvar('shape', 'stroke') }}
+            // 윗면(shape.fill) 위 글자색(KAN-061)
+            style={{ fill: vvar('on', 'shape', 'fill') }}
           >
             {it.cell.label}
           </text>

@@ -77,7 +77,16 @@ export const ExternalNode = React.forwardRef<SVGGElement, ExternalNodeProps>(
         >
           <ArrowOutGlyph stroke={effectiveStroke} />
         </svg>
-        <NodeLabel x={x} y={labelY} width={width} title={title} subtitle={subtitle} fontSize={12} />
+        <NodeLabel
+          x={x}
+          y={labelY}
+          width={width}
+          title={title}
+          subtitle={subtitle}
+          fontSize={12}
+          // 기본 면(node.external.fill) 위 글자색. fill 을 직접 주면 종전 글자색을 둔다(KAN-061).
+          fill={fill === undefined ? vvar('on', 'node', 'external', 'fill') : vvar('edge', 'stroke')}
+        />
         <Tag x={x + width / 2} y={tagY} label={tag} />
         {children}
       </g>

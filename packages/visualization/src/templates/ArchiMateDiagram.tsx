@@ -6,6 +6,9 @@ import { Edge } from '../atoms/Edge';
 import { NodeLabel } from '../atoms/NodeLabel';
 import { Tag } from '../atoms/Tag';
 import { vvar } from '../tokens/contract';
+import { pickOnInk, surfacesFor } from '../tokens/onInk';
+import type { VisualizationFoundation } from '../tokens/types';
+import { useVizFoundation } from '../styleGuide/VisualizationStyleGuideProvider';
 
 export type ArchiMateLayer = 'business' | 'application' | 'technology';
 
@@ -50,7 +53,7 @@ export interface ArchiMateDiagramProps extends Omit<CanvasProps, 'data' | 'child
 
 // 계층 면 색은 팔레트 키로 고르고 옅게 칠한다. 라벨 글자(edge.stroke)가 면 위에 놓이므로
 // 불투명 팔레트면 가이드에 따라 대비가 무너진다 — 35% 면 바탕 위 대비에 가까워진다(KAN-056).
-const LAYER_PALETTE: Record<ArchiMateLayer, string> = {
+const LAYER_PALETTE: Record<ArchiMateLayer, keyof VisualizationFoundation['palette']> = {
   business:    'p4',
   application: 'p5',
   technology:  'p6',
@@ -87,6 +90,7 @@ export function ArchiMateDiagram({
   title = 'ArchiMate Diagram',
   ...props
 }: ArchiMateDiagramProps) {
+  const foundation = useVizFoundation();
   if (children) {
     return (
       <Canvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
@@ -108,6 +112,11 @@ export function ArchiMateDiagram({
   })();
 
   const layerFill = vvar('palette', LAYER_PALETTE[layer]);
+  // 35% 면은 미리 낸 --bbangto-viz-on-* 로는 맞출 수 없어 그 면으로 글자색을 고른다(KAN-061).
+  const layerInk = pickOnInk(
+    foundation,
+    surfacesFor(foundation, foundation.palette[LAYER_PALETTE[layer]], LAYER_FILL_OPACITY),
+  );
   const tagY = (e: ArchiMateElementSpec) => e.y + e.height - 8;
 
   return (
@@ -141,9 +150,10 @@ export function ArchiMateDiagram({
               width={e.width}
               title={e.name}
               fontSize={12}
+              fill={e.fill ? vvar('edge', 'stroke') : layerInk}
             />
             {e.kind && (
-              <Tag x={e.x + e.width / 2} y={tagY(e)} label={e.kind} />
+              <Tag x={e.x + e.width / 2} y={tagY(e)} label={e.kind} fill={e.fill ? vvar('edge', 'stroke') : layerInk} />
             )}
           </React.Fragment>
         ))}

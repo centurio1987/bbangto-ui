@@ -131,7 +131,15 @@ export function DMNDiagram({
       {nodes.map((n) => (
         <g key={n.id} data-bbangto-viz-dmn-node data-bbangto-viz-dmn-node-kind={n.kind} data-bbangto-viz-dmn-node-id={n.id}>
           <DMNShape spec={n} />
-          <NodeLabel x={n.x} y={n.y + n.height / 2} width={n.width} title={n.label} fontSize={11} />
+          <NodeLabel
+            x={n.x}
+            y={n.y + n.height / 2}
+            width={n.width}
+            title={n.label}
+            fontSize={11}
+            // 면과 같은 팔레트 키의 글자색. fill 을 직접 주면 종전 글자색을 둔다(KAN-061).
+            fill={n.fill === undefined ? vvar('on', 'palette', KIND_FILL[n.kind]) : vvar('edge', 'stroke')}
+          />
         </g>
       ))}
     </Canvas>

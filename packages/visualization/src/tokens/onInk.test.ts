@@ -4,7 +4,7 @@ import type { RGBA } from '@centurio1987/bbangto-ui-tokens';
 import type { VisualizationFoundation } from './types';
 import { baseVisualizationFoundation } from './base';
 import { visualizationFoundationToStyleObject, vvar } from './contract';
-import { deriveOnInk, pickOnInk, surfaceOver, ON_INK_MIN } from './onInk';
+import { deriveOnInk, pickOnInk, surfaceOver, surfacesFor, ON_INK_MIN, ON_INK_SHADE } from './onInk';
 
 // KAN-061 — 면 위 글자색. 면 토큰마다 「그 위에 쓸 글자색」 하나를 계산해 --bbangto-viz-on-* 로 낸다.
 // 후보는 가이드 글자색 넷(edge.stroke → shape.stroke → boundary.labelColor → canvas.bg)이고,
@@ -104,6 +104,47 @@ describe('surfaceOver — 면을 canvas 위에 합성한다', () => {
   });
 });
 
+describe('surfacesFor — 반투명 면은 밑에 무엇이 깔릴지 모른다', () => {
+  it('불투명 면은 canvas 위 하나다', () => {
+    const f = foundation({ canvasBg: '#FFFFFF' });
+    expect(surfacesFor(f, '#3366CC')).toHaveLength(1);
+  });
+
+  it('반투명·none 면은 canvas 위와 검정 음영을 얹은 canvas 위 둘이다', () => {
+    const f = foundation({ canvasBg: '#FFFFFF' });
+    for (const v of ['rgba(255, 77, 109, 0.22)', 'none']) {
+      const [plain, shaded] = surfacesFor(f, v);
+      expect(shaded).toBeDefined();
+      expect(shaded!.r).toBeLessThan(plain!.r);
+    }
+    // opacity 인자로 옅게 칠한 불투명 색도 반투명 면이다
+    expect(surfacesFor(f, '#3366CC', 0.35)).toHaveLength(2);
+  });
+
+  it('음영 깊이는 ON_INK_SHADE 다', () => {
+    const f = foundation({ canvasBg: '#FFFFFF' });
+    const [, shaded] = surfacesFor(f, 'none');
+    expect(Math.round(shaded!.r)).toBe(Math.round(255 * (1 - ON_INK_SHADE)));
+  });
+});
+
+describe('pickOnInk — 면이 여럿이면 모두에서 4.5:1', () => {
+  // riso-print: shape.fill 22% 분홍, 레인 띠 위에서 edge.stroke 가 4.4 로 떨어졌다(KAN-061 S3 실측)
+  const riso = foundation({
+    canvasBg: '#F4EFE0',
+    edgeStroke: '#1E5AA8',
+    shapeStroke: '#1E5AA8',
+    boundaryLabel: '#182234',
+  });
+
+  it('음영을 얹은 면에서도 넘는 후보를 고른다', () => {
+    const surfaces = surfacesFor(riso, 'rgba(255, 77, 109, 0.22)');
+    const ink = pickOnInk(riso, surfaces);
+    for (const s of surfaces) expect(contrastRatio(ink, s)!).toBeGreaterThanOrEqual(ON_INK_MIN);
+    expect(ink).toBe('#182234');
+  });
+});
+
 describe('deriveOnInk — 면 토큰 전부', () => {
   it('팔레트 8 · shape.fill · canvas.bg · c4 3 · node 7 을 모두 채운다', () => {
     const on = deriveOnInk(baseVisualizationFoundation);
@@ -119,7 +160,7 @@ describe('deriveOnInk — 면 토큰 전부', () => {
     const on = deriveOnInk(f);
     expect(on.palette.p1).toBe('#FFFFFF');
     // 적지 않은 자리는 계산값이다
-    expect(on.palette.p2).toBe(pickOnInk(f, surfaceOver(f, f.palette.p2)));
+    expect(on.palette.p2).toBe(pickOnInk(f, surfacesFor(f, f.palette.p2)));
   });
 });
 

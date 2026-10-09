@@ -11,11 +11,21 @@ import type { NodeSemanticKind, VisualizationFoundation } from './types';
  *
  * `visualizationFoundationToStyleObject` 가 결과를 `--bbangto-viz-on-*` 로 내므로, 템플릿은 보통
  * `vvar('on', 'palette', 'p1')` 를 쓴다. 데이터마다 투명도가 바뀌는 면만 `useVizFoundation()` 으로
- * 값을 받아 `pickOnInk(f, surfaceOver(f, 면색, 투명도))` 를 칸마다 부른다.
+ * 값을 받아 `pickOnInk(f, surfacesFor(f, 면색, 투명도))` 를 칸마다 부른다.
+ *
+ * 반투명 면(알파 < 1 · `none` · `transparent`)은 밑에 무엇이 깔릴지 모른다. 레인 띠나 입체 옆면 음영처럼
+ * 템플릿이 까는 반투명 검정이 비쳐 보이므로, canvas 위와 검정 `ON_INK_SHADE` 를 얹은 canvas 위
+ * 두 곳에서 모두 4.5:1 을 넘는 글자색을 고른다.
  */
 
 /** 면 위 글자의 대비 하한. 면 하나에 글자색 하나라 글씨 크기를 모르므로 큰 글씨 기준(3)은 쓰지 않는다. */
 export const ON_INK_MIN = 4.5;
+
+/**
+ * 반투명 면 밑에 깔릴 수 있는 검정 음영의 깊이. 지금 가장 짙은 곳은 IsometricScene 에서 바닥 그림자(8%)와
+ * 입체 옆면(22%)이 겹친 자리로 약 28% 다.
+ */
+export const ON_INK_SHADE = 0.3;
 
 const WHITE: RGBA = { r: 255, g: 255, b: 255, a: 1 };
 const BLACK: RGBA = { r: 0, g: 0, b: 0, a: 1 };
@@ -49,21 +59,39 @@ export function surfaceOver(f: VisualizationFoundation, value: string, opacity =
   return compositeOver({ ...c, a: c.a * opacity }, canvas);
 }
 
-/** 불투명 면 하나 위에 쓸 글자색. 가이드 후보가 이기고, 없으면 검정·흰색이다. */
-export function pickOnInk(f: VisualizationFoundation, surface: RGBA): string {
+/**
+ * 글자색을 잴 면들. 불투명 면이면 canvas 위 하나, 반투명 면이면 canvas 위와 검정 음영을 얹은 canvas 위 둘이다.
+ * `opacity` 가 1 보다 작으면 불투명 색도 반투명 면이다.
+ */
+export function surfacesFor(f: VisualizationFoundation, value: string, opacity = 1): RGBA[] {
+  const c = parseColor(value);
+  const plain = surfaceOver(f, value, opacity);
+  if (c && c.a * opacity >= 1) return [plain];
+  const shadedCanvas = compositeOver({ ...BLACK, a: ON_INK_SHADE }, canvasOf(f));
+  const shaded = c ? compositeOver({ ...c, a: c.a * opacity }, shadedCanvas) : shadedCanvas;
+  return [plain, shaded];
+}
+
+/** 대비가 가장 낮은 면에서의 대비. */
+const worst = (ink: RGBA, surfaces: readonly RGBA[]): number =>
+  Math.min(...surfaces.map((s) => contrastRatio(ink, s) ?? 0));
+
+/** 면(들) 위에 쓸 글자색. 모든 면에서 4.5:1 을 넘는 가이드 후보가 이기고, 없으면 검정·흰색이다. */
+export function pickOnInk(f: VisualizationFoundation, surface: RGBA | readonly RGBA[]): string {
+  const surfaces = Array.isArray(surface) ? (surface as readonly RGBA[]) : [surface as RGBA];
   const candidates = [f.edge.stroke, f.shape.stroke, f.boundary.labelColor, f.canvas.bg];
   for (const ink of candidates) {
     const c = parseColor(ink);
     if (!c || c.a < 1) continue;
-    if ((contrastRatio(c, surface) ?? 0) >= ON_INK_MIN) return ink;
+    if (worst(c, surfaces) >= ON_INK_MIN) return ink;
   }
-  return (contrastRatio(BLACK, surface) ?? 0) >= (contrastRatio(WHITE, surface) ?? 0) ? '#000000' : '#FFFFFF';
+  return worst(BLACK, surfaces) >= worst(WHITE, surfaces) ? '#000000' : '#FFFFFF';
 }
 
 /** foundation 하나의 면 토큰 전부에 글자색을 정한다. 가이드 `on` 값이 있으면 그것을 쓴다. */
 export function deriveOnInk(f: VisualizationFoundation): OnInkMap {
   const o = f.on;
-  const ink = (value: string, override: string | undefined) => override ?? pickOnInk(f, surfaceOver(f, value));
+  const ink = (value: string, override: string | undefined) => override ?? pickOnInk(f, surfacesFor(f, value));
   const c4 = (l: C4Level) => ({ bgTint: ink(f.c4[l].bgTint, o?.c4?.[l]?.bgTint) });
 
   return {
