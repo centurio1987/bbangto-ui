@@ -1,6 +1,6 @@
 {
   "next_id": 67,
-  "next_seq": 248,
+  "next_seq": 253,
   "cards": {
     "KAN-057-CCH3E8": {
       "col": "backlog",
@@ -124,45 +124,6 @@
       "goal_hash": "7d7f3c5965fa48fc4f7935443f259db4fe8be211",
       "memo": "KAN-064 목표에서 갈라져 나왔다(2026-10-08 유저 선택). 고칠 자리 후보: 패키지 package.json exports 의 소스 조건 또는 tsconfig paths, vitest resolve. KAN-055 와 package.json 이 겹칠 것이다",
       "memo_hash": "2d69b33becebe6a5d6af6ac29847dfc600699c06"
-    },
-    "KAN-065-XSHEMV": {
-      "col": "todo",
-      "title": "style guide 모티프 버튼 포커스 테두리 정리 — 자체 CSS 18곳 대비와 없는 semantic 변수 참조",
-      "verbatim": "12곳은 여기서, 18곳은 새 카드 (앞 질문 「항목 3(style guide 자체 CSS의 버튼 포커스 테두리 30곳)을 어떻게 처리할까요?」에 대한 답)",
-      "생성": "ai",
-      "최종": "ai",
-      "갱신": "2026-10-08",
-      "title_hash": "55c3fc457945f4174c162e13877c5fc2db730e90",
-      "verbatim_hash": "7fa2890d715a97e27a22728fa28a4a3d79560911",
-      "short": "모티프 포커스 테두리",
-      "short_hash": "027df8b7329aae685d9ac02ec5c5468f53e8391c",
-      "purpose": "style guide 가 자기 CSS 로 그리는 버튼 포커스 테두리 18곳이 표면과 3:1 이상이 되게 하고, 없는 semantic 변수를 읽는 4곳도 바로잡는다",
-      "purpose_hash": "0002a056e0a6fcbf73ed6da55498e70c141bba41",
-      "reason": "KAN-060 검토에서 모티프 버튼 테두리가 border.focus 를 안 따르는 자리가 확인됐다 — 강조색·고정색 18곳이고 Neobrutalism 금색은 크림 바탕에서 1.47 이다",
-      "reason_hash": "6a302b8d689585ce711e8c0d5f20011a1494f41e",
-      "goal": "모티프 버튼 포커스 테두리의 대비를 재는 검사가 생기고 18곳이 모두 3:1 이상이 된다. style guide 소스에 없는 semantic 변수 참조가 0이 된다",
-      "goal_hash": "3dcfc8d51c710957422afcedbe97a59c6131d766",
-      "memo": "KAN-060 검토 항목 3(2026-10-08 유저 선택)에서 나왔다. 잰 값과 고칠 자리는 실행 문서 「전략」 절",
-      "memo_hash": "7cf27f78e54b70211b981bd76c149abdc57573c1",
-      "scope": [
-        "packages/style-guide-catalog/src/_motif.tsx",
-        "packages/style-guide-catalog/src/accessibilityAudit.ts",
-        "packages/style-guide-catalog/src/accessibility.test.ts",
-        "packages/style-guide-catalog/src/neobrutalismEditorial.tsx",
-        "packages/style-guide-catalog/src/minimalSaas.tsx",
-        "packages/style-guide-catalog/src/tactileTexture.tsx",
-        "packages/style-guide-catalog/src/gothicMedievalDigital.tsx",
-        "packages/style-guide-catalog/src/shatteredGlassCinematic.tsx",
-        "packages/style-guide-catalog/src/iridescentChrome.tsx",
-        "packages/style-guide-catalog/src/aiSurrealGradient3d.tsx",
-        "packages/style-guide-catalog/src/blueprintTechnical.tsx",
-        "packages/style-guide-catalog/src/scandiWarm.tsx",
-        "packages/style-guide-catalog/src/spatial3d.tsx",
-        "README.md",
-        "apps/storybook/src/real-input/mount.tsx",
-        "apps/storybook/src/real-input/FocusVisible.realinput.test.tsx",
-        ".changeset/kan-065-motif-focus.md"
-      ]
     },
     "KAN-020": {
       "col": "done",
@@ -1300,6 +1261,45 @@
         "packages/visualization/README.md",
         "packages/visualization/src/atoms/Marker.tsx"
       ]
+    },
+    "KAN-065-XSHEMV": {
+      "col": "done",
+      "title": "style guide 모티프 버튼 포커스 테두리 정리 — 자체 CSS 18곳 대비와 없는 semantic 변수 참조",
+      "verbatim": "12곳은 여기서, 18곳은 새 카드 (앞 질문 「항목 3(style guide 자체 CSS의 버튼 포커스 테두리 30곳)을 어떻게 처리할까요?」에 대한 답)",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-09",
+      "title_hash": "55c3fc457945f4174c162e13877c5fc2db730e90",
+      "verbatim_hash": "7fa2890d715a97e27a22728fa28a4a3d79560911",
+      "short": "모티프 포커스 테두리",
+      "short_hash": "027df8b7329aae685d9ac02ec5c5468f53e8391c",
+      "purpose": "style guide 가 자기 CSS 로 그리는 버튼 포커스 테두리 18곳이 표면과 3:1 이상이 되게 하고, 없는 semantic 변수를 읽는 4곳도 바로잡는다",
+      "purpose_hash": "0002a056e0a6fcbf73ed6da55498e70c141bba41",
+      "reason": "KAN-060 검토에서 모티프 버튼 테두리가 border.focus 를 안 따르는 자리가 확인됐다 — 강조색·고정색 18곳이고 Neobrutalism 금색은 크림 바탕에서 1.47 이다",
+      "reason_hash": "6a302b8d689585ce711e8c0d5f20011a1494f41e",
+      "goal": "모티프 버튼 포커스 테두리의 대비를 재는 검사가 생기고 18곳이 모두 3:1 이상이 된다. style guide 소스에 없는 semantic 변수 참조가 0이 된다",
+      "goal_hash": "3dcfc8d51c710957422afcedbe97a59c6131d766",
+      "memo": "KAN-060 검토 항목 3(2026-10-08 유저 선택)에서 나왔다. 잰 값과 고칠 자리는 실행 문서 「전략」 절",
+      "memo_hash": "7cf27f78e54b70211b981bd76c149abdc57573c1",
+      "scope": [
+        "packages/style-guide-catalog/src/_motif.tsx",
+        "packages/style-guide-catalog/src/accessibilityAudit.ts",
+        "packages/style-guide-catalog/src/accessibility.test.ts",
+        "packages/style-guide-catalog/src/neobrutalismEditorial.tsx",
+        "packages/style-guide-catalog/src/minimalSaas.tsx",
+        "packages/style-guide-catalog/src/tactileTexture.tsx",
+        "packages/style-guide-catalog/src/gothicMedievalDigital.tsx",
+        "packages/style-guide-catalog/src/shatteredGlassCinematic.tsx",
+        "packages/style-guide-catalog/src/iridescentChrome.tsx",
+        "packages/style-guide-catalog/src/aiSurrealGradient3d.tsx",
+        "packages/style-guide-catalog/src/blueprintTechnical.tsx",
+        "packages/style-guide-catalog/src/scandiWarm.tsx",
+        "packages/style-guide-catalog/src/spatial3d.tsx",
+        "README.md",
+        "apps/storybook/src/real-input/mount.tsx",
+        "apps/storybook/src/real-input/FocusVisible.realinput.test.tsx",
+        ".changeset/kan-065-motif-focus.md"
+      ]
     }
   },
   "order": [
@@ -1307,7 +1307,6 @@
     "KAN-061-K8V2HH",
     "KAN-064-AC0H6M",
     "KAN-066-T6NR80",
-    "KAN-065-XSHEMV",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1368,9 +1367,60 @@
     "KAN-063-Q85EET",
     "KAN-060-G9YKG6",
     "KAN-055-34A57K",
-    "KAN-062-E02CMT"
+    "KAN-062-E02CMT",
+    "KAN-065-XSHEMV"
   ],
   "recent": [
+    {
+      "seq": 252,
+      "t": "2026-10-09T22:03",
+      "a": "ai",
+      "id": "KAN-065-XSHEMV",
+      "op": "move",
+      "w": "ZTJ9MG",
+      "from": "review",
+      "to": "done"
+    },
+    {
+      "seq": 251,
+      "t": "2026-10-09T00:00",
+      "a": "ai",
+      "id": "KAN-065-XSHEMV",
+      "op": "move",
+      "w": "ZTJ9MG",
+      "from": "doing",
+      "to": "review"
+    },
+    {
+      "seq": 250,
+      "t": "2026-10-08T19:08",
+      "a": "ai",
+      "id": "KAN-065-XSHEMV",
+      "op": "move",
+      "w": "ZTJ9MG",
+      "from": "review",
+      "to": "doing"
+    },
+    {
+      "seq": 249,
+      "t": "2026-10-08T18:56",
+      "a": "ai",
+      "id": "KAN-065-XSHEMV",
+      "op": "move",
+      "w": "ZTJ9MG",
+      "from": "doing",
+      "to": "review"
+    },
+    {
+      "seq": 248,
+      "t": "2026-10-08T18:40",
+      "a": "ai",
+      "id": "KAN-065-XSHEMV",
+      "op": "move",
+      "w": "ZTJ9MG",
+      "from": "todo",
+      "to": "doing"
+    },
     {
       "seq": 247,
       "t": "2026-10-08T18:39",
@@ -1866,56 +1916,6 @@
       "w": "GEG7B8",
       "from": "doing",
       "to": "review"
-    },
-    {
-      "seq": 222,
-      "t": "2026-10-08T00:14",
-      "a": "ai",
-      "id": "KAN-055-34A57K",
-      "op": "waive",
-      "w": "S7030N",
-      "with_": "KAN-059-62EAKB",
-      "reason": "059의 changeset은 059가 main에 병합된 뒤에만 들어오므로 그 전 배포에 섞이지 않는다. 먼저 병합되면 함께 배포된다. KAN-054·058과 같은 처리 (2026-10-07 유저 선택). 2026-10-08 재기록: 059 scope에 blocks/Gallery·Testimonials가 더해진 것이 reconcile로 반영되며 무효가 된 기록을 다시 건다 — 겹침은 그대로 .changeset/ 하나"
-    },
-    {
-      "seq": 222,
-      "t": "2026-10-07T19:36",
-      "a": "ai",
-      "id": "KAN-059-62EAKB",
-      "op": "move",
-      "w": "GTA753",
-      "from": "doing",
-      "to": "review"
-    },
-    {
-      "seq": 222,
-      "t": "2026-10-07T19:32",
-      "a": "ai",
-      "id": "KAN-056-D3V1MB",
-      "op": "move",
-      "w": "GEG7B8",
-      "from": "todo",
-      "to": "doing"
-    },
-    {
-      "seq": 221,
-      "t": "2026-10-07T19:32",
-      "a": "유저",
-      "id": "KAN-055-34A57K",
-      "op": "waive",
-      "w": "S7030N",
-      "with_": "KAN-056-D3V1MB",
-      "reason": "KAN-056 은 자기 changeset 파일(.changeset/kan-056-*.md) 하나만 더하고 KAN-055 는 배포 때 그것을 읽어 소비할 뿐이라 같은 파일을 고치지 않는다. 어느 쪽이 먼저 끝나도 깨지지 않는다 (2026-10-07 유저 선택)"
-    },
-    {
-      "seq": 221,
-      "t": "2026-10-07T19:17",
-      "a": "ai",
-      "id": "KAN-059-62EAKB",
-      "op": "move",
-      "w": "GTA753",
-      "from": "todo",
-      "to": "doing"
     }
   ],
   "waivers": [

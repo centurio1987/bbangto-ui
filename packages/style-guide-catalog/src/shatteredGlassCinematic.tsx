@@ -121,7 +121,7 @@ const roseFoundations = makeColorway(foundations, {
   semantic: makeSemantic({
     bg: '#100A11', bgElevated: '#1A1220', bgSunken: '#0A060B', overlay: 'rgba(8,4,10,0.72)',
     fg: '#F7F0FB', fgMuted: '#C0AECB', fgSubtle: '#8A7E92', fgInverse: '#100A11',
-    border: '#352A3A', borderMuted: '#201826', borderStrong: '#4A3C50', focus: '#34E5FF',
+    border: '#352A3A', borderMuted: '#201826', borderStrong: '#4A3C50', focus: GOLD, // 굴절 시안과 구분되는 골드 — 접근성 규칙의 포커스 링 (KAN-065)
     primaryBase: MAGENTA, primaryHover: '#F06FD3', primaryActive: '#C23BA3',
     primarySubtle: '#2A1226', primaryFg: '#150912',
     accent: MAGENTA, accent2: CYAN, accent3: LIME,
@@ -192,7 +192,7 @@ const CSS = `
 .bbangto-shattered-glass-cinematic-btn:hover { box-shadow: var(--bbangto-ext-glass-edge-glow, 0 0 22px rgba(232,84,197,0.28)) !important; }
 .bbangto-shattered-glass-cinematic-btn:hover::after { transform: translateX(120%); }
 .bbangto-shattered-glass-cinematic-btn:active { transform: translateY(1px) scale(0.99); }
-.bbangto-shattered-glass-cinematic-btn:focus-visible { outline: 2px solid ${GOLD} !important; outline-offset: 2px; }
+.bbangto-shattered-glass-cinematic-btn:focus-visible { outline: 2px solid var(--bbangto-semantic-border-focus, ${GOLD}) !important; outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) {
   .bbangto-shattered-glass-cinematic-card { transition: none !important; }
   .bbangto-shattered-glass-cinematic-card:hover { transform: none !important; }
@@ -277,7 +277,7 @@ const guidelines: Record<string, Record<string, unknown>> = {
     title: '접근성',
     rules: [
       '다크 배경 + 저채도/투명 굴절면 위 텍스트는 WCAG AA(본문 4.5:1, 대형 3:1) 미달 위험이 크므로 텍스트 레이어에 솔리드 backdrop/대비 토큰을 강제한다.',
-      '포커스 링은 굴절 색과 구분되는 솔리드 컬러(골드 #FFC53D)로 그려 이리데센트에 묻히지 않게 한다.',
+      '포커스 링은 굴절 색과 구분되는 솔리드 골드(기본·rose #FFC53D, 밝은 바탕의 light 는 짙은 호박색 #B26A00)로 그려 이리데센트에 묻히지 않게 한다.',
       '이리데센트 색전이·균열 반짝임은 prefers-reduced-motion: reduce에서 정적화한다(고대비 플릭커·발작 위험 회피).',
       '굴절/균열 이미지에는 alt 텍스트를 제공한다.',
     ],

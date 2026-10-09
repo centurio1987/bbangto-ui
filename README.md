@@ -744,6 +744,8 @@ pnpm add @centurio1987/bbangto-ui-core @centurio1987/bbangto-ui-style-guide-cata
 
    흰 바탕에 노랑 포커스(`#FAFF69`)를 두면 약 1.07:1이라 `{ reason: 'below-threshold', against: 'base' }`가 나옵니다. 고칠 때는 색조를 두고 명도만 낮추면 브랜드 느낌이 덜 깨집니다. `elevated`가 `rgba(255,255,255,0.08)`처럼 반투명이면 흰색이 아니라 `base` 위에 겹쳐 잽니다. 유리 효과 카드는 실제로 어두운 바탕 위에 깔리기 때문입니다. foundation을 새로 만들 때는 `packages/foundations/src/focusContrast.test.ts`가 같은 규칙으로 잽니다.
 
+   스타일 가이드가 `makeMotifWrappers`로 자기 버튼 CSS를 넣으면, 그 CSS가 그리는 포커스 테두리도 같은 3:1로 잽니다. `:focus`가 든 규칙의 `outline`·`box-shadow` 색을 색 스킴마다 그 색 스킴이 까는 변수(확장 변수 `--bbangto-ext-*` 포함)로 풀어서 재요. 강조색 대신 `var(--bbangto-semantic-border-focus, <기본 포커스 색>)`을 읽게 두면 위 게이트를 통과한 포커스 색을 그대로 따라갑니다. 소스에 없는 `--bbangto-semantic-*` 변수(예: `--bbangto-semantic-focus`)를 쓰면 어느 색 스킴에서도 대체값만 그려지므로, 같은 테스트가 그런 참조도 잡습니다.
+
    ```bash
    pnpm --filter @centurio1987/bbangto-ui-style-guide-catalog test
    ```

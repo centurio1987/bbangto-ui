@@ -9,19 +9,35 @@
 import React from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { flushSync } from 'react-dom';
-import { FoundationProvider, lightFoundation } from '@centurio1987/bbangto-ui-core';
+import { FoundationProvider, lightFoundation, StyleGuideProvider, type StyleGuide } from '@centurio1987/bbangto-ui-core';
 import type { BbangtoFoundation } from '@centurio1987/bbangto-ui-tokens';
 
 const mounted: { root: Root; host: HTMLElement }[] = [];
 
-/** ui 를 foundation(기본 light) 아래 document.body 에 그린다. */
-export function mount(ui: React.ReactElement, foundation: BbangtoFoundation = lightFoundation): HTMLElement {
+function render(tree: React.ReactElement): HTMLElement {
   const host = document.createElement('div');
   document.body.appendChild(host);
   const root = createRoot(host);
-  flushSync(() => root.render(<FoundationProvider foundation={foundation}>{ui}</FoundationProvider>));
+  flushSync(() => root.render(tree));
   mounted.push({ root, host });
   return host;
+}
+
+/** ui 를 foundation(기본 light) 아래 document.body 에 그린다. */
+export function mount(ui: React.ReactElement, foundation: BbangtoFoundation = lightFoundation): HTMLElement {
+  return render(<FoundationProvider foundation={foundation}>{ui}</FoundationProvider>);
+}
+
+/**
+ * ui 를 style guide 의 색 스킴(foundationKey) 아래 그린다. 모티프 CSS 가 읽는 확장 변수(`--bbangto-ext-*`)는
+ * FoundationProvider 가 아니라 StyleGuideProvider 가 깔아서, 모티프 래퍼를 잴 때는 이쪽을 쓴다. (KAN-065)
+ */
+export function mountStyleGuide(ui: React.ReactElement, styleGuide: StyleGuide, foundationKey?: string): HTMLElement {
+  return render(
+    <StyleGuideProvider styleGuide={styleGuide} foundationKey={foundationKey} fonts="none">
+      {ui}
+    </StyleGuideProvider>,
+  );
 }
 
 /** 그린 것을 모두 걷는다. afterEach 에서 부른다. */
