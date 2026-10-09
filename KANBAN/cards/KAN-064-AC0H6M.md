@@ -51,7 +51,7 @@ scope: packages/style-guide-catalog/src/manifest.ts, packages/style-guide-catalo
 
 1. **얇은 색인(tier 1)**: `name`·`displayName`·`family`(또는 `category`)·`tags`·`domains`·`summary` 한 줄만 싣는다. 처음에는 4종 합계 1만 토큰 안쪽을 목표로 했으나, S1 실측으로 축마다 1만 토큰 안쪽으로 고쳤다(「실측」 참고). AI는 이것으로 후보 2~3개를 고른다.
 2. **상세 메타(tier 2)**: `useWhen`·`avoidWhen`·`mood`·`accessibility`·`related`는 기존처럼 객체(`./meta` 서브패스, 카탈로그 배열)에서 읽는다. 후보로 좁힌 뒤에만 읽으므로 토큰이 O(후보 수)가 된다. 필요하면 항목별 상세 파일(`manifest/<name>.json`)을 선택 산출물로 둔다.
-3. **동기화 단순화**: 네 생성기를 `prebuild`로 통일하고, dist 의존을 없앤다(생성기가 `src`의 meta 모듈만 import하도록 분리). 바이트 일치 테스트는 "커밋본이 최신인가"가 아니라 "생성기가 결정적인가"만 보도록 줄인다. 커밋본 유지 여부는 S3에서 결정한다(npm 패키지에는 빌드 결과가 실리므로 커밋본의 역할은 저장소를 둘러보는 AI용뿐).
+3. **동기화 단순화**: 네 생성기를 `prebuild`로 통일했다(S3). 처음에는 dist 의존을 없애고 바이트 일치 테스트를 "생성기가 결정적인가"만 보도록 줄일 계획이었으나 둘 다 바꿨다. dist 의존은 걷지 않았다 — 생성기 3개가 core·visualization·tokens 의 dist 를 읽는데, 원인이 패키지끼리 dist 로 서로를 찾는 구조 하나라 KAN-066 으로 넘겼다(2026-10-08 유저 선택). 바이트 일치 테스트는 커밋하는 색인 4개에 "커밋본이 최신인가"로 남겼고, 빌드가 색인을 먼저 다시 쓰므로 빌드 뒤의 커밋 누락은 배포 워크플로가 빌드 직후 `git diff --exit-code` 로 잡는다(S4). 상세 파일은 커밋하지 않고 npm 패키지에만 싣는다.
 4. **README·전략 문서 갱신**: "매니페스트 하나만 읽는다"는 서술을 2단 읽기(색인 → 상세)로 바꾼다.
 
 ### 버린 대안
@@ -108,3 +108,5 @@ scope: packages/style-guide-catalog/src/manifest.ts, packages/style-guide-catalo
 - 2026-10-08T19:15 · s:bea40e0e · S5 doing — 착수
 - 2026-10-08T19:18 · s:bea40e0e — S5: metadata-coverage.json 은 그대로 — 색인 파일 이름이 안 바뀌었고 상세 manifest/<이름>.json 은 census 가 찾는 파일 형태(*.manifest.json·src/catalog.json)가 아니다. 메모리 fresh-worktree-gate-order 도 그대로 — 새 워크트리는 여전히 build 먼저(KAN-066 이 풀 때까지)
 - 2026-10-08T19:18 · s:bea40e0e · S5 done — changeset kan-064-manifest-index.md(4패키지 major) · 게이트 5종 초록: typecheck · build · test 193파일/1292 · storybook build · test:unit
+- 2026-10-09T22:47 · s:bea40e0e — `전략` 섹션 교체
+- 2026-10-09T22:48 · s:bea40e0e — 검토 반영: 「바이트 동기 테스트가 최신성을 강제/CI 에서 잡는다」 6곳(METADATA_STRATEGY.md:132 · 생성기 주석 3 · 전략 문서 2)을 「빌드 없이 돌릴 때만 잡고, 빌드 뒤 커밋 누락은 release.yml 의 git diff 단계가 잡는다」로 고침. 전략 3번을 실제로 한 일로 고침. build·test:unit·typecheck 초록

@@ -11,7 +11,8 @@
  *  - `related` 참조 정합성(존재·self-ref·중복)을 검증,
  *  - slug 오름차순으로 결정적 정렬한다.
  * 렌더는 없지만 대비 계산을 tokens 런타임에서 가져오므로 Node 에서 돌리려면 tokens 의 dist 가 있어야 한다(KAN-064 실측).
- * 최신성은 manifest.test.ts 의 색인 바이트 동기 테스트가 강제.
+ * 커밋본이 최신인지는 배포 워크플로가 빌드 직후 git diff 로 본다(.github/workflows/release.yml). manifest.test.ts 의 색인 바이트
+ * 동기 테스트는 빌드 없이 돌릴 때만 낡은 색인을 잡는다 — 빌드가 색인을 먼저 다시 쓰기 때문이다.
  */
 import type { BbangtoFoundation, FoundationMeta, FoundationColorScheme } from '@centurio1987/bbangto-ui-tokens';
 import {

@@ -59,7 +59,8 @@ vizTypeRegistry(entry.meta)  ──(buildTypeManifest, 결정적)──▶  type
 - `metaStatus`: `authored`(meta 저작) | `pending`(백필 대기). **'pending'은 "해당 없음"이 아니다.**
 - `completeness`: 구조에서 계산(저작 대상 아님) — exportCount·hasVariant·useWhenCount·primitiveCount.
 - `related` 참조 정합성(존재·self-ref·중복)은 **authored 전체**에 대해 생성기가 throw로 강제.
-- 커밋하는 것은 색인뿐이고, `manifest.test.ts`가 재생성 결과와 **바이트 일치** 검증(drift 게이트).
+- 커밋하는 것은 색인뿐이고, `manifest.test.ts`가 재생성 결과와 **바이트 일치** 검증한다. 빌드가 색인을 먼저 다시 쓰므로
+  이 테스트가 drift 를 잡는 것은 빌드 없이 돌릴 때뿐이고, 빌드 뒤의 커밋 누락은 배포 워크플로의 `git diff --exit-code` 단계가 잡는다.
   생성은 `pnpm build` 의 `prebuild` 가 한다(KAN-064). 레지스트리가 순수 데이터라 이 생성기만은 다른 패키지의
   `dist` 없이도 돈다. 상세 `manifest/` 는 `.gitignore` 대상이고 `package.json` 의 `files` 로 npm 패키지에만 실린다.
   커버리지는 `registry.test.ts`가 배럴 정적 스캔으로 양방향 검증.

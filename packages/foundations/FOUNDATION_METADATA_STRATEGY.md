@@ -62,7 +62,8 @@ foundationCatalog(SSOT) + foundationMetaRegistry(authored)
 - `metaStatus`: `authored`(meta 저작) | `pending`(백필 대기). **'pending'은 "해당 없음"이 아니다.**
 - 생성기가 hard-fail하는 것: **over-claim**(`contrastIntent`가 실측 `baseTextContrast`보다 높음, KAN-024 패턴,
   base 쌍 한정), **related 정합성**(존재·self-ref·중복), **phantom registry 키**(catalog에 없는 slug 저작).
-- 커밋하는 것은 색인뿐이고, `meta/manifest.test.ts`가 생성 결과와 **바이트 일치** 검증(drift 게이트).
+- 커밋하는 것은 색인뿐이고, `meta/manifest.test.ts`가 생성 결과와 **바이트 일치** 검증한다. 빌드가 색인을 먼저 다시 쓰므로
+  이 테스트가 drift 를 잡는 것은 빌드 없이 돌릴 때뿐이고, 빌드 뒤의 커밋 누락은 배포 워크플로의 `git diff --exit-code` 단계가 잡는다.
   생성은 `pnpm build` 의 `prebuild` 가 한다(KAN-064). 생성기는 대비 계산을 tokens 런타임에서 가져오므로
   tokens 의 `dist` 가 있어야 돈다 — `pnpm build` 가 tokens 를 먼저 빌드하므로 그 순서를 지킨다.
   상세 `manifest/` 는 `.gitignore` 대상이고 `package.json` 의 `files` 로 npm 패키지에만 실린다.

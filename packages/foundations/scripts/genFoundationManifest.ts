@@ -6,7 +6,8 @@
  * 런타임에서 가져오므로 tokens 의 dist 가 있어야 돈다(KAN-064 실측). `pnpm build` 가 tokens 를 먼저 빌드한 뒤 prebuild 로 부른다.
  * 매니페스트는 색인(foundation.manifest.json)과 항목별 상세(manifest/<slug>.json) 두 층으로 쓴다(KAN-064).
  * 상세 폴더는 매번 비우고 다시 쓴다.
- * 최신성은 meta/manifest.test.ts 의 색인 바이트 동기 테스트가 강제한다.
+ * 커밋본이 최신인지는 배포 워크플로가 빌드 직후 git diff 로 본다(.github/workflows/release.yml). meta/manifest.test.ts 의 색인 바이트
+ * 동기 테스트는 빌드 없이 돌릴 때만 낡은 색인을 잡는다 — 빌드가 색인을 먼저 다시 쓰기 때문이다.
  */
 import { mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';

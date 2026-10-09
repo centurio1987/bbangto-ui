@@ -129,7 +129,9 @@ StyleGuide.meta ─(buildManifest, 결정적)─┬─▶ catalog.manifest.json 
   assertion을 추가해 gate를 승격했다. 타입 시그니처의 `?`(optional) 제거는 소비 helper 도입 시점
   (KAN-022)에 병행한다(현재는 테스트 게이트가 필수성을 강제).
 - **재생성 강제**: 색인과 상세는 생성물이다. `prebuild`가 `gen:manifest`를 자동 실행해 둘을 다시 쓴다.
-  커밋하는 것은 색인뿐이고, vitest 동기 테스트(색인 직렬화 === 커밋본)가 stale 색인을 CI에서 잡는다.
+  커밋하는 것은 색인뿐이다. 빌드가 색인을 먼저 다시 쓰므로, 빌드 뒤에 도는 vitest 동기 테스트(색인 직렬화 ===
+  커밋본)는 커밋 누락을 못 잡는다 — 그것은 배포 워크플로가 빌드 직후 `git diff --exit-code` 로 잡는다
+  (`.github/workflows/release.yml`). 동기 테스트가 낡은 색인을 잡는 것은 빌드 없이 돌렸을 때뿐이다.
   상세 `manifest/` 는 `.gitignore` 대상이고 `package.json` 의 `files` 로 npm 패키지에만 실린다 —
   저장소 안에서 상세가 필요하면 각 preset 소스의 `meta` 를 읽거나 `pnpm build` 뒤 폴더를 연다.
 - **drift 최소화**: 매니페스트를 채택 필드의 기계 SSOT로 삼고, `style-guide-catalog.md` 트렌드 표는
