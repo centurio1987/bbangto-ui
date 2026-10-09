@@ -55,6 +55,16 @@
     ```text
     수정분 먼저 배포 (앞 질문 「§3-5 — 아직 배포하지 않은 수정분 세 건(KAN-056 viz 템플릿 색 · KAN-060 포커스 대비 · KAN-065 모티프 포커스)을 이 카드의 큰 버전 올림(visualization 0.4.0→1.0.0 · foundations 1.1.1→2.0.0 · 룩 카탈로그 2개 0.3.x→1.0.0)보다 먼저 따로 배포할까요?」에 대한 답)
     ```
+- `KAN-069-G0FGTJ` viz 미사용 토큰 정리 — 선언만 있고 읽히지 않는 시각화 토큰을 토큰마다 잇거나 걷기 (경계선부터) — 생성:ai · 최종:ai · 갱신:2026-10-10
+  - 짧은 제목: viz 미사용 토큰 정리
+  - 목적: 선언만 있고 계약 스타일시트·atom 어디서도 읽지 않는 viz 토큰 20여 개를 토큰마다 잇거나 타입에서 걷는다
+  - 이유: KAN-057 계획 중 스윕에서 boundary.*·c4.*·typography.sizes.* 등이 선언만 있고 그림에 반영되지 않는 것을 확인했다 — 스타일 가이드 값이 조용히 무시된다
+  - 목표: 선언과 동작이 어긋난 viz 토큰이 0이 되고, 첫 단계로 경계선(boundary.dashPattern·width·radius)이 카탈로그 가이드 값대로 그려진다
+  - 메모: 대상: canvas.gridUnit · node.*.tagColor · edge.marker.size · c4.l1/l2/l3.{borderWidth,bgTint,labelColor} 9개 · boundary.{dashPattern,width,radius}(Boundary.tsx 가 JS 기본값 '8 6'/1.5/8 사용, 카탈로그 값은 제각각이라 그림이 바뀜) · typography.titleWeight · typography.sizes.{title,label,tag,mono} · iconStyle · spacing.{nodePad,laneGap} · motion.{duration,easing}. 잇는 방식은 KAN-057(edge.dashPattern)의 훅·계약 스타일시트 규칙을 따른다
+  - 원문:
+    ```text
+    후속 카드 1장 (Recommended) — main에서 백로그 카드를 하나 만들어, 토큰마다 잇기와 걷기를 정합니다. 그림이 바로 바뀌는 경계선을 첫 단계로 둡니다. KAN-057은 엣지 대시만 다룹니다. (앞 질문 「선언만 있고 읽히지 않는 viz 토큰 20여 개(경계선 dashPattern·width·radius, c4.* 9개, typography.sizes.* 4개 등)를 어떻게 다룰까요?」에 대한 답)
+    ```
 
 ## 할 일
 - `KAN-067-WDY7N1` 배포 문서에 「원하는 것이 없을 때」 길 — core·viz README 확장 절 + viz 관리용 문서 배포 제외 — 생성:ai · 최종:ai · 갱신:2026-10-09
@@ -64,7 +74,7 @@
   - 목표: 앱 에이전트가 배포물만 읽고 없는 것을 확장 컴포넌트로 만들 수 있고, 배포물에 저장소 관리 지시가 0건이며, 검사가 둘 다 지킨다
   - 메모: 2026-10-09 매니페스트 진단의 고칠 방법 1·2. 3번(매니페스트에 조립 경로 필드)은 이 카드 밖이고 KAN-064 와 함께 정한다
   - 실행 문서: KANBAN/cards/KAN-067-WDY7N1.md (0/6 · 최근 10-09)
-  - 계획 리포트: KANBAN/reports/KAN-067-WDY7N1.report.html
+  - 계획 리포트: KANBAN/reports/KAN-067-WDY7N1.report.html (낡음)
   - 원문:
     ```text
     ai agent가 bbangto-ui library를 사용해서 앱을 구현할 때, 원하는 컴포넌트가 없으면, 확장 컴포넌트를 만들지 않고, 탈 라이브러리를 하려고 하거나, bbangto-ui에 개선 요청을 하는 결론을 내린다. 이 라이브러리의 매니페스트에 원인이 있나?

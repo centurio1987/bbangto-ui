@@ -1,6 +1,6 @@
 {
-  "next_id": 69,
-  "next_seq": 256,
+  "next_id": 70,
+  "next_seq": 257,
   "cards": {
     "KAN-057-CCH3E8": {
       "col": "backlog",
@@ -1354,6 +1354,26 @@
       "goal_hash": "052306f610fd57a2dfba8775b28954fb8b627e10",
       "memo": "push·배포는 사용자의 분명한 실행 지시 뒤에만(KAN-055 와 같은 규율). KAN-064 는 이 카드가 끝난 뒤 병합한다. 그 사이 끝난 다른 카드(예: KAN-067)의 changeset 을 함께 실을지는 착수 때 정한다",
       "memo_hash": "542d88faf9311a19a50a81f44a0d6ac9279c5489"
+    },
+    "KAN-069-G0FGTJ": {
+      "col": "backlog",
+      "title": "viz 미사용 토큰 정리 — 선언만 있고 읽히지 않는 시각화 토큰을 토큰마다 잇거나 걷기 (경계선부터)",
+      "verbatim": "후속 카드 1장 (Recommended) — main에서 백로그 카드를 하나 만들어, 토큰마다 잇기와 걷기를 정합니다. 그림이 바로 바뀌는 경계선을 첫 단계로 둡니다. KAN-057은 엣지 대시만 다룹니다. (앞 질문 「선언만 있고 읽히지 않는 viz 토큰 20여 개(경계선 dashPattern·width·radius, c4.* 9개, typography.sizes.* 4개 등)를 어떻게 다룰까요?」에 대한 답)",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-10",
+      "title_hash": "ebfe7060854756c0d7b547a9a781675822f043f1",
+      "verbatim_hash": "20fcbcf9c9dafd2379e0ecd8892224ebb6c4d184",
+      "short": "viz 미사용 토큰 정리",
+      "short_hash": "e3d03e98c85ec9332f2ab47ef3df9d2b3d2cc344",
+      "purpose": "선언만 있고 계약 스타일시트·atom 어디서도 읽지 않는 viz 토큰 20여 개를 토큰마다 잇거나 타입에서 걷는다",
+      "purpose_hash": "d3aa5f156592b2a3ebe7e500559b634e31dc4a9a",
+      "reason": "KAN-057 계획 중 스윕에서 boundary.*·c4.*·typography.sizes.* 등이 선언만 있고 그림에 반영되지 않는 것을 확인했다 — 스타일 가이드 값이 조용히 무시된다",
+      "reason_hash": "ceafc2587d6ce43b74eaa06afa7aa7b7c1f4d879",
+      "goal": "선언과 동작이 어긋난 viz 토큰이 0이 되고, 첫 단계로 경계선(boundary.dashPattern·width·radius)이 카탈로그 가이드 값대로 그려진다",
+      "goal_hash": "4237d5c61fd97a0671b835214a4c8765c02a2e47",
+      "memo": "대상: canvas.gridUnit · node.*.tagColor · edge.marker.size · c4.l1/l2/l3.{borderWidth,bgTint,labelColor} 9개 · boundary.{dashPattern,width,radius}(Boundary.tsx 가 JS 기본값 '8 6'/1.5/8 사용, 카탈로그 값은 제각각이라 그림이 바뀜) · typography.titleWeight · typography.sizes.{title,label,tag,mono} · iconStyle · spacing.{nodePad,laneGap} · motion.{duration,easing}. 잇는 방식은 KAN-057(edge.dashPattern)의 훅·계약 스타일시트 규칙을 따른다",
+      "memo_hash": "cffeea0b71d91e3d5794889ca0199a7879189a3c"
     }
   },
   "order": [
@@ -1424,9 +1444,27 @@
     "KAN-060-G9YKG6",
     "KAN-055-34A57K",
     "KAN-062-E02CMT",
-    "KAN-065-XSHEMV"
+    "KAN-065-XSHEMV",
+    "KAN-069-G0FGTJ"
   ],
   "recent": [
+    {
+      "seq": 256,
+      "t": "2026-10-10T00:16",
+      "a": "ai",
+      "id": "KAN-069-G0FGTJ",
+      "op": "create",
+      "w": "S7030N",
+      "col": "backlog",
+      "title": "viz 미사용 토큰 정리 — 선언만 있고 읽히지 않는 시각화 토큰을 토큰마다 잇거나 걷기 (경계선부터)",
+      "verbatim": "후속 카드 1장 (Recommended) — main에서 백로그 카드를 하나 만들어, 토큰마다 잇기와 걷기를 정합니다. 그림이 바로 바뀌는 경계선을 첫 단계로 둡니다. KAN-057은 엣지 대시만 다룹니다. (앞 질문 「선언만 있고 읽히지 않는 viz 토큰 20여 개(경계선 dashPattern·width·radius, c4.* 9개, typography.sizes.* 4개 등)를 어떻게 다룰까요?」에 대한 답)",
+      "parent": null,
+      "short": "viz 미사용 토큰 정리",
+      "purpose": "선언만 있고 계약 스타일시트·atom 어디서도 읽지 않는 viz 토큰 20여 개를 토큰마다 잇거나 타입에서 걷는다",
+      "reason": "KAN-057 계획 중 스윕에서 boundary.*·c4.*·typography.sizes.* 등이 선언만 있고 그림에 반영되지 않는 것을 확인했다 — 스타일 가이드 값이 조용히 무시된다",
+      "goal": "선언과 동작이 어긋난 viz 토큰이 0이 되고, 첫 단계로 경계선(boundary.dashPattern·width·radius)이 카탈로그 가이드 값대로 그려진다",
+      "memo": "대상: canvas.gridUnit · node.*.tagColor · edge.marker.size · c4.l1/l2/l3.{borderWidth,bgTint,labelColor} 9개 · boundary.{dashPattern,width,radius}(Boundary.tsx 가 JS 기본값 '8 6'/1.5/8 사용, 카탈로그 값은 제각각이라 그림이 바뀜) · typography.titleWeight · typography.sizes.{title,label,tag,mono} · iconStyle · spacing.{nodePad,laneGap} · motion.{duration,easing}. 잇는 방식은 KAN-057(edge.dashPattern)의 훅·계약 스타일시트 규칙을 따른다"
+    },
     {
       "seq": 255,
       "t": "2026-10-09T22:52",
@@ -1975,16 +2013,6 @@
       "w": "S7030N",
       "with_": "KAN-051-5HMYKT",
       "reason": "전략 재수립 완료"
-    },
-    {
-      "seq": 224,
-      "t": "2026-10-08T00:24",
-      "a": "ai",
-      "id": "KAN-056-D3V1MB",
-      "op": "move",
-      "w": "GEG7B8",
-      "from": "review",
-      "to": "doing"
     }
   ],
   "waivers": [
