@@ -1,6 +1,8 @@
 import { type ReactNode } from 'react';
 import { Canvas, type CanvasProps } from '../atoms/Canvas';
 import { vvar } from '../tokens/contract';
+import { pickOnInk, surfacesFor } from '../tokens/onInk';
+import { useVizFoundation } from '../styleGuide/VisualizationStyleGuideProvider';
 import { linearScale } from '../geometry/scale';
 
 export interface ChoroplethRegion {
@@ -44,6 +46,7 @@ export function ChoroplethMap({
   title = 'Choropleth map',
   ...canvasProps
 }: ChoroplethMapProps) {
+  const foundation = useVizFoundation();
   if (children || !data || data.regions.length === 0) {
     return (
       <Canvas viewBox={viewBox} title={title} data-bbangto-viz-chart="choropleth" {...canvasProps}>
@@ -59,6 +62,15 @@ export function ChoroplethMap({
   const vMax = domain?.[1] ?? (values.length ? Math.max(...values) : 1);
   const opacity = linearScale([vMin, vMax], [0.15, 1]);
   const fill = color ?? vvar('palette', 'p1');
+  const regionOpacity = (v: number | undefined) =>
+    v != null && vMax !== vMin ? opacity(v) : v != null ? 1 : 0.12;
+  // 지역마다 투명도가 달라 미리 낸 --bbangto-viz-on-* 로는 맞출 수 없다 — 그 지역의 면으로 고른다.
+  // color 를 직접 주면 그 면의 대비는 준 쪽 몫이라 종전 글자색을 둔다(KAN-061).
+  const inkFor = (v: number | undefined) => {
+    if (v != null && color) return vvar('shape', 'stroke');
+    const face = v != null ? foundation.palette.p1 : foundation.canvas.grid;
+    return pickOnInk(foundation, surfacesFor(foundation, face, regionOpacity(v)));
+  };
 
   return (
     <Canvas viewBox={viewBox} title={title} data-bbangto-viz-chart="choropleth" {...canvasProps}>
@@ -74,7 +86,7 @@ export function ChoroplethMap({
             d={r.d}
             style={{
               fill: matched ? fill : vvar('canvas', 'grid'),
-              fillOpacity: matched && vMax !== vMin ? opacity(v) : matched ? 1 : 0.12,
+              fillOpacity: regionOpacity(v),
               stroke: vvar('canvas', 'bg'),
               strokeWidth: 1.5,
             }}
@@ -96,7 +108,7 @@ export function ChoroplethMap({
             fontSize={11}
             fontWeight={700}
             fontFamily={vvar('typography', 'titleFont')}
-            style={{ fill: vvar('shape', 'stroke') }}
+            style={{ fill: inkFor(v) }}
           >
             {v != null ? `${r.label ?? r.id} ${formatValue(v)}` : (r.label ?? r.id)}
           </text>

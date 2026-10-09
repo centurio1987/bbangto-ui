@@ -76,7 +76,11 @@ export function surfacesFor(f: VisualizationFoundation, value: string, opacity =
 const worst = (ink: RGBA, surfaces: readonly RGBA[]): number =>
   Math.min(...surfaces.map((s) => contrastRatio(ink, s) ?? 0));
 
-/** 면(들) 위에 쓸 글자색. 모든 면에서 4.5:1 을 넘는 가이드 후보가 이기고, 없으면 검정·흰색이다. */
+/**
+ * 면(들) 위에 쓸 글자색. 모든 면에서 4.5:1 을 넘는 가이드 후보가 이기고, 없으면 검정·흰색이다.
+ * 검정·흰색도 모든 면에서 넘지 못하면(중간 밝기 반투명 면) 첫 면 — 실제 바탕 — 에서 대비가 큰 쪽을 쓴다.
+ * 불투명한 첫 면 위에서 검정·흰색 중 하나는 늘 4.5:1 을 넘는다.
+ */
 export function pickOnInk(f: VisualizationFoundation, surface: RGBA | readonly RGBA[]): string {
   const surfaces = Array.isArray(surface) ? (surface as readonly RGBA[]) : [surface as RGBA];
   const candidates = [f.edge.stroke, f.shape.stroke, f.boundary.labelColor, f.canvas.bg];
@@ -85,7 +89,11 @@ export function pickOnInk(f: VisualizationFoundation, surface: RGBA | readonly R
     if (!c || c.a < 1) continue;
     if (worst(c, surfaces) >= ON_INK_MIN) return ink;
   }
-  return worst(BLACK, surfaces) >= worst(WHITE, surfaces) ? '#000000' : '#FFFFFF';
+  const black = worst(BLACK, surfaces);
+  const white = worst(WHITE, surfaces);
+  if (Math.max(black, white) >= ON_INK_MIN) return black >= white ? '#000000' : '#FFFFFF';
+  const first = surfaces.slice(0, 1);
+  return worst(BLACK, first) >= worst(WHITE, first) ? '#000000' : '#FFFFFF';
 }
 
 /** foundation 하나의 면 토큰 전부에 글자색을 정한다. 가이드 `on` 값이 있으면 그것을 쓴다. */

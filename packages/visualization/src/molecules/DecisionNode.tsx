@@ -23,6 +23,9 @@ export interface DecisionNodeProps {
 export const DecisionNode = React.forwardRef<SVGGElement, DecisionNodeProps>(
   ({ id, x, y, width, height, title, subtitle, tag = 'decision', fill, stroke, strokeWidth, strokeDasharray, children }, ref) => {
     const effectiveFill = fill ?? vvar('node', 'decision', 'fill');
+    // 기본 면(node.decision.fill) 위 글자색 — 이름과 태그가 같은 면 위에 있다.
+    // fill 을 직접 주면 그 면의 대비는 준 쪽 몫이라 종전 글자색을 둔다(KAN-061).
+    const labelFill = fill === undefined ? vvar('on', 'node', 'decision', 'fill') : vvar('edge', 'stroke');
     const effectiveStroke = stroke ?? vvar('node', 'decision', 'keyline');
     const effectiveStrokeWidth = strokeWidth ?? vvar('node', 'decision', 'keylineWidth');
 
@@ -52,10 +55,9 @@ export const DecisionNode = React.forwardRef<SVGGElement, DecisionNodeProps>(
           subtitle={subtitle}
           fontSize={11}
           mode="truncate"
-          // 기본 면(node.decision.fill) 위 글자색. fill 을 직접 주면 종전 글자색을 둔다(KAN-061).
-          fill={fill === undefined ? vvar('on', 'node', 'decision', 'fill') : vvar('edge', 'stroke')}
+          fill={labelFill}
         />
-        <Tag x={x + width / 2} y={tagY} label={tag} />
+        <Tag x={x + width / 2} y={tagY} label={tag} fill={labelFill} />
         {children}
       </g>
     );

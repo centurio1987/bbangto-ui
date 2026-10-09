@@ -2,10 +2,14 @@ import { type ReactNode } from 'react';
 import { Canvas, type CanvasProps } from '../atoms/Canvas';
 import { BandEdge } from '../atoms/BandEdge';
 import { vvar } from '../tokens/contract';
+import { pickOnInk, surfacesFor } from '../tokens/onInk';
+import { useVizFoundation } from '../styleGuide/VisualizationStyleGuideProvider';
 import { parseViewBox } from '../geometry/layout';
 import { sankeyLayout, type SankeyNodeInput, type SankeyLinkInput } from '../geometry/sankey';
 
 const PALETTE_KEYS = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8'] as const;
+/** 링크 리본의 면 투명도. */
+const RIBBON_OPACITY = 0.42;
 
 export interface SankeyNodeSpec extends SankeyNodeInput {
   label: string;
@@ -40,6 +44,7 @@ export function SankeyDiagram({
   ...canvasProps
 }: SankeyDiagramProps) {
   parseViewBox(viewBox, [0, 0, 520, 260]);
+  const foundation = useVizFoundation();
 
   if (children || !data) {
     return (
@@ -52,6 +57,11 @@ export function SankeyDiagram({
   const specById = new Map(data.nodes.map((n) => [n.id, n]));
   const layout = sankeyLayout(data.nodes, data.links, { scale, nodeWidth });
   const colorIndex = new Map(data.nodes.map((n, i) => [n.id, i]));
+  // 노드 이름 밑으로 어느 리본이든 지나갈 수 있다 — canvas 와 리본 면 전부에서 4.5:1 을 넘는 글자색 하나(KAN-061)
+  const labelInk = pickOnInk(foundation, [
+    ...surfacesFor(foundation, foundation.canvas.bg),
+    ...PALETTE_KEYS.flatMap((k) => surfacesFor(foundation, foundation.palette[k], RIBBON_OPACITY)),
+  ]);
 
   return (
     <Canvas viewBox={viewBox} title={title} data-bbangto-viz-chart="sankey" {...canvasProps}>
@@ -67,7 +77,7 @@ export function SankeyDiagram({
             ty={l.ty}
             width={l.width}
             fill={vvar('palette', PALETTE_KEYS[ci % PALETTE_KEYS.length])}
-            fillOpacity={0.42}
+            fillOpacity={RIBBON_OPACITY}
           />
         );
       })}
@@ -91,7 +101,7 @@ export function SankeyDiagram({
               fontSize={11}
               fontWeight={600}
               fontFamily={vvar('typography', 'titleFont')}
-              style={{ fill: vvar('shape', 'stroke') }}
+              style={{ fill: labelInk }}
             >
               {spec.label}
             </text>

@@ -82,7 +82,7 @@
   - 이유: KAN-056 검토에서 가이드에 따라 글자가 바탕에 묻히는 곳이 확인됐다(Mindmap 92곳 · Requirement 64곳 등). 지금은 기준 목록으로 더 나빠지지만 않게 막아 둔 상태다
   - 목표: _labelContrastBaseline.ts 가 빈다(모든 템플릿으로 넓히는 일은 KAN-063 이 먼저 한다)
   - 메모: KAN-056 검토 항목 3(승인)·6에서 나왔다. KAN-056 병합 뒤 착수(검사와 기준 목록이 그 카드에 있다). 원인이 셋으로 갈린다: 불투명 팔레트 면 위 edge.stroke 글자, Requirement 반투명 글자(opacity 0.6·0.8)와 검정 6% 띠, riso-print 등의 shape.fill·edge.stroke 쌍. 카탈로그 대비 게이트가 shape.fill·edge.stroke 쌍을 재는지는 확인 안 함
-  - 실행 문서: KANBAN/cards/KAN-061-K8V2HH.md (5/8 · 최근 10-10)
+  - 실행 문서: KANBAN/cards/KAN-061-K8V2HH.md (6/8 · 최근 10-10)
   - 계획 리포트: KANBAN/reports/KAN-061-K8V2HH.report.html (낡음)
 
 ## 검토

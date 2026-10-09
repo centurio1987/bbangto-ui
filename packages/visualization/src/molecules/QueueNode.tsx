@@ -24,6 +24,9 @@ export interface QueueNodeProps {
 export const QueueNode = React.forwardRef<SVGGElement, QueueNodeProps>(
   ({ id, x, y, width, height, title, subtitle, tag = 'queue', fill, stroke, strokeWidth, strokeDasharray, children }, ref) => {
     const effectiveFill = fill ?? vvar('node', 'queue', 'fill');
+    // 기본 면(node.queue.fill) 위 글자색 — 이름과 태그가 같은 면 위에 있다.
+    // fill 을 직접 주면 그 면의 대비는 준 쪽 몫이라 종전 글자색을 둔다(KAN-061).
+    const labelFill = fill === undefined ? vvar('on', 'node', 'queue', 'fill') : vvar('edge', 'stroke');
     const effectiveStroke = stroke ?? vvar('node', 'queue', 'keyline');
     const effectiveStrokeWidth = strokeWidth ?? vvar('node', 'queue', 'keylineWidth');
 
@@ -70,10 +73,9 @@ export const QueueNode = React.forwardRef<SVGGElement, QueueNodeProps>(
           title={title}
           subtitle={subtitle}
           fontSize={12}
-          // 기본 면(node.queue.fill) 위 글자색. fill 을 직접 주면 종전 글자색을 둔다(KAN-061).
-          fill={fill === undefined ? vvar('on', 'node', 'queue', 'fill') : vvar('edge', 'stroke')}
+          fill={labelFill}
         />
-        <Tag x={x + width / 2} y={tagY} label={tag} />
+        <Tag x={x + width / 2} y={tagY} label={tag} fill={labelFill} />
         {children}
       </g>
     );

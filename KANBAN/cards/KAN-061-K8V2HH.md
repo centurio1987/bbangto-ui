@@ -63,7 +63,7 @@ KAN-063 이 글자 대비 검사(`LabelContrastGate`)를 표본 68개 전부로 
 - [x] `S3` 노드 글자 기본값 — `NodeLabel` 기본 글자색을 `on-shape-fill` 로 바꾸고, 같은 원인의 템플릿 21개(class-diagram · sysml-block · c4-code · kanban-board · bpmn 등)를 정리한다. 완료 기준: 그 템플릿의 기준 목록 줄 83곳이 빠지고 Paint Gate 두 검사 초록.
 - [x] `S4` 흐린 보조 글자 — er-diagram · quadrant · data-lineage · requirement 의 글자 opacity 를 걷고 면에 맞춘 글자색을 쓴다. requirement 검정 6% 띠 위 글자는 합성한 색으로 고른다. 완료 기준: 네 템플릿의 기준 목록 줄 257곳이 빠지고 게이트 초록.
 - [x] `S5` 불투명 팔레트 면 — wbs · treemap · packet · stacked-bar · archimate-viewpoint · mindmap · dmn · user-journey-gantt · fishbone 의 팔레트 면 위 글자를 `on-palette-*` 로. 완료 기준: 아홉 템플릿의 기준 목록 줄 960곳이 빠지고 게이트 초록.
-- [ ] `S6` 투명도가 바뀌는 면과 C4 — heatmap · choropleth · sankey · archimate 4종은 칸마다 계산 함수로, C4 넷(context · container · dynamic · system-landscape)은 `C4Box`·`PersonNode`·`ExternalNode` 의 글자를 `on-c4-*`·`on-node-*` 로. 완료 기준: 열한 템플릿의 기준 목록 줄 238곳이 빠지고 게이트 초록.
+- [x] `S6` 투명도가 바뀌는 면과 C4 — heatmap · choropleth · sankey · archimate 4종은 칸마다 계산 함수로, C4 넷(context · container · dynamic · system-landscape)은 `C4Box`·`PersonNode`·`ExternalNode` 의 글자를 `on-c4-*`·`on-node-*` 로. 완료 기준: 열한 템플릿의 기준 목록 줄 238곳이 빠지고 게이트 초록.
 - [ ] `S7` 기준 목록 닫기 — `_labelContrastBaseline.ts` 를 빈 목록으로 두고 머리 주석을 「새 미달은 목록에 올리지 말고 `on-*` 로 고친다」로 바꾼다. README 189~193번째 줄의 글자색 규칙과 기준 목록 설명을 `--bbangto-viz-on-*` 규칙으로 고친다. 완료 기준: `LABEL_CONTRAST_BASELINE` 0개, 게이트 초록.
 - [ ] `S8` 마무리 — changeset(tokens minor · visualization minor), 품질 게이트 5종. 완료 기준: 게이트 5종 초록.
 
@@ -95,3 +95,6 @@ KAN-063 이 글자 대비 검사(`LabelContrastGate`)를 표본 68개 전부로 
 - 2026-10-10T01:03 · s:add35787 · S4 done — EntityTable 속성 줄 on-shape-fill·타입 opacity 0.6 걷고 9px · Quadrant 사분면 이름 on-canvas-bg(0.7 걷음) · DataLineage 이름·설명 on-shape-fill(0.8 걷음) · Requirement 머리 띠는 shape.fill+검정 6% 합성색으로 고르고 본문 on-shape-fill(0.6·0.8 걷음). 257곳 지움(1089→832), 게이트 두 검사·typecheck 초록
 - 2026-10-10T01:04 · s:add35787 · S5 doing — 착수
 - 2026-10-10T01:06 · s:add35787 · S5 done — Treemap·WBS(번호 배지 포함)·Packet·StackedBar·UserJourneyGantt 의 팔레트 면 글자를 on-palette-*(color 직접 지정이면 종전), Treemap·Packet 값 글자 opacity 0.85 걷음, Fishbone 머리 on-palette-p2. Mindmap·DMN·ArchiMate viewpoint 는 S3 에서 먼저 끝남. 693곳 지움(832→139), 게이트 두 검사·typecheck·pnpm test 1293 초록
+- 2026-10-10T01:08 · s:add35787 · S6 doing — 착수
+- 2026-10-10T01:12 · s:add35787 — S6 규칙 조정: 중간 밝기 반투명 칸(heatmap·choropleth)에서는 canvas 위와 검정 30% 음영 위를 함께 넘는 색이 없다. 그때 두 면 중 낮은 쪽을 최대로 하던 대체가 실제 바탕에서 3.81 로 떨어져, 실제 바탕(첫 면)에서 대비가 큰 검정·흰색을 고르게 바꿨다 — 첫 면은 늘 4.5:1 이상
+- 2026-10-10T01:12 · s:add35787 · S6 done — Heatmap·Choropleth 칸마다 pickOnInk(surfacesFor(p1, 투명도)) · Sankey 이름은 canvas+리본 면 전부에서 읽히는 글자색 하나 · C4 dynamic 순번 on-palette-p3 · 의미 노드 7종 태그도 이름과 같은 글자색 · pickOnInk 대체 규칙(첫 면 우선). 139곳 지움 → 기준 목록 0, 게이트 두 검사·typecheck·pnpm test 1293·카탈로그 테스트 초록

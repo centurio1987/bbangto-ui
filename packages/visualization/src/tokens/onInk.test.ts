@@ -145,6 +145,23 @@ describe('pickOnInk — 면이 여럿이면 모두에서 4.5:1', () => {
   });
 });
 
+describe('pickOnInk — 음영까지 읽히는 색이 없을 때', () => {
+  // marker-sketchnote heatmap: palette.p1 #2A2A28 57% 칸. 흰색은 canvas 위 3.81, 검정은 음영 위 3.1 이라
+  // 두 면 모두에서 읽히는 색이 없다(KAN-061 S6 실측). 그때는 실제 바탕인 첫 면(canvas 위)에서 읽히는 쪽이다.
+  const marker = foundation({
+    canvasBg: '#FCFBF7',
+    edgeStroke: '#2A2A28',
+    shapeStroke: '#2A2A28',
+    boundaryLabel: '#2A2A28',
+  });
+
+  it('첫 면에서 4.5:1 을 넘는 검정·흰색을 고른다', () => {
+    const surfaces = surfacesFor(marker, '#2A2A28', 0.57);
+    const ink = pickOnInk(marker, surfaces);
+    expect(contrastRatio(ink, surfaces[0]!)!).toBeGreaterThanOrEqual(ON_INK_MIN);
+  });
+});
+
 describe('deriveOnInk — 면 토큰 전부', () => {
   it('팔레트 8 · shape.fill · canvas.bg · c4 3 · node 7 을 모두 채운다', () => {
     const on = deriveOnInk(baseVisualizationFoundation);
