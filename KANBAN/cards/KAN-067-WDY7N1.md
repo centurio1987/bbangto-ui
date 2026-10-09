@@ -56,7 +56,7 @@ scope: packages/core/README.md, packages/visualization/README.md, packages/visua
 - [x] `S3` visualization README 정리 — 「원하는 것이 없을 때」 절(`vizCompose.tsx` 와 같은 예제), 36번째 줄의 빈 결과 안내를 그 절로 잇기, 범위 밖 3종 사유를 README 에 직접 쓰기, 문서 목록을 「저장소에만 있는 문서」로 합치기. 완료 기준: S1 검사의 viz README 항목 초록, 배포되지 않는 문서를 배포물에 있는 것처럼 가리키는 문장 0.
 - [x] `S4` 관리용 문서 배포 제외 — `package.json` `files` 에서 두 문서를 빼고 주석 4곳을 저장소 링크로 바꾼다. 완료 기준: S1 검사 전부 초록, `pnpm pack` 목록에 두 문서 없음, 빌드한 `dist` 의 `.d.ts` 에서 두 문서 이름이 나오는 줄은 모두 저장소 링크다.
 - [x] `S5` 배포물 재현 시험 — 고치기 전 main 과 고친 브랜치의 `pnpm pack` 결과물을 각각 서브에이전트에게 주고 같은 과제 둘(core 에 없는 컴포넌트 · viz 에 없는 유형)을 낸다. 완료 기준: 네 번의 결론(전후 × 과제 둘)과 에이전트가 읽은 파일을 수행 내역에 남긴다. 게이트가 아니다.
-- [ ] `S6` 마무리 — changeset(core·visualization patch), 품질 게이트 5종. 완료 기준: 게이트 5종 초록.
+- [x] `S6` 마무리 — changeset(core·visualization patch), 품질 게이트 5종. 완료 기준: 게이트 5종 초록.
 
 ## 검증
 - `pnpm test:unit` — `publishedDocs.test.ts` 초록. 실제 저장소 위반 0, 실패 주입 넷이 각각 위반을 낸다.
@@ -89,3 +89,5 @@ scope: packages/core/README.md, packages/visualization/README.md, packages/visua
 - 2026-10-09T23:17 · s:2504f49d · S5 doing — 착수
 - 2026-10-09T23:25 · s:2504f49d · S5 done — 재현 시험 4건(과제: core 색 선택기 · viz 결함 나무, 둘 다 배포물에 없음 확인. 서브에이전트에게 앱 폴더와 과제만 줌). 네 건 모두 「앱 안 확장」 — 고치기 전에도 이탈·개선 요청은 재현되지 않았다. 차이: 색 선택기는 고친 뒤 새 절을 근거로 들고 읽은 파일 21→14·토큰 141.8k→79.9k·260→114초, 고치기 전 계획에 있던 CheckIcon 재채색(아이콘 색이 고정이라 불가)을 고친 뒤에는 README 의 함정 문단으로 피함. 결함 나무는 전후 비슷(25→19 파일, 119.8k→125.9k, 237→241초), 고친 뒤는 요청을 완성 뒤로 미룸(4단계). 시험이 낸 부산물: 두 에이전트가 Provider 밖 렌더를 의심해 chromium 으로 재 보니 도형 검은 채움·엣지 stroke none — README 의 「Provider 밖은 무채색」 서술이 틀렸다
 - 2026-10-09T23:25 · s:2504f49d — S5 부산물 수정: viz README 146줄(이 카드가 쓴 새 절)·217줄의 「Provider 밖에서는 무채색」 서술을 실측(도형 rgb(0,0,0) 채움·엣지 stroke none — atom 예제·Flowchart·Mindmap)으로 고치고, ExtendWhenMissing 스토리에 Provider 안에서 엣지가 보이고 도형이 검지 않다는 단언을 더함. 같은 서술이 루트 README.md:858 에도 있으나 scope 밖(KAN-064 scope)이라 후속 후보로 남김. useVizFoundation 주석(base.ts:13·Provider.tsx:100)은 JS 값 폴백이라 맞다
+- 2026-10-09T23:27 · s:2504f49d · S6 doing — 착수
+- 2026-10-09T23:29 · s:2504f49d · S6 done — changeset(core·visualization patch, README Provider 서술 정정 포함). 게이트 5종 초록 — typecheck · build(매니페스트 변경 없음) · test(194파일 1295건) · storybook build · test:unit(foundations 138건 등). 손 확인: core README 예제의 aria-label 한 줄을 바꾸면 publishedDocs 가 example-drift 로 빨강, 되돌리면 초록
