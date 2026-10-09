@@ -1,6 +1,6 @@
 {
   "next_id": 69,
-  "next_seq": 256,
+  "next_seq": 257,
   "cards": {
     "KAN-057-CCH3E8": {
       "col": "backlog",
@@ -1302,7 +1302,7 @@
       ]
     },
     "KAN-067-WDY7N1": {
-      "col": "todo",
+      "col": "doing",
       "title": "배포 문서에 「원하는 것이 없을 때」 길 — core·viz README 확장 절 + viz 관리용 문서 배포 제외",
       "verbatim": "ai agent가 bbangto-ui library를 사용해서 앱을 구현할 때, 원하는 컴포넌트가 없으면, 확장 컴포넌트를 만들지 않고, 탈 라이브러리를 하려고 하거나, bbangto-ui에 개선 요청을 하는 결론을 내린다. 이 라이브러리의 매니페스트에 원인이 있나?\n(진단 후) 1,2번 칸반 카드로 올려 ㅣㄴ행해 (앞 답변 「고칠 방법」 1. core와 visualization의 배포 README에 「원하는 것이 없을 때」 절을 넣는다 · 2. 관리용 문서 두 개(visualization-type-inventory.md · TYPE_METADATA_STRATEGY.md)를 files 에서 뺀다 에 대한 지시)",
       "생성": "ai",
@@ -1362,7 +1362,6 @@
     "KAN-064-AC0H6M",
     "KAN-066-T6NR80",
     "KAN-068-W6TE2S",
-    "KAN-067-WDY7N1",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1424,9 +1423,20 @@
     "KAN-060-G9YKG6",
     "KAN-055-34A57K",
     "KAN-062-E02CMT",
-    "KAN-065-XSHEMV"
+    "KAN-065-XSHEMV",
+    "KAN-067-WDY7N1"
   ],
   "recent": [
+    {
+      "seq": 256,
+      "t": "2026-10-09T23:05",
+      "a": "ai",
+      "id": "KAN-067-WDY7N1",
+      "op": "move",
+      "w": "Y3FJNF",
+      "from": "todo",
+      "to": "doing"
+    },
     {
       "seq": 255,
       "t": "2026-10-09T22:52",
@@ -1975,16 +1985,6 @@
       "w": "S7030N",
       "with_": "KAN-051-5HMYKT",
       "reason": "전략 재수립 완료"
-    },
-    {
-      "seq": 224,
-      "t": "2026-10-08T00:24",
-      "a": "ai",
-      "id": "KAN-056-D3V1MB",
-      "op": "move",
-      "w": "GEG7B8",
-      "from": "review",
-      "to": "doing"
     }
   ],
   "waivers": [
