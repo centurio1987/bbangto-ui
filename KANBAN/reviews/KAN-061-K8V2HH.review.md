@@ -24,9 +24,12 @@ status: 검토 대기
 | 베이스 | `4d60413bf9432192b02f46cdbdbebf8a0e08fbb5` |
 | 변경 훑기 | `git diff 4d60413bf9432192b02f46cdbdbebf8a0e08fbb5...HEAD` |
 
-**커밋 11건**
+**커밋 14건**
 
 ```text
+ec8b117 KAN-061 검토 재작업 — 2번 음영 5% + 아이소메트릭 따로 · 5번 Sankey 노드별 리본 면
+432be74 kanban: KAN-061 검토자 대행 — 항목 1·3·4 승인(ai·검토자) · 2 의견 · 5 신설(Sankey 노드 이름 4.16:1)
+45ca7f1 kanban: KAN-061 진행 중 → 검토 — 검토서(판단 항목 4) · 검토 리포트
 e54e15a KAN-061 S8: 마무리 — 병합 뒤 품질 게이트 5종 초록
 b3c0ea5 Merge main into KAN-061-K8V2HH — KAN-057·KAN-067 병합분 따라잡기
 d51cf96 KAN-061 S8: changeset — tokens minor(VisualizationFoundation.on) · visualization minor(--bbangto-viz-on-*, 템플릿 글자색)
@@ -40,22 +43,26 @@ d551585 KAN-061 S1: 면 위 글자색 테스트 먼저 (빨강)
 8cbb382 kanban: KAN-061 진행 중으로 이동 (단일 에이전트, 배치1 S1부터)
 ```
 
-**변경 파일 44개 (+839 −1736)**
+**변경 파일 48개 (+2526 −1749)**
 
 | 파일 | 상태 | 추가 | 삭제 |
 |---|:--:|---:|---:|
 | `.changeset/kan-061-on-ink.md` | M | 36 | 0 |
-| `.kanban/archive.jsonl` | M | 1 | 0 |
-| `.kanban/log.md` | M | 1 | 1 |
-| `.kanban/state.json` | M | 88 | 88 |
+| `.kanban/archive.jsonl` | M | 2 | 0 |
+| `.kanban/log.md` | M | 2 | 2 |
+| `.kanban/reviews/KAN-061-K8V2HH.events.jsonl` | M | 13 | 0 |
+| `.kanban/reviews/KAN-061-K8V2HH.review.json` | M | 21 | 0 |
+| `.kanban/state.json` | M | 98 | 98 |
 | `KANBAN.board.html` | M | 2 | 2 |
-| `KANBAN.md` | M | 8 | 8 |
-| `KANBAN/cards/KAN-061-K8V2HH.md` | M | 26 | 8 |
-| `apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx` | M | 2 | 1 |
+| `KANBAN.md` | M | 9 | 8 |
+| `KANBAN/cards/KAN-061-K8V2HH.md` | M | 28 | 8 |
+| `KANBAN/reviews/KAN-061-K8V2HH.review.html` | M | 1264 | 0 |
+| `KANBAN/reviews/KAN-061-K8V2HH.review.md` | M | 278 | 0 |
+| `apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx` | M | 55 | 2 |
 | `apps/storybook/src/stories/visualization/_labelContrastBaseline.ts` | M | 7 | 1552 |
-| `packages/tokens/src/visualization.ts` | M | 21 | 0 |
+| `packages/tokens/src/visualization.ts` | M | 23 | 0 |
 | `packages/visualization-style-guide-catalog/src/onInk.test.ts` | M | 64 | 0 |
-| `packages/visualization/README.md` | M | 10 | 5 |
+| `packages/visualization/README.md` | M | 11 | 5 |
 | `packages/visualization/src/atoms/NodeLabel.tsx` | M | 2 | 2 |
 | `packages/visualization/src/molecules/C4Box.tsx` | M | 4 | 1 |
 | `packages/visualization/src/molecules/ClassBox.tsx` | M | 4 | 2 |
@@ -75,19 +82,19 @@ d551585 KAN-061 S1: 면 위 글자색 테스트 먼저 (빨강)
 | `packages/visualization/src/templates/DataLineage.tsx` | M | 3 | 2 |
 | `packages/visualization/src/templates/Fishbone.tsx` | M | 2 | 1 |
 | `packages/visualization/src/templates/Heatmap.tsx` | M | 10 | 2 |
-| `packages/visualization/src/templates/IsometricScene.tsx` | M | 2 | 1 |
+| `packages/visualization/src/templates/IsometricScene.tsx` | M | 27 | 2 |
 | `packages/visualization/src/templates/Mindmap.tsx` | M | 8 | 7 |
 | `packages/visualization/src/templates/PacketDiagram.tsx` | M | 6 | 2 |
 | `packages/visualization/src/templates/QuadrantChart.tsx` | M | 2 | 1 |
 | `packages/visualization/src/templates/RequirementDiagram.tsx` | M | 17 | 7 |
-| `packages/visualization/src/templates/SankeyDiagram.tsx` | M | 12 | 2 |
+| `packages/visualization/src/templates/SankeyDiagram.tsx` | M | 19 | 2 |
 | `packages/visualization/src/templates/StackedBarChart.tsx` | M | 5 | 2 |
 | `packages/visualization/src/templates/Treemap.tsx` | M | 7 | 4 |
 | `packages/visualization/src/templates/UserJourneyGantt.tsx` | M | 2 | 1 |
 | `packages/visualization/src/templates/WorkBreakdownStructure.tsx` | M | 6 | 3 |
 | `packages/visualization/src/tokens/contract.ts` | M | 7 | 2 |
-| `packages/visualization/src/tokens/onInk.test.ts` | M | 203 | 0 |
-| `packages/visualization/src/tokens/onInk.ts` | M | 116 | 0 |
+| `packages/visualization/src/tokens/onInk.test.ts` | M | 210 | 0 |
+| `packages/visualization/src/tokens/onInk.ts` | M | 117 | 0 |
 
 **롤백 태그 11개**
 
