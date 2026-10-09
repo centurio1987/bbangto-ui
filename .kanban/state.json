@@ -1,6 +1,6 @@
 {
   "next_id": 73,
-  "next_seq": 267,
+  "next_seq": 269,
   "cards": {
     "KAN-061-K8V2HH": {
       "col": "backlog",
@@ -142,7 +142,7 @@
       "verbatim": "이 레포에는 ai agent가 라이브러리를 효율적으로 사용할 수 있도록 매니페스트를 제공하고 있는데, 매니페스트가 실제로 이득이 되는지, 아니면, 오버헤드가 더 큰지 판단해줘\n(진단 후) 너의 진단을 반영한 전략을 수립하고 칸반 카드를 만들어라",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-10-08",
+      "갱신": "2026-10-10",
       "title_hash": "0326f90460326ba6eabfb7a6354d0832fccae90c",
       "verbatim_hash": "2cb8ef2be71696dcfeea26256fd13c0cbfa8e434",
       "short": "매니페스트 얇은 색인화",
@@ -153,8 +153,8 @@
       "reason_hash": "ca32cc1f8774f28f9d973212c76a4e5f6ee932cd",
       "goal": "AI가 색인 하나로 1차 후보를 고르고 상세 meta는 후보마다 따로 읽는다. 매니페스트 재생성 단계가 전부 prebuild로 통일되고, 동기화 테스트가 색인처럼 좀처럼 안 바뀌는 자리만 지킨다",
       "goal_hash": "a98dc4c7cc9ae4ee8c454ae3c1f694cc33f82bef",
-      "memo": "선행 확인: 실제 토크나이저로 4종 크기 실측(어림값 검증). 전부 걷어내는 안은 버림 — foundation 76종은 메타가 유일한 선택 근거",
-      "memo_hash": "e78d0f200a22f1e4b57c6f2c6bd84fc75fb79931",
+      "memo": "병합 대기 — KAN-061 을 KAN-057·067 과 함께 0.x 줄로 먼저 배포한 뒤 main 에 병합(2026-10-10 유저 선택). 토큰 실측·버린 안은 실행 문서 전략 절",
+      "memo_hash": "841155c250a2acc2904684c4a797c9f921e671e6",
       "scope": [
         "packages/style-guide-catalog/src/manifest.ts",
         "packages/style-guide-catalog/scripts/**",
@@ -1555,6 +1555,27 @@
   ],
   "recent": [
     {
+      "seq": 268,
+      "t": "2026-10-10T03:01",
+      "a": "ai",
+      "id": "KAN-064-AC0H6M",
+      "op": "edit",
+      "w": "7E5YYM",
+      "field": "memo",
+      "before": "선행 확인: 실제 토크나이저로 4종 크기 실측(어림값 검증). 전부 걷어내는 안은 버림 — foundation 76종은 메타가 유일한 선택 근거",
+      "after": "병합 대기 — KAN-061 을 KAN-057·067 과 함께 0.x 줄로 먼저 배포한 뒤 main 에 병합(2026-10-10 유저 선택). 토큰 실측·버린 안은 실행 문서 전략 절"
+    },
+    {
+      "seq": 267,
+      "t": "2026-10-10T03:01",
+      "a": "ai",
+      "id": "KAN-061-K8V2HH",
+      "op": "waive",
+      "w": "7E5YYM",
+      "with_": "KAN-064-AC0H6M",
+      "reason": "packages/visualization/README.md 를 함께 고치지만 자리가 다름(KAN-064 56~114줄 매니페스트 절, KAN-061 257줄 근처). 순서는 KAN-061 을 0.x 줄로 먼저 배포한 뒤 KAN-064 병합 (2026-10-10 유저 선택)"
+    },
+    {
       "seq": 266,
       "t": "2026-10-10T01:03",
       "a": "ai",
@@ -2086,26 +2107,6 @@
       "field": "memo",
       "before": "KAN-060 검토 항목 3(2026-10-08 유저 선택)에서 나왔다. KAN-060 이 포커스 테두리의 없는 변수 12곳을 고친 뒤 착수. 18곳과 남는 미달 색 스킴 약 10개는 KAN-060 검토서 항목 3 검토자 의견(소스 값 계산, 브라우저로 잰 값 아님). 포커스 밖 없는 변수 4곳: aiSurrealGradient3d.tsx:200·201 태그 색, blueprintTechnical.tsx:128 배경, scandiWarm.tsx:161·spatial3d.tsx:185 태그 테두리",
       "after": "KAN-060 검토 항목 3(2026-10-08 유저 선택)에서 나왔다. 잰 값과 고칠 자리는 실행 문서 「전략」 절"
-    },
-    {
-      "seq": 241,
-      "t": "2026-10-08T18:24",
-      "a": "ai",
-      "id": "KAN-065-XSHEMV",
-      "op": "move",
-      "w": "S7030N",
-      "from": "backlog",
-      "to": "todo"
-    },
-    {
-      "seq": 240,
-      "t": "2026-10-08T18:02",
-      "a": "ai",
-      "id": "KAN-061-K8V2HH",
-      "op": "serialize",
-      "w": "S7030N",
-      "with_": "KAN-063-Q85EET",
-      "reason": "둘 다 TemplatePaintGate.stories.tsx 와 _labelContrastBaseline.ts 를 고치고, 061 목표의 「13개 밖 템플릿도 잰다」가 063 일과 같다. 063 이 두 검사를 모든 템플릿으로 넓히고 새 글자 대비 미달을 기준 목록에 올린 뒤, 061 이 넓어진 목록을 보고 전략을 다시 세운다 (2026-10-08 유저 선택). 같은 날 063 scope 에 foundations 표본 누락 검사 파일을 더해 무효가 된 기록을 다시 걸었다. 2026-10-08 재기록: 063 병합(rebuild --salvage)이 재수립 필요 표시를 잃어 다시 건다 — 061 은 063 이 1534곳으로 늘린 기준 목록을 보고 전략을 다시 세워야 한다"
     }
   ],
   "waivers": [
@@ -2240,6 +2241,13 @@
       "scope_hash": "1979513b416c9248",
       "reason": "packages/visualization/README.md 를 함께 고치지만 자리가 다르다 — KAN-061 은 189~193번째 줄(글자색 고르는 규칙·기준 목록 설명을 --bbangto-viz-on-* 규칙으로), KAN-067 은 36·108번째 줄·203번째 줄 앞 새 절·203~208번째 줄. 나중에 병합하는 쪽이 두 변경을 다 남긴다 (2026-10-10 유저 선택)",
       "created": "2026-10-10T00:45",
+      "by": "ai"
+    },
+    {
+      "pair": "KAN-061-K8V2HH|KAN-064-AC0H6M",
+      "scope_hash": "eb6706b56ea249b8",
+      "reason": "packages/visualization/README.md 를 함께 고치지만 자리가 다름(KAN-064 56~114줄 매니페스트 절, KAN-061 257줄 근처). 순서는 KAN-061 을 0.x 줄로 먼저 배포한 뒤 KAN-064 병합 (2026-10-10 유저 선택)",
+      "created": "2026-10-10T03:01",
       "by": "ai"
     }
   ],
