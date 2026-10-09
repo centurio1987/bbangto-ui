@@ -57,16 +57,19 @@ export function SankeyDiagram({
   const specById = new Map(data.nodes.map((n) => [n.id, n]));
   const layout = sankeyLayout(data.nodes, data.links, { scale, nodeWidth });
   const colorIndex = new Map(data.nodes.map((n, i) => [n.id, i]));
-  // 노드 이름은 막대 오른쪽, 그 노드에서 나가는 리본 위에 놓인다. 그 리본이 실제 바탕이라 첫 면으로 두고,
-  // 이름 끝이 걸칠 수 있는 canvas 와 다른 리본에서도 읽히면 그 색을 쓴다. 다 못 맞추면 실제 바탕이 이긴다(KAN-061).
-  const outgoing = new Set(layout.links.map((l) => l.source));
+  // 노드 이름은 막대 오른쪽, 노드 높이 가운데에 놓인다. 나가는 리본은 노드 위쪽부터 쌓이므로(geometry/sankey.ts)
+  // 이름 가운데를 덮는 리본이 있으면 그 리본이, 없으면 canvas 가 실제 바탕이다. 그 면을 첫 면으로 두고, 이름 끝이
+  // 걸칠 수 있는 canvas 와 다른 리본에서도 읽히면 그 색을 쓴다. 다 못 맞추면 실제 바탕이 이긴다(KAN-061).
+  const labelY = (n: { y: number; height: number }) => n.y + Math.max(2, n.height) / 2;
   const otherFaces = [
     ...surfacesFor(foundation, foundation.canvas.bg),
     ...PALETTE_KEYS.flatMap((k) => surfacesFor(foundation, foundation.palette[k], RIBBON_OPACITY)),
   ];
-  const labelInkFor = (id: string) => {
-    const key = PALETTE_KEYS[(colorIndex.get(id) ?? 0) % PALETTE_KEYS.length];
-    const own = outgoing.has(id) ? surfacesFor(foundation, foundation.palette[key], RIBBON_OPACITY) : [];
+  const labelInkFor = (n: { id: string; y: number; height: number }) => {
+    const y = labelY(n);
+    const under = layout.links.find((l) => l.source === n.id && Math.abs(l.sy - y) <= l.width / 2);
+    const key = PALETTE_KEYS[(colorIndex.get(n.id) ?? 0) % PALETTE_KEYS.length];
+    const own = under ? surfacesFor(foundation, foundation.palette[key], RIBBON_OPACITY) : [];
     return pickOnInk(foundation, [...own, ...otherFaces]);
   };
 
@@ -103,12 +106,12 @@ export function SankeyDiagram({
             />
             <text
               x={n.x + nodeWidth + 4}
-              y={n.y + Math.max(2, n.height) / 2}
+              y={labelY(n)}
               dominantBaseline="central"
               fontSize={11}
               fontWeight={600}
               fontFamily={vvar('typography', 'titleFont')}
-              style={{ fill: labelInkFor(n.id) }}
+              style={{ fill: labelInkFor(n) }}
             >
               {spec.label}
             </text>

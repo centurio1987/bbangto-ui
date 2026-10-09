@@ -304,21 +304,32 @@ export const LabelContrastGate: Story = {
 // ────────────────────────────────────────────────────────────────────────
 
 /**
- * Sankey 노드 이름은 막대 오른쪽, 그 노드에서 나가는 리본(팔레트 42%) 위에 놓인다. 게이트 표본은 노드가 넷이라
- * 리본 색이 p1·p2 둘뿐이다. 그래서 팔레트 8색이 모두 나가는 리본이 되게 노드 여덟을 세우고 가이드 전부에서 잰다
- * (KAN-061 검토 5번: neon-gradient-dark 에서 p7 리본 위 이름이 4.16:1 이었다).
+ * Sankey 노드 이름은 막대 오른쪽, 노드 높이 가운데에 놓인다. 나가는 리본(팔레트 42%)은 노드 위쪽부터 쌓이므로
+ * 이름 밑은 리본일 수도 바탕일 수도 있다. 게이트 표본은 노드가 넷이라 리본 색이 p1·p2 둘뿐이고 이름이 늘 리본 안이다.
+ * 그래서 팔레트 8색이 모두 나가는 리본이 되게 노드 여덟을 세우고, 일곱째(p7)는 60 을 받고 20 만 내보내 이름이
+ * 리본 아래 바탕 위에 서게 한다(KAN-061 검토 5번: neon-gradient-dark 에서 p7 리본 위 4.16, 바탕 위 1.27 이었다).
  */
-const SANKEY_RIBBON_NODES = Array.from({ length: 8 }, (_, i) => ({ id: `s${i + 1}`, label: `Source ${i + 1}`, x: 20, y: 10 + i * 34 }));
+const SANKEY_RIBBON_NODES = Array.from({ length: 8 }, (_, i) => ({
+  id: `s${i + 1}`,
+  label: `Source ${i + 1}`,
+  x: 120,
+  y: i < 6 ? 10 + i * 34 : i === 6 ? 250 : 214,
+}));
+const SANKEY_LOW_OUTFLOW = 's7';
 
 function SankeyRibbonSample() {
   return (
     <SankeyDiagram
-      viewBox="0 0 360 290"
-      width={360}
-      height={290}
+      viewBox="0 0 420 320"
+      width={420}
+      height={320}
       data={{
-        nodes: [...SANKEY_RIBBON_NODES, { id: 'sink', label: 'Sink', x: 300, y: 10 }],
-        links: SANKEY_RIBBON_NODES.map((n) => ({ source: n.id, target: 'sink', value: 24 })),
+        // 위쪽 노드(up)는 맨 뒤에 둔다 — 리본 색은 노드 순서로 정해져서, 앞에 두면 일곱째가 p7 이 아니게 된다
+        nodes: [...SANKEY_RIBBON_NODES, { id: 'sink', label: 'Sink', x: 330, y: 10 }, { id: 'up', label: 'Upstream', x: 10, y: 250 }],
+        links: [
+          ...SANKEY_RIBBON_NODES.map((n) => ({ source: n.id, target: 'sink', value: n.id === SANKEY_LOW_OUTFLOW ? 20 : 24 })),
+          { source: 'up', target: SANKEY_LOW_OUTFLOW, value: 60 },
+        ],
       }}
     />
   );
@@ -343,7 +354,7 @@ export const SankeyRibbonLabelGate: Story = {
     for (const cell of cells) {
       const guide = cell.dataset.sankeyGateGuide!;
       const result = collectLowContrast(guide, 'sankey-ribbons', cell);
-      await expect(result.measured, `${guide}: 잰 글자 수`).toBe(SANKEY_RIBBON_NODES.length + 1);
+      await expect(result.measured, `${guide}: 잰 글자 수`).toBe(SANKEY_RIBBON_NODES.length + 2);
       low.push(...result.low.map((l) => `${l.id}: ${l.ratio.toFixed(2)}`));
     }
     await expect(low).toEqual([]);

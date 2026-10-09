@@ -27,7 +27,7 @@ Provider 가 면 토큰마다 그 위에 쓸 글자색을 `--bbangto-viz-on-*` C
   쓴다. `fill` 을 직접 주면 그 면의 대비는 준 쪽 몫이라 종전 글자색(`edge.stroke`)을 둔다.
 - 팔레트 면 위 글자: Treemap · WorkBreakdownStructure · PacketDiagram · StackedBarChart · UserJourneyGantt · Mindmap ·
   DMNDiagram · ArchiMateViewpointDiagram · Fishbone 머리 · C4DynamicDiagram 순번. `color`·`fill` 을 직접 주면 종전 글자색이다.
-- 데이터마다 투명도가 바뀌는 면: Heatmap · ChoroplethMap(칸마다) · SankeyDiagram(노드마다 그 노드에서 나가는 리본 면으로) ·
+- 데이터마다 투명도가 바뀌는 면: Heatmap · ChoroplethMap(칸마다) · SankeyDiagram(노드마다 이름 밑 실제 면 — 이름 가운데를 덮는 나가는 리본, 없으면 바탕 — 으로) ·
   ArchiMateDiagram(35% 계층 면). Provider 의 foundation 값으로 계산한다.
 - 흐리게 쓰던 보조 글자의 opacity 를 걷었다: ER 속성 타입(0.6, 9px 로 구분) · QuadrantChart 사분면 이름(0.7) ·
   DataLineage 설명(0.8) · RequirementDiagram 표기·본문(0.6·0.8) · Treemap·PacketDiagram 값(0.85).
