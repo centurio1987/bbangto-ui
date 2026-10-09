@@ -273,9 +273,9 @@
 ## 횡단 구현 규칙 (구 catalog §5 — 레퍼런스 유래)
 
 88장에서 패밀리와 무관하게 되풀이된 요구를 규칙으로 뽑은 것이다. 구현 상태(2026-10-06 소스 확인)는 고르다 —
-1·4 는 토큰 슬롯이 없다. 3 은 `Edge` prop(`routing`·`markerEnd`·`strokeDasharray`)으로만 바뀐다 — 토큰 자리
-`edge.dashPattern`(`packages/tokens/src/visualization.ts:66`)은 선언돼 있지만 계약 스타일시트도 `Edge` 도 읽지 않아,
-스타일 가이드가 커넥터 기본값을 정하지 못한다. 2·5·6 이 코드 전체에서 지켜지는지는 따로 감사하지 않았다. 새 가이드나 토큰을 설계할 때 채울 자리다.
+1·4 는 토큰 슬롯이 없다. 3 은 선 모양만 토큰과 prop 양쪽에서 바뀐다(2026-10-10, KAN-057) — 스타일 가이드의
+`edge.dashPattern`(`packages/tokens/src/visualization.ts`)이 `Edge` 연결선의 기본 대시를 정하고 `strokeDasharray` prop 이 덮는다.
+라우팅·화살촉은 아직 `Edge` prop(`routing`·`markerEnd`)으로만 바뀐다. 2·5·6 이 코드 전체에서 지켜지는지는 따로 감사하지 않았다. 새 가이드나 토큰을 설계할 때 채울 자리다.
 
 1. **auto-contrast**: 채운 도형 위 라벨은 fill 휘도에 따라 흰/검을 자동으로 고르게 하고, 그 선택을 스타일 가이드 토큰으로 제공한다.
 2. **값의 텍스트 병기**: 크기·아크·색으로 값을 나타내는 것(bubble, RingSegment, ProportionBlock)은 반드시 텍스트 값을 함께 쓴다.
