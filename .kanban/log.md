@@ -1,6 +1,7 @@
 # KANBAN 변경 이력
 > 최근 50건. 이보다 오래된 이력은 archive.jsonl 로 압축 보관한다.
 
+- #255 2026-10-09 22:52 · ai · KAN-068-W6TE2S 생성 "미배포 수정분 배포 — KAN-056·060·065 를 KAN-064 major 전에 (사용자 실행 지시 후)" → 백로그
 - #254 2026-10-09 22:52 · ai · KAN-064-AC0H6M 독립성 겹침 용인 (상대 KAN-067-WDY7N1) — 유저 선택(2026-10-09 「용인」): visualization package.json 의 files 배열은 KAN-064 가 manifest 를 더하고 KAN-067 이 관리용 문서 2개를 뺀다 — 나중에 합치는 쪽이 두 변경을 다 남긴다. 주석은 src/index.ts 가 KAN-064 21줄·KAN-067 28줄로 갈리고, src/typeMeta/index.ts:6 은 같은 문장이라 나중에 합치는 쪽이 2단 읽기와 저장소 링크 두 뜻으로 다시 쓴다. KAN-064 scope 의 tsup.config.ts:21·src/index.ts:21 에 남은 「동봉」은 KAN-064 병합 때 KAN-067 검사에 맞춰 고친다
 - #253 2026-10-09 22:46 · ai · KAN-067-WDY7N1 생성 "배포 문서에 「원하는 것이 없을 때」 길 — core·viz README 확장 절 + viz 관리용 문서 배포 제외" → 할 일
 - #252 2026-10-09 22:03 · ai · KAN-065-XSHEMV 이동 검토 → 완료
@@ -50,4 +51,3 @@
 - #225 2026-10-08 00:37 · ai · KAN-055-34A57K 독립성 겹침 용인 (상대 KAN-056-D3V1MB) — 2026-10-07 유저 용인을 다시 건다. KAN-056 재작업(검토 항목 4)에서 scope 에 새 파일 apps/storybook/.../_labelContrastBaseline.ts 하나를 더해 기록이 낡았을 뿐, 겹치는 경로는 그대로 .changeset/kan-056-*.md 하나다 — KAN-056 은 자기 changeset 만 더하고 KAN-055 는 배포 때 소비할 뿐이다
 - #224 2026-10-08 00:15 · ai · KAN-055-34A57K serialize
 - #224 2026-10-08 00:24 · ai · KAN-056-D3V1MB 이동 검토 → 진행 중
-- #223 2026-10-08 00:15 · ai · KAN-055-34A57K 수정 목적
