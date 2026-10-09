@@ -21,8 +21,7 @@
   - 이유: KAN-056 검토에서 가이드에 따라 글자가 바탕에 묻히는 곳이 확인됐다(Mindmap 92곳 · Requirement 64곳 등). 지금은 기준 목록으로 더 나빠지지만 않게 막아 둔 상태다
   - 목표: _labelContrastBaseline.ts 가 빈다(모든 템플릿으로 넓히는 일은 KAN-063 이 먼저 한다)
   - 메모: KAN-056 검토 항목 3(승인)·6에서 나왔다. KAN-056 병합 뒤 착수(검사와 기준 목록이 그 카드에 있다). 원인이 셋으로 갈린다: 불투명 팔레트 면 위 edge.stroke 글자, Requirement 반투명 글자(opacity 0.6·0.8)와 검정 6% 띠, riso-print 등의 shape.fill·edge.stroke 쌍. 카탈로그 대비 게이트가 shape.fill·edge.stroke 쌍을 재는지는 확인 안 함
-  - 실행 문서: KANBAN/cards/KAN-061-K8V2HH.md (0/8 · 최근 10-10)
-  - 계획 리포트: KANBAN/reports/KAN-061-K8V2HH.report.html (낡음)
+  - 실행 문서: KANBAN/cards/KAN-061-K8V2HH.md (0/1 · 최근 10-08)
 - `KAN-064-AC0H6M` AI 채택 매니페스트 재편 — 메타 필드는 유지, 매니페스트는 얇은 색인으로 축소 + 동기화 장치 단순화 — 생성:ai · 최종:ai · 갱신:2026-10-08
   - 짧은 제목: 매니페스트 얇은 색인화
   - 목적: 4종 매니페스트(약 11만 토큰 어림)를 이름·family·tags·domains·summary 중심의 얇은 색인(합계 1만 토큰 안쪽)으로 줄이고, 바이트 일치 테스트·수동 재생성·dist 의존 빌드 순서 함정을 걷어낸다
@@ -71,6 +70,8 @@
     ai agent가 bbangto-ui library를 사용해서 앱을 구현할 때, 원하는 컴포넌트가 없으면, 확장 컴포넌트를 만들지 않고, 탈 라이브러리를 하려고 하거나, bbangto-ui에 개선 요청을 하는 결론을 내린다. 이 라이브러리의 매니페스트에 원인이 있나?
     (진단 후) 1,2번 칸반 카드로 올려 ㅣㄴ행해 (앞 답변 「고칠 방법」 1. core와 visualization의 배포 README에 「원하는 것이 없을 때」 절을 넣는다 · 2. 관리용 문서 두 개(visualization-type-inventory.md · TYPE_METADATA_STRATEGY.md)를 files 에서 뺀다 에 대한 지시)
     ```
+
+## 진행 중
 - `KAN-068-W6TE2S` 미배포 수정분 배포 — KAN-056·060·065 를 KAN-064 major 전에 (사용자 실행 지시 후) — 생성:ai · 최종:ai · 갱신:2026-10-10
   - 짧은 제목: 미배포 수정분 배포
   - 목적: main 에 남은 changeset 세 장(KAN-056 viz 템플릿 색 · KAN-060 포커스 대비 · KAN-065 모티프 포커스)을 지금 버전 줄로 GitHub Packages 에 먼저 배포한다
@@ -82,8 +83,6 @@
     ```text
     수정분 먼저 배포 (앞 질문 「§3-5 — 아직 배포하지 않은 수정분 세 건(KAN-056 viz 템플릿 색 · KAN-060 포커스 대비 · KAN-065 모티프 포커스)을 이 카드의 큰 버전 올림(visualization 0.4.0→1.0.0 · foundations 1.1.1→2.0.0 · 룩 카탈로그 2개 0.3.x→1.0.0)보다 먼저 따로 배포할까요?」에 대한 답)
     ```
-
-## 진행 중
 
 ## 검토
 
