@@ -28,7 +28,7 @@ scope: packages/visualization/src/provider/contractCss.ts, packages/visualizatio
 - [x] `S1` 실패하는 테스트 먼저 — `Headless.stories.tsx` 에 play 함수 넷: ① 가이드의 `edge.dashPattern` 이 `Edge` 선에 반영된다 ② `strokeDasharray` prop 이 가이드 값을 이긴다 ③ 같은 가이드 아래 축·구조선(`data-bbangto-viz-edge` 만 단 선)은 실선 그대로다 ④ 대시 가이드 안에 실선 가이드를 겹쳐도 안쪽 연결선은 실선이다. 완료 기준: `pnpm test` 에서 ①·④ 가 빨강이고(②·③ 은 지금도 초록일 수 있다 — 회귀 방지용), 다른 스토리는 그대로 초록.
 - [x] `S2` 구현 — `Edge.tsx` 에 `data-viz-part="connector"`, `contractCss.ts` 에 그 훅의 `stroke-dasharray: var(--bbangto-viz-edge-dash-pattern)`, `tokens/contract.ts` 에 `*-dash-pattern` 빈 값 → `none`. 완료 기준: S1 넷이 초록, 다른 스토리 초록.
 - [x] `S3` 문서 — `packages/tokens/src/visualization.ts` 의 `edge.dashPattern` JSDoc(빈 값=실선, prop 이 이김, 연결선에만), `style-classification.md` 횡단 규칙 3 상태 문장, changeset(`@centurio1987/bbangto-ui-visualization` patch · `@centurio1987/bbangto-ui-tokens` patch). 완료 기준: 「계약 스타일시트도 `Edge` 도 읽지 않아」 문장이 저장소에 0건, changeset 파일이 있다.
-- [ ] `S4` 품질 게이트 5종 — `pnpm typecheck` · `pnpm build` · `pnpm test` · `pnpm --filter storybook build` · `pnpm test:unit`. 완료 기준: 다섯 다 초록.
+- [x] `S4` 품질 게이트 5종 — `pnpm typecheck` · `pnpm build` · `pnpm test` · `pnpm --filter storybook build` · `pnpm test:unit`. 완료 기준: 다섯 다 초록.
 
 ## 검증
 아래를 저장소 루트에서 `bash -c` 로 돌려 모두 통과하면 끝이다.
@@ -49,3 +49,5 @@ scope: packages/visualization/src/provider/contractCss.ts, packages/visualizatio
 - 2026-10-10T00:19 · s:6b95cb93 · S2 done — Edge 선에 data-viz-part="connector", contractCss 에 [data-bbangto-viz-style-guide] [data-viz-part="connector"] { stroke-dasharray: var(--bbangto-viz-edge-dash-pattern) }. 규칙만 넣었을 때 ④ 안쪽이 4px, 4px 로 새는 것을 확인(React 가 빈 변수를 지움)하고 contract.ts 에서 *-dash-pattern 의 '' 를 none 으로 낸다. Headless 8개·Provider 4개 초록, viz tsc 오류 0
 - 2026-10-10T00:20 · s:6b95cb93 · S3 doing — 착수
 - 2026-10-10T00:21 · s:6b95cb93 · S3 done — tokens edge.dashPattern JSDoc(빈 값=실선 · 연결선에만 · prop 이 이김), style-classification 횡단 규칙 3 상태 문장을 「선 모양은 토큰·prop 양쪽, 라우팅·화살촉은 prop 만」으로, changeset kan-057-edge-dash-token.md(visualization·tokens patch). 옛 문장 grep 0건, 카탈로그 diff 0. edge.dashPattern 은 base+카탈로그 31곳 모두 '' (빈 값 아닌 것은 전부 boundary)
+- 2026-10-10T00:21 · s:6b95cb93 · S4 doing — 착수
+- 2026-10-10T00:22 · s:6b95cb93 · S4 done — 게이트 5종 초록 — typecheck rc 0(TS 오류 0) · build rc 0 · test 193 파일/1297 통과 · storybook build 완료 · test:unit hooks 115·visualization 257·foundations 128·style-guide-catalog 108·viz catalog 39 통과
