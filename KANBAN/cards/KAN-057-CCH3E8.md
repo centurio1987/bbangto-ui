@@ -26,7 +26,7 @@ scope: packages/visualization/src/provider/contractCss.ts, packages/visualizatio
 
 ## 실행 계획
 - [x] `S1` 실패하는 테스트 먼저 — `Headless.stories.tsx` 에 play 함수 넷: ① 가이드의 `edge.dashPattern` 이 `Edge` 선에 반영된다 ② `strokeDasharray` prop 이 가이드 값을 이긴다 ③ 같은 가이드 아래 축·구조선(`data-bbangto-viz-edge` 만 단 선)은 실선 그대로다 ④ 대시 가이드 안에 실선 가이드를 겹쳐도 안쪽 연결선은 실선이다. 완료 기준: `pnpm test` 에서 ①·④ 가 빨강이고(②·③ 은 지금도 초록일 수 있다 — 회귀 방지용), 다른 스토리는 그대로 초록.
-- [ ] `S2` 구현 — `Edge.tsx` 에 `data-viz-part="connector"`, `contractCss.ts` 에 그 훅의 `stroke-dasharray: var(--bbangto-viz-edge-dash-pattern)`, `tokens/contract.ts` 에 `*-dash-pattern` 빈 값 → `none`. 완료 기준: S1 넷이 초록, 다른 스토리 초록.
+- [x] `S2` 구현 — `Edge.tsx` 에 `data-viz-part="connector"`, `contractCss.ts` 에 그 훅의 `stroke-dasharray: var(--bbangto-viz-edge-dash-pattern)`, `tokens/contract.ts` 에 `*-dash-pattern` 빈 값 → `none`. 완료 기준: S1 넷이 초록, 다른 스토리 초록.
 - [ ] `S3` 문서 — `packages/tokens/src/visualization.ts` 의 `edge.dashPattern` JSDoc(빈 값=실선, prop 이 이김, 연결선에만), `style-classification.md` 횡단 규칙 3 상태 문장, changeset(`@centurio1987/bbangto-ui-visualization` patch · `@centurio1987/bbangto-ui-tokens` patch). 완료 기준: 「계약 스타일시트도 `Edge` 도 읽지 않아」 문장이 저장소에 0건, changeset 파일이 있다.
 - [ ] `S4` 품질 게이트 5종 — `pnpm typecheck` · `pnpm build` · `pnpm test` · `pnpm --filter storybook build` · `pnpm test:unit`. 완료 기준: 다섯 다 초록.
 
@@ -45,3 +45,5 @@ scope: packages/visualization/src/provider/contractCss.ts, packages/visualizatio
 - 2026-10-09T22:53 · s:6b95cb93 — `검증` 섹션 교체
 - 2026-10-10T00:16 · s:6b95cb93 · S1 doing — 착수
 - 2026-10-10T00:18 · s:6b95cb93 · S1 done — Headless.stories.tsx 에 대시 스토리 넷(EdgeDashFromStyleGuide·EdgeDashPropOverridesStyleGuide·EdgeDashSkipsStructuralLines·EdgeDashNestedSolidGuide). 이 파일만 돌린 결과 ①·④ 빨강(none ≠ 4px, 4px), ②·③·기존 넷 초록. ④는 바깥 대시 연결선도 함께 재므로 S2 전 빨강 — 정규화가 필요한지는 S2 에서 규칙만 넣고 ④ 안쪽을 다시 재어 정한다(계획 리스크 1행의 확인 시점을 S2 중간으로 옮김)
+- 2026-10-10T00:18 · s:6b95cb93 · S2 doing — 착수
+- 2026-10-10T00:19 · s:6b95cb93 · S2 done — Edge 선에 data-viz-part="connector", contractCss 에 [data-bbangto-viz-style-guide] [data-viz-part="connector"] { stroke-dasharray: var(--bbangto-viz-edge-dash-pattern) }. 규칙만 넣었을 때 ④ 안쪽이 4px, 4px 로 새는 것을 확인(React 가 빈 변수를 지움)하고 contract.ts 에서 *-dash-pattern 의 '' 를 none 으로 낸다. Headless 8개·Provider 4개 초록, viz tsc 오류 0
