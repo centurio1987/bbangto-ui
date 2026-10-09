@@ -58,7 +58,7 @@ KAN-063 이 글자 대비 검사(`LabelContrastGate`)를 표본 68개 전부로 
 ## 실행 계획
 각 단계는 테스트를 먼저 빨갛게 만든 뒤 고친다. S3~S6 은 기준 목록에서 그 단계가 맡은 템플릿의 줄을 먼저 지워 `LabelContrastGate` 를 빨갛게 하고, 고쳐서 초록으로 돌린다. 곳 수는 2026-10-10 진단 기준이다.
 
-- [ ] `S1` 빨간 테스트 먼저 — 계산 함수 단위 테스트(`packages/visualization/src/tokens/onInk.test.ts`: 후보 순서, 검정·흰색 대체, 가이드 `on` 값 우선, 반투명·`transparent` 면)와 카탈로그 전수 테스트(`packages/visualization-style-guide-catalog/src/onInk.test.ts`: 가이드 30개 × 면 전부에서 `--bbangto-viz-on-*` 값이 면과 4.5:1 이상). 완료 기준: 두 테스트가 함수와 변수가 없어서 빨갛다.
+- [x] `S1` 빨간 테스트 먼저 — 계산 함수 단위 테스트(`packages/visualization/src/tokens/onInk.test.ts`: 후보 순서, 검정·흰색 대체, 가이드 `on` 값 우선, 반투명·`transparent` 면)와 카탈로그 전수 테스트(`packages/visualization-style-guide-catalog/src/onInk.test.ts`: 가이드 30개 × 면 전부에서 `--bbangto-viz-on-*` 값이 면과 4.5:1 이상). 완료 기준: 두 테스트가 함수와 변수가 없어서 빨갛다.
 - [ ] `S2` 계산 함수와 CSS 변수 — `tokens/onInk.ts`, `visualizationFoundationToStyleObject` 가 `--bbangto-viz-on-*` 를 함께 낸다, tokens `VisualizationFoundation` 에 선택 필드 `on`(JSDoc 에 규칙). 완료 기준: S1 두 테스트 초록, `pnpm build`·`pnpm typecheck` 초록, `LiteralPaintGate` 초록.
 - [ ] `S3` 노드 글자 기본값 — `NodeLabel` 기본 글자색을 `on-shape-fill` 로 바꾸고, 같은 원인의 템플릿 21개(class-diagram · sysml-block · c4-code · kanban-board · bpmn 등)를 정리한다. 완료 기준: 그 템플릿의 기준 목록 줄 83곳이 빠지고 Paint Gate 두 검사 초록.
 - [ ] `S4` 흐린 보조 글자 — er-diagram · quadrant · data-lineage · requirement 의 글자 opacity 를 걷고 면에 맞춘 글자색을 쓴다. requirement 검정 6% 띠 위 글자는 합성한 색으로 고른다. 완료 기준: 네 템플릿의 기준 목록 줄 257곳이 빠지고 게이트 초록.
@@ -84,3 +84,5 @@ KAN-063 이 글자 대비 검사(`LabelContrastGate`)를 표본 68개 전부로 
 - 2026-10-10T00:24 · s:add35787 — `검증` 섹션 교체
 - 2026-10-10T00:46 · s:add35787 — `전략` 섹션 교체
 - 2026-10-10T00:46 · s:add35787 — `실행 계획` 섹션 교체
+- 2026-10-10T00:46 · s:add35787 · S1 doing — 착수
+- 2026-10-10T00:48 · s:add35787 · S1 done — 빨간 테스트 둘 — tokens/onInk.test.ts(후보 순서·검정흰색 대체·합성·on 우선·변수 이름, 모듈 없음으로 빨강), 카탈로그 onInk.test.ts(가이드·preset 전부 × 면 20개, 변수 없음으로 빨강)
