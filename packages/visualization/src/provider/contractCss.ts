@@ -19,6 +19,9 @@ const CONTRACT_CSS = `
   stroke: var(--bbangto-viz-edge-stroke);
   stroke-width: var(--bbangto-viz-edge-width);
 }
+[data-bbangto-viz-style-guide] [data-viz-part="connector"] {
+  stroke-dasharray: var(--bbangto-viz-edge-dash-pattern);
+}
 `;
 
 export function useVizContractCss(): void {

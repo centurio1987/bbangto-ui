@@ -3,8 +3,11 @@ import {
   Canvas,
   Node,
   Edge,
+  Axis,
   PersonNode,
   VisualizationStyleGuideProvider,
+  type VisualizationFoundation,
+  type VisualizationStyleGuide,
 } from '@centurio1987/bbangto-ui-visualization';
 import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visualization-style-guide-catalog';
 import { expect } from 'storybook/test';
@@ -152,5 +155,111 @@ export const MoleculeNoLiteralPaint: Story = {
     // blueprint 하 person fill 해석 확인
     const shape = mol.querySelector('[data-bbangto-viz-node-shape]')!;
     await expect(getComputedStyle(shape).fill).toBe('rgb(197, 182, 238)');
+  },
+};
+
+/**
+ * 연결선 대시 토큰(edge.dashPattern) — 스타일 가이드가 기본값을 정하고 strokeDasharray prop 이 덮는다
+ * (style-classification.md 횡단 규칙 3). 카탈로그 가이드는 모두 실선('')이라, blueprint 에서
+ * 대시만 '4 4' 로 바꾼 가이드로 잰다. 대시는 Edge 연결선에만 걸리고 같은 edge 채널을 쓰는
+ * 구조선(축·눈금 등)에는 걸리지 않는다.
+ */
+const withEdgeDash = (f: VisualizationFoundation, dashPattern: string): VisualizationFoundation => ({
+  ...f,
+  edge: { ...f.edge, dashPattern },
+});
+
+const dashedSg: VisualizationStyleGuide = {
+  ...sg,
+  name: `${sg.name}-edge-dash`,
+  foundations: withEdgeDash(sg.foundations, '4 4'),
+  foundationPresets: sg.foundationPresets?.map((p) => ({
+    ...p,
+    foundations: withEdgeDash(p.foundations, '4 4'),
+  })),
+};
+
+const dashOf = (el: Element | null) => getComputedStyle(el!).strokeDasharray;
+
+/** ① 가이드의 대시가 Edge 연결선에 걸린다. */
+export const EdgeDashFromStyleGuide: Story = {
+  render: () => (
+    <VisualizationStyleGuideProvider className="dash-guide" styleGuide={dashedSg}>
+      <Canvas viewBox="0 0 400 140" width={400} height={140} title="Edge dash from guide">
+        <Node id="d1" x={20} y={40} width={120} height={60} />
+        <Node id="d2" x={260} y={40} width={120} height={60} />
+        <Edge from="d1" to="d2" markerEnd="arrow" />
+      </Canvas>
+    </VisualizationStyleGuideProvider>
+  ),
+  play: async ({ canvasElement }) => {
+    const edge = canvasElement.querySelector<SVGElement>('.dash-guide [data-bbangto-viz-edge]');
+    await expect(edge).not.toBeNull();
+    // 인라인으로 내지 않는다 — 소비자 스타일시트가 가이드 기본값을 덮을 수 있어야 한다
+    await expect(edge!.style.strokeDasharray).toBe('');
+    await expect(dashOf(edge)).toBe('4px, 4px');
+  },
+};
+
+/** ② 같은 가이드에서도 strokeDasharray prop 이 가이드 대시를 이긴다. */
+export const EdgeDashPropOverridesStyleGuide: Story = {
+  render: () => (
+    <VisualizationStyleGuideProvider className="dash-guide" styleGuide={dashedSg}>
+      <Canvas viewBox="0 0 400 140" width={400} height={140} title="Edge dash prop override">
+        <Node id="p1" x={20} y={40} width={120} height={60} />
+        <Node id="p2" x={260} y={40} width={120} height={60} />
+        <Edge from="p1" to="p2" markerEnd="arrow" strokeDasharray="2 2" />
+      </Canvas>
+    </VisualizationStyleGuideProvider>
+  ),
+  play: async ({ canvasElement }) => {
+    const edge = canvasElement.querySelector('.dash-guide [data-bbangto-viz-edge]');
+    await expect(dashOf(edge)).toBe('2px, 2px');
+  },
+};
+
+/** ③ 같은 edge 채널을 쓰는 구조선(축선·눈금)에는 가이드 대시가 걸리지 않는다. */
+export const EdgeDashSkipsStructuralLines: Story = {
+  render: () => (
+    <VisualizationStyleGuideProvider className="dash-guide" styleGuide={dashedSg}>
+      <Canvas viewBox="0 0 300 80" width={300} height={80} title="Axis stays solid">
+        <Axis x={20} y={30} length={260} orientation="x" ticks={[{ pos: 20, label: '0' }, { pos: 280, label: '1' }]} />
+      </Canvas>
+    </VisualizationStyleGuideProvider>
+  ),
+  play: async ({ canvasElement }) => {
+    const lines = canvasElement.querySelectorAll('.dash-guide [data-bbangto-viz-axis] [data-bbangto-viz-edge]');
+    await expect(lines.length).toBe(3);
+    for (const line of Array.from(lines)) {
+      await expect(dashOf(line)).toBe('none');
+    }
+  },
+};
+
+/** ④ 대시 가이드 안에 실선 가이드를 겹치면 안쪽 연결선은 실선이다 — 바깥 대시가 새어 들지 않는다. */
+export const EdgeDashNestedSolidGuide: Story = {
+  render: () => (
+    <VisualizationStyleGuideProvider className="dash-outer" styleGuide={dashedSg}>
+      <Canvas viewBox="0 0 400 140" width={400} height={140} title="Outer dashed">
+        <Node id="n1" x={20} y={40} width={120} height={60} />
+        <Node id="n2" x={260} y={40} width={120} height={60} />
+        <Edge from="n1" to="n2" markerEnd="arrow" />
+      </Canvas>
+      <VisualizationStyleGuideProvider className="dash-inner" styleGuide={sg}>
+        <Canvas viewBox="0 0 400 140" width={400} height={140} title="Inner solid">
+          <Node id="n3" x={20} y={40} width={120} height={60} />
+          <Node id="n4" x={260} y={40} width={120} height={60} />
+          <Edge from="n3" to="n4" markerEnd="arrow" />
+        </Canvas>
+      </VisualizationStyleGuideProvider>
+    </VisualizationStyleGuideProvider>
+  ),
+  play: async ({ canvasElement }) => {
+    const inner = canvasElement.querySelector('.dash-inner')!;
+    const outerEdge = Array.from(canvasElement.querySelectorAll('.dash-outer [data-bbangto-viz-edge]')).find(
+      (e) => !inner.contains(e),
+    );
+    await expect(dashOf(outerEdge ?? null)).toBe('4px, 4px');
+    await expect(dashOf(inner.querySelector('[data-bbangto-viz-edge]'))).toBe('none');
   },
 };
