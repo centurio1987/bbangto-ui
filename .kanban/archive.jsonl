@@ -281,3 +281,4 @@
 {"seq": 222, "t": "2026-10-08T00:14", "a": "ai", "id": "KAN-055-34A57K", "op": "waive", "w": "S7030N", "with_": "KAN-059-62EAKB", "reason": "059의 changeset은 059가 main에 병합된 뒤에만 들어오므로 그 전 배포에 섞이지 않는다. 먼저 병합되면 함께 배포된다. KAN-054·058과 같은 처리 (2026-10-07 유저 선택). 2026-10-08 재기록: 059 scope에 blocks/Gallery·Testimonials가 더해진 것이 reconcile로 반영되며 무효가 된 기록을 다시 건다 — 겹침은 그대로 .changeset/ 하나"}
 {"seq": 222, "t": "2026-10-07T19:36", "a": "ai", "id": "KAN-059-62EAKB", "op": "move", "w": "GTA753", "from": "doing", "to": "review"}
 {"seq": 222, "t": "2026-10-07T19:32", "a": "ai", "id": "KAN-056-D3V1MB", "op": "move", "w": "GEG7B8", "from": "todo", "to": "doing"}
+{"seq": 223, "t": "2026-10-07T19:42", "a": "ai", "id": "KAN-056-D3V1MB", "op": "move", "w": "GEG7B8", "from": "doing", "to": "review"}
