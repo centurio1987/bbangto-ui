@@ -1,6 +1,6 @@
 {
   "next_id": 70,
-  "next_seq": 260,
+  "next_seq": 262,
   "cards": {
     "KAN-057-CCH3E8": {
       "col": "backlog",
@@ -44,7 +44,15 @@
       "scope": [
         "apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx",
         "apps/storybook/src/stories/visualization/_labelContrastBaseline.ts",
-        "packages/visualization/src/templates/**"
+        "packages/visualization/src/templates/**",
+        "packages/visualization/src/molecules/**",
+        "packages/visualization/src/atoms/NodeLabel.tsx",
+        "packages/visualization/src/tokens/contract.ts",
+        "packages/visualization/src/tokens/onInk.ts",
+        "packages/visualization/src/tokens/onInk.test.ts",
+        "packages/tokens/src/visualization.ts",
+        "packages/visualization-style-guide-catalog/src/onInk.test.ts",
+        ".changeset/kan-061-*.md"
       ]
     },
     "KAN-064-AC0H6M": {
@@ -1400,6 +1408,7 @@
     "KAN-066-T6NR80",
     "KAN-069-G0FGTJ",
     "KAN-067-WDY7N1",
+    "KAN-068-W6TE2S",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1461,10 +1470,29 @@
     "KAN-060-G9YKG6",
     "KAN-055-34A57K",
     "KAN-062-E02CMT",
-    "KAN-065-XSHEMV",
-    "KAN-068-W6TE2S"
+    "KAN-065-XSHEMV"
   ],
   "recent": [
+    {
+      "seq": 261,
+      "t": "2026-10-10T00:40",
+      "a": "ai",
+      "id": "KAN-067-WDY7N1",
+      "op": "waive",
+      "w": "S7030N",
+      "with_": "KAN-068-W6TE2S",
+      "reason": "packages/visualization/package.json 을 함께 건드리지만 KAN-068 은 version 줄, KAN-067 은 files·exports 쪽이라 git 이 따로 합침. KAN-067 이 KAN-068 push 전에 main 에 병합되면 major 가 아닐 때만 함께 싣고 major 면 push 를 멈춤 (2026-10-10 유저 선택)"
+    },
+    {
+      "seq": 260,
+      "t": "2026-10-10T00:24",
+      "a": "ai",
+      "id": "KAN-061-K8V2HH",
+      "op": "serialize",
+      "w": "S7030N",
+      "with_": "KAN-063-Q85EET",
+      "reason": "전략 재수립 완료"
+    },
     {
       "seq": 259,
       "t": "2026-10-10T00:21",
@@ -2011,26 +2039,6 @@
       "w": "GEG7B8",
       "from": "review",
       "to": "done"
-    },
-    {
-      "seq": 226,
-      "t": "2026-10-08T00:15",
-      "a": "ai",
-      "id": "KAN-055-34A57K",
-      "op": "serialize",
-      "w": "S7030N",
-      "with_": "KAN-053-TZ86NN",
-      "reason": "전략 재수립 완료"
-    },
-    {
-      "seq": 226,
-      "t": "2026-10-08T00:39",
-      "a": "ai",
-      "id": "KAN-056-D3V1MB",
-      "op": "move",
-      "w": "GEG7B8",
-      "from": "doing",
-      "to": "review"
     }
   ],
   "waivers": [
@@ -2152,6 +2160,13 @@
       "reason": "같은 package.json 4개를 건드리지만 순서가 정해져 있음 — KAN-068 배포를 먼저 끝낸 뒤 KAN-064 를 main 에 병합(KAN-064 검토 §3-5, 2026-10-09 유저 선택). KAN-068 은 version 줄, KAN-064 는 files·exports 줄",
       "created": "2026-10-10T00:21",
       "by": "ai"
+    },
+    {
+      "pair": "KAN-067-WDY7N1|KAN-068-W6TE2S",
+      "scope_hash": "ef05d37a762b2732",
+      "reason": "packages/visualization/package.json 을 함께 건드리지만 KAN-068 은 version 줄, KAN-067 은 files·exports 쪽이라 git 이 따로 합침. KAN-067 이 KAN-068 push 전에 main 에 병합되면 major 가 아닐 때만 함께 싣고 major 면 push 를 멈춤 (2026-10-10 유저 선택)",
+      "created": "2026-10-10T00:40",
+      "by": "ai"
     }
   ],
   "serials": [
@@ -2230,7 +2245,8 @@
       "reason": "둘 다 TemplatePaintGate.stories.tsx 와 _labelContrastBaseline.ts 를 고치고, 061 목표의 「13개 밖 템플릿도 잰다」가 063 일과 같다. 063 이 두 검사를 모든 템플릿으로 넓히고 새 글자 대비 미달을 기준 목록에 올린 뒤, 061 이 넓어진 목록을 보고 전략을 다시 세운다 (2026-10-08 유저 선택). 같은 날 063 scope 에 foundations 표본 누락 검사 파일을 더해 무효가 된 기록을 다시 걸었다. 2026-10-08 재기록: 063 병합(rebuild --salvage)이 재수립 필요 표시를 잃어 다시 건다 — 061 은 063 이 1534곳으로 늘린 기준 목록을 보고 전략을 다시 세워야 한다",
       "created": "2026-10-08T18:02",
       "by": "ai",
-      "restrategy_required": true
+      "restrategy_required": false,
+      "restrategy_done": "2026-10-10T00:24"
     }
   ]
 }

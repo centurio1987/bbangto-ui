@@ -288,3 +288,5 @@
 {"seq": 224, "t": "2026-10-08T00:15", "a": "ai", "id": "KAN-055-34A57K", "op": "serialize", "w": "S7030N", "with_": "KAN-051-5HMYKT", "reason": "전략 재수립 완료"}
 {"seq": 225, "t": "2026-10-08T00:37", "a": "ai", "id": "KAN-055-34A57K", "op": "waive", "w": "GEG7B8", "with_": "KAN-056-D3V1MB", "reason": "2026-10-07 유저 용인을 다시 건다. KAN-056 재작업(검토 항목 4)에서 scope 에 새 파일 apps/storybook/.../_labelContrastBaseline.ts 하나를 더해 기록이 낡았을 뿐, 겹치는 경로는 그대로 .changeset/kan-056-*.md 하나다 — KAN-056 은 자기 changeset 만 더하고 KAN-055 는 배포 때 소비할 뿐이다"}
 {"seq": 225, "t": "2026-10-08T00:15", "a": "ai", "id": "KAN-055-34A57K", "op": "serialize", "w": "S7030N", "with_": "KAN-052-BYS4JN", "reason": "전략 재수립 완료"}
+{"seq": 226, "t": "2026-10-08T00:39", "a": "ai", "id": "KAN-056-D3V1MB", "op": "move", "w": "GEG7B8", "from": "doing", "to": "review"}
+{"seq": 226, "t": "2026-10-08T00:15", "a": "ai", "id": "KAN-055-34A57K", "op": "serialize", "w": "S7030N", "with_": "KAN-053-TZ86NN", "reason": "전략 재수립 완료"}
