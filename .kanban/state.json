@@ -1,6 +1,6 @@
 {
   "next_id": 68,
-  "next_seq": 254,
+  "next_seq": 255,
   "cards": {
     "KAN-057-CCH3E8": {
       "col": "backlog",
@@ -1407,6 +1407,16 @@
   ],
   "recent": [
     {
+      "seq": 254,
+      "t": "2026-10-09T22:52",
+      "a": "ai",
+      "id": "KAN-064-AC0H6M",
+      "op": "waive",
+      "w": "S7030N",
+      "with_": "KAN-067-WDY7N1",
+      "reason": "유저 선택(2026-10-09 「용인」): visualization package.json 의 files 배열은 KAN-064 가 manifest 를 더하고 KAN-067 이 관리용 문서 2개를 뺀다 — 나중에 합치는 쪽이 두 변경을 다 남긴다. 주석은 src/index.ts 가 KAN-064 21줄·KAN-067 28줄로 갈리고, src/typeMeta/index.ts:6 은 같은 문장이라 나중에 합치는 쪽이 2단 읽기와 저장소 링크 두 뜻으로 다시 쓴다. KAN-064 scope 의 tsup.config.ts:21·src/index.ts:21 에 남은 「동봉」은 KAN-064 병합 때 KAN-067 검사에 맞춰 고친다"
+    },
+    {
       "seq": 253,
       "t": "2026-10-09T22:46",
       "a": "ai",
@@ -1948,16 +1958,6 @@
       "field": "purpose",
       "before": "KAN-051~053 결과를 GitHub Packages에 배포하고, 배포본으로 크기 게이트를 다시 돌린 뒤 외부 앱에 버전을 알린다",
       "after": "KAN-051~054·058 결과를 GitHub Packages에 배포하고, 배포본으로 크기를 다시 잰 뒤 외부 앱에 버전을 알린다"
-    },
-    {
-      "seq": 223,
-      "t": "2026-10-08T00:17",
-      "a": "ai",
-      "id": "KAN-059-62EAKB",
-      "op": "move",
-      "w": "GTA753",
-      "from": "review",
-      "to": "done"
     }
   ],
   "waivers": [
@@ -2065,6 +2065,13 @@
       "reason": "KAN-065 는 자기 changeset 파일(.changeset/kan-065-motif-focus.md) 하나만 더하고 KAN-055 는 배포 때 그것을 읽어 소비할 뿐이라 같은 파일을 고치지 않는다. 065 가 먼저 병합되면 다음 배포에 style-guide-catalog 가 함께 나간다. KAN-056·058·059·060·063 과 같은 처리 (2026-10-08 유저 선택)",
       "created": "2026-10-08T18:39",
       "by": "유저"
+    },
+    {
+      "pair": "KAN-064-AC0H6M|KAN-067-WDY7N1",
+      "scope_hash": "56ea8b2cf3cfdca0",
+      "reason": "유저 선택(2026-10-09 「용인」): visualization package.json 의 files 배열은 KAN-064 가 manifest 를 더하고 KAN-067 이 관리용 문서 2개를 뺀다 — 나중에 합치는 쪽이 두 변경을 다 남긴다. 주석은 src/index.ts 가 KAN-064 21줄·KAN-067 28줄로 갈리고, src/typeMeta/index.ts:6 은 같은 문장이라 나중에 합치는 쪽이 2단 읽기와 저장소 링크 두 뜻으로 다시 쓴다. KAN-064 scope 의 tsup.config.ts:21·src/index.ts:21 에 남은 「동봉」은 KAN-064 병합 때 KAN-067 검사에 맞춰 고친다",
+      "created": "2026-10-09T22:52",
+      "by": "ai"
     }
   ],
   "serials": [
