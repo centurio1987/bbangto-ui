@@ -86,7 +86,7 @@
   - 메모: 선행 확인: 실제 토크나이저로 4종 크기 실측(어림값 검증). 전부 걷어내는 안은 버림 — foundation 76종은 메타가 유일한 선택 근거
   - 실행 문서: KANBAN/cards/KAN-064-AC0H6M.md (5/5 · 최근 10-08)
   - 계획 리포트: KANBAN/reports/KAN-064-AC0H6M.report.html (낡음)
-  - 검토 문서: KANBAN/reviews/KAN-064-AC0H6M.review.md (승인 0/4 · 검토 대기)
+  - 검토 문서: KANBAN/reviews/KAN-064-AC0H6M.review.md (승인 3/5 · 추가 의견 1 · 추가 의견 총 4 · 검토 대기)
   - 원문:
     ```text
     이 레포에는 ai agent가 라이브러리를 효율적으로 사용할 수 있도록 매니페스트를 제공하고 있는데, 매니페스트가 실제로 이득이 되는지, 아니면, 오버헤드가 더 큰지 판단해줘
