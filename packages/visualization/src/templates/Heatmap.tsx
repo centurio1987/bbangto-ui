@@ -1,6 +1,8 @@
 import { type ReactNode } from 'react';
 import { Canvas, type CanvasProps } from '../atoms/Canvas';
 import { vvar } from '../tokens/contract';
+import { pickOnInk, surfacesFor } from '../tokens/onInk';
+import { useVizFoundation } from '../styleGuide/VisualizationStyleGuideProvider';
 import { resolveLabelFont } from '../tokens/labelFont';
 import { parseViewBox } from '../geometry/layout';
 import { bandScale, linearScale } from '../geometry/scale';
@@ -43,6 +45,7 @@ export function Heatmap({
   ...canvasProps
 }: HeatmapProps) {
   const [vbX, vbY, vbW, vbH] = parseViewBox(viewBox, [0, 0, 420, 320]);
+  const foundation = useVizFoundation();
 
   if (children || !data || data.cells.length === 0) {
     return (
@@ -66,6 +69,10 @@ export function Heatmap({
   const yBand = bandScale(rows.length, [plotTop, plotBottom], { paddingInner: 0.06 });
   const opacity = linearScale([vMin, vMax], [0.15, 1]);
   const fill = color ?? vvar('palette', 'p1');
+  // 칸마다 투명도가 달라 미리 낸 --bbangto-viz-on-* 로는 맞출 수 없다 — 그 칸의 면으로 고른다.
+  // color 를 직접 주면 그 면의 대비는 준 쪽 몫이라 종전 글자색을 둔다(KAN-061).
+  const inkFor = (cellOpacity: number) =>
+    color ? vvar('shape', 'stroke') : pickOnInk(foundation, surfacesFor(foundation, foundation.palette.p1, cellOpacity));
 
   const lookup = new Map(cells.map((c) => [`${c.row}:${c.col}`, c.value]));
 
@@ -79,6 +86,7 @@ export function Heatmap({
       const y = yBand.position(ri);
       const cx = xBand.center(ci);
       const cy = yBand.center(ri);
+      const cellOpacity = vMax === vMin ? 1 : opacity(v);
       cellEls.push(
         <g key={key}>
           <rect
@@ -89,7 +97,7 @@ export function Heatmap({
             y={y}
             width={xBand.bandwidth}
             height={yBand.bandwidth}
-            style={{ fill, fillOpacity: vMax === vMin ? 1 : opacity(v) }}
+            style={{ fill, fillOpacity: cellOpacity }}
           />
           <text
             data-bbangto-viz-cell-value
@@ -100,7 +108,7 @@ export function Heatmap({
             fontSize={11}
             fontWeight={700}
             fontFamily={vvar('typography', 'monoFont')}
-            style={{ fill: vvar('shape', 'stroke') }}
+            style={{ fill: inkFor(cellOpacity) }}
           >
             {formatValue(v)}
           </text>

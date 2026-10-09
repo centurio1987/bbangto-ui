@@ -85,7 +85,8 @@ export function UserJourneyGantt({
               fontSize={12}
               fontWeight={700}
               fontFamily={vvar('typography', 'titleFont')}
-              style={{ fill: vvar('canvas', 'bg') }}
+              // 알약 면과 같은 팔레트 키의 글자색. color 를 직접 주면 종전 글자색을 둔다(KAN-061)
+              style={{ fill: p.color ? vvar('canvas', 'bg') : vvar('on', 'palette', PALETTE_KEYS[i % PALETTE_KEYS.length]) }}
             >
               {p.label}
             </text>

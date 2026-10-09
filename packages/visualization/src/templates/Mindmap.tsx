@@ -32,15 +32,14 @@ export interface MindmapProps extends Omit<CanvasProps, 'data' | 'children'> {
   };
 }
 
-const LEVEL_FILLS = [
-  vvar('palette', 'p2'),
-  vvar('palette', 'p5'),
-  vvar('palette', 'p6'),
-  vvar('palette', 'p4'),
-];
+const LEVEL_KEYS = ['p2', 'p5', 'p6', 'p4'] as const;
+
+function levelKey(level: number): (typeof LEVEL_KEYS)[number] {
+  return LEVEL_KEYS[level] ?? LEVEL_KEYS[LEVEL_KEYS.length - 1]!;
+}
 
 function levelFill(level: number, overrideFill?: string): string {
-  return overrideFill ?? LEVEL_FILLS[level] ?? LEVEL_FILLS[LEVEL_FILLS.length - 1]!;
+  return overrideFill ?? vvar('palette', levelKey(level));
 }
 
 /**
@@ -105,6 +104,8 @@ export function Mindmap({
             width={n.width}
             title={n.label}
             fontSize={n.level === 0 ? 13 : 11}
+            // 면과 같은 팔레트 키의 글자색. fill 을 직접 주면 종전 글자색을 둔다(KAN-061).
+            fill={n.fill === undefined ? vvar('on', 'palette', levelKey(n.level ?? 1)) : vvar('edge', 'stroke')}
           />
         </React.Fragment>
       ))}

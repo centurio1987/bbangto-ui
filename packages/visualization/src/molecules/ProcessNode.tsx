@@ -24,6 +24,9 @@ export interface ProcessNodeProps {
 export const ProcessNode = React.forwardRef<SVGGElement, ProcessNodeProps>(
   ({ id, x, y, width, height, title, subtitle, tag = 'process', fill, stroke, strokeWidth, strokeDasharray, children }, ref) => {
     const effectiveFill = fill ?? vvar('node', 'process', 'fill');
+    // 기본 면(node.process.fill) 위 글자색 — 이름과 태그가 같은 면 위에 있다.
+    // fill 을 직접 주면 그 면의 대비는 준 쪽 몫이라 종전 글자색을 둔다(KAN-061).
+    const labelFill = fill === undefined ? vvar('on', 'node', 'process', 'fill') : vvar('edge', 'stroke');
     const effectiveStroke = stroke ?? vvar('node', 'process', 'keyline');
     const effectiveStrokeWidth = strokeWidth ?? vvar('node', 'process', 'keylineWidth');
 
@@ -60,8 +63,16 @@ export const ProcessNode = React.forwardRef<SVGGElement, ProcessNodeProps>(
         >
           <ProcessGlyph stroke={effectiveStroke} />
         </svg>
-        <NodeLabel x={x} y={labelY} width={width} title={title} subtitle={subtitle} fontSize={12} />
-        <Tag x={x + width / 2} y={tagY} label={tag} />
+        <NodeLabel
+          x={x}
+          y={labelY}
+          width={width}
+          title={title}
+          subtitle={subtitle}
+          fontSize={12}
+          fill={labelFill}
+        />
+        <Tag x={x + width / 2} y={tagY} label={tag} fill={labelFill} />
         {children}
       </g>
     );

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { VisualizationStyleGuideProvider } from '@centurio1987/bbangto-ui-visualization';
+import { SankeyDiagram, VisualizationStyleGuideProvider } from '@centurio1987/bbangto-ui-visualization';
 import type { VisualizationStyleGuide } from '@centurio1987/bbangto-ui-visualization';
 import {
   blueprintTechnical01VizStyleGuide,
@@ -180,6 +180,7 @@ export const LiteralPaintGate: Story = {
  *   polygon 중 문서 순서상 글자보다 앞선 것)의 fill 을 fill-opacity·opacity 까지 반영해 차례로 얹는다.
  * - 기준: WCAG AA — 보통 글자 4.5:1, 큰 글자(화면 24px 이상, 굵게면 18.66px 이상) 3:1.
  * - wrapperComponents 는 넣지 않는다. 모티프 장식은 템플릿 몫이 아니다.
+ * - 면 위 글자는 그 면에 맞춘 글자색 `vvar('on', …)`(`--bbangto-viz-on-*`)을 쓴다. 기준 목록은 KAN-061 에서 비웠다.
  */
 const TEXT_CONTRAST_MIN = 4.5;
 const LARGE_TEXT_CONTRAST_MIN = 3;
@@ -287,7 +288,7 @@ export const LabelContrastGate: Story = {
     for (const { id, ratio } of low) {
       seen.add(id);
       const floor = LABEL_CONTRAST_BASELINE[id];
-      // 새 미달은 기준 목록에 그대로 옮겨 적을 수 있는 줄로 낸다
+      // 새 미달은 기준 목록에 올리지 말고 글자를 그 뒤 면의 on-* 로 고친다(KAN-061). 키는 원인을 찾기 쉽게 그대로 보인다
       if (floor === undefined) problems.push(`새 미달 — ${JSON.stringify(id)}: ${Number(ratio.toFixed(2))},`);
       else if (ratio < floor - 0.01) problems.push(`더 떨어짐 ${id} ${floor} → ${ratio.toFixed(2)}`);
     }
@@ -297,3 +298,66 @@ export const LabelContrastGate: Story = {
     await expect(problems).toEqual([]);
   },
 };
+
+// ────────────────────────────────────────────────────────────────────────
+// Sankey 리본 위 노드 이름 — 표본(노드 넷)이 못 재는 리본 색까지
+// ────────────────────────────────────────────────────────────────────────
+
+/**
+ * Sankey 노드 이름은 막대 오른쪽, 노드 높이 가운데에 놓인다. 나가는 리본(팔레트 42%)은 노드 위쪽부터 쌓이므로
+ * 이름 밑은 리본일 수도 바탕일 수도 있다. 게이트 표본은 노드가 넷이라 리본 색이 p1·p2 둘뿐이고 이름이 늘 리본 안이다.
+ * 그래서 팔레트 8색이 모두 나가는 리본이 되게 노드 여덟을 세우고, 일곱째(p7)는 60 을 받고 20 만 내보내 이름이
+ * 리본 아래 바탕 위에 서게 한다(KAN-061 검토 5번: neon-gradient-dark 에서 p7 리본 위 4.16, 바탕 위 1.27 이었다).
+ */
+const SANKEY_RIBBON_NODES = Array.from({ length: 8 }, (_, i) => ({
+  id: `s${i + 1}`,
+  label: `Source ${i + 1}`,
+  x: 120,
+  y: i < 6 ? 10 + i * 34 : i === 6 ? 250 : 214,
+}));
+const SANKEY_LOW_OUTFLOW = 's7';
+
+function SankeyRibbonSample() {
+  return (
+    <SankeyDiagram
+      viewBox="0 0 420 320"
+      width={420}
+      height={320}
+      data={{
+        // 위쪽 노드(up)는 맨 뒤에 둔다 — 리본 색은 노드 순서로 정해져서, 앞에 두면 일곱째가 p7 이 아니게 된다
+        nodes: [...SANKEY_RIBBON_NODES, { id: 'sink', label: 'Sink', x: 330, y: 10 }, { id: 'up', label: 'Upstream', x: 10, y: 250 }],
+        links: [
+          ...SANKEY_RIBBON_NODES.map((n) => ({ source: n.id, target: 'sink', value: n.id === SANKEY_LOW_OUTFLOW ? 20 : 24 })),
+          { source: 'up', target: SANKEY_LOW_OUTFLOW, value: 60 },
+        ],
+      }}
+    />
+  );
+}
+
+export const SankeyRibbonLabelGate: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+      {vizStyleGuideCatalog.map((sg) => (
+        <div key={sg.name} data-sankey-gate-guide={sg.name}>
+          <VisualizationStyleGuideProvider styleGuide={{ name: sg.name, foundations: sg.foundations }} style={{ padding: 8 }}>
+            <SankeyRibbonSample />
+          </VisualizationStyleGuideProvider>
+        </div>
+      ))}
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const cells = Array.from(canvasElement.querySelectorAll<HTMLElement>('[data-sankey-gate-guide]'));
+    await expect(cells.length).toBe(vizStyleGuideCatalog.length);
+    const low: string[] = [];
+    for (const cell of cells) {
+      const guide = cell.dataset.sankeyGateGuide!;
+      const result = collectLowContrast(guide, 'sankey-ribbons', cell);
+      await expect(result.measured, `${guide}: 잰 글자 수`).toBe(SANKEY_RIBBON_NODES.length + 2);
+      low.push(...result.low.map((l) => `${l.id}: ${l.ratio.toFixed(2)}`));
+    }
+    await expect(low).toEqual([]);
+  },
+};
+

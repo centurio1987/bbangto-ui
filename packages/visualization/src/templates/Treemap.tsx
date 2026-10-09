@@ -59,6 +59,9 @@ export function Treemap({
     <Canvas viewBox={viewBox} title={title} data-bbangto-viz-chart="treemap" {...canvasProps}>
       {cells.map((c, i) => {
         const d = byId.get(c.id)!;
+        const key = PALETTE_KEYS[i % PALETTE_KEYS.length];
+        // 칸 면과 같은 팔레트 키의 글자색. color 를 직접 주면 그 면의 대비는 준 쪽 몫이라 종전 글자색을 둔다(KAN-061).
+        const ink = d.color ? vvar('canvas', 'bg') : vvar('on', 'palette', key);
         return (
           <g key={c.id} data-bbangto-viz-treemap-cell data-bbangto-viz-treemap-cell-id={c.id}>
             <rect
@@ -67,7 +70,7 @@ export function Treemap({
               y={c.y}
               width={c.width}
               height={c.height}
-              style={{ fill: d.color ?? vvar('palette', PALETTE_KEYS[i % PALETTE_KEYS.length]) }}
+              style={{ fill: d.color ?? vvar('palette', key) }}
             />
             {c.width > 40 && c.height > 26 && (
               <>
@@ -77,7 +80,7 @@ export function Treemap({
                   fontSize={12}
                   fontWeight={700}
                   fontFamily={vvar('typography', 'titleFont')}
-                  style={{ fill: vvar('canvas', 'bg') }}
+                  style={{ fill: ink }}
                 >
                   {d.label}
                 </text>
@@ -87,14 +90,14 @@ export function Treemap({
                   y={c.y + 30}
                   fontSize={11}
                   fontFamily={vvar('typography', 'monoFont')}
-                  style={{ fill: vvar('canvas', 'bg'), opacity: 0.85 }}
+                  style={{ fill: ink }}
                 >
                   {formatValue(d.value)}
                 </text>
               </>
             )}
             {!(c.width > 40 && c.height > 26) && (
-              <text data-bbangto-viz-treemap-value x={c.x + 3} y={c.y + 12} fontSize={9} fontFamily={vvar('typography', 'monoFont')} style={{ fill: vvar('canvas', 'bg') }}>
+              <text data-bbangto-viz-treemap-value x={c.x + 3} y={c.y + 12} fontSize={9} fontFamily={vvar('typography', 'monoFont')} style={{ fill: ink }}>
                 {formatValue(d.value)}
               </text>
             )}
