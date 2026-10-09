@@ -87,7 +87,10 @@ export function WorkBreakdownStructure({
       })}
       {laid.map((n) => {
         const p = pos.get(n.id)!;
-        const fill = vvar('palette', PALETTE_KEYS[p.depth % PALETTE_KEYS.length]);
+        const key = PALETTE_KEYS[p.depth % PALETTE_KEYS.length];
+        const fill = vvar('palette', key);
+        // 번호와 이름은 단계 면 위에 있어 같은 팔레트 키의 글자색을 쓴다(KAN-061)
+        const ink = vvar('on', 'palette', key);
         const code = numbers[n.id] ?? '';
         return (
           <g key={n.id} data-bbangto-viz-wbs-node data-bbangto-viz-wbs-node-id={n.id} data-bbangto-viz-wbs-depth={p.depth}>
@@ -110,11 +113,11 @@ export function WorkBreakdownStructure({
               fontSize={9}
               fontWeight={700}
               fontFamily={vvar('typography', 'monoFont')}
-              style={{ fill: stroke }}
+              style={{ fill: ink }}
             >
               {code}
             </text>
-            <NodeLabel x={p.x - NODE_W / 2} y={p.y + 4} width={NODE_W} title={labelById.get(n.id) ?? n.id} fontSize={11} />
+            <NodeLabel x={p.x - NODE_W / 2} y={p.y + 4} width={NODE_W} title={labelById.get(n.id) ?? n.id} fontSize={11} fill={ink} />
           </g>
         );
       })}

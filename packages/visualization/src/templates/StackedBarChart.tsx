@@ -72,6 +72,9 @@ export function StackedBarChart({
   const plotBottom = vbY + vbH - PAD.bottom;
 
   const fillFor = (s: StackedBarSeries, i: number) => s.color ?? vvar('palette', PALETTE_KEYS[i % PALETTE_KEYS.length]);
+  // 조각 면과 같은 팔레트 키의 글자색. color 를 직접 주면 그 면의 대비는 준 쪽 몫이라 종전 글자색을 둔다(KAN-061).
+  const inkFor = (s: StackedBarSeries, i: number) =>
+    s.color ? vvar('canvas', 'bg') : vvar('on', 'palette', PALETTE_KEYS[i % PALETTE_KEYS.length]);
 
   const isVertical = orientation === 'vertical';
   const band = bandScale(categories.length, isVertical ? [plotLeft, plotRight] : [plotTop, plotBottom]);
@@ -107,7 +110,7 @@ export function StackedBarChart({
               fontSize={10}
               fontWeight={700}
               fontFamily={vvar('typography', 'monoFont')}
-              style={{ fill: vvar('canvas', 'bg') }}
+              style={{ fill: inkFor(s, si) }}
             >
               {formatValue(segValue)}
             </text>
@@ -128,7 +131,7 @@ export function StackedBarChart({
               fontSize={10}
               fontWeight={700}
               fontFamily={vvar('typography', 'monoFont')}
-              style={{ fill: vvar('canvas', 'bg') }}
+              style={{ fill: inkFor(s, si) }}
             >
               {formatValue(segValue)}
             </text>

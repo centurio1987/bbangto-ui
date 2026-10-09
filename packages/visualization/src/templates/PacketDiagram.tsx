@@ -7,6 +7,10 @@ import { linearScale } from '../geometry/scale';
 
 const PALETTE_KEYS = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8'] as const;
 
+/** 칸 면과 같은 팔레트 키의 글자색. color 를 직접 주면 그 면의 대비는 준 쪽 몫이라 종전 글자색을 둔다(KAN-061). */
+const fieldInk = (color: string | undefined, i: number): string =>
+  color ? vvar('canvas', 'bg') : vvar('on', 'palette', PALETTE_KEYS[i % PALETTE_KEYS.length]);
+
 export interface PacketField {
   label: string;
   /** 비트 폭. */
@@ -86,7 +90,7 @@ export function PacketDiagram({
             fontSize={11}
             fontWeight={600}
             fontFamily={vvar('typography', 'titleFont')}
-            style={{ fill: vvar('canvas', 'bg') }}
+            style={{ fill: fieldInk(f.color, i) }}
           >
             {f.label}
           </text>
@@ -96,7 +100,7 @@ export function PacketDiagram({
             textAnchor="middle"
             fontSize={9}
             fontFamily={vvar('typography', 'monoFont')}
-            style={{ fill: vvar('canvas', 'bg'), opacity: 0.85 }}
+            style={{ fill: fieldInk(f.color, i) }}
           >
             {f.bits}b
           </text>
