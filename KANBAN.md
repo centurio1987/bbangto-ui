@@ -39,7 +39,7 @@
   - 메모: KAN-064 목표에서 갈라져 나왔다(2026-10-08 유저 선택). 고칠 자리 후보: 패키지 package.json exports 의 소스 조건 또는 tsconfig paths, vitest resolve. KAN-055 와 package.json 이 겹칠 것이다
   - 실행 문서: KANBAN/cards/KAN-066-T6NR80.md (6/6 · 최근 10-10)
   - 계획 리포트: KANBAN/reports/KAN-066-T6NR80.report.html (낡음)
-  - 검토 문서: KANBAN/reviews/KAN-066-T6NR80.review.md (승인 0/2 · 검토 대기)
+  - 검토 문서: KANBAN/reviews/KAN-066-T6NR80.review.md (승인 2/3 · 추가 의견 1 · 추가 의견 총 3 · 검토 대기)
   - 원문:
     ```text
     좁히고 새 카드 (앞 질문 「카드 목표인 「새 워크트리에서 build 없이 typecheck·test:unit 통과」를 어떻게 할까요? 패키지끼리 타입을 dist/index.d.ts 에서 찾고 루트 tsconfig 에 paths 가 없어서, 매니페스트와 상관없이 첫 typecheck 가 TS2307 로 실패합니다.」에 대한 답)
