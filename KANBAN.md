@@ -5,16 +5,6 @@
 
 ## 백로그
 <!-- 아직 착수 결정 전. 우선순위 미정 후보 풀. 백로그→할 일 이동이 "할지 고민" → "하기로 확정" 전환점. -->
-- `KAN-066-T6NR80` 워크스페이스 소스 경로 해석 — 새 워크트리에서 build 없이 typecheck·test:unit 통과 — 생성:ai · 최종:ai · 갱신:2026-10-08
-  - 짧은 제목: build 없는 게이트
-  - 목적: 패키지끼리 타입과 모듈을 dist 대신 소스에서 찾게 해, 새 워크트리에서 pnpm build 없이 typecheck·test:unit 이 돈다
-  - 이유: 패키지 exports 가 dist 만 가리키고 루트 tsconfig 에 paths 가 없어, 새 워크트리의 첫 typecheck 가 TS2307 로 실패한다(2026-10-07 KAN-050). KAN-064 착수 전 계획에서 매니페스트 카드 범위 밖으로 확인됐다
-  - 목표: 새 워크트리(또는 rm -rf packages/*/dist 뒤)에서 pnpm typecheck·pnpm test:unit 이 build 선행 없이 초록이고, build 를 먼저 돌리라는 규칙을 걷을 수 있다
-  - 메모: KAN-064 목표에서 갈라져 나왔다(2026-10-08 유저 선택). 고칠 자리 후보: 패키지 package.json exports 의 소스 조건 또는 tsconfig paths, vitest resolve. KAN-055 와 package.json 이 겹칠 것이다
-  - 원문:
-    ```text
-    좁히고 새 카드 (앞 질문 「카드 목표인 「새 워크트리에서 build 없이 typecheck·test:unit 통과」를 어떻게 할까요? 패키지끼리 타입을 dist/index.d.ts 에서 찾고 루트 tsconfig 에 paths 가 없어서, 매니페스트와 상관없이 첫 typecheck 가 TS2307 로 실패합니다.」에 대한 답)
-    ```
 - `KAN-069-G0FGTJ` viz 미사용 토큰 정리 — 선언만 있고 읽히지 않는 시각화 토큰을 토큰마다 잇거나 걷기 (경계선부터) — 생성:ai · 최종:ai · 갱신:2026-10-10
   - 짧은 제목: viz 미사용 토큰 정리
   - 목적: 선언만 있고 계약 스타일시트·atom 어디서도 읽지 않는 viz 토큰 20여 개를 토큰마다 잇거나 타입에서 걷는다
@@ -39,6 +29,16 @@
 ## 할 일
 
 ## 진행 중
+- `KAN-066-T6NR80` 워크스페이스 소스 경로 해석 — 새 워크트리에서 build 없이 typecheck·test:unit 통과 — 생성:ai · 최종:ai · 갱신:2026-10-10
+  - 짧은 제목: build 없는 게이트
+  - 목적: 패키지끼리 타입과 모듈을 dist 대신 소스에서 찾게 해, 새 워크트리에서 pnpm build 없이 typecheck·test:unit 이 돈다
+  - 이유: 패키지 exports 가 dist 만 가리키고 루트 tsconfig 에 paths 가 없어, 새 워크트리의 첫 typecheck 가 TS2307 로 실패한다(2026-10-07 KAN-050). KAN-064 착수 전 계획에서 매니페스트 카드 범위 밖으로 확인됐다
+  - 목표: 새 워크트리(또는 rm -rf packages/*/dist 뒤)에서 pnpm typecheck·pnpm test:unit 이 build 선행 없이 초록이고, build 를 먼저 돌리라는 규칙을 걷을 수 있다
+  - 메모: KAN-064 목표에서 갈라져 나왔다(2026-10-08 유저 선택). 고칠 자리 후보: 패키지 package.json exports 의 소스 조건 또는 tsconfig paths, vitest resolve. KAN-055 와 package.json 이 겹칠 것이다
+  - 원문:
+    ```text
+    좁히고 새 카드 (앞 질문 「카드 목표인 「새 워크트리에서 build 없이 typecheck·test:unit 통과」를 어떻게 할까요? 패키지끼리 타입을 dist/index.d.ts 에서 찾고 루트 tsconfig 에 paths 가 없어서, 매니페스트와 상관없이 첫 typecheck 가 TS2307 로 실패합니다.」에 대한 답)
+    ```
 
 ## 검토
 
