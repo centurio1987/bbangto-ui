@@ -60,7 +60,7 @@ export function ActivityDiagram({
 }: ActivityDiagramProps) {
   if (children || !data) {
     return (
-      <Canvas viewBox={viewBox} title={title} data-bbangto-viz-chart="activity" {...canvasProps}>
+      <Canvas data-viz-notation viewBox={viewBox} title={title} data-bbangto-viz-chart="activity" {...canvasProps}>
         {children}
       </Canvas>
     );
@@ -70,7 +70,7 @@ export function ActivityDiagram({
   const registry = { nodes: nodes.map((n) => ({ id: n.id, x: n.x, y: n.y, width: n.width ?? 100, height: n.height ?? 44 })) };
 
   return (
-    <Canvas viewBox={viewBox} title={title} data={registry} data-bbangto-viz-chart="activity" {...canvasProps}>
+    <Canvas data-viz-notation viewBox={viewBox} title={title} data={registry} data-bbangto-viz-chart="activity" {...canvasProps}>
       {lanes.map((l) => (
         <Lane key={l.id} x={l.x} y={l.y} width={l.width} height={l.height} label={l.label} orientation={l.orientation ?? 'vertical'} />
       ))}

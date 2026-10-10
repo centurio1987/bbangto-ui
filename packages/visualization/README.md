@@ -267,9 +267,21 @@ export function DecisionSketch() {
   (`id` 는 필수 string), 값 포맷 `formatValue?: (n) => string`, 차트 도메인 `domain?: [min, max]`
   (없으면 데이터에서 계산하고 0 기준선을 넣는다).
 - **data 속성은 두 갈래다.** 테스트·외부 셀렉터용 공개 훅은 `data-bbangto-viz-*`(`-bar`·`-point`·`-line`·`-axis`·`-tick`·
-  `-band-edge`·`-pattern` …)이고, `data-viz-part="shape"` 는 계약 스타일시트만 쓰는 내부 훅이다.
+  `-band-edge`·`-pattern` …)이고, `data-viz-part="shape"`·`data-viz-part="connector"`·`data-viz-notation` 은 계약 스타일시트만
+  쓰는 내부 훅이다.
 - **paint 채널을 늘리지 않는다.** 계약 채널은 `shape`·`edge` 둘이다. 면을 갈라야 하는 유형은
   `vvar('palette', 'pN')` 인라인 fill 과 fill-opacity 상수로, 텍스트 위계는 `vvar('typography', …)` 로 낸다.
+- **관계선은 가이드의 연결선 대시를 따르고, 표기법이 정한 선은 따르지 않는다.** 스타일 가이드의 `edge.dashPattern` 은
+  관계선 훅 `data-viz-part="connector"` 에만 걸린다. `Edge` 가 이 훅을 달고, Edge 없이 관계선을 그리는 템플릿
+  (SitemapTree·WorkBreakdownStructure 의 가지, IsometricScene 의 연결선)은 직접 단다. 축·눈금·뼈대·구분선처럼 같은 edge
+  칠을 쓰는 구조선에는 달지 않는다. 유형 메타의 `standard` 태그 템플릿(UML·BPMN·ArchiMate·SysML·DMN·ER·Packet)은
+  `Canvas` 에 `data-viz-notation` 을 달아 안쪽 연결선의 가이드 대시를 끈다. BPMN 시퀀스 흐름이 점선이 되면 메시지 흐름으로
+  읽히기 때문이다. C4 는 태그가 있어도 달지 않는다 — C4 표기는 선 모양을 정하지 않으므로(c4model.com/diagrams/notation)
+  관계선처럼 가이드를 따른다. 새 표준 템플릿의 표기법이 선 모양을 정하지 않으면 Dash Gate 의 `GUIDE_FOLLOWING_STANDARD` 에 적는다. 템플릿이 넘긴 인라인 대시(UML 의존 `5 3` 등)는 그대로 남는다. 한 그림에서 대시 선과 대비돼 뜻을 갖는
+  실선(Flowchart 에 `dashed` 선이 섞일 때)과 TimelineRoadmap 의 시간 축은 `strokeDasharray="none"` 으로 고정한다.
+  Storybook `VISUALIZATION/Templates/Dash Gate`(`TemplateDashGate.stories.tsx`)가 레지스트리의 `standard` 목록을 읽어 이
+  규칙을 검사하므로, 표준 템플릿을 새로 내보내면 `Canvas` 두 곳에 훅을 단다. `StepConnector` 는 기본(`arrow`)이 가이드
+  대시를 따르고 `variant="dashed"` 는 `6 4` 로 남는다. 두 변형을 한 그림에 섞어 뜻을 가르려면 실선 가이드를 쓴다.
 - **면 위 글자는 그 면의 `on-*` 글자색을 쓴다.** 기본 가이드에서 읽힌다고 다른 가이드에서도 읽히지는 않는다
   (synthwave 의 `palette.p2` 와 `edge.stroke` 는 둘 다 `#28E0F0`). 그래서 Provider 가 면 토큰(`palette.p1~p8`·`shape.fill`·
   `canvas.bg`·`c4.l1~l3.bgTint`·`node.<kind>.fill`)마다 그 위에 쓸 글자색을 `--bbangto-viz-on-*` 로 함께 낸다.

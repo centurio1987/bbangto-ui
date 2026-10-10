@@ -69,7 +69,7 @@ export function UseCaseDiagram({
 }: UseCaseDiagramProps) {
   if (children || !data) {
     return (
-      <Canvas viewBox={viewBox} title={title} data-bbangto-viz-chart="use-case" {...canvasProps}>
+      <Canvas data-viz-notation viewBox={viewBox} title={title} data-bbangto-viz-chart="use-case" {...canvasProps}>
         {children}
       </Canvas>
     );
@@ -84,7 +84,7 @@ export function UseCaseDiagram({
   };
 
   return (
-    <Canvas viewBox={viewBox} title={title} data={registry} data-bbangto-viz-chart="use-case" {...canvasProps}>
+    <Canvas data-viz-notation viewBox={viewBox} title={title} data={registry} data-bbangto-viz-chart="use-case" {...canvasProps}>
       {system && <Boundary x={system.x} y={system.y} width={system.width} height={system.height} label={system.label} />}
       {links.map((l, i) => {
         const dashed = l.kind === 'include' || l.kind === 'extend';

@@ -104,7 +104,7 @@ export function UMLSequenceDiagram({
 }: UMLSequenceDiagramProps) {
   if (children) {
     return (
-      <Canvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
+      <Canvas data-viz-notation viewBox={viewBox} width={width} height={height} title={title} {...props}>
         {children}
       </Canvas>
     );
@@ -123,7 +123,7 @@ export function UMLSequenceDiagram({
   })();
 
   return (
-    <Canvas viewBox={autoViewBox} width={width} height={height} title={title} {...props}>
+    <Canvas data-viz-notation viewBox={autoViewBox} width={width} height={height} title={title} {...props}>
       {participants.map((p) => (
         <Lifeline key={p.id} participant={p} lifelineHeight={lifelineHeight} />
       ))}

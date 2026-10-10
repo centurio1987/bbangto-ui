@@ -80,6 +80,7 @@ export function WorkBreakdownStructure({
           <path
             key={`e-${n.id}`}
             data-bbangto-viz-edge
+            data-viz-part="connector"
             d={`M ${p.x} ${py} L ${p.x} ${midY} L ${c.x} ${midY} L ${c.x} ${cy}`}
             style={{ fill: 'none' }}
           />
