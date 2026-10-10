@@ -15,16 +15,6 @@
     ```text
     좁히고 새 카드 (앞 질문 「카드 목표인 「새 워크트리에서 build 없이 typecheck·test:unit 통과」를 어떻게 할까요? 패키지끼리 타입을 dist/index.d.ts 에서 찾고 루트 tsconfig 에 paths 가 없어서, 매니페스트와 상관없이 첫 typecheck 가 TS2307 로 실패합니다.」에 대한 답)
     ```
-- `KAN-069-G0FGTJ` viz 미사용 토큰 정리 — 선언만 있고 읽히지 않는 시각화 토큰을 토큰마다 잇거나 걷기 (경계선부터) — 생성:ai · 최종:ai · 갱신:2026-10-10
-  - 짧은 제목: viz 미사용 토큰 정리
-  - 목적: 선언만 있고 계약 스타일시트·atom 어디서도 읽지 않는 viz 토큰 20여 개를 토큰마다 잇거나 타입에서 걷는다
-  - 이유: KAN-057 계획 중 스윕에서 boundary.*·c4.*·typography.sizes.* 등이 선언만 있고 그림에 반영되지 않는 것을 확인했다 — 스타일 가이드 값이 조용히 무시된다
-  - 목표: 선언과 동작이 어긋난 viz 토큰이 0이 되고, 첫 단계로 경계선(boundary.dashPattern·width·radius)이 카탈로그 가이드 값대로 그려진다
-  - 메모: 대상: canvas.gridUnit · node.*.tagColor · edge.marker.size · c4.l1/l2/l3.{borderWidth,bgTint,labelColor} 9개 · boundary.{dashPattern,width,radius}(Boundary.tsx 가 JS 기본값 '8 6'/1.5/8 사용, 카탈로그 값은 제각각이라 그림이 바뀜) · typography.titleWeight · typography.sizes.{title,label,tag,mono} · iconStyle · spacing.{nodePad,laneGap} · motion.{duration,easing}. 잇는 방식은 KAN-057(edge.dashPattern)의 훅·계약 스타일시트 규칙을 따른다
-  - 원문:
-    ```text
-    후속 카드 1장 (Recommended) — main에서 백로그 카드를 하나 만들어, 토큰마다 잇기와 걷기를 정합니다. 그림이 바로 바뀌는 경계선을 첫 단계로 둡니다. KAN-057은 엣지 대시만 다룹니다. (앞 질문 「선언만 있고 읽히지 않는 viz 토큰 20여 개(경계선 dashPattern·width·radius, c4.* 9개, typography.sizes.* 4개 등)를 어떻게 다룰까요?」에 대한 답)
-    ```
 - `KAN-071-FK1W8K` 앱 에이전트의 라이브러리 이탈·개선 요청 실제 사례 재현 — 저장소 열람과 구현까지 연 시험 — 생성:ai · 최종:ai · 갱신:2026-10-10
   - 짧은 제목: 이탈 현상 실제 재현
   - 목적: 겪은 상황(앱 지시문·과제 문구·모델)을 받아, 저장소·인터넷 열람과 구현을 막지 않은 조건으로 배포물 전후 시험을 다시 돌린다
@@ -39,6 +29,16 @@
 ## 할 일
 
 ## 진행 중
+- `KAN-069-G0FGTJ` viz 미사용 토큰 정리 — 선언만 있고 읽히지 않는 시각화 토큰을 토큰마다 잇거나 걷기 (경계선부터) — 생성:ai · 최종:ai · 갱신:2026-10-10
+  - 짧은 제목: viz 미사용 토큰 정리
+  - 목적: 선언만 있고 계약 스타일시트·atom 어디서도 읽지 않는 viz 토큰 20여 개를 토큰마다 잇거나 타입에서 걷는다
+  - 이유: KAN-057 계획 중 스윕에서 boundary.*·c4.*·typography.sizes.* 등이 선언만 있고 그림에 반영되지 않는 것을 확인했다 — 스타일 가이드 값이 조용히 무시된다
+  - 목표: 선언과 동작이 어긋난 viz 토큰이 0이 되고, 첫 단계로 경계선(boundary.dashPattern·width·radius)이 카탈로그 가이드 값대로 그려진다
+  - 메모: 대상: canvas.gridUnit · node.*.tagColor · edge.marker.size · c4.l1/l2/l3.{borderWidth,bgTint,labelColor} 9개 · boundary.{dashPattern,width,radius}(Boundary.tsx 가 JS 기본값 '8 6'/1.5/8 사용, 카탈로그 값은 제각각이라 그림이 바뀜) · typography.titleWeight · typography.sizes.{title,label,tag,mono} · iconStyle · spacing.{nodePad,laneGap} · motion.{duration,easing}. 잇는 방식은 KAN-057(edge.dashPattern)의 훅·계약 스타일시트 규칙을 따른다
+  - 원문:
+    ```text
+    후속 카드 1장 (Recommended) — main에서 백로그 카드를 하나 만들어, 토큰마다 잇기와 걷기를 정합니다. 그림이 바로 바뀌는 경계선을 첫 단계로 둡니다. KAN-057은 엣지 대시만 다룹니다. (앞 질문 「선언만 있고 읽히지 않는 viz 토큰 20여 개(경계선 dashPattern·width·radius, c4.* 9개, typography.sizes.* 4개 등)를 어떻게 다룰까요?」에 대한 답)
+    ```
 
 ## 검토
 
