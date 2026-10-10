@@ -44,7 +44,7 @@ scope: README.md, packages/foundations/src/publishedDocs.ts, packages/foundation
 
 ## 실행 계획
 <!-- `S<n>`은 고정 id — 이름을 바꾸지 않는다. 체크 상태는 doc-step 이 갱신한다. -->
-- [ ] `S1` 검사 먼저 — `publishedDocs.ts`·`.test.ts` 에 루트 README 길잡이 검사와 실패 주입 넷(링크 없음 · 앵커 틀림 · 다른 절에만 있음 · 길잡이 절 없음), `ExtendWhenMissing.stories.tsx` 에 Provider 밖 스토리. 완료 기준: 실패 주입 넷이 각각 위반을 내고, 실제 저장소 검사는 빨강이다(core·visualization 링크 둘 없음). Provider 밖 스토리는 지금도 초록이고, 잰 값(도형 채움 · 엣지 선 · 글자 채움 · 캔버스 배경)을 수행 내역에 남긴다.
+- [x] `S1` 검사 먼저 — `publishedDocs.ts`·`.test.ts` 에 루트 README 길잡이 검사와 실패 주입 넷(링크 없음 · 앵커 틀림 · 다른 절에만 있음 · 길잡이 절 없음), `ExtendWhenMissing.stories.tsx` 에 Provider 밖 스토리. 완료 기준: 실패 주입 넷이 각각 위반을 내고, 실제 저장소 검사는 빨강이다(core·visualization 링크 둘 없음). Provider 밖 스토리는 지금도 초록이고, 잰 값(도형 채움 · 엣지 선 · 글자 채움 · 캔버스 배경)을 수행 내역에 남긴다.
 - [ ] `S2` 길잡이 잇기 — 표에 「목록에 없다」 줄, 10번 줄 문구, 사례 10 머리 문단, 사례 1·8 「그다음」 한 문장씩. 완료 기준: S1 루트 검사가 초록이다.
 - [ ] `S3` Provider 서술 — `README.md:858` 을 S1 에서 잰 값대로 고친다. 완료 기준: 「캔버스는 흰색, 선은 `#333333`」 문장이 0이고, 새 서술이 스토리 단언과 같은 사실을 말한다.
 - [ ] `S4` 마무리 — 품질 게이트 5종. 완료 기준: 다섯 다 초록.
@@ -61,3 +61,6 @@ scope: README.md, packages/foundations/src/publishedDocs.ts, packages/foundation
 - 2026-10-10T03:59 · s:dc094364 — `전략` 섹션 교체
 - 2026-10-10T03:59 · s:dc094364 — `실행 계획` 섹션 교체
 - 2026-10-10T03:59 · s:dc094364 — `검증` 섹션 교체
+- 2026-10-10T11:07 · s:dc094364 · S1 doing — 착수
+- 2026-10-10T11:10 · s:dc094364 · S1 done — publishedDocs 에 불변식 ⑤(루트 README 길잡이 절 → 「원하는 것이 없을 때」 절 링크) · auditRootGuide·githubAnchor · 실패 주입 넷+앵커·통과 표본 초록, 실제 저장소 검사는 빨강(core·viz 링크 둘 없음). ExtendWhenMissing 에 VizOutsideProvider — chromium 실측(사례 8 Flowchart · atom 예제 둘 다): 캔버스 배경 투명 rgba(0,0,0,0) · 도형 채움 rgb(0,0,0)·테두리 none · 노드 이름표 글자 rgb(0,0,0)(검은 도형 위라 안 읽힘) · 엣지 stroke none · arrow 마커는 rgb(0,0,0) 로 칠해져 화살촉만 남음. 스토리 3/3 초록, typecheck 초록
+- 2026-10-10T11:10 · s:dc094364 — 관찰: viz README 의 「엣지는 보이지 않는다」(packages/visualization/README.md:163·235-236)는 선만 맞다 — arrow 마커가 따로 칠해져 검은 화살촉은 남는다(S1 실측). 이 카드 제약(배포 README 안 고침)대로 두고 보고에 올린다

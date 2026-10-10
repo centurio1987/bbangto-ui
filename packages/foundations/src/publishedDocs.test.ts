@@ -2,8 +2,9 @@
  * publishedDocs.test.ts — **배포 문서 게이트** (KAN-067).
  *
  * `gateDocs.test.ts` 와 같은 자리·같은 구조다. 두 층위로 돈다:
- *  1) 실제 repo 검증 — 공개 패키지의 `files` · 배포 README · 「원하는 것이 없을 때」 절과 예제 파일을 훑어 위반 0.
- *  2) fixture 실패주입 — 불변식 넷을 각각 일부러 어긴 입력에서 검증기가 위반을 낸다.
+ *  1) 실제 repo 검증 — 공개 패키지의 `files` · 배포 README · 「원하는 것이 없을 때」 절과 예제 파일, 그리고 루트
+ *     README 길잡이 절의 링크를 훑어 위반 0.
+ *  2) fixture 실패주입 — 불변식 다섯을 각각 일부러 어긴 입력에서 검증기가 위반을 낸다.
  *
  * 불변식과 커버리지 한계는 `publishedDocs.ts` 파일 주석에 있다.
  */
@@ -13,11 +14,15 @@ import { dirname, join } from 'node:path';
 import { describe, it, expect } from 'vitest';
 import {
   auditPublishedDocs,
+  auditRootGuide,
   formatPublishedDocViolation,
+  formatRootGuideViolation,
+  githubAnchor,
   isShipped,
   sectionBody,
   EXTEND_SECTION_RULES,
   EXTEND_SECTION_TITLE,
+  ROOT_GUIDE_TITLE,
   type PublishedPackage,
 } from './publishedDocs';
 
@@ -70,6 +75,11 @@ describe('배포 문서 — 실제 repo', () => {
   it('배포물의 마크다운 · README 참조 · 「원하는 것이 없을 때」 절과 예제에 위반이 없다', () => {
     const violations = auditPublishedDocs(packages, EXTEND_SECTION_RULES, collectExamples());
     expect(violations.map(formatPublishedDocViolation)).toEqual([]);
+  });
+
+  it('루트 README 길잡이 절이 「원하는 것이 없을 때」 절마다 링크를 건다', () => {
+    const rootReadme = readFileSync(join(repoRoot, 'README.md'), 'utf8');
+    expect(auditRootGuide(rootReadme, EXTEND_SECTION_RULES).map(formatRootGuideViolation)).toEqual([]);
   });
 });
 
@@ -157,5 +167,58 @@ describe('auditPublishedDocs — fixture 실패주입(순수 검증기)', () => 
     expect(auditPublishedDocs([pkg({ readme })], rule, { 'ex/demo.tsx': example })).toEqual([
       { kind: 'example-missing', pkg: '@x/demo', example: 'ex/demo.tsx' },
     ]);
+  });
+});
+
+describe('auditRootGuide — fixture 실패주입(순수 검증기)', () => {
+  const rules = [
+    { dir: 'packages/demo', examplePath: 'ex/demo.tsx' },
+    { dir: 'packages/viz', examplePath: 'ex/viz.tsx' },
+  ];
+  const anchor = githubAnchor(EXTEND_SECTION_TITLE);
+  const guide = (rows: string[], after: string[] = []) =>
+    ['# root', '', `## ${ROOT_GUIDE_TITLE}`, '', '| 하려는 일 | 사례 |', '|---|---|', ...rows, '', '## 사례', '', ...after].join('\n');
+
+  it('앵커는 GitHub 규칙을 따른다 — viz README 가 이미 쓰는 값과 같다', () => {
+    expect(anchor).toBe('원하는-것이-없을-때');
+    expect(githubAnchor('사례 8 · 다이어그램·인포그래픽을 그린다')).toBe('사례-8--다이어그램인포그래픽을-그린다');
+  });
+
+  it('통과 — 표 칸 안의 링크, 앞의 ./, 인코딩한 앵커', () => {
+    const readme = guide([
+      `| 목록에 없다 | [demo](./packages/demo/README.md#${anchor}) · [viz](packages/viz/README.md#${encodeURIComponent(anchor)}) |`,
+    ]);
+    expect(auditRootGuide(readme, rules)).toEqual([]);
+  });
+
+  it('⑤ 링크가 없으면 패키지마다 위반', () => {
+    const readme = guide(['| 이 레포에 기여한다 | [10](#사례-10--이-레포에-기여한다) |']);
+    expect(auditRootGuide(readme, rules)).toEqual([
+      { kind: 'root-guide-link', dir: 'packages/demo', target: `packages/demo/README.md#${anchor}` },
+      { kind: 'root-guide-link', dir: 'packages/viz', target: `packages/viz/README.md#${anchor}` },
+    ]);
+  });
+
+  it('⑤ 앵커가 틀리거나 빠지면 위반', () => {
+    const readme = guide([
+      '| 목록에 없다 | [demo](packages/demo/README.md#원하는-것이-없을때) · [viz](packages/viz/README.md) |',
+    ]);
+    expect(auditRootGuide(readme, rules).map((v) => v.kind === 'root-guide-link' && v.dir)).toEqual([
+      'packages/demo',
+      'packages/viz',
+    ]);
+  });
+
+  it('⑤ 링크가 다른 절이나 코드펜스에만 있으면 위반', () => {
+    const readme = guide(
+      ['```md', `[demo](packages/demo/README.md#${anchor})`, '```'],
+      [`[demo](packages/demo/README.md#${anchor}) · [viz](packages/viz/README.md#${anchor})`],
+    );
+    expect(auditRootGuide(readme, rules)).toHaveLength(2);
+  });
+
+  it('⑤ 길잡이 절이 없으면 위반 하나', () => {
+    const readme = `# root\n\n## 다른 제목\n\n[demo](packages/demo/README.md#${anchor})\n`;
+    expect(auditRootGuide(readme, rules)).toEqual([{ kind: 'root-guide-missing' }]);
   });
 });

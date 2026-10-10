@@ -8,9 +8,11 @@
  * 떠난다. 그것을 막는 자리다.
  *
  * Provider 는 전역 데코레이터(`.storybook/preview.tsx`)가 감싼다 — README 예제도 Provider 안에 두라고 적는다.
+ * `VizOutsideProvider` 하나만 데코레이터를 끄고, 그 말이 왜 필요한지를 잰다 (KAN-072).
  */
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from 'storybook/test';
+import { Flowchart } from '@centurio1987/bbangto-ui-visualization';
 import { RatingExample } from './_readmeExamples/coreExtend';
 import { DecisionSketch } from './_readmeExamples/vizCompose';
 
@@ -86,5 +88,85 @@ export const VizCompose: Story = {
     for (const e of Array.from(edges)) await expect(getComputedStyle(e).stroke).not.toBe('none');
     const diamond = svg!.querySelector('[data-bbangto-viz-node-shape="diamond"]')!;
     await expect(getComputedStyle(diamond).fill).not.toBe('rgb(0, 0, 0)');
+  },
+};
+
+/**
+ * Provider 밖에서는 무엇이 그려지는가 — 루트 `README.md` 사례 8 과 `packages/visualization/README.md`
+ * 「원하는 것이 없을 때」·「구현 규약」이 적는 사실의 근거다. 예전 서술(「무채색 base 로 떨어져 캔버스는 흰색,
+ * 선은 #333333」)은 틀렸다. 무채색으로 떨어지는 것은 `useVizFoundation()` 이 돌려주는 JS 값뿐이고, 그림은 색
+ * 변수와 계약 스타일시트가 둘 다 없어 SVG 기본값으로 그려진다. 라이브러리가 나중에 기본 색을 갖게 되면 이
+ * 스토리가 먼저 빨개진다 — 그때 README 두 곳도 함께 고친다.
+ *
+ * 일부러 나쁜 렌더를 재는 스토리다. 글자와 도형이 같은 검정이라 a11y 대비 경고가 나는 것이 정상이다.
+ */
+function PipelineWithoutProvider() {
+  // 루트 README 사례 8 절차 1 의 Flowchart 를 Provider 만 빼고 그대로 옮겼다.
+  return (
+    <Flowchart
+      width={540}
+      height={124}
+      data={{
+        nodes: [
+          { id: 'ingest', x: 20, y: 20, width: 140, height: 64, label: 'Ingest' },
+          { id: 'check', x: 200, y: 20, width: 140, height: 64, label: 'Valid?', shape: 'diamond' },
+          { id: 'store', x: 380, y: 20, width: 140, height: 64, label: 'Store' },
+        ],
+        edges: [
+          { id: 'e1', from: 'ingest', to: 'check', markerEnd: 'arrow' },
+          { id: 'e2', from: 'check', to: 'store', label: 'yes', markerEnd: 'arrow' },
+        ],
+      }}
+    />
+  );
+}
+
+export const VizOutsideProvider: Story = {
+  parameters: { bbangtoProviders: false },
+  render: () => (
+    <div>
+      <div data-sample="flowchart">
+        <PipelineWithoutProvider />
+      </div>
+      <div data-sample="atoms">
+        <DecisionSketch />
+      </div>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    for (const sample of ['flowchart', 'atoms']) {
+      const host = canvasElement.querySelector<HTMLElement>(`[data-sample="${sample}"]`)!;
+      const svg = host.querySelector('[data-bbangto-viz-canvas]')!;
+      await expect(svg).not.toBeNull();
+      await expect(host.closest('[data-bbangto-viz-style-guide]')).toBeNull();
+
+      // 캔버스는 흰색이 아니라 배경이 없다(투명)
+      await expect(getComputedStyle(svg).backgroundColor).toBe('rgba(0, 0, 0, 0)');
+
+      // 도형은 검게 채워지고 테두리가 없다
+      const shapes = Array.from(svg.querySelectorAll('[data-bbangto-viz-node-shape]'));
+      await expect(shapes).toHaveLength(3);
+      for (const s of shapes) {
+        await expect(getComputedStyle(s).fill).toBe('rgb(0, 0, 0)');
+        await expect(getComputedStyle(s).stroke).toBe('none');
+      }
+
+      // 이름표 글자도 검정이라 검은 도형 위에서 읽히지 않는다
+      const labels = Array.from(svg.querySelectorAll('[data-bbangto-viz-node-label] text'));
+      await expect(labels).toHaveLength(3);
+      for (const t of labels) await expect(getComputedStyle(t).fill).toBe('rgb(0, 0, 0)');
+
+      // 엣지 선은 그려지지 않는다. 화살촉 마커는 따로 칠해져 검은 삼각형만 남는다
+      const edges = Array.from(svg.querySelectorAll('path[data-bbangto-viz-edge]'));
+      await expect(edges).toHaveLength(2);
+      for (const e of edges) {
+        await expect(getComputedStyle(e).stroke).toBe('none');
+        const ref = /url\(#([^)]+)\)/.exec(e.getAttribute('marker-end') ?? '')?.[1];
+        await expect(ref).toBeDefined();
+        const head = svg.querySelector(`marker[id="${ref}"] > *`);
+        await expect(head).not.toBeNull();
+        await expect(getComputedStyle(head!).fill).toBe('rgb(0, 0, 0)');
+      }
+    }
   },
 };

@@ -8,7 +8,7 @@
  * 이어받기」)가 「갭이 보이면 백로그에 행을 추가하라」고 지시해, 앱 에이전트가 그것을 라이브러리에 요청하라는
  * 말로 읽을 수 있었다.
  *
- * **불변식 넷.**
+ * **불변식 다섯.**
  *  1) 공개 패키지의 `files` 에는 `README.md` 말고 마크다운이 없다 — 배포물에 실리는 사람용 문서는 README
  *     하나다. 설계·인벤토리·전략 문서는 저장소에 두고 README 가 링크로 가리킨다.
  *  2) 배포 README 가 가리키는 `.md` 는 배포물 안에서 열린다 — 상대 링크든 코드 표기(`foo.md`)든 배포물에
@@ -17,6 +17,10 @@
  *  4) 그 절에는 예제 파일과 글자 그대로 같은 `tsx` 코드 블록이 있다. 예제 파일은 Storybook 스토리가 실제로
  *     그려 보므로(`apps/storybook/src/stories/ExtendWhenMissing.stories.tsx`), README 에서만 고쳐진 예제가
  *     깨진 채 배포되는 일을 막는다.
+ *  5) 루트 `README.md` 의 길잡이 절(「무엇을 하려고 오셨나요」)은 3) 의 절마다 링크를 건다 (KAN-072). 루트 README 는
+ *     배포물이 아니지만, 앱 에이전트가 core README 의 저장소 링크로 실제로 닿는 자리다. 길잡이에서 「없을 때」 갈
+ *     곳이 「이 레포에 기여한다」뿐이면 그 줄이 라이브러리에 요청하는 길로 읽힌다. 앵커는 `EXTEND_SECTION_TITLE`
+ *     에서 만들므로 배포 README 의 절 제목이 바뀌면 루트 링크도 함께 깨진 것으로 잡힌다.
  *
  * **커버리지 한계.** `files` 의 디렉터리 항목(`dist`·`manifest` 등) 안에 든 마크다운은 보지 않는다 —
  * 빌드 산출물을 검사하려면 build 를 먼저 돌려야 하고, 그러면 이 게이트가 `test:unit` 의 순서 조건을 하나
@@ -222,5 +226,65 @@ export function formatPublishedDocViolation(v: PublishedDocViolation): string {
       return `${v.pkg} README.md: 「${EXTEND_SECTION_TITLE}」 절에 tsx 예제가 없다(또는 예제 파일 ${v.example} 이 없다)`;
     case 'example-drift':
       return `${v.pkg} README.md: 「${EXTEND_SECTION_TITLE}」 절의 tsx 예제가 ${v.example} 와 다르다. 예제 파일을 고치고 README 에 그대로 옮긴다`;
+  }
+}
+
+/** 루트 README 의 길잡이 절 제목. 앱을 만드는 사람이 처음 고르는 표가 여기 있다. */
+export const ROOT_GUIDE_TITLE = '무엇을 하려고 오셨나요';
+
+/**
+ * GitHub 이 제목에서 만드는 앵커. 소문자로 바꾸고, 글자·숫자·공백·하이픈·밑줄 밖의 문자를 지운 뒤 공백을
+ * 하이픈으로 바꾼다. 같은 제목이 두 번 나와 붙는 `-1` 꼬리는 다루지 않는다 — 절 제목은 README 마다 하나다.
+ */
+export function githubAnchor(title: string): string {
+  return title
+    .trim()
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}\s_-]/gu, '')
+    .replace(/\s/g, '-');
+}
+
+/** `%EC%9B%90…` 처럼 인코딩해 적은 앵커도 같은 앵커로 본다. 풀 수 없는 값은 그대로 둔다. */
+function safeDecode(s: string): string {
+  try {
+    return decodeURIComponent(s);
+  } catch {
+    return s;
+  }
+}
+
+export type RootGuideViolation =
+  | { readonly kind: 'root-guide-missing' }
+  | { readonly kind: 'root-guide-link'; readonly dir: string; readonly target: string };
+
+/**
+ * 루트 README 원문과 절 규칙을 받아, 길잡이 절에 `<dir>/README.md#<앵커>` 링크가 빠진 패키지를 낸다.
+ * 코드펜스 안의 링크는 세지 않는다. 링크 앞의 `./` 와 인코딩한 앵커는 같은 링크로 본다. 규칙 순서를 따르므로
+ * 결정적이다.
+ */
+export function auditRootGuide(rootReadme: string, rules: readonly ExtendSectionRule[]): RootGuideViolation[] {
+  const body = sectionBody(rootReadme, ROOT_GUIDE_TITLE);
+  if (body === null) return [{ kind: 'root-guide-missing' }];
+  const targets = new Set<string>();
+  for (const line of blankFences(body.split('\n'))) {
+    for (const m of line.matchAll(LINK)) {
+      const [path, hash] = m[2]!.split('#');
+      const p = normalize(path!);
+      if (p !== null && hash !== undefined) targets.add(`${p}#${safeDecode(hash)}`);
+    }
+  }
+  const anchor = githubAnchor(EXTEND_SECTION_TITLE);
+  return rules
+    .map((r) => ({ dir: r.dir, target: `${r.dir}/README.md#${anchor}` }))
+    .filter((x) => !targets.has(x.target))
+    .map((x) => ({ kind: 'root-guide-link' as const, ...x }));
+}
+
+export function formatRootGuideViolation(v: RootGuideViolation): string {
+  switch (v.kind) {
+    case 'root-guide-missing':
+      return `README.md: 「## ${ROOT_GUIDE_TITLE}」 절이 없다`;
+    case 'root-guide-link':
+      return `README.md: 「${ROOT_GUIDE_TITLE}」 절에 ${v.dir} 의 「${EXTEND_SECTION_TITLE}」 절로 가는 링크가 없다 — [](${v.target})`;
   }
 }
