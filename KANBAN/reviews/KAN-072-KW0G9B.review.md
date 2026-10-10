@@ -4,7 +4,7 @@ title: 루트 README 의 「컴포넌트가 없을 때」 길과 viz Provider �
 created: 2026-10-10
 branch: KAN-072-KW0G9B
 worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-072-KW0G9B
-base: 0a81094
+base: 74591cf
 status: 검토 대기
 ---
 
@@ -21,12 +21,21 @@ status: 검토 대기
 |---|---|
 | 브랜치 | `KAN-072-KW0G9B` |
 | 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-072-KW0G9B` |
-| 베이스 | `0a81094` |
-| 변경 훑기 | `git diff 0a81094...HEAD` |
+| 베이스 | `74591cf` |
+| 변경 훑기 | `git diff 74591cf...HEAD` |
 
-**커밋 11건**
+**커밋 20건**
 
 ```text
+ab632ea docs(KAN-072): S5 — 검토 의견 3·4 반영
+0ab6373 kanban: KAN-072 검토 의견 3·4 반영 계획 — 전략 제약 두 줄 · scope(viz README·changeset) · S5 · 배치2
+9ee7455 Merge main into KAN-072-KW0G9B — 릴리스 PR #11(core 1.2.2·viz 1.0.0)·KAN-070 병합 따라잡기 (state 는 rebuild --salvage 로 양쪽 보존)
+082cb3c kanban: KAN-072 검토자 위임 판정 — 의견 2 재승인 · 의견 3·4 승인(수렴 3/3) · 발행본·화면 다시 그림
+dd56a07 kanban: KAN-072 의견 2 배경의 「아직 배포되지 않았다」를 배포 상태대로 고침
+58e386b kanban: KAN-072 의견 1 을 배포 상태대로 다시 쓴 의견 4 로 교체(1 철회) · 의견 3 에 수행 쪽 추천 · 카드 문서에 정정의 정정 기록
+7a136e0 kanban: KAN-072 검토서 발행 기록 갱신
+6d95143 kanban: KAN-072 검토자 대행 — 의견 2 승인 · 의견 1·2 추가 의견(배포 상태 정정) · 의견 3 추가 · 발행본·화면 다시 그림
+7b7156f kanban: KAN-072 재검토 — 검토서 1·2항 갱신(커밋 11 · 게이트 5종 다시 초록) · 의견 1·2 근거를 배포 상태대로 고침 · 발행본·화면·리포트 다시 그림
 084668e fix(KAN-072): 재검토 — 배포 전 절을 설치한 패키지에 있다고 한 문장 지움 · 앵커에 결합 부호 남김
 698f5ed kanban: KAN-072 계획 리포트 다시 그림 (수행 내역·배치 완료 반영)
 8077b6b kanban: KAN-072 검토로 이동 — 검토서(판단 항목 2) · 검토 리포트 · 발행본
@@ -40,35 +49,40 @@ d492f2d kanban: KAN-072 배치1 계획(S1~S4, 두 관점) · 계획 리포트
 6979223 kanban: KAN-072 진행 중으로 이동 (워크트리 착수)
 ```
 
-**변경 파일 16개 (+2421 −55)**
+**변경 파일 19개 (+2603 −76)**
 
 | 파일 | 상태 | 추가 | 삭제 |
 |---|:--:|---:|---:|
+| `.changeset/kan-072-viz-readme-arrowhead.md` | M | 9 | 0 |
 | `.kanban/archive.jsonl` | M | 3 | 0 |
 | `.kanban/log.md` | M | 3 | 3 |
-| `.kanban/reviews/KAN-072-KW0G9B.events.jsonl` | M | 2 | 0 |
+| `.kanban/reviews/KAN-072-KW0G9B.events.jsonl` | M | 20 | 0 |
 | `.kanban/reviews/KAN-072-KW0G9B.review.json` | M | 21 | 0 |
-| `.kanban/state.json` | M | 43 | 36 |
+| `.kanban/state.json` | M | 60 | 51 |
 | `KANBAN.board.html` | M | 2 | 2 |
-| `KANBAN.md` | M | 10 | 7 |
+| `KANBAN.md` | M | 13 | 10 |
 | `KANBAN/batches/KAN-072-KW0G9B.batch1.md` | M | 77 | 0 |
-| `KANBAN/cards/KAN-072-KW0G9B.md` | M | 73 | 0 |
+| `KANBAN/batches/KAN-072-KW0G9B.batch2.md` | M | 46 | 0 |
+| `KANBAN/cards/KAN-072-KW0G9B.md` | M | 80 | 0 |
 | `KANBAN/reports/KAN-072-KW0G9B.report.html` | M | 515 | 0 |
-| `KANBAN/reviews/KAN-072-KW0G9B.review.html` | M | 1250 | 0 |
-| `KANBAN/reviews/KAN-072-KW0G9B.review.md` | M | 199 | 0 |
+| `KANBAN/reviews/KAN-072-KW0G9B.review.html` | M | 1254 | 0 |
+| `KANBAN/reviews/KAN-072-KW0G9B.review.md` | M | 273 | 0 |
 | `README.md` | M | 9 | 4 |
 | `apps/storybook/src/stories/ExtendWhenMissing.stories.tsx` | M | 82 | 0 |
 | `packages/foundations/src/publishedDocs.test.ts` | M | 67 | 2 |
 | `packages/foundations/src/publishedDocs.ts` | M | 65 | 1 |
+| `packages/visualization/README.md` | M | 4 | 3 |
 
-**롤백 태그 5개**
+**롤백 태그 7개**
 
 ```text
 kan/KAN-072-KW0G9B/S1
 kan/KAN-072-KW0G9B/S2
 kan/KAN-072-KW0G9B/S3
 kan/KAN-072-KW0G9B/S4
+kan/KAN-072-KW0G9B/S5
 kan/KAN-072-KW0G9B/batch1
+kan/KAN-072-KW0G9B/batch2
 ```
 
 ## 2. 검증 — 기준과 실행 결과
@@ -89,17 +103,18 @@ kan/KAN-072-KW0G9B/batch1
 **실행 결과**
 
 ```text
-재검토(084668e) 뒤 다시 돌린 결과
+검토 의견 3·4 반영(ab632ea) · main 병합(9ee7455) 뒤 다시 돌린 결과 — 스토리북 vite 캐시를 지운 뒤 실행
 typecheck exit=0
 build exit=0
 test exit=0
 sbbuild exit=0
 unit exit=0
- Test Files  194 passed (194)
-      Tests  1301 passed (1301)
+ Test Files  195 passed (195)
+      Tests  1305 passed (1305)
 packages/foundations test:       Tests  150 passed (150)
 └  Storybook build completed successfully
-publishedDocs.test.ts 17/17 (실제 저장소 루트 길잡이 검사 · 결합 부호 앵커 표본 포함) · ExtendWhenMissing 3/3 (VizOutsideProvider 포함)
+publishedDocs.test.ts 17/17 · ExtendWhenMissing 3/3 (VizOutsideProvider — 화살촉 검정 단언 포함)
+기준점: 카드 착수는 0a81094 에서 했고, main(74591cf) 을 9ee7455 로 병합했으므로 이 카드 변경만 보려면 74591cf...HEAD 를 본다
 ```
 
 ## 3. 판단 항목 — 스크립트가 판정할 수 없는 것
