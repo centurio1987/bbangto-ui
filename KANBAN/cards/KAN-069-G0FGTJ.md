@@ -56,7 +56,7 @@ scope 는 이 워크트리에서 정했으므로 main 의 `dep-check` 에는 이
 ## 실행 계획
 각 단계는 테스트를 먼저 빨갛게 만든 뒤 고친다. 잎 수와 템플릿 수는 2026-10-10 확인값이다.
 
-- [ ] `S1` 빨간 테스트 먼저 — ① viz 단위 테스트 `packages/visualization/src/tokens/tokenUsage.test.ts`: base foundation 의 잎마다 viz 소스에 읽는 자리(`vvar(…)` · `--bbangto-viz-*` 이름 · `foundation.<경로>` · onInk 의 `f.<경로>`)가 있는지 본다. ② 스토리 `apps/storybook/src/stories/visualization/TokenWiringGate.stories.tsx`: 블루프린트에서 경계(`3 2`·2.5·14)·C4 테두리(4·3·2)·화살촉(12)·격자(16)만 바꾼 가이드 아래에서 computed `stroke-dasharray`·`stroke-width`·`rx`·C4 테두리·`markerWidth`·격자 간격을 잰다. 대시 가이드 안에 실선 가이드를 겹친 경우 안쪽 경계가 `none` 인지, 카탈로그 가이드 30개의 첫 preset 마다 경계 사각형 computed 값이 그 가이드 값과 같은지도 잰다. 완료 기준: ①이 잎 36개로 빨갛고 ②의 잇기 검사가 빨갛다. 다른 스토리는 초록.
+- [x] `S1` 빨간 테스트 먼저 — ① viz 단위 테스트 `packages/visualization/src/tokens/tokenUsage.test.ts`: base foundation 의 잎마다 viz 소스에 읽는 자리(`vvar(…)` · `--bbangto-viz-*` 이름 · `foundation.<경로>` · onInk 의 `f.<경로>`)가 있는지 본다. ② 스토리 `apps/storybook/src/stories/visualization/TokenWiringGate.stories.tsx`: 블루프린트에서 경계(`3 2`·2.5·14)·C4 테두리(4·3·2)·화살촉(12)·격자(16)만 바꾼 가이드 아래에서 computed `stroke-dasharray`·`stroke-width`·`rx`·C4 테두리·`markerWidth`·격자 간격을 잰다. 대시 가이드 안에 실선 가이드를 겹친 경우 안쪽 경계가 `none` 인지, 카탈로그 가이드 30개의 첫 preset 마다 경계 사각형 computed 값이 그 가이드 값과 같은지도 잰다. 완료 기준: ①이 잎 36개로 빨갛고 ②의 잇기 검사가 빨갛다. 다른 스토리는 초록.
 - [ ] `S2` 경계선 잇기 — `atoms/Boundary.tsx`·`provider/contractCss.ts`. 사각형에 `data-viz-part="boundary"`, 대시는 prop 을 적었을 때만 인라인, 두께·모서리 기본값은 `useVizFoundation()`. 라벨 위치와 halo 두께가 실제 두께를 따른다. 완료 기준: ②의 경계 검사 초록, ①에서 경계 잎 3개가 빠짐, TemplatePaintGate·Headless·TemplateDashGate 초록.
 - [ ] `S3` C4 테두리·화살촉·격자 잇기 — `molecules/C4Box.tsx`(`vvar('c4', level, 'borderWidth')`)·`atoms/Canvas.tsx`(`markerSize` 기본값)·`atoms/GridLayer.tsx`(`gridUnit` 기본값). 완료 기준: ② 전부 초록, ①에서 잇는 잎 8개가 모두 빠짐.
 - [ ] `S4` 걷기 — tokens 타입·viz `tokens/base.ts`·`tokens/types.ts`·카탈로그 가이드 30개와 `_foundation.ts`·지침 문자열 셋에서 잎 28개를 지운다. 접근성 감사와 `_vizCatalogStory.tsx` 4번 검사를 실제 글자색(`--bbangto-viz-on-*`)으로 옮기고, 걸리는 가이드(`darkluxe-01` 등)는 `on` 덮어쓰기로 맞춘다. 완료 기준: ① 초록(남은 잎 58개 전부 읽힘), `pnpm typecheck` 초록, 감사 over-claim 0.
@@ -83,3 +83,5 @@ scope 는 이 워크트리에서 정했으므로 main 의 `dep-check` 에는 이
 - 2026-10-10T22:26 · s:855b94cf — `전략` 섹션 교체
 - 2026-10-10T22:26 · s:855b94cf — `실행 계획` 섹션 교체
 - 2026-10-10T22:26 · s:855b94cf — `검증` 섹션 교체
+- 2026-10-10T23:22 · s:855b94cf · S1 doing — 착수
+- 2026-10-10T23:26 · s:855b94cf · S1 done — 빨간 테스트 두 벌 — tokenUsage.test.ts 가 잎 36개로 빨강, TokenWiringGate 스토리 ①~③ 빨강·④ 가이드 29개 빨강(블루프린트만 초록)
