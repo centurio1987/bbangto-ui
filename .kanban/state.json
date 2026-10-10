@@ -1,6 +1,6 @@
 {
   "next_id": 76,
-  "next_seq": 284,
+  "next_seq": 285,
   "cards": {
     "KAN-071-FK1W8K": {
       "col": "backlog",
@@ -23,7 +23,7 @@
       "memo_hash": "d9424b73f2e50a0509ad0572ab459e121ea7edf7"
     },
     "KAN-075-4K5GK3": {
-      "col": "backlog",
+      "col": "doing",
       "title": "viz 가이드 지침 문장과 실제 글자색 맞추기 — 저자가 정한 글자색과 칠해지는 노드·C4 글자색이 다른 가이드",
       "verbatim": "후속 카드로 넘긴다 (Recommended) (KAN-069 검토 뒤 질문 「항목 3(가이드 지침 문장이 실제 글자색과 어긋남)을 어떻게 풀까요? 원인은 KAN-061 글자색 계산이 연결선 색을 먼저 골라, 저자가 글자색으로 정하고 다른 색은 금지한 가이드 4곳(artdeco·synthwave·darkluxe·hud-telemetry)에서 금지한 색이 칠해지는 것입니다.」에 대한 답)",
       "생성": "ai",
@@ -1597,7 +1597,6 @@
   },
   "order": [
     "KAN-071-FK1W8K",
-    "KAN-075-4K5GK3",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1669,9 +1668,20 @@
     "KAN-072-KW0G9B",
     "KAN-074-KAZBTF",
     "KAN-069-G0FGTJ",
-    "KAN-066-T6NR80"
+    "KAN-066-T6NR80",
+    "KAN-075-4K5GK3"
   ],
   "recent": [
+    {
+      "seq": 284,
+      "t": "2026-10-11T01:33",
+      "a": "ai",
+      "id": "KAN-075-4K5GK3",
+      "op": "move",
+      "w": "EFXS81",
+      "from": "backlog",
+      "to": "doing"
+    },
     {
       "seq": 283,
       "t": "2026-10-11T01:32",
@@ -2210,16 +2220,6 @@
       "w": "S7030N",
       "with_": "KAN-068-W6TE2S",
       "reason": "같은 package.json 4개를 건드리지만 순서가 정해져 있음 — KAN-068 배포를 먼저 끝낸 뒤 KAN-064 를 main 에 병합(KAN-064 검토 §3-5, 2026-10-09 유저 선택). KAN-068 은 version 줄, KAN-064 는 files·exports 줄"
-    },
-    {
-      "seq": 257,
-      "t": "2026-10-09T23:31",
-      "a": "ai",
-      "id": "KAN-067-WDY7N1",
-      "op": "move",
-      "w": "Y3FJNF",
-      "from": "doing",
-      "to": "review"
     }
   ],
   "waivers": [
