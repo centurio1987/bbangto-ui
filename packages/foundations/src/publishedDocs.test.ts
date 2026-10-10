@@ -182,6 +182,8 @@ describe('auditRootGuide — fixture 실패주입(순수 검증기)', () => {
   it('앵커는 GitHub 규칙을 따른다 — viz README 가 이미 쓰는 값과 같다', () => {
     expect(anchor).toBe('원하는-것이-없을-때');
     expect(githubAnchor('사례 8 · 다이어그램·인포그래픽을 그린다')).toBe('사례-8--다이어그램인포그래픽을-그린다');
+    // 결합 부호(é = e + U+0301)는 글자의 일부라 남는다
+    expect(githubAnchor('Cafe\u0301 Menu!')).toBe('cafe\u0301-menu');
   });
 
   it('통과 — 표 칸 안의 링크, 앞의 ./, 인코딩한 앵커', () => {

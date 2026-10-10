@@ -70,3 +70,4 @@ scope: README.md, packages/foundations/src/publishedDocs.ts, packages/foundation
 - 2026-10-10T11:11 · s:dc094364 · S3 done — README 사례 8 머리의 Provider 서술을 VizOutsideProvider 실측대로 — 좌표만 나오고 칠이 없다 · 도형 검은 채움 · 이름표 검정이라 안 읽힘 · 엣지 선 없음(화살촉만 검정) · 캔버스 투명 · chromium 만 쟀다고 밝힘 · 무채색 base 는 useVizFoundation() JS 값뿐. 「캔버스는 흰색, 선은 #333333」 0건
 - 2026-10-10T11:11 · s:dc094364 · S4 doing — 착수
 - 2026-10-10T11:15 · s:dc094364 · S4 done — 게이트 5종 초록 — typecheck · build · test(194 파일 1301건) · storybook build · test:unit(foundations 150 포함)
+- 2026-10-10T20:18 · s:dc094364 — 재검토 정정: S2 가 표 아래 문단에 쓴 「그 절은 설치한 패키지 안에도 그대로 들어 있다」는 틀렸다 — 배포된 core 1.2.1·visualization 0.4.1 에는 절이 없다(KAN-067 changeset 배포 대기, 다음 버전은 changeset status 기준 core 1.2.2·viz 1.0.0). 버전 번호는 다른 changeset 이 더해지면 바뀌므로 박지 않고 문장을 지웠다. 함께 githubAnchor 가 결합 부호(\p{M})를 지우던 것을 남기게 고침(GitHub 규칙과 맞춤, 표본 1 추가)

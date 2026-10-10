@@ -233,14 +233,14 @@ export function formatPublishedDocViolation(v: PublishedDocViolation): string {
 export const ROOT_GUIDE_TITLE = '무엇을 하려고 오셨나요';
 
 /**
- * GitHub 이 제목에서 만드는 앵커. 소문자로 바꾸고, 글자·숫자·공백·하이픈·밑줄 밖의 문자를 지운 뒤 공백을
- * 하이픈으로 바꾼다. 같은 제목이 두 번 나와 붙는 `-1` 꼬리는 다루지 않는다 — 절 제목은 README 마다 하나다.
+ * GitHub 이 제목에서 만드는 앵커. 소문자로 바꾸고, 글자·결합 부호·숫자·공백·하이픈·밑줄 밖의 문자를 지운 뒤
+ * 공백을 하이픈으로 바꾼다. 같은 제목이 두 번 나와 붙는 `-1` 꼬리는 다루지 않는다 — 절 제목은 README 마다 하나다.
  */
 export function githubAnchor(title: string): string {
   return title
     .trim()
     .toLowerCase()
-    .replace(/[^\p{L}\p{N}\s_-]/gu, '')
+    .replace(/[^\p{L}\p{M}\p{N}\s_-]/gu, '')
     .replace(/\s/g, '-');
 }
 
