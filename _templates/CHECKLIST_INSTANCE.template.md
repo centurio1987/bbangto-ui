@@ -31,10 +31,10 @@
 
 ## 게이트 (전부 GREEN)
 - [ ] `pnpm typecheck`
-- [ ] `pnpm build`
+- [ ] `pnpm build` (끝에서 번들 크기 게이트)
 - [ ] `pnpm test` (Playwright/chromium)
 - [ ] `pnpm --filter storybook build`
-- [ ] `pnpm test:unit` (패키지 vitest — 매니페스트·대비·명명·커버리지·번들 크기)
+- [ ] `pnpm test:unit` (패키지 vitest — 매니페스트·대비·명명·커버리지·소스 조건)
 
 ## 반환(구조화)
 ```json

@@ -34,6 +34,8 @@
         "bundle-budget.json",
         "CLAUDE.md",
         "QUALITY_CHECKLIST.md",
+        "README.md",
+        "_templates/CHECKLIST_INSTANCE.template.md",
         ".github/workflows/release.yml"
       ]
     },

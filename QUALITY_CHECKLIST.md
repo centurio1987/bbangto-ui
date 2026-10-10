@@ -26,10 +26,10 @@
 
 ### 게이트
 - [ ] `pnpm typecheck` 통과
-- [ ] `pnpm build` 통과
+- [ ] `pnpm build` 통과 (끝에서 번들 크기 게이트)
 - [ ] `pnpm test` 통과 (Playwright/chromium)
 - [ ] `pnpm --filter storybook build` 통과
-- [ ] `pnpm test:unit` 통과 (패키지 vitest — 매니페스트·대비·명명·커버리지·번들 크기)
+- [ ] `pnpm test:unit` 통과 (패키지 vitest — 매니페스트·대비·명명·커버리지·소스 조건)
 
 ---
 
@@ -46,10 +46,10 @@
 
 ### 게이트
 - [ ] `pnpm typecheck` 통과
-- [ ] `pnpm build` 통과
+- [ ] `pnpm build` 통과 (끝에서 번들 크기 게이트)
 - [ ] `pnpm test` 통과
 - [ ] `pnpm --filter storybook build` 통과
-- [ ] `pnpm test:unit` 통과 (패키지 vitest — 매니페스트·대비·명명·커버리지·번들 크기)
+- [ ] `pnpm test:unit` 통과 (패키지 vitest — 매니페스트·대비·명명·커버리지·소스 조건)
 
 ---
 
@@ -68,10 +68,10 @@
 
 ### 게이트
 - [ ] `pnpm typecheck` 통과
-- [ ] `pnpm build` 통과
+- [ ] `pnpm build` 통과 (끝에서 번들 크기 게이트)
 - [ ] `pnpm test` 통과
 - [ ] `pnpm --filter storybook build` 통과
-- [ ] `pnpm test:unit` 통과 (패키지 vitest — 매니페스트·대비·명명·커버리지·번들 크기)
+- [ ] `pnpm test:unit` 통과 (패키지 vitest — 매니페스트·대비·명명·커버리지·소스 조건)
 
 ---
 
