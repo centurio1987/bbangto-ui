@@ -133,6 +133,9 @@ const foundations: VisualizationFoundation = {
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
   },
 
+
+  // 지침 「모든 라벨은 다크 잉크」 — 면 위 4.5:1 을 넘으면 스팟 잉크보다 먼저 쓴다(KAN-075).
+  on: { ink: INK_LABEL },
 };
 
 // 저주파 그레인 오버레이(feTurbulence 고정 seed=7) — 쇼케이스 표면용 데이터 URI.

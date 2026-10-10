@@ -112,6 +112,9 @@ const foundations: VisualizationFoundation = {
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
   },
 
+
+  // 지침 「모든 라벨/태그/경계 텍스트는 순백」 — 면 위 4.5:1 을 넘으면 시안 라인보다 먼저 쓴다(KAN-075).
+  on: { ink: WHITE },
 };
 
 // ext 변수 — corner-bracket 색·글로우·스캔라인·경보색. preset마다 전량 재정의해

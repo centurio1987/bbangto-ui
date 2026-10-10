@@ -129,24 +129,28 @@ const candyFoundations = makeVizColorway(foundations, {
  * (관측: infographic_colorful_05 벤토 스탯 모자이크 — style-classification.md F3).
  * 램프 위 텍스트는 다크 브라운(#241505) 단일 잉크 — 전 kind 4.5:1 실측(6.49~12.11).
  */
-const bentoDarkFoundations = makeVizColorway(foundations, {
-  name: 'colorful-flat-01-bento-dark',
-  canvas: { bg: '#121212', grid: '#242018' },
-  ink: '#F4E8D8',
-  shape: { fill: '#1E1912' },
-  nodeFills: {
-    person: '#E8823C',
-    external: '#F2A65A',
-    container: '#F5C77E',
-    database: '#E8975A',
-    queue: '#F7D08A',
-    decision: '#EFA06B',
-    process: '#F3B26B',
-  },
-  palette: { p1: '#E8823C', p2: '#F2A65A', p5: '#D9622A', p7: '#F5C77E', p8: '#3A2E20' },
-  boundaryLabelColor: '#E8C9A8',
-  c4Tints: ['rgba(244,232,216,0.06)', 'rgba(244,232,216,0.04)', 'transparent'],
-});
+const bentoDarkFoundations: VisualizationFoundation = {
+  ...makeVizColorway(foundations, {
+    name: 'colorful-flat-01-bento-dark',
+    canvas: { bg: '#121212', grid: '#242018' },
+    ink: '#F4E8D8',
+    shape: { fill: '#1E1912' },
+    nodeFills: {
+      person: '#E8823C',
+      external: '#F2A65A',
+      container: '#F5C77E',
+      database: '#E8975A',
+      queue: '#F7D08A',
+      decision: '#EFA06B',
+      process: '#F3B26B',
+    },
+    palette: { p1: '#E8823C', p2: '#F2A65A', p5: '#D9622A', p7: '#F5C77E', p8: '#3A2E20' },
+    boundaryLabelColor: '#E8C9A8',
+    c4Tints: ['rgba(244,232,216,0.06)', 'rgba(244,232,216,0.04)', 'transparent'],
+  }),
+  // 지침 「bento-dark 에서는 램프 fill 위 텍스트를 다크 브라운(#241505)으로」 — 면 위 4.5:1 을 넘으면 먼저 쓴다(KAN-075).
+  on: { ink: '#241505' },
+};
 
 const foundationPresets: readonly VizFoundationPreset[] = [
   {

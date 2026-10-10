@@ -118,6 +118,9 @@ const foundations: VisualizationFoundation = {
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
   },
 
+
+  // 지침 「모든 라벨은 크림」 — 면 위 4.5:1 을 넘으면 연결선 골드보다 먼저 쓴다(KAN-075).
+  on: { ink: CREAM },
 };
 
 // ext 변수 — 프레임/코너 액센트/플루팅 색. preset마다 재정의해 colorway 전환에 함께 반응한다.

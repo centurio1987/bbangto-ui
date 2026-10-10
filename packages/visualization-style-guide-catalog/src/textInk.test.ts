@@ -17,7 +17,8 @@ const PROMISES: ReadonlyArray<{ guide: string; presets: readonly string[]; ink: 
   { guide: 'hud-telemetry-01', presets: ['default', 'amber'], ink: '#FFFFFF', word: '순백' },
   { guide: 'riso-print-01', presets: ['default', 'teal'], ink: '#182234', word: '다크 잉크' },
   { guide: 'colorful-flat-01', presets: ['bento-dark'], ink: '#241505', word: '#241505' },
-  { guide: 'bauhaus-geometric-01', presets: ['default'], ink: '#FFFFFF', word: '흰' },
+  // bold 는 default 를 펼쳐 만들어 on.ink 를 물려받는다. 흰색이 넘는 면에는 이미 흰색이 칠해져 그림은 그대로다.
+  { guide: 'bauhaus-geometric-01', presets: ['default', 'bold'], ink: '#FFFFFF', word: '흰' },
 ];
 
 const MIN = 4.5;
