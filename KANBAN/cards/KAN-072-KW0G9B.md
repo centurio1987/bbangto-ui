@@ -47,7 +47,7 @@ scope: README.md, packages/foundations/src/publishedDocs.ts, packages/foundation
 - [x] `S1` 검사 먼저 — `publishedDocs.ts`·`.test.ts` 에 루트 README 길잡이 검사와 실패 주입 넷(링크 없음 · 앵커 틀림 · 다른 절에만 있음 · 길잡이 절 없음), `ExtendWhenMissing.stories.tsx` 에 Provider 밖 스토리. 완료 기준: 실패 주입 넷이 각각 위반을 내고, 실제 저장소 검사는 빨강이다(core·visualization 링크 둘 없음). Provider 밖 스토리는 지금도 초록이고, 잰 값(도형 채움 · 엣지 선 · 글자 채움 · 캔버스 배경)을 수행 내역에 남긴다.
 - [x] `S2` 길잡이 잇기 — 표에 「목록에 없다」 줄, 10번 줄 문구, 사례 10 머리 문단, 사례 1·8 「그다음」 한 문장씩. 완료 기준: S1 루트 검사가 초록이다.
 - [x] `S3` Provider 서술 — `README.md:858` 을 S1 에서 잰 값대로 고친다. 완료 기준: 「캔버스는 흰색, 선은 `#333333`」 문장이 0이고, 새 서술이 스토리 단언과 같은 사실을 말한다.
-- [ ] `S4` 마무리 — 품질 게이트 5종. 완료 기준: 다섯 다 초록.
+- [x] `S4` 마무리 — 품질 게이트 5종. 완료 기준: 다섯 다 초록.
 
 ## 검증
 <!-- 무엇을 실행해 무엇이 나오면 이 카드가 끝난 것인가. -->
@@ -68,3 +68,5 @@ scope: README.md, packages/foundations/src/publishedDocs.ts, packages/foundation
 - 2026-10-10T11:11 · s:dc094364 · S2 done — 루트 README 다섯 자리 — 길잡이 표에 「목록에 없다」 줄(core·viz 의 「원하는 것이 없을 때」 링크) · 10번 줄을 「앱이 아니라 이 레포에」로 · 표 아래 문단(그 절은 설치한 패키지 README 에도 있다, 기여는 앱 완성 뒤) · 사례 10 머리 인용 문단 · 사례 1·8 「그다음」 한 문장씩. publishedDocs 17/17 초록
 - 2026-10-10T11:11 · s:dc094364 · S3 doing — 착수
 - 2026-10-10T11:11 · s:dc094364 · S3 done — README 사례 8 머리의 Provider 서술을 VizOutsideProvider 실측대로 — 좌표만 나오고 칠이 없다 · 도형 검은 채움 · 이름표 검정이라 안 읽힘 · 엣지 선 없음(화살촉만 검정) · 캔버스 투명 · chromium 만 쟀다고 밝힘 · 무채색 base 는 useVizFoundation() JS 값뿐. 「캔버스는 흰색, 선은 #333333」 0건
+- 2026-10-10T11:11 · s:dc094364 · S4 doing — 착수
+- 2026-10-10T11:15 · s:dc094364 · S4 done — 게이트 5종 초록 — typecheck · build · test(194 파일 1301건) · storybook build · test:unit(foundations 150 포함)
