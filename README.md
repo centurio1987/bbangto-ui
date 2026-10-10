@@ -980,7 +980,7 @@ pnpm add @centurio1987/bbangto-ui-visualization \
          @centurio1987/bbangto-ui-tokens
 ```
 
-tokens를 따로 넣는 이유가 있습니다. `VizFoundationPreset` 타입이 tokens에만 있어요(`packages/tokens/src/visualization.ts:128`). visualization 배럴은 `VisualizationFoundation`은 재수출하지만 `VizFoundationPreset`은 내보내지 않습니다.
+tokens를 따로 넣는 이유가 있습니다. `VizFoundationPreset` 타입이 tokens에만 있어요(`packages/tokens/src/visualization.ts:155`). visualization 배럴은 `VisualizationFoundation`은 재수출하지만 `VizFoundationPreset`은 내보내지 않습니다.
 
 **절차**
 
@@ -1019,7 +1019,7 @@ tokens를 따로 넣는 이유가 있습니다. `VizFoundationPreset` 타입이 
 
    `node`는 `person`·`external`·`container`·`database`·`queue`·`decision`·`process` 일곱 kind를 전부 채워야 합니다. base의 `node` 맵을 순회해 덮어쓰면 빠지는 kind가 생기지 않아요. 손으로 객체 리터럴을 다시 쓰면 하나 빠뜨리기 쉽습니다.
 
-   노드와 C4 상자 위 글자색은 적지 않습니다. visualization이 면마다 4.5:1을 넘는 색을 골라 `--bbangto-viz-on-*` 변수로 냅니다. 직접 정하고 싶으면 `on: { node: { queue: { fill: '#FFFFFF' } } }`처럼 적으면 되고, 그때 대비는 적은 쪽이 책임집니다. 경계선(`boundary`의 대시·두께·모서리), C4 테두리 두께(`c4.l1~l3.borderWidth`), 화살촉 크기(`edge.marker.size`), 격자 간격(`canvas.gridUnit`)은 적은 값이 그림에 그대로 나옵니다. 컴포넌트에 prop을 직접 넘기면 그 prop이 이깁니다.
+   노드와 C4 상자 위 글자색은 적지 않습니다. visualization이 면마다 4.5:1을 넘는 색을 골라 `--bbangto-viz-on-*` 변수로 냅니다. 직접 정하고 싶으면 `on: { node: { queue: { fill: '#FFFFFF' } } }`처럼 적으면 되고, 그때 대비는 적은 쪽이 책임집니다. 면마다 적지 않고 가이드 전체의 글자색 하나만 정하려면 `on: { ink: '#EFE6D0' }`처럼 적어요. 그 색이 면 위에서 4.5:1을 넘는 곳에서는 그 색을, 못 넘는 곳에서는 계산한 색을 씁니다. 지침 문장에 「라벨은 크림」처럼 글자색을 이름으로 적었다면 `on.ink`도 꼭 적으세요. 적지 않으면 연결선 색이 먼저 뽑혀 문장과 다른 색이 칠해질 수 있습니다. 경계선(`boundary`의 대시·두께·모서리), C4 테두리 두께(`c4.l1~l3.borderWidth`), 화살촉 크기(`edge.marker.size`), 격자 간격(`canvas.gridUnit`)은 적은 값이 그림에 그대로 나옵니다. 컴포넌트에 prop을 직접 넘기면 그 prop이 이깁니다.
 
 3. `makeVizColorway`로 색 스킴을 늘립니다.
 
@@ -1133,7 +1133,7 @@ tokens를 따로 넣는 이유가 있습니다. `VizFoundationPreset` 타입이 
    console.log(formatVizViolations(violations)); // 통과하면 'no violations (위반 없음)'
    ```
 
-   이 감사는 `meta.accessibility.contrastIntent`에 적은 선언과 실측을 대조합니다. `'aa'`면 4.5, `'aaa'`면 7이 기준이에요. 보는 자리는 셋이고, 셋 다 실제로 칠해지는 글자색을 잽니다. 노드 글자색(`--bbangto-viz-on-node-<kind>-fill`) 대 그 kind의 `fill`, C4 라벨 글자색(`--bbangto-viz-on-c4-l{1,2,3}-bg-tint`) 대 `bgTint`, `boundary.labelColor` 대 `canvas.bg`입니다. 노드·C4 글자색은 `on`에 적은 값이 있으면 그 값이고 없으면 visualization이 계산한 값이에요. 계산값은 4.5:1을 넘게 고르므로 `'aa'` 가이드는 대개 그대로 통과합니다. `'aaa'`를 선언했다면 7:1에 못 미치는 면이 나올 수 있고, 그 면에는 `on`으로 글자색을 정합니다.
+   이 감사는 `meta.accessibility.contrastIntent`에 적은 선언과 실측을 대조합니다. `'aa'`면 4.5, `'aaa'`면 7이 기준이에요. 보는 자리는 셋이고, 셋 다 실제로 칠해지는 글자색을 잽니다. 노드 글자색(`--bbangto-viz-on-node-<kind>-fill`) 대 그 kind의 `fill`, C4 라벨 글자색(`--bbangto-viz-on-c4-l{1,2,3}-bg-tint`) 대 `bgTint`, `boundary.labelColor` 대 `canvas.bg`입니다. 노드·C4 글자색은 `on`에 면마다 적은 값이 있으면 그 값이고 없으면 visualization이 계산한 값이에요. `on.ink`를 적었으면 계산이 그 색을 먼저 봅니다. 계산값은 4.5:1을 넘게 고르므로 `'aa'` 가이드는 대개 그대로 통과합니다. `'aaa'`를 선언했다면 7:1에 못 미치는 면이 나올 수 있고, 그 면에는 `on`으로 글자색을 정합니다.
 
    말로만 하면 감이 안 오니 깨지는 모양을 하나 보겠습니다. `node.queue.fill`을 `#E7E058`로 두고 `on: { node: { queue: { fill: '#FFFFFF' } } }`로 글자색을 정하면 대비가 1.38이라 이런 줄이 나옵니다.
 
