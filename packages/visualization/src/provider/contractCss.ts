@@ -12,6 +12,9 @@ const STYLE_ELEMENT_ID = 'bbangto-viz-contract';
  * 연결선 대시(edge.dashPattern)는 관계선 훅 `data-viz-part="connector"` 에만 건다. 표준 표기법 템플릿은
  * 바깥 svg 에 `data-viz-notation` 을 달아 그 안의 연결선이 가이드 대시를 따르지 않게 한다 — 표기법에서
  * 실선과 대시가 서로 다른 관계를 뜻하기 때문이다. 템플릿이 넘긴 인라인 대시는 그대로 남는다.
+ *
+ * 경계 대시(boundary.dashPattern)는 `Boundary` 사각형의 훅 `data-viz-part="boundary"` 에 건다(KAN-069). 경계는 관계선이
+ * 아니라 표기 템플릿 안에서도 가이드 대시를 따른다. `dashPattern` prop 을 적은 경계는 인라인 대시가 이긴다.
  */
 const CONTRACT_CSS = `
 [data-bbangto-viz-style-guide] [data-viz-part="shape"] {
@@ -28,6 +31,9 @@ const CONTRACT_CSS = `
 }
 [data-bbangto-viz-style-guide] [data-viz-notation] [data-viz-part="connector"] {
   stroke-dasharray: none;
+}
+[data-bbangto-viz-style-guide] [data-viz-part="boundary"] {
+  stroke-dasharray: var(--bbangto-viz-boundary-dash-pattern);
 }
 `;
 

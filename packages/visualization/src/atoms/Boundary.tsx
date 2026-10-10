@@ -1,6 +1,7 @@
 import React from 'react';
 import { vvar } from '../tokens/contract';
 import { resolveLabelFont } from '../tokens/labelFont';
+import { useVizFoundation } from '../styleGuide/VisualizationStyleGuideProvider';
 
 export type BoundaryVariant = 'system' | 'group' | 'container';
 
@@ -21,8 +22,11 @@ export interface BoundaryProps extends React.SVGAttributes<SVGGElement> {
   label?: string;
   variant?: BoundaryVariant;
   stroke?: string;
+  /** 선 두께. 적지 않으면 스타일 가이드의 `boundary.width`. */
   strokeWidth?: number | string;
+  /** 대시(`stroke-dasharray` 값). 적지 않으면 스타일 가이드의 `boundary.dashPattern`(계약 스타일시트가 건다). */
   dashPattern?: string;
+  /** 모서리 반지름. 적지 않으면 스타일 가이드의 `boundary.radius`. */
   radius?: number;
   labelColor?: string;
   labelFontSize?: number;
@@ -46,9 +50,9 @@ export const Boundary = React.forwardRef<SVGGElement, BoundaryProps>(
       label,
       variant = 'system',
       stroke,
-      strokeWidth = 1.5,
-      dashPattern = '8 6',
-      radius = 8,
+      strokeWidth,
+      dashPattern,
+      radius,
       labelColor,
       labelFontSize = 11,
       labelFontFamily,
@@ -61,12 +65,18 @@ export const Boundary = React.forwardRef<SVGGElement, BoundaryProps>(
     },
     ref,
   ) => {
+    const foundation = useVizFoundation();
     const effectiveStroke = stroke ?? vvar('boundary', 'stroke');
     const effectiveLabelColor = labelColor ?? vvar('boundary', 'labelColor');
     const effectiveFont = resolveLabelFont(label, labelFontFamily);
+    // 두께·모서리는 라벨 위치와 halo 계산에 숫자가 필요해 foundation 값을 JS 기본값으로 쓴다(Edge 의 cornerRadius 와 같다).
+    // 대시는 계산에 안 쓰이므로 계약 스타일시트가 건다 — 적은 prop 만 인라인으로 내야 소비자 스타일시트도 가이드 값을 덮는다.
+    const effectiveStrokeWidth = strokeWidth ?? foundation.boundary.width;
+    const effectiveRadius = radius ?? foundation.boundary.radius;
 
-    // 라벨 y — `on-line`은 종전 좌표 그대로다(기존 그림 보존). 나머지는 선 두께를 감안해 비킨다.
-    const sw = typeof strokeWidth === 'number' ? strokeWidth : parseFloat(strokeWidth) || 0;
+    // 라벨 y — `on-line`은 선 위에 걸친다. 나머지는 선 두께를 감안해 비킨다.
+    const sw =
+      typeof effectiveStrokeWidth === 'number' ? effectiveStrokeWidth : parseFloat(effectiveStrokeWidth) || 0;
     const clearGap = sw / 2 + 3;
     const labelY =
       labelPlacement === 'outside'
@@ -96,17 +106,18 @@ export const Boundary = React.forwardRef<SVGGElement, BoundaryProps>(
         {...props}
       >
         <rect
+          data-viz-part="boundary"
           x={x}
           y={y}
           width={width}
           height={height}
-          rx={radius}
-          ry={radius}
+          rx={effectiveRadius}
+          ry={effectiveRadius}
           style={{
             fill: 'none',
             stroke: effectiveStroke,
-            strokeWidth,
-            strokeDasharray: dashPattern,
+            strokeWidth: effectiveStrokeWidth,
+            ...(dashPattern !== undefined ? { strokeDasharray: dashPattern } : {}),
           }}
         />
         {label && (
