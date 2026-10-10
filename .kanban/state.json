@@ -1,6 +1,6 @@
 {
   "next_id": 75,
-  "next_seq": 281,
+  "next_seq": 282,
   "cards": {
     "KAN-066-T6NR80": {
       "col": "backlog",
@@ -23,7 +23,7 @@
       "memo_hash": "2d69b33becebe6a5d6af6ac29847dfc600699c06"
     },
     "KAN-069-G0FGTJ": {
-      "col": "review",
+      "col": "done",
       "title": "viz 미사용 토큰 정리 — 선언만 있고 읽히지 않는 시각화 토큰을 토큰마다 잇거나 걷기 (경계선부터)",
       "verbatim": "후속 카드 1장 (Recommended) — main에서 백로그 카드를 하나 만들어, 토큰마다 잇기와 걷기를 정합니다. 그림이 바로 바뀌는 경계선을 첫 단계로 둡니다. KAN-057은 엣지 대시만 다룹니다. (앞 질문 「선언만 있고 읽히지 않는 viz 토큰 20여 개(경계선 dashPattern·width·radius, c4.* 9개, typography.sizes.* 4개 등)를 어떻게 다룰까요?」에 대한 답)",
       "생성": "ai",
@@ -1622,6 +1622,16 @@
   ],
   "recent": [
     {
+      "seq": 281,
+      "t": "2026-10-11T01:26",
+      "a": "ai",
+      "id": "KAN-069-G0FGTJ",
+      "op": "move",
+      "w": "8S62G0",
+      "from": "review",
+      "to": "done"
+    },
+    {
       "seq": 280,
       "t": "2026-10-11T01:06",
       "a": "ai",
@@ -2166,16 +2176,6 @@
       "w": "S7030N",
       "with_": "KAN-067-WDY7N1",
       "reason": "유저 선택(2026-10-09 「용인」): visualization package.json 의 files 배열은 KAN-064 가 manifest 를 더하고 KAN-067 이 관리용 문서 2개를 뺀다 — 나중에 합치는 쪽이 두 변경을 다 남긴다. 주석은 src/index.ts 가 KAN-064 21줄·KAN-067 28줄로 갈리고, src/typeMeta/index.ts:6 은 같은 문장이라 나중에 합치는 쪽이 2단 읽기와 저장소 링크 두 뜻으로 다시 쓴다. KAN-064 scope 의 tsup.config.ts:21·src/index.ts:21 에 남은 「동봉」은 KAN-064 병합 때 KAN-067 검사에 맞춰 고친다"
-    },
-    {
-      "seq": 254,
-      "t": "2026-10-09T22:51",
-      "a": "ai",
-      "id": "KAN-057-CCH3E8",
-      "op": "move",
-      "w": "WXJKQG",
-      "from": "backlog",
-      "to": "doing"
     }
   ],
   "waivers": [
