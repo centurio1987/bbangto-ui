@@ -24,9 +24,12 @@ status: 검토 대기
 | 베이스 | `0a81094` |
 | 변경 훑기 | `git diff 0a81094...HEAD` |
 
-**커밋 8건**
+**커밋 11건**
 
 ```text
+084668e fix(KAN-072): 재검토 — 배포 전 절을 설치한 패키지에 있다고 한 문장 지움 · 앵커에 결합 부호 남김
+698f5ed kanban: KAN-072 계획 리포트 다시 그림 (수행 내역·배치 완료 반영)
+8077b6b kanban: KAN-072 검토로 이동 — 검토서(판단 항목 2) · 검토 리포트 · 발행본
 1093d95 kanban: KAN-072 S4 — 품질 게이트 5종 초록 · 배치1 완료(단일 에이전트)
 0502a82 docs(KAN-072): S3 — 루트 README 의 「Provider 없이 그리면 무채색」 서술을 실측대로
 da9bbc0 docs(KAN-072): S2 — 루트 README 길잡이에 「원하는 것이 없을 때」 길 잇기
@@ -37,21 +40,25 @@ d492f2d kanban: KAN-072 배치1 계획(S1~S4, 두 관점) · 계획 리포트
 6979223 kanban: KAN-072 진행 중으로 이동 (워크트리 착수)
 ```
 
-**변경 파일 12개 (+931 −42)**
+**변경 파일 16개 (+2421 −55)**
 
 | 파일 | 상태 | 추가 | 삭제 |
 |---|:--:|---:|---:|
-| `.kanban/archive.jsonl` | M | 2 | 0 |
-| `.kanban/log.md` | M | 2 | 2 |
-| `.kanban/state.json` | M | 33 | 26 |
+| `.kanban/archive.jsonl` | M | 3 | 0 |
+| `.kanban/log.md` | M | 3 | 3 |
+| `.kanban/reviews/KAN-072-KW0G9B.events.jsonl` | M | 2 | 0 |
+| `.kanban/reviews/KAN-072-KW0G9B.review.json` | M | 21 | 0 |
+| `.kanban/state.json` | M | 43 | 36 |
 | `KANBAN.board.html` | M | 2 | 2 |
-| `KANBAN.md` | M | 7 | 5 |
+| `KANBAN.md` | M | 10 | 7 |
 | `KANBAN/batches/KAN-072-KW0G9B.batch1.md` | M | 77 | 0 |
-| `KANBAN/cards/KAN-072-KW0G9B.md` | M | 72 | 0 |
+| `KANBAN/cards/KAN-072-KW0G9B.md` | M | 73 | 0 |
 | `KANBAN/reports/KAN-072-KW0G9B.report.html` | M | 515 | 0 |
+| `KANBAN/reviews/KAN-072-KW0G9B.review.html` | M | 1250 | 0 |
+| `KANBAN/reviews/KAN-072-KW0G9B.review.md` | M | 199 | 0 |
 | `README.md` | M | 9 | 4 |
 | `apps/storybook/src/stories/ExtendWhenMissing.stories.tsx` | M | 82 | 0 |
-| `packages/foundations/src/publishedDocs.test.ts` | M | 65 | 2 |
+| `packages/foundations/src/publishedDocs.test.ts` | M | 67 | 2 |
 | `packages/foundations/src/publishedDocs.ts` | M | 65 | 1 |
 
 **롤백 태그 5개**
@@ -82,6 +89,7 @@ kan/KAN-072-KW0G9B/batch1
 **실행 결과**
 
 ```text
+재검토(084668e) 뒤 다시 돌린 결과
 typecheck exit=0
 build exit=0
 test exit=0
@@ -91,7 +99,7 @@ unit exit=0
       Tests  1301 passed (1301)
 packages/foundations test:       Tests  150 passed (150)
 └  Storybook build completed successfully
-publishedDocs.test.ts 17/17 (실제 저장소 루트 길잡이 검사 포함) · ExtendWhenMissing 3/3 (VizOutsideProvider 포함)
+publishedDocs.test.ts 17/17 (실제 저장소 루트 길잡이 검사 · 결합 부호 앵커 표본 포함) · ExtendWhenMissing 3/3 (VizOutsideProvider 포함)
 ```
 
 ## 3. 판단 항목 — 스크립트가 판정할 수 없는 것
@@ -140,18 +148,19 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-072-KW0G9B --add
     - **배경**
       - Provider 밖에서는 엣지 선이 그려지지 않지만 화살촉은 검게 남습니다. 2026-10-10 chromium 에서 잰 값입니다. 원문: apps/storybook/src/stories/ExtendWhenMissing.stories.tsx:159
       - 루트 README 는 이 카드에서 「검은 화살촉만 남는다」로 고쳤습니다. 원문: README.md:861
-      - visualization README 두 곳은 「엣지는 보이지 않는다」고 적습니다. 앱 에이전트가 설치한 패키지 안에서 읽는 문서입니다. 원문: packages/visualization/README.md:163
+      - visualization README 두 곳은 「엣지는 보이지 않는다」고 적습니다. KAN-067 이 쓴 줄이라 아직 배포되지 않았고, 다음 배포부터 앱이 설치한 패키지 안에 실립니다. 원문: packages/visualization/README.md:163
       - 같은 서술의 두 번째 자리입니다. 원문: packages/visualization/README.md:235
+      - 지금 배포된 visualization 0.4.1 의 README 는 아직 옛 서술 「Provider 밖에서는 무채색으로 떨어진다」를 싣고 있습니다. 원문: git show 7e3f287:packages/visualization/README.md 153줄
       - 세 문서 모두 「그림은 Provider 안에 둔다」는 결론은 같습니다. 갈리는 것은 Provider 밖 그림을 묘사하는 말뿐입니다.
-      - visualization README 를 고치면 visualization 패키지에 patch 변경 기록(changeset)이 하나 붙고, KAN-064 와 함께 나갈 다음 배포에 실립니다. 원문: .changeset/kan-067-extend-when-missing.md:16
+      - visualization README 를 고치면 visualization 패키지에 patch 변경 기록(changeset)이 하나 붙고, KAN-064·KAN-067 과 함께 나갈 다음 배포에 실립니다. 원문: .changeset/kan-067-extend-when-missing.md:16
     - **정할 것**
       visualization README 두 줄을 어디서 고칠 것인가.
 
     | 선택지 | 대가 | 그러면 어떻게 되는가 |
     | --- | --- | --- |
-    | **추천** 이 카드에서 함께 고친다 | 고칠 파일에 visualization README 와 변경 기록 하나가 더해지고, 검토를 한 번 더 받습니다 | 세 문서가 같은 사실을 말합니다. 고칠 두 자리는 이미 같은 스토리가 잰 값입니다 |
+    | **추천** 이 카드에서 함께 고친다 | 고칠 파일에 visualization README 와 변경 기록 하나가 더해지고, 검토를 한 번 더 받습니다 | 다음 배포에 실리기 전에 세 문서가 같은 사실을 말합니다. 고칠 두 자리는 이미 같은 스토리가 잰 값입니다 |
     | 그대로 둔다 | 배포 README 와 루트 README 가 Provider 밖 화살촉을 다르게 묘사합니다 | 앱이 할 일(Provider 안에 둔다)은 같아서 실제로 막히는 일은 없습니다 |
-    | 후속 카드로 뺀다 | 두 줄 고침에 카드 하나가 듭니다 | 이 카드는 지금 범위로 닫힙니다 |
+    | 후속 카드로 뺀다 | 두 줄 고침에 카드 하나가 듭니다 | 이 카드는 지금 범위로 닫히지만, 후속 카드가 다음 배포보다 늦으면 지금 서술이 그대로 배포됩니다 |
 
     > **판정** — _아직 없습니다._
 
@@ -161,7 +170,8 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-072-KW0G9B --add
     - **배경**
       - 루트 README 는 「사례마다 설치·절차·코드가 처음부터 끝까지 들어 있어서 다른 문서를 먼저 읽지 않아도 된다」고 약속합니다. 원문: README.md:15
       - 새 줄 「쓰려는 컴포넌트나 그림 유형이 목록에 없다」는 그 약속의 예외입니다. 사례 대신 core·visualization README 의 「원하는 것이 없을 때」 절로 갑니다. 원문: README.md:28
-      - 표 아래 문단이 그 예외와, 같은 절이 설치한 패키지 안에도 들어 있다는 것을 밝힙니다. 원문: README.md:33
+      - 표 아래 문단이 그 예외를 밝히고, 앱을 만들다 막혔으면 라이브러리를 바꾸거나 요청하기 전에 그 절부터 보라고 적습니다. 원문: README.md:33
+      - 링크는 저장소의 패키지 README 로 갑니다. 두 절은 아직 배포되지 않아서(KAN-067 변경 기록 대기), 지금 설치한 패키지 안의 README 에는 없습니다. 원문: .changeset/kan-067-extend-when-missing.md:2
       - 두 절의 예제 코드는 스토리북이 실제로 그려 보는 예제 파일과 글자 그대로 같은지 검사가 대조합니다. 루트에 사본을 두면 그 대조 밖에서 낡습니다. 원문: packages/foundations/src/publishedDocs.ts:17
     - **정할 것**
       새 줄을 링크로 둘 것인가, 루트 README 에 사례 11 을 따로 쓸 것인가.
