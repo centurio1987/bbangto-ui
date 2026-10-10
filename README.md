@@ -25,9 +25,12 @@ BBANGTO UI는 React 디자인 시스템 모노레포입니다. 낱개 컴포넌�
 | UI는 자기 것을 쓰고 React 훅만 가져온다 | [7 · 로직만 가져다 쓴다](#사례-7--로직만-가져다-쓴다) | `hooks` |
 | 아키텍처 도식·차트를 React로 그린다 | [8 · 다이어그램·인포그래픽을 그린다](#사례-8--다이어그램인포그래픽을-그린다) | `visualization` + `visualization-style-guide-catalog` |
 | **도식용 룩을 직접 만들어 등재한다** | [9 · viz 룩을 직접 만든다](#사례-9--viz-룩을-직접-만든다) | `visualization` + `visualization-style-guide-catalog` |
-| 이 레포에 컴포넌트나 preset을 넣는다 | [10 · 이 레포에 기여한다](#사례-10--이-레포에-기여한다) | 저장소 전체 |
+| 쓰려는 컴포넌트나 그림 유형이 목록에 없다 | 앱 안에서 만든다 — [core](packages/core/README.md#원하는-것이-없을-때) · [visualization](packages/visualization/README.md#원하는-것이-없을-때)의 「원하는 것이 없을 때」 | `core` · `visualization` |
+| 앱이 아니라 이 레포에 컴포넌트나 preset을 넣는다 | [10 · 이 레포에 기여한다](#사례-10--이-레포에-기여한다) | 저장소 전체 |
 
 각 사례는 「그다음」으로 끝납니다. 방금 무엇을 할 수 있게 됐는지 확인하고 다음 사례로 넘어가는 자리예요. 순서대로 읽을 필요는 없고, 자기 줄에서 출발해 필요한 만큼만 따라가면 됩니다.
+
+「목록에 없다」 줄만은 사례가 아니라 패키지 README의 절로 갑니다. 그 절은 core 1.2.2 · visualization 1.0.0부터 설치한 패키지 안(`node_modules/@centurio1987/bbangto-ui-core/README.md` 등)에도 그대로 들어 있어요. 앱을 만들다 원하는 것이 없으면 라이브러리를 바꾸거나 이 레포에 요청하기 전에 그 절부터 보세요. 기여는 앱을 완성한 뒤의 선택입니다.
 
 ---
 
@@ -121,7 +124,7 @@ pnpm add @centurio1987/bbangto-ui-core
 
 **그다음**
 
-이제 낱개 부품으로 화면을 조립할 수 있게 됐습니다. 부품 대신 섹션을 통째로 얹고 싶다면 [사례 2](#사례-2--페이지-섹션을-통째로-가져다-쓴다)로, 기본 색 대신 브랜드 색을 입히고 싶다면 [사례 4](#사례-4--브랜드-색으로-갈아입힌다)로 가세요.
+이제 낱개 부품으로 화면을 조립할 수 있게 됐습니다. 부품 대신 섹션을 통째로 얹고 싶다면 [사례 2](#사례-2--페이지-섹션을-통째로-가져다-쓴다)로, 기본 색 대신 브랜드 색을 입히고 싶다면 [사례 4](#사례-4--브랜드-색으로-갈아입힌다)로 가세요. 쓰려는 컴포넌트가 core에 없으면 앱 안에서 만듭니다. 순서와 쓸 수 있는 CSS 변수는 core README의 [「원하는 것이 없을 때」](packages/core/README.md#원하는-것이-없을-때)에 있어요.
 
 ---
 
@@ -855,7 +858,7 @@ Flowchart · BarChart · SankeyDiagram · … (87종)
       VisualizationStyleGuideProvider  ←  viz style guide preset (30종)
 ```
 
-Provider 없이 그냥 그리면 그림은 나옵니다. 다만 무채색 base foundation으로 떨어져요(`packages/visualization/src/tokens/base.ts`의 `baseVisualizationFoundation`). 캔버스는 흰색, 선은 `#333333`입니다.
+Provider 없이 그리면 좌표는 나오지만 칠이 없습니다. 색을 정하는 CSS 변수와 계약 스타일시트를 Provider가 넣어 주기 때문이에요. 색 prop을 주지 않은 도형은 SVG 기본값대로 검게 채워지고, 이름표 글자도 검정이라 도형 위에서 읽히지 않습니다. 엣지는 선이 그려지지 않아 검은 화살촉만 남고, 캔버스 배경은 투명합니다. 2026-10-10 chromium에서 아래 절차 1의 예제를 Provider만 빼고 재 본 값이고(`apps/storybook/src/stories/ExtendWhenMissing.stories.tsx`의 `VizOutsideProvider`), firefox·webkit은 재지 않았습니다. 무채색 `baseVisualizationFoundation`(`packages/visualization/src/tokens/base.ts`)으로 떨어지는 것은 `useVizFoundation()`이 돌려주는 JS 값뿐이에요.
 
 **설치**
 
@@ -949,7 +952,7 @@ pnpm add @centurio1987/bbangto-ui-visualization \
 
 **그다음**
 
-렌더된 `<div>`에 `data-bbangto-viz-style-guide="blueprint-technical-01"`이 붙고 SVG가 종이색 캔버스로 그려졌다면 여기까지 된 겁니다. 30종에 원하는 룩이 없으면 [사례 9](#사례-9--viz-룩을-직접-만든다)로, 같은 감각을 앱 UI 쪽에도 입히려면 [사례 5](#사례-5--완성된-룩을-골라-입힌다)로 가세요.
+렌더된 `<div>`에 `data-bbangto-viz-style-guide="blueprint-technical-01"`이 붙고 SVG가 종이색 캔버스로 그려졌다면 여기까지 된 겁니다. 30종에 원하는 룩이 없으면 [사례 9](#사례-9--viz-룩을-직접-만든다)로, 같은 감각을 앱 UI 쪽에도 입히려면 [사례 5](#사례-5--완성된-룩을-골라-입힌다)로 가세요. 룩이 아니라 그림 유형이 87종에 없으면 atom으로 조립합니다. 부품 목록과 예제는 visualization README의 [「원하는 것이 없을 때」](packages/visualization/README.md#원하는-것이-없을-때)에 있어요.
 
 ---
 
@@ -1174,6 +1177,8 @@ tokens를 따로 넣는 이유가 있습니다. `VizFoundationPreset` 타입이 
 ### 사례 10 · 이 레포에 기여한다
 
 preset이나 컴포넌트를 이 레포에 넣으려는 분을 위한 절차입니다. 사례 6과 사례 9에서 만든 것이 등재를 지나 릴리스까지 가는 뒷부분이기도 합니다. 게이트는 다섯이고 `CLAUDE.md`와 이 문서가 같은 다섯을 적습니다.
+
+> **앱을 만들다 원하는 것이 없어서 오셨다면** 여기보다 앱 안에서 먼저 만듭니다. core README의 [「원하는 것이 없을 때」](packages/core/README.md#원하는-것이-없을-때)는 CSS 변수로 확장 컴포넌트를 만드는 순서를, visualization README의 [같은 절](packages/visualization/README.md#원하는-것이-없을-때)은 atom으로 그림을 조립하는 순서를 적어 뒀습니다. 라이브러리를 빼거나 바꿀 일도, 요청에 답이 오기를 기다리며 구현을 멈출 일도 아니에요. 만든 것이 다른 앱에도 쓸모 있으면 앱을 완성한 뒤에 이 절차로 제안하면 됩니다.
 
 **설치**
 

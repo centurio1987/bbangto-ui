@@ -1,6 +1,6 @@
 {
   "next_id": 75,
-  "next_seq": 276,
+  "next_seq": 277,
   "cards": {
     "KAN-066-T6NR80": {
       "col": "backlog",
@@ -62,26 +62,6 @@
       "memo": "KAN-067 검토 항목 1(2026-10-10 승인)에서 나왔다. 실제 사례(앱 지시문·프롬프트·모델)는 유저에게 받는다. KAN-072(루트 README 두 자리)와 같은 경로를 보므로 그 카드 전후로 비교한다",
       "memo_hash": "d9424b73f2e50a0509ad0572ab459e121ea7edf7"
     },
-    "KAN-072-KW0G9B": {
-      "col": "backlog",
-      "title": "루트 README 의 「컴포넌트가 없을 때」 길과 viz Provider 서술 바로잡기",
-      "verbatim": "최종 승인한다 (KAN-067 검토 항목 2 「루트 README 의 두 자리를 어디서 고칠 것인가」의 추천 「새 카드 하나로 연다」를 포함한 전체 승인)",
-      "생성": "ai",
-      "최종": "ai",
-      "갱신": "2026-10-10",
-      "title_hash": "7e2415391c7ebf1795750e7120f7c08522122b47",
-      "verbatim_hash": "a392e80c8b7b37415472babbe1e4251095b169d2",
-      "short": "루트 README 두 자리",
-      "short_hash": "4197938c33b32163ca03dfee33a23365813ebb6b",
-      "purpose": "루트 README 길잡이 표(README.md:28)에 컴포넌트·유형이 없을 때 앱 안에서 확장하는 길을 잇고, README.md:858 의 「Provider 없이 그리면 무채색」 서술을 실측대로 고친다",
-      "purpose_hash": "2f12865635237e6ca26fe95fcd020e0d08cf0f18",
-      "reason": "길잡이 표에서 컴포넌트가 없을 때 갈 곳이 「이 레포에 기여한다」뿐이라 앱 에이전트가 개선 요청으로 읽을 수 있고, :858 은 chromium 실측(도형 검은 채움·엣지 안 보임)과 다르다. KAN-067 scope 밖이었다",
-      "reason_hash": "01b513edd8072fce84ee7a2712c37c1dd52b53cf",
-      "goal": "루트 README 가 배포 README 의 「원하는 것이 없을 때」 절로 이어지고, Provider 서술이 실측과 같아진다",
-      "goal_hash": "327fac73461bdde8ba72bc4b8cad1302ade13bc3",
-      "memo": "KAN-067 검토 항목 2(2026-10-10 승인)에서 나왔다. README.md 는 KAN-064 scope 에도 있다(KAN-064 는 KAN-068 뒤 병합 대기). KAN-071(실제 사례 재현)과 같은 경로를 보므로 그 카드의 전후 비교에 쓴다",
-      "memo_hash": "851301bace69a1f95e144da38fef72a54178d819"
-    },
     "KAN-074-KAZBTF": {
       "col": "todo",
       "title": "미배포 변경 배포 — KAN-057·061·067 과 KAN-064 major 4개 (tokens 1.5.0 · core 1.2.2 · visualization·style-guide-catalog·visualization-style-guide-catalog 1.0.0 · foundations 2.0.0)",
@@ -118,6 +98,34 @@
         ".changeset/kan-061-on-ink.md",
         ".changeset/kan-064-manifest-index.md",
         ".changeset/kan-067-extend-when-missing.md"
+      ]
+    },
+    "KAN-072-KW0G9B": {
+      "col": "done",
+      "title": "루트 README 의 「컴포넌트가 없을 때」 길과 viz Provider 서술 바로잡기",
+      "verbatim": "최종 승인한다 (KAN-067 검토 항목 2 「루트 README 의 두 자리를 어디서 고칠 것인가」의 추천 「새 카드 하나로 연다」를 포함한 전체 승인)",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-10",
+      "title_hash": "7e2415391c7ebf1795750e7120f7c08522122b47",
+      "verbatim_hash": "a392e80c8b7b37415472babbe1e4251095b169d2",
+      "short": "루트 README 두 자리",
+      "short_hash": "4197938c33b32163ca03dfee33a23365813ebb6b",
+      "purpose": "루트 README 길잡이 표(README.md:28)에 컴포넌트·유형이 없을 때 앱 안에서 확장하는 길을 잇고, README.md:858 의 「Provider 없이 그리면 무채색」 서술을 실측대로 고친다",
+      "purpose_hash": "2f12865635237e6ca26fe95fcd020e0d08cf0f18",
+      "reason": "길잡이 표에서 컴포넌트가 없을 때 갈 곳이 「이 레포에 기여한다」뿐이라 앱 에이전트가 개선 요청으로 읽을 수 있고, :858 은 chromium 실측(도형 검은 채움·엣지 안 보임)과 다르다. KAN-067 scope 밖이었다",
+      "reason_hash": "01b513edd8072fce84ee7a2712c37c1dd52b53cf",
+      "goal": "루트 README 가 배포 README 의 「원하는 것이 없을 때」 절로 이어지고, Provider 서술이 실측과 같아진다",
+      "goal_hash": "327fac73461bdde8ba72bc4b8cad1302ade13bc3",
+      "memo": "KAN-067 검토 항목 2(2026-10-10 승인)에서 나왔다. KAN-071(실제 사례 재현)과 같은 경로를 보므로 그 카드의 전후 비교에 쓴다 — 「고치기 전」은 main 0a81094",
+      "memo_hash": "db4f978b08cb19fc3f09717b2237929ddf607768",
+      "scope": [
+        "README.md",
+        "packages/foundations/src/publishedDocs.ts",
+        "packages/foundations/src/publishedDocs.test.ts",
+        "apps/storybook/src/stories/ExtendWhenMissing.stories.tsx",
+        "packages/visualization/README.md",
+        ".changeset/kan-072-viz-readme-arrowhead.md"
       ]
     },
     "KAN-020": {
@@ -1531,7 +1539,6 @@
     "KAN-066-T6NR80",
     "KAN-069-G0FGTJ",
     "KAN-071-FK1W8K",
-    "KAN-072-KW0G9B",
     "KAN-074-KAZBTF",
     "KAN-020",
     "KAN-025",
@@ -1600,9 +1607,30 @@
     "KAN-068-W6TE2S",
     "KAN-061-K8V2HH",
     "KAN-064-AC0H6M",
-    "KAN-070-RCG2QV"
+    "KAN-070-RCG2QV",
+    "KAN-072-KW0G9B"
   ],
   "recent": [
+    {
+      "seq": 276,
+      "t": "2026-10-10T22:05",
+      "a": "ai",
+      "id": "KAN-072-KW0G9B",
+      "op": "move",
+      "w": "YBV3VJ",
+      "from": "review",
+      "to": "done"
+    },
+    {
+      "seq": 275,
+      "t": "2026-10-10T11:15",
+      "a": "ai",
+      "id": "KAN-072-KW0G9B",
+      "op": "move",
+      "w": "YBV3VJ",
+      "from": "doing",
+      "to": "review"
+    },
     {
       "seq": 275,
       "t": "2026-10-10T21:48",
@@ -1615,6 +1643,17 @@
     },
     {
       "seq": 274,
+      "t": "2026-10-10T03:59",
+      "a": "ai",
+      "id": "KAN-072-KW0G9B",
+      "op": "edit",
+      "w": "YBV3VJ",
+      "field": "memo",
+      "before": "KAN-067 검토 항목 2(2026-10-10 승인)에서 나왔다. README.md 는 KAN-064 scope 에도 있다(KAN-064 는 KAN-068 뒤 병합 대기). KAN-071(실제 사례 재현)과 같은 경로를 보므로 그 카드의 전후 비교에 쓴다",
+      "after": "KAN-067 검토 항목 2(2026-10-10 승인)에서 나왔다. KAN-071(실제 사례 재현)과 같은 경로를 보므로 그 카드의 전후 비교에 쓴다 — 「고치기 전」은 main 0a81094"
+    },
+    {
+      "seq": 274,
       "t": "2026-10-10T11:19",
       "a": "ai",
       "id": "KAN-070-RCG2QV",
@@ -1622,6 +1661,16 @@
       "w": "QZV2GZ",
       "from": "doing",
       "to": "review"
+    },
+    {
+      "seq": 273,
+      "t": "2026-10-10T03:57",
+      "a": "ai",
+      "id": "KAN-072-KW0G9B",
+      "op": "move",
+      "w": "YBV3VJ",
+      "from": "backlog",
+      "to": "doing"
     },
     {
       "seq": 273,
@@ -2124,46 +2173,6 @@
       "w": "7E5YYM",
       "with_": "KAN-065-XSHEMV",
       "reason": "재기록(scope 에 jsdoc.test.ts·visualization README 를 더해 무효, KAN-065 와 겹치는 파일은 그대로): 유저 선택(2026-10-08 「둘 다 용인」). 루트 README.md 에서 KAN-064 는 기여 절차 4단계의 매니페스트 표와 그 아래 단락만, KAN-065 는 포커스 대비 단락만 고친다"
-    },
-    {
-      "seq": 250,
-      "t": "2026-10-08T19:08",
-      "a": "ai",
-      "id": "KAN-065-XSHEMV",
-      "op": "move",
-      "w": "ZTJ9MG",
-      "from": "review",
-      "to": "doing"
-    },
-    {
-      "seq": 250,
-      "t": "2026-10-08T19:05",
-      "a": "ai",
-      "id": "KAN-064-AC0H6M",
-      "op": "waive",
-      "w": "7E5YYM",
-      "with_": "KAN-055-34A57K",
-      "reason": "재기록(scope 에 jsdoc.test.ts·visualization README 를 더해 무효, KAN-055 와 겹치는 파일은 그대로): 유저 선택(2026-10-08 「둘 다 용인」). package.json 3개는 KAN-064 가 scripts.prebuild·files 만, KAN-055 는 version 만 고친다. changeset 은 KAN-064 가 kan-064-manifest-index.md 한 장을 더할 뿐이다. 배포 전에 병합되면 major 가 그 배포에 실리므로 병합 때 KAN-055 상태를 확인한다"
-    },
-    {
-      "seq": 249,
-      "t": "2026-10-08T18:56",
-      "a": "ai",
-      "id": "KAN-065-XSHEMV",
-      "op": "move",
-      "w": "ZTJ9MG",
-      "from": "doing",
-      "to": "review"
-    },
-    {
-      "seq": 249,
-      "t": "2026-10-08T18:43",
-      "a": "ai",
-      "id": "KAN-064-AC0H6M",
-      "op": "waive",
-      "w": "7E5YYM",
-      "with_": "KAN-065-XSHEMV",
-      "reason": "재기록(scope 에 census 게이트·상세 폴더를 더해 무효, 겹치는 파일은 그대로): 유저 선택(2026-10-08 「둘 다 용인」). 루트 README.md 에서 KAN-064 는 기여 절차 4단계의 매니페스트 표와 그 아래 단락만, KAN-065 는 포커스 대비 단락만 고친다"
     }
   ],
   "waivers": [
