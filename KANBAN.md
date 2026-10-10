@@ -35,7 +35,7 @@
   - 이유: 패키지 exports 가 dist 만 가리키고 루트 tsconfig 에 paths 가 없어, 새 워크트리의 첫 typecheck 가 TS2307 로 실패한다(2026-10-07 KAN-050). KAN-064 착수 전 계획에서 매니페스트 카드 범위 밖으로 확인됐다
   - 목표: 새 워크트리(또는 rm -rf packages/*/dist 뒤)에서 pnpm typecheck·pnpm test:unit 이 build 선행 없이 초록이고, build 를 먼저 돌리라는 규칙을 걷을 수 있다
   - 메모: KAN-064 목표에서 갈라져 나왔다(2026-10-08 유저 선택). 고칠 자리 후보: 패키지 package.json exports 의 소스 조건 또는 tsconfig paths, vitest resolve. KAN-055 와 package.json 이 겹칠 것이다
-  - 실행 문서: KANBAN/cards/KAN-066-T6NR80.md (1/6 · 최근 10-10)
+  - 실행 문서: KANBAN/cards/KAN-066-T6NR80.md (2/6 · 최근 10-10)
   - 계획 리포트: KANBAN/reports/KAN-066-T6NR80.report.html (낡음)
   - 원문:
     ```text

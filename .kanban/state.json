@@ -24,6 +24,7 @@
       "scope": [
         "tsconfig.json",
         "package.json",
+        "vitest.source.ts",
         "packages/*/package.json",
         "packages/*/vitest.config.ts",
         "packages/foundations/vitest.bundle.config.ts",

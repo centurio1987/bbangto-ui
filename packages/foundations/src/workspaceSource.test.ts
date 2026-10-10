@@ -58,6 +58,28 @@ describe('소스 조건 — 실제 repo', () => {
     };
     expect(tsconfig.compilerOptions?.customConditions ?? []).toContain(SOURCE_CONDITION);
   });
+
+  it('공용 vitest 설정이 같은 조건 이름을 브라우저 쪽과 node 쪽 둘 다에 켠다', () => {
+    const shared = readFileSync(join(repoRoot, 'vitest.source.ts'), 'utf8');
+    // node 환경 테스트는 `ssr.resolve.conditions` 만 본다 — `resolve.conditions` 만 켜면 소스를 못 찾는다(S2 실측).
+    expect(shared).toMatch(/ssr:\s*\{\s*resolve:\s*\{\s*conditions:/);
+    expect(shared).toMatch(/resolve:\s*\{\s*conditions:/);
+    expect(shared).toContain(`'${SOURCE_CONDITION}'`);
+  });
+
+  it('test 스크립트가 있는 패키지마다 vitest 설정이 공용 조건 설정을 가져다 쓴다 — test:unit 이 소스를 읽는다', () => {
+    const missing: string[] = [];
+    for (const p of packages) {
+      const pj = JSON.parse(readFileSync(join(repoRoot, p.dir, 'package.json'), 'utf8')) as {
+        scripts?: Record<string, string>;
+      };
+      if (!pj.scripts?.test) continue;
+      const cfg = join(repoRoot, p.dir, 'vitest.config.ts');
+      const text = existsSync(cfg) ? readFileSync(cfg, 'utf8') : '';
+      if (!/from '\.\.\/\.\.\/vitest\.source'/.test(text)) missing.push(`${p.dir}/vitest.config.ts`);
+    }
+    expect(missing).toEqual([]);
+  });
 });
 
 describe('auditWorkspaceSource — fixture 실패주입(순수 검증기)', () => {
