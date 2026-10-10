@@ -320,7 +320,7 @@ const guidelines: Record<string, Record<string, unknown>> = {
   },
   accessibility: {
     summary:
-      '경계 라벨(boundary.labelColor)은 니어화이트(#F2ECFF) — 딥 퍼플 그라운드(#160B2E) 대비 16.24:1. 노드·C4 글자는 면마다 계산되는 글자색(--bbangto-viz-on-*)으로 네온 잉크(default 시안 #28E0F0, sunset 오렌지 #FF9E4D)가 칠해지고 다크 솔리드 fill 위 4.5:1 이상이다(auditVizContrast 게이트). node fill은 전부 불투명 솔리드라 라벨 대비가 canvas 무관하게 안정적이다. CRT 스캔라인·퍼스펙티브 그리드·글로우는 전부 순수 장식이라 텍스트에 얹지 않는다.',
+      '모든 라벨(노드·C4·경계)은 니어화이트(#F2ECFF) — 딥 퍼플 그라운드(#160B2E) 대비 16.24:1, 다크 솔리드 노드 fill 위 ≥10.6:1(auditVizContrast 게이트). node fill은 전부 불투명 솔리드라 라벨 대비가 canvas 무관하게 안정적이다. CRT 스캔라인·퍼스펙티브 그리드·글로우는 전부 순수 장식이라 텍스트에 얹지 않는다.',
     dos: [
       '텍스트는 니어화이트(다크 표면 위 ≥4.5:1)',
       '스캔라인·그리드·글로우는 저대비·비상호작용 장식으로 유지',

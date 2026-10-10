@@ -297,7 +297,7 @@ const guidelines: Record<string, Record<string, unknown>> = {
   },
   accessibility: {
     summary:
-      '경계 라벨(boundary.labelColor)은 웜 크림(니어블랙 위 ≥13:1)이다. 노드·C4 글자는 면마다 계산되는 글자색(--bbangto-viz-on-*)으로 default 는 골드, oxblood 는 계산값이 7:1 에 못 미쳐 `on` 으로 정한 크림이다 — 전부 AAA(≥7) 실측(auditVizContrast 게이트). 골드 헤어라인은 블랙 대비 8.16:1. 헤어라인 룰은 aria-hidden 순수 장식이라 의미를 색만으로 인코딩하지 않는다.',
+      '모든 라벨(노드·C4·경계)은 웜 크림 — 니어블랙 표면 위 ≥13:1로 전부 AAA(≥7) 실측(auditVizContrast 게이트). 골드 헤어라인은 블랙 대비 8.16:1. 헤어라인 룰은 aria-hidden 순수 장식이라 의미를 색만으로 인코딩하지 않는다.',
     dos: [
       '텍스트는 웜 크림(니어블랙 위 ≥7:1, AAA)',
       '골드 헤어라인은 라인/윤곽 전용(≥4.5:1 텍스트급 대비)',

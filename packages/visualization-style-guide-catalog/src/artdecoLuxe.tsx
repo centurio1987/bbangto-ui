@@ -318,7 +318,7 @@ const guidelines: Record<string, Record<string, unknown>> = {
   },
   accessibility: {
     summary:
-      '경계 라벨(boundary.labelColor)은 크림이고, 노드·C4 글자는 면마다 계산되는 글자색(--bbangto-viz-on-*)으로 골드(#CBA253)가 칠해진다 — 다크 노드 fill·틴트 위 4.5:1 이상(auditVizContrast 게이트, contrastIntent aa). 라인/엣지 골드는 니어블랙 8.13:1·딥그린 7.53:1(≥4.5). golden symmetric frame과 골드 플루팅은 순수 장식이라 텍스트에 얹지 않으며, 의미를 색만으로 인코딩하지 않는다(형태/글리프 병기).',
+      '모든 라벨(노드·C4·경계)은 크림 — 다크 노드 fill·틴트 위 ≥11:1(auditVizContrast 게이트, contrastIntent aa). 라인/엣지 골드는 니어블랙 8.13:1·딥그린 7.53:1(≥4.5). golden symmetric frame과 골드 플루팅은 순수 장식이라 텍스트에 얹지 않으며, 의미를 색만으로 인코딩하지 않는다(형태/글리프 병기).',
     dos: [
       '텍스트는 크림(다크 표면 위 ≥4.5:1)',
       '프레임·플루팅은 저대비·비상호작용 장식으로 유지',

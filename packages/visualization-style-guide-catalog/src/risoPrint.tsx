@@ -321,7 +321,7 @@ const guidelines: Record<string, Record<string, unknown>> = {
   },
   accessibility: {
     summary:
-      '모든 라벨(노드·C4·경계)은 오버프린트가 합성한 worst-case 표면 위에서도 4.5:1 이상이다(auditVizContrast 게이트) — 경계는 다크 잉크, 노드·C4 는 면마다 계산되는 글자색(--bbangto-viz-on-*)이다. 그레인·미스레지·multiply는 전부 [data-viz-part="shape"] 스코프 장식으로 텍스트에 미적용.',
+      '모든 라벨(노드·C4·경계)은 다크 잉크 — 오버프린트가 합성한 worst-case 표면 위에서도 4.5:1 이상(auditVizContrast 게이트). 그레인·미스레지·multiply는 전부 [data-viz-part="shape"] 스코프 장식으로 텍스트에 미적용.',
     dos: [
       '라벨은 다크 잉크(합성 표면 위 ≥4.5:1)',
       '그레인/multiply/미스레지는 도형에만 — 텍스트 제외',
