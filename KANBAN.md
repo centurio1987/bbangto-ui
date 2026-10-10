@@ -635,7 +635,7 @@
   - 목표: 선언과 동작이 어긋난 viz 토큰이 0이 되고, 첫 단계로 경계선(boundary.dashPattern·width·radius)이 카탈로그 가이드 값대로 그려진다
   - 메모: 대상: canvas.gridUnit · node.*.tagColor · edge.marker.size · c4.l1/l2/l3.{borderWidth,bgTint,labelColor} 9개 · boundary.{dashPattern,width,radius}(Boundary.tsx 가 JS 기본값 '8 6'/1.5/8 사용, 카탈로그 값은 제각각이라 그림이 바뀜) · typography.titleWeight · typography.sizes.{title,label,tag,mono} · iconStyle · spacing.{nodePad,laneGap} · motion.{duration,easing}. 잇는 방식은 KAN-057(edge.dashPattern)의 훅·계약 스타일시트 규칙을 따른다
   - 실행 문서: KANBAN/cards/KAN-069-G0FGTJ.md (6/6 · 최근 10-11)
-  - 계획 리포트: KANBAN/reports/KAN-069-G0FGTJ.report.html (낡음)
+  - 계획 리포트: KANBAN/reports/KAN-069-G0FGTJ.report.html
   - 검토 문서: KANBAN/reviews/KAN-069-G0FGTJ.review.md (승인 3/3 · 철회 1 · 추가 의견 총 6 · 승인)
   - 원문:
     ```text

@@ -361,3 +361,4 @@
 {"seq": 255, "t": "2026-10-10T00:26", "a": "ai", "id": "KAN-057-CCH3E8", "op": "move", "w": "WXJKQG", "from": "doing", "to": "review"}
 {"seq": 255, "t": "2026-10-08T19:22", "a": "ai", "id": "KAN-064-AC0H6M", "op": "move", "w": "7E5YYM", "from": "doing", "to": "review"}
 {"seq": 254, "t": "2026-10-09T22:52", "a": "ai", "id": "KAN-064-AC0H6M", "op": "waive", "w": "S7030N", "with_": "KAN-067-WDY7N1", "reason": "유저 선택(2026-10-09 「용인」): visualization package.json 의 files 배열은 KAN-064 가 manifest 를 더하고 KAN-067 이 관리용 문서 2개를 뺀다 — 나중에 합치는 쪽이 두 변경을 다 남긴다. 주석은 src/index.ts 가 KAN-064 21줄·KAN-067 28줄로 갈리고, src/typeMeta/index.ts:6 은 같은 문장이라 나중에 합치는 쪽이 2단 읽기와 저장소 링크 두 뜻으로 다시 쓴다. KAN-064 scope 의 tsup.config.ts:21·src/index.ts:21 에 남은 「동봉」은 KAN-064 병합 때 KAN-067 검사에 맞춰 고친다"}
+{"seq": 256, "t": "2026-10-10T00:54", "a": "ai", "id": "KAN-057-CCH3E8", "op": "move", "w": "WXJKQG", "from": "review", "to": "done"}
