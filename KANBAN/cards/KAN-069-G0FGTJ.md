@@ -96,3 +96,4 @@ scope 는 이 워크트리에서 정했으므로 main 의 `dep-check` 에는 이
 - 2026-10-10T23:47 · s:855b94cf · S6 doing — 착수
 - 2026-10-10T23:49 · s:855b94cf · S6 done — 게이트 5종 초록 — typecheck·build·test(196 파일 1309/1309)·storybook build·test:unit(viz 288·viz 카탈로그 48 포함 전 패키지 통과). TokenWiringGate 만 a11y test:error 로 임시 강제 → 4/4 통과, 되돌림
 - 2026-10-11T01:00 · s:855b94cf — 검토 반려(항목 3, 검토자 대행) — 다시 쓴 가이드 셋(artdeco·synthwave·darkluxe)의 요약이 같은 지침의 「텍스트는 크림·니어화이트」·「골드·네온 텍스트 금지」와 부딪치고 hud-telemetry 는 빠짐. 유저 선택: 후속 카드로 넘긴다 — 이 카드는 요약을 나머지 문장과 맞게 되돌리고 항목 3 을 사실대로 고쳐 쓴다
+- 2026-10-11T01:06 · s:855b94cf — 반려 재작업 끝 — 지침 요약 다섯 곳(synthwave·artdeco-luxe·darkluxe·riso-print·bauhaus-geometric) 되돌림·changeset 문구 수정·후속 카드 KAN-075-4K5GK3(main 39e5e7d)·검토 항목 3 철회 → 4 추가. 게이트 5종 다시 초록(test 1309/1309)

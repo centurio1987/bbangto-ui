@@ -24,9 +24,15 @@ status: 검토 대기
 | 베이스 | `064586b` |
 | 변경 훑기 | `git diff 064586b...HEAD` |
 
-**커밋 8건**
+**커밋 14건**
 
 ```text
+a8b64e4 fix(catalog): KAN-069 반려 재작업 — 지침 요약 다섯 곳을 같은 지침의 나머지 문장과 맞게 되돌린다
+ff1b271 kanban: KAN-069 검토 반려 → 진행 중 (항목 3 — 지침 문장 앞뒤 불일치, 후속 카드로)
+271fbd2 kanban: KAN-069 검토자 확인 — 항목 1·2 승인, 3 반려(지침 문장이 실제 글자색과 아직 어긋남)
+fdd03bb kanban: KAN-069 검토 리포트
+fb9eb42 kanban: KAN-069 검토로 이동
+ee8a1c7 kanban: KAN-069 검토서 — 검토 대상(base 064586b·커밋 8·파일 57)·검증 결과·판단 항목 3
 424c7b6 kanban: KAN-069 S6 — 품질 게이트 5종 초록 · a11y 강제 확인
 e91c759 docs: KAN-069 S5 — 이은 토큰의 JSDoc·README·viz 문서와 changeset(tokens·visualization·catalog major)
 a87d3cf feat!: KAN-069 S4 — 그림에 쓰이지 않는 viz 토큰 28개를 걷는다
@@ -37,20 +43,24 @@ aad02d3 feat(viz): KAN-069 S3 — C4 테두리·화살촉 크기·격자 간격�
 0a8783d kanban: KAN-069 진행 중으로 이동 (착수)
 ```
 
-**변경 파일 57개 (+1826 −1232)**
+**변경 파일 61개 (+3440 −1263)**
 
 | 파일 | 상태 | 추가 | 삭제 |
 |---|:--:|---:|---:|
-| `.changeset/kan-069-unused-viz-tokens.md` | M | 44 | 0 |
-| `.kanban/archive.jsonl` | M | 1 | 0 |
-| `.kanban/log.md` | M | 1 | 1 |
-| `.kanban/state.json` | M | 24 | 14 |
+| `.changeset/kan-069-unused-viz-tokens.md` | M | 45 | 0 |
+| `.kanban/archive.jsonl` | M | 3 | 0 |
+| `.kanban/log.md` | M | 3 | 3 |
+| `.kanban/reviews/KAN-069-G0FGTJ.events.jsonl` | M | 14 | 0 |
+| `.kanban/reviews/KAN-069-G0FGTJ.review.json` | M | 21 | 0 |
+| `.kanban/state.json` | M | 46 | 43 |
 | `KANBAN.board.html` | M | 2 | 2 |
-| `KANBAN.md` | M | 12 | 10 |
+| `KANBAN.md` | M | 13 | 10 |
 | `KANBAN/batches/KAN-069-G0FGTJ.batch1.md` | M | 80 | 0 |
 | `KANBAN/batches/KAN-069-G0FGTJ.batch2.md` | M | 65 | 0 |
-| `KANBAN/cards/KAN-069-G0FGTJ.md` | M | 97 | 0 |
+| `KANBAN/cards/KAN-069-G0FGTJ.md` | M | 98 | 0 |
 | `KANBAN/reports/KAN-069-G0FGTJ.report.html` | M | 518 | 0 |
+| `KANBAN/reviews/KAN-069-G0FGTJ.review.html` | M | 1262 | 0 |
+| `KANBAN/reviews/KAN-069-G0FGTJ.review.md` | M | 288 | 0 |
 | `README.md` | M | 6 | 5 |
 | `apps/storybook/src/stories/_vizCatalogStory.tsx` | M | 11 | 4 |
 | `apps/storybook/src/stories/visualization/TokenWiringGate.stories.tsx` | M | 226 | 0 |
@@ -138,7 +148,7 @@ kan/KAN-069-G0FGTJ/batch2
 **실행 결과**
 
 ```text
-2026-10-10 워크트리 KAN-069-G0FGTJ, HEAD 424c7b6 에서 실행.
+2026-10-11 워크트리 KAN-069-G0FGTJ, HEAD a8b64e4(반려 재작업 — 지침 요약 다섯 곳 되돌림) 에서 다시 실행. 재작업은 카탈로그 지침 문자열과 changeset 만 고쳤다. 1·2·4 는 아래 게이트 안에서 다시 돌았고(viz test:unit · pnpm test · catalog test:unit), 6 만 첫 검토 때(HEAD 424c7b6) 결과다.
 
 1. tokenUsage.test.ts (선언한 잎은 모두 그림 코드가 읽는다) — 초록. 착수 때 36개 → S2 뒤 33 → S3 뒤 28 → S4 뒤 0.
 2. TokenWiringGate 스토리 4개 — 4/4 초록. 카탈로그 가이드 30개 모두 경계 사각형의 computed stroke-dasharray·stroke-width·rx 가 그 가이드 boundary 값과 같다(실선 가이드는 none).
@@ -147,7 +157,7 @@ kan/KAN-069-G0FGTJ/batch2
 5. 품질 게이트 5종:
    typecheck rc=0
    build rc=0
-   test rc=0 — Test Files 196 passed, Tests 1309 passed
+   test rc=0 — Test Files 196 passed, Tests 1309 passed (재작업 뒤 다시 돌림)
    storybook build rc=0 — Storybook build completed successfully
    test:unit rc=0 — hooks 115 · visualization 288 · foundations 150 · style-guide-catalog 113 · visualization-style-guide-catalog 48 (test:unit 이 도는 패키지 다섯 전부)
 6. TokenWiringGate 만 a11y test:'error' 로 임시 강제 — 4/4 통과, 설정은 되돌림.
@@ -258,11 +268,34 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-069-G0FGTJ --add
     > **판정**
     >
     > - 반려 · ai · 2026-10-11
+    > - 철회 · ai · 2026-10-11
 
     > **추가 의견**
     >
     > - ai · 2026-10-11 — 검토자 확인 (1/2): 22곳으로 넓힌 것 자체는 의도 안입니다. 검증 3번의 grep(tagColor 0줄)을 통과하려면 이름이 들어간 문장은 어차피 다 고쳐야 하고, 내용을 다시 쓴 것은 유저가 고른 「지금 그림 유지」(칠하는 글자색이 기준)를 따른 것입니다. 그런데 추천안의 결과로 적은 「지침 문장이 실제 그림과 맞는다」는 사실이 아닙니다. 내용을 다시 쓴 가이드 셋에서, 같은 지침 안의 다른 문장이 새 요약과 부딪칩니다. artdecoLuxe.tsx:321 은 노드 글자가 골드로 칠해진다고 쓰는데 :323 은 「텍스트는 크림」, :329 는 「골드 색 텍스트로 본문 라벨 표기 금지」입니다. synthwave.tsx:323 은 네온 잉크가 칠해진다고 쓰는데 :325 는 「텍스트는 니어화이트」, :331 은 「네온 색 텍스트로 본문 라벨 표기 금지(대비 미달)」입니다. darkluxe.tsx 도 :300 과 :302·:307 이 같은 모양입니다. 글자 체계 절(artdeco :315~317 · synthwave :317~319 · darkluxe :294~296)과 description(artdeco :338 · synthwave :340 · darkluxe :317)도 크림·니어화이트 라벨이라고 씁니다. 요약은 「이 색으로 칠한다」고 말하고 바로 아래 금지 목록은 「그 색은 쓰지 말라」고 말하는 상태라, 고치기 전보다 한 가이드 안의 앞뒤가 더 안 맞습니다.
     > - ai · 2026-10-11 — 검토자 확인 (2/2): hud-telemetry 는 노드·C4 글자가 시안 #22D3EE(default)·앰버 #FBBF24(두 번째 색 묶음)로 칠해집니다(빌드한 dist 로 --bbangto-viz-on-* 를 뽑아 확인). 그런데 hudTelemetry.tsx:256 은 「모든 라벨/태그/경계 텍스트는 순백」, :264 는 「시안/앰버 색 텍스트로 본문 라벨 표기 금지」라고 씁니다. 이 가이드도 이 카드가 tagColor: WHITE(064586b hudTelemetry.tsx:41)를 지운 곳이고, :36 주석 「tag는 순백」도 그대로 남았습니다. 지운 필드 이름을 문장에 안 썼을 뿐입니다. 즉 다시 쓸 가이드를 「칠하는 색이 적은 색과 다른가」가 아니라 「지운 이름이 문장에 있는가」로 골랐습니다. 항목 배경의 「칠해지는 색이 다른 가이드(…등)는 다시 썼다」는 이 가이드에는 맞지 않습니다. 반려 사유는 넓힌 범위가 아니라, 항목이 말한 결과와 실제 결과가 다르다는 점입니다.
+
+- [ ] 가이드 지침 문장은 지운 필드 이름만 쉬운 말로 바꾸고 실제 글자색과의 차이는 KAN-075 로 넘겼습니다 — 이 처리로 항목 3 의 반려를 닫아도 되는가
+      이 의견은 §3-3 「가이드 지침 문장을 실제 글자색에 맞게 고친 범위를 받」 의 추가 의견에서 갈라져 나왔습니다 (추가 2026-10-11).
+    - **배경**
+      - C4(시스템 구조를 시스템·컨테이너·컴포넌트 수준별 상자로 그리는 다이어그램 표기)의 상자가 `C4Box` 이고, 「노드·C4 글자」는 노드와 그 상자 위 글자입니다. 원문: packages/visualization/src/molecules/C4Box.tsx:24
+      - 가이드마다 접근성 지침 문장이 있고, 사람과 에이전트가 가이드를 고를 때 읽는 공개 문구입니다. 가이드 22곳이 이번에 지운 필드 이름(node.tagColor 등)을 문장이나 머리 주석에 썼습니다.
+      - 첫 검토 때는 일부 가이드의 요약만 실제로 칠해지는 색 기준으로 고쳤습니다. 그러자 같은 지침의 「텍스트는 크림」·「골드 텍스트 금지」 같은 문장과 부딪혀 항목 3 이 반려됐습니다. 원문: KANBAN/reviews/KAN-069-G0FGTJ.review.md
+      - 유저가 「후속 카드로 넘긴다」를 골라, 그렇게 고친 요약 다섯 곳(synthwave·artdeco-luxe·darkluxe·riso-print·bauhaus-geometric)을 원래 문장으로 되돌리고 필드 이름만 쉬운 말(노드·C4·경계)로 바꿨습니다. 원문: packages/visualization-style-guide-catalog/src/synthwave.tsx:323
+      - 그래서 지침마다 앞뒤는 맞습니다. 다만 artdeco-luxe·synthwave·darkluxe·hud-telemetry 등에서는 지침이 말하는 글자색(크림·니어화이트·순백)과 실제로 칠해지는 색(골드·네온·시안)이 아직 다릅니다. KAN-061 배포 뒤로 같은 상태이고, 이 카드가 만든 차이는 아닙니다.
+      - 어느 쪽을 맞출지는 KAN-075 에서 정합니다. 길은 셋입니다 — 문장 고치기, on 으로 저자 색 지정, 글자색 계산이 경계 라벨 색을 먼저 보게 바꾸기. 원문: packages/visualization/src/tokens/onInk.ts:87
+      - changeset 도 「이름만 바꿨고 차이는 KAN-075 에서 정한다」로 고쳤습니다. 원문: .changeset/kan-069-unused-viz-tokens.md:44
+    - **정할 것**
+      이 처리로 항목 3 의 반려를 닫고 이 카드를 마무리해도 되는가.
+
+    | 선택지 | 대가 | 그러면 어떻게 되는가 |
+    | --- | --- | --- |
+    | **추천** 닫는다 | KAN-075 가 끝날 때까지 몇몇 가이드의 지침 글자색이 실제와 다르다 | 이 카드는 토큰 정리로 끝나고, 글자색 판단은 가이드 15개를 함께 보는 KAN-075 에서 한다 |
+    | 반려를 유지한다 | 이 카드가 KAN-075 의 디자인 판단까지 떠안는다 | 문장과 그림이 이 카드 안에서 맞춰진다 |
+
+    > **판정** — _아직 없습니다._
+
+    > **추가 의견** — _아직 없습니다._
 
 
 ## 4. 판정
