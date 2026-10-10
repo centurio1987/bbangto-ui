@@ -1,6 +1,6 @@
 {
-  "next_id": 75,
-  "next_seq": 280,
+  "next_id": 76,
+  "next_seq": 281,
   "cards": {
     "KAN-066-T6NR80": {
       "col": "done",
@@ -1554,6 +1554,26 @@
         ".changeset/kan-064-manifest-index.md",
         ".changeset/kan-067-extend-when-missing.md"
       ]
+    },
+    "KAN-075-4K5GK3": {
+      "col": "backlog",
+      "title": "viz 가이드 지침 문장과 실제 글자색 맞추기 — 저자가 정한 글자색과 칠해지는 노드·C4 글자색이 다른 가이드",
+      "verbatim": "후속 카드로 넘긴다 (Recommended) (KAN-069 검토 뒤 질문 「항목 3(가이드 지침 문장이 실제 글자색과 어긋남)을 어떻게 풀까요? 원인은 KAN-061 글자색 계산이 연결선 색을 먼저 골라, 저자가 글자색으로 정하고 다른 색은 금지한 가이드 4곳(artdeco·synthwave·darkluxe·hud-telemetry)에서 금지한 색이 칠해지는 것입니다.」에 대한 답)",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-11",
+      "title_hash": "4f75199f464a0f4bd5975b6ab440c32855d35ec9",
+      "verbatim_hash": "01248cc7fef3f97c28506a5aa9ef29e2fdf6600d",
+      "short": "가이드 글자색 문장 맞추기",
+      "short_hash": "155f3df2a75142a2c8fc472fc77daf6487a5041f",
+      "purpose": "가이드 지침에 적힌 글자색 규칙과 실제로 칠해지는 노드·C4 글자색이 다른 가이드를 찾아, 문장을 그림에 맞출지 그림을 문장에 맞출지 정하고 맞춘다",
+      "purpose_hash": "f919e86cbc9c4235896b1884a4f35ab0ae6ea378",
+      "reason": "KAN-061 글자색 계산이 연결선 색을 먼저 골라 artdeco-luxe·synthwave·darkluxe·hud-telemetry 에서 저자가 금지한 골드·네온·시안이 칠해진다(KAN-069 검토 항목 3 반려에서 확인)",
+      "reason_hash": "234173e1f041bd79a08791864bd5245f34f50c9e",
+      "goal": "가이드마다 지침 문장과 칠해지는 글자색이 맞고, 둘이 다시 어긋나면 검사가 잡는다",
+      "goal_hash": "9ccb7caa5b2b66bd81083a7bcea7e366c4b87d63",
+      "memo": "칠해지는 색이 저자 색과 다른 가이드 15개(KAN-069 착수 때 실측 189곳). 길 셋: 문장 고치기 / on 으로 저자 색 지정 / KAN-061 계산 후보 순서에서 boundary.labelColor 를 앞으로. KAN-069 병합 뒤 착수(tagColor 가 지워진 상태 기준)",
+      "memo_hash": "972f6bb53301d6815ab283242601fb2be850d0fd"
     }
   },
   "order": [
@@ -1629,9 +1649,27 @@
     "KAN-070-RCG2QV",
     "KAN-072-KW0G9B",
     "KAN-074-KAZBTF",
-    "KAN-066-T6NR80"
+    "KAN-066-T6NR80",
+    "KAN-075-4K5GK3"
   ],
   "recent": [
+    {
+      "seq": 280,
+      "t": "2026-10-11T01:02",
+      "a": "ai",
+      "id": "KAN-075-4K5GK3",
+      "op": "create",
+      "w": "S7030N",
+      "col": "backlog",
+      "title": "viz 가이드 지침 문장과 실제 글자색 맞추기 — 저자가 정한 글자색과 칠해지는 노드·C4 글자색이 다른 가이드",
+      "verbatim": "후속 카드로 넘긴다 (Recommended) (KAN-069 검토 뒤 질문 「항목 3(가이드 지침 문장이 실제 글자색과 어긋남)을 어떻게 풀까요? 원인은 KAN-061 글자색 계산이 연결선 색을 먼저 골라, 저자가 글자색으로 정하고 다른 색은 금지한 가이드 4곳(artdeco·synthwave·darkluxe·hud-telemetry)에서 금지한 색이 칠해지는 것입니다.」에 대한 답)",
+      "parent": null,
+      "short": "가이드 글자색 문장 맞추기",
+      "purpose": "가이드 지침에 적힌 글자색 규칙과 실제로 칠해지는 노드·C4 글자색이 다른 가이드를 찾아, 문장을 그림에 맞출지 그림을 문장에 맞출지 정하고 맞춘다",
+      "reason": "KAN-061 글자색 계산이 연결선 색을 먼저 골라 artdeco-luxe·synthwave·darkluxe·hud-telemetry 에서 저자가 금지한 골드·네온·시안이 칠해진다(KAN-069 검토 항목 3 반려에서 확인)",
+      "goal": "가이드마다 지침 문장과 칠해지는 글자색이 맞고, 둘이 다시 어긋나면 검사가 잡는다",
+      "memo": "칠해지는 색이 저자 색과 다른 가이드 15개(KAN-069 착수 때 실측 189곳). 길 셋: 문장 고치기 / on 으로 저자 색 지정 / KAN-061 계산 후보 순서에서 boundary.labelColor 를 앞으로. KAN-069 병합 뒤 착수(tagColor 가 지워진 상태 기준)"
+    },
     {
       "seq": 279,
       "t": "2026-10-11T00:02",
@@ -2177,16 +2215,6 @@
       "w": "WXJKQG",
       "from": "backlog",
       "to": "doing"
-    },
-    {
-      "seq": 254,
-      "t": "2026-10-08T19:15",
-      "a": "ai",
-      "id": "KAN-064-AC0H6M",
-      "op": "waive",
-      "w": "7E5YYM",
-      "with_": "KAN-065-XSHEMV",
-      "reason": "재기록(사유의 절 번호 정정): 유저 선택(2026-10-08 「둘 다 용인」). 루트 README.md 에서 KAN-064 는 매니페스트 갱신 단락(사례 6·9·10)과 「개발과 품질 게이트」 절의 예시 두 줄만, KAN-065 는 포커스 대비 단락만 고친다"
     }
   ],
   "waivers": [
