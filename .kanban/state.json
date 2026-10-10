@@ -1573,12 +1573,22 @@
       "goal": "가이드마다 지침 문장과 칠해지는 글자색이 맞고, 둘이 다시 어긋나면 검사가 잡는다",
       "goal_hash": "9ccb7caa5b2b66bd81083a7bcea7e366c4b87d63",
       "memo": "칠해지는 색이 저자 색과 다른 가이드 15개(KAN-069 착수 때 실측 189곳). 길 셋: 문장 고치기 / on 으로 저자 색 지정 / KAN-061 계산 후보 순서에서 boundary.labelColor 를 앞으로. KAN-069 병합 뒤 착수(tagColor 가 지워진 상태 기준)",
-      "memo_hash": "972f6bb53301d6815ab283242601fb2be850d0fd"
+      "memo_hash": "972f6bb53301d6815ab283242601fb2be850d0fd",
+      "scope": [
+        "packages/tokens/src/visualization.ts",
+        "packages/visualization/src/tokens/**",
+        "packages/visualization-style-guide-catalog/src/**",
+        "apps/storybook/src/stories/_vizCatalogStory.tsx",
+        "README.md",
+        "packages/visualization/*.md",
+        ".changeset/kan-075-*.md"
+      ]
     }
   },
   "order": [
     "KAN-069-G0FGTJ",
     "KAN-071-FK1W8K",
+    "KAN-075-4K5GK3",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1649,8 +1659,7 @@
     "KAN-070-RCG2QV",
     "KAN-072-KW0G9B",
     "KAN-074-KAZBTF",
-    "KAN-066-T6NR80",
-    "KAN-075-4K5GK3"
+    "KAN-066-T6NR80"
   ],
   "recent": [
     {
