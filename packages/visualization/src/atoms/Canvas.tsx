@@ -3,6 +3,7 @@ import { CanvasContext } from '../context/CanvasContext';
 import type { BBox, NodeSpec, EdgeSpec } from '../types/data';
 import { vvar } from '../tokens/contract';
 import { Markers } from './Marker';
+import { useVizFoundation } from '../styleGuide/VisualizationStyleGuideProvider';
 
 export interface CanvasProps extends Omit<React.SVGAttributes<SVGSVGElement>, 'role'> {
   children?: ReactNode;
@@ -15,6 +16,7 @@ export interface CanvasProps extends Omit<React.SVGAttributes<SVGSVGElement>, 'r
   accessible?: 'img' | 'structured';
   markerStroke?: string;
   markerFill?: string;
+  /** 화살촉 크기. 적지 않으면 스타일 가이드의 `edge.marker.size`. */
   markerSize?: number;
 }
 
@@ -63,13 +65,14 @@ export const Canvas = React.forwardRef<SVGSVGElement, CanvasProps>(
       accessible = 'img',
       markerStroke,
       markerFill,
-      markerSize = 8,
+      markerSize,
       style,
       ...props
     },
     ref,
   ) => {
     const uid = useId().replace(/:/g, 'c');
+    const foundation = useVizFoundation();
 
     const registry = useMemo<Record<string, BBox>>(() => {
       if (data) return buildRegistryFromData(data.nodes);
@@ -110,7 +113,7 @@ export const Canvas = React.forwardRef<SVGSVGElement, CanvasProps>(
               uid={uid}
               stroke={markerStroke}
               fill={markerFill}
-              size={markerSize}
+              size={markerSize ?? foundation.edge.marker.size}
             />
           </defs>
           {children}

@@ -21,12 +21,6 @@ export interface C4BoxProps {
   children?: ReactNode;
 }
 
-const LEVEL_BORDER_WIDTH: Record<C4Level, number> = {
-  l1: 3,
-  l2: 2,
-  l3: 1.4,
-};
-
 export const C4Box = React.forwardRef<SVGGElement, C4BoxProps>(
   (
     {
@@ -47,7 +41,7 @@ export const C4Box = React.forwardRef<SVGGElement, C4BoxProps>(
   ) => {
     const effectiveFill = fill ?? vvar('c4', level, 'bgTint');
     const effectiveStroke = stroke ?? vvar('edge', 'stroke');
-    const borderWidth = LEVEL_BORDER_WIDTH[level];
+    const borderWidth = vvar('c4', level, 'borderWidth');
     const effectiveTag = tag ?? level;
     // 기본 면(c4 bgTint) 위 글자색. fill 을 직접 주면 그 면의 대비는 준 쪽 몫이라 종전 글자색을 둔다(KAN-061).
     const labelFill = fill === undefined ? vvar('on', 'c4', level, 'bgTint') : vvar('edge', 'stroke');
