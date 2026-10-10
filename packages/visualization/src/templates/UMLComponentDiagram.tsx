@@ -125,7 +125,7 @@ export function UMLComponentDiagram({
 }: UMLComponentDiagramProps) {
   if (children) {
     return (
-      <Canvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
+      <Canvas data-viz-notation viewBox={viewBox} width={width} height={height} title={title} {...props}>
         {children}
       </Canvas>
     );
@@ -147,6 +147,7 @@ export function UMLComponentDiagram({
 
   return (
     <Canvas
+      data-viz-notation
       data={{ nodes: allNodes }}
       viewBox={autoViewBox}
       width={width}

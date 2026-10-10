@@ -70,6 +70,8 @@ export function Flowchart({
 
   const nodes = data?.nodes ?? [];
   const edges = data?.edges ?? [];
+  // 대시 선이 섞이면 나머지 실선은 대비로 뜻을 갖는다 — 가이드 대시(edge.dashPattern)를 따르지 않고 실선으로 남긴다.
+  const solidDash = edges.some((e) => e.dashed) ? 'none' : undefined;
 
   const autoViewBox = viewBox ?? (() => {
     if (!nodes.length) return '0 0 400 300';
@@ -124,7 +126,7 @@ export function Flowchart({
           to={e.to}
           routing={e.routing ?? 'orthogonal'}
           markerEnd={e.markerEnd ?? 'arrow'}
-          strokeDasharray={e.dashed ? '6 4' : undefined}
+          strokeDasharray={e.dashed ? '6 4' : solidDash}
         />
       ))}
     </Canvas>

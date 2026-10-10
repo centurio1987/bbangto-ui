@@ -137,7 +137,7 @@ export function RequirementDiagram({
 }: RequirementDiagramProps) {
   if (children) {
     return (
-      <Canvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
+      <Canvas data-viz-notation viewBox={viewBox} width={width} height={height} title={title} {...props}>
         {children}
       </Canvas>
     );
@@ -155,6 +155,7 @@ export function RequirementDiagram({
 
   return (
     <Canvas
+      data-viz-notation
       data={{ nodes: reqs.map((r) => ({ id: r.id, x: r.x, y: r.y, width: r.width, height: r.height })) }}
       viewBox={autoViewBox}
       width={width}

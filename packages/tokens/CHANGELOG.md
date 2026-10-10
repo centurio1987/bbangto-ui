@@ -1,5 +1,58 @@
 # @centurio1987/bbangto-ui-tokens
 
+## 1.5.0
+
+### Minor Changes
+
+- d51cf96: 면 위 글자가 어느 스타일 가이드에서나 읽힌다(KAN-061).
+
+  Provider 가 면 토큰마다 그 위에 쓸 글자색을 `--bbangto-viz-on-*` CSS 변수로 함께 낸다.
+  대상 면은 `palette.p1~p8` · `shape.fill` · `canvas.bg` · `c4.l1~l3.bgTint` · `node.<kind>.fill` 이고, 이름은 면 경로를 따른다
+  (예: `palette.p2` 위 글자 → `--bbangto-viz-on-palette-p2`, `c4.l2.bgTint` → `--bbangto-viz-on-c4-l2-bg-tint`).
+  값은 가이드 글자색 넷(`edge.stroke` → `shape.stroke` → `boundary.labelColor` → `canvas.bg`) 중 처음으로 면과 4.5:1 을 넘는
+  것이고, 없으면 검정·흰색 중 대비가 큰 쪽이다. 반투명 면은 밑에 레인 띠 정도(검정 5%)의 음영이 깔려도 읽히는 쪽을 고른다.
+  `visualizationFoundationToStyleObject` 도 같은 변수를 함께 낸다.
+
+  ### tokens
+
+  `VisualizationFoundation` 에 선택 필드 `on` 이 생겼다. 가이드가 여기 적은 글자색은 계산값을 이긴다
+  (예: `on: { palette: { p1: '#FFFFFF' } }`). 적지 않은 자리는 계산값이다. 기존 가이드는 고칠 것이 없다.
+
+  ### visualization — 바뀐 동작
+
+  카탈로그 가이드 30개에서 글자 대비가 4.5:1 에 못 미치던 1538곳(템플릿 68개 표본 기준)이 모두 풀렸다.
+  그 대신 지금 읽히던 글자도 가이드에 따라 색이 바뀔 수 있다. 같은 면이면 어느 템플릿에서나 같은 글자색이 나온다.
+
+  - `NodeLabel` 기본 글자색: `edge.stroke` → `--bbangto-viz-on-shape-fill`. 보조 글자(`subtitle`)의 opacity 0.7 을 걷었다.
+  - `ClassBox` · `EntityTable` · `C4Box` · 의미 노드 7종(`PersonNode` 등): 기본 면 위 이름·태그·속성 글자가 그 면의 `on-*` 를
+    쓴다. `fill` 을 직접 주면 그 면의 대비는 준 쪽 몫이라 종전 글자색(`edge.stroke`)을 둔다.
+  - 팔레트 면 위 글자: Treemap · WorkBreakdownStructure · PacketDiagram · StackedBarChart · UserJourneyGantt · Mindmap ·
+    DMNDiagram · ArchiMateViewpointDiagram · Fishbone 머리 · C4DynamicDiagram 순번. `color`·`fill` 을 직접 주면 종전 글자색이다.
+  - 데이터마다 투명도가 바뀌는 면: Heatmap · ChoroplethMap(칸마다) · SankeyDiagram(노드마다 이름 밑 실제 면 — 이름 가운데를 덮는 나가는 리본, 없으면 바탕 — 으로) ·
+    ArchiMateDiagram(35% 계층 면). Provider 의 foundation 값으로 계산한다.
+  - 흐리게 쓰던 보조 글자의 opacity 를 걷었다: ER 속성 타입(0.6, 9px 로 구분) · QuadrantChart 사분면 이름(0.7) ·
+    DataLineage 설명(0.8) · RequirementDiagram 표기·본문(0.6·0.8) · Treemap·PacketDiagram 값(0.85).
+  - RequirementDiagram 머리 띠(검정 6%) 위 글자는 띠를 얹은 면으로 고른다. IsometricScene 라벨은 윗면과 그 둘레의 바닥 그림자·옆면 음영 위에서 모두 읽히는 색으로 고른다.
+
+  props 와 export 는 그대로다.
+
+### Patch Changes
+
+- 910cbb6: 스타일 가이드의 `edge.dashPattern` 이 `Edge` 연결선의 기본 대시를 정한다(KAN-057).
+
+  이 토큰은 타입에 선언돼 있었지만 계약 스타일시트도 `Edge` 도 읽지 않아, 가이드에 대시를 적어도 연결선은 실선이었다.
+  이제 계약 스타일시트가 `Edge` 연결선에 `stroke-dasharray: var(--bbangto-viz-edge-dash-pattern)` 을 건다.
+  `strokeDasharray` prop 은 지금처럼 인라인으로 나가 가이드 값을 이긴다. props 와 export 는 그대로다.
+
+  ### 바뀐 동작
+
+  - 카탈로그 가이드 30개와 base foundation 은 모두 `edge.dashPattern: ''`(실선)이라 지금 있는 그림은 바뀌지 않는다.
+  - 대시는 `Edge` 연결선에만 걸린다. 축선·눈금·수염처럼 같은 edge 채널(`data-bbangto-viz-edge`)을 쓰는 구조선은 실선으로 남는다.
+    연결선을 가르려고 `Edge` 의 `<path>` 에 `data-viz-part="connector"` 속성이 붙는다.
+  - `visualizationFoundationToStyleObject` 가 `*-dash-pattern` 의 빈 값을 `''` 대신 `none` 으로 낸다. React 는 빈 문자열 CSS
+    변수를 지우므로, 그대로 두면 대시 가이드 안에 겹친 실선 가이드의 연결선이 바깥 대시를 물려받았다.
+  - 가이드 기본값을 앱 스타일시트로 덮으려면 `[data-bbangto-viz-style-guide] [data-viz-part="connector"]` 보다 구체적인 선택자를 쓴다.
+
 ## 1.4.0
 
 ### Minor Changes

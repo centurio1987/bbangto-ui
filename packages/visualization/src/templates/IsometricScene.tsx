@@ -186,6 +186,7 @@ export function IsometricScene({
           <path
             key={`l${i}`}
             data-bbangto-viz-edge
+            data-viz-part="connector"
             data-bbangto-viz-edge-id={`${link.from}-${link.to}`}
             d={conn.d}
             style={{ fill: 'none' }}

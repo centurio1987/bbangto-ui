@@ -1,5 +1,122 @@
 # @centurio1987/bbangto-ui-visualization
 
+## 1.0.0
+
+### Major Changes
+
+- a1eca39: 채택 매니페스트 4종이 색인과 항목별 상세 두 층으로 나뉜다(KAN-064).
+
+  전에는 매니페스트 파일 하나에 항목 전부의 전체 메타가 들어 있었다. Claude 토크나이저로 재 보니 UI style guide 매니페스트
+  하나가 50,325토큰이라, AI 가 "파일 하나를 읽고 고른다"는 쓰임새가 성립하지 않았다. 이제 매니페스트 파일은 후보를 고를 때
+  쓰는 필드만 담은 **색인**이고, 고른 후보의 전체 메타는 패키지에 함께 실리는 **상세 파일**에서 읽는다.
+
+  | 패키지                            | 색인(서브패스)               | 색인 크기            | 상세                     |
+  | --------------------------------- | ---------------------------- | -------------------- | ------------------------ |
+  | style-guide-catalog               | `./manifest.json`            | 8,709토큰(전 50,325) | `./manifest/<name>.json` |
+  | visualization-style-guide-catalog | `./manifest.json`            | 5,179토큰(전 30,392) | `./manifest/<name>.json` |
+  | foundations                       | `./foundation.manifest.json` | 8,029토큰(전 37,081) | `./manifest/<slug>.json` |
+  | visualization                     | `./type.manifest.json`       | 6,675토큰(전 38,474) | `./manifest/<id>.json`   |
+
+  ### 깨지는 것
+
+  색인 서브패스의 모양이 항목 배열에서 `{ axis, detail, columns, rows }` 객체로 바뀐다. `columns` 가 열 이름이고, `rows` 의
+  각 배열이 그 순서대로 한 항목의 값을 담는다. `useWhen` · `avoidWhen` · `mood` · `characteristics` · `accessibility` ·
+  `related` · `completeness` 는 색인에 없고 상세 파일에만 있다.
+
+  ```ts
+  // 전
+  import manifest from "@centurio1987/bbangto-ui-style-guide-catalog/manifest.json";
+  manifest.find((e) => e.name === "cyberpunk-hud-01")?.meta?.useWhen;
+
+  // 후 — 색인에서 고르고, 상세에서 읽는다
+  import index from "@centurio1987/bbangto-ui-style-guide-catalog/manifest.json";
+  import detail from "@centurio1987/bbangto-ui-style-guide-catalog/manifest/cyberpunk-hud-01.json";
+  const nameAt = index.columns.indexOf("name");
+  index.rows.some((row) => row[nameAt] === "cyberpunk-hud-01"); // true
+  detail.meta?.useWhen;
+  ```
+
+  ### 그대로인 것
+
+  메타 스키마 타입(`StyleGuideMeta` · `FoundationMeta` · `VizTypeMeta`)과 `buildManifest` · `buildFoundationManifest` ·
+  `buildTypeManifest` · `selectStyleGuides` · `selectFoundations` · `selectVizTypes` 의 시그니처는 바뀌지 않는다.
+  코드에서 객체로 고르던 쓰임새는 영향이 없다.
+
+### Minor Changes
+
+- d51cf96: 면 위 글자가 어느 스타일 가이드에서나 읽힌다(KAN-061).
+
+  Provider 가 면 토큰마다 그 위에 쓸 글자색을 `--bbangto-viz-on-*` CSS 변수로 함께 낸다.
+  대상 면은 `palette.p1~p8` · `shape.fill` · `canvas.bg` · `c4.l1~l3.bgTint` · `node.<kind>.fill` 이고, 이름은 면 경로를 따른다
+  (예: `palette.p2` 위 글자 → `--bbangto-viz-on-palette-p2`, `c4.l2.bgTint` → `--bbangto-viz-on-c4-l2-bg-tint`).
+  값은 가이드 글자색 넷(`edge.stroke` → `shape.stroke` → `boundary.labelColor` → `canvas.bg`) 중 처음으로 면과 4.5:1 을 넘는
+  것이고, 없으면 검정·흰색 중 대비가 큰 쪽이다. 반투명 면은 밑에 레인 띠 정도(검정 5%)의 음영이 깔려도 읽히는 쪽을 고른다.
+  `visualizationFoundationToStyleObject` 도 같은 변수를 함께 낸다.
+
+  ### tokens
+
+  `VisualizationFoundation` 에 선택 필드 `on` 이 생겼다. 가이드가 여기 적은 글자색은 계산값을 이긴다
+  (예: `on: { palette: { p1: '#FFFFFF' } }`). 적지 않은 자리는 계산값이다. 기존 가이드는 고칠 것이 없다.
+
+  ### visualization — 바뀐 동작
+
+  카탈로그 가이드 30개에서 글자 대비가 4.5:1 에 못 미치던 1538곳(템플릿 68개 표본 기준)이 모두 풀렸다.
+  그 대신 지금 읽히던 글자도 가이드에 따라 색이 바뀔 수 있다. 같은 면이면 어느 템플릿에서나 같은 글자색이 나온다.
+
+  - `NodeLabel` 기본 글자색: `edge.stroke` → `--bbangto-viz-on-shape-fill`. 보조 글자(`subtitle`)의 opacity 0.7 을 걷었다.
+  - `ClassBox` · `EntityTable` · `C4Box` · 의미 노드 7종(`PersonNode` 등): 기본 면 위 이름·태그·속성 글자가 그 면의 `on-*` 를
+    쓴다. `fill` 을 직접 주면 그 면의 대비는 준 쪽 몫이라 종전 글자색(`edge.stroke`)을 둔다.
+  - 팔레트 면 위 글자: Treemap · WorkBreakdownStructure · PacketDiagram · StackedBarChart · UserJourneyGantt · Mindmap ·
+    DMNDiagram · ArchiMateViewpointDiagram · Fishbone 머리 · C4DynamicDiagram 순번. `color`·`fill` 을 직접 주면 종전 글자색이다.
+  - 데이터마다 투명도가 바뀌는 면: Heatmap · ChoroplethMap(칸마다) · SankeyDiagram(노드마다 이름 밑 실제 면 — 이름 가운데를 덮는 나가는 리본, 없으면 바탕 — 으로) ·
+    ArchiMateDiagram(35% 계층 면). Provider 의 foundation 값으로 계산한다.
+  - 흐리게 쓰던 보조 글자의 opacity 를 걷었다: ER 속성 타입(0.6, 9px 로 구분) · QuadrantChart 사분면 이름(0.7) ·
+    DataLineage 설명(0.8) · RequirementDiagram 표기·본문(0.6·0.8) · Treemap·PacketDiagram 값(0.85).
+  - RequirementDiagram 머리 띠(검정 6%) 위 글자는 띠를 얹은 면으로 고른다. IsometricScene 라벨은 윗면과 그 둘레의 바닥 그림자·옆면 음영 위에서 모두 읽히는 색으로 고른다.
+
+  props 와 export 는 그대로다.
+
+### Patch Changes
+
+- 910cbb6: 스타일 가이드의 `edge.dashPattern` 이 `Edge` 연결선의 기본 대시를 정한다(KAN-057).
+
+  이 토큰은 타입에 선언돼 있었지만 계약 스타일시트도 `Edge` 도 읽지 않아, 가이드에 대시를 적어도 연결선은 실선이었다.
+  이제 계약 스타일시트가 `Edge` 연결선에 `stroke-dasharray: var(--bbangto-viz-edge-dash-pattern)` 을 건다.
+  `strokeDasharray` prop 은 지금처럼 인라인으로 나가 가이드 값을 이긴다. props 와 export 는 그대로다.
+
+  ### 바뀐 동작
+
+  - 카탈로그 가이드 30개와 base foundation 은 모두 `edge.dashPattern: ''`(실선)이라 지금 있는 그림은 바뀌지 않는다.
+  - 대시는 `Edge` 연결선에만 걸린다. 축선·눈금·수염처럼 같은 edge 채널(`data-bbangto-viz-edge`)을 쓰는 구조선은 실선으로 남는다.
+    연결선을 가르려고 `Edge` 의 `<path>` 에 `data-viz-part="connector"` 속성이 붙는다.
+  - `visualizationFoundationToStyleObject` 가 `*-dash-pattern` 의 빈 값을 `''` 대신 `none` 으로 낸다. React 는 빈 문자열 CSS
+    변수를 지우므로, 그대로 두면 대시 가이드 안에 겹친 실선 가이드의 연결선이 바깥 대시를 물려받았다.
+  - 가이드 기본값을 앱 스타일시트로 덮으려면 `[data-bbangto-viz-style-guide] [data-viz-part="connector"]` 보다 구체적인 선택자를 쓴다.
+
+- b1dc968: 배포 README 에 「원하는 것이 없을 때」 절을 더하고, visualization 배포물에서 저장소 관리 문서 두 개를 뺐다(KAN-067).
+
+  원하는 컴포넌트나 유형이 없을 때, 앱을 만드는 에이전트가 앱 안에서 확장하지 않고 라이브러리를 떠나거나
+  개선 요청으로 결론을 내던 자리다. README 는 목록에서 고르는 법만 적었고, 함께 실린 `visualization-type-inventory.md`
+  의 「갭이 보이면 백로그에 행 추가」 지시는 라이브러리에 요청하라는 말로 읽힐 수 있었다.
+
+  - core README: 앱 안에 확장 컴포넌트를 만드는 순서 넷, `--bbangto-*` 변수 갈래, `ref`·`className` 이 넘어가지 않는
+    예외(`DataGrid`, React 18 의 `Skeleton`·`Text`), 감쌀 때 걸리는 자리 둘(아이콘 색 고정 · `Button` 의 hover 인라인 색),
+    별점 입력 예제.
+  - visualization README: atom·molecule 로 조립하는 순서와 부품 표, 결정 그림 예제, 범위 밖 3종(VT-520·VT-610·VT-611)의 사유.
+    「Provider 밖에서는 무채색으로 그려진다」는 서술은 틀렸다 — 색 prop 이 없는 도형은 검게 채워지고 엣지는 보이지 않는다
+    (chromium 실측). 그 사실로 고쳤다.
+  - visualization 배포물: `visualization-type-inventory.md`·`TYPE_METADATA_STRATEGY.md` 를 `files` 에서 뺐다. 두 문서는
+    저장소에 그대로 있고, README 와 `.d.ts` 주석이 GitHub 링크로 가리킨다.
+
+  ### 바뀐 동작
+
+  `node_modules/@centurio1987/bbangto-ui-visualization/` 에서 위 두 문서를 파일로 읽던 도구는 그 파일을 찾지 못한다.
+  README 의 「저장소에만 있는 문서」 링크로 옮긴다. 코드·export·타입은 바뀌지 않았다.
+
+- Updated dependencies [910cbb6]
+- Updated dependencies [d51cf96]
+  - @centurio1987/bbangto-ui-tokens@1.5.0
+
 ## 0.4.1
 
 ### Patch Changes

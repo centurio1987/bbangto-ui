@@ -43,7 +43,7 @@ export function PacketDiagram({
 
   if (children || !data) {
     return (
-      <Canvas viewBox={viewBox} title={title} data-bbangto-viz-chart="packet" {...canvasProps}>
+      <Canvas data-viz-notation viewBox={viewBox} title={title} data-bbangto-viz-chart="packet" {...canvasProps}>
         {children}
       </Canvas>
     );
@@ -70,7 +70,7 @@ export function PacketDiagram({
   const ticks: AxisTick[] = [{ pos: bitScale(0), label: '0' }, ...laid.map((l) => ({ pos: bitScale(l.endBit), label: String(l.endBit) }))];
 
   return (
-    <Canvas viewBox={viewBox} title={title} data-bbangto-viz-chart="packet" {...canvasProps}>
+    <Canvas data-viz-notation viewBox={viewBox} title={title} data-bbangto-viz-chart="packet" {...canvasProps}>
       <Axis orientation="x" x={plotLeft} y={rowTop - 6} length={plotRight - plotLeft} ticks={ticks} tickSize={4} labelFontSize={9} />
       {laid.map(({ f, i, x, w }) => (
         <g key={`${f.label}-${i}`} data-bbangto-viz-packet-field>

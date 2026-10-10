@@ -83,7 +83,7 @@ export function SequenceDiagram({
 }: SequenceDiagramProps) {
   if (children) {
     return (
-      <Canvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
+      <Canvas data-viz-notation viewBox={viewBox} width={width} height={height} title={title} {...props}>
         {children}
       </Canvas>
     );
@@ -106,7 +106,7 @@ export function SequenceDiagram({
   const headFill = vvar('canvas', 'bg');
 
   return (
-    <Canvas viewBox={autoViewBox} width={width} height={height} title={title} {...props}>
+    <Canvas data-viz-notation viewBox={autoViewBox} width={width} height={height} title={title} {...props}>
       {/* Fragments (behind lifelines) */}
       {fragments.map((f) => (
         <React.Fragment key={f.id}>
