@@ -8,10 +8,12 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "bbangto-source": "./src/index.ts",
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
     "./meta": {
+      "bbangto-source": "./src/meta/index.ts",
       "types": "./dist/meta/index.d.ts",
       "import": "./dist/meta/index.js"
     },
