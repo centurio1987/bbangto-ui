@@ -366,3 +366,4 @@
 {"seq": 257, "t": "2026-10-09T23:31", "a": "ai", "id": "KAN-067-WDY7N1", "op": "move", "w": "Y3FJNF", "from": "doing", "to": "review"}
 {"seq": 257, "t": "2026-10-10T00:21", "a": "ai", "id": "KAN-064-AC0H6M", "op": "waive", "w": "S7030N", "with_": "KAN-068-W6TE2S", "reason": "같은 package.json 4개를 건드리지만 순서가 정해져 있음 — KAN-068 배포를 먼저 끝낸 뒤 KAN-064 를 main 에 병합(KAN-064 검토 §3-5, 2026-10-09 유저 선택). KAN-068 은 version 줄, KAN-064 는 files·exports 줄"}
 {"seq": 258, "t": "2026-10-10T00:39", "a": "ai", "id": "KAN-067-WDY7N1", "op": "move", "w": "Y3FJNF", "from": "review", "to": "done"}
+{"seq": 258, "t": "2026-10-10T00:21", "a": "ai", "id": "KAN-068-W6TE2S", "op": "move", "w": "S7030N", "from": "backlog", "to": "todo"}
