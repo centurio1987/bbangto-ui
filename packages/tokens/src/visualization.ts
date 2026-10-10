@@ -17,7 +17,10 @@ export type VizNodeSemanticKind =
   | 'decision'
   | 'process';
 
-/** 시맨틱 노드 종류 하나의 paint 스펙. */
+/**
+ * 시맨틱 노드 종류 하나의 paint 스펙. 노드 위 글자색은 여기 두지 않는다 — `fill` 면마다 계산한
+ * `--bbangto-viz-on-node-*` 를 쓰고, 정하려면 `VisualizationFoundation.on.node` 에 적는다.
+ */
 export interface VizNodeSemanticStyle {
   fill: string;
   keyline: string;
@@ -34,6 +37,7 @@ export interface VisualizationFoundation {
   readonly canvas: {
     readonly bg: string;
     readonly grid: string;
+    /** 격자 한 칸(px). `GridLayer` 의 기본 간격이다 — `gridUnit` prop 이 덮는다. */
     readonly gridUnit: number;
   };
 
@@ -69,6 +73,7 @@ export interface VisualizationFoundation {
     readonly dashPattern: string;
     readonly cornerRadius: number;
     readonly marker: {
+      /** 화살촉 크기(px). `Canvas` 가 그리는 마커의 기본 크기다 — `Canvas` 의 `markerSize` prop 이 덮는다. */
       readonly size: number;
       readonly arrow: string;
       readonly diamond: string;
@@ -77,12 +82,20 @@ export interface VisualizationFoundation {
     };
   };
 
+  /**
+   * C4 상자(`C4Box`)의 수준별 면과 테두리. `borderWidth` 는 테두리 두께, `bgTint` 는 면 색이다.
+   * 상자 위 글자색은 여기 두지 않는다 — `bgTint` 면마다 계산한 `--bbangto-viz-on-c4-*` 를 쓰고, 정하려면 `on.c4` 에 적는다.
+   */
   readonly c4: {
     readonly l1: { readonly borderWidth: number; readonly bgTint: string };
     readonly l2: { readonly borderWidth: number; readonly bgTint: string };
     readonly l3: { readonly borderWidth: number; readonly bgTint: string };
   };
 
+  /**
+   * 경계(`Boundary`)의 선과 라벨. 두께·대시·모서리 반지름은 `Boundary` 의 기본값이고 `strokeWidth`·`dashPattern`·`radius`
+   * prop 이 덮는다. 대시는 계약 스타일시트가 건다(빈 문자열은 실선). 경계는 관계선이 아니라 표준 표기 템플릿 안에서도 이 값을 따른다.
+   */
   readonly boundary: {
     readonly stroke: string;
     readonly width: number;

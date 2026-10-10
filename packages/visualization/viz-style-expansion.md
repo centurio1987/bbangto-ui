@@ -171,7 +171,7 @@ Glitch_Duotone(#33) · Organic_Blob(#34) · Halftone_Print(#36) · Pixel_Retro(#
 - canvas `#FFFFFF` / grid `#E6E6E6` gridUnit 8(모듈러). 잉크 `#111111`, 액센트 레드 `#E1000F`(단일).
 - palette: 무채색 그레이 램프(`#111`→`#BDBDBD`) + p5 레드. **색 아닌 위치·크기·굵기로 위계**(Isotype 규칙).
 - node: 전 kind 무채움+헤어라인 1px, 강조 kind만 레드 fill·흰 라벨. edge: orthogonal·1px·소형 삼각. radius 0.
-- typography: 헬베티카/그로테스크, titleWeight 700, mono 없음. 라벨 좌측정렬.
+- typography: 헬베티카/그로테스크, 제목 굵기 700, mono 없음. 라벨 좌측정렬.
 - meta: family `viz-swiss-systematic`, tags `[grid, sharp, monochrome, technical, typographic, light]`,
   mood `{formality:5,energy:2,warmth:1,density:3,ornament:1}`, domains `[dashboard, editorial, docs, fintech]`,
   contrastIntent `aaa`(흑백+레드 = 고대비). related `[minimal-line-01, corporate-schematic-01]`.
@@ -303,9 +303,10 @@ KAN-013/014로 분해한 패턴 답습):
 
 §4-b는 "인쇄/소프트 계열을 `한 패밀리 + colorway`로 묶으면 실질 저작 단위 ~12종"이라 전제했다. **이 전제는 현 viz 게이트에서 성립하지 않는다.**
 
-- `apps/storybook/src/stories/_vizCatalogStory.tsx`의 **색-스킴 전용 불변식**(line 319–326): 2번째 이상 preset은
-  **색상 토큰만** 달라야 하며 `typography · spacing · canvas.gridUnit · edge.width · shape.strokeWidth · boundary.radius`는
-  base와 deep-equal이어야 한다(위반 시 play 실패).
+- `apps/storybook/src/stories/_vizCatalogStory.tsx`의 **색-스킴 전용 불변식**(line 327–339): 2번째 이상 preset은
+  **색상 토큰만** 달라야 하며 `typography · canvas.gridUnit · edge.width · edge.marker.size · shape.strokeWidth ·
+  boundary.radius·width·dashPattern · c4.l1~l3.borderWidth`는 base와 같아야 한다(위반 시 play 실패).
+  (`spacing` 은 KAN-069 에서 걷었다 — 그림에 쓰이지 않던 토큰이다.)
 - 각 스타일의 모티프(riso 오버프린트/그레인, halftone 망점, colorsep 채널오프셋; clay inset 퍼피, neumorph 동색
   이중그림자, kawaii 마스코트)는 **wrapperComponents / 모티프 CSS**에 있고 preset 색 토큰으로 스와핑되지 않는다.
 - 따라서 인쇄 3종·소프트 3종은 **색상만의 차이가 아니라** 서로 다른 wrapper·그림자·형태를 요구 → **별도 가이드가 강제**된다.
@@ -373,7 +374,7 @@ family 수 영향: 기존 viz 13 − 1(riso 리네임) + `viz-print-ink` + `viz-
 2. 그룹 family(print-ink/soft-puffy)는 **guide마다 별도 wrapper**지만 **동일 family 문자열**을 `meta.family`에 부여 →
    `selectStyleGuides` family 축에서 함께 랭크된다.
 3. **저대비 위험군**(Neumorphic 동색 이중그림자, Ukiyoe 흙빛 평면)은 `shape.stroke↔canvas.bg ≥4.5`, 채운 kind
-   `tagColor↔fill ≥4.5`, `auditVizContrast over-claim 0`을 특히 유의 — 정직한 `contrastIntent` 하향 허용
+   글자색(`--bbangto-viz-on-node-*`)↔fill ≥4.5, `auditVizContrast over-claim 0`을 특히 유의 — 정직한 `contrastIntent` 하향 허용
    (KAN-029 Swiss `aa`·KAN-031 Bauhaus red 다크닝 선례).
 4. **§5-c 자동 편입**: meta + paint가 해석되면 `TemplateStyleMatrix` · `VizCatalogDecisionTable`가 카운트를 데이터파생으로
    단언하므로 신규 가이드가 가이드별 테스트 없이 자동 green을 유지한다.

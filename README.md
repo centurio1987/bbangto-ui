@@ -1011,13 +1011,15 @@ tokens를 따로 넣는 이유가 있습니다. `VizFoundationPreset` 타입이 
      node: Object.fromEntries(
        Object.entries(base.node).map(([kind, style]) => [
          kind,
-         { ...style, keyline: INK, tagColor: INK },
+         { ...style, keyline: INK },
        ]),
      ) as VisualizationFoundation['node'],
    };
    ```
 
    `node`는 `person`·`external`·`container`·`database`·`queue`·`decision`·`process` 일곱 kind를 전부 채워야 합니다. base의 `node` 맵을 순회해 덮어쓰면 빠지는 kind가 생기지 않아요. 손으로 객체 리터럴을 다시 쓰면 하나 빠뜨리기 쉽습니다.
+
+   노드와 C4 상자 위 글자색은 적지 않습니다. visualization이 면마다 4.5:1을 넘는 색을 골라 `--bbangto-viz-on-*` 변수로 냅니다. 직접 정하고 싶으면 `on: { node: { queue: { fill: '#FFFFFF' } } }`처럼 적으면 되고, 그때 대비는 적은 쪽이 책임집니다. 경계선(`boundary`의 대시·두께·모서리), C4 테두리 두께(`c4.l1~l3.borderWidth`), 화살촉 크기(`edge.marker.size`), 격자 간격(`canvas.gridUnit`)은 적은 값이 그림에 그대로 나옵니다. 컴포넌트에 prop을 직접 넘기면 그 prop이 이깁니다.
 
 3. `makeVizColorway`로 색 스킴을 늘립니다.
 
@@ -1029,7 +1031,6 @@ tokens를 따로 넣는 이유가 있습니다. `VizFoundationPreset` 타입이 
      name: 'paper-plot-01-night',
      canvas: { bg: '#141821', grid: '#232A38' },
      ink: '#E8EDF5',
-     tagColor: '#141821',
      boundaryLabelColor: '#B9C2D2',
      c4Tints: ['rgba(255,255,255,0.06)', 'rgba(255,255,255,0.03)', 'transparent'],
    });
@@ -1040,7 +1041,7 @@ tokens를 따로 넣는 이유가 있습니다. `VizFoundationPreset` 타입이 
    ];
    ```
 
-   두 번째 foundation을 손으로 복사하지 않고 헬퍼를 쓰는 이유는 색 스킴에 걸린 규칙 때문입니다. preset은 색만 달라야 하고 나머지 토큰은 base와 같아야 해요. 복사하다 `gridUnit`이나 `edge.width`를 함께 건드리면 `apps/storybook/src/stories/_vizCatalogStory.tsx:326-331`의 검사가 빨개집니다. preset을 하나만 두는 것도 안 됩니다. 같은 파일 314행이 두 개 이상을 요구해요. 그리고 첫 preset의 `foundations`는 `sg.foundations`와 **같은 객체**여야 합니다. 319행이 `toBe`로 참조 동일성을 보기 때문에 값이 똑같은 복사본을 넣으면 실패합니다.
+   두 번째 foundation을 손으로 복사하지 않고 헬퍼를 쓰는 이유는 색 스킴에 걸린 규칙 때문입니다. preset은 색만 달라야 하고 나머지 토큰은 base와 같아야 해요. 복사하다 `gridUnit`이나 `edge.width`를 함께 건드리면 `apps/storybook/src/stories/_vizCatalogStory.tsx:327-339`의 검사가 빨개집니다. preset을 하나만 두는 것도 안 됩니다. 같은 파일 316행이 두 개 이상을 요구해요. 그리고 첫 preset의 `foundations`는 `sg.foundations`와 **같은 객체**여야 합니다. 321행이 `toBe`로 참조 동일성을 보기 때문에 값이 똑같은 복사본을 넣으면 실패합니다.
 
 4. `useVizMotifStyle`로 CSS를 주입하고 wrapper를 만듭니다.
 
@@ -1132,9 +1133,9 @@ tokens를 따로 넣는 이유가 있습니다. `VizFoundationPreset` 타입이 
    console.log(formatVizViolations(violations)); // 통과하면 'no violations (위반 없음)'
    ```
 
-   이 감사는 `meta.accessibility.contrastIntent`에 적은 선언과 실측을 대조합니다. `'aa'`면 4.5, `'aaa'`면 7이 기준이에요. 보는 자리는 셋입니다. `node.<kind>.tagColor` 대 그 kind의 `fill`, `c4.l{1,2,3}.labelColor` 대 `bgTint`, `boundary.labelColor` 대 `canvas.bg`.
+   이 감사는 `meta.accessibility.contrastIntent`에 적은 선언과 실측을 대조합니다. `'aa'`면 4.5, `'aaa'`면 7이 기준이에요. 보는 자리는 셋이고, 셋 다 실제로 칠해지는 글자색을 잽니다. 노드 글자색(`--bbangto-viz-on-node-<kind>-fill`) 대 그 kind의 `fill`, C4 라벨 글자색(`--bbangto-viz-on-c4-l{1,2,3}-bg-tint`) 대 `bgTint`, `boundary.labelColor` 대 `canvas.bg`입니다. 노드·C4 글자색은 `on`에 적은 값이 있으면 그 값이고 없으면 visualization이 계산한 값이에요. 계산값은 4.5:1을 넘게 고르므로 `'aa'` 가이드는 대개 그대로 통과합니다. `'aaa'`를 선언했다면 7:1에 못 미치는 면이 나올 수 있고, 그 면에는 `on`으로 글자색을 정합니다.
 
-   말로만 하면 감이 안 오니 깨지는 모양을 하나 보겠습니다. `node.queue.fill`을 `#E7E058`로 두고 `tagColor`를 `#FFFFFF`로 적으면 대비가 1.38이라 이런 줄이 나옵니다.
+   말로만 하면 감이 안 오니 깨지는 모양을 하나 보겠습니다. `node.queue.fill`을 `#E7E058`로 두고 `on: { node: { queue: { fill: '#FFFFFF' } } }`로 글자색을 정하면 대비가 1.38이라 이런 줄이 나옵니다.
 
    ```
    paper-plot-01/default node.queue: #FFFFFF on rgba(231, 224, 88, 1) = 1.38 (< 4.5) [below-threshold]

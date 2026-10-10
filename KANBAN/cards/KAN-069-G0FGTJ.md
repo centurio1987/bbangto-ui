@@ -60,7 +60,7 @@ scope 는 이 워크트리에서 정했으므로 main 의 `dep-check` 에는 이
 - [x] `S2` 경계선 잇기 — `atoms/Boundary.tsx`·`provider/contractCss.ts`. 사각형에 `data-viz-part="boundary"`, 대시는 prop 을 적었을 때만 인라인, 두께·모서리 기본값은 `useVizFoundation()`. 라벨 위치와 halo 두께가 실제 두께를 따른다. 완료 기준: ②의 경계 검사 초록, ①에서 경계 잎 3개가 빠짐, TemplatePaintGate·Headless·TemplateDashGate 초록.
 - [x] `S3` C4 테두리·화살촉·격자 잇기 — `molecules/C4Box.tsx`(`vvar('c4', level, 'borderWidth')`)·`atoms/Canvas.tsx`(`markerSize` 기본값)·`atoms/GridLayer.tsx`(`gridUnit` 기본값). 완료 기준: ② 전부 초록, ①에서 잇는 잎 8개가 모두 빠짐.
 - [x] `S4` 걷기 — tokens 타입·viz `tokens/base.ts`·`tokens/types.ts`·카탈로그 가이드 30개와 `_foundation.ts`·지침 문자열 셋에서 잎 28개를 지운다. 접근성 감사와 `_vizCatalogStory.tsx` 4번 검사를 실제 글자색(`--bbangto-viz-on-*`)으로 옮기고, 걸리는 가이드(`darkluxe-01` 등)는 `on` 덮어쓰기로 맞춘다. 완료 기준: ① 초록(남은 잎 58개 전부 읽힘), `pnpm typecheck` 초록, 감사 over-claim 0.
-- [ ] `S5` 문서와 changeset — tokens JSDoc(잇는 필드의 동작과 prop 우선), 루트 `README.md`(사용자 가이드 예시의 `tagColor`, 감사 설명), `packages/visualization/viz-style-expansion.md`·`style-classification.md`, `contractCss.ts` 주석, `.changeset/kan-069-*.md`(tokens·visualization·catalog major). 완료 기준: 걷은 잎 이름이 소스·현행 문서에서 0건(CHANGELOG·칸반 이력 제외).
+- [x] `S5` 문서와 changeset — tokens JSDoc(잇는 필드의 동작과 prop 우선), 루트 `README.md`(사용자 가이드 예시의 `tagColor`, 감사 설명), `packages/visualization/viz-style-expansion.md`·`style-classification.md`, `contractCss.ts` 주석, `.changeset/kan-069-*.md`(tokens·visualization·catalog major). 완료 기준: 걷은 잎 이름이 소스·현행 문서에서 0건(CHANGELOG·칸반 이력 제외).
 - [ ] `S6` 품질 게이트 — 5종을 CLAUDE.md 순서로 `bash -c` 에서 돌리고, 새 스토리 파일만 `a11y: { test: 'error' }` 로 임시 강제해 돌린 뒤 되돌린다. 완료 기준: 다섯 다 초록, a11y 결과를 수행 내역에 적는다.
 
 ## 검증
@@ -91,3 +91,5 @@ scope 는 이 워크트리에서 정했으므로 main 의 `dep-check` 에는 이
 - 2026-10-10T23:30 · s:855b94cf · S3 done — C4 테두리(vvar c4.level.borderWidth)·화살촉(Canvas markerSize 기본값=edge.marker.size)·격자(GridLayer gridUnit 기본값=canvas.gridUnit) 잇기. viz·카탈로그 스토리 305/305, 단위 테스트 남은 잎 28 = 걷을 것 전부
 - 2026-10-10T23:30 · s:855b94cf · S4 doing — 착수
 - 2026-10-10T23:44 · s:855b94cf · S4 done — 잎 28개 걷기 — tokens 타입·viz base·카탈로그 30개(+_foundation·지침 문장)에서 지움. 가이드 모양 검사(foundationShape.test.ts) 신설. 감사를 실제 글자색(--bbangto-viz-on-*)으로 옮김 → darkluxe oxblood 노드7·C4 3곳(5.87~6.75<7) 걸려 on 으로 크림 지정. tokenUsage 초록·viz 288·catalog 48·스토리 305 초록·typecheck 초록
+- 2026-10-10T23:45 · s:855b94cf · S5 doing — 착수
+- 2026-10-10T23:47 · s:855b94cf · S5 done — 문서·changeset — tokens JSDoc(이은 필드 4묶음·글자색은 on), 루트 README(가이드 예시·감사 설명·줄 번호 316/321/327-339), viz-style-expansion·style-classification, changeset 세 패키지 major. 검증 grep 남은 것은 viz 패턴 데이터 item.glyph·core UI motion 토큰·core 지역 변수 iconStyle·감사 주석의 이력 한 줄(의도)뿐

@@ -203,7 +203,7 @@
 
 | 패밀리 | 대응 가이드 | 상태 · 조치 |
 |---|---|---|
-| F2 Corporate_Schematic | Corporate_Schematic_01 | **구현 ✓ (ORD-009).** 24장 최대 패밀리 — 브랜드 아이콘 배제 규칙(아래 「횡단 구현 규칙」 6) 하에 중립 액센트 타일, kind별 tagColor 혼용(오렌지·그린=다크 텍스트), colorway `default`/`slide-dark`. |
+| F2 Corporate_Schematic | Corporate_Schematic_01 | **구현 ✓ (ORD-009).** 24장 최대 패밀리 — 브랜드 아이콘 배제 규칙(아래 「횡단 구현 규칙」 6) 하에 중립 액센트 타일, kind별 글자색 혼용(오렌지·그린=다크 텍스트, 글자색은 면마다 계산), colorway `default`/`slide-dark`. |
 | F1 Editorial_Accent | Minimal_Line_01 | **정합 완료 (ORD-009).** 라인아트 서브모드(a) = default/slate + **`editorial` preset(b)** 추가. 레드 #E8321F는 텍스트 대비 미달(4.07/4.28 실측)이라 그래픽 블록 전용 — guidelines에 금지 규칙 + 다크 레드 #B3271A 대안 명시. |
 | F3 Flat_Pop | Colorful_Flat_01 | 커버 ✓ + **`bento-dark` preset 추가 (ORD-009)** — 블랙 그라운드 + 피치/오렌지 램프(infographic_colorful_05). |
 | F4 Marker_Sketchnote | marker-sketchnote-01 | **구현 ✓ (KAN-014).** feTurbulence 고정 seed 지터 필터 + 앰버 하이라이트 + 손글씨(cursive), preset `default`(paper)/`darkboard`. 구 스펙명 HandDrawn_Marker_01. |
