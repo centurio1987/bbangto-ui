@@ -5,7 +5,7 @@ created: 2026-10-10
 branch: KAN-070-RCG2QV
 worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-070-RCG2QV
 base: 0a81094
-status: 검토 대기
+status: 승인
 ---
 
 # KAN-070-RCG2QV 검토 요청 — viz 연결선 대시 범위 — 어느 선이 스타일 가이드 대시를 따르는가 (Edge 밖 관계선 넷 · 실선이 뜻을 갖는 Edge 선)
@@ -295,9 +295,11 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-070-RCG2QV --add
      frontmatter 의 status 도 함께 고친다. 손으로 적어도 되지만, 그때는 수렴 검사를
      안 거치므로 `validate` 가 항목 판정과 어긋난 승인을 error 로 잡는다. -->
 
-**판정**: (아직 없습니다)
+**판정**: 승인
 
 **판정 이력**:
+
+- 승인 · 유저 · 2026-10-10
 
 - 승인이면 → `apply --op move --id KAN-070-RCG2QV --to done` 뒤에 `main` 병합과 워크트리 정리(출력의 `cleanup`)
 - 반려면 → `apply --op move --id KAN-070-RCG2QV --to doing` 뒤에 `doc-log --entry "<반려 사유>"`.
