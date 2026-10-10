@@ -1,6 +1,7 @@
 # KANBAN 변경 이력
 > 최근 50건. 이보다 오래된 이력은 archive.jsonl 로 압축 보관한다.
 
+- #276 2026-10-10 22:05 · ai · KAN-074-KAZBTF 이동 검토 → 완료
 - #275 2026-10-10 04:16 · ai · KAN-074-KAZBTF 이동 진행 중 → 검토
 - #274 2026-10-10 04:07 · ai · KAN-074-KAZBTF 이동 할 일 → 진행 중
 - #273 2026-10-10 03:57 · ai · KAN-074-KAZBTF 생성 "미배포 변경 배포 — KAN-057·061·067 과 KAN-064 major 4개 (tokens 1.5.0 · core 1.2.2 · visualization·style-guide-catalog·visualization-style-guide-catalog 1.0.0 · foundations 2.0.0)" → 할 일
@@ -50,4 +51,3 @@
 - #250 2026-10-08 19:05 · ai · KAN-064-AC0H6M 독립성 겹침 용인 (상대 KAN-055-34A57K) — 재기록(scope 에 jsdoc.test.ts·visualization README 를 더해 무효, KAN-055 와 겹치는 파일은 그대로): 유저 선택(2026-10-08 「둘 다 용인」). package.json 3개는 KAN-064 가 scripts.prebuild·files 만, KAN-055 는 version 만 고친다. changeset 은 KAN-064 가 kan-064-manifest-index.md 한 장을 더할 뿐이다. 배포 전에 병합되면 major 가 그 배포에 실리므로 병합 때 KAN-055 상태를 확인한다
 - #249 2026-10-08 18:56 · ai · KAN-065-XSHEMV 이동 진행 중 → 검토
 - #249 2026-10-08 18:43 · ai · KAN-064-AC0H6M 독립성 겹침 용인 (상대 KAN-065-XSHEMV) — 재기록(scope 에 census 게이트·상세 폴더를 더해 무효, 겹치는 파일은 그대로): 유저 선택(2026-10-08 「둘 다 용인」). 루트 README.md 에서 KAN-064 는 기여 절차 4단계의 매니페스트 표와 그 아래 단락만, KAN-065 는 포커스 대비 단락만 고친다
-- #248 2026-10-08 18:40 · ai · KAN-065-XSHEMV 이동 할 일 → 진행 중

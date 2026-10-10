@@ -61,18 +61,6 @@
 ## 진행 중
 
 ## 검토
-- `KAN-074-KAZBTF` 미배포 변경 배포 — KAN-057·061·067 과 KAN-064 major 4개 (tokens 1.5.0 · core 1.2.2 · visualization·style-guide-catalog·visualization-style-guide-catalog 1.0.0 · foundations 2.0.0) — 생성:ai · 최종:ai · 갱신:2026-10-10
-  - 짧은 제목: major 포함 배포
-  - 목적: main 에 쌓인 changeset 네 장(KAN-057·061·064·067)으로 패키지 6개 버전을 올려 GitHub Packages 에 배포한다
-  - 이유: KAN-073 보관 때 057·061·067 을 KAN-064 major 와 함께 내기로 정했고(2026-10-10 유저), 외부 앱은 배포된 버전만 받는다
-  - 목표: 레지스트리에 새 버전 6개가 올라가고, 배포본에서 changeset 마다 변경 하나씩이 확인되며, 외부 앱에 major 업그레이드 안내 문구가 남는다
-  - 메모: push 하면 main 로컬 커밋 전부와 release.yml 이 나간다. 절차는 KAN-068 과 같다(S1 점검 → S2 push·Version PR 대조·병합 → S3 배포본 확인과 전달)
-  - 실행 문서: KANBAN/cards/KAN-074-KAZBTF.md (3/3 · 최근 10-10)
-  - 검토 문서: KANBAN/reviews/KAN-074-KAZBTF.review.md (승인 0/1 · 검토 대기)
-  - 원문:
-    ```text
-    배포 카드 만들고 push 배포 진행
-    ```
 
 ## 완료
 - `KAN-020` visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현 — 생성:유저 · 최종:유저 · 갱신:2026-08-14
@@ -629,4 +617,16 @@
     ```text
     이 레포에는 ai agent가 라이브러리를 효율적으로 사용할 수 있도록 매니페스트를 제공하고 있는데, 매니페스트가 실제로 이득이 되는지, 아니면, 오버헤드가 더 큰지 판단해줘
     (진단 후) 너의 진단을 반영한 전략을 수립하고 칸반 카드를 만들어라
+    ```
+- `KAN-074-KAZBTF` 미배포 변경 배포 — KAN-057·061·067 과 KAN-064 major 4개 (tokens 1.5.0 · core 1.2.2 · visualization·style-guide-catalog·visualization-style-guide-catalog 1.0.0 · foundations 2.0.0) — 생성:ai · 최종:ai · 갱신:2026-10-10
+  - 짧은 제목: major 포함 배포
+  - 목적: main 에 쌓인 changeset 네 장(KAN-057·061·064·067)으로 패키지 6개 버전을 올려 GitHub Packages 에 배포한다
+  - 이유: KAN-073 보관 때 057·061·067 을 KAN-064 major 와 함께 내기로 정했고(2026-10-10 유저), 외부 앱은 배포된 버전만 받는다
+  - 목표: 레지스트리에 새 버전 6개가 올라가고, 배포본에서 changeset 마다 변경 하나씩이 확인되며, 외부 앱에 major 업그레이드 안내 문구가 남는다
+  - 메모: push 하면 main 로컬 커밋 전부와 release.yml 이 나간다. 절차는 KAN-068 과 같다(S1 점검 → S2 push·Version PR 대조·병합 → S3 배포본 확인과 전달)
+  - 실행 문서: KANBAN/cards/KAN-074-KAZBTF.md (3/3 · 최근 10-10)
+  - 검토 문서: KANBAN/reviews/KAN-074-KAZBTF.review.md (승인 1/1 · 승인)
+  - 원문:
+    ```text
+    배포 카드 만들고 push 배포 진행
     ```

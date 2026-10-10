@@ -5,7 +5,7 @@ created: 2026-10-10
 branch: KAN-074-KAZBTF
 worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-074-KAZBTF
 base: 9cbd196
-status: 검토 대기
+status: 승인
 ---
 
 # KAN-074-KAZBTF 검토 요청 — 미배포 변경 배포 — KAN-057·061·067 과 KAN-064 major 4개 (tokens 1.5.0 · core 1.2.2 · visualization·style-guide-catalog·visualization-style-guide-catalog 1.0.0 · foundations 2.0.0)
@@ -133,7 +133,7 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-074-KAZBTF --add
 **전체 승인은 살아있는 항목이 전부 승인일 때만 섭니다**(철회는 분모에서 빠집니다). 하나라도
 반려·추가 의견·미정이면 4항의 전체 승인도 `→ 완료` 이동도 종료코드 14로 거부됩니다.
 
-- [ ] 외부 앱에 보낼 문구를 지금 그대로 보낼 것인가 — 추천은 그대로 보내기입니다
+- [x] 외부 앱에 보낼 문구를 지금 그대로 보낼 것인가 — 추천은 그대로 보내기입니다
     - **배경**
       - 외부 앱은 배포된 버전만 설치할 수 있다. 이번 배포는 패키지 넷이 major 라 앱이 버전 범위를 올려야 받는다. 이 문구가 그 안내다. 원문: KANBAN/cards/KAN-074-KAZBTF.md:92
       - 문구에는 새 버전과 범위를 올려야 하는 패키지, 깨지는 곳 하나(매니페스트 JSON 색인 모양), 바뀐 동작 셋(viz 글자색 · 연결선 대시 · visualization 배포물에서 빠진 문서 둘)이 들어 있다. 원문: KANBAN/cards/KAN-074-KAZBTF.md:92
@@ -148,7 +148,9 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-074-KAZBTF --add
     | **추천** 그대로 보낸다 | 매니페스트 JSON 을 읽는 앱은 문구의 설명(columns 순서 · ./manifest/<이름>.json)만 보고 옮긴다 | 대부분의 앱은 범위만 올리면 끝나고, 매니페스트를 읽는 앱만 그 자리를 고친다 |
     | 저장소 CHANGELOG 의 전후 예제를 덧붙여 보낸다 | 문구가 길어진다 | 매니페스트를 읽는 앱이 예제를 그대로 따라 옮길 수 있다 |
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 승인 · 유저 · 2026-10-10
 
     > **추가 의견** — _아직 없습니다._
 
@@ -166,9 +168,11 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-074-KAZBTF --add
      frontmatter 의 status 도 함께 고친다. 손으로 적어도 되지만, 그때는 수렴 검사를
      안 거치므로 `validate` 가 항목 판정과 어긋난 승인을 error 로 잡는다. -->
 
-**판정**: (아직 없습니다)
+**판정**: 승인
 
 **판정 이력**:
+
+- 승인 · 유저 · 2026-10-10
 
 - 승인이면 → `apply --op move --id KAN-074-KAZBTF --to done` 뒤에 `main` 병합과 워크트리 정리(출력의 `cleanup`)
 - 반려면 → `apply --op move --id KAN-074-KAZBTF --to doing` 뒤에 `doc-log --entry "<반려 사유>"`.
