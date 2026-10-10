@@ -179,6 +179,20 @@ export function makeVizCatalogStories(
         }
       }
 
+      // 5. 지침 문장이 정한 글자색(on.ink, KAN-075) — Provider 가 루트에 실제로 넣은 노드 글자색이 그 색이다.
+      //    불투명 hex fill 위에서 그 색이 4.5:1 을 넘는 kind 만 본다(반투명 면은 계산이 음영까지 재므로 뺀다).
+      const ink = sg.foundations.on?.ink;
+      if (ink) {
+        for (const k of kinds) {
+          const { fill } = sg.foundations.node[k];
+          const ratio = /^#[0-9a-f]{6}$/i.test(fill) ? contrastRatio(ink, fill) : null;
+          if (ratio != null && ratio >= 4.5) {
+            const painted = style.getPropertyValue(`--bbangto-viz-on-node-${String(k)}-fill`).trim();
+            await expect(painted.toLowerCase()).toBe(ink.toLowerCase());
+          }
+        }
+      }
+
       await expectNoForbiddenTokens(canvasElement);
     },
   };

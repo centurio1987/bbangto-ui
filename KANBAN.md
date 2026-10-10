@@ -25,7 +25,7 @@
   - 이유: KAN-061 글자색 계산이 연결선 색을 먼저 골라 artdeco-luxe·synthwave·darkluxe·hud-telemetry 에서 저자가 금지한 골드·네온·시안이 칠해진다(KAN-069 검토 항목 3 반려에서 확인)
   - 목표: 가이드마다 지침 문장과 칠해지는 글자색이 맞고, 둘이 다시 어긋나면 검사가 잡는다
   - 메모: 칠해지는 색이 저자 색과 다른 가이드 15개(KAN-069 착수 때 실측 189곳). 길 셋: 문장 고치기 / on 으로 저자 색 지정 / KAN-061 계산 후보 순서에서 boundary.labelColor 를 앞으로. KAN-069 병합 뒤 착수(tagColor 가 지워진 상태 기준)
-  - 실행 문서: KANBAN/cards/KAN-075-4K5GK3.md (0/5 · 최근 10-11)
+  - 실행 문서: KANBAN/cards/KAN-075-4K5GK3.md (1/5 · 최근 10-11)
   - 계획 리포트: KANBAN/reports/KAN-075-4K5GK3.report.html (낡음)
   - 원문:
     ```text

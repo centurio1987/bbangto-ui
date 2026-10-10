@@ -208,3 +208,45 @@ describe('visualizationFoundationToStyleObject — --bbangto-viz-on-*', () => {
     expect(vars['--bbangto-viz-palette-p1']).toBe(baseVisualizationFoundation.palette.p1);
   });
 });
+
+describe('on.ink — 가이드가 바라는 글자색 (KAN-075)', () => {
+  // artdeco-luxe 모양: 연결선은 골드, 지침 문장은 「모든 라벨은 크림, 골드 텍스트 금지」.
+  // 계산 후보 넷만 보면 골드가 다크 면에서 4.5:1 을 넘어 먼저 뽑힌다.
+  const CREAM = '#EFE6D0';
+  const GOLD = '#CBA253';
+  const deco = (on?: VisualizationFoundation['on']) =>
+    foundation({ canvasBg: '#0E0E0C', edgeStroke: GOLD, shapeStroke: GOLD, boundaryLabel: CREAM, on });
+
+  it('면 위 4.5:1 을 넘으면 계산 후보보다 먼저 쓴다', () => {
+    expect(pickOnInk(deco(), opaque('#1A1A1A'))).toBe(GOLD);
+    expect(pickOnInk(deco({ ink: CREAM }), opaque('#1A1A1A'))).toBe(CREAM);
+  });
+
+  it('못 넘는 면에서는 계산값을 쓴다', () => {
+    const light = opaque('#E9C766');
+    expect(contrastRatio(CREAM, light)!).toBeLessThan(ON_INK_MIN);
+    expect(pickOnInk(deco({ ink: CREAM }), light)).toBe(pickOnInk(deco(), light));
+  });
+
+  it('면이 여럿이면 모두에서 넘어야 쓴다', () => {
+    // 회색 canvas 위 칠하지 않은 면: 흰색은 음영을 얹은 면에서만 4.5:1 을 넘는다 — 그러면 쓰지 않는다
+    const f = foundation({ canvasBg: '#787878', on: { ink: '#FFFFFF' } });
+    const [plain, shaded] = surfacesFor(f, 'none');
+    expect(contrastRatio('#FFFFFF', plain!)!).toBeLessThan(ON_INK_MIN);
+    expect(contrastRatio('#FFFFFF', shaded!)!).toBeGreaterThanOrEqual(ON_INK_MIN);
+    const { on: _drop, ...noInk } = f;
+    expect(pickOnInk(f, [plain!, shaded!])).toBe(pickOnInk(noInk as VisualizationFoundation, [plain!, shaded!]));
+  });
+
+  it('면마다 적은 on 덮어쓰기가 on.ink 를 이긴다', () => {
+    const on = deriveOnInk(deco({ ink: CREAM, palette: { p1: '#000000' } }));
+    expect(on.palette.p1).toBe('#000000');
+  });
+
+  it('on.ink 가 없으면 지금과 같다', () => {
+    expect(deriveOnInk(deco({}))).toEqual(deriveOnInk(deco()));
+    expect(deriveOnInk(baseVisualizationFoundation).node.person.fill).toBe(
+      pickOnInk(baseVisualizationFoundation, surfacesFor(baseVisualizationFoundation, baseVisualizationFoundation.node.person.fill)),
+    );
+  });
+});
