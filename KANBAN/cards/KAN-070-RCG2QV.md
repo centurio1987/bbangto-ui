@@ -43,7 +43,7 @@ scope: packages/visualization/src/templates/*.tsx, packages/visualization/src/pa
 ## 실행 계획
 - [x] `S1` 실패하는 테스트 먼저 — 새 스토리 파일 `apps/storybook/src/stories/visualization/TemplateDashGate.stories.tsx`(`VISUALIZATION/Templates/Dash Gate`). 대시 가이드(blueprint foundation 에 `edge.dashPattern: '7 3'`) 아래에서 계산된 `stroke-dasharray` 로 잰다. ① 표준 표기 템플릿 — 레지스트리의 `standard` 태그 템플릿 표본마다 `<svg>` 에 `data-viz-notation` 이 있고, `7px, 3px` 인 연결선이 0개 ② 관계선 템플릿 — 스토리에 적은 목록(Edge 를 쓰는 비표준 템플릿 + SitemapTree·WorkBreakdownStructure·IsometricScene)마다 `7px, 3px` 인 연결선이 1개 이상이고 비표준 템플릿에는 훅이 없음 ③ Flowchart — 데이터에 대시 선이 있으면 실선은 `none`·대시 선은 `6px, 4px`, 없으면 `7px, 3px` ④ TimelineRoadmap 축은 `none`, ProcessSteps·Cycle·Hierarchy·Sketchnote 연결선은 `7px, 3px`. 완료 기준: ①·②·③의 대시 있는 쪽·④의 축이 빨강이고, 나머지와 다른 스토리는 초록.
 - [x] `S2` 구현 — `contractCss.ts` 에 표준 표기 규칙, 표준 템플릿 23개 파일과 PacketDiagram 의 `Canvas` 두 곳에 `data-viz-notation`, SitemapTree·WorkBreakdownStructure·IsometricScene 관계선에 `data-viz-part="connector"`, Flowchart 의 대시 대비, TimelineRoadmap 축 `strokeDasharray="none"`. 완료 기준: S1 이 모두 초록이고 Paint Gate·Headless 를 포함한 viz 스토리가 초록.
-- [ ] `S3` 문서 — viz README 구현 규약(내부 훅 셋 `shape`·`connector`·`data-viz-notation` 과 대시 규칙, Dash Gate, StepConnector 두 변형을 섞을 때 주의), `packages/tokens/src/visualization.ts` 의 `edge.dashPattern` JSDoc(표준 표기 템플릿 제외), `style-classification.md` 횡단 규칙 3 상태 문장, `contractCss.ts` 주석, changeset(`@centurio1987/bbangto-ui-visualization` patch · `@centurio1987/bbangto-ui-tokens` patch). 완료 기준: 문서 넷과 changeset 이 같은 분류를 말하고, `git diff main --stat -- packages/visualization-style-guide-catalog` 가 0줄.
+- [x] `S3` 문서 — viz README 구현 규약(내부 훅 셋 `shape`·`connector`·`data-viz-notation` 과 대시 규칙, Dash Gate, StepConnector 두 변형을 섞을 때 주의), `packages/tokens/src/visualization.ts` 의 `edge.dashPattern` JSDoc(표준 표기 템플릿 제외), `style-classification.md` 횡단 규칙 3 상태 문장, `contractCss.ts` 주석, changeset(`@centurio1987/bbangto-ui-visualization` patch · `@centurio1987/bbangto-ui-tokens` patch). 완료 기준: 문서 넷과 changeset 이 같은 분류를 말하고, `git diff main...HEAD --stat -- packages/visualization-style-guide-catalog` 가 0줄.
 - [ ] `S4` 품질 게이트 5종 — `pnpm typecheck` · `pnpm build` · `pnpm test` · `pnpm --filter storybook build` · `pnpm test:unit`. 그리고 Dash Gate 파일만 `a11y: { test: 'error' }` 로 임시 강제해 돌린 뒤 되돌린다. 완료 기준: 다섯 다 초록이고 a11y 강제 결과를 적는다.
 
 ## 검증
@@ -51,7 +51,7 @@ scope: packages/visualization/src/templates/*.tsx, packages/visualization/src/pa
 
 1. `pnpm test` — `VISUALIZATION/Templates/Dash Gate` 스토리가 chromium 에서 초록. 대시 가이드 `7 3` 아래 계산된 `stroke-dasharray` 로 잰다: 표준 표기 템플릿의 연결선은 `7px, 3px` 이 0개, 관계선 템플릿은 1개 이상, Flowchart 는 대시 선이 섞이면 실선 `none`·대시 `6px, 4px`, TimelineRoadmap 축 `none`.
 2. 같은 `pnpm test` 에서 Paint Gate·Headless(KAN-057 대시 스토리 넷)를 포함한 기존 스토리가 그대로 초록.
-3. `git diff main --stat -- packages/visualization-style-guide-catalog` — 0줄(카탈로그 값은 안 고친다. 지금 그림이 안 바뀐다는 근거).
+3. `git diff main...HEAD --stat -- packages/visualization-style-guide-catalog` — 0줄(카탈로그 값은 안 고친다. 지금 그림이 안 바뀐다는 근거). 착수 뒤 main 이 움직여도(배포 커밋 등) 이 브랜치 커밋만 보도록 기준점(merge-base)부터 잰다.
 4. 품질 게이트 5종(`pnpm typecheck` · `pnpm build` · `pnpm test` · `pnpm --filter storybook build` · `pnpm test:unit`) 모두 초록.
 5. a11y — Dash Gate 파일만 `a11y: { test: 'error' }` 로 임시 강제해 돌린 결과(저장소 설정이 `'todo'` 라 `pnpm test` 는 접근성 위반을 실패로 안 센다).
 
@@ -64,3 +64,8 @@ scope: packages/visualization/src/templates/*.tsx, packages/visualization/src/pa
 - 2026-10-10T11:10 · s:6b95cb93 · S1 done — TemplateDashGate.stories.tsx 에 게이트 넷(대시 가이드 7 3). 이 파일만 돌린 결과 넷 다 빨강 — ① 표준 표기 표본 28개 모두 data-viz-notation 없음 ② 가이드 대시 0개인 관계선 템플릿이 wbs·sitemap-tree·isometric-scene ③ 대시 섞인 Flowchart 실선이 7px, 3px ④ TimelineRoadmap 축 7px, 3px. 각 스토리는 첫 실패에서 멈추므로 뒤 검사(①의 연결선 수·②의 훅·④의 패턴 연결선 넷)는 S2 뒤에 본다. 레지스트리 서브패스(type-meta)는 vite 캐시를 지운 뒤 그대로 읽혔다
 - 2026-10-10T11:10 · s:6b95cb93 · S2 doing — 착수
 - 2026-10-10T11:13 · s:6b95cb93 · S2 done — contractCss 에 [data-viz-notation] 연결선 stroke-dasharray:none, 표준 표기 템플릿 23개 파일+PacketDiagram 의 Canvas 48곳에 data-viz-notation(소비자 props 앞), SitemapTree·WBS·IsometricScene 관계선에 data-viz-part=connector, Flowchart 는 dashed 가 섞이면 나머지 선 none, TimelineRoadmap 축 strokeDasharray=none. Dash Gate ①을 강화(대시를 직접 안 넘긴 연결선은 none · 직접 넘긴 대시는 남음 · 잰 수>0) — 표준 표본에서 none 38개, 직접 넘긴 대시 12개(5 3·5 4·6 4·2 3)가 그대로. viz tsc 오류 0, viz 스토리 22파일/151 초록
+- 2026-10-10T11:13 · s:6b95cb93 · S3 doing — 착수
+- 2026-10-10T11:14 · s:6b95cb93 — `검증` 섹션 교체
+- 2026-10-10T11:14 · s:6b95cb93 — 검증 3번 명령을 git diff main → main...HEAD 로 고침 — 착수 뒤 main 에 KAN-074 배포 커밋(7849962 version packages, viz 1.0.0)이 들어와 두 점 비교가 그 CHANGELOG·package.json 을 거꾸로 보였다. 이 카드의 changeset 은 다음 배포(viz 1.0.1 patch)에 실린다
+- 2026-10-10T11:15 · s:6b95cb93 — `실행 계획` 섹션 교체
+- 2026-10-10T11:15 · s:6b95cb93 · S3 done — viz README 구현 규약(내부 훅 셋, 관계선·표기법 대시 규칙, Dash Gate, StepConnector 두 변형), tokens edge.dashPattern JSDoc(관계선에만 · 표준 표기 템플릿 제외), style-classification 횡단 규칙 3 상태 문장, contractCss 주석, changeset kan-070-connector-dash-scope.md(visualization·tokens patch → 다음 배포 viz 1.0.1). 카탈로그 30개·프리셋 포함 92곳 edge.dashPattern 모두 '' 를 dist 로 다시 확인, git diff main...HEAD 카탈로그 0줄

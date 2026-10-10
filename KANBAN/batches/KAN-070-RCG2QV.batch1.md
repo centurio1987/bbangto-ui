@@ -59,7 +59,7 @@ work 가 넷이라 한 배치로 닫는다. 고치는 파일은 템플릿 28개�
 | `packages/visualization/src/provider/contractCss.ts` | 새 규칙 주석 |
 | `.changeset/kan-070-connector-dash-scope.md` | visualization patch · tokens patch |
 
-**완료 기준**: 네 문서와 changeset 이 같은 분류를 말한다. `git diff main --stat -- packages/visualization-style-guide-catalog` 0줄.
+**완료 기준**: 네 문서와 changeset 이 같은 분류를 말한다. `git diff main...HEAD --stat -- packages/visualization-style-guide-catalog` 0줄.
 
 ### WP4 · `S4` 품질 게이트
 

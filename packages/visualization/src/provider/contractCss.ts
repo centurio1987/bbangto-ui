@@ -8,6 +8,10 @@ const STYLE_ELEMENT_ID = 'bbangto-viz-contract';
  * 스코프를 따라 자연 격리된다(다중 스타일 가이드 공존 가능).
  * headless 컴포넌트는 리터럴 paint 없이 구조만 방출하고, 이 시트가 paint를 공급한다.
  * 명시적 사용자 prop은 인라인 style(fill/stroke)로 렌더되어 항상 이 시트를 이긴다.
+ *
+ * 연결선 대시(edge.dashPattern)는 관계선 훅 `data-viz-part="connector"` 에만 건다. 표준 표기법 템플릿은
+ * 바깥 svg 에 `data-viz-notation` 을 달아 그 안의 연결선이 가이드 대시를 따르지 않게 한다 — 표기법에서
+ * 실선과 대시가 서로 다른 관계를 뜻하기 때문이다. 템플릿이 넘긴 인라인 대시는 그대로 남는다.
  */
 const CONTRACT_CSS = `
 [data-bbangto-viz-style-guide] [data-viz-part="shape"] {
