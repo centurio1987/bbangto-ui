@@ -1,6 +1,6 @@
 {
   "next_id": 75,
-  "next_seq": 280,
+  "next_seq": 281,
   "cards": {
     "KAN-066-T6NR80": {
       "col": "backlog",
@@ -23,7 +23,7 @@
       "memo_hash": "2d69b33becebe6a5d6af6ac29847dfc600699c06"
     },
     "KAN-069-G0FGTJ": {
-      "col": "doing",
+      "col": "review",
       "title": "viz 미사용 토큰 정리 — 선언만 있고 읽히지 않는 시각화 토큰을 토큰마다 잇거나 걷기 (경계선부터)",
       "verbatim": "후속 카드 1장 (Recommended) — main에서 백로그 카드를 하나 만들어, 토큰마다 잇기와 걷기를 정합니다. 그림이 바로 바뀌는 경계선을 첫 단계로 둡니다. KAN-057은 엣지 대시만 다룹니다. (앞 질문 「선언만 있고 읽히지 않는 viz 토큰 20여 개(경계선 dashPattern·width·radius, c4.* 9개, typography.sizes.* 4개 등)를 어떻게 다룰까요?」에 대한 답)",
       "생성": "ai",
@@ -1622,6 +1622,16 @@
   ],
   "recent": [
     {
+      "seq": 280,
+      "t": "2026-10-11T01:06",
+      "a": "ai",
+      "id": "KAN-069-G0FGTJ",
+      "op": "move",
+      "w": "8S62G0",
+      "from": "doing",
+      "to": "review"
+    },
+    {
       "seq": 279,
       "t": "2026-10-11T01:00",
       "a": "ai",
@@ -2166,16 +2176,6 @@
       "w": "WXJKQG",
       "from": "backlog",
       "to": "doing"
-    },
-    {
-      "seq": 254,
-      "t": "2026-10-08T19:15",
-      "a": "ai",
-      "id": "KAN-064-AC0H6M",
-      "op": "waive",
-      "w": "7E5YYM",
-      "with_": "KAN-065-XSHEMV",
-      "reason": "재기록(사유의 절 번호 정정): 유저 선택(2026-10-08 「둘 다 용인」). 루트 README.md 에서 KAN-064 는 매니페스트 갱신 단락(사례 6·9·10)과 「개발과 품질 게이트」 절의 예시 두 줄만, KAN-065 는 포커스 대비 단락만 고친다"
     }
   ],
   "waivers": [
