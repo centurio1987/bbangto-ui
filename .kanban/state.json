@@ -60,7 +60,10 @@
       "goal": "현상이 재현되는 조건과 남은 원인이 기록되고, 배포 README 와 루트 README 수정 전후로 결론이 바뀌는지 확인된다",
       "goal_hash": "e95b4042b9c9383777d31707bda88f5f95447b20",
       "memo": "KAN-067 검토 항목 1(2026-10-10 승인)에서 나왔다. 실제 사례(앱 지시문·프롬프트·모델)는 유저에게 받는다. KAN-072(루트 README 두 자리)와 같은 경로를 보므로 그 카드 전후로 비교한다",
-      "memo_hash": "d9424b73f2e50a0509ad0572ab459e121ea7edf7"
+      "memo_hash": "d9424b73f2e50a0509ad0572ab459e121ea7edf7",
+      "scope": [
+        "KANBAN/cards/KAN-071-FK1W8K.md"
+      ]
     },
     "KAN-020": {
       "col": "done",
@@ -1538,6 +1541,7 @@
   "order": [
     "KAN-066-T6NR80",
     "KAN-069-G0FGTJ",
+    "KAN-071-FK1W8K",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1607,8 +1611,7 @@
     "KAN-064-AC0H6M",
     "KAN-070-RCG2QV",
     "KAN-072-KW0G9B",
-    "KAN-074-KAZBTF",
-    "KAN-071-FK1W8K"
+    "KAN-074-KAZBTF"
   ],
   "recent": [
     {
