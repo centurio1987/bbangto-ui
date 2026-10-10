@@ -20,7 +20,19 @@
       "goal": "새 워크트리(또는 rm -rf packages/*/dist 뒤)에서 pnpm typecheck·pnpm test:unit 이 build 선행 없이 초록이고, build 를 먼저 돌리라는 규칙을 걷을 수 있다",
       "goal_hash": "7d7f3c5965fa48fc4f7935443f259db4fe8be211",
       "memo": "KAN-064 목표에서 갈라져 나왔다(2026-10-08 유저 선택). 고칠 자리 후보: 패키지 package.json exports 의 소스 조건 또는 tsconfig paths, vitest resolve. KAN-055 와 package.json 이 겹칠 것이다",
-      "memo_hash": "2d69b33becebe6a5d6af6ac29847dfc600699c06"
+      "memo_hash": "2d69b33becebe6a5d6af6ac29847dfc600699c06",
+      "scope": [
+        "tsconfig.json",
+        "package.json",
+        "packages/*/package.json",
+        "packages/*/vitest.config.ts",
+        "packages/foundations/vitest.bundle.config.ts",
+        "packages/foundations/src/bundleBudget.test.ts",
+        "bundle-budget.json",
+        "CLAUDE.md",
+        "QUALITY_CHECKLIST.md",
+        ".github/workflows/release.yml"
+      ]
     },
     "KAN-069-G0FGTJ": {
       "col": "backlog",
