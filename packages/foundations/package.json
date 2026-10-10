@@ -34,7 +34,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest --run",
     "test:bundle": "vitest --run --config vitest.bundle.config.ts",
-    "gen:foundation-manifest": "tsx scripts/genFoundationManifest.ts",
+    "gen:foundation-manifest": "tsx --conditions=bbangto-source scripts/genFoundationManifest.ts",
     "dev": "tsup --watch"
   },
   "dependencies": {

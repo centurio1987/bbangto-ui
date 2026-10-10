@@ -80,6 +80,21 @@ describe('소스 조건 — 실제 repo', () => {
     }
     expect(missing).toEqual([]);
   });
+
+  it('tsx 로 도는 스크립트(매니페스트 생성기 등)마다 같은 조건을 켠다 — build 순서와 상관없이 돈다', () => {
+    const missing: string[] = [];
+    for (const p of packages) {
+      const pj = JSON.parse(readFileSync(join(repoRoot, p.dir, 'package.json'), 'utf8')) as {
+        scripts?: Record<string, string>;
+      };
+      for (const [name, cmd] of Object.entries(pj.scripts ?? {})) {
+        if (/(^|\s)tsx\s/.test(cmd) && !cmd.includes(`--conditions=${SOURCE_CONDITION}`)) {
+          missing.push(`${p.dir} scripts.${name}`);
+        }
+      }
+    }
+    expect(missing).toEqual([]);
+  });
 });
 
 describe('크기 게이트의 자리 — test:unit 이 아니라 build 끝', () => {

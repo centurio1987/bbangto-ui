@@ -22,7 +22,7 @@
     "README.md"
   ],
   "scripts": {
-    "gen:manifest": "tsx scripts/genVizManifest.ts",
+    "gen:manifest": "tsx --conditions=bbangto-source scripts/genVizManifest.ts",
     "prebuild": "pnpm gen:manifest",
     "build": "tsup",
     "typecheck": "tsc --noEmit",

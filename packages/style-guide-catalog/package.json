@@ -22,8 +22,8 @@
     "README.md"
   ],
   "scripts": {
-    "gen:manifest": "tsx scripts/genManifest.ts",
-    "gen:trend-table": "tsx scripts/genTrendTable.ts",
+    "gen:manifest": "tsx --conditions=bbangto-source scripts/genManifest.ts",
+    "gen:trend-table": "tsx --conditions=bbangto-source scripts/genTrendTable.ts",
     "prebuild": "pnpm gen:manifest",
     "build": "tsup",
     "typecheck": "tsc --noEmit",
