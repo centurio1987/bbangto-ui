@@ -176,7 +176,7 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-072-KW0G9B --add
       - 루트 README 는 「사례마다 설치·절차·코드가 처음부터 끝까지 들어 있어서 다른 문서를 먼저 읽지 않아도 된다」고 약속합니다. 원문: README.md:15
       - 새 줄 「쓰려는 컴포넌트나 그림 유형이 목록에 없다」는 그 약속의 예외입니다. 사례 대신 core·visualization README 의 「원하는 것이 없을 때」 절로 갑니다. 원문: README.md:28
       - 표 아래 문단이 그 예외를 밝히고, 앱을 만들다 막혔으면 라이브러리를 바꾸거나 요청하기 전에 그 절부터 보라고 적습니다. 원문: README.md:33
-      - 링크는 저장소의 패키지 README 로 갑니다. 두 절은 아직 배포되지 않아서(KAN-067 변경 기록 대기), 지금 설치한 패키지 안의 README 에는 없습니다. 원문: .changeset/kan-067-extend-when-missing.md:2
+      - 링크는 저장소의 패키지 README 로 갑니다. 두 절은 2026-10-10 배포된 core 1.2.2 · visualization 1.0.0 의 README 에도 실려, 설치한 패키지 안에서도 읽힙니다. 원문: main a15549a(릴리스 PR #11 병합)
       - 두 절의 예제 코드는 스토리북이 실제로 그려 보는 예제 파일과 글자 그대로 같은지 검사가 대조합니다. 루트에 사본을 두면 그 대조 밖에서 낡습니다. 원문: packages/foundations/src/publishedDocs.ts:17
     - **정할 것**
       새 줄을 링크로 둘 것인가, 루트 README 에 사례 11 을 따로 쓸 것인가.
