@@ -3,11 +3,13 @@
  * `meta.accessibility.contrastIntent` 선언과 대조한다. UI `auditContrast`의 viz 스키마판(KAN-026).
  *
  * UI는 `semantic.foreground/background` 단일 본문 쌍이지만 viz는 텍스트가 여러 표면에 놓인다.
- * foundation이 **명시적으로 선언한 텍스트 색 필드**를 각자의 배경 대비로 감사한다 —
+ * 각 표면 위에 **실제로 그리는 글자색**을 그 배경 대비로 감사한다 —
  * 이는 **foundation 토큰 레벨 계약**이다(렌더 픽셀 정확 아님; wrapper가 표면을 바꿀 수 있음. UI 감사와 동일 계약):
- *   - `node.<kind>.tagColor` vs fill 표면(불투명 fill 위; fill:'none'인 라인 전용 스타일은 캔버스 위)
- *   - `c4.l{1,2,3}.labelColor` vs bgTint 표면(틴트 over 캔버스)
+ *   - 노드 이름·태그 글자색(`--bbangto-viz-on-node-<kind>-fill`) vs fill 표면(불투명 fill 위; fill:'none'인 라인 전용 스타일은 캔버스 위)
+ *   - C4 라벨 글자색(`--bbangto-viz-on-c4-l{1,2,3}-bg-tint`) vs bgTint 표면(틴트 over 캔버스)
  *   - `boundary.labelColor` vs `canvas`  (경계 라벨; boundary엔 fill/tint 필드 없음)
+ * 노드·C4 글자색은 가이드가 `on` 에 적은 값이 있으면 그것이고, 없으면 visualization 패키지가 계산한 값이다(KAN-061).
+ * 한때 그리지 않는 `node.*.tagColor`·`c4.*.labelColor` 를 쟀고, 그래서 선언(aaa)이 실제 글자(6:1 대)를 넘어도 못 잡았다(KAN-069).
  * 비텍스트(keyline/edge.stroke/shape.stroke/boundary.stroke)는 WCAG 3:1 기준이라 `contrastIntent`
  * (텍스트 대비)와 무관 → 감사 대상 아님(후속 카드로 분리). `contrastIntent`는 normal-text 보수 기준(aa=4.5/aaa=7).
  *
@@ -23,6 +25,7 @@ import {
   CONTRAST_THRESHOLDS,
 } from '@centurio1987/bbangto-ui-tokens';
 import type { RGBA, StyleGuideMeta, VisualizationFoundation } from '@centurio1987/bbangto-ui-tokens';
+import { visualizationFoundationToStyleObject } from '@centurio1987/bbangto-ui-visualization';
 
 /** over-claim 위반 1건. `measured:null`은 측정 불가(파싱 실패)로 over-claim 취급. */
 export interface VizContrastViolation {
@@ -32,7 +35,7 @@ export interface VizContrastViolation {
   readonly locus: string;
   readonly intent: 'aa' | 'aaa';
   readonly required: number;
-  /** 선언된 텍스트 색(원본 리터럴). */
+  /** 실제로 그리는 텍스트 색(노드·C4 는 `--bbangto-viz-on-*` 값, 경계는 `boundary.labelColor`). */
   readonly foreground: string;
   /** 선언된 배경(원본 리터럴 — c4는 bgTint, boundary/canvas는 canvas.bg, node는 fill). */
   readonly background: string;
@@ -141,20 +144,23 @@ export function auditVizContrast(catalog: readonly AuditableVizEntry[]): VizCont
       const f = p.foundations;
       const ctx = { name: sg.name, presetKey: p.key, intent, required } as const;
       const canvasEff = effectiveBgColors(extractColors(f.canvas.bg));
+      const vars = visualizationFoundationToStyleObject(f);
 
-      // (A) node 텍스트: tagColor vs (fill 표면). 불투명 fill이면 fill, fill:'none'(라인 전용)이면 캔버스 위.
+      // (A) node 텍스트: 실제 글자색 vs (fill 표면). 불투명 fill이면 fill, fill:'none'(라인 전용)이면 캔버스 위.
       //     kind 하드코딩 없이 Object.entries 순회.
       for (const [kind, style] of Object.entries(f.node)) {
         const bgColors = surfaceBg(style.fill, canvasEff);
-        const v = evalPair(style.tagColor, style.fill, bgColors, { ...ctx, locus: `node.${kind}` });
+        const ink = vars[`--bbangto-viz-on-node-${kind}-fill`] ?? '';
+        const v = evalPair(ink, style.fill, bgColors, { ...ctx, locus: `node.${kind}` });
         if (v) out.push(v);
       }
 
-      // (B) c4 라벨: labelColor vs (bgTint 표면 over canvas), worst-case.
+      // (B) c4 라벨: 실제 글자색 vs (bgTint 표면 over canvas), worst-case.
       for (const level of ['l1', 'l2', 'l3'] as const) {
         const c4 = f.c4[level];
         const bgColors = surfaceBg(c4.bgTint, canvasEff);
-        const v = evalPair(c4.labelColor, c4.bgTint, bgColors, { ...ctx, locus: `c4.${level}` });
+        const ink = vars[`--bbangto-viz-on-c4-${level}-bg-tint`] ?? '';
+        const v = evalPair(ink, c4.bgTint, bgColors, { ...ctx, locus: `c4.${level}` });
         if (v) out.push(v);
       }
 

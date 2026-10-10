@@ -28,7 +28,7 @@ import { useVizMotifStyle } from './_motif';
  *  - 도형 채움은 **밝은 웜 틴트**(pale mustard/terracotta/olive)만 쓴다. 진한 어스톤(머스터드
  *    #D9A441 등)은 대비가 낮아(크림 대비 1.8~4.1) 라인/텍스트 잉크로 못 쓰므로 **palette 스와치**
  *    에만 둔다(게이트 비대상).
- *  - 모든 라벨(node.tagColor / c4.labelColor / boundary.labelColor)과 라인(shape/edge.stroke)은
+ *  - 모든 라벨(노드·C4·경계)과 라인(shape/edge.stroke)은
  *    다크 웜 브라운 잉크 #3A2A16 — 웜 크림 대비 11.25:1(텍스트 ≥4.5·비텍스트 ≥3 게이트 통과).
  *  - 밝은 웜 틴트 채움 위 다크 브라운 라벨은 8.8~10.1:1(auditVizContrast over-claim 게이트 통과).
  *
@@ -52,13 +52,10 @@ const TINT = {
   linen: '#E5DCC0', // 라이트 웜 리넨
 } as const;
 
-const node = (fill: string, glyph: string, opts?: { dashed?: boolean }) => ({
+const node = (fill: string) => ({
   fill,
   keyline: INK,
   keylineWidth: 1.5,
-  tagColor: INK,
-  ...(opts?.dashed ? { dashed: true } : {}),
-  glyph,
 });
 
 const foundations: VisualizationFoundation = {
@@ -91,13 +88,13 @@ const foundations: VisualizationFoundation = {
 
   // kind별 밝은 웜 틴트 채움 + 브라운 잉크 윤곽 + 다크 브라운 라벨.
   node: {
-    person: node(TINT.mustard, 'user'),
-    external: node(TINT.peach, 'arrowOut', { dashed: true }),
-    container: node(TINT.sand, 'stackedRect'),
-    database: node(TINT.terracotta, 'cylinder'),
-    queue: node(TINT.olive, 'bars'),
-    decision: node(TINT.tan, 'diamond'),
-    process: node(TINT.linen, 'process'),
+    person: node(TINT.mustard),
+    external: node(TINT.peach),
+    container: node(TINT.sand),
+    database: node(TINT.terracotta),
+    queue: node(TINT.olive),
+    decision: node(TINT.tan),
+    process: node(TINT.linen),
   },
 
   // 브라운 잉크 라인 + 소형 화살촉.
@@ -116,9 +113,9 @@ const foundations: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 2, bgTint: 'rgba(217,164,65,0.10)', labelColor: INK },
-    l2: { borderWidth: 1.5, bgTint: 'rgba(196,99,62,0.07)', labelColor: INK },
-    l3: { borderWidth: 1, bgTint: 'transparent', labelColor: INK },
+    l1: { borderWidth: 2, bgTint: 'rgba(217,164,65,0.10)' },
+    l2: { borderWidth: 1.5, bgTint: 'rgba(196,99,62,0.07)' },
+    l3: { borderWidth: 1, bgTint: 'transparent' },
   },
 
   // 뮤트 테라코타 대시 경계(비텍스트 장식, 크림 대비 4.08:1 ≥3).
@@ -133,26 +130,8 @@ const foundations: VisualizationFoundation = {
   typography: {
     titleFont: "'Space Grotesk', 'Helvetica Neue', Arial, sans-serif",
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
-    titleWeight: 700,
-    sizes: {
-      title: '15px',
-      label: '12px',
-      tag: '10px',
-      mono: '11px',
-    },
   },
 
-  iconStyle: 'fill',
-
-  spacing: {
-    nodePad: 12,
-    laneGap: 24,
-  },
-
-  motion: {
-    duration: '200ms',
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  },
 };
 
 // 저주파 그레인 오버레이(feTurbulence 고정 seed=7) — 쇼케이스 표면용 데이터 URI(결정론).
@@ -331,7 +310,7 @@ const guidelines: Record<string, Record<string, unknown>> = {
   },
   accessibility: {
     summary:
-      '모든 라벨(node.tagColor / c4.labelColor / boundary.labelColor)은 다크 브라운 잉크 — 밝은 웜 틴트 표면 위 8.8~10.1:1, 크림 캔버스 위 11.25:1(auditVizContrast 게이트). shape/edge 잉크는 크림 대비 ≥4.5(텍스트)·≥3(비텍스트). 그레인은 [data-viz-retro-grain] 도형 그룹 장식으로 텍스트에 미적용.',
+      '모든 라벨(노드·C4·경계)은 다크 브라운 잉크 — 밝은 웜 틴트 표면 위 8.8~10.1:1, 크림 캔버스 위 11.25:1(auditVizContrast 게이트). shape/edge 잉크는 크림 대비 ≥4.5(텍스트)·≥3(비텍스트). 그레인은 [data-viz-retro-grain] 도형 그룹 장식으로 텍스트에 미적용.',
     dos: [
       '라벨은 다크 브라운 잉크(웜 틴트 표면 위 ≥4.5:1)',
       '그레인은 도형에만 — 텍스트 제외',

@@ -42,13 +42,10 @@ const SEGMENT_BY_KIND: Record<string, GradSegment> = {
   process: 'd',
 };
 
-const node = (fill: string, tagColor: string, glyph: string, dashed?: boolean) => ({
+const node = (fill: string) => ({
   fill,
   keyline: WHITE,
   keylineWidth: HAIR,
-  tagColor,
-  ...(dashed ? { dashed: true } : {}),
-  glyph,
 });
 
 const foundations: VisualizationFoundation = {
@@ -78,16 +75,16 @@ const foundations: VisualizationFoundation = {
     strokeWidth: HAIR,
   },
 
-  // 대표 fill = 각 세그먼트 시작 stop. tagColor는 "부득이 면 위에 얹을 때의 안전색"
+  // 대표 fill = 각 세그먼트 시작 stop. 부득이 면 위에 얹는 글자색은 visualization 이 이 대표색 위에서 고른다
   // (원칙은 외부 라벨 — guidelines.accessibility 참조).
   node: {
-    person: node('#29B6E8', '#10102C', 'user'),
-    external: node('#FF9A1F', '#10102C', 'arrowOut', true),
-    container: node('#8A3FF0', '#FFFFFF', 'stackedRect'),
-    database: node('#54C7F0', '#10102C', 'cylinder'),
-    queue: node('#E0389E', '#10102C', 'bars'),
-    decision: node('#B07CF5', '#10102C', 'diamond'),
-    process: node('#FF7E4F', '#10102C', 'process'),
+    person: node('#29B6E8'),
+    external: node('#FF9A1F'),
+    container: node('#8A3FF0'),
+    database: node('#54C7F0'),
+    queue: node('#E0389E'),
+    decision: node('#B07CF5'),
+    process: node('#FF7E4F'),
   },
 
   // 흰 헤어라인 엣지 1px — 다크 그라운드 대비 16.5:1.
@@ -106,9 +103,9 @@ const foundations: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 2, bgTint: 'rgba(255,255,255,0.05)', labelColor: WHITE },
-    l2: { borderWidth: 1.5, bgTint: 'rgba(255,255,255,0.03)', labelColor: WHITE },
-    l3: { borderWidth: 1, bgTint: 'transparent', labelColor: WHITE },
+    l1: { borderWidth: 2, bgTint: 'rgba(255,255,255,0.05)' },
+    l2: { borderWidth: 1.5, bgTint: 'rgba(255,255,255,0.03)' },
+    l3: { borderWidth: 1, bgTint: 'transparent' },
   },
 
   boundary: {
@@ -122,26 +119,8 @@ const foundations: VisualizationFoundation = {
   typography: {
     titleFont: "'Helvetica Neue', Helvetica, Arial, sans-serif",
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
-    titleWeight: 700,
-    sizes: {
-      title: '14px',
-      label: '12px',
-      tag: '10px',
-      mono: '11px',
-    },
   },
 
-  iconStyle: 'fill',
-
-  spacing: {
-    nodePad: 12,
-    laneGap: 24,
-  },
-
-  motion: {
-    duration: '200ms',
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  },
 };
 
 // ext var 전체 세트 — 그라디언트 stop/글로우/배경/라벨. preset마다 전량 재정의해야
@@ -166,7 +145,6 @@ const auroraFoundations = makeVizColorway(foundations, {
   name: 'neon-gradient-dark-01-aurora',
   canvas: { bg: '#0E1B2E', grid: '#1B2C45' },
   shape: { fill: '#3DDC84' },
-  tagColor: '#06131F',
   nodeFills: {
     person: '#3DDC84',
     external: '#B9F06A',
@@ -311,7 +289,7 @@ const guidelines: Record<string, Record<string, unknown>> = {
     donts: ['라벤더/그라디언트 색 텍스트 금지(대비 불안정)'],
   },
   accessibility: {
-    summary: '그라디언트 도형 위 텍스트 금지 — 라벨은 외부 배치 + 리더 틱. tagColor는 부득이한 경우의 안전색(대표 hex 대비 4.5:1 실측).',
+    summary: '그라디언트 도형 위 텍스트 금지 — 라벨은 외부 배치 + 리더 틱. 부득이 면 위에 얹는 글자는 대표 hex 위에서 4.5:1 을 넘게 계산된 글자색(--bbangto-viz-on-node-*)이다.',
     dos: ['라벨은 도형 밖 + 리더선', '값 인코딩은 텍스트 병기', '노드 수백 개 규모에선 그라디언트 defs가 노드 수만큼 늘어남을 고려'],
     donts: ['그라디언트 면 위 직접 텍스트 금지(경사면 대비 미보장)', '핑크(#E0389E) 면 위 흰 텍스트 금지(4.02 실측 미달)'],
   },

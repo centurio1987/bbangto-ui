@@ -25,13 +25,10 @@ import { makeVizShowcase } from './_showcase';
 const INK = '#1A1A1A';
 const HAIRLINE = 1.25;
 
-const node = (glyph: string, dashed?: boolean) => ({
+const node = () => ({
   fill: 'none',
   keyline: INK,
   keylineWidth: HAIRLINE,
-  tagColor: INK,
-  ...(dashed ? { dashed: true } : {}),
-  glyph,
 });
 
 const foundations: VisualizationFoundation = {
@@ -62,13 +59,13 @@ const foundations: VisualizationFoundation = {
   },
 
   node: {
-    person: node('user'),
-    external: node('arrowOut', true),
-    container: node('stackedRect'),
-    database: node('cylinder'),
-    queue: node('bars'),
-    decision: node('diamond'),
-    process: node('process'),
+    person: node(),
+    external: node(),
+    container: node(),
+    database: node(),
+    queue: node(),
+    decision: node(),
+    process: node(),
   },
 
   edge: {
@@ -86,9 +83,9 @@ const foundations: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 2, bgTint: 'rgba(26,26,26,0.04)', labelColor: INK },
-    l2: { borderWidth: 1.5, bgTint: 'rgba(26,26,26,0.02)', labelColor: INK },
-    l3: { borderWidth: 1, bgTint: 'transparent', labelColor: INK },
+    l1: { borderWidth: 2, bgTint: 'rgba(26,26,26,0.04)' },
+    l2: { borderWidth: 1.5, bgTint: 'rgba(26,26,26,0.02)' },
+    l3: { borderWidth: 1, bgTint: 'transparent' },
   },
 
   boundary: {
@@ -102,26 +99,8 @@ const foundations: VisualizationFoundation = {
   typography: {
     titleFont: "'Helvetica Neue', Helvetica, Arial, sans-serif",
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
-    titleWeight: 700,
-    sizes: {
-      title: '14px',
-      label: '12px',
-      tag: '10px',
-      mono: '11px',
-    },
   },
 
-  iconStyle: 'line',
-
-  spacing: {
-    nodePad: 12,
-    laneGap: 24,
-  },
-
-  motion: {
-    duration: '200ms',
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  },
 };
 
 /** slate — cool grey 배경 + cobalt 액센트 colorway (관측: mermaid minimal_07/09, system minimal_02). */
@@ -129,7 +108,6 @@ const slateFoundations = makeVizColorway(foundations, {
   name: 'minimal-line-01-slate',
   canvas: { bg: '#EDEFF3', grid: '#DEE2EA' },
   ink: '#16181D',
-  tagColor: '#16181D',
   palette: { p1: '#2C5BF2', p3: '#4A5261', p4: '#818A9B', p5: '#AEB6C4', p8: '#D3D9E3' },
   boundaryLabelColor: '#4A5261',
   c4Tints: ['rgba(22,24,29,0.04)', 'rgba(22,24,29,0.02)', 'transparent'],

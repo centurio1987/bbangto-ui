@@ -58,13 +58,10 @@ const WASH = {
   key: 'rgba(20,20,20,0.10)', // K 그레이 톤(뉴트럴)
 } as const;
 
-const node = (fill: string, glyph: string, opts?: { dashed?: boolean }) => ({
+const node = (fill: string) => ({
   fill,
   keyline: K,
   keylineWidth: 1.5,
-  tagColor: K,
-  ...(opts?.dashed ? { dashed: true } : {}),
-  glyph,
 });
 
 const foundations: VisualizationFoundation = {
@@ -98,13 +95,13 @@ const foundations: VisualizationFoundation = {
 
   // kind별 CMYK 잉크 워시 채움(반투명) + K 잉크 윤곽 + K 잉크 라벨.
   node: {
-    person: node(WASH.cyan, 'user'),
-    external: node(WASH.yellow, 'arrowOut', { dashed: true }),
-    container: node(WASH.magenta, 'stackedRect'),
-    database: node(WASH.cyanStrong, 'cylinder'),
-    queue: node(WASH.magentaStrong, 'bars'),
-    decision: node(WASH.key, 'diamond'),
-    process: node(WASH.yellowFaint, 'process'),
+    person: node(WASH.cyan),
+    external: node(WASH.yellow),
+    container: node(WASH.magenta),
+    database: node(WASH.cyanStrong),
+    queue: node(WASH.magentaStrong),
+    decision: node(WASH.key),
+    process: node(WASH.yellowFaint),
   },
 
   // K 잉크 라인 + 소형 화살촉.
@@ -123,9 +120,9 @@ const foundations: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 2, bgTint: 'rgba(14,159,196,0.08)', labelColor: K },
-    l2: { borderWidth: 1.5, bgTint: 'rgba(214,24,126,0.05)', labelColor: K },
-    l3: { borderWidth: 1, bgTint: 'transparent', labelColor: K },
+    l1: { borderWidth: 2, bgTint: 'rgba(14,159,196,0.08)' },
+    l2: { borderWidth: 1.5, bgTint: 'rgba(214,24,126,0.05)' },
+    l3: { borderWidth: 1, bgTint: 'transparent' },
   },
 
   // CMYK 잉크 대시 경계(비텍스트 장식 — 시안).
@@ -140,26 +137,8 @@ const foundations: VisualizationFoundation = {
   typography: {
     titleFont: "'Space Grotesk', 'Helvetica Neue', Arial, sans-serif",
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
-    titleWeight: 700,
-    sizes: {
-      title: '15px',
-      label: '12px',
-      tag: '10px',
-      mono: '11px',
-    },
   },
 
-  iconStyle: 'fill',
-
-  spacing: {
-    nodePad: 12,
-    laneGap: 24,
-  },
-
-  motion: {
-    duration: '200ms',
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  },
 };
 
 // 쇼케이스 표면용 미세 망점 텍스처(6×6 타일 단일 K 도트, 6% 알파) — 데이터 URI, 결정론적(PRNG 없음).
@@ -330,7 +309,7 @@ const guidelines: Record<string, Record<string, unknown>> = {
   },
   accessibility: {
     summary:
-      '모든 라벨(node.tagColor / c4.labelColor / boundary.labelColor)은 near-black K — CMYK 워시가 합성한 worst-case 표면 위에서도 11:1 이상(auditVizContrast 게이트, aaa 7:1 상회). 망점·multiply는 전부 [data-viz-part="shape"] 스코프 장식으로 텍스트에 미적용.',
+      '모든 라벨(노드·C4·경계)은 near-black K — CMYK 워시가 합성한 worst-case 표면 위에서도 11:1 이상(auditVizContrast 게이트, aaa 7:1 상회). 망점·multiply는 전부 [data-viz-part="shape"] 스코프 장식으로 텍스트에 미적용.',
     dos: [
       '라벨은 K 잉크(합성 표면 위 ≥7:1)',
       '망점/multiply는 도형에만 — 텍스트 제외',

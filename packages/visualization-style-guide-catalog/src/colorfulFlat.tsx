@@ -26,13 +26,10 @@ import { makeVizShowcase } from './_showcase';
 const NAVY = '#1B2A4A';
 const THICK = 3;
 
-const node = (fill: string, glyph: string, dashed?: boolean) => ({
+const node = (fill: string) => ({
   fill,
   keyline: NAVY,
   keylineWidth: THICK,
-  tagColor: NAVY,
-  ...(dashed ? { dashed: true } : {}),
-  glyph,
 });
 
 const foundations: VisualizationFoundation = {
@@ -64,13 +61,13 @@ const foundations: VisualizationFoundation = {
 
   // navy 텍스트 4.5:1 확보를 위해 시맨틱 fill은 밝은 파스텔-스트롱 톤.
   node: {
-    person: node('#F7C868', 'user'),
-    external: node('#F4A97F', 'arrowOut', true),
-    container: node('#9FE0BE', 'stackedRect'),
-    database: node('#A3D4EE', 'cylinder'),
-    queue: node('#F6E9A0', 'bars'),
-    decision: node('#F5B8D0', 'diamond'),
-    process: node('#B7C9F4', 'process'),
+    person: node('#F7C868'),
+    external: node('#F4A97F'),
+    container: node('#9FE0BE'),
+    database: node('#A3D4EE'),
+    queue: node('#F6E9A0'),
+    decision: node('#F5B8D0'),
+    process: node('#B7C9F4'),
   },
 
   edge: {
@@ -88,9 +85,9 @@ const foundations: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 3.5, bgTint: 'rgba(27,42,74,0.05)', labelColor: NAVY },
-    l2: { borderWidth: 2.5, bgTint: 'rgba(27,42,74,0.03)', labelColor: NAVY },
-    l3: { borderWidth: 1.8, bgTint: 'transparent', labelColor: NAVY },
+    l1: { borderWidth: 3.5, bgTint: 'rgba(27,42,74,0.05)' },
+    l2: { borderWidth: 2.5, bgTint: 'rgba(27,42,74,0.03)' },
+    l3: { borderWidth: 1.8, bgTint: 'transparent' },
   },
 
   boundary: {
@@ -104,26 +101,8 @@ const foundations: VisualizationFoundation = {
   typography: {
     titleFont: "'Helvetica Neue', Helvetica, Arial, sans-serif",
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
-    titleWeight: 800,
-    sizes: {
-      title: '14px',
-      label: '12px',
-      tag: '10px',
-      mono: '11px',
-    },
   },
 
-  iconStyle: 'fill',
-
-  spacing: {
-    nodePad: 12,
-    laneGap: 24,
-  },
-
-  motion: {
-    duration: '200ms',
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  },
 };
 
 /** candy — 마젠타/퍼플 듀오톤 colorway (관측: mermaid colorful_03 퍼플 듀오톤). */
@@ -131,7 +110,6 @@ const candyFoundations = makeVizColorway(foundations, {
   name: 'colorful-flat-01-candy',
   canvas: { bg: '#FBF3FA', grid: '#F0E2EF' },
   ink: '#3A2140',
-  tagColor: '#3A2140',
   nodeFills: {
     person: '#F0C4EC',
     external: '#F5B8D0',
@@ -155,7 +133,6 @@ const bentoDarkFoundations = makeVizColorway(foundations, {
   name: 'colorful-flat-01-bento-dark',
   canvas: { bg: '#121212', grid: '#242018' },
   ink: '#F4E8D8',
-  tagColor: '#241505',
   shape: { fill: '#1E1912' },
   nodeFills: {
     person: '#E8823C',

@@ -39,13 +39,10 @@ const HAIRLINE = 1; // 헤어라인 굵기 1px — 이 가이드의 서명 라�
 const RULE_GAP = 6; // 카드 박스 바깥 헤어라인 rule 오프셋(px)
 
 // kind별 카드 fill = 화이트/옅은 웜 틴트(에디토리얼 카드), 라벨 = 차콜(전부 ≥12.9:1).
-const node = (fill: string, glyph: string, opts?: { dashed?: boolean }) => ({
+const node = (fill: string) => ({
   fill,
   keyline: CHARCOAL,
   keylineWidth: HAIRLINE,
-  tagColor: CHARCOAL,
-  ...(opts?.dashed ? { dashed: true } : {}),
-  glyph,
 });
 
 const foundations: VisualizationFoundation = {
@@ -78,13 +75,13 @@ const foundations: VisualizationFoundation = {
 
   // kind별 라이트 웜 카드 fill + 차콜 헤어라인 윤곽 + 차콜 라벨.
   node: {
-    person: node('#FFFFFF', 'user'),
-    external: node('#F5E9DA', 'arrowOut', { dashed: true }),
-    container: node('#FCF4EA', 'stackedRect'),
-    database: node('#F7EEE0', 'cylinder'),
-    queue: node('#FBEEDB', 'bars'),
-    decision: node('#F3E7D5', 'diamond'),
-    process: node('#FFF8F0', 'process'),
+    person: node('#FFFFFF'),
+    external: node('#F5E9DA'),
+    container: node('#FCF4EA'),
+    database: node('#F7EEE0'),
+    queue: node('#FBEEDB'),
+    decision: node('#F3E7D5'),
+    process: node('#FFF8F0'),
   },
 
   // 차콜 헤어라인 커넥터 + 소형 화살촉.
@@ -103,9 +100,9 @@ const foundations: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 1.5, bgTint: 'rgba(38,34,30,0.04)', labelColor: CHARCOAL },
-    l2: { borderWidth: 1, bgTint: 'rgba(38,34,30,0.025)', labelColor: CHARCOAL },
-    l3: { borderWidth: 1, bgTint: 'transparent', labelColor: CHARCOAL },
+    l1: { borderWidth: 1.5, bgTint: 'rgba(38,34,30,0.04)' },
+    l2: { borderWidth: 1, bgTint: 'rgba(38,34,30,0.025)' },
+    l3: { borderWidth: 1, bgTint: 'transparent' },
   },
 
   // 차콜 헤어라인 대시 경계(섹션 구획 — 비텍스트 장식).
@@ -121,26 +118,8 @@ const foundations: VisualizationFoundation = {
     // 세리프 디스플레이 = 이 가이드의 핵심 시그니처.
     titleFont: "'Georgia', 'Times New Roman', serif",
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
-    titleWeight: 700,
-    sizes: {
-      title: '16px',
-      label: '12px',
-      tag: '10px',
-      mono: '11px',
-    },
   },
 
-  iconStyle: 'line',
-
-  spacing: {
-    nodePad: 12,
-    laneGap: 24,
-  },
-
-  motion: {
-    duration: '200ms',
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  },
 };
 
 const DEFAULT_EXT: Record<string, string> = {
@@ -156,9 +135,7 @@ const monoFoundations = makeVizColorway(foundations, {
   name: 'editorial-data-01-mono',
   canvas: { bg: '#F7F7F4', grid: '#E8E8E4' },
   ink: MONO_INK, // keyline/edge/boundary/shape/c4 라벨 일괄 쿨 차콜
-  tagColor: MONO_INK,
   boundaryLabelColor: MONO_INK,
-  c4LabelColor: MONO_INK,
   shape: { fill: '#FCFCFB' },
   nodeFills: {
     person: '#FCFCFB',
@@ -293,7 +270,7 @@ const guidelines: Record<string, Record<string, unknown>> = {
   },
   accessibility: {
     summary:
-      '모든 라벨(node.tagColor / c4.labelColor / boundary.labelColor)은 차콜 — 웜 페이퍼·라이트 카드 위 전부 12.9:1 이상(auditVizContrast 게이트, aaa 7:1 상회). 헤어라인 rule은 aria-hidden 장식이라 텍스트/시맨틱과 무관.',
+      '모든 라벨(노드·C4·경계)은 차콜 — 웜 페이퍼·라이트 카드 위 전부 12.9:1 이상(auditVizContrast 게이트, aaa 7:1 상회). 헤어라인 rule은 aria-hidden 장식이라 텍스트/시맨틱과 무관.',
     dos: [
       '라벨은 차콜 잉크(라이트 표면 위 ≥7:1)',
       '헤어라인 rule은 장식 — 정보는 라벨/형태로 병기',

@@ -30,18 +30,14 @@ import { makeVizShowcase } from './_showcase';
  */
 
 const BLOCK_INK = '#2B3138'; // 블록 윤곽(중립 잉크)
-const TAG_INK = '#1F2830'; // 라벨/태그(면 위 4.5:1)
 const EDGE_INK = '#3A4149'; // 커넥터(계열과 분리된 중립 — 역할 분리)
 const ACCENT = '#D98E5A'; // 강조 1색(테라코타)
 const OUTLINE = 1.5;
 
-const node = (fill: string, glyph: string, opts?: { dashed?: boolean }) => ({
+const node = (fill: string) => ({
   fill,
   keyline: BLOCK_INK,
   keylineWidth: OUTLINE,
-  tagColor: TAG_INK,
-  ...(opts?.dashed ? { dashed: true } : {}),
-  glyph,
 });
 
 const foundations: VisualizationFoundation = {
@@ -74,13 +70,13 @@ const foundations: VisualizationFoundation = {
 
   // kind별 단일 계열 라이트 톤 — cube 승격 시 면별 3단 음영이 얹힌다.
   node: {
-    person: node('#AEC4D8', 'user'),
-    external: node('#C3D2E0', 'arrowOut', { dashed: true }),
-    container: node('#9FB8CE', 'stackedRect'),
-    database: node('#B6C8DA', 'cylinder'),
-    queue: node('#C9D6E2', 'bars'),
-    decision: node('#A8BFD4', 'diamond'),
-    process: node('#BCCDDD', 'process'),
+    person: node('#AEC4D8'),
+    external: node('#C3D2E0'),
+    container: node('#9FB8CE'),
+    database: node('#B6C8DA'),
+    queue: node('#C9D6E2'),
+    decision: node('#A8BFD4'),
+    process: node('#BCCDDD'),
   },
 
   // 커넥터는 계열과 분리된 중립 잉크(역할 분리).
@@ -99,9 +95,9 @@ const foundations: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 2, bgTint: 'rgba(43,49,56,0.05)', labelColor: BLOCK_INK },
-    l2: { borderWidth: 1.5, bgTint: 'rgba(43,49,56,0.03)', labelColor: BLOCK_INK },
-    l3: { borderWidth: 1, bgTint: 'transparent', labelColor: BLOCK_INK },
+    l1: { borderWidth: 2, bgTint: 'rgba(43,49,56,0.05)' },
+    l2: { borderWidth: 1.5, bgTint: 'rgba(43,49,56,0.03)' },
+    l3: { borderWidth: 1, bgTint: 'transparent' },
   },
 
   boundary: {
@@ -115,26 +111,8 @@ const foundations: VisualizationFoundation = {
   typography: {
     titleFont: "'Helvetica Neue', Helvetica, Arial, sans-serif",
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
-    titleWeight: 700,
-    sizes: {
-      title: '14px',
-      label: '12px',
-      tag: '10px',
-      mono: '11px',
-    },
   },
 
-  iconStyle: 'fill',
-
-  spacing: {
-    nodePad: 12,
-    laneGap: 24,
-  },
-
-  motion: {
-    duration: '200ms',
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  },
 };
 
 /** clay — 웜 클레이 단일 계열 colorway(더스티 블루 → 테라코타 계열). 다크 잉크·중립 커넥터 유지. */

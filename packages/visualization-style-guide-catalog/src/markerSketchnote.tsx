@@ -32,13 +32,10 @@ const INK = '#2A2A28';
 const MARK = 2;
 const AMBER = '#F2C230';
 
-const node = (glyph: string, opts?: { dashed?: boolean }) => ({
+const node = () => ({
   fill: 'none',
   keyline: INK,
   keylineWidth: MARK,
-  tagColor: INK,
-  ...(opts?.dashed ? { dashed: true } : {}),
-  glyph,
 });
 
 const foundations: VisualizationFoundation = {
@@ -70,13 +67,13 @@ const foundations: VisualizationFoundation = {
   },
 
   node: {
-    person: node('user'),
-    external: node('arrowOut', { dashed: true }),
-    container: node('stackedRect'),
-    database: node('cylinder'),
-    queue: node('bars'),
-    decision: node('diamond'),
-    process: node('process'),
+    person: node(),
+    external: node(),
+    container: node(),
+    database: node(),
+    queue: node(),
+    decision: node(),
+    process: node(),
   },
 
   edge: {
@@ -94,9 +91,9 @@ const foundations: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 2.5, bgTint: 'rgba(242,194,48,0.10)', labelColor: INK },
-    l2: { borderWidth: 2, bgTint: 'rgba(242,194,48,0.06)', labelColor: INK },
-    l3: { borderWidth: 1.5, bgTint: 'transparent', labelColor: INK },
+    l1: { borderWidth: 2.5, bgTint: 'rgba(242,194,48,0.10)' },
+    l2: { borderWidth: 2, bgTint: 'rgba(242,194,48,0.06)' },
+    l3: { borderWidth: 1.5, bgTint: 'transparent' },
   },
 
   // 손그림 대시 경계.
@@ -112,26 +109,8 @@ const foundations: VisualizationFoundation = {
     // 손글씨 스택 — cursive 폴백(에셋 미번들). 값/수치는 mono로 가독성 유지.
     titleFont: "'Caveat', 'Gaegu', 'Comic Sans MS', cursive",
     monoFont: "'Courier New', monospace",
-    titleWeight: 700,
-    sizes: {
-      title: '16px',
-      label: '13px',
-      tag: '11px',
-      mono: '11px',
-    },
   },
 
-  iconStyle: 'line',
-
-  spacing: {
-    nodePad: 12,
-    laneGap: 24,
-  },
-
-  motion: {
-    duration: '200ms',
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  },
 };
 
 /** darkboard — 칠판(다크 그라운드) + 초크 잉크 colorway. */
@@ -139,7 +118,6 @@ const darkboardFoundations = makeVizColorway(foundations, {
   name: 'marker-sketchnote-01-darkboard',
   canvas: { bg: '#202826', grid: '#313B38' },
   ink: '#F3EFE4',
-  tagColor: '#F3EFE4',
   palette: {
     p1: '#F3EFE4',
     p2: AMBER,

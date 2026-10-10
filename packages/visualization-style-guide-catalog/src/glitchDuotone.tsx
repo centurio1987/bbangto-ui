@@ -33,7 +33,7 @@ import { useVizMotifStyle } from './_motif';
  *  - 실 도형(다크 잉크 윤곽 + 반투명 워시 채움)과 라벨(children)은 오프셋 밖에서 렌더 →
  *    미스레지가 텍스트를 절대 이동/왜곡하지 않는다.
  *
- * 접근성: 모든 라벨(node.tagColor / c4.labelColor / boundary.labelColor)과 라인 잉크(shape/edge
+ * 접근성: 모든 라벨(노드·C4·경계)과 라인 잉크(shape/edge
  * stroke)는 다크 잉크로, 라이트 쿨 페이퍼 및 반투명 워시 합성 표면 위에서도 4.5:1 이상
  * (auditVizContrast worst-case 게이트). 마젠타·시안은 캔버스 대비 저대비라 라인/텍스트 잉크로
  * 쓰지 않고 오직 채움 워시·유령 채널 장식에만 쓴다.
@@ -53,13 +53,10 @@ const WASH = {
   overSoft: 'rgba(120,50,160,0.16)',
 } as const;
 
-const node = (fill: string, glyph: string, opts?: { dashed?: boolean }) => ({
+const node = (fill: string) => ({
   fill,
   keyline: INK,
   keylineWidth: 1.5,
-  tagColor: INK,
-  ...(opts?.dashed ? { dashed: true } : {}),
-  glyph,
 });
 
 const foundations: VisualizationFoundation = {
@@ -92,13 +89,13 @@ const foundations: VisualizationFoundation = {
 
   // kind별 채널 워시 채움(반투명) + 다크 잉크 윤곽 + 다크 잉크 라벨.
   node: {
-    person: node(WASH.magenta, 'user'),
-    external: node(WASH.cyan, 'arrowOut', { dashed: true }),
-    container: node(WASH.over, 'stackedRect'),
-    database: node(WASH.cyanStrong, 'cylinder'),
-    queue: node(WASH.magentaStrong, 'bars'),
-    decision: node(WASH.overSoft, 'diamond'),
-    process: node(WASH.cyanFaint, 'process'),
+    person: node(WASH.magenta),
+    external: node(WASH.cyan),
+    container: node(WASH.over),
+    database: node(WASH.cyanStrong),
+    queue: node(WASH.magentaStrong),
+    decision: node(WASH.overSoft),
+    process: node(WASH.cyanFaint),
   },
 
   // 다크 잉크 라인 + 소형 화살촉.
@@ -117,9 +114,9 @@ const foundations: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 2, bgTint: 'rgba(214,40,140,0.08)', labelColor: INK },
-    l2: { borderWidth: 1.5, bgTint: 'rgba(0,150,190,0.05)', labelColor: INK },
-    l3: { borderWidth: 1, bgTint: 'transparent', labelColor: INK },
+    l1: { borderWidth: 2, bgTint: 'rgba(214,40,140,0.08)' },
+    l2: { borderWidth: 1.5, bgTint: 'rgba(0,150,190,0.05)' },
+    l3: { borderWidth: 1, bgTint: 'transparent' },
   },
 
   // 뮤트 마젠타 대시 경계(비텍스트 장식; 라벨은 다크 잉크).
@@ -134,26 +131,8 @@ const foundations: VisualizationFoundation = {
   typography: {
     titleFont: "'Space Grotesk', 'Helvetica Neue', Arial, sans-serif",
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
-    titleWeight: 700,
-    sizes: {
-      title: '15px',
-      label: '12px',
-      tag: '10px',
-      mono: '11px',
-    },
   },
 
-  iconStyle: 'fill',
-
-  spacing: {
-    nodePad: 12,
-    laneGap: 24,
-  },
-
-  motion: {
-    duration: '200ms',
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  },
 };
 
 // 확장 토큰 — 두 유령 채널 색 + 오프셋 거리. 래퍼가 채널색을 var에서 읽는다(리소 DEFAULT_EXT 선례).
@@ -169,7 +148,6 @@ const redblueFoundations = makeVizColorway(foundations, {
   name: 'glitch-duotone-01-redblue',
   canvas: { bg: '#EEF0F6', grid: '#DEE2EE' },
   ink: '#141019', // 니어블랙 잉크(쿨 블루 페이퍼 대비 ~16.5:1) — 라인/윤곽/전 라벨
-  tagColor: '#141019', // 노드 태그도 동일 다크 잉크로 정렬
   shape: { fill: 'rgba(210,45,55,0.20)' },
   nodeFills: {
     person: 'rgba(210,45,55,0.20)', // 레드
@@ -312,7 +290,7 @@ const guidelines: Record<string, Record<string, unknown>> = {
   },
   accessibility: {
     summary:
-      '모든 라벨(node.tagColor / c4.labelColor / boundary.labelColor)은 다크 잉크 — 워시가 합성한 worst-case 표면 위에서도 4.5:1 이상(auditVizContrast 게이트). 채널 오프셋·multiply 오버프린트는 전부 [data-viz-glitch-chan] 스코프 장식으로 텍스트에 미적용. 값 인코딩은 채널색이 아니라 라벨·글리프·형태로 병기(색각 이상 안전).',
+      '모든 라벨(노드·C4·경계)은 다크 잉크 — 워시가 합성한 worst-case 표면 위에서도 4.5:1 이상(auditVizContrast 게이트). 채널 오프셋·multiply 오버프린트는 전부 [data-viz-glitch-chan] 스코프 장식으로 텍스트에 미적용. 값 인코딩은 채널색이 아니라 라벨·글리프·형태로 병기(색각 이상 안전).',
     dos: [
       '라벨은 다크 잉크(합성 표면 위 ≥4.5:1)',
       '채널 오프셋/multiply는 유령 그룹에만 — 텍스트 제외',

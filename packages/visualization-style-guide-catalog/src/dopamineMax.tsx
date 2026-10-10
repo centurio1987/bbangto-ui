@@ -33,7 +33,7 @@ import { useVizMotifStyle } from './_motif';
  * 접근성: 캔버스는 밝은 근백색(near-white) 그라운드이고 모든 잉크/라벨은 근블랙 다크 잉크다.
  * 고채도 색은 **오직 `palette` 스와치와 반투명 채움 워시·장식**에만 쓴다 — 채움 워시는 낮은
  * 알파라 밝은 그라운드 위에서 밝게 합성되어 다크 라벨이 4.5:1 이상을 유지한다(auditVizContrast
- * over-claim 게이트: tagColor/c4/boundary 라벨 vs 합성 표면). 고채도 솔리드 hue는 라인/텍스트
+ * over-claim 게이트: 노드·C4·경계 라벨 vs 합성 표면). 고채도 솔리드 hue는 라인/텍스트
  * 잉크로 쓰지 않는다(밝은 그라운드 대비 미달 위험 회피).
  */
 
@@ -52,13 +52,10 @@ const WASH = {
   cyan: 'rgba(0,190,220,0.18)', // 시안
 } as const;
 
-const node = (fill: string, glyph: string, opts?: { dashed?: boolean }) => ({
+const node = (fill: string) => ({
   fill,
   keyline: INK,
   keylineWidth: 1,
-  tagColor: INK,
-  ...(opts?.dashed ? { dashed: true } : {}),
-  glyph,
 });
 
 const foundations: VisualizationFoundation = {
@@ -91,13 +88,13 @@ const foundations: VisualizationFoundation = {
 
   // kind별 고채도 반투명 워시 채움 + 다크 잉크 윤곽 + 다크 잉크 라벨.
   node: {
-    person: node(WASH.pink, 'user'),
-    external: node(WASH.blue, 'arrowOut', { dashed: true }),
-    container: node(WASH.violet, 'stackedRect'),
-    database: node(WASH.cyan, 'cylinder'),
-    queue: node(WASH.lime, 'bars'),
-    decision: node(WASH.orange, 'diamond'),
-    process: node(WASH.pinkFaint, 'process'),
+    person: node(WASH.pink),
+    external: node(WASH.blue),
+    container: node(WASH.violet),
+    database: node(WASH.cyan),
+    queue: node(WASH.lime),
+    decision: node(WASH.orange),
+    process: node(WASH.pinkFaint),
   },
 
   // 다크 잉크 라인 + 소형 화살촉.
@@ -116,9 +113,9 @@ const foundations: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 2, bgTint: 'rgba(255,45,120,0.07)', labelColor: INK },
-    l2: { borderWidth: 1.5, bgTint: 'rgba(40,110,255,0.05)', labelColor: INK },
-    l3: { borderWidth: 1, bgTint: 'transparent', labelColor: INK },
+    l1: { borderWidth: 2, bgTint: 'rgba(255,45,120,0.07)' },
+    l2: { borderWidth: 1.5, bgTint: 'rgba(40,110,255,0.05)' },
+    l3: { borderWidth: 1, bgTint: 'transparent' },
   },
 
   // 고채도 대시 경계(비텍스트 장식).
@@ -133,26 +130,8 @@ const foundations: VisualizationFoundation = {
   typography: {
     titleFont: "'Space Grotesk', 'Helvetica Neue', Arial, sans-serif",
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
-    titleWeight: 700,
-    sizes: {
-      title: '15px',
-      label: '12px',
-      tag: '10px',
-      mono: '11px',
-    },
   },
 
-  iconStyle: 'fill',
-
-  spacing: {
-    nodePad: 12,
-    laneGap: 24,
-  },
-
-  motion: {
-    duration: '200ms',
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  },
 };
 
 // 도파민 버스트 배경 — 밝은 그라운드를 유지하는 저알파 멀티-hue 방사형(장식, 텍스트 무영향).
@@ -317,7 +296,7 @@ const guidelines: Record<string, Record<string, unknown>> = {
   },
   accessibility: {
     summary:
-      '모든 라벨(node.tagColor / c4.labelColor / boundary.labelColor)은 다크 잉크 — 반투명 워시가 밝은 그라운드 위에 합성한 표면에서도 4.5:1 이상(auditVizContrast 게이트). 오버랩 블렌드·유령 오프셋은 전부 [data-viz-dopamine-clash] 스코프 장식으로 텍스트에 미적용. 색각(colorblind) 관점에서 hue 다수 인코딩은 위험하므로 값 구분은 색뿐 아니라 라벨/형태로 병기한다.',
+      '모든 라벨(노드·C4·경계)은 다크 잉크 — 반투명 워시가 밝은 그라운드 위에 합성한 표면에서도 4.5:1 이상(auditVizContrast 게이트). 오버랩 블렌드·유령 오프셋은 전부 [data-viz-dopamine-clash] 스코프 장식으로 텍스트에 미적용. 색각(colorblind) 관점에서 hue 다수 인코딩은 위험하므로 값 구분은 색뿐 아니라 라벨/형태로 병기한다.',
     dos: [
       '라벨은 다크 잉크(합성 표면 위 ≥4.5:1)',
       '블렌드/유령 오프셋은 장식 유령에만 — 텍스트 제외',

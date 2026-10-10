@@ -40,13 +40,10 @@ const BLUE = '#1E4FCE'; // 흰 라벨 6.85:1
 const ORANGE = '#EE7A1E'; // 보조색 — 다크 잉크 라벨 6.16:1
 const GREEN = '#2E9E5B'; // 보조색 — 다크 잉크 라벨 5.10:1
 
-const node = (fill: string, tagColor: string, glyph: string, dashed?: boolean) => ({
+const node = (fill: string) => ({
   fill,
   keyline: INK,
   keylineWidth: OUTLINE,
-  tagColor,
-  ...(dashed ? { dashed: true } : {}),
-  glyph,
 });
 
 const foundations: VisualizationFoundation = {
@@ -76,15 +73,15 @@ const foundations: VisualizationFoundation = {
     strokeWidth: OUTLINE,
   },
 
-  // kind별 채움: 3원색 우세 + 보조색으로 종류 구분. 각 fill 위 tagColor 라벨은 실측 4.5:1 이상.
+  // kind별 채움: 3원색 우세 + 보조색으로 종류 구분. 각 fill 위 라벨 글자색(`--bbangto-viz-on-node-*`)은 4.5:1 이상.
   node: {
-    person: node(RED, WHITE, 'user'), // 흰 라벨 5.03
-    external: node(WHITE, INK, 'arrowOut', true), // 다크 라벨 17.40 (dashed)
-    container: node(BLUE, WHITE, 'stackedRect'), // 흰 라벨 6.85
-    database: node(YELLOW, INK, 'cylinder'), // 다크 라벨 10.68
-    queue: node(ORANGE, INK, 'bars'), // 다크 라벨 6.16
-    decision: node(GREEN, INK, 'diamond'), // 다크 라벨 5.10
-    process: node(BLUE, WHITE, 'process'), // 흰 라벨 6.85
+    person: node(RED), // 흰 라벨 5.03
+    external: node(WHITE), // 다크 라벨 17.40 (dashed)
+    container: node(BLUE), // 흰 라벨 6.85
+    database: node(YELLOW), // 다크 라벨 10.68
+    queue: node(ORANGE), // 다크 라벨 6.16
+    decision: node(GREEN), // 다크 라벨 5.10
+    process: node(BLUE), // 흰 라벨 6.85
   },
 
   // 커넥터: 직각(cornerRadius 0), 두꺼운 블랙, 작은 삼각 마커.
@@ -103,9 +100,9 @@ const foundations: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 3, bgTint: 'rgba(26,26,26,0.06)', labelColor: INK },
-    l2: { borderWidth: 2, bgTint: 'rgba(26,26,26,0.04)', labelColor: INK },
-    l3: { borderWidth: 1.5, bgTint: 'transparent', labelColor: INK },
+    l1: { borderWidth: 3, bgTint: 'rgba(26,26,26,0.06)' },
+    l2: { borderWidth: 2, bgTint: 'rgba(26,26,26,0.04)' },
+    l3: { borderWidth: 1.5, bgTint: 'transparent' },
   },
 
   boundary: {
@@ -119,32 +116,14 @@ const foundations: VisualizationFoundation = {
   typography: {
     titleFont: "'Futura', 'Century Gothic', 'Helvetica Neue', Arial, sans-serif",
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
-    titleWeight: 800,
-    sizes: {
-      title: '14px',
-      label: '12px',
-      tag: '10px',
-      mono: '11px',
-    },
   },
 
-  iconStyle: 'fill',
-
-  spacing: {
-    nodePad: 12,
-    laneGap: 24,
-  },
-
-  motion: {
-    duration: '200ms',
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  },
 };
 
 /**
- * bold — 화이트 그라운드 + 순수 블랙(#000000) 잉크 colorway. 채움은 유지(각 kind 의 base
- * tagColor 대비 불변), 그라운드/잉크만 갈아끼워 더 강한 대비·포스터 인상. tagColor 를 넘기지
- * 않아 kind별 라벨색(흰/다크)이 base 그대로 보존된다.
+ * bold — 화이트 그라운드 + 순수 블랙(#000000) 잉크 colorway. 채움은 유지하고
+ * 그라운드/잉크만 갈아끼워 더 강한 대비·포스터 인상. 라벨색은 면마다 계산되므로(`--bbangto-viz-on-*`)
+ * kind별 흰/다크 구분이 그대로 남는다.
  */
 const boldFoundations = makeVizColorway(foundations, {
   name: 'bauhaus-geometric-01-bold',
@@ -233,7 +212,7 @@ const guidelines: Record<string, Record<string, unknown>> = {
   },
   accessibility: {
     summary:
-      '모든 채움 kind의 라벨(tagColor)은 해당 fill 위 4.5:1 이상(노랑/오렌지/그린↔다크 잉크, 빨강/파랑↔흰). 순수 레드는 채움에서 배제해 대비를 보장한다. 색만으로 의미를 구분하지 않고 형태·라벨을 병기한다.',
+      '모든 채움 kind의 라벨 글자색(--bbangto-viz-on-node-*)은 해당 fill 위 4.5:1 이상(노랑/오렌지/그린↔다크 잉크, 빨강/파랑↔흰·크림). 순수 레드는 채움에서 배제해 대비를 보장한다. 색만으로 의미를 구분하지 않고 형태·라벨을 병기한다.',
     dos: [
       '채움 fill 신규 추가 시 라벨색과 4.5:1 검증',
       '값/카테고리는 라벨·기하 도형으로도 병기',

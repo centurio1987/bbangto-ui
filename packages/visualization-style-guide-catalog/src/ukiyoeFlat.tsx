@@ -39,13 +39,10 @@ const PAPER = '#ECE3CE'; // 웜 와시 페이퍼 캔버스
 const OUTLINE = 1.75; // 굵은 목판 먹선 컨투어
 
 // 채움 = 밝은 뮤트 흙빛 틴트(전부 스미 라벨과 ≥8.8:1). 채도 높은 원톤은 palette 에만.
-const node = (fill: string, glyph: string, opts?: { dashed?: boolean }) => ({
+const node = (fill: string) => ({
   fill,
   keyline: SUMI,
   keylineWidth: OUTLINE,
-  tagColor: SUMI,
-  ...(opts?.dashed ? { dashed: true } : {}),
-  glyph,
 });
 
 const foundations: VisualizationFoundation = {
@@ -78,13 +75,13 @@ const foundations: VisualizationFoundation = {
 
   // kind별 밝은 뮤트 흙빛 틴트 채움 + 스미 먹선 윤곽 + 스미 먹 라벨(각 fill 위 실측 ≥8.8:1).
   node: {
-    person: node('#E3B9A6', 'user'), // 페일 클레이 — 스미 9.45:1
-    external: node('#E7DCC0', 'arrowOut', { dashed: true }), // 페일 샌드 — 스미 12.38:1
-    container: node('#B9C4CE', 'stackedRect'), // 페일 인디고 — 스미 9.53:1
-    database: node('#C4CDAF', 'cylinder'), // 페일 세이지 — 스미 10.21:1
-    queue: node('#E4CF9E', 'bars'), // 페일 오커 — 스미 11.03:1
-    decision: node('#CBB6C0', 'diamond'), // 페일 플럼 — 스미 8.84:1
-    process: node('#CBD3DC', 'process'), // 페일 스카이-인디고 — 스미 11.17:1
+    person: node('#E3B9A6'), // 페일 클레이 — 스미 9.45:1
+    external: node('#E7DCC0'), // 페일 샌드 — 스미 12.38:1
+    container: node('#B9C4CE'), // 페일 인디고 — 스미 9.53:1
+    database: node('#C4CDAF'), // 페일 세이지 — 스미 10.21:1
+    queue: node('#E4CF9E'), // 페일 오커 — 스미 11.03:1
+    decision: node('#CBB6C0'), // 페일 플럼 — 스미 8.84:1
+    process: node('#CBD3DC'), // 페일 스카이-인디고 — 스미 11.17:1
   },
 
   // 스미 먹선 커넥터 + 소형 화살촉.
@@ -103,9 +100,9 @@ const foundations: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 2, bgTint: 'rgba(46,74,107,0.08)', labelColor: SUMI },
-    l2: { borderWidth: 1.5, bgTint: 'rgba(46,74,107,0.05)', labelColor: SUMI },
-    l3: { borderWidth: 1, bgTint: 'transparent', labelColor: SUMI },
+    l1: { borderWidth: 2, bgTint: 'rgba(46,74,107,0.08)' },
+    l2: { borderWidth: 1.5, bgTint: 'rgba(46,74,107,0.05)' },
+    l3: { borderWidth: 1, bgTint: 'transparent' },
   },
 
   // 뮤트 클레이 레드 대시 경계(비텍스트 장식). 라벨은 스미 먹.
@@ -120,26 +117,8 @@ const foundations: VisualizationFoundation = {
   typography: {
     titleFont: "'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', Georgia, serif",
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
-    titleWeight: 600,
-    sizes: {
-      title: '15px',
-      label: '12px',
-      tag: '10px',
-      mono: '11px',
-    },
   },
 
-  iconStyle: 'fill',
-
-  spacing: {
-    nodePad: 12,
-    laneGap: 24,
-  },
-
-  motion: {
-    duration: '200ms',
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  },
 };
 
 const DEFAULT_EXT: Record<string, string> = {
@@ -148,7 +127,7 @@ const DEFAULT_EXT: Record<string, string> = {
 
 /**
  * dusk — 플럼×세이지 우세의 황혼 colorway(더 어둑한 와시 페이퍼 + 뮤트 자줏/쑥빛 틴트).
- * ink 를 넘기지 않아 keyline/edge/boundary/shape.stroke/tagColor 는 base 스미 그대로 보존 —
+ * ink 를 넘기지 않아 keyline/edge/boundary/shape.stroke 는 base 스미 그대로 보존 —
  * 채움만 갈아끼운 색 스킴 변형. 각 dusk 틴트도 스미 라벨과 ≥8.8:1(실측 검증).
  */
 const duskFoundations = makeVizColorway(foundations, {
@@ -279,7 +258,7 @@ const guidelines: Record<string, Record<string, unknown>> = {
   },
   accessibility: {
     summary:
-      '모든 라벨(node.tagColor / c4.labelColor / boundary.labelColor)은 스미 먹 — 밝은 흙빛 틴트 fill 위 실측 8.8:1 이상, 페이퍼 위 13.2:1(auditVizContrast 게이트). 흙빛 뮤트 무드는 시각적으로 medium-contrast이므로 contrastIntent는 보수적으로 aa로 선언한다(과대주장 금지). 오프셋 컨투어는 aria-hidden 장식으로 텍스트 미적용.',
+      '모든 라벨(노드·C4·경계)은 스미 먹 — 밝은 흙빛 틴트 fill 위 실측 8.8:1 이상, 페이퍼 위 13.2:1(auditVizContrast 게이트). 흙빛 뮤트 무드는 시각적으로 medium-contrast이므로 contrastIntent는 보수적으로 aa로 선언한다(과대주장 금지). 오프셋 컨투어는 aria-hidden 장식으로 텍스트 미적용.',
     dos: [
       '라벨은 스미 먹(밝은 틴트 fill 위 ≥4.5:1)',
       '채움 fill 신규 추가 시 스미 라벨과 4.5:1 실측 검증',

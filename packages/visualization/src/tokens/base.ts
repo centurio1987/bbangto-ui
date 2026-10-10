@@ -1,12 +1,9 @@
 import type { VisualizationFoundation, NodeSemanticStyle } from './types';
 
-const baseNode = (glyph: string, dashed?: boolean): NodeSemanticStyle => ({
+const baseNode = (): NodeSemanticStyle => ({
   fill: '#FFFFFF',
   keyline: '#333333',
   keylineWidth: 1.5,
-  tagColor: '#333333',
-  ...(dashed ? { dashed: true } : {}),
-  glyph,
 });
 
 /**
@@ -40,13 +37,13 @@ export const baseVisualizationFoundation: VisualizationFoundation = {
   },
 
   node: {
-    person: baseNode('user'),
-    external: baseNode('arrowOut', true),
-    container: baseNode('stackedRect'),
-    database: baseNode('cylinder'),
-    queue: baseNode('bars'),
-    decision: baseNode('diamond'),
-    process: baseNode('process'),
+    person: baseNode(),
+    external: baseNode(),
+    container: baseNode(),
+    database: baseNode(),
+    queue: baseNode(),
+    decision: baseNode(),
+    process: baseNode(),
   },
 
   edge: {
@@ -64,9 +61,9 @@ export const baseVisualizationFoundation: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 3, bgTint: 'rgba(0,0,0,0.04)', labelColor: '#333333' },
-    l2: { borderWidth: 2, bgTint: 'rgba(0,0,0,0.02)', labelColor: '#333333' },
-    l3: { borderWidth: 1.4, bgTint: 'transparent', labelColor: '#333333' },
+    l1: { borderWidth: 3, bgTint: 'rgba(0,0,0,0.04)' },
+    l2: { borderWidth: 2, bgTint: 'rgba(0,0,0,0.02)' },
+    l3: { borderWidth: 1.4, bgTint: 'transparent' },
   },
 
   boundary: {
@@ -80,24 +77,5 @@ export const baseVisualizationFoundation: VisualizationFoundation = {
   typography: {
     titleFont: "'Helvetica Neue', Helvetica, Arial, sans-serif",
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
-    titleWeight: 700,
-    sizes: {
-      title: '14px',
-      label: '12px',
-      tag: '10px',
-      mono: '11px',
-    },
-  },
-
-  iconStyle: 'line',
-
-  spacing: {
-    nodePad: 12,
-    laneGap: 24,
-  },
-
-  motion: {
-    duration: '200ms',
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
   },
 };

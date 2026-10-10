@@ -31,14 +31,11 @@ const GREEN = '#3DDC84'; // 포스포 그린 잉크(primary)
 const AMBER = '#F2C94C'; // 빈티지 CRT 앰버(secondary / amber colorway ink)
 const HAIR = 1;
 
-// 무채움 라인 전용 노드 — fill 'none', 그린 1px 박스, tagColor = 잉크(캔버스 위 mono 라벨).
-const node = (glyph: string, dashed?: boolean) => ({
+// 무채움 라인 전용 노드 — fill 'none', 그린 1px 박스, 라벨은 캔버스 위 잉크(mono).
+const node = () => ({
   fill: 'none',
   keyline: GREEN,
   keylineWidth: HAIR,
-  tagColor: GREEN,
-  ...(dashed ? { dashed: true } : {}),
-  glyph,
 });
 
 const foundations: VisualizationFoundation = {
@@ -71,13 +68,13 @@ const foundations: VisualizationFoundation = {
 
   // 전 kind 무채움 — 종류 구분은 glyph + mono 라벨로(모노크롬이라 색 구분 없음).
   node: {
-    person: node('user'),
-    external: node('arrowOut', true),
-    container: node('stackedRect'),
-    database: node('cylinder'),
-    queue: node('bars'),
-    decision: node('diamond'),
-    process: node('process'),
+    person: node(),
+    external: node(),
+    container: node(),
+    database: node(),
+    queue: node(),
+    decision: node(),
+    process: node(),
   },
 
   // 직각 그린 커넥터 — cornerRadius 0(박스드로잉), 마커 최소.
@@ -96,9 +93,9 @@ const foundations: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 1.5, bgTint: 'rgba(61,220,132,0.05)', labelColor: GREEN },
-    l2: { borderWidth: 1, bgTint: 'rgba(61,220,132,0.03)', labelColor: GREEN },
-    l3: { borderWidth: 1, bgTint: 'transparent', labelColor: GREEN },
+    l1: { borderWidth: 1.5, bgTint: 'rgba(61,220,132,0.05)' },
+    l2: { borderWidth: 1, bgTint: 'rgba(61,220,132,0.03)' },
+    l3: { borderWidth: 1, bgTint: 'transparent' },
   },
 
   boundary: {
@@ -113,26 +110,8 @@ const foundations: VisualizationFoundation = {
   typography: {
     titleFont: "'JetBrains Mono', 'Courier New', monospace",
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
-    titleWeight: 700,
-    sizes: {
-      title: '14px',
-      label: '12px',
-      tag: '10px',
-      mono: '11px',
-    },
   },
 
-  iconStyle: 'line',
-
-  spacing: {
-    nodePad: 12,
-    laneGap: 24,
-  },
-
-  motion: {
-    duration: '200ms',
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  },
 };
 
 /** amber — 빈티지 CRT 앰버 모노크롬 colorway(웜 near-black 그라운드 + 앰버 잉크 전면). */
@@ -140,7 +119,6 @@ const amberFoundations = makeVizColorway(foundations, {
   name: 'terminal-ascii-01-amber',
   canvas: { bg: '#0D0B04', grid: '#2A2410' },
   ink: AMBER,
-  tagColor: AMBER,
   boundaryLabelColor: AMBER,
   c4Tints: ['rgba(242,201,76,0.05)', 'rgba(242,201,76,0.03)', 'transparent'],
   palette: {

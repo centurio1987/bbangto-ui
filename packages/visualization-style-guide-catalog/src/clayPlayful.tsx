@@ -51,13 +51,10 @@ const PASTEL = {
   periwinkle: '#CBD8F5', // 파스텔 페리윙클
 } as const;
 
-const node = (fill: string, glyph: string, opts?: { dashed?: boolean }) => ({
+const node = (fill: string) => ({
   fill,
   keyline: INK,
   keylineWidth: 1.5,
-  tagColor: INK,
-  ...(opts?.dashed ? { dashed: true } : {}),
-  glyph,
 });
 
 const foundations: VisualizationFoundation = {
@@ -90,13 +87,13 @@ const foundations: VisualizationFoundation = {
 
   // kind별 파스텔 솔리드 채움 + 다크 잉크 얇은 윤곽 + 다크 잉크 라벨.
   node: {
-    person: node(PASTEL.pink, 'user'),
-    external: node(PASTEL.blue, 'arrowOut', { dashed: true }),
-    container: node(PASTEL.lilac, 'stackedRect'),
-    database: node(PASTEL.mint, 'cylinder'),
-    queue: node(PASTEL.peach, 'bars'),
-    decision: node(PASTEL.yellow, 'diamond'),
-    process: node(PASTEL.periwinkle, 'process'),
+    person: node(PASTEL.pink),
+    external: node(PASTEL.blue),
+    container: node(PASTEL.lilac),
+    database: node(PASTEL.mint),
+    queue: node(PASTEL.peach),
+    decision: node(PASTEL.yellow),
+    process: node(PASTEL.periwinkle),
   },
 
   // 두툼하게 굴린 커넥터 + 소형 화살촉(다크 잉크).
@@ -115,9 +112,9 @@ const foundations: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 2, bgTint: 'rgba(62,49,56,0.06)', labelColor: INK },
-    l2: { borderWidth: 1.5, bgTint: 'rgba(62,49,56,0.04)', labelColor: INK },
-    l3: { borderWidth: 1, bgTint: 'transparent', labelColor: INK },
+    l1: { borderWidth: 2, bgTint: 'rgba(62,49,56,0.06)' },
+    l2: { borderWidth: 1.5, bgTint: 'rgba(62,49,56,0.04)' },
+    l3: { borderWidth: 1, bgTint: 'transparent' },
   },
 
   // 두툼하게 굴린 소프트 경계(비텍스트 장식은 뮤트 모브).
@@ -133,27 +130,10 @@ const foundations: VisualizationFoundation = {
     // 둥글둥글한 플레이풀 산세리프 스택 — 값/수치는 mono로 가독성 유지.
     titleFont: "'Baloo 2', 'Quicksand', 'Nunito', 'Helvetica Neue', Arial, sans-serif",
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
-    titleWeight: 700,
-    sizes: {
-      title: '15px',
-      label: '12px',
-      tag: '10px',
-      mono: '11px',
-    },
   },
-
-  iconStyle: 'fill',
 
   // 넉넉한 여백 — 퍼피 도형이 숨 쉴 공간.
-  spacing: {
-    nodePad: 16,
-    laneGap: 28,
-  },
 
-  motion: {
-    duration: '200ms',
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  },
 };
 
 // 기본(웜 클레이) 확장 변수 — inset(내부 그림자) + outer puff(외부 소프트 드롭) 색.
@@ -170,7 +150,6 @@ const skyFoundations = makeVizColorway(foundations, {
   name: 'clay-playful-01-sky',
   canvas: { bg: SKY_BG, grid: '#E1E9F2' },
   ink: SKY_INK, // keyline/edge/boundary/shape/c4 라벨 일괄
-  tagColor: SKY_INK,
   shape: { fill: '#CFE0F0' },
   nodeFills: {
     person: '#CFE6F5', // 페일 블루
@@ -189,7 +168,6 @@ const skyFoundations = makeVizColorway(foundations, {
     p7: SKY_INK,
     p8: '#E4EDF6',
   },
-  c4LabelColor: SKY_INK,
   c4Tints: ['rgba(42,51,64,0.06)', 'rgba(42,51,64,0.04)', 'transparent'],
   boundaryLabelColor: SKY_INK,
 });
@@ -346,7 +324,7 @@ const guidelines: Record<string, Record<string, unknown>> = {
   },
   accessibility: {
     summary:
-      '모든 라벨(node.tagColor / c4.labelColor / boundary.labelColor)은 다크 클레이 잉크 — 밝은 파스텔·크림 위에서 4.5:1을 크게 상회(default 8.6~9.9:1, sky 9.2~10.2:1; auditVizContrast 게이트). inset·outer puff는 전부 [data-viz-clay] 도형 그룹 스코프 장식으로 텍스트에 미적용.',
+      '모든 라벨(노드·C4·경계)은 다크 클레이 잉크 — 밝은 파스텔·크림 위에서 4.5:1을 크게 상회(default 8.6~9.9:1, sky 9.2~10.2:1; auditVizContrast 게이트). inset·outer puff는 전부 [data-viz-clay] 도형 그룹 스코프 장식으로 텍스트에 미적용.',
     dos: [
       '라벨은 다크 잉크(파스텔 솔리드 위 ≥4.5:1)',
       'inset/puff는 도형에만 — 텍스트 제외',

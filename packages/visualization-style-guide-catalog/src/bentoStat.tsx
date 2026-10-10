@@ -29,7 +29,7 @@ import { useVizMotifStyle } from './_motif';
  * 라벨(children)은 데코 밖에서 정상 렌더 → 접근성/가독성에 영향 0. hudTelemetry의 코너 브래킷
  * 선례(node bbox → path 계산)와 동형이며, 코어/headless는 무변경(이 파일 안에서만 산다).
  *
- * 접근성: 모든 라벨(node.tagColor / c4.labelColor / boundary.labelColor)은 다크 슬레이트 잉크로
+ * 접근성: 모든 라벨(노드·C4·경계)은 다크 슬레이트 잉크로
  * 라이트 뉴트럴/타일 표면 위 ≥12:1(auditVizContrast 게이트 — AAA 7:1 여유 통과). shape/edge 잉크도
  * 캔버스 대비 ≥13:1(텍스트 4.5·비텍스트 3 상회). 타일 frame/chip은 전부 aria-hidden 장식이라
  * 정보를 색만으로 인코딩하지 않는다(형태·라벨 병기).
@@ -42,13 +42,10 @@ const KEYLINE = 1.5; // thin 보더
 
 // kind별 라이트 타일 표면(솔리드) + 슬레이트 잉크 윤곽 + 다크 잉크 라벨.
 // 모든 fill은 아주 밝아 다크 잉크 라벨이 AAA(≥7:1)로 안전(worst 13.45:1).
-const node = (fill: string, glyph: string, opts?: { dashed?: boolean }) => ({
+const node = (fill: string) => ({
   fill,
   keyline: INK,
   keylineWidth: KEYLINE,
-  tagColor: INK,
-  ...(opts?.dashed ? { dashed: true } : {}),
-  glyph,
 });
 
 const foundations: VisualizationFoundation = {
@@ -81,13 +78,13 @@ const foundations: VisualizationFoundation = {
 
   // kind별 라이트 타일 표면 + 슬레이트 잉크 윤곽 + 다크 잉크 라벨.
   node: {
-    person: node('#FFFFFF', 'user'),
-    external: node('#EDF0F5', 'arrowOut', { dashed: true }),
-    container: node('#F5F7FA', 'stackedRect'),
-    database: node('#E9EFFB', 'cylinder'),
-    queue: node('#F3F5F8', 'bars'),
-    decision: node('#EDF0F5', 'diamond'),
-    process: node('#F5F7FA', 'process'),
+    person: node('#FFFFFF'),
+    external: node('#EDF0F5'),
+    container: node('#F5F7FA'),
+    database: node('#E9EFFB'),
+    queue: node('#F3F5F8'),
+    decision: node('#EDF0F5'),
+    process: node('#F5F7FA'),
   },
 
   // 슬레이트 잉크 커넥터 — 넉넉한 라운드 코너(라운드 타일 무드) + 소형 화살촉.
@@ -106,9 +103,9 @@ const foundations: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 2, bgTint: 'rgba(31,36,48,0.05)', labelColor: INK },
-    l2: { borderWidth: 1.5, bgTint: 'rgba(31,36,48,0.03)', labelColor: INK },
-    l3: { borderWidth: 1, bgTint: 'transparent', labelColor: INK },
+    l1: { borderWidth: 2, bgTint: 'rgba(31,36,48,0.05)' },
+    l2: { borderWidth: 1.5, bgTint: 'rgba(31,36,48,0.03)' },
+    l3: { borderWidth: 1, bgTint: 'transparent' },
   },
 
   // 라운드 타일 경계 — 큰 radius(rounded tiles).
@@ -123,27 +120,10 @@ const foundations: VisualizationFoundation = {
   typography: {
     titleFont: "'Inter', 'Helvetica Neue', Arial, sans-serif",
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
-    titleWeight: 700,
-    sizes: {
-      title: '15px',
-      label: '12px',
-      tag: '10px',
-      mono: '11px',
-    },
   },
-
-  iconStyle: 'line',
 
   // 넉넉한 spacing — 모듈형 벤토 그리드의 여백.
-  spacing: {
-    nodePad: 16,
-    laneGap: 32,
-  },
 
-  motion: {
-    duration: '200ms',
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  },
 };
 
 // ext 변수 — 타일 frame stroke/fill + 액센트 코너 칩 색. preset마다 재정의해
@@ -159,7 +139,6 @@ const slateFoundations = makeVizColorway(foundations, {
   name: 'bento-stat-01-slate',
   canvas: { bg: '#ECEFF4', grid: '#DCE1EA' },
   ink: '#1C2333', // 쿨 다크 슬레이트 잉크(쿨 캔버스 대비 13.62:1)
-  tagColor: '#1C2333',
   boundaryLabelColor: '#1C2333',
   shape: { fill: '#F5F8FD' },
   nodeFills: {
@@ -328,7 +307,7 @@ const guidelines: Record<string, Record<string, unknown>> = {
   },
   accessibility: {
     summary:
-      '모든 라벨(node.tagColor / c4.labelColor / boundary.labelColor)은 다크 슬레이트 잉크 — 라이트 뉴트럴/타일 표면 위 ≥12:1(auditVizContrast 게이트, AAA 7:1 여유 통과). 타일 frame/chip·소프트 섀도는 전부 aria-hidden 장식이라 텍스트에 얹지 않고, 의미를 색만으로 인코딩하지 않는다.',
+      '모든 라벨(노드·C4·경계)은 다크 슬레이트 잉크 — 라이트 뉴트럴/타일 표면 위 ≥12:1(auditVizContrast 게이트, AAA 7:1 여유 통과). 타일 frame/chip·소프트 섀도는 전부 aria-hidden 장식이라 텍스트에 얹지 않고, 의미를 색만으로 인코딩하지 않는다.',
     dos: [
       '라벨은 다크 슬레이트 잉크(타일 위 ≥7:1)',
       '타일 frame/chip은 지오메트리 파생 장식(aria-hidden)',

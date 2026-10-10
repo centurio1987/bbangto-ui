@@ -14,12 +14,10 @@ export interface VizColorwayOverride {
   /** keyline/edge/marker/boundary stroke 일괄 잉크 색. */
   ink?: string;
   nodeFills?: Partial<Record<VizNodeSemanticKind, string>>;
-  tagColor?: string;
   /** 잉크와 별도의 엣지(커넥터+마커) 색 — 듀오톤 계열용. 미지정 시 ink를 따른다. */
   edge?: { stroke?: string };
   palette?: Partial<VisualizationFoundation['palette']>;
   boundaryLabelColor?: string;
-  c4LabelColor?: string;
   c4Tints?: [string, string, string];
   shape?: { fill?: string; stroke?: string };
 }
@@ -52,7 +50,6 @@ export function makeVizColorway(
             ? { fill: o.nodeFills[kind as VizNodeSemanticKind]! }
             : {}),
           ...(ink ? { keyline: ink } : {}),
-          ...(o.tagColor ? { tagColor: o.tagColor } : {}),
         },
       ]),
     ) as VisualizationFoundation['node'],
@@ -71,17 +68,14 @@ export function makeVizColorway(
       l1: {
         ...base.c4.l1,
         ...(o.c4Tints ? { bgTint: o.c4Tints[0] } : {}),
-        ...(o.c4LabelColor ?? ink ? { labelColor: o.c4LabelColor ?? ink! } : {}),
       },
       l2: {
         ...base.c4.l2,
         ...(o.c4Tints ? { bgTint: o.c4Tints[1] } : {}),
-        ...(o.c4LabelColor ?? ink ? { labelColor: o.c4LabelColor ?? ink! } : {}),
       },
       l3: {
         ...base.c4.l3,
         ...(o.c4Tints ? { bgTint: o.c4Tints[2] } : {}),
-        ...(o.c4LabelColor ?? ink ? { labelColor: o.c4LabelColor ?? ink! } : {}),
       },
     },
     boundary: {

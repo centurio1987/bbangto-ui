@@ -31,7 +31,7 @@ import { useVizMotifStyle } from './_motif';
  * 소프트 퍼피 무드: 라운드 코너 + 소프트 드롭섀도(파스텔 스티커 느낌)는 CSS 모티프로
  * `[data-viz-part="shape"]`에만 스코프(텍스트 무영향). 쇼케이스 표면엔 은은한 파스텔 폴카닷.
  *
- * 접근성(aa): 모든 라벨(node.tagColor / c4.labelColor / boundary.labelColor)은 소프트
+ * 접근성(aa): 모든 라벨(노드·C4·경계)은 소프트
  * 다크 플럼 잉크(#43303C)로 라이트 파스텔 위에서 9:1 이상(auditVizContrast 게이트 통과).
  * 마스코트/폴카닷/드롭섀도는 전부 데코라 텍스트에 얹지 않는다.
  */
@@ -39,13 +39,10 @@ import { useVizMotifStyle } from './_motif';
 const INK = '#43303C'; // 소프트 다크 플럼 잉크 — 라인/윤곽 + 모든 텍스트 라벨(파스텔 위 ≥9:1)
 
 // kind별 파스텔 솔리드 채움 + 다크 플럼 윤곽 + 다크 플럼 태그. 전부 라이트 → 다크 라벨 안전.
-const node = (fill: string, glyph: string, opts?: { dashed?: boolean }) => ({
+const node = (fill: string) => ({
   fill,
   keyline: INK,
   keylineWidth: 1.5,
-  tagColor: INK,
-  ...(opts?.dashed ? { dashed: true } : {}),
-  glyph,
 });
 
 const foundations: VisualizationFoundation = {
@@ -78,13 +75,13 @@ const foundations: VisualizationFoundation = {
 
   // kind별 파스텔 솔리드 채움 + 다크 플럼 윤곽 + 다크 플럼 라벨.
   node: {
-    person: node('#FFD3E2', 'user'), // 파스텔 핑크
-    external: node('#CFE4FF', 'arrowOut', { dashed: true }), // 파스텔 블루
-    container: node('#E7DBFF', 'stackedRect'), // 파스텔 라일락
-    database: node('#C7F2E1', 'cylinder'), // 파스텔 민트
-    queue: node('#FFE1C2', 'bars'), // 파스텔 피치
-    decision: node('#FFF2B4', 'diamond'), // 파스텔 옐로
-    process: node('#D9EEDA', 'process'), // 파스텔 그린
+    person: node('#FFD3E2'), // 파스텔 핑크
+    external: node('#CFE4FF'), // 파스텔 블루
+    container: node('#E7DBFF'), // 파스텔 라일락
+    database: node('#C7F2E1'), // 파스텔 민트
+    queue: node('#FFE1C2'), // 파스텔 피치
+    decision: node('#FFF2B4'), // 파스텔 옐로
+    process: node('#D9EEDA'), // 파스텔 그린
   },
 
   // 다크 플럼 커넥터 — 둥근 코너 라우팅 + 작은 화살촉.
@@ -103,9 +100,9 @@ const foundations: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 2, bgTint: 'rgba(67,48,60,0.06)', labelColor: INK },
-    l2: { borderWidth: 1.5, bgTint: 'rgba(67,48,60,0.04)', labelColor: INK },
-    l3: { borderWidth: 1, bgTint: 'transparent', labelColor: INK },
+    l1: { borderWidth: 2, bgTint: 'rgba(67,48,60,0.06)' },
+    l2: { borderWidth: 1.5, bgTint: 'rgba(67,48,60,0.04)' },
+    l3: { borderWidth: 1, bgTint: 'transparent' },
   },
 
   // 둥근 다크 플럼 대시 경계.
@@ -120,27 +117,9 @@ const foundations: VisualizationFoundation = {
   typography: {
     titleFont: "'Baloo 2', 'Quicksand', 'Nunito', 'Segoe UI', sans-serif",
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
-    titleWeight: 700,
-    sizes: {
-      title: '15px',
-      label: '12px',
-      tag: '10px',
-      mono: '11px',
-    },
-  },
-
-  iconStyle: 'fill',
-
-  spacing: {
-    nodePad: 12,
-    laneGap: 24,
   },
 
   // 살짝 통통 튀는 이징(카와이 무드). 색 아님 → colorway 간 deep-equal 유지.
-  motion: {
-    duration: '220ms',
-    easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
-  },
 };
 
 // ext 변수 — 마스코트 잉크/볼터치·소프트 퍼피 섀도. preset마다 재정의해 colorway 전환 시
@@ -328,7 +307,7 @@ const guidelines: Record<string, Record<string, unknown>> = {
   },
   accessibility: {
     summary:
-      '모든 라벨(node.tagColor / c4.labelColor / boundary.labelColor)은 소프트 다크 플럼(#43303C) — 라이트 파스텔 위에서 9:1 이상(auditVizContrast aa 게이트). 마스코트 글리프·폴카닷·드롭섀도는 전부 데코라 텍스트에 얹지 않으며(글리프는 aria-hidden + 텍스트 없음), 의미를 색만으로 인코딩하지 않는다.',
+      '모든 라벨(노드·C4·경계)은 소프트 다크 플럼(#43303C) — 라이트 파스텔 위에서 9:1 이상(auditVizContrast aa 게이트). 마스코트 글리프·폴카닷·드롭섀도는 전부 데코라 텍스트에 얹지 않으며(글리프는 aria-hidden + 텍스트 없음), 의미를 색만으로 인코딩하지 않는다.',
     dos: [
       '라벨은 다크 플럼(파스텔 위 ≥4.5:1)',
       '마스코트/폴카닷/섀도는 도형·표면 장식으로만 — 텍스트 제외',

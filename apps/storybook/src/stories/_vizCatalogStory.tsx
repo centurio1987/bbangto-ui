@@ -7,6 +7,7 @@ import {
   EdgeLabel,
   VisualizationStyleGuideProvider,
   resolveVizFoundationPreset,
+  visualizationFoundationToStyleObject,
   type VisualizationStyleGuide,
 } from '@centurio1987/bbangto-ui-visualization';
 import { vizStyleGuideMap } from '@centurio1987/bbangto-ui-visualization-style-guide-catalog';
@@ -168,10 +169,11 @@ export function makeVizCatalogStories(
       const edgeVsBg = contrastRatio(sg.foundations.edge.stroke, sg.foundations.canvas.bg);
       await expect(edgeVsBg!).toBeGreaterThanOrEqual(3.0);
 
-      // 4. 채운 시맨틱 fill 위 tagColor 대비 4.5:1 (fill이 hex인 kind만)
+      // 4. 채운 시맨틱 fill 위 실제 글자색(--bbangto-viz-on-node-*) 대비 4.5:1 (fill이 hex인 kind만)
+      const onVars = visualizationFoundationToStyleObject(sg.foundations);
       for (const k of kinds) {
-        const { fill, tagColor } = sg.foundations.node[k];
-        const ratio = contrastRatio(tagColor, fill);
+        const { fill } = sg.foundations.node[k];
+        const ratio = contrastRatio(onVars[`--bbangto-viz-on-node-${k}-fill`], fill);
         if (ratio != null) {
           await expect(ratio).toBeGreaterThanOrEqual(4.5);
         }
@@ -325,11 +327,16 @@ export function makeVizCatalogStories(
       // 색 스킴 전용 불변식: 비색상 토큰은 base와 동일
       for (const p of presets) {
         await expect(p.foundations.typography).toEqual(sg.foundations.typography);
-        await expect(p.foundations.spacing).toEqual(sg.foundations.spacing);
         await expect(p.foundations.canvas.gridUnit).toBe(sg.foundations.canvas.gridUnit);
         await expect(p.foundations.edge.width).toBe(sg.foundations.edge.width);
+        await expect(p.foundations.edge.marker.size).toBe(sg.foundations.edge.marker.size);
         await expect(p.foundations.shape.strokeWidth).toBe(sg.foundations.shape.strokeWidth);
         await expect(p.foundations.boundary.radius).toBe(sg.foundations.boundary.radius);
+        await expect(p.foundations.boundary.width).toBe(sg.foundations.boundary.width);
+        await expect(p.foundations.boundary.dashPattern).toBe(sg.foundations.boundary.dashPattern);
+        for (const l of ['l1', 'l2', 'l3'] as const) {
+          await expect(p.foundations.c4[l].borderWidth).toBe(sg.foundations.c4[l].borderWidth);
+        }
 
         // preset별 잉크-캔버스 대비 4.5:1
         const ratio = contrastRatio(p.foundations.shape.stroke, p.foundations.canvas.bg);

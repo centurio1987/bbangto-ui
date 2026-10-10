@@ -30,7 +30,7 @@ import { useVizMotifStyle } from './_motif';
  * 결정론(determinism): blob 곡선은 **고정 wobble 배열 + 노드 id 길이 seed**로만 만들어진다.
  * Math.random/Date.now 없음 → 같은 노드 박스는 항상 같은 `d`를 낸다(SSR-안전, 스냅샷 안정).
  *
- * 접근성: 모든 라벨(node.tagColor / c4.labelColor / boundary.labelColor)은 딥 그린-차콜
+ * 접근성: 모든 라벨(노드·C4·경계)은 딥 그린-차콜
  * 잉크(#2C352C)로 소프트 라이트 fill·틴트 위에서 ≥8.2:1(auditVizContrast 게이트). shape/edge
  * 잉크는 크림 그라운드 대비 ≥11:1(텍스트 4.5·비텍스트 3 초과). blob은 순수 장식(aria-hidden,
  * 텍스트 없음)이라 실제 <Node>의 라벨은 blob 그룹 밖에서 렌더 → 판독성에 영향 0.
@@ -50,13 +50,10 @@ const TINT = {
   pale: '#E4E7DA',
 } as const;
 
-const node = (fill: string, glyph: string, opts?: { dashed?: boolean }) => ({
+const node = (fill: string) => ({
   fill,
   keyline: INK,
   keylineWidth: 1.25,
-  tagColor: INK,
-  ...(opts?.dashed ? { dashed: true } : {}),
-  glyph,
 });
 
 const foundations: VisualizationFoundation = {
@@ -89,13 +86,13 @@ const foundations: VisualizationFoundation = {
 
   // kind별 소프트 유기 틴트 채움 + 잉크 윤곽 + 다크 잉크 라벨.
   node: {
-    person: node(TINT.sage, 'user'),
-    external: node(TINT.clay, 'arrowOut', { dashed: true }),
-    container: node(TINT.sky, 'stackedRect'),
-    database: node(TINT.peach, 'cylinder'),
-    queue: node(TINT.lilac, 'bars'),
-    decision: node(TINT.softSage, 'diamond'),
-    process: node(TINT.pale, 'process'),
+    person: node(TINT.sage),
+    external: node(TINT.clay),
+    container: node(TINT.sky),
+    database: node(TINT.peach),
+    queue: node(TINT.lilac),
+    decision: node(TINT.softSage),
+    process: node(TINT.pale),
   },
 
   // 유기적 라운드 커넥터(cornerRadius 12) + 소형 화살촉(잉크).
@@ -114,9 +111,9 @@ const foundations: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 2, bgTint: 'rgba(127,169,104,0.10)', labelColor: INK },
-    l2: { borderWidth: 1.5, bgTint: 'rgba(127,169,104,0.06)', labelColor: INK },
-    l3: { borderWidth: 1, bgTint: 'transparent', labelColor: INK },
+    l1: { borderWidth: 2, bgTint: 'rgba(127,169,104,0.10)' },
+    l2: { borderWidth: 1.5, bgTint: 'rgba(127,169,104,0.06)' },
+    l3: { borderWidth: 1, bgTint: 'transparent' },
   },
 
   // 소프트 라운드 대시 경계(유기적).
@@ -131,26 +128,8 @@ const foundations: VisualizationFoundation = {
   typography: {
     titleFont: "'Quicksand', 'Nunito', 'Segoe UI', sans-serif",
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
-    titleWeight: 600,
-    sizes: {
-      title: '15px',
-      label: '12px',
-      tag: '10px',
-      mono: '11px',
-    },
   },
 
-  iconStyle: 'fill',
-
-  spacing: {
-    nodePad: 14,
-    laneGap: 28,
-  },
-
-  motion: {
-    duration: '240ms',
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  },
 };
 
 // ext 변수 — 유기 그라운드(쇼케이스 백드롭 blob 그라디언트) + blob 기본 채움(노드 fill 미지정 시).
@@ -354,7 +333,7 @@ const guidelines: Record<string, Record<string, unknown>> = {
   },
   accessibility: {
     summary:
-      '모든 라벨(node.tagColor / c4.labelColor / boundary.labelColor)은 딥 그린-차콜 잉크 — 소프트 라이트 fill·틴트 위에서 ≥8.2:1(auditVizContrast 게이트, aa=4.5 상회). blob은 aria-hidden 순수 장식이라 텍스트를 감싸거나 왜곡하지 않고, 실제 <Node> 라벨은 blob 그룹 밖에서 렌더된다. 형태 구분은 색뿐 아니라 blob·아이콘·라벨로 병기.',
+      '모든 라벨(노드·C4·경계)은 딥 그린-차콜 잉크 — 소프트 라이트 fill·틴트 위에서 ≥8.2:1(auditVizContrast 게이트, aa=4.5 상회). blob은 aria-hidden 순수 장식이라 텍스트를 감싸거나 왜곡하지 않고, 실제 <Node> 라벨은 blob 그룹 밖에서 렌더된다. 형태 구분은 색뿐 아니라 blob·아이콘·라벨로 병기.',
     dos: [
       '텍스트는 딥 그린-차콜 잉크(라이트 표면 위 ≥4.5:1)',
       'blob·그라운드 그라디언트는 비상호작용 장식으로 유지',

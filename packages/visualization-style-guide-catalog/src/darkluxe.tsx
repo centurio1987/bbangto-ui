@@ -29,8 +29,9 @@ import { useVizMotifStyle } from './_motif';
  * 형제로 그린다(`<g data-viz-darkluxe-rule aria-hidden="true">`, 텍스트 없음, 순수 장식).
  * 지오메트리 불변 — x/y/width로 좌표만 계산한다. 코어/headless 무변경(이 파일 안에서만 산다).
  *
- * 접근성: 모든 라벨(node.tagColor / c4.labelColor / boundary.labelColor)은 웜 크림으로
- * 니어블랙 표면 위 ≥13:1 — 전부 AAA(≥7) 실측. 골드 헤어라인 잉크는 블랙 대비 8.16:1(텍스트 ≥4.5,
+ * 접근성: 경계 라벨(boundary.labelColor)은 웜 크림으로 니어블랙 표면 위 ≥13:1. 노드·C4 글자는 visualization 이
+ * 면마다 계산한 글자색(`--bbangto-viz-on-*`)이고, 그 값이 aaa 에 못 미치는 oxblood 에서는 `on` 으로 크림을 정한다 —
+ * 전부 AAA(≥7) 실측. 골드 헤어라인 잉크는 블랙 대비 8.16:1(텍스트 ≥4.5,
  * 비텍스트 ≥3 모두 충족). 헤어라인 룰은 aria-hidden 장식이라 의미를 색만으로 인코딩하지 않는다.
  */
 
@@ -41,14 +42,11 @@ const BRONZE = '#8C6D34'; // 브론즈 — 경계선(비텍스트 장식, 블랙
 const CHARCOAL = '#1A1A1A'; // 차콜 — 그리드/보조
 const HAIR = 1; // 헤어라인 1px
 
-// kind별 니어블랙 솔리드 채움 + 골드 헤어라인 키라인 + 크림 라벨. 크림은 전 채움 위 ≥13:1(AAA).
-const node = (fill: string, glyph: string, dashed?: boolean) => ({
+// kind별 니어블랙 솔리드 채움 + 골드 헤어라인 키라인.
+const node = (fill: string) => ({
   fill,
   keyline: GOLD,
   keylineWidth: HAIR,
-  tagColor: CREAM,
-  ...(dashed ? { dashed: true } : {}),
-  glyph,
 });
 
 const foundations: VisualizationFoundation = {
@@ -80,13 +78,13 @@ const foundations: VisualizationFoundation = {
   },
 
   node: {
-    person: node('#151515', 'user'),
-    external: node('#101010', 'arrowOut', true),
-    container: node('#1A1A1A', 'stackedRect'),
-    database: node('#161616', 'cylinder'),
-    queue: node('#1C1712', 'bars'),
-    decision: node('#121212', 'diamond'),
-    process: node('#181818', 'process'),
+    person: node('#151515'),
+    external: node('#101010'),
+    container: node('#1A1A1A'),
+    database: node('#161616'),
+    queue: node('#1C1712'),
+    decision: node('#121212'),
+    process: node('#181818'),
   },
 
   // 골드 헤어라인 커넥터 — 직각(cornerRadius 0), 소형 화살촉.
@@ -105,9 +103,9 @@ const foundations: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 2, bgTint: 'rgba(198,161,91,0.10)', labelColor: CREAM },
-    l2: { borderWidth: 1.5, bgTint: 'rgba(198,161,91,0.06)', labelColor: CREAM },
-    l3: { borderWidth: 1, bgTint: 'transparent', labelColor: CREAM },
+    l1: { borderWidth: 2, bgTint: 'rgba(198,161,91,0.10)' },
+    l2: { borderWidth: 1.5, bgTint: 'rgba(198,161,91,0.06)' },
+    l3: { borderWidth: 1, bgTint: 'transparent' },
   },
 
   // 브론즈 파인 대시 경계(비텍스트 장식).
@@ -123,26 +121,8 @@ const foundations: VisualizationFoundation = {
     // 큰 세리프 디스플레이 = 시그니처. 스택 말미 'serif' 폴백은 룩의 핵심.
     titleFont: "'Playfair Display', 'Georgia', 'Times New Roman', serif",
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
-    titleWeight: 500,
-    sizes: {
-      title: '18px', // 큰 세리프 타이틀
-      label: '12px',
-      tag: '10px',
-      mono: '11px',
-    },
   },
 
-  iconStyle: 'line',
-
-  spacing: {
-    nodePad: 14,
-    laneGap: 28,
-  },
-
-  motion: {
-    duration: '200ms',
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  },
 };
 
 // ext 변수 — 헤어라인 룰 색·크림 라벨·브론즈 액센트. preset마다 전량 재정의해
@@ -156,33 +136,48 @@ const DEFAULT_EXT: Record<string, string> = {
 const MGOLD = '#B99154'; // 뮤트 골드(웜 니어블랙 대비 6.75:1)
 const OXBLOOD = '#6E2230'; // 옥스블러드 액센트(비텍스트 장식 — 텍스트/라인 잉크로 미사용)
 
+/**
+ * oxblood 면 위 노드·C4 글자는 크림으로 정한다. 계산값(뮤트 골드)은 이 면들에서 5.9~6.8:1 이라 aaa(7:1) 선언에
+ * 못 미친다. 크림은 같은 면에서 13:1 이상이다(KAN-069).
+ */
+const OXBLOOD_ON: VisualizationFoundation['on'] = {
+  node: Object.fromEntries(
+    (['person', 'external', 'container', 'database', 'queue', 'decision', 'process'] as const).map((k) => [
+      k,
+      { fill: CREAM },
+    ]),
+  ),
+  c4: { l1: { bgTint: CREAM }, l2: { bgTint: CREAM }, l3: { bgTint: CREAM } },
+};
+
 /** oxblood — 웜 니어블랙 그라운드 + 뮤트 골드 잉크 + 옥스블러드 액센트 colorway. */
-const oxbloodFoundations = makeVizColorway(foundations, {
-  name: 'darkluxe-01-oxblood',
-  canvas: { bg: '#120A0A', grid: '#241414' },
-  ink: MGOLD, // shape/edge/boundary/keyline/marker 잉크
-  shape: { fill: '#1A1010' },
-  // c4 라벨은 크림 유지(ink로 덮이지 않게 명시) — AAA 라벨 대비 보전.
-  c4LabelColor: CREAM,
-  nodeFills: {
-    person: '#1A1010',
-    external: '#140C0C',
-    container: '#211414',
-    database: '#1C1212',
-    queue: '#241A14',
-    decision: '#170E0E',
-    process: '#1E1414',
-  },
-  palette: {
-    p1: MGOLD,
-    p2: CREAM,
-    p3: OXBLOOD,
-    p4: '#D9BE87',
-    p5: '#4A1E26',
-    p6: '#8C3A46',
-    p8: '#241414',
-  },
-});
+const oxbloodFoundations: VisualizationFoundation = {
+  ...makeVizColorway(foundations, {
+    name: 'darkluxe-01-oxblood',
+    canvas: { bg: '#120A0A', grid: '#241414' },
+    ink: MGOLD, // shape/edge/boundary/keyline/marker 잉크
+    shape: { fill: '#1A1010' },
+    nodeFills: {
+      person: '#1A1010',
+      external: '#140C0C',
+      container: '#211414',
+      database: '#1C1212',
+      queue: '#241A14',
+      decision: '#170E0E',
+      process: '#1E1414',
+    },
+    palette: {
+      p1: MGOLD,
+      p2: CREAM,
+      p3: OXBLOOD,
+      p4: '#D9BE87',
+      p5: '#4A1E26',
+      p6: '#8C3A46',
+      p8: '#241414',
+    },
+  }),
+  on: OXBLOOD_ON,
+};
 
 const OXBLOOD_EXT: Record<string, string> = {
   '--bbangto-viz-ext-hairline': MGOLD,
@@ -302,7 +297,7 @@ const guidelines: Record<string, Record<string, unknown>> = {
   },
   accessibility: {
     summary:
-      '모든 라벨(node.tagColor / c4.labelColor / boundary.labelColor)은 웜 크림 — 니어블랙 표면 위 ≥13:1로 전부 AAA(≥7) 실측(auditVizContrast 게이트). 골드 헤어라인은 블랙 대비 8.16:1. 헤어라인 룰은 aria-hidden 순수 장식이라 의미를 색만으로 인코딩하지 않는다.',
+      '경계 라벨(boundary.labelColor)은 웜 크림(니어블랙 위 ≥13:1)이다. 노드·C4 글자는 면마다 계산되는 글자색(--bbangto-viz-on-*)으로 default 는 골드, oxblood 는 계산값이 7:1 에 못 미쳐 `on` 으로 정한 크림이다 — 전부 AAA(≥7) 실측(auditVizContrast 게이트). 골드 헤어라인은 블랙 대비 8.16:1. 헤어라인 룰은 aria-hidden 순수 장식이라 의미를 색만으로 인코딩하지 않는다.',
     dos: [
       '텍스트는 웜 크림(니어블랙 위 ≥7:1, AAA)',
       '골드 헤어라인은 라인/윤곽 전용(≥4.5:1 텍스트급 대비)',

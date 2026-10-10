@@ -26,8 +26,8 @@ import { useVizMotifStyle } from './_motif';
  *
  * 뉴모피즘은 본질적으로 저대비(도형색 = 배경색)라 게이트를 위해 다음처럼 **적응**한다:
  *  - 캔버스/도형 채움 = 소프트 쿨 라이트 그레이(#E8ECF2 계열, 동일 톤). 형태는 섀도로만 읽힌다.
- *  - 대비는 **잉크(라벨/윤곽)** 가 담당한다: shape.stroke / edge.stroke / 모든 라벨(node.tagColor,
- *    c4.labelColor, boundary.labelColor)을 다크 슬레이트 잉크(#2A3340)로 둔다 → 라이트 표면 대비 ~10:1
+ *  - 대비는 **잉크(라벨/윤곽)** 가 담당한다: shape.stroke / edge.stroke / 모든 라벨(노드·C4·경계)을
+ *    다크 슬레이트 잉크(#2A3340)로 둔다 → 라이트 표면 대비 ~10:1
  *    (텍스트 ≥4.5·비텍스트 ≥3 게이트, auditVizContrast over-claim 게이트 모두 통과).
  *  - 윤곽선은 잉크색이 진하되 strokeWidth는 얇게(1px) 유지 → 게이트는 stroke **색 대비** 만 보고
  *    폭은 보지 않으므로, 얇은 다크 선으로 게이트를 만족하면서도 뉴모피즘 특유의 "테두리 억제"를 지킨다.
@@ -42,13 +42,10 @@ import { useVizMotifStyle } from './_motif';
 const SURFACE = '#E8ECF2'; // 소프트 쿨 라이트 그레이 — 캔버스·도형 동일 톤
 const INK = '#2A3340'; // 다크 슬레이트 잉크 — 윤곽/엣지/모든 라벨(라이트 표면 대비 ~10.8:1)
 
-const node = (fill: string, glyph: string, opts?: { dashed?: boolean }) => ({
+const node = (fill: string) => ({
   fill,
   keyline: INK,
   keylineWidth: 1, // 얇은 잉크 윤곽 — 뉴모피즘은 테두리를 억제(색만 진하고 폭은 최소)
-  tagColor: INK,
-  ...(opts?.dashed ? { dashed: true } : {}),
-  glyph,
 });
 
 const foundations: VisualizationFoundation = {
@@ -82,13 +79,13 @@ const foundations: VisualizationFoundation = {
   // kind별 채움은 전부 표면과 근접한 동일 톤(쿨 라이트 그레이) — 형태는 섀도로 읽힌다.
   // 라벨은 다크 잉크라 어떤 톤 위에서도 ≥9.7:1.
   node: {
-    person: node(SURFACE, 'user'),
-    external: node('#E3E8EF', 'arrowOut', { dashed: true }),
-    container: node('#ECEFF4', 'stackedRect'),
-    database: node('#E5EAF0', 'cylinder'),
-    queue: node('#EAEEF3', 'bars'),
-    decision: node('#E1E6EE', 'diamond'),
-    process: node(SURFACE, 'process'),
+    person: node(SURFACE),
+    external: node('#E3E8EF'),
+    container: node('#ECEFF4'),
+    database: node('#E5EAF0'),
+    queue: node('#EAEEF3'),
+    decision: node('#E1E6EE'),
+    process: node(SURFACE),
   },
 
   // 소프트 잉크 라인 1px + 소형 화살촉. 커넥터는 라운드 코너로 부드럽게.
@@ -107,9 +104,9 @@ const foundations: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 2, bgTint: 'rgba(42,51,64,0.06)', labelColor: INK },
-    l2: { borderWidth: 1.5, bgTint: 'rgba(42,51,64,0.04)', labelColor: INK },
-    l3: { borderWidth: 1, bgTint: 'transparent', labelColor: INK },
+    l1: { borderWidth: 2, bgTint: 'rgba(42,51,64,0.06)' },
+    l2: { borderWidth: 1.5, bgTint: 'rgba(42,51,64,0.04)' },
+    l3: { borderWidth: 1, bgTint: 'transparent' },
   },
 
   // 얇은 점선 + 소프트 라운드 컨테이너(뉴모피즘 라운딩). stroke는 잉크색이나 폭이 얇아 억제된다.
@@ -124,26 +121,8 @@ const foundations: VisualizationFoundation = {
   typography: {
     titleFont: "'Nunito', 'Quicksand', 'Helvetica Neue', Arial, sans-serif",
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
-    titleWeight: 700,
-    sizes: {
-      title: '15px',
-      label: '12px',
-      tag: '10px',
-      mono: '11px',
-    },
   },
 
-  iconStyle: 'line',
-
-  spacing: {
-    nodePad: 14,
-    laneGap: 28,
-  },
-
-  motion: {
-    duration: '200ms',
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  },
 };
 
 // 듀얼 섀도 톤 — 좌상 하이라이트(라이트) + 우하 섀도(다크). preset마다 재정의해 colorway에 반응.
@@ -157,7 +136,6 @@ const warmFoundations = makeVizColorway(foundations, {
   name: 'neumorphic-soft-01-warm',
   canvas: { bg: '#EFEAE4', grid: '#E1D9CF' },
   ink: '#3A322C', // 웜 다크 슬레이트 잉크(웜 표면 대비 10.50:1) — 윤곽/엣지/boundary/c4/shape
-  tagColor: '#3A322C',
   shape: { fill: '#EFEAE4' },
   nodeFills: {
     person: '#EFEAE4',
@@ -169,7 +147,6 @@ const warmFoundations = makeVizColorway(foundations, {
     process: '#EFEAE4',
   },
   boundaryLabelColor: '#3A322C',
-  c4LabelColor: '#3A322C',
   c4Tints: ['rgba(58,50,44,0.06)', 'rgba(58,50,44,0.04)', 'transparent'],
   palette: {
     p1: '#D8CDBF', // 웜 그레이 액센트
@@ -324,7 +301,7 @@ const guidelines: Record<string, Record<string, unknown>> = {
   },
   accessibility: {
     summary:
-      '뉴모피즘은 도형색=배경색이라 본질적 저대비다. 이를 정직하게 **contrastIntent: aa**로 선언하고, 대비 담당을 잉크로 분리한다: 모든 라벨(node.tagColor / c4.labelColor / boundary.labelColor)과 윤곽(shape/edge.stroke)은 다크 슬레이트 잉크로 라이트 표면 대비 ~10:1(텍스트 ≥4.5·비텍스트 ≥3, auditVizContrast 게이트 통과). 윤곽선은 색이 진하되 폭을 1px로 억제해 뉴모피즘 무드와 게이트를 동시에 만족한다. 듀얼 섀도는 [data-viz-neumorph] 도형 그룹에만 적용되는 장식으로 텍스트에 미적용.',
+      '뉴모피즘은 도형색=배경색이라 본질적 저대비다. 이를 정직하게 **contrastIntent: aa**로 선언하고, 대비 담당을 잉크로 분리한다: 모든 라벨(노드·C4·경계)과 윤곽(shape/edge.stroke)은 다크 슬레이트 잉크로 라이트 표면 대비 ~10:1(텍스트 ≥4.5·비텍스트 ≥3, auditVizContrast 게이트 통과). 윤곽선은 색이 진하되 폭을 1px로 억제해 뉴모피즘 무드와 게이트를 동시에 만족한다. 듀얼 섀도는 [data-viz-neumorph] 도형 그룹에만 적용되는 장식으로 텍스트에 미적용.',
     dos: [
       '라벨·윤곽은 다크 슬레이트 잉크(라이트 표면 대비 ≥4.5:1)',
       '윤곽선은 얇게(1px) — 색 대비로 게이트, 폭으로 무드 억제',

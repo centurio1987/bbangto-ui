@@ -26,13 +26,10 @@ const INK = '#111111';
 const BLUE = '#2B44E0';
 const LINE = 1.75;
 
-const node = (glyph: string, opts?: { fill?: string; dashed?: boolean }) => ({
-  fill: opts?.fill ?? 'none',
+const node = (fill = 'none') => ({
+  fill,
   keyline: INK,
   keylineWidth: LINE,
-  tagColor: INK,
-  ...(opts?.dashed ? { dashed: true } : {}),
-  glyph,
 });
 
 const foundations: VisualizationFoundation = {
@@ -64,13 +61,13 @@ const foundations: VisualizationFoundation = {
 
   // 채움 없음 기본 — 강조 컨테이너만 라이트 블루 틴트.
   node: {
-    person: node('user'),
-    external: node('arrowOut', { dashed: true }),
-    container: node('stackedRect', { fill: '#D6E4F7' }),
-    database: node('cylinder'),
-    queue: node('bars'),
-    decision: node('diamond'),
-    process: node('process'),
+    person: node(),
+    external: node(),
+    container: node('#D6E4F7'),
+    database: node(),
+    queue: node(),
+    decision: node(),
+    process: node(),
   },
 
   // 커넥터는 블루 잉크 — 도형(블랙)과의 2잉크 분리가 이 가이드의 시그니처.
@@ -89,9 +86,9 @@ const foundations: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 2, bgTint: 'rgba(43,68,224,0.05)', labelColor: INK },
-    l2: { borderWidth: 1.5, bgTint: 'rgba(43,68,224,0.03)', labelColor: INK },
-    l3: { borderWidth: 1, bgTint: 'transparent', labelColor: INK },
+    l1: { borderWidth: 2, bgTint: 'rgba(43,68,224,0.05)' },
+    l2: { borderWidth: 1.5, bgTint: 'rgba(43,68,224,0.03)' },
+    l3: { borderWidth: 1, bgTint: 'transparent' },
   },
 
   // 도트 리더선 무드의 경계 — 블루 잉크 점선.
@@ -106,26 +103,8 @@ const foundations: VisualizationFoundation = {
   typography: {
     titleFont: "'Helvetica Neue', Helvetica, Arial, sans-serif",
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
-    titleWeight: 700,
-    sizes: {
-      title: '14px',
-      label: '12px',
-      tag: '10px',
-      mono: '11px',
-    },
   },
 
-  iconStyle: 'line',
-
-  spacing: {
-    nodePad: 12,
-    laneGap: 24,
-  },
-
-  motion: {
-    duration: '200ms',
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  },
 };
 
 /** slate — 그레이 잉크 + 퍼플 엣지 colorway (관측: mermaid isometric_01 퍼플 단일 액센트). */
@@ -133,7 +112,6 @@ const slateFoundations = makeVizColorway(foundations, {
   name: 'ink-line-duotone-01-slate',
   canvas: { bg: '#ECEDF1', grid: '#DFE0E6' },
   ink: '#33333B',
-  tagColor: '#33333B',
   edge: { stroke: '#6B3FD1' },
   nodeFills: { container: '#E4DCF6' },
   palette: { p1: '#6B3FD1', p3: '#8A5CF0', p8: '#E4DCF6' },

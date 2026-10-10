@@ -39,13 +39,10 @@ const GOLD_LT = '#D8B45E'; // 라이트 골드 — 코너 액센트
 const CREAM = '#EFE6D0'; // 크림 — 모든 텍스트 라벨(다크 fill 위 ≥11:1)
 
 // 모든 kind는 다크 솔리드 fill + 골드 헤어라인 윤곽 + 크림 라벨. glyph는 라인 아이콘.
-const node = (fill: string, glyph: string, dashed?: boolean) => ({
+const node = (fill: string) => ({
   fill,
   keyline: GOLD,
   keylineWidth: 1,
-  tagColor: CREAM,
-  ...(dashed ? { dashed: true } : {}),
-  glyph,
 });
 
 const foundations: VisualizationFoundation = {
@@ -78,13 +75,13 @@ const foundations: VisualizationFoundation = {
 
   // kind별 다크 솔리드 fill(니어블랙 틴트·딥그린) + 골드 윤곽 + 크림 라벨.
   node: {
-    person: node('#12281E', 'user'),
-    external: node('#1A1A16', 'arrowOut', true),
-    container: node('#171712', 'stackedRect'),
-    database: node('#0F231B', 'cylinder'),
-    queue: node('#20201A', 'bars'),
-    decision: node('#14140F', 'diamond'),
-    process: node('#1B2A22', 'process'),
+    person: node('#12281E'),
+    external: node('#1A1A16'),
+    container: node('#171712'),
+    database: node('#0F231B'),
+    queue: node('#20201A'),
+    decision: node('#14140F'),
+    process: node('#1B2A22'),
   },
 
   // 골드 커넥터 — 샤프(cornerRadius 0), 소형 마커.
@@ -103,9 +100,9 @@ const foundations: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 2, bgTint: 'rgba(203,162,83,0.10)', labelColor: CREAM },
-    l2: { borderWidth: 1.5, bgTint: 'rgba(203,162,83,0.06)', labelColor: CREAM },
-    l3: { borderWidth: 1, bgTint: 'transparent', labelColor: CREAM },
+    l1: { borderWidth: 2, bgTint: 'rgba(203,162,83,0.10)' },
+    l2: { borderWidth: 1.5, bgTint: 'rgba(203,162,83,0.06)' },
+    l3: { borderWidth: 1, bgTint: 'transparent' },
   },
 
   boundary: {
@@ -119,26 +116,8 @@ const foundations: VisualizationFoundation = {
   typography: {
     titleFont: "'Cormorant Garamond', 'Playfair Display', 'Didot', Georgia, serif",
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
-    titleWeight: 700,
-    sizes: {
-      title: '16px',
-      label: '12px',
-      tag: '10px',
-      mono: '11px',
-    },
   },
 
-  iconStyle: 'line',
-
-  spacing: {
-    nodePad: 12,
-    laneGap: 24,
-  },
-
-  motion: {
-    duration: '200ms',
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  },
 };
 
 // ext 변수 — 프레임/코너 액센트/플루팅 색. preset마다 재정의해 colorway 전환에 함께 반응한다.
@@ -153,8 +132,6 @@ const emeraldFoundations = makeVizColorway(foundations, {
   name: 'artdeco-luxe-01-emerald',
   canvas: { bg: '#0C1A14', grid: '#153025' },
   ink: GOLD, // keyline/edge/boundary/shape.stroke/marker 골드 유지
-  tagColor: CREAM,
-  c4LabelColor: CREAM,
   boundaryLabelColor: CREAM,
   nodeFills: {
     person: '#123024',
@@ -341,7 +318,7 @@ const guidelines: Record<string, Record<string, unknown>> = {
   },
   accessibility: {
     summary:
-      '모든 라벨(node.tagColor / c4.labelColor / boundary.labelColor)은 크림 — 다크 노드 fill·틴트 위 ≥11:1(auditVizContrast 게이트, contrastIntent aa). 라인/엣지 골드는 니어블랙 8.13:1·딥그린 7.53:1(≥4.5). golden symmetric frame과 골드 플루팅은 순수 장식이라 텍스트에 얹지 않으며, 의미를 색만으로 인코딩하지 않는다(형태/글리프 병기).',
+      '경계 라벨(boundary.labelColor)은 크림이고, 노드·C4 글자는 면마다 계산되는 글자색(--bbangto-viz-on-*)으로 골드(#CBA253)가 칠해진다 — 다크 노드 fill·틴트 위 4.5:1 이상(auditVizContrast 게이트, contrastIntent aa). 라인/엣지 골드는 니어블랙 8.13:1·딥그린 7.53:1(≥4.5). golden symmetric frame과 골드 플루팅은 순수 장식이라 텍스트에 얹지 않으며, 의미를 색만으로 인코딩하지 않는다(형태/글리프 병기).',
     dos: [
       '텍스트는 크림(다크 표면 위 ≥4.5:1)',
       '프레임·플루팅은 저대비·비상호작용 장식으로 유지',

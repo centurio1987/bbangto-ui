@@ -31,22 +31,17 @@ const ACCENT = '#E1000F'; // 단일 레드 액센트(강조 kind 면 채움)
 const HAIRLINE = 1;
 
 /** 무채움 라인 노드 — 1px 잉크 키라인, 잉크 라벨. 위계는 위치·크기·굵기로. */
-const lineNode = (glyph: string, dashed?: boolean) => ({
+const lineNode = () => ({
   fill: 'none',
   keyline: INK,
   keylineWidth: HAIRLINE,
-  tagColor: INK,
-  ...(dashed ? { dashed: true } : {}),
-  glyph,
 });
 
 /** 단일 강조 kind — 레드 면 채움 + 라이트(흰) 라벨(레드 위 흰색 ≈ 4.99:1, AA 통과·AAA 미달). */
-const accentNode = (glyph: string) => ({
+const accentNode = () => ({
   fill: ACCENT,
   keyline: INK,
   keylineWidth: HAIRLINE,
-  tagColor: '#FFFFFF',
-  glyph,
 });
 
 const foundations: VisualizationFoundation = {
@@ -78,13 +73,13 @@ const foundations: VisualizationFoundation = {
   },
 
   node: {
-    person: lineNode('user'),
-    external: lineNode('arrowOut', true),
-    container: lineNode('stackedRect'),
-    database: lineNode('cylinder'),
-    queue: lineNode('bars'),
-    decision: accentNode('diamond'), // 단 하나의 레드 강조 kind
-    process: lineNode('process'),
+    person: lineNode(),
+    external: lineNode(),
+    container: lineNode(),
+    database: lineNode(),
+    queue: lineNode(),
+    decision: accentNode(), // 단 하나의 레드 강조 kind
+    process: lineNode(),
   },
 
   // 직교 1px + 소형 삼각 화살촉, 코너 radius 0(샤프).
@@ -103,9 +98,9 @@ const foundations: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 2, bgTint: 'rgba(17,17,17,0.05)', labelColor: INK },
-    l2: { borderWidth: 1.5, bgTint: 'rgba(17,17,17,0.03)', labelColor: INK },
-    l3: { borderWidth: 1, bgTint: 'transparent', labelColor: INK },
+    l1: { borderWidth: 2, bgTint: 'rgba(17,17,17,0.05)' },
+    l2: { borderWidth: 1.5, bgTint: 'rgba(17,17,17,0.03)' },
+    l3: { borderWidth: 1, bgTint: 'transparent' },
   },
 
   // 존 경계는 샤프(radius 0) 중립 그레이 헤어라인 — 그리드와 정렬.
@@ -121,26 +116,8 @@ const foundations: VisualizationFoundation = {
     // 그로테스크(Helvetica) — 위계는 굵기(700)로, 별도 mono 강조 없음(mono는 문자열만 유지).
     titleFont: "'Helvetica Neue', Helvetica, 'Arial', sans-serif",
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
-    titleWeight: 700,
-    sizes: {
-      title: '14px',
-      label: '12px',
-      tag: '10px',
-      mono: '11px',
-    },
   },
 
-  iconStyle: 'line',
-
-  spacing: {
-    nodePad: 12,
-    laneGap: 24,
-  },
-
-  motion: {
-    duration: '200ms',
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  },
 };
 
 /**

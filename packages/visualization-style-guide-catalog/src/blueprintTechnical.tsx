@@ -51,13 +51,13 @@ const foundations: VisualizationFoundation = {
   },
 
   node: {
-    person: { fill: '#C5B6EE', keyline: KEYLINE, keylineWidth: KEYLINE_WIDTH, tagColor: KEYLINE, glyph: 'user' },
-    external: { fill: '#EE7B4D', keyline: KEYLINE, keylineWidth: KEYLINE_WIDTH, tagColor: KEYLINE, dashed: true, glyph: 'arrowOut' },
-    container: { fill: '#87B79A', keyline: KEYLINE, keylineWidth: KEYLINE_WIDTH, tagColor: KEYLINE, glyph: 'stackedRect' },
-    database: { fill: '#A6C6E2', keyline: KEYLINE, keylineWidth: KEYLINE_WIDTH, tagColor: KEYLINE, glyph: 'cylinder' },
-    queue: { fill: '#E7E058', keyline: KEYLINE, keylineWidth: KEYLINE_WIDTH, tagColor: KEYLINE, glyph: 'bars' },
-    decision: { fill: '#F0C5DA', keyline: KEYLINE, keylineWidth: KEYLINE_WIDTH, tagColor: KEYLINE, glyph: 'diamond' },
-    process: { fill: '#9CAFE7', keyline: KEYLINE, keylineWidth: KEYLINE_WIDTH, tagColor: KEYLINE, glyph: 'process' },
+    person: { fill: '#C5B6EE', keyline: KEYLINE, keylineWidth: KEYLINE_WIDTH },
+    external: { fill: '#EE7B4D', keyline: KEYLINE, keylineWidth: KEYLINE_WIDTH },
+    container: { fill: '#87B79A', keyline: KEYLINE, keylineWidth: KEYLINE_WIDTH },
+    database: { fill: '#A6C6E2', keyline: KEYLINE, keylineWidth: KEYLINE_WIDTH },
+    queue: { fill: '#E7E058', keyline: KEYLINE, keylineWidth: KEYLINE_WIDTH },
+    decision: { fill: '#F0C5DA', keyline: KEYLINE, keylineWidth: KEYLINE_WIDTH },
+    process: { fill: '#9CAFE7', keyline: KEYLINE, keylineWidth: KEYLINE_WIDTH },
   },
 
   edge: {
@@ -75,9 +75,9 @@ const foundations: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 3, bgTint: 'rgba(0,0,0,0.04)', labelColor: KEYLINE },
-    l2: { borderWidth: 2, bgTint: 'rgba(0,0,0,0.02)', labelColor: KEYLINE },
-    l3: { borderWidth: 1.4, bgTint: 'transparent', labelColor: KEYLINE },
+    l1: { borderWidth: 3, bgTint: 'rgba(0,0,0,0.04)' },
+    l2: { borderWidth: 2, bgTint: 'rgba(0,0,0,0.02)' },
+    l3: { borderWidth: 1.4, bgTint: 'transparent' },
   },
 
   boundary: {
@@ -91,26 +91,8 @@ const foundations: VisualizationFoundation = {
   typography: {
     titleFont: "'Helvetica Neue', Helvetica, Arial, sans-serif",
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
-    titleWeight: 700,
-    sizes: {
-      title: '14px',
-      label: '12px',
-      tag: '10px',
-      mono: '11px',
-    },
   },
 
-  iconStyle: 'fill',
-
-  spacing: {
-    nodePad: 12,
-    laneGap: 24,
-  },
-
-  motion: {
-    duration: '200ms',
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  },
 };
 
 /** whiteprint — 잉크/종이를 반전한 딥 네이비 색 스킴(색 외 토큰은 base와 동일). */
@@ -124,7 +106,7 @@ const whiteprintFoundations: VisualizationFoundation = {
   node: Object.fromEntries(
     Object.entries(foundations.node).map(([kind, style]) => [
       kind,
-      { ...style, keyline: WHITE_INK, tagColor: KEYLINE },
+      { ...style, keyline: WHITE_INK },
     ]),
   ) as VisualizationFoundation['node'],
   edge: {
@@ -133,9 +115,9 @@ const whiteprintFoundations: VisualizationFoundation = {
     marker: { ...foundations.edge.marker, arrow: WHITE_INK, diamond: WHITE_INK, circle: WHITE_INK, cross: WHITE_INK },
   },
   c4: {
-    l1: { ...foundations.c4.l1, bgTint: 'rgba(255,255,255,0.06)', labelColor: WHITE_INK },
-    l2: { ...foundations.c4.l2, bgTint: 'rgba(255,255,255,0.03)', labelColor: WHITE_INK },
-    l3: { ...foundations.c4.l3, labelColor: WHITE_INK },
+    l1: { ...foundations.c4.l1, bgTint: 'rgba(255,255,255,0.06)' },
+    l2: { ...foundations.c4.l2, bgTint: 'rgba(255,255,255,0.03)' },
+    l3: { ...foundations.c4.l3 },
   },
   boundary: { ...foundations.boundary, stroke: WHITE_INK, labelColor: '#B9C6DE' },
 };

@@ -50,13 +50,10 @@ const LILAC = '#C9A9E9'; // 라일락 (8.75:1)
 const CREAM = '#FBEFD6'; // 크림 (15.59:1)
 const PALE_PINK = '#F0B7D2'; // 페일 핑크 (10.50:1)
 
-const node = (fill: string, glyph: string, opts?: { dashed?: boolean }) => ({
+const node = (fill: string) => ({
   fill,
   keyline: INK,
   keylineWidth: 1.8,
-  tagColor: INK,
-  ...(opts?.dashed ? { dashed: true } : {}),
-  glyph,
 });
 
 const foundations: VisualizationFoundation = {
@@ -89,13 +86,13 @@ const foundations: VisualizationFoundation = {
 
   // kind별 멤피스 플랫 채움(솔리드) + 잉크 볼드 윤곽 + 다크 잉크 라벨.
   node: {
-    person: node(CORAL, 'user'),
-    external: node(CYAN, 'arrowOut', { dashed: true }),
-    container: node(LILAC, 'stackedRect'),
-    database: node(MINT, 'cylinder'),
-    queue: node(YELLOW, 'bars'),
-    decision: node(CREAM, 'diamond'),
-    process: node(PALE_PINK, 'process'),
+    person: node(CORAL),
+    external: node(CYAN),
+    container: node(LILAC),
+    database: node(MINT),
+    queue: node(YELLOW),
+    decision: node(CREAM),
+    process: node(PALE_PINK),
   },
 
   // 잉크 볼드 라인 + 소형 화살촉.
@@ -114,9 +111,9 @@ const foundations: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 2, bgTint: 'rgba(91,200,232,0.10)', labelColor: INK },
-    l2: { borderWidth: 1.5, bgTint: 'rgba(245,139,160,0.08)', labelColor: INK },
-    l3: { borderWidth: 1, bgTint: 'transparent', labelColor: INK },
+    l1: { borderWidth: 2, bgTint: 'rgba(91,200,232,0.10)' },
+    l2: { borderWidth: 1.5, bgTint: 'rgba(245,139,160,0.08)' },
+    l3: { borderWidth: 1, bgTint: 'transparent' },
   },
 
   // 멤피스 딥 핑크 대시 경계(비텍스트 장식).
@@ -131,26 +128,8 @@ const foundations: VisualizationFoundation = {
   typography: {
     titleFont: "'Space Grotesk', 'Helvetica Neue', Arial, sans-serif",
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
-    titleWeight: 700,
-    sizes: {
-      title: '15px',
-      label: '12px',
-      tag: '10px',
-      mono: '11px',
-    },
   },
 
-  iconStyle: 'fill',
-
-  spacing: {
-    nodePad: 12,
-    laneGap: 24,
-  },
-
-  motion: {
-    duration: '200ms',
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  },
 };
 
 // 쇼케이스 표면용 흩뿌린 멤피스 콘페티 텍스처(48×48 타일 — 지그재그·스퀴글·도트, 저알파) —
@@ -347,7 +326,7 @@ const guidelines: Record<string, Record<string, unknown>> = {
   },
   accessibility: {
     summary:
-      '모든 라벨(node.tagColor / c4.labelColor / boundary.labelColor)은 near-black 잉크 — 볼드 플랫 채움(각 색 ≥6.19:1)·라이트 그라운드(16.61:1) 위에서 4.5:1 이상(auditVizContrast 게이트, aa 상회). 콘페티·하드 섀도는 전부 [data-viz-memphis*] aria-hidden 장식으로 텍스트에 미적용.',
+      '모든 라벨(노드·C4·경계)은 near-black 잉크 — 볼드 플랫 채움(각 색 ≥6.19:1)·라이트 그라운드(16.61:1) 위에서 4.5:1 이상(auditVizContrast 게이트, aa 상회). 콘페티·하드 섀도는 전부 [data-viz-memphis*] aria-hidden 장식으로 텍스트에 미적용.',
     dos: [
       '라벨은 near-black 잉크(플랫 채움 위 ≥4.5:1)',
       '콘페티/하드 섀도는 도형에만 — 텍스트 제외(aria-hidden)',

@@ -27,15 +27,12 @@ import { makeVizShowcase } from './_showcase';
 const INK = '#4A4A4A';
 const HAIRLINE = 1.25;
 
-// kind별 tagColor 혼용이 핵심 — 오렌지·그린 타일은 다크 텍스트(흰색은 4.5:1 미달 실측),
-// 블루·퍼플 타일은 흰 텍스트, 파스텔 컨테이너는 잉크 텍스트.
-const node = (fill: string, tagColor: string, glyph: string, dashed?: boolean) => ({
+// kind별 글자색 혼용이 핵심 — 오렌지·그린 타일은 다크 텍스트(흰색은 4.5:1 미달 실측),
+// 블루·퍼플 타일은 흰 텍스트, 파스텔 컨테이너는 잉크 텍스트. 글자색은 visualization 이 면마다 고른다(`--bbangto-viz-on-*`).
+const node = (fill: string) => ({
   fill,
   keyline: INK,
   keylineWidth: HAIRLINE,
-  tagColor,
-  ...(dashed ? { dashed: true } : {}),
-  glyph,
 });
 
 const foundations: VisualizationFoundation = {
@@ -66,13 +63,13 @@ const foundations: VisualizationFoundation = {
   },
 
   node: {
-    person: node('#2D6FD1', '#FFFFFF', 'user'),
-    external: node('#6B3FD1', '#FFFFFF', 'arrowOut', true),
-    container: node('#EAF1FB', '#333333', 'stackedRect'),
-    database: node('#1F5FBF', '#FFFFFF', 'cylinder'),
-    queue: node('#E07A1F', '#1F1F1F', 'bars'),
-    decision: node('#6B3FD1', '#FFFFFF', 'diamond'),
-    process: node('#2E9E4A', '#1F1F1F', 'process'),
+    person: node('#2D6FD1'),
+    external: node('#6B3FD1'),
+    container: node('#EAF1FB'),
+    database: node('#1F5FBF'),
+    queue: node('#E07A1F'),
+    decision: node('#6B3FD1'),
+    process: node('#2E9E4A'),
   },
 
   // orthogonal-elbow + 소형 화살촉(size 6) — F2 커넥터 문법.
@@ -91,9 +88,9 @@ const foundations: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 2, bgTint: 'rgba(45,111,209,0.06)', labelColor: INK },
-    l2: { borderWidth: 1.5, bgTint: 'rgba(45,111,209,0.04)', labelColor: INK },
-    l3: { borderWidth: 1, bgTint: 'transparent', labelColor: INK },
+    l1: { borderWidth: 2, bgTint: 'rgba(45,111,209,0.06)' },
+    l2: { borderWidth: 1.5, bgTint: 'rgba(45,111,209,0.04)' },
+    l3: { borderWidth: 1, bgTint: 'transparent' },
   },
 
   // 대시 존 경계(AZ/subnet/스윔레인 문법).
@@ -108,32 +105,14 @@ const foundations: VisualizationFoundation = {
   typography: {
     titleFont: "'Helvetica Neue', Helvetica, Arial, sans-serif",
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
-    titleWeight: 600,
-    sizes: {
-      title: '14px',
-      label: '12px',
-      tag: '10px',
-      mono: '11px',
-    },
   },
 
-  iconStyle: 'fill',
-
-  spacing: {
-    nodePad: 12,
-    laneGap: 24,
-  },
-
-  motion: {
-    duration: '200ms',
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  },
 };
 
 /**
  * slide-dark — 다크 슬라이드 colorway (관측: system_colorful_05 #1B1B3A 위 고채도 타일).
- * tagColor는 override하지 않는다(kind별 혼용 유지) — 다크-태그 kind(queue/process/container)의
- * fill만 밝혀 기존 다크 텍스트 대비를 키운다(#F2913D ≈7.6, #4FBF73 ≈7.7, #DDE4F5 9.9).
+ * 글자색은 면마다 계산되어 kind별 혼용이 유지된다 — 다크 글자 kind(queue/process/container)의
+ * fill만 밝혀(#F2913D · #4FBF73 · #DDE4F5) 다크 텍스트 대비를 키운다.
  */
 const slideDarkFoundations = makeVizColorway(foundations, {
   name: 'corporate-schematic-01-slide-dark',

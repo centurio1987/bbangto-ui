@@ -27,7 +27,7 @@ import { makeVizShowcase } from './_showcase';
  * 아님)이고, 실 도형의 두꺼운 아웃라인·라벨은 그 위에 그린다. 라벨(children)은 섀도/도형 밖에서 렌더 →
  * 그림자가 텍스트를 절대 덮지 않는다(가독성).
  *
- * 접근성: 채움은 전부 밝은 flat 컬러라 근블랙 라벨(node.tagColor / c4.labelColor / boundary.labelColor)이
+ * 접근성: 채움은 전부 밝은 flat 컬러라 근블랙 라벨(노드·C4·경계)이
  * 실측 7:1 이상(coral 채움 7.94:1이 worst-case)이라 contrastIntent='aaa' 정직 선언(auditVizContrast 하드게이트 통과).
  * 아웃라인/엣지 잉크(#141210)는 크림 캔버스 대비 ~16:1이라 텍스트 4.5·비텍스트 3 기준을 넉넉히 넘는다.
  * 하드 섀도는 순수 장식(형태 강조)일 뿐 색만으로 의미를 인코딩하지 않는다.
@@ -46,13 +46,10 @@ const LILAC = '#D9C7EF'; // 라일락 (11.89:1)
 const PALE_GOLD = '#F5D77E'; // 페일 골드 (13.26:1)
 
 // 채움 위 라벨은 언제나 근블랙(INK) — 밝은 flat 채움에서 고대비.
-const node = (fill: string, glyph: string, dashed?: boolean) => ({
+const node = (fill: string) => ({
   fill,
   keyline: INK,
   keylineWidth: OUTLINE,
-  tagColor: INK,
-  ...(dashed ? { dashed: true } : {}),
-  glyph,
 });
 
 const foundations: VisualizationFoundation = {
@@ -85,13 +82,13 @@ const foundations: VisualizationFoundation = {
 
   // kind별 flat 채움(밝은 컬러) + 두꺼운 근블랙 아웃라인 + 근블랙 라벨.
   node: {
-    person: node(GOLD, 'user'),
-    external: node(CREAM, 'arrowOut', true),
-    container: node(SKY, 'stackedRect'),
-    database: node(MINT, 'cylinder'),
-    queue: node(CORAL, 'bars'),
-    decision: node(LILAC, 'diamond'),
-    process: node(PALE_GOLD, 'process'),
+    person: node(GOLD),
+    external: node(CREAM),
+    container: node(SKY),
+    database: node(MINT),
+    queue: node(CORAL),
+    decision: node(LILAC),
+    process: node(PALE_GOLD),
   },
 
   // 커넥터 = 두꺼운 근블랙 라인, 샤프 직각(cornerRadius 0), 각진 화살촉.
@@ -110,9 +107,9 @@ const foundations: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 3, bgTint: 'rgba(20,18,16,0.08)', labelColor: INK },
-    l2: { borderWidth: 2, bgTint: 'rgba(20,18,16,0.05)', labelColor: INK },
-    l3: { borderWidth: 1.5, bgTint: 'transparent', labelColor: INK },
+    l1: { borderWidth: 3, bgTint: 'rgba(20,18,16,0.08)' },
+    l2: { borderWidth: 2, bgTint: 'rgba(20,18,16,0.05)' },
+    l3: { borderWidth: 1.5, bgTint: 'transparent' },
   },
 
   // 두꺼운 근블랙 경계 프레임 — 샤프 직각(radius 0), 대시 없음.
@@ -127,26 +124,8 @@ const foundations: VisualizationFoundation = {
   typography: {
     titleFont: "'Space Grotesk', 'Archivo', 'Helvetica Neue', Arial, sans-serif",
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
-    titleWeight: 800,
-    sizes: {
-      title: '15px',
-      label: '12px',
-      tag: '10px',
-      mono: '11px',
-    },
   },
 
-  iconStyle: 'fill',
-
-  spacing: {
-    nodePad: 12,
-    laneGap: 24,
-  },
-
-  motion: {
-    duration: '200ms',
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  },
 };
 
 // ext 토큰 — 하드 오프셋 섀도 잉크. preset마다 재정의해 colorway 전환 시 섀도 톤이 함께 바뀐다.
@@ -282,7 +261,7 @@ const guidelines: Record<string, Record<string, unknown>> = {
   },
   accessibility: {
     summary:
-      '모든 라벨(node.tagColor / c4.labelColor / boundary.labelColor)은 근블랙 — 밝은 flat 채움/틴트/캔버스 위 실측 7:1 이상(worst-case 코랄 채움 7.94:1)이라 AAA. 아웃라인/엣지 잉크는 크림 대비 ~16:1. 하드 오프셋 섀도는 순수 장식(형태 강조)이라 텍스트에 얹지 않고 색만으로 의미를 인코딩하지 않는다.',
+      '모든 라벨(노드·C4·경계)은 근블랙 — 밝은 flat 채움/틴트/캔버스 위 실측 7:1 이상(worst-case 코랄 채움 7.94:1)이라 AAA. 아웃라인/엣지 잉크는 크림 대비 ~16:1. 하드 오프셋 섀도는 순수 장식(형태 강조)이라 텍스트에 얹지 않고 색만으로 의미를 인코딩하지 않는다.',
     dos: [
       '라벨은 근블랙(밝은 채움 위 ≥7:1)',
       '하드 섀도는 장식 — 의미 인코딩에 쓰지 않음',

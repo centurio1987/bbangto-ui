@@ -43,13 +43,10 @@ import { useVizMotifStyle } from './_motif';
 const PARCHMENT = '#E8E6D8'; // 라이트 레트로 파치먼트 그라운드
 const INK = '#1A1A2E'; // near-black 인디고 잉크 — 모든 라인/윤곽/텍스트 라벨(파치먼트 대비 13.60:1)
 
-const node = (fill: string, glyph: string, opts?: { dashed?: boolean }) => ({
+const node = (fill: string) => ({
   fill,
   keyline: INK,
   keylineWidth: 2, // 청키 픽셀 아웃라인(bold)
-  tagColor: INK,
-  ...(opts?.dashed ? { dashed: true } : {}),
-  glyph,
 });
 
 const foundations: VisualizationFoundation = {
@@ -82,13 +79,13 @@ const foundations: VisualizationFoundation = {
 
   // kind별 하드 플랫 레트로 채움(솔리드 hex) + 픽셀 잉크 청키 윤곽 + 픽셀 잉크 라벨.
   node: {
-    person: node('#FFCE5C', 'user'), // 골드
-    external: node('#79D3E0', 'arrowOut', { dashed: true }), // 라이트 시안
-    container: node('#FF9E7A', 'stackedRect'), // 코랄
-    database: node('#8FDC8A', 'cylinder'), // 라이트 그린
-    queue: node('#C79BF0', 'bars'), // 라이트 퍼플
-    decision: node('#FFE873', 'diamond'), // 라이트 옐로
-    process: node('#A9BBDD', 'process'), // 페리윙클
+    person: node('#FFCE5C'), // 골드
+    external: node('#79D3E0'), // 라이트 시안
+    container: node('#FF9E7A'), // 코랄
+    database: node('#8FDC8A'), // 라이트 그린
+    queue: node('#C79BF0'), // 라이트 퍼플
+    decision: node('#FFE873'), // 라이트 옐로
+    process: node('#A9BBDD'), // 페리윙클
   },
 
   // 픽셀 잉크 라인 + 소형 화살촉. 하드 엣지(cornerRadius 0).
@@ -107,9 +104,9 @@ const foundations: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 2, bgTint: 'rgba(61,44,141,0.10)', labelColor: INK },
-    l2: { borderWidth: 2, bgTint: 'rgba(61,44,141,0.06)', labelColor: INK },
-    l3: { borderWidth: 2, bgTint: 'transparent', labelColor: INK },
+    l1: { borderWidth: 2, bgTint: 'rgba(61,44,141,0.10)' },
+    l2: { borderWidth: 2, bgTint: 'rgba(61,44,141,0.06)' },
+    l3: { borderWidth: 2, bgTint: 'transparent' },
   },
 
   // 레트로 인디고 대시 경계(비텍스트 장식).
@@ -124,26 +121,8 @@ const foundations: VisualizationFoundation = {
   typography: {
     titleFont: "'Press Start 2P', 'VT323', 'Courier New', monospace", // 픽셀 폰트
     monoFont: "'VT323', 'JetBrains Mono', 'Courier New', monospace",
-    titleWeight: 700,
-    sizes: {
-      title: '14px',
-      label: '12px',
-      tag: '10px',
-      mono: '11px',
-    },
   },
 
-  iconStyle: 'fill',
-
-  spacing: {
-    nodePad: 12,
-    laneGap: 24,
-  },
-
-  motion: {
-    duration: '120ms',
-    easing: 'steps(4, end)', // 스텝 이징 — 픽셀 무드(연속 곡선 아님)
-  },
 };
 
 // 쇼케이스 표면용 스퀘어 픽셀 그리드 텍스처(8×8 타일 체커보드 정사각 셀, 5% 알파) — 데이터 URI,
@@ -162,7 +141,6 @@ const gameboyFoundations = makeVizColorway(foundations, {
   name: 'pixel-retro-01-gameboy',
   canvas: { bg: '#C7D89C', grid: '#B5C88C' },
   ink: '#0F380F', // DMG 최암부 그린 잉크(라이트 페아 그린 대비 8.62:1) — keyline/edge/boundary/shape/c4 라벨
-  tagColor: '#0F380F',
   shape: { fill: '#C4D88C' },
   nodeFills: {
     person: '#C4D88C',
@@ -330,7 +308,7 @@ const guidelines: Record<string, Record<string, unknown>> = {
   },
   accessibility: {
     summary:
-      '모든 라벨(node.tagColor / c4.labelColor / boundary.labelColor)은 near-black 픽셀 잉크 — 하드 플랫 채움 위에서도 7:1 이상(auditVizContrast 게이트, aa 4.5 상회). 픽셀 스크린·crispEdges는 전부 [data-viz-part="shape"] 스코프 장식으로 텍스트에 미적용.',
+      '모든 라벨(노드·C4·경계)은 near-black 픽셀 잉크 — 하드 플랫 채움 위에서도 7:1 이상(auditVizContrast 게이트, aa 4.5 상회). 픽셀 스크린·crispEdges는 전부 [data-viz-part="shape"] 스코프 장식으로 텍스트에 미적용.',
     dos: [
       '라벨은 픽셀 잉크(플랫 채움 위 ≥7:1)',
       '픽셀 스크린/crispEdges는 도형에만 — 텍스트 제외',

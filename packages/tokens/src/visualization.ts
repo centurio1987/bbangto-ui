@@ -22,9 +22,6 @@ export interface VizNodeSemanticStyle {
   fill: string;
   keyline: string;
   keylineWidth: number;
-  tagColor: string;
-  dashed?: boolean;
-  glyph: string;
 }
 
 /**
@@ -81,9 +78,9 @@ export interface VisualizationFoundation {
   };
 
   readonly c4: {
-    readonly l1: { readonly borderWidth: number; readonly bgTint: string; readonly labelColor: string };
-    readonly l2: { readonly borderWidth: number; readonly bgTint: string; readonly labelColor: string };
-    readonly l3: { readonly borderWidth: number; readonly bgTint: string; readonly labelColor: string };
+    readonly l1: { readonly borderWidth: number; readonly bgTint: string };
+    readonly l2: { readonly borderWidth: number; readonly bgTint: string };
+    readonly l3: { readonly borderWidth: number; readonly bgTint: string };
   };
 
   readonly boundary: {
@@ -105,25 +102,6 @@ export interface VisualizationFoundation {
      * 기존 스타일가이드를 깨지 않으려 required가 아니라 optional로 둔다.
      */
     readonly labelFont?: string;
-    readonly titleWeight: number;
-    readonly sizes: {
-      readonly title: string;
-      readonly label: string;
-      readonly tag: string;
-      readonly mono: string;
-    };
-  };
-
-  readonly iconStyle: 'fill' | 'line';
-
-  readonly spacing: {
-    readonly nodePad: number;
-    readonly laneGap: number;
-  };
-
-  readonly motion: {
-    readonly duration: string;
-    readonly easing: string;
   };
 
   /**

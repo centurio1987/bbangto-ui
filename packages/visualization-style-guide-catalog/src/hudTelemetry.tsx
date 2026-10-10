@@ -34,13 +34,10 @@ const WHITE = '#FFFFFF'; // 라벨(면 없는 라인 위 순백)
 const HAIR = 1;
 
 // 모든 kind는 UNFILLED(fill:'none') + 시안 헤어라인. tag는 순백(캔버스 위 ~18:1).
-const node = (glyph: string, dashed?: boolean) => ({
+const node = () => ({
   fill: 'none',
   keyline: CYAN,
   keylineWidth: HAIR,
-  tagColor: WHITE,
-  ...(dashed ? { dashed: true } : {}),
-  glyph,
 });
 
 const foundations: VisualizationFoundation = {
@@ -72,13 +69,13 @@ const foundations: VisualizationFoundation = {
   },
 
   node: {
-    person: node('user'),
-    external: node('arrowOut', true),
-    container: node('stackedRect'),
-    database: node('cylinder'),
-    queue: node('bars'),
-    decision: node('diamond'),
-    process: node('process'),
+    person: node(),
+    external: node(),
+    container: node(),
+    database: node(),
+    queue: node(),
+    decision: node(),
+    process: node(),
   },
 
   // 시안 커넥터 — 직각(cornerRadius 0), 작은 삼각 마커.
@@ -97,9 +94,9 @@ const foundations: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 2, bgTint: 'rgba(34,211,238,0.06)', labelColor: WHITE },
-    l2: { borderWidth: 1.5, bgTint: 'rgba(34,211,238,0.04)', labelColor: WHITE },
-    l3: { borderWidth: 1, bgTint: 'transparent', labelColor: WHITE },
+    l1: { borderWidth: 2, bgTint: 'rgba(34,211,238,0.06)' },
+    l2: { borderWidth: 1.5, bgTint: 'rgba(34,211,238,0.04)' },
+    l3: { borderWidth: 1, bgTint: 'transparent' },
   },
 
   boundary: {
@@ -113,26 +110,8 @@ const foundations: VisualizationFoundation = {
   typography: {
     titleFont: "'JetBrains Mono', 'Courier New', monospace",
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
-    titleWeight: 700,
-    sizes: {
-      title: '14px',
-      label: '12px',
-      tag: '10px',
-      mono: '11px',
-    },
   },
 
-  iconStyle: 'line',
-
-  spacing: {
-    nodePad: 12,
-    laneGap: 24,
-  },
-
-  motion: {
-    duration: '200ms',
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  },
 };
 
 // ext 변수 — corner-bracket 색·글로우·스캔라인·경보색. preset마다 전량 재정의해

@@ -29,10 +29,11 @@ import { useVizMotifStyle } from './_motif';
  *    repeating-linear-gradient 레이어(스캔라인 3px 피치 + 네온 그리드 40px)로 주입한다(hudTelemetry 선례).
  *  - 글로우: 절제된 CSS drop-shadow 1겹을 [data-viz-synth-glow] 노드 그룹에만 건다(SVG defs 불필요).
  *
- * 접근성(다크 우선): 모든 라벨(node.tagColor / c4.labelColor / boundary.labelColor)은 니어화이트
- * (#F2ECFF)로 딥 퍼플 그라운드·다크 솔리드 노드 fill 위에서 ≥10.6:1(auditVizContrast 게이트).
+ * 접근성(다크 우선): 경계 라벨(boundary.labelColor)은 니어화이트(#F2ECFF)로 딥 퍼플 그라운드 위 16.24:1.
+ * 노드·C4 글자는 visualization 이 면마다 고른 글자색(`--bbangto-viz-on-*`)으로 네온 잉크가 칠해지고
+ * 다크 솔리드 fill 위 4.5:1 이상이다(auditVizContrast 게이트).
  * shape/edge 잉크는 네온 시안이라 그라운드 대비 11.60:1(≥4.5 텍스트·≥3 비텍스트) 확보. node fill은
- * 전부 **불투명 딥 퍼플/인디고 솔리드**라 니어화이트 라벨이 안전하다(반투명 fill의 흰 배경 합성 이슈 회피).
+ * 전부 **불투명 딥 퍼플/인디고 솔리드**라 라벨 대비가 canvas 와 무관하게 안정적이다(반투명 fill의 흰 배경 합성 이슈 회피).
  */
 
 const CYAN = '#28E0F0'; // 네온 시안 — 기본 잉크/엣지(딥 퍼플 대비 11.60:1)
@@ -41,13 +42,10 @@ const LABEL = '#F2ECFF'; // 니어화이트 라벨(다크 fill/그라운드 위 
 const HAIR = 1;
 
 // 모든 kind = 불투명 딥 퍼플/인디고 솔리드 fill + 시안 헤어라인 + 니어화이트 라벨.
-const node = (fill: string, glyph: string, dashed?: boolean) => ({
+const node = (fill: string) => ({
   fill,
   keyline: CYAN,
   keylineWidth: HAIR,
-  tagColor: LABEL,
-  ...(dashed ? { dashed: true } : {}),
-  glyph,
 });
 
 const foundations: VisualizationFoundation = {
@@ -79,13 +77,13 @@ const foundations: VisualizationFoundation = {
   },
 
   node: {
-    person: node('#3A1D6E', 'user'),
-    external: node('#2A1550', 'arrowOut', true),
-    container: node('#42207A', 'stackedRect'),
-    database: node('#241245', 'cylinder'),
-    queue: node('#4A1A5E', 'bars'),
-    decision: node('#331A66', 'diamond'),
-    process: node('#1E2A6B', 'process'),
+    person: node('#3A1D6E'),
+    external: node('#2A1550'),
+    container: node('#42207A'),
+    database: node('#241245'),
+    queue: node('#4A1A5E'),
+    decision: node('#331A66'),
+    process: node('#1E2A6B'),
   },
 
   // 시안 커넥터 — 직각(cornerRadius 0), 소형 삼각 마커.
@@ -104,9 +102,9 @@ const foundations: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 2, bgTint: 'rgba(255,255,255,0.05)', labelColor: LABEL },
-    l2: { borderWidth: 1.5, bgTint: 'rgba(255,255,255,0.03)', labelColor: LABEL },
-    l3: { borderWidth: 1, bgTint: 'transparent', labelColor: LABEL },
+    l1: { borderWidth: 2, bgTint: 'rgba(255,255,255,0.05)' },
+    l2: { borderWidth: 1.5, bgTint: 'rgba(255,255,255,0.03)' },
+    l3: { borderWidth: 1, bgTint: 'transparent' },
   },
 
   // 네온 마젠타 대시 경계(비텍스트 장식).
@@ -121,26 +119,8 @@ const foundations: VisualizationFoundation = {
   typography: {
     titleFont: "'Orbitron', 'Helvetica Neue', Arial, sans-serif",
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
-    titleWeight: 700,
-    sizes: {
-      title: '14px',
-      label: '12px',
-      tag: '10px',
-      mono: '11px',
-    },
   },
 
-  iconStyle: 'fill',
-
-  spacing: {
-    nodePad: 12,
-    laneGap: 24,
-  },
-
-  motion: {
-    duration: '200ms',
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  },
 };
 
 // ext 변수 — 글로우 색·노드 스캔라인 색·쇼케이스 스캔라인·퍼스펙티브 그리드 색.
@@ -158,7 +138,6 @@ const sunsetFoundations = makeVizColorway(foundations, {
   name: 'synthwave-01-sunset',
   canvas: { bg: '#2A0E2E', grid: '#3E1840' },
   ink: SUNSET_INK, // keyline/edge/boundary/shape.stroke/marker 일괄(비텍스트)
-  c4LabelColor: LABEL, // 라벨은 니어화이트 유지(ink가 c4 라벨을 오렌지로 덮지 않게 명시)
   nodeFills: {
     person: '#5A1A3E',
     external: '#3E1230',
@@ -341,7 +320,7 @@ const guidelines: Record<string, Record<string, unknown>> = {
   },
   accessibility: {
     summary:
-      '모든 라벨(node.tagColor / c4.labelColor / boundary.labelColor)은 니어화이트(#F2ECFF) — 딥 퍼플 그라운드(#160B2E) 대비 16.24:1, 다크 솔리드 노드 fill 위 ≥10.6:1(auditVizContrast 게이트). node fill은 전부 불투명 솔리드라 라벨 대비가 canvas 무관하게 안정적이다. CRT 스캔라인·퍼스펙티브 그리드·글로우는 전부 순수 장식이라 텍스트에 얹지 않는다.',
+      '경계 라벨(boundary.labelColor)은 니어화이트(#F2ECFF) — 딥 퍼플 그라운드(#160B2E) 대비 16.24:1. 노드·C4 글자는 면마다 계산되는 글자색(--bbangto-viz-on-*)으로 네온 잉크(default 시안 #28E0F0, sunset 오렌지 #FF9E4D)가 칠해지고 다크 솔리드 fill 위 4.5:1 이상이다(auditVizContrast 게이트). node fill은 전부 불투명 솔리드라 라벨 대비가 canvas 무관하게 안정적이다. CRT 스캔라인·퍼스펙티브 그리드·글로우는 전부 순수 장식이라 텍스트에 얹지 않는다.',
     dos: [
       '텍스트는 니어화이트(다크 표면 위 ≥4.5:1)',
       '스캔라인·그리드·글로우는 저대비·비상호작용 장식으로 유지',

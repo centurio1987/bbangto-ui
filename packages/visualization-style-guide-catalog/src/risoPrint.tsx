@@ -32,8 +32,8 @@ import { useVizMotifStyle } from './_motif';
  *  - 그레인: RisoNode가 <defs><filter>(feTurbulence 고정 seed=7)를 도형 그룹에만 적용한다
  *    (marker-sketchnote 선례 재사용). 라벨(children)은 필터 밖에서 렌더 → 왜곡 0.
  *
- * 접근성: 모든 라벨(node.tagColor / c4.labelColor / boundary.labelColor)은 다크 잉크로
- * 오버프린트 합성 표면 위에서도 4.5:1 이상(auditVizContrast worst-case 게이트). shape/edge 잉크는
+ * 접근성: 모든 라벨(노드·C4·경계)은 오버프린트 합성 표면 위에서도 4.5:1 이상(auditVizContrast worst-case
+ * 게이트) — 경계는 다크 잉크, 노드·C4 는 면마다 계산되는 글자색(`--bbangto-viz-on-*`)이다. shape/edge 잉크는
  * 진한 블루/틸이라 크림 캔버스 대비 ≥4.5(텍스트)·≥3(비텍스트) 확보 — 형광 핑크는 캔버스 대비
  * ~2.8:1이라 라인/텍스트 잉크로 쓰지 않고 오직 채움 워시·장식에만 쓴다.
  */
@@ -53,13 +53,10 @@ const WASH = {
   overSoft: 'rgba(124,58,150,0.18)',
 } as const;
 
-const node = (fill: string, glyph: string, opts?: { dashed?: boolean }) => ({
+const node = (fill: string) => ({
   fill,
   keyline: INK_BLUE,
   keylineWidth: 1.5,
-  tagColor: INK_LABEL,
-  ...(opts?.dashed ? { dashed: true } : {}),
-  glyph,
 });
 
 const foundations: VisualizationFoundation = {
@@ -92,13 +89,13 @@ const foundations: VisualizationFoundation = {
 
   // kind별 잉크 워시 채움(반투명 멀티플라이) + 블루 잉크 윤곽 + 다크 잉크 라벨.
   node: {
-    person: node(WASH.pink, 'user'),
-    external: node(WASH.blueSoft, 'arrowOut', { dashed: true }),
-    container: node(WASH.over, 'stackedRect'),
-    database: node(WASH.blue, 'cylinder'),
-    queue: node(WASH.pinkStrong, 'bars'),
-    decision: node(WASH.overSoft, 'diamond'),
-    process: node(WASH.blueFaint, 'process'),
+    person: node(WASH.pink),
+    external: node(WASH.blueSoft),
+    container: node(WASH.over),
+    database: node(WASH.blue),
+    queue: node(WASH.pinkStrong),
+    decision: node(WASH.overSoft),
+    process: node(WASH.blueFaint),
   },
 
   // 스팟 잉크 라인 + 소형 화살촉(블루 잉크).
@@ -117,9 +114,9 @@ const foundations: VisualizationFoundation = {
   },
 
   c4: {
-    l1: { borderWidth: 2, bgTint: 'rgba(30,90,168,0.08)', labelColor: INK_LABEL },
-    l2: { borderWidth: 1.5, bgTint: 'rgba(30,90,168,0.05)', labelColor: INK_LABEL },
-    l3: { borderWidth: 1, bgTint: 'transparent', labelColor: INK_LABEL },
+    l1: { borderWidth: 2, bgTint: 'rgba(30,90,168,0.08)' },
+    l2: { borderWidth: 1.5, bgTint: 'rgba(30,90,168,0.05)' },
+    l3: { borderWidth: 1, bgTint: 'transparent' },
   },
 
   // 스팟 잉크 대시 경계.
@@ -134,26 +131,8 @@ const foundations: VisualizationFoundation = {
   typography: {
     titleFont: "'Space Grotesk', 'Helvetica Neue', Arial, sans-serif",
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
-    titleWeight: 700,
-    sizes: {
-      title: '15px',
-      label: '12px',
-      tag: '10px',
-      mono: '11px',
-    },
   },
 
-  iconStyle: 'fill',
-
-  spacing: {
-    nodePad: 12,
-    laneGap: 24,
-  },
-
-  motion: {
-    duration: '200ms',
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  },
 };
 
 // 저주파 그레인 오버레이(feTurbulence 고정 seed=7) — 쇼케이스 표면용 데이터 URI.
@@ -342,7 +321,7 @@ const guidelines: Record<string, Record<string, unknown>> = {
   },
   accessibility: {
     summary:
-      '모든 라벨(node.tagColor / c4.labelColor / boundary.labelColor)은 다크 잉크 — 오버프린트가 합성한 worst-case 표면 위에서도 4.5:1 이상(auditVizContrast 게이트). 그레인·미스레지·multiply는 전부 [data-viz-part="shape"] 스코프 장식으로 텍스트에 미적용.',
+      '모든 라벨(노드·C4·경계)은 오버프린트가 합성한 worst-case 표면 위에서도 4.5:1 이상이다(auditVizContrast 게이트) — 경계는 다크 잉크, 노드·C4 는 면마다 계산되는 글자색(--bbangto-viz-on-*)이다. 그레인·미스레지·multiply는 전부 [data-viz-part="shape"] 스코프 장식으로 텍스트에 미적용.',
     dos: [
       '라벨은 다크 잉크(합성 표면 위 ≥4.5:1)',
       '그레인/multiply/미스레지는 도형에만 — 텍스트 제외',

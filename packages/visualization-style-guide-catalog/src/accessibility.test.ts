@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { parseColor, extractColors } from '@centurio1987/bbangto-ui-tokens';
 import type { StyleGuideMeta, VisualizationFoundation } from '@centurio1987/bbangto-ui-tokens';
+import { baseVisualizationFoundation, visualizationFoundationToStyleObject } from '@centurio1987/bbangto-ui-visualization';
 import { vizStyleGuideCatalog } from './index';
 import {
   auditVizContrast,
@@ -9,27 +10,37 @@ import {
   type VizContrastViolation,
 } from './accessibilityAudit';
 
-// ── fixture: 감사가 읽는 필드(canvas.bg, node[*].{tagColor,fill}, c4.l{1,2,3}.{labelColor,bgTint},
-//    boundary.labelColor)만 담은 최소 VisualizationFoundation(캐스팅). 기본값은 전부 고대비(통과). ──
-type C4Level = { labelColor: string; bgTint: string };
+// ── fixture: base foundation 위에 감사가 보는 자리만 바꾼다. 노드·C4 글자색은 `on` 덮어쓰기로 정한다 —
+//    감사는 실제로 그리는 글자색(`--bbangto-viz-on-*`)을 잰다(KAN-069). 기본값은 전부 고대비(통과). ──
+type C4Level = { ink: string; bgTint: string };
+type Kind = keyof VisualizationFoundation['node'];
+const KINDS = Object.keys(baseVisualizationFoundation.node) as Kind[];
 function makeFoundations(o: {
   canvasBg?: string;
-  nodes?: Record<string, { tagColor: string; fill: string }>;
+  nodes?: Partial<Record<Kind, { ink: string; fill: string }>>;
   c4?: [C4Level, C4Level, C4Level];
   boundaryLabel?: string;
 }): VisualizationFoundation {
-  const pass: C4Level = { labelColor: '#000000', bgTint: 'transparent' };
+  const b = baseVisualizationFoundation;
+  const pass: C4Level = { ink: '#000000', bgTint: 'transparent' };
+  const [l1, l2, l3] = o.c4 ?? [pass, pass, pass];
+  const nodes = KINDS.map((k) => [k, o.nodes?.[k] ?? { ink: '#000000', fill: '#ffffff' }] as const);
   return {
+    ...b,
     name: 'fixture',
-    canvas: { bg: o.canvasBg ?? '#ffffff' },
-    node: o.nodes ?? { person: { tagColor: '#000000', fill: '#ffffff' } },
+    canvas: { ...b.canvas, bg: o.canvasBg ?? '#ffffff' },
+    node: Object.fromEntries(nodes.map(([k, n]) => [k, { ...b.node[k], fill: n.fill }])) as VisualizationFoundation['node'],
     c4: {
-      l1: o.c4?.[0] ?? pass,
-      l2: o.c4?.[1] ?? pass,
-      l3: o.c4?.[2] ?? pass,
+      l1: { ...b.c4.l1, bgTint: l1.bgTint },
+      l2: { ...b.c4.l2, bgTint: l2.bgTint },
+      l3: { ...b.c4.l3, bgTint: l3.bgTint },
     },
-    boundary: { labelColor: o.boundaryLabel ?? '#000000' },
-  } as unknown as VisualizationFoundation;
+    boundary: { ...b.boundary, labelColor: o.boundaryLabel ?? '#000000' },
+    on: {
+      node: Object.fromEntries(nodes.map(([k, n]) => [k, { fill: n.ink }])),
+      c4: { l1: { bgTint: l1.ink }, l2: { bgTint: l2.ink }, l3: { bgTint: l3.ink } },
+    },
+  };
 }
 
 function entry(
@@ -51,9 +62,9 @@ describe('auditVizContrast — over-claim 감지 (fixture)', () => {
     // #767676/white ≈ 4.54 < 7. l2/l3·node·boundary 는 21:1 통과.
     const f = makeFoundations({
       c4: [
-        { labelColor: '#767676', bgTint: 'transparent' },
-        { labelColor: '#000000', bgTint: 'transparent' },
-        { labelColor: '#000000', bgTint: 'transparent' },
+        { ink: '#767676', bgTint: 'transparent' },
+        { ink: '#000000', bgTint: 'transparent' },
+        { ink: '#000000', bgTint: 'transparent' },
       ],
     });
     const v = auditVizContrast([entry('x', 'aaa', f)]);
@@ -69,20 +80,20 @@ describe('auditVizContrast — over-claim 감지 (fixture)', () => {
 
   it('(c) low 선언 → 위반 없음(무제약, skip)', () => {
     const f = makeFoundations({
-      c4: [{ labelColor: '#aaaaaa', bgTint: 'transparent' }, { labelColor: '#000', bgTint: 'transparent' }, { labelColor: '#000', bgTint: 'transparent' }],
+      c4: [{ ink: '#aaaaaa', bgTint: 'transparent' }, { ink: '#000', bgTint: 'transparent' }, { ink: '#000', bgTint: 'transparent' }],
     });
     expect(auditVizContrast([entry('x', 'low', f)])).toEqual([]);
   });
 
   it('(d) intent 미저작 → skip(위반 없음)', () => {
     const f = makeFoundations({
-      c4: [{ labelColor: '#aaaaaa', bgTint: 'transparent' }, { labelColor: '#000', bgTint: 'transparent' }, { labelColor: '#000', bgTint: 'transparent' }],
+      c4: [{ ink: '#aaaaaa', bgTint: 'transparent' }, { ink: '#000', bgTint: 'transparent' }, { ink: '#000', bgTint: 'transparent' }],
     });
     expect(auditVizContrast([entry('x', undefined, f)])).toEqual([]);
   });
 
-  it('(e) aa 선언·node tagColor 파싱 불가 → unparseable-foreground violation', () => {
-    const f = makeFoundations({ nodes: { person: { tagColor: 'var(--nope)', fill: '#ffffff' } } });
+  it('(e) aa 선언·노드 글자색 파싱 불가 → unparseable-foreground violation', () => {
+    const f = makeFoundations({ nodes: { person: { ink: 'var(--nope)', fill: '#ffffff' } } });
     const v = auditVizContrast([entry('x', 'aa', f)]);
     expect(v).toHaveLength(1);
     expect(v[0]).toMatchObject({ locus: 'node.person', reason: 'unparseable-foreground', measured: null });
@@ -103,12 +114,12 @@ describe('auditVizContrast — over-claim 감지 (fixture)', () => {
     const f = makeFoundations({
       canvasBg: '#000000',
       c4: [
-        { labelColor: '#000000', bgTint: 'transparent' },
-        { labelColor: '#ffffff', bgTint: 'transparent' },
-        { labelColor: '#ffffff', bgTint: 'transparent' },
+        { ink: '#000000', bgTint: 'transparent' },
+        { ink: '#ffffff', bgTint: 'transparent' },
+        { ink: '#ffffff', bgTint: 'transparent' },
       ],
       boundaryLabel: '#ffffff',
-      nodes: { person: { tagColor: '#000000', fill: '#ffffff' } },
+      nodes: { person: { ink: '#000000', fill: '#ffffff' } },
     });
     const v = auditVizContrast([entry('x', 'aa', f)]);
     expect(v).toHaveLength(1);
@@ -122,9 +133,9 @@ describe('auditVizContrast — over-claim 감지 (fixture)', () => {
     // 틴트를 무시하면 흰 배경으로 21:1 통과 → 실패(합성 회귀 가드).
     const f = makeFoundations({
       c4: [
-        { labelColor: '#000000', bgTint: 'rgba(0,0,0,0.9)' },
-        { labelColor: '#000000', bgTint: 'transparent' },
-        { labelColor: '#000000', bgTint: 'transparent' },
+        { ink: '#000000', bgTint: 'rgba(0,0,0,0.9)' },
+        { ink: '#000000', bgTint: 'transparent' },
+        { ink: '#000000', bgTint: 'transparent' },
       ],
     });
     const v = auditVizContrast([entry('x', 'aa', f)]);
@@ -136,9 +147,9 @@ describe('auditVizContrast — over-claim 감지 (fixture)', () => {
   it('(h2) 비-transparent 파싱불가 bgTint(var()) → unparseable-background(canvas 로 은폐 안 함)', () => {
     const f = makeFoundations({
       c4: [
-        { labelColor: '#000000', bgTint: 'var(--x)' },
-        { labelColor: '#000000', bgTint: 'transparent' },
-        { labelColor: '#000000', bgTint: 'transparent' },
+        { ink: '#000000', bgTint: 'var(--x)' },
+        { ink: '#000000', bgTint: 'transparent' },
+        { ink: '#000000', bgTint: 'transparent' },
       ],
     });
     const v = auditVizContrast([entry('x', 'aa', f)]);
@@ -149,7 +160,7 @@ describe('auditVizContrast — over-claim 감지 (fixture)', () => {
   it('(i) 여러 preset 중 미달 preset만 violation', () => {
     const ok = makeFoundations({});
     const bad = makeFoundations({
-      c4: [{ labelColor: '#aaaaaa', bgTint: 'transparent' }, { labelColor: '#000', bgTint: 'transparent' }, { labelColor: '#000', bgTint: 'transparent' }],
+      c4: [{ ink: '#aaaaaa', bgTint: 'transparent' }, { ink: '#000', bgTint: 'transparent' }, { ink: '#000', bgTint: 'transparent' }],
     });
     const v = auditVizContrast([
       entry('x', 'aa', ok, [
@@ -166,9 +177,9 @@ describe('auditVizContrast — over-claim 감지 (fixture)', () => {
     // 검정→흰색 그라디언트 위 흰 boundary 라벨 → 흰 스톱에서 대비 ~1 (worst-case 위반).
     const f = makeFoundations({
       canvasBg: 'linear-gradient(160deg, #000000 0%, #ffffff 100%)',
-      c4: [{ labelColor: '#000000', bgTint: 'transparent' }, { labelColor: '#000', bgTint: 'transparent' }, { labelColor: '#000', bgTint: 'transparent' }],
+      c4: [{ ink: '#000000', bgTint: 'transparent' }, { ink: '#000', bgTint: 'transparent' }, { ink: '#000', bgTint: 'transparent' }],
       boundaryLabel: '#ffffff',
-      nodes: { person: { tagColor: '#000000', fill: '#ffffff' } },
+      nodes: { person: { ink: '#000000', fill: '#ffffff' } },
     });
     const v = auditVizContrast([entry('x', 'aa', f)]);
     const boundary = v.find((x) => x.locus === 'boundary');
@@ -179,7 +190,7 @@ describe('auditVizContrast — over-claim 감지 (fixture)', () => {
 
   it('(k) formatVizViolations 출력에 name·presetKey·locus·measured·required 포함', () => {
     const f = makeFoundations({
-      c4: [{ labelColor: '#767676', bgTint: 'transparent' }, { labelColor: '#000', bgTint: 'transparent' }, { labelColor: '#000', bgTint: 'transparent' }],
+      c4: [{ ink: '#767676', bgTint: 'transparent' }, { ink: '#000', bgTint: 'transparent' }, { ink: '#000', bgTint: 'transparent' }],
     });
     const v = auditVizContrast([entry('my-guide', 'aaa', f)]);
     const s = formatVizViolations(v);
@@ -195,7 +206,7 @@ describe('auditVizContrast — over-claim 감지 (fixture)', () => {
 });
 
 describe('auditVizContrast — 실 viz 카탈로그 게이트 (over-claim 방지)', () => {
-  it('vizStyleGuideCatalog에 over-claim이 없다(전 8종 선언이 실측을 만족)', () => {
+  it('vizStyleGuideCatalog에 over-claim이 없다(전 가이드 선언이 실제 글자색 실측을 만족)', () => {
     const violations: VizContrastViolation[] = auditVizContrast(vizStyleGuideCatalog);
     expect(violations, formatVizViolations(violations)).toEqual([]);
   });
@@ -209,8 +220,10 @@ describe('auditVizContrast — 실 viz 카탈로그 게이트 (over-claim 방지
         const f = p.foundations;
         const kinds = Object.keys(f.node);
         expect(kinds.length, `${sg.name}/${p.key} node kinds`).toBeGreaterThan(0);
+        const vars = visualizationFoundationToStyleObject(f);
         for (const [kind, style] of Object.entries(f.node)) {
-          expect(parseColor(style.tagColor), `${sg.name}/${p.key} node.${kind} tagColor`).not.toBeNull();
+          const ink = vars[`--bbangto-viz-on-node-${kind}-fill`];
+          expect(ink && parseColor(ink), `${sg.name}/${p.key} node.${kind} 글자색`).toBeTruthy();
           // fill:'none'(라인 전용) 또는 'transparent' 는 캔버스 위로 처리됨 → 리터럴이거나 none/transparent 여야 함.
           expect(
             style.fill === 'none' || style.fill === 'transparent' || parseColor(style.fill) !== null,
@@ -219,7 +232,8 @@ describe('auditVizContrast — 실 viz 카탈로그 게이트 (over-claim 방지
         }
         for (const level of ['l1', 'l2', 'l3'] as const) {
           const c4 = f.c4[level];
-          expect(parseColor(c4.labelColor), `${sg.name}/${p.key} c4.${level} labelColor`).not.toBeNull();
+          const ink = vars[`--bbangto-viz-on-c4-${level}-bg-tint`];
+          expect(ink && parseColor(ink), `${sg.name}/${p.key} c4.${level} 글자색`).toBeTruthy();
           expect(
             c4.bgTint === 'transparent' || parseColor(c4.bgTint) !== null,
             `${sg.name}/${p.key} c4.${level} bgTint`
