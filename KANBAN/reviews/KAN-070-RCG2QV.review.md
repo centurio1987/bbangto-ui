@@ -24,9 +24,12 @@ status: 검토 대기
 | 베이스 | `0a81094` |
 | 변경 훑기 | `git diff 0a81094...HEAD` |
 
-**커밋 8건**
+**커밋 11건**
 
 ```text
+667f238 feat(viz): KAN-070 S5 — C4 관계선은 가이드 대시를 따른다 (검토 1번 추가 의견, 유저 선택)
+a517ec2 kanban: KAN-070 검토자 대행 — 항목 1·2·4 승인(ai·검토자) · 1 추가 의견(C4) · 3 사람에게 넘김 · 발행본 다시 뽑음
+b2ae712 kanban: KAN-070 검토로 이동 — 검토서(판단 항목 4) · 검토 리포트
 de9aa93 kanban: KAN-070 S4 — 품질 게이트 5종 초록 · a11y 강제 확인
 12db5ac docs(viz): KAN-070 S3 — 연결선 대시 범위 문서 · changeset
 3341683 feat(viz): KAN-070 S2 — 표준 표기 템플릿은 가이드 대시를 끄고, Edge 밖 관계선은 따르게 한다
@@ -37,22 +40,27 @@ b3a2ccf kanban: KAN-070 배치1 착수 시점 판단 — 단일 에이전트(유
 b40aafc kanban: KAN-070 진행 중으로 이동 (워크트리 착수)
 ```
 
-**변경 파일 43개 (+1154 −64)**
+**변경 파일 42개 (+2788 −67)**
 
 | 파일 | 상태 | 추가 | 삭제 |
 |---|:--:|---:|---:|
-| `.changeset/kan-070-connector-dash-scope.md` | M | 21 | 0 |
-| `.kanban/archive.jsonl` | M | 1 | 0 |
-| `.kanban/log.md` | M | 1 | 1 |
-| `.kanban/state.json` | M | 25 | 15 |
+| `.changeset/kan-070-connector-dash-scope.md` | M | 22 | 0 |
+| `.kanban/archive.jsonl` | M | 2 | 0 |
+| `.kanban/log.md` | M | 2 | 2 |
+| `.kanban/reviews/KAN-070-RCG2QV.events.jsonl` | M | 13 | 0 |
+| `.kanban/reviews/KAN-070-RCG2QV.review.json` | M | 21 | 0 |
+| `.kanban/state.json` | M | 35 | 25 |
 | `KANBAN.board.html` | M | 2 | 2 |
-| `KANBAN.md` | M | 12 | 10 |
+| `KANBAN.md` | M | 13 | 10 |
 | `KANBAN/batches/KAN-070-RCG2QV.batch1.md` | M | 99 | 0 |
-| `KANBAN/cards/KAN-070-RCG2QV.md` | M | 73 | 0 |
+| `KANBAN/batches/KAN-070-RCG2QV.batch2.md` | M | 43 | 0 |
+| `KANBAN/cards/KAN-070-RCG2QV.md` | M | 80 | 0 |
 | `KANBAN/reports/KAN-070-RCG2QV.report.html` | M | 514 | 0 |
-| `apps/storybook/src/stories/visualization/TemplateDashGate.stories.tsx` | M | 325 | 0 |
+| `KANBAN/reviews/KAN-070-RCG2QV.review.html` | M | 1248 | 0 |
+| `KANBAN/reviews/KAN-070-RCG2QV.review.md` | M | 273 | 0 |
+| `apps/storybook/src/stories/visualization/TemplateDashGate.stories.tsx` | M | 351 | 0 |
 | `packages/tokens/src/visualization.ts` | M | 4 | 3 |
-| `packages/visualization/README.md` | M | 12 | 1 |
+| `packages/visualization/README.md` | M | 13 | 1 |
 | `packages/visualization/src/patterns/TimelineRoadmap.tsx` | M | 2 | 0 |
 | `packages/visualization/src/provider/contractCss.ts` | M | 7 | 0 |
 | `packages/visualization/src/templates/ActivityDiagram.tsx` | M | 2 | 2 |
@@ -60,12 +68,6 @@ b40aafc kanban: KAN-070 진행 중으로 이동 (워크트리 착수)
 | `packages/visualization/src/templates/ArchiMateViewpointDiagram.tsx` | M | 2 | 0 |
 | `packages/visualization/src/templates/BPMNCollaborationDiagram.tsx` | M | 2 | 1 |
 | `packages/visualization/src/templates/BPMNDiagram.tsx` | M | 2 | 1 |
-| `packages/visualization/src/templates/C4CodeDiagram.tsx` | M | 2 | 1 |
-| `packages/visualization/src/templates/C4ComponentDiagram.tsx` | M | 2 | 1 |
-| `packages/visualization/src/templates/C4ContainerDiagram.tsx` | M | 2 | 1 |
-| `packages/visualization/src/templates/C4ContextDiagram.tsx` | M | 2 | 1 |
-| `packages/visualization/src/templates/C4DynamicDiagram.tsx` | M | 2 | 2 |
-| `packages/visualization/src/templates/C4SystemLandscapeDiagram.tsx` | M | 2 | 2 |
 | `packages/visualization/src/templates/ClassDiagram.tsx` | M | 2 | 1 |
 | `packages/visualization/src/templates/DMNDiagram.tsx` | M | 2 | 1 |
 | `packages/visualization/src/templates/ERDiagram.tsx` | M | 2 | 1 |
@@ -85,13 +87,14 @@ b40aafc kanban: KAN-070 진행 중으로 이동 (워크트리 착수)
 | `packages/visualization/src/templates/WorkBreakdownStructure.tsx` | M | 1 | 0 |
 | `packages/visualization/style-classification.md` | M | 2 | 1 |
 
-**롤백 태그 4개**
+**롤백 태그 5개**
 
 ```text
 kan/KAN-070-RCG2QV/S1
 kan/KAN-070-RCG2QV/S2
 kan/KAN-070-RCG2QV/S3
 kan/KAN-070-RCG2QV/S4
+kan/KAN-070-RCG2QV/S5
 ```
 
 ## 2. 검증 — 기준과 실행 결과
@@ -114,7 +117,7 @@ kan/KAN-070-RCG2QV/S4
 **실행 결과**
 
 ```text
-1. pnpm test — Test Files 195 passed (195) · Tests 1304 passed (1304). Dash Gate 스토리 넷 초록(대시 가이드 7 3): ① 표준 표기 표본 28개 모두 data-viz-notation, 대시를 직접 안 넘긴 연결선 38개 none · 직접 넘긴 대시 12개(5 3·5 4·6 4·2 3)는 그대로 ② 관계선 템플릿 13개마다 7px, 3px 연결선 1개 이상, 비표준 템플릿에 훅 없음 ③ Flowchart 점선 섞임 → none · 6px, 4px, 안 섞임 → 7px, 3px 둘 ④ TimelineRoadmap 축 none, ProcessSteps·Cycle(orbit)·Hierarchy·Sketchnote 연결선 7px, 3px
+1. pnpm test — Test Files 195 passed (195) · Tests 1304 passed (1304). Dash Gate 스토리 넷 초록(대시 가이드 7 3): ① 표준 표기 표본 22개(standard 태그 28개 − C4 여섯) 모두 data-viz-notation, 대시를 직접 안 넘긴 연결선 30개 none · 직접 넘긴 대시 12개(5 3·5 4·6 4·2 3)는 그대로 · 예외 목록 C4 여섯이 실제 standard 태그 템플릿 ② 관계선 템플릿 19개(C4 여섯 포함)마다 7px, 3px 연결선 1개 이상, 표기 템플릿 밖에 훅 없음 ③ Flowchart 점선 섞임 → none · 6px, 4px, 안 섞임 → 7px, 3px 둘 ④ TimelineRoadmap 축 none, ProcessSteps·Cycle(orbit)·Hierarchy·Sketchnote 연결선 7px, 3px
 2. Paint Gate·Headless(KAN-057 대시 스토리 넷)·Patterns 를 포함한 viz 스토리 — S2 뒤 따로 돌린 결과 22개 파일 151개 초록이고, S4 의 pnpm test 전체(1번)에도 들어 있다
 3. git diff main...HEAD --stat -- packages/visualization-style-guide-catalog → 0줄 (카탈로그 무변경). 카탈로그 가이드 30개·프리셋 포함 92곳 edge.dashPattern 모두 '' (빌드 결과로 확인)
 4. 품질 게이트 — pnpm typecheck rc 0 (TS 오류 0) · pnpm build rc 0 · pnpm test rc 0 · pnpm --filter storybook build rc 0 (Storybook build completed successfully) · pnpm test:unit rc 0 (hooks 115 · visualization 285 · foundations 143 · style-guide-catalog 113 · visualization-style-guide-catalog 46 통과)
@@ -164,7 +167,7 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-070-RCG2QV --add
 **전체 승인은 살아있는 항목이 전부 승인일 때만 섭니다**(철회는 분모에서 빠집니다). 하나라도
 반려·추가 의견·미정이면 4항의 전체 승인도 `→ 완료` 이동도 종료코드 14로 거부됩니다.
 
-- [x] 표준 표기법 템플릿은 템플릿 통째로 가이드 대시를 끌 것인가 — 유형 메타의 「표준」 태그가 붙은 28개를 끄도록 했습니다
+- [ ] 표준 표기법 템플릿은 템플릿 통째로 가이드 대시를 끌 것인가 — 유형 메타의 「표준」 태그가 붙은 28개를 끄도록 했습니다
     - **배경**
       - 스타일 가이드가 연결선을 점선으로 정하면, 표기법에서 실선과 점선이 서로 다른 관계를 뜻하는 그림은 뜻이 바뀝니다. BPMN(업무 흐름 표기법) 시퀀스 흐름(실선)이 점선이 되면 메시지 흐름으로 읽히고, UML(소프트웨어 설계 표기법) 연관(실선)이 점선이 되면 의존으로 읽힙니다.
       - 지금 카탈로그 가이드 30개는 프리셋까지 92곳 모두 실선이라, 그림에 나타나는 문제는 아직 없습니다. 원문: packages/visualization-style-guide-catalog (edge.dashPattern 값, 빌드 결과로 확인)
@@ -184,6 +187,7 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-070-RCG2QV --add
     > **판정**
     >
     > - 승인 · ai · 2026-10-10
+    > - 철회 · 유저 · 2026-10-10
 
     > **추가 의견**
     >
@@ -210,7 +214,7 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-070-RCG2QV --add
 
     > **추가 의견** — _아직 없습니다._
 
-- [ ] 표기 관례가 있지만 표준 태그가 없는 Flowchart·DataFlowDiagram 을 어떻게 다룰 것인가 — Flowchart 는 점선이 섞일 때만 나머지 선을 실선으로 고정하고, DataFlowDiagram 은 가이드를 따르게 두었습니다
+- [x] 표기 관례가 있지만 표준 태그가 없는 Flowchart·DataFlowDiagram 을 어떻게 다룰 것인가 — Flowchart 는 점선이 섞일 때만 나머지 선을 실선으로 고정하고, DataFlowDiagram 은 가이드를 따르게 두었습니다
     - **배경**
       - 유형 메타에서 두 템플릿은 표준 태그가 없어서, 1번 기준으로는 가이드 대시를 따릅니다. 원문: packages/visualization/src/typeMeta/registry.ts (Flowchart·DataFlowDiagram 항목)
       - Flowchart 는 데이터가 선마다 점선 여부를 고릅니다. 점선이 섞였는데 나머지 선까지 가이드 대시를 따르면 둘이 구분되지 않아서, 그때만 나머지 선을 실선으로 고정했습니다. 섞이지 않으면 가이드를 따릅니다. 원문: packages/visualization/src/templates/Flowchart.tsx:74
@@ -223,12 +227,15 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-070-RCG2QV --add
     | **추천** 이대로 둔다 | 점선 가이드에서 DataFlowDiagram 흐름선이 점선이 된다 | 순서도는 데이터에 따라, 데이터 흐름도는 가이드를 따른다 |
     | 두 템플릿에 표준 태그와 표시를 단다(새 카드) | 유형 메타가 바뀌고 카드가 하나 는다 | 두 템플릿도 어느 가이드에서나 실선이다 |
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 승인 · 유저 · 2026-10-10
 
     > **추가 의견**
     >
     > - ai · 2026-10-10 — 검토자 에이전트는 이 항목을 판정하지 않고 사람에게 넘깁니다. 카드 목표가 「표기법상 실선인 선과 축은 실선으로 남는다」인데, 순서도(ISO 5807)와 데이터 흐름도의 흐름선이 이 「표기법상 실선」에 드는지는 유저만 정할 수 있습니다. 든다고 보면 추천안(이대로 둔다)은 점선 가이드에서 DataFlowDiagram 흐름선과 점선이 섞이지 않은 Flowchart 흐름선을 점선으로 만들어 목표 뒤 절과 어긋납니다. 안 든다고 보면 추천안이 맞습니다. 지금 점선 가이드가 없어 어느 쪽이든 그림은 안 바뀝니다.
 표에 없는 갈래가 하나 더 있습니다. 유형 메타의 태그는 그대로 두고 두 템플릿의 바깥 틀에만 표시를 단 뒤, 게이트의 「표준이 아닌 템플릿은 표시를 달면 안 된다」 검사에 두 이름을 예외로 적는 길입니다. 렌더링은 이미 태그가 아니라 템플릿이 단 표시를 따르므로(카드 문서 전략의 버린 대안 셋째), AI 채택 정보를 바꾸지 않고 이 카드 범위(templates/*.tsx) 안에서 할 수 있습니다. 대가는 「standard 태그 = 표시」 규칙에 예외가 둘 생기는 것입니다. 원문: apps/storybook/src/stories/visualization/TemplateDashGate.stories.tsx:180
+    > - ai · 2026-10-10 — 유저 선택(2026-10-10): 「지금대로 둔다」 — Flowchart 는 점선이 섞일 때만 나머지 선을 실선으로 고정하고, DataFlowDiagram 은 가이드 대시를 따른다. 질문: 「표준 태그가 없는 Flowchart·DataFlowDiagram은 어떻게 둘까요?」
 
 - [x] 배포 등급을 patch 로 둘 것인가 — visualization patch · tokens patch 로 적었습니다
     - **배경**
@@ -248,6 +255,31 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-070-RCG2QV --add
     > - 승인 · ai · 2026-10-10
 
     > **추가 의견** — _아직 없습니다._
+
+- [x] 표준 표기법 템플릿은 템플릿 통째로 가이드 대시를 끌 것인가 — 「표준」 태그 28개 중 C4 여섯을 뺀 22개를 끄도록 했습니다(1번을 고쳐 다시 올림)
+      이 의견은 §3-1 「표준 표기법 템플릿은 템플릿 통째로 가이드 대시를 끌 」 의 추가 의견에서 갈라져 나왔습니다 (추가 2026-10-10).
+    - **배경**
+      - 1번 항목의 추가 의견(검토자)에 따라 유저가 「C4는 가이드를 따르게」를 골랐습니다(2026-10-10). 그래서 1번을 철회하고 바뀐 범위로 이 항목을 다시 올립니다. 원문: KANBAN/cards/KAN-070-RCG2QV.md (전략 절 마지막 문단)
+      - 스타일 가이드가 연결선을 점선으로 정하면, 표기법에서 실선과 점선이 서로 다른 관계를 뜻하는 그림은 뜻이 바뀝니다. BPMN(업무 흐름 표기법) 시퀀스 흐름(실선)이 점선이 되면 메시지 흐름으로 읽히고, UML(소프트웨어 설계 표기법) 연관(실선)이 점선이 되면 의존으로 읽힙니다.
+      - 유형 메타데이터(AI 가 그림 유형을 고를 때 읽는 정보)의 「표준 표기법 유래」 태그가 붙은 내보낸 이름 28개 중, UML·BPMN·ArchiMate·SysML·DMN·ER·Packet 22개(파일 18개)의 바깥 틀에 표시를 달고 공통 CSS 가 그 안의 연결선 대시를 끕니다. 원문: packages/visualization/src/provider/contractCss.ts:29
+      - C4(소프트웨어 구조를 네 단계 상자로 그리는 표기법) 여섯은 표시를 달지 않아 관계선처럼 가이드 대시를 따릅니다. C4 공식 문서는 선 모양을 정하지 않고("Every line should represent a unidirectional relationship. Every line should be labelled …"), 이 저장소 C4 템플릿에도 점선이 없습니다. 원문: https://c4model.com/diagrams/notation
+      - 예외는 게이트 스토리 한 곳에 이름과 근거로 적었고, 게이트는 그 이름들이 실제 표준 태그 템플릿인지도 확인합니다. 원문: apps/storybook/src/stories/visualization/TemplateDashGate.stories.tsx:81
+      - 점선 가이드 아래에서 22개 표본의 연결선 중 템플릿이 점선을 넘기지 않은 30개는 실선이고, 직접 넘긴 점선 12개(UML 의존 등)는 그대로 남습니다. C4 여섯의 연결선은 가이드 점선을 따릅니다.
+    - **정할 것**
+      표준 표기법 템플릿 중 C4 를 뺀 22개에서 가이드 대시를 끌 것인가.
+
+    | 선택지 | 대가 | 그러면 어떻게 되는가 |
+    | --- | --- | --- |
+    | **추천** C4 를 뺀 22개에서 끈다(유저 선택 반영) | 「표준 태그 = 대시 끔」 규칙에 C4 예외가 생긴다 | UML·BPMN 등은 표기법 뜻이 그대로이고, C4 관계선은 다른 관계선과 같은 모양이 된다 |
+    | 28개 전부에서 끈다(옛 1번) | 예외가 없다 | 점선 가이드에서 C4 관계선만 실선으로 남는다 |
+
+    > **판정**
+    >
+    > - 승인 · 유저 · 2026-10-10
+
+    > **추가 의견**
+    >
+    > - ai · 2026-10-10 — 유저 선택(2026-10-10): 「C4는 가이드를 따르게」 — 질문 「C4 템플릿 6개의 관계선을 점선 가이드에서 어떻게 그릴까요?」. S5(667f238)에서 반영했고 Dash Gate·게이트 5종 초록
 
 
 ## 4. 판정
