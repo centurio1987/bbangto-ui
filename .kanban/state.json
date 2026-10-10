@@ -1,6 +1,6 @@
 {
   "next_id": 76,
-  "next_seq": 281,
+  "next_seq": 282,
   "cards": {
     "KAN-066-T6NR80": {
       "col": "done",
@@ -1663,6 +1663,16 @@
   ],
   "recent": [
     {
+      "seq": 281,
+      "t": "2026-10-11T01:19",
+      "a": "ai",
+      "id": "KAN-075-4K5GK3",
+      "op": "serialize",
+      "w": "S7030N",
+      "with_": "KAN-069-G0FGTJ",
+      "reason": "두 카드가 viz 카탈로그 가이드 파일을 함께 고친다. KAN-075 는 KAN-069 가 tagColor·c4.labelColor 를 걷은 상태를 기준으로 글자색을 맞춘다"
+    },
+    {
       "seq": 280,
       "t": "2026-10-11T01:02",
       "a": "ai",
@@ -2214,16 +2224,6 @@
       "w": "S7030N",
       "with_": "KAN-067-WDY7N1",
       "reason": "유저 선택(2026-10-09 「용인」): visualization package.json 의 files 배열은 KAN-064 가 manifest 를 더하고 KAN-067 이 관리용 문서 2개를 뺀다 — 나중에 합치는 쪽이 두 변경을 다 남긴다. 주석은 src/index.ts 가 KAN-064 21줄·KAN-067 28줄로 갈리고, src/typeMeta/index.ts:6 은 같은 문장이라 나중에 합치는 쪽이 2단 읽기와 저장소 링크 두 뜻으로 다시 쓴다. KAN-064 scope 의 tsup.config.ts:21·src/index.ts:21 에 남은 「동봉」은 KAN-064 병합 때 KAN-067 검사에 맞춰 고친다"
-    },
-    {
-      "seq": 254,
-      "t": "2026-10-09T22:51",
-      "a": "ai",
-      "id": "KAN-057-CCH3E8",
-      "op": "move",
-      "w": "WXJKQG",
-      "from": "backlog",
-      "to": "doing"
     }
   ],
   "waivers": [
@@ -2446,6 +2446,18 @@
       "by": "ai",
       "restrategy_required": false,
       "restrategy_done": "2026-10-10T00:24"
+    },
+    {
+      "pair": "KAN-069-G0FGTJ|KAN-075-4K5GK3",
+      "order": [
+        "KAN-069-G0FGTJ",
+        "KAN-075-4K5GK3"
+      ],
+      "scope_hash": "c6874c63cef1b53e",
+      "reason": "두 카드가 viz 카탈로그 가이드 파일을 함께 고친다. KAN-075 는 KAN-069 가 tagColor·c4.labelColor 를 걷은 상태를 기준으로 글자색을 맞춘다",
+      "created": "2026-10-11T01:19",
+      "by": "ai",
+      "restrategy_required": false
     }
   ]
 }
