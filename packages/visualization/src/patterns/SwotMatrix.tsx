@@ -80,11 +80,11 @@ export function SwotMatrix({
         return (
           <g key={q.key} data-bbangto-viz-swot-quadrant data-bbangto-viz-swot-quadrant-key={q.key}>
             <rect data-viz-part="shape" x={x} y={y} width={cellW} height={cellH} rx={8} style={{ fill: vvar('palette', q.palette), fillOpacity: 0.28, stroke: vvar('palette', q.palette), strokeWidth: 1.5 }} />
-            <text x={x + 14} y={y + 22} fontSize={14} fontWeight={800} fontFamily={vvar('typography', 'titleFont')} style={{ fill: vvar('shape', 'stroke') }}>
+            <text x={x + 14} y={y + 22} fontSize={14} fontWeight={800} fontFamily={vvar('typography', 'titleFont')} style={{ fill: vvar('on', 'canvas', 'bg') }}>
               {q.title}
             </text>
             {items.map((it, i) => (
-              <text key={i} x={x + 14} y={y + 46 + i * 18} fontSize={11} fontFamily={resolveLabelFont(it)} style={{ fill: vvar('shape', 'stroke') }}>
+              <text key={i} x={x + 14} y={y + 46 + i * 18} fontSize={11} fontFamily={resolveLabelFont(it)} style={{ fill: vvar('on', 'canvas', 'bg') }}>
                 {`• ${it}`}
               </text>
             ))}

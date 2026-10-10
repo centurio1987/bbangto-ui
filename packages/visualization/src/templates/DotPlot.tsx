@@ -44,7 +44,7 @@ function renderDot(item: DotPlotItem, i: number, ctx: RowCtx): ReactNode {
   return (
     <g key={item.id}>
       <circle data-bbangto-viz-point data-bbangto-viz-point-id={item.id} data-viz-part="shape" cx={cx} cy={cy} r={6} style={{ fill }} />
-      <text data-bbangto-viz-point-value x={cx + 10} y={cy} dominantBaseline="central" fontSize={11} fontWeight={700} fontFamily={vvar('typography', 'monoFont')} style={{ fill: vvar('shape', 'stroke') }}>
+      <text data-bbangto-viz-point-value x={cx + 10} y={cy} dominantBaseline="central" fontSize={11} fontWeight={700} fontFamily={vvar('typography', 'monoFont')} style={{ fill: vvar('on', 'canvas', 'bg') }}>
         {ctx.fmt(v)}
       </text>
     </g>
@@ -64,7 +64,7 @@ function renderDumbbell(item: DotPlotItem, i: number, ctx: RowCtx): ReactNode {
       <line data-bbangto-viz-range data-bbangto-viz-range-id={item.id} x1={xLo} y1={cy} x2={xHi} y2={cy} data-bbangto-viz-edge style={{ stroke: vvar('edge', 'stroke'), strokeWidth: 2 }} />
       <circle data-bbangto-viz-point data-bbangto-viz-point-id={`${item.id}-lo`} data-viz-part="shape" cx={xLo} cy={cy} r={5} style={{ fill: vvar('palette', 'p3') }} />
       <circle data-bbangto-viz-point data-bbangto-viz-point-id={`${item.id}-hi`} data-viz-part="shape" cx={xHi} cy={cy} r={5} style={{ fill }} />
-      <text data-bbangto-viz-point-value x={xHi + 8} y={cy} dominantBaseline="central" fontSize={10} fontFamily={vvar('typography', 'monoFont')} style={{ fill: vvar('shape', 'stroke') }}>
+      <text data-bbangto-viz-point-value x={xHi + 8} y={cy} dominantBaseline="central" fontSize={10} fontFamily={vvar('typography', 'monoFont')} style={{ fill: vvar('on', 'canvas', 'bg') }}>
         {`${ctx.fmt(lo)}–${ctx.fmt(hi)}`}
       </text>
     </g>
@@ -83,7 +83,7 @@ function renderRange(item: DotPlotItem, i: number, ctx: RowCtx): ReactNode {
   return (
     <g key={item.id}>
       <rect data-bbangto-viz-range data-bbangto-viz-range-id={item.id} data-viz-part="shape" x={xLo} y={cy - h / 2} width={Math.max(1, xHi - xLo)} height={h} rx={h / 2} style={{ fill }} />
-      <text data-bbangto-viz-point-value x={xHi + 8} y={cy} dominantBaseline="central" fontSize={10} fontFamily={vvar('typography', 'monoFont')} style={{ fill: vvar('shape', 'stroke') }}>
+      <text data-bbangto-viz-point-value x={xHi + 8} y={cy} dominantBaseline="central" fontSize={10} fontFamily={vvar('typography', 'monoFont')} style={{ fill: vvar('on', 'canvas', 'bg') }}>
         {`${ctx.fmt(lo)}–${ctx.fmt(hi)}`}
       </text>
     </g>

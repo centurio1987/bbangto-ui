@@ -57,10 +57,10 @@ export function ListInfographic({
         return (
           <g key={item.id} data-bbangto-viz-list-item data-bbangto-viz-list-item-id={item.id}>
             <circle data-viz-part="shape" cx={leftX + badgeR} cy={cy} r={badgeR} style={{ fill: vvar('palette', PALETTE_KEYS[i % PALETTE_KEYS.length]) }} />
-            <text x={leftX + badgeR} y={cy} textAnchor="middle" dominantBaseline="central" fontSize={13} fontWeight={800} fontFamily={resolveLabelFont(item.glyph)} style={{ fill: vvar('shape', 'stroke') }}>
+            <text x={leftX + badgeR} y={cy} textAnchor="middle" dominantBaseline="central" fontSize={13} fontWeight={800} fontFamily={resolveLabelFont(item.glyph)} style={{ fill: vvar('on', 'canvas', 'bg') }}>
               {item.glyph ?? String(i + 1)}
             </text>
-            <text x={textX} y={cy - 8} fontSize={14} fontWeight={700} fontFamily={vvar('typography', 'titleFont')} style={{ fill: vvar('shape', 'stroke') }}>
+            <text x={textX} y={cy - 8} fontSize={14} fontWeight={700} fontFamily={vvar('typography', 'titleFont')} style={{ fill: vvar('on', 'canvas', 'bg') }}>
               {item.title}
             </text>
             {item.description && (

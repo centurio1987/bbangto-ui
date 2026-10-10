@@ -71,7 +71,7 @@ export function Honeycomb({
               fontSize={11}
               fontWeight={700}
               fontFamily={vvar('typography', 'titleFont')}
-              style={{ fill: vvar('shape', 'stroke') }}
+              style={{ fill: vvar('on', 'canvas', 'bg') }}
             >
               {item.label}
             </text>

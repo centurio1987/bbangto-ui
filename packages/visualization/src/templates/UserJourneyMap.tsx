@@ -77,10 +77,10 @@ export function UserJourneyMap({
       {pts.map(({ x, y, s }) => (
         <g key={s.id} data-bbangto-viz-journey-step data-bbangto-viz-journey-step-id={s.id}>
           <circle cx={x} cy={y} r={5} style={{ fill: vvar('palette', 'p1') }} />
-          <text x={x} y={y - 12} textAnchor="middle" fontSize={11} fontWeight={700} fontFamily={vvar('typography', 'monoFont')} style={{ fill: vvar('shape', 'stroke') }}>
+          <text x={x} y={y - 12} textAnchor="middle" fontSize={11} fontWeight={700} fontFamily={vvar('typography', 'monoFont')} style={{ fill: vvar('on', 'canvas', 'bg') }}>
             {s.score}
           </text>
-          <text x={x} y={plotBottom + 18} textAnchor="middle" fontSize={11} fontWeight={600} fontFamily={vvar('typography', 'titleFont')} style={{ fill: vvar('shape', 'stroke') }}>
+          <text x={x} y={plotBottom + 18} textAnchor="middle" fontSize={11} fontWeight={600} fontFamily={vvar('typography', 'titleFont')} style={{ fill: vvar('on', 'canvas', 'bg') }}>
             {s.label}
           </text>
         </g>

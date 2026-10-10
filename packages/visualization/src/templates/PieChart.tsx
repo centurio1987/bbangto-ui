@@ -92,7 +92,7 @@ export function PieChart({
             fontSize={12}
             fontWeight={600}
             fontFamily={vvar('typography', 'titleFont')}
-            style={{ fill: vvar('shape', 'stroke') }}
+            style={{ fill: vvar('on', 'canvas', 'bg') }}
           >
             {`${d.label} ${formatValue(d.value)}`}
           </text>

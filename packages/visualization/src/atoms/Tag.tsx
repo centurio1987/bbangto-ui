@@ -23,7 +23,8 @@ export const Tag = React.forwardRef<SVGTextElement, TagProps>(
     },
     ref,
   ) => {
-    const effectiveFill = fill ?? vvar('edge', 'stroke');
+    // 기본은 캔버스 위 태그다(KAN-075). 노드 안 태그는 그 면의 글자색을 fill 로 넘긴다.
+    const effectiveFill = fill ?? vvar('on', 'canvas', 'bg');
     const effectiveFont = resolveLabelFont(label, fontFamily);
 
     return (

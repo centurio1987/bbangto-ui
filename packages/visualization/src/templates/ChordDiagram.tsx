@@ -110,7 +110,7 @@ export function ChordDiagram({
               fontSize={11}
               fontWeight={700}
               fontFamily={vvar('typography', 'titleFont')}
-              style={{ fill: stroke }}
+              style={{ fill: vvar('on', 'canvas', 'bg') }}
             >
               {nodes[g.index]?.label}
             </text>

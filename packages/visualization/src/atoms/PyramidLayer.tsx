@@ -41,7 +41,7 @@ export const PyramidLayer = React.forwardRef<SVGGElement, PyramidLayerProps>(
             fontSize={13}
             fontWeight={700}
             fontFamily={vvar('typography', 'titleFont')}
-            style={{ fill: vvar('shape', 'stroke') }}
+            style={{ fill: vvar('on', 'canvas', 'bg') }}
           >
             {label}
           </text>

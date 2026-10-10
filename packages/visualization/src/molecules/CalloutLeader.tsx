@@ -36,7 +36,7 @@ export const CalloutLeader = React.forwardRef<SVGGElement, CalloutLeaderProps>(
             fontSize={i === 0 ? fontSize + 2 : fontSize}
             fontWeight={i === 0 ? 700 : 400}
             fontFamily={vvar('typography', 'titleFont')}
-            style={{ fill: i === 0 ? ink : vvar('boundary', 'labelColor') }}
+            style={{ fill: i === 0 ? vvar('on', 'canvas', 'bg') : vvar('boundary', 'labelColor') }}
           >
             {line}
           </text>

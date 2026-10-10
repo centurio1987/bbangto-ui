@@ -74,7 +74,7 @@ function CollabEvent({ spec }: { spec: BPMNCollabEventSpec }) {
     <g data-bbangto-viz-bpmn-event data-bbangto-viz-bpmn-event-kind={spec.kind ?? 'start'}>
       <circle data-viz-part="shape" cx={spec.x} cy={spec.y} r={r} style={{ stroke, strokeWidth: strokeW }} />
       {spec.label && (
-        <text x={spec.x} y={spec.y + r + 11} textAnchor="middle" fontSize={9} style={{ fill: stroke }}>
+        <text x={spec.x} y={spec.y + r + 11} textAnchor="middle" fontSize={9} style={{ fill: vvar('on', 'canvas', 'bg') }}>
           {spec.label}
         </text>
       )}

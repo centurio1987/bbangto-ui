@@ -77,7 +77,7 @@ export function Funnel({
               fontSize={13}
               fontWeight={700}
               fontFamily={vvar('typography', 'titleFont')}
-              style={{ fill: vvar('shape', 'stroke') }}
+              style={{ fill: vvar('on', 'canvas', 'bg') }}
             >
               {`${s.label} · ${formatValue(s.value)}`}
             </text>

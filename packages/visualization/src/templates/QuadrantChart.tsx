@@ -117,7 +117,7 @@ export function QuadrantChart({
               fontSize={11}
               fontWeight={600}
               fontFamily={vvar('typography', 'titleFont')}
-              style={{ fill: vvar('shape', 'stroke') }}
+              style={{ fill: vvar('on', 'canvas', 'bg') }}
             >
               {it.label}
             </text>
@@ -127,12 +127,12 @@ export function QuadrantChart({
       {(data.xAxisLabel || data.yAxisLabel) && (
         <>
           {data.xAxisLabel && (
-            <text x={right} y={midY - 6} textAnchor="end" fontSize={11} fontStyle="italic" fontFamily={resolveLabelFont(data.xAxisLabel)} style={{ fill: vvar('edge', 'stroke') }}>
+            <text x={right} y={midY - 6} textAnchor="end" fontSize={11} fontStyle="italic" fontFamily={resolveLabelFont(data.xAxisLabel)} style={{ fill: vvar('on', 'canvas', 'bg') }}>
               {data.xAxisLabel} →
             </text>
           )}
           {data.yAxisLabel && (
-            <text x={midX + 6} y={top} fontSize={11} fontStyle="italic" fontFamily={resolveLabelFont(data.yAxisLabel)} style={{ fill: vvar('edge', 'stroke') }}>
+            <text x={midX + 6} y={top} fontSize={11} fontStyle="italic" fontFamily={resolveLabelFont(data.yAxisLabel)} style={{ fill: vvar('on', 'canvas', 'bg') }}>
               ↑ {data.yAxisLabel}
             </text>
           )}

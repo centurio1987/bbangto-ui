@@ -19,6 +19,7 @@ export const StatCard = React.forwardRef<SVGGElement, StatCardProps>(
     <g ref={ref} data-viz-stat-card>
       <rect data-viz-part="shape" x={x} y={y} width={width} height={height} rx={10} />
       <StatNumber
+        fill={vvar('on', 'shape', 'fill')}
         x={x + width / 2}
         y={y + height * 0.48}
         value={value}

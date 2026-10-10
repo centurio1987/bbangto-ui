@@ -39,7 +39,8 @@ export const StateNode = React.forwardRef<SVGGElement, StateNodeProps>(
     const effectiveStroke = stroke ?? vvar('edge', 'stroke');
     const effectiveFill = fill ?? vvar('canvas', 'bg');
     const titleFont = vvar('typography', 'titleFont');
-    const textColor = vvar('edge', 'stroke');
+    // 기본 면(canvas.bg) 위 글자는 캔버스 위 글자색이다(KAN-075). fill 을 넘기면 그 면은 계산할 수 없어 연결선 색이다.
+    const textColor = fill === undefined ? vvar('on', 'canvas', 'bg') : vvar('edge', 'stroke');
 
     if (variant === 'start') {
       const cx = x + PSEUDO_RADIUS;

@@ -33,7 +33,8 @@ export const Axis = React.forwardRef<SVGGElement, AxisProps>(
   ) => {
     const isX = orientation === 'x';
     const domainD = isX ? `M ${x} ${y} L ${x + length} ${y}` : `M ${x} ${y} L ${x} ${y + length}`;
-    const labelFill = vvar('edge', 'stroke');
+    // 눈금 글자는 캔버스 위 — 캔버스 위 글자색을 쓴다(가이드 on.ink 를 따른다, KAN-075).
+    const labelFill = vvar('on', 'canvas', 'bg');
 
     return (
       <g ref={ref} data-bbangto-viz-axis data-bbangto-viz-axis-orientation={orientation}>

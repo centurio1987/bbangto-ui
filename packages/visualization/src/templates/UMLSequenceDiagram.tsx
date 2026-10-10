@@ -51,6 +51,7 @@ function Lifeline({ participant, lifelineHeight }: LifelineProps) {
   // 캔버스 위에서 읽히게 고른 색이라, 팔레트 면 위에 두면 가이드에 따라 바탕에 묻힌다(KAN-056 검토 항목 4).
   const headFill = fill ?? vvar('canvas', 'bg');
   const headStroke = stroke ?? vvar('edge', 'stroke');
+  const nameFill = fill === undefined ? vvar('on', 'canvas', 'bg') : headStroke;
 
   return (
     <g data-bbangto-viz-lifeline data-bbangto-viz-lifeline-id={participant.id}>
@@ -68,7 +69,7 @@ function Lifeline({ participant, lifelineHeight }: LifelineProps) {
         y={HEAD_Y + HEAD_HEIGHT / 2 + 5}
         textAnchor="middle"
         fontSize={12}
-        style={{ fill: headStroke }}
+        style={{ fill: nameFill }}
       >
         {name}
       </text>

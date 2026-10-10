@@ -2,6 +2,8 @@ import { type ReactNode } from 'react';
 import { Canvas, type CanvasProps } from '../atoms/Canvas';
 import { Boundary } from '../atoms/Boundary';
 import { vvar } from '../tokens/contract';
+import { pickOnInk, surfacesFor } from '../tokens/onInk';
+import { useVizFoundation } from '../styleGuide/VisualizationStyleGuideProvider';
 import { resolveLabelFont } from '../tokens/labelFont';
 import { parseViewBox } from '../geometry/layout';
 
@@ -50,6 +52,9 @@ export function ViewpointFrame({
   const innerW = vbW - 2 * P;
 
   const stroke = vvar('shape', 'stroke');
+  // 머리 띠(팔레트 p2 10% 틴트) 안 글자는 그 면으로 글자색을 고른다(KAN-075).
+  const foundation = useVizFoundation();
+  const headerInk = pickOnInk(foundation, surfacesFor(foundation, foundation.palette.p2, 0.1));
   const titleFont = vvar('typography', 'titleFont');
   const monoFont = vvar('typography', 'monoFont');
   const labelColor = vvar('boundary', 'labelColor');
@@ -103,7 +108,7 @@ export function ViewpointFrame({
           fontSize={18}
           fontWeight={800}
           fontFamily={titleFont}
-          style={{ fill: stroke }}
+          style={{ fill: headerInk }}
         >
           {viewpoint}
         </text>
@@ -142,7 +147,7 @@ export function ViewpointFrame({
             y={hy + listTop + i * ROW}
             fontSize={10}
             fontFamily={resolveLabelFont(c)}
-            style={{ fill: stroke }}
+            style={{ fill: headerInk }}
           >
             {`• ${c}`}
           </text>
@@ -155,7 +160,7 @@ export function ViewpointFrame({
             y={hy + listTop + i * ROW}
             fontSize={10}
             fontFamily={resolveLabelFont(s)}
-            style={{ fill: stroke }}
+            style={{ fill: headerInk }}
           >
             {`• ${s}`}
           </text>

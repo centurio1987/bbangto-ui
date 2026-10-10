@@ -17,7 +17,8 @@ export interface StatNumberProps {
 /** 대형 수치 강조 atom — 값·단위·델타를 타입 스케일 위계로 렌더한다(값은 항상 텍스트 노출). */
 export const StatNumber = React.forwardRef<SVGGElement, StatNumberProps>(
   ({ x, y, value, unit, delta, fontSize = 34, textAnchor = 'middle', fill }, ref) => {
-    const inkFill = fill ?? vvar('shape', 'stroke');
+    // 기본은 캔버스 위 숫자다(KAN-075). 다른 면 위에 둘 때는 그 면의 글자색을 fill 로 넘긴다(StatCard).
+    const inkFill = fill ?? vvar('on', 'canvas', 'bg');
     const deltaFill = delta != null && delta < 0 ? vvar('palette', 'p1') : vvar('palette', 'p6');
     const deltaText = delta != null ? `${delta > 0 ? '+' : ''}${delta}` : undefined;
 

@@ -56,15 +56,15 @@ export function SpectrumSlider({ data, viewBox, children, title = 'Spectrum slid
             {/* 트랙 */}
             <path data-bbangto-viz-edge d={`M ${trackLeft} ${y} L ${trackRight} ${y}`} style={{ fill: 'none', strokeWidth: 3, opacity: 0.4 }} />
             {/* 양극 라벨 */}
-            <text x={trackLeft - 12} y={y} textAnchor="end" dominantBaseline="central" fontSize={12} fontWeight={600} fontFamily={vvar('typography', 'titleFont')} style={{ fill: vvar('shape', 'stroke') }}>
+            <text x={trackLeft - 12} y={y} textAnchor="end" dominantBaseline="central" fontSize={12} fontWeight={600} fontFamily={vvar('typography', 'titleFont')} style={{ fill: vvar('on', 'canvas', 'bg') }}>
               {a.leftLabel}
             </text>
-            <text x={trackRight + 12} y={y} textAnchor="start" dominantBaseline="central" fontSize={12} fontWeight={600} fontFamily={vvar('typography', 'titleFont')} style={{ fill: vvar('shape', 'stroke') }}>
+            <text x={trackRight + 12} y={y} textAnchor="start" dominantBaseline="central" fontSize={12} fontWeight={600} fontFamily={vvar('typography', 'titleFont')} style={{ fill: vvar('on', 'canvas', 'bg') }}>
               {a.rightLabel}
             </text>
             {/* dot + 값 병기 */}
             <circle data-bbangto-viz-spectrum-dot cx={dotX} cy={y} r={8} style={{ fill: color }} />
-            <text x={dotX} y={y - 14} textAnchor="middle" fontSize={11} fontWeight={700} fontFamily={vvar('typography', 'monoFont')} style={{ fill: vvar('shape', 'stroke') }}>
+            <text x={dotX} y={y - 14} textAnchor="middle" fontSize={11} fontWeight={700} fontFamily={vvar('typography', 'monoFont')} style={{ fill: vvar('on', 'canvas', 'bg') }}>
               {a.value}
             </text>
           </g>

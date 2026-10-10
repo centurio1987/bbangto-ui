@@ -32,7 +32,8 @@ export function PosterEditorial({ data, viewBox, children, title = 'Poster', ...
   const left = vbX + PAD;
   const right = vbX + vbW - PAD;
   const titleFont = vvar('typography', 'titleFont');
-  const ink = vvar('shape', 'stroke');
+  // 글자는 캔버스 위 — 캔버스 위 글자색을 쓰고 흐리게 하지 않는다. 위계는 크기와 굵기로 낸다(KAN-075).
+  const ink = vvar('on', 'canvas', 'bg');
 
   return (
     <Canvas viewBox={viewBox} title={title} data-bbangto-viz-pattern="poster-editorial" {...canvasProps}>
@@ -47,7 +48,7 @@ export function PosterEditorial({ data, viewBox, children, title = 'Poster', ...
         {data.title}
       </text>
       {data.subtitle && (
-        <text x={left} y={vbY + vbH * 0.42 + 34} fontSize={17} fontWeight={500} fontFamily={titleFont} style={{ fill: ink, opacity: 0.75 }}>
+        <text x={left} y={vbY + vbH * 0.42 + 34} fontSize={17} fontWeight={500} fontFamily={titleFont} style={{ fill: ink }}>
           {data.subtitle}
         </text>
       )}

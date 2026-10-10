@@ -90,7 +90,7 @@ function renderRing(
           fontSize={15}
           fontWeight={700}
           fontFamily={vvar('typography', 'titleFont')}
-          style={{ fill: vvar('shape', 'stroke') }}
+          style={{ fill: vvar('on', 'canvas', 'bg') }}
         >
           {data.center}
         </text>
@@ -121,7 +121,7 @@ function renderRing(
           fontSize={13}
           fontWeight={700}
           fontFamily={vvar('typography', 'titleFont')}
-          style={{ fill: vvar('shape', 'stroke') }}
+          style={{ fill: vvar('on', 'canvas', 'bg') }}
         >
           {item.label}
         </text>
@@ -164,7 +164,7 @@ function renderSpiral(
           fontSize={15}
           fontWeight={700}
           fontFamily={vvar('typography', 'titleFont')}
-          style={{ fill: vvar('shape', 'stroke') }}
+          style={{ fill: vvar('on', 'canvas', 'bg') }}
         >
           {data.center}
         </text>
@@ -203,7 +203,7 @@ function renderFlywheel(
       {/* 중앙 허브 — 계약 paint(shape) + 모멘텀 라벨 */}
       <circle data-viz-part="shape" cx={cx} cy={cy} r={hubR} style={{ fill: vvar('palette', 'p2') }} />
       {data.center && (
-        <text x={cx} y={cy} textAnchor="middle" dominantBaseline="central" fontSize={16} fontWeight={800} fontFamily={vvar('typography', 'titleFont')} style={{ fill: vvar('shape', 'stroke') }}>
+        <text x={cx} y={cy} textAnchor="middle" dominantBaseline="central" fontSize={16} fontWeight={800} fontFamily={vvar('typography', 'titleFont')} style={{ fill: vvar('on', 'canvas', 'bg') }}>
           {data.center}
         </text>
       )}
@@ -258,7 +258,7 @@ function renderOrbit(
           fontSize={16}
           fontWeight={700}
           fontFamily={vvar('typography', 'titleFont')}
-          style={{ fill: vvar('shape', 'stroke') }}
+          style={{ fill: vvar('on', 'canvas', 'bg') }}
         >
           {data.center}
         </text>

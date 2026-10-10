@@ -30,3 +30,22 @@
 
 darkluxe oxblood 가 노드·C4 면마다 적던 `on` 덮어쓰기는 `on.ink` 로 옮겼다. bauhaus bold 는 default 의 `on.ink` 를
 물려받지만 그림은 그대로다. 가이드 문장과 칠해지는 글자색은 카탈로그 시험(`textInk.test.ts`)이 함께 본다.
+
+### visualization — 템플릿·부품의 글자색
+
+템플릿·패턴·부품이 도형·연결선 색을 글자에 바로 칠하던 곳을 그 글자가 놓인 면의 글자색으로 바꿨다. 그래서 위 가이드들의
+차트 글자(축 눈금·막대 값·패턴 라벨·연결선 라벨 등)도 문장의 색이 된다. `on.ink` 가 없는 가이드는 대부분 그대로이고,
+도형 선색과 캔버스 위 계산값이 다른 ink-line-duotone(검정 → 흐름선 파랑)·iso-color-block(`#2B3138` → `#3A4149`)의 글자가
+바뀐다. 팔레트 틴트 안 제목(Iceberg·BusinessModelCanvas·Kruchten4Plus1View·ViewpointFrame)은 그 틴트 면으로 고른다.
+`PosterEditorial` 부제는 흐리게(opacity) 쓰지 않는다.
+
+부품 기본 글자색이 바뀌었다. 직접 쓰는 쪽에서 보인다.
+
+| 부품 | 전 | 후 |
+| --- | --- | --- |
+| `Axis` 눈금 글자 · `Tag` · `StatNumber` | 연결선·도형 선색 | `--bbangto-viz-on-canvas-bg` |
+| `EdgeLabel` · `Lifeline` · `StateNode` · `EntityTable` 머리 | 연결선 색 | 바탕을 넘기지 않으면 `--bbangto-viz-on-canvas-bg`, 넘기면 그대로 연결선 색 |
+| `StatCard` 숫자 | 도형 선색 | `--bbangto-viz-on-shape-fill` |
+
+쇼케이스(`makeVizShowcase`)의 안내 문단·섹션 제목도 캔버스 위 글자색이고, 안내 문단의 70% 투명도를 걷었다(darkluxe 4.45:1 해소).
+

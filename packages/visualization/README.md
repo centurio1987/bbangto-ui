@@ -294,6 +294,11 @@ export function DecisionSketch() {
   (`src/tokens/onInk.ts`)으로 칸마다 고른다. 글자를 흐리게(opacity) 쓰지 않는다 — 위계는 크기와 굵기로 낸다.
   Paint Gate 와 같은 파일의 `LabelContrastGate` 가 표본 전부를 카탈로그 가이드 전부에서 그려 글자 대비를 재고,
   기준 목록(`_labelContrastBaseline.ts`)은 비어 있다. 새 미달은 목록에 올리지 말고 고친다.
+  글자에 도형·연결선 색(`vvar('shape', 'stroke')`·`vvar('edge', 'stroke')`)을 바로 칠하지 않는다 — 그러면 `on.ink` 와
+  대비 계산을 건너뛴다. 캔버스 위 글자는 `vvar('on', 'canvas', 'bg')`, 면 안 글자는 그 면의 on 변수, 투명도를 얹은 면은
+  `pickOnInk(f, surfacesFor(f, 색, 투명도))` 다. `src/tokens/textPaint.test.ts` 가 소스에서 그 꼴을 막고, 같은 파일의
+  `TextInkGate` 가 `on.ink` 를 적은 가이드에서 글자가 그 색으로 칠해지는지 잰다(KAN-075). 사용자가 면 색을 넘긴 부품
+  갈래(`fill`·`bgFill`·`headFill`)만 그 면을 계산할 수 없어 연결선 색으로 둔다.
 - **접근성**: 루트 `Canvas` 는 `role="img"`(`accessible="structured"` 면 `group`)와 `title`(선택 `desc`)을 갖는다.
   값은 항상 텍스트로 함께 적는다 — 그래픽만으로 값을 말하지 않는다. 노드 글리프·아이콘 배지 같은 장식은 `aria-hidden` 이다.
 - **경계 입력**: 빈 데이터는 빈 캔버스다(throw 하지 않는다). 항목 하나도 그린다. `children`·`data` 를 함께 주면 `children` 이다.

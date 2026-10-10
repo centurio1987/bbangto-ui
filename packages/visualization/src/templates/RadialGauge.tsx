@@ -88,7 +88,7 @@ export function RadialGauge({
           fontSize={12}
           fontWeight={600}
           fontFamily={vvar('typography', 'titleFont')}
-          style={{ fill: vvar('edge', 'stroke') }}
+          style={{ fill: vvar('on', 'canvas', 'bg') }}
         >
           {label}
         </text>

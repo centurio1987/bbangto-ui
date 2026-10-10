@@ -83,7 +83,7 @@ function BPMNEvent({ spec }: BPMNEventRendProps) {
         <circle cx={cx} cy={cy} r={r - 3} style={{ fill: 'none', stroke, strokeWidth: 1.5 }} />
       )}
       {spec.label && (
-        <text x={cx} y={cy + r + 12} textAnchor="middle" fontSize={9} fill={stroke}>
+        <text x={cx} y={cy + r + 12} textAnchor="middle" fontSize={9} fill={vvar('on', 'canvas', 'bg')}>
           {spec.label}
         </text>
       )}
@@ -125,7 +125,7 @@ function BPMNGateway({ spec }: BPMNGatewayRendProps) {
       <path data-viz-part="shape" d={d} style={{ fill: vvar('palette', 'p4'), stroke, strokeWidth: 1.5 }} />
       {symbol}
       {spec.label && (
-        <text x={cx} y={cy + half + 14} textAnchor="middle" fontSize={9} fill={stroke}>
+        <text x={cx} y={cy + half + 14} textAnchor="middle" fontSize={9} fill={vvar('on', 'canvas', 'bg')}>
           {spec.label}
         </text>
       )}

@@ -1,6 +1,8 @@
 import { type ReactNode } from 'react';
 import { Canvas, type CanvasProps } from '../atoms/Canvas';
 import { vvar } from '../tokens/contract';
+import { pickOnInk, surfacesFor } from '../tokens/onInk';
+import { useVizFoundation } from '../styleGuide/VisualizationStyleGuideProvider';
 import { resolveLabelFont } from '../tokens/labelFont';
 import { parseViewBox } from '../geometry/layout';
 
@@ -83,6 +85,10 @@ export function BusinessModelCanvas({
 
   const rects = blockRects();
   const stroke = vvar('shape', 'stroke');
+  // 블록 제목은 팔레트 18% 틴트 위 — 그 면으로 글자색을 고른다(KAN-075).
+  const foundation = useVizFoundation();
+  const titleInk = (key: string) =>
+    pickOnInk(foundation, surfacesFor(foundation, foundation.palette[key as keyof typeof foundation.palette], 0.18));
 
   return (
     <Canvas viewBox={viewBox} title={title} data-bbangto-viz-pattern="bmc" {...canvasProps}>
@@ -96,7 +102,7 @@ export function BusinessModelCanvas({
         return (
           <g key={meta.key} data-bbangto-viz-bmc-block data-bbangto-viz-bmc-block-key={meta.key}>
             <rect data-viz-part="shape" x={x} y={y} width={w} height={h} style={{ fill: vvar('palette', meta.palette), fillOpacity: 0.18, stroke, strokeWidth: 1.25 }} />
-            <text x={x + 8} y={y + 16} fontSize={11} fontWeight={800} fontFamily={vvar('typography', 'titleFont')} style={{ fill: stroke }}>
+            <text x={x + 8} y={y + 16} fontSize={11} fontWeight={800} fontFamily={vvar('typography', 'titleFont')} style={{ fill: titleInk(meta.palette) }}>
               {meta.title}
             </text>
             {items.map((item, ii) => (

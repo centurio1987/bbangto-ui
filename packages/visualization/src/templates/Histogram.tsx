@@ -89,7 +89,7 @@ export function Histogram({
             fontSize={10}
             fontWeight={700}
             fontFamily={vvar('typography', 'monoFont')}
-            style={{ fill: vvar('shape', 'stroke') }}
+            style={{ fill: vvar('on', 'canvas', 'bg') }}
           >
             {formatCount(b.count)}
           </text>

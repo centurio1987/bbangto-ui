@@ -47,7 +47,7 @@ export const MockupNode = React.forwardRef<SVGGElement, MockupNodeProps>(
             fontSize={12}
             fontWeight={700}
             fontFamily={vvar('typography', 'titleFont')}
-            style={{ fill: vvar('shape', 'stroke') }}
+            style={{ fill: vvar('on', 'canvas', 'bg') }}
           >
             {title}
           </text>
