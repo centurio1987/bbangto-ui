@@ -123,16 +123,25 @@ export const NotationTemplatesKeepTheirLines: Story = {
     await expect(new Set(rows.map((r) => r.dataset.dashGateTemplate)).size).toBe(STANDARD_TEMPLATES.size);
 
     const missingHook: string[] = [];
-    const followingGuide: string[] = [];
+    const mismatched: string[] = [];
+    let measured = 0;
     for (const row of rows) {
       const key = row.dataset.dashGateRow!;
       if (!rootSvgOf(row)?.hasAttribute('data-viz-notation')) missingHook.push(key);
       connectorsIn(row).forEach((c, i) => {
-        if (dashOf(c) === GUIDE_DASH_COMPUTED) followingGuide.push(`${key} 연결선[${i}]`);
+        // 템플릿이 대시를 직접 넘긴 선(UML 의존 등)은 그 값이 남아야 한다 — 표기 규칙이 인라인을 덮으면 안 된다
+        if (c.style.strokeDasharray !== '') {
+          if (c.style.strokeDasharray !== 'none' && dashOf(c) === 'none') mismatched.push(`${key} 연결선[${i}] 대시가 지워짐`);
+          return;
+        }
+        measured += 1;
+        if (dashOf(c) !== 'none') mismatched.push(`${key} 연결선[${i}]=${dashOf(c)}`);
       });
     }
     await expect(missingHook).toEqual([]);
-    await expect(followingGuide).toEqual([]);
+    // 잰 연결선이 없으면 게이트가 아무것도 안 잰 것이다
+    await expect(measured).toBeGreaterThan(0);
+    await expect(mismatched).toEqual([]);
   },
 };
 

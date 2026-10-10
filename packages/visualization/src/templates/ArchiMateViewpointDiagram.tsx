@@ -80,6 +80,7 @@ export function ArchiMateViewpointDiagram({
   if (children != null || !data) {
     return (
       <Canvas
+        data-viz-notation
         viewBox={viewBox}
         width={width}
         height={height}
@@ -109,6 +110,7 @@ export function ArchiMateViewpointDiagram({
 
   return (
     <Canvas
+      data-viz-notation
       data={{ nodes }}
       viewBox={autoViewBox}
       width={width}

@@ -56,7 +56,7 @@ export function UMLPackageDiagram({
 }: UMLPackageDiagramProps) {
   if (children != null || !data) {
     return (
-      <Canvas viewBox={viewBox} width={width} height={height} title={title} data-bbangto-viz-chart="uml-package" {...props}>
+      <Canvas data-viz-notation viewBox={viewBox} width={width} height={height} title={title} data-bbangto-viz-chart="uml-package" {...props}>
         {children}
       </Canvas>
     );
@@ -75,6 +75,7 @@ export function UMLPackageDiagram({
 
   return (
     <Canvas
+      data-viz-notation
       data={{ nodes }}
       viewBox={autoViewBox}
       width={width}

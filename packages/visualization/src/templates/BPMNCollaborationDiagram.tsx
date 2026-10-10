@@ -118,7 +118,7 @@ export function BPMNCollaborationDiagram({
 }: BPMNCollaborationDiagramProps) {
   if (children != null || !data) {
     return (
-      <Canvas viewBox={viewBox} width={width} height={height} title={title} data-bbangto-viz-chart="bpmn-collaboration" {...props}>
+      <Canvas data-viz-notation viewBox={viewBox} width={width} height={height} title={title} data-bbangto-viz-chart="bpmn-collaboration" {...props}>
         {children}
       </Canvas>
     );
@@ -147,6 +147,7 @@ export function BPMNCollaborationDiagram({
 
   return (
     <Canvas
+      data-viz-notation
       data={{ nodes: registry }}
       viewBox={autoViewBox}
       width={width}

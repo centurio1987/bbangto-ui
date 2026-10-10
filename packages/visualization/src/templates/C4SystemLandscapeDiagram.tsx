@@ -36,7 +36,7 @@ export function C4SystemLandscapeDiagram({
 }: C4SystemLandscapeDiagramProps) {
   if (children || !data) {
     return (
-      <Canvas viewBox={viewBox} title={title} data-bbangto-viz-chart="c4-landscape" {...canvasProps}>
+      <Canvas data-viz-notation viewBox={viewBox} title={title} data-bbangto-viz-chart="c4-landscape" {...canvasProps}>
         {children}
       </Canvas>
     );
@@ -51,7 +51,7 @@ export function C4SystemLandscapeDiagram({
   };
 
   return (
-    <Canvas viewBox={viewBox} title={title} data={registry} data-bbangto-viz-chart="c4-landscape" {...canvasProps}>
+    <Canvas data-viz-notation viewBox={viewBox} title={title} data={registry} data-bbangto-viz-chart="c4-landscape" {...canvasProps}>
       {boundaries.map((b, i) => (
         <Boundary key={`b-${i}`} x={b.x} y={b.y} width={b.width} height={b.height} label={b.label} />
       ))}

@@ -60,7 +60,7 @@ export function C4DynamicDiagram({
 }: C4DynamicDiagramProps) {
   if (children || !data) {
     return (
-      <Canvas viewBox={viewBox} title={title} data-bbangto-viz-chart="c4-dynamic" {...canvasProps}>
+      <Canvas data-viz-notation viewBox={viewBox} title={title} data-bbangto-viz-chart="c4-dynamic" {...canvasProps}>
         {children}
       </Canvas>
     );
@@ -71,7 +71,7 @@ export function C4DynamicDiagram({
   const byId = new Map(elements.map((e) => [e.id, e]));
 
   return (
-    <Canvas viewBox={viewBox} title={title} data={registry} data-bbangto-viz-chart="c4-dynamic" {...canvasProps}>
+    <Canvas data-viz-notation viewBox={viewBox} title={title} data={registry} data-bbangto-viz-chart="c4-dynamic" {...canvasProps}>
       {boundary && <Boundary x={boundary.x} y={boundary.y} width={boundary.width} height={boundary.height} label={boundary.label} />}
       {steps.map((s) => {
         const from = byId.get(s.from)!;

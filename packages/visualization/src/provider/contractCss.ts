@@ -22,6 +22,9 @@ const CONTRACT_CSS = `
 [data-bbangto-viz-style-guide] [data-viz-part="connector"] {
   stroke-dasharray: var(--bbangto-viz-edge-dash-pattern);
 }
+[data-bbangto-viz-style-guide] [data-viz-notation] [data-viz-part="connector"] {
+  stroke-dasharray: none;
+}
 `;
 
 export function useVizContractCss(): void {

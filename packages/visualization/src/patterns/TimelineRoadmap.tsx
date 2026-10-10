@@ -49,8 +49,10 @@ export function TimelineRoadmap({
     <Canvas viewBox={viewBox} data-bbangto-viz-pattern="timeline-roadmap" {...canvasProps}>
       {data ? (
         <>
+          {/* 시간 축은 구조선이라 가이드의 연결선 대시를 따르지 않는다 */}
           <Edge
             data-viz-axis
+            strokeDasharray="none"
             from={horizontal ? { x: vbX + 16, y: axisY } : { x: axisX, y: vbY + 16 }}
             to={horizontal ? { x: vbX + vbW - 16, y: axisY } : { x: axisX, y: vbY + vbH - 16 }}
             routing="straight"
