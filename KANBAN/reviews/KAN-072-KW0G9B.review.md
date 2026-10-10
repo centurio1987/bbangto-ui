@@ -162,11 +162,14 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-072-KW0G9B --add
     | 그대로 둔다 | 배포 README 와 루트 README 가 Provider 밖 화살촉을 다르게 묘사합니다 | 앱이 할 일(Provider 안에 둔다)은 같아서 실제로 막히는 일은 없습니다 |
     | 후속 카드로 뺀다 | 두 줄 고침에 카드 하나가 듭니다 | 이 카드는 지금 범위로 닫히지만, 후속 카드가 다음 배포보다 늦으면 지금 서술이 그대로 배포됩니다 |
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 철회 · ai · 2026-10-10
 
     > **추가 의견**
     >
     > - ai · 2026-10-10 — 배경 셋과 선택지 표가 배포 상태를 잘못 적고 있어 판정하지 않았습니다. main 에는 2026-10-10 04:11(한국 시각) 릴리스 PR #11(a15549a · version packages 7849962)이 병합돼 KAN-067 변경 기록이 이미 소비됐고, 04:13 에 visualization 1.0.0 · core 1.2.2 가 레지스트리에 올라갔습니다(npm view time, npm.pkg.github.com). 내려받은 visualization 1.0.0 의 README.md 는 이 브랜치의 packages/visualization/README.md 와 글자 그대로 같아서 「엣지는 보이지 않는다」 두 줄(163 · 235~236)은 이미 배포돼 있습니다. 그래서 「아직 배포되지 않았다」 · 「지금 배포된 0.4.1」 · 「KAN-064·KAN-067 과 함께 나갈 다음 배포에 실린다」(.changeset/kan-067-extend-when-missing.md 는 main 에 없음)는 셋 다 지금 사실과 다르고, 추천 갈래의 결과 「다음 배포에 실리기 전에 세 문서가 같은 사실을 말한다」는 더는 이룰 수 없습니다. 이 브랜치가 릴리스 병합 전 커밋(0a81094)에서 갈라져, 브랜치 안의 changeset status 로는 대기로 보였던 것이 원인으로 보입니다. 바뀐 사실로 다시 보면, 이 카드에서 고치는 갈래는 이 두 줄 때문에 visualization 1.0.1 patch 배포가 따로 나가는 일이 되고, 후속 카드 갈래의 「늦으면 그대로 배포된다」 위험은 이미 일어난 일이라 사라집니다(다음 visualization 배포 때 함께 실림). 그대로 두는 갈래의 대가와 결과는 같습니다. 질문 자체는 유효하니 배경과 표를 main · 레지스트리 기준으로 다시 써 주세요.
+    > - ai · 2026-10-10 — 검토자 지적대로 배경 셋과 표가 배포 상태를 잘못 적었습니다(브랜치가 릴리스 병합 전 0a81094 에서 갈라져, 브랜치 안의 changeset 만 보고 「배포 대기」로 썼습니다). main a15549a 와 배포 버전 기준으로 다시 쓴 의견을 4번으로 올리고 이 의견은 철회합니다.
 
 - [x] 길잡이 표의 새 줄이 사례가 아니라 패키지 README 의 절로 가도 되는가 — 그렇게 했습니다. 예제 사본을 루트에 두지 않으려고
     - **배경**
@@ -207,6 +210,31 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-072-KW0G9B --add
     | --- | --- | --- |
     | 버전 조건을 붙여 되살린다(core 1.2.2 · visualization 1.0.0 부터) | 루트 README 한 문장과 검토 한 번 | 저장소 대신 node_modules 만 읽는 앱 에이전트도 같은 절이 손안에 있다는 것을 압니다. 이미 배포된 버전이라 「부터」로 적으면 다음 배포가 와도 낡지 않습니다 |
     | 지운 채 둔다 | 루트 README 가 설치한 패키지 안의 사본을 알리지 않습니다 | 링크가 저장소의 절로 가므로 길은 그대로 이어지고, 지금 문단에 틀린 말은 없습니다 |
+
+    > **판정** — _아직 없습니다._
+
+    > **추가 의견**
+    >
+    > - ai · 2026-10-10 — 수행 쪽 추천은 「버전 조건을 붙여 되살린다」입니다. 지운 근거가 틀렸으니 되돌리는 것이 맞고, core 1.2.2 · visualization 1.0.0 은 이미 배포된 버전이라 「부터」로 적으면 다음 배포가 와도 낡지 않습니다. 앱을 만드는 에이전트는 저장소보다 node_modules 에 풀린 배포물을 먼저 읽는다는 것이 KAN-067 의 전제입니다(packages/foundations/src/publishedDocs.ts:4). 그 자리에 같은 절이 있다고 알려 주면 저장소를 열지 않고도 길을 찾습니다.
+
+- [ ] visualization README 의 「엣지는 보이지 않는다」 두 곳을 고칠 것인가 — 지금은 고치지 않았습니다. 이 두 줄은 이미 visualization 1.0.0 으로 배포됐습니다
+      이 의견은 §3-1 「visualization README 의 「엣지는 보이」 의 추가 의견에서 갈라져 나왔습니다 (추가 2026-10-10).
+    - **배경**
+      - Provider 밖에서는 엣지 선이 그려지지 않지만 화살촉은 검게 남습니다. 2026-10-10 chromium 에서 잰 값입니다. 원문: apps/storybook/src/stories/ExtendWhenMissing.stories.tsx:159
+      - 루트 README 는 이 카드에서 「검은 화살촉만 남는다」로 고쳤습니다. 원문: README.md:861
+      - visualization README 두 곳은 「엣지는 보이지 않는다」고 적습니다. 원문: packages/visualization/README.md:163
+      - 같은 서술의 두 번째 자리입니다. 원문: packages/visualization/README.md:235
+      - 이 두 줄은 2026-10-10 04:13(한국 시각)에 배포된 visualization 1.0.0 의 README 에 이미 실려 있습니다. 원문: main a15549a(릴리스 PR #11 병합) · main packages/visualization/package.json:3
+      - 세 문서 모두 「그림은 Provider 안에 둔다」는 결론은 같습니다. 갈리는 것은 Provider 밖 그림을 묘사하는 말뿐입니다.
+      - 고치면 visualization 에 patch 변경 기록(changeset)이 하나 붙습니다. 변경 기록은 누가 배포를 낼 때까지 기다렸다가 그 배포에 함께 실립니다. 원문: .changeset/README.md
+    - **정할 것**
+      visualization README 두 줄을 어디서 고칠 것인가.
+
+    | 선택지 | 대가 | 그러면 어떻게 되는가 |
+    | --- | --- | --- |
+    | **추천** 이 카드에서 함께 고친다 | 고칠 파일에 visualization README 와 변경 기록 하나가 더해지고, 검토를 한 번 더 받습니다 | 다음 visualization 배포부터 세 문서가 같은 사실을 말합니다. 고칠 두 자리는 이미 같은 스토리가 잰 값입니다 |
+    | 후속 카드로 뺀다 | 두 줄 고침에 카드 하나가 듭니다 | 이 카드는 지금 범위로 닫히고, 결과는 위 갈래와 같지만 그 카드가 끝날 때까지 늦어집니다 |
+    | 그대로 둔다 | 배포 README 와 루트 README 가 Provider 밖 화살촉을 다르게 묘사합니다 | 앱이 할 일(Provider 안에 둔다)은 같아서 실제로 막히는 일은 없습니다 |
 
     > **판정** — _아직 없습니다._
 
