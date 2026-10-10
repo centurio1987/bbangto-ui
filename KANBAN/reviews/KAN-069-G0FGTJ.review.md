@@ -5,7 +5,7 @@ created: 2026-10-10
 branch: KAN-069-G0FGTJ
 worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-069-G0FGTJ
 base: 064586b
-status: 검토 대기
+status: 승인
 ---
 
 # KAN-069-G0FGTJ 검토 요청 — viz 미사용 토큰 정리 — 선언만 있고 읽히지 않는 시각화 토큰을 토큰마다 잇거나 걷기 (경계선부터)
@@ -316,9 +316,11 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-069-G0FGTJ --add
      frontmatter 의 status 도 함께 고친다. 손으로 적어도 되지만, 그때는 수렴 검사를
      안 거치므로 `validate` 가 항목 판정과 어긋난 승인을 error 로 잡는다. -->
 
-**판정**: (아직 없습니다)
+**판정**: 승인
 
 **판정 이력**:
+
+- 승인 · 유저 · 2026-10-11
 
 - 승인이면 → `apply --op move --id KAN-069-G0FGTJ --to done` 뒤에 `main` 병합과 워크트리 정리(출력의 `cleanup`)
 - 반려면 → `apply --op move --id KAN-069-G0FGTJ --to doing` 뒤에 `doc-log --entry "<반려 사유>"`.

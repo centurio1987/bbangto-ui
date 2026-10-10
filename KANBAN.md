@@ -39,7 +39,7 @@
   - 메모: 대상: canvas.gridUnit · node.*.tagColor · edge.marker.size · c4.l1/l2/l3.{borderWidth,bgTint,labelColor} 9개 · boundary.{dashPattern,width,radius}(Boundary.tsx 가 JS 기본값 '8 6'/1.5/8 사용, 카탈로그 값은 제각각이라 그림이 바뀜) · typography.titleWeight · typography.sizes.{title,label,tag,mono} · iconStyle · spacing.{nodePad,laneGap} · motion.{duration,easing}. 잇는 방식은 KAN-057(edge.dashPattern)의 훅·계약 스타일시트 규칙을 따른다
   - 실행 문서: KANBAN/cards/KAN-069-G0FGTJ.md (6/6 · 최근 10-11)
   - 계획 리포트: KANBAN/reports/KAN-069-G0FGTJ.report.html (낡음)
-  - 검토 문서: KANBAN/reviews/KAN-069-G0FGTJ.review.md (승인 3/3 · 철회 1 · 추가 의견 총 6 · 검토 대기)
+  - 검토 문서: KANBAN/reviews/KAN-069-G0FGTJ.review.md (승인 3/3 · 철회 1 · 추가 의견 총 6 · 승인)
   - 원문:
     ```text
     후속 카드 1장 (Recommended) — main에서 백로그 카드를 하나 만들어, 토큰마다 잇기와 걷기를 정합니다. 그림이 바로 바뀌는 경계선을 첫 단계로 둡니다. KAN-057은 엣지 대시만 다룹니다. (앞 질문 「선언만 있고 읽히지 않는 viz 토큰 20여 개(경계선 dashPattern·width·radius, c4.* 9개, typography.sizes.* 4개 등)를 어떻게 다룰까요?」에 대한 답)
