@@ -5,7 +5,7 @@
   "description": "Design System Store - Themeable component library",
   "scripts": {
     "dev": "pnpm --filter storybook storybook",
-    "build": "pnpm -r --filter=!storybook run build",
+    "build": "pnpm -r --filter=!storybook run build && pnpm --filter @centurio1987/bbangto-ui-foundations run test:bundle",
     "typecheck": "pnpm -r run typecheck",
     "test": "pnpm --filter storybook test",
     "test:unit": "pnpm -r --filter=!storybook run test",

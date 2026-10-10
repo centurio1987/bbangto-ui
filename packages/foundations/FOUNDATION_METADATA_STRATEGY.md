@@ -64,8 +64,8 @@ foundationCatalog(SSOT) + foundationMetaRegistry(authored)
   base 쌍 한정), **related 정합성**(존재·self-ref·중복), **phantom registry 키**(catalog에 없는 slug 저작).
 - 커밋하는 것은 색인뿐이고, `meta/manifest.test.ts`가 생성 결과와 **바이트 일치** 검증한다. 빌드가 색인을 먼저 다시 쓰므로
   이 테스트가 drift 를 잡는 것은 빌드 없이 돌릴 때뿐이고, 빌드 뒤의 커밋 누락은 배포 워크플로의 `git diff --exit-code` 단계가 잡는다.
-  생성은 `pnpm build` 의 `prebuild` 가 한다(KAN-064). 생성기는 대비 계산을 tokens 런타임에서 가져오므로
-  tokens 의 `dist` 가 있어야 돈다 — `pnpm build` 가 tokens 를 먼저 빌드하므로 그 순서를 지킨다.
+  생성은 `pnpm build` 의 `prebuild` 가 한다(KAN-064). 생성기는 대비 계산을 tokens 런타임에서 가져오는데,
+  tsx 를 `--conditions=bbangto-source` 로 부르므로 tokens 를 `dist` 가 아니라 소스에서 읽어 build 순서와 상관없이 돈다(KAN-066).
   상세 `manifest/` 는 `.gitignore` 대상이고 `package.json` 의 `files` 로 npm 패키지에만 실린다.
 - **catalog.json은 생성물**: `foundationCatalog`에서 파생 emit → 이중-SSOT drift(amber 누락 등) 구조적 불가. 3자 slug-set(76) 일치 테스트가 강제.
 

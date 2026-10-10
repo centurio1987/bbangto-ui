@@ -4,8 +4,8 @@
  * styleGuideCatalog(SSOT)에서 매니페스트를 파생해 패키지 루트에 색인(catalog.manifest.json)과
  * 항목별 상세(manifest/<name>.json)를 결정적 JSON으로 쓴다(KAN-064). 상세 폴더는 매번 비우고 다시 쓴다.
  * 카탈로그 객체는 구조만 읽으므로(렌더 없음) Node에서 안전하게 실행된다.
- * 단, wrapper/showcase가 core 런타임을 import하므로 core dist가 빌드돼 있어야 한다. `pnpm build` 는 core 를 먼저
- * 빌드한 뒤 prebuild 로 이 스크립트를 부르므로 그 순서를 지킨다.
+ * wrapper/showcase가 core 런타임을 import하지만, tsx 를 `--conditions=bbangto-source` 로 부르므로 core 를 dist 가
+ * 아니라 소스에서 읽는다. 그래서 core 를 먼저 빌드하지 않아도 돈다(KAN-066). `pnpm build` 는 prebuild 로 이 스크립트를 부른다.
  */
 import { mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';

@@ -8,10 +8,12 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "bbangto-source": "./src/index.ts",
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
     "./meta": {
+      "bbangto-source": "./src/meta/index.ts",
       "types": "./dist/meta/index.d.ts",
       "import": "./dist/meta/index.js"
     },
@@ -31,7 +33,8 @@
     "build": "tsup",
     "typecheck": "tsc --noEmit",
     "test": "vitest --run",
-    "gen:foundation-manifest": "tsx scripts/genFoundationManifest.ts",
+    "test:bundle": "vitest --run --config vitest.bundle.config.ts",
+    "gen:foundation-manifest": "tsx --conditions=bbangto-source scripts/genFoundationManifest.ts",
     "dev": "tsup --watch"
   },
   "dependencies": {

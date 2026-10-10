@@ -8,10 +8,12 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "bbangto-source": "./src/index.ts",
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
     "./type-meta": {
+      "bbangto-source": "./src/typeMeta/index.ts",
       "types": "./dist/typeMeta/index.d.ts",
       "import": "./dist/typeMeta/index.js"
     },
@@ -29,8 +31,8 @@
     "build": "tsup",
     "typecheck": "tsc --noEmit",
     "test": "vitest --run",
-    "gen:type-manifest": "tsx scripts/genTypeManifest.ts",
-    "gen:type-jsdoc": "tsx scripts/genTypeJsdoc.ts",
+    "gen:type-manifest": "tsx --conditions=bbangto-source scripts/genTypeManifest.ts",
+    "gen:type-jsdoc": "tsx --conditions=bbangto-source scripts/genTypeJsdoc.ts",
     "dev": "tsup --watch"
   },
   "dependencies": {

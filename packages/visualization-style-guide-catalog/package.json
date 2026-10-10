@@ -8,6 +8,7 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "bbangto-source": "./src/index.ts",
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
@@ -21,7 +22,7 @@
     "README.md"
   ],
   "scripts": {
-    "gen:manifest": "tsx scripts/genVizManifest.ts",
+    "gen:manifest": "tsx --conditions=bbangto-source scripts/genVizManifest.ts",
     "prebuild": "pnpm gen:manifest",
     "build": "tsup",
     "typecheck": "tsc --noEmit",

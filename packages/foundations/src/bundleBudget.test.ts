@@ -1,12 +1,13 @@
 /**
  * bundleBudget.test.ts — **번들 크기 상한 게이트** (KAN-051).
  *
- * `metadataCoverage.test.ts` 와 같은 자리다. 물리적으로 foundations 에 두지만 저장소 전역 게이트이고
- * (`test:unit` 의 `pnpm -r` 이 전 패키지를 항상 실행한다), 상한의 정본은 루트 `bundle-budget.json` 이다.
+ * `metadataCoverage.test.ts` 와 같은 자리다. 물리적으로 foundations 에 두지만 저장소 전역 게이트이고,
+ * 상한의 정본은 루트 `bundle-budget.json` 이다.
  *
  * 선례와 다른 점이 하나 있다. 그 게이트는 커밋된 JSON 만 읽지만, 이 게이트는 foundations 가 의존하지 않는
- * 다른 패키지의 **dist 를 파일 경로로** 읽는다. 그래서 `pnpm build` 뒤에 돌아야 맞는 값이 나오고,
- * dist 가 없거나 src·`tsup.config.ts` 보다 오래됐으면 skip 이 아니라 **실패**한다(CLAUDE.md 게이트 순서).
+ * 다른 패키지의 **dist 를 파일 경로로** 읽는다. 그래서 `test:unit` 이 아니라 루트 `pnpm build` 끝에서
+ * `test:bundle`(`vitest.bundle.config.ts`)로 돈다(KAN-066 — `test:unit` 은 소스를 읽어 build 없이 돈다).
+ * `test:bundle` 을 따로 부를 때 dist 가 없거나 src·`tsup.config.ts` 보다 오래됐으면 skip 이 아니라 **실패**한다.
  *
  * 네 층위로 돈다:
  *  1) 측정기 자체 시험 — 한 파일에 forwardRef+displayName 컴포넌트 A·B 를 두면 A 만 가져와도 B 가 남고,
