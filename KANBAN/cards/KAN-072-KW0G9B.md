@@ -49,7 +49,7 @@ scope: README.md, packages/foundations/src/publishedDocs.ts, packages/foundation
 - [x] `S2` 길잡이 잇기 — 표에 「목록에 없다」 줄, 10번 줄 문구, 사례 10 머리 문단, 사례 1·8 「그다음」 한 문장씩. 완료 기준: S1 루트 검사가 초록이다.
 - [x] `S3` Provider 서술 — `README.md:858` 을 S1 에서 잰 값대로 고친다. 완료 기준: 「캔버스는 흰색, 선은 `#333333`」 문장이 0이고, 새 서술이 스토리 단언과 같은 사실을 말한다.
 - [x] `S4` 마무리 — 품질 게이트 5종. 완료 기준: 다섯 다 초록.
-- [ ] `S5` 검토 반영 — 의견 3(루트 README:33 에 버전 조건 붙여 문장 되살리기) · 의견 4(viz README 163·235 줄의 「엣지는 보이지 않는다」를 「선은 그려지지 않고 검은 화살촉만 남는다」로, visualization patch changeset) · main 병합 뒤 게이트 5종. 완료 기준: 두 문장이 `VizOutsideProvider` 단언·배포 버전과 같은 사실을 말하고, 게이트 5종이 초록이다.
+- [x] `S5` 검토 반영 — 의견 3(루트 README:33 에 버전 조건 붙여 문장 되살리기) · 의견 4(viz README 163·235 줄의 「엣지는 보이지 않는다」를 「선은 그려지지 않고 검은 화살촉만 남는다」로, visualization patch changeset) · main 병합 뒤 게이트 5종. 완료 기준: 두 문장이 `VizOutsideProvider` 단언·배포 버전과 같은 사실을 말하고, 게이트 5종이 초록이다.
 
 ## 검증
 <!-- 무엇을 실행해 무엇이 나오면 이 카드가 끝난 것인가. -->
@@ -76,3 +76,5 @@ scope: README.md, packages/foundations/src/publishedDocs.ts, packages/foundation
 - 2026-10-10T20:46 · s:dc094364 — 정정의 정정: 위 「재검토 정정」의 근거가 틀렸다 — main 에는 2026-10-10 04:11 릴리스 PR #11(a15549a)이 병합돼 core 1.2.2·visualization 1.0.0 이 이미 배포됐고, 두 README 의 「원하는 것이 없을 때」 절도 실렸다. 브랜치가 그 전(0a81094)에서 갈라져 브랜치 안의 changeset status 로는 대기로 보였다(검토자 대조). 지운 문장을 되살릴지는 검토 의견 3, viz README 두 줄은 의견 4(의견 1 대체)가 묻는다
 - 2026-10-10T21:54 · s:dc094364 — `전략` 섹션 교체
 - 2026-10-10T21:54 · s:dc094364 — `실행 계획` 섹션 교체
+- 2026-10-10T21:54 · s:dc094364 · S5 doing — 착수
+- 2026-10-10T21:58 · s:dc094364 · S5 done — 검토 의견 3·4 반영 — 루트 README:33 에 「core 1.2.2 · visualization 1.0.0부터 설치한 패키지 안에도」 되살림 · viz README 163·235 의 「엣지는 보이지 않는다」를 「선은 안 그려지고 화살촉(Edge 기본 markerEnd=arrow)만 검게 남는다」로 · visualization patch changeset. main 병합(9ee7455) 뒤 VizOutsideProvider 3/3 그대로. 첫 게이트에서 KAN-070 TemplateDashGate 4건 실패 — 병합 뒤 스토리북 vite 캐시를 안 지운 탓(메모 core-export-vite-cache 4번), 캐시 지우고 게이트 5종 초록(195 파일 1305건)

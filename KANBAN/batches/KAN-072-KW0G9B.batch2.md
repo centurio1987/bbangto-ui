@@ -3,7 +3,7 @@ card: KAN-072-KW0G9B
 batch: 2
 created: 2026-10-10
 branch: KAN-072-KW0G9B
-status: 계획
+status: 완료
 steps: S5
 ---
 
