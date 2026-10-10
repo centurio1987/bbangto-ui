@@ -1,0 +1,27 @@
+{
+ "card": "KAN-074-KAZBTF",
+ "front": {
+  "base": "9cbd196",
+  "branch": "KAN-074-KAZBTF",
+  "card": "KAN-074-KAZBTF",
+  "created": "2026-10-10",
+  "inherits": null,
+  "merged": null,
+  "status": "검토 대기",
+  "title": "미배포 변경 배포 — KAN-057·061·067 과 KAN-064 major 4개 (tokens 1.5.0 · core 1.2.2 · visualization·style-guide-catalog·visualization-style-guide-catalog 1.0.0 · foundations 2.0.0)",
+  "worktree": "/Users/centurio/orca/workspaces/bbangto-ui/KAN-074-KAZBTF"
+ },
+ "inherited_md": "",
+ "md_fp": "c21e7361120948d0a77674f1a5ebb74846dfe52e",
+ "md_src_fp": "ecaa7126ac0b1bc450e5cbd26fa37f1e77c9808e",
+ "schema": 1,
+ "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `KAN-074-KAZBTF` |\n| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-074-KAZBTF` |\n| 베이스 | `9cbd196` |\n| 변경 훑기 | `git diff 9cbd196...HEAD` |\n\n**커밋 2건**\n\n```text\n142ea0f kanban: KAN-074 S2·S3 끝 — push 92커밋 · Version PR #11 대조·병합 · publish 6개(tokens 1.5.0 · core 1.2.2 · foundations 2.0.0 · visualization·style-guide-catalog·visualization-style-guide-catalog 1.0.0) · 배포본 변경 4건 확인 · 외부 앱 전달 문구\n0168161 kanban: KAN-074 할 일 → 진행 중 · S1 push 직전 점검 끝 — major 4개 표 · 게이트 5종 초록(test 1300/1300 · test:unit 702) · 나갈 커밋 92개\n```\n\n**변경 파일 6개 (+29 −21)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.kanban/archive.jsonl` | M | 1 | 0 |\n| `.kanban/log.md` | M | 1 | 1 |\n| `.kanban/state.json` | M | 12 | 12 |\n| `KANBAN.board.html` | M | 2 | 2 |\n| `KANBAN.md` | M | 3 | 3 |\n| `KANBAN/cards/KAN-074-KAZBTF.md` | M | 10 | 3 |\n\n**롤백 태그 0개** — 없음(`--tags` 를 넘기지 않았거나 아직 태그가 없습니다)",
+ "verdicts": [
+  {
+   "at": "2026-10-10",
+   "by": "유저",
+   "verdict": "승인"
+  }
+ ],
+ "verify_md": "<!-- 기준은 카드 실행 문서 「검증」 절의 사본이다. 정본은 KANBAN/cards/KAN-074-KAZBTF.md 이므로\n     기준이 바뀌면 그쪽을 고치고 review-init --refresh 로 이 항만 다시 뜬다.\n     결과는 착수한 쪽이 이미 돌린 것이다 — 검토자에게 다시 돌리라고 시키지 않는다.\n     **다시 돌려 아래와 다르게 나오면 그 자체가 반려 사유다.** -->\n\n**기준**\n\n### 무엇이 나오면 끝인가\n\n- GitHub Packages 에 tokens 1.5.0 · core 1.2.2 · foundations 2.0.0 · style-guide-catalog 1.0.0 · visualization 1.0.0 · visualization-style-guide-catalog 1.0.0 이 있다(S1 에서 표가 바뀌면 그 표를 따른다)\n- hooks 는 0.3.1 그대로다\n- release 워크플로 실행 둘(PR 생성 · 배포)이 초록이다(「Generated manifests are committed」 · test:unit 단계 포함)\n- 배포된 패키지의 의존이 실제 버전이고 `workspace:*` 가 아니며, 여섯 패키지가 Node 에서 import 된다\n- changeset 네 장의 변경이 배포본에 들어 있다(S3 의 네 가지). 특히 KAN-064 상세 파일이 배포본에 실렸다\n- 외부 앱에 전할 문구가 수행 내역에 있다. 범위를 올려야 받는 패키지 4개, 깨지는 곳(매니페스트 색인 모양), 바뀐 동작(viz 글자색 · 연결선 대시 · viz 배포물에서 빠진 문서 두 개)을 빠뜨리지 않는다\n\n### 확인 방법\n\n```bash\nfor n in tokens core foundations style-guide-catalog visualization visualization-style-guide-catalog hooks; do\n  npm view @centurio1987/bbangto-ui-$n version --registry https://npm.pkg.github.com\ndone\ngh run list --workflow release.yml --limit 2\n# 스크래치 폴더: @centurio1987 레지스트리를 npm.pkg.github.com 으로 두고\n#   npm install @centurio1987/bbangto-ui-visualization@1.0.0 … react react-dom\n# node -e \"console.log(require.resolve('@centurio1987/bbangto-ui-visualization/manifest/VT-101.json'))\"\n```\n\n**실행 결과**\n\n```text\n검증 실행 2026-10-10 04:10~04:15 (착수한 세션)\n[레지스트리] npm view @centurio1987/bbangto-ui-<n> version --registry https://npm.pkg.github.com\n  tokens 1.5.0 · core 1.2.2 · foundations 2.0.0 · style-guide-catalog 1.0.0 · visualization 1.0.0 · visualization-style-guide-catalog 1.0.0 · hooks 0.3.1 — 검증 기준과 같음\n[release 워크플로] gh run list --workflow release.yml --limit 2\n  37978338051 success — main push(9cbd196), Version PR #11 생성, 2026-10-09T19:09:57Z\n  37978559843 success — PR #11 병합 push(a15549a), publish 6개, 2026-10-09T19:11:51Z\n  두 실행 모두 Build packages · Generated manifests are committed · Unit gates (bundle size included) · Create Release PR or Publish 단계 success\n[Version PR 대조] PR #11 16파일 — changeset 4장 소진 · package.json 6개는 version 줄만 · CHANGELOG 6개. 버전이 S1 표와 같음. mergeable CLEAN, main 위 커밋 1개(7849962)\n[push 전 게이트] 워크트리(9cbd196)에서 install · build · 생성 파일 5개 git diff 0 · typecheck · test:unit 702 · test 1300/1300(194파일) · storybook build 초록\n[의존·import] 배포본 의존은 모두 실제 버전(core·foundations·visualization → tokens 1.5.0 · style-guide-catalog → core 1.2.2·tokens 1.5.0 · visualization-style-guide-catalog → visualization 1.0.0·tokens 1.5.0). workspace:* 0. Node 이름 import 6개 성공\n[changeset 변경 4건] 057 계약 스타일시트 stroke-dasharray: var(--bbangto-viz-edge-dash-pattern) · [data-viz-part=\"connector\"] / 061 visualizationFoundationToStyleObject 가 --bbangto-viz-on-* 20개, tokens d.ts on?: / 064 색인 4개 axis·detail·columns·rows, 상세 파일 51·30·76·87개 = rows, 상세 서브패스 import 성공 / 067 core·visualization README 「원하는 것이 없을 때」, visualization 배포물에 관리 문서 둘 없음\n[로컬 main] origin/main 으로 fast-forward(a15549a)\n```"
+}
