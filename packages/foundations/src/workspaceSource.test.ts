@@ -82,6 +82,28 @@ describe('소스 조건 — 실제 repo', () => {
   });
 });
 
+describe('크기 게이트의 자리 — test:unit 이 아니라 build 끝', () => {
+  // 크기 게이트(bundleBudget.test.ts)는 빌드된 dist 를 잰다. test:unit 에 두면 build 없이 돌 수 없으므로
+  // 루트 build 가 dist 를 다 만든 직후에 돈다(KAN-066, 2026-10-10 유저 선택). 연결이 끊기면 크기 게이트가
+  // 조용히 아무 데서도 안 도는데, 그 상태는 초록으로 보인다 — 그래서 연결 자체를 여기서 본다.
+  const read = (rel: string) => readFileSync(join(repoRoot, rel), 'utf8');
+
+  it('foundations 기본 vitest 설정은 크기 게이트를 뺀다', () => {
+    expect(read('packages/foundations/vitest.config.ts')).toMatch(/exclude:[^\]]*'src\/bundleBudget\.test\.ts'/);
+  });
+
+  it('크기 게이트 전용 설정은 크기 게이트 하나만 싣는다', () => {
+    expect(read('packages/foundations/vitest.bundle.config.ts')).toMatch(/include:\s*\['src\/bundleBudget\.test\.ts'\]/);
+  });
+
+  it('루트 build 가 모든 패키지를 빌드한 뒤 foundations 의 크기 게이트를 돌린다', () => {
+    const root = JSON.parse(read('package.json')) as { scripts: Record<string, string> };
+    const fnd = JSON.parse(read('packages/foundations/package.json')) as { scripts: Record<string, string> };
+    expect(fnd.scripts['test:bundle']).toContain('vitest.bundle.config.ts');
+    expect(root.scripts.build).toMatch(/^pnpm -r --filter=!storybook run build && .*bbangto-ui-foundations run test:bundle$/);
+  });
+});
+
 describe('auditWorkspaceSource — fixture 실패주입(순수 검증기)', () => {
   const files = new Set(['packages/demo/src/index.ts', 'packages/demo/src/meta/index.ts', 'packages/demo/src/view.tsx']);
   const exists = (rel: string) => files.has(rel);
