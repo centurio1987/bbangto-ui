@@ -59,7 +59,7 @@
   - 메모: KAN-067 검토 항목 2(2026-10-10 승인)에서 나왔다. KAN-071(실제 사례 재현)과 같은 경로를 보므로 그 카드의 전후 비교에 쓴다 — 「고치기 전」은 main 0a81094
   - 실행 문서: KANBAN/cards/KAN-072-KW0G9B.md (4/4 · 최근 10-10)
   - 계획 리포트: KANBAN/reports/KAN-072-KW0G9B.report.html (낡음)
-  - 검토 문서: KANBAN/reviews/KAN-072-KW0G9B.review.md (승인 1/3 · 추가 의견 1 · 철회 1 · 추가 의견 총 4 · 검토 대기)
+  - 검토 문서: KANBAN/reviews/KAN-072-KW0G9B.review.md (승인 3/3 · 철회 1 · 추가 의견 총 7 · 검토 대기)
   - 원문:
     ```text
     최종 승인한다 (KAN-067 검토 항목 2 「루트 README 의 두 자리를 어디서 고칠 것인가」의 추천 「새 카드 하나로 연다」를 포함한 전체 승인)

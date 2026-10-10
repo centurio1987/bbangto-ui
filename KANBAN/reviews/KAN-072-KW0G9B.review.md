@@ -189,12 +189,14 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-072-KW0G9B --add
     > **판정**
     >
     > - 승인 · ai · 2026-10-10
+    > - 승인 · ai · 2026-10-10
 
     > **추가 의견**
     >
     > - ai · 2026-10-10 — 배경 넷째 줄 「두 절은 아직 배포되지 않아서(KAN-067 변경 기록 대기), 지금 설치한 패키지 안의 README 에는 없습니다」는 지금 사실과 다릅니다. core 1.2.2 · visualization 1.0.0 이 2026-10-10 04:13(한국 시각)에 배포됐고, 내려받은 두 패키지의 README.md 는 이 브랜치의 packages/core/README.md · packages/visualization/README.md 와 글자 그대로 같아 「원하는 것이 없을 때」 절(core 15줄 · visualization 150줄)이 들어 있습니다. 이 사실은 추천을 바꾸지 않고 오히려 받칩니다 — 링크가 가리키는 절이 설치한 패키지 안에도 있으니 루트에 사본을 둘 이유가 더 줄어듭니다. 링크로 두는 것은 카드 목표 「루트 README 가 배포 README 의 「원하는 것이 없을 때」 절로 이어지고」와 전략의 버린 대안(사례 11 통째로 · 예제 사본 문제)에 그대로 맞아 승인합니다. 재검토에서 지운 「그 절은 설치한 패키지 안에도 들어 있다」를 되살릴지는 맨 뒤 새 항목으로 따로 세웠습니다.
+    > - ai · 2026-10-10 — 바뀐 상세로 다시 봤습니다. 고친 배경 넷째 줄 「두 절은 2026-10-10 배포된 core 1.2.2 · visualization 1.0.0 의 README 에도 실려, 설치한 패키지 안에서도 읽힙니다」는 레지스트리에서 받은 두 버전의 README 가 이 브랜치 README 와 글자 그대로 같았던 앞 대조와 맞습니다. 추천(링크로 둔다)의 근거인 예제 사본 문제(publishedDocs.ts:17)와 카드 목표는 바뀌지 않았으므로 승인을 유지하고, 바뀐 상세를 보고 다시 판정합니다. 버전 범위를 ^0.4 로 받은 앱은 visualization 1.0.0 으로 올리기 전까지 이 절을 갖지 않지만, 줄이 버전을 밝히고 있어 틀린 말은 아닙니다.
 
-- [ ] 재검토에서 지운 「그 절은 설치한 패키지 안에도 들어 있다」를 되살릴 것인가 — 지운 근거(배포 대기)가 지금 사실과 다릅니다
+- [x] 재검토에서 지운 「그 절은 설치한 패키지 안에도 들어 있다」를 되살릴 것인가 — 지운 근거(배포 대기)가 지금 사실과 다릅니다
     - **배경**
       - 검토자 에이전트가 의견 2 의 배경을 main 과 레지스트리에 대조하다가 세웠습니다.
       - 재검토가 루트 README 표 아래 문단에서 「그 절은 설치한 패키지 안(`node_modules/@centurio1987/bbangto-ui-core/README.md` 등)에도 그대로 들어 있어요」를 지웠습니다. 근거는 「배포된 core 1.2.1 · visualization 0.4.1 에는 절이 없다」였습니다. 원문: KANBAN/cards/KAN-072-KW0G9B.md:73
@@ -211,13 +213,16 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-072-KW0G9B --add
     | 버전 조건을 붙여 되살린다(core 1.2.2 · visualization 1.0.0 부터) | 루트 README 한 문장과 검토 한 번 | 저장소 대신 node_modules 만 읽는 앱 에이전트도 같은 절이 손안에 있다는 것을 압니다. 이미 배포된 버전이라 「부터」로 적으면 다음 배포가 와도 낡지 않습니다 |
     | 지운 채 둔다 | 루트 README 가 설치한 패키지 안의 사본을 알리지 않습니다 | 링크가 저장소의 절로 가므로 길은 그대로 이어지고, 지금 문단에 틀린 말은 없습니다 |
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 승인 · ai · 2026-10-10
 
     > **추가 의견**
     >
     > - ai · 2026-10-10 — 수행 쪽 추천은 「버전 조건을 붙여 되살린다」입니다. 지운 근거가 틀렸으니 되돌리는 것이 맞고, core 1.2.2 · visualization 1.0.0 은 이미 배포된 버전이라 「부터」로 적으면 다음 배포가 와도 낡지 않습니다. 앱을 만드는 에이전트는 저장소보다 node_modules 에 풀린 배포물을 먼저 읽는다는 것이 KAN-067 의 전제입니다(packages/foundations/src/publishedDocs.ts:4). 그 자리에 같은 절이 있다고 알려 주면 저장소를 열지 않고도 길을 찾습니다.
+    > - ai · 2026-10-10 — 유저 위임으로 판정합니다. 이 승인은 수행 쪽 추천 「버전 조건을 붙여 되살린다(core 1.2.2 · visualization 1.0.0 부터)」를 받는다는 뜻입니다. 배경의 사실은 이 검토자가 레지스트리에서 두 버전을 받아 대조한 값이고, 수행 쪽 의견이 인용한 packages/foundations/src/publishedDocs.ts:4 「앱을 만드는 에이전트는 저장소가 아니라 node_modules 에 풀린 배포물을 읽는다」도 원문과 같습니다. 지운 근거가 틀렸으니 되살리는 것은 S2 가 처음 세운 설계로 돌아가는 일이고, 카드 목표 「루트 README 가 배포 README 의 「원하는 것이 없을 때」 절로 이어지고」에도 더 가깝습니다. 이미 배포된 버전 번호를 「부터」로 적으므로 재검토가 걱정한 「다른 changeset 이 더해지면 번호가 바뀐다」는 더는 해당하지 않습니다.
 
-- [ ] visualization README 의 「엣지는 보이지 않는다」 두 곳을 고칠 것인가 — 지금은 고치지 않았습니다. 이 두 줄은 이미 visualization 1.0.0 으로 배포됐습니다
+- [x] visualization README 의 「엣지는 보이지 않는다」 두 곳을 고칠 것인가 — 지금은 고치지 않았습니다. 이 두 줄은 이미 visualization 1.0.0 으로 배포됐습니다
       이 의견은 §3-1 「visualization README 의 「엣지는 보이」 의 추가 의견에서 갈라져 나왔습니다 (추가 2026-10-10).
     - **배경**
       - Provider 밖에서는 엣지 선이 그려지지 않지만 화살촉은 검게 남습니다. 2026-10-10 chromium 에서 잰 값입니다. 원문: apps/storybook/src/stories/ExtendWhenMissing.stories.tsx:159
@@ -236,9 +241,13 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-072-KW0G9B --add
     | 후속 카드로 뺀다 | 두 줄 고침에 카드 하나가 듭니다 | 이 카드는 지금 범위로 닫히고, 결과는 위 갈래와 같지만 그 카드가 끝날 때까지 늦어집니다 |
     | 그대로 둔다 | 배포 README 와 루트 README 가 Provider 밖 화살촉을 다르게 묘사합니다 | 앱이 할 일(Provider 안에 둔다)은 같아서 실제로 막히는 일은 없습니다 |
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 승인 · ai · 2026-10-10
 
-    > **추가 의견** — _아직 없습니다._
+    > **추가 의견**
+    >
+    > - ai · 2026-10-10 — 유저 위임으로 판정합니다. 이 승인은 추천 「이 카드에서 함께 고친다」를 받는다는 뜻입니다. 배경의 사실은 맞습니다. 두 줄은 visualization 1.0.0 README 에 실려 있고, 변경 기록이 배포를 기다렸다 함께 실린다는 것은 .github/workflows/release.yml:3-5(changeset 이 있으면 Version Packages PR 을 만들고, 그 PR 이 병합돼야 배포)와 같습니다. 인용한 .changeset/README.md 는 changesets 기본 안내문이라 release.yml 이 더 맞는 근거입니다. 제 의견 1 의 「visualization 1.0.1 이 이 두 줄 때문에 따로 나간다」는 지나친 말이었습니다. 더구나 로컬 main 74591cf(KAN-070 병합)에 visualization patch 변경 기록 .changeset/kan-070-connector-dash-scope.md 가 이미 있어 다음 visualization 배포는 어차피 나가고, 이 카드의 변경 기록은 거기 함께 실립니다(origin/main 은 a15549a 로 보입니다. fetch 는 하지 않았습니다). 표에 없던 대가 셋을 실행 때 챙겨 주세요. ① 카드 전략의 제약 「배포 README 와 라이브러리 코드는 고치지 않는다」 · 「changeset 을 달지 않는다」를 고쳐야 합니다. ② scope 에 packages/visualization/README.md 와 변경 기록 파일이 더해지므로 dep-check 를 다시 봅니다. ③ KAN-070 이 같은 viz README 의 267줄 근처를 고쳤으니 main 을 먼저 받아 옵니다. 163 · 235 줄은 main 에서도 그대로입니다. KAN-070 의 Flowchart 변경(strokeDasharray)은 dashed 엣지가 없는 이 예제에서는 undefined 라 VizOutsideProvider 실측에 닿지 않습니다. 코드로만 확인했고 다시 재지는 않았습니다.
 
 
 ## 4. 판정
