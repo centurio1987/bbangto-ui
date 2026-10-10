@@ -858,7 +858,7 @@ Flowchart · BarChart · SankeyDiagram · … (87종)
       VisualizationStyleGuideProvider  ←  viz style guide preset (30종)
 ```
 
-Provider 없이 그냥 그리면 그림은 나옵니다. 다만 무채색 base foundation으로 떨어져요(`packages/visualization/src/tokens/base.ts`의 `baseVisualizationFoundation`). 캔버스는 흰색, 선은 `#333333`입니다.
+Provider 없이 그리면 좌표는 나오지만 칠이 없습니다. 색을 정하는 CSS 변수와 계약 스타일시트를 Provider가 넣어 주기 때문이에요. 색 prop을 주지 않은 도형은 SVG 기본값대로 검게 채워지고, 이름표 글자도 검정이라 도형 위에서 읽히지 않습니다. 엣지는 선이 그려지지 않아 검은 화살촉만 남고, 캔버스 배경은 투명합니다. 2026-10-10 chromium에서 아래 절차 1의 예제를 Provider만 빼고 재 본 값이고(`apps/storybook/src/stories/ExtendWhenMissing.stories.tsx`의 `VizOutsideProvider`), firefox·webkit은 재지 않았습니다. 무채색 `baseVisualizationFoundation`(`packages/visualization/src/tokens/base.ts`)으로 떨어지는 것은 `useVizFoundation()`이 돌려주는 JS 값뿐이에요.
 
 **설치**
 
