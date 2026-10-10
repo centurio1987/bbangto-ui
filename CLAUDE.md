@@ -33,13 +33,15 @@
 
 ```bash
 pnpm typecheck                      # 워크스페이스 전체 타입 검사
-pnpm build                          # 모든 패키지 빌드 (storybook 제외)
+pnpm build                          # 모든 패키지 빌드 (storybook 제외) + 끝에서 번들 크기 게이트
 pnpm test                           # Playwright/chromium 브라우저 테스트
 pnpm --filter storybook build       # Storybook 번들 스모크 테스트
-pnpm test:unit                      # 패키지 vitest — 매니페스트·대비·명명·커버리지·번들 크기 게이트
+pnpm test:unit                      # 패키지 vitest — 매니페스트·대비·명명·커버리지·소스 조건 게이트
 ```
 
 게이트가 하나라도 빨간 상태면 태스크를 완료로 표시하지 않는다.
+
+`pnpm typecheck`·`pnpm test:unit` 은 패키지끼리 소스를 읽으므로(exports 의 `bbangto-source` 조건) 새 워크트리에서도 build 없이 돈다. dist 를 읽는 것은 `pnpm test`(Storybook)와 build 끝의 번들 크기 게이트뿐이다.
 
 ### 5. 모션 관련 작업
 
@@ -99,9 +101,9 @@ play: async ({ canvasElement }) => {
 
 ```bash
 pnpm dev              # Storybook 개발 서버 (포트 6006)
-pnpm build            # 전체 패키지 빌드
+pnpm build            # 전체 패키지 빌드 + 끝에서 번들 크기 게이트
 pnpm typecheck        # 타입 검사
 pnpm test             # Playwright 브라우저 테스트 (CI 기준)
-pnpm test:unit        # 패키지 vitest — 매니페스트·대비·명명·커버리지·번들 크기 게이트
+pnpm test:unit        # 패키지 vitest — 매니페스트·대비·명명·커버리지·소스 조건 게이트 (build 없이 돈다)
 pnpm --filter storybook test:watch   # 테스트 워치 모드 (루트에 test:watch 스크립트는 없다)
 ```

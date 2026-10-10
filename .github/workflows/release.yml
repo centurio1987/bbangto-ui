@@ -40,6 +40,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # 루트 build 는 끝에서 번들 크기 게이트(bundle-budget.json)를 돈다(KAN-051 · KAN-066). 상한을 넘는
+      # 판은 여기서 멈춰 배포되지 않는다. 게이트가 빌드된 dist 를 재므로 빌드 직후가 제자리다.
       - name: Build packages
         run: pnpm build
 
@@ -55,9 +57,9 @@ jobs:
           packages/foundations/src/catalog.json
           packages/visualization/type.manifest.json
 
-      # 배포 전에 패키지 vitest 게이트를 돈다. 번들 크기 상한(bundle-budget.json)을 넘는 판이 배포되지
-      # 않게 하려는 것이다(KAN-051). 크기 게이트는 빌드된 dist 를 재므로 Build 다음 자리여야 한다.
-      - name: Unit gates (bundle size included)
+      # 배포 전에 패키지 vitest 게이트(매니페스트·대비·명명·커버리지·소스 조건)를 돈다. 소스를 읽으므로
+      # 빌드와 상관없이 돌지만, 위 색인 대조와 같은 판을 보려고 여기 둔다.
+      - name: Unit gates
         run: pnpm test:unit
 
       # 인증 토큰은 user-level ~/.npmrc 에 둔다. project .npmrc 에는 인증 라인이 없어

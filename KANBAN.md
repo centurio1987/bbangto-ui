@@ -5,16 +5,6 @@
 
 ## 백로그
 <!-- 아직 착수 결정 전. 우선순위 미정 후보 풀. 백로그→할 일 이동이 "할지 고민" → "하기로 확정" 전환점. -->
-- `KAN-066-T6NR80` 워크스페이스 소스 경로 해석 — 새 워크트리에서 build 없이 typecheck·test:unit 통과 — 생성:ai · 최종:ai · 갱신:2026-10-08
-  - 짧은 제목: build 없는 게이트
-  - 목적: 패키지끼리 타입과 모듈을 dist 대신 소스에서 찾게 해, 새 워크트리에서 pnpm build 없이 typecheck·test:unit 이 돈다
-  - 이유: 패키지 exports 가 dist 만 가리키고 루트 tsconfig 에 paths 가 없어, 새 워크트리의 첫 typecheck 가 TS2307 로 실패한다(2026-10-07 KAN-050). KAN-064 착수 전 계획에서 매니페스트 카드 범위 밖으로 확인됐다
-  - 목표: 새 워크트리(또는 rm -rf packages/*/dist 뒤)에서 pnpm typecheck·pnpm test:unit 이 build 선행 없이 초록이고, build 를 먼저 돌리라는 규칙을 걷을 수 있다
-  - 메모: KAN-064 목표에서 갈라져 나왔다(2026-10-08 유저 선택). 고칠 자리 후보: 패키지 package.json exports 의 소스 조건 또는 tsconfig paths, vitest resolve. KAN-055 와 package.json 이 겹칠 것이다
-  - 원문:
-    ```text
-    좁히고 새 카드 (앞 질문 「카드 목표인 「새 워크트리에서 build 없이 typecheck·test:unit 통과」를 어떻게 할까요? 패키지끼리 타입을 dist/index.d.ts 에서 찾고 루트 tsconfig 에 paths 가 없어서, 매니페스트와 상관없이 첫 typecheck 가 TS2307 로 실패합니다.」에 대한 답)
-    ```
 - `KAN-071-FK1W8K` 앱 에이전트의 라이브러리 이탈·개선 요청 실제 사례 재현 — 저장소 열람과 구현까지 연 시험 — 생성:ai · 최종:ai · 갱신:2026-10-10
   - 짧은 제목: 이탈 현상 실제 재현
   - 목적: 겪은 상황(앱 지시문·과제 문구·모델)을 받아, 저장소·인터넷 열람과 구현을 막지 않은 조건으로 배포물 전후 시험을 다시 돌린다
@@ -24,6 +14,18 @@
   - 원문:
     ```text
     최종 승인한다 (KAN-067 검토 항목 1 「재현 시험이 겪으신 현상을 재현하지 못했는데 이 카드를 닫을 것인가」의 추천 「닫고, 실제 사례로 재현하는 후속 카드를 연다」를 포함한 전체 승인)
+    ```
+- `KAN-075-4K5GK3` viz 가이드 지침 문장과 실제 글자색 맞추기 — 저자가 정한 글자색과 칠해지는 노드·C4 글자색이 다른 가이드 — 생성:ai · 최종:ai · 갱신:2026-10-11
+  - 짧은 제목: 가이드 글자색 문장 맞추기
+  - 목적: 가이드 지침에 적힌 글자색 규칙과 실제로 칠해지는 노드·C4 글자색이 다른 가이드를 찾아, 문장을 그림에 맞출지 그림을 문장에 맞출지 정하고 맞춘다
+  - 이유: KAN-061 글자색 계산이 연결선 색을 먼저 골라 artdeco-luxe·synthwave·darkluxe·hud-telemetry 에서 저자가 금지한 골드·네온·시안이 칠해진다(KAN-069 검토 항목 3 반려에서 확인)
+  - 목표: 가이드마다 지침 문장과 칠해지는 글자색이 맞고, 둘이 다시 어긋나면 검사가 잡는다
+  - 메모: 칠해지는 색이 저자 색과 다른 가이드 15개(KAN-069 착수 때 실측 189곳). 길 셋: 문장 고치기 / on 으로 저자 색 지정 / KAN-061 계산 후보 순서에서 boundary.labelColor 를 앞으로. KAN-069 병합 뒤 착수(tagColor 가 지워진 상태 기준)
+  - 실행 문서: KANBAN/cards/KAN-075-4K5GK3.md (0/5 · 최근 10-11)
+  - 계획 리포트: KANBAN/reports/KAN-075-4K5GK3.report.html (낡음)
+  - 원문:
+    ```text
+    후속 카드로 넘긴다 (Recommended) (KAN-069 검토 뒤 질문 「항목 3(가이드 지침 문장이 실제 글자색과 어긋남)을 어떻게 풀까요? 원인은 KAN-061 글자색 계산이 연결선 색을 먼저 골라, 저자가 글자색으로 정하고 다른 색은 금지한 가이드 4곳(artdeco·synthwave·darkluxe·hud-telemetry)에서 금지한 색이 칠해지는 것입니다.」에 대한 답)
     ```
 
 ## 할 일
@@ -638,4 +640,17 @@
   - 원문:
     ```text
     후속 카드 1장 (Recommended) — main에서 백로그 카드를 하나 만들어, 토큰마다 잇기와 걷기를 정합니다. 그림이 바로 바뀌는 경계선을 첫 단계로 둡니다. KAN-057은 엣지 대시만 다룹니다. (앞 질문 「선언만 있고 읽히지 않는 viz 토큰 20여 개(경계선 dashPattern·width·radius, c4.* 9개, typography.sizes.* 4개 등)를 어떻게 다룰까요?」에 대한 답)
+    ```
+- `KAN-066-T6NR80` 워크스페이스 소스 경로 해석 — 새 워크트리에서 build 없이 typecheck·test:unit 통과 — 생성:ai · 최종:ai · 갱신:2026-10-11
+  - 짧은 제목: build 없는 게이트
+  - 목적: 패키지끼리 타입과 모듈을 dist 대신 소스에서 찾게 해, 새 워크트리에서 pnpm build 없이 typecheck·test:unit 이 돈다
+  - 이유: 패키지 exports 가 dist 만 가리키고 루트 tsconfig 에 paths 가 없어, 새 워크트리의 첫 typecheck 가 TS2307 로 실패한다(2026-10-07 KAN-050). KAN-064 착수 전 계획에서 매니페스트 카드 범위 밖으로 확인됐다
+  - 목표: 새 워크트리(또는 rm -rf packages/*/dist 뒤)에서 pnpm typecheck·pnpm test:unit 이 build 선행 없이 초록이고, build 를 먼저 돌리라는 규칙을 걷을 수 있다
+  - 메모: KAN-064 목표에서 갈라져 나왔다(2026-10-08 유저 선택). 고칠 자리 후보: 패키지 package.json exports 의 소스 조건 또는 tsconfig paths, vitest resolve. KAN-055 와 package.json 이 겹칠 것이다
+  - 실행 문서: KANBAN/cards/KAN-066-T6NR80.md (6/6 · 최근 10-10)
+  - 계획 리포트: KANBAN/reports/KAN-066-T6NR80.report.html (낡음)
+  - 검토 문서: KANBAN/reviews/KAN-066-T6NR80.review.md (승인 3/3 · 추가 의견 총 3 · 승인)
+  - 원문:
+    ```text
+    좁히고 새 카드 (앞 질문 「카드 목표인 「새 워크트리에서 build 없이 typecheck·test:unit 통과」를 어떻게 할까요? 패키지끼리 타입을 dist/index.d.ts 에서 찾고 루트 tsconfig 에 paths 가 없어서, 매니페스트와 상관없이 첫 typecheck 가 TS2307 로 실패합니다.」에 대한 답)
     ```

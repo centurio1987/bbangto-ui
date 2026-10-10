@@ -1159,13 +1159,12 @@ tokens를 따로 넣는 이유가 있습니다. `VizFoundationPreset` 타입이 
    `export` 한 줄만 추가하고 끝내면 등재가 안 됩니다. `catalog.manifest.json`은 `vizStyleGuideCatalog` 배열에서 파생되기 때문에 배열에 넣는 것까지가 한 동작이에요. 배열을 빼먹으면 매니페스트 항목 수가 30에서 안 늘고 `src/manifest.test.ts`가 커밋된 JSON과 대조하다 실패합니다.
 
    ```bash
-   pnpm --filter @centurio1987/bbangto-ui-visualization build          # 생성기가 dist를 읽는다
    pnpm --filter @centurio1987/bbangto-ui-visualization-style-guide-catalog build
    ```
 
-   두 번째 명령의 `prebuild`가 `gen:manifest`를 먼저 돌려 매니페스트를 다시 씁니다(`packages/visualization-style-guide-catalog/package.json:23`). 첫 명령을 건너뛰면 안 되는 이유는 생성기가 wrapper와 showcase를 통해 visualization 런타임을 import하기 때문입니다. 클린 클론에서 `gen:manifest`부터 치면 그 자리에서 실패해요.
+   이 명령의 `prebuild`가 `gen:manifest`를 먼저 돌려 매니페스트를 다시 씁니다(`packages/visualization-style-guide-catalog/package.json:25-26`). 생성기는 wrapper와 showcase를 통해 visualization 런타임을 import하는데, 그것을 `dist`가 아니라 소스에서 읽으므로 visualization 을 먼저 빌드하지 않아도 됩니다. 클린 클론에서 `gen:manifest`만 쳐도 돕니다. Storybook 에서 그림을 확인하려면 그때는 루트 `pnpm build`로 `dist`를 만듭니다.
 
-   > 스타일 가이드가 아니라 **새 시각화 유형**(컴포넌트)을 함께 추가했다면 유형 매니페스트(`packages/visualization/type.manifest.json`)도 바뀝니다. 이것도 visualization 의 `prebuild`가 다시 만들어서, 위 첫 명령에서 함께 갱신됩니다. 바뀐 색인을 같이 커밋하세요. 빠뜨리면 배포 워크플로가 빌드 직후 커밋본과 대조해 그 판을 배포하지 않습니다(사례 10의 4번).
+   > 스타일 가이드가 아니라 **새 시각화 유형**(컴포넌트)을 함께 추가했다면 유형 매니페스트(`packages/visualization/type.manifest.json`)도 바뀝니다. 이것은 visualization 의 `prebuild`가 다시 만들므로 `pnpm --filter @centurio1987/bbangto-ui-visualization build`(또는 루트 `pnpm build`)로 함께 갱신합니다. 바뀐 색인을 같이 커밋하세요. 빠뜨리면 배포 워크플로가 빌드 직후 커밋본과 대조해 그 판을 배포하지 않습니다(사례 10의 4번).
 
 **더 보기** — [`packages/visualization/TYPE_METADATA_STRATEGY.md`](packages/visualization/TYPE_METADATA_STRATEGY.md), [`packages/core/style-guide-catalog.md`](packages/core/style-guide-catalog.md) (명명 규칙은 두 카탈로그가 공유한다)
 
@@ -1187,7 +1186,7 @@ preset이나 컴포넌트를 이 레포에 넣으려는 분을 위한 절차입�
 git clone https://github.com/centurio1987/bbangto-ui.git
 cd bbangto-ui
 pnpm install        # Node >= 18, pnpm >= 9 (packageManager: pnpm@9.15.0)
-pnpm build          # 최초 1회. 매니페스트 생성기가 core·visualization·tokens의 dist를 읽는다
+pnpm build          # Storybook(pnpm dev · pnpm test)이 읽을 dist 를 만든다. typecheck·test:unit 은 이것 없이 돈다
 ```
 
 **절차**
@@ -1213,14 +1212,14 @@ pnpm build          # 최초 1회. 매니페스트 생성기가 core·visualizat
 
 4. **매니페스트는 빌드가 다시 만듭니다.** 매니페스트 4종 모두 `pnpm build`의 `prebuild`가 다시 씁니다. 각각 색인(`*.manifest.json`, 후보를 고를 때 읽는 표)과 항목별 상세(`manifest/<이름>.json`) 두 층입니다.
 
-   | 색인 | 상세 | 생성기가 읽는 `dist` |
+   | 색인 | 상세 | 생성기가 읽는 다른 패키지 |
    |---|---|---|
    | `packages/style-guide-catalog/catalog.manifest.json` | `manifest/<name>.json` | core |
    | `packages/visualization-style-guide-catalog/catalog.manifest.json` | `manifest/<name>.json` | visualization |
    | `packages/foundations/foundation.manifest.json` | `manifest/<slug>.json` | tokens |
    | `packages/visualization/type.manifest.json` | `manifest/<id>.json` | 없음 |
 
-   커밋할 것은 색인뿐입니다. 상세 폴더는 `.gitignore` 대상이고 `package.json`의 `files`로 npm 패키지에만 실립니다. 생성기(`gen:*`)를 따로 칠 때는 순서에 조건이 붙습니다. 위 셋은 다른 패키지의 `dist`를 읽으므로, 갓 클론한 트리에서 바로 치면 모듈을 찾지 못하고 실패합니다. `pnpm build`는 그 순서대로 돌기 때문에 따로 신경 쓸 것이 없습니다.
+   커밋할 것은 색인뿐입니다. 상세 폴더는 `.gitignore` 대상이고 `package.json`의 `files`로 npm 패키지에만 실립니다. 생성기(`gen:*`)는 따로 쳐도 됩니다. 위 셋은 다른 패키지를 `dist`가 아니라 소스에서 읽으므로(`tsx --conditions=bbangto-source`), 갓 클론한 트리에서도 빌드 없이 돕니다.
 
    메타를 고치고 빌드했으면 바뀐 색인을 함께 커밋합니다. 빠뜨리면 배포 워크플로(`.github/workflows/release.yml`)가 빌드 직후 `git diff --exit-code`로 색인을 커밋본과 대조해 그 판을 배포하지 않습니다. 뒤에 도는 `pnpm test:unit`의 바이트 동기 테스트는 이 경우를 못 잡습니다. 빌드가 방금 다시 쓴 파일끼리 비교하기 때문이에요. 이 테스트가 잡는 것은 빌드 없이 돌렸을 때뿐입니다.
 
@@ -1228,17 +1227,17 @@ pnpm build          # 최초 1회. 매니페스트 생성기가 core·visualizat
 
    ```bash
    pnpm typecheck                 # 워크스페이스 전체 타입 검사
-   pnpm build                     # storybook 제외 전 패키지 빌드 (+ 카탈로그 매니페스트 재생성)
+   pnpm build                     # storybook 제외 전 패키지 빌드 (+ 카탈로그 매니페스트 재생성 · 끝에서 번들 크기 게이트)
    pnpm test                      # storybook 브라우저 테스트 (Playwright/chromium)
    pnpm --filter storybook build  # Storybook 번들 스모크 테스트
-   pnpm test:unit                 # 패키지 vitest — 매니페스트·대비·명명·커버리지·번들 크기 게이트
+   pnpm test:unit                 # 패키지 vitest — 매니페스트·대비·명명·커버리지·소스 조건 게이트 (build 없이 돈다)
    ```
 
    다섯 중 이름이 낯선 것은 마지막 하나뿐입니다. 루트 `package.json:11`의 `"test:unit": "pnpm -r --filter=!storybook run test"`이고, 나머지 넷도 실체는 같은 파일에 있습니다.
 
    `CLAUDE.md`도 같은 다섯을 적습니다. 넷만 적은 규범 문서가 다시 생기면 `packages/foundations/src/gateDocs.test.ts`가 그 자리를 짚어 `pnpm test:unit`을 빨갛게 만듭니다.
 
-   다섯 번째가 왜 빠지면 안 되는지는 4번과 붙여 보면 드러나요. `pnpm test`의 실체는 `pnpm --filter storybook test` 한 줄이라 storybook 패키지만 돕니다. core 에 무언가를 더해 대표 export 하나만 들여와도 `bundle-budget.json`의 크기 상한을 넘게 됐다고 해 봅시다. `packages/foundations/src/bundleBudget.test.ts`가 잡아야 할 상황인데, `pnpm test`는 그 파일을 실행조차 하지 않습니다. 넷이 전부 초록입니다. 그걸 보고 올린 다음, 다른 사람이 `pnpm test:unit`에서 처음 발견하게 되죠. 사례 6의 대비 감사와 명명 게이트도 정확히 같은 자리에 있습니다.
+   다섯 번째가 왜 빠지면 안 되는지는 4번과 붙여 보면 드러나요. `pnpm test`의 실체는 `pnpm --filter storybook test` 한 줄이라 storybook 패키지만 돕니다. 사례 6의 대비 감사와 명명 게이트, 6번의 커버리지 census 는 모두 패키지 vitest 라 `pnpm test`가 실행조차 하지 않습니다. 넷이 전부 초록인 것을 보고 올린 다음, 다른 사람이 `pnpm test:unit`에서 처음 발견하게 되죠. 번들 크기 상한(`bundle-budget.json`)만 자리가 다릅니다. 빌드된 `dist`를 재는 검사라 `pnpm build`가 끝에서 돌립니다.
 
 6. **새 카탈로그 파일을 만들었다면 커버리지 census에 등록합니다.** 기존 카탈로그에 preset을 하나 더한 경우는 해당하지 않습니다. 새 `*.manifest.json`이나 `src/catalog.json`을 만든 경우입니다. `metadata-coverage.json`의 `axes`에 선언하지 않으면 `packages/foundations/src/metadataCoverage.test.ts`가 `packages/` 전체를 훑어 발견한 카탈로그 파일과 선언을 대조하다 위반을 냅니다. 이 테스트도 5번의 `pnpm test:unit`에서 돕니다.
 
@@ -1295,14 +1294,16 @@ pnpm typecheck                 # 워크스페이스 전체 타입 검사
 | 명령 | 막는 것 |
 |---|---|
 | `pnpm typecheck` | 워크스페이스 전체의 타입 오류 |
-| `pnpm build` | 빌드 실패 + 매니페스트 색인 4개 미갱신(`prebuild`가 재생성) |
+| `pnpm build` | 빌드 실패 + 매니페스트 색인 4개 미갱신(`prebuild`가 재생성) + 번들 크기 상한(`bundle-budget.json`, 빌드 끝에서 잰다) |
 | `pnpm test` | 컴포넌트 동작 회귀 — Storybook `play` 함수를 chromium에서 실행 |
 | `pnpm --filter storybook build` | Storybook 번들이 깨지는 변경 |
-| `pnpm test:unit` | 매니페스트 바이트 동기 · 대비 over-claim · 명명 규칙 · 커버리지 census · 번들 크기 상한(`bundle-budget.json`) · 게이트 목록 드리프트(규범 문서가 다섯째를 빠뜨리는 것) |
+| `pnpm test:unit` | 매니페스트 바이트 동기 · 대비 over-claim · 명명 규칙 · 커버리지 census · 소스 조건 누락 · 게이트 목록 드리프트(규범 문서가 다섯째를 빠뜨리는 것) |
 
-**다섯 번째를 빠뜨리기 쉽습니다.** `pnpm test`의 실체는 `pnpm --filter storybook test`라 storybook 패키지만 돕니다. 패키지 vitest는 `pnpm test:unit`에서만 도니, 번들 크기 상한을 넘겨도 앞의 넷은 전부 초록인 채로 통과합니다.
+**다섯 번째를 빠뜨리기 쉽습니다.** `pnpm test`의 실체는 `pnpm --filter storybook test`라 storybook 패키지만 돕니다. 패키지 vitest는 `pnpm test:unit`에서만 도니, 대비 주장을 실제보다 높게 적어도 앞의 넷은 전부 초록인 채로 통과합니다.
 
-**게이트를 대신 돌려 주는 CI는 없습니다.** `.github/workflows/release.yml` 하나가 있고 그 워크플로는 `pnpm install`과 `pnpm build`만 돌립니다(changesets 기반 릴리스 담당). 위 다섯은 사람이 손으로 돌려야 합니다.
+**`pnpm typecheck`와 `pnpm test:unit`은 빌드 없이 돕니다.** 패키지끼리 서로를 `dist`가 아니라 소스에서 찾기 때문입니다(exports 의 `bbangto-source` 조건). 그래서 갓 클론한 트리에서도 위 순서대로 돌리면 됩니다. `dist`를 읽는 것은 `pnpm test`(Storybook 은 배포물을 그대로 시험한다)와 빌드 끝의 번들 크기 게이트뿐입니다.
+
+**게이트를 대신 돌려 주는 CI는 없습니다.** `.github/workflows/release.yml` 하나가 있고, 그 워크플로는 배포 전에 `pnpm build`(번들 크기 게이트 포함) · 색인 커밋 대조 · `pnpm test:unit`까지만 돌립니다(changesets 기반 릴리스 담당). `pnpm typecheck`와 Storybook 쪽 둘은 돌리지 않으므로 위 다섯은 사람이 손으로 돌려야 합니다.
 
 ---
 
