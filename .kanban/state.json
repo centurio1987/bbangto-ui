@@ -123,7 +123,9 @@
         "README.md",
         "packages/foundations/src/publishedDocs.ts",
         "packages/foundations/src/publishedDocs.test.ts",
-        "apps/storybook/src/stories/ExtendWhenMissing.stories.tsx"
+        "apps/storybook/src/stories/ExtendWhenMissing.stories.tsx",
+        "packages/visualization/README.md",
+        ".changeset/kan-072-viz-readme-arrowhead.md"
       ]
     },
     "KAN-020": {
