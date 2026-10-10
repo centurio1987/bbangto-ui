@@ -40,11 +40,14 @@ scope: packages/visualization/src/templates/*.tsx, packages/visualization/src/pa
 - DataFlowDiagram·Flowchart 를 `standard` 로 볼지. 둘 다 표기 관례가 있지만 레지스트리는 비표준으로 둔다. 태그를 바꾸면 AI 채택 메타가 바뀌므로 이 카드에서 정하지 않고 검토 항목으로 올린다.
 - 경계선 대시(`boundary.dashPattern`). KAN-069 범위다.
 
+검토 뒤 바뀐 것(2026-10-10, 검토 1번 추가 의견 · 유저 선택 「C4는 가이드를 따르게」): C4 여섯은 `standard` 태그가 있어도 표시를 달지 않고 관계선처럼 가이드 대시를 따른다. C4 공식 문서가 선 모양을 정하지 않고(c4model.com/diagrams/notation, notation independent), 이 저장소 C4 템플릿에도 점선이 없다. 표시를 다는 템플릿은 23개 파일에서 18개 파일(표준 이름 28개 중 22개)로 준다. 예외는 Dash Gate 의 `GUIDE_FOLLOWING_STANDARD` 한 곳에 근거와 함께 둔다(S5). 검토 3번(Flowchart·DataFlowDiagram)은 유저가 「지금대로 둔다」를 골랐다.
+
 ## 실행 계획
 - [x] `S1` 실패하는 테스트 먼저 — 새 스토리 파일 `apps/storybook/src/stories/visualization/TemplateDashGate.stories.tsx`(`VISUALIZATION/Templates/Dash Gate`). 대시 가이드(blueprint foundation 에 `edge.dashPattern: '7 3'`) 아래에서 계산된 `stroke-dasharray` 로 잰다. ① 표준 표기 템플릿 — 레지스트리의 `standard` 태그 템플릿 표본마다 `<svg>` 에 `data-viz-notation` 이 있고, `7px, 3px` 인 연결선이 0개 ② 관계선 템플릿 — 스토리에 적은 목록(Edge 를 쓰는 비표준 템플릿 + SitemapTree·WorkBreakdownStructure·IsometricScene)마다 `7px, 3px` 인 연결선이 1개 이상이고 비표준 템플릿에는 훅이 없음 ③ Flowchart — 데이터에 대시 선이 있으면 실선은 `none`·대시 선은 `6px, 4px`, 없으면 `7px, 3px` ④ TimelineRoadmap 축은 `none`, ProcessSteps·Cycle·Hierarchy·Sketchnote 연결선은 `7px, 3px`. 완료 기준: ①·②·③의 대시 있는 쪽·④의 축이 빨강이고, 나머지와 다른 스토리는 초록.
 - [x] `S2` 구현 — `contractCss.ts` 에 표준 표기 규칙, 표준 템플릿 23개 파일과 PacketDiagram 의 `Canvas` 두 곳에 `data-viz-notation`, SitemapTree·WorkBreakdownStructure·IsometricScene 관계선에 `data-viz-part="connector"`, Flowchart 의 대시 대비, TimelineRoadmap 축 `strokeDasharray="none"`. 완료 기준: S1 이 모두 초록이고 Paint Gate·Headless 를 포함한 viz 스토리가 초록.
 - [x] `S3` 문서 — viz README 구현 규약(내부 훅 셋 `shape`·`connector`·`data-viz-notation` 과 대시 규칙, Dash Gate, StepConnector 두 변형을 섞을 때 주의), `packages/tokens/src/visualization.ts` 의 `edge.dashPattern` JSDoc(표준 표기 템플릿 제외), `style-classification.md` 횡단 규칙 3 상태 문장, `contractCss.ts` 주석, changeset(`@centurio1987/bbangto-ui-visualization` patch · `@centurio1987/bbangto-ui-tokens` patch). 완료 기준: 문서 넷과 changeset 이 같은 분류를 말하고, `git diff main...HEAD --stat -- packages/visualization-style-guide-catalog` 가 0줄.
 - [x] `S4` 품질 게이트 5종 — `pnpm typecheck` · `pnpm build` · `pnpm test` · `pnpm --filter storybook build` · `pnpm test:unit`. 그리고 Dash Gate 파일만 `a11y: { test: 'error' }` 로 임시 강제해 돌린 뒤 되돌린다. 완료 기준: 다섯 다 초록이고 a11y 강제 결과를 적는다.
+- [x] `S5` C4 재작업(검토 1번 추가 의견 · 2026-10-10 유저 선택 「C4는 가이드를 따르게」) — C4 템플릿 6개 파일의 `Canvas` 12곳에서 `data-viz-notation` 을 걷고, Dash Gate 에서 C4 를 표기법 목록 밖·관계선 목록 안으로 옮긴다(C4 공식 문서가 선 모양을 정하지 않는다: c4model.com/diagrams/notation). README·tokens JSDoc·style-classification·changeset 의 범위 문장을 맞추고 게이트 5종을 다시 돌린다. 완료 기준: Dash Gate 초록(C4 연결선이 가이드 대시), 게이트 5종 초록.
 
 ## 검증
 아래를 저장소 루트에서 `bash -c` 로 돌려 모두 통과하면 끝이다.
@@ -71,3 +74,7 @@ scope: packages/visualization/src/templates/*.tsx, packages/visualization/src/pa
 - 2026-10-10T11:15 · s:6b95cb93 · S3 done — viz README 구현 규약(내부 훅 셋, 관계선·표기법 대시 규칙, Dash Gate, StepConnector 두 변형), tokens edge.dashPattern JSDoc(관계선에만 · 표준 표기 템플릿 제외), style-classification 횡단 규칙 3 상태 문장, contractCss 주석, changeset kan-070-connector-dash-scope.md(visualization·tokens patch → 다음 배포 viz 1.0.1). 카탈로그 30개·프리셋 포함 92곳 edge.dashPattern 모두 '' 를 dist 로 다시 확인, git diff main...HEAD 카탈로그 0줄
 - 2026-10-10T11:15 · s:6b95cb93 · S4 doing — 착수
 - 2026-10-10T11:18 · s:6b95cb93 · S4 done — 게이트 5종 초록 — typecheck rc 0(TS 오류 0) · build rc 0 · test 195 파일/1304 통과 · storybook build 완료 · test:unit hooks 115·visualization 285·foundations 143·style-guide-catalog 113·viz catalog 46 통과. a11y — Dash Gate 파일만 test:'error' 로 강제해 4개 통과, 일부러 넣은 alt 없는 img 는 image-alt 로 실패함을 확인한 뒤 되돌렸다. main 은 착수 뒤 배포 커밋만 들어왔고 코드 변경 0(CHANGELOG·package.json·changeset 삭제뿐)
+- 2026-10-10T20:40 · s:6b95cb93 — `실행 계획` 섹션 교체
+- 2026-10-10T20:40 · s:6b95cb93 · S5 doing — 착수
+- 2026-10-10T20:41 · s:6b95cb93 — `전략` 섹션 교체
+- 2026-10-10T20:43 · s:6b95cb93 · S5 done — C4 6개 파일의 data-viz-notation 12곳을 걷어 착수 전과 같게(기준점 대비 diff 0줄), Dash Gate 에 GUIDE_FOLLOWING_STANDARD(C4 여섯, c4model.com 근거)와 NOTATION_TEMPLATES = standard − 예외, C4 를 관계선 목록으로. README·tokens JSDoc·style-classification·changeset 범위 문장 수정. Dash Gate 초록 — 표기 표본 22개 · 실선 30개 · 직접 넘긴 대시 12개 유지. 게이트 5종 초록(test 195/1304 · unit hooks 115·viz 285·foundations 143·sg-catalog 113·viz catalog 46), a11y 강제 4개 통과

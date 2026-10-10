@@ -24,9 +24,11 @@ import { PAINT_GATE_FIXTURES } from './_paintGateFixtures';
  * - 관계선은 템플릿과 상관없이 가이드 대시를 따른다. 연결선 훅은 `data-viz-part="connector"` 다.
  * - 표준 표기법 템플릿(유형 메타의 `standard` 태그)은 바깥 `<svg>` 에 `data-viz-notation` 을 달고, 그 안의 연결선은
  *   가이드 대시를 끈다. 표기법에서 실선과 대시가 서로 다른 관계를 뜻하기 때문이다. 템플릿이 직접 넘긴 대시는 남는다.
+ *   C4 여섯은 예외다 — 태그는 있지만 표기법이 선 모양을 정하지 않아 관계선처럼 가이드를 따른다.
  * - 한 그림 안에서 대시 선과 대비돼 뜻을 갖는 실선(Flowchart 의 `dashed` 가 섞일 때)과 축은 실선이다.
  *
  * 표준 템플릿 목록은 레지스트리에서 읽는다. 새 표준 템플릿이 훅을 빠뜨리면 ① 이 그 이름으로 실패한다.
+ * 그 템플릿의 표기법이 선 모양을 정하지 않으면 훅 대신 아래 `GUIDE_FOLLOWING_STANDARD` 에 근거와 함께 적는다.
  */
 const meta = {
   title: 'VISUALIZATION/Templates/Dash Gate',
@@ -72,11 +74,31 @@ const STANDARD_TEMPLATES = new Set(
 );
 
 /**
- * 가이드 대시를 따르는 관계선이 있는 비표준 템플릿. Edge 를 쓰는 10개와, Edge 없이 관계선을 그리는 셋
- * (SitemapTree · WorkBreakdownStructure 의 트리 가지, IsometricScene 의 입체 연결선)이다.
+ * `standard` 태그가 있지만 가이드 대시를 따르는 템플릿. C4 는 표기법이 선 모양을 정하지 않는다 —
+ * "Every line should represent a unidirectional relationship. Every line should be labelled …"
+ * (https://c4model.com/diagrams/notation, notation independent). 이 저장소 C4 템플릿에도 점선이 없다(KAN-070 검토 1번, 유저 선택).
+ */
+const GUIDE_FOLLOWING_STANDARD = [
+  'C4ContextDiagram',
+  'C4ContainerDiagram',
+  'C4ComponentDiagram',
+  'C4CodeDiagram',
+  'C4DynamicDiagram',
+  'C4SystemLandscapeDiagram',
+];
+
+/** 가이드 대시를 끄는 표준 표기 템플릿 = `standard` 태그 − 위 예외. */
+const NOTATION_TEMPLATES = new Set(
+  [...STANDARD_TEMPLATES].filter((name) => !GUIDE_FOLLOWING_STANDARD.includes(name)),
+);
+
+/**
+ * 가이드 대시를 따르는 관계선이 있는 템플릿. Edge 를 쓰는 비표준 10개, Edge 없이 관계선을 그리는 셋
+ * (SitemapTree · WorkBreakdownStructure 의 트리 가지, IsometricScene 의 입체 연결선), 그리고 C4 여섯이다.
  * GitGraph 의 선은 브랜치 색으로 칠하는 계열선이라 넣지 않는다.
  */
 const RELATION_TEMPLATES = [
+  ...GUIDE_FOLLOWING_STANDARD,
   'ArchitectureDiagram',
   'BlockDiagram',
   'ConceptMap',
@@ -109,7 +131,7 @@ const rowsOf = (canvasElement: HTMLElement) =>
   Array.from(canvasElement.querySelectorAll<HTMLElement>('[data-dash-gate-row]'));
 
 // ────────────────────────────────────────────────────────────────────────
-// ① 표준 표기 템플릿 — 가이드 대시를 끈다
+// ① 표준 표기 템플릿 — 가이드 대시를 끈다 (C4 제외)
 // ────────────────────────────────────────────────────────────────────────
 
 export const NotationTemplatesKeepTheirLines: Story = {
@@ -117,10 +139,14 @@ export const NotationTemplatesKeepTheirLines: Story = {
   play: async ({ canvasElement }) => {
     // 레지스트리를 읽지 못하면 게이트가 아무것도 안 잰다
     await expect(STANDARD_TEMPLATES.size).toBeGreaterThan(20);
+    // 예외는 실제 표준 템플릿이어야 한다 — 이름이 바뀌거나 태그가 빠지면 예외 목록이 낡은 것이다
+    for (const name of GUIDE_FOLLOWING_STANDARD) {
+      await expect(STANDARD_TEMPLATES.has(name), `${name} 은 standard 태그 템플릿`).toBe(true);
+    }
 
-    const rows = rowsOf(canvasElement).filter((r) => STANDARD_TEMPLATES.has(r.dataset.dashGateTemplate!));
-    // 표준 템플릿마다 표본이 있다(표본 커버리지는 test:unit 의 vizPaintGateCoverage 가 강제한다)
-    await expect(new Set(rows.map((r) => r.dataset.dashGateTemplate)).size).toBe(STANDARD_TEMPLATES.size);
+    const rows = rowsOf(canvasElement).filter((r) => NOTATION_TEMPLATES.has(r.dataset.dashGateTemplate!));
+    // 표기 템플릿마다 표본이 있다(표본 커버리지는 test:unit 의 vizPaintGateCoverage 가 강제한다)
+    await expect(new Set(rows.map((r) => r.dataset.dashGateTemplate)).size).toBe(NOTATION_TEMPLATES.size);
 
     const missingHook: string[] = [];
     const mismatched: string[] = [];
@@ -156,7 +182,7 @@ export const RelationLinesFollowGuide: Story = {
     const templates = new Set(rows.map((r) => r.dataset.dashGateTemplate));
     for (const name of RELATION_TEMPLATES) {
       await expect(templates.has(name), `${name} 표본`).toBe(true);
-      await expect(STANDARD_TEMPLATES.has(name), `${name} 은 표준 표기 템플릿이 아니다`).toBe(false);
+      await expect(NOTATION_TEMPLATES.has(name), `${name} 은 가이드 대시를 끄는 템플릿이 아니다`).toBe(false);
     }
 
     const noGuideDash: string[] = [];
@@ -176,9 +202,9 @@ export const RelationLinesFollowGuide: Story = {
     await expect(noGuideDash).toEqual([]);
     await expect(strayInline).toEqual([]);
 
-    // 표준이 아닌 템플릿은 훅을 달지 않는다 — 달면 그 템플릿의 연결선이 가이드를 못 따른다
+    // 표기 템플릿이 아니면 훅을 달지 않는다 — 달면 그 템플릿의 연결선이 가이드를 못 따른다
     const strayHook = rows
-      .filter((r) => !STANDARD_TEMPLATES.has(r.dataset.dashGateTemplate!))
+      .filter((r) => !NOTATION_TEMPLATES.has(r.dataset.dashGateTemplate!))
       .filter((r) => r.querySelector('[data-viz-notation]'))
       .map((r) => r.dataset.dashGateRow);
     await expect(strayHook).toEqual([]);

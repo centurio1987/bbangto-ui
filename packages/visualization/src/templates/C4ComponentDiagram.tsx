@@ -37,7 +37,7 @@ export function C4ComponentDiagram({
 }: C4ComponentDiagramProps) {
   if (children) {
     return (
-      <Canvas data-viz-notation viewBox={viewBox} width={width} height={height} title={title} {...props}>
+      <Canvas viewBox={viewBox} width={width} height={height} title={title} {...props}>
         {children}
       </Canvas>
     );
@@ -57,7 +57,6 @@ export function C4ComponentDiagram({
 
   return (
     <Canvas
-      data-viz-notation
       data={{ nodes: allNodes }}
       viewBox={autoViewBox}
       width={width}

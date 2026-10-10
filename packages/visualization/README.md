@@ -274,9 +274,10 @@ export function DecisionSketch() {
 - **관계선은 가이드의 연결선 대시를 따르고, 표기법이 정한 선은 따르지 않는다.** 스타일 가이드의 `edge.dashPattern` 은
   관계선 훅 `data-viz-part="connector"` 에만 걸린다. `Edge` 가 이 훅을 달고, Edge 없이 관계선을 그리는 템플릿
   (SitemapTree·WorkBreakdownStructure 의 가지, IsometricScene 의 연결선)은 직접 단다. 축·눈금·뼈대·구분선처럼 같은 edge
-  칠을 쓰는 구조선에는 달지 않는다. 유형 메타의 `standard` 태그 템플릿(UML·BPMN·C4·ArchiMate·SysML·DMN·ER·Packet)은
+  칠을 쓰는 구조선에는 달지 않는다. 유형 메타의 `standard` 태그 템플릿(UML·BPMN·ArchiMate·SysML·DMN·ER·Packet)은
   `Canvas` 에 `data-viz-notation` 을 달아 안쪽 연결선의 가이드 대시를 끈다. BPMN 시퀀스 흐름이 점선이 되면 메시지 흐름으로
-  읽히기 때문이다. 템플릿이 넘긴 인라인 대시(UML 의존 `5 3` 등)는 그대로 남는다. 한 그림에서 대시 선과 대비돼 뜻을 갖는
+  읽히기 때문이다. C4 는 태그가 있어도 달지 않는다 — C4 표기는 선 모양을 정하지 않으므로(c4model.com/diagrams/notation)
+  관계선처럼 가이드를 따른다. 새 표준 템플릿의 표기법이 선 모양을 정하지 않으면 Dash Gate 의 `GUIDE_FOLLOWING_STANDARD` 에 적는다. 템플릿이 넘긴 인라인 대시(UML 의존 `5 3` 등)는 그대로 남는다. 한 그림에서 대시 선과 대비돼 뜻을 갖는
   실선(Flowchart 에 `dashed` 선이 섞일 때)과 TimelineRoadmap 의 시간 축은 `strokeDasharray="none"` 으로 고정한다.
   Storybook `VISUALIZATION/Templates/Dash Gate`(`TemplateDashGate.stories.tsx`)가 레지스트리의 `standard` 목록을 읽어 이
   규칙을 검사하므로, 표준 템플릿을 새로 내보내면 `Canvas` 두 곳에 훅을 단다. `StepConnector` 는 기본(`arrow`)이 가이드
