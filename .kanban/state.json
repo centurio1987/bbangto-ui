@@ -43,9 +43,10 @@
       "memo_hash": "972f6bb53301d6815ab283242601fb2be850d0fd",
       "scope": [
         "packages/tokens/src/visualization.ts",
-        "packages/visualization/src/tokens/**",
+        "packages/visualization/src/**",
         "packages/visualization-style-guide-catalog/src/**",
         "apps/storybook/src/stories/_vizCatalogStory.tsx",
+        "apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx",
         "README.md",
         "packages/visualization/*.md",
         ".changeset/kan-075-*.md"
@@ -1597,6 +1598,7 @@
   },
   "order": [
     "KAN-071-FK1W8K",
+    "KAN-075-4K5GK3",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1668,8 +1670,7 @@
     "KAN-072-KW0G9B",
     "KAN-074-KAZBTF",
     "KAN-069-G0FGTJ",
-    "KAN-066-T6NR80",
-    "KAN-075-4K5GK3"
+    "KAN-066-T6NR80"
   ],
   "recent": [
     {
