@@ -28,6 +28,8 @@
         "packages/*/vitest.config.ts",
         "packages/foundations/vitest.bundle.config.ts",
         "packages/foundations/src/bundleBudget.test.ts",
+        "packages/foundations/src/workspaceSource.ts",
+        "packages/foundations/src/workspaceSource.test.ts",
         "bundle-budget.json",
         "CLAUDE.md",
         "QUALITY_CHECKLIST.md",
@@ -1550,6 +1552,7 @@
   "order": [
     "KAN-069-G0FGTJ",
     "KAN-071-FK1W8K",
+    "KAN-066-T6NR80",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1619,8 +1622,7 @@
     "KAN-064-AC0H6M",
     "KAN-070-RCG2QV",
     "KAN-072-KW0G9B",
-    "KAN-074-KAZBTF",
-    "KAN-066-T6NR80"
+    "KAN-074-KAZBTF"
   ],
   "recent": [
     {
