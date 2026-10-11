@@ -29,7 +29,7 @@
   - 메모: 칠해지는 색이 저자 색과 다른 가이드 15개(KAN-069 착수 때 실측 189곳). 길 셋: 문장 고치기 / on 으로 저자 색 지정 / KAN-061 계산 후보 순서에서 boundary.labelColor 를 앞으로. KAN-069 병합 뒤 착수(tagColor 가 지워진 상태 기준)
   - 실행 문서: KANBAN/cards/KAN-075-4K5GK3.md (9/9 · 최근 10-11)
   - 계획 리포트: KANBAN/reports/KAN-075-4K5GK3.report.html
-  - 검토 문서: KANBAN/reviews/KAN-075-4K5GK3.review.md (승인 1/2 · 추가 의견 1 · 추가 의견 총 7 · 검토 대기)
+  - 검토 문서: KANBAN/reviews/KAN-075-4K5GK3.review.md (승인 1/2 · 철회 1 · 추가 의견 총 8 · 검토 대기)
   - 원문:
     ```text
     후속 카드로 넘긴다 (Recommended) (KAN-069 검토 뒤 질문 「항목 3(가이드 지침 문장이 실제 글자색과 어긋남)을 어떻게 풀까요? 원인은 KAN-061 글자색 계산이 연결선 색을 먼저 골라, 저자가 글자색으로 정하고 다른 색은 금지한 가이드 4곳(artdeco·synthwave·darkluxe·hud-telemetry)에서 금지한 색이 칠해지는 것입니다.」에 대한 답)
