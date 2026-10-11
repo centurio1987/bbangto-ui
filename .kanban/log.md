@@ -1,6 +1,7 @@
 # KANBAN 변경 이력
 > 최근 50건. 이보다 오래된 이력은 archive.jsonl 로 압축 보관한다.
 
+- #288 2026-10-11 10:11 · ai · KAN-075-4K5GK3 이동 검토 → 진행 중
 - #287 2026-10-11 07:07 · ai · KAN-075-4K5GK3 이동 진행 중 → 검토
 - #286 2026-10-11 06:38 · ai · KAN-075-4K5GK3 이동 검토 → 진행 중
 - #285 2026-10-11 01:47 · ai · KAN-075-4K5GK3 이동 진행 중 → 검토
@@ -50,4 +51,3 @@
 - #262 2026-10-10 00:40 · ai · KAN-068-W6TE2S 이동 할 일 → 진행 중
 - #261 2026-10-10 00:40 · ai · KAN-067-WDY7N1 독립성 겹침 용인 (상대 KAN-068-W6TE2S) — packages/visualization/package.json 을 함께 건드리지만 KAN-068 은 version 줄, KAN-067 은 files·exports 쪽이라 git 이 따로 합침. KAN-067 이 KAN-068 push 전에 main 에 병합되면 major 가 아닐 때만 함께 싣고 major 면 push 를 멈춤 (2026-10-10 유저 선택)
 - #260 2026-10-10 00:24 · ai · KAN-061-K8V2HH serialize
-- #259 2026-10-10 00:21 · ai · KAN-068-W6TE2S 수정 메모
