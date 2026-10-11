@@ -48,7 +48,7 @@ darkluxe oxblood 가 노드·C4 면마다 적던 `on` 덮어쓰기는 `on.ink` �
 | `StatCard` 숫자 · 라벨 | 도형 선색 · 경계 라벨색 | `--bbangto-viz-on-shape-fill` |
 | `IndexBadge` 번호 · `MilestoneMarker` 기간 · `VsDivider` 글자 | 캔버스 바탕색 | 도형 선색 면 위에서 고른 글자색(배지·알약 색을 넘기면 그대로) |
 | `PyramidLayer` 층 이름 | 연결선·도형 선색 | `--bbangto-viz-on-shape-fill`(층 색을 넘기면 그 색으로 고른 글자색) |
-| `StatNumber` 증감 | 팔레트 p1·p6 | 같은 색이되, 밑 면(새 `surface` prop, 기본 canvas.bg)에서 4.5:1 에 못 미치면 숫자 글자색 |
+| `StatNumber` 증감 | 팔레트 p1·p6 | 같은 색이되, 가이드가 `on.ink` 를 적었거나 밑 면(새 `surface` prop, 기본 canvas.bg)에서 4.5:1 에 못 미치면 숫자 글자색 |
 
 쇼케이스(`makeVizShowcase`)의 안내 문단·섹션 제목도 캔버스 위 글자색이고, 안내 문단의 70% 투명도를 걷었다(darkluxe 4.45:1 해소).
 

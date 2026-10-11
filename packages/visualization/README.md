@@ -300,7 +300,7 @@ export function DecisionSketch() {
   `TextInkGate` 가 `on.ink` 를 적은 가이드에서 글자가 그 색으로 칠해지는지 잰다(KAN-075). 사용자가 면 색을 넘긴 부품
   갈래(`fill`·`bgFill`·`headFill`)만 그 면을 계산할 수 없어 연결선 색으로 둔다.
   팔레트 색·캔버스 바탕색도 글자에 바로 칠하지 않는다(소스 검사가 함께 막는다). 예외는 통계 숫자 증감의 의미 색이고,
-  그 색이 밑 면에서 4.5:1 에 못 미치면 숫자와 같은 글자색이 된다. 밑에 올 면이 여럿인 글자(Sankey 이름 · Venn 겹친 자리)는
+  가이드가 `on.ink` 를 적었거나 그 색이 밑 면에서 4.5:1 에 못 미치면 숫자와 같은 글자색이 된다. 밑에 올 면이 여럿인 글자(Sankey 이름 · Venn 겹친 자리)는
   그 면 전부에서 읽히는 색을 고르고 `data-viz-ink-multi` 를 단다. 대비 검사와 `TextInkGate` 는 템플릿 표본에 패턴 스토리까지
   그린다. `useVizFoundation()` 은 데이터 없음 분기의 `return` 보다 먼저 부른다(`src/styleGuide/hookOrder.test.ts`).
 - **접근성**: 루트 `Canvas` 는 `role="img"`(`accessible="structured"` 면 `group`)와 `title`(선택 `desc`)을 갖는다.

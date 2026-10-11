@@ -20,7 +20,8 @@ const NOT_INK = /vvar\('(shape|edge)', 'stroke'\)|vvar\('palette',|vvar\('canvas
 
 /**
  * 면의 글자색이 아닌 색을 일부러 쓰는 글자와 그 사유. `파일:이름` 으로 적는다.
- * - StatNumber 증감: 오르내림을 팔레트 두 색으로 가른 의미 색이다. 부호(+ · −)를 함께 써서 색만으로 뜻을 나타내지 않는다.
+ * - StatNumber 증감: 오르내림을 팔레트 두 색으로 가른 의미 색이다. 부호(+ · −)를 함께 쓰고, 가이드가 `on.ink` 를 적었거나
+ *   그 색이 밑 면에서 4.5:1 에 못 미치면 숫자와 같은 글자색이 된다 — 문장이 글자색을 정한 가이드에서는 의미 색을 안 쓴다.
  */
 const MEANING_COLORS = new Set(['atoms/StatNumber.tsx:deltaFill']);
 

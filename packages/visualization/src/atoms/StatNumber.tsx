@@ -24,13 +24,14 @@ export const StatNumber = React.forwardRef<SVGGElement, StatNumberProps>(
   ({ x, y, value, unit, delta, fontSize = 34, textAnchor = 'middle', fill, surface }, ref) => {
     // 기본은 캔버스 위 숫자다(KAN-075). 다른 면 위에 둘 때는 그 면의 글자색을 fill 로 넘긴다(StatCard).
     const inkFill = fill ?? vvar('on', 'canvas', 'bg');
-    // 증감은 오르내림을 팔레트 두 색으로 가르는 의미 색이고 부호를 함께 쓴다. 그 색이 밑 면에서 4.5:1 에 못 미치면
-    // 숫자와 같은 글자색으로 쓴다 — 부호가 남으므로 뜻은 잃지 않는다(KAN-075).
+    // 증감은 오르내림을 팔레트 두 색으로 가르는 의미 색이고 부호를 함께 쓴다(KAN-075). 숫자와 같은 글자색으로 쓰는 때는 둘이다.
+    // ① 가이드가 바라는 글자색(on.ink)을 적었으면 — 지침 문장이 글자색을 정한 가이드라 의미 색이 문장이 금지한 색일 수 있다.
+    // ② 의미 색이 밑 면에서 4.5:1 에 못 미치면. 어느 쪽이든 부호가 남으므로 뜻은 잃지 않는다.
     const foundation = useVizFoundation();
     const meaningKey = delta != null && delta < 0 ? 'p1' : 'p6';
     const faces = surfacesFor(foundation, surface ?? foundation.canvas.bg);
     const meaningReads = Math.min(...faces.map((f) => contrastRatio(foundation.palette[meaningKey], f) ?? 0)) >= ON_INK_MIN;
-    const deltaFill = meaningReads ? vvar('palette', meaningKey) : inkFill;
+    const deltaFill = foundation.on?.ink === undefined && meaningReads ? vvar('palette', meaningKey) : inkFill;
     const deltaText = delta != null ? `${delta > 0 ? '+' : ''}${delta}` : undefined;
 
     return (

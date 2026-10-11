@@ -326,10 +326,8 @@ const INK_SHADE: RGBA = { r: 0, g: 0, b: 0, a: 0.05 };
  * - `data-viz-ink-multi` 를 단 글자: 밑에 올 수 있는 면이 여럿이라(sankey 노드 이름 밑의 리본, Venn 겹친 자리의 원들),
  *   그 면 전부에서 읽히는 색을 고른다(KAN-061 검토 5번). 가이드 색이 그중 한 면에서라도 못 넘으면 검정·흰색이 맞다.
  *   대비는 LabelContrastGate·SankeyRibbonLabelGate 가 본다.
- * - 통계 숫자의 증감(`data-viz-stat-delta`): 오르내림을 팔레트 두 색으로 가른 의미 색이다. 부호를 함께 써서 색만으로
- *   뜻을 나타내지 않고, 그 색이 밑 면에서 못 읽히면 숫자와 같은 글자색이 된다(소스 검사 textPaint.test.ts 의 예외와 같다).
  */
-const isInkExempt = (text: SVGTextElement) => text.hasAttribute('data-viz-ink-multi') || text.hasAttribute('data-viz-stat-delta');
+const isInkExempt = (text: SVGTextElement) => text.hasAttribute('data-viz-ink-multi');
 
 /**
  * 표본 — 템플릿 68개(Paint Gate 와 같은 것)에 패턴 스토리(Patterns·PatternsP3)를 더한다. 패턴은 Paint Gate 표본에
