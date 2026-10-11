@@ -1,6 +1,8 @@
 import { type ReactNode } from 'react';
 import { Canvas, type CanvasProps } from '../atoms/Canvas';
 import { vvar } from '../tokens/contract';
+import { pickOnInk, surfacesFor } from '../tokens/onInk';
+import { useVizFoundation } from '../styleGuide/VisualizationStyleGuideProvider';
 import { parseViewBox } from '../geometry/layout';
 
 const PALETTE_KEYS = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8'] as const;
@@ -33,6 +35,8 @@ export function OnionDiagram({
   ...canvasProps
 }: OnionDiagramProps) {
   const [vbX, vbY, vbW, vbH] = parseViewBox(viewBox, [0, 0, 400, 400]);
+  // 칸 안 글자는 그 칸의 글자색이다. 지정 색 칸은 그 색으로 고른다(KAN-075).
+  const foundation = useVizFoundation();
 
   if (!data) {
     return (
@@ -84,7 +88,7 @@ export function OnionDiagram({
             fontSize={12}
             fontWeight={700}
             fontFamily={vvar('typography', 'titleFont')}
-            style={{ fill: vvar('on', 'canvas', 'bg') }}
+            style={{ fill: layer.color ? pickOnInk(foundation, surfacesFor(foundation, layer.color)) : vvar('on', 'palette', PALETTE_KEYS[i % PALETTE_KEYS.length]) }}
           >
             {layer.label}
           </text>

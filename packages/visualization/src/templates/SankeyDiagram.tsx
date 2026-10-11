@@ -111,6 +111,8 @@ export function SankeyDiagram({
               fontSize={11}
               fontWeight={600}
               fontFamily={vvar('typography', 'titleFont')}
+              // 이름 밑에 올 수 있는 면 전부에서 읽히는 색이다 — 바로 뒤 한 면만 재는 검사는 이 표시를 보고 건너뛴다(KAN-075).
+              data-viz-ink-multi
               style={{ fill: labelInkFor(n) }}
             >
               {spec.label}

@@ -74,6 +74,8 @@ export function BusinessModelCanvas({
   ...canvasProps
 }: BusinessModelCanvasProps) {
   const [vbX, vbY, vbW, vbH] = parseViewBox(viewBox, [0, 0, 640, 380]);
+  // 훅은 데이터 없음 분기보다 먼저 부른다.
+  const foundation = useVizFoundation();
 
   if (children != null || !data) {
     return (
@@ -86,7 +88,6 @@ export function BusinessModelCanvas({
   const rects = blockRects();
   const stroke = vvar('shape', 'stroke');
   // 블록 제목은 팔레트 18% 틴트 위 — 그 면으로 글자색을 고른다(KAN-075).
-  const foundation = useVizFoundation();
   const titleInk = (key: string) =>
     pickOnInk(foundation, surfacesFor(foundation, foundation.palette[key as keyof typeof foundation.palette], 0.18));
 

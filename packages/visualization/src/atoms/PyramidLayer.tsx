@@ -1,5 +1,7 @@
 import React from 'react';
 import { vvar } from '../tokens/contract';
+import { pickOnInk, surfacesFor } from '../tokens/onInk';
+import { useVizFoundation } from '../styleGuide/VisualizationStyleGuideProvider';
 
 export interface PyramidLayerProps {
   /** 층의 수평 중심. */
@@ -16,6 +18,8 @@ export interface PyramidLayerProps {
 /** 사다리꼴 계층 층 atom — 피라미드형 Hierarchy의 한 층. */
 export const PyramidLayer = React.forwardRef<SVGGElement, PyramidLayerProps>(
   ({ cx, y, topWidth, bottomWidth, height, label, fill }, ref) => {
+    // 층 안 글자는 그 층의 글자색이다. 층 색을 넘기면 그 색으로 고른다(KAN-075).
+    const foundation = useVizFoundation();
     const d = [
       `M ${cx - topWidth / 2} ${y}`,
       `L ${cx + topWidth / 2} ${y}`,
@@ -41,7 +45,7 @@ export const PyramidLayer = React.forwardRef<SVGGElement, PyramidLayerProps>(
             fontSize={13}
             fontWeight={700}
             fontFamily={vvar('typography', 'titleFont')}
-            style={{ fill: vvar('on', 'canvas', 'bg') }}
+            style={{ fill: fill ? pickOnInk(foundation, surfacesFor(foundation, fill)) : vvar('on', 'shape', 'fill') }}
           >
             {label}
           </text>

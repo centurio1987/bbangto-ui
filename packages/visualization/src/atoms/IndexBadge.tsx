@@ -1,5 +1,7 @@
 import React from 'react';
 import { vvar } from '../tokens/contract';
+import { pickOnInk, surfacesFor } from '../tokens/onInk';
+import { useVizFoundation } from '../styleGuide/VisualizationStyleGuideProvider';
 
 export type IndexBadgeVariant = 'circle' | 'square' | 'pill';
 
@@ -18,7 +20,10 @@ export interface IndexBadgeProps {
 export const IndexBadge = React.forwardRef<SVGGElement, IndexBadgeProps>(
   ({ cx, cy, index, radius = 14, variant = 'circle', fill, textFill }, ref) => {
     const bgFill = fill ?? vvar('shape', 'stroke');
-    const numFill = textFill ?? vvar('canvas', 'bg');
+    // 기본 배지(도형 선색) 위 번호는 그 면으로 글자색을 고른다(KAN-075). 배지 색을 넘기면 textFill 도 함께 넘긴다.
+    const foundation = useVizFoundation();
+    const numFill =
+      textFill ?? (fill === undefined ? pickOnInk(foundation, surfacesFor(foundation, foundation.shape.stroke)) : vvar('canvas', 'bg'));
     const label = String(index).padStart(2, '0');
 
     return (

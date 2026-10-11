@@ -1,6 +1,8 @@
 import { type ReactNode } from 'react';
 import { Canvas, type CanvasProps } from '../atoms/Canvas';
 import { vvar } from '../tokens/contract';
+import { pickOnInk, surfacesFor } from '../tokens/onInk';
+import { useVizFoundation } from '../styleGuide/VisualizationStyleGuideProvider';
 import { resolveLabelFont } from '../tokens/labelFont';
 import { parseViewBox } from '../geometry/layout';
 
@@ -50,6 +52,8 @@ export function SwotMatrix({
   ...canvasProps
 }: SwotMatrixProps) {
   const [vbX, vbY, vbW, vbH] = parseViewBox(viewBox, [0, 0, 440, 360]);
+  // 훅은 데이터 없음 분기보다 먼저 부른다.
+  const foundation = useVizFoundation();
 
   if (!data) {
     return (
@@ -62,6 +66,9 @@ export function SwotMatrix({
   const gap = 10;
   const pad = 16;
   const cellW = (vbW - pad * 2 - gap) / 2;
+  // 사분면(팔레트 28%) 안 글자는 그 면으로 글자색을 고른다(KAN-075).
+  const quadInk = (key: string) =>
+    pickOnInk(foundation, surfacesFor(foundation, foundation.palette[key as keyof typeof foundation.palette], 0.28));
   const cellH = (vbH - pad * 2 - gap) / 2;
 
   const quads: QuadSpec[] = [
@@ -80,11 +87,11 @@ export function SwotMatrix({
         return (
           <g key={q.key} data-bbangto-viz-swot-quadrant data-bbangto-viz-swot-quadrant-key={q.key}>
             <rect data-viz-part="shape" x={x} y={y} width={cellW} height={cellH} rx={8} style={{ fill: vvar('palette', q.palette), fillOpacity: 0.28, stroke: vvar('palette', q.palette), strokeWidth: 1.5 }} />
-            <text x={x + 14} y={y + 22} fontSize={14} fontWeight={800} fontFamily={vvar('typography', 'titleFont')} style={{ fill: vvar('on', 'canvas', 'bg') }}>
+            <text x={x + 14} y={y + 22} fontSize={14} fontWeight={800} fontFamily={vvar('typography', 'titleFont')} style={{ fill: quadInk(q.palette) }}>
               {q.title}
             </text>
             {items.map((it, i) => (
-              <text key={i} x={x + 14} y={y + 46 + i * 18} fontSize={11} fontFamily={resolveLabelFont(it)} style={{ fill: vvar('on', 'canvas', 'bg') }}>
+              <text key={i} x={x + 14} y={y + 46 + i * 18} fontSize={11} fontFamily={resolveLabelFont(it)} style={{ fill: quadInk(q.palette) }}>
                 {`• ${it}`}
               </text>
             ))}

@@ -35,6 +35,8 @@ export function Iceberg({
   ...canvasProps
 }: IcebergProps) {
   const [vbX, vbY, vbW, vbH] = parseViewBox(viewBox, [0, 0, 300, 360]);
+  // 훅은 데이터 없음 분기보다 먼저 부른다.
+  const foundation = useVizFoundation();
 
   if (children != null || !data) {
     return (
@@ -50,7 +52,6 @@ export function Iceberg({
 
   const stroke = vvar('shape', 'stroke');
   // 글자는 그 글자가 놓인 면의 글자색이다(KAN-075). 층은 85% 로 칠해 미리 낸 on 변수와 면이 달라 그 자리에서 고른다.
-  const foundation = useVizFoundation();
   const layerInk = (color: string) => pickOnInk(foundation, surfacesFor(foundation, color, 0.85));
   const apex = off(layout.tip.apex);
   const bl = off(layout.tip.baseLeft);

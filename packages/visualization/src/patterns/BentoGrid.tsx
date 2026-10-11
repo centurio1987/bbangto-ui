@@ -1,6 +1,8 @@
 import { type ReactNode } from 'react';
 import { Canvas, type CanvasProps } from '../atoms/Canvas';
 import { vvar } from '../tokens/contract';
+import { pickOnInk, surfacesFor } from '../tokens/onInk';
+import { useVizFoundation } from '../styleGuide/VisualizationStyleGuideProvider';
 import { parseViewBox } from '../geometry/layout';
 
 const PALETTE_KEYS = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8'] as const;
@@ -33,6 +35,9 @@ const PAD = 16;
  */
 export function BentoGrid({ data, gap = 10, viewBox, children, title = 'Bento grid', ...canvasProps }: BentoGridProps) {
   const [vbX, vbY, vbW, vbH] = parseViewBox(viewBox, [0, 0, 480, 360]);
+  // 칸(팔레트 90%) 안 글자는 그 칸으로 글자색을 고른다(KAN-075).
+  const foundation = useVizFoundation();
+  const cellInk = (color: string) => pickOnInk(foundation, surfacesFor(foundation, color, 0.9));
 
   if (!data) {
     return (
@@ -69,11 +74,11 @@ export function BentoGrid({ data, gap = 10, viewBox, children, title = 'Bento gr
               rx={12}
               style={{ fill: c.color ?? vvar('palette', PALETTE_KEYS[i % PALETTE_KEYS.length]), fillOpacity: 0.9 }}
             />
-            <text x={x + 14} y={y + 26} fontSize={13} fontWeight={700} fontFamily={vvar('typography', 'titleFont')} style={{ fill: vvar('canvas', 'bg') }}>
+            <text x={x + 14} y={y + 26} fontSize={13} fontWeight={700} fontFamily={vvar('typography', 'titleFont')} style={{ fill: cellInk(c.color ?? foundation.palette[PALETTE_KEYS[i % PALETTE_KEYS.length]]) }}>
               {c.title}
             </text>
             {c.value && (
-              <text x={x + 14} y={y + 52} fontSize={20} fontWeight={800} fontFamily={vvar('typography', 'titleFont')} style={{ fill: vvar('canvas', 'bg') }}>
+              <text x={x + 14} y={y + 52} fontSize={20} fontWeight={800} fontFamily={vvar('typography', 'titleFont')} style={{ fill: cellInk(c.color ?? foundation.palette[PALETTE_KEYS[i % PALETTE_KEYS.length]]) }}>
                 {c.value}
               </text>
             )}

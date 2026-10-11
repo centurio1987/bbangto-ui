@@ -77,7 +77,7 @@ function Pane({
         fontSize={17}
         fontWeight={700}
         fontFamily={vvar('typography', 'titleFont')}
-        style={{ fill: vvar('on', 'canvas', 'bg') }}
+        style={{ fill: vvar('on', 'shape', 'fill') }}
       >
         {pane.label}
       </text>
@@ -90,7 +90,7 @@ function Pane({
             dominantBaseline="central"
             fontSize={13}
             fontFamily={vvar('typography', 'titleFont')}
-            style={{ fill: vvar('on', 'canvas', 'bg') }}
+            style={{ fill: vvar('on', 'shape', 'fill') }}
           >
             {item}
           </text>

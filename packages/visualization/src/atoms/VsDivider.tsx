@@ -1,5 +1,7 @@
 import React from 'react';
 import { vvar } from '../tokens/contract';
+import { pickOnInk, surfacesFor } from '../tokens/onInk';
+import { useVizFoundation } from '../styleGuide/VisualizationStyleGuideProvider';
 
 export interface VsDividerProps {
   x: number;
@@ -14,6 +16,9 @@ export const VsDivider = React.forwardRef<SVGGElement, VsDividerProps>(
   ({ x, y1, y2, label = 'VS', radius = 18 }, ref) => {
     const cy = (y1 + y2) / 2;
     const ink = vvar('shape', 'stroke');
+    // 가운데 원(도형 선색) 위 글자는 그 면으로 고른다(KAN-075).
+    const foundation = useVizFoundation();
+    const labelFill = pickOnInk(foundation, surfacesFor(foundation, foundation.shape.stroke));
 
     return (
       <g ref={ref} data-viz-vs-divider>
@@ -27,7 +32,7 @@ export const VsDivider = React.forwardRef<SVGGElement, VsDividerProps>(
           fontSize={radius * 0.7}
           fontWeight={700}
           fontFamily={vvar('typography', 'titleFont')}
-          style={{ fill: vvar('canvas', 'bg') }}
+          style={{ fill: labelFill }}
         >
           {label}
         </text>

@@ -1,6 +1,10 @@
 import { type ReactNode } from 'react';
 import { Canvas, type CanvasProps } from '../atoms/Canvas';
+import { compositeOver, parseColor } from '@centurio1987/bbangto-ui-tokens';
 import { vvar } from '../tokens/contract';
+import { pickOnInk, surfaceOver, surfacesFor } from '../tokens/onInk';
+import { useVizFoundation } from '../styleGuide/VisualizationStyleGuideProvider';
+import type { VisualizationFoundation } from '../tokens/types';
 import { parseViewBox } from '../geometry/layout';
 import { vennCircles, type VennCircle } from '../geometry/venn';
 
@@ -34,10 +38,11 @@ export interface VennProps extends Omit<CanvasProps, 'data'> {
  */
 export function Venn({ data, viewBox, children, ...canvasProps }: VennProps) {
   const [vbX, vbY, vbW, vbH] = parseViewBox(viewBox, [0, 0, 420, 360]);
+  const foundation = useVizFoundation();
 
   return (
     <Canvas viewBox={viewBox} data-bbangto-viz-pattern="venn" {...canvasProps}>
-      {data ? renderVenn(data, { x: vbX, y: vbY, width: vbW, height: vbH }) : children}
+      {data ? renderVenn(data, { x: vbX, y: vbY, width: vbW, height: vbH }, foundation) : children}
     </Canvas>
   );
 }
@@ -45,12 +50,28 @@ export function Venn({ data, viewBox, children, ...canvasProps }: VennProps) {
 function renderVenn(
   data: { sets: VennSetSpec[]; intersections?: VennIntersectionSpec[] },
   box: { x: number; y: number; width: number; height: number },
+  foundation: VisualizationFoundation,
 ): ReactNode {
   const circles = vennCircles(
     data.sets.map((s) => ({ id: s.id, size: s.size })),
     box,
   );
   const byId = new Map<string, VennCircle>(circles.map((c) => [c.id, c]));
+  // 원은 32% 로 칠한다. 이름은 그 원 면으로, 겹친 자리 글자는 겹친 원들을 차례로 얹은 면으로 글자색을 고른다(KAN-075).
+  const colorOf = (i: number) => data.sets[i]?.color ?? foundation.palette[PALETTE_KEYS[i % PALETTE_KEYS.length]];
+  const indexOf = new Map(circles.map((c, i) => [c.id, i]));
+  // 겹친 자리 라벨은 원 중심들의 가운데에 놓이는데, 원 크기에 따라 그 자리가 셋 다 겹친 면일 수도 바탕일 수도 있다.
+  // 그래서 바탕 · 원 하나하나 · 모두 겹친 면 어디서나 읽히는 색을 고른다(sankey 이름과 같은 방식).
+  const overlapInk = (ids: string[]) => {
+    const canvas = surfaceOver(foundation, 'transparent');
+    const singles = ids.map((id) => surfaceOver(foundation, colorOf(indexOf.get(id) ?? 0), 0.32));
+    let all = canvas;
+    for (const id of ids) {
+      const c = parseColor(colorOf(indexOf.get(id) ?? 0));
+      if (c) all = compositeOver({ ...c, a: c.a * 0.32 }, all);
+    }
+    return pickOnInk(foundation, [canvas, ...singles, all]);
+  };
 
   return (
     <>
@@ -87,7 +108,7 @@ function renderVenn(
             fontSize={13}
             fontWeight={700}
             fontFamily={vvar('typography', 'titleFont')}
-            style={{ fill: vvar('on', 'canvas', 'bg') }}
+            style={{ fill: pickOnInk(foundation, surfacesFor(foundation, colorOf(i), 0.32)) }}
           >
             {data.sets[i].label}
           </text>
@@ -110,7 +131,8 @@ function renderVenn(
             fontSize={12}
             fontWeight={700}
             fontFamily={vvar('typography', 'titleFont')}
-            style={{ fill: vvar('on', 'canvas', 'bg') }}
+            data-viz-ink-multi
+            style={{ fill: overlapInk(it.ids) }}
           >
             {it.label}
           </text>

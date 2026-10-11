@@ -1,5 +1,7 @@
 import React from 'react';
 import { vvar } from '../tokens/contract';
+import { pickOnInk, surfacesFor } from '../tokens/onInk';
+import { useVizFoundation } from '../styleGuide/VisualizationStyleGuideProvider';
 import { resolveLabelFont } from '../tokens/labelFont';
 
 export interface MilestoneMarkerProps {
@@ -18,6 +20,9 @@ export interface MilestoneMarkerProps {
 export const MilestoneMarker = React.forwardRef<SVGGElement, MilestoneMarkerProps>(
   ({ x, y, period, side = 'above', radius = 7, fill }, ref) => {
     const dotFill = fill ?? vvar('shape', 'stroke');
+    // 기본 알약(도형 선색) 위 글자는 그 면으로 고른다(KAN-075). 색을 넘기면 계산할 수 없어 캔버스 바탕색이다.
+    const foundation = useVizFoundation();
+    const periodFill = fill === undefined ? pickOnInk(foundation, surfacesFor(foundation, foundation.shape.stroke)) : vvar('canvas', 'bg');
     const badgeW = Math.max(44, period.length * 9 + 16);
     const dir = side === 'above' ? -1 : 1;
     const badgeCenterY = y + dir * (radius + 19);
@@ -41,7 +46,7 @@ export const MilestoneMarker = React.forwardRef<SVGGElement, MilestoneMarkerProp
           fontSize={11}
           fontWeight={700}
           fontFamily={resolveLabelFont(period)}
-          style={{ fill: vvar('canvas', 'bg') }}
+          style={{ fill: periodFill }}
         >
           {period}
         </text>

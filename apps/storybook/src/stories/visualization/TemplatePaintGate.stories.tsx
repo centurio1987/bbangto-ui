@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { SankeyDiagram, VisualizationStyleGuideProvider } from '@centurio1987/bbangto-ui-visualization';
 import type { VisualizationStyleGuide } from '@centurio1987/bbangto-ui-visualization';
@@ -10,6 +11,8 @@ import type { RGBA } from '@centurio1987/bbangto-ui-tokens';
 import { expect } from 'storybook/test';
 import { LABEL_CONTRAST_BASELINE } from './_labelContrastBaseline';
 import { PAINT_GATE_FIXTURES } from './_paintGateFixtures';
+import * as PatternStories from './Patterns.stories';
+import * as PatternsP3Stories from './PatternsP3.stories';
 
 /**
  * 템플릿 paint 게이트 — 스타일 가이드를 바꾸면 템플릿의 색도 바뀌는가 (KAN-056).
@@ -181,6 +184,8 @@ export const LiteralPaintGate: Story = {
  * - 기준: WCAG AA — 보통 글자 4.5:1, 큰 글자(화면 24px 이상, 굵게면 18.66px 이상) 3:1.
  * - wrapperComponents 는 넣지 않는다. 모티프 장식은 템플릿 몫이 아니다.
  * - 면 위 글자는 그 면에 맞춘 글자색 `vvar('on', …)`(`--bbangto-viz-on-*`)을 쓴다. 기준 목록은 KAN-061 에서 비웠다.
+ * - 표본은 템플릿 68개에 패턴 스토리(Patterns·PatternsP3)를 더한 `INK_FIXTURES` 다. 패턴 글자도 면 위 글자색으로
+ *   바꾸면서(KAN-075) 패턴이 표본에 없으면 가이드 30개에서 읽히는지 잴 자리가 없었다.
  */
 const TEXT_CONTRAST_MIN = 4.5;
 const LARGE_TEXT_CONTRAST_MIN = 3;
@@ -256,7 +261,7 @@ export const LabelContrastGate: Story = {
             styleGuide={{ name: sg.name, foundations: sg.foundations }}
             style={{ display: 'flex', gap: 8, flexWrap: 'wrap', padding: 8 }}
           >
-            {GATE_FIXTURES.map((fx) => (
+            {INK_FIXTURES.map((fx) => (
               <div key={fx.key} data-contrast-gate-cell={fx.key}>
                 {fx.render()}
               </div>
@@ -274,7 +279,7 @@ export const LabelContrastGate: Story = {
     for (const section of sections) {
       const guide = section.dataset.contrastGateGuide!;
       const cells = Array.from(section.querySelectorAll<HTMLElement>('[data-contrast-gate-cell]'));
-      await expect(cells.length).toBe(GATE_FIXTURES.length);
+      await expect(cells.length).toBe(INK_FIXTURES.length);
       for (const cell of cells) {
         const key = cell.dataset.contrastGateCell!;
         const result = collectLowContrast(guide, key, cell);
@@ -317,11 +322,25 @@ const INK_PRESETS = vizStyleGuideCatalog.flatMap((sg) =>
 );
 const INK_SHADE: RGBA = { r: 0, g: 0, b: 0, a: 0.05 };
 /**
- * 재지 않는 표본과 사유. 글자 하나의 바로 뒤 면만 보면 안 되는 템플릿이다 — 조용히 빼지 않고 여기 적는다.
- * - sankey: 노드 이름 밑에는 리본이 깔릴 수도 바탕이 깔릴 수도 있어, 그 자리에 올 수 있는 면 전부에서 읽히는 색을
- *   고른다(KAN-061 검토 5번). 가이드 색이 그중 한 리본에서라도 못 넘으면 검정·흰색이 맞다. 대비는 SankeyRibbonLabelGate 가 본다.
+ * 재지 않는 글자와 사유. 글자 하나의 바로 뒤 면만 보면 안 되는 자리다 — 조용히 빼지 않고 여기 적는다.
+ * - `data-viz-ink-multi` 를 단 글자: 밑에 올 수 있는 면이 여럿이라(sankey 노드 이름 밑의 리본, Venn 겹친 자리의 원들),
+ *   그 면 전부에서 읽히는 색을 고른다(KAN-061 검토 5번). 가이드 색이 그중 한 면에서라도 못 넘으면 검정·흰색이 맞다.
+ *   대비는 LabelContrastGate·SankeyRibbonLabelGate 가 본다.
+ * - 통계 숫자의 증감(`data-viz-stat-delta`): 오르내림을 팔레트 두 색으로 가른 의미 색이다. 부호를 함께 써서 색만으로
+ *   뜻을 나타내지 않고, 그 색이 밑 면에서 못 읽히면 숫자와 같은 글자색이 된다(소스 검사 textPaint.test.ts 의 예외와 같다).
  */
-const INK_EXEMPT = new Set(['sankey']);
+const isInkExempt = (text: SVGTextElement) => text.hasAttribute('data-viz-ink-multi') || text.hasAttribute('data-viz-stat-delta');
+
+/**
+ * 표본 — 템플릿 68개(Paint Gate 와 같은 것)에 패턴 스토리(Patterns·PatternsP3)를 더한다. 패턴은 Paint Gate 표본에
+ * 없어서, 패턴 글자가 가이드 글자색을 건너뛰어도 검사가 몰랐다(KAN-075 검토 항목 2). 스토리의 render 를 그대로 쓴다.
+ */
+const PATTERN_FIXTURES = [PatternStories, PatternsP3Stories].flatMap((mod) =>
+  Object.entries(mod as Record<string, unknown>)
+    .filter(([name, story]) => name !== 'default' && typeof (story as { render?: unknown })?.render === 'function')
+    .map(([name, story]) => ({ key: `pattern:${name}`, render: (story as { render: () => ReactNode }).render })),
+);
+const INK_FIXTURES = [...GATE_FIXTURES.map((fx) => ({ key: fx.key, render: fx.render })), ...PATTERN_FIXTURES];
 
 const sameRgb = (a: RGBA, b: RGBA) =>
   Math.round(a.r) === Math.round(b.r) && Math.round(a.g) === Math.round(b.g) && Math.round(a.b) === Math.round(b.b);
@@ -332,7 +351,7 @@ function collectWrongInk(id: string, ink: RGBA, key: string, cell: Element): { w
   cell.querySelectorAll<SVGSVGElement>('svg[data-bbangto-viz-canvas]').forEach((svg) => {
     svg.querySelectorAll<SVGTextElement>('text').forEach((text, i) => {
       const label = (text.textContent ?? '').trim();
-      if (!label || text.closest('defs')) return;
+      if (!label || text.closest('defs') || isInkExempt(text)) return;
       const paint = fillPaint(text, svg);
       if (!paint || paint.a === 0) return;
       const bg = backdropOf(text, svg);
@@ -357,7 +376,7 @@ export const TextInkGate: Story = {
             styleGuide={{ name: p.name, foundations: p.foundations }}
             style={{ display: 'flex', gap: 8, flexWrap: 'wrap', padding: 8 }}
           >
-            {GATE_FIXTURES.map((fx) => (
+            {INK_FIXTURES.map((fx) => (
               <div key={fx.key} data-text-ink-gate-cell={fx.key}>
                 {fx.render()}
               </div>
@@ -369,6 +388,7 @@ export const TextInkGate: Story = {
   ),
   play: async ({ canvasElement }) => {
     await expect(INK_PRESETS.length).toBeGreaterThan(0);
+    await expect(PATTERN_FIXTURES.length).toBeGreaterThanOrEqual(30);
     const sections = Array.from(canvasElement.querySelectorAll<HTMLElement>('[data-text-ink-gate]'));
     await expect(sections.length).toBe(INK_PRESETS.length);
 
@@ -377,7 +397,6 @@ export const TextInkGate: Story = {
     for (const section of sections) {
       const preset = INK_PRESETS.find((p) => p.id === section.dataset.textInkGate)!;
       for (const cell of Array.from(section.querySelectorAll<HTMLElement>('[data-text-ink-gate-cell]'))) {
-        if (INK_EXEMPT.has(cell.dataset.textInkGateCell!)) continue;
         const result = collectWrongInk(preset.id, preset.ink, cell.dataset.textInkGateCell!, cell);
         expected += result.expected;
         wrong.push(...result.wrong);

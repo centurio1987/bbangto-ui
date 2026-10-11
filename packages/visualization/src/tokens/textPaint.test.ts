@@ -2,10 +2,11 @@ import { describe, it, expect } from 'vitest';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
-// KAN-075 — 글자는 그 글자가 놓인 면의 글자색(`vvar('on', …)`)을 쓴다. 도형·연결선 색을 바로 칠하지 않는다.
+// KAN-075 — 글자는 그 글자가 놓인 면의 글자색(`vvar('on', …)`)을 쓴다. 도형·연결선 색, 팔레트 색, 캔버스 바탕색을
+// 바로 칠하지 않는다.
 //
 // 면 위 글자색은 가이드가 바라는 글자색(`on.ink`)을 먼저 보고 대비까지 지킨다. 템플릿이 `vvar('shape', 'stroke')`·
-// `vvar('edge', 'stroke')` 를 글자에 바로 칠하면 그 길을 건너뛰어, 지침 문장이 「라벨은 크림」인 가이드에서 문장이
+// `vvar('edge', 'stroke')`·`vvar('palette', …)`·`vvar('canvas', 'bg')` 를 글자에 바로 칠하면 그 길을 건너뛰어, 지침 문장이 「라벨은 크림」인 가이드에서 문장이
 // 금지한 골드·네온이 칠해졌다. 이 검사는 소스에서 `<text>` 와 글자 부품의 fill 을 읽어 그 꼴을 찾는다. 같은 파일에서
 // `const` 로 만든 이름을 거쳐 칠하는 것도 따라간다.
 //
@@ -15,7 +16,13 @@ import { join, relative } from 'node:path';
 // 함께 있으면 예외로 본다.
 
 const SRC = join(__dirname, '..');
-const STROKE = /vvar\('(shape|edge)', 'stroke'\)/;
+const NOT_INK = /vvar\('(shape|edge)', 'stroke'\)|vvar\('palette',|vvar\('canvas', 'bg'\)/;
+
+/**
+ * 면의 글자색이 아닌 색을 일부러 쓰는 글자와 그 사유. `파일:이름` 으로 적는다.
+ * - StatNumber 증감: 오르내림을 팔레트 두 색으로 가른 의미 색이다. 부호(+ · −)를 함께 써서 색만으로 뜻을 나타내지 않는다.
+ */
+const MEANING_COLORS = new Set(['atoms/StatNumber.tsx:deltaFill']);
 
 function tsxFiles(dir: string): string[] {
   return readdirSync(dir).flatMap((name) => {
@@ -89,7 +96,8 @@ function violations(): string[] {
     for (const { line, expr } of textFills(source)) {
       const ident = /^[A-Za-z_$][\w$]*$/.test(expr) ? expr : null;
       const resolved = ident ? constExpr(source, ident) : expr;
-      if (!STROKE.test(resolved)) continue;
+      if (!NOT_INK.test(resolved)) continue;
+      if (ident && MEANING_COLORS.has(`${relative(SRC, file)}:${ident}`)) continue;
       if (hasSurfaceInk(source, resolved)) continue; // 사용자가 넘긴 면의 갈래
       out.push(`${relative(SRC, file)}:${line} fill: ${expr}${ident ? ` (= ${resolved.trim()})` : ''}`);
     }
@@ -103,7 +111,7 @@ describe('글자색은 면의 on 변수 (KAN-075)', () => {
     expect(total).toBeGreaterThan(100);
   });
 
-  it('<text> 에 도형·연결선 색을 바로 칠하지 않는다', () => {
+  it('<text> 에 도형·연결선·팔레트 색과 캔버스 바탕색을 바로 칠하지 않는다', () => {
     expect(violations()).toEqual([]);
   });
 });
