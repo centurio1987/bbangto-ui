@@ -1,6 +1,6 @@
 {
   "next_id": 80,
-  "next_seq": 297,
+  "next_seq": 300,
   "cards": {
     "KAN-020": {
       "col": "done",
@@ -1615,8 +1615,8 @@
       "reason_hash": "5e28e4848e880aef70eaaedb3f590c2b1a1d248c",
       "goal": "에이전트가 배치 엔진을 빌려도 그리기는 bbangto-ui 로 남는다는 것을 배포 README 에서 읽고, 그 안내와 예제가 검사로 지켜진다",
       "goal_hash": "967513204fe3b45233ea81d7d337e14775a665ce",
-      "memo": "KAN-071 검토 항목 2(2026-10-11 승인) 추천 「앱 안 확장으로 보고 README 에 안내를 더한다」. 버린 갈래: visualization geometry 에 계층 배치 함수를 넣는다. 검사 자리는 KAN-067 의 publishedDocs",
-      "memo_hash": "6c5c1e00d885e6daa620c5ee090da5ffa5025251"
+      "memo": "KAN-071 검토 항목 2(2026-10-11 승인) 추천 「앱 안 확장으로 보고 README 에 안내를 더한다」. 버린 갈래: visualization geometry 에 계층 배치 함수를 넣는다. 검사 자리는 KAN-067 의 publishedDocs · 직렬: KAN-078(노출 없는 재시험) 완료 뒤 전략을 다시 세우고 착수(2026-10-12 유저 지시). 착수 때 scope 를 정하면 직렬 기록이 자동으로 풀리므로 dep-serialize 를 다시 건다",
+      "memo_hash": "cef5db7339167d7537b7e7debb1c32ae171d2490"
     },
     "KAN-077-0YAFWG": {
       "col": "backlog",
@@ -1655,8 +1655,8 @@
       "reason_hash": "aa1236f22db260488750b234739ae6f7444a64c8",
       "goal": "시험 환경 노출이 0건인 표본으로 루트·배포 README 수정 전후에 기획 세션의 결론(저장소 기여 · 배치 라이브러리 · 절 인용)이 바뀌는지 기록된다",
       "goal_hash": "f61f9798a773a3f2fa62acf0b44cd277c7172dd0",
-      "memo": "비용 API 환산 약 150달러·약 2시간(KAN-071 실측). 하네스와 함정은 저장소 밖 ~/.local/share/bbangto-ui-agent-repro/KAN-071/harness 와 메모리 agent-repro-harness. 노출은 analyze.py 의 exposure 로 센다",
-      "memo_hash": "ab2614bb6d3cc7accca5621f000cad70cb2e6c9b"
+      "memo": "비용 API 환산 약 150달러·약 2시간(KAN-071 실측). 하네스와 함정은 저장소 밖 ~/.local/share/bbangto-ui-agent-repro/KAN-071/harness 와 메모리 agent-repro-harness. 노출은 analyze.py 의 exposure 로 센다 · 직렬: 이 카드가 KAN-076(viz 배치 엔진 안내)보다 먼저다 — 076 이 README 를 바꾸면 「지금 판」 조건이 달라진다(2026-10-12 유저 지시). 착수 때 scope 를 정하면 직렬 기록이 자동으로 풀리므로 dep-serialize 를 다시 건다",
+      "memo_hash": "9f5d63a1ef6dc945abba060dcbcaacfa5b14864b"
     },
     "KAN-079-CFS73T": {
       "col": "todo",
@@ -1683,6 +1683,7 @@
     "KAN-076-NHP81Z",
     "KAN-077-0YAFWG",
     "KAN-078-0TF6NT",
+    "KAN-079-CFS73T",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1756,10 +1757,41 @@
     "KAN-069-G0FGTJ",
     "KAN-066-T6NR80",
     "KAN-075-4K5GK3",
-    "KAN-071-FK1W8K",
-    "KAN-079-CFS73T"
+    "KAN-071-FK1W8K"
   ],
   "recent": [
+    {
+      "seq": 299,
+      "t": "2026-10-12T15:50",
+      "a": "ai",
+      "id": "KAN-078-0TF6NT",
+      "op": "edit",
+      "w": "S7030N",
+      "field": "memo",
+      "before": "비용 API 환산 약 150달러·약 2시간(KAN-071 실측). 하네스와 함정은 저장소 밖 ~/.local/share/bbangto-ui-agent-repro/KAN-071/harness 와 메모리 agent-repro-harness. 노출은 analyze.py 의 exposure 로 센다",
+      "after": "비용 API 환산 약 150달러·약 2시간(KAN-071 실측). 하네스와 함정은 저장소 밖 ~/.local/share/bbangto-ui-agent-repro/KAN-071/harness 와 메모리 agent-repro-harness. 노출은 analyze.py 의 exposure 로 센다 · 직렬: 이 카드가 KAN-076(viz 배치 엔진 안내)보다 먼저다 — 076 이 README 를 바꾸면 「지금 판」 조건이 달라진다(2026-10-12 유저 지시). 착수 때 scope 를 정하면 직렬 기록이 자동으로 풀리므로 dep-serialize 를 다시 건다"
+    },
+    {
+      "seq": 298,
+      "t": "2026-10-12T15:50",
+      "a": "ai",
+      "id": "KAN-076-NHP81Z",
+      "op": "edit",
+      "w": "S7030N",
+      "field": "memo",
+      "before": "KAN-071 검토 항목 2(2026-10-11 승인) 추천 「앱 안 확장으로 보고 README 에 안내를 더한다」. 버린 갈래: visualization geometry 에 계층 배치 함수를 넣는다. 검사 자리는 KAN-067 의 publishedDocs",
+      "after": "KAN-071 검토 항목 2(2026-10-11 승인) 추천 「앱 안 확장으로 보고 README 에 안내를 더한다」. 버린 갈래: visualization geometry 에 계층 배치 함수를 넣는다. 검사 자리는 KAN-067 의 publishedDocs · 직렬: KAN-078(노출 없는 재시험) 완료 뒤 전략을 다시 세우고 착수(2026-10-12 유저 지시). 착수 때 scope 를 정하면 직렬 기록이 자동으로 풀리므로 dep-serialize 를 다시 건다"
+    },
+    {
+      "seq": 297,
+      "t": "2026-10-12T15:50",
+      "a": "ai",
+      "id": "KAN-076-NHP81Z",
+      "op": "serialize",
+      "w": "S7030N",
+      "with_": "KAN-078-0TF6NT",
+      "reason": "KAN-078 은 README 수정 전후로 기획 세션 결론이 바뀌는지 재고, KAN-076 은 visualization README 에 배치 엔진 안내를 더한다. 076 이 먼저 들어가면 078 의 「지금 판」 조건이 바뀌므로 078 을 먼저 한다(2026-10-12 유저 지시 「직렬 설정해」)"
+    },
     {
       "seq": 296,
       "t": "2026-10-12T14:59",
@@ -2283,37 +2315,6 @@
       "reason": "KAN-061 이 템플릿 글자 1,538곳의 대비를 고쳐 그림이 바뀌는데, KAN-064 major 와 함께 나가면 visualization ^0.4 앱은 1.0 으로 올려야 받는다",
       "goal": "세 카드의 수정이 major 없이 배포되고, 그 직후 KAN-064 를 main 에 병합할 수 있다",
       "memo": "KAN-061 이 완료·main 병합된 뒤 착수. push·배포는 사용자 실행 지시 뒤에만. 이 배포 직후 KAN-064 병합(그 사이 다른 카드는 기다리지 않음). 흐름은 KAN-068 과 같다"
-    },
-    {
-      "seq": 267,
-      "t": "2026-10-10T03:01",
-      "a": "ai",
-      "id": "KAN-061-K8V2HH",
-      "op": "waive",
-      "w": "7E5YYM",
-      "with_": "KAN-064-AC0H6M",
-      "reason": "packages/visualization/README.md 를 함께 고치지만 자리가 다름(KAN-064 56~114줄 매니페스트 절, KAN-061 257줄 근처). 순서는 KAN-061 을 0.x 줄로 먼저 배포한 뒤 KAN-064 병합 (2026-10-10 유저 선택)"
-    },
-    {
-      "seq": 266,
-      "t": "2026-10-10T01:03",
-      "a": "ai",
-      "id": "KAN-071-FK1W8K",
-      "op": "edit",
-      "w": "S7030N",
-      "field": "memo",
-      "before": "KAN-067 검토 항목 1(2026-10-10 승인)에서 나왔다. 실제 사례(앱 지시문·프롬프트·모델)는 유저에게 받는다. 루트 README 두 자리 카드와 같은 경로를 본다",
-      "after": "KAN-067 검토 항목 1(2026-10-10 승인)에서 나왔다. 실제 사례(앱 지시문·프롬프트·모델)는 유저에게 받는다. KAN-072(루트 README 두 자리)와 같은 경로를 보므로 그 카드 전후로 비교한다"
-    },
-    {
-      "seq": 266,
-      "t": "2026-10-10T01:43",
-      "a": "ai",
-      "id": "KAN-068-W6TE2S",
-      "op": "move",
-      "w": "V5ZA3M",
-      "from": "review",
-      "to": "done"
     }
   ],
   "waivers": [
@@ -2549,6 +2550,18 @@
       "by": "ai",
       "restrategy_required": false,
       "restrategy_done": "2026-10-11T01:32"
+    },
+    {
+      "pair": "KAN-076-NHP81Z|KAN-078-0TF6NT",
+      "order": [
+        "KAN-078-0TF6NT",
+        "KAN-076-NHP81Z"
+      ],
+      "scope_hash": "94f6d9cdd1ea8248",
+      "reason": "KAN-078 은 README 수정 전후로 기획 세션 결론이 바뀌는지 재고, KAN-076 은 visualization README 에 배치 엔진 안내를 더한다. 076 이 먼저 들어가면 078 의 「지금 판」 조건이 바뀌므로 078 을 먼저 한다(2026-10-12 유저 지시 「직렬 설정해」)",
+      "created": "2026-10-12T15:50",
+      "by": "ai",
+      "restrategy_required": false
     }
   ]
 }
