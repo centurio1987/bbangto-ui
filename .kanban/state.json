@@ -1,6 +1,6 @@
 {
   "next_id": 80,
-  "next_seq": 300,
+  "next_seq": 303,
   "cards": {
     "KAN-020": {
       "col": "done",
@@ -1659,7 +1659,7 @@
       "memo_hash": "9f5d63a1ef6dc945abba060dcbcaacfa5b14864b"
     },
     "KAN-079-CFS73T": {
-      "col": "todo",
+      "col": "done",
       "title": "미배포 변경 배포 — KAN-069·070·072·075 (tokens·visualization·visualization-style-guide-catalog 2.0.0 · core 1.2.3 · foundations 2.0.1 · style-guide-catalog 1.0.1)",
       "verbatim": "71 완료 했을 때 시점에서, npm package는 재배포해야 할 필요가 없는지 확인해 줘\n방금 071 끝났으니 만들어라 (앞 질문 「배포 카드를 지금 만들까요? (만들어도 push·배포는 따로 지시를 받은 뒤에 합니다)」에 대한 답)",
       "생성": "ai",
@@ -1676,14 +1676,31 @@
       "goal": "레지스트리에 새 버전 6개가 올라가고, 배포본에서 changeset 마다 변경이 확인되며, 외부 앱에 major 업그레이드 안내(지운 토큰 필드와 대신 쓸 것)가 남는다",
       "goal_hash": "3b57b25676458fa81975c9babd96a0de6006fb77",
       "memo": "절차는 KAN-074 와 같다(S1 점검 → S2 push·Version PR 대조·병합 → S3 배포본 확인과 전달). push 하면 main 로컬 커밋 전부와 release.yml 이 나간다. 버전은 2026-10-12 pnpm changeset status 계산값",
-      "memo_hash": "b14215272200eb4bb645badb48e1510e6ffb990c"
+      "memo_hash": "b14215272200eb4bb645badb48e1510e6ffb990c",
+      "scope": [
+        "packages/tokens/package.json",
+        "packages/tokens/CHANGELOG.md",
+        "packages/core/package.json",
+        "packages/core/CHANGELOG.md",
+        "packages/foundations/package.json",
+        "packages/foundations/CHANGELOG.md",
+        "packages/style-guide-catalog/package.json",
+        "packages/style-guide-catalog/CHANGELOG.md",
+        "packages/visualization/package.json",
+        "packages/visualization/CHANGELOG.md",
+        "packages/visualization-style-guide-catalog/package.json",
+        "packages/visualization-style-guide-catalog/CHANGELOG.md",
+        ".changeset/kan-069-unused-viz-tokens.md",
+        ".changeset/kan-070-connector-dash-scope.md",
+        ".changeset/kan-072-viz-readme-arrowhead.md",
+        ".changeset/kan-075-guide-text-ink.md"
+      ]
     }
   },
   "order": [
     "KAN-076-NHP81Z",
     "KAN-077-0YAFWG",
     "KAN-078-0TF6NT",
-    "KAN-079-CFS73T",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1757,9 +1774,40 @@
     "KAN-069-G0FGTJ",
     "KAN-066-T6NR80",
     "KAN-075-4K5GK3",
-    "KAN-071-FK1W8K"
+    "KAN-071-FK1W8K",
+    "KAN-079-CFS73T"
   ],
   "recent": [
+    {
+      "seq": 302,
+      "t": "2026-10-12T16:27",
+      "a": "ai",
+      "id": "KAN-079-CFS73T",
+      "op": "move",
+      "w": "451TXT",
+      "from": "review",
+      "to": "done"
+    },
+    {
+      "seq": 301,
+      "t": "2026-10-12T16:09",
+      "a": "ai",
+      "id": "KAN-079-CFS73T",
+      "op": "move",
+      "w": "451TXT",
+      "from": "doing",
+      "to": "review"
+    },
+    {
+      "seq": 300,
+      "t": "2026-10-12T15:51",
+      "a": "ai",
+      "id": "KAN-079-CFS73T",
+      "op": "move",
+      "w": "451TXT",
+      "from": "todo",
+      "to": "doing"
+    },
     {
       "seq": 299,
       "t": "2026-10-12T15:50",
@@ -2277,44 +2325,6 @@
       "w": "HTKBTA",
       "from": "review",
       "to": "done"
-    },
-    {
-      "seq": 268,
-      "t": "2026-10-10T03:01",
-      "a": "ai",
-      "id": "KAN-064-AC0H6M",
-      "op": "edit",
-      "w": "7E5YYM",
-      "field": "memo",
-      "before": "선행 확인: 실제 토크나이저로 4종 크기 실측(어림값 검증). 전부 걷어내는 안은 버림 — foundation 76종은 메타가 유일한 선택 근거",
-      "after": "병합 대기 — KAN-061 을 KAN-057·067 과 함께 0.x 줄로 먼저 배포한 뒤 main 에 병합(2026-10-10 유저 선택). 토큰 실측·버린 안은 실행 문서 전략 절"
-    },
-    {
-      "seq": 267,
-      "t": "2026-10-10T01:27",
-      "a": "ai",
-      "id": "KAN-061-K8V2HH",
-      "op": "move",
-      "w": "HTKBTA",
-      "from": "doing",
-      "to": "review"
-    },
-    {
-      "seq": 267,
-      "t": "2026-10-10T03:02",
-      "a": "ai",
-      "id": "KAN-073-6YWHN9",
-      "op": "create",
-      "w": "S7030N",
-      "col": "backlog",
-      "title": "미배포 수정분 배포 2 — KAN-057·067·061 을 KAN-064 major 전에 (사용자 실행 지시 후)",
-      "verbatim": "KAN-061 먼저 (앞 질문 「검토 중인 KAN-061(템플릿 글자 대비 1,538곳, viz·tokens minor)을 KAN-064 major 보다 먼저 내보낼까요?」에 대한 답)",
-      "parent": null,
-      "short": "미배포 수정분 배포 2",
-      "purpose": "main 의 changeset(KAN-057 연결선 대시 · KAN-067 배포 문서 · KAN-061 템플릿 글자 대비)을 지금 버전 줄(0.x 등)로 GitHub Packages 에 먼저 배포한다",
-      "reason": "KAN-061 이 템플릿 글자 1,538곳의 대비를 고쳐 그림이 바뀌는데, KAN-064 major 와 함께 나가면 visualization ^0.4 앱은 1.0 으로 올려야 받는다",
-      "goal": "세 카드의 수정이 major 없이 배포되고, 그 직후 KAN-064 를 main 에 병합할 수 있다",
-      "memo": "KAN-061 이 완료·main 병합된 뒤 착수. push·배포는 사용자 실행 지시 뒤에만. 이 배포 직후 KAN-064 병합(그 사이 다른 카드는 기다리지 않음). 흐름은 KAN-068 과 같다"
     }
   ],
   "waivers": [
