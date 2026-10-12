@@ -2,56 +2,6 @@
   "next_id": 76,
   "next_seq": 293,
   "cards": {
-    "KAN-071-FK1W8K": {
-      "col": "backlog",
-      "title": "앱 에이전트의 라이브러리 이탈·개선 요청 실제 사례 재현 — 저장소 열람과 구현까지 연 시험",
-      "verbatim": "최종 승인한다 (KAN-067 검토 항목 1 「재현 시험이 겪으신 현상을 재현하지 못했는데 이 카드를 닫을 것인가」의 추천 「닫고, 실제 사례로 재현하는 후속 카드를 연다」를 포함한 전체 승인)",
-      "생성": "ai",
-      "최종": "ai",
-      "갱신": "2026-10-10",
-      "title_hash": "e74f32b7b1fafbe7d75f212ae882f292680d47b0",
-      "verbatim_hash": "ee4c73df063bc021a59c4053a2e623a3f7cdf13a",
-      "short": "이탈 현상 실제 재현",
-      "short_hash": "3fe976002d64e57596f14267838ec81645a4fec8",
-      "purpose": "겪은 상황(앱 지시문·과제 문구·모델)을 받아, 저장소·인터넷 열람과 구현을 막지 않은 조건으로 배포물 전후 시험을 다시 돌린다",
-      "purpose_hash": "dc211e9a1871d72419760d7de35090fc498403c8",
-      "reason": "KAN-067 S5 는 저장소 열람과 구현을 막은 조건이라 고치기 전에도 현상이 재현되지 않았고, 진단이 꼽은 경로(core README 저장소 링크 → 루트 README 「기여한다」)는 시험하지 못했다",
-      "reason_hash": "e4c17be2d8438e41255df9eebcfb56be09879120",
-      "goal": "현상이 재현되는 조건과 남은 원인이 기록되고, 배포 README 와 루트 README 수정 전후로 결론이 바뀌는지 확인된다",
-      "goal_hash": "e95b4042b9c9383777d31707bda88f5f95447b20",
-      "memo": "KAN-067 검토 항목 1(2026-10-10 승인)에서 나왔다. 실제 사례(앱 지시문·프롬프트·모델)는 유저에게 받는다. KAN-072(루트 README 두 자리)와 같은 경로를 보므로 그 카드 전후로 비교한다",
-      "memo_hash": "d9424b73f2e50a0509ad0572ab459e121ea7edf7"
-    },
-    "KAN-075-4K5GK3": {
-      "col": "done",
-      "title": "viz 가이드 지침 문장과 실제 글자색 맞추기 — 저자가 정한 글자색과 칠해지는 노드·C4 글자색이 다른 가이드",
-      "verbatim": "후속 카드로 넘긴다 (Recommended) (KAN-069 검토 뒤 질문 「항목 3(가이드 지침 문장이 실제 글자색과 어긋남)을 어떻게 풀까요? 원인은 KAN-061 글자색 계산이 연결선 색을 먼저 골라, 저자가 글자색으로 정하고 다른 색은 금지한 가이드 4곳(artdeco·synthwave·darkluxe·hud-telemetry)에서 금지한 색이 칠해지는 것입니다.」에 대한 답)",
-      "생성": "ai",
-      "최종": "ai",
-      "갱신": "2026-10-12",
-      "title_hash": "4f75199f464a0f4bd5975b6ab440c32855d35ec9",
-      "verbatim_hash": "01248cc7fef3f97c28506a5aa9ef29e2fdf6600d",
-      "short": "가이드 글자색 문장 맞추기",
-      "short_hash": "155f3df2a75142a2c8fc472fc77daf6487a5041f",
-      "purpose": "가이드 지침에 적힌 글자색 규칙과 실제로 칠해지는 노드·C4 글자색이 다른 가이드를 찾아, 문장을 그림에 맞출지 그림을 문장에 맞출지 정하고 맞춘다",
-      "purpose_hash": "f919e86cbc9c4235896b1884a4f35ab0ae6ea378",
-      "reason": "KAN-061 글자색 계산이 연결선 색을 먼저 골라 artdeco-luxe·synthwave·darkluxe·hud-telemetry 에서 저자가 금지한 골드·네온·시안이 칠해진다(KAN-069 검토 항목 3 반려에서 확인)",
-      "reason_hash": "234173e1f041bd79a08791864bd5245f34f50c9e",
-      "goal": "가이드마다 지침 문장과 칠해지는 글자색이 맞고, 둘이 다시 어긋나면 검사가 잡는다",
-      "goal_hash": "9ccb7caa5b2b66bd81083a7bcea7e366c4b87d63",
-      "memo": "칠해지는 색이 저자 색과 다른 가이드 15개(KAN-069 착수 때 실측 189곳). 길 셋: 문장 고치기 / on 으로 저자 색 지정 / KAN-061 계산 후보 순서에서 boundary.labelColor 를 앞으로. KAN-069 병합 뒤 착수(tagColor 가 지워진 상태 기준)",
-      "memo_hash": "972f6bb53301d6815ab283242601fb2be850d0fd",
-      "scope": [
-        "packages/tokens/src/visualization.ts",
-        "packages/visualization/src/**",
-        "packages/visualization-style-guide-catalog/src/**",
-        "apps/storybook/src/stories/_vizCatalogStory.tsx",
-        "apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx",
-        "README.md",
-        "packages/visualization/*.md",
-        ".changeset/kan-075-*.md"
-      ]
-    },
     "KAN-020": {
       "col": "done",
       "title": "visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현",
@@ -1594,10 +1544,62 @@
         "_templates/CHECKLIST_INSTANCE.template.md",
         ".github/workflows/release.yml"
       ]
+    },
+    "KAN-075-4K5GK3": {
+      "col": "done",
+      "title": "viz 가이드 지침 문장과 실제 글자색 맞추기 — 저자가 정한 글자색과 칠해지는 노드·C4 글자색이 다른 가이드",
+      "verbatim": "후속 카드로 넘긴다 (Recommended) (KAN-069 검토 뒤 질문 「항목 3(가이드 지침 문장이 실제 글자색과 어긋남)을 어떻게 풀까요? 원인은 KAN-061 글자색 계산이 연결선 색을 먼저 골라, 저자가 글자색으로 정하고 다른 색은 금지한 가이드 4곳(artdeco·synthwave·darkluxe·hud-telemetry)에서 금지한 색이 칠해지는 것입니다.」에 대한 답)",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-12",
+      "title_hash": "4f75199f464a0f4bd5975b6ab440c32855d35ec9",
+      "verbatim_hash": "01248cc7fef3f97c28506a5aa9ef29e2fdf6600d",
+      "short": "가이드 글자색 문장 맞추기",
+      "short_hash": "155f3df2a75142a2c8fc472fc77daf6487a5041f",
+      "purpose": "가이드 지침에 적힌 글자색 규칙과 실제로 칠해지는 노드·C4 글자색이 다른 가이드를 찾아, 문장을 그림에 맞출지 그림을 문장에 맞출지 정하고 맞춘다",
+      "purpose_hash": "f919e86cbc9c4235896b1884a4f35ab0ae6ea378",
+      "reason": "KAN-061 글자색 계산이 연결선 색을 먼저 골라 artdeco-luxe·synthwave·darkluxe·hud-telemetry 에서 저자가 금지한 골드·네온·시안이 칠해진다(KAN-069 검토 항목 3 반려에서 확인)",
+      "reason_hash": "234173e1f041bd79a08791864bd5245f34f50c9e",
+      "goal": "가이드마다 지침 문장과 칠해지는 글자색이 맞고, 둘이 다시 어긋나면 검사가 잡는다",
+      "goal_hash": "9ccb7caa5b2b66bd81083a7bcea7e366c4b87d63",
+      "memo": "칠해지는 색이 저자 색과 다른 가이드 15개(KAN-069 착수 때 실측 189곳). 길 셋: 문장 고치기 / on 으로 저자 색 지정 / KAN-061 계산 후보 순서에서 boundary.labelColor 를 앞으로. KAN-069 병합 뒤 착수(tagColor 가 지워진 상태 기준)",
+      "memo_hash": "972f6bb53301d6815ab283242601fb2be850d0fd",
+      "scope": [
+        "packages/tokens/src/visualization.ts",
+        "packages/visualization/src/**",
+        "packages/visualization-style-guide-catalog/src/**",
+        "apps/storybook/src/stories/_vizCatalogStory.tsx",
+        "apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx",
+        "README.md",
+        "packages/visualization/*.md",
+        ".changeset/kan-075-*.md"
+      ]
+    },
+    "KAN-071-FK1W8K": {
+      "col": "done",
+      "title": "앱 에이전트의 라이브러리 이탈·개선 요청 실제 사례 재현 — 저장소 열람과 구현까지 연 시험",
+      "verbatim": "최종 승인한다 (KAN-067 검토 항목 1 「재현 시험이 겪으신 현상을 재현하지 못했는데 이 카드를 닫을 것인가」의 추천 「닫고, 실제 사례로 재현하는 후속 카드를 연다」를 포함한 전체 승인)",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-12",
+      "title_hash": "e74f32b7b1fafbe7d75f212ae882f292680d47b0",
+      "verbatim_hash": "ee4c73df063bc021a59c4053a2e623a3f7cdf13a",
+      "short": "이탈 현상 실제 재현",
+      "short_hash": "3fe976002d64e57596f14267838ec81645a4fec8",
+      "purpose": "겪은 상황(앱 지시문·과제 문구·모델)을 받아, 저장소·인터넷 열람과 구현을 막지 않은 조건으로 배포물 전후 시험을 다시 돌린다",
+      "purpose_hash": "dc211e9a1871d72419760d7de35090fc498403c8",
+      "reason": "KAN-067 S5 는 저장소 열람과 구현을 막은 조건이라 고치기 전에도 현상이 재현되지 않았고, 진단이 꼽은 경로(core README 저장소 링크 → 루트 README 「기여한다」)는 시험하지 못했다",
+      "reason_hash": "e4c17be2d8438e41255df9eebcfb56be09879120",
+      "goal": "현상이 재현되는 조건과 남은 원인이 기록되고, 배포 README 와 루트 README 수정 전후로 결론이 바뀌는지 확인된다",
+      "goal_hash": "e95b4042b9c9383777d31707bda88f5f95447b20",
+      "memo": "KAN-067 검토 항목 1(2026-10-10 승인)에서 나왔다. 실제 사례(앱 지시문·프롬프트·모델)는 유저에게 받는다. KAN-072(루트 README 두 자리)와 같은 경로를 보므로 그 카드 전후로 비교한다",
+      "memo_hash": "d9424b73f2e50a0509ad0572ab459e121ea7edf7",
+      "scope": [
+        "KANBAN/cards/KAN-071-FK1W8K.md"
+      ]
     }
   },
   "order": [
-    "KAN-071-FK1W8K",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1670,7 +1672,8 @@
     "KAN-074-KAZBTF",
     "KAN-069-G0FGTJ",
     "KAN-066-T6NR80",
-    "KAN-075-4K5GK3"
+    "KAN-075-4K5GK3",
+    "KAN-071-FK1W8K"
   ],
   "recent": [
     {
@@ -1851,6 +1854,16 @@
       "to": "done"
     },
     {
+      "seq": 279,
+      "t": "2026-10-12T14:51",
+      "a": "ai",
+      "id": "KAN-071-FK1W8K",
+      "op": "move",
+      "w": "176E9M",
+      "from": "review",
+      "to": "done"
+    },
+    {
       "seq": 278,
       "t": "2026-10-10T23:51",
       "a": "ai",
@@ -1871,6 +1884,16 @@
       "to": "review"
     },
     {
+      "seq": 278,
+      "t": "2026-10-11T09:35",
+      "a": "ai",
+      "id": "KAN-071-FK1W8K",
+      "op": "move",
+      "w": "176E9M",
+      "from": "doing",
+      "to": "review"
+    },
+    {
       "seq": 277,
       "t": "2026-10-10T22:12",
       "a": "ai",
@@ -1887,6 +1910,16 @@
       "id": "KAN-066-T6NR80",
       "op": "move",
       "w": "CYVY10",
+      "from": "backlog",
+      "to": "doing"
+    },
+    {
+      "seq": 277,
+      "t": "2026-10-10T22:14",
+      "a": "ai",
+      "id": "KAN-071-FK1W8K",
+      "op": "move",
+      "w": "176E9M",
       "from": "backlog",
       "to": "doing"
     },
@@ -2183,43 +2216,6 @@
       "w": "V5ZA3M",
       "from": "review",
       "to": "doing"
-    },
-    {
-      "seq": 263,
-      "t": "2026-10-10T00:46",
-      "a": "ai",
-      "id": "KAN-061-K8V2HH",
-      "op": "move",
-      "w": "HTKBTA",
-      "from": "backlog",
-      "to": "doing"
-    },
-    {
-      "seq": 263,
-      "t": "2026-10-10T00:52",
-      "a": "ai",
-      "id": "KAN-070-RCG2QV",
-      "op": "create",
-      "w": "S7030N",
-      "col": "backlog",
-      "title": "viz 연결선 대시 범위 — 어느 선이 스타일 가이드 대시를 따르는가 (Edge 밖 관계선 넷 · 실선이 뜻을 갖는 Edge 선)",
-      "verbatim": "새 후속 카드 (Recommended) — main에 백로그 카드 하나를 만들어 「어느 선이 가이드 대시를 따르는가」를 다룹니다. 그 뒤 3·4번을 승인으로 닫고, KAN-057은 문서 전체 승인만 남깁니다. 지금 그림은 바뀌지 않습니다. (앞 질문 「3·4번(가이드 대시를 따라가지 못하는 관계선 넷 + 따라가면 안 되는 실선 의미선 11곳과 TimelineRoadmap 축)을 어디서 다룰까요?」에 대한 답)",
-      "parent": null,
-      "short": "연결선 대시 범위",
-      "purpose": "스타일 가이드의 연결선 대시(edge.dashPattern)를 따라야 하는 선과 따르면 안 되는 선을 가르고, 그대로 그려지게 맞춘다",
-      "reason": "KAN-057 검토(3·4번)에서 Edge 없이 그린 관계선 넷은 가이드 대시를 못 따르고, 실선이 뜻을 갖는 Edge 선(UML 상속 등)은 가이드 대시를 받아 표기 구분이 흐려지는 것을 확인했다",
-      "goal": "대시 가이드에서도 관계선은 템플릿과 상관없이 같은 모양이고, 표기법상 실선인 선과 축은 실선으로 남는다",
-      "memo": "못 따르는 선(Edge 미사용): SitemapTree:71 · WorkBreakdownStructure:80 · GitGraph:92 · IsometricScene:161. 따르면 안 되는 선(Edge 사용, 대시 값을 안 넘겨 실선을 표현): ClassDiagram:58-62 · SequenceDiagram:183 · UMLSequenceDiagram:140 · BPMNCollaborationDiagram:176,182 · UseCaseDiagram:102 · Flowchart:127 · DMNDiagram:100-102 · ArchiMateDiagram:69-70 · ArchiMateViewpointDiagram:57-58 · SysMLBlockDiagram:43-46 · molecules/StepConnector:23, 그리고 patterns/TimelineRoadmap:52 시간 축. Edge 를 쓰는 38개 중 22개, Edge 없이 선을 그리는 24개 중 17개는 아직 안 봤다. 지금 카탈로그 가이드는 모두 실선이라 그림에 나타나는 문제는 아직 없다. KAN-057(edge.dashPattern 연결) 병합 뒤에 착수한다"
-    },
-    {
-      "seq": 263,
-      "t": "2026-10-10T01:07",
-      "a": "ai",
-      "id": "KAN-068-W6TE2S",
-      "op": "move",
-      "w": "V5ZA3M",
-      "from": "doing",
-      "to": "review"
     }
   ],
   "waivers": [

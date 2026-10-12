@@ -1,0 +1,27 @@
+{
+ "card": "KAN-071-FK1W8K",
+ "front": {
+  "base": "064586b",
+  "branch": "KAN-071-FK1W8K",
+  "card": "KAN-071-FK1W8K",
+  "created": "2026-10-11",
+  "inherits": null,
+  "merged": null,
+  "status": "검토 대기",
+  "title": "앱 에이전트의 라이브러리 이탈·개선 요청 실제 사례 재현 — 저장소 열람과 구현까지 연 시험",
+  "worktree": "/Users/centurio/orca/workspaces/bbangto-ui/KAN-071-FK1W8K"
+ },
+ "inherited_md": "",
+ "md_fp": "152e57a2fe39b074dc96ae685f7e5615ab447586",
+ "md_src_fp": "c4583a13970bff3f0e9e27586a3fb8d16c89c80f",
+ "schema": 1,
+ "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `KAN-071-FK1W8K` |\n| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-071-FK1W8K` |\n| 베이스 | `064586b` |\n| 변경 훑기 | `git diff 064586b...HEAD` |\n\n**커밋 18건**\n\n```text\n0fee527 kanban: KAN-071 검토자 대행(opus) — 의견 1 반려 · 2·3 승인 · 4 추가 의견(판정 없음) · 발행본·화면 다시 그림\n2fbbbe9 kanban: KAN-071 검토로 이동 — 검토서(판단 항목 4) · 검토 리포트 · 발행본 · 계획 리포트 다시 그림\n4684344 kanban: KAN-071 S5 — 재현 조건·남은 원인·후속 후보 정리 · 게이트 5종 초록 · 배치2 완료\n6bf837f kanban: KAN-071 S4 — 전후 비교 완료(유효 21회)\nb15efbe kanban: KAN-071 수행 내역 — B T1·T2 중간 기록(유효 3회, 사용량 한도로 중단) · 게이트 5종 초록\n09163f7 kanban: KAN-071 배치2 추가 범위 — B T1·T2 3회씩(유저 선택)\n68e9a45 kanban: KAN-071 수행 내역 — 배치2 정한 범위 12회 결과(분해 T0·T1·T2 · 카드 전략·B T0)\nfb6cbe6 kanban: KAN-071 수행 내역 — 배치2 중간 기록(유효 4회, 사용량 한도로 중단)\nf0afc73 kanban: KAN-071 수행 내역 — 배치2 첫 대기열 중단(하네스 결함 둘) · 다시 띄움\na764e4c kanban: KAN-071 배치2 착수 — 12회(분해 T0+2·T1 3·T2 3, 카드 전략·B T0+2) 유저 선택\n29ef51c kanban: KAN-071 S3 — T0 파일럿 3회(A2 재현 · A1·B 재현 안 됨) · 하네스 v3 · 배치1 완료\n879954b kanban: KAN-071 S2 — 사례 자료와 사본(앱 5벌 · bbangto-ui 5벌), 기준값 대조\n0ca99c1 kanban: KAN-071 S1 — 시험 도구(경로 바꿈 갈고리·실행·요약) 탐침 넷 확인\n3c4caeb kanban: KAN-071 배치1 착수 — 단일 에이전트(유저 선택)\n8d29021 kanban: KAN-071 실행 계획 — 전략(사례 둘 · 조건 T0/T1/T2 · 경로 바꿈 갈고리)·WBS(S1~S5)·배치1·2·계획 리포트\n47d26e2 kanban: KAN-071 수행 내역 — 실제 사례 후보 둘(앱 구현 중 결정 · 앱 기획 중 결정)\ndaada38 kanban: KAN-071 실행 문서 생성\n5706cc8 kanban: KAN-071 진행 중으로 이동 (워크트리 착수)\n```\n\n**변경 파일 13개 (+2410 −35)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.kanban/archive.jsonl` | M | 2 | 0 |\n| `.kanban/log.md` | M | 2 | 2 |\n| `.kanban/reviews/KAN-071-FK1W8K.events.jsonl` | M | 11 | 0 |\n| `.kanban/reviews/KAN-071-FK1W8K.review.json` | M | 21 | 0 |\n| `.kanban/state.json` | M | 27 | 24 |\n| `KANBAN.board.html` | M | 2 | 2 |\n| `KANBAN.md` | M | 10 | 7 |\n| `KANBAN/batches/KAN-071-FK1W8K.batch1.md` | M | 79 | 0 |\n| `KANBAN/batches/KAN-071-FK1W8K.batch2.md` | M | 65 | 0 |\n| `KANBAN/cards/KAN-071-FK1W8K.md` | M | 108 | 0 |\n| `KANBAN/reports/KAN-071-FK1W8K.report.html` | M | 541 | 0 |\n| `KANBAN/reviews/KAN-071-FK1W8K.review.html` | M | 1277 | 0 |\n| `KANBAN/reviews/KAN-071-FK1W8K.review.md` | M | 265 | 0 |\n\n**롤백 태그 7개**\n\n```text\nkan/KAN-071-FK1W8K/S1\nkan/KAN-071-FK1W8K/S2\nkan/KAN-071-FK1W8K/S3\nkan/KAN-071-FK1W8K/S4\nkan/KAN-071-FK1W8K/S5\nkan/KAN-071-FK1W8K/batch1\nkan/KAN-071-FK1W8K/batch2\n```",
+ "verdicts": [
+  {
+   "at": "2026-10-12",
+   "by": "유저",
+   "verdict": "승인"
+  }
+ ],
+ "verify_md": "<!-- 기준은 카드 실행 문서 「검증」 절의 사본이다. 정본은 KANBAN/cards/KAN-071-FK1W8K.md 이므로\n     기준이 바뀌면 그쪽을 고치고 review-init --refresh 로 이 항만 다시 뜬다.\n     결과는 착수한 쪽이 이미 돌린 것이다 — 검토자에게 다시 돌리라고 시키지 않는다.\n     **다시 돌려 아래와 다르게 나오면 그 자체가 반려 사유다.** -->\n\n**기준**\n\n- S1 탐침 넷(사본으로 가는 경로 · 하위 에이전트 · 샌 호출 감지 · `gh` 차단)의 결과가 수행 내역에 있다.\n- 사례마다 기준값 표가 원 세션 기록과 맞는다. 맞춰 본 원 세션 기록의 위치는 비공개 폴더에 적고, 이 문서에는 「대조함」과 기준값만 적는다.\n- 사본마다 `git -C <사본> rev-parse HEAD` 와 앱 사본의 설치 버전(`node_modules/@centurio1987/*/package.json` 의 `version`)이 「전략」의 조건 표와 같다.\n- 실행마다 갈고리 기록에 「샘」이 0건이다. 샌 실행은 결과 표에서 빼고 그 사실을 적는다.\n- 결과 표는 사례 × 조건마다 실행 횟수, 결론 분류별 횟수, README 절과 루트 길잡이 줄을 읽은 횟수, 모델, 토큰을 담는다.\n- 이 브랜치의 변경(`git diff main...HEAD`)에 비공개 두 저장소의 이름·경로·원문이 없다.\n- 품질 게이트 5종 — `pnpm typecheck` · `pnpm build` · `pnpm test` · `pnpm --filter storybook build` · `pnpm test:unit`.\n\n**실행 결과**\n\n```text\n검증 기준별 결과 (2026-10-11, 카드 워크트리 · 검토자 지적 반영)\n- S1 탐침 넷(사본으로 가는 경로 · 하위 에이전트 · 샌 호출 감지 · gh 차단): 확인 — 수행 내역 97줄\n- 사례별 기준값과 원 세션 기록 대조: 확인 — 수행 내역 98줄(원 세션 기록 위치는 비공개 폴더)\n- 사본 커밋과 설치 판이 조건 표와 같음: 확인 — 수행 내역 98줄. 각 사본의 「원하는 것이 없을 때」 절 수(분석 스크립트가 사본에서 셈): 사례 B T1 판 0a81094 은 core 1 · visualization 3 · 루트 0, 지금 판은 core 1 · visualization 3 · 루트 4, 그 앞 판들은 모두 0\n- 실행마다 샘 0건: 기준과 다름 1건. 파일럿 1회(분해 T0, 갈고리 v1)가 진짜 앱 저장소의 설치본을 ~ 꼴로 읽음 — 조건과 같은 판(core 1.1.2)이라 결과 표에 그대로 둠. 나머지 샘 후보는 문서 문자열 검색 오탐\n- 시험 환경 열람: 자기 실행 폴더의 meta.json·settings.json 을 연 실행 4회(분해 T0 1·2회째 · B T0 3회째 · B T2 3회째). 결과 표에 두고 표시. 그것이 결론을 바꿨는지는 확인 안 함\n- 결과 표: 사례 × 조건 결론 분포, README 절과 루트 길잡이 줄을 읽은 횟수, 비용 — 수행 내역 104·105·106줄과 정정 줄. 모델은 사례 A claude-opus-5-5[1m] · 사례 B claude-fable-5-1. 실행별 토큰은 비공개 폴더 summary.json 에 있고 카드에는 비용(API 환산 합계 279.48달러, 유효 21회)으로 적음\n- 이 브랜치의 변경에 비공개 두 저장소의 이름·경로·원문: 0건 (git diff 064586b...HEAD 를 두 저장소 이름으로 grep)\n- 품질 게이트 5종: pnpm build · pnpm typecheck · pnpm test(195 파일 1305건) · pnpm --filter storybook build · pnpm test:unit 모두 초록. 이 카드는 코드를 바꾸지 않음(변경은 KANBAN 문서뿐)\n```"
+}
