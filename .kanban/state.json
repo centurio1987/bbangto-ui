@@ -1,6 +1,6 @@
 {
-  "next_id": 76,
-  "next_seq": 293,
+  "next_id": 77,
+  "next_seq": 294,
   "cards": {
     "KAN-020": {
       "col": "done",
@@ -1597,6 +1597,26 @@
       "scope": [
         "KANBAN/cards/KAN-071-FK1W8K.md"
       ]
+    },
+    "KAN-076-NHP81Z": {
+      "col": "backlog",
+      "title": "viz 배치 엔진 안내 — 계층 그래프의 좌표 계산은 앱에서 배치 엔진을 빌려도 되고 그리기는 bbangto-ui atom 으로 (README 「원하는 것이 없을 때」)",
+      "verbatim": "카드로 만들어 (앞 답변 「후속 후보 — visualization 배치 안내 · 고친 판에서 나온 요청 목록을 모아 실제 결함만 가려내기 · ④ 하네스를 고쳐 기획 세션을 다시 돌리기. 「카드로 만들어 달라」고 하시면 main에 백로그 카드로 올리겠습니다」에 대한 답)",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-12",
+      "title_hash": "3632f93ae9973ff90112ca7a860cee23eb9e17bf",
+      "verbatim_hash": "84483b20cc5f82b603f18bb4923cbc9de38e3c30",
+      "short": "viz 배치 엔진 안내",
+      "short_hash": "0845a43a742fc678dbdb6e3be71ae2940797fc14",
+      "purpose": "visualization README 「원하는 것이 없을 때」 절에, 계층 그래프의 노드 좌표는 앱이 elkjs·dagre 같은 배치 엔진으로 계산해도 되고 그리기는 atom 으로 한다는 안내를 더한다",
+      "purpose_hash": "9ada6c5ea7830703a01ca124e0356bbba2c5b08d",
+      "reason": "KAN-071 재현에서 기획 세션이 배치 라이브러리를 더하는 결론을 고치기 전 판 2/3·지금 판 1/3 냈고, README 는 「자동 배치 없음」만 적어 그것이 확장인지 이탈인지 읽을 수 없다(KAN-071 검토 항목 2 승인)",
+      "reason_hash": "5e28e4848e880aef70eaaedb3f590c2b1a1d248c",
+      "goal": "에이전트가 배치 엔진을 빌려도 그리기는 bbangto-ui 로 남는다는 것을 배포 README 에서 읽고, 그 안내와 예제가 검사로 지켜진다",
+      "goal_hash": "967513204fe3b45233ea81d7d337e14775a665ce",
+      "memo": "KAN-071 검토 항목 2(2026-10-11 승인) 추천 「앱 안 확장으로 보고 README 에 안내를 더한다」. 버린 갈래: visualization geometry 에 계층 배치 함수를 넣는다. 검사 자리는 KAN-067 의 publishedDocs",
+      "memo_hash": "6c5c1e00d885e6daa620c5ee090da5ffa5025251"
     }
   },
   "order": [
@@ -1673,9 +1693,27 @@
     "KAN-069-G0FGTJ",
     "KAN-066-T6NR80",
     "KAN-075-4K5GK3",
-    "KAN-071-FK1W8K"
+    "KAN-071-FK1W8K",
+    "KAN-076-NHP81Z"
   ],
   "recent": [
+    {
+      "seq": 293,
+      "t": "2026-10-12T14:56",
+      "a": "ai",
+      "id": "KAN-076-NHP81Z",
+      "op": "create",
+      "w": "S7030N",
+      "col": "backlog",
+      "title": "viz 배치 엔진 안내 — 계층 그래프의 좌표 계산은 앱에서 배치 엔진을 빌려도 되고 그리기는 bbangto-ui atom 으로 (README 「원하는 것이 없을 때」)",
+      "verbatim": "카드로 만들어 (앞 답변 「후속 후보 — visualization 배치 안내 · 고친 판에서 나온 요청 목록을 모아 실제 결함만 가려내기 · ④ 하네스를 고쳐 기획 세션을 다시 돌리기. 「카드로 만들어 달라」고 하시면 main에 백로그 카드로 올리겠습니다」에 대한 답)",
+      "parent": null,
+      "short": "viz 배치 엔진 안내",
+      "purpose": "visualization README 「원하는 것이 없을 때」 절에, 계층 그래프의 노드 좌표는 앱이 elkjs·dagre 같은 배치 엔진으로 계산해도 되고 그리기는 atom 으로 한다는 안내를 더한다",
+      "reason": "KAN-071 재현에서 기획 세션이 배치 라이브러리를 더하는 결론을 고치기 전 판 2/3·지금 판 1/3 냈고, README 는 「자동 배치 없음」만 적어 그것이 확장인지 이탈인지 읽을 수 없다(KAN-071 검토 항목 2 승인)",
+      "goal": "에이전트가 배치 엔진을 빌려도 그리기는 bbangto-ui 로 남는다는 것을 배포 README 에서 읽고, 그 안내와 예제가 검사로 지켜진다",
+      "memo": "KAN-071 검토 항목 2(2026-10-11 승인) 추천 「앱 안 확장으로 보고 README 에 안내를 더한다」. 버린 갈래: visualization geometry 에 계층 배치 함수를 넣는다. 검사 자리는 KAN-067 의 publishedDocs"
+    },
     {
       "seq": 292,
       "t": "2026-10-12T14:41",
@@ -2206,16 +2244,6 @@
       "reason": "KAN-067 S5 는 저장소 열람과 구현을 막은 조건이라 고치기 전에도 현상이 재현되지 않았고, 진단이 꼽은 경로(core README 저장소 링크 → 루트 README 「기여한다」)는 시험하지 못했다",
       "goal": "현상이 재현되는 조건과 남은 원인이 기록되고, 배포 README 와 루트 README 수정 전후로 결론이 바뀌는지 확인된다",
       "memo": "KAN-067 검토 항목 1(2026-10-10 승인)에서 나왔다. 실제 사례(앱 지시문·프롬프트·모델)는 유저에게 받는다. 루트 README 두 자리 카드와 같은 경로를 본다"
-    },
-    {
-      "seq": 264,
-      "t": "2026-10-10T01:17",
-      "a": "ai",
-      "id": "KAN-068-W6TE2S",
-      "op": "move",
-      "w": "V5ZA3M",
-      "from": "review",
-      "to": "doing"
     }
   ],
   "waivers": [
