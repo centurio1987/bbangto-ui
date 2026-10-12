@@ -37,6 +37,17 @@
     ```
 
 ## 할 일
+- `KAN-079-CFS73T` 미배포 변경 배포 — KAN-069·070·072·075 (tokens·visualization·visualization-style-guide-catalog 2.0.0 · core 1.2.3 · foundations 2.0.1 · style-guide-catalog 1.0.1) — 생성:ai · 최종:ai · 갱신:2026-10-12
+  - 짧은 제목: viz major 배포
+  - 목적: main 에 쌓인 changeset 네 장(KAN-069·070·072·075)으로 패키지 6개 버전을 올려 GitHub Packages 에 배포한다
+  - 이유: KAN-074 배포(PR #11) 뒤 병합된 069·070·072·075 가 레지스트리에 없고, 외부 앱은 배포된 버전만 받는다. KAN-071 은 패키지 파일을 바꾸지 않아 범위에 더할 것이 없다(2026-10-12 확인)
+  - 목표: 레지스트리에 새 버전 6개가 올라가고, 배포본에서 changeset 마다 변경이 확인되며, 외부 앱에 major 업그레이드 안내(지운 토큰 필드와 대신 쓸 것)가 남는다
+  - 메모: 절차는 KAN-074 와 같다(S1 점검 → S2 push·Version PR 대조·병합 → S3 배포본 확인과 전달). push 하면 main 로컬 커밋 전부와 release.yml 이 나간다. 버전은 2026-10-12 pnpm changeset status 계산값
+  - 원문:
+    ```text
+    71 완료 했을 때 시점에서, npm package는 재배포해야 할 필요가 없는지 확인해 줘
+    방금 071 끝났으니 만들어라 (앞 질문 「배포 카드를 지금 만들까요? (만들어도 push·배포는 따로 지시를 받은 뒤에 합니다)」에 대한 답)
+    ```
 
 ## 진행 중
 

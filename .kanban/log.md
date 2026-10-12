@@ -1,6 +1,7 @@
 # KANBAN 변경 이력
 > 최근 50건. 이보다 오래된 이력은 archive.jsonl 로 압축 보관한다.
 
+- #296 2026-10-12 14:59 · ai · KAN-079-CFS73T 생성 "미배포 변경 배포 — KAN-069·070·072·075 (tokens·visualization·visualization-style-guide-catalog 2.0.0 · core 1.2.3 · foundations 2.0.1 · style-guide-catalog 1.0.1)" → 할 일
 - #295 2026-10-12 14:56 · ai · KAN-078-0TF6NT 생성 "노출 없는 재시험 — 하네스를 고쳐 기획 세션을 다시 돌려 README 수정 전후 효과 확인" → 백로그
 - #294 2026-10-12 14:56 · ai · KAN-077-0YAFWG 생성 "bbangto-ui 요청 목록 가르기 — 결함을 고친 판의 분해 작업자가 낸 요청을 실제 결함과 앱 쪽 취향으로 나누기" → 백로그
 - #293 2026-10-12 14:56 · ai · KAN-076-NHP81Z 생성 "viz 배치 엔진 안내 — 계층 그래프의 좌표 계산은 앱에서 배치 엔진을 빌려도 되고 그리기는 bbangto-ui atom 으로 (README 「원하는 것이 없을 때」)" → 백로그
@@ -50,4 +51,3 @@
 - #267 2026-10-10 03:01 · ai · KAN-061-K8V2HH 독립성 겹침 용인 (상대 KAN-064-AC0H6M) — packages/visualization/README.md 를 함께 고치지만 자리가 다름(KAN-064 56~114줄 매니페스트 절, KAN-061 257줄 근처). 순서는 KAN-061 을 0.x 줄로 먼저 배포한 뒤 KAN-064 병합 (2026-10-10 유저 선택)
 - #266 2026-10-10 01:03 · ai · KAN-071-FK1W8K 수정 메모
 - #266 2026-10-10 01:43 · ai · KAN-068-W6TE2S 이동 검토 → 완료
-- #265 2026-10-10 01:03 · ai · KAN-072-KW0G9B 생성 "루트 README 의 「컴포넌트가 없을 때」 길과 viz Provider 서술 바로잡기" → 백로그

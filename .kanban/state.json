@@ -1,6 +1,6 @@
 {
-  "next_id": 79,
-  "next_seq": 296,
+  "next_id": 80,
+  "next_seq": 297,
   "cards": {
     "KAN-020": {
       "col": "done",
@@ -1657,9 +1657,32 @@
       "goal_hash": "f61f9798a773a3f2fa62acf0b44cd277c7172dd0",
       "memo": "비용 API 환산 약 150달러·약 2시간(KAN-071 실측). 하네스와 함정은 저장소 밖 ~/.local/share/bbangto-ui-agent-repro/KAN-071/harness 와 메모리 agent-repro-harness. 노출은 analyze.py 의 exposure 로 센다",
       "memo_hash": "ab2614bb6d3cc7accca5621f000cad70cb2e6c9b"
+    },
+    "KAN-079-CFS73T": {
+      "col": "todo",
+      "title": "미배포 변경 배포 — KAN-069·070·072·075 (tokens·visualization·visualization-style-guide-catalog 2.0.0 · core 1.2.3 · foundations 2.0.1 · style-guide-catalog 1.0.1)",
+      "verbatim": "71 완료 했을 때 시점에서, npm package는 재배포해야 할 필요가 없는지 확인해 줘\n방금 071 끝났으니 만들어라 (앞 질문 「배포 카드를 지금 만들까요? (만들어도 push·배포는 따로 지시를 받은 뒤에 합니다)」에 대한 답)",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-12",
+      "title_hash": "49c0be21a56f27c38bd810256ddad61a620a3a36",
+      "verbatim_hash": "a917ec36451c3c6cecb81b338d18f0a1aaf86779",
+      "short": "viz major 배포",
+      "short_hash": "b096a7f81f14d3a528d1807601a8b7d19d873667",
+      "purpose": "main 에 쌓인 changeset 네 장(KAN-069·070·072·075)으로 패키지 6개 버전을 올려 GitHub Packages 에 배포한다",
+      "purpose_hash": "d5a67318168b05a59ae9359fff6418718d0dca6e",
+      "reason": "KAN-074 배포(PR #11) 뒤 병합된 069·070·072·075 가 레지스트리에 없고, 외부 앱은 배포된 버전만 받는다. KAN-071 은 패키지 파일을 바꾸지 않아 범위에 더할 것이 없다(2026-10-12 확인)",
+      "reason_hash": "6dea14d1bda0fba70f8103c70f3ab5f2ff8a58bb",
+      "goal": "레지스트리에 새 버전 6개가 올라가고, 배포본에서 changeset 마다 변경이 확인되며, 외부 앱에 major 업그레이드 안내(지운 토큰 필드와 대신 쓸 것)가 남는다",
+      "goal_hash": "3b57b25676458fa81975c9babd96a0de6006fb77",
+      "memo": "절차는 KAN-074 와 같다(S1 점검 → S2 push·Version PR 대조·병합 → S3 배포본 확인과 전달). push 하면 main 로컬 커밋 전부와 release.yml 이 나간다. 버전은 2026-10-12 pnpm changeset status 계산값",
+      "memo_hash": "b14215272200eb4bb645badb48e1510e6ffb990c"
     }
   },
   "order": [
+    "KAN-076-NHP81Z",
+    "KAN-077-0YAFWG",
+    "KAN-078-0TF6NT",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1734,11 +1757,26 @@
     "KAN-066-T6NR80",
     "KAN-075-4K5GK3",
     "KAN-071-FK1W8K",
-    "KAN-076-NHP81Z",
-    "KAN-077-0YAFWG",
-    "KAN-078-0TF6NT"
+    "KAN-079-CFS73T"
   ],
   "recent": [
+    {
+      "seq": 296,
+      "t": "2026-10-12T14:59",
+      "a": "ai",
+      "id": "KAN-079-CFS73T",
+      "op": "create",
+      "w": "S7030N",
+      "col": "todo",
+      "title": "미배포 변경 배포 — KAN-069·070·072·075 (tokens·visualization·visualization-style-guide-catalog 2.0.0 · core 1.2.3 · foundations 2.0.1 · style-guide-catalog 1.0.1)",
+      "verbatim": "71 완료 했을 때 시점에서, npm package는 재배포해야 할 필요가 없는지 확인해 줘\n방금 071 끝났으니 만들어라 (앞 질문 「배포 카드를 지금 만들까요? (만들어도 push·배포는 따로 지시를 받은 뒤에 합니다)」에 대한 답)",
+      "parent": null,
+      "short": "viz major 배포",
+      "purpose": "main 에 쌓인 changeset 네 장(KAN-069·070·072·075)으로 패키지 6개 버전을 올려 GitHub Packages 에 배포한다",
+      "reason": "KAN-074 배포(PR #11) 뒤 병합된 069·070·072·075 가 레지스트리에 없고, 외부 앱은 배포된 버전만 받는다. KAN-071 은 패키지 파일을 바꾸지 않아 범위에 더할 것이 없다(2026-10-12 확인)",
+      "goal": "레지스트리에 새 버전 6개가 올라가고, 배포본에서 changeset 마다 변경이 확인되며, 외부 앱에 major 업그레이드 안내(지운 토큰 필드와 대신 쓸 것)가 남는다",
+      "memo": "절차는 KAN-074 와 같다(S1 점검 → S2 push·Version PR 대조·병합 → S3 배포본 확인과 전달). push 하면 main 로컬 커밋 전부와 release.yml 이 나간다. 버전은 2026-10-12 pnpm changeset status 계산값"
+    },
     {
       "seq": 295,
       "t": "2026-10-12T14:56",
@@ -2276,23 +2314,6 @@
       "w": "V5ZA3M",
       "from": "review",
       "to": "done"
-    },
-    {
-      "seq": 265,
-      "t": "2026-10-10T01:03",
-      "a": "ai",
-      "id": "KAN-072-KW0G9B",
-      "op": "create",
-      "w": "S7030N",
-      "col": "backlog",
-      "title": "루트 README 의 「컴포넌트가 없을 때」 길과 viz Provider 서술 바로잡기",
-      "verbatim": "최종 승인한다 (KAN-067 검토 항목 2 「루트 README 의 두 자리를 어디서 고칠 것인가」의 추천 「새 카드 하나로 연다」를 포함한 전체 승인)",
-      "parent": null,
-      "short": "루트 README 두 자리",
-      "purpose": "루트 README 길잡이 표(README.md:28)에 컴포넌트·유형이 없을 때 앱 안에서 확장하는 길을 잇고, README.md:858 의 「Provider 없이 그리면 무채색」 서술을 실측대로 고친다",
-      "reason": "길잡이 표에서 컴포넌트가 없을 때 갈 곳이 「이 레포에 기여한다」뿐이라 앱 에이전트가 개선 요청으로 읽을 수 있고, :858 은 chromium 실측(도형 검은 채움·엣지 안 보임)과 다르다. KAN-067 scope 밖이었다",
-      "goal": "루트 README 가 배포 README 의 「원하는 것이 없을 때」 절로 이어지고, Provider 서술이 실측과 같아진다",
-      "memo": "KAN-067 검토 항목 2(2026-10-10 승인)에서 나왔다. README.md 는 KAN-064 scope 에도 있다(KAN-064 는 KAN-068 뒤 병합 대기). KAN-071(실제 사례 재현)과 같은 경로를 보므로 그 카드의 전후 비교에 쓴다"
     }
   ],
   "waivers": [
