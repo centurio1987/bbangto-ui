@@ -1,5 +1,15 @@
 # @centurio1987/bbangto-ui-style-guide-catalog
 
+## 1.0.1
+
+### Patch Changes
+
+- Updated dependencies [e91c759]
+- Updated dependencies [12db5ac]
+- Updated dependencies [09ce0ae]
+  - @centurio1987/bbangto-ui-tokens@2.0.0
+  - @centurio1987/bbangto-ui-core@1.2.3
+
 ## 1.0.0
 
 ### Major Changes
