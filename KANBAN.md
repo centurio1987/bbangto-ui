@@ -37,6 +37,8 @@
     ```
 
 ## 할 일
+
+## 진행 중
 - `KAN-079-CFS73T` 미배포 변경 배포 — KAN-069·070·072·075 (tokens·visualization·visualization-style-guide-catalog 2.0.0 · core 1.2.3 · foundations 2.0.1 · style-guide-catalog 1.0.1) — 생성:ai · 최종:ai · 갱신:2026-10-12
   - 짧은 제목: viz major 배포
   - 목적: main 에 쌓인 changeset 네 장(KAN-069·070·072·075)으로 패키지 6개 버전을 올려 GitHub Packages 에 배포한다
@@ -48,8 +50,6 @@
     71 완료 했을 때 시점에서, npm package는 재배포해야 할 필요가 없는지 확인해 줘
     방금 071 끝났으니 만들어라 (앞 질문 「배포 카드를 지금 만들까요? (만들어도 push·배포는 따로 지시를 받은 뒤에 합니다)」에 대한 답)
     ```
-
-## 진행 중
 
 ## 검토
 
