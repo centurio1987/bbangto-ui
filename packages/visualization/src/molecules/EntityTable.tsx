@@ -47,7 +47,8 @@ export const EntityTable = React.forwardRef<SVGGElement, EntityTableProps>(
     const effectiveStroke = stroke ?? vvar('edge', 'stroke');
     const effectiveHeaderFill = headerFill ?? vvar('canvas', 'grid');
     const titleFont = vvar('typography', 'titleFont');
-    const textColor = vvar('edge', 'stroke');
+    // 머리 칸 기본 면(canvas.grid)은 캔버스와 거의 같은 옅은 면이라 캔버스 위 글자색을 쓴다(KAN-075). 넘긴 면은 연결선 색이다.
+    const textColor = headerFill === undefined ? vvar('on', 'canvas', 'bg') : vvar('edge', 'stroke');
     // 속성 줄은 표 면(shape.fill) 위에 놓인다. fill 을 직접 주면 그 면의 대비는 준 쪽 몫이라 종전 글자색을 둔다(KAN-061).
     const rowTextColor = fillProp === undefined ? vvar('on', 'shape', 'fill') : textColor;
 

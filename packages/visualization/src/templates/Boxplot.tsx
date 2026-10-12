@@ -170,7 +170,7 @@ export function Boxplot({
               dominantBaseline="central"
               fontSize={10}
               fontFamily={vvar('typography', 'monoFont')}
-              style={{ fill: stroke }}
+              style={{ fill: vvar('on', 'canvas', 'bg') }}
             >
               {formatValue(s.median)}
             </text>

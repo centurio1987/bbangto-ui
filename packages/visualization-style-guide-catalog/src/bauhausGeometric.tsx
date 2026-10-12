@@ -118,6 +118,9 @@ const foundations: VisualizationFoundation = {
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
   },
 
+
+  // 지침 「채움 위 라벨은 노랑↔다크, 파랑↔흰」 — 흰색이 4.5:1 을 넘는 면(파랑·빨강)에서 흰색을 쓴다(KAN-075).
+  on: { ink: WHITE },
 };
 
 /**

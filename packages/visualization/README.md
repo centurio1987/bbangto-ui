@@ -286,14 +286,23 @@ export function DecisionSketch() {
 - **면 위 글자는 그 면의 `on-*` 글자색을 쓴다.** 기본 가이드에서 읽힌다고 다른 가이드에서도 읽히지는 않는다
   (synthwave 의 `palette.p2` 와 `edge.stroke` 는 둘 다 `#28E0F0`). 그래서 Provider 가 면 토큰(`palette.p1~p8`·`shape.fill`·
   `canvas.bg`·`c4.l1~l3.bgTint`·`node.<kind>.fill`)마다 그 위에 쓸 글자색을 `--bbangto-viz-on-*` 로 함께 낸다.
-  `vvar('palette', 'p2')` 면 위 글자는 `vvar('on', 'palette', 'p2')` 를 쓴다. 값은 가이드 글자색 넷(`edge.stroke` →
+  `vvar('palette', 'p2')` 면 위 글자는 `vvar('on', 'palette', 'p2')` 를 쓴다. 값은 가이드가 바라는 글자색(`on.ink`)과 가이드 글자색 넷(`edge.stroke` →
   `shape.stroke` → `boundary.labelColor` → `canvas.bg`) 중 처음으로 면과 4.5:1 을 넘는 것이고, 없으면 검정·흰색 중 대비가
   큰 쪽이다. 반투명 면은 밑에 레인 띠 정도(검정 5%)의 음영이 깔려도 읽히는 쪽을 고르고, 그보다 짙은 음영을 까는
-  템플릿(IsometricScene)은 자기 음영을 얹은 면으로 따로 고른다. 가이드는 `foundations.on` 에 값을 직접 적어 계산값을
-  덮을 수 있다. 데이터마다 투명도가 바뀌는 면(heatmap 칸 등)은 미리 계산할 수 없어 `useVizFoundation()` 과 같은 계산
+  템플릿(IsometricScene)은 자기 음영을 얹은 면으로 따로 고른다. 가이드는 `foundations.on` 에 면마다 값을 직접 적어 계산값을
+  덮을 수 있고, `on.ink` 에 적은 색은 계산의 첫 후보가 된다(KAN-075). 데이터마다 투명도가 바뀌는 면(heatmap 칸 등)은 미리 계산할 수 없어 `useVizFoundation()` 과 같은 계산
   (`src/tokens/onInk.ts`)으로 칸마다 고른다. 글자를 흐리게(opacity) 쓰지 않는다 — 위계는 크기와 굵기로 낸다.
   Paint Gate 와 같은 파일의 `LabelContrastGate` 가 표본 전부를 카탈로그 가이드 전부에서 그려 글자 대비를 재고,
   기준 목록(`_labelContrastBaseline.ts`)은 비어 있다. 새 미달은 목록에 올리지 말고 고친다.
+  글자에 도형·연결선 색(`vvar('shape', 'stroke')`·`vvar('edge', 'stroke')`)을 바로 칠하지 않는다 — 그러면 `on.ink` 와
+  대비 계산을 건너뛴다. 캔버스 위 글자는 `vvar('on', 'canvas', 'bg')`, 면 안 글자는 그 면의 on 변수, 투명도를 얹은 면은
+  `pickOnInk(f, surfacesFor(f, 색, 투명도))` 다. `src/tokens/textPaint.test.ts` 가 소스에서 그 꼴을 막고, 같은 파일의
+  `TextInkGate` 가 `on.ink` 를 적은 가이드에서 글자가 그 색으로 칠해지는지 잰다(KAN-075). 사용자가 면 색을 넘긴 부품
+  갈래(`fill`·`bgFill`·`headFill`)만 그 면을 계산할 수 없어 연결선 색으로 둔다.
+  팔레트 색·캔버스 바탕색도 글자에 바로 칠하지 않는다(소스 검사가 함께 막는다). 예외는 통계 숫자 증감의 의미 색이고,
+  가이드가 `on.ink` 를 적었거나 그 색이 밑 면에서 4.5:1 에 못 미치면 숫자와 같은 글자색이 된다. 밑에 올 면이 여럿인 글자(Sankey 이름 · Venn 겹친 자리)는
+  그 면 전부에서 읽히는 색을 고르고 `data-viz-ink-multi` 를 단다. 대비 검사와 `TextInkGate` 는 템플릿 표본에 패턴 스토리까지
+  그린다. `useVizFoundation()` 은 데이터 없음 분기의 `return` 보다 먼저 부른다(`src/styleGuide/hookOrder.test.ts`).
 - **접근성**: 루트 `Canvas` 는 `role="img"`(`accessible="structured"` 면 `group`)와 `title`(선택 `desc`)을 갖는다.
   값은 항상 텍스트로 함께 적는다 — 그래픽만으로 값을 말하지 않는다. 노드 글리프·아이콘 배지 같은 장식은 `aria-hidden` 이다.
 - **경계 입력**: 빈 데이터는 빈 캔버스다(throw 하지 않는다). 항목 하나도 그린다. `children`·`data` 를 함께 주면 `children` 이다.

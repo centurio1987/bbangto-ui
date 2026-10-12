@@ -102,7 +102,7 @@ export function BarChart({
             fontSize={11}
             fontWeight={700}
             fontFamily={vvar('typography', 'monoFont')}
-            style={{ fill: vvar('shape', 'stroke') }}
+            style={{ fill: vvar('on', 'canvas', 'bg') }}
           >
             {formatValue(d.value)}
           </text>
@@ -147,7 +147,7 @@ export function BarChart({
             fontSize={11}
             fontWeight={700}
             fontFamily={vvar('typography', 'monoFont')}
-            style={{ fill: vvar('shape', 'stroke') }}
+            style={{ fill: vvar('on', 'canvas', 'bg') }}
           >
             {formatValue(d.value)}
           </text>

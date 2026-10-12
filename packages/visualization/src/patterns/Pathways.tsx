@@ -65,7 +65,7 @@ function renderPathways(
         <g key={s.id} data-bbangto-viz-pathway-step data-bbangto-viz-pathway-step-id={s.id}>
           <Node id={`path-${s.id}`} x={xs[i] - nodeW / 2} y={ys[i] - nodeH / 2} width={nodeW} height={nodeH} shape="rounded" />
           <NodeLabel x={xs[i] - nodeW / 2} y={ys[i]} width={nodeW} title={s.label} subtitle={s.description} fontSize={12} />
-          <IndexBadge cx={xs[i] - nodeW / 2} cy={ys[i] - nodeH / 2} index={i + 1} radius={13} fill={vvar('palette', 'p1')} />
+          <IndexBadge cx={xs[i] - nodeW / 2} cy={ys[i] - nodeH / 2} index={i + 1} radius={13} fill={vvar('palette', 'p1')} textFill={vvar('on', 'palette', 'p1')} />
         </g>
       ))}
     </>

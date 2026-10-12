@@ -1,6 +1,8 @@
 import { type ReactNode } from 'react';
 import { Canvas, type CanvasProps } from '../atoms/Canvas';
 import { vvar } from '../tokens/contract';
+import { pickOnInk, surfacesFor } from '../tokens/onInk';
+import { useVizFoundation } from '../styleGuide/VisualizationStyleGuideProvider';
 import { parseViewBox } from '../geometry/layout';
 import { funnelTrapezoids } from '../geometry/funnel';
 
@@ -37,6 +39,8 @@ export function Funnel({
   ...canvasProps
 }: FunnelProps) {
   const [vbX, vbY, vbW, vbH] = parseViewBox(viewBox, [0, 0, 420, 320]);
+  // 칸 안 글자는 그 칸의 글자색이다. 지정 색 칸은 그 색으로 고른다(KAN-075).
+  const foundation = useVizFoundation();
 
   if (!data) {
     return (
@@ -77,7 +81,7 @@ export function Funnel({
               fontSize={13}
               fontWeight={700}
               fontFamily={vvar('typography', 'titleFont')}
-              style={{ fill: vvar('shape', 'stroke') }}
+              style={{ fill: s.color ? pickOnInk(foundation, surfacesFor(foundation, s.color)) : vvar('on', 'palette', PALETTE_KEYS[i % PALETTE_KEYS.length]) }}
             >
               {`${s.label} · ${formatValue(s.value)}`}
             </text>

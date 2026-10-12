@@ -103,8 +103,6 @@ export function SequenceDiagram({
     return `0 0 ${maxX} ${maxY}`;
   })();
 
-  const headFill = vvar('canvas', 'bg');
-
   return (
     <Canvas data-viz-notation viewBox={autoViewBox} width={width} height={height} title={title} {...props}>
       {/* Fragments (behind lifelines) */}
@@ -134,7 +132,8 @@ export function SequenceDiagram({
             label={p.name}
             headWidth={headWidth}
             headHeight={HEAD_HEIGHT}
-            headFill={p.fill ?? headFill}
+            // 지정한 색이 있을 때만 넘긴다 — 넘기지 않으면 Lifeline 이 캔버스 머리와 그 위 글자색을 쓴다(KAN-075).
+            headFill={p.fill}
             stroke={p.stroke}
             labelFontFamily={monoFont ? vvar('typography', 'monoFont') : undefined}
           />

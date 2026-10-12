@@ -112,7 +112,7 @@ export function ScatterPlot({
               textAnchor="middle"
               fontSize={10}
               fontFamily={resolveLabelFont(p.label)}
-              style={{ fill: vvar('shape', 'stroke') }}
+              style={{ fill: vvar('on', 'canvas', 'bg') }}
             >
               {p.label}
             </text>

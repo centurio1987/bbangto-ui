@@ -114,7 +114,7 @@ export const IsoPrism = React.forwardRef<SVGGElement, IsoPrismProps>(
             dominantBaseline="central"
             fontSize={labelFontSize}
             fontFamily={vvar('typography', 'titleFont')}
-            style={{ fill: vvar('shape', 'stroke') }}
+            style={{ fill: vvar('on', 'canvas', 'bg') }}
           >
             {label}
           </text>

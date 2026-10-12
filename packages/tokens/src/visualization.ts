@@ -126,9 +126,16 @@ export interface VisualizationFoundation {
    * 쓰고, 넘는 것이 없으면 검정·흰색 중 대비가 큰 쪽을 쓴다. 반투명 면(알파 < 1 · `none`)은 `canvas.bg` 위에
    * 합성한 면과, 거기에 검정 5%(레인 띠 정도의 음영)를 얹은 면 두 곳에서 모두 넘는 색을 고른다. 두 곳을 다
    * 넘는 색이 없으면 `canvas.bg` 위 면에서 대비가 큰 검정·흰색이다.
-   * 여기 적은 값은 계산값을 이긴다 — 대비는 적은 쪽이 책임진다.
+   * 면마다 적은 값은 계산값을 이긴다 — 대비는 적은 쪽이 책임진다.
+   *
+   * `ink` 는 가이드가 바라는 글자색 하나다(KAN-075). 계산 후보 넷보다 먼저 보고, 면 위에서 4.5:1 을 넘으면
+   * (반투명 면은 위 두 곳 모두에서) 그 색을 쓰고 못 넘으면 계산 후보로 넘어간다. 그래서 대비는 계산이 지킨다.
+   * 우선순위는 면마다 적은 값 → `ink` → 계산 후보 넷이다. 지침 문장이 「라벨은 크림」처럼 글자색을 이름으로
+   * 정한 가이드가 쓴다 — 연결선 색이 먼저 뽑혀 문장이 금지한 색이 칠해지는 것을 막는다. 카탈로그 가이드라면
+   * 그 문장과 색을 `textInk.test.ts` 의 표에도 넣는다(기계는 문장을 못 읽어 표 밖은 못 잡는다).
    */
   readonly on?: {
+    readonly ink?: string;
     readonly palette?: Partial<Record<'p1' | 'p2' | 'p3' | 'p4' | 'p5' | 'p6' | 'p7' | 'p8', string>>;
     readonly shape?: { readonly fill?: string };
     readonly canvas?: { readonly bg?: string };

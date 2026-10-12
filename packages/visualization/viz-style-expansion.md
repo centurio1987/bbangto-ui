@@ -379,3 +379,6 @@ family 수 영향: 기존 viz 13 − 1(riso 리네임) + `viz-print-ink` + `viz-
 4. **§5-c 자동 편입**: meta + paint가 해석되면 `TemplateStyleMatrix` · `VizCatalogDecisionTable`가 카운트를 데이터파생으로
    단언하므로 신규 가이드가 가이드별 테스트 없이 자동 green을 유지한다.
 5. tokens 신규 export(신규 family)마다 **storybook vite 캐시 삭제** 필요.
+6. **지침 문장에 글자색을 이름으로 적으면**(「라벨은 크림」·「텍스트는 순백」) 그 색을 `foundations.on.ink` 에 적고,
+   카탈로그 `textInk.test.ts` 표에 가이드·색 묶음·문장 낱말을 넣는다(KAN-075). 안 적으면 글자색 계산이 연결선 색을 먼저
+   골라 문장이 금지한 골드·네온이 칠해진다. 기계는 문장을 못 읽으므로 표에 안 넣은 가이드는 시험이 못 잡는다.

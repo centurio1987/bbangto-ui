@@ -27,7 +27,7 @@ export const Lifeline = React.forwardRef<SVGGElement, LifelineProps>(
       headHeight = 32,
       stroke,
       strokeWidth = 1.5,
-      headFill = vvar('canvas', 'bg'),
+      headFill,
       labelFontSize = 12,
       labelFontFamily,
       labelColor,
@@ -37,7 +37,9 @@ export const Lifeline = React.forwardRef<SVGGElement, LifelineProps>(
     ref,
   ) => {
     const effectiveStroke = stroke ?? vvar('edge', 'stroke');
-    const effectiveLabelColor = labelColor ?? vvar('edge', 'stroke');
+    // 머리 기본 면(canvas.bg) 위 글자는 캔버스 위 글자색이다(KAN-075). 면을 넘기면 계산할 수 없어 연결선 색이다.
+    const effectiveLabelColor = labelColor ?? (headFill === undefined ? vvar('on', 'canvas', 'bg') : vvar('edge', 'stroke'));
+    const effectiveHeadFill = headFill ?? vvar('canvas', 'bg');
     const effectiveFont = labelFontFamily ?? vvar('typography', 'titleFont');
     const cx = x;
 
@@ -54,7 +56,7 @@ export const Lifeline = React.forwardRef<SVGGElement, LifelineProps>(
           y={y}
           width={headWidth}
           height={headHeight}
-          style={{ fill: headFill, stroke: effectiveStroke, strokeWidth }}
+          style={{ fill: effectiveHeadFill, stroke: effectiveStroke, strokeWidth }}
         />
         {/* Dashed line */}
         <line

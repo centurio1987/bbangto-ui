@@ -1,6 +1,8 @@
 import { type ReactNode } from 'react';
 import { Canvas, type CanvasProps } from '../atoms/Canvas';
 import { vvar } from '../tokens/contract';
+import { pickOnInk, surfacesFor } from '../tokens/onInk';
+import { useVizFoundation } from '../styleGuide/VisualizationStyleGuideProvider';
 
 const PALETTE_KEYS = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8'] as const;
 
@@ -59,26 +61,45 @@ function renderGeo(data: { regions: GeoRegion[]; pins?: GeoPin[] }): ReactNode {
           {/* 리더 틱 + 핀 */}
           <circle cx={p.x} cy={p.y} r={5} style={{ fill: vvar('shape', 'stroke') }} />
           <line x1={p.x} y1={p.y} x2={p.x} y2={p.y - 16} data-bbangto-viz-edge style={{ stroke: vvar('shape', 'stroke') }} />
+          {/* 핀 이름 밑에 어느 지역이 올지 모른다 — 캔버스 색 칩을 깔고 캔버스 위 글자색을 쓴다(KAN-075, EdgeLabel 과 같은 방식) */}
+          <rect
+            x={p.x - pinLabelWidth(p) / 2}
+            y={p.y - 32}
+            width={pinLabelWidth(p)}
+            height={15}
+            rx={2}
+            style={{ fill: vvar('canvas', 'bg'), stroke: 'none' }}
+          />
           <text
             x={p.x}
-            y={p.y - 20}
+            y={p.y - 24.5}
             textAnchor="middle"
+            dominantBaseline="central"
             fontSize={11}
             fontWeight={700}
             fontFamily={vvar('typography', 'titleFont')}
-            style={{ fill: vvar('shape', 'stroke') }}
+            style={{ fill: vvar('on', 'canvas', 'bg') }}
           >
             {p.value != null ? `${p.label} (${p.value})` : p.label}
           </text>
         </g>
       ))}
       {/* region 라벨 + 값 병기 */}
-      {data.regions.map((r) => (r.label ? <GeoRegionLabel key={`rl-${r.id}`} region={r} /> : null))}
+      {data.regions.map((r, i) => (r.label ? <GeoRegionLabel key={`rl-${r.id}`} region={r} index={i} /> : null))}
     </>
   );
 }
 
-function GeoRegionLabel({ region }: { region: GeoRegion }): ReactNode {
+/** 핀 이름 칩 너비 — 글자 수 × 11px × 0.6 + 좌우 여백(EdgeLabel 과 같은 어림). */
+function pinLabelWidth(p: GeoPin): number {
+  const text = p.value != null ? `${p.label} (${p.value})` : p.label;
+  return text.length * 11 * 0.6 + 8;
+}
+
+function GeoRegionLabel({ region, index }: { region: GeoRegion; index: number }): ReactNode {
+  // 지역(55%) 안 글자는 그 지역 면으로 글자색을 고른다(KAN-075).
+  const foundation = useVizFoundation();
+  const face = region.color ?? foundation.palette[PALETTE_KEYS[index % PALETTE_KEYS.length]];
   // path 중심 추정: d의 좌표 평균(간이).
   const nums = region.d.match(/-?\d+(\.\d+)?/g)?.map(Number) ?? [];
   const xs = nums.filter((_, i) => i % 2 === 0);
@@ -95,7 +116,7 @@ function GeoRegionLabel({ region }: { region: GeoRegion }): ReactNode {
       fontSize={11}
       fontWeight={600}
       fontFamily={vvar('typography', 'titleFont')}
-      style={{ fill: vvar('canvas', 'bg') }}
+      style={{ fill: pickOnInk(foundation, surfacesFor(foundation, face, 0.55)) }}
     >
       {region.value != null ? `${region.label} ${region.value}` : region.label}
     </text>

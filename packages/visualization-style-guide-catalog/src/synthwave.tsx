@@ -121,6 +121,9 @@ const foundations: VisualizationFoundation = {
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
   },
 
+
+  // 지침 「모든 라벨은 니어화이트」 — 면 위 4.5:1 을 넘으면 네온 라인보다 먼저 쓴다(KAN-075).
+  on: { ink: LABEL },
 };
 
 // ext 변수 — 글로우 색·노드 스캔라인 색·쇼케이스 스캔라인·퍼스펙티브 그리드 색.

@@ -1,6 +1,8 @@
 import { type ReactNode } from 'react';
 import { Canvas, type CanvasProps } from '../atoms/Canvas';
 import { vvar } from '../tokens/contract';
+import { pickOnInk, surfacesFor } from '../tokens/onInk';
+import { useVizFoundation } from '../styleGuide/VisualizationStyleGuideProvider';
 import { resolveLabelFont } from '../tokens/labelFont';
 import { parseViewBox } from '../geometry/layout';
 
@@ -96,6 +98,10 @@ export function Kruchten4Plus1View({
   const vb = parseViewBox(viewBox, [0, 0, 760, 580]);
   const rects = regionRects(vb);
   const stroke = vvar('shape', 'stroke');
+  // 영역 제목은 팔레트 12% 틴트 위 — 그 면으로 글자색을 고른다(KAN-075).
+  const foundation = useVizFoundation();
+  const regionInk = (key: string) =>
+    pickOnInk(foundation, surfacesFor(foundation, foundation.palette[key as keyof typeof foundation.palette], 0.12));
   const titleFont = vvar('typography', 'titleFont');
   const labelColor = vvar('boundary', 'labelColor');
 
@@ -134,7 +140,7 @@ export function Kruchten4Plus1View({
               fontSize={13}
               fontWeight={800}
               fontFamily={titleFont}
-              style={{ fill: stroke }}
+              style={{ fill: regionInk(meta.palette) }}
             >
               {meta.label}
             </text>

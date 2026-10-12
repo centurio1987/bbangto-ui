@@ -51,7 +51,8 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
         fontFamily: vvar('typography', 'titleFont'),
         fontSize: 14,
         fontWeight: 700,
-        color: vvar('shape', 'stroke'),
+        // 캔버스 위 글자색 — 가이드 on.ink 를 따른다(KAN-075). 도형 선색은 문장이 금지한 골드·네온일 수 있다.
+        color: vvar('on', 'canvas', 'bg'),
       }}
     >
       {children}
@@ -69,8 +70,8 @@ function ScopeNote() {
         fontFamily: vvar('typography', 'titleFont'),
         fontSize: 11,
         lineHeight: 1.5,
-        opacity: 0.7,
-        color: vvar('shape', 'stroke'),
+        // 흐리게(opacity) 쓰지 않는다 — darkluxe 에서 4.45:1 로 대비가 깎였다(KAN-075). 위계는 크기(11px)로 낸다.
+        color: vvar('on', 'canvas', 'bg'),
       }}
     >
       이 쇼케이스는 <strong>paint(스타일) 축 데모</strong>입니다 — 그릴 수 있는 그림의 목록이 아닙니다.

@@ -110,7 +110,7 @@ export function WaterfallChart({
           fontSize={10}
           fontWeight={700}
           fontFamily={vvar('typography', 'monoFont')}
-          style={{ fill: vvar('shape', 'stroke') }}
+          style={{ fill: vvar('on', 'canvas', 'bg') }}
         >
           {`${s.delta >= 0 && !s.isTotal ? '+' : ''}${formatValue(s.delta)}`}
         </text>

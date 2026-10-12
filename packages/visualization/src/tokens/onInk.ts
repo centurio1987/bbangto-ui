@@ -5,9 +5,9 @@ import type { NodeSemanticKind, VisualizationFoundation } from './types';
 /**
  * 면 위 글자색 (KAN-061) — 패키지 내부 전용. 공개 API 로 내보내지 않는다.
  *
- * 면 토큰마다 그 위에 쓸 글자색을 하나 정한다. 가이드 글자색 넷을 순서대로 보고 처음으로
- * 면과 4.5:1 을 넘는 것을 쓰며, 넘는 것이 없으면 검정·흰색 중 대비가 큰 쪽을 쓴다.
- * 가이드가 `on` 에 직접 적은 값은 계산값을 이긴다.
+ * 면 토큰마다 그 위에 쓸 글자색을 하나 정한다. 가이드가 바라는 글자색(`on.ink`, KAN-075)과 가이드 글자색 넷을
+ * 순서대로 보고 처음으로 면과 4.5:1 을 넘는 것을 쓰며, 넘는 것이 없으면 검정·흰색 중 대비가 큰 쪽을 쓴다.
+ * 가이드가 `on` 에 면마다 직접 적은 값은 계산값을 이긴다.
  *
  * `visualizationFoundationToStyleObject` 가 결과를 `--bbangto-viz-on-*` 로 내므로, 템플릿은 보통
  * `vvar('on', 'palette', 'p1')` 를 쓴다. 데이터마다 투명도가 바뀌는 면만 `useVizFoundation()` 으로
@@ -79,13 +79,16 @@ const worst = (ink: RGBA, surfaces: readonly RGBA[]): number =>
 
 /**
  * 면(들) 위에 쓸 글자색. 모든 면에서 4.5:1 을 넘는 가이드 후보가 이기고, 없으면 검정·흰색이다.
+ * 후보는 `on.ink` → `edge.stroke` → `shape.stroke` → `boundary.labelColor` → `canvas.bg` 순이다. `on.ink` 가 맨 앞인 것은
+ * 지침 문장이 글자색을 이름으로 정한 가이드에서 연결선 색(골드·네온)이 먼저 뽑히지 않게 하려는 것이다.
  * 검정·흰색도 모든 면에서 넘지 못하면(중간 밝기 반투명 면) 첫 면 — 실제 바탕 — 에서 대비가 큰 쪽을 쓴다.
  * 불투명한 첫 면 위에서 검정·흰색 중 하나는 늘 4.5:1 을 넘는다.
  */
 export function pickOnInk(f: VisualizationFoundation, surface: RGBA | readonly RGBA[]): string {
   const surfaces = Array.isArray(surface) ? (surface as readonly RGBA[]) : [surface as RGBA];
-  const candidates = [f.edge.stroke, f.shape.stroke, f.boundary.labelColor, f.canvas.bg];
+  const candidates = [f.on?.ink, f.edge.stroke, f.shape.stroke, f.boundary.labelColor, f.canvas.bg];
   for (const ink of candidates) {
+    if (ink === undefined) continue;
     const c = parseColor(ink);
     if (!c || c.a < 1) continue;
     if (worst(c, surfaces) >= ON_INK_MIN) return ink;

@@ -15,18 +15,6 @@
     ```text
     최종 승인한다 (KAN-067 검토 항목 1 「재현 시험이 겪으신 현상을 재현하지 못했는데 이 카드를 닫을 것인가」의 추천 「닫고, 실제 사례로 재현하는 후속 카드를 연다」를 포함한 전체 승인)
     ```
-- `KAN-075-4K5GK3` viz 가이드 지침 문장과 실제 글자색 맞추기 — 저자가 정한 글자색과 칠해지는 노드·C4 글자색이 다른 가이드 — 생성:ai · 최종:ai · 갱신:2026-10-11
-  - 짧은 제목: 가이드 글자색 문장 맞추기
-  - 목적: 가이드 지침에 적힌 글자색 규칙과 실제로 칠해지는 노드·C4 글자색이 다른 가이드를 찾아, 문장을 그림에 맞출지 그림을 문장에 맞출지 정하고 맞춘다
-  - 이유: KAN-061 글자색 계산이 연결선 색을 먼저 골라 artdeco-luxe·synthwave·darkluxe·hud-telemetry 에서 저자가 금지한 골드·네온·시안이 칠해진다(KAN-069 검토 항목 3 반려에서 확인)
-  - 목표: 가이드마다 지침 문장과 칠해지는 글자색이 맞고, 둘이 다시 어긋나면 검사가 잡는다
-  - 메모: 칠해지는 색이 저자 색과 다른 가이드 15개(KAN-069 착수 때 실측 189곳). 길 셋: 문장 고치기 / on 으로 저자 색 지정 / KAN-061 계산 후보 순서에서 boundary.labelColor 를 앞으로. KAN-069 병합 뒤 착수(tagColor 가 지워진 상태 기준)
-  - 실행 문서: KANBAN/cards/KAN-075-4K5GK3.md (0/5 · 최근 10-11)
-  - 계획 리포트: KANBAN/reports/KAN-075-4K5GK3.report.html (낡음)
-  - 원문:
-    ```text
-    후속 카드로 넘긴다 (Recommended) (KAN-069 검토 뒤 질문 「항목 3(가이드 지침 문장이 실제 글자색과 어긋남)을 어떻게 풀까요? 원인은 KAN-061 글자색 계산이 연결선 색을 먼저 골라, 저자가 글자색으로 정하고 다른 색은 금지한 가이드 4곳(artdeco·synthwave·darkluxe·hud-telemetry)에서 금지한 색이 칠해지는 것입니다.」에 대한 답)
-    ```
 
 ## 할 일
 
@@ -635,7 +623,7 @@
   - 목표: 선언과 동작이 어긋난 viz 토큰이 0이 되고, 첫 단계로 경계선(boundary.dashPattern·width·radius)이 카탈로그 가이드 값대로 그려진다
   - 메모: 대상: canvas.gridUnit · node.*.tagColor · edge.marker.size · c4.l1/l2/l3.{borderWidth,bgTint,labelColor} 9개 · boundary.{dashPattern,width,radius}(Boundary.tsx 가 JS 기본값 '8 6'/1.5/8 사용, 카탈로그 값은 제각각이라 그림이 바뀜) · typography.titleWeight · typography.sizes.{title,label,tag,mono} · iconStyle · spacing.{nodePad,laneGap} · motion.{duration,easing}. 잇는 방식은 KAN-057(edge.dashPattern)의 훅·계약 스타일시트 규칙을 따른다
   - 실행 문서: KANBAN/cards/KAN-069-G0FGTJ.md (6/6 · 최근 10-11)
-  - 계획 리포트: KANBAN/reports/KAN-069-G0FGTJ.report.html
+  - 계획 리포트: KANBAN/reports/KAN-069-G0FGTJ.report.html (낡음)
   - 검토 문서: KANBAN/reviews/KAN-069-G0FGTJ.review.md (승인 3/3 · 철회 1 · 추가 의견 총 6 · 승인)
   - 원문:
     ```text
@@ -653,4 +641,17 @@
   - 원문:
     ```text
     좁히고 새 카드 (앞 질문 「카드 목표인 「새 워크트리에서 build 없이 typecheck·test:unit 통과」를 어떻게 할까요? 패키지끼리 타입을 dist/index.d.ts 에서 찾고 루트 tsconfig 에 paths 가 없어서, 매니페스트와 상관없이 첫 typecheck 가 TS2307 로 실패합니다.」에 대한 답)
+    ```
+- `KAN-075-4K5GK3` viz 가이드 지침 문장과 실제 글자색 맞추기 — 저자가 정한 글자색과 칠해지는 노드·C4 글자색이 다른 가이드 — 생성:ai · 최종:ai · 갱신:2026-10-12
+  - 짧은 제목: 가이드 글자색 문장 맞추기
+  - 목적: 가이드 지침에 적힌 글자색 규칙과 실제로 칠해지는 노드·C4 글자색이 다른 가이드를 찾아, 문장을 그림에 맞출지 그림을 문장에 맞출지 정하고 맞춘다
+  - 이유: KAN-061 글자색 계산이 연결선 색을 먼저 골라 artdeco-luxe·synthwave·darkluxe·hud-telemetry 에서 저자가 금지한 골드·네온·시안이 칠해진다(KAN-069 검토 항목 3 반려에서 확인)
+  - 목표: 가이드마다 지침 문장과 칠해지는 글자색이 맞고, 둘이 다시 어긋나면 검사가 잡는다
+  - 메모: 칠해지는 색이 저자 색과 다른 가이드 15개(KAN-069 착수 때 실측 189곳). 길 셋: 문장 고치기 / on 으로 저자 색 지정 / KAN-061 계산 후보 순서에서 boundary.labelColor 를 앞으로. KAN-069 병합 뒤 착수(tagColor 가 지워진 상태 기준)
+  - 실행 문서: KANBAN/cards/KAN-075-4K5GK3.md (9/9 · 최근 10-11)
+  - 계획 리포트: KANBAN/reports/KAN-075-4K5GK3.report.html (낡음)
+  - 검토 문서: KANBAN/reviews/KAN-075-4K5GK3.review.md (승인 2/2 · 철회 1 · 추가 의견 총 9 · 승인)
+  - 원문:
+    ```text
+    후속 카드로 넘긴다 (Recommended) (KAN-069 검토 뒤 질문 「항목 3(가이드 지침 문장이 실제 글자색과 어긋남)을 어떻게 풀까요? 원인은 KAN-061 글자색 계산이 연결선 색을 먼저 골라, 저자가 글자색으로 정하고 다른 색은 금지한 가이드 4곳(artdeco·synthwave·darkluxe·hud-telemetry)에서 금지한 색이 칠해지는 것입니다.」에 대한 답)
     ```

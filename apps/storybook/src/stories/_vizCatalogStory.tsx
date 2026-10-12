@@ -179,6 +179,20 @@ export function makeVizCatalogStories(
         }
       }
 
+      // 5. 지침 문장이 정한 글자색(on.ink, KAN-075) — Provider 가 루트에 실제로 넣은 노드 글자색이 그 색이다.
+      //    불투명 hex fill 위에서 그 색이 4.5:1 을 넘는 kind 만 본다(반투명 면은 계산이 음영까지 재므로 뺀다).
+      const ink = sg.foundations.on?.ink;
+      if (ink) {
+        for (const k of kinds) {
+          const { fill } = sg.foundations.node[k];
+          const ratio = /^#[0-9a-f]{6}$/i.test(fill) ? contrastRatio(ink, fill) : null;
+          if (ratio != null && ratio >= 4.5) {
+            const painted = style.getPropertyValue(`--bbangto-viz-on-node-${String(k)}-fill`).trim();
+            await expect(painted.toLowerCase()).toBe(ink.toLowerCase());
+          }
+        }
+      }
+
       await expectNoForbiddenTokens(canvasElement);
     },
   };
@@ -277,6 +291,20 @@ export function makeVizCatalogStories(
       await expect(note).not.toBeNull();
       await expect(note!.textContent).toContain('87종');
       await expect(note!.textContent).toContain('type.manifest.json');
+
+      // 쇼케이스 글자(안내 문단·섹션 제목)는 캔버스 위 글자색을 흐리게 하지 않고 쓴다(KAN-075).
+      // 그래야 지침 문장이 정한 글자색(on.ink)이 여기까지 오고, 투명도로 대비가 깎이지 않는다.
+      const probe = document.createElement('span');
+      probe.style.color = 'var(--bbangto-viz-on-canvas-bg)';
+      showcase!.appendChild(probe);
+      const onCanvas = getComputedStyle(probe).color;
+      probe.remove();
+      const texts = [note!, ...Array.from(showcase!.querySelectorAll<HTMLElement>('h3'))];
+      await expect(texts.length).toBeGreaterThan(1);
+      for (const el of texts) {
+        await expect(getComputedStyle(el).color).toBe(onCanvas);
+        await expect(getComputedStyle(el).opacity).toBe('1');
+      }
 
       // patterns 등록 + extendedFoundations 존재
       await expect(Object.keys(sg.patterns ?? {}).length).toBeGreaterThan(0);

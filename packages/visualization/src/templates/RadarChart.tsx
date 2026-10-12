@@ -80,7 +80,7 @@ export function RadarChart({
             fontSize={11}
             fontWeight={600}
             fontFamily={vvar('typography', 'titleFont')}
-            style={{ fill: vvar('shape', 'stroke') }}
+            style={{ fill: vvar('on', 'canvas', 'bg') }}
           >
             {axes[i]}
           </text>

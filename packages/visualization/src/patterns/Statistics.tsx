@@ -133,7 +133,7 @@ function renderIsotype(
               fontSize={13}
               fontWeight={700}
               fontFamily={vvar('typography', 'titleFont')}
-              style={{ fill: vvar('shape', 'stroke') }}
+              style={{ fill: vvar('on', 'canvas', 'bg') }}
             >
               {item.label}
             </text>
@@ -153,7 +153,7 @@ function renderIsotype(
               fontSize={13}
               fontWeight={700}
               fontFamily={resolveLabelFont(`${item.value}${item.unit ?? ''}`)}
-              style={{ fill: vvar('shape', 'stroke') }}
+              style={{ fill: vvar('on', 'canvas', 'bg') }}
             >
               {item.value}
               {item.unit ?? ''}
@@ -241,7 +241,7 @@ function renderWaffle(
           fontSize={13}
           fontWeight={700}
           fontFamily={vvar('typography', 'titleFont')}
-          style={{ fill: vvar('shape', 'stroke') }}
+          style={{ fill: vvar('on', 'canvas', 'bg') }}
         >
           {`${it.label} ${it.value}${it.unit ?? '%'} (${counts[i]})`}
         </text>

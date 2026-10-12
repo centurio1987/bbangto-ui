@@ -117,7 +117,8 @@ export function Heatmap({
     });
   });
 
-  const labelFill = vvar('edge', 'stroke');
+  // 축 글자는 캔버스 위 — 캔버스 위 글자색을 쓴다(KAN-075).
+  const labelFill = vvar('on', 'canvas', 'bg');
 
   return (
     <Canvas viewBox={viewBox} title={title} data-bbangto-viz-chart="heatmap" {...canvasProps}>

@@ -123,6 +123,9 @@ const foundations: VisualizationFoundation = {
     monoFont: "'JetBrains Mono', 'Courier New', monospace",
   },
 
+
+  // 지침 「모든 라벨은 웜 크림」 — 면 위 4.5:1 을 넘으면 골드 헤어라인보다 먼저 쓴다(KAN-075).
+  on: { ink: CREAM },
 };
 
 // ext 변수 — 헤어라인 룰 색·크림 라벨·브론즈 액센트. preset마다 전량 재정의해
@@ -136,21 +139,6 @@ const DEFAULT_EXT: Record<string, string> = {
 const MGOLD = '#B99154'; // 뮤트 골드(웜 니어블랙 대비 6.75:1)
 const OXBLOOD = '#6E2230'; // 옥스블러드 액센트(비텍스트 장식 — 텍스트/라인 잉크로 미사용)
 
-/**
- * oxblood 면 위 노드·C4 글자는 크림으로 정한다. 계산값(뮤트 골드)은 이 면들에서 5.9~6.8:1 이라 aaa(7:1) 선언에
- * 못 미친다. 크림은 같은 면에서 13:1 이상이다(KAN-069).
- */
-const OXBLOOD_ON: VisualizationFoundation['on'] = {
-  node: Object.fromEntries(
-    (['person', 'external', 'container', 'database', 'queue', 'decision', 'process'] as const).map((k) => [
-      k,
-      { fill: CREAM },
-    ]),
-  ),
-  c4: { l1: { bgTint: CREAM }, l2: { bgTint: CREAM }, l3: { bgTint: CREAM } },
-};
-
-/** oxblood — 웜 니어블랙 그라운드 + 뮤트 골드 잉크 + 옥스블러드 액센트 colorway. */
 const oxbloodFoundations: VisualizationFoundation = {
   ...makeVizColorway(foundations, {
     name: 'darkluxe-01-oxblood',
@@ -176,7 +164,6 @@ const oxbloodFoundations: VisualizationFoundation = {
       p8: '#241414',
     },
   }),
-  on: OXBLOOD_ON,
 };
 
 const OXBLOOD_EXT: Record<string, string> = {

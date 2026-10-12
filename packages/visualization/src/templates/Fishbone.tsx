@@ -111,7 +111,7 @@ export function Fishbone({
               fontSize={12}
               fontWeight={700}
               fontFamily={vvar('typography', 'titleFont')}
-              style={{ fill: vvar('shape', 'stroke') }}
+              style={{ fill: vvar('on', 'canvas', 'bg') }}
             >
               {cat.label}
             </text>

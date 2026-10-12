@@ -1,6 +1,8 @@
 import { type ReactNode } from 'react';
 import { Canvas, type CanvasProps } from '../atoms/Canvas';
 import { vvar } from '../tokens/contract';
+import { pickOnInk, surfacesFor } from '../tokens/onInk';
+import { useVizFoundation } from '../styleGuide/VisualizationStyleGuideProvider';
 import { parseViewBox } from '../geometry/layout';
 import { hexLayout } from '../geometry/hexgrid';
 import { hexagonPath } from '../geometry/shapes';
@@ -33,6 +35,8 @@ export function Honeycomb({
   ...canvasProps
 }: HoneycombProps) {
   const [vbX, vbY, vbW] = parseViewBox(viewBox, [0, 0, 360, 320]);
+  // 칸 안 글자는 그 칸의 글자색이다. 지정 색 칸은 그 색으로 고른다(KAN-075).
+  const foundation = useVizFoundation();
 
   if (children != null || !data) {
     return (
@@ -71,7 +75,7 @@ export function Honeycomb({
               fontSize={11}
               fontWeight={700}
               fontFamily={vvar('typography', 'titleFont')}
-              style={{ fill: vvar('shape', 'stroke') }}
+              style={{ fill: item.color ? pickOnInk(foundation, surfacesFor(foundation, item.color)) : vvar('on', 'palette', PALETTE_KEYS[i % PALETTE_KEYS.length]) }}
             >
               {item.label}
             </text>
