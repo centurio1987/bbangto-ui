@@ -1,6 +1,6 @@
 {
   "name": "@centurio1987/bbangto-ui-visualization-style-guide-catalog",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Visualization style guide preset catalog for bbangto-ui — 30 ready-made style guides built on the headless visualization system",
   "type": "module",
   "main": "./dist/index.js",
