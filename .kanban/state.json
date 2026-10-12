@@ -1,6 +1,6 @@
 {
   "next_id": 80,
-  "next_seq": 301,
+  "next_seq": 302,
   "cards": {
     "KAN-020": {
       "col": "done",
@@ -1659,7 +1659,7 @@
       "memo_hash": "9f5d63a1ef6dc945abba060dcbcaacfa5b14864b"
     },
     "KAN-079-CFS73T": {
-      "col": "doing",
+      "col": "review",
       "title": "미배포 변경 배포 — KAN-069·070·072·075 (tokens·visualization·visualization-style-guide-catalog 2.0.0 · core 1.2.3 · foundations 2.0.1 · style-guide-catalog 1.0.1)",
       "verbatim": "71 완료 했을 때 시점에서, npm package는 재배포해야 할 필요가 없는지 확인해 줘\n방금 071 끝났으니 만들어라 (앞 질문 「배포 카드를 지금 만들까요? (만들어도 push·배포는 따로 지시를 받은 뒤에 합니다)」에 대한 답)",
       "생성": "ai",
@@ -1778,6 +1778,16 @@
     "KAN-079-CFS73T"
   ],
   "recent": [
+    {
+      "seq": 301,
+      "t": "2026-10-12T16:09",
+      "a": "ai",
+      "id": "KAN-079-CFS73T",
+      "op": "move",
+      "w": "451TXT",
+      "from": "doing",
+      "to": "review"
+    },
     {
       "seq": 300,
       "t": "2026-10-12T15:51",
@@ -2316,16 +2326,6 @@
       "field": "memo",
       "before": "선행 확인: 실제 토크나이저로 4종 크기 실측(어림값 검증). 전부 걷어내는 안은 버림 — foundation 76종은 메타가 유일한 선택 근거",
       "after": "병합 대기 — KAN-061 을 KAN-057·067 과 함께 0.x 줄로 먼저 배포한 뒤 main 에 병합(2026-10-10 유저 선택). 토큰 실측·버린 안은 실행 문서 전략 절"
-    },
-    {
-      "seq": 267,
-      "t": "2026-10-10T01:27",
-      "a": "ai",
-      "id": "KAN-061-K8V2HH",
-      "op": "move",
-      "w": "HTKBTA",
-      "from": "doing",
-      "to": "review"
     }
   ],
   "waivers": [
