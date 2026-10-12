@@ -1,5 +1,5 @@
 <meta charset="utf-8">
-<!-- kanban-fp:273ab185d822c4b226ccd64e77d91f56442aeb07 -->
+<!-- kanban-fp:1e98df98e88812b6f250fb4da6e97bf8d33191fe -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>KAN-079-CFS73T 검토 요청</title>
 <style>
@@ -623,24 +623,24 @@ textarea { line-height: 1.6; resize: vertical; }
 
 <div class="dh">
   <div class="dh-cv"><span class="meta">수렴</span>
-    <b>0<i> / </i>1</b>
-    <span class="dh-sub">남은 1</span></div>
+    <b>1<i> / </i>1</b>
+    <span class="dh-sub">살아있는 항목 전부 승인</span></div>
   <div class="dh-sep"></div>
   <div class="dh-rail">
     <div class="dh-rail-head"><span class="meta">항목 레일 — 누르면 그 항목으로</span>
       <span class="meta">1칸</span></div>
-    <div class="rail"><a class="rail-c st-open rail-cur" href="#item-1" title="§3-1 미정 — 외부 앱에 보낼 문구를 지금 그대로 보낼 것인가 — 추천은 그대로 보내기">1</a></div>
+    <div class="rail"><a class="rail-c st-approved" href="#item-1" title="§3-1 승인 — 외부 앱에 보낼 문구를 지금 그대로 보낼 것인가 — 추천은 그대로 보내기">1</a></div>
   </div>
   <div class="dh-sep"></div>
   <div class="dh-act">
-    <span class="tag tag-doing">검토 대기</span>
-    <a class="dh-next" href="#item-1">다음 미해결 &#9656; 1번</a></div>
+    <span class="tag tag-done">승인</span>
+    </div>
 </div>
 <div class="dh-meta">변경 6파일 · +132 −27 · 커밋 5 · 롤백 태그 0 · 추가 의견 0</div>
 
 
 
-<h2 class="h2-row">판단 항목 1<span class="meta">열린 것 1 · 닫힌 것 0</span></h2>
+<h2 class="h2-row">판단 항목 1<span class="meta">열린 것 0 · 닫힌 것 1</span></h2>
 <p class="note">번호는 의견 순서입니다. <b>의견마다 판정과 추가 의견이 따로 붙습니다</b> — 판정은 상태이고
 추가 의견은 말입니다. 승인/반려를 아직 안 정했어도 추가 의견만 달 수 있고, 반대로 의견 하나만 먼저 닫을 수도
 있습니다. <b>판정과 추가 의견, 의견 추가는 이 화면에서 바로 합니다</b> — 누른 것은 왼쪽 아래
@@ -662,7 +662,7 @@ python3 scripts/kanban.py review-item  &lt;project-root&gt; --card KAN-079-CFS73
   <select id="rv-by" style="width:auto"><option>유저</option><option>ai</option></select>
   <span class="meta">이 화면에서 내는 판정·추가 의견에 붙습니다 — 기본은 유저입니다</span>
 </div>
-<ol id="rv-list"><li id="item-1" class="jd"><div class="jd-head"><span class="jd-num st-open">1</span><span class="jd-title">외부 앱에 보낼 문구를 지금 그대로 보낼 것인가 — 추천은 그대로 보내기입니다</span><span class="tag tag-todo">미정</span><span class="meta">판정 0 · 의견 0</span></div><div class="jd-band jd-band-ctx"><span class="jd-g">배경</span><span class="jd-rule"></span><div class="jd-body"><ul class="jd-facts"><li><span class="jd-fact">외부 앱은 배포된 버전만 설치할 수 있다. 이번 배포는 tokens·visualization·visualization-style-guide-catalog 셋이 major 라 앱이 버전 범위를 올려야 받는다. 이 문구가 그 안내다.</span><span class="jd-src">원문 KANBAN/cards/KAN-079-CFS73T.md:91</span></li><li><span class="jd-fact">문구에는 새 버전과 범위를 올려야 하는 패키지, 깨지는 곳 하나(시각화 가이드 토큰에서 지운 필드와 대신 쓸 것), 바뀐 그림 셋(경계선 · 글자색 · 연결선 대시 범위)과 README 정정 하나가 들어 있다.</span><span class="jd-src">원문 KANBAN/cards/KAN-079-CFS73T.md:91</span></li><li><span class="jd-fact">깨지는 곳은 자기 시각화 가이드를 만들어 지운 필드를 적은 앱에만 있다. 카탈로그 가이드만 쓰는 앱은 범위만 올리면 된다.</span><span class="jd-src">원문 packages/tokens/CHANGELOG.md:24</span></li><li><span class="jd-fact">지운 필드 표와 부품 글자색 전후 표는 저장소 CHANGELOG 에만 있고, 배포된 패키지에는 CHANGELOG 가 실리지 않는다.</span><span class="jd-src">원문 packages/visualization/CHANGELOG.md:84</span></li><li><span class="jd-fact">네 변경이 배포본에 실제로 실린 것은 확인했다.</span><span class="jd-src">원문 KANBAN/cards/KAN-079-CFS73T.md:92</span></li><li><span class="jd-fact">문구를 실제로 외부 앱에 보내는 일은 이 저장소 밖이라 사용자가 한다</span></li></ul></div></div><div class="jd-band jd-band-ctx"><span class="jd-g">정할 것</span><span class="jd-rule"></span><div class="jd-body"><p>지금 문구 그대로 보낼 것인가, 저장소 CHANGELOG 의 두 표를 덧붙여 보낼 것인가.</p><div class="scroll jd-tbl"><table><thead><tr><th>선택지</th><th>대가</th><th>그러면 어떻게 되는가</th></tr></thead><tbody><tr class="jd-rec"><td><span class="tag tag-done">추천</span> 그대로 보낸다</td><td>자기 가이드를 만든 앱은 문구의 필드 목록만 보고 옮긴다</td><td>대부분의 앱은 범위만 올리면 끝나고, 지운 필드를 적은 앱만 그 줄을 지운다</td></tr><tr><td>CHANGELOG 의 지운 필드 표와 부품 글자색 표를 덧붙인다</td><td>문구가 길어진다</td><td>부품을 직접 쓰는 앱이 바뀐 글자색을 부품마다 짚어 볼 수 있다</td></tr></tbody></table></div></div></div><div class="jd-band jd-band-v"><span class="jd-g">판정 0</span><span class="jd-rule"></span><div class="jd-body"><p class="jd-empty">판정 없음 — <code>review-judge --card KAN-079-CFS73T --item 1 --verdict 승인</code></p><ul class="jd-vs"></ul></div></div><div class="jd-band jd-band-n"><span class="jd-g">의견 0</span><span class="jd-rule"></span><div class="jd-body"><p class="jd-empty">추가 의견 없음 — <code>review-note --card KAN-079-CFS73T --item 1 --text "&lt;추가 의견&gt;"</code></p><ul class="jd-ns"></ul></div></div><div class="jd-band jd-band-ops is-static"><span class="jd-g">조작</span><span class="jd-rule"></span><div class="jd-body"><div class="rv-ops" data-item="1"><div class="row"><label>판정</label><button data-judge="승인">승인</button><button data-judge="반려">반려</button><button data-judge="철회">철회</button><span class="tag tag-wait" data-pending="1" hidden></span></div><div class="row"><label>추가 의견</label><input data-note placeholder="추가 의견 — 판정을 안 바꾸고 말만 남깁니다"><button data-note-add>추가 의견 달기</button></div></div></div></div></li></ol>
+<ol id="rv-list"><li id="item-1" class="jd jd-closed"><details class="jd-fold"><summary><span class="jd-num st-approved">1</span><span class="jd-title">외부 앱에 보낼 문구를 지금 그대로 보낼 것인가 — 추천은 그대로 보내기입니다</span><span class="tag tag-done">승인</span><span class="meta">판정 1 · 의견 0</span><span class="meta jd-tog"></span></summary><div class="jd-band jd-band-ctx"><span class="jd-g">배경</span><span class="jd-rule"></span><div class="jd-body"><ul class="jd-facts"><li><span class="jd-fact">외부 앱은 배포된 버전만 설치할 수 있다. 이번 배포는 tokens·visualization·visualization-style-guide-catalog 셋이 major 라 앱이 버전 범위를 올려야 받는다. 이 문구가 그 안내다.</span><span class="jd-src">원문 KANBAN/cards/KAN-079-CFS73T.md:91</span></li><li><span class="jd-fact">문구에는 새 버전과 범위를 올려야 하는 패키지, 깨지는 곳 하나(시각화 가이드 토큰에서 지운 필드와 대신 쓸 것), 바뀐 그림 셋(경계선 · 글자색 · 연결선 대시 범위)과 README 정정 하나가 들어 있다.</span><span class="jd-src">원문 KANBAN/cards/KAN-079-CFS73T.md:91</span></li><li><span class="jd-fact">깨지는 곳은 자기 시각화 가이드를 만들어 지운 필드를 적은 앱에만 있다. 카탈로그 가이드만 쓰는 앱은 범위만 올리면 된다.</span><span class="jd-src">원문 packages/tokens/CHANGELOG.md:24</span></li><li><span class="jd-fact">지운 필드 표와 부품 글자색 전후 표는 저장소 CHANGELOG 에만 있고, 배포된 패키지에는 CHANGELOG 가 실리지 않는다.</span><span class="jd-src">원문 packages/visualization/CHANGELOG.md:84</span></li><li><span class="jd-fact">네 변경이 배포본에 실제로 실린 것은 확인했다.</span><span class="jd-src">원문 KANBAN/cards/KAN-079-CFS73T.md:92</span></li><li><span class="jd-fact">문구를 실제로 외부 앱에 보내는 일은 이 저장소 밖이라 사용자가 한다</span></li></ul></div></div><div class="jd-band jd-band-ctx"><span class="jd-g">정할 것</span><span class="jd-rule"></span><div class="jd-body"><p>지금 문구 그대로 보낼 것인가, 저장소 CHANGELOG 의 두 표를 덧붙여 보낼 것인가.</p><div class="scroll jd-tbl"><table><thead><tr><th>선택지</th><th>대가</th><th>그러면 어떻게 되는가</th></tr></thead><tbody><tr class="jd-rec"><td><span class="tag tag-done">추천</span> 그대로 보낸다</td><td>자기 가이드를 만든 앱은 문구의 필드 목록만 보고 옮긴다</td><td>대부분의 앱은 범위만 올리면 끝나고, 지운 필드를 적은 앱만 그 줄을 지운다</td></tr><tr><td>CHANGELOG 의 지운 필드 표와 부품 글자색 표를 덧붙인다</td><td>문구가 길어진다</td><td>부품을 직접 쓰는 앱이 바뀐 글자색을 부품마다 짚어 볼 수 있다</td></tr></tbody></table></div></div></div><div class="jd-band jd-band-v"><span class="jd-g">판정 1</span><span class="jd-rule"></span><div class="jd-body"><ul class="jd-vs"><li><span class="meta">1회차</span><span class="tag tag-done">승인</span><span><span class="meta">유저 · 2026-10-12</span> </span></li></ul></div></div><div class="jd-band jd-band-n"><span class="jd-g">의견 0</span><span class="jd-rule"></span><div class="jd-body"><p class="jd-empty">추가 의견 없음 — <code>review-note --card KAN-079-CFS73T --item 1 --text "&lt;추가 의견&gt;"</code></p><ul class="jd-ns"></ul></div></div><div class="jd-band jd-band-ops is-static"><span class="jd-g">조작</span><span class="jd-rule"></span><div class="jd-body"><div class="rv-ops" data-item="1"><div class="row"><label>판정</label><button data-judge="승인">승인</button><button data-judge="반려">반려</button><button data-judge="철회">철회</button><span class="tag tag-wait" data-pending="1" hidden></span></div><div class="row"><label>추가 의견</label><input data-note placeholder="추가 의견 — 판정을 안 바꾸고 말만 남깁니다"><button data-note-add>추가 의견 달기</button></div></div></div></div></details></li></ol>
 
 <h3>의견 추가</h3>
 <section class="card rv-panel" id="rv-add">
@@ -692,7 +692,7 @@ python3 scripts/kanban.py review-item  &lt;project-root&gt; --card KAN-079-CFS73
 <h2>전체 판정</h2>
 
 <section class="card rv-panel" id="rv-all">
-<p class="note"><span class="tag tag-warn">경고</span> 살아있는 항목 1개(1번)가 안 닫혀 전체 승인은 아직 안 섭니다.</p>
+
 <p class="note">문서 전체에 대한 판정입니다 — <b>항목 판정과 다른 자리</b>입니다. 전체
 승인은 살아있는 항목이 전부 승인일 때만 섭니다(철회는 분모에서 빠집니다). <b>철회는
 항목에만</b> 있습니다 — 문서 전체를 철회하는 일은 검토를 닫는 것이 아니라 카드를 닫는
@@ -755,7 +755,11 @@ completed	success	kanban: 직렬 중재 KAN-078 → KAN-076(유저 지시) · �
 ea09b75 kanban: KAN-079 실행 문서 — 전략·실행 계획(S1~S3)·검증 · 인스턴트 예외 기록
 f79a81c kanban: KAN-079 진행 중으로 이동</pre></details>
 
-
+<details><summary>판정 — 문서 전체 이력<span class="fold-n">1건</span></summary><section class="card"><p><strong>판정</strong>: 승인</p>
+<p><strong>판정 이력</strong>:</p>
+<ul>
+<li>승인 · 유저 · 2026-10-12</li>
+</ul></section></details>
 
 <p class="meta">생성 근거: .kanban/reviews/KAN-079-CFS73T.review.json
 · KANBAN.md · 갱신 2026-10-12</p>

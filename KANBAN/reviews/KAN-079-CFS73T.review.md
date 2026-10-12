@@ -5,7 +5,7 @@ created: 2026-10-12
 branch: KAN-079-CFS73T
 worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-079-CFS73T
 base: 30b92b7
-status: 검토 대기
+status: 승인
 ---
 
 # KAN-079-CFS73T 검토 요청 — 미배포 변경 배포 — KAN-069·070·072·075 (tokens·visualization·visualization-style-guide-catalog 2.0.0 · core 1.2.3 · foundations 2.0.1 · style-guide-catalog 1.0.1)
@@ -132,7 +132,7 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-079-CFS73T --add
 **전체 승인은 살아있는 항목이 전부 승인일 때만 섭니다**(철회는 분모에서 빠집니다). 하나라도
 반려·추가 의견·미정이면 4항의 전체 승인도 `→ 완료` 이동도 종료코드 14로 거부됩니다.
 
-- [ ] 외부 앱에 보낼 문구를 지금 그대로 보낼 것인가 — 추천은 그대로 보내기입니다
+- [x] 외부 앱에 보낼 문구를 지금 그대로 보낼 것인가 — 추천은 그대로 보내기입니다
     - **배경**
       - 외부 앱은 배포된 버전만 설치할 수 있다. 이번 배포는 tokens·visualization·visualization-style-guide-catalog 셋이 major 라 앱이 버전 범위를 올려야 받는다. 이 문구가 그 안내다. 원문: KANBAN/cards/KAN-079-CFS73T.md:91
       - 문구에는 새 버전과 범위를 올려야 하는 패키지, 깨지는 곳 하나(시각화 가이드 토큰에서 지운 필드와 대신 쓸 것), 바뀐 그림 셋(경계선 · 글자색 · 연결선 대시 범위)과 README 정정 하나가 들어 있다. 원문: KANBAN/cards/KAN-079-CFS73T.md:91
@@ -148,7 +148,9 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-079-CFS73T --add
     | **추천** 그대로 보낸다 | 자기 가이드를 만든 앱은 문구의 필드 목록만 보고 옮긴다 | 대부분의 앱은 범위만 올리면 끝나고, 지운 필드를 적은 앱만 그 줄을 지운다 |
     | CHANGELOG 의 지운 필드 표와 부품 글자색 표를 덧붙인다 | 문구가 길어진다 | 부품을 직접 쓰는 앱이 바뀐 글자색을 부품마다 짚어 볼 수 있다 |
 
-    > **판정** — _아직 없습니다._
+    > **판정**
+    >
+    > - 승인 · 유저 · 2026-10-12
 
     > **추가 의견** — _아직 없습니다._
 
@@ -166,9 +168,11 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-079-CFS73T --add
      frontmatter 의 status 도 함께 고친다. 손으로 적어도 되지만, 그때는 수렴 검사를
      안 거치므로 `validate` 가 항목 판정과 어긋난 승인을 error 로 잡는다. -->
 
-**판정**: (아직 없습니다)
+**판정**: 승인
 
 **판정 이력**:
+
+- 승인 · 유저 · 2026-10-12
 
 - 승인이면 → `apply --op move --id KAN-079-CFS73T --to done` 뒤에 `main` 병합과 워크트리 정리(출력의 `cleanup`)
 - 반려면 → `apply --op move --id KAN-079-CFS73T --to doing` 뒤에 `doc-log --entry "<반려 사유>"`.

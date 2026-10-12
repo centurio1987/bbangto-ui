@@ -12,10 +12,16 @@
   "worktree": "/Users/centurio/orca/workspaces/bbangto-ui/KAN-079-CFS73T"
  },
  "inherited_md": "",
- "md_fp": "0e46c965fcac6593ff8a0b46dfb35297d89ad21c",
- "md_src_fp": "e7e86db9e5dcc85beb4bc3c33c4b0185967d5dcb",
+ "md_fp": "b580159a1e1183997980972317ea5b777732a14a",
+ "md_src_fp": "0e10f9d3c651924af86e51447b5c8662f09e2be3",
  "schema": 1,
  "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `KAN-079-CFS73T` |\n| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-079-CFS73T` |\n| 베이스 | `30b92b7` |\n| 변경 훑기 | `git diff 30b92b7...HEAD` |\n\n**커밋 5건**\n\n```text\n5c9bbd5 kanban: KAN-079 S3 배포본 확인 — 6개 설치·import · changeset 4건 확인 · 외부 앱 문구 기록\n5feef8e kanban: KAN-079 S2 배포 — push · Version PR #12 병합 · 새 버전 6개 publish\n4390c5b kanban: KAN-079 S1 push 직전 점검 — 게이트 5종 초록 · 버전 표 확인\nea09b75 kanban: KAN-079 실행 문서 — 전략·실행 계획(S1~S3)·검증 · 인스턴트 예외 기록\nf79a81c kanban: KAN-079 진행 중으로 이동\n```\n\n**변경 파일 6개 (+132 −27)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.kanban/archive.jsonl` | M | 1 | 0 |\n| `.kanban/log.md` | M | 1 | 1 |\n| `.kanban/state.json` | M | 33 | 22 |\n| `KANBAN.board.html` | M | 2 | 2 |\n| `KANBAN.md` | M | 3 | 2 |\n| `KANBAN/cards/KAN-079-CFS73T.md` | M | 92 | 0 |\n\n**롤백 태그 0개** — 없음(`--tags` 를 넘기지 않았거나 아직 태그가 없습니다)",
- "verdicts": [],
+ "verdicts": [
+  {
+   "at": "2026-10-12",
+   "by": "유저",
+   "verdict": "승인"
+  }
+ ],
  "verify_md": "<!-- 기준은 카드 실행 문서 「검증」 절의 사본이다. 정본은 KANBAN/cards/KAN-079-CFS73T.md 이므로\n     기준이 바뀌면 그쪽을 고치고 review-init --refresh 로 이 항만 다시 뜬다.\n     결과는 착수한 쪽이 이미 돌린 것이다 — 검토자에게 다시 돌리라고 시키지 않는다.\n     **다시 돌려 아래와 다르게 나오면 그 자체가 반려 사유다.** -->\n\n**기준**\n\n### 무엇이 나오면 끝인가\n\n- GitHub Packages 에 tokens 2.0.0 · visualization 2.0.0 · visualization-style-guide-catalog 2.0.0 · core 1.2.3 · foundations 2.0.1 · style-guide-catalog 1.0.1 이 있다(S1 에서 표가 바뀌면 그 표를 따른다)\n- hooks 는 0.3.1 그대로다\n- release 워크플로 실행 둘(PR 생성 · 배포)이 초록이다(「Generated manifests are committed」 · test:unit 단계 포함)\n- 배포된 패키지의 의존이 실제 버전이고 `workspace:*` 가 아니며, 여섯 패키지가 Node 에서 import 된다\n- changeset 네 장의 변경이 배포본에 들어 있다(S3 의 네 가지)\n- 외부 앱에 전할 문구가 수행 내역에 있다. 범위를 올려야 받는 패키지 3개, 깨지는 곳(지운 토큰 필드와 대신 쓸 것), 바뀐 동작(경계선 · 글자색 · 연결선 대시 범위)을 빠뜨리지 않는다\n\n### 확인 방법\n\n```bash\nfor n in tokens core foundations style-guide-catalog visualization visualization-style-guide-catalog hooks; do\n  npm view @centurio1987/bbangto-ui-$n version --registry https://npm.pkg.github.com\ndone\ngh run list --workflow release.yml --limit 2\n# 스크래치 폴더: @centurio1987 레지스트리를 npm.pkg.github.com 으로 두고\n#   npm install @centurio1987/bbangto-ui-visualization@2.0.0 … react react-dom\n```\n\n**실행 결과**\n\n```text\ntokens 2.0.0\ncore 1.2.3\nfoundations 2.0.1\nstyle-guide-catalog 1.0.1\nvisualization 2.0.0\nvisualization-style-guide-catalog 2.0.0\nhooks 0.3.1\ncompleted\tsuccess\tMerge pull request #12 from centurio1987/changeset-release/main\t38215836553\ncompleted\tsuccess\tkanban: 직렬 중재 KAN-078 → KAN-076(유저 지시) · 두 카드 메모에 scope 정할 때 직렬 다시 걸기\t38215665090\n```"
 }
