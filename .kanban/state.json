@@ -1,6 +1,6 @@
 {
-  "next_id": 78,
-  "next_seq": 295,
+  "next_id": 79,
+  "next_seq": 296,
   "cards": {
     "KAN-020": {
       "col": "done",
@@ -1637,6 +1637,26 @@
       "goal_hash": "1ad0947f40d20aa4dbd2f7a3c4dbe9350c19a56c",
       "memo": "원본은 저장소 밖 비공개 시험 기록(~/.local/share/bbangto-ui-agent-repro/KAN-071/runs 의 분해 T1·T2 실행). 공개 카드에는 비공개 앱 이름·원문을 옮기지 않고 bbangto-ui 쪽 말로 다시 쓴다",
       "memo_hash": "88ecd4fe0271e3c11150e453fe8cf74d993c429e"
+    },
+    "KAN-078-0TF6NT": {
+      "col": "backlog",
+      "title": "노출 없는 재시험 — 하네스를 고쳐 기획 세션을 다시 돌려 README 수정 전후 효과 확인",
+      "verbatim": "카드로 만들어 (앞 답변 「후속 후보 — visualization 배치 안내 · 고친 판에서 나온 요청 목록을 모아 실제 결함만 가려내기 · ④ 하네스를 고쳐 기획 세션을 다시 돌리기. 「카드로 만들어 달라」고 하시면 main에 백로그 카드로 올리겠습니다」에 대한 답)",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-12",
+      "title_hash": "78d7b6d05043422dd4f4d5424e7ac17c36ae7757",
+      "verbatim_hash": "84483b20cc5f82b603f18bb4923cbc9de38e3c30",
+      "short": "노출 없는 재시험",
+      "short_hash": "3c82a76a5d606fb1840029d8943864de9f65c653",
+      "purpose": "작업 폴더를 시험 이름 없는 임시 경로로 옮기고 시험 폴더 읽기를 막은 하네스로, 기획 세션을 세 판(고치기 전·가운데·지금) × 3회 다시 돌린다",
+      "purpose_hash": "2eac964cd1f08a440366632c10ab1012346e738c",
+      "reason": "KAN-071 의 21회는 모두 작업 폴더 경로로 재현 시험이 드러났고 9회는 시험 폴더를 더 들여다봤으며 1회는 원래 결론까지 읽어, README 수정 전후 효과를 확인하지 못했다(KAN-071 마무리 결정, 2026-10-12)",
+      "reason_hash": "aa1236f22db260488750b234739ae6f7444a64c8",
+      "goal": "시험 환경 노출이 0건인 표본으로 루트·배포 README 수정 전후에 기획 세션의 결론(저장소 기여 · 배치 라이브러리 · 절 인용)이 바뀌는지 기록된다",
+      "goal_hash": "f61f9798a773a3f2fa62acf0b44cd277c7172dd0",
+      "memo": "비용 API 환산 약 150달러·약 2시간(KAN-071 실측). 하네스와 함정은 저장소 밖 ~/.local/share/bbangto-ui-agent-repro/KAN-071/harness 와 메모리 agent-repro-harness. 노출은 analyze.py 의 exposure 로 센다",
+      "memo_hash": "ab2614bb6d3cc7accca5621f000cad70cb2e6c9b"
     }
   },
   "order": [
@@ -1715,9 +1735,27 @@
     "KAN-075-4K5GK3",
     "KAN-071-FK1W8K",
     "KAN-076-NHP81Z",
-    "KAN-077-0YAFWG"
+    "KAN-077-0YAFWG",
+    "KAN-078-0TF6NT"
   ],
   "recent": [
+    {
+      "seq": 295,
+      "t": "2026-10-12T14:56",
+      "a": "ai",
+      "id": "KAN-078-0TF6NT",
+      "op": "create",
+      "w": "S7030N",
+      "col": "backlog",
+      "title": "노출 없는 재시험 — 하네스를 고쳐 기획 세션을 다시 돌려 README 수정 전후 효과 확인",
+      "verbatim": "카드로 만들어 (앞 답변 「후속 후보 — visualization 배치 안내 · 고친 판에서 나온 요청 목록을 모아 실제 결함만 가려내기 · ④ 하네스를 고쳐 기획 세션을 다시 돌리기. 「카드로 만들어 달라」고 하시면 main에 백로그 카드로 올리겠습니다」에 대한 답)",
+      "parent": null,
+      "short": "노출 없는 재시험",
+      "purpose": "작업 폴더를 시험 이름 없는 임시 경로로 옮기고 시험 폴더 읽기를 막은 하네스로, 기획 세션을 세 판(고치기 전·가운데·지금) × 3회 다시 돌린다",
+      "reason": "KAN-071 의 21회는 모두 작업 폴더 경로로 재현 시험이 드러났고 9회는 시험 폴더를 더 들여다봤으며 1회는 원래 결론까지 읽어, README 수정 전후 효과를 확인하지 못했다(KAN-071 마무리 결정, 2026-10-12)",
+      "goal": "시험 환경 노출이 0건인 표본으로 루트·배포 README 수정 전후에 기획 세션의 결론(저장소 기여 · 배치 라이브러리 · 절 인용)이 바뀌는지 기록된다",
+      "memo": "비용 API 환산 약 150달러·약 2시간(KAN-071 실측). 하네스와 함정은 저장소 밖 ~/.local/share/bbangto-ui-agent-repro/KAN-071/harness 와 메모리 agent-repro-harness. 노출은 analyze.py 의 exposure 로 센다"
+    },
     {
       "seq": 294,
       "t": "2026-10-12T14:56",
@@ -2255,16 +2293,6 @@
       "reason": "길잡이 표에서 컴포넌트가 없을 때 갈 곳이 「이 레포에 기여한다」뿐이라 앱 에이전트가 개선 요청으로 읽을 수 있고, :858 은 chromium 실측(도형 검은 채움·엣지 안 보임)과 다르다. KAN-067 scope 밖이었다",
       "goal": "루트 README 가 배포 README 의 「원하는 것이 없을 때」 절로 이어지고, Provider 서술이 실측과 같아진다",
       "memo": "KAN-067 검토 항목 2(2026-10-10 승인)에서 나왔다. README.md 는 KAN-064 scope 에도 있다(KAN-064 는 KAN-068 뒤 병합 대기). KAN-071(실제 사례 재현)과 같은 경로를 보므로 그 카드의 전후 비교에 쓴다"
-    },
-    {
-      "seq": 265,
-      "t": "2026-10-10T01:18",
-      "a": "ai",
-      "id": "KAN-068-W6TE2S",
-      "op": "move",
-      "w": "V5ZA3M",
-      "from": "doing",
-      "to": "review"
     }
   ],
   "waivers": [
