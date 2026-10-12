@@ -5,7 +5,7 @@ created: 2026-10-11
 branch: KAN-071-FK1W8K
 worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-071-FK1W8K
 base: 064586b
-status: 검토 대기
+status: 승인
 ---
 
 # KAN-071-FK1W8K 검토 요청 — 앱 에이전트의 라이브러리 이탈·개선 요청 실제 사례 재현 — 저장소 열람과 구현까지 연 시험
@@ -280,9 +280,11 @@ python3 scripts/kanban.py review-item <project-root> --card KAN-071-FK1W8K --add
      frontmatter 의 status 도 함께 고친다. 손으로 적어도 되지만, 그때는 수렴 검사를
      안 거치므로 `validate` 가 항목 판정과 어긋난 승인을 error 로 잡는다. -->
 
-**판정**: (아직 없습니다)
+**판정**: 승인
 
 **판정 이력**:
+
+- 승인 · 유저 · 2026-10-12
 
 - 승인이면 → `apply --op move --id KAN-071-FK1W8K --to done` 뒤에 `main` 병합과 워크트리 정리(출력의 `cleanup`)
 - 반려면 → `apply --op move --id KAN-071-FK1W8K --to doing` 뒤에 `doc-log --entry "<반려 사유>"`.
