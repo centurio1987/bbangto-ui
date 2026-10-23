@@ -45,6 +45,16 @@
     ```text
     resume viz 기능은 상대적으로 bbangto-ui의 viz를 사용할 때보다 케이스에 맞는 유연한 시각화를 제공한다. 그 원인도 분석해서 bbangto-ui에 보완이 필요한지 말해봐라 / (제안에 대한 답) 진행해
     ```
+- `KAN-081-33245K` 계약 CSS export — 브라우저 없이 정적 렌더할 수 있는 길 — 생성:ai · 최종:ai · 갱신:2026-10-23
+  - 짧은 제목: 계약 CSS export(정적 렌더)
+  - 목적: visualization(필요하면 core도)이 런타임에 useInsertionEffect로 주입하는 계약·모티프 스타일시트를 문자열로 export해, renderToStaticMarkup 결과에 붙이면 색·선이 칠해진 정적 HTML이 나오게 한다
+  - 이유: 지금은 계약 CSS가 provider/contractCss.ts 안에서만 주입돼 서버 문자열 렌더가 무채색이 된다. 그래서 자급 HTML을 내려면 Playwright로 브라우저를 띄워 DOM을 직렬화하는 길뿐이고(~/resume scripts/render-core.ts · business-strategy 배포본 엔진), manage-kanban 리포트는 토큰 값을 CSS로 옮겨 적는 사본(REPORT_STYLE.css)을 두었다
+  - 목표: export된 CSS와 renderToStaticMarkup으로 구운 HTML이 브라우저 마운트 직렬화 결과와 같은 그림을 낸다. 소비자가 Playwright 없이 결정적인 HTML을 만든다
+  - 메모: 소비 측 계획: ~/.claude/plans/publish-report-skill.md M5(정적 렌더 전환). core가 런타임 주입하는 스타일이 더 있는지(motion/keyframes.ts 외) 확인 안 함. ExternalFonts는 'none' 모드가 있어 대상 아님. 2026-10-23 확인: visualization/src/index.ts 는 contractCss 를 export 하지 않는다
+  - 원문:
+    ```text
+    html로 시각화된 보고서를 생성해달라고 요청할 때 ... bbangto-ui repo의 카탈로그를 이용해서 빠르고 정확하며, 일관성 있는 결과물을 얻고 싶은데 ... 해당 repo의 개정이 필요한지 / (제안에 대한 답) 진행해
+    ```
 
 ## 할 일
 
