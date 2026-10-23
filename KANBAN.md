@@ -35,6 +35,16 @@
     ```text
     카드로 만들어 (앞 답변 「후속 후보 — visualization 배치 안내 · 고친 판에서 나온 요청 목록을 모아 실제 결함만 가려내기 · ④ 하네스를 고쳐 기획 세션을 다시 돌리기. 「카드로 만들어 달라」고 하시면 main에 백로그 카드로 올리겠습니다」에 대한 답)
     ```
+- `KAN-080-RN47PY` P 계열 2차(P5~P11) 해소 — 유형 템플릿의 조립 가능성 — 생성:ai · 최종:ai · 갱신:2026-10-23
+  - 짧은 제목: 템플릿 조립 가능성(P5~P11)
+  - 목적: ~/resume가 2026-09-01 보고한 상류 이슈 2차 P5~P11(템플릿이 자기 Canvas를 소유 · wrapper resolver 우회 · 선언 필드 미렌더 · estimateWidth가 스크립트를 안 봄 등)을 진단하고 WBS를 세워 해소한다
+  - 이유: 2.0.0에도 템플릿 64/65가 자기 Canvas를 소유하고 wrapper resolver를 거치는 템플릿이 0개이며 estimateWidth가 글자 수×0.55em이라, 소비자(~/resume 도식 45개 중 44개)가 템플릿을 버리고 atom 위에 중간층을 직접 짓고 있다. KAN-042·043은 1차(P1~P4·I1~I7)만 처리했다
+  - 목표: 템플릿을 큰 그림 안에 조각(<g>)으로 합성하고 Edge로 이을 수 있으며, 가이드의 wrapper 등록과 선언 필드가 템플릿에서도 렌더되고, 한글 라벨 폭이 과소평가되지 않는다. 내용 기반 크기 노드가 생긴다
+  - 메모: 보고서: ~/resume/docs/viz-upstream-issues.md §P5~P11(0.3.0 실측). 2.0.0 재확인 2026-10-23: P5 templates/*.tsx 중 useVizWrapperComponent 0개 · P6 <Canvas 소유 64/65 · P10 src/geometry/text.ts:5. P8·P9·P11 현재 상태 확인 안 함. 참고 구현: ~/resume/design/style-guide/text-metrics.ts(전각 1em) · ~/resume/diagrams/_frame.tsx roleBoxHeight(contentBox 기준 균일 여백). 소비 측 계획: ~/.claude/plans/publish-report-skill.md 「상류 카드 A」. KAN-042와 같은 방식(진단 → 전략 → WBS)으로 착수한다
+  - 원문:
+    ```text
+    resume viz 기능은 상대적으로 bbangto-ui의 viz를 사용할 때보다 케이스에 맞는 유연한 시각화를 제공한다. 그 원인도 분석해서 bbangto-ui에 보완이 필요한지 말해봐라 / (제안에 대한 답) 진행해
+    ```
 
 ## 할 일
 

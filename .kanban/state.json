@@ -1,6 +1,6 @@
 {
-  "next_id": 80,
-  "next_seq": 303,
+  "next_id": 81,
+  "next_seq": 304,
   "cards": {
     "KAN-020": {
       "col": "done",
@@ -1695,6 +1695,26 @@
         ".changeset/kan-072-viz-readme-arrowhead.md",
         ".changeset/kan-075-guide-text-ink.md"
       ]
+    },
+    "KAN-080-RN47PY": {
+      "col": "backlog",
+      "title": "P 계열 2차(P5~P11) 해소 — 유형 템플릿의 조립 가능성",
+      "verbatim": "resume viz 기능은 상대적으로 bbangto-ui의 viz를 사용할 때보다 케이스에 맞는 유연한 시각화를 제공한다. 그 원인도 분석해서 bbangto-ui에 보완이 필요한지 말해봐라 / (제안에 대한 답) 진행해",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-10-23",
+      "title_hash": "d06312e46698f55f8da0954c3f7c22ba53790794",
+      "verbatim_hash": "e8e2302bcd27fed25ad17862dc25f6c74f2e7683",
+      "short": "템플릿 조립 가능성(P5~P11)",
+      "short_hash": "10c0b019b99b47697935ca47a0f5e362993988bd",
+      "purpose": "~/resume가 2026-09-01 보고한 상류 이슈 2차 P5~P11(템플릿이 자기 Canvas를 소유 · wrapper resolver 우회 · 선언 필드 미렌더 · estimateWidth가 스크립트를 안 봄 등)을 진단하고 WBS를 세워 해소한다",
+      "purpose_hash": "187090f1078e9ad32592b49733364538eee47c47",
+      "reason": "2.0.0에도 템플릿 64/65가 자기 Canvas를 소유하고 wrapper resolver를 거치는 템플릿이 0개이며 estimateWidth가 글자 수×0.55em이라, 소비자(~/resume 도식 45개 중 44개)가 템플릿을 버리고 atom 위에 중간층을 직접 짓고 있다. KAN-042·043은 1차(P1~P4·I1~I7)만 처리했다",
+      "reason_hash": "f3c0f8739082b893b1ea35774402b2b0756e5943",
+      "goal": "템플릿을 큰 그림 안에 조각(<g>)으로 합성하고 Edge로 이을 수 있으며, 가이드의 wrapper 등록과 선언 필드가 템플릿에서도 렌더되고, 한글 라벨 폭이 과소평가되지 않는다. 내용 기반 크기 노드가 생긴다",
+      "goal_hash": "b124d690373363dcec90982f421324114513ba2d",
+      "memo": "보고서: ~/resume/docs/viz-upstream-issues.md §P5~P11(0.3.0 실측). 2.0.0 재확인 2026-10-23: P5 templates/*.tsx 중 useVizWrapperComponent 0개 · P6 <Canvas 소유 64/65 · P10 src/geometry/text.ts:5. P8·P9·P11 현재 상태 확인 안 함. 참고 구현: ~/resume/design/style-guide/text-metrics.ts(전각 1em) · ~/resume/diagrams/_frame.tsx roleBoxHeight(contentBox 기준 균일 여백). 소비 측 계획: ~/.claude/plans/publish-report-skill.md 「상류 카드 A」. KAN-042와 같은 방식(진단 → 전략 → WBS)으로 착수한다",
+      "memo_hash": "0196d4c1ba622d1dd484cb6db5d0ac716d57e38a"
     }
   },
   "order": [
@@ -1775,9 +1795,27 @@
     "KAN-066-T6NR80",
     "KAN-075-4K5GK3",
     "KAN-071-FK1W8K",
-    "KAN-079-CFS73T"
+    "KAN-079-CFS73T",
+    "KAN-080-RN47PY"
   ],
   "recent": [
+    {
+      "seq": 303,
+      "t": "2026-10-23T22:06",
+      "a": "ai",
+      "id": "KAN-080-RN47PY",
+      "op": "create",
+      "w": "S7030N",
+      "col": "backlog",
+      "title": "P 계열 2차(P5~P11) 해소 — 유형 템플릿의 조립 가능성",
+      "verbatim": "resume viz 기능은 상대적으로 bbangto-ui의 viz를 사용할 때보다 케이스에 맞는 유연한 시각화를 제공한다. 그 원인도 분석해서 bbangto-ui에 보완이 필요한지 말해봐라 / (제안에 대한 답) 진행해",
+      "parent": null,
+      "short": "템플릿 조립 가능성(P5~P11)",
+      "purpose": "~/resume가 2026-09-01 보고한 상류 이슈 2차 P5~P11(템플릿이 자기 Canvas를 소유 · wrapper resolver 우회 · 선언 필드 미렌더 · estimateWidth가 스크립트를 안 봄 등)을 진단하고 WBS를 세워 해소한다",
+      "reason": "2.0.0에도 템플릿 64/65가 자기 Canvas를 소유하고 wrapper resolver를 거치는 템플릿이 0개이며 estimateWidth가 글자 수×0.55em이라, 소비자(~/resume 도식 45개 중 44개)가 템플릿을 버리고 atom 위에 중간층을 직접 짓고 있다. KAN-042·043은 1차(P1~P4·I1~I7)만 처리했다",
+      "goal": "템플릿을 큰 그림 안에 조각(<g>)으로 합성하고 Edge로 이을 수 있으며, 가이드의 wrapper 등록과 선언 필드가 템플릿에서도 렌더되고, 한글 라벨 폭이 과소평가되지 않는다. 내용 기반 크기 노드가 생긴다",
+      "memo": "보고서: ~/resume/docs/viz-upstream-issues.md §P5~P11(0.3.0 실측). 2.0.0 재확인 2026-10-23: P5 templates/*.tsx 중 useVizWrapperComponent 0개 · P6 <Canvas 소유 64/65 · P10 src/geometry/text.ts:5. P8·P9·P11 현재 상태 확인 안 함. 참고 구현: ~/resume/design/style-guide/text-metrics.ts(전각 1em) · ~/resume/diagrams/_frame.tsx roleBoxHeight(contentBox 기준 균일 여백). 소비 측 계획: ~/.claude/plans/publish-report-skill.md 「상류 카드 A」. KAN-042와 같은 방식(진단 → 전략 → WBS)으로 착수한다"
+    },
     {
       "seq": 302,
       "t": "2026-10-12T16:27",
@@ -2315,16 +2353,6 @@
       "field": "memo",
       "before": "KAN-061 이 완료·main 병합된 뒤 착수. push·배포는 사용자 실행 지시 뒤에만. 이 배포 직후 KAN-064 병합(그 사이 다른 카드는 기다리지 않음). 흐름은 KAN-068 과 같다",
       "after": "보관(2026-10-10 유저 선택) — KAN-061 이 visualization minor 라 먼저 배포해도 0.5.0 이 되어 ^0.4 범위로는 받지 못한다. 범위를 한 번만 올리도록 057·061·067 은 KAN-064 와 함께 다음 배포로 보낸다"
-    },
-    {
-      "seq": 268,
-      "t": "2026-10-10T03:38",
-      "a": "ai",
-      "id": "KAN-061-K8V2HH",
-      "op": "move",
-      "w": "HTKBTA",
-      "from": "review",
-      "to": "done"
     }
   ],
   "waivers": [
