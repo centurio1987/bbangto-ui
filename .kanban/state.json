@@ -1,6 +1,6 @@
 {
   "next_id": 82,
-  "next_seq": 305,
+  "next_seq": 307,
   "cards": {
     "KAN-020": {
       "col": "done",
@@ -1722,25 +1722,27 @@
       "verbatim": "html로 시각화된 보고서를 생성해달라고 요청할 때 ... bbangto-ui repo의 카탈로그를 이용해서 빠르고 정확하며, 일관성 있는 결과물을 얻고 싶은데 ... 해당 repo의 개정이 필요한지 / (제안에 대한 답) 진행해",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-10-23",
+      "갱신": "2026-10-27",
       "title_hash": "661739608d6de8695cf0db9d5a2968228f7eca5e",
       "verbatim_hash": "1d2f9b4cb568ae90454b0f26310c289c7e6e5193",
       "short": "계약 CSS export(정적 렌더)",
       "short_hash": "803b729e657c8c6ff71dc708b3f222829a1d7ca5",
-      "purpose": "visualization(필요하면 core도)이 런타임에 useInsertionEffect로 주입하는 계약·모티프 스타일시트를 문자열로 export해, renderToStaticMarkup 결과에 붙이면 색·선이 칠해진 정적 HTML이 나오게 한다",
-      "purpose_hash": "e3f665045b2177e10bd94888e93d9f9ad0e980c0",
+      "purpose": "런타임에만 주입되는 스타일시트(viz 계약·감속, core 키프레임, UI·viz 카탈로그 모티프)를 {id, css} 목록으로 export해, renderToStaticMarkup 결과에 붙이면 브라우저 마운트와 같은 정적 HTML이 나오게 한다",
+      "purpose_hash": "a578bee96db868ad3b91017938985f981058f1e1",
       "reason": "지금은 계약 CSS가 provider/contractCss.ts 안에서만 주입돼 서버 문자열 렌더가 무채색이 된다. 그래서 자급 HTML을 내려면 Playwright로 브라우저를 띄워 DOM을 직렬화하는 길뿐이고(~/resume scripts/render-core.ts · business-strategy 배포본 엔진), manage-kanban 리포트는 토큰 값을 CSS로 옮겨 적는 사본(REPORT_STYLE.css)을 두었다",
       "reason_hash": "453c2a21dc8e6f77d3de2d451634198e63ef9019",
-      "goal": "export된 CSS와 renderToStaticMarkup으로 구운 HTML이 브라우저 마운트 직렬화 결과와 같은 그림을 낸다. 소비자가 Playwright 없이 결정적인 HTML을 만든다",
-      "goal_hash": "2928569e8a761a6ca1f80d9ae38b737a481abd92",
-      "memo": "소비 측 계획: ~/.claude/plans/publish-report-skill.md M5(정적 렌더 전환). core가 런타임 주입하는 스타일이 더 있는지(motion/keyframes.ts 외) 확인 안 함. ExternalFonts는 'none' 모드가 있어 대상 아님. 2026-10-23 확인: visualization/src/index.ts 는 contractCss 를 export 하지 않는다",
-      "memo_hash": "e49d3237a69e065774bacd1d2fc4087ffccc7766"
+      "goal": "네 패키지가 정적 스타일 목록을 export하고, 그 목록이 런타임 주입과 같다는 것을 테스트가 보증한다. 소비자가 Playwright 없이 결정적인 HTML을 만든다",
+      "goal_hash": "a538dfe634c79192eeda3025546b3a1127aa5fcc",
+      "memo": "범위 확장(2026-10-27, 소비 측 시험 결과): visualization(contract·reduced-motion) · core(motion-keyframes, MOTION_CSS는 이미 export지만 style id 없음) · style-guide-catalog(모티프 53개 preset, motifCssOf 비공개·id 없음) · visualization-style-guide-catalog(모티프 18개 preset, useVizMotifStyle). 근거: ~/.claude/plans/publish-report-skill.md 「M5 착수: 정적 렌더 시험 결과」 · ~/.claude/skills/publish-report/.work/ssr-probe.ts",
+      "memo_hash": "21f508bd94066dcc7fc1f6cb95b456a4e89614de"
     }
   },
   "order": [
     "KAN-076-NHP81Z",
     "KAN-077-0YAFWG",
     "KAN-078-0TF6NT",
+    "KAN-080-RN47PY",
+    "KAN-081-33245K",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1815,11 +1817,36 @@
     "KAN-066-T6NR80",
     "KAN-075-4K5GK3",
     "KAN-071-FK1W8K",
-    "KAN-079-CFS73T",
-    "KAN-080-RN47PY",
-    "KAN-081-33245K"
+    "KAN-079-CFS73T"
   ],
   "recent": [
+    {
+      "seq": 306,
+      "t": "2026-10-27T19:03",
+      "a": "ai",
+      "id": "KAN-081-33245K",
+      "op": "edit",
+      "w": "S7030N",
+      "field": "memo",
+      "before": "소비 측 계획: ~/.claude/plans/publish-report-skill.md M5(정적 렌더 전환). core가 런타임 주입하는 스타일이 더 있는지(motion/keyframes.ts 외) 확인 안 함. ExternalFonts는 'none' 모드가 있어 대상 아님. 2026-10-23 확인: visualization/src/index.ts 는 contractCss 를 export 하지 않는다",
+      "after": "범위 확장(2026-10-27, 소비 측 시험 결과): visualization(contract·reduced-motion) · core(motion-keyframes, MOTION_CSS는 이미 export지만 style id 없음) · style-guide-catalog(모티프 53개 preset, motifCssOf 비공개·id 없음) · visualization-style-guide-catalog(모티프 18개 preset, useVizMotifStyle). 근거: ~/.claude/plans/publish-report-skill.md 「M5 착수: 정적 렌더 시험 결과」 · ~/.claude/skills/publish-report/.work/ssr-probe.ts"
+    },
+    {
+      "seq": 305,
+      "t": "2026-10-27T19:03",
+      "a": "ai",
+      "id": "KAN-081-33245K",
+      "op": "brief",
+      "w": "S7030N",
+      "fields": {
+        "purpose": "런타임에만 주입되는 스타일시트(viz 계약·감속, core 키프레임, UI·viz 카탈로그 모티프)를 {id, css} 목록으로 export해, renderToStaticMarkup 결과에 붙이면 브라우저 마운트와 같은 정적 HTML이 나오게 한다",
+        "goal": "네 패키지가 정적 스타일 목록을 export하고, 그 목록이 런타임 주입과 같다는 것을 테스트가 보증한다. 소비자가 Playwright 없이 결정적인 HTML을 만든다"
+      },
+      "before": {
+        "purpose": "visualization(필요하면 core도)이 런타임에 useInsertionEffect로 주입하는 계약·모티프 스타일시트를 문자열로 export해, renderToStaticMarkup 결과에 붙이면 색·선이 칠해진 정적 HTML이 나오게 한다",
+        "goal": "export된 CSS와 renderToStaticMarkup으로 구운 HTML이 브라우저 마운트 직렬화 결과와 같은 그림을 낸다. 소비자가 Playwright 없이 결정적인 HTML을 만든다"
+      }
+    },
     {
       "seq": 304,
       "t": "2026-10-23T22:07",
@@ -2358,28 +2385,6 @@
       "w": "7E5YYM",
       "from": "review",
       "to": "done"
-    },
-    {
-      "seq": 271,
-      "t": "2026-10-10T03:48",
-      "a": "ai",
-      "id": "KAN-064-AC0H6M",
-      "op": "edit",
-      "w": "7E5YYM",
-      "field": "memo",
-      "before": "병합 대기 — KAN-061 을 KAN-057·067 과 함께 0.x 줄로 먼저 배포한 뒤 main 에 병합(2026-10-10 유저 선택). 토큰 실측·버린 안은 실행 문서 전략 절",
-      "after": "KAN-068 배포 뒤 병합. KAN-057·061·067 은 이 카드와 함께 다음 배포로(visualization 0.5.0 도 ^0.4 범위 밖이라 범위를 한 번만 올리게, 2026-10-10 유저 선택). 토큰 실측·버린 안은 실행 문서 전략 절"
-    },
-    {
-      "seq": 270,
-      "t": "2026-10-10T03:46",
-      "a": "ai",
-      "id": "KAN-073-6YWHN9",
-      "op": "archive",
-      "w": "S7030N",
-      "col": "backlog",
-      "title": "미배포 수정분 배포 2 — KAN-057·067·061 을 KAN-064 major 전에 (사용자 실행 지시 후)",
-      "memo": "보관(2026-10-10 유저 선택) — KAN-061 이 visualization minor 라 먼저 배포해도 0.5.0 이 되어 ^0.4 범위로는 받지 못한다. 범위를 한 번만 올리도록 057·061·067 은 KAN-064 와 함께 다음 배포로 보낸다"
     }
   ],
   "waivers": [
