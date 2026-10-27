@@ -1734,7 +1734,17 @@
       "goal": "네 패키지가 정적 스타일 목록을 export하고, 그 목록이 런타임 주입과 같다는 것을 테스트가 보증한다. 소비자가 Playwright 없이 결정적인 HTML을 만든다",
       "goal_hash": "a538dfe634c79192eeda3025546b3a1127aa5fcc",
       "memo": "범위 확장(2026-10-27, 소비 측 시험 결과): visualization(contract·reduced-motion) · core(motion-keyframes, MOTION_CSS는 이미 export지만 style id 없음) · style-guide-catalog(모티프 53개 preset, motifCssOf 비공개·id 없음) · visualization-style-guide-catalog(모티프 18개 preset, useVizMotifStyle). 근거: ~/.claude/plans/publish-report-skill.md 「M5 착수: 정적 렌더 시험 결과」 · ~/.claude/skills/publish-report/.work/ssr-probe.ts",
-      "memo_hash": "21f508bd94066dcc7fc1f6cb95b456a4e89614de"
+      "memo_hash": "21f508bd94066dcc7fc1f6cb95b456a4e89614de",
+      "scope": [
+        "packages/core/src/motion/**",
+        "packages/core/src/index.ts",
+        "packages/visualization/src/provider/**",
+        "packages/visualization/src/index.ts",
+        "packages/style-guide-catalog/src/_motif.tsx",
+        "packages/style-guide-catalog/src/index.ts",
+        "packages/visualization-style-guide-catalog/src/**",
+        ".changeset/**"
+      ]
     }
   },
   "order": [
