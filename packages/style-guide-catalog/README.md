@@ -14,4 +14,6 @@ import detail from '@centurio1987/bbangto-ui-style-guide-catalog/manifest/cyberp
 
 전 가이드가 WCAG 대비 게이트를 통과한 상태로 배포된다(가이드가 주장하는 등급과 실측이 일치하는지 테스트가 강제).
 
+정적 렌더(`renderToStaticMarkup`)에서는 preset 래퍼가 런타임에 넣는 모티프 시트가 빠진다. `motifStylesOf(styleGuide)` 가 그 시트를 `{ id, css }` 로 낸다 — 쓰는 법은 `@centurio1987/bbangto-ui-visualization` README 의 「정적 렌더」.
+
 전체 저장소: [github.com/centurio1987/bbangto-ui](https://github.com/centurio1987/bbangto-ui)

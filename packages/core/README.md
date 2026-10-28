@@ -151,4 +151,8 @@ CDN에서 불러온다. 글꼴을 직접 호스팅하거나 CSP로 외부 요청
   외부 요청을 0건으로 만들려면 문서 안의 Provider 전부에 `fonts="none"`을 준다.
 - SSR(서버 렌더링) HTML에는 글꼴 `@import`가 들어가지 않는다. 화면이 켜진(hydration) 뒤에 불러온다.
 
+## 정적 렌더
+
+`renderToStaticMarkup` 은 effect 를 안 돌려 모션 시트(`#bbangto-motion-keyframes`)가 빠진다. `coreStaticStyles()` 가 그 시트를 `{ id, css }` 로 낸다 — 쓰는 법은 `@centurio1987/bbangto-ui-visualization` README 의 「정적 렌더」.
+
 전체 저장소: [github.com/centurio1987/bbangto-ui](https://github.com/centurio1987/bbangto-ui)

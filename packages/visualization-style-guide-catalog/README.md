@@ -22,4 +22,6 @@ import { VisualizationStyleGuideProvider, Flowchart } from '@centurio1987/bbangt
 | 유형(what) | `…-visualization` | `type.manifest.json` (87) |
 | 스타일(paint) | 이 패키지 | `catalog.manifest.json` (30) |
 
+정적 렌더(`renderToStaticMarkup`)에서는 preset 래퍼가 런타임에 넣는 모티프 시트가 빠진다. `vizMotifStylesOf(vizStyleGuide)` 가 그 시트를 `{ id, css }` 로 낸다(모티프가 있는 18종) — 쓰는 법은 `@centurio1987/bbangto-ui-visualization` README 의 「정적 렌더」.
+
 전체 저장소: [github.com/centurio1987/bbangto-ui](https://github.com/centurio1987/bbangto-ui)

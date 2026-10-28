@@ -147,6 +147,28 @@ Provider는 기본으로 JetBrains Mono를 Google Fonts에서 불러온다. 글�
 외부 요청을 0건으로 만들려면 문서 안의 Provider 전부에 `fonts="none"`을 준다. SSR HTML에는 `@import`가
 들어가지 않고 화면이 켜진 뒤에 불러온다.
 
+## 정적 렌더(서버 문자열 렌더)
+
+`renderToStaticMarkup` 은 effect 를 돌리지 않아, Provider 와 preset 래퍼가 런타임에 `<head>` 에 넣는 시트가 빠진다.
+그 시트 없이 구운 HTML 은 도형이 브라우저 기본값(검정 채움)으로 나온다. 네 패키지가 그 시트를 `{ id, css }` 목록으로 낸다 —
+목록을 `<head>` 에 깔고 마크업을 붙이면 브라우저에서 마운트한 것과 같은 그림이 나온다.
+
+```tsx
+import { renderToStaticMarkup } from 'react-dom/server';
+import { coreStaticStyles } from '@centurio1987/bbangto-ui-core';
+import { vizStaticStyles } from '@centurio1987/bbangto-ui-visualization';
+import { motifStylesOf } from '@centurio1987/bbangto-ui-style-guide-catalog';
+import { vizMotifStylesOf } from '@centurio1987/bbangto-ui-visualization-style-guide-catalog';
+
+const body = renderToStaticMarkup(<App />); // StyleGuideProvider(ui) · VisualizationStyleGuideProvider(viz) 를 품은 트리
+const sheets = [...coreStaticStyles(), ...vizStaticStyles(), ...motifStylesOf(ui), ...vizMotifStylesOf(viz)];
+const head = sheets.map((s) => `<style id="${s.id}">${s.css}</style>`).join('');
+```
+
+- `id` 는 런타임이 쓰는 `<style id>` 와 같다. 같은 페이지에서 나중에 런타임이 돌아도 id 로 중복을 걸러 두 번 들어가지 않는다.
+- 목록은 한 패키지 안에서 런타임 주입 순서다. 패키지 사이 순서는 소비자가 정한다.
+- 글꼴(`fonts`)은 목록에 없다 — 바깥 요청이라 정적 HTML 에서는 소비자가 글꼴을 직접 싣는다.
+
 ## 원하는 것이 없을 때
 
 87종 중 맞는 유형이 없으면 **atom 과 molecule 로 그림을 조립한다.** 라이브러리를 빼거나 다른 차트·다이어그램
