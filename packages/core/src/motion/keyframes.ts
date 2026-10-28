@@ -199,7 +199,27 @@ const REDUCED_MOTION_CSS = `
 /** Full static stylesheet injected once per document. */
 export const MOTION_CSS = `${KEYFRAMES_CSS}${REDUCED_MOTION_CSS}`;
 
-const STYLE_ELEMENT_ID = 'bbangto-motion-keyframes';
+/** `id` of the `<style>` element `useMotionKeyframes` injects. */
+export const MOTION_STYLE_ID = 'bbangto-motion-keyframes';
+
+/**
+ * One stylesheet the runtime puts into `document.head`. A server renderer
+ * (`renderToStaticMarkup`) never runs insertion effects, so it lays these out
+ * as `<style id={id}>{css}</style>` itself to get the same painted result.
+ */
+export interface StaticStyle {
+  readonly id: string;
+  readonly css: string;
+}
+
+/**
+ * Every stylesheet core injects at runtime, in injection order. The hook below
+ * reads this same list, so what a static renderer embeds and what the browser
+ * gets cannot drift apart. (KAN-081)
+ */
+export function coreStaticStyles(): StaticStyle[] {
+  return [{ id: MOTION_STYLE_ID, css: MOTION_CSS }];
+}
 
 /**
  * Injects the motion stylesheet into `document.head` exactly once, SSR-safely.
@@ -212,12 +232,13 @@ const STYLE_ELEMENT_ID = 'bbangto-motion-keyframes';
 export function useMotionKeyframes(): void {
   useInsertionEffect(() => {
     if (typeof document === 'undefined') return;
-    if (document.getElementById(STYLE_ELEMENT_ID)) return;
-
-    const style = document.createElement('style');
-    style.id = STYLE_ELEMENT_ID;
-    style.textContent = MOTION_CSS;
-    document.head.appendChild(style);
+    for (const sheet of coreStaticStyles()) {
+      if (document.getElementById(sheet.id)) continue;
+      const style = document.createElement('style');
+      style.id = sheet.id;
+      style.textContent = sheet.css;
+      document.head.appendChild(style);
+    }
     // Intentionally not removed on unmount: the sheet is global and shared
     // across every FoundationProvider instance; removing it would break siblings.
   }, []);
