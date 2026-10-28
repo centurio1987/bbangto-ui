@@ -16,7 +16,7 @@ import {
 } from '@centurio1987/bbangto-ui-visualization';
 import { makeVizColorway } from './_foundation';
 import { makeVizShowcase } from './_showcase';
-import { useVizMotifStyle } from './_motif';
+import { registerVizMotif, useVizMotifStyle } from './_motif';
 
 /**
  * DarkLuxe_01 — 순수 블랙 그라운드 + 얇은 골드 헤어라인 룰 + 큰 세리프 디스플레이 페이스의
@@ -365,3 +365,4 @@ export const darkluxe01VizStyleGuide: VisualizationStyleGuide = {
     related: ['ink-line-duotone-01', 'corporate-schematic-01'],
   },
 };
+registerVizMotif(darkluxe01VizStyleGuide, MOTIF_ID, MOTIF_CSS);

@@ -16,7 +16,7 @@ import {
 } from '@centurio1987/bbangto-ui-visualization';
 import { makeVizColorway } from './_foundation';
 import { makeVizShowcase } from './_showcase';
-import { useVizMotifStyle } from './_motif';
+import { registerVizMotif, useVizMotifStyle } from './_motif';
 
 /**
  * Synthwave_01 — 80s 레트로퓨처 신스웨이브 페인트(다크 전용, KAN-039 · 고유 family viz-synthwave).
@@ -408,3 +408,4 @@ export const synthwave01VizStyleGuide: VisualizationStyleGuide = {
     related: ['neon-gradient-dark-01', 'hud-telemetry-01'],
   },
 };
+registerVizMotif(synthwave01VizStyleGuide, MOTIF_ID, MOTIF_CSS);

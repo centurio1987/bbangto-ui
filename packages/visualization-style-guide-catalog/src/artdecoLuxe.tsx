@@ -16,7 +16,7 @@ import {
 } from '@centurio1987/bbangto-ui-visualization';
 import { makeVizColorway } from './_foundation';
 import { makeVizShowcase } from './_showcase';
-import { useVizMotifStyle } from './_motif';
+import { registerVizMotif, useVizMotifStyle } from './_motif';
 
 /**
  * ArtDeco_Luxe_01 — 니어블랙(또는 딥그린) 그라운드 + 골드 대칭 라인 프레임의 아르데코 럭셔리 페인트.
@@ -406,3 +406,4 @@ export const artdecoLuxe01VizStyleGuide: VisualizationStyleGuide = {
     related: ['hud-telemetry-01', 'corporate-schematic-01'],
   },
 };
+registerVizMotif(artdecoLuxe01VizStyleGuide, MOTIF_ID, MOTIF_CSS);

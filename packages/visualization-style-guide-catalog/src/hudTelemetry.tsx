@@ -16,7 +16,7 @@ import {
 } from '@centurio1987/bbangto-ui-visualization';
 import { makeVizColorway } from './_foundation';
 import { makeVizShowcase } from './_showcase';
-import { useVizMotifStyle } from './_motif';
+import { registerVizMotif, useVizMotifStyle } from './_motif';
 
 /**
  * Hud_Telemetry_01 — 딥 틸다크 그라운드 + 네온 시안 라인 위에 얹은 헤드업 디스플레이(HUD)
@@ -337,3 +337,4 @@ export const hudTelemetry01VizStyleGuide: VisualizationStyleGuide = {
     related: ['neon-gradient-dark-01', 'terminal-ascii-01'],
   },
 };
+registerVizMotif(hudTelemetry01VizStyleGuide, MOTIF_ID, MOTIF_CSS);

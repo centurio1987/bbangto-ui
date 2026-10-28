@@ -37,6 +37,8 @@ export type { VizShowcaseConfig } from './_showcase';
 // 카탈로그 배열과 name 조회 맵은 catalog.ts 에 둔다(KAN-051). 여기서 직접 만들면 배럴 최상위의
 // Object.fromEntries 가 모든 preset 을 붙잡아, preset 하나만 가져와도 전부 딸려 온다.
 export { vizStyleGuideCatalog, vizStyleGuideMap } from './catalog';
+// 정적 렌더(서버 문자열 렌더)용 — preset 래퍼가 런타임에 넣는 모티프 시트를 `{ id, css }` 로 낸다(KAN-081).
+export { vizMotifStylesOf } from './_motif';
 
 // 채택 메타데이터 매니페스트 생성기 (catalog.manifest.json으로 투영). UI 동형 생성기 국소 복제.
 export {

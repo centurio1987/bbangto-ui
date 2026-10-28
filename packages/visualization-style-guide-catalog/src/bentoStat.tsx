@@ -16,7 +16,7 @@ import {
 } from '@centurio1987/bbangto-ui-visualization';
 import { makeVizColorway } from './_foundation';
 import { makeVizShowcase } from './_showcase';
-import { useVizMotifStyle } from './_motif';
+import { registerVizMotif, useVizMotifStyle } from './_motif';
 
 /**
  * Bento_Stat_01 — 벤토 타일 모듈(모듈형 라운드 stat 카드) viz 스타일 가이드.
@@ -392,3 +392,4 @@ export const bentoStat01VizStyleGuide: VisualizationStyleGuide = {
     related: ['minimal-line-01', 'blueprint-technical-01'],
   },
 };
+registerVizMotif(bentoStat01VizStyleGuide, MOTIF_ID, MOTIF_CSS);

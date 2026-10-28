@@ -16,7 +16,7 @@ import {
 } from '@centurio1987/bbangto-ui-visualization';
 import { makeVizColorway } from './_foundation';
 import { makeVizShowcase } from './_showcase';
-import { useVizMotifStyle } from './_motif';
+import { registerVizMotif, useVizMotifStyle } from './_motif';
 
 /**
  * Kawaii_Pastel_01 — 파스텔 라이트 그라운드 + 소프트/퍼피 도형 위에 얹은 귀여운
@@ -392,3 +392,4 @@ export const kawaiiPastel01VizStyleGuide: VisualizationStyleGuide = {
     related: ['colorful-flat-01', 'clay-playful-01'],
   },
 };
+registerVizMotif(kawaiiPastel01VizStyleGuide, MOTIF_ID, MOTIF_CSS);

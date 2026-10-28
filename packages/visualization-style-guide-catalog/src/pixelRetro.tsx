@@ -17,7 +17,7 @@ import {
 } from '@centurio1987/bbangto-ui-visualization';
 import { makeVizColorway } from './_foundation';
 import { makeVizShowcase } from './_showcase';
-import { useVizMotifStyle } from './_motif';
+import { registerVizMotif, useVizMotifStyle } from './_motif';
 
 /**
  * Pixel_Retro_01 — 8비트 픽셀 아트 페인트(정수 그리드 + 하드 스퀘어 픽셀 도트).
@@ -393,3 +393,4 @@ export const pixelRetro01VizStyleGuide: VisualizationStyleGuide = {
     related: ['colorful-flat-01', 'terminal-ascii-01'],
   },
 };
+registerVizMotif(pixelRetro01VizStyleGuide, MOTIF_ID, MOTIF_CSS);

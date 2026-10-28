@@ -17,7 +17,7 @@ import {
 } from '@centurio1987/bbangto-ui-visualization';
 import { makeVizColorway } from './_foundation';
 import { makeVizShowcase } from './_showcase';
-import { useVizMotifStyle } from './_motif';
+import { registerVizMotif, useVizMotifStyle } from './_motif';
 
 /**
  * Memphis_Pattern_01 — 80s 멤피스 포스트모던 패턴(지그재그·도트·스퀴글 테라조 콘페티 + 하드 오프셋 섀도).
@@ -411,3 +411,4 @@ export const memphisPattern01VizStyleGuide: VisualizationStyleGuide = {
     related: ['colorful-flat-01', 'bauhaus-geometric-01'],
   },
 };
+registerVizMotif(memphisPattern01VizStyleGuide, MOTIF_ID, MOTIF_CSS);

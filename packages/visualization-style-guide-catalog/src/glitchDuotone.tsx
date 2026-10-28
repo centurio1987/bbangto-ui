@@ -16,7 +16,7 @@ import {
 } from '@centurio1987/bbangto-ui-visualization';
 import { makeVizColorway } from './_foundation';
 import { makeVizShowcase } from './_showcase';
-import { useVizMotifStyle } from './_motif';
+import { registerVizMotif, useVizMotifStyle } from './_motif';
 
 /**
  * Glitch_Duotone_01 — 정적 채널 오프셋 듀오톤(마젠타/시안 오정합 colorsep).
@@ -375,3 +375,4 @@ export const glitchDuotone01VizStyleGuide: VisualizationStyleGuide = {
     related: ['riso-print-01', 'terminal-ascii-01'],
   },
 };
+registerVizMotif(glitchDuotone01VizStyleGuide, MOTIF_ID, MOTIF_CSS);

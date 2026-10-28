@@ -17,7 +17,7 @@ import {
 } from '@centurio1987/bbangto-ui-visualization';
 import { makeVizColorway } from './_foundation';
 import { makeVizShowcase } from './_showcase';
-import { useVizMotifStyle } from './_motif';
+import { registerVizMotif, useVizMotifStyle } from './_motif';
 
 /**
  * Retro70s_Warm_01 — 70년대 웜 어스톤(머스터드/테라코타/번트오렌지/아보카도 올리브) + 미세 그레인.
@@ -396,3 +396,4 @@ export const retro70sWarm01VizStyleGuide: VisualizationStyleGuide = {
     related: ['marker-sketchnote-01', 'colorful-flat-01'],
   },
 };
+registerVizMotif(retro70sWarm01VizStyleGuide, MOTIF_ID, MOTIF_CSS);

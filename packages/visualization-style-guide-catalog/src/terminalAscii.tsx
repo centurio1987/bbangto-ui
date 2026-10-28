@@ -15,7 +15,7 @@ import {
 } from '@centurio1987/bbangto-ui-visualization';
 import { makeVizColorway } from './_foundation';
 import { makeVizShowcase } from './_showcase';
-import { useVizMotifStyle } from './_motif';
+import { registerVizMotif, useVizMotifStyle } from './_motif';
 
 /**
  * Terminal_Ascii_01 — 다크 콘솔 모노스페이스 전면 + 포스포 그린 잉크의 TUI 페인트.
@@ -326,3 +326,4 @@ export const terminalAscii01VizStyleGuide: VisualizationStyleGuide = {
     related: ['blueprint-technical-01', 'ink-line-duotone-01'],
   },
 };
+registerVizMotif(terminalAscii01VizStyleGuide, MOTIF_ID, MOTIF_CSS);

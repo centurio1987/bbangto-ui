@@ -17,7 +17,7 @@ import {
 } from '@centurio1987/bbangto-ui-visualization';
 import { makeVizColorway } from './_foundation';
 import { makeVizShowcase } from './_showcase';
-import { useVizMotifStyle } from './_motif';
+import { registerVizMotif, useVizMotifStyle } from './_motif';
 
 /**
  * Riso_Print_01 — 리소그래프 프린트 페인트(웜 크림 + 스팟 잉크 오버프린트).
@@ -409,3 +409,4 @@ export const risoPrint01VizStyleGuide: VisualizationStyleGuide = {
     related: ['colorful-flat-01', 'marker-sketchnote-01'],
   },
 };
+registerVizMotif(risoPrint01VizStyleGuide, MOTIF_ID, MOTIF_CSS);

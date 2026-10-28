@@ -17,7 +17,7 @@ import {
 } from '@centurio1987/bbangto-ui-visualization';
 import { makeVizColorway } from './_foundation';
 import { makeVizShowcase } from './_showcase';
-import { useVizMotifStyle } from './_motif';
+import { registerVizMotif, useVizMotifStyle } from './_motif';
 
 /**
  * Neon_Gradient_Dark_01 — 다크 그라운드 + 광택 멀티휴 그라디언트 페인트.
@@ -361,3 +361,4 @@ export const neonGradientDark01VizStyleGuide: VisualizationStyleGuide = {
     related: ['colorful-flat-01'],
   },
 };
+registerVizMotif(neonGradientDark01VizStyleGuide, MOTIF_ID, MOTIF_CSS);

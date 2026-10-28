@@ -17,7 +17,7 @@ import {
 } from '@centurio1987/bbangto-ui-visualization';
 import { makeVizColorway } from './_foundation';
 import { makeVizShowcase } from './_showcase';
-import { useVizMotifStyle } from './_motif';
+import { registerVizMotif, useVizMotifStyle } from './_motif';
 
 /**
  * Halftone_Print_01 — CMYK 망점(halftone-dot) 프린트(웜 페이퍼 + K 망점 스크린 + CMYK 잉크 워시).
@@ -394,3 +394,4 @@ export const halftonePrint01VizStyleGuide: VisualizationStyleGuide = {
     related: ['riso-print-01', 'colorful-flat-01'],
   },
 };
+registerVizMotif(halftonePrint01VizStyleGuide, MOTIF_ID, MOTIF_CSS);

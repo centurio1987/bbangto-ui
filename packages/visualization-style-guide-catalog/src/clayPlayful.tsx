@@ -17,7 +17,7 @@ import {
 } from '@centurio1987/bbangto-ui-visualization';
 import { makeVizColorway } from './_foundation';
 import { makeVizShowcase } from './_showcase';
-import { useVizMotifStyle } from './_motif';
+import { registerVizMotif, useVizMotifStyle } from './_motif';
 
 /**
  * Clay_Playful_01 — 파스텔 퍼피 클레이(claymorphism). 웜 크림 그라운드 위 파스텔 솔리드
@@ -409,3 +409,4 @@ export const clayPlayful01VizStyleGuide: VisualizationStyleGuide = {
     related: ['colorful-flat-01', 'kawaii-pastel-01'],
   },
 };
+registerVizMotif(clayPlayful01VizStyleGuide, MOTIF_ID, MOTIF_CSS);

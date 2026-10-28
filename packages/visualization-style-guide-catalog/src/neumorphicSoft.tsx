@@ -17,7 +17,7 @@ import {
 } from '@centurio1987/bbangto-ui-visualization';
 import { makeVizColorway } from './_foundation';
 import { makeVizShowcase } from './_showcase';
-import { useVizMotifStyle } from './_motif';
+import { registerVizMotif, useVizMotifStyle } from './_motif';
 
 /**
  * Neumorphic_Soft_01 — 동일 톤 소프트 압출(뉴모피즘).
@@ -386,3 +386,4 @@ export const neumorphicSoft01VizStyleGuide: VisualizationStyleGuide = {
     related: ['iso-color-block-01', 'clay-playful-01'],
   },
 };
+registerVizMotif(neumorphicSoft01VizStyleGuide, MOTIF_ID, MOTIF_CSS);

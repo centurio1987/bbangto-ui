@@ -16,7 +16,7 @@ import {
 } from '@centurio1987/bbangto-ui-visualization';
 import { makeVizColorway } from './_foundation';
 import { makeVizShowcase } from './_showcase';
-import { useVizMotifStyle } from './_motif';
+import { registerVizMotif, useVizMotifStyle } from './_motif';
 
 /**
  * Dopamine_Max_01 — 맥시멀 도파민 인포그래픽(고채도 색 충돌 + 오버랩 블렌드).
@@ -382,3 +382,4 @@ export const dopamineMax01VizStyleGuide: VisualizationStyleGuide = {
     related: ['colorful-flat-01', 'neon-gradient-dark-01'],
   },
 };
+registerVizMotif(dopamineMax01VizStyleGuide, MOTIF_ID, MOTIF_CSS);

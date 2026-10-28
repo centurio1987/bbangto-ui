@@ -16,7 +16,7 @@ import {
 } from '@centurio1987/bbangto-ui-visualization';
 import { makeVizColorway } from './_foundation';
 import { makeVizShowcase } from './_showcase';
-import { useVizMotifStyle } from './_motif';
+import { registerVizMotif, useVizMotifStyle } from './_motif';
 
 /**
  * Organic_Blob_01 — 자연광 그라운드 위에 얹은 바이오모픽(생체 유기) 블롭 페인트(Tier B).
@@ -418,3 +418,4 @@ export const organicBlob01VizStyleGuide: VisualizationStyleGuide = {
     related: ['colorful-flat-01', 'marker-sketchnote-01'],
   },
 };
+registerVizMotif(organicBlob01VizStyleGuide, MOTIF_ID, MOTIF_CSS);
