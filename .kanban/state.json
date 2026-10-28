@@ -1,6 +1,6 @@
 {
   "next_id": 82,
-  "next_seq": 307,
+  "next_seq": 308,
   "cards": {
     "KAN-020": {
       "col": "done",
@@ -1717,12 +1717,12 @@
       "memo_hash": "0196d4c1ba622d1dd484cb6db5d0ac716d57e38a"
     },
     "KAN-081-33245K": {
-      "col": "backlog",
+      "col": "doing",
       "title": "계약 CSS export — 브라우저 없이 정적 렌더할 수 있는 길",
       "verbatim": "html로 시각화된 보고서를 생성해달라고 요청할 때 ... bbangto-ui repo의 카탈로그를 이용해서 빠르고 정확하며, 일관성 있는 결과물을 얻고 싶은데 ... 해당 repo의 개정이 필요한지 / (제안에 대한 답) 진행해",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-10-27",
+      "갱신": "2026-10-28",
       "title_hash": "661739608d6de8695cf0db9d5a2968228f7eca5e",
       "verbatim_hash": "1d2f9b4cb568ae90454b0f26310c289c7e6e5193",
       "short": "계약 CSS export(정적 렌더)",
@@ -1752,7 +1752,6 @@
     "KAN-077-0YAFWG",
     "KAN-078-0TF6NT",
     "KAN-080-RN47PY",
-    "KAN-081-33245K",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1827,9 +1826,20 @@
     "KAN-066-T6NR80",
     "KAN-075-4K5GK3",
     "KAN-071-FK1W8K",
-    "KAN-079-CFS73T"
+    "KAN-079-CFS73T",
+    "KAN-081-33245K"
   ],
   "recent": [
+    {
+      "seq": 307,
+      "t": "2026-10-28T10:39",
+      "a": "ai",
+      "id": "KAN-081-33245K",
+      "op": "move",
+      "w": "NEMWG1",
+      "from": "backlog",
+      "to": "doing"
+    },
     {
       "seq": 306,
       "t": "2026-10-27T19:03",
@@ -2385,16 +2395,6 @@
       "w": "QZV2GZ",
       "from": "backlog",
       "to": "doing"
-    },
-    {
-      "seq": 272,
-      "t": "2026-10-10T03:48",
-      "a": "ai",
-      "id": "KAN-064-AC0H6M",
-      "op": "move",
-      "w": "7E5YYM",
-      "from": "review",
-      "to": "done"
     }
   ],
   "waivers": [
