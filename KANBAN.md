@@ -59,7 +59,7 @@
   - 메모: 범위 확장(2026-10-27, 소비 측 시험 결과): visualization(contract·reduced-motion) · core(motion-keyframes, MOTION_CSS는 이미 export지만 style id 없음) · style-guide-catalog(모티프 53개 preset, motifCssOf 비공개·id 없음) · visualization-style-guide-catalog(모티프 18개 preset, useVizMotifStyle). 근거: ~/.claude/plans/publish-report-skill.md 「M5 착수: 정적 렌더 시험 결과」 · ~/.claude/skills/publish-report/.work/ssr-probe.ts
   - 실행 문서: KANBAN/cards/KAN-081-33245K.md (6/6 · 최근 10-28)
   - 계획 리포트: KANBAN/reports/KAN-081-33245K.report.html (낡음)
-  - 검토 문서: KANBAN/reviews/KAN-081-33245K.review.md (승인 0/3 · 검토 대기)
+  - 검토 문서: KANBAN/reviews/KAN-081-33245K.review.md (승인 3/3 · 승인)
   - 원문:
     ```text
     html로 시각화된 보고서를 생성해달라고 요청할 때 ... bbangto-ui repo의 카탈로그를 이용해서 빠르고 정확하며, 일관성 있는 결과물을 얻고 싶은데 ... 해당 repo의 개정이 필요한지 / (제안에 대한 답) 진행해
