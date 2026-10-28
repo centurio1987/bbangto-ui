@@ -1,6 +1,6 @@
 // 공통 빌더(다른 preset 작성/소비 시 재사용).
 export { makeFoundations, makeSemantic, makeColorway, type SemanticInput, type FoundationInput } from './_foundation';
-export { makeMotifWrappers, cx, useMotifStyle, type MotifConfig, type TagConfig } from './_motif';
+export { makeMotifWrappers, cx, useMotifStyle, motifStylesOf, type MotifConfig, type TagConfig } from './_motif';
 export {
   makeShowcase,
   type ShowcaseCopy,

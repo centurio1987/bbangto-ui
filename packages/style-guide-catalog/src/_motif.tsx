@@ -2,7 +2,7 @@ import React from 'react';
 // 자기 패키지가 아니라 상대경로로 원형 컴포넌트를 import 한다(같은 패키지 내부 순환참조 회피).
 import { Button, type ButtonProps } from '@centurio1987/bbangto-ui-core';
 import { Card, type CardProps } from '@centurio1987/bbangto-ui-core';
-import type { WrapperComponents } from '@centurio1987/bbangto-ui-core';
+import type { StaticStyle, StyleGuide, WrapperComponents } from '@centurio1987/bbangto-ui-core';
 
 /*
  * Style Guide Catalog — 공통 모티프 래퍼 빌더.
@@ -94,18 +94,29 @@ export function makeMotifWrappers(cfg: MotifConfig): WrapperComponents {
   MotifTag.displayName = `${cfg.displayPrefix}Tag`;
 
   const wrappers = { Button: MotifButton, Card: MotifCard, Tag: MotifTag };
-  motifCss.set(wrappers, cfg.css);
+  motifCss.set(wrappers, { id: cfg.styleId, css: cfg.css });
   return wrappers;
 }
 
 /*
- * 래퍼 → 주입할 모티프 CSS. CSS 는 preset 파일마다 이 함수의 인자로만 있어 바깥에서 볼 길이 없었다.
- * 모티프 포커스 테두리 대비 감사(accessibility.test.ts)가 이것으로 화면에 들어갈 CSS 를 그대로 읽는다 —
- * 소스 글자를 읽으면 `${LILAC}` 같은 상수 치환을 못 푼다. 배럴(index.ts)로는 내지 않는다. (KAN-065)
+ * 래퍼 → 주입할 모티프 시트(`<style id>` 와 CSS). CSS 는 preset 파일마다 이 함수의 인자로만 있어 바깥에서 볼 길이 없었다.
+ * 모티프 포커스 테두리 대비 감사(accessibility.test.ts)가 `motifCssOf` 로 화면에 들어갈 CSS 를 그대로 읽는다 —
+ * 소스 글자를 읽으면 `${LILAC}` 같은 상수 치환을 못 푼다. (KAN-065)
+ * 정적 렌더 소비자는 `motifStylesOf` 로 id 까지 받는다 — 서버 렌더는 effect 를 안 돌려 시트가 안 들어가기 때문이다. (KAN-081)
  */
-const motifCss = new WeakMap<WrapperComponents, string>();
+const motifCss = new WeakMap<WrapperComponents, StaticStyle>();
 
-/** makeMotifWrappers 가 만든 래퍼의 모티프 CSS. 다른 길로 만든 래퍼면 undefined. */
+/** makeMotifWrappers 가 만든 래퍼의 모티프 CSS. 다른 길로 만든 래퍼면 undefined. 배럴(index.ts)로는 내지 않는다. */
 export function motifCssOf(wrappers: WrapperComponents | undefined): string | undefined {
-  return wrappers ? motifCss.get(wrappers) : undefined;
+  return wrappers ? motifCss.get(wrappers)?.css : undefined;
+}
+
+/**
+ * 이 스타일 가이드의 래퍼가 런타임에 `document.head` 에 넣는 모티프 시트 — `{ id, css }` 목록.
+ * 래퍼가 쓰는 것과 같은 값을 돌려주므로 서버 렌더 결과에 그대로 깔면 브라우저 마운트와 같은 그림이 나온다.
+ * 모티프 래퍼가 없는 가이드는 빈 목록이다. (KAN-081)
+ */
+export function motifStylesOf(styleGuide: Pick<StyleGuide, 'wrapperComponents'> | undefined): StaticStyle[] {
+  const sheet = styleGuide?.wrapperComponents ? motifCss.get(styleGuide.wrapperComponents) : undefined;
+  return sheet ? [{ ...sheet }] : [];
 }
