@@ -1,8 +1,9 @@
 import { useInsertionEffect } from 'react';
 
-const STYLE_ELEMENT_ID = 'bbangto-viz-reduced-motion';
+/** 감속 시트의 `<style id>`. 정적 렌더 목록(`staticStyles.ts`)과 같은 값을 쓴다. */
+export const VIZ_REDUCED_MOTION_STYLE_ID = 'bbangto-viz-reduced-motion';
 
-const REDUCED_MOTION_CSS = `
+export const VIZ_REDUCED_MOTION_CSS = `
 @media (prefers-reduced-motion: reduce) {
   [data-bbangto-viz-style-guide] *:not([data-bbangto-viz-animate="essential"]),
   [data-bbangto-viz-style-guide] *:not([data-bbangto-viz-animate="essential"])::before,
@@ -18,11 +19,11 @@ const REDUCED_MOTION_CSS = `
 export function useVizDefs(): void {
   useInsertionEffect(() => {
     if (typeof document === 'undefined') return;
-    if (document.getElementById(STYLE_ELEMENT_ID)) return;
+    if (document.getElementById(VIZ_REDUCED_MOTION_STYLE_ID)) return;
 
     const style = document.createElement('style');
-    style.id = STYLE_ELEMENT_ID;
-    style.textContent = REDUCED_MOTION_CSS;
+    style.id = VIZ_REDUCED_MOTION_STYLE_ID;
+    style.textContent = VIZ_REDUCED_MOTION_CSS;
     document.head.appendChild(style);
   }, []);
 }

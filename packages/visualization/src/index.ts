@@ -45,6 +45,11 @@ export type {
   VizVisualMotifComponentSpec,
 } from './styleGuide/VisualizationStyleGuide';
 export { resolveVizFoundationPreset } from './styleGuide/VisualizationStyleGuide';
+// 정적 렌더(서버 문자열 렌더)용 — 런타임이 `<head>` 에 넣는 시트를 `{ id, css }` 로 낸다(KAN-081).
+export { vizStaticStyles } from './provider/staticStyles';
+export type { StaticStyle } from './provider/staticStyles';
+export { VIZ_CONTRACT_STYLE_ID } from './provider/contractCss';
+export { VIZ_REDUCED_MOTION_STYLE_ID } from './provider/defs';
 export {
   VisualizationStyleGuideProvider,
   useVisualizationStyleGuide,

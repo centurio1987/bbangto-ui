@@ -55,7 +55,7 @@
   - 이유: 지금은 계약 CSS가 provider/contractCss.ts 안에서만 주입돼 서버 문자열 렌더가 무채색이 된다. 그래서 자급 HTML을 내려면 Playwright로 브라우저를 띄워 DOM을 직렬화하는 길뿐이고(~/resume scripts/render-core.ts · business-strategy 배포본 엔진), manage-kanban 리포트는 토큰 값을 CSS로 옮겨 적는 사본(REPORT_STYLE.css)을 두었다
   - 목표: 네 패키지가 정적 스타일 목록을 export하고, 그 목록이 런타임 주입과 같다는 것을 테스트가 보증한다. 소비자가 Playwright 없이 결정적인 HTML을 만든다
   - 메모: 범위 확장(2026-10-27, 소비 측 시험 결과): visualization(contract·reduced-motion) · core(motion-keyframes, MOTION_CSS는 이미 export지만 style id 없음) · style-guide-catalog(모티프 53개 preset, motifCssOf 비공개·id 없음) · visualization-style-guide-catalog(모티프 18개 preset, useVizMotifStyle). 근거: ~/.claude/plans/publish-report-skill.md 「M5 착수: 정적 렌더 시험 결과」 · ~/.claude/skills/publish-report/.work/ssr-probe.ts
-  - 실행 문서: KANBAN/cards/KAN-081-33245K.md (1/6 · 최근 10-28)
+  - 실행 문서: KANBAN/cards/KAN-081-33245K.md (2/6 · 최근 10-28)
   - 계획 리포트: KANBAN/reports/KAN-081-33245K.report.html (낡음)
   - 원문:
     ```text

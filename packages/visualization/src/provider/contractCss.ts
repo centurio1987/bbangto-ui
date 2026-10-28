@@ -1,6 +1,7 @@
 import { useInsertionEffect } from 'react';
 
-const STYLE_ELEMENT_ID = 'bbangto-viz-contract';
+/** 계약 시트의 `<style id>`. 정적 렌더 목록(`staticStyles.ts`)과 같은 값을 쓴다. */
+export const VIZ_CONTRACT_STYLE_ID = 'bbangto-viz-contract';
 
 /**
  * 계약 스타일시트 — 시맨틱 data 속성을 --bbangto-viz-* 토큰에 바인딩한다.
@@ -16,7 +17,7 @@ const STYLE_ELEMENT_ID = 'bbangto-viz-contract';
  * 경계 대시(boundary.dashPattern)는 `Boundary` 사각형의 훅 `data-viz-part="boundary"` 에 건다(KAN-069). 경계는 관계선이
  * 아니라 표기 템플릿 안에서도 가이드 대시를 따른다. `dashPattern` prop 을 적은 경계는 인라인 대시가 이긴다.
  */
-const CONTRACT_CSS = `
+export const VIZ_CONTRACT_CSS = `
 [data-bbangto-viz-style-guide] [data-viz-part="shape"] {
   fill: var(--bbangto-viz-shape-fill);
   stroke: var(--bbangto-viz-shape-stroke);
@@ -40,11 +41,11 @@ const CONTRACT_CSS = `
 export function useVizContractCss(): void {
   useInsertionEffect(() => {
     if (typeof document === 'undefined') return;
-    if (document.getElementById(STYLE_ELEMENT_ID)) return;
+    if (document.getElementById(VIZ_CONTRACT_STYLE_ID)) return;
 
     const style = document.createElement('style');
-    style.id = STYLE_ELEMENT_ID;
-    style.textContent = CONTRACT_CSS;
+    style.id = VIZ_CONTRACT_STYLE_ID;
+    style.textContent = VIZ_CONTRACT_CSS;
     document.head.appendChild(style);
   }, []);
 }
