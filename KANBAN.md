@@ -51,19 +51,6 @@
 ## 진행 중
 
 ## 검토
-- `KAN-081-33245K` 계약 CSS export — 브라우저 없이 정적 렌더할 수 있는 길 — 생성:ai · 최종:ai · 갱신:2026-10-28
-  - 짧은 제목: 계약 CSS export(정적 렌더)
-  - 목적: 런타임에만 주입되는 스타일시트(viz 계약·감속, core 키프레임, UI·viz 카탈로그 모티프)를 {id, css} 목록으로 export해, renderToStaticMarkup 결과에 붙이면 브라우저 마운트와 같은 정적 HTML이 나오게 한다
-  - 이유: 지금은 계약 CSS가 provider/contractCss.ts 안에서만 주입돼 서버 문자열 렌더가 무채색이 된다. 그래서 자급 HTML을 내려면 Playwright로 브라우저를 띄워 DOM을 직렬화하는 길뿐이고(~/resume scripts/render-core.ts · business-strategy 배포본 엔진), manage-kanban 리포트는 토큰 값을 CSS로 옮겨 적는 사본(REPORT_STYLE.css)을 두었다
-  - 목표: 네 패키지가 정적 스타일 목록을 export하고, 그 목록이 런타임 주입과 같다는 것을 테스트가 보증한다. 소비자가 Playwright 없이 결정적인 HTML을 만든다
-  - 메모: 범위 확장(2026-10-27, 소비 측 시험 결과): visualization(contract·reduced-motion) · core(motion-keyframes, MOTION_CSS는 이미 export지만 style id 없음) · style-guide-catalog(모티프 53개 preset, motifCssOf 비공개·id 없음) · visualization-style-guide-catalog(모티프 18개 preset, useVizMotifStyle). 근거: ~/.claude/plans/publish-report-skill.md 「M5 착수: 정적 렌더 시험 결과」 · ~/.claude/skills/publish-report/.work/ssr-probe.ts
-  - 실행 문서: KANBAN/cards/KAN-081-33245K.md (6/6 · 최근 10-28)
-  - 계획 리포트: KANBAN/reports/KAN-081-33245K.report.html (낡음)
-  - 검토 문서: KANBAN/reviews/KAN-081-33245K.review.md (승인 3/3 · 승인)
-  - 원문:
-    ```text
-    html로 시각화된 보고서를 생성해달라고 요청할 때 ... bbangto-ui repo의 카탈로그를 이용해서 빠르고 정확하며, 일관성 있는 결과물을 얻고 싶은데 ... 해당 repo의 개정이 필요한지 / (제안에 대한 답) 진행해
-    ```
 
 ## 완료
 - `KAN-020` visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현 — 생성:유저 · 최종:유저 · 갱신:2026-08-14
@@ -723,4 +710,17 @@
     ```text
     71 완료 했을 때 시점에서, npm package는 재배포해야 할 필요가 없는지 확인해 줘
     방금 071 끝났으니 만들어라 (앞 질문 「배포 카드를 지금 만들까요? (만들어도 push·배포는 따로 지시를 받은 뒤에 합니다)」에 대한 답)
+    ```
+- `KAN-081-33245K` 계약 CSS export — 브라우저 없이 정적 렌더할 수 있는 길 — 생성:ai · 최종:ai · 갱신:2026-10-28
+  - 짧은 제목: 계약 CSS export(정적 렌더)
+  - 목적: 런타임에만 주입되는 스타일시트(viz 계약·감속, core 키프레임, UI·viz 카탈로그 모티프)를 {id, css} 목록으로 export해, renderToStaticMarkup 결과에 붙이면 브라우저 마운트와 같은 정적 HTML이 나오게 한다
+  - 이유: 지금은 계약 CSS가 provider/contractCss.ts 안에서만 주입돼 서버 문자열 렌더가 무채색이 된다. 그래서 자급 HTML을 내려면 Playwright로 브라우저를 띄워 DOM을 직렬화하는 길뿐이고(~/resume scripts/render-core.ts · business-strategy 배포본 엔진), manage-kanban 리포트는 토큰 값을 CSS로 옮겨 적는 사본(REPORT_STYLE.css)을 두었다
+  - 목표: 네 패키지가 정적 스타일 목록을 export하고, 그 목록이 런타임 주입과 같다는 것을 테스트가 보증한다. 소비자가 Playwright 없이 결정적인 HTML을 만든다
+  - 메모: 범위 확장(2026-10-27, 소비 측 시험 결과): visualization(contract·reduced-motion) · core(motion-keyframes, MOTION_CSS는 이미 export지만 style id 없음) · style-guide-catalog(모티프 53개 preset, motifCssOf 비공개·id 없음) · visualization-style-guide-catalog(모티프 18개 preset, useVizMotifStyle). 근거: ~/.claude/plans/publish-report-skill.md 「M5 착수: 정적 렌더 시험 결과」 · ~/.claude/skills/publish-report/.work/ssr-probe.ts
+  - 실행 문서: KANBAN/cards/KAN-081-33245K.md (6/6 · 최근 10-28)
+  - 계획 리포트: KANBAN/reports/KAN-081-33245K.report.html (낡음)
+  - 검토 문서: KANBAN/reviews/KAN-081-33245K.review.md (승인 3/3 · 승인)
+  - 원문:
+    ```text
+    html로 시각화된 보고서를 생성해달라고 요청할 때 ... bbangto-ui repo의 카탈로그를 이용해서 빠르고 정확하며, 일관성 있는 결과물을 얻고 싶은데 ... 해당 repo의 개정이 필요한지 / (제안에 대한 답) 진행해
     ```

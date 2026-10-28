@@ -1,6 +1,6 @@
 {
   "next_id": 82,
-  "next_seq": 309,
+  "next_seq": 310,
   "cards": {
     "KAN-020": {
       "col": "done",
@@ -1717,7 +1717,7 @@
       "memo_hash": "0196d4c1ba622d1dd484cb6db5d0ac716d57e38a"
     },
     "KAN-081-33245K": {
-      "col": "review",
+      "col": "done",
       "title": "계약 CSS export — 브라우저 없이 정적 렌더할 수 있는 길",
       "verbatim": "html로 시각화된 보고서를 생성해달라고 요청할 때 ... bbangto-ui repo의 카탈로그를 이용해서 빠르고 정확하며, 일관성 있는 결과물을 얻고 싶은데 ... 해당 repo의 개정이 필요한지 / (제안에 대한 답) 진행해",
       "생성": "ai",
@@ -1830,6 +1830,16 @@
     "KAN-081-33245K"
   ],
   "recent": [
+    {
+      "seq": 309,
+      "t": "2026-10-28T11:02",
+      "a": "ai",
+      "id": "KAN-081-33245K",
+      "op": "move",
+      "w": "NEMWG1",
+      "from": "review",
+      "to": "done"
+    },
     {
       "seq": 308,
       "t": "2026-10-28T10:51",
@@ -2378,23 +2388,6 @@
       "w": "YBV3VJ",
       "from": "backlog",
       "to": "doing"
-    },
-    {
-      "seq": 273,
-      "t": "2026-10-10T03:57",
-      "a": "ai",
-      "id": "KAN-074-KAZBTF",
-      "op": "create",
-      "w": "S7030N",
-      "col": "todo",
-      "title": "미배포 변경 배포 — KAN-057·061·067 과 KAN-064 major 4개 (tokens 1.5.0 · core 1.2.2 · visualization·style-guide-catalog·visualization-style-guide-catalog 1.0.0 · foundations 2.0.0)",
-      "verbatim": "배포 카드 만들고 push 배포 진행",
-      "parent": null,
-      "short": "major 포함 배포",
-      "purpose": "main 에 쌓인 changeset 네 장(KAN-057·061·064·067)으로 패키지 6개 버전을 올려 GitHub Packages 에 배포한다",
-      "reason": "KAN-073 보관 때 057·061·067 을 KAN-064 major 와 함께 내기로 정했고(2026-10-10 유저), 외부 앱은 배포된 버전만 받는다",
-      "goal": "레지스트리에 새 버전 6개가 올라가고, 배포본에서 changeset 마다 변경 하나씩이 확인되며, 외부 앱에 major 업그레이드 안내 문구가 남는다",
-      "memo": "push 하면 main 로컬 커밋 전부와 release.yml 이 나간다. 절차는 KAN-068 과 같다(S1 점검 → S2 push·Version PR 대조·병합 → S3 배포본 확인과 전달)"
     }
   ],
   "waivers": [
