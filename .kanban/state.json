@@ -1766,7 +1766,15 @@
       "goal": "여섯 도식마다 노드 종류와 화살표 의미를 데이터로 적으면 그대로 그려지고, 화살표 의미가 둘 이상이면 범례로 갈리며, 원문의 예시가 스토리로 남는다",
       "goal_hash": "1ef5f0531f5582eff8fd2889f54bba97d38c7bd6",
       "memo": "검토 표와 근거는 카드 문서 「전략」. 하위 다섯(라벨 → 화살표 종류·범례 / 배치 도식 / 객체·커뮤니케이션, SEI 프레임은 따로). KAN-080(P7·P8·P9·P11)과 같은 템플릿 파일을 고친다 — 순서는 유저 확인 대기",
-      "memo_hash": "74597ae94924277bb3c4bd2d58c0e69fa0e7f27e"
+      "memo_hash": "74597ae94924277bb3c4bd2d58c0e69fa0e7f27e",
+      "scope": [
+        "packages/visualization/src/**",
+        "packages/visualization/visualization-type-inventory.md",
+        "packages/visualization/README.md",
+        "packages/visualization/type.manifest.json",
+        "apps/storybook/src/stories/**",
+        ".changeset/**"
+      ]
     },
     "KAN-082.1-ZFJJM6": {
       "col": "backlog",
