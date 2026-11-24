@@ -186,6 +186,29 @@ describe('deriveOnInk — 면 토큰 전부', () => {
     // 적지 않은 자리는 계산값이다
     expect(on.palette.p2).toBe(pickOnInk(f, surfacesFor(f, f.palette.p2)));
   });
+
+  // KAN-083 — 진한 면. 도형 선 색(shape.stroke)으로 면을 칠하고 그 위에 글자를 쓰는 경우의 글자색.
+  it('shape.stroke 면(진한 면)도 채운다', () => {
+    const f = baseVisualizationFoundation;
+    const on = deriveOnInk(f);
+    expect(on.shape.stroke).toBe(pickOnInk(f, surfacesFor(f, f.shape.stroke)));
+  });
+
+  it('진한 면 위 글자색은 그 면과 4.5:1 이상이다', () => {
+    for (const stroke of ['#111111', '#1A1A2E', '#E8443B', '#28E0F0', '#FFFFFF']) {
+      const f = foundation({ shapeStroke: stroke });
+      const ink = deriveOnInk(f).shape.stroke;
+      expect(contrastRatio(ink, surfaceOver(f, stroke))).toBeGreaterThanOrEqual(ON_INK_MIN);
+    }
+  });
+
+  it('가이드가 on.shape.stroke 에 적은 값이 계산값을 이긴다', () => {
+    const f = foundation({ shapeStroke: '#111111', on: { shape: { stroke: '#FFEE00' } } });
+    const on = deriveOnInk(f);
+    expect(on.shape.stroke).toBe('#FFEE00');
+    // 같은 칸의 fill 은 적지 않았으므로 계산값이다
+    expect(on.shape.fill).toBe(pickOnInk(f, surfacesFor(f, f.shape.fill)));
+  });
 });
 
 describe('visualizationFoundationToStyleObject — --bbangto-viz-on-*', () => {
@@ -196,6 +219,7 @@ describe('visualizationFoundationToStyleObject — --bbangto-viz-on-*', () => {
   it.each([
     [vvar('on', 'palette', 'p1'), on.palette.p1],
     [vvar('on', 'shape', 'fill'), on.shape.fill],
+    [vvar('on', 'shape', 'stroke'), on.shape.stroke],
     [vvar('on', 'canvas', 'bg'), on.canvas.bg],
     [vvar('on', 'c4', 'l2', 'bgTint'), on.c4.l2.bgTint],
     [vvar('on', 'node', 'person', 'fill'), on.node.person.fill],

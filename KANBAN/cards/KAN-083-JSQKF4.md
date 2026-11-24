@@ -43,7 +43,7 @@ publish-report 스킬은 조립층(viz 도식 부품) 색칠을 bbangto 계약�
 | 다른 Node 래퍼도 fill · stroke 를 버린다 | 새 래퍼 시험이 그 가이드 이름으로 실패한다 | 같은 카드에서 같은 형식으로 고친다 |
 
 ## 실행 계획
-- [ ] `S1` 진한 면 글자색 시험을 먼저 쓴다 — viz `onInk.test.ts` 에 `shape.stroke` 계산 · 가이드 덮어쓰기 · `--bbangto-viz-on-shape-stroke` 변수, 카탈로그 `onInk.test.ts` 면 목록에 `shape.stroke`. 완료 기준: 새 시험이 빨갛고 그 까닭이 「없음」이다
+- [x] `S1` 진한 면 글자색 시험을 먼저 쓴다 — viz `onInk.test.ts` 에 `shape.stroke` 계산 · 가이드 덮어쓰기 · `--bbangto-viz-on-shape-stroke` 변수, 카탈로그 `onInk.test.ts` 면 목록에 `shape.stroke`. 완료 기준: 새 시험이 빨갛고 그 까닭이 「없음」이다
 - [ ] `S2` 진한 면 글자색을 구현한다 — tokens `on.shape.stroke` 타입, viz `OnInkMap` · `deriveOnInk`, README 의 면 목록. 완료 기준: S1 시험이 초록이고 가이드 30종 전부 4.5:1 이상
 - [ ] `S3` Node 래퍼 면 색 시험을 먼저 쓰고 래퍼를 고친다 — 카탈로그 vitest(가이드마다 Node 래퍼에 fill · stroke 를 넘겨 서버 렌더) · Storybook play(chromium 계산값) → `terminalAscii.tsx` 를 `props.fill ?? 'none'` 으로. 완료 기준: 두 시험이 고치기 전에는 terminal-ascii 로 빨갛고, 고친 뒤 초록
 - [ ] `S4` 게이트 다섯 · 변경셋 · 품질 체크리스트 — `pnpm typecheck` · `pnpm build` · `pnpm test` · `pnpm --filter storybook build` · `pnpm test:unit`, `.changeset/kan-083-*.md`. 완료 기준: 다섯이 초록이고 변경셋과 체크리스트가 커밋됨
@@ -62,3 +62,6 @@ publish-report 스킬은 조립층(viz 도식 부품) 색칠을 bbangto 계약�
 - 2026-11-24T11:41 · s:afda4ec4 — `전략` 섹션 교체
 - 2026-11-24T11:41 · s:afda4ec4 — `전략` 섹션 교체
 - 2026-11-24T11:41 · s:afda4ec4 — `전략` 섹션 교체
+- 2026-11-24T12:01 · s:afda4ec4 — 실행 표시 켬 — 승인받은 계획대로 이 세션이 이어 간다
+- 2026-11-24T12:01 · s:afda4ec4 · S1 doing — 시작
+- 2026-11-24T12:01 · s:afda4ec4 · S1 done — viz onInk.test 에 진한 면 3건 · CSS 변수 1건, 카탈로그 면 목록에 shape.stroke — 구현 전 viz 3건 undefined, 카탈로그 가이드 전부 「변수 없음」으로 실패 확인
