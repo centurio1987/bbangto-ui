@@ -49,10 +49,11 @@ publish-report 스킬은 조립층(viz 도식 부품) 색칠을 bbangto 계약�
 - [x] `S4` 게이트 다섯 · 변경셋 · 품질 체크리스트 — `pnpm typecheck` · `pnpm build` · `pnpm test` · `pnpm --filter storybook build` · `pnpm test:unit`, `.changeset/kan-083-*.md`. 완료 기준: 다섯이 초록이고 변경셋과 체크리스트가 커밋됨
 
 ## 검증
-- `pnpm test:unit` — viz `src/tokens/onInk.test.ts`, 카탈로그 `src/onInk.test.ts`(가이드 30종 × `shape.stroke` 면 4.5:1), 새 래퍼 면 색 시험이 통과한다
-- `pnpm test` — Storybook `VISUALIZATION/Gates/Node Wrapper Fill` play 가 가이드 전부에서 넘긴 fill · stroke 가 계산값으로 칠해지는지 잰다
+- `pnpm test:unit` — viz `src/tokens/onInk.test.ts`, 카탈로그 `src/onInk.test.ts` · `src/textInk.test.ts`(가이드 30종 × `shape.stroke` 면 4.5:1)가 통과한다
+- `pnpm test` — Storybook `VISUALIZATION/Templates/Node Wrapper Fill Gate` 의 두 play 가 통과한다. 하나는 가이드 30종 Node 래퍼에 넘긴 fill · stroke 가 계산값으로 칠해지는지, 다른 하나는 preset 전부에서 진한 면 글자가 4.5:1 을 넘는지 잰다. 기존 시험 전부도 함께 통과한다
 - `pnpm typecheck` · `pnpm build`(끝의 번들 크기 게이트 포함) · `pnpm --filter storybook build` 가 초록이다
 - 고치기 전 커밋에서 S1 · S3 시험이 빨갛게 실패한 기록이 수행 내역에 있다
+- `QUALITY_CHECKLIST.md` 의 B(컴포넌트 수정) · C(토큰/테마 변경) · E(Story 추가) 절을 채워 검토서 검증 절과 PR 본문에 붙인다
 
 ## 수행 내역
 <!-- KANBAN:LOG append-only — 아래로만 덧붙인다. 위를 고치지 않는다. -->
@@ -75,3 +76,5 @@ publish-report 스킬은 조립층(viz 도식 부품) 색칠을 bbangto 계약�
 - 2026-11-24T12:11 · s:afda4ec4 — S4 첫 게이트에서 Storybook 1건 실패: neon 쇼케이스(Wrapper Components)가 node.person 대표 hex 를 넘기는데 그것을 일반 색으로 보아 그라디언트가 1개로 줄었다. 앞서 「쇼케이스는 래퍼에 색을 넘기지 않는다」고 본 것이 틀렸다(apps/storybook/src/stories/_vizCatalogStory.tsx:211). neon 이 가이드의 node 대표 hex 도 그라디언트 요청으로 보게 고치고 게이트를 다시 돌림
 - 2026-11-24T12:11 · s:afda4ec4 · S4 done — 게이트 다섯 초록 — typecheck · build(번들 크기 게이트 포함) · test(Storybook 198 파일 1314건) · storybook build · test:unit(hooks 115 · foundations 143 · visualization 304 · style-guide-catalog 116 · viz 카탈로그 85). 변경셋 kan-083-strong-face-ink(tokens · visualization minor, viz 카탈로그 patch)
 - 2026-11-24T12:11 · s:afda4ec4 — 멈춤(검토) — 유저 지시 「검토 전까지 진행」 — 단계 넷과 게이트 다섯을 마치고 검토 이동 전에 멈춤
+- 2026-11-24T13:28 · s:afda4ec4 — `검증` 섹션 교체
+- 2026-11-24T13:28 · s:afda4ec4 — 검증 절 고침 — 스토리 이름을 실제(VISUALIZATION/Templates/Node Wrapper Fill Gate)로, S3 에서 뺀 서버 렌더 시험 줄을 지우고 품질 체크리스트 줄을 더함. S4 에서 체크리스트를 채우지 않은 것을 검토 준비 중에 찾아 검토서 검증 절에 채움
