@@ -1,6 +1,6 @@
 {
-  "next_id": 83,
-  "next_seq": 323,
+  "next_id": 84,
+  "next_seq": 324,
   "cards": {
     "KAN-020": {
       "col": "done",
@@ -1880,6 +1880,26 @@
       "memo": "새 파일만 더해 형제 카드와 파일이 겹치지 않는다. 조합 프레임이라 Kruchten4Plus1View·ViewpointFrame 처럼 typeMeta registry allowlist 대상이다",
       "memo_hash": "9bcff702db96809366e501331c971691db65f426",
       "parent": "KAN-082-MD50S0"
+    },
+    "KAN-083-JSQKF4": {
+      "col": "todo",
+      "title": "viz 진한 면 위 글자색 변수와 terminal-ascii Node 래퍼의 면 색 따르기 — publish-report 조립층을 bbangto 계약으로 칠하기 위한 확장",
+      "verbatim": "bbangto-ui에 필요한 표현이 없으면, 자체적으로 만들지 말고, bbangto-ui에 추가 확장한 후 이용하는 방식으로 한다. 스킬이 임의로 개입하는 경계는 니가 추천한 대로 \"조립층의 색칠 방식만 bbangto 계약에 맞추고, 배치와 넘침 계산은 그대로\"로 한다.\n\n(적용 범위 답) 스킬 전체, 그리고 지금은 하나라 구분이 없을테지만, 테마별 구분도 있어야 한다. 스킬 사용 시 ui에서 테마를 설정할 수 있도록 한다. 그리고, publish-report 작업 절차에 부자연스러운 표현을 개선하는 프로세스를 포함한다.\n\n(M6-1 시작 지시) 검토 전까지 진행",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-11-24",
+      "title_hash": "f37e127ff8aab4102a3e34b5517659cf475b0cd6",
+      "verbatim_hash": "1684a5ba3aacaf9f161370fe1da73cde79ea71f3",
+      "short": "진한 면 글자색 · 래퍼 면 색",
+      "short_hash": "36c237f9901cd78783a031f73a79d4c53fce66ec",
+      "purpose": "shape.stroke 로 칠한 면 위에 쓸 글자색 on 변수를 내고, terminal-ascii Node 래퍼가 넘겨받은 fill 을 따르게 한다",
+      "purpose_hash": "7cf822a2c18b4d7628ba10d47bcdd952d0802820",
+      "reason": "publish-report 조립층이 색칠을 bbangto 계약으로 옮기는데 이 두 표현이 bbangto-ui 에 없어 스킬이 자체 대비 가드와 덧칠 사각형으로 메우고 있다",
+      "reason_hash": "68e5ffe97e14103e255e0e9f4a121796daad1cc6",
+      "goal": "--bbangto-viz-on-shape-stroke 가 가이드 30종에서 대비 4.5:1 을 넘고 가이드가 값을 직접 적을 수 있으며, Node 래퍼 전부가 넘겨받은 fill 로 칠한다",
+      "goal_hash": "a2c13b2545a59686567ff22c4739d47146b4cb63",
+      "memo": "publish-report M6-1 의 상류 일. 계획 정본은 ~/.claude/plans/publish-report-skill.md 2026-11-24 절",
+      "memo_hash": "6b20c2ac710691a2ff1d3a3cb4f51d2a806f0eab"
     }
   },
   "order": [
@@ -1887,6 +1907,12 @@
     "KAN-077-0YAFWG",
     "KAN-078-0TF6NT",
     "KAN-080-RN47PY",
+    "KAN-082-MD50S0",
+    "KAN-082.1-ZFJJM6",
+    "KAN-082.2-P4970X",
+    "KAN-082.3-TJ665Y",
+    "KAN-082.4-FSH2T1",
+    "KAN-082.5-WPS4DX",
     "KAN-020",
     "KAN-025",
     "KAN-024",
@@ -1963,14 +1989,26 @@
     "KAN-071-FK1W8K",
     "KAN-079-CFS73T",
     "KAN-081-33245K",
-    "KAN-082-MD50S0",
-    "KAN-082.1-ZFJJM6",
-    "KAN-082.2-P4970X",
-    "KAN-082.3-TJ665Y",
-    "KAN-082.4-FSH2T1",
-    "KAN-082.5-WPS4DX"
+    "KAN-083-JSQKF4"
   ],
   "recent": [
+    {
+      "seq": 323,
+      "t": "2026-11-24T11:39",
+      "a": "ai",
+      "id": "KAN-083-JSQKF4",
+      "op": "create",
+      "w": "S7030N",
+      "col": "todo",
+      "title": "viz 진한 면 위 글자색 변수와 terminal-ascii Node 래퍼의 면 색 따르기 — publish-report 조립층을 bbangto 계약으로 칠하기 위한 확장",
+      "verbatim": "bbangto-ui에 필요한 표현이 없으면, 자체적으로 만들지 말고, bbangto-ui에 추가 확장한 후 이용하는 방식으로 한다. 스킬이 임의로 개입하는 경계는 니가 추천한 대로 \"조립층의 색칠 방식만 bbangto 계약에 맞추고, 배치와 넘침 계산은 그대로\"로 한다.\n\n(적용 범위 답) 스킬 전체, 그리고 지금은 하나라 구분이 없을테지만, 테마별 구분도 있어야 한다. 스킬 사용 시 ui에서 테마를 설정할 수 있도록 한다. 그리고, publish-report 작업 절차에 부자연스러운 표현을 개선하는 프로세스를 포함한다.\n\n(M6-1 시작 지시) 검토 전까지 진행",
+      "parent": null,
+      "short": "진한 면 글자색 · 래퍼 면 색",
+      "purpose": "shape.stroke 로 칠한 면 위에 쓸 글자색 on 변수를 내고, terminal-ascii Node 래퍼가 넘겨받은 fill 을 따르게 한다",
+      "reason": "publish-report 조립층이 색칠을 bbangto 계약으로 옮기는데 이 두 표현이 bbangto-ui 에 없어 스킬이 자체 대비 가드와 덧칠 사각형으로 메우고 있다",
+      "goal": "--bbangto-viz-on-shape-stroke 가 가이드 30종에서 대비 4.5:1 을 넘고 가이드가 값을 직접 적을 수 있으며, Node 래퍼 전부가 넘겨받은 fill 로 칠한다",
+      "memo": "publish-report M6-1 의 상류 일. 계획 정본은 ~/.claude/plans/publish-report-skill.md 2026-11-24 절"
+    },
     {
       "seq": 322,
       "t": "2026-11-24T10:48",
@@ -2581,16 +2619,6 @@
       "id": "KAN-069-G0FGTJ",
       "op": "move",
       "w": "8S62G0",
-      "from": "doing",
-      "to": "review"
-    },
-    {
-      "seq": 278,
-      "t": "2026-10-10T23:38",
-      "a": "ai",
-      "id": "KAN-066-T6NR80",
-      "op": "move",
-      "w": "CYVY10",
       "from": "doing",
       "to": "review"
     }

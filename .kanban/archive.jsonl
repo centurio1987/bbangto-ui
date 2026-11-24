@@ -398,3 +398,4 @@
 {"seq": 274, "t": "2026-10-10T03:59", "a": "ai", "id": "KAN-072-KW0G9B", "op": "edit", "w": "YBV3VJ", "field": "memo", "before": "KAN-067 검토 항목 2(2026-10-10 승인)에서 나왔다. README.md 는 KAN-064 scope 에도 있다(KAN-064 는 KAN-068 뒤 병합 대기). KAN-071(실제 사례 재현)과 같은 경로를 보므로 그 카드의 전후 비교에 쓴다", "after": "KAN-067 검토 항목 2(2026-10-10 승인)에서 나왔다. KAN-071(실제 사례 재현)과 같은 경로를 보므로 그 카드의 전후 비교에 쓴다 — 「고치기 전」은 main 0a81094"}
 {"seq": 275, "t": "2026-10-10T04:16", "a": "ai", "id": "KAN-074-KAZBTF", "op": "move", "w": "C2PB3W", "from": "doing", "to": "review"}
 {"seq": 275, "t": "2026-10-10T21:48", "a": "ai", "id": "KAN-070-RCG2QV", "op": "move", "w": "QZV2GZ", "from": "review", "to": "done"}
+{"seq": 278, "t": "2026-10-10T23:38", "a": "ai", "id": "KAN-066-T6NR80", "op": "move", "w": "CYVY10", "from": "doing", "to": "review"}
