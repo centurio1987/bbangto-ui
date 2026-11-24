@@ -37,7 +37,8 @@ type C4Level = 'l1' | 'l2' | 'l3';
 /** 면 토큰 → 그 위 글자색. `--bbangto-viz-on-*` 로 평탄화되는 모양과 같다. */
 export interface OnInkMap {
   readonly palette: Record<PaletteKey, string>;
-  readonly shape: { readonly fill: string };
+  /** `stroke` 는 도형 선 색으로 칠한 진한 면(KAN-083). */
+  readonly shape: { readonly fill: string; readonly stroke: string };
   readonly canvas: { readonly bg: string };
   readonly c4: Record<C4Level, { readonly bgTint: string }>;
   readonly node: Record<NodeSemanticKind, { readonly fill: string }>;
@@ -110,7 +111,7 @@ export function deriveOnInk(f: VisualizationFoundation): OnInkMap {
     palette: Object.fromEntries(
       (Object.keys(f.palette) as PaletteKey[]).map((k) => [k, ink(f.palette[k], o?.palette?.[k])]),
     ) as Record<PaletteKey, string>,
-    shape: { fill: ink(f.shape.fill, o?.shape?.fill) },
+    shape: { fill: ink(f.shape.fill, o?.shape?.fill), stroke: ink(f.shape.stroke, o?.shape?.stroke) },
     canvas: { bg: o?.canvas?.bg ?? pickOnInk(f, canvasOf(f)) },
     c4: { l1: c4('l1'), l2: c4('l2'), l3: c4('l3') },
     node: Object.fromEntries(

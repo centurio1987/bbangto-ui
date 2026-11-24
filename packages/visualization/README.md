@@ -307,7 +307,8 @@ export function DecisionSketch() {
   대시를 따르고 `variant="dashed"` 는 `6 4` 로 남는다. 두 변형을 한 그림에 섞어 뜻을 가르려면 실선 가이드를 쓴다.
 - **면 위 글자는 그 면의 `on-*` 글자색을 쓴다.** 기본 가이드에서 읽힌다고 다른 가이드에서도 읽히지는 않는다
   (synthwave 의 `palette.p2` 와 `edge.stroke` 는 둘 다 `#28E0F0`). 그래서 Provider 가 면 토큰(`palette.p1~p8`·`shape.fill`·
-  `canvas.bg`·`c4.l1~l3.bgTint`·`node.<kind>.fill`)마다 그 위에 쓸 글자색을 `--bbangto-viz-on-*` 로 함께 낸다.
+  `shape.stroke`·`canvas.bg`·`c4.l1~l3.bgTint`·`node.<kind>.fill`)마다 그 위에 쓸 글자색을 `--bbangto-viz-on-*` 로 함께 낸다.
+  `shape.stroke` 는 도형 선 색으로 칠한 진한 면이고 그 위 글자는 `vvar('on', 'shape', 'stroke')` 다(KAN-083).
   `vvar('palette', 'p2')` 면 위 글자는 `vvar('on', 'palette', 'p2')` 를 쓴다. 값은 가이드가 바라는 글자색(`on.ink`)과 가이드 글자색 넷(`edge.stroke` →
   `shape.stroke` → `boundary.labelColor` → `canvas.bg`) 중 처음으로 면과 4.5:1 을 넘는 것이고, 없으면 검정·흰색 중 대비가
   큰 쪽이다. 반투명 면은 밑에 레인 띠 정도(검정 5%)의 음영이 깔려도 읽히는 쪽을 고르고, 그보다 짙은 음영을 까는
