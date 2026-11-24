@@ -98,6 +98,13 @@
   - 이유: 원문의 실무 규칙은 「화살표 의미를 섞어야 하면 범례로 구분」인데 viz 에는 도식용 범례가 없고(Statistics 와플 안 범례뿐), C4·배포·아키텍처·네트워크 템플릿은 선마다 모양을 바꿀 칸이 없으며, 관계 매핑(edgeConfig·cardinalityMarker)도 export 되지 않는다
   - 목표: 한 도식에 HTTP 호출과 메시지 발행처럼 뜻이 다른 화살표를 섞어도 선 모양으로 구분되고, 범례 한 줄로 그 뜻을 읽을 수 있다
   - 메모: 간선 라벨 렌더 복구 뒤에 한다. 유형 목록 §8-b 의 LegendBlock(프리미티브 수준 빈칸)을 채운다. P11 ①(관계 매핑 export)도 이 카드
+- `KAN-082.3-TJ665Y` viz 배치 도식 보강 — 노드 중첩·스테레오타입·artifact, C4 Deployment 템플릿, C4 컨테이너 모양, 토폴로지 링크 라벨 — 생성:ai · 최종:ai · 갱신:2026-11-24
+  - 상위: `KAN-082-MD50S0` (백로그)
+  - 짧은 제목: 배치 도식·C4 Deployment
+  - 목적: UMLDeploymentDiagram 에 노드 안 노드(VPC › 서브넷 › EC2 › 컨테이너)·스테레오타입·artifact 를 더하고, C4 Deployment 템플릿과 C4 컨테이너 모양(데이터베이스·큐), NetworkTopology 링크 라벨을 더한다
+  - 이유: 배포 도식의 화살표는 「어디에 올라가 있나」인데 지금 배포 노드는 평평한 cube 하나라 겹쳐 두면 이름이 가운데서 겹친다. C4 도식 여섯 가운데 Deployment 만 없고, C4 컨테이너는 DB·큐·앱이 모두 같은 상자다
+  - 목표: 원문의 예 「EC2 하나에 API 서버와 워커」를 배포 도식에서는 상자 하나 안의 둘로, 런타임 도식에서는 DB·큐 모양이 다른 상자 둘로 그릴 수 있다
+  - 메모: 간선 라벨 렌더 복구 뒤에 한다(UMLDeploymentDiagram·c4Types 를 함께 고친다). 새 export 는 유형 목록 §6 역방향 표와 typeMeta 등록을 함께 한다 — VT-104 별칭 「C4 deployment」가 실제 export 를 가리키게
 
 ## 할 일
 

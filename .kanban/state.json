@@ -1,6 +1,6 @@
 {
   "next_id": 83,
-  "next_seq": 313,
+  "next_seq": 314,
   "cards": {
     "KAN-020": {
       "col": "done",
@@ -1809,6 +1809,27 @@
       "memo": "간선 라벨 렌더 복구 뒤에 한다. 유형 목록 §8-b 의 LegendBlock(프리미티브 수준 빈칸)을 채운다. P11 ①(관계 매핑 export)도 이 카드",
       "memo_hash": "31c8d8b9511144c977101b7d9d4175ff4e4dd372",
       "parent": "KAN-082-MD50S0"
+    },
+    "KAN-082.3-TJ665Y": {
+      "col": "backlog",
+      "title": "viz 배치 도식 보강 — 노드 중첩·스테레오타입·artifact, C4 Deployment 템플릿, C4 컨테이너 모양, 토폴로지 링크 라벨",
+      "verbatim": "",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-11-24",
+      "title_hash": "b3beb3e621fdc11387bd3f9307a7e4fbedaf0ad3",
+      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+      "short": "배치 도식·C4 Deployment",
+      "short_hash": "6440838320d7f32ca4a9297edccd0613a06af020",
+      "purpose": "UMLDeploymentDiagram 에 노드 안 노드(VPC › 서브넷 › EC2 › 컨테이너)·스테레오타입·artifact 를 더하고, C4 Deployment 템플릿과 C4 컨테이너 모양(데이터베이스·큐), NetworkTopology 링크 라벨을 더한다",
+      "purpose_hash": "e5b22d788bb7d765e6eead7a0624295ad8d8c26a",
+      "reason": "배포 도식의 화살표는 「어디에 올라가 있나」인데 지금 배포 노드는 평평한 cube 하나라 겹쳐 두면 이름이 가운데서 겹친다. C4 도식 여섯 가운데 Deployment 만 없고, C4 컨테이너는 DB·큐·앱이 모두 같은 상자다",
+      "reason_hash": "3111aa3e72bb1e04b358c2f83528b544f2d146fd",
+      "goal": "원문의 예 「EC2 하나에 API 서버와 워커」를 배포 도식에서는 상자 하나 안의 둘로, 런타임 도식에서는 DB·큐 모양이 다른 상자 둘로 그릴 수 있다",
+      "goal_hash": "816764553005fad992d68720ba425fa322f3afb2",
+      "memo": "간선 라벨 렌더 복구 뒤에 한다(UMLDeploymentDiagram·c4Types 를 함께 고친다). 새 export 는 유형 목록 §6 역방향 표와 typeMeta 등록을 함께 한다 — VT-104 별칭 「C4 deployment」가 실제 export 를 가리키게",
+      "memo_hash": "d2529eee771dcf4777352ce4032d16d4b0abe2b7",
+      "parent": "KAN-082-MD50S0"
     }
   },
   "order": [
@@ -1894,9 +1915,27 @@
     "KAN-081-33245K",
     "KAN-082-MD50S0",
     "KAN-082.1-ZFJJM6",
-    "KAN-082.2-P4970X"
+    "KAN-082.2-P4970X",
+    "KAN-082.3-TJ665Y"
   ],
   "recent": [
+    {
+      "seq": 313,
+      "t": "2026-11-24T10:45",
+      "a": "ai",
+      "id": "KAN-082.3-TJ665Y",
+      "op": "create",
+      "w": "S7030N",
+      "col": "backlog",
+      "title": "viz 배치 도식 보강 — 노드 중첩·스테레오타입·artifact, C4 Deployment 템플릿, C4 컨테이너 모양, 토폴로지 링크 라벨",
+      "verbatim": "",
+      "parent": "KAN-082-MD50S0",
+      "short": "배치 도식·C4 Deployment",
+      "purpose": "UMLDeploymentDiagram 에 노드 안 노드(VPC › 서브넷 › EC2 › 컨테이너)·스테레오타입·artifact 를 더하고, C4 Deployment 템플릿과 C4 컨테이너 모양(데이터베이스·큐), NetworkTopology 링크 라벨을 더한다",
+      "reason": "배포 도식의 화살표는 「어디에 올라가 있나」인데 지금 배포 노드는 평평한 cube 하나라 겹쳐 두면 이름이 가운데서 겹친다. C4 도식 여섯 가운데 Deployment 만 없고, C4 컨테이너는 DB·큐·앱이 모두 같은 상자다",
+      "goal": "원문의 예 「EC2 하나에 API 서버와 워커」를 배포 도식에서는 상자 하나 안의 둘로, 런타임 도식에서는 DB·큐 모양이 다른 상자 둘로 그릴 수 있다",
+      "memo": "간선 라벨 렌더 복구 뒤에 한다(UMLDeploymentDiagram·c4Types 를 함께 고친다). 새 export 는 유형 목록 §6 역방향 표와 typeMeta 등록을 함께 한다 — VT-104 별칭 「C4 deployment」가 실제 export 를 가리키게"
+    },
     {
       "seq": 312,
       "t": "2026-11-24T10:45",
@@ -2465,17 +2504,6 @@
       "w": "C2PB3W",
       "from": "doing",
       "to": "review"
-    },
-    {
-      "seq": 274,
-      "t": "2026-10-10T03:59",
-      "a": "ai",
-      "id": "KAN-072-KW0G9B",
-      "op": "edit",
-      "w": "YBV3VJ",
-      "field": "memo",
-      "before": "KAN-067 검토 항목 2(2026-10-10 승인)에서 나왔다. README.md 는 KAN-064 scope 에도 있다(KAN-064 는 KAN-068 뒤 병합 대기). KAN-071(실제 사례 재현)과 같은 경로를 보므로 그 카드의 전후 비교에 쓴다",
-      "after": "KAN-067 검토 항목 2(2026-10-10 승인)에서 나왔다. KAN-071(실제 사례 재현)과 같은 경로를 보므로 그 카드의 전후 비교에 쓴다 — 「고치기 전」은 main 0a81094"
     }
   ],
   "waivers": [
