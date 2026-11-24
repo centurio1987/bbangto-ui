@@ -1,6 +1,6 @@
 {
   "next_id": 84,
-  "next_seq": 324,
+  "next_seq": 325,
   "cards": {
     "KAN-020": {
       "col": "done",
@@ -2001,6 +2001,16 @@
   ],
   "recent": [
     {
+      "seq": 324,
+      "t": "2026-11-24T12:00",
+      "a": "유저",
+      "id": "KAN-082-MD50S0",
+      "op": "waive",
+      "w": "S7030N",
+      "with_": "KAN-083-JSQKF4",
+      "reason": "함께 고치는 파일은 packages/visualization/README.md 하나이고 서로 다른 절이다(KAN-083 은 on 변수 면 목록 한 줄). 나머지는 KAN-082 의 넓은 범위에서 온 겹침이고 파일이 갈린다 — KAN-083 은 tokens/onInk 와 terminal 래퍼, KAN-082 는 템플릿. 유저 승인 2026-11-24"
+    },
+    {
       "seq": 323,
       "t": "2026-11-24T11:39",
       "a": "ai",
@@ -2619,16 +2629,6 @@
       "w": "176E9M",
       "from": "review",
       "to": "done"
-    },
-    {
-      "seq": 278,
-      "t": "2026-10-10T23:51",
-      "a": "ai",
-      "id": "KAN-069-G0FGTJ",
-      "op": "move",
-      "w": "8S62G0",
-      "from": "doing",
-      "to": "review"
     }
   ],
   "waivers": [
@@ -2771,6 +2771,13 @@
       "reason": "packages/visualization/README.md 를 함께 고치지만 자리가 다름(KAN-064 56~114줄 매니페스트 절, KAN-061 257줄 근처). 순서는 KAN-061 을 0.x 줄로 먼저 배포한 뒤 KAN-064 병합 (2026-10-10 유저 선택)",
       "created": "2026-10-10T03:01",
       "by": "ai"
+    },
+    {
+      "pair": "KAN-082-MD50S0|KAN-083-JSQKF4",
+      "scope_hash": "804b919260a5c34b",
+      "reason": "함께 고치는 파일은 packages/visualization/README.md 하나이고 서로 다른 절이다(KAN-083 은 on 변수 면 목록 한 줄). 나머지는 KAN-082 의 넓은 범위에서 온 겹침이고 파일이 갈린다 — KAN-083 은 tokens/onInk 와 terminal 래퍼, KAN-082 는 템플릿. 유저 승인 2026-11-24",
+      "created": "2026-11-24T12:00",
+      "by": "유저"
     }
   ],
   "serials": [
