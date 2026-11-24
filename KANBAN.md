@@ -4,7 +4,7 @@
 > 카드 메타(생성/최종/갱신)는 manage-kanban 스킬이 관리한다. 규칙은 스킬 SKILL.md를 따른다.
 
 ## 백로그
-<!-- 아직 착수 결정 전. 우선순위 미정 후보 풀. 백로그→할 일 이동이 "할지 고민" → "하기로 확정" 전환점. -->
+<!-- 아직 시작 결정 전. 우선순위 미정 후보 풀. 백로그→할 일 이동이 "할지 고민" → "하기로 확정" 전환점. -->
 - `KAN-076-NHP81Z` viz 배치 엔진 안내 — 계층 그래프의 좌표 계산은 앱에서 배치 엔진을 빌려도 되고 그리기는 bbangto-ui atom 으로 (README 「원하는 것이 없을 때」) — 생성:ai · 최종:ai · 갱신:2026-10-12
   - 짧은 제목: viz 배치 엔진 안내
   - 목적: visualization README 「원하는 것이 없을 때」 절에, 계층 그래프의 노드 좌표는 앱이 elkjs·dagre 같은 배치 엔진으로 계산해도 되고 그리기는 atom 으로 한다는 안내를 더한다
@@ -44,6 +44,45 @@
   - 원문:
     ```text
     resume viz 기능은 상대적으로 bbangto-ui의 viz를 사용할 때보다 케이스에 맞는 유연한 시각화를 제공한다. 그 원인도 분석해서 bbangto-ui에 보완이 필요한지 말해봐라 / (제안에 대한 답) 진행해
+    ```
+- `KAN-082-MD50S0` viz 도식 스펙 표현력 확장 — 노드 종류·화살표 의미로 가른 여섯 도식과 세 프레임워크, 범례 — 생성:ai · 최종:ai · 갱신:2026-11-24
+  - 짧은 제목: 도식 스펙 표현력 확장
+  - 목적: 배포·런타임·DFD·클래스와 객체·동작·플로우 여섯 도식과 4+1·C4·SEI 세 프레임워크, 화살표 범례를 viz 템플릿 데이터만으로 그릴 수 있게 한다
+  - 이유: 2026-11-24 검토에서 템플릿 11개가 간선 라벨을 받고도 그리지 않고(6개는 서버 렌더로 확인), 범례 부품·C4 Deployment·객체 도식·커뮤니케이션 도식·SEI 프레임이 없다는 것을 확인했다
+  - 목표: 여섯 도식마다 노드 종류와 화살표 의미를 데이터로 적으면 그대로 그려지고, 화살표 의미가 둘 이상이면 범례로 갈리며, 원문의 예시가 스토리로 남는다
+  - 메모: 검토 표와 근거는 카드 문서 「전략」. 하위 다섯(라벨 → 화살표 종류·범례 / 배치 도식 / 객체·커뮤니케이션, SEI 프레임은 따로). KAN-080(P7·P8·P9·P11)과 같은 템플릿 파일을 고친다 — 순서는 유저 확인 대기
+  - 원문:
+    ```text
+    **핵심: 도식은 "노드가 무엇인가"와 "화살표가 무엇을 뜻하는가"로 구분하면 됩니다.**
+    
+    이 두 가지가 정해지면 도식 종류는 거의 저절로 정해집니다. 말씀하신 여섯 가지를 표준 명칭에 대응시키면 다음과 같습니다.
+    
+    | 말씀하신 도식 | 표준 명칭 | 노드(박스) | 화살표의 의미 | 시간 축 |
+    |---|---|---|---|---|
+    | 물리적 대상 중심 시스템 개념도 | 배포 다이어그램(UML Deployment), 인프라·네트워크 토폴로지, C4 Deployment | 서버, VM, 컨테이너 호스트, VPC·서브넷 같은 네트워크 영역 | 네트워크 연결, 배치 관계(어디에 올라가 있나) | 없음 |
+    | 런타임 중심 시스템 개념도 | C4 Container 다이어그램, 4+1의 Process View, C&C(Component-and-Connector) 뷰 | 독립적으로 실행되는 단위(API 서버, 워커, DB, 큐, 프론트엔드 앱) | 호출·통신(HTTP, gRPC, 메시지 발행) | 없음 |
+    | 데이터 플로우 기준 개념도 | DFD(Data Flow Diagram), 최상위 레벨은 Context Diagram | 처리 과정, 데이터 저장소, 외부 엔티티 | 데이터의 이동(무엇이 어디로 흐르나) | 없음(순서·분기 없음) |
+    | 코드베이스 내 인스턴스들의 역할 | 클래스 다이어그램(타입 수준), 객체 다이어그램(인스턴스 스냅샷), C4 Component | 클래스, 모듈, 객체 | 의존, 소유, 상속, 참조 | 없음 |
+    | 동작을 나타내는 개념도 | 시퀀스 다이어그램, 상태 머신 다이어그램, 커뮤니케이션 다이어그램 | 시퀀스는 객체(라이프라인), 상태 머신은 상태 | 시간순 메시지 / 상태 전이 | **있음** |
+    | 플로우를 나타내는 개념도 | 플로우차트, 액티비티 다이어그램, BPMN(업무 프로세스) | 작업 단계, 분기 | 제어 흐름(다음에 무엇을 하나) | 순서는 있음, 주체는 약함 |
+    
+    **자주 헷갈리는 쌍 세 가지**
+    
+    - **DFD vs 플로우차트:** DFD의 화살표는 데이터고, 플로우차트의 화살표는 제어입니다. 그래서 DFD에는 if 분기나 순서가 없습니다. "주문 정보가 결제 처리로 간다"는 DFD이고, "결제 성공이면 배송, 실패면 재시도"는 플로우차트입니다.
+    - **시퀀스 vs 액티비티:** 시퀀스는 *누가* 누구에게 언제 말하는지가 중심이고(가로축이 객체, 세로축이 시간), 액티비티는 *무엇을* 어떤 순서로 하는지가 중심입니다. 액티비티에 스윔레인을 넣으면 두 도식의 중간쯤이 됩니다.
+    - **배포 vs 런타임:** 하나의 EC2 위에 API 서버와 워커가 같이 떠 있다면, 배포 도식에서는 박스 하나고 런타임 도식에서는 박스 두 개입니다. "몇 대에 어떻게 나뉘어 있나"는 배포 도식, "무엇이 서로 통신하나"는 런타임 도식이 답합니다.
+    
+    **체계적으로 정리된 프레임워크**
+    
+    말씀하신 분류를 이미 정리해 둔 프레임워크가 세 가지 있습니다.
+    
+    - **Kruchten 4+1 View:** Logical(역할·클래스), Process(런타임), Development(코드·패키지 구조), Physical(배포)의 네 뷰에 Scenarios(동작을 보여주는 시퀀스)를 더한 구성입니다. 질문하신 분류와 거의 그대로 맞습니다.
+    - **C4 Model:** Context → Container → Component → Code 순서로 줌인하는 정적 구조 도식 네 단계에, 보조 도식으로 Deployment와 Dynamic이 있습니다. 요즘 실무에서 가장 많이 씁니다.
+    - **SEI Views and Beyond:** 모든 뷰를 세 가지로 나눕니다. Module(코드 구조), C&C(런타임 구조), Allocation(물리 배치·팀 배치)입니다.
+    
+    **실무 규칙:** 도식 하나에는 노드 종류 하나, 화살표 의미 하나만 담습니다. 서버 박스 안에 클래스 이름이 있고 화살표가 데이터 이동이기도 하고 호출이기도 한 그림이 가장 흔한 실수입니다. 섞어야 한다면 범례로 화살표 종류를 구분해 표시하는 게 좋습니다.
+    
+    위 글에 나와있는 도면 스펙을 bbangto-ui의 viz lib가 충분히 표현할 수 있는지 검토하고, 없다면 표현 가능하도록 칸반에 확장 계획을 세워라.
     ```
 
 ## 할 일
@@ -294,7 +333,7 @@
   - 이유: 루트에만 ASSET_INTEGRATION_PLAN·DESIGN_SYSTEM_GUIDE·METADATA_COVERAGE_AUDIT·ORDER·RELEASE_PLAN 등이 쌓여 어느 것이 살아있는 문서인지 구분되지 않는다
   - 목표: 문서마다 판정과 근거가 붙은 정리 계획 리포트가 나와 실제 정리를 착수할 수 있다
   - 실행 문서: KANBAN/cards/KAN-044-3KYT2Q.md (6/6 · 최근 08-25)
-  - 계획 리포트: KANBAN/reports/KAN-044-3KYT2Q.report.html (낡음)
+  - 계획 리포트: KANBAN/reports/KAN-044-3KYT2Q.report.html (지난 계획)
   - 검토 문서: KANBAN/reviews/KAN-044-3KYT2Q.review.md (승인 7/7 · 추가 의견 총 3 · 승인)
 - `KAN-045-PNT454` README는 이 레포를 설명하기에 정보가 많이 부족하다. 이 프로젝트를 활용 사례 별로 분류하고, 사례 별로 사용 방법을 자세한 절차로 서술해라. 서술 과정에서 authoring-kit skill을 이용해라. — 생성:유저 · 최종:ai · 갱신:2026-08-25
   - 짧은 제목: README 활용 사례별 재작성
@@ -302,7 +341,7 @@
   - 이유: 지금 README에는 패키지별 활용법도, style guide 구현 사례와 그 방법도 없다
   - 목표: 처음 온 사람이 README만 보고 자기 사례에 맞는 패키지를 골라 style guide 까지 구현할 수 있다
   - 실행 문서: KANBAN/cards/KAN-045-PNT454.md (7/7 · 최근 08-25)
-  - 계획 리포트: KANBAN/reports/KAN-045-PNT454.report.html (낡음)
+  - 계획 리포트: KANBAN/reports/KAN-045-PNT454.report.html (지난 계획)
   - 검토 문서: KANBAN/reviews/KAN-045-PNT454.review.md (승인 5/5 · 추가 의견 총 4 · 승인)
   - 원문:
     ```text
@@ -330,7 +369,7 @@
   - 목표: viz 문서 2건이 사라지고 type-inventory grep 결과가 0건이라 SSOT 체인이 끊기지 않는다
   - 메모: KAN-044 §13-C. 위험: visualization-catalog.md 는 참조 11건으로 통합 대상 중 최다 — 링크를 한 번에 다 고치지 않으면 SSOT 지목이 허공을 가리킨다. 완료 기준에 type-inventory grep 0건을 넣는다. work 4개 · KAN-047 넘김: packages/foundations/src/gateDocs.test.ts:38 주석의 packages/visualization/PLAN.md 항목도 지운다. scope 에 이 파일을 더하면 :37 을 고칠 B(KAN-048)와 겹친다
   - 실행 문서: KANBAN/cards/KAN-049-CWBPP6.md (4/4 · 최근 10-06)
-  - 계획 리포트: KANBAN/reports/KAN-049-CWBPP6.report.html (낡음)
+  - 계획 리포트: KANBAN/reports/KAN-049-CWBPP6.report.html (지난 계획)
   - 검토 문서: KANBAN/reviews/KAN-049-CWBPP6.review.md (승인 2/2 · 추가 의견 총 7 · 승인)
 - `KAN-047-TRYYRC` 문서 정리 A — 폐기 4건 집행 (RELEASE_PLAN · sample_design · storybook README · ORDER) — 생성:ai · 최종:ai · 갱신:2026-10-06
   - 짧은 제목: 폐기 4건 집행
@@ -347,7 +386,7 @@
   - 목표: fonts="none"이면 외부 글꼴 요청이 0건이고, 기본값을 쓰는 기존 화면은 그대로다
   - 메모: 외부 앱 소비 문제 대응 5장 중 2 · 근거는 카드 문서 「전략」
   - 실행 문서: KANBAN/cards/KAN-052-BYS4JN.md (4/4 · 최근 10-06)
-  - 계획 리포트: KANBAN/reports/KAN-052-BYS4JN.report.html (낡음)
+  - 계획 리포트: KANBAN/reports/KAN-052-BYS4JN.report.html (지난 계획)
   - 검토 문서: KANBAN/reviews/KAN-052-BYS4JN.review.md (승인 1/1 · 추가 의견 총 1 · 승인)
   - 원문:
     ```text
@@ -370,7 +409,7 @@
   - 목표: md 47개가 사라지고 1개가 생겨 46개가 줄고, COMPONENT_CATALOG 의 실측 결함 2건이 함께 고쳐진다
   - 메모: KAN-044 §13-B. 위험: packages/core/style-guide-catalog.md 38–92줄은 자동 생성 구간이라 이동·개명·삭제하면 trendTable.test.ts 가 readFileSync 에서 red 가 된다 — 출처 절만 손댄다. D 의 선행(직렬 중재). work 4개 · KAN-047 넘김: packages/foundations/src/gateDocs.test.ts 도 고친다 — :37 주석의 ASSET_INTEGRATION_PLAN.md 항목, :44–45 ALLOWLIST 의 WAVE0_REPORT.md(지우면 발화 안 하는 항목이 되고 :144 fixture 테스트도 함께 손봐야 한다). scope 에 이 파일을 더하면 :38 을 고칠 C(KAN-049)와 겹친다
   - 실행 문서: KANBAN/cards/KAN-048-R2KW3G.md (4/4 · 최근 10-06)
-  - 계획 리포트: KANBAN/reports/KAN-048-R2KW3G.report.html (낡음)
+  - 계획 리포트: KANBAN/reports/KAN-048-R2KW3G.report.html (지난 계획)
   - 검토 문서: KANBAN/reviews/KAN-048-R2KW3G.review.md (승인 2/2 · 추가 의견 총 2 · 승인)
 - `KAN-053-TZ86NN` Drawer·Tabs·Select 키보드·포커스 지원 — Modal에서 공용 훅 추출 — 생성:ai · 최종:ai · 갱신:2026-10-06
   - 짧은 제목: Drawer·Tabs·Select 키보드 지원
@@ -379,7 +418,7 @@
   - 목표: 세 컴포넌트의 키보드·포커스 동작이 실제 chromium 위 play 테스트로 확인된다
   - 메모: 외부 앱 소비 문제 대응 5장 중 3 · KAN-054의 선행
   - 실행 문서: KANBAN/cards/KAN-053-TZ86NN.md (4/4 · 최근 10-06)
-  - 계획 리포트: KANBAN/reports/KAN-053-TZ86NN.report.html (낡음)
+  - 계획 리포트: KANBAN/reports/KAN-053-TZ86NN.report.html (지난 계획)
   - 검토 문서: KANBAN/reviews/KAN-053-TZ86NN.review.md (승인 5/5 · 추가 의견 총 5 · 승인)
   - 원문:
     ```text
@@ -402,7 +441,7 @@
   - 목표: 규율 문서가 실제 레포 구조와 일치하고 모션 워크플로가 한 곳에만 적힌다
   - 메모: KAN-044 §13-D. 2026-10-07 전략 재수립(선행 KAN-048 완료) — 전수 grep 으로 scope 3파일 추가(COMPONENT_CATALOG·Overview.mdx·types.ts), motion-catalog:27 은 KAN-051 앞뒤 모두 참인 문장으로 고쳐 순서 의존을 없앤다. 상세는 카드 문서 「전략」
   - 실행 문서: KANBAN/cards/KAN-050-AJSQAY.md (4/4 · 최근 10-07)
-  - 계획 리포트: KANBAN/reports/KAN-050-AJSQAY.report.html (낡음)
+  - 계획 리포트: KANBAN/reports/KAN-050-AJSQAY.report.html (지난 계획)
   - 검토 문서: KANBAN/reviews/KAN-050-AJSQAY.review.md (승인 3/3 · 추가 의견 총 3 · 승인)
 - `KAN-051-5HMYKT` 번들 트리 셰이킹 복구 — 파일 단위 출력 + 크기 상한 게이트 (core·viz·sgc·vsgc) — 생성:ai · 최종:ai · 갱신:2026-10-07
   - 짧은 제목: 번들 트리 셰이킹 복구
@@ -411,7 +450,7 @@
   - 목표: dist 기준 core Button 단독이 7KB 이하이고, 상한을 넘으면 test:unit이 빨강이 된다
   - 메모: 외부 앱 소비 문제 대응 5장 중 1 · 근거와 측정값은 카드 문서 「전략」
   - 실행 문서: KANBAN/cards/KAN-051-5HMYKT.md (4/4 · 최근 10-07)
-  - 계획 리포트: KANBAN/reports/KAN-051-5HMYKT.report.html (낡음)
+  - 계획 리포트: KANBAN/reports/KAN-051-5HMYKT.report.html (지난 계획)
   - 검토 문서: KANBAN/reviews/KAN-051-5HMYKT.review.md (승인 4/4 · 추가 의견 총 2 · 승인)
   - 원문:
     ```text
@@ -434,7 +473,7 @@
   - 목표: keyboard-coverage.json에 오른 모든 상호작용 컴포넌트에 키보드 play 테스트가 있고, 빠지면 test:unit이 빨강이 된다
   - 메모: 외부 앱 소비 문제 대응 5장 중 4 · KAN-053 뒤에 직렬 · KAN-053 넘김: onKeyDown 합성 규칙 통일(Tabs↔Modal·Drawer) + 실제 키 입력 게이트 — 전략 「KAN-053에서 넘어온 것」
   - 실행 문서: KANBAN/cards/KAN-054-M48FNQ.md (11/11 · 최근 10-07)
-  - 계획 리포트: KANBAN/reports/KAN-054-M48FNQ.report.html (낡음)
+  - 계획 리포트: KANBAN/reports/KAN-054-M48FNQ.report.html (지난 계획)
   - 검토 문서: KANBAN/reviews/KAN-054-M48FNQ.review.md (승인 6/6 · 추가 의견 총 13 · 승인)
   - 원문:
     ```text
@@ -457,7 +496,7 @@
   - 목표: Showcase 하나를 가져온 번들에 그 Showcase 카피만 들어가고, bundle-budget.json 의 sgc 대표 상한을 새 실측으로 낮춘다
   - 메모: KAN-051 검토 4항(2026-10-07 승인)에서 나온 후속 · 근거는 KANBAN/cards/KAN-051-5HMYKT.md 「전략」의 범위 밖 절
   - 실행 문서: KANBAN/cards/KAN-058-G883EJ.md (4/4 · 최근 10-07)
-  - 계획 리포트: KANBAN/reports/KAN-058-G883EJ.report.html (낡음)
+  - 계획 리포트: KANBAN/reports/KAN-058-G883EJ.report.html (지난 계획)
   - 검토 문서: KANBAN/reviews/KAN-058-G883EJ.review.md (승인 2/2 · 추가 의견 총 2 · 승인)
 - `KAN-059-62EAKB` core 키보드 포커스 표시 통일 — :focus-visible 테두리를 모든 상호작용 컴포넌트에 — 생성:ai · 최종:ai · 갱신:2026-10-08
   - 짧은 제목: 포커스 표시 통일
@@ -466,7 +505,7 @@
   - 목표: 키보드로 닿는 core 컴포넌트마다 포커스 표시가 보이고, 빠지면 테스트가 빨강이 된다
   - 메모: KAN-054 검토 §3-6(2026-10-07 유저가 추천대로 재작업 선택)에서 나온 후속 · KAN-054는 Card·Calendar 날짜 칸·DatePicker 트리거 셋만 a11y/focusRing.ts 로 고쳤다 — 이 카드가 나머지를 같은 규칙으로
   - 실행 문서: KANBAN/cards/KAN-059-62EAKB.md (6/6 · 최근 10-07)
-  - 계획 리포트: KANBAN/reports/KAN-059-62EAKB.report.html (낡음)
+  - 계획 리포트: KANBAN/reports/KAN-059-62EAKB.report.html (지난 계획)
   - 검토 문서: KANBAN/reviews/KAN-059-62EAKB.review.md (승인 4/4 · 추가 의견 총 4 · 승인)
 - `KAN-056-D3V1MB` viz 템플릿 13개 리터럴 색 제거 — 스타일 가이드가 기본 채움·선 색까지 칠하게 — 생성:ai · 최종:ai · 갱신:2026-10-08
   - 짧은 제목: 템플릿 리터럴 색 제거
@@ -475,7 +514,7 @@
   - 목표: 13개 템플릿에 불투명 리터럴 색이 0건이 되고 viz README 「알려진 한계」의 해당 항목이 지워진다
   - 메모: 목록과 셈 기준은 packages/visualization/README.md 「알려진 한계」. 반투명 검정 음영(Node cube 면·IsoPrism·IsometricScene 바닥 그림자·Lane)은 paint 무관 장치라 대상이 아니다
   - 실행 문서: KANBAN/cards/KAN-056-D3V1MB.md (4/4 · 최근 10-08)
-  - 계획 리포트: KANBAN/reports/KAN-056-D3V1MB.report.html (낡음)
+  - 계획 리포트: KANBAN/reports/KAN-056-D3V1MB.report.html (지난 계획)
   - 검토 문서: KANBAN/reviews/KAN-056-D3V1MB.review.md (승인 6/6 · 추가 의견 총 14 · 승인)
   - 원문:
     ```text
@@ -488,7 +527,7 @@
   - 목표: templates 가 내보내는 모든 템플릿에 표본이 있고, 표본이 빠진 템플릿이 생기면 검사가 빨강이 된다
   - 메모: KAN-056 검토 항목 5(검토자 승인, 추천안의 후속 부분)에서 나왔다. KAN-056 병합 뒤 착수. 글자 대비 검사를 넓히면 새 미달이 나와 viz 라벨 대비 정리 카드와 같은 파일을 고치게 되므로 착수 전에 순서를 정한다
   - 실행 문서: KANBAN/cards/KAN-063-Q85EET.md (5/5 · 최근 10-08)
-  - 계획 리포트: KANBAN/reports/KAN-063-Q85EET.report.html (낡음)
+  - 계획 리포트: KANBAN/reports/KAN-063-Q85EET.report.html (지난 계획)
   - 검토 문서: KANBAN/reviews/KAN-063-Q85EET.review.md (승인 1/1 · 추가 의견 총 1 · 승인)
 - `KAN-060-G9YKG6` 포커스 테두리 색 대비 3:1 — border.focus 토큰 정리와 대비 게이트 — 생성:ai · 최종:ai · 갱신:2026-10-08
   - 짧은 제목: 포커스 색 대비
@@ -497,7 +536,7 @@
   - 목표: 모든 foundation·style guide 색 스킴에서 border.focus 가 background.base·elevated 와 3:1 이상이고, 어기면 test:unit 이 빨강이 된다
   - 메모: KAN-059 착수 전 계획에서 발견(2026-10-07 main dist 를 tokens contrastRatio 로 계산). 그라디언트 배경 style guide 는 아직 못 쟀다 · 테두리는 border.focus 를 실행 때 읽으므로 토큰만 고치면 KAN-059 결과에 그대로 반영된다
   - 실행 문서: KANBAN/cards/KAN-060-G9YKG6.md (7/7 · 최근 10-08)
-  - 계획 리포트: KANBAN/reports/KAN-060-G9YKG6.report.html (낡음)
+  - 계획 리포트: KANBAN/reports/KAN-060-G9YKG6.report.html (지난 계획)
   - 검토 문서: KANBAN/reviews/KAN-060-G9YKG6.review.md (승인 3/3 · 추가 의견 총 6 · 승인)
   - 원문:
     ```text
@@ -540,7 +579,7 @@
   - 목표: 모티프 버튼 포커스 테두리의 대비를 재는 검사가 생기고 18곳이 모두 3:1 이상이 된다. style guide 소스에 없는 semantic 변수 참조가 0이 된다
   - 메모: KAN-060 검토 항목 3(2026-10-08 유저 선택)에서 나왔다. 잰 값과 고칠 자리는 실행 문서 「전략」 절
   - 실행 문서: KANBAN/cards/KAN-065-XSHEMV.md (5/5 · 최근 10-10)
-  - 계획 리포트: KANBAN/reports/KAN-065-XSHEMV.report.html (낡음)
+  - 계획 리포트: KANBAN/reports/KAN-065-XSHEMV.report.html (지난 계획)
   - 검토 문서: KANBAN/reviews/KAN-065-XSHEMV.review.md (승인 3/3 · 철회 1 · 추가 의견 총 5 · 승인)
   - 원문:
     ```text
@@ -553,7 +592,7 @@
   - 목표: 토큰이 실제로 엣지에 반영되거나 타입에서 사라져, 선언과 동작이 어긋난 자리가 없어진다. style-classification 횡단 규칙 3 의 상태 문장도 갱신된다
   - 메모: 잇는 쪽이면 스타일 가이드 기본값을 개별 prop(strokeDasharray)이 덮는 순서를 지킨다. 잇기와 걷기 중 무엇을 할지는 착수 때 정한다
   - 실행 문서: KANBAN/cards/KAN-057-CCH3E8.md (4/4 · 최근 10-10)
-  - 계획 리포트: KANBAN/reports/KAN-057-CCH3E8.report.html (낡음)
+  - 계획 리포트: KANBAN/reports/KAN-057-CCH3E8.report.html (지난 계획)
   - 검토 문서: KANBAN/reviews/KAN-057-CCH3E8.review.md (승인 4/4 · 추가 의견 총 5 · 승인)
   - 원문:
     ```text
@@ -566,7 +605,7 @@
   - 목표: 앱 에이전트가 배포물만 읽고 없는 것을 확장 컴포넌트로 만들 수 있고, 배포물에 저장소 관리 지시가 0건이며, 검사가 둘 다 지킨다
   - 메모: 2026-10-09 매니페스트 진단의 고칠 방법 1·2. 3번(매니페스트에 조립 경로 필드)은 이 카드 밖이고 KAN-064 와 함께 정한다
   - 실행 문서: KANBAN/cards/KAN-067-WDY7N1.md (6/6 · 최근 10-10)
-  - 계획 리포트: KANBAN/reports/KAN-067-WDY7N1.report.html (낡음)
+  - 계획 리포트: KANBAN/reports/KAN-067-WDY7N1.report.html (지난 계획)
   - 검토 문서: KANBAN/reviews/KAN-067-WDY7N1.review.md (승인 3/3 · 추가 의견 총 4 · 승인)
   - 원문:
     ```text
@@ -592,7 +631,7 @@
   - 목표: _labelContrastBaseline.ts 가 빈다(모든 템플릿으로 넓히는 일은 KAN-063 이 먼저 한다)
   - 메모: KAN-056 검토 항목 3(승인)·6에서 나왔다. KAN-056 병합 뒤 착수(검사와 기준 목록이 그 카드에 있다). 원인이 셋으로 갈린다: 불투명 팔레트 면 위 edge.stroke 글자, Requirement 반투명 글자(opacity 0.6·0.8)와 검정 6% 띠, riso-print 등의 shape.fill·edge.stroke 쌍. 카탈로그 대비 게이트가 shape.fill·edge.stroke 쌍을 재는지는 확인 안 함
   - 실행 문서: KANBAN/cards/KAN-061-K8V2HH.md (8/8 · 최근 10-10)
-  - 계획 리포트: KANBAN/reports/KAN-061-K8V2HH.report.html (낡음)
+  - 계획 리포트: KANBAN/reports/KAN-061-K8V2HH.report.html (지난 계획)
   - 검토 문서: KANBAN/reviews/KAN-061-K8V2HH.review.md (승인 5/5 · 추가 의견 총 14 · 승인)
 - `KAN-064-AC0H6M` AI 채택 매니페스트 재편 — 메타 필드는 유지, 매니페스트는 얇은 색인으로 축소 + 동기화 장치 단순화 — 생성:ai · 최종:ai · 갱신:2026-10-10
   - 짧은 제목: 매니페스트 얇은 색인화
@@ -601,7 +640,7 @@
   - 목표: AI가 색인 하나로 1차 후보를 고르고 상세 meta는 후보마다 따로 읽는다. 매니페스트 재생성 단계가 전부 prebuild로 통일되고, 동기화 테스트가 색인처럼 좀처럼 안 바뀌는 자리만 지킨다
   - 메모: KAN-068 배포 뒤 병합. KAN-057·061·067 은 이 카드와 함께 다음 배포로(visualization 0.5.0 도 ^0.4 범위 밖이라 범위를 한 번만 올리게, 2026-10-10 유저 선택). 토큰 실측·버린 안은 실행 문서 전략 절
   - 실행 문서: KANBAN/cards/KAN-064-AC0H6M.md (5/5 · 최근 10-10)
-  - 계획 리포트: KANBAN/reports/KAN-064-AC0H6M.report.html (낡음)
+  - 계획 리포트: KANBAN/reports/KAN-064-AC0H6M.report.html (지난 계획)
   - 검토 문서: KANBAN/reviews/KAN-064-AC0H6M.review.md (승인 4/4 · 철회 1 · 추가 의견 총 4 · 승인)
   - 원문:
     ```text
@@ -615,7 +654,7 @@
   - 목표: 대시 가이드에서도 관계선은 템플릿과 상관없이 같은 모양이고, 표기법상 실선인 선과 축은 실선으로 남는다
   - 메모: 못 따르는 선(Edge 미사용): SitemapTree:71 · WorkBreakdownStructure:80 · GitGraph:92 · IsometricScene:161. 따르면 안 되는 선(Edge 사용, 대시 값을 안 넘겨 실선을 표현): ClassDiagram:58-62 · SequenceDiagram:183 · UMLSequenceDiagram:140 · BPMNCollaborationDiagram:176,182 · UseCaseDiagram:102 · Flowchart:127 · DMNDiagram:100-102 · ArchiMateDiagram:69-70 · ArchiMateViewpointDiagram:57-58 · SysMLBlockDiagram:43-46 · molecules/StepConnector:23, 그리고 patterns/TimelineRoadmap:52 시간 축. Edge 를 쓰는 38개 중 22개, Edge 없이 선을 그리는 24개 중 17개는 아직 안 봤다. 지금 카탈로그 가이드는 모두 실선이라 그림에 나타나는 문제는 아직 없다. KAN-057(edge.dashPattern 연결) 병합 뒤에 착수한다
   - 실행 문서: KANBAN/cards/KAN-070-RCG2QV.md (5/5 · 최근 10-10)
-  - 계획 리포트: KANBAN/reports/KAN-070-RCG2QV.report.html (낡음)
+  - 계획 리포트: KANBAN/reports/KAN-070-RCG2QV.report.html (지난 계획)
   - 검토 문서: KANBAN/reviews/KAN-070-RCG2QV.review.md (승인 4/4 · 철회 1 · 추가 의견 총 4 · 승인)
   - 원문:
     ```text
@@ -628,7 +667,7 @@
   - 목표: 루트 README 가 배포 README 의 「원하는 것이 없을 때」 절로 이어지고, Provider 서술이 실측과 같아진다
   - 메모: KAN-067 검토 항목 2(2026-10-10 승인)에서 나왔다. KAN-071(실제 사례 재현)과 같은 경로를 보므로 그 카드의 전후 비교에 쓴다 — 「고치기 전」은 main 0a81094
   - 실행 문서: KANBAN/cards/KAN-072-KW0G9B.md (5/5 · 최근 10-10)
-  - 계획 리포트: KANBAN/reports/KAN-072-KW0G9B.report.html (낡음)
+  - 계획 리포트: KANBAN/reports/KAN-072-KW0G9B.report.html (지난 계획)
   - 검토 문서: KANBAN/reviews/KAN-072-KW0G9B.review.md (승인 3/3 · 철회 1 · 추가 의견 총 7 · 승인)
   - 원문:
     ```text
@@ -653,7 +692,7 @@
   - 목표: 선언과 동작이 어긋난 viz 토큰이 0이 되고, 첫 단계로 경계선(boundary.dashPattern·width·radius)이 카탈로그 가이드 값대로 그려진다
   - 메모: 대상: canvas.gridUnit · node.*.tagColor · edge.marker.size · c4.l1/l2/l3.{borderWidth,bgTint,labelColor} 9개 · boundary.{dashPattern,width,radius}(Boundary.tsx 가 JS 기본값 '8 6'/1.5/8 사용, 카탈로그 값은 제각각이라 그림이 바뀜) · typography.titleWeight · typography.sizes.{title,label,tag,mono} · iconStyle · spacing.{nodePad,laneGap} · motion.{duration,easing}. 잇는 방식은 KAN-057(edge.dashPattern)의 훅·계약 스타일시트 규칙을 따른다
   - 실행 문서: KANBAN/cards/KAN-069-G0FGTJ.md (6/6 · 최근 10-11)
-  - 계획 리포트: KANBAN/reports/KAN-069-G0FGTJ.report.html (낡음)
+  - 계획 리포트: KANBAN/reports/KAN-069-G0FGTJ.report.html (지난 계획)
   - 검토 문서: KANBAN/reviews/KAN-069-G0FGTJ.review.md (승인 3/3 · 철회 1 · 추가 의견 총 6 · 승인)
   - 원문:
     ```text
@@ -666,7 +705,7 @@
   - 목표: 새 워크트리(또는 rm -rf packages/*/dist 뒤)에서 pnpm typecheck·pnpm test:unit 이 build 선행 없이 초록이고, build 를 먼저 돌리라는 규칙을 걷을 수 있다
   - 메모: KAN-064 목표에서 갈라져 나왔다(2026-10-08 유저 선택). 고칠 자리 후보: 패키지 package.json exports 의 소스 조건 또는 tsconfig paths, vitest resolve. KAN-055 와 package.json 이 겹칠 것이다
   - 실행 문서: KANBAN/cards/KAN-066-T6NR80.md (6/6 · 최근 10-10)
-  - 계획 리포트: KANBAN/reports/KAN-066-T6NR80.report.html (낡음)
+  - 계획 리포트: KANBAN/reports/KAN-066-T6NR80.report.html (지난 계획)
   - 검토 문서: KANBAN/reviews/KAN-066-T6NR80.review.md (승인 3/3 · 추가 의견 총 3 · 승인)
   - 원문:
     ```text
@@ -679,7 +718,7 @@
   - 목표: 가이드마다 지침 문장과 칠해지는 글자색이 맞고, 둘이 다시 어긋나면 검사가 잡는다
   - 메모: 칠해지는 색이 저자 색과 다른 가이드 15개(KAN-069 착수 때 실측 189곳). 길 셋: 문장 고치기 / on 으로 저자 색 지정 / KAN-061 계산 후보 순서에서 boundary.labelColor 를 앞으로. KAN-069 병합 뒤 착수(tagColor 가 지워진 상태 기준)
   - 실행 문서: KANBAN/cards/KAN-075-4K5GK3.md (9/9 · 최근 10-11)
-  - 계획 리포트: KANBAN/reports/KAN-075-4K5GK3.report.html (낡음)
+  - 계획 리포트: KANBAN/reports/KAN-075-4K5GK3.report.html (지난 계획)
   - 검토 문서: KANBAN/reviews/KAN-075-4K5GK3.review.md (승인 2/2 · 철회 1 · 추가 의견 총 9 · 승인)
   - 원문:
     ```text
@@ -692,7 +731,7 @@
   - 목표: 현상이 재현되는 조건과 남은 원인이 기록되고, 배포 README 와 루트 README 수정 전후로 결론이 바뀌는지 확인된다
   - 메모: KAN-067 검토 항목 1(2026-10-10 승인)에서 나왔다. 실제 사례(앱 지시문·프롬프트·모델)는 유저에게 받는다. KAN-072(루트 README 두 자리)와 같은 경로를 보므로 그 카드 전후로 비교한다
   - 실행 문서: KANBAN/cards/KAN-071-FK1W8K.md (5/5 · 최근 10-12)
-  - 계획 리포트: KANBAN/reports/KAN-071-FK1W8K.report.html (낡음)
+  - 계획 리포트: KANBAN/reports/KAN-071-FK1W8K.report.html (지난 계획)
   - 검토 문서: KANBAN/reviews/KAN-071-FK1W8K.review.md (승인 3/3 · 철회 1 · 추가 의견 총 6 · 승인)
   - 원문:
     ```text
@@ -718,7 +757,7 @@
   - 목표: 네 패키지가 정적 스타일 목록을 export하고, 그 목록이 런타임 주입과 같다는 것을 테스트가 보증한다. 소비자가 Playwright 없이 결정적인 HTML을 만든다
   - 메모: 범위 확장(2026-10-27, 소비 측 시험 결과): visualization(contract·reduced-motion) · core(motion-keyframes, MOTION_CSS는 이미 export지만 style id 없음) · style-guide-catalog(모티프 53개 preset, motifCssOf 비공개·id 없음) · visualization-style-guide-catalog(모티프 18개 preset, useVizMotifStyle). 근거: ~/.claude/plans/publish-report-skill.md 「M5 착수: 정적 렌더 시험 결과」 · ~/.claude/skills/publish-report/.work/ssr-probe.ts
   - 실행 문서: KANBAN/cards/KAN-081-33245K.md (6/6 · 최근 10-28)
-  - 계획 리포트: KANBAN/reports/KAN-081-33245K.report.html (낡음)
+  - 계획 리포트: KANBAN/reports/KAN-081-33245K.report.html (지난 계획)
   - 검토 문서: KANBAN/reviews/KAN-081-33245K.review.md (승인 3/3 · 승인)
   - 원문:
     ```text
