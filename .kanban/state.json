@@ -1,6 +1,6 @@
 {
   "next_id": 83,
-  "next_seq": 315,
+  "next_seq": 316,
   "cards": {
     "KAN-020": {
       "col": "done",
@@ -1851,6 +1851,27 @@
       "memo": "ClassBox 칸 고르기(P9)는 이 카드가 맡는다 — KAN-080 P9 와 겹친다. 간선 라벨 렌더 복구 뒤에 한다(ClassDiagram·ClassBox 를 함께 고친다)",
       "memo_hash": "6e3639c9d255cea21a8b532454883a9a8215ebdd",
       "parent": "KAN-082-MD50S0"
+    },
+    "KAN-082.5-WPS4DX": {
+      "col": "backlog",
+      "title": "viz SEI Views and Beyond 프레임 — Module·C&C·Allocation 세 뷰 슬롯",
+      "verbatim": "",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-11-24",
+      "title_hash": "17ba2096a25abe4ec09cca6a93021886a26981ac",
+      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+      "short": "SEI 뷰 프레임",
+      "short_hash": "e48565767213793935ffe50eeef9667e0bc60420",
+      "purpose": "Module·C&C·Allocation 세 뷰를 슬롯으로 받는 ViewsAndBeyondFrame 을 Kruchten4Plus1View 와 같은 방식으로 더한다",
+      "purpose_hash": "94e5161d3ee52fff3eae4bd620174d8a4416ce1a",
+      "reason": "원문이 든 프레임워크 셋 가운데 4+1 은 Kruchten4Plus1View, C4 는 템플릿 여섯이 있지만 SEI Views and Beyond 는 없어 ViewpointFrame 을 세 번 손으로 늘어놓아야 한다",
+      "reason_hash": "9a4ea9473ec37a1b2aa0f172af827de7a3e32440",
+      "goal": "한 시스템의 모듈 뷰·런타임(C&C) 뷰·배치(Allocation) 뷰를 한 프레임에 나란히 담고, 슬롯마다 기존 템플릿을 넣을 수 있다",
+      "goal_hash": "75348c58fdc553dae7dcfbe545d84a4f9a40a651",
+      "memo": "새 파일만 더해 형제 카드와 파일이 겹치지 않는다. 조합 프레임이라 Kruchten4Plus1View·ViewpointFrame 처럼 typeMeta registry allowlist 대상이다",
+      "memo_hash": "9bcff702db96809366e501331c971691db65f426",
+      "parent": "KAN-082-MD50S0"
     }
   },
   "order": [
@@ -1938,9 +1959,27 @@
     "KAN-082.1-ZFJJM6",
     "KAN-082.2-P4970X",
     "KAN-082.3-TJ665Y",
-    "KAN-082.4-FSH2T1"
+    "KAN-082.4-FSH2T1",
+    "KAN-082.5-WPS4DX"
   ],
   "recent": [
+    {
+      "seq": 315,
+      "t": "2026-11-24T10:45",
+      "a": "ai",
+      "id": "KAN-082.5-WPS4DX",
+      "op": "create",
+      "w": "S7030N",
+      "col": "backlog",
+      "title": "viz SEI Views and Beyond 프레임 — Module·C&C·Allocation 세 뷰 슬롯",
+      "verbatim": "",
+      "parent": "KAN-082-MD50S0",
+      "short": "SEI 뷰 프레임",
+      "purpose": "Module·C&C·Allocation 세 뷰를 슬롯으로 받는 ViewsAndBeyondFrame 을 Kruchten4Plus1View 와 같은 방식으로 더한다",
+      "reason": "원문이 든 프레임워크 셋 가운데 4+1 은 Kruchten4Plus1View, C4 는 템플릿 여섯이 있지만 SEI Views and Beyond 는 없어 ViewpointFrame 을 세 번 손으로 늘어놓아야 한다",
+      "goal": "한 시스템의 모듈 뷰·런타임(C&C) 뷰·배치(Allocation) 뷰를 한 프레임에 나란히 담고, 슬롯마다 기존 템플릿을 넣을 수 있다",
+      "memo": "새 파일만 더해 형제 카드와 파일이 겹치지 않는다. 조합 프레임이라 Kruchten4Plus1View·ViewpointFrame 처럼 typeMeta registry allowlist 대상이다"
+    },
     {
       "seq": 314,
       "t": "2026-11-24T10:45",
@@ -2523,16 +2562,6 @@
       "w": "YBV3VJ",
       "from": "doing",
       "to": "review"
-    },
-    {
-      "seq": 275,
-      "t": "2026-10-10T21:48",
-      "a": "ai",
-      "id": "KAN-070-RCG2QV",
-      "op": "move",
-      "w": "QZV2GZ",
-      "from": "review",
-      "to": "done"
     }
   ],
   "waivers": [

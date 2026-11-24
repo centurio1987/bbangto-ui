@@ -112,6 +112,13 @@
   - 이유: 유형 목록은 object diagram 을 VT-101(ClassDiagram), communication 을 VT-108(시퀀스)의 별칭으로 구현 완료 처리했지만, ClassBox 에는 인스턴스 표기와 빈 칸 억제가 없고(P9) 시퀀스 템플릿은 수명선 배치라 노드-링크 배치를 그리지 못한다
   - 목표: 같은 객체들을 시퀀스 도식(시간축)과 커뮤니케이션 도식(링크 위 번호)으로 각각 그릴 수 있고, 유형 목록의 구현 표시가 실제 export 를 가리킨다
   - 메모: ClassBox 칸 고르기(P9)는 이 카드가 맡는다 — KAN-080 P9 와 겹친다. 간선 라벨 렌더 복구 뒤에 한다(ClassDiagram·ClassBox 를 함께 고친다)
+- `KAN-082.5-WPS4DX` viz SEI Views and Beyond 프레임 — Module·C&C·Allocation 세 뷰 슬롯 — 생성:ai · 최종:ai · 갱신:2026-11-24
+  - 상위: `KAN-082-MD50S0` (백로그)
+  - 짧은 제목: SEI 뷰 프레임
+  - 목적: Module·C&C·Allocation 세 뷰를 슬롯으로 받는 ViewsAndBeyondFrame 을 Kruchten4Plus1View 와 같은 방식으로 더한다
+  - 이유: 원문이 든 프레임워크 셋 가운데 4+1 은 Kruchten4Plus1View, C4 는 템플릿 여섯이 있지만 SEI Views and Beyond 는 없어 ViewpointFrame 을 세 번 손으로 늘어놓아야 한다
+  - 목표: 한 시스템의 모듈 뷰·런타임(C&C) 뷰·배치(Allocation) 뷰를 한 프레임에 나란히 담고, 슬롯마다 기존 템플릿을 넣을 수 있다
+  - 메모: 새 파일만 더해 형제 카드와 파일이 겹치지 않는다. 조합 프레임이라 Kruchten4Plus1View·ViewpointFrame 처럼 typeMeta registry allowlist 대상이다
 
 ## 할 일
 
