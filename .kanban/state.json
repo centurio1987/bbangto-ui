@@ -1,6 +1,6 @@
 {
   "next_id": 83,
-  "next_seq": 314,
+  "next_seq": 315,
   "cards": {
     "KAN-020": {
       "col": "done",
@@ -1830,6 +1830,27 @@
       "memo": "간선 라벨 렌더 복구 뒤에 한다(UMLDeploymentDiagram·c4Types 를 함께 고친다). 새 export 는 유형 목록 §6 역방향 표와 typeMeta 등록을 함께 한다 — VT-104 별칭 「C4 deployment」가 실제 export 를 가리키게",
       "memo_hash": "d2529eee771dcf4777352ce4032d16d4b0abe2b7",
       "parent": "KAN-082-MD50S0"
+    },
+    "KAN-082.4-FSH2T1": {
+      "col": "backlog",
+      "title": "viz 객체 도식·커뮤니케이션 도식 — 인스턴스 스냅샷과 링크 위 번호 메시지",
+      "verbatim": "",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-11-24",
+      "title_hash": "ea3dfd653d1590483d42b534b9513497335672c8",
+      "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+      "short": "객체·커뮤니케이션 도식",
+      "short_hash": "7d9d18a7d4642292b3da0efcda2ec92c32bcf64c",
+      "purpose": "인스턴스 스냅샷을 그리는 ObjectDiagram(밑줄 친 「이름 : 타입」 머리·속성 값 칸·링크)과 객체 사이 링크 위에 번호 메시지를 다는 CommunicationDiagram 을 더한다",
+      "purpose_hash": "3d84a5befddafd7140062d94323218062e778b3e",
+      "reason": "유형 목록은 object diagram 을 VT-101(ClassDiagram), communication 을 VT-108(시퀀스)의 별칭으로 구현 완료 처리했지만, ClassBox 에는 인스턴스 표기와 빈 칸 억제가 없고(P9) 시퀀스 템플릿은 수명선 배치라 노드-링크 배치를 그리지 못한다",
+      "reason_hash": "ab5c9a5344562ffeba6098f9db303d1744a99bf5",
+      "goal": "같은 객체들을 시퀀스 도식(시간축)과 커뮤니케이션 도식(링크 위 번호)으로 각각 그릴 수 있고, 유형 목록의 구현 표시가 실제 export 를 가리킨다",
+      "goal_hash": "58400bca1860f327b8bb06cb15aca6216d8a117e",
+      "memo": "ClassBox 칸 고르기(P9)는 이 카드가 맡는다 — KAN-080 P9 와 겹친다. 간선 라벨 렌더 복구 뒤에 한다(ClassDiagram·ClassBox 를 함께 고친다)",
+      "memo_hash": "6e3639c9d255cea21a8b532454883a9a8215ebdd",
+      "parent": "KAN-082-MD50S0"
     }
   },
   "order": [
@@ -1916,9 +1937,27 @@
     "KAN-082-MD50S0",
     "KAN-082.1-ZFJJM6",
     "KAN-082.2-P4970X",
-    "KAN-082.3-TJ665Y"
+    "KAN-082.3-TJ665Y",
+    "KAN-082.4-FSH2T1"
   ],
   "recent": [
+    {
+      "seq": 314,
+      "t": "2026-11-24T10:45",
+      "a": "ai",
+      "id": "KAN-082.4-FSH2T1",
+      "op": "create",
+      "w": "S7030N",
+      "col": "backlog",
+      "title": "viz 객체 도식·커뮤니케이션 도식 — 인스턴스 스냅샷과 링크 위 번호 메시지",
+      "verbatim": "",
+      "parent": "KAN-082-MD50S0",
+      "short": "객체·커뮤니케이션 도식",
+      "purpose": "인스턴스 스냅샷을 그리는 ObjectDiagram(밑줄 친 「이름 : 타입」 머리·속성 값 칸·링크)과 객체 사이 링크 위에 번호 메시지를 다는 CommunicationDiagram 을 더한다",
+      "reason": "유형 목록은 object diagram 을 VT-101(ClassDiagram), communication 을 VT-108(시퀀스)의 별칭으로 구현 완료 처리했지만, ClassBox 에는 인스턴스 표기와 빈 칸 억제가 없고(P9) 시퀀스 템플릿은 수명선 배치라 노드-링크 배치를 그리지 못한다",
+      "goal": "같은 객체들을 시퀀스 도식(시간축)과 커뮤니케이션 도식(링크 위 번호)으로 각각 그릴 수 있고, 유형 목록의 구현 표시가 실제 export 를 가리킨다",
+      "memo": "ClassBox 칸 고르기(P9)는 이 카드가 맡는다 — KAN-080 P9 와 겹친다. 간선 라벨 렌더 복구 뒤에 한다(ClassDiagram·ClassBox 를 함께 고친다)"
+    },
     {
       "seq": 313,
       "t": "2026-11-24T10:45",
@@ -2494,16 +2533,6 @@
       "w": "QZV2GZ",
       "from": "review",
       "to": "done"
-    },
-    {
-      "seq": 275,
-      "t": "2026-10-10T04:16",
-      "a": "ai",
-      "id": "KAN-074-KAZBTF",
-      "op": "move",
-      "w": "C2PB3W",
-      "from": "doing",
-      "to": "review"
     }
   ],
   "waivers": [
