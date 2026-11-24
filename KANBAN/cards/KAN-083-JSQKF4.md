@@ -74,3 +74,4 @@ publish-report 스킬은 조립층(viz 도식 부품) 색칠을 bbangto 계약�
 - 2026-11-24T12:07 · s:afda4ec4 · S4 doing — 시작
 - 2026-11-24T12:11 · s:afda4ec4 — S4 첫 게이트에서 Storybook 1건 실패: neon 쇼케이스(Wrapper Components)가 node.person 대표 hex 를 넘기는데 그것을 일반 색으로 보아 그라디언트가 1개로 줄었다. 앞서 「쇼케이스는 래퍼에 색을 넘기지 않는다」고 본 것이 틀렸다(apps/storybook/src/stories/_vizCatalogStory.tsx:211). neon 이 가이드의 node 대표 hex 도 그라디언트 요청으로 보게 고치고 게이트를 다시 돌림
 - 2026-11-24T12:11 · s:afda4ec4 · S4 done — 게이트 다섯 초록 — typecheck · build(번들 크기 게이트 포함) · test(Storybook 198 파일 1314건) · storybook build · test:unit(hooks 115 · foundations 143 · visualization 304 · style-guide-catalog 116 · viz 카탈로그 85). 변경셋 kan-083-strong-face-ink(tokens · visualization minor, viz 카탈로그 patch)
+- 2026-11-24T12:11 · s:afda4ec4 — 멈춤(검토) — 유저 지시 「검토 전까지 진행」 — 단계 넷과 게이트 다섯을 마치고 검토 이동 전에 멈춤
