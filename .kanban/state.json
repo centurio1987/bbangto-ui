@@ -1,6 +1,6 @@
 {
   "next_id": 84,
-  "next_seq": 326,
+  "next_seq": 327,
   "cards": {
     "KAN-020": {
       "col": "done",
@@ -1765,8 +1765,8 @@
       "reason_hash": "e35f595f2e032d5a92611cde370a3ecb6f96830a",
       "goal": "여섯 도식마다 노드 종류와 화살표 의미를 데이터로 적으면 그대로 그려지고, 화살표 의미가 둘 이상이면 범례로 갈리며, 원문의 예시가 스토리로 남는다",
       "goal_hash": "1ef5f0531f5582eff8fd2889f54bba97d38c7bd6",
-      "memo": "검토 표·근거·순서는 카드 문서 「전략」. KAN-080(P7·P8·P9·P11)과 같은 템플릿 파일을 고친다 — 순서는 유저 확인 대기",
-      "memo_hash": "b7cda566b69e57c4dbf9313f47f096173a8f3a39",
+      "memo": "검토 표·근거·순서는 카드 문서 「전략」. KAN-080(P7·P8·P9·P11)과 같은 템플릿 파일을 고친다 — KAN-082 먼저(2026-11-24 유저 결정)",
+      "memo_hash": "6523fd8bef353751fe2cd4107089a97b62327ad2",
       "scope": [
         "packages/visualization/src/**",
         "packages/visualization/visualization-type-inventory.md",
@@ -2000,6 +2000,17 @@
     "KAN-081-33245K"
   ],
   "recent": [
+    {
+      "seq": 326,
+      "t": "2026-11-24T16:11",
+      "a": "ai",
+      "id": "KAN-082-MD50S0",
+      "op": "edit",
+      "w": "S7030N",
+      "field": "memo",
+      "before": "검토 표·근거·순서는 카드 문서 「전략」. KAN-080(P7·P8·P9·P11)과 같은 템플릿 파일을 고친다 — 순서는 유저 확인 대기",
+      "after": "검토 표·근거·순서는 카드 문서 「전략」. KAN-080(P7·P8·P9·P11)과 같은 템플릿 파일을 고친다 — KAN-082 먼저(2026-11-24 유저 결정)"
+    },
     {
       "seq": 325,
       "t": "2026-11-24T16:11",
@@ -2620,16 +2631,6 @@
       "w": "8S62G0",
       "from": "review",
       "to": "doing"
-    },
-    {
-      "seq": 279,
-      "t": "2026-10-11T00:02",
-      "a": "ai",
-      "id": "KAN-066-T6NR80",
-      "op": "move",
-      "w": "CYVY10",
-      "from": "review",
-      "to": "done"
     }
   ],
   "waivers": [
