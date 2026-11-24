@@ -84,6 +84,13 @@
     
     위 글에 나와있는 도면 스펙을 bbangto-ui의 viz lib가 충분히 표현할 수 있는지 검토하고, 없다면 표현 가능하도록 칸반에 확장 계획을 세워라.
     ```
+- `KAN-082.1-ZFJJM6` viz 템플릿 간선 라벨·선언 필드 렌더 복구 — 받고도 안 그리는 label·technology·다중성·stereotype — 생성:ai · 최종:ai · 갱신:2026-11-24
+  - 상위: `KAN-082-MD50S0` (백로그)
+  - 짧은 제목: 간선 라벨 렌더 복구
+  - 목적: Flowchart·StateDiagram·ClassDiagram·ERDiagram·BlockDiagram·ArchitectureDiagram·C4 Context/Container/Component/Code·UMLComponentDiagram·UMLDeploymentDiagram 이 데이터로 받은 간선 라벨(label·technology·fromLabel·toLabel)과 ClassSpec.stereotype 을 그리게 하고, 포함·집합 관계의 부분 쪽 화살촉을 없앤다
+  - 이유: 분기의 예·아니오, 상태 전이 이벤트, 호출 프로토콜(HTTP·gRPC), 다중성이 그림에서 사라진다 — 서버 렌더로 템플릿 6개에서 노드와 선은 나오고 라벨만 0건임을 확인했고, Edge 원자도 label 을 받고 버린다(src/atoms/Edge.tsx:73)
+  - 목표: 선언된 라벨 필드가 모든 템플릿에서 그려지고, 데이터 형식에만 있고 렌더에 없는 필드를 잡는 검사가 생겨 같은 결함이 다시 생기지 않는다
+  - 메모: ~/resume/docs/viz-upstream-issues.md P7·P8·P11(딸린 결함)을 템플릿 12개 전체로 넓힌 것. 형제 카드 셋(화살표 종류·배치 도식·객체 도식)보다 먼저 한다 — 같은 템플릿의 간선 형식을 고친다. Edge 원자에서 그릴지 템플릿마다 EdgeLabel 을 둘지는 시작 때 정한다
 
 ## 할 일
 
