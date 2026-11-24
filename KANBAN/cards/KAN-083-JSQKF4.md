@@ -46,7 +46,7 @@ publish-report 스킬은 조립층(viz 도식 부품) 색칠을 bbangto 계약�
 - [x] `S1` 진한 면 글자색 시험을 먼저 쓴다 — viz `onInk.test.ts` 에 `shape.stroke` 계산 · 가이드 덮어쓰기 · `--bbangto-viz-on-shape-stroke` 변수, 카탈로그 `onInk.test.ts` 면 목록에 `shape.stroke`. 완료 기준: 새 시험이 빨갛고 그 까닭이 「없음」이다
 - [x] `S2` 진한 면 글자색을 구현한다 — tokens `on.shape.stroke` 타입, viz `OnInkMap` · `deriveOnInk`, README 의 면 목록. 완료 기준: S1 시험이 초록이고 가이드 30종 전부 4.5:1 이상
 - [x] `S3` Node 래퍼 면 색 시험을 먼저 쓰고 래퍼를 고친다 — 카탈로그 vitest(가이드마다 Node 래퍼에 fill · stroke 를 넘겨 서버 렌더) · Storybook play(chromium 계산값) → `terminalAscii.tsx` 를 `props.fill ?? 'none'` 으로. 완료 기준: 두 시험이 고치기 전에는 terminal-ascii 로 빨갛고, 고친 뒤 초록
-- [ ] `S4` 게이트 다섯 · 변경셋 · 품질 체크리스트 — `pnpm typecheck` · `pnpm build` · `pnpm test` · `pnpm --filter storybook build` · `pnpm test:unit`, `.changeset/kan-083-*.md`. 완료 기준: 다섯이 초록이고 변경셋과 체크리스트가 커밋됨
+- [x] `S4` 게이트 다섯 · 변경셋 · 품질 체크리스트 — `pnpm typecheck` · `pnpm build` · `pnpm test` · `pnpm --filter storybook build` · `pnpm test:unit`, `.changeset/kan-083-*.md`. 완료 기준: 다섯이 초록이고 변경셋과 체크리스트가 커밋됨
 
 ## 검증
 - `pnpm test:unit` — viz `src/tokens/onInk.test.ts`, 카탈로그 `src/onInk.test.ts`(가이드 30종 × `shape.stroke` 면 4.5:1), 새 래퍼 면 색 시험이 통과한다
@@ -71,3 +71,6 @@ publish-report 스킬은 조립층(viz 도식 부품) 색칠을 bbangto 계약�
 - 2026-11-24T12:03 · s:afda4ec4 · S3 doing — 시작
 - 2026-11-24T12:06 · s:afda4ec4 — S3 계획 조정: 카탈로그 vitest 설정이 「컴포넌트 렌더 없음」이라 서버 렌더 시험은 두지 않고 Storybook play 하나로 잰다(CLAUDE.md 의 컴포넌트 시험 위치와도 같다)
 - 2026-11-24T12:06 · s:afda4ec4 · S3 done — Storybook Node Wrapper Fill Gate(가이드 30종 Node 래퍼에 fill · stroke) · Strong Face Ink Gate(preset 전부 진한 면 글자 4.5:1). 고치기 전 terminal-ascii 와 neon-gradient-dark 가 넘긴 fill 을 버려 실패 — 둘 다 넘긴 fill 을 따르게 고침(neon 은 fill 없음 · node 종류 면이면 그라디언트 그대로). 첫 shape 요소만 보던 판단은 장식 층 때문에 틀려 shape 요소 전부로 바꿈
+- 2026-11-24T12:07 · s:afda4ec4 · S4 doing — 시작
+- 2026-11-24T12:11 · s:afda4ec4 — S4 첫 게이트에서 Storybook 1건 실패: neon 쇼케이스(Wrapper Components)가 node.person 대표 hex 를 넘기는데 그것을 일반 색으로 보아 그라디언트가 1개로 줄었다. 앞서 「쇼케이스는 래퍼에 색을 넘기지 않는다」고 본 것이 틀렸다(apps/storybook/src/stories/_vizCatalogStory.tsx:211). neon 이 가이드의 node 대표 hex 도 그라디언트 요청으로 보게 고치고 게이트를 다시 돌림
+- 2026-11-24T12:11 · s:afda4ec4 · S4 done — 게이트 다섯 초록 — typecheck · build(번들 크기 게이트 포함) · test(Storybook 198 파일 1314건) · storybook build · test:unit(hooks 115 · foundations 143 · visualization 304 · style-guide-catalog 116 · viz 카탈로그 85). 변경셋 kan-083-strong-face-ink(tokens · visualization minor, viz 카탈로그 patch)

@@ -130,7 +130,7 @@
   - 이유: publish-report 조립층이 색칠을 bbangto 계약으로 옮기는데 이 두 표현이 bbangto-ui 에 없어 스킬이 자체 대비 가드와 덧칠 사각형으로 메우고 있다
   - 목표: --bbangto-viz-on-shape-stroke 가 가이드 30종에서 대비 4.5:1 을 넘고 가이드가 값을 직접 적을 수 있으며, Node 래퍼 전부가 넘겨받은 fill 로 칠한다
   - 메모: publish-report M6-1 의 상류 일. 계획 정본은 ~/.claude/plans/publish-report-skill.md 2026-11-24 절
-  - 실행 문서: KANBAN/cards/KAN-083-JSQKF4.md (3/4 · 최근 11-24)
+  - 실행 문서: KANBAN/cards/KAN-083-JSQKF4.md (4/4 · 최근 11-24)
   - 원문:
     ```text
     bbangto-ui에 필요한 표현이 없으면, 자체적으로 만들지 말고, bbangto-ui에 추가 확장한 후 이용하는 방식으로 한다. 스킬이 임의로 개입하는 경계는 니가 추천한 대로 "조립층의 색칠 방식만 bbangto 계약에 맞추고, 배치와 넘침 계산은 그대로"로 한다.
