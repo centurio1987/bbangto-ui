@@ -1,6 +1,6 @@
 {
   "next_id": 83,
-  "next_seq": 320,
+  "next_seq": 321,
   "cards": {
     "KAN-020": {
       "col": "done",
@@ -1765,8 +1765,8 @@
       "reason_hash": "e35f595f2e032d5a92611cde370a3ecb6f96830a",
       "goal": "여섯 도식마다 노드 종류와 화살표 의미를 데이터로 적으면 그대로 그려지고, 화살표 의미가 둘 이상이면 범례로 갈리며, 원문의 예시가 스토리로 남는다",
       "goal_hash": "1ef5f0531f5582eff8fd2889f54bba97d38c7bd6",
-      "memo": "검토 표와 근거는 카드 문서 「전략」. 하위 다섯(라벨 → 화살표 종류·범례 / 배치 도식 / 객체·커뮤니케이션, SEI 프레임은 따로). KAN-080(P7·P8·P9·P11)과 같은 템플릿 파일을 고친다 — 순서는 유저 확인 대기",
-      "memo_hash": "74597ae94924277bb3c4bd2d58c0e69fa0e7f27e",
+      "memo": "검토 표·근거·순서는 카드 문서 「전략」. KAN-080(P7·P8·P9·P11)과 같은 템플릿 파일을 고친다 — 순서는 유저 확인 대기",
+      "memo_hash": "b7cda566b69e57c4dbf9313f47f096173a8f3a39",
       "scope": [
         "packages/visualization/src/**",
         "packages/visualization/visualization-type-inventory.md",
@@ -1971,6 +1971,17 @@
     "KAN-082.5-WPS4DX"
   ],
   "recent": [
+    {
+      "seq": 320,
+      "t": "2026-11-24T10:48",
+      "a": "ai",
+      "id": "KAN-082-MD50S0",
+      "op": "edit",
+      "w": "S7030N",
+      "field": "memo",
+      "before": "검토 표와 근거는 카드 문서 「전략」. 하위 다섯(라벨 → 화살표 종류·범례 / 배치 도식 / 객체·커뮤니케이션, SEI 프레임은 따로). KAN-080(P7·P8·P9·P11)과 같은 템플릿 파일을 고친다 — 순서는 유저 확인 대기",
+      "after": "검토 표·근거·순서는 카드 문서 「전략」. KAN-080(P7·P8·P9·P11)과 같은 템플릿 파일을 고친다 — 순서는 유저 확인 대기"
+    },
     {
       "seq": 319,
       "t": "2026-11-24T10:48",
@@ -2578,16 +2589,6 @@
       "id": "KAN-069-G0FGTJ",
       "op": "move",
       "w": "8S62G0",
-      "from": "backlog",
-      "to": "doing"
-    },
-    {
-      "seq": 277,
-      "t": "2026-10-10T22:11",
-      "a": "ai",
-      "id": "KAN-066-T6NR80",
-      "op": "move",
-      "w": "CYVY10",
       "from": "backlog",
       "to": "doing"
     }
