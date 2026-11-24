@@ -122,6 +122,8 @@
   - 메모: 새 파일만 더해 형제 카드와 파일이 겹치지 않는다. 조합 프레임이라 Kruchten4Plus1View·ViewpointFrame 처럼 typeMeta registry allowlist 대상이다
 
 ## 할 일
+
+## 진행 중
 - `KAN-083-JSQKF4` viz 진한 면 위 글자색 변수와 terminal-ascii Node 래퍼의 면 색 따르기 — publish-report 조립층을 bbangto 계약으로 칠하기 위한 확장 — 생성:ai · 최종:ai · 갱신:2026-11-24
   - 짧은 제목: 진한 면 글자색 · 래퍼 면 색
   - 목적: shape.stroke 로 칠한 면 위에 쓸 글자색 on 변수를 내고, terminal-ascii Node 래퍼가 넘겨받은 fill 을 따르게 한다
@@ -137,8 +139,6 @@
     
     (M6-1 시작 지시) 검토 전까지 진행
     ```
-
-## 진행 중
 
 ## 검토
 
