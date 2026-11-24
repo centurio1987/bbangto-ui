@@ -88,29 +88,29 @@
 - `KAN-082.1-ZFJJM6` viz 템플릿 간선 라벨·선언 필드 렌더 복구 — 받고도 안 그리는 label·technology·다중성·stereotype — 생성:ai · 최종:ai · 갱신:2026-11-24
   - 상위: `KAN-082-MD50S0` (백로그)
   - 짧은 제목: 간선 라벨 렌더 복구
-  - 목적: Flowchart·StateDiagram·ClassDiagram·ERDiagram·BlockDiagram·ArchitectureDiagram·C4 Context/Container/Component/Code·UMLComponentDiagram·UMLDeploymentDiagram 이 데이터로 받은 간선 라벨(label·technology·fromLabel·toLabel)과 ClassSpec.stereotype 을 그리게 하고, 포함·집합 관계의 부분 쪽 화살촉을 없앤다
-  - 이유: 분기의 예·아니오, 상태 전이 이벤트, 호출 프로토콜(HTTP·gRPC), 다중성이 그림에서 사라진다 — 서버 렌더로 템플릿 6개에서 노드와 선은 나오고 라벨만 0건임을 확인했고, Edge 원자도 label 을 받고 버린다(src/atoms/Edge.tsx:73)
+  - 목적: 템플릿 12개가 받은 간선 라벨(label·technology·다중성)과 stereotype 을 그리게 하고, 포함·집합의 부분 쪽 화살촉을 없앤다
+  - 이유: 분기 예·아니오, 상태 전이 이벤트, HTTP·gRPC, 다중성이 그림에서 사라진다 — 서버 렌더로 템플릿 6개 라벨 0건 확인, Edge.tsx:73 도 label 을 버린다
   - 목표: 선언된 라벨 필드가 모든 템플릿에서 그려지고, 데이터 형식에만 있고 렌더에 없는 필드를 잡는 검사가 생겨 같은 결함이 다시 생기지 않는다
   - 메모: ~/resume/docs/viz-upstream-issues.md P7·P8·P11(딸린 결함)을 템플릿 12개 전체로 넓힌 것. 형제 카드 셋(화살표 종류·배치 도식·객체 도식)보다 먼저 한다 — 같은 템플릿의 간선 형식을 고친다. Edge 원자에서 그릴지 템플릿마다 EdgeLabel 을 둘지는 시작 때 정한다
 - `KAN-082.2-P4970X` viz 화살표 종류 구분과 범례 — 관계선 종류 데이터 + 도식 범례 부품 — 생성:ai · 최종:ai · 갱신:2026-11-24
   - 상위: `KAN-082-MD50S0` (백로그)
   - 짧은 제목: 화살표 종류·범례
   - 목적: 관계선에 종류(동기 호출·비동기 메시지·데이터 이동·배치·의존)를 데이터로 적으면 선 모양과 화살촉이 달라지게 하고, 도식에 쓰인 종류를 모아 보이는 범례 부품을 더한다
-  - 이유: 원문의 실무 규칙은 「화살표 의미를 섞어야 하면 범례로 구분」인데 viz 에는 도식용 범례가 없고(Statistics 와플 안 범례뿐), C4·배포·아키텍처·네트워크 템플릿은 선마다 모양을 바꿀 칸이 없으며, 관계 매핑(edgeConfig·cardinalityMarker)도 export 되지 않는다
+  - 이유: 원문 규칙은 「의미를 섞으면 범례로 구분」인데 도식용 범례가 없고, C4·배포·아키텍처·네트워크 템플릿은 선 모양을 바꿀 칸이 없다
   - 목표: 한 도식에 HTTP 호출과 메시지 발행처럼 뜻이 다른 화살표를 섞어도 선 모양으로 구분되고, 범례 한 줄로 그 뜻을 읽을 수 있다
   - 메모: 간선 라벨 렌더 복구 뒤에 한다. 유형 목록 §8-b 의 LegendBlock(프리미티브 수준 빈칸)을 채운다. P11 ①(관계 매핑 export)도 이 카드
 - `KAN-082.3-TJ665Y` viz 배치 도식 보강 — 노드 중첩·스테레오타입·artifact, C4 Deployment 템플릿, C4 컨테이너 모양, 토폴로지 링크 라벨 — 생성:ai · 최종:ai · 갱신:2026-11-24
   - 상위: `KAN-082-MD50S0` (백로그)
   - 짧은 제목: 배치 도식·C4 Deployment
-  - 목적: UMLDeploymentDiagram 에 노드 안 노드(VPC › 서브넷 › EC2 › 컨테이너)·스테레오타입·artifact 를 더하고, C4 Deployment 템플릿과 C4 컨테이너 모양(데이터베이스·큐), NetworkTopology 링크 라벨을 더한다
-  - 이유: 배포 도식의 화살표는 「어디에 올라가 있나」인데 지금 배포 노드는 평평한 cube 하나라 겹쳐 두면 이름이 가운데서 겹친다. C4 도식 여섯 가운데 Deployment 만 없고, C4 컨테이너는 DB·큐·앱이 모두 같은 상자다
+  - 목적: 배포 노드 중첩(VPC › 서브넷 › EC2 › 컨테이너)·스테레오타입·artifact, C4 Deployment 템플릿, C4 컨테이너 모양, 토폴로지 링크 라벨을 더한다
+  - 이유: 배포 도식의 화살표는 「어디에 올라가 있나」인데 노드가 평평한 cube 하나뿐이고, C4 도식 여섯 가운데 Deployment 만 없다
   - 목표: 원문의 예 「EC2 하나에 API 서버와 워커」를 배포 도식에서는 상자 하나 안의 둘로, 런타임 도식에서는 DB·큐 모양이 다른 상자 둘로 그릴 수 있다
   - 메모: 간선 라벨 렌더 복구 뒤에 한다(UMLDeploymentDiagram·c4Types 를 함께 고친다). 새 export 는 유형 목록 §6 역방향 표와 typeMeta 등록을 함께 한다 — VT-104 별칭 「C4 deployment」가 실제 export 를 가리키게
 - `KAN-082.4-FSH2T1` viz 객체 도식·커뮤니케이션 도식 — 인스턴스 스냅샷과 링크 위 번호 메시지 — 생성:ai · 최종:ai · 갱신:2026-11-24
   - 상위: `KAN-082-MD50S0` (백로그)
   - 짧은 제목: 객체·커뮤니케이션 도식
   - 목적: 인스턴스 스냅샷을 그리는 ObjectDiagram(밑줄 친 「이름 : 타입」 머리·속성 값 칸·링크)과 객체 사이 링크 위에 번호 메시지를 다는 CommunicationDiagram 을 더한다
-  - 이유: 유형 목록은 object diagram 을 VT-101(ClassDiagram), communication 을 VT-108(시퀀스)의 별칭으로 구현 완료 처리했지만, ClassBox 에는 인스턴스 표기와 빈 칸 억제가 없고(P9) 시퀀스 템플릿은 수명선 배치라 노드-링크 배치를 그리지 못한다
+  - 이유: 유형 목록은 object·communication 을 VT-101·VT-108 별칭으로 구현 완료 처리했지만, 인스턴스 표기도 링크 위 메시지 배치도 없다
   - 목표: 같은 객체들을 시퀀스 도식(시간축)과 커뮤니케이션 도식(링크 위 번호)으로 각각 그릴 수 있고, 유형 목록의 구현 표시가 실제 export 를 가리킨다
   - 메모: ClassBox 칸 고르기(P9)는 이 카드가 맡는다 — KAN-080 P9 와 겹친다. 간선 라벨 렌더 복구 뒤에 한다(ClassDiagram·ClassBox 를 함께 고친다)
 - `KAN-082.5-WPS4DX` viz SEI Views and Beyond 프레임 — Module·C&C·Allocation 세 뷰 슬롯 — 생성:ai · 최종:ai · 갱신:2026-11-24
