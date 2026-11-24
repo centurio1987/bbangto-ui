@@ -1,6 +1,6 @@
 {
-  "next_id": 84,
-  "next_seq": 327,
+  "next_id": 85,
+  "next_seq": 328,
   "cards": {
     "KAN-020": {
       "col": "done",
@@ -1908,6 +1908,26 @@
         "apps/storybook/src/stories/visualization/NodeWrapperFillGate.stories.tsx",
         ".changeset/**"
       ]
+    },
+    "KAN-084-QGNC19": {
+      "col": "todo",
+      "title": "가이드가 적은 진한 면 글자색을 VS 구분선 · 이정표 표시 · 번호 배지에도 닿게 한다",
+      "verbatim": "KAN-083-JSQKF4 검토 3번 「세 부품을 어떻게 할까요?」 — 고름: 별도 카드로 할 일에 올린다 (2026-11-24, 검토 화면)",
+      "생성": "ai",
+      "최종": "ai",
+      "갱신": "2026-11-24",
+      "title_hash": "281c592a3931546af418c70f08dd3a127d1056e4",
+      "verbatim_hash": "2dcbc8397b342c39a4ee83b0d9ffcd1efecc5bde",
+      "short": "세 부품 진한 면 글자색",
+      "short_hash": "8303870bf870be7fa28335480c50445ee26d935a",
+      "purpose": "VsDivider · MilestoneMarker · IndexBadge 가 진한 면 글자색을 --bbangto-viz-on-shape-stroke 에서 읽게 한다",
+      "purpose_hash": "7b523473b8683608ad37aff9a5af887878d685ad",
+      "reason": "세 부품은 면 색에서 글자색을 따로 계산해서, 가이드가 shape.stroke 글자색을 적으면 세 부품만 다른 색이 된다(KAN-083 검토 3번)",
+      "reason_hash": "2d45a1f6e6242b6dae71257146d0876bac434302",
+      "goal": "가이드가 적은 진한 면 글자색이 모든 부품에 같게 나온다",
+      "goal_hash": "3d2233e8ef055aca1e21b5071bf731d9432bce71",
+      "memo": "KAN-083 이 main 에 들어간 뒤 시작한다. 고칠 곳 packages/visualization/src/atoms/ 는 KAN-082 범위와 겹치므로 계획 때 순서를 정한다",
+      "memo_hash": "7ec982032db54aae1444a13e8a44ac3d10dd2472"
     }
   },
   "order": [
@@ -1997,9 +2017,27 @@
     "KAN-075-4K5GK3",
     "KAN-071-FK1W8K",
     "KAN-079-CFS73T",
-    "KAN-081-33245K"
+    "KAN-081-33245K",
+    "KAN-084-QGNC19"
   ],
   "recent": [
+    {
+      "seq": 327,
+      "t": "2026-11-24T16:18",
+      "a": "ai",
+      "id": "KAN-084-QGNC19",
+      "op": "create",
+      "w": "S7030N",
+      "col": "todo",
+      "title": "가이드가 적은 진한 면 글자색을 VS 구분선 · 이정표 표시 · 번호 배지에도 닿게 한다",
+      "verbatim": "KAN-083-JSQKF4 검토 3번 「세 부품을 어떻게 할까요?」 — 고름: 별도 카드로 할 일에 올린다 (2026-11-24, 검토 화면)",
+      "parent": null,
+      "short": "세 부품 진한 면 글자색",
+      "purpose": "VsDivider · MilestoneMarker · IndexBadge 가 진한 면 글자색을 --bbangto-viz-on-shape-stroke 에서 읽게 한다",
+      "reason": "세 부품은 면 색에서 글자색을 따로 계산해서, 가이드가 shape.stroke 글자색을 적으면 세 부품만 다른 색이 된다(KAN-083 검토 3번)",
+      "goal": "가이드가 적은 진한 면 글자색이 모든 부품에 같게 나온다",
+      "memo": "KAN-083 이 main 에 들어간 뒤 시작한다. 고칠 곳 packages/visualization/src/atoms/ 는 KAN-082 범위와 겹치므로 계획 때 순서를 정한다"
+    },
     {
       "seq": 326,
       "t": "2026-11-24T16:11",
@@ -2621,16 +2659,6 @@
       "reason": "KAN-061 글자색 계산이 연결선 색을 먼저 골라 artdeco-luxe·synthwave·darkluxe·hud-telemetry 에서 저자가 금지한 골드·네온·시안이 칠해진다(KAN-069 검토 항목 3 반려에서 확인)",
       "goal": "가이드마다 지침 문장과 칠해지는 글자색이 맞고, 둘이 다시 어긋나면 검사가 잡는다",
       "memo": "칠해지는 색이 저자 색과 다른 가이드 15개(KAN-069 착수 때 실측 189곳). 길 셋: 문장 고치기 / on 으로 저자 색 지정 / KAN-061 계산 후보 순서에서 boundary.labelColor 를 앞으로. KAN-069 병합 뒤 착수(tagColor 가 지워진 상태 기준)"
-    },
-    {
-      "seq": 279,
-      "t": "2026-10-11T01:00",
-      "a": "ai",
-      "id": "KAN-069-G0FGTJ",
-      "op": "move",
-      "w": "8S62G0",
-      "from": "review",
-      "to": "doing"
     }
   ],
   "waivers": [
