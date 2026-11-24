@@ -1,6 +1,6 @@
 {
   "next_id": 84,
-  "next_seq": 325,
+  "next_seq": 326,
   "cards": {
     "KAN-020": {
       "col": "done",
@@ -1702,7 +1702,7 @@
       "verbatim": "resume viz 기능은 상대적으로 bbangto-ui의 viz를 사용할 때보다 케이스에 맞는 유연한 시각화를 제공한다. 그 원인도 분석해서 bbangto-ui에 보완이 필요한지 말해봐라 / (제안에 대한 답) 진행해",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-10-23",
+      "갱신": "2026-11-24",
       "title_hash": "d06312e46698f55f8da0954c3f7c22ba53790794",
       "verbatim_hash": "e8e2302bcd27fed25ad17862dc25f6c74f2e7683",
       "short": "템플릿 조립 가능성(P5~P11)",
@@ -1713,8 +1713,8 @@
       "reason_hash": "f3c0f8739082b893b1ea35774402b2b0756e5943",
       "goal": "템플릿을 큰 그림 안에 조각(<g>)으로 합성하고 Edge로 이을 수 있으며, 가이드의 wrapper 등록과 선언 필드가 템플릿에서도 렌더되고, 한글 라벨 폭이 과소평가되지 않는다. 내용 기반 크기 노드가 생긴다",
       "goal_hash": "b124d690373363dcec90982f421324114513ba2d",
-      "memo": "보고서: ~/resume/docs/viz-upstream-issues.md §P5~P11(0.3.0 실측). 2.0.0 재확인 2026-10-23: P5 templates/*.tsx 중 useVizWrapperComponent 0개 · P6 <Canvas 소유 64/65 · P10 src/geometry/text.ts:5. P8·P9·P11 현재 상태 확인 안 함. 참고 구현: ~/resume/design/style-guide/text-metrics.ts(전각 1em) · ~/resume/diagrams/_frame.tsx roleBoxHeight(contentBox 기준 균일 여백). 소비 측 계획: ~/.claude/plans/publish-report-skill.md 「상류 카드 A」. KAN-042와 같은 방식(진단 → 전략 → WBS)으로 착수한다",
-      "memo_hash": "0196d4c1ba622d1dd484cb6db5d0ac716d57e38a"
+      "memo": "보고서: ~/resume/docs/viz-upstream-issues.md §P5~P11(0.3.0 실측). 2.0.0 재확인 2026-10-23: P5 templates/*.tsx 중 useVizWrapperComponent 0개 · P6 <Canvas 소유 64/65 · P10 src/geometry/text.ts:5. P8·P9·P11 현재 상태 확인 안 함. 참고 구현: ~/resume/design/style-guide/text-metrics.ts(전각 1em) · ~/resume/diagrams/_frame.tsx roleBoxHeight(contentBox 기준 균일 여백). 소비 측 계획: ~/.claude/plans/publish-report-skill.md 「상류 카드 A」. KAN-042와 같은 방식(진단 → 전략 → WBS)으로 착수한다 · 2026-11-24 유저 결정: P7·P8·P11 은 KAN-082.1·.2, P9 는 KAN-082.4 가 먼저 고친다 — 이 카드에는 P5·P6·P10 이 남는다",
+      "memo_hash": "d3f7ae4ebcc0b2cb28bb02924c1b93959b9201e7"
     },
     "KAN-081-33245K": {
       "col": "done",
@@ -2000,6 +2000,17 @@
     "KAN-081-33245K"
   ],
   "recent": [
+    {
+      "seq": 325,
+      "t": "2026-11-24T16:11",
+      "a": "ai",
+      "id": "KAN-080-RN47PY",
+      "op": "edit",
+      "w": "S7030N",
+      "field": "memo",
+      "before": "보고서: ~/resume/docs/viz-upstream-issues.md §P5~P11(0.3.0 실측). 2.0.0 재확인 2026-10-23: P5 templates/*.tsx 중 useVizWrapperComponent 0개 · P6 <Canvas 소유 64/65 · P10 src/geometry/text.ts:5. P8·P9·P11 현재 상태 확인 안 함. 참고 구현: ~/resume/design/style-guide/text-metrics.ts(전각 1em) · ~/resume/diagrams/_frame.tsx roleBoxHeight(contentBox 기준 균일 여백). 소비 측 계획: ~/.claude/plans/publish-report-skill.md 「상류 카드 A」. KAN-042와 같은 방식(진단 → 전략 → WBS)으로 착수한다",
+      "after": "보고서: ~/resume/docs/viz-upstream-issues.md §P5~P11(0.3.0 실측). 2.0.0 재확인 2026-10-23: P5 templates/*.tsx 중 useVizWrapperComponent 0개 · P6 <Canvas 소유 64/65 · P10 src/geometry/text.ts:5. P8·P9·P11 현재 상태 확인 안 함. 참고 구현: ~/resume/design/style-guide/text-metrics.ts(전각 1em) · ~/resume/diagrams/_frame.tsx roleBoxHeight(contentBox 기준 균일 여백). 소비 측 계획: ~/.claude/plans/publish-report-skill.md 「상류 카드 A」. KAN-042와 같은 방식(진단 → 전략 → WBS)으로 착수한다 · 2026-11-24 유저 결정: P7·P8·P11 은 KAN-082.1·.2, P9 는 KAN-082.4 가 먼저 고친다 — 이 카드에는 P5·P6·P10 이 남는다"
+    },
     {
       "seq": 324,
       "t": "2026-11-24T12:00",
@@ -2617,16 +2628,6 @@
       "id": "KAN-066-T6NR80",
       "op": "move",
       "w": "CYVY10",
-      "from": "review",
-      "to": "done"
-    },
-    {
-      "seq": 279,
-      "t": "2026-10-12T14:51",
-      "a": "ai",
-      "id": "KAN-071-FK1W8K",
-      "op": "move",
-      "w": "176E9M",
       "from": "review",
       "to": "done"
     }
