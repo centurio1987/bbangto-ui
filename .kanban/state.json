@@ -1,6 +1,6 @@
 {
   "next_id": 83,
-  "next_seq": 322,
+  "next_seq": 323,
   "cards": {
     "KAN-020": {
       "col": "done",
@@ -1835,8 +1835,8 @@
       "reason_hash": "ac10ef11f8c43e93f696b3a2dd3950e08e616612",
       "goal": "원문의 예 「EC2 하나에 API 서버와 워커」를 배포 도식에서는 상자 하나 안의 둘로, 런타임 도식에서는 DB·큐 모양이 다른 상자 둘로 그릴 수 있다",
       "goal_hash": "816764553005fad992d68720ba425fa322f3afb2",
-      "memo": "간선 라벨 렌더 복구 뒤에 한다(UMLDeploymentDiagram·c4Types 를 함께 고친다). 새 export 는 유형 목록 §6 역방향 표와 typeMeta 등록을 함께 한다 — VT-104 별칭 「C4 deployment」가 실제 export 를 가리키게",
-      "memo_hash": "d2529eee771dcf4777352ce4032d16d4b0abe2b7",
+      "memo": ".1 뒤에 한다(UMLDeploymentDiagram·c4Types 공유). 새 export 는 유형 목록 §6 과 typeMeta 등록을 함께 — VT-104 별칭을 실제 export 로",
+      "memo_hash": "0fba3369e3fba74680d4a080af8f808ae27dd0dd",
       "parent": "KAN-082-MD50S0"
     },
     "KAN-082.4-FSH2T1": {
@@ -1971,6 +1971,17 @@
     "KAN-082.5-WPS4DX"
   ],
   "recent": [
+    {
+      "seq": 322,
+      "t": "2026-11-24T10:48",
+      "a": "ai",
+      "id": "KAN-082.3-TJ665Y",
+      "op": "edit",
+      "w": "S7030N",
+      "field": "memo",
+      "before": "간선 라벨 렌더 복구 뒤에 한다(UMLDeploymentDiagram·c4Types 를 함께 고친다). 새 export 는 유형 목록 §6 역방향 표와 typeMeta 등록을 함께 한다 — VT-104 별칭 「C4 deployment」가 실제 export 를 가리키게",
+      "after": ".1 뒤에 한다(UMLDeploymentDiagram·c4Types 공유). 새 export 는 유형 목록 §6 과 typeMeta 등록을 함께 — VT-104 별칭을 실제 export 로"
+    },
     {
       "seq": 321,
       "t": "2026-11-24T10:48",
@@ -2580,16 +2591,6 @@
       "id": "KAN-066-T6NR80",
       "op": "move",
       "w": "CYVY10",
-      "from": "doing",
-      "to": "review"
-    },
-    {
-      "seq": 278,
-      "t": "2026-10-11T09:35",
-      "a": "ai",
-      "id": "KAN-071-FK1W8K",
-      "op": "move",
-      "w": "176E9M",
       "from": "doing",
       "to": "review"
     }

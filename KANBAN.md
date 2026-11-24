@@ -105,7 +105,7 @@
   - 목적: 배포 노드 중첩(VPC › 서브넷 › EC2 › 컨테이너)·스테레오타입·artifact, C4 Deployment 템플릿, C4 컨테이너 모양, 토폴로지 링크 라벨을 더한다
   - 이유: 배포 도식의 화살표는 「어디에 올라가 있나」인데 노드가 평평한 cube 하나뿐이고, C4 도식 여섯 가운데 Deployment 만 없다
   - 목표: 원문의 예 「EC2 하나에 API 서버와 워커」를 배포 도식에서는 상자 하나 안의 둘로, 런타임 도식에서는 DB·큐 모양이 다른 상자 둘로 그릴 수 있다
-  - 메모: 간선 라벨 렌더 복구 뒤에 한다(UMLDeploymentDiagram·c4Types 를 함께 고친다). 새 export 는 유형 목록 §6 역방향 표와 typeMeta 등록을 함께 한다 — VT-104 별칭 「C4 deployment」가 실제 export 를 가리키게
+  - 메모: .1 뒤에 한다(UMLDeploymentDiagram·c4Types 공유). 새 export 는 유형 목록 §6 과 typeMeta 등록을 함께 — VT-104 별칭을 실제 export 로
 - `KAN-082.4-FSH2T1` viz 객체 도식·커뮤니케이션 도식 — 인스턴스 스냅샷과 링크 위 번호 메시지 — 생성:ai · 최종:ai · 갱신:2026-11-24
   - 상위: `KAN-082-MD50S0` (백로그)
   - 짧은 제목: 객체·커뮤니케이션 도식
