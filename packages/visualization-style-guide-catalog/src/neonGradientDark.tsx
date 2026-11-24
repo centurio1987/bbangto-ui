@@ -199,10 +199,18 @@ const MOTIF_CSS = `
 }
 `;
 
+const NODE_KIND_FILL = /^var\(--bbangto-viz-node-([a-z]+)-fill\)$/;
+
 function segmentOf(fill?: string): GradSegment {
-  const m = fill ? /^var\(--bbangto-viz-node-([a-z]+)-fill\)$/.exec(fill.trim()) : null;
+  const m = fill ? NODE_KIND_FILL.exec(fill.trim()) : null;
   return (m && SEGMENT_BY_KIND[m[1]]) || 'a';
 }
+
+/**
+ * 그라디언트로 칠하는가 — fill 을 넘기지 않았거나 node 종류 면(`vvar('node', kind, 'fill')`)을 넘겼을 때다.
+ * 그 밖의 색을 넘기면 그 색으로 칠한다 — 명시한 prop 이 이긴다(viz README 구현 규약, KAN-083).
+ */
+const paintsGradient = (fill?: string): boolean => fill === undefined || NODE_KIND_FILL.test(fill.trim());
 
 /**
  * 그라디언트 채움 + 글로우 — <defs><linearGradient>를 노드 옆에 인라인 주입(SVG 표준 준수).
@@ -214,18 +222,21 @@ function NeonNode(props: NodeProps) {
   const uid = useId().replace(/[^a-zA-Z0-9_-]/g, '');
   const gid = `${prefix}-neongrad-${uid}`;
   const seg = segmentOf(props.fill);
+  const gradient = paintsGradient(props.fill);
   useVizMotifStyle(MOTIF_ID, MOTIF_CSS);
   return (
     <>
-      <defs>
-        <linearGradient id={gid} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" style={{ stopColor: `var(--bbangto-viz-ext-grad-${seg}-from)` }} />
-          <stop offset="1" style={{ stopColor: `var(--bbangto-viz-ext-grad-${seg}-to)` }} />
-        </linearGradient>
-      </defs>
+      {gradient && (
+        <defs>
+          <linearGradient id={gid} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" style={{ stopColor: `var(--bbangto-viz-ext-grad-${seg}-from)` }} />
+            <stop offset="1" style={{ stopColor: `var(--bbangto-viz-ext-grad-${seg}-to)` }} />
+          </linearGradient>
+        </defs>
+      )}
       <Node
         {...props}
-        fill={`url(#${gid})`}
+        fill={gradient ? `url(#${gid})` : props.fill}
         strokeWidth={props.strokeWidth ?? HAIR}
         data-viz-neon-glow=""
       />
