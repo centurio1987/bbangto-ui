@@ -124,6 +124,8 @@
 ## 할 일
 
 ## 진행 중
+
+## 검토
 - `KAN-083-JSQKF4` viz 진한 면 위 글자색 변수와 terminal-ascii Node 래퍼의 면 색 따르기 — publish-report 조립층을 bbangto 계약으로 칠하기 위한 확장 — 생성:ai · 최종:ai · 갱신:2026-11-24
   - 짧은 제목: 진한 면 글자색 · 래퍼 면 색
   - 목적: shape.stroke 로 칠한 면 위에 쓸 글자색 on 변수를 내고, terminal-ascii Node 래퍼가 넘겨받은 fill 을 따르게 한다
@@ -131,6 +133,7 @@
   - 목표: --bbangto-viz-on-shape-stroke 가 가이드 30종에서 대비 4.5:1 을 넘고 가이드가 값을 직접 적을 수 있으며, Node 래퍼 전부가 넘겨받은 fill 로 칠한다
   - 메모: publish-report M6-1 의 상류 일. 계획 정본은 ~/.claude/plans/publish-report-skill.md 2026-11-24 절
   - 실행 문서: KANBAN/cards/KAN-083-JSQKF4.md (4/4 · 최근 11-24)
+  - 검토 문서: KANBAN/reviews/KAN-083-JSQKF4.review.md (승인 0/4 · 검토 대기)
   - 원문:
     ```text
     bbangto-ui에 필요한 표현이 없으면, 자체적으로 만들지 말고, bbangto-ui에 추가 확장한 후 이용하는 방식으로 한다. 스킬이 임의로 개입하는 경계는 니가 추천한 대로 "조립층의 색칠 방식만 bbangto 계약에 맞추고, 배치와 넘침 계산은 그대로"로 한다.
@@ -139,8 +142,6 @@
     
     (M6-1 시작 지시) 검토 전까지 진행
     ```
-
-## 검토
 
 ## 완료
 - `KAN-020` visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현 — 생성:유저 · 최종:유저 · 갱신:2026-08-14

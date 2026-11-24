@@ -1,6 +1,6 @@
 {
   "next_id": 84,
-  "next_seq": 326,
+  "next_seq": 327,
   "cards": {
     "KAN-020": {
       "col": "done",
@@ -1882,7 +1882,7 @@
       "parent": "KAN-082-MD50S0"
     },
     "KAN-083-JSQKF4": {
-      "col": "doing",
+      "col": "review",
       "title": "viz 진한 면 위 글자색 변수와 terminal-ascii Node 래퍼의 면 색 따르기 — publish-report 조립층을 bbangto 계약으로 칠하기 위한 확장",
       "verbatim": "bbangto-ui에 필요한 표현이 없으면, 자체적으로 만들지 말고, bbangto-ui에 추가 확장한 후 이용하는 방식으로 한다. 스킬이 임의로 개입하는 경계는 니가 추천한 대로 \"조립층의 색칠 방식만 bbangto 계약에 맞추고, 배치와 넘침 계산은 그대로\"로 한다.\n\n(적용 범위 답) 스킬 전체, 그리고 지금은 하나라 구분이 없을테지만, 테마별 구분도 있어야 한다. 스킬 사용 시 ui에서 테마를 설정할 수 있도록 한다. 그리고, publish-report 작업 절차에 부자연스러운 표현을 개선하는 프로세스를 포함한다.\n\n(M6-1 시작 지시) 검토 전까지 진행",
       "생성": "ai",
@@ -2000,6 +2000,16 @@
     "KAN-083-JSQKF4"
   ],
   "recent": [
+    {
+      "seq": 326,
+      "t": "2026-11-24T13:34",
+      "a": "ai",
+      "id": "KAN-083-JSQKF4",
+      "op": "move",
+      "w": "3FTH46",
+      "from": "doing",
+      "to": "review"
+    },
     {
       "seq": 325,
       "t": "2026-11-24T12:01",
@@ -2619,16 +2629,6 @@
       "w": "8S62G0",
       "from": "review",
       "to": "doing"
-    },
-    {
-      "seq": 279,
-      "t": "2026-10-11T00:02",
-      "a": "ai",
-      "id": "KAN-066-T6NR80",
-      "op": "move",
-      "w": "CYVY10",
-      "from": "review",
-      "to": "done"
     }
   ],
   "waivers": [
