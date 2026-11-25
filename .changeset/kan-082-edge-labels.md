@@ -7,6 +7,7 @@
 - `Edge` — `label` 을 그린 경로의 가운데(경로를 따라 잰 길이의 절반)에 `EdgeLabel` 바탕과 함께 그린다. 예전에는 받고 버렸다. `fromLabel` · `toLabel` 을 새로 받아 선 양 끝 근처(가로선은 위, 세로선은 왼쪽)에 그리고, `labelFontSize` 로 글자 크기를, `labelOffset: { x, y }` 로 가운데 라벨 위치를 고른다(타입 `EdgeLabelOffset`).
 - 템플릿 — 아키텍처 · 블록 · BPMN 둘 · C4 다섯 · ER · Flowchart · State · UML 컴포넌트 · 배포 · Class 가 라벨 칸을 넘긴다. C4 관계선은 「설명 [기술]」 한 줄이다. 이 템플릿들의 관계 데이터는 `labelOffset` 도 받는다(라벨을 따로 그리는 C4SystemLandscapeDiagram · BPMN 메시지 흐름도 같다).
 - ClassDiagram — 클래스 `stereotype` 을 «…» 로, 관계 이름과 양 끝 다중성(`fromLabel` · `toLabel`)을 그린다. 포함 · 집합은 전체 쪽(`from`)에 마름모만 붙고 부분 쪽 화살촉이 없어졌다.
+- Flowchart — 선 데이터가 붙을 변(`fromSide` · `toSide`)과 꺾는 점(`waypoints`)을 받는다. 돌아가는 선을 정방향 선과 겹치지 않게 그릴 수 있다(KAN-082.1 검토).
 - `EdgeLabel` — 바탕 상자 크기를 재는 `edgeLabelBox` 를 함께 낸다. 라벨 글에 줄바꿈(`\n`)이 있으면 줄마다 그린다. C4 관계선 글은 「설명」 아래 「[기술]」 두 줄이다(KAN-082.1 검토에서 고름).
 - 마커 — 모든 마커가 `orient="auto-start-reverse"` 다. 시작 끝(markerStart)의 마름모 · ER 카디널리티가 노드 안에 그려지던 것을 노드 바깥으로 고쳤다. 화살촉 기준점(refX)을 그린 끝에 맞추고, 선 끝은 노드 테두리 굵기 2.5 까지 그 바깥에 오게 했다 — 화살촉이 노드 테두리를 파고들지 않는다. ER 까마귀발(many · oneOrMany · zeroOrMany)은 갈래가 엔티티 쪽으로 벌어지게 바로잡았다(예전에는 반대로 벌어져 화살촉처럼 보였다).
 

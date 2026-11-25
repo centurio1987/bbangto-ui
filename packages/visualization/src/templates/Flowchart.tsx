@@ -2,7 +2,8 @@ import React, { type ReactNode } from 'react';
 import { Canvas } from '../atoms/Canvas';
 import type { CanvasProps } from '../atoms/Canvas';
 import { Node } from '../atoms/Node';
-import { Edge, type EdgeLabelOffset } from '../atoms/Edge';
+import { Edge, type EdgeLabelOffset, type AnchorSide } from '../atoms/Edge';
+import type { Point } from '../geometry/anchors';
 import { NodeLabel } from '../atoms/NodeLabel';
 import { GridLayer } from '../atoms/GridLayer';
 import type { NodeShape } from '../geometry/shapes';
@@ -33,6 +34,14 @@ export interface FlowchartEdgeSpec {
   routing?: EdgeRouting;
   dashed?: boolean;
   markerEnd?: MarkerVariant;
+  /**
+   * 선이 붙을 노드의 변. 비우면 두 노드 가운데를 잇는 쪽 변을 고른다. 돌아가는 선(「재시도 → 결제 시도」)처럼
+   * 정방향 선과 같은 변을 쓰면 겹칠 때 다른 변을 적는다(KAN-082.1 검토).
+   */
+  fromSide?: AnchorSide;
+  toSide?: AnchorSide;
+  /** 선이 지나는 꺾는 점. 적으면 경로 방식(routing) 대신 그 점들을 잇는 꺾은선이다. */
+  waypoints?: Point[];
 }
 
 export interface FlowchartProps extends Omit<CanvasProps, 'data' | 'children'> {
@@ -130,6 +139,9 @@ export function Flowchart({
           markerEnd={e.markerEnd ?? 'arrow'}
           strokeDasharray={e.dashed ? '6 4' : solidDash}
           label={e.label} labelOffset={e.labelOffset}
+          fromSide={e.fromSide}
+          toSide={e.toSide}
+          waypoints={e.waypoints}
         />
       ))}
     </Canvas>

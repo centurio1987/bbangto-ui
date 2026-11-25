@@ -79,8 +79,8 @@ export const DfdOrderInfoToPayment: Story = {
 
 /**
  * 플로우차트 — 「결제 성공이면 배송, 실패면 재시도」. 화살표는 다음에 할 일이고, 분기 라벨이 조건을 말한다.
- * 재시도에서 결제 시도로 돌아가는 선은 넣지 않았다 — Flowchart 데이터에는 선이 붙을 변을 고르는 칸이 없어, 어느 배치든
- * 되돌아가는 선이 정방향 선과 같은 구간을 지나 화살촉이 맞붙는다(2026-11-25 서버 렌더로 확인).
+ * 재시도는 결제 시도로 돌아간다. 돌아가는 선은 재시도의 왼쪽 변에서 나와 결제 시도의 아래 변으로 들어가게
+ * fromSide · toSide · waypoints 를 적었다 — 적지 않으면 가까운 변을 골라 정방향 선과 겹친다(KAN-082.1 검토 3번).
  */
 export const FlowchartPaymentRetry: Story = {
   render: () => (
@@ -96,6 +96,7 @@ export const FlowchartPaymentRetry: Story = {
           { id: 'e-try', from: 'try', to: 'ok' },
           { id: 'e-ok', from: 'ok', to: 'ship', label: '성공' },
           { id: 'e-fail', from: 'ok', to: 'retry', label: '실패' },
+          { id: 'e-back', from: 'retry', to: 'try', fromSide: 'left', toSide: 'bottom', waypoints: [{ x: 80, y: 248 }] },
         ],
       }}
       viewBox="0 0 600 300"
@@ -110,7 +111,7 @@ export const FlowchartPaymentRetry: Story = {
     // 분기는 마름모 하나
     await expect(svg.querySelectorAll('[data-bbangto-viz-node-shape="diamond"]')).toHaveLength(1);
     const edges = Array.from(svg.querySelectorAll('path[data-viz-part="connector"]')) as SVGPathElement[];
-    await expect(edges).toHaveLength(3);
+    await expect(edges).toHaveLength(4);
     // 분기 라벨은 둘 — 각자 자기 선의 가운데에 있다
     await expect(edgeLabelTexts(svg)).toEqual(['성공', '실패']);
     for (const [i, word] of [[1, '성공'], [2, '실패']] as const) {
@@ -120,6 +121,16 @@ export const FlowchartPaymentRetry: Story = {
       const mid = path.getPointAtLength(path.getTotalLength() / 2);
       await expect(Math.hypot(Number(text?.getAttribute('x')) - mid.x, Number(text?.getAttribute('y')) - mid.y)).toBeLessThanOrEqual(1);
     }
+    // 돌아가는 선은 결제 시도의 아래 변으로 들어가고, 정방향 선(결제 시도 → 결제 성공?)이 지나는 높이를 지나지 않는다
+    const tryBox = (svg.querySelector('[data-bbangto-viz-node-id="try"]') as SVGGraphicsElement | null)?.getBBox();
+    const back = edges[3];
+    const end = back.getPointAtLength(back.getTotalLength());
+    if (tryBox) await expect(end.y).toBeGreaterThan(tryBox.y + tryBox.height);
+    const fwdY = edges[0].getPointAtLength(0).y;
+    const total = back.getTotalLength();
+    let onForward = false;
+    for (let t = 0; t <= total; t += 2) if (Math.abs(back.getPointAtLength(t).y - fwdY) < 0.5) onForward = true;
+    await expect(onForward).toBe(false);
   },
 };
 
