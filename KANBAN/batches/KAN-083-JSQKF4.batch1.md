@@ -2,7 +2,7 @@
 card: KAN-083-JSQKF4
 batch: 1
 created: 2026-11-24
-branch: KAN-083-JSQKF4
+branch: main
 status: 계획
 steps: S1, S2, S3, S4
 stages: S1 > S2 > S3 > S4

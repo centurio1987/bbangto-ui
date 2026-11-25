@@ -2,20 +2,20 @@
  "card": "KAN-083-JSQKF4",
  "front": {
   "base": "9e1d345",
-  "branch": "KAN-083-JSQKF4",
+  "branch": "main",
   "card": "KAN-083-JSQKF4",
   "created": "2026-11-24",
   "inherits": null,
-  "merged": null,
+  "merged": "496911e3ef8d",
   "status": "검토 대기",
   "title": "viz 진한 면 위 글자색 변수와 terminal-ascii Node 래퍼의 면 색 따르기 — publish-report 조립층을 bbangto 계약으로 칠하기 위한 확장",
-  "worktree": "/Users/centurio/orca/workspaces/bbangto-ui/KAN-083-JSQKF4"
+  "worktree": "/Users/centurio/bbangto-ui"
  },
  "inherited_md": "",
- "md_fp": "775d660cb8c21e9e83f2c32788ab36764774c08e",
- "md_src_fp": "6a109cec3c5962141b59569fe9abdbe6366a9b9b",
+ "md_fp": "9b0ba879f5d5b7c0784f1e03ec058c62f95fdf20",
+ "md_src_fp": "467a816f1566db436401e22010539fdb3ff87f8b",
  "schema": 1,
- "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `KAN-083-JSQKF4` |\n| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-083-JSQKF4` |\n| 베이스 | `9e1d345` |\n| 변경 훑기 | `git diff 9e1d345...HEAD` |\n\n**커밋 7건**\n\n```text\n8a5221b kanban: KAN-083-JSQKF4 검증 절을 실제 시험 이름 · 체크리스트 줄로 고침\ncfd1f8e kanban: KAN-083-JSQKF4 검토 이동 전 멈춤 기록\n56e0f1c chore: 변경셋 kan-083 · neon 대표 hex 를 그라디언트 요청으로 · 게이트 다섯 통과 (KAN-083 S4)\nbd0133f fix(visualization-style-guide-catalog): terminal-ascii · neon-gradient-dark Node 래퍼가 넘겨받은 fill 을 따른다 + 게이트 스토리 둘 (KAN-083 S3)\nb902c5b feat(visualization): 진한 면(shape.stroke) 위 글자색 --bbangto-viz-on-shape-stroke · tokens on.shape.stroke 칸 (KAN-083 S2)\n102c0ec test(visualization): 진한 면(shape.stroke) 위 글자색 on 변수 시험 — 구현 전 실패 (KAN-083 S1)\n0ce18aa kanban: KAN-083-JSQKF4 진행 중으로 이동\n```\n\n**변경 파일 16개 (+243 −38)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.changeset/kan-083-strong-face-ink.md` | M | 13 | 0 |\n| `.kanban/archive.jsonl` | M | 1 | 0 |\n| `.kanban/log.md` | M | 1 | 1 |\n| `.kanban/state.json` | M | 12 | 12 |\n| `KANBAN.board.html` | M | 2 | 2 |\n| `KANBAN.md` | M | 3 | 3 |\n| `KANBAN/cards/KAN-083-JSQKF4.md` | M | 22 | 6 |\n| `apps/storybook/src/stories/visualization/NodeWrapperFillGate.stories.tsx` | M | 127 | 0 |\n| `packages/tokens/src/visualization.ts` | M | 3 | 2 |\n| `packages/visualization-style-guide-catalog/src/neonGradientDark.tsx` | M | 25 | 8 |\n| `packages/visualization-style-guide-catalog/src/onInk.test.ts` | M | 2 | 0 |\n| `packages/visualization-style-guide-catalog/src/terminalAscii.tsx` | M | 2 | 1 |\n| `packages/visualization-style-guide-catalog/src/textInk.test.ts` | M | 1 | 0 |\n| `packages/visualization/README.md` | M | 2 | 1 |\n| `packages/visualization/src/tokens/onInk.test.ts` | M | 24 | 0 |\n| `packages/visualization/src/tokens/onInk.ts` | M | 3 | 2 |\n\n**롤백 태그 5개**\n\n```text\nkan/KAN-083-JSQKF4/S1\nkan/KAN-083-JSQKF4/S2\nkan/KAN-083-JSQKF4/S3\nkan/KAN-083-JSQKF4/S4\nkan/KAN-083-JSQKF4/batch1\n```",
+ "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-083-JSQKF4` 의 끝 `496911e3ef8d` 을 main 에 병합), 대상은 아래 고정 범위 |\n| 워크트리 | `/Users/centurio/bbangto-ui` |\n| 베이스 | `9e1d345` |\n| 변경 훑기 | `git diff 9e1d345..496911e3ef8d` |\n\n**커밋 7건**\n\n```text\n8a5221b kanban: KAN-083-JSQKF4 검증 절을 실제 시험 이름 · 체크리스트 줄로 고침\ncfd1f8e kanban: KAN-083-JSQKF4 검토 이동 전 멈춤 기록\n56e0f1c chore: 변경셋 kan-083 · neon 대표 hex 를 그라디언트 요청으로 · 게이트 다섯 통과 (KAN-083 S4)\nbd0133f fix(visualization-style-guide-catalog): terminal-ascii · neon-gradient-dark Node 래퍼가 넘겨받은 fill 을 따른다 + 게이트 스토리 둘 (KAN-083 S3)\nb902c5b feat(visualization): 진한 면(shape.stroke) 위 글자색 --bbangto-viz-on-shape-stroke · tokens on.shape.stroke 칸 (KAN-083 S2)\n102c0ec test(visualization): 진한 면(shape.stroke) 위 글자색 on 변수 시험 — 구현 전 실패 (KAN-083 S1)\n0ce18aa kanban: KAN-083-JSQKF4 진행 중으로 이동\n```\n\n**변경 파일 16개 (+243 −38)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.changeset/kan-083-strong-face-ink.md` | M | 13 | 0 |\n| `.kanban/archive.jsonl` | M | 1 | 0 |\n| `.kanban/log.md` | M | 1 | 1 |\n| `.kanban/state.json` | M | 12 | 12 |\n| `KANBAN.board.html` | M | 2 | 2 |\n| `KANBAN.md` | M | 3 | 3 |\n| `KANBAN/cards/KAN-083-JSQKF4.md` | M | 22 | 6 |\n| `apps/storybook/src/stories/visualization/NodeWrapperFillGate.stories.tsx` | M | 127 | 0 |\n| `packages/tokens/src/visualization.ts` | M | 3 | 2 |\n| `packages/visualization-style-guide-catalog/src/neonGradientDark.tsx` | M | 25 | 8 |\n| `packages/visualization-style-guide-catalog/src/onInk.test.ts` | M | 2 | 0 |\n| `packages/visualization-style-guide-catalog/src/terminalAscii.tsx` | M | 2 | 1 |\n| `packages/visualization-style-guide-catalog/src/textInk.test.ts` | M | 1 | 0 |\n| `packages/visualization/README.md` | M | 2 | 1 |\n| `packages/visualization/src/tokens/onInk.test.ts` | M | 24 | 0 |\n| `packages/visualization/src/tokens/onInk.ts` | M | 3 | 2 |\n\n**롤백 태그 5개**\n\n```text\nkan/KAN-083-JSQKF4/S1\nkan/KAN-083-JSQKF4/S2\nkan/KAN-083-JSQKF4/S3\nkan/KAN-083-JSQKF4/S4\nkan/KAN-083-JSQKF4/batch1\n```",
  "verdicts": [
   {
    "at": "2026-11-25",

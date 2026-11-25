@@ -2,10 +2,11 @@
 card: KAN-083-JSQKF4
 title: viz 진한 면 위 글자색 변수와 terminal-ascii Node 래퍼의 면 색 따르기 — publish-report 조립층을 bbangto 계약으로 칠하기 위한 확장
 created: 2026-11-24
-branch: KAN-083-JSQKF4
-worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-083-JSQKF4
+branch: main
+worktree: /Users/centurio/bbangto-ui
 base: 9e1d345
 status: 검토 대기
+merged: 496911e3ef8d
 ---
 
 # KAN-083-JSQKF4 검토 요청 — viz 진한 면 위 글자색 변수와 terminal-ascii Node 래퍼의 면 색 따르기 — publish-report 조립층을 bbangto 계약으로 칠하기 위한 확장
@@ -19,10 +20,10 @@ status: 검토 대기
 
 | 항목 | 값 |
 |---|---|
-| 브랜치 | `KAN-083-JSQKF4` |
-| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-083-JSQKF4` |
+| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-083-JSQKF4` 의 끝 `496911e3ef8d` 을 main 에 병합), 대상은 아래 고정 범위 |
+| 워크트리 | `/Users/centurio/bbangto-ui` |
 | 베이스 | `9e1d345` |
-| 변경 훑기 | `git diff 9e1d345...HEAD` |
+| 변경 훑기 | `git diff 9e1d345..496911e3ef8d` |
 
 **커밋 7건**
 
