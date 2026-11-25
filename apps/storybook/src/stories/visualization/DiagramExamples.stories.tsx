@@ -355,5 +355,14 @@ export const CheckoutAsCommunication: Story = {
       const b = (g.querySelector('text') as SVGTextElement).getBBox();
       await expect(b.x + b.width).toBeLessThanOrEqual(linkX);
     }
+    // 메시지 글끼리 겹치지 않는다 — 한 링크에 메시지가 여럿이어도 줄이 갈린다
+    const boxes = msgs.map((g) => (g.querySelector('text') as SVGTextElement).getBBox());
+    for (let i = 0; i < boxes.length; i++)
+      for (let j = i + 1; j < boxes.length; j++) {
+        const a = boxes[i];
+        const c = boxes[j];
+        const overlap = a.x < c.x + c.width && c.x < a.x + a.width && a.y < c.y + c.height && c.y < a.y + a.height;
+        await expect({ i, j, overlap }).toEqual({ i, j, overlap: false });
+      }
   },
 };

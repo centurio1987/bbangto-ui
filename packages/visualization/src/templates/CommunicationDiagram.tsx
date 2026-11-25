@@ -47,10 +47,11 @@ export interface CommunicationDiagramProps extends Omit<CanvasProps, 'data' | 'c
   data?: CommunicationDiagramData;
 }
 
-/** 메시지 화살표 반 길이 · 링크에서 첫 메시지까지 · 메시지 사이 간격 */
+/** 메시지 화살표 반 길이 · 링크에서 메시지까지 · 메시지 사이 간격(가로 링크는 위로, 세로 링크는 링크를 따라) */
 const ARROW_HALF = 16;
 const FIRST_GAP = 14;
-const STEP = 28;
+const STEP_ACROSS = 28;
+const STEP_ALONG = 40;
 const FONT = 10;
 
 /**
@@ -116,6 +117,7 @@ export function CommunicationDiagram({
         let place: ((i: number) => { x: number; y: number }) | null = null;
         let d = { x: 1, y: 0 };
         let p = { x: 0, y: -1 };
+        let horizontal = true;
         if (a && b) {
           const ac = { x: a.x + a.width / 2, y: a.y + a.height / 2 };
           const bc = { x: b.x + b.width / 2, y: b.y + b.height / 2 };
@@ -124,9 +126,20 @@ export function CommunicationDiagram({
           p = { x: d.y, y: -d.x };
           if (p.y > 1e-6 || (Math.abs(p.y) <= 1e-6 && p.x > 0)) p = { x: -p.x, y: -p.y };
           const mid = { x: (ac.x + bc.x) / 2, y: (ac.y + bc.y) / 2 };
-          place = (i) => ({ x: mid.x + p.x * (FIRST_GAP + i * STEP), y: mid.y + p.y * (FIRST_GAP + i * STEP) });
+          horizontal = Math.abs(d.x) >= Math.abs(d.y);
+          // 가로 링크: 글이 화살표 위에 가운데 맞춤이라 메시지를 위로(링크에서 멀어지게) 쌓는다.
+          // 세로 링크: 글이 화살표 왼쪽으로 길게 나가므로 옆으로 쌓으면 글끼리 겹친다 — 링크를 따라 위아래로 쌓는다.
+          const n = msgs.length;
+          // 삼항 안에 화살표 함수 둘을 두면 Storybook 문서 플러그인의 파서가 반환 형식 표기로 잘못 읽는다 — if 로 가른다
+          if (horizontal) {
+            place = (i) => ({ x: mid.x + p.x * (FIRST_GAP + i * STEP_ACROSS), y: mid.y + p.y * (FIRST_GAP + i * STEP_ACROSS) });
+          } else {
+            place = (i) => {
+              const along = (i - (n - 1) / 2) * STEP_ALONG;
+              return { x: mid.x + p.x * FIRST_GAP + d.x * along, y: mid.y + p.y * FIRST_GAP + d.y * along };
+            };
+          }
         }
-        const horizontal = Math.abs(d.x) >= Math.abs(d.y);
         return (
           <g key={l.id}>
             <Edge from={l.from} to={l.to} markerEnd="none" strokeWidth={1.5} data-bbangto-viz-communication-link={l.id} />
