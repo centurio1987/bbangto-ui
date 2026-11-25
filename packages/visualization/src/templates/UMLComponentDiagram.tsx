@@ -3,6 +3,8 @@ import { Canvas } from '../atoms/Canvas';
 import type { CanvasProps } from '../atoms/Canvas';
 import { Node } from '../atoms/Node';
 import { Edge, type EdgeLabelOffset } from '../atoms/Edge';
+import { LegendBlock, relationLegendBox, type RelationLegendOption } from '../molecules/LegendBlock';
+import { relationEdgeProps, usedRelationKinds, type RelationKind } from '../atoms/relationKind';
 import { NodeLabel } from '../atoms/NodeLabel';
 import { vvar } from '../tokens/contract';
 
@@ -25,6 +27,9 @@ export interface UMLComponentSpec {
   requiredInterfaces?: UMLInterfaceSpec[];
 }
 
+/** UML 컴포넌트 도식의 관계가 받는 뜻(KAN-082 .2). */
+export type UMLComponentRelationKind = Extract<RelationKind, 'dependency' | 'call' | 'asyncMessage'>;
+
 export interface UMLDependencySpec {
   id: string;
   from: string;
@@ -32,11 +37,15 @@ export interface UMLDependencySpec {
   label?: string;
   /** 선 가운데 라벨을 이만큼 옮긴다(겹칠 때 비키기, KAN-082). */
   labelOffset?: EdgeLabelOffset;
+  /** 관계의 뜻(KAN-082). 적으면 선 모양이 종류마다 갈리고, 둘 이상 쓰이면 범례가 붙는다. */
+  kind?: UMLComponentRelationKind;
 }
 
 export interface UMLComponentDiagramData {
   components: UMLComponentSpec[];
   dependencies?: UMLDependencySpec[];
+  /** 관계 종류가 둘 이상 쓰이면 붙는 범례의 위치 · 이름 바꾸기. `false` 면 그리지 않는다(KAN-082). */
+  legend?: RelationLegendOption | false;
 }
 
 export interface UMLComponentDiagramProps extends Omit<CanvasProps, 'data' | 'children'> {
@@ -138,10 +147,12 @@ export function UMLComponentDiagram({
 
   const allNodes = components.map((c) => ({ id: c.id, x: c.x, y: c.y, width: c.width, height: c.height }));
 
+  const legend = relationLegendBox(allNodes, usedRelationKinds(dependencies), data?.legend);
+
   const autoViewBox = viewBox ?? (() => {
     if (!allNodes.length) return '0 0 600 300';
-    const maxX = Math.max(...allNodes.map((n) => n.x + n.width)) + 60;
-    const maxY = Math.max(...allNodes.map((n) => n.y + n.height)) + 20;
+    const maxX = Math.max(...allNodes.map((n) => n.x + n.width), legend ? legend.x + legend.width : 0) + 60;
+    const maxY = Math.max(...allNodes.map((n) => n.y + n.height), legend ? legend.y + legend.height : 0) + 20;
     return `0 0 ${maxX} ${maxY}`;
   })();
 
@@ -190,8 +201,9 @@ export function UMLComponentDiagram({
         </React.Fragment>
       ))}
       {dependencies.map((d) => (
-        <Edge key={d.id} from={d.from} to={d.to} markerEnd="arrow" strokeDasharray="5 3" strokeWidth={1.5} label={d.label} labelOffset={d.labelOffset} />
+        <Edge key={d.id} from={d.from} to={d.to} markerEnd="arrow" strokeDasharray="5 3" strokeWidth={1.5} label={d.label} labelOffset={d.labelOffset} {...relationEdgeProps(d.kind)} />
       ))}
+      {legend && <LegendBlock {...legend} />}
     </Canvas>
   );
 }

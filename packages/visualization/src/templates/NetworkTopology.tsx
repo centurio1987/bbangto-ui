@@ -3,6 +3,8 @@ import { Canvas, type CanvasProps } from '../atoms/Canvas';
 import { Node } from '../atoms/Node';
 import { NodeLabel } from '../atoms/NodeLabel';
 import { Edge } from '../atoms/Edge';
+import { LegendBlock, relationLegendBox, type RelationLegendOption } from '../molecules/LegendBlock';
+import { relationEdgeProps, usedRelationKinds, type RelationKind } from '../atoms/relationKind';
 import { vvar } from '../tokens/contract';
 import { resolveLabelFont } from '../tokens/labelFont';
 import type { NodeShape } from '../geometry/shapes';
@@ -27,13 +29,24 @@ export interface TopologyNode {
   height?: number;
 }
 
+/** 토폴로지 링크가 받는 뜻(KAN-082 .2) — 장비 사이 연결 · 흐르는 데이터 · 호출. */
+export type TopologyLinkKind = Extract<RelationKind, 'network' | 'dataFlow' | 'call'>;
+
 export interface TopologyLink {
   from: string;
   to: string;
+  /** 관계의 뜻(KAN-082). 적으면 선 모양이 종류마다 갈리고, 둘 이상 쓰이면 범례가 붙는다. */
+  kind?: TopologyLinkKind;
 }
 
 export interface NetworkTopologyProps extends Omit<CanvasProps, 'data' | 'children'> {
-  data?: { zones: TopologyZone[]; nodes: TopologyNode[]; links?: TopologyLink[] };
+  data?: {
+    zones: TopologyZone[];
+    nodes: TopologyNode[];
+    links?: TopologyLink[];
+    /** 링크 종류가 둘 이상 쓰이면 붙는 범례의 위치 · 이름 바꾸기. `false` 면 그리지 않는다(KAN-082). */
+    legend?: RelationLegendOption | false;
+  };
   children?: ReactNode;
 }
 
@@ -66,6 +79,9 @@ export function NetworkTopology({
   const nodeH = 48;
   const registry = { nodes: data.nodes.map((n) => ({ id: n.id, x: n.x, y: n.y, width: n.width ?? nodeW, height: n.height ?? nodeH })) };
 
+  // 범례 — viewBox 를 받는 그대로 쓰는 템플릿이라 넓히지 않는다. 가린다면 data.legend 로 옮긴다.
+  const legend = relationLegendBox(registry.nodes, usedRelationKinds(data.links ?? []), data.legend);
+
   return (
     <Canvas viewBox={viewBox} title={title} data={registry} data-bbangto-viz-chart="topology" {...canvasProps}>
       {/* 존 경계(대시 밴드) + 라벨 */}
@@ -87,7 +103,7 @@ export function NetworkTopology({
       ))}
       {/* 링크 */}
       {(data.links ?? []).map((l, i) => (
-        <Edge key={`l-${i}`} from={l.from} to={l.to} routing="orthogonal" markerEnd="none" />
+        <Edge key={`l-${i}`} from={l.from} to={l.to} routing="orthogonal" markerEnd="none" {...relationEdgeProps(l.kind)} />
       ))}
       {/* 노드 */}
       {data.nodes.map((n) => (
@@ -96,6 +112,7 @@ export function NetworkTopology({
           <NodeLabel x={n.x} y={n.y + (n.height ?? nodeH) / 2} width={n.width ?? nodeW} title={n.label} fontSize={12} />
         </React.Fragment>
       ))}
+      {legend && <LegendBlock {...legend} />}
     </Canvas>
   );
 }

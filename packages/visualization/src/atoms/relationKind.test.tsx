@@ -74,42 +74,59 @@ describe('관계 종류 목록과 선 모양 매핑 (KAN-082 .2)', () => {
 // ──────────────────────────────────────────────
 
 const A = { width: 120, height: 60 };
-const TWO = ['call', 'asyncMessage'] as const;
 
-/** 관계 종류 칸을 받는 템플릿 — 종류가 둘인 관계를 넣어 그린다 */
-function cases(): Record<string, React.ReactElement> {
+type Kind = (typeof KINDS)[number];
+interface Case {
+  el: React.ReactElement;
+  /** 이 템플릿이 받는 종류 가운데 둘 — RELATION_KINDS 순서 */
+  kinds: [Kind, Kind];
+}
+
+/** 관계 종류 칸을 받는 템플릿 — 그 템플릿이 받는 종류 둘을 넣어 그린다(정할 것 2 — 템플릿은 쓰는 종류만 받는다) */
+function cases(): Record<string, Case> {
   const C = viz as unknown as Record<string, React.ComponentType<{ data: unknown }>>;
-  const rels = [
-    { id: 'r1', from: 'a', to: 'b', label: 'L1', kind: TWO[0] },
-    { id: 'r2', from: 'b', to: 'c', label: 'L2', kind: TWO[1] },
+  const rels = (k: [Kind, Kind]) => [
+    { id: 'r1', from: 'a', to: 'b', label: 'L1', kind: k[0] },
+    { id: 'r2', from: 'b', to: 'c', label: 'L2', kind: k[1] },
   ];
   const boxes = (key: string) => [
     { id: 'a', x: 20, y: 20, ...A, [key]: 'Aa' },
     { id: 'b', x: 260, y: 20, ...A, [key]: 'Bb' },
     { id: 'c', x: 500, y: 20, ...A, [key]: 'Cc' },
   ];
+  const c4: [Kind, Kind] = ['call', 'asyncMessage'];
+  const comp: [Kind, Kind] = ['call', 'dependency'];
+  const dep: [Kind, Kind] = ['deployment', 'network'];
+  const arch: [Kind, Kind] = ['call', 'dataFlow'];
+  const topo: [Kind, Kind] = ['dataFlow', 'network'];
   return {
-    C4ContextDiagram: <C.C4ContextDiagram data={{ systems: boxes('name'), relationships: rels }} />,
-    C4ContainerDiagram: <C.C4ContainerDiagram data={{ containers: boxes('name'), relationships: rels }} />,
-    C4ComponentDiagram: <C.C4ComponentDiagram data={{ components: boxes('name'), relationships: rels }} />,
-    C4CodeDiagram: <C.C4CodeDiagram data={{ elements: boxes('name'), relationships: rels }} />,
-    C4SystemLandscapeDiagram: <C.C4SystemLandscapeDiagram data={{ systems: boxes('name'), relationships: rels }} />,
-    UMLComponentDiagram: <C.UMLComponentDiagram data={{ components: boxes('name'), dependencies: rels }} />,
-    UMLDeploymentDiagram: <C.UMLDeploymentDiagram data={{ nodes: boxes('name'), edges: rels }} />,
-    ArchitectureDiagram: <C.ArchitectureDiagram data={{ services: boxes('label'), edges: rels }} />,
-    NetworkTopology: (
-      <C.NetworkTopology
-        data={{
-          zones: [],
-          nodes: [
-            { id: 'a', x: 80, y: 50, label: 'Aa' },
-            { id: 'b', x: 320, y: 50, label: 'Bb' },
-            { id: 'c', x: 560, y: 50, label: 'Cc' },
-          ],
-          links: rels.map(({ from, to, kind }) => ({ from, to, kind })),
-        }}
-      />
-    ),
+    C4ContextDiagram: { kinds: c4, el: <C.C4ContextDiagram data={{ systems: boxes('name'), relationships: rels(c4) }} /> },
+    C4ContainerDiagram: { kinds: c4, el: <C.C4ContainerDiagram data={{ containers: boxes('name'), relationships: rels(c4) }} /> },
+    C4ComponentDiagram: { kinds: c4, el: <C.C4ComponentDiagram data={{ components: boxes('name'), relationships: rels(c4) }} /> },
+    C4CodeDiagram: { kinds: c4, el: <C.C4CodeDiagram data={{ elements: boxes('name'), relationships: rels(c4) }} /> },
+    C4SystemLandscapeDiagram: {
+      kinds: c4,
+      el: <C.C4SystemLandscapeDiagram data={{ systems: boxes('name'), relationships: rels(c4) }} />,
+    },
+    UMLComponentDiagram: { kinds: comp, el: <C.UMLComponentDiagram data={{ components: boxes('name'), dependencies: rels(comp) }} /> },
+    UMLDeploymentDiagram: { kinds: dep, el: <C.UMLDeploymentDiagram data={{ nodes: boxes('name'), edges: rels(dep) }} /> },
+    ArchitectureDiagram: { kinds: arch, el: <C.ArchitectureDiagram data={{ services: boxes('label'), edges: rels(arch) }} /> },
+    NetworkTopology: {
+      kinds: topo,
+      el: (
+        <C.NetworkTopology
+          data={{
+            zones: [],
+            nodes: [
+              { id: 'a', x: 80, y: 50, label: 'Aa' },
+              { id: 'b', x: 320, y: 50, label: 'Bb' },
+              { id: 'c', x: 560, y: 50, label: 'Cc' },
+            ],
+            links: rels(topo).map(({ from, to, kind }) => ({ from, to, kind })),
+          }}
+        />
+      ),
+    },
   };
 }
 
@@ -126,13 +143,13 @@ function lineOf(tag: string): string {
 }
 
 describe('템플릿 선과 범례 견본 선이 같은 매핑을 읽는다 (KAN-082 .2)', () => {
-  it.each(Object.entries(cases()))('%s — 종류가 둘이면 범례 둘, 견본 선 = 그 종류의 선', (_name, el) => {
+  it.each(Object.entries(cases()))('%s — 종류가 둘이면 범례 둘, 견본 선 = 그 종류의 선', (_name, { el, kinds }) => {
     const html = renderToStaticMarkup(el);
     const legend = html.match(/<g[^>]*data-bbangto-viz-legend(?:="[^"]*")?[^>]*>[\s\S]*<\/g>/)?.[0] ?? '';
     expect({ legend: legend.length > 0 }).toEqual({ legend: true });
     const items = [...legend.matchAll(/data-bbangto-viz-legend-item="([^"]+)"/g)].map((m) => m[1]);
-    expect(items).toEqual([...TWO]);
-    for (const kind of TWO) {
+    expect(items).toEqual([...kinds]);
+    for (const kind of kinds) {
       const body = html.replace(legend, '');
       const edgeTag = body.match(new RegExp(`<path[^>]*data-bbangto-viz-relation-kind="${kind}"[^>]*>`))?.[0];
       const swatchTag = legend
@@ -144,12 +161,30 @@ describe('템플릿 선과 범례 견본 선이 같은 매핑을 읽는다 (KAN-
     }
   });
 
-  it.each(Object.entries(cases()))('%s — 종류를 하나만 쓰거나 안 적으면 범례를 그리지 않는다', (_name, el) => {
+  it.each(Object.entries(cases()))('%s — 종류를 안 적으면 범례를 그리지 않는다', (_name, { el }) => {
     const props = el.props as { data: Record<string, unknown> };
     const strip = (arr: unknown) =>
       Array.isArray(arr) ? arr.map((o) => ({ ...(o as object), kind: undefined })) : arr;
     const data = Object.fromEntries(Object.entries(props.data).map(([k, v]) => [k, strip(v)]));
     const html = renderToStaticMarkup(React.cloneElement(el as React.ReactElement<{ data: unknown }>, { data }));
     expect(html).not.toContain('data-bbangto-viz-legend');
+  });
+});
+
+describe('LegendBlock — 시작 끝 마커가 범례 상자 안에 든다 (KAN-082)', () => {
+  it('포함 · 집합 견본의 마름모 자리가 상자 왼쪽 테두리에서 떨어져 있다', () => {
+    const L = (viz as unknown as Record<string, React.ComponentType<Record<string, unknown>>>).LegendBlock;
+    const Canvas = (viz as unknown as Record<string, React.ComponentType<Record<string, unknown>>>).Canvas;
+    const html = renderToStaticMarkup(
+      <Canvas viewBox="0 0 200 120" width={200} height={120}>
+        <L x={10} y={10} kinds={['composition', 'aggregation']} />
+      </Canvas>,
+    );
+    for (const kind of ['composition', 'aggregation']) {
+      const part = html.split(`data-bbangto-viz-legend-item="${kind}"`)[1] ?? '';
+      const d = part.match(/<path[^>]*\bd="M ([\d.]+) /)?.[1];
+      // 마름모는 선 시작점에서 왼쪽으로 마커 크기(8)만큼 나간다 — 시작점이 상자 테두리(x=10)에서 그보다 멀어야 한다
+      expect({ kind, startX: Number(d) - 10 >= 12 }).toEqual({ kind, startX: true });
+    }
   });
 });

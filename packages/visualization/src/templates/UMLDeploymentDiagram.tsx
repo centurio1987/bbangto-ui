@@ -3,6 +3,8 @@ import { Canvas } from '../atoms/Canvas';
 import type { CanvasProps } from '../atoms/Canvas';
 import { Node } from '../atoms/Node';
 import { Edge, type EdgeLabelOffset } from '../atoms/Edge';
+import { LegendBlock, relationLegendBox, type RelationLegendOption } from '../molecules/LegendBlock';
+import { relationEdgeProps, usedRelationKinds, type RelationKind } from '../atoms/relationKind';
 import { NodeLabel } from '../atoms/NodeLabel';
 import { Boundary } from '../atoms/Boundary';
 import type { EdgeRouting } from '../geometry/routing';
@@ -26,6 +28,9 @@ export interface UMLDeploymentEnvironmentSpec {
   label: string;
 }
 
+/** 이 도식의 관계가 받는 뜻(KAN-082 .2). */
+export type UMLDeploymentRelationKind = Extract<RelationKind, 'deployment' | 'network' | 'dependency'>;
+
 export interface UMLDeploymentEdgeSpec {
   id: string;
   from: string;
@@ -34,12 +39,16 @@ export interface UMLDeploymentEdgeSpec {
   /** 선 가운데 라벨을 이만큼 옮긴다(겹칠 때 비키기, KAN-082). */
   labelOffset?: EdgeLabelOffset;
   routing?: EdgeRouting;
+  /** 관계의 뜻(KAN-082). 적으면 선 모양이 종류마다 갈리고, 둘 이상 쓰이면 범례가 붙는다. */
+  kind?: UMLDeploymentRelationKind;
 }
 
 export interface UMLDeploymentDiagramData {
   environments?: UMLDeploymentEnvironmentSpec[];
   nodes: UMLDeploymentNodeSpec[];
   edges?: UMLDeploymentEdgeSpec[];
+  /** 관계 종류가 둘 이상 쓰이면 붙는 범례의 위치 · 이름 바꾸기. `false` 면 그리지 않는다(KAN-082). */
+  legend?: RelationLegendOption | false;
 }
 
 export interface UMLDeploymentDiagramProps extends Omit<CanvasProps, 'data' | 'children'> {
@@ -78,11 +87,13 @@ export function UMLDeploymentDiagram({
 
   const allNodes = nodes.map((n) => ({ id: n.id, x: n.x, y: n.y, width: n.width, height: n.height }));
 
+  const legend = relationLegendBox([...environments, ...allNodes], usedRelationKinds(edges), data?.legend);
+
   const autoViewBox = viewBox ?? (() => {
     const all = [...environments, ...nodes];
     if (!all.length) return '0 0 600 400';
-    const maxX = Math.max(...all.map((n) => n.x + n.width)) + 20;
-    const maxY = Math.max(...all.map((n) => n.y + n.height)) + 20;
+    const maxX = Math.max(...all.map((n) => n.x + n.width), legend ? legend.x + legend.width : 0) + 20;
+    const maxY = Math.max(...all.map((n) => n.y + n.height), legend ? legend.y + legend.height : 0) + 20;
     return `0 0 ${maxX} ${maxY}`;
   })();
 
@@ -124,8 +135,9 @@ export function UMLDeploymentDiagram({
         </React.Fragment>
       ))}
       {edges.map((e) => (
-        <Edge key={e.id} from={e.from} to={e.to} routing={e.routing ?? 'orthogonal'} markerEnd="arrow" label={e.label} labelOffset={e.labelOffset} />
+        <Edge key={e.id} from={e.from} to={e.to} routing={e.routing ?? 'orthogonal'} markerEnd="arrow" label={e.label} labelOffset={e.labelOffset} {...relationEdgeProps(e.kind)} />
       ))}
+      {legend && <LegendBlock {...legend} />}
     </Canvas>
   );
 }

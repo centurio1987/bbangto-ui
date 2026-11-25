@@ -22,6 +22,7 @@ export type { ERDiagramProps, ERDiagramData, EREntitySpec, ERRelationshipSpec, E
 // G2: C4 / Architecture / UML family
 export { C4ContextDiagram } from './C4ContextDiagram';
 export type { C4ContextDiagramProps, C4ContextDiagramData } from './C4ContextDiagram';
+export type { C4RelationKind } from './c4Types';
 export { C4ContainerDiagram } from './C4ContainerDiagram';
 export type { C4ContainerDiagramProps, C4ContainerDiagramData } from './C4ContainerDiagram';
 export { C4ComponentDiagram } from './C4ComponentDiagram';
@@ -29,11 +30,11 @@ export type { C4ComponentDiagramProps, C4ComponentDiagramData } from './C4Compon
 export { C4CodeDiagram } from './C4CodeDiagram';
 export type { C4CodeDiagramProps, C4CodeDiagramData, C4CodeElementSpec, C4CodeElementKind } from './C4CodeDiagram';
 export { ArchitectureDiagram } from './ArchitectureDiagram';
-export type { ArchitectureDiagramProps, ArchitectureDiagramData, ArchServiceSpec, ArchGroupSpec, ArchEdgeSpec } from './ArchitectureDiagram';
+export type { ArchitectureDiagramProps, ArchitectureDiagramData, ArchServiceSpec, ArchGroupSpec, ArchEdgeSpec, ArchRelationKind } from './ArchitectureDiagram';
 export { UMLComponentDiagram } from './UMLComponentDiagram';
-export type { UMLComponentDiagramProps, UMLComponentDiagramData, UMLComponentSpec, UMLInterfaceSpec, UMLDependencySpec } from './UMLComponentDiagram';
+export type { UMLComponentDiagramProps, UMLComponentDiagramData, UMLComponentSpec, UMLInterfaceSpec, UMLDependencySpec, UMLComponentRelationKind } from './UMLComponentDiagram';
 export { UMLDeploymentDiagram } from './UMLDeploymentDiagram';
-export type { UMLDeploymentDiagramProps, UMLDeploymentDiagramData, UMLDeploymentNodeSpec, UMLDeploymentEnvironmentSpec, UMLDeploymentEdgeSpec } from './UMLDeploymentDiagram';
+export type { UMLDeploymentDiagramProps, UMLDeploymentDiagramData, UMLDeploymentNodeSpec, UMLDeploymentEnvironmentSpec, UMLDeploymentEdgeSpec, UMLDeploymentRelationKind } from './UMLDeploymentDiagram';
 export { UMLSequenceDiagram } from './UMLSequenceDiagram';
 export type { UMLSequenceDiagramProps, UMLSequenceDiagramData, SequenceParticipantSpec, SequenceMessageSpec, SequenceMessageKind } from './UMLSequenceDiagram';
 
@@ -77,7 +78,7 @@ export type { GitGraphProps, GitBranchSpec, GitCommitSpec, GitMergeSpec } from '
 export { PacketDiagram } from './PacketDiagram';
 export type { PacketDiagramProps, PacketField } from './PacketDiagram';
 export { NetworkTopology } from './NetworkTopology';
-export type { NetworkTopologyProps, TopologyZone, TopologyNode, TopologyLink } from './NetworkTopology';
+export type { NetworkTopologyProps, TopologyZone, TopologyNode, TopologyLink, TopologyLinkKind } from './NetworkTopology';
 export { DataLineage } from './DataLineage';
 export type { DataLineageProps, LineageNode, LineageEdge } from './DataLineage';
 export { SitemapTree } from './SitemapTree';

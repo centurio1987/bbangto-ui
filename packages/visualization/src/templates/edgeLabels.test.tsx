@@ -30,6 +30,7 @@ import {
   UMLPackageDiagram,
   UMLSequenceDiagram,
 } from './index';
+import { edgeLabelBox } from '../atoms/EdgeLabel';
 
 // KAN-082 S1 — 템플릿이 데이터로 받은 라벨 계열 칸을 그림에 그리는가.
 //
@@ -578,5 +579,21 @@ describe('선 가운데 라벨은 labelOffset 만큼 옮겨진다 (KAN-082)', ()
       dx: OFFSET.x,
       dy: OFFSET.y,
     });
+  });
+});
+
+// ──────────────────────────────────────────────
+// 라벨 바탕 상자 폭 — 한글 · 한자 · 가나는 1em 로 어림한다(0.6em 이면 바탕이 글자보다 좁아 선이 글자 양 끝에 비친다)
+// ──────────────────────────────────────────────
+describe('edgeLabelBox — 글자 폭 어림 (KAN-082)', () => {
+  it('라틴 글자는 0.6em', () => {
+    expect(edgeLabelBox('abc', 10, 3).width).toBeCloseTo(3 * 6 + 6);
+  });
+  it('한글은 1em — 「결제 요청 발행」(한글 6 · 빈칸 2)', () => {
+    expect(edgeLabelBox('결제 요청 발행', 10, 3).width).toBeCloseTo(6 * 10 + 2 * 6 + 6);
+  });
+  it('섞인 글 — 「주문 조회 [HTTPS]」', () => {
+    // 한글 4 → 40, 나머지(빈칸 2 · [ · HTTPS · ]) 9 → 54
+    expect(edgeLabelBox('주문 조회 [HTTPS]', 10, 3).width).toBeCloseTo(40 + 54 + 6);
   });
 });

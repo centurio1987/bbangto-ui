@@ -1,6 +1,7 @@
 import { Edge } from '../atoms/Edge';
 import { vvar } from '../tokens/contract';
 import { resolveLabelFont } from '../tokens/labelFont';
+import { labelTextWidth } from '../atoms/EdgeLabel';
 import { RELATION_KIND_NAMES, RELATION_LINE_STYLES, type RelationKind } from '../atoms/relationKind';
 
 export interface LegendBlockProps {
@@ -17,15 +18,12 @@ export interface LegendBlockProps {
 }
 
 const PAD = 8;
+/** 견본 선 앞 여백 — 포함 · 집합의 마름모(시작 끝 마커)가 선 시작점에서 왼쪽으로 나가므로 그만큼 비운다. */
+const MARKER_ROOM = 8;
 const SWATCH = 36;
 const GAP = 8;
 
-/** 글자 폭 근사 — 한글 · 한자 · 가나는 1em, 그 밖은 0.6em(범례 상자가 글자를 자르지 않게 넉넉히 잡는다). */
-function textWidth(s: string, fontSize: number): number {
-  let w = 0;
-  for (const ch of s) w += (ch.codePointAt(0) ?? 0) >= 0x1100 ? fontSize : fontSize * 0.6;
-  return w;
-}
+const textWidth = labelTextWidth;
 
 /** 범례 상자 크기 — 템플릿이 범례를 놓고 viewBox 를 넓힐 때 같은 값을 쓴다. */
 export function legendBlockSize({
@@ -36,7 +34,7 @@ export function legendBlockSize({
 }: Pick<LegendBlockProps, 'kinds' | 'names' | 'title' | 'fontSize'>): { width: number; height: number } {
   const rowH = fontSize + 8;
   const labels = kinds.map((k) => names?.[k] ?? RELATION_KIND_NAMES[k]);
-  const body = SWATCH + GAP + Math.max(0, ...labels.map((l) => textWidth(l, fontSize)));
+  const body = MARKER_ROOM + SWATCH + GAP + Math.max(0, ...labels.map((l) => textWidth(l, fontSize)));
   return {
     width: Math.ceil(PAD * 2 + Math.max(textWidth(title, fontSize), body)),
     height: PAD * 2 + rowH * (kinds.length + 1),
@@ -80,13 +78,13 @@ export function LegendBlock({ x, y, kinds, names, title = '범례', fontSize = 1
         return (
           <g key={k} data-bbangto-viz-legend-item={k}>
             <Edge
-              from={{ x: x + PAD, y: cy }}
-              to={{ x: x + PAD + SWATCH, y: cy }}
+              from={{ x: x + PAD + MARKER_ROOM, y: cy }}
+              to={{ x: x + PAD + MARKER_ROOM + SWATCH, y: cy }}
               routing="straight"
               {...RELATION_LINE_STYLES[k]}
             />
             <text
-              x={x + PAD + SWATCH + GAP}
+              x={x + PAD + MARKER_ROOM + SWATCH + GAP}
               y={cy}
               dominantBaseline="central"
               fontSize={fontSize}

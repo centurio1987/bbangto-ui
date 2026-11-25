@@ -1,6 +1,8 @@
 import { type ReactNode } from 'react';
 import { Canvas, type CanvasProps } from '../atoms/Canvas';
 import { Edge } from '../atoms/Edge';
+import { LegendBlock, relationLegendBox, type RelationLegendOption } from '../molecules/LegendBlock';
+import { relationEdgeProps, usedRelationKinds } from '../atoms/relationKind';
 import { EdgeLabel } from '../atoms/EdgeLabel';
 import { Boundary } from '../atoms/Boundary';
 import { C4Box } from '../molecules/C4Box';
@@ -14,6 +16,8 @@ export interface C4SystemLandscapeDiagramData {
   people?: C4PersonSpec[];
   boundaries?: C4BoundarySpec[];
   relationships: C4RelationshipSpec[];
+  /** 관계 종류가 둘 이상 쓰이면 붙는 범례의 위치 · 이름 바꾸기. `false` 면 그리지 않는다(KAN-082). */
+  legend?: RelationLegendOption | false;
 }
 
 export interface C4SystemLandscapeDiagramProps extends Omit<CanvasProps, 'data' | 'children'> {
@@ -51,6 +55,9 @@ export function C4SystemLandscapeDiagram({
     ],
   };
 
+  // 범례 — viewBox 를 받는 그대로 쓰는 템플릿이라 넓히지 않는다. 가린다면 data.legend 로 옮긴다.
+  const legend = relationLegendBox(registry.nodes, usedRelationKinds(relationships), data.legend);
+
   return (
     <Canvas viewBox={viewBox} title={title} data={registry} data-bbangto-viz-chart="c4-landscape" {...canvasProps}>
       {boundaries.map((b, i) => (
@@ -66,7 +73,7 @@ export function C4SystemLandscapeDiagram({
         const text = c4RelationshipLabel(r);
         return (
           <g key={r.id}>
-            <Edge from={r.from} to={r.to} routing="orthogonal" />
+            <Edge from={r.from} to={r.to} routing="orthogonal" {...relationEdgeProps(r.kind)} />
             {text && <EdgeLabel x={mx + (r.labelOffset?.x ?? 0)} y={my + (r.labelOffset?.y ?? 0)} label={text} fontSize={10} />}
           </g>
         );
@@ -85,6 +92,7 @@ export function C4SystemLandscapeDiagram({
           <PersonNode key={p.id} id={p.id} x={p.x} y={p.y} width={p.width} height={p.height} title={p.name} />
         ),
       )}
+      {legend && <LegendBlock {...legend} />}
     </Canvas>
   );
 }

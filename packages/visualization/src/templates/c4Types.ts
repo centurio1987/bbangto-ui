@@ -1,4 +1,11 @@
 import type { EdgeLabelOffset } from '../atoms/Edge';
+import type { RelationKind } from '../atoms/relationKind';
+
+/** C4 관계가 받는 뜻 — 런타임 통신과 코드 수준 관계(KAN-082 .2). */
+export type C4RelationKind = Extract<
+  RelationKind,
+  'call' | 'asyncMessage' | 'dataFlow' | 'dependency' | 'inheritance' | 'composition' | 'aggregation'
+>;
 export interface C4PersonSpec {
   id: string;
   x: number;
@@ -55,6 +62,8 @@ export interface C4RelationshipSpec {
   technology?: string;
   /** 선 가운데 라벨을 이만큼 옮긴다(겹칠 때 비키기, KAN-082). */
   labelOffset?: EdgeLabelOffset;
+  /** 관계의 뜻(KAN-082). 적으면 선 모양이 종류마다 갈리고, 둘 이상 쓰이면 범례가 붙는다. */
+  kind?: C4RelationKind;
 }
 
 /**

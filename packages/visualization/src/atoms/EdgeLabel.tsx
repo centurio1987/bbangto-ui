@@ -14,11 +14,21 @@ export interface EdgeLabelProps {
 }
 
 /**
- * EdgeLabel 이 그리는 바탕 상자의 크기 — 글자 수 × 글자 폭 근사(0.6em) + 안쪽 여백.
+ * 라벨 글자 폭 어림 — 한글 · 한자 · 가나(U+1100 이상)는 1em, 그 밖은 0.6em. 모두 0.6em 으로 어림하면 한글 라벨의
+ * 바탕이 글자보다 좁아 그 밑 선이 글자 양 끝에 비친다(KAN-082 에서 확인).
+ */
+export function labelTextWidth(label: string, fontSize: number): number {
+  let w = 0;
+  for (const ch of label) w += (ch.codePointAt(0) ?? 0) >= 0x1100 ? fontSize : fontSize * 0.6;
+  return w;
+}
+
+/**
+ * EdgeLabel 이 그리는 바탕 상자의 크기 — 글자 폭 어림(`labelTextWidth`) + 안쪽 여백.
  * 라벨을 선 끝에 놓는 쪽(Edge 의 fromLabel · toLabel)이 상자가 선과 노드를 비키도록 같은 값을 쓴다.
  */
 export function edgeLabelBox(label: string, fontSize = 11, padding = 3): { width: number; height: number } {
-  return { width: label.length * fontSize * 0.6 + padding * 2, height: fontSize + padding * 2 };
+  return { width: labelTextWidth(label, fontSize) + padding * 2, height: fontSize + padding * 2 };
 }
 
 export const EdgeLabel = React.forwardRef<SVGGElement, EdgeLabelProps>(

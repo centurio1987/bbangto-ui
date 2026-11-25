@@ -336,6 +336,16 @@ export function DecisionSketch() {
   새 버전에서 그림에 나타난다. 이미 라벨을 따로 그리던 템플릿(DataFlowDiagram · C4DynamicDiagram · C4SystemLandscapeDiagram
   등)은 자리를 그대로 둔다. `src/templates/edgeLabels.test.tsx` 가 Edge 를 쓰는 템플릿 전부를 서버 렌더해 넣은 글자가 그림에
   정확히 한 번 나오는지 보고, 라벨 칸이 없는 템플릿은 그 파일에 이유와 함께 적는다.
+- **화살표 뜻이 섞이면 범례로 가른다.** 관계선의 뜻은 고정 목록 `RELATION_KINDS` 열 가지다 — 호출(`call`) · 비동기
+  메시지(`asyncMessage`) · 데이터 이동(`dataFlow`) · 제어 흐름(`controlFlow`) · 배치(`deployment`) · 네트워크 연결(`network`) ·
+  의존(`dependency`) · 상속(`inheritance`) · 포함(`composition`) · 집합(`aggregation`). 종류마다 선 모양(`RELATION_LINE_STYLES` —
+  대시와 양 끝 화살촉의 짝)이 모두 다르고, 실선 종류는 `strokeDasharray: none` 으로 고정해 가이드의 연결선 대시가 뜻을
+  바꾸지 않는다. C4 다섯 · UML 컴포넌트 · UML 배포 · 아키텍처 · 네트워크 토폴로지는 관계 데이터에 `kind` 를 받고(템플릿마다
+  쓰는 종류만 — `C4RelationKind` 등), 쓰인 종류가 둘 이상이면 노드 아래에 `LegendBlock` 범례를 붙인다. 범례 위치 · 이름은
+  데이터 `legend: { x, y, title, names }` 로 바꾸고 `legend: false` 면 그리지 않는다. 범례 견본 선은 `Edge` 로 그려 템플릿 선과
+  같은 매핑을 읽는다. 종류가 붙은 선에는 공개 훅 `data-bbangto-viz-relation-kind` 가 달린다. `kind` 를 안 적은 관계는 예전 선
+  모양 그대로다. 표기법 템플릿의 매핑도 낸다 — `classRelationshipLineStyle`(ClassDiagram) · `erCardinalityMarker`(ERDiagram).
+  선 라벨 바탕 상자는 한글 · 한자 · 가나를 1em 으로 어림한다(`edgeLabelBox`).
 - **접근성**: 루트 `Canvas` 는 `role="img"`(`accessible="structured"` 면 `group`)와 `title`(선택 `desc`)을 갖는다.
   값은 항상 텍스트로 함께 적는다 — 그래픽만으로 값을 말하지 않는다. 노드 글리프·아이콘 배지 같은 장식은 `aria-hidden` 이다.
 - **경계 입력**: 빈 데이터는 빈 캔버스다(throw 하지 않는다). 항목 하나도 그린다. `children`·`data` 를 함께 주면 `children` 이다.

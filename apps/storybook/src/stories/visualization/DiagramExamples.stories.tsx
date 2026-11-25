@@ -4,6 +4,9 @@ import {
   VisualizationStyleGuideProvider,
   DataFlowDiagram,
   Flowchart,
+  C4ContainerDiagram,
+  RELATION_KIND_NAMES,
+  RELATION_LINE_STYLES,
 } from '@centurio1987/bbangto-ui-visualization';
 import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visualization-style-guide-catalog';
 import { expect } from 'storybook/test';
@@ -117,5 +120,65 @@ export const FlowchartPaymentRetry: Story = {
       const mid = path.getPointAtLength(path.getTotalLength() / 2);
       await expect(Math.hypot(Number(text?.getAttribute('x')) - mid.x, Number(text?.getAttribute('y')) - mid.y)).toBeLessThanOrEqual(1);
     }
+  },
+};
+
+// ──────────────────────────────────────────────────────────────────────
+// 2. 화살표 뜻을 섞을 때 — 「섞어야 한다면 범례로 화살표 종류를 구분해 표시하는 게 좋습니다」
+// ──────────────────────────────────────────────────────────────────────
+
+/**
+ * 런타임 도식(C4 컨테이너)에 호출 · 비동기 메시지 · 데이터 이동을 섞은 그림. 관계마다 `kind` 를 적으면 선 모양이
+ * 종류마다 갈리고, 쓰인 종류가 둘 이상이라 범례가 노드 아래에 붙는다.
+ */
+export const RuntimeMixedArrowsWithLegend: Story = {
+  render: () => (
+    <C4ContainerDiagram
+      data={{
+        containers: [
+          { id: 'web', x: 20, y: 30, width: 150, height: 90, name: '웹 앱', technology: 'React' },
+          { id: 'api', x: 300, y: 30, width: 150, height: 90, name: 'API 서버', technology: 'Node.js' },
+          { id: 'queue', x: 580, y: 30, width: 150, height: 90, name: '결제 큐', technology: 'Kafka' },
+          { id: 'worker', x: 580, y: 220, width: 150, height: 90, name: '결제 워커', technology: 'Go' },
+          { id: 'db', x: 300, y: 220, width: 150, height: 90, name: '주문 DB', technology: 'PostgreSQL' },
+        ],
+        relationships: [
+          { id: 'r1', from: 'web', to: 'api', label: '주문 조회', technology: 'HTTPS', kind: 'call' },
+          { id: 'r2', from: 'api', to: 'queue', label: '결제 요청 발행', kind: 'asyncMessage' },
+          { id: 'r3', from: 'queue', to: 'worker', label: '결제 요청 소비', kind: 'asyncMessage' },
+          { id: 'r4', from: 'worker', to: 'db', label: '결제 결과', kind: 'dataFlow' },
+        ],
+      }}
+      width={760}
+      height={460}
+      title="런타임 — 호출 · 비동기 메시지 · 데이터 이동을 섞은 그림과 범례"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const svg = canvasElement.querySelector('[data-bbangto-viz-canvas]')!;
+    const used = ['call', 'asyncMessage', 'dataFlow'] as const;
+
+    // 범례 항목 수 = 쓰인 종류 수, 이름은 종류 이름
+    const items = Array.from(svg.querySelectorAll('[data-bbangto-viz-legend-item]'));
+    await expect(items.map((g) => g.getAttribute('data-bbangto-viz-legend-item'))).toEqual([...used]);
+    await expect(items.map((g) => g.querySelector('text')?.textContent)).toEqual(used.map((k) => RELATION_KIND_NAMES[k]));
+
+    // 관계선마다 종류 표시가 붙고, 같은 종류의 범례 견본과 대시 · 화살촉이 같다
+    const lineOf = (p: Element) =>
+      `${getComputedStyle(p).strokeDasharray}|${p.getAttribute('marker-start') ?? '-'}|${p.getAttribute('marker-end') ?? '-'}`;
+    for (const kind of used) {
+      const edges = Array.from(svg.querySelectorAll(`path[data-bbangto-viz-relation-kind="${kind}"]`));
+      await expect(edges.length).toBeGreaterThan(0);
+      const swatch = svg.querySelector(`[data-bbangto-viz-legend-item="${kind}"] path[data-viz-part="connector"]`)!;
+      for (const e of edges) await expect({ kind, line: lineOf(e) }).toEqual({ kind, line: lineOf(swatch) });
+      // 실선 종류(호출)는 가이드 대시와 상관없이 실선이다
+      if (RELATION_LINE_STYLES[kind].strokeDasharray === 'none') {
+        for (const e of edges) await expect(getComputedStyle(e).strokeDasharray).toBe('none');
+      }
+    }
+    // 범례는 노드 아래에 있다 — 노드와 겹치지 않는다
+    const legendBox = (svg.querySelector('[data-bbangto-viz-legend] rect') as SVGRectElement).getBBox();
+    await expect(legendBox.y).toBeGreaterThanOrEqual(310);
   },
 };
