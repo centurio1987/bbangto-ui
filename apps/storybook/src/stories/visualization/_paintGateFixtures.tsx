@@ -38,6 +38,7 @@ import {
   UMLDeploymentDiagram,
   C4DeploymentDiagram,
   ObjectDiagram,
+  CommunicationDiagram,
   UMLPackageDiagram,
   UMLSequenceDiagram,
   UseCaseDiagram,
@@ -1094,6 +1095,26 @@ export const PAINT_GATE_FIXTURES: PaintGateFixture[] = [
         width={400}
         height={120}
         title="Object Diagram"
+      />
+    ),
+  },
+  // ── KAN-082.4 — Communication Diagram(VT-108 별칭) ────────────────────
+  {
+    key: 'communication-diagram',
+    template: 'CommunicationDiagram',
+    render: () => (
+      <CommunicationDiagram
+        data={{
+          objects: [
+            { id: 'ui', x: 20, y: 50, width: 150, height: 50, name: 'ui', classifier: 'Page' },
+            { id: 'svc', x: 260, y: 50, width: 150, height: 50, classifier: 'Service' },
+          ],
+          links: [{ id: 'l1', from: 'ui', to: 'svc', messages: [{ order: '1', label: 'place()' }] }],
+        }}
+        viewBox="0 0 430 120"
+        width={430}
+        height={120}
+        title="Communication Diagram"
       />
     ),
   },

@@ -352,6 +352,11 @@ export function DecisionSketch() {
   (`nodes`, `parent` 로 중첩 · `instances` 로 「×N」) 위에 컨테이너 인스턴스(`containers`, `node` 로 올라간 노드)를 놓는다.
   C4 컨테이너는 `shape: 'database' | 'queue'` 로 DB · 큐 모양이 된다. 원문 예 「EC2 하나에 API 서버와 워커」는 배포 도식에서
   상자 하나 안의 둘이고 런타임 도식(C4ContainerDiagram)에서 상자 둘이다(Storybook `Templates/Diagram Examples`).
+- **인스턴스 · 상호작용 도식.** `ObjectDiagram` 은 클래스 도식의 인스턴스 스냅샷이다 — 머리는 밑줄 친 「이름 : 클래스」
+  (`name` 을 비우면 「: 클래스」), 칸은 슬롯(「속성 = 값」) 하나, 링크는 화살촉 없는 선에 이름 · 역할 이름이다. 유형 축에서는
+  VT-101 의 별칭 object diagram 이다. `CommunicationDiagram` 은 시퀀스 도식과 같은 상호작용을 객체 사이 링크 위에 번호
+  메시지(`order` · `label` · `direction`)로 단다 — VT-108 의 별칭 communication 이다. 둘 다 ClassBox 를 다시 쓰고, ClassBox 는
+  빈 칸(속성 · 연산이 없는 칸)을 그리지 않는다(`showEmptyCompartments` 로 예전처럼 세 칸, `nameUnderline` 으로 이름 밑줄).
 - **접근성**: 루트 `Canvas` 는 `role="img"`(`accessible="structured"` 면 `group`)와 `title`(선택 `desc`)을 갖는다.
   값은 항상 텍스트로 함께 적는다 — 그래픽만으로 값을 말하지 않는다. 노드 글리프·아이콘 배지 같은 장식은 `aria-hidden` 이다.
 - **경계 입력**: 빈 데이터는 빈 캔버스다(throw 하지 않는다). 항목 하나도 그린다. `children`·`data` 를 함께 주면 `children` 이다.

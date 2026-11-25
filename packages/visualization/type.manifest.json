@@ -10,7 +10,7 @@
     ["VT-105","UML Use Case Diagram","template","engineering",["UseCaseDiagram"],["usecase"],"액터-유스케이스 기능 관계",["diagram","standard"],"authored"],
     ["VT-106","UML Activity Diagram","template","engineering",["ActivityDiagram"],["swimlane diagram","activity"],"제어 흐름·병행·레인 절차 모델",["diagram","standard"],"authored"],
     ["VT-107","UML State Machine","template","engineering",["StateDiagram"],["statechart","stateDiagram-v2"],"상태·이벤트 전이 모델",["diagram","standard"],"authored"],
-    ["VT-108","UML Sequence Diagram","template","engineering",["SequenceDiagram","UMLSequenceDiagram","ZenUMLDiagram"],["communication","interaction overview","timing","ZenUML"],"수명선 간 시간순 메시지 교환",["diagram","standard"],"authored"],
+    ["VT-108","UML Sequence Diagram","template","engineering",["SequenceDiagram","UMLSequenceDiagram","ZenUMLDiagram","CommunicationDiagram"],["communication","interaction overview","timing","ZenUML"],"수명선 간 시간순 메시지 교환",["diagram","standard"],"authored"],
     ["VT-109","C4 System Context","template","engineering",["C4ContextDiagram"],["context diagram"],"시스템 블랙박스와 외부 관계",["diagram","standard"],"authored"],
     ["VT-110","C4 Container","template","engineering",["C4ContainerDiagram"],[],"배포 단위(앱·DB)와 기술 구성",["diagram","standard"],"authored"],
     ["VT-111","C4 Component","template","engineering",["C4ComponentDiagram"],[],"컨테이너 내부 컴포넌트 책임",["diagram","standard"],"authored"],

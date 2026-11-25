@@ -47,6 +47,8 @@ export { SequenceDiagram } from './SequenceDiagram';
 export type { SequenceDiagramProps, SequenceDiagramData, SeqParticipantSpec, SeqMessageSpec, SeqActivationSpec, SeqFragmentSpec, SeqMessageKind, SeqFragmentKind } from './SequenceDiagram';
 export { ZenUMLDiagram } from './ZenUMLDiagram';
 export type { ZenUMLDiagramProps, ZenUMLDiagramData } from './ZenUMLDiagram';
+export { CommunicationDiagram } from './CommunicationDiagram';
+export type { CommunicationDiagramProps, CommunicationDiagramData, CommunicationObjectSpec, CommunicationLinkSpec, CommunicationMessageSpec } from './CommunicationDiagram';
 export { BPMNDiagram } from './BPMNDiagram';
 export type { BPMNDiagramProps, BPMNDiagramData, BPMNEventSpec, BPMNTaskSpec, BPMNGatewaySpec, BPMNLaneSpec, BPMNFlowSpec, BPMNEventKind, BPMNGatewayKind } from './BPMNDiagram';
 export { ArchiMateDiagram, ArchiMateBusinessDiagram, ArchiMateApplicationDiagram, ArchiMateTechnologyDiagram } from './ArchiMateDiagram';

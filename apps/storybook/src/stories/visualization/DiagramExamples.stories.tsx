@@ -6,6 +6,8 @@ import {
   Flowchart,
   C4ContainerDiagram,
   C4DeploymentDiagram,
+  UMLSequenceDiagram,
+  CommunicationDiagram,
   RELATION_KIND_NAMES,
   RELATION_LINE_STYLES,
 } from '@centurio1987/bbangto-ui-visualization';
@@ -273,5 +275,85 @@ export const RuntimeTwoContainers: Story = {
     await expect(svg.querySelector('[data-bbangto-viz-molecule="queue"][data-bbangto-viz-molecule-id="queue"]')).not.toBeNull();
     // 범례는 쓰인 종류 둘(비동기 메시지 · 데이터 이동)
     await expect(svg.querySelectorAll('[data-bbangto-viz-legend-item]')).toHaveLength(2);
+  },
+};
+
+// ──────────────────────────────────────────────────────────────────────
+// 4. 같은 상호작용을 시간축(시퀀스)과 링크 위 번호(커뮤니케이션)로 — 「동작을 나타내는 개념도」 (KAN-082 .4)
+// ──────────────────────────────────────────────────────────────────────
+const CHECKOUT_MSGS = [
+  { from: 'ui', to: 'order', label: 'placeOrder()' },
+  { from: 'order', to: 'pay', label: 'charge()' },
+  { from: 'pay', to: 'order', label: 'approved' },
+];
+
+/** 시퀀스 도식 — 누가 누구에게 언제 말하는지(세로가 시간) */
+export const CheckoutAsSequence: Story = {
+  render: () => (
+    <UMLSequenceDiagram
+      data={{
+        participants: [
+          { id: 'ui', x: 20, width: 140, name: 'ui : CheckoutPage' },
+          { id: 'order', x: 220, width: 140, name: ': OrderService' },
+          { id: 'pay', x: 420, width: 140, name: ': PaymentGateway' },
+        ],
+        messages: CHECKOUT_MSGS.map((m, i) => ({ id: `m${i}`, ...m, y: 90 + i * 50, kind: m.label === 'approved' ? 'return' : 'sync' })),
+      }}
+      viewBox="0 0 580 260"
+      width={580}
+      height={260}
+      title="시퀀스 도식 — 결제 요청"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    const svg = canvasElement.querySelector('[data-bbangto-viz-canvas]')!;
+    for (const m of CHECKOUT_MSGS) await expect(svg.textContent).toContain(m.label);
+  },
+};
+
+/** 커뮤니케이션 도식 — 같은 메시지를 객체 사이 링크 위에 번호와 방향으로 */
+export const CheckoutAsCommunication: Story = {
+  render: () => (
+    <CommunicationDiagram
+      data={{
+        objects: [
+          { id: 'ui', x: 20, y: 60, width: 160, height: 50, name: 'ui', classifier: 'CheckoutPage' },
+          { id: 'order', x: 320, y: 60, width: 160, height: 50, classifier: 'OrderService' },
+          { id: 'pay', x: 320, y: 230, width: 160, height: 50, classifier: 'PaymentGateway' },
+        ],
+        links: [
+          { id: 'l1', from: 'ui', to: 'order', messages: [{ order: '1', label: 'placeOrder()' }] },
+          {
+            id: 'l2',
+            from: 'order',
+            to: 'pay',
+            messages: [
+              { order: '1.1', label: 'charge()' },
+              { order: '1.2', label: 'approved', direction: 'backward' },
+            ],
+          },
+        ],
+      }}
+      viewBox="0 0 520 300"
+      width={520}
+      height={300}
+      title="커뮤니케이션 도식 — 결제 요청"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const svg = canvasElement.querySelector('[data-bbangto-viz-canvas]')!;
+    const msgs = Array.from(svg.querySelectorAll('[data-bbangto-viz-message]'));
+    await expect(msgs.map((g) => g.getAttribute('data-bbangto-viz-message'))).toEqual(['1', '1.1', '1.2']);
+    await expect(msgs.map((g) => g.querySelector('text')?.textContent)).toEqual(['1: placeOrder()', '1.1: charge()', '1.2: approved']);
+    // 1.2(backward)는 pay → order — 세로 링크에서 화살표 끝이 시작보다 위에 있다
+    const back = msgs[2].querySelector('path') as SVGPathElement;
+    await expect(back.getPointAtLength(back.getTotalLength()).y).toBeLessThan(back.getPointAtLength(0).y);
+    // 메시지 글은 링크 선과 겹치지 않는다 — 세로 링크 옆 글은 링크 왼쪽에서 끝난다
+    const linkX = (svg.querySelector('[data-bbangto-viz-communication-link="l2"]') as SVGPathElement).getPointAtLength(0).x;
+    for (const g of msgs.slice(1)) {
+      const b = (g.querySelector('text') as SVGTextElement).getBBox();
+      await expect(b.x + b.width).toBeLessThanOrEqual(linkX);
+    }
   },
 };

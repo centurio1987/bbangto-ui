@@ -199,7 +199,8 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
     id: 'VT-108',
     name: 'UML Sequence Diagram',
     // 다-export 유형: UML 상호작용 4종 투영을 3 export가 실현.
-    exportNames: ['SequenceDiagram', 'UMLSequenceDiagram', 'ZenUMLDiagram'],
+    // CommunicationDiagram 은 별칭 「communication」을 실제 export 로 만든 것(KAN-082.4) — 유형 행은 그대로다
+    exportNames: ['SequenceDiagram', 'UMLSequenceDiagram', 'ZenUMLDiagram', 'CommunicationDiagram'],
     kind: 'template',
     meta: {
       category: 'engineering',

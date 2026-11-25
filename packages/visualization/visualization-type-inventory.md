@@ -96,7 +96,7 @@
 | VT-105 | UML Use Case Diagram | usecase | 액터-유스케이스 기능 관계 | 요구 범위 정의 | node,edge,boundary | X01(T1) | ✅ | `UseCaseDiagram`(template) | ActorGlyph molecule 신규 | — |
 | VT-106 | UML Activity Diagram | swimlane diagram, activity | 제어 흐름·병행·레인 절차 모델 | 업무 절차/알고리즘 | node,edge,lane | X01(T1) | ✅ | `ActivityDiagram`(template) | related:VT-201·🔶→✅ 전용 승격 | — |
 | VT-107 | UML State Machine | statechart, stateDiagram-v2 | 상태·이벤트 전이 모델 | 수명주기/프로토콜 | node,edge | X01(T1) | ✅ | `StateDiagram`(template) | — | — |
-| VT-108 | UML Sequence Diagram | communication, interaction overview, timing, ZenUML | 수명선 간 시간순 메시지 교환 | API·시나리오 설계 | lifeline,edge,lane | X01(T1) | ✅ | `SequenceDiagram`·`UMLSequenceDiagram`·`ZenUMLDiagram`(template) | UML 상호작용 4종 투영 흡수 | — |
+| VT-108 | UML Sequence Diagram | communication, interaction overview, timing, ZenUML | 수명선 간 시간순 메시지 교환 | API·시나리오 설계 | lifeline,edge,lane | X01(T1) | ✅ | `SequenceDiagram`·`UMLSequenceDiagram`·`ZenUMLDiagram`(template) · `CommunicationDiagram`(template, 별칭 communication — KAN-082.4) | UML 상호작용 4종 투영 흡수 | — |
 | VT-109 | C4 System Context | context diagram | 시스템 블랙박스와 외부 관계 | 범위 합의 | node,edge,boundary | X02(T1) | ✅ | `C4ContextDiagram`(template) | — | — |
 | VT-110 | C4 Container | — | 배포 단위(앱·DB)와 기술 구성 | 기술 스택 개관 | node,edge,boundary | X02(T1) | ✅ | `C4ContainerDiagram`(template) | — | — |
 | VT-111 | C4 Component | — | 컨테이너 내부 컴포넌트 책임 | 상세 설계 진입 | node,edge,boundary | X02(T1) | ✅ | `C4ComponentDiagram`(template) | — | — |
@@ -241,6 +241,7 @@ catalog §1-b·§2-a의 "ChartPrimitives(bar/line/pie/donut/treemap…)"와 PLAN
 | `UMLSequenceDiagram` | template | VT-108 |
 | `SequenceDiagram` | template | VT-108 |
 | `ZenUMLDiagram` | template | VT-108 |
+| `CommunicationDiagram` | template | VT-108 (별칭 communication, KAN-082.4) |
 | `BPMNDiagram` | template | VT-122 (+VT-123·VT-106 근사) |
 | `ArchiMateDiagram` | template | VT-120 |
 | `ArchiMateBusinessDiagram` | template | VT-120 |
