@@ -303,6 +303,7 @@ export const CheckoutAsSequence: Story = {
         ],
         messages: CHECKOUT_MSGS.map((m, i) => ({ id: `m${i}`, ...m, y: 90 + i * 50, kind: m.label === 'approved' ? 'return' : 'sync' })),
       }}
+      lifelineHeight={190}
       viewBox="0 0 580 260"
       width={580}
       height={260}
@@ -312,6 +313,10 @@ export const CheckoutAsSequence: Story = {
   play: async ({ canvasElement }) => {
     const svg = canvasElement.querySelector('[data-bbangto-viz-canvas]')!;
     for (const m of CHECKOUT_MSGS) await expect(svg.textContent).toContain(m.label);
+    // 수명선이 캔버스(viewBox 높이 260) 안에서 끝난다
+    const ends = Array.from(svg.querySelectorAll('[data-bbangto-viz-lifeline] line')).map((l) => Number(l.getAttribute('y2')));
+    await expect(ends.length).toBe(3);
+    for (const y of ends) await expect(y).toBeLessThanOrEqual(260);
   },
 };
 
