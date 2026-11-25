@@ -7,6 +7,17 @@ export type { NodeProps, NodeShape } from './Node';
 export { Edge } from './Edge';
 export type { EdgeProps, EdgeRouting, MarkerVariant, AnchorSide, EdgeLabelOffset } from './Edge';
 
+export {
+  RELATION_KINDS,
+  RELATION_LINE_STYLES,
+  RELATION_KIND_NAMES,
+  relationEdgeProps,
+  usedRelationKinds,
+  classRelationshipLineStyle,
+  erCardinalityMarker,
+} from './relationKind';
+export type { RelationKind, RelationLineStyle } from './relationKind';
+
 export { Markers, markerRef } from './Marker';
 export type { MarkersProps } from './Marker';
 

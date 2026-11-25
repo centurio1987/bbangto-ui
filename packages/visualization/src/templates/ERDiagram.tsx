@@ -2,7 +2,7 @@ import { type ReactNode } from 'react';
 import { Canvas } from '../atoms/Canvas';
 import type { CanvasProps } from '../atoms/Canvas';
 import { Edge, type EdgeLabelOffset } from '../atoms/Edge';
-import type { MarkerVariant } from '../atoms/Marker';
+import { erCardinalityMarker, type ERCardinality } from '../atoms/relationKind';
 import { EntityTable } from '../molecules/EntityTable';
 import type { EntityAttribute } from '../molecules/EntityTable';
 
@@ -11,17 +11,8 @@ export type { EntityAttribute };
 const HEADER_H = 28;
 const ROW_H = 22;
 
-export type ERCardinality = 'one' | 'many' | 'zeroOrOne' | 'oneOrMany' | 'zeroOrMany';
-
-function cardinalityMarker(c: ERCardinality): MarkerVariant {
-  switch (c) {
-    case 'one':        return 'erOne';
-    case 'many':       return 'erMany';
-    case 'zeroOrOne':  return 'erZeroOrOne';
-    case 'oneOrMany':  return 'erOneOrMany';
-    case 'zeroOrMany': return 'erZeroOrMany';
-  }
-}
+// 카디널리티와 마커 매핑은 atoms/relationKind.ts 가 낸다(바깥 보고서 P11 ①).
+export type { ERCardinality };
 
 export interface EREntitySpec {
   id: string;
@@ -127,8 +118,8 @@ export function ERDiagram({
         />
       ))}
       {relationships.map((r) => {
-        const markerEnd = r.toCardinality ? cardinalityMarker(r.toCardinality) : 'arrow';
-        const markerStart = r.fromCardinality ? cardinalityMarker(r.fromCardinality) : undefined;
+        const markerEnd = r.toCardinality ? erCardinalityMarker(r.toCardinality) : 'arrow';
+        const markerStart = r.fromCardinality ? erCardinalityMarker(r.fromCardinality) : undefined;
         return (
           <Edge
             key={r.id}

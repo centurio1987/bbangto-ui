@@ -2,7 +2,7 @@ import { type ReactNode } from 'react';
 import { Canvas } from '../atoms/Canvas';
 import type { CanvasProps } from '../atoms/Canvas';
 import { Edge, type EdgeLabelOffset } from '../atoms/Edge';
-import type { MarkerVariant } from '../atoms/Marker';
+import { classRelationshipLineStyle, type ClassRelationshipKind } from '../atoms/relationKind';
 import { ClassBox } from '../molecules/ClassBox';
 
 export interface ClassSpec {
@@ -19,13 +19,8 @@ export interface ClassSpec {
   stroke?: string;
 }
 
-export type ClassRelationshipKind =
-  | 'inheritance'
-  | 'composition'
-  | 'aggregation'
-  | 'association'
-  | 'dependency'
-  | 'realization';
+// 관계 종류와 선 모양 매핑은 atoms/relationKind.ts 가 낸다(바깥 보고서 P11 ① — 소비자가 같은 매핑을 쓰게).
+export type { ClassRelationshipKind };
 
 export interface ClassRelationshipSpec {
   id: string;
@@ -47,26 +42,6 @@ export interface ClassDiagramData {
 export interface ClassDiagramProps extends Omit<CanvasProps, 'data' | 'children'> {
   children?: ReactNode;
   data?: ClassDiagramData;
-}
-
-interface EdgeConfig {
-  markerEnd?: MarkerVariant;
-  markerStart?: MarkerVariant;
-  strokeDasharray?: string;
-}
-
-function edgeConfig(kind: ClassRelationshipKind): EdgeConfig {
-  switch (kind) {
-    case 'inheritance':   return { markerEnd: 'triangleOpen' };
-    case 'realization':   return { markerEnd: 'triangleOpen', strokeDasharray: '6 3' };
-    // 포함 · 집합은 전체 쪽(from)에 마름모만 붙는다. markerEnd 를 비우면 Edge 기본값 'arrow' 가 부분 쪽에
-    // 붙어 UML 이 아닌 그림이 된다(상류 이슈 P11 ②, KAN-082).
-    case 'composition':   return { markerStart: 'diamond', markerEnd: 'none' };
-    case 'aggregation':   return { markerStart: 'diamondOpen', markerEnd: 'none' };
-    case 'dependency':    return { markerEnd: 'arrowOpen', strokeDasharray: '5 3' };
-    case 'association':
-    default:              return { markerEnd: 'arrow' };
-  }
 }
 
 /**
@@ -133,7 +108,7 @@ export function ClassDiagram({
         />
       ))}
       {relationships.map((r) => {
-        const cfg = edgeConfig(r.kind ?? 'association');
+        const cfg = classRelationshipLineStyle(r.kind ?? 'association');
         return (
           <Edge
             key={r.id}
