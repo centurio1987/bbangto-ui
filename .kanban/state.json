@@ -1,6 +1,6 @@
 {
   "next_id": 85,
-  "next_seq": 329,
+  "next_seq": 330,
   "cards": {
     "KAN-076-NHP81Z": {
       "col": "backlog",
@@ -2022,6 +2022,16 @@
   ],
   "recent": [
     {
+      "seq": 329,
+      "t": "2026-11-25T15:18",
+      "a": "ai",
+      "id": "KAN-080-RN47PY",
+      "op": "serialize",
+      "w": "S7030N",
+      "with_": "KAN-082-MD50S0",
+      "reason": "같은 viz 템플릿 파일(P7·P8·P9·P11)을 고친다 — 2026-11-24 유저 결정 「KAN-082 먼저」. KAN-082 시작 때 기록"
+    },
+    {
       "seq": 328,
       "t": "2026-11-24T16:51",
       "a": "ai",
@@ -2643,16 +2653,6 @@
       "w": "S7030N",
       "with_": "KAN-069-G0FGTJ",
       "reason": "전략 재수립 완료"
-    },
-    {
-      "seq": 282,
-      "t": "2026-10-11T01:30",
-      "a": "ai",
-      "id": "KAN-075-4K5GK3",
-      "op": "serialize",
-      "w": "S7030N",
-      "with_": "KAN-069-G0FGTJ",
-      "reason": "두 카드가 viz 카탈로그 가이드 파일을 함께 고친다. KAN-075 는 KAN-069 가 tagColor·c4.labelColor 를 걷은 상태를 기준으로 글자색을 맞춘다"
     }
   ],
   "waivers": [
@@ -2905,6 +2905,18 @@
       "scope_hash": "94f6d9cdd1ea8248",
       "reason": "KAN-078 은 README 수정 전후로 기획 세션 결론이 바뀌는지 재고, KAN-076 은 visualization README 에 배치 엔진 안내를 더한다. 076 이 먼저 들어가면 078 의 「지금 판」 조건이 바뀌므로 078 을 먼저 한다(2026-10-12 유저 지시 「직렬 설정해」)",
       "created": "2026-10-12T15:50",
+      "by": "ai",
+      "restrategy_required": false
+    },
+    {
+      "pair": "KAN-080-RN47PY|KAN-082-MD50S0",
+      "order": [
+        "KAN-082-MD50S0",
+        "KAN-080-RN47PY"
+      ],
+      "scope_hash": "1b26d7a33faab39d",
+      "reason": "같은 viz 템플릿 파일(P7·P8·P9·P11)을 고친다 — 2026-11-24 유저 결정 「KAN-082 먼저」. KAN-082 시작 때 기록",
+      "created": "2026-11-25T15:18",
       "by": "ai",
       "restrategy_required": false
     }
