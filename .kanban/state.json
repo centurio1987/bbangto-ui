@@ -1,6 +1,6 @@
 {
   "next_id": 85,
-  "next_seq": 331,
+  "next_seq": 332,
   "cards": {
     "KAN-076-NHP81Z": {
       "col": "backlog",
@@ -111,12 +111,12 @@
       ]
     },
     "KAN-082.1-ZFJJM6": {
-      "col": "backlog",
+      "col": "doing",
       "title": "viz 템플릿 간선 라벨·선언 필드 렌더 복구 — 받고도 안 그리는 label·technology·다중성·stereotype",
       "verbatim": "",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-11-24",
+      "갱신": "2026-11-25",
       "title_hash": "420707d589ca3c01156f0f5830e7eecd24deaef0",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
       "short": "간선 라벨 렌더 복구",
@@ -1935,7 +1935,6 @@
     "KAN-077-0YAFWG",
     "KAN-078-0TF6NT",
     "KAN-080-RN47PY",
-    "KAN-082.1-ZFJJM6",
     "KAN-082.2-P4970X",
     "KAN-082.3-TJ665Y",
     "KAN-082.4-FSH2T1",
@@ -2018,9 +2017,20 @@
     "KAN-079-CFS73T",
     "KAN-081-33245K",
     "KAN-083-JSQKF4",
-    "KAN-082-MD50S0"
+    "KAN-082-MD50S0",
+    "KAN-082.1-ZFJJM6"
   ],
   "recent": [
+    {
+      "seq": 331,
+      "t": "2026-11-25T15:19",
+      "a": "ai",
+      "id": "KAN-082.1-ZFJJM6",
+      "op": "move",
+      "w": "9Z2X8X",
+      "from": "backlog",
+      "to": "doing"
+    },
     {
       "seq": 330,
       "t": "2026-11-25T15:18",
@@ -2643,16 +2653,6 @@
       "w": "EFXS81",
       "from": "doing",
       "to": "review"
-    },
-    {
-      "seq": 284,
-      "t": "2026-10-11T01:33",
-      "a": "ai",
-      "id": "KAN-075-4K5GK3",
-      "op": "move",
-      "w": "EFXS81",
-      "from": "backlog",
-      "to": "doing"
     }
   ],
   "waivers": [

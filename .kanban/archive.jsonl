@@ -416,3 +416,4 @@
 {"seq": 280, "t": "2026-10-11T01:06", "a": "ai", "id": "KAN-069-G0FGTJ", "op": "move", "w": "8S62G0", "from": "doing", "to": "review"}
 {"seq": 282, "t": "2026-10-11T01:30", "a": "ai", "id": "KAN-075-4K5GK3", "op": "serialize", "w": "S7030N", "with_": "KAN-069-G0FGTJ", "reason": "두 카드가 viz 카탈로그 가이드 파일을 함께 고친다. KAN-075 는 KAN-069 가 tagColor·c4.labelColor 를 걷은 상태를 기준으로 글자색을 맞춘다"}
 {"seq": 283, "t": "2026-10-11T01:32", "a": "ai", "id": "KAN-075-4K5GK3", "op": "serialize", "w": "S7030N", "with_": "KAN-069-G0FGTJ", "reason": "전략 재수립 완료"}
+{"seq": 284, "t": "2026-10-11T01:33", "a": "ai", "id": "KAN-075-4K5GK3", "op": "move", "w": "EFXS81", "from": "backlog", "to": "doing"}
