@@ -40,7 +40,8 @@ pnpm --filter storybook exec playwright install chromium   # pnpm test(브라우
 - 작업 규칙과 품질 게이트 다섯은 `CLAUDE.md` 에 있습니다.
 - 칸반 작업에는 `~/.claude/skills/manage-kanban` 스킬이 있어야 합니다. 이 저장소가 아니라 `~/.claude` 설정 저장소에 들어 있습니다.
 - 로컬 게이트에 필요한 환경 변수는 찾지 못했습니다(루트와 storybook 의 package.json 스크립트만 봤습니다). CI 배포 단계는 `NODE_AUTH_TOKEN` 을 씁니다.
-- 이 머신에만 있는 것: `kan/*` 롤백 태그(이 저장소는 원격에 올리지 않습니다), `~/.claude/projects/-Users-centurio-bbangto-ui/` 아래 세션 기록(`*.jsonl`).
+- `kan/*` 롤백 태그 237개는 2026-11-26 에 원격에 올렸습니다. `git fetch --tags` 로 받습니다.
+- 이 머신에만 있는 것: `~/.claude/projects/-Users-centurio-bbangto-ui/` 아래 세션 기록(`*.jsonl`).
 
 ## 마지막 세션 요약
 
