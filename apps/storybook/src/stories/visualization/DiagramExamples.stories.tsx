@@ -8,6 +8,9 @@ import {
   C4DeploymentDiagram,
   UMLSequenceDiagram,
   CommunicationDiagram,
+  ActivityDiagram,
+  ClassDiagram,
+  StateDiagram,
   RELATION_KIND_NAMES,
   RELATION_LINE_STYLES,
 } from '@centurio1987/bbangto-ui-visualization';
@@ -15,9 +18,10 @@ import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visu
 import { expect } from 'storybook/test';
 import { expectVizPaintResolved } from './_paintGate';
 
-// KAN-082 — 「도식은 노드가 무엇인가와 화살표가 무엇을 뜻하는가로 구분한다」는 원문의 예시를 그대로 그린다.
-// 자주 헷갈리는 쌍마다 두 도식을 나란히 두고, 화살표 위 라벨이 그 화살표의 뜻(데이터 · 제어 …)을 말하게 한다.
-// 원문은 KANBAN.md 의 KAN-082-MD50S0 카드 「원문」 블록에 있다.
+// KAN-082 — 「도식은 노드가 무엇인가와 화살표가 무엇을 뜻하는가로 구분한다」는 원문의 예시를 한 파일에 모은다.
+// 여섯 도식(물리 대상 · 런타임 · 데이터 흐름 · 코드 구조 · 동작 · 플로우)과 자주 헷갈리는 쌍 셋(DFD vs 플로우차트 ·
+// 시퀀스 vs 액티비티 · 배포 vs 런타임)을 그리고, 화살표 위 라벨과 범례가 그 화살표의 뜻(데이터 · 제어 · 호출 …)을 보이게 한다.
+// 원문은 KANBAN.md 의 KAN-082-MD50S0 카드 「원문」 블록에 있다. 어느 도식을 고를지는 visualization README 「도식 고르기」.
 
 const meta = {
   title: 'VISUALIZATION/Templates/Diagram Examples',
@@ -364,5 +368,124 @@ export const CheckoutAsCommunication: Story = {
         const overlap = a.x < c.x + c.width && c.x < a.x + a.width && a.y < c.y + c.height && c.y < a.y + a.height;
         await expect({ i, j, overlap }).toEqual({ i, j, overlap: false });
       }
+  },
+};
+
+// ──────────────────────────────────────────────────────────────────────
+// 5. 시퀀스 vs 액티비티 — 「시퀀스는 누가 누구에게 언제 말하는지가 중심이고, 액티비티는 무엇을 어떤 순서로 하는지가
+//    중심입니다. 액티비티에 스윔레인을 넣으면 두 도식의 중간쯤이 됩니다」(위 CheckoutAsSequence 와 짝)
+// ──────────────────────────────────────────────────────────────────────
+
+/** 액티비티 도식 — 같은 결제 요청을 「무엇을 어떤 순서로」, 스윔레인이 「누가」를 더한다 */
+export const CheckoutAsActivityWithLanes: Story = {
+  render: () => (
+    <ActivityDiagram
+      data={{
+        lanes: [
+          { id: 'l-ui', label: '결제 화면', x: 20, y: 20, width: 180, height: 400 },
+          { id: 'l-order', label: '주문 서비스', x: 200, y: 20, width: 180, height: 400 },
+          { id: 'l-pay', label: '결제 게이트웨이', x: 380, y: 20, width: 180, height: 400 },
+        ],
+        nodes: [
+          { id: 'start', kind: 'start', x: 110, y: 70 },
+          { id: 'submit', kind: 'action', label: '주문 제출', x: 110, y: 130 },
+          { id: 'create', kind: 'action', label: '주문 만들기', x: 290, y: 130 },
+          { id: 'charge', kind: 'action', label: '결제 승인', x: 470, y: 210 },
+          { id: 'ok', kind: 'decision', label: '승인?', x: 290, y: 290 },
+          { id: 'done', kind: 'action', label: '완료 표시', x: 110, y: 360 },
+          { id: 'end', kind: 'end', x: 290, y: 390 },
+        ],
+        edges: [
+          { from: 'start', to: 'submit' },
+          { from: 'submit', to: 'create' },
+          { from: 'create', to: 'charge' },
+          { from: 'charge', to: 'ok' },
+          { from: 'ok', to: 'done', label: '예' },
+          { from: 'ok', to: 'end', label: '아니오' },
+        ],
+      }}
+      viewBox="0 0 580 440"
+      width={580}
+      height={440}
+      title="액티비티 도식 — 결제 요청을 스윔레인으로"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const svg = canvasElement.querySelector('[data-bbangto-viz-canvas]')!;
+    // 스윔레인 셋 — 시퀀스 도식의 참여자와 같은 셋이 「누가」를 맡는다
+    for (const s of ['결제 화면', '주문 서비스', '결제 게이트웨이']) await expect(svg.textContent).toContain(s);
+    // 분기 라벨(예 · 아니오)이 선 위에 그려진다
+    const labels = Array.from(svg.querySelectorAll('[data-bbangto-viz-edge-label] text')).map((t) => t.textContent);
+    await expect(labels).toEqual(expect.arrayContaining(['예', '아니오']));
+  },
+};
+
+// ──────────────────────────────────────────────────────────────────────
+// 6. 코드 구조 — 「클래스, 모듈, 객체 · 의존, 소유, 상속, 참조」(타입 수준은 클래스 도식, 인스턴스는 G3 의 객체 도식)
+// ──────────────────────────────────────────────────────────────────────
+export const CodeStructureClass: Story = {
+  render: () => (
+    <ClassDiagram
+      data={{
+        classes: [
+          { id: 'order', x: 20, y: 20, width: 180, height: 100, name: 'Order', attributes: ['+ id: OrderId'], methods: ['+ place(): void'] },
+          { id: 'line', x: 340, y: 20, width: 180, height: 80, name: 'OrderLine', attributes: ['+ qty: number'] },
+          { id: 'payment', x: 20, y: 220, width: 180, height: 80, name: 'Payment', stereotype: 'interface', methods: ['+ charge(): Result'] },
+          { id: 'card', x: 340, y: 220, width: 180, height: 80, name: 'CardPayment', methods: ['+ charge(): Result'] },
+        ],
+        relationships: [
+          { id: 'r1', from: 'order', to: 'line', kind: 'composition', label: 'owns', fromLabel: '1', toLabel: '1..*' },
+          { id: 'r2', from: 'order', to: 'payment', kind: 'dependency', label: 'uses' },
+          { id: 'r3', from: 'card', to: 'payment', kind: 'realization' },
+        ],
+      }}
+      viewBox="0 0 540 320"
+      width={540}
+      height={320}
+      title="코드 구조 — 소유 · 의존 · 실현"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const svg = canvasElement.querySelector('[data-bbangto-viz-canvas]')!;
+    const labels = Array.from(svg.querySelectorAll('[data-bbangto-viz-edge-label] text')).map((t) => t.textContent);
+    await expect(labels).toEqual(expect.arrayContaining(['owns', 'uses', '1', '1..*']));
+    await expect(svg.textContent).toContain('«interface»');
+  },
+};
+
+// ──────────────────────────────────────────────────────────────────────
+// 7. 동작 — 상태 머신 「상태 · 상태 전이」(시간 축 있음). 전이 라벨이 이벤트 [조건] / 동작
+// ──────────────────────────────────────────────────────────────────────
+export const BehaviorOrderStates: Story = {
+  render: () => (
+    <StateDiagram
+      data={{
+        states: [
+          { id: 's0', x: 40, y: 75, variant: 'start' },
+          { id: 'created', x: 100, y: 60, width: 120, height: 50, title: '주문됨' },
+          { id: 'paid', x: 340, y: 60, width: 120, height: 50, title: '결제됨' },
+          { id: 'shipped', x: 340, y: 200, width: 120, height: 50, title: '배송됨' },
+          { id: 'end', x: 390, y: 300, variant: 'end' },
+        ],
+        transitions: [
+          { id: 't0', from: 's0', to: 'created' },
+          { id: 't1', from: 'created', to: 'paid', label: 'pay() [잔액 충분] / 영수증 발행' },
+          { id: 't2', from: 'paid', to: 'shipped', label: 'ship()' },
+          { id: 't3', from: 'shipped', to: 'end' },
+        ],
+      }}
+      viewBox="0 0 520 340"
+      width={520}
+      height={340}
+      title="동작 — 주문 상태 머신"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const svg = canvasElement.querySelector('[data-bbangto-viz-canvas]')!;
+    const labels = Array.from(svg.querySelectorAll('[data-bbangto-viz-edge-label] text')).map((t) => t.textContent);
+    await expect(labels).toEqual(['pay() [잔액 충분] / 영수증 발행', 'ship()']);
   },
 };

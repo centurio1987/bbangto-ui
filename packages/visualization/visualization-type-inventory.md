@@ -216,7 +216,7 @@ catalog §1-b·§2-a의 "ChartPrimitives(bar/line/pie/donut/treemap…)"와 PLAN
 
 ## 6. 역방향 매핑 체크 테이블 (코드 export → VT ID)
 
-`src/templates/index.ts` 컴포넌트 export 65종 + `src/patterns/index.ts` 22종 전수(ORD-012 후). 각 export는 1개 이상 VT 행에 매핑되어야 한다.
+`src/templates/index.ts` 컴포넌트 export 72종 + `src/patterns/index.ts` 22종 전수(KAN-082 후 — ORD-012 때 65종). 각 export는 1개 이상 VT 행에 매핑되어야 한다. 예외는 조합 프레임 셋(`Kruchten4Plus1View` · `ViewpointFrame` · `ViewsAndBeyondFrame`)과 `IsometricScene` 이다(registry allowlist).
 
 | export | 종류 | VT ID |
 |---|---|---|
@@ -326,6 +326,7 @@ catalog §1-b·§2-a의 "ChartPrimitives(bar/line/pie/donut/treemap…)"와 PLAN
 | G. 개념 프레임워크 | 10 | 10 | 0 | 0 | 0 | 0 | 0 | 0 |
 | **계** | **90** | **87** | **0** | **0** | **3** | **0** | **0** | **0** |
 
+> KAN-082(2026-11-25) 뒤: 유형 행 수는 그대로(90 · 구현 87)이고, 별칭이던 셋을 실제 export 로 만들었다 — `C4DeploymentDiagram`(VT-104 C4 deployment) · `ObjectDiagram`(VT-101 object diagram) · `CommunicationDiagram`(VT-108 communication). 조합 프레임 `ViewsAndBeyondFrame` 을 더해 템플릿 export 는 72, registry 에 매핑된 export 는 90 이다.
 > ORD-012 완료 후 커버리지: 구현(✅) **97%(87/90)** — 범위 외 ⛔ 3(VT-520 Data Table·VT-610 Infographic Resume·VT-611 Scrollytelling)을 제외한 **채택 유형 전량 구현(87/87 = 100%)**. A 엔지니어링 100%(29/29)·E 데이터 차트 95%(19/20, ⛔ 1)·F 인포그래픽 82%(9/11, ⛔ 2)·G 개념 프레임워크 100%(10/10).
 > **P1·P2·P3 잔여 0** — ORD-012에서 P3 11건(📋 9 + 🔶 승격 2: VT-123 BPMN Collaboration·VT-307 WBS) 전량 구현. 신규 순수 geometry 4(`boxplot`/`chord`/`iceberg`/`hexgrid`, vitest 단위) + `tree.wbsNumbering`·신규 shape `folder`(+DMN inline path 헬퍼). 전부 공통 계약(`README.md` 「구현 규약」, 구 PLAN §C-2) 준수 — 신규 paint 채널 0. **인벤토리 백로그 소진 완료.**
 

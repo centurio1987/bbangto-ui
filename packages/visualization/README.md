@@ -49,6 +49,27 @@ selectVizTypes(vizTypeRegistry, {
 Flowchart(VT-201)와 Process Steps(VT-202)는 `dataShape`가 똑같이 `['process']`다.
 둘을 가르는 것은 `branching`뿐이다 — 분기가 있는 파이프라인을 직선 스텝으로 그리는 사고가 여기서 갈린다.
 
+## 도식 고르기 — 노드가 무엇인가 · 화살표가 무엇을 뜻하는가
+
+아키텍처 · 소프트웨어 도식은 **노드가 무엇인가**와 **화살표가 무엇을 뜻하는가**로 고른다. 둘이 정해지면 도식이 거의 저절로
+정해진다. 도식 하나에는 노드 종류 하나, 화살표 뜻 하나만 담고, 섞어야 하면 관계 데이터에 `kind` 를 적어 범례로 가른다
+(아래 「화살표 뜻이 섞이면 범례로 가른다」).
+
+| 도식 | 노드 | 화살표 | 템플릿 |
+| ---- | ---- | ------ | ------ |
+| 물리 대상(배포 · 토폴로지) | 서버 · VM · 컨테이너 호스트 · 네트워크 영역 | 네트워크 연결 · 배치(어디에 올라가 있나) | `UMLDeploymentDiagram` · `C4DeploymentDiagram` · `NetworkTopology` |
+| 런타임(C4 Container · C&C) | API 서버 · 워커 · DB · 큐 · 앱 | 호출 · 통신(HTTP · gRPC · 메시지) | `C4ContainerDiagram` · `UMLComponentDiagram` · `ArchitectureDiagram` |
+| 데이터 흐름(DFD · Context Diagram) | 처리 · 저장소 · 외부 엔티티 | 데이터의 이동(순서 · 분기 없음) | `DataFlowDiagram`(최상위 Context Diagram 은 처리 하나로) |
+| 코드 구조(클래스 · 객체 · C4 Component) | 클래스 · 모듈 · 객체 | 의존 · 소유 · 상속 · 참조 | `ClassDiagram` · `ObjectDiagram` · `C4ComponentDiagram` · `C4CodeDiagram` |
+| 동작(시퀀스 · 상태 · 커뮤니케이션) | 객체(수명선) · 상태 | 시간순 메시지 · 상태 전이 | `UMLSequenceDiagram` · `StateDiagram` · `CommunicationDiagram` · `C4DynamicDiagram` |
+| 플로우(플로우차트 · 액티비티 · BPMN) | 작업 단계 · 분기 | 제어 흐름(다음에 무엇을 하나) | `Flowchart` · `ActivityDiagram` · `BPMNDiagram` |
+
+자주 헷갈리는 쌍 — **DFD vs 플로우차트**(DFD 화살표는 데이터, 플로우차트 화살표는 제어), **시퀀스 vs 액티비티**(누가 누구에게
+언제 말하나 vs 무엇을 어떤 순서로 하나, 스윔레인을 넣으면 중간쯤), **배포 vs 런타임**(EC2 하나에 API 서버와 워커가 같이 있으면
+배포 도식은 상자 하나, 런타임 도식은 상자 둘). 뷰를 묶는 프레임은 `Kruchten4Plus1View` · `ViewsAndBeyondFrame` · `ViewpointFrame`
+이고, C4 는 템플릿 여섯(`C4ContextDiagram` · Container · Component · Code · Dynamic · Deployment)과 시스템 지형이다.
+예시는 Storybook `VISUALIZATION/Templates/Diagram Examples` 에 모여 있다(KAN-082).
+
 ## 정본은 셋, 전부 같은 데이터다
 
 | 경로 | 언제 쓰나 |
