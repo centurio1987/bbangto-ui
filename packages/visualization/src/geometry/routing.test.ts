@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { straightPath, orthogonalPath, buildPath, MIN_TERMINAL_SEGMENT } from './routing';
+import { straightPath, orthogonalPath, buildPath, pathMidpoint, MIN_TERMINAL_SEGMENT } from './routing';
 import type { Point } from './anchors';
 
 // 상류 이슈 P1(축 정렬 엣지의 화살촉이 90° 틀어진다)의 회귀 고정.
@@ -194,5 +194,106 @@ describe('buildPath · routing 위임', () => {
 
   it("routing='curved' 는 C 명령을 쓴다", () => {
     expect(buildPath(from, to, 'curved')).toMatch(/^M .* C /);
+  });
+});
+
+// ──────────────────────────────────────────────
+// 6. pathMidpoint — 그린 경로를 따라 잰 길이의 절반 지점 (KAN-082, 간선 라벨 자리)
+// ──────────────────────────────────────────────
+
+/**
+ * 경로 문자열을 잘게 나눠 길이의 절반 지점을 직접 잰다 — M · L · Q · C 만 쓴다(routing.ts 가 내는 명령 전부).
+ * pathMidpoint 가 「대칭이라 중점」이라는 계산을 믿지 않고, 그린 선 그대로에서 확인하려는 것이다.
+ */
+function measuredMidpoint(d: string): Point {
+  const pts: Point[] = [];
+  let cur: Point = { x: 0, y: 0 };
+  for (const m of d.matchAll(/([MLQC])([^MLQC]*)/g)) {
+    const n = (m[2].trim().match(/-?\d*\.?\d+(?:e[-+]?\d+)?/gi) ?? []).map(Number);
+    if (m[1] === 'M') { cur = { x: n[0], y: n[1] }; pts.push(cur); continue; }
+    if (m[1] === 'L') { cur = { x: n[0], y: n[1] }; pts.push(cur); continue; }
+    const ctrl: Point[] = [];
+    for (let i = 0; i < n.length; i += 2) ctrl.push({ x: n[i], y: n[i + 1] });
+    const p0 = cur;
+    for (let k = 1; k <= 400; k++) {
+      const t = k / 400;
+      const u = 1 - t;
+      if (m[1] === 'Q') {
+        const [c, e] = ctrl;
+        pts.push({ x: u * u * p0.x + 2 * u * t * c.x + t * t * e.x, y: u * u * p0.y + 2 * u * t * c.y + t * t * e.y });
+      } else {
+        const [c1, c2, e] = ctrl;
+        pts.push({
+          x: u * u * u * p0.x + 3 * u * u * t * c1.x + 3 * u * t * t * c2.x + t * t * t * e.x,
+          y: u * u * u * p0.y + 3 * u * u * t * c1.y + 3 * u * t * t * c2.y + t * t * t * e.y,
+        });
+      }
+    }
+    cur = ctrl[ctrl.length - 1];
+  }
+  const lens = pts.slice(1).map((p, i) => Math.hypot(p.x - pts[i].x, p.y - pts[i].y));
+  let rest = lens.reduce((a, b) => a + b, 0) / 2;
+  for (let i = 0; i < lens.length; i++) {
+    if (rest <= lens[i]) {
+      const t = lens[i] === 0 ? 0 : rest / lens[i];
+      return { x: pts[i].x + (pts[i + 1].x - pts[i].x) * t, y: pts[i].y + (pts[i + 1].y - pts[i].y) * t };
+    }
+    rest -= lens[i];
+  }
+  return pts[pts.length - 1];
+}
+
+function expectNear(a: Point, b: Point, tol = 0.5): void {
+  expect({ dx: Math.abs(a.x - b.x) <= tol, dy: Math.abs(a.y - b.y) <= tol, a, b }).toEqual({ dx: true, dy: true, a, b });
+}
+
+const MID_CASES: [label: string, from: Point, to: Point][] = [
+  ['가로로 먼 두 점', { x: 20, y: 40 }, { x: 320, y: 140 }],
+  ['세로로 먼 두 점', { x: 100, y: 20 }, { x: 160, y: 300 }],
+  ['역방향', { x: 320, y: 140 }, { x: 20, y: 40 }],
+  ['축 정렬(직각이 직선으로 접힘)', { x: 40, y: 100 }, { x: 240, y: 100 }],
+];
+
+describe('pathMidpoint · 경유점 없음', () => {
+  it.each(MID_CASES)("%s — routing='straight' 의 절반 지점", (_l, from, to) => {
+    expectNear(pathMidpoint(from, to, 'straight'), measuredMidpoint(buildPath(from, to, 'straight')));
+  });
+
+  it.each(MID_CASES)("%s — routing='orthogonal'(모서리 둥글게) 의 절반 지점", (_l, from, to) => {
+    expectNear(pathMidpoint(from, to, 'orthogonal'), measuredMidpoint(buildPath(from, to, 'orthogonal', 12)));
+  });
+
+  it.each(MID_CASES)("%s — routing='orthogonal'(모서리 없음) 의 절반 지점", (_l, from, to) => {
+    expectNear(pathMidpoint(from, to, 'orthogonal'), measuredMidpoint(buildPath(from, to, 'orthogonal', 0)));
+  });
+
+  it.each(MID_CASES)("%s — routing='curved' 의 절반 지점", (_l, from, to) => {
+    expectNear(pathMidpoint(from, to, 'curved'), measuredMidpoint(buildPath(from, to, 'curved')));
+  });
+});
+
+describe('pathMidpoint · 경유점', () => {
+  it('ㄱ자 꺾은선 — 길이 200 의 절반은 꺾인 점', () => {
+    expect(pathMidpoint({ x: 0, y: 0 }, { x: 100, y: 100 }, 'orthogonal', [{ x: 100, y: 0 }])).toEqual({ x: 100, y: 0 });
+  });
+
+  it('구간 길이가 다르면 긴 구간 안에서 멈춘다', () => {
+    // 0→(30,0) 30 · (30,0)→(30,90) 90 — 전체 120, 절반 60 은 둘째 구간의 30 지점
+    expect(pathMidpoint({ x: 0, y: 0 }, { x: 30, y: 90 }, 'straight', [{ x: 30, y: 0 }])).toEqual({ x: 30, y: 30 });
+  });
+
+  it('끝점과 같은 경유점은 접고 잰다', () => {
+    const from = { x: 0, y: 0 };
+    const to = { x: 100, y: 0 };
+    expect(pathMidpoint(from, to, 'orthogonal', [from, { x: 100, y: 0 }])).toEqual({ x: 50, y: 0 });
+  });
+
+  it.each([
+    ['경유점 둘', [{ x: 120, y: 0 }, { x: 120, y: 80 }]],
+    ['경유점 셋', [{ x: 60, y: -40 }, { x: 180, y: -40 }, { x: 180, y: 60 }]],
+  ] as [string, Point[]][])('%s — 그린 꺾은선의 절반 지점과 같다', (_l, wps) => {
+    const from = { x: 0, y: 0 };
+    const to = { x: 240, y: 80 };
+    expectNear(pathMidpoint(from, to, 'orthogonal', wps), measuredMidpoint(buildPath(from, to, 'orthogonal', 4, wps)));
   });
 });

@@ -3,8 +3,9 @@ import { useCanvasContext } from '../context/CanvasContext';
 import { useVizFoundation } from '../styleGuide/VisualizationStyleGuideProvider';
 import type { Point } from '../geometry/anchors';
 import { nearestAnchors, getAnchor, type AnchorSide } from '../geometry/anchors';
-import { buildPath, type EdgeRouting } from '../geometry/routing';
+import { buildPath, pathMidpoint, type EdgeRouting } from '../geometry/routing';
 import { type MarkerVariant, markerRef } from './Marker';
+import { EdgeLabel } from './EdgeLabel';
 import type { BBox } from '../types/data';
 
 export type { EdgeRouting, MarkerVariant, AnchorSide };
@@ -23,7 +24,13 @@ export interface EdgeProps extends Omit<React.SVGAttributes<SVGPathElement>, 'st
   strokeDasharray?: string;
   cornerRadius?: number;
   waypoints?: Point[];
+  /**
+   * 선에 붙는 라벨(관계 이름 · 흐름 데이터 · 전이 조건 · 분기 조건 …). 경로를 따라 잰 길이의 절반 지점에
+   * 바탕과 함께 그린다(`EdgeLabel`). 비우면 아무것도 그리지 않는다.
+   */
   label?: string;
+  /** 라벨 글자 크기. 적지 않으면 `EdgeLabel` 기본값(11). */
+  labelFontSize?: number;
 }
 
 function resolvePoint(
@@ -68,7 +75,8 @@ export const Edge = React.forwardRef<SVGPathElement, EdgeProps>(
       strokeDasharray,
       cornerRadius,
       waypoints,
-      label: _label,
+      label,
+      labelFontSize,
       style,
       ...props
     },
@@ -110,7 +118,7 @@ export const Edge = React.forwardRef<SVGPathElement, EdgeProps>(
       Object.entries({ stroke, strokeWidth, strokeDasharray }).filter(([, v]) => v !== undefined),
     );
 
-    return (
+    const path = (
       <path
         ref={ref}
         data-bbangto-viz-edge
@@ -126,6 +134,16 @@ export const Edge = React.forwardRef<SVGPathElement, EdgeProps>(
         }}
         {...props}
       />
+    );
+    if (!label) return path;
+
+    // 라벨은 선 뒤에 그려 선 위에 얹는다. 자리는 그린 경로의 가운데(routing.ts `pathMidpoint`).
+    const mid = pathMidpoint(fromPt, resolvedTo, routing, waypoints);
+    return (
+      <>
+        {path}
+        <EdgeLabel x={mid.x} y={mid.y} label={label} fontSize={labelFontSize} />
+      </>
     );
   },
 );

@@ -63,6 +63,37 @@ function dedupeConsecutive(pts: Point[]): Point[] {
   );
 }
 
+/**
+ * 경로의 가운데 — 선을 따라 잰 길이의 절반 지점(KAN-082, 간선 라벨을 놓는 곳).
+ *
+ * 경유점이 없으면 세 방식 모두 두 끝점의 중점이다. 직선은 그대로이고, 직각 경로(`orthogonalPath`)는
+ * 가로 dx/2 · 세로 dy · 가로 dx/2 로 대칭이라 절반 지점이 세로 구간의 가운데(= 중점)에 오며, 모서리를
+ * 둥글게 깎아도 양쪽이 같은 만큼 깎여 그대로다. 곡선(`curvedPath`)도 제어점이 중점에 대해 대칭이라
+ * t=0.5 가 길이의 절반이고 그 점이 중점이다. 경유점이 있으면 꺾은선의 길이를 재어 절반 지점을 찾는다.
+ */
+export function pathMidpoint(
+  from: Point,
+  to: Point,
+  _routing: EdgeRouting,
+  waypoints?: Point[],
+): Point {
+  if (waypoints && waypoints.length > 0) {
+    const pts = dedupeConsecutive([from, ...waypoints, to]);
+    if (pts.length >= 2) {
+      const lens = pts.slice(1).map((p, i) => Math.hypot(p.x - pts[i].x, p.y - pts[i].y));
+      let rest = lens.reduce((a, b) => a + b, 0) / 2;
+      for (let i = 0; i < lens.length; i++) {
+        if (rest <= lens[i] || i === lens.length - 1) {
+          const t = lens[i] === 0 ? 0 : Math.min(1, rest / lens[i]);
+          return { x: pts[i].x + (pts[i + 1].x - pts[i].x) * t, y: pts[i].y + (pts[i + 1].y - pts[i].y) * t };
+        }
+        rest -= lens[i];
+      }
+    }
+  }
+  return { x: (from.x + to.x) / 2, y: (from.y + to.y) / 2 };
+}
+
 export function buildPath(
   from: Point,
   to: Point,

@@ -82,6 +82,10 @@ export const VizCompose: Story = {
     await expect(edges).toHaveLength(2);
     for (const e of Array.from(edges)) await expect((e.getAttribute('d') ?? '').length).toBeGreaterThan(4);
 
+    // 엣지 라벨(예 · 아니오)은 선 가운데에 바탕과 함께 그려진다 — KAN-082 전에는 Edge 가 label 을 받고 버렸다
+    const edgeLabels = Array.from(svg!.querySelectorAll('[data-bbangto-viz-edge-label] text')).map((t) => t.textContent);
+    await expect(edgeLabels).toEqual(['예', '아니오']);
+
     // 색을 비워 둔 그림은 Provider 안에서만 칠해진다 — README 가 「Provider 안에 둔다」고 적는 근거다.
     // 밖이면 도형은 검게 채워지고(rgb(0, 0, 0)) 엣지 stroke 는 none 이다(2026-10-09 chromium 실측).
     await expect(svg!.closest('[data-bbangto-viz-style-guide]')).not.toBeNull();
