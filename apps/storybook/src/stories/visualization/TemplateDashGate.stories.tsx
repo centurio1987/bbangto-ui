@@ -85,6 +85,8 @@ const GUIDE_FOLLOWING_STANDARD = [
   'C4CodeDiagram',
   'C4DynamicDiagram',
   'C4SystemLandscapeDiagram',
+  // VT-104(배포 도식) 의 별칭 C4 deployment — VT-104 가 standard 라 목록에 들지만 표기는 C4 다(KAN-082.3)
+  'C4DeploymentDiagram',
 ];
 
 /** 가이드 대시를 끄는 표준 표기 템플릿 = `standard` 태그 − 위 예외. */

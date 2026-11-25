@@ -92,7 +92,7 @@
 | VT-101 | UML Class Diagram | object diagram, C4 code-level class | 클래스·속성·연산과 관계 구조 | 도메인/코드 모델 | node,edge,tree | X01(T1) | ✅ | `ClassDiagram`(template) | related:VT-112 | — |
 | VT-102 | UML Package Diagram | — | 패키지 그룹화와 의존 관계 | 모듈 구조 관리 | node,edge,boundary | X01(T1) | ✅ | `UMLPackageDiagram`(template) | folder shape 신규 | — |
 | VT-103 | UML Component Diagram | composite structure diagram | 컴포넌트·인터페이스 배선 | 모듈 아키텍처 | node,edge,port | X01(T1) | ✅ | `UMLComponentDiagram`(template) | — | — |
-| VT-104 | UML Deployment Diagram | C4 deployment | 아티팩트의 실행 노드 배치 | 인프라·배포 구성 | node,edge,boundary | X01(T1) | ✅ | `UMLDeploymentDiagram`(template) | — | — |
+| VT-104 | UML Deployment Diagram | C4 deployment | 아티팩트의 실행 노드 배치 | 인프라·배포 구성 | node,edge,boundary | X01(T1) | ✅ | `UMLDeploymentDiagram`(template) · `C4DeploymentDiagram`(template, 별칭 C4 deployment — KAN-082.3) | — | — |
 | VT-105 | UML Use Case Diagram | usecase | 액터-유스케이스 기능 관계 | 요구 범위 정의 | node,edge,boundary | X01(T1) | ✅ | `UseCaseDiagram`(template) | ActorGlyph molecule 신규 | — |
 | VT-106 | UML Activity Diagram | swimlane diagram, activity | 제어 흐름·병행·레인 절차 모델 | 업무 절차/알고리즘 | node,edge,lane | X01(T1) | ✅ | `ActivityDiagram`(template) | related:VT-201·🔶→✅ 전용 승격 | — |
 | VT-107 | UML State Machine | statechart, stateDiagram-v2 | 상태·이벤트 전이 모델 | 수명주기/프로토콜 | node,edge | X01(T1) | ✅ | `StateDiagram`(template) | — | — |
@@ -236,6 +236,7 @@ catalog §1-b·§2-a의 "ChartPrimitives(bar/line/pie/donut/treemap…)"와 PLAN
 | `ArchitectureDiagram` | template | VT-115 |
 | `UMLComponentDiagram` | template | VT-103 |
 | `UMLDeploymentDiagram` | template | VT-104 |
+| `C4DeploymentDiagram` | template | VT-104 (별칭 C4 deployment, KAN-082.3) |
 | `UMLSequenceDiagram` | template | VT-108 |
 | `SequenceDiagram` | template | VT-108 |
 | `ZenUMLDiagram` | template | VT-108 |

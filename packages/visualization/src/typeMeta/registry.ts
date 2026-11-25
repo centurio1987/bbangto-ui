@@ -100,7 +100,8 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
   {
     id: 'VT-104',
     name: 'UML Deployment Diagram',
-    exportNames: ['UMLDeploymentDiagram'],
+    // C4DeploymentDiagram 은 별칭 「C4 deployment」를 실제 export 로 만든 것(KAN-082.3) — 유형 행은 그대로다
+    exportNames: ['UMLDeploymentDiagram', 'C4DeploymentDiagram'],
     kind: 'template',
     meta: {
       category: 'engineering',

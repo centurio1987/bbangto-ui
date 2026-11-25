@@ -22,7 +22,7 @@ export type { ERDiagramProps, ERDiagramData, EREntitySpec, ERRelationshipSpec, E
 // G2: C4 / Architecture / UML family
 export { C4ContextDiagram } from './C4ContextDiagram';
 export type { C4ContextDiagramProps, C4ContextDiagramData } from './C4ContextDiagram';
-export type { C4RelationKind } from './c4Types';
+export type { C4RelationKind, C4ContainerShape } from './c4Types';
 export { C4ContainerDiagram } from './C4ContainerDiagram';
 export type { C4ContainerDiagramProps, C4ContainerDiagramData } from './C4ContainerDiagram';
 export { C4ComponentDiagram } from './C4ComponentDiagram';
@@ -34,7 +34,9 @@ export type { ArchitectureDiagramProps, ArchitectureDiagramData, ArchServiceSpec
 export { UMLComponentDiagram } from './UMLComponentDiagram';
 export type { UMLComponentDiagramProps, UMLComponentDiagramData, UMLComponentSpec, UMLInterfaceSpec, UMLDependencySpec, UMLComponentRelationKind } from './UMLComponentDiagram';
 export { UMLDeploymentDiagram } from './UMLDeploymentDiagram';
-export type { UMLDeploymentDiagramProps, UMLDeploymentDiagramData, UMLDeploymentNodeSpec, UMLDeploymentEnvironmentSpec, UMLDeploymentEdgeSpec, UMLDeploymentRelationKind } from './UMLDeploymentDiagram';
+export { C4DeploymentDiagram } from './C4DeploymentDiagram';
+export type { C4DeploymentDiagramProps, C4DeploymentDiagramData, C4DeploymentNodeSpec, C4DeploymentContainerSpec } from './C4DeploymentDiagram';
+export type { UMLDeploymentDiagramProps, UMLDeploymentDiagramData, UMLDeploymentNodeSpec, UMLDeploymentEnvironmentSpec, UMLDeploymentEdgeSpec, UMLDeploymentRelationKind, UMLDeploymentNodeKind } from './UMLDeploymentDiagram';
 export { UMLSequenceDiagram } from './UMLSequenceDiagram';
 export type { UMLSequenceDiagramProps, UMLSequenceDiagramData, SequenceParticipantSpec, SequenceMessageSpec, SequenceMessageKind } from './UMLSequenceDiagram';
 

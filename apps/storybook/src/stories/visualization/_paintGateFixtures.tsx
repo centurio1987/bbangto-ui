@@ -36,6 +36,7 @@ import {
   SysMLBlockDiagram,
   TimelineDiagram,
   UMLDeploymentDiagram,
+  C4DeploymentDiagram,
   UMLPackageDiagram,
   UMLSequenceDiagram,
   UseCaseDiagram,
@@ -1051,6 +1052,27 @@ export const PAINT_GATE_FIXTURES: PaintGateFixture[] = [
         width={416}
         height={304}
         title="Isometric scene"
+      />
+    ),
+  },
+  // ── KAN-082.3 — C4 Deployment(VT-104 별칭) ─────────────────────────────
+  {
+    key: 'c4-deployment',
+    template: 'C4DeploymentDiagram',
+    render: () => (
+      <C4DeploymentDiagram
+        data={{
+          nodes: [{ id: 'ec2', x: 10, y: 10, width: 360, height: 170, name: 'EC2', technology: 'Ubuntu 22.04' }],
+          containers: [
+            { id: 'api', node: 'ec2', x: 30, y: 60, width: 140, height: 90, name: 'API', technology: 'Node.js' },
+            { id: 'db', node: 'ec2', x: 210, y: 60, width: 140, height: 100, name: 'DB', technology: 'PostgreSQL', shape: 'database' },
+          ],
+          relationships: [{ id: 'r1', from: 'api', to: 'db', label: 'reads', technology: 'SQL' }],
+        }}
+        viewBox="0 0 390 200"
+        width={390}
+        height={200}
+        title="C4 Deployment"
       />
     ),
   },

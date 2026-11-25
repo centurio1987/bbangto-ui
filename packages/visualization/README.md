@@ -346,6 +346,12 @@ export function DecisionSketch() {
   같은 매핑을 읽는다. 종류가 붙은 선에는 공개 훅 `data-bbangto-viz-relation-kind` 가 달린다. `kind` 를 안 적은 관계는 예전 선
   모양 그대로다. 표기법 템플릿의 매핑도 낸다 — `classRelationshipLineStyle`(ClassDiagram) · `erCardinalityMarker`(ERDiagram).
   선 라벨 바탕 상자는 한글 · 한자 · 가나를 1em 으로 어림한다(`edgeLabelBox`).
+- **배치 도식은 노드를 겹쳐 담는다.** UMLDeploymentDiagram 노드는 `parent` 로 다른 노드 안에 들어가고(좌표는 데이터가 준다 —
+  자동 배치 없음, 부모를 먼저 그리고 자식이 있는 노드의 이름은 위쪽), `kind`(«device» · «executionEnvironment») ·
+  `stereotype` · `artifacts`(노드 위에 놓인 파일) 를 그린다. C4 의 배포 도식은 `C4DeploymentDiagram` 이다 — 배포 노드
+  (`nodes`, `parent` 로 중첩 · `instances` 로 「×N」) 위에 컨테이너 인스턴스(`containers`, `node` 로 올라간 노드)를 놓는다.
+  C4 컨테이너는 `shape: 'database' | 'queue'` 로 DB · 큐 모양이 된다. 원문 예 「EC2 하나에 API 서버와 워커」는 배포 도식에서
+  상자 하나 안의 둘이고 런타임 도식(C4ContainerDiagram)에서 상자 둘이다(Storybook `Templates/Diagram Examples`).
 - **접근성**: 루트 `Canvas` 는 `role="img"`(`accessible="structured"` 면 `group`)와 `title`(선택 `desc`)을 갖는다.
   값은 항상 텍스트로 함께 적는다 — 그래픽만으로 값을 말하지 않는다. 노드 글리프·아이콘 배지 같은 장식은 `aria-hidden` 이다.
 - **경계 입력**: 빈 데이터는 빈 캔버스다(throw 하지 않는다). 항목 하나도 그린다. `children`·`data` 를 함께 주면 `children` 이다.

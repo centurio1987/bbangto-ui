@@ -5,6 +5,7 @@ import {
   DataFlowDiagram,
   Flowchart,
   C4ContainerDiagram,
+  C4DeploymentDiagram,
   RELATION_KIND_NAMES,
   RELATION_LINE_STYLES,
 } from '@centurio1987/bbangto-ui-visualization';
@@ -191,5 +192,86 @@ export const RuntimeMixedArrowsWithLegend: Story = {
     // 범례는 노드 아래에 있다 — 노드와 겹치지 않는다
     const legendBox = (svg.querySelector('[data-bbangto-viz-legend] rect') as SVGRectElement).getBBox();
     await expect(legendBox.y).toBeGreaterThanOrEqual(310);
+  },
+};
+
+// ──────────────────────────────────────────────────────────────────────
+// 3. 배포 vs 런타임 — 「하나의 EC2 위에 API 서버와 워커가 같이 떠 있다면, 배포 도식에서는 박스 하나고 런타임 도식에서는
+//    박스 두 개입니다」
+// ──────────────────────────────────────────────────────────────────────
+
+/** 배포 도식(C4 Deployment) — EC2 상자 하나 안에 API 서버와 워커. 「몇 대에 어떻게 나뉘어 있나」에 답한다. */
+export const DeploymentOneEc2: Story = {
+  render: () => (
+    <C4DeploymentDiagram
+      data={{
+        nodes: [
+          { id: 'aws', x: 10, y: 10, width: 560, height: 300, name: 'AWS', technology: 'ap-northeast-2' },
+          { id: 'ec2', x: 30, y: 60, width: 340, height: 230, name: 'EC2', technology: 'm5.large · Ubuntu 22.04', parent: 'aws' },
+          { id: 'rds', x: 400, y: 60, width: 150, height: 230, name: 'RDS', technology: 'db.t3.medium', parent: 'aws' },
+        ],
+        containers: [
+          { id: 'api', node: 'ec2', x: 50, y: 120, width: 140, height: 90, name: 'API 서버', technology: 'Node.js' },
+          { id: 'worker', node: 'ec2', x: 210, y: 120, width: 140, height: 90, name: '워커', technology: 'Go' },
+          { id: 'db', node: 'rds', x: 415, y: 120, width: 120, height: 90, name: '주문 DB', technology: 'PostgreSQL', shape: 'database' },
+        ],
+        relationships: [{ id: 'r1', from: 'worker', to: 'db', label: '결제 결과 쓰기', technology: 'SQL' }],
+      }}
+      width={600}
+      height={340}
+      title="배포 도식 — EC2 하나에 API 서버와 워커"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const svg = canvasElement.querySelector('[data-bbangto-viz-canvas]')!;
+    // EC2 는 상자 하나이고, API 서버와 워커는 그 안에 있다
+    const ec2 = svg.querySelector('[data-bbangto-viz-deploy-node="ec2"] rect') as SVGRectElement;
+    await expect(ec2).not.toBeNull();
+    const box = ec2.getBBox();
+    const onEc2 = Array.from(svg.querySelectorAll('[data-bbangto-viz-container-node="ec2"]')) as SVGGElement[];
+    await expect(onEc2).toHaveLength(2);
+    for (const g of onEc2) {
+      const b = g.getBBox();
+      await expect(b.x >= box.x && b.y >= box.y && b.x + b.width <= box.x + box.width && b.y + b.height <= box.y + box.height).toBe(true);
+    }
+    // EC2 는 AWS 안의 배포 노드다
+    await expect(svg.querySelector('[data-bbangto-viz-deploy-node="ec2"]')?.getAttribute('data-bbangto-viz-deploy-parent')).toBe('aws');
+  },
+};
+
+/** 런타임 도식(C4 Container) — 같은 시스템을 서로 통신하는 상자 둘(API 서버 · 워커)과 DB · 큐 모양으로. 「무엇이 서로 통신하나」에 답한다. */
+export const RuntimeTwoContainers: Story = {
+  render: () => (
+    <C4ContainerDiagram
+      data={{
+        containers: [
+          { id: 'api', x: 20, y: 30, width: 150, height: 90, name: 'API 서버', technology: 'Node.js' },
+          { id: 'queue', x: 300, y: 30, width: 150, height: 90, name: '작업 큐', technology: 'SQS', shape: 'queue' },
+          { id: 'worker', x: 580, y: 30, width: 150, height: 90, name: '워커', technology: 'Go' },
+          { id: 'db', x: 580, y: 220, width: 150, height: 100, name: '주문 DB', technology: 'PostgreSQL', shape: 'database' },
+        ],
+        relationships: [
+          { id: 'r1', from: 'api', to: 'queue', label: '결제 작업 넣기', kind: 'asyncMessage' },
+          { id: 'r2', from: 'queue', to: 'worker', label: '작업 꺼내기', kind: 'asyncMessage' },
+          { id: 'r3', from: 'worker', to: 'db', label: '결제 결과', technology: 'SQL', kind: 'dataFlow' },
+        ],
+      }}
+      width={760}
+      height={460}
+      title="런타임 도식 — 같은 EC2 의 API 서버와 워커를 상자 둘로"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const svg = canvasElement.querySelector('[data-bbangto-viz-canvas]')!;
+    // API 서버와 워커는 상자 둘 — 배포 도식에서 같은 EC2 안에 있던 둘이다
+    await expect(svg.querySelector('[data-bbangto-viz-c4-box-id="api"]')).not.toBeNull();
+    await expect(svg.querySelector('[data-bbangto-viz-c4-box-id="worker"]')).not.toBeNull();
+    // DB · 큐는 그 모양 부품으로 그린다
+    await expect(svg.querySelector('[data-bbangto-viz-molecule="database"][data-bbangto-viz-molecule-id="db"]')).not.toBeNull();
+    await expect(svg.querySelector('[data-bbangto-viz-molecule="queue"][data-bbangto-viz-molecule-id="queue"]')).not.toBeNull();
+    // 범례는 쓰인 종류 둘(비동기 메시지 · 데이터 이동)
+    await expect(svg.querySelectorAll('[data-bbangto-viz-legend-item]')).toHaveLength(2);
   },
 };

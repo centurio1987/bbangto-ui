@@ -24,7 +24,8 @@ describe('컴포넌트 JSDoc — 채택 근거 주입 (상류 I2)', () => {
   it('배럴이 registry의 모든 export를 소스 파일로 해석한다', () => {
     const unresolved = exportNames.filter((n) => !fileMap.has(n));
     expect(unresolved).toEqual([]);
-    expect(exportNames.length).toBe(87);
+    // 유형은 87 그대로이고 export 는 88 — VT-104 에 C4DeploymentDiagram 이 더해졌다(KAN-082.3)
+    expect(exportNames.length).toBe(88);
   });
 
   it('모든 export 선언 위에 최신 @vizType 태그 블록이 있다(생성기 재실행 필요 시 실패)', () => {

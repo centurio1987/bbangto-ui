@@ -6,7 +6,7 @@
     ["VT-101","UML Class Diagram","template","engineering",["ClassDiagram"],["object diagram","C4 code-level class"],"클래스·속성·연산과 관계 구조",["diagram","standard"],"authored"],
     ["VT-102","UML Package Diagram","template","engineering",["UMLPackageDiagram"],[],"패키지 그룹화와 의존 관계",["diagram","standard"],"authored"],
     ["VT-103","UML Component Diagram","template","engineering",["UMLComponentDiagram"],["composite structure diagram"],"컴포넌트·인터페이스 배선",["diagram","standard"],"authored"],
-    ["VT-104","UML Deployment Diagram","template","engineering",["UMLDeploymentDiagram"],["C4 deployment"],"아티팩트의 실행 노드 배치",["diagram","standard"],"authored"],
+    ["VT-104","UML Deployment Diagram","template","engineering",["UMLDeploymentDiagram","C4DeploymentDiagram"],["C4 deployment"],"아티팩트의 실행 노드 배치",["diagram","standard"],"authored"],
     ["VT-105","UML Use Case Diagram","template","engineering",["UseCaseDiagram"],["usecase"],"액터-유스케이스 기능 관계",["diagram","standard"],"authored"],
     ["VT-106","UML Activity Diagram","template","engineering",["ActivityDiagram"],["swimlane diagram","activity"],"제어 흐름·병행·레인 절차 모델",["diagram","standard"],"authored"],
     ["VT-107","UML State Machine","template","engineering",["StateDiagram"],["statechart","stateDiagram-v2"],"상태·이벤트 전이 모델",["diagram","standard"],"authored"],
