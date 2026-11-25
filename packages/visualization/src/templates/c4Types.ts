@@ -67,11 +67,11 @@ export interface C4RelationshipSpec {
 }
 
 /**
- * C4 관계선에 붙는 글 — 「설명 [기술]」(C4 표기). 설명만 있으면 설명, 기술만 있으면 `[기술]`, 둘 다 없으면
- * 그리지 않는다(undefined). C4 템플릿 여섯이 같은 글을 쓰도록 한곳에 둔다(KAN-082).
+ * C4 관계선에 붙는 글 — 「설명」 아래 「[기술]」 두 줄(KAN-082.1 검토에서 고름). 설명만 있으면 설명, 기술만 있으면
+ * `[기술]` 한 줄, 둘 다 없으면 그리지 않는다(undefined). C4 템플릿 여섯이 같은 글을 쓰도록 한곳에 둔다.
  */
 export function c4RelationshipLabel(r: Pick<C4RelationshipSpec, 'label' | 'technology'>): string | undefined {
-  const text = [r.label, r.technology ? `[${r.technology}]` : ''].filter(Boolean).join(' ');
+  const text = [r.label, r.technology ? `[${r.technology}]` : ''].filter(Boolean).join('\n');
   return text || undefined;
 }
 

@@ -589,7 +589,8 @@ function withOffset(el: React.ReactElement): React.ReactElement {
 
 /** 글자를 담은 <text> 의 x · y */
 function textPos(html: string, mark: string): { x: number; y: number } | null {
-  const m = html.match(new RegExp(`<text([^>]*)>[^<]*${mark}[^<]*</text>`));
+  // 여러 줄 라벨은 <text> 안에 줄마다 <tspan> 이 있다 — 그 <text> 의 x · y 가 라벨 묶음의 가운데다
+  const m = html.match(new RegExp(`<text([^>]*)>(?:(?!</text>)[\\s\\S])*?${mark}`));
   if (!m) return null;
   const x = m[1].match(/\bx="([^"]+)"/);
   const y = m[1].match(/\by="([^"]+)"/);
@@ -630,5 +631,47 @@ describe('edgeLabelBox — 글자 폭 어림 (KAN-082)', () => {
   it('섞인 글 — 「주문 조회 [HTTPS]」', () => {
     // 한글 4 → 40, 나머지(빈칸 2 · [ · HTTPS · ]) 9 → 54
     expect(edgeLabelBox('주문 조회 [HTTPS]', 10, 3).width).toBeCloseTo(40 + 54 + 6);
+  });
+});
+
+// ──────────────────────────────────────────────
+// C4 관계선 글은 두 줄 — 「설명」 아래 「[기술]」 (KAN-082.1 검토 1번, S17)
+// ──────────────────────────────────────────────
+describe('C4 관계선 글 — 설명과 기술은 서로 다른 줄 (KAN-082)', () => {
+  const C4 = ['C4CodeDiagram', 'C4ComponentDiagram', 'C4ContainerDiagram', 'C4ContextDiagram', 'C4SystemLandscapeDiagram', 'C4DeploymentDiagram'];
+  it.each(C4)('%s', (name) => {
+    const c = CASES[name];
+    const html = renderToStaticMarkup(c.el);
+    const label = c.marks['relationship.label'];
+    const tech = c.marks['relationship.technology'];
+    const two = new RegExp(`<tspan[^>]*>${label}</tspan><tspan[^>]*>\\[${tech}\\]</tspan>`);
+    expect({ name, twoLines: two.test(html) }).toEqual({ name, twoLines: true });
+  });
+
+  it('설명만 있거나 기술만 있으면 한 줄(줄 나눔 없음)', () => {
+    const one = (r: Record<string, string>) =>
+      renderToStaticMarkup(
+        <C4ContainerDiagram
+          data={{
+            containers: [
+              { id: 'a', x: 20, y: 20, ...A, name: 'Aa' },
+              { id: 'b', x: 320, y: 20, ...A, name: 'Bb' },
+            ],
+            relationships: [{ id: 'r1', from: 'a', to: 'b', ...r }],
+          }}
+        />,
+      );
+    expect(one({ label: 'ONLY_label' })).not.toContain('<tspan');
+    expect(one({ technology: 'ONLY_tech' })).toMatch(/<text[^>]*>\[ONLY_tech\]<\/text>/);
+  });
+});
+
+describe('edgeLabelBox — 여러 줄 (KAN-082)', () => {
+  it('줄 수만큼 높아지고 폭은 가장 긴 줄', () => {
+    // 10px · 여백 3: 첫 줄 10 + 둘째 줄 줄 간격 12 + 여백 6
+    expect(edgeLabelBox('ab\nabcd', 10, 3)).toEqual({ width: 4 * 6 + 6, height: 10 + 12 + 6 });
+  });
+  it('한 줄은 예전과 같다', () => {
+    expect(edgeLabelBox('abcd', 10, 3)).toEqual({ width: 4 * 6 + 6, height: 10 + 6 });
   });
 });
