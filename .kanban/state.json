@@ -1,6 +1,6 @@
 {
   "next_id": 85,
-  "next_seq": 333,
+  "next_seq": 334,
   "cards": {
     "KAN-076-NHP81Z": {
       "col": "backlog",
@@ -132,12 +132,12 @@
       "parent": "KAN-082-MD50S0"
     },
     "KAN-082.2-P4970X": {
-      "col": "backlog",
+      "col": "doing",
       "title": "viz 화살표 종류 구분과 범례 — 관계선 종류 데이터 + 도식 범례 부품",
       "verbatim": "",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-11-24",
+      "갱신": "2026-11-25",
       "title_hash": "aa55ac9bf7d3fb7b2d1618b22939f5b49f47ca5c",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
       "short": "화살표 종류·범례",
@@ -1935,7 +1935,6 @@
     "KAN-077-0YAFWG",
     "KAN-078-0TF6NT",
     "KAN-080-RN47PY",
-    "KAN-082.2-P4970X",
     "KAN-082.3-TJ665Y",
     "KAN-082.4-FSH2T1",
     "KAN-082.5-WPS4DX",
@@ -2018,9 +2017,20 @@
     "KAN-081-33245K",
     "KAN-083-JSQKF4",
     "KAN-082-MD50S0",
-    "KAN-082.1-ZFJJM6"
+    "KAN-082.1-ZFJJM6",
+    "KAN-082.2-P4970X"
   ],
   "recent": [
+    {
+      "seq": 333,
+      "t": "2026-11-25T15:50",
+      "a": "ai",
+      "id": "KAN-082.2-P4970X",
+      "op": "move",
+      "w": "9Z2X8X",
+      "from": "backlog",
+      "to": "doing"
+    },
     {
       "seq": 332,
       "t": "2026-11-25T15:49",
@@ -2643,16 +2653,6 @@
       "w": "EFXS81",
       "from": "doing",
       "to": "review"
-    },
-    {
-      "seq": 286,
-      "t": "2026-10-11T06:38",
-      "a": "ai",
-      "id": "KAN-075-4K5GK3",
-      "op": "move",
-      "w": "EFXS81",
-      "from": "review",
-      "to": "doing"
     }
   ],
   "waivers": [

@@ -418,3 +418,4 @@
 {"seq": 283, "t": "2026-10-11T01:32", "a": "ai", "id": "KAN-075-4K5GK3", "op": "serialize", "w": "S7030N", "with_": "KAN-069-G0FGTJ", "reason": "전략 재수립 완료"}
 {"seq": 284, "t": "2026-10-11T01:33", "a": "ai", "id": "KAN-075-4K5GK3", "op": "move", "w": "EFXS81", "from": "backlog", "to": "doing"}
 {"seq": 285, "t": "2026-10-11T01:47", "a": "ai", "id": "KAN-075-4K5GK3", "op": "move", "w": "EFXS81", "from": "doing", "to": "review"}
+{"seq": 286, "t": "2026-10-11T06:38", "a": "ai", "id": "KAN-075-4K5GK3", "op": "move", "w": "EFXS81", "from": "review", "to": "doing"}
