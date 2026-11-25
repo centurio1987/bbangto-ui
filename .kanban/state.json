@@ -1,6 +1,6 @@
 {
   "next_id": 85,
-  "next_seq": 335,
+  "next_seq": 336,
   "cards": {
     "KAN-076-NHP81Z": {
       "col": "backlog",
@@ -153,12 +153,12 @@
       "parent": "KAN-082-MD50S0"
     },
     "KAN-082.3-TJ665Y": {
-      "col": "backlog",
+      "col": "doing",
       "title": "viz 배치 도식 보강 — 노드 중첩·스테레오타입·artifact, C4 Deployment 템플릿, C4 컨테이너 모양, 토폴로지 링크 라벨",
       "verbatim": "",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-11-24",
+      "갱신": "2026-11-25",
       "title_hash": "b3beb3e621fdc11387bd3f9307a7e4fbedaf0ad3",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
       "short": "배치 도식·C4 Deployment",
@@ -1935,7 +1935,6 @@
     "KAN-077-0YAFWG",
     "KAN-078-0TF6NT",
     "KAN-080-RN47PY",
-    "KAN-082.3-TJ665Y",
     "KAN-082.4-FSH2T1",
     "KAN-082.5-WPS4DX",
     "KAN-084-QGNC19",
@@ -2018,9 +2017,20 @@
     "KAN-083-JSQKF4",
     "KAN-082-MD50S0",
     "KAN-082.1-ZFJJM6",
-    "KAN-082.2-P4970X"
+    "KAN-082.2-P4970X",
+    "KAN-082.3-TJ665Y"
   ],
   "recent": [
+    {
+      "seq": 335,
+      "t": "2026-11-25T16:09",
+      "a": "ai",
+      "id": "KAN-082.3-TJ665Y",
+      "op": "move",
+      "w": "9Z2X8X",
+      "from": "backlog",
+      "to": "doing"
+    },
     {
       "seq": 334,
       "t": "2026-11-25T16:07",
@@ -2643,16 +2653,6 @@
       "w": "EFXS81",
       "from": "doing",
       "to": "review"
-    },
-    {
-      "seq": 288,
-      "t": "2026-10-11T10:11",
-      "a": "ai",
-      "id": "KAN-075-4K5GK3",
-      "op": "move",
-      "w": "EFXS81",
-      "from": "review",
-      "to": "doing"
     }
   ],
   "waivers": [
