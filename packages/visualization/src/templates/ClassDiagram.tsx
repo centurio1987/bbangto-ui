@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react';
 import { Canvas } from '../atoms/Canvas';
 import type { CanvasProps } from '../atoms/Canvas';
-import { Edge } from '../atoms/Edge';
+import { Edge, type EdgeLabelOffset } from '../atoms/Edge';
 import type { MarkerVariant } from '../atoms/Marker';
 import { ClassBox } from '../molecules/ClassBox';
 
@@ -33,6 +33,8 @@ export interface ClassRelationshipSpec {
   to: string;
   kind?: ClassRelationshipKind;
   label?: string;
+  /** 선 가운데 라벨을 이만큼 옮긴다(겹칠 때 비키기, KAN-082). */
+  labelOffset?: EdgeLabelOffset;
   fromLabel?: string;
   toLabel?: string;
 }
@@ -141,7 +143,7 @@ export function ClassDiagram({
             markerStart={cfg.markerStart}
             strokeDasharray={cfg.strokeDasharray}
             strokeWidth={1.5}
-            label={r.label}
+            label={r.label} labelOffset={r.labelOffset}
             fromLabel={r.fromLabel}
             toLabel={r.toLabel}
             labelFontSize={10}

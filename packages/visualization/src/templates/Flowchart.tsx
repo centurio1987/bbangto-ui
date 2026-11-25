@@ -2,7 +2,7 @@ import React, { type ReactNode } from 'react';
 import { Canvas } from '../atoms/Canvas';
 import type { CanvasProps } from '../atoms/Canvas';
 import { Node } from '../atoms/Node';
-import { Edge } from '../atoms/Edge';
+import { Edge, type EdgeLabelOffset } from '../atoms/Edge';
 import { NodeLabel } from '../atoms/NodeLabel';
 import { GridLayer } from '../atoms/GridLayer';
 import type { NodeShape } from '../geometry/shapes';
@@ -28,6 +28,8 @@ export interface FlowchartEdgeSpec {
   from: string;
   to: string;
   label?: string;
+  /** 선 가운데 라벨을 이만큼 옮긴다(겹칠 때 비키기, KAN-082). */
+  labelOffset?: EdgeLabelOffset;
   routing?: EdgeRouting;
   dashed?: boolean;
   markerEnd?: MarkerVariant;
@@ -127,7 +129,7 @@ export function Flowchart({
           routing={e.routing ?? 'orthogonal'}
           markerEnd={e.markerEnd ?? 'arrow'}
           strokeDasharray={e.dashed ? '6 4' : solidDash}
-          label={e.label}
+          label={e.label} labelOffset={e.labelOffset}
         />
       ))}
     </Canvas>

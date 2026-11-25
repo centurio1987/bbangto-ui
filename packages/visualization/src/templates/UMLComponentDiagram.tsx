@@ -2,7 +2,7 @@ import React, { type ReactNode } from 'react';
 import { Canvas } from '../atoms/Canvas';
 import type { CanvasProps } from '../atoms/Canvas';
 import { Node } from '../atoms/Node';
-import { Edge } from '../atoms/Edge';
+import { Edge, type EdgeLabelOffset } from '../atoms/Edge';
 import { NodeLabel } from '../atoms/NodeLabel';
 import { vvar } from '../tokens/contract';
 
@@ -30,6 +30,8 @@ export interface UMLDependencySpec {
   from: string;
   to: string;
   label?: string;
+  /** 선 가운데 라벨을 이만큼 옮긴다(겹칠 때 비키기, KAN-082). */
+  labelOffset?: EdgeLabelOffset;
 }
 
 export interface UMLComponentDiagramData {
@@ -188,7 +190,7 @@ export function UMLComponentDiagram({
         </React.Fragment>
       ))}
       {dependencies.map((d) => (
-        <Edge key={d.id} from={d.from} to={d.to} markerEnd="arrow" strokeDasharray="5 3" strokeWidth={1.5} label={d.label} />
+        <Edge key={d.id} from={d.from} to={d.to} markerEnd="arrow" strokeDasharray="5 3" strokeWidth={1.5} label={d.label} labelOffset={d.labelOffset} />
       ))}
     </Canvas>
   );

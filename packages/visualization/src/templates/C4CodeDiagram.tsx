@@ -116,7 +116,7 @@ export function C4CodeDiagram({
           to={r.to}
           markerEnd="triangleOpen"
           strokeWidth={1.5}
-          label={c4RelationshipLabel(r)}
+          label={c4RelationshipLabel(r)} labelOffset={r.labelOffset}
           labelFontSize={10}
         />
       ))}

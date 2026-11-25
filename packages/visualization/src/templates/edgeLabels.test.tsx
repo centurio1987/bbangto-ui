@@ -509,3 +509,74 @@ describe('템플릿이 라벨 계열 칸을 그린다 (KAN-082)', () => {
     expect(wrong).toEqual([]);
   });
 });
+
+// ──────────────────────────────────────────────
+// 라벨 위치 보정 칸(labelOffset) — 선 가운데 라벨을 데이터로 옮긴다 (KAN-082 계획 「만약」 표:
+// 라벨이 노드나 다른 라벨과 겹치면 템플릿 데이터에 라벨 위치 보정 칸을 연다)
+// ──────────────────────────────────────────────
+const OFFSET = { x: 7, y: -9 };
+
+/** 선 가운데 라벨 글자 — 템플릿 이름 → 그 라벨에 넣은 글자 */
+const MID_LABEL: Record<string, string> = {
+  ArchitectureDiagram: 'ARC_label',
+  BlockDiagram: 'BLK_label',
+  BPMNCollaborationDiagram: 'BPC_seq',
+  BPMNDiagram: 'BPM_label',
+  C4CodeDiagram: 'C4K_label',
+  C4ComponentDiagram: 'C4M_label',
+  C4ContainerDiagram: 'C4N_label',
+  C4ContextDiagram: 'C4X_label',
+  C4SystemLandscapeDiagram: 'C4L_label',
+  ClassDiagram: 'CLS_label',
+  ERDiagram: 'ERD_label',
+  Flowchart: 'FLW_label',
+  StateDiagram: 'STA_label',
+  UMLComponentDiagram: 'CMP2_label',
+  UMLDeploymentDiagram: 'DEP_label',
+};
+
+/** 데이터 안의 선(from · to 를 가진 항목)마다 labelOffset 을 더한 같은 그림 */
+function withOffset(el: React.ReactElement): React.ReactElement {
+  const props = el.props as { data: Record<string, unknown> };
+  const data = Object.fromEntries(
+    Object.entries(props.data).map(([k, v]) => [
+      k,
+      Array.isArray(v)
+        ? v.map((o: unknown) =>
+            o && typeof o === 'object' && 'from' in o && 'to' in o ? { ...(o as object), labelOffset: OFFSET } : o,
+          )
+        : v,
+    ]),
+  );
+  return React.cloneElement(el as React.ReactElement<{ data: unknown }>, { data });
+}
+
+/** 글자를 담은 <text> 의 x · y */
+function textPos(html: string, mark: string): { x: number; y: number } | null {
+  const m = html.match(new RegExp(`<text([^>]*)>[^<]*${mark}[^<]*</text>`));
+  if (!m) return null;
+  const x = m[1].match(/\bx="([^"]+)"/);
+  const y = m[1].match(/\by="([^"]+)"/);
+  return x && y ? { x: Number(x[1]), y: Number(y[1]) } : null;
+}
+
+describe('선 가운데 라벨은 labelOffset 만큼 옮겨진다 (KAN-082)', () => {
+  it('BPMN 협업의 메시지 흐름 라벨도 옮겨진다', () => {
+    const c = CASES.BPMNCollaborationDiagram;
+    const a = textPos(renderToStaticMarkup(c.el), 'BPC_msg');
+    const b = textPos(renderToStaticMarkup(withOffset(c.el)), 'BPC_msg');
+    expect({ a: !!a, b: !!b }).toEqual({ a: true, b: true });
+    expect({ dx: b!.x - a!.x, dy: b!.y - a!.y }).toEqual({ dx: OFFSET.x, dy: OFFSET.y });
+  });
+
+  it.each(Object.entries(MID_LABEL))('%s', (name, mark) => {
+    const c = CASES[name];
+    const a = textPos(renderToStaticMarkup(c.el), mark);
+    const b = textPos(renderToStaticMarkup(withOffset(c.el)), mark);
+    expect({ a: !!a, b: !!b }).toEqual({ a: true, b: true });
+    expect({ dx: Math.round((b!.x - a!.x) * 1000) / 1000, dy: Math.round((b!.y - a!.y) * 1000) / 1000 }).toEqual({
+      dx: OFFSET.x,
+      dy: OFFSET.y,
+    });
+  });
+});

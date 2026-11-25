@@ -328,7 +328,8 @@ export function DecisionSketch() {
   그린다. `useVizFoundation()` 은 데이터 없음 분기의 `return` 보다 먼저 부른다(`src/styleGuide/hookOrder.test.ts`).
 - **관계선 라벨은 데이터로 받으면 그린다.** `Edge` 는 `label` 을 그린 경로의 가운데(경로를 따라 잰 길이의 절반)에
   바탕과 함께 그리고, `fromLabel`·`toLabel` 은 양 끝에서 경로 안쪽으로 조금 들어가 선 옆(가로선은 위, 세로선은 왼쪽)에
-  그린다. 글자 크기는 `labelFontSize` 다. 템플릿은 데이터의 라벨 칸을 `Edge` 로 넘긴다 — 관계 label, C4 관계의
+  그린다. 글자 크기는 `labelFontSize` 다. 가운데 라벨이 노드나 다른 라벨과 겹치면 `labelOffset: { x, y }` 만큼 옮긴다 —
+  라벨을 넘기는 템플릿의 관계 데이터도 같은 칸을 받는다. 템플릿은 데이터의 라벨 칸을 `Edge` 로 넘긴다 — 관계 label, C4 관계의
   `technology`(「설명 [기술]」 한 줄), StateDiagram 전이 라벨, Flowchart 분기 라벨, ClassDiagram 의 관계 이름 · 양 끝
   다중성(`fromLabel`·`toLabel`) · 클래스 `stereotype`(«…»). ClassDiagram 의 포함 · 집합은 전체 쪽(`from`)에 마름모만
   붙고 부분 쪽에는 화살촉이 없다. KAN-082 전(2.1.0 까지)에는 이 칸들을 받고도 그리지 않았으므로, 그때 채워 둔 라벨은

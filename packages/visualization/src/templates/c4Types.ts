@@ -1,3 +1,4 @@
+import type { EdgeLabelOffset } from '../atoms/Edge';
 export interface C4PersonSpec {
   id: string;
   x: number;
@@ -52,6 +53,8 @@ export interface C4RelationshipSpec {
   to: string;
   label?: string;
   technology?: string;
+  /** 선 가운데 라벨을 이만큼 옮긴다(겹칠 때 비키기, KAN-082). */
+  labelOffset?: EdgeLabelOffset;
 }
 
 /**

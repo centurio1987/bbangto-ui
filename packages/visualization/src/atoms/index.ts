@@ -5,7 +5,7 @@ export { Node } from './Node';
 export type { NodeProps, NodeShape } from './Node';
 
 export { Edge } from './Edge';
-export type { EdgeProps, EdgeRouting, MarkerVariant, AnchorSide } from './Edge';
+export type { EdgeProps, EdgeRouting, MarkerVariant, AnchorSide, EdgeLabelOffset } from './Edge';
 
 export { Markers, markerRef } from './Marker';
 export type { MarkersProps } from './Marker';
@@ -13,7 +13,7 @@ export type { MarkersProps } from './Marker';
 export { NodeLabel } from './NodeLabel';
 export type { NodeLabelProps, NodeLabelMode } from './NodeLabel';
 
-export { EdgeLabel } from './EdgeLabel';
+export { EdgeLabel, edgeLabelBox } from './EdgeLabel';
 export type { EdgeLabelProps } from './EdgeLabel';
 
 export { Tag } from './Tag';

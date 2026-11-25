@@ -2,7 +2,7 @@ import React, { type ReactNode } from 'react';
 import { Canvas } from '../atoms/Canvas';
 import type { CanvasProps } from '../atoms/Canvas';
 import { Node } from '../atoms/Node';
-import { Edge } from '../atoms/Edge';
+import { Edge, type EdgeLabelOffset } from '../atoms/Edge';
 import { NodeLabel } from '../atoms/NodeLabel';
 import type { EdgeRouting } from '../geometry/routing';
 import type { MarkerVariant } from '../atoms/Marker';
@@ -24,6 +24,8 @@ export interface BlockEdgeSpec {
   from: string;
   to: string;
   label?: string;
+  /** 선 가운데 라벨을 이만큼 옮긴다(겹칠 때 비키기, KAN-082). */
+  labelOffset?: EdgeLabelOffset;
   routing?: EdgeRouting;
   markerEnd?: MarkerVariant;
 }
@@ -109,7 +111,7 @@ export function BlockDiagram({
           to={e.to}
           routing={e.routing ?? 'orthogonal'}
           markerEnd={e.markerEnd ?? 'arrow'}
-          label={e.label}
+          label={e.label} labelOffset={e.labelOffset}
         />
       ))}
     </Canvas>

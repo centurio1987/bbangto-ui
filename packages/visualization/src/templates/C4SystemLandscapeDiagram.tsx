@@ -67,7 +67,7 @@ export function C4SystemLandscapeDiagram({
         return (
           <g key={r.id}>
             <Edge from={r.from} to={r.to} routing="orthogonal" />
-            {text && <EdgeLabel x={mx} y={my} label={text} fontSize={10} />}
+            {text && <EdgeLabel x={mx + (r.labelOffset?.x ?? 0)} y={my + (r.labelOffset?.y ?? 0)} label={text} fontSize={10} />}
           </g>
         );
       })}

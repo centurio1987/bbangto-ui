@@ -2,7 +2,7 @@ import React, { type ReactNode } from 'react';
 import { Canvas } from '../atoms/Canvas';
 import type { CanvasProps } from '../atoms/Canvas';
 import { Node } from '../atoms/Node';
-import { Edge } from '../atoms/Edge';
+import { Edge, type EdgeLabelOffset } from '../atoms/Edge';
 import { NodeLabel } from '../atoms/NodeLabel';
 import { Lane } from '../atoms/Lane';
 import { vvar } from '../tokens/contract';
@@ -51,6 +51,8 @@ export interface BPMNFlowSpec {
   from: string;
   to: string;
   label?: string;
+  /** 선 가운데 라벨을 이만큼 옮긴다(겹칠 때 비키기, KAN-082). */
+  labelOffset?: EdgeLabelOffset;
 }
 
 export interface BPMNDiagramData {
@@ -238,7 +240,7 @@ export function BPMNDiagram({
 
       {/* Sequence flows */}
       {flows.map((f) => (
-        <Edge key={f.id} from={f.from} to={f.to} markerEnd="arrow" strokeWidth={1.5} label={f.label} />
+        <Edge key={f.id} from={f.from} to={f.to} markerEnd="arrow" strokeWidth={1.5} label={f.label} labelOffset={f.labelOffset} />
       ))}
     </Canvas>
   );

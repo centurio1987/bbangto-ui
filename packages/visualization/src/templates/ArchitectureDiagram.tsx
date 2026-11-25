@@ -2,7 +2,7 @@ import React, { type ReactNode } from 'react';
 import { Canvas } from '../atoms/Canvas';
 import type { CanvasProps } from '../atoms/Canvas';
 import { Node } from '../atoms/Node';
-import { Edge } from '../atoms/Edge';
+import { Edge, type EdgeLabelOffset } from '../atoms/Edge';
 import { NodeLabel } from '../atoms/NodeLabel';
 import { Boundary } from '../atoms/Boundary';
 import type { NodeShape } from '../geometry/shapes';
@@ -33,6 +33,8 @@ export interface ArchEdgeSpec {
   from: string;
   to: string;
   label?: string;
+  /** 선 가운데 라벨을 이만큼 옮긴다(겹칠 때 비키기, KAN-082). */
+  labelOffset?: EdgeLabelOffset;
   routing?: EdgeRouting;
 }
 
@@ -124,7 +126,7 @@ export function ArchitectureDiagram({
         </React.Fragment>
       ))}
       {edges.map((e) => (
-        <Edge key={e.id} from={e.from} to={e.to} routing={e.routing ?? 'orthogonal'} markerEnd="arrow" label={e.label} />
+        <Edge key={e.id} from={e.from} to={e.to} routing={e.routing ?? 'orthogonal'} markerEnd="arrow" label={e.label} labelOffset={e.labelOffset} />
       ))}
     </Canvas>
   );

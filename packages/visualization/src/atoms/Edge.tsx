@@ -10,6 +10,12 @@ import type { BBox } from '../types/data';
 
 export type { EdgeRouting, MarkerVariant, AnchorSide };
 
+/** 선 가운데 라벨을 옮기는 양(user unit). 라벨이 노드나 다른 라벨과 겹칠 때 데이터로 비킨다(KAN-082). */
+export interface EdgeLabelOffset {
+  x: number;
+  y: number;
+}
+
 export interface EdgeProps extends Omit<React.SVGAttributes<SVGPathElement>, 'stroke' | 'from' | 'to'> {
   id?: string;
   from: string | Point;
@@ -29,6 +35,8 @@ export interface EdgeProps extends Omit<React.SVGAttributes<SVGPathElement>, 'st
    * 바탕과 함께 그린다(`EdgeLabel`). 비우면 아무것도 그리지 않는다.
    */
   label?: string;
+  /** 가운데 라벨(`label`)을 경로 가운데에서 이만큼 옮긴다. 끝 라벨은 옮기지 않는다. */
+  labelOffset?: EdgeLabelOffset;
   /**
    * 선 양 끝 근처에 붙는 라벨 — UML 다중성(`1` · `0..*`)이나 역할 이름. `from` 쪽 끝과 `to` 쪽 끝에서 경로
    * 안쪽으로 조금 들어가 선 옆(가로선은 위, 세로선은 왼쪽)에 놓는다(routing.ts `endLabelCenter`).
@@ -82,6 +90,7 @@ export const Edge = React.forwardRef<SVGPathElement, EdgeProps>(
       cornerRadius,
       waypoints,
       label,
+      labelOffset,
       fromLabel,
       toLabel,
       labelFontSize,
@@ -155,7 +164,14 @@ export const Edge = React.forwardRef<SVGPathElement, EdgeProps>(
     return (
       <>
         {path}
-        {label && mid && <EdgeLabel x={mid.x} y={mid.y} label={label} fontSize={labelFontSize} />}
+        {label && mid && (
+          <EdgeLabel
+            x={mid.x + (labelOffset?.x ?? 0)}
+            y={mid.y + (labelOffset?.y ?? 0)}
+            label={label}
+            fontSize={labelFontSize}
+          />
+        )}
         {fromLabel && fromAt && <EdgeLabel x={fromAt.x} y={fromAt.y} label={fromLabel} fontSize={labelFontSize} />}
         {toLabel && toAt && <EdgeLabel x={toAt.x} y={toAt.y} label={toLabel} fontSize={labelFontSize} />}
       </>

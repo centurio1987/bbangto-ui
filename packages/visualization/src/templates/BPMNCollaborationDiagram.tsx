@@ -1,7 +1,7 @@
 import React, { type ReactNode } from 'react';
 import { Canvas, type CanvasProps } from '../atoms/Canvas';
 import { Node } from '../atoms/Node';
-import { Edge } from '../atoms/Edge';
+import { Edge, type EdgeLabelOffset } from '../atoms/Edge';
 import { NodeLabel } from '../atoms/NodeLabel';
 import { Lane } from '../atoms/Lane';
 import { vvar } from '../tokens/contract';
@@ -48,6 +48,8 @@ export interface BPMNCollabFlowSpec {
   from: string;
   to: string;
   label?: string;
+  /** 선 가운데 라벨을 이만큼 옮긴다(겹칠 때 비키기, KAN-082). */
+  labelOffset?: EdgeLabelOffset;
 }
 
 export interface BPMNCollaborationDiagramData {
@@ -174,7 +176,7 @@ export function BPMNCollaborationDiagram({
 
       {/* Sequence flows: solid, pool 내부 */}
       {sequenceFlows.map((f) => (
-        <Edge key={f.id} id={f.id} from={f.from} to={f.to} markerEnd="arrow" strokeWidth={1.5} label={f.label} />
+        <Edge key={f.id} id={f.id} from={f.from} to={f.to} markerEnd="arrow" strokeWidth={1.5} label={f.label} labelOffset={f.labelOffset} />
       ))}
 
       {/* Message flows: dashed, pool 간(출발 open-circle · 도착 open-arrow) */}
@@ -188,8 +190,8 @@ export function BPMNCollaborationDiagram({
         const src = registry.find((n) => n.id === f.from);
         const dst = registry.find((n) => n.id === f.to);
         if (!src || !dst || !f.label) return null;
-        const mx = (src.x + src.width / 2 + dst.x + dst.width / 2) / 2;
-        const my = (src.y + src.height / 2 + dst.y + dst.height / 2) / 2;
+        const mx = (src.x + src.width / 2 + dst.x + dst.width / 2) / 2 + (f.labelOffset?.x ?? 0);
+        const my = (src.y + src.height / 2 + dst.y + dst.height / 2) / 2 + (f.labelOffset?.y ?? 0);
         return (
           <text
             key={`mlbl-${f.id}`}

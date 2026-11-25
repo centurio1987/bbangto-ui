@@ -103,7 +103,7 @@ export function C4ContainerDiagram({
         ),
       )}
       {relationships.map((r) => (
-        <Edge key={r.id} from={r.from} to={r.to} label={c4RelationshipLabel(r)} labelFontSize={10} />
+        <Edge key={r.id} from={r.from} to={r.to} label={c4RelationshipLabel(r)} labelOffset={r.labelOffset} labelFontSize={10} />
       ))}
     </Canvas>
   );
