@@ -2,10 +2,11 @@
 card: KAN-060-G9YKG6
 title: 포커스 테두리 색 대비 3:1 — border.focus 토큰 정리와 대비 게이트
 created: 2026-10-08
-branch: KAN-060-G9YKG6
-worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-060-G9YKG6
+branch: main
+worktree: /Users/centurio/bbangto-ui
 base: 5ed8f1f
 status: 승인
+merged: a13644f30637
 ---
 
 # KAN-060-G9YKG6 검토 요청 — 포커스 테두리 색 대비 3:1 — border.focus 토큰 정리와 대비 게이트
@@ -19,10 +20,10 @@ status: 승인
 
 | 항목 | 값 |
 |---|---|
-| 브랜치 | `KAN-060-G9YKG6` |
-| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-060-G9YKG6` |
+| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-060-G9YKG6` 의 끝 `a13644f30637` 을 main 에 병합), 대상은 아래 고정 범위 |
+| 워크트리 | `/Users/centurio/bbangto-ui` |
 | 베이스 | `5ed8f1f` |
-| 변경 훑기 | `git diff 5ed8f1f...HEAD` |
+| 변경 훑기 | `git diff 5ed8f1f..a13644f30637` |
 
 **커밋 12건**
 

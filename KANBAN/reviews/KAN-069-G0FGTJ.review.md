@@ -2,10 +2,11 @@
 card: KAN-069-G0FGTJ
 title: viz 미사용 토큰 정리 — 선언만 있고 읽히지 않는 시각화 토큰을 토큰마다 잇거나 걷기 (경계선부터)
 created: 2026-10-10
-branch: KAN-069-G0FGTJ
-worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-069-G0FGTJ
+branch: main
+worktree: /Users/centurio/bbangto-ui
 base: 064586b
 status: 승인
+merged: c23494d09309
 ---
 
 # KAN-069-G0FGTJ 검토 요청 — viz 미사용 토큰 정리 — 선언만 있고 읽히지 않는 시각화 토큰을 토큰마다 잇거나 걷기 (경계선부터)
@@ -19,10 +20,10 @@ status: 승인
 
 | 항목 | 값 |
 |---|---|
-| 브랜치 | `KAN-069-G0FGTJ` |
-| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-069-G0FGTJ` |
+| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-069-G0FGTJ` 의 끝 `c23494d09309` 을 main 에 병합), 대상은 아래 고정 범위 |
+| 워크트리 | `/Users/centurio/bbangto-ui` |
 | 베이스 | `064586b` |
-| 변경 훑기 | `git diff 064586b...HEAD` |
+| 변경 훑기 | `git diff 064586b..c23494d09309` |
 
 **커밋 14건**
 

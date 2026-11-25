@@ -2,20 +2,20 @@
  "card": "KAN-062-E02CMT",
  "front": {
   "base": "d3d22e8",
-  "branch": "KAN-062-E02CMT",
+  "branch": "main",
   "card": "KAN-062-E02CMT",
   "created": "2026-10-08",
   "inherits": null,
-  "merged": null,
+  "merged": "fb80bebd6627",
   "status": "검토 대기",
   "title": "SVG 속성 안 var() 브라우저 확인 — README 문장과 속성으로 색을 넣는 코드를 실제 동작에 맞추기",
-  "worktree": "/Users/centurio/orca/workspaces/bbangto-ui/KAN-062-E02CMT"
+  "worktree": "/Users/centurio/bbangto-ui"
  },
  "inherited_md": "",
- "md_fp": "4374b846450457af67ae44384a43d42be9f673f5",
- "md_src_fp": "91430f837484b3f2ab15b1b2869bc4cd85621dae",
+ "md_fp": "3d6ae1e95d3d51ab5b134fd690e5afa82fdd9209",
+ "md_src_fp": "319609a411fde574d0b6ab8d30dd21e5069457fd",
  "schema": 1,
- "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `KAN-062-E02CMT` |\n| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-062-E02CMT` |\n| 베이스 | `d3d22e8` |\n| 변경 훑기 | `git diff d3d22e8...HEAD` |\n\n**커밋 4건**\n\n```text\n4874ee8 kanban: KAN-062 S3 — 품질 게이트 5종 초록\n7275d6a docs(visualization): SVG 속성 안 var() 설명을 세 브라우저 측정에 맞춤 (KAN-062 S2)\n01c4b25 kanban: KAN-062 S1 — 세 브라우저 측정 기록 (색·글꼴 속성 var() 풀림, transform 속성 var() 안 풀림)\naf86dcf kanban: KAN-062 진행 중으로 이동 (착수)\n```\n\n**변경 파일 8개 (+41 −30)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.kanban/archive.jsonl` | M | 1 | 0 |\n| `.kanban/log.md` | M | 1 | 1 |\n| `.kanban/state.json` | M | 14 | 14 |\n| `KANBAN.board.html` | M | 2 | 2 |\n| `KANBAN.md` | M | 8 | 8 |\n| `KANBAN/cards/KAN-062-E02CMT.md` | M | 9 | 3 |\n| `packages/visualization/README.md` | M | 4 | 1 |\n| `packages/visualization/src/atoms/Marker.tsx` | M | 2 | 1 |\n\n**롤백 태그 3개**\n\n```text\nkan/KAN-062-E02CMT/S1\nkan/KAN-062-E02CMT/S2\nkan/KAN-062-E02CMT/S3\n```",
+ "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-062-E02CMT` 의 끝 `fb80bebd6627` 을 main 에 병합), 대상은 아래 고정 범위 |\n| 워크트리 | `/Users/centurio/bbangto-ui` |\n| 베이스 | `d3d22e8` |\n| 변경 훑기 | `git diff d3d22e8..fb80bebd6627` |\n\n**커밋 4건**\n\n```text\n4874ee8 kanban: KAN-062 S3 — 품질 게이트 5종 초록\n7275d6a docs(visualization): SVG 속성 안 var() 설명을 세 브라우저 측정에 맞춤 (KAN-062 S2)\n01c4b25 kanban: KAN-062 S1 — 세 브라우저 측정 기록 (색·글꼴 속성 var() 풀림, transform 속성 var() 안 풀림)\naf86dcf kanban: KAN-062 진행 중으로 이동 (착수)\n```\n\n**변경 파일 8개 (+41 −30)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.kanban/archive.jsonl` | M | 1 | 0 |\n| `.kanban/log.md` | M | 1 | 1 |\n| `.kanban/state.json` | M | 14 | 14 |\n| `KANBAN.board.html` | M | 2 | 2 |\n| `KANBAN.md` | M | 8 | 8 |\n| `KANBAN/cards/KAN-062-E02CMT.md` | M | 9 | 3 |\n| `packages/visualization/README.md` | M | 4 | 1 |\n| `packages/visualization/src/atoms/Marker.tsx` | M | 2 | 1 |\n\n**롤백 태그 3개**\n\n```text\nkan/KAN-062-E02CMT/S1\nkan/KAN-062-E02CMT/S2\nkan/KAN-062-E02CMT/S3\n```",
  "verdicts": [
   {
    "at": "2026-10-08",

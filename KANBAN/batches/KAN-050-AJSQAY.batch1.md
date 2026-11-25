@@ -2,7 +2,7 @@
 card: KAN-050-AJSQAY
 batch: 1
 created: 2026-10-07
-branch: KAN-050-AJSQAY
+branch: main
 status: 계획
 steps: S1, S2, S3, S4
 ---

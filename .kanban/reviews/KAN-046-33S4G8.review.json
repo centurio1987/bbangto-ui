@@ -2,20 +2,20 @@
  "card": "KAN-046-33S4G8",
  "front": {
   "base": "e048f5e",
-  "branch": "KAN-046-33S4G8",
+  "branch": "main",
   "card": "KAN-046-33S4G8",
   "created": "2026-08-25",
   "inherits": null,
-  "merged": null,
+  "merged": "73999118a5ae",
   "status": "검토 대기",
   "title": "pnpm test:unit 을 CLAUDE.md 품질 게이트에 추가 — 매니페스트·대비·명명 게이트가 문서에 없다",
-  "worktree": "/Users/centurio/orca/workspaces/bbangto-ui/KAN-046-33S4G8"
+  "worktree": "/Users/centurio/bbangto-ui"
  },
  "inherited_md": "",
- "md_fp": "fd34b09633f5b07beb638257d1b526afde5b15a5",
- "md_src_fp": "5b52db54a2d0f64b416bf9f1dbbaa8c2a4b03480",
+ "md_fp": "57ebc2a85eb2d6984bd271902cbf4880302465b2",
+ "md_src_fp": "fee8a375ec5437bf85dc33290da24b2e6d98d77e",
  "schema": 1,
- "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `KAN-046-33S4G8` |\n| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-046-33S4G8` |\n| 베이스 | `e048f5e` |\n| 변경 훑기 | `git diff e048f5e...HEAD` |\n\n**커밋 6건**\n\n```text\na21cc32 KAN-046 S4: 검토 추가 의견 반영 — 통과 구멍 차단 + README 모순 제거\ne88a728 kanban: KAN-046 검토 리포트 재렌더 (지문 갱신)\ncd407bd KAN-046 S3: 게이트 5종 초록 + 검토서 발행 → 검토\n49304c0 KAN-046 S2: 규범 13자리에 pnpm test:unit 편입 (green)\n8628096 KAN-046 S1: 게이트 문서 드리프트 검증기 신설 (red)\nb497aac kanban: KAN-046 착수 — 진행 중 이동 + 실행 문서·배치1 계획\n```\n\n**변경 파일 23개 (+2107 −46)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.claude/settings.json` | M | 1 | 1 |\n| `.kanban/archive.jsonl` | M | 2 | 0 |\n| `.kanban/log.md` | M | 2 | 2 |\n| `.kanban/reviews/KAN-046-33S4G8.events.jsonl` | M | 24 | 0 |\n| `.kanban/reviews/KAN-046-33S4G8.review.json` | M | 21 | 0 |\n| `.kanban/state.json` | M | 38 | 25 |\n| `CLAUDE.md` | M | 3 | 1 |\n| `KANBAN.board.html` | M | 4 | 4 |\n| `KANBAN.md` | M | 6 | 4 |\n| `KANBAN/batches/KAN-046-33S4G8.batch1.md` | M | 82 | 0 |\n| `KANBAN/cards/KAN-046-33S4G8.md` | M | 124 | 0 |\n| `KANBAN/reviews/KAN-046-33S4G8.review.html` | M | 1148 | 0 |\n| `KANBAN/reviews/KAN-046-33S4G8.review.md` | M | 237 | 0 |\n| `QUALITY_CHECKLIST.md` | M | 3 | 0 |\n| `README.md` | M | 6 | 4 |\n| `_templates/CHECKLIST_INSTANCE.template.md` | M | 1 | 0 |\n| `_templates/README.md` | M | 1 | 1 |\n| `packages/core/MOTION_QUALITY_CHECKLIST.md` | M | 2 | 0 |\n| `packages/core/motion-catalog.md` | M | 2 | 2 |\n| `packages/core/src/motion/README.md` | M | 1 | 1 |\n| `packages/foundations/src/gateDocs.test.ts` | M | 234 | 0 |\n| `packages/foundations/src/gateDocs.ts` | M | 164 | 0 |\n| `packages/visualization/viz-style-expansion.md` | M | 1 | 1 |\n\n**롤백 태그 5개**\n\n```text\nkan/KAN-046-33S4G8/S1\nkan/KAN-046-33S4G8/S2\nkan/KAN-046-33S4G8/S3\nkan/KAN-046-33S4G8/S4\nkan/KAN-046-33S4G8/batch1\n```",
+ "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-046-33S4G8` 의 끝 `73999118a5ae` 을 main 에 병합), 대상은 아래 고정 범위 |\n| 워크트리 | `/Users/centurio/bbangto-ui` |\n| 베이스 | `e048f5e` |\n| 변경 훑기 | `git diff e048f5e..73999118a5ae` |\n\n**커밋 6건**\n\n```text\na21cc32 KAN-046 S4: 검토 추가 의견 반영 — 통과 구멍 차단 + README 모순 제거\ne88a728 kanban: KAN-046 검토 리포트 재렌더 (지문 갱신)\ncd407bd KAN-046 S3: 게이트 5종 초록 + 검토서 발행 → 검토\n49304c0 KAN-046 S2: 규범 13자리에 pnpm test:unit 편입 (green)\n8628096 KAN-046 S1: 게이트 문서 드리프트 검증기 신설 (red)\nb497aac kanban: KAN-046 착수 — 진행 중 이동 + 실행 문서·배치1 계획\n```\n\n**변경 파일 23개 (+2107 −46)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.claude/settings.json` | M | 1 | 1 |\n| `.kanban/archive.jsonl` | M | 2 | 0 |\n| `.kanban/log.md` | M | 2 | 2 |\n| `.kanban/reviews/KAN-046-33S4G8.events.jsonl` | M | 24 | 0 |\n| `.kanban/reviews/KAN-046-33S4G8.review.json` | M | 21 | 0 |\n| `.kanban/state.json` | M | 38 | 25 |\n| `CLAUDE.md` | M | 3 | 1 |\n| `KANBAN.board.html` | M | 4 | 4 |\n| `KANBAN.md` | M | 6 | 4 |\n| `KANBAN/batches/KAN-046-33S4G8.batch1.md` | M | 82 | 0 |\n| `KANBAN/cards/KAN-046-33S4G8.md` | M | 124 | 0 |\n| `KANBAN/reviews/KAN-046-33S4G8.review.html` | M | 1148 | 0 |\n| `KANBAN/reviews/KAN-046-33S4G8.review.md` | M | 237 | 0 |\n| `QUALITY_CHECKLIST.md` | M | 3 | 0 |\n| `README.md` | M | 6 | 4 |\n| `_templates/CHECKLIST_INSTANCE.template.md` | M | 1 | 0 |\n| `_templates/README.md` | M | 1 | 1 |\n| `packages/core/MOTION_QUALITY_CHECKLIST.md` | M | 2 | 0 |\n| `packages/core/motion-catalog.md` | M | 2 | 2 |\n| `packages/core/src/motion/README.md` | M | 1 | 1 |\n| `packages/foundations/src/gateDocs.test.ts` | M | 234 | 0 |\n| `packages/foundations/src/gateDocs.ts` | M | 164 | 0 |\n| `packages/visualization/viz-style-expansion.md` | M | 1 | 1 |\n\n**롤백 태그 5개**\n\n```text\nkan/KAN-046-33S4G8/S1\nkan/KAN-046-33S4G8/S2\nkan/KAN-046-33S4G8/S3\nkan/KAN-046-33S4G8/S4\nkan/KAN-046-33S4G8/batch1\n```",
  "verdicts": [
   {
    "at": "2026-08-26",

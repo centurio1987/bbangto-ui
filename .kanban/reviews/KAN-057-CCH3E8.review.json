@@ -2,20 +2,20 @@
  "card": "KAN-057-CCH3E8",
  "front": {
   "base": "9f187fc",
-  "branch": "KAN-057-CCH3E8",
+  "branch": "main",
   "card": "KAN-057-CCH3E8",
   "created": "2026-10-10",
   "inherits": null,
-  "merged": null,
+  "merged": "3deac39604c8",
   "status": "검토 대기",
   "title": "viz edge.dashPattern 토큰 정리 — 선언만 있고 읽히지 않는 커넥터 대시 토큰을 잇거나 걷기",
-  "worktree": "/Users/centurio/orca/workspaces/bbangto-ui/KAN-057-CCH3E8"
+  "worktree": "/Users/centurio/bbangto-ui"
  },
  "inherited_md": "",
- "md_fp": "73ad59eabb5d9ca5e9abc610d477e06c9ad65d85",
- "md_src_fp": "d5644d9a02a799669047c184d1025e6c7017814b",
+ "md_fp": "c4a36a1f74c508fbf26876cb866fb33cfc6c7b0e",
+ "md_src_fp": "c1cb555f52d0d986bcfb8d4371872ec2ccece601",
  "schema": 1,
- "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `KAN-057-CCH3E8` |\n| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-057-CCH3E8` |\n| 베이스 | `9f187fc` |\n| 변경 훑기 | `git diff 9f187fc...HEAD` |\n\n**커밋 8건**\n\n```text\nf27145b kanban: KAN-057 S4 — 품질 게이트 5종 초록\n910cbb6 docs(viz): KAN-057 S3 — edge.dashPattern JSDoc · 횡단 규칙 3 상태 문장 · changeset\n6d87d9d feat(viz): KAN-057 S2 — edge.dashPattern 을 Edge 연결선에 잇는다\ne6b2142 test(viz): KAN-057 S1 — 연결선 대시 토큰 스토리 넷 (구현 전 빨강)\nc1c9c9f kanban: KAN-057 배치1 착수 시점 판단 — 단일 에이전트(유저 선택) · 나머지 토큰은 KAN-069\n2cba2f9 kanban: KAN-057 계획 리포트 (voice 미적용)\n7d429e8 kanban: KAN-057 실행 문서(scope·전략·실행 계획·검증) · 배치 계획 1장(S1~S4)\ndf81318 kanban: KAN-057 진행 중으로 이동 (워크트리 착수)\n```\n\n**변경 파일 15개 (+828 −33)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.changeset/kan-057-edge-dash-token.md` | M | 19 | 0 |\n| `.kanban/archive.jsonl` | M | 1 | 0 |\n| `.kanban/log.md` | M | 1 | 1 |\n| `.kanban/state.json` | M | 25 | 16 |\n| `KANBAN.board.html` | M | 2 | 2 |\n| `KANBAN.md` | M | 12 | 10 |\n| `KANBAN/batches/KAN-057-CCH3E8.batch1.md` | M | 81 | 0 |\n| `KANBAN/cards/KAN-057-CCH3E8.md` | M | 53 | 0 |\n| `KANBAN/reports/KAN-057-CCH3E8.report.html` | M | 499 | 0 |\n| `apps/storybook/src/stories/visualization/Headless.stories.tsx` | M | 109 | 0 |\n| `packages/tokens/src/visualization.ts` | M | 5 | 0 |\n| `packages/visualization/src/atoms/Edge.tsx` | M | 3 | 0 |\n| `packages/visualization/src/provider/contractCss.ts` | M | 3 | 0 |\n| `packages/visualization/src/tokens/contract.ts` | M | 12 | 1 |\n| `packages/visualization/style-classification.md` | M | 3 | 3 |\n\n**롤백 태그 4개**\n\n```text\nkan/KAN-057-CCH3E8/S1\nkan/KAN-057-CCH3E8/S2\nkan/KAN-057-CCH3E8/S3\nkan/KAN-057-CCH3E8/S4\n```",
+ "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-057-CCH3E8` 의 끝 `3deac39604c8` 을 main 에 병합), 대상은 아래 고정 범위 |\n| 워크트리 | `/Users/centurio/bbangto-ui` |\n| 베이스 | `9f187fc` |\n| 변경 훑기 | `git diff 9f187fc..3deac39604c8` |\n\n**커밋 8건**\n\n```text\nf27145b kanban: KAN-057 S4 — 품질 게이트 5종 초록\n910cbb6 docs(viz): KAN-057 S3 — edge.dashPattern JSDoc · 횡단 규칙 3 상태 문장 · changeset\n6d87d9d feat(viz): KAN-057 S2 — edge.dashPattern 을 Edge 연결선에 잇는다\ne6b2142 test(viz): KAN-057 S1 — 연결선 대시 토큰 스토리 넷 (구현 전 빨강)\nc1c9c9f kanban: KAN-057 배치1 착수 시점 판단 — 단일 에이전트(유저 선택) · 나머지 토큰은 KAN-069\n2cba2f9 kanban: KAN-057 계획 리포트 (voice 미적용)\n7d429e8 kanban: KAN-057 실행 문서(scope·전략·실행 계획·검증) · 배치 계획 1장(S1~S4)\ndf81318 kanban: KAN-057 진행 중으로 이동 (워크트리 착수)\n```\n\n**변경 파일 15개 (+828 −33)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.changeset/kan-057-edge-dash-token.md` | M | 19 | 0 |\n| `.kanban/archive.jsonl` | M | 1 | 0 |\n| `.kanban/log.md` | M | 1 | 1 |\n| `.kanban/state.json` | M | 25 | 16 |\n| `KANBAN.board.html` | M | 2 | 2 |\n| `KANBAN.md` | M | 12 | 10 |\n| `KANBAN/batches/KAN-057-CCH3E8.batch1.md` | M | 81 | 0 |\n| `KANBAN/cards/KAN-057-CCH3E8.md` | M | 53 | 0 |\n| `KANBAN/reports/KAN-057-CCH3E8.report.html` | M | 499 | 0 |\n| `apps/storybook/src/stories/visualization/Headless.stories.tsx` | M | 109 | 0 |\n| `packages/tokens/src/visualization.ts` | M | 5 | 0 |\n| `packages/visualization/src/atoms/Edge.tsx` | M | 3 | 0 |\n| `packages/visualization/src/provider/contractCss.ts` | M | 3 | 0 |\n| `packages/visualization/src/tokens/contract.ts` | M | 12 | 1 |\n| `packages/visualization/style-classification.md` | M | 3 | 3 |\n\n**롤백 태그 4개**\n\n```text\nkan/KAN-057-CCH3E8/S1\nkan/KAN-057-CCH3E8/S2\nkan/KAN-057-CCH3E8/S3\nkan/KAN-057-CCH3E8/S4\n```",
  "verdicts": [
   {
    "at": "2026-10-10",

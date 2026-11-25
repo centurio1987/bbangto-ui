@@ -2,7 +2,7 @@
 card: KAN-071-FK1W8K
 batch: 2
 created: 2026-10-10
-branch: KAN-071-FK1W8K
+branch: main
 status: 완료
 steps: S4, S5
 ---

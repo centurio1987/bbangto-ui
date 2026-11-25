@@ -2,10 +2,11 @@
 card: KAN-071-FK1W8K
 title: 앱 에이전트의 라이브러리 이탈·개선 요청 실제 사례 재현 — 저장소 열람과 구현까지 연 시험
 created: 2026-10-11
-branch: KAN-071-FK1W8K
-worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-071-FK1W8K
+branch: main
+worktree: /Users/centurio/bbangto-ui
 base: 064586b
 status: 승인
+merged: 6ae3f5d1c79e
 ---
 
 # KAN-071-FK1W8K 검토 요청 — 앱 에이전트의 라이브러리 이탈·개선 요청 실제 사례 재현 — 저장소 열람과 구현까지 연 시험
@@ -19,10 +20,10 @@ status: 승인
 
 | 항목 | 값 |
 |---|---|
-| 브랜치 | `KAN-071-FK1W8K` |
-| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-071-FK1W8K` |
+| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-071-FK1W8K` 의 끝 `6ae3f5d1c79e` 을 main 에 병합), 대상은 아래 고정 범위 |
+| 워크트리 | `/Users/centurio/bbangto-ui` |
 | 베이스 | `064586b` |
-| 변경 훑기 | `git diff 064586b...HEAD` |
+| 변경 훑기 | `git diff 064586b..6ae3f5d1c79e` |
 
 **커밋 18건**
 

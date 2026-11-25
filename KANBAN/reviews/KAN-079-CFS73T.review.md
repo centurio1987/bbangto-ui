@@ -2,10 +2,11 @@
 card: KAN-079-CFS73T
 title: 미배포 변경 배포 — KAN-069·070·072·075 (tokens·visualization·visualization-style-guide-catalog 2.0.0 · core 1.2.3 · foundations 2.0.1 · style-guide-catalog 1.0.1)
 created: 2026-10-12
-branch: KAN-079-CFS73T
-worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-079-CFS73T
+branch: main
+worktree: /Users/centurio/bbangto-ui
 base: 30b92b7
 status: 승인
+merged: 2815131a070f
 ---
 
 # KAN-079-CFS73T 검토 요청 — 미배포 변경 배포 — KAN-069·070·072·075 (tokens·visualization·visualization-style-guide-catalog 2.0.0 · core 1.2.3 · foundations 2.0.1 · style-guide-catalog 1.0.1)
@@ -19,10 +20,10 @@ status: 승인
 
 | 항목 | 값 |
 |---|---|
-| 브랜치 | `KAN-079-CFS73T` |
-| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-079-CFS73T` |
+| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-079-CFS73T` 의 끝 `2815131a070f` 을 main 에 병합), 대상은 아래 고정 범위 |
+| 워크트리 | `/Users/centurio/bbangto-ui` |
 | 베이스 | `30b92b7` |
-| 변경 훑기 | `git diff 30b92b7...HEAD` |
+| 변경 훑기 | `git diff 30b92b7..2815131a070f` |
 
 **커밋 5건**
 

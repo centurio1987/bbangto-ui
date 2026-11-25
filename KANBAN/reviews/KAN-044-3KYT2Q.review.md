@@ -2,10 +2,11 @@
 card: KAN-044-3KYT2Q
 title: 불필요한 문서들 파악해서 정리하기 위한 계획 세우고 레포트 제출해라
 created: 2026-08-25
-branch: KAN-044-3KYT2Q
-worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-044-3KYT2Q
+branch: main
+worktree: /Users/centurio/bbangto-ui
 base: b9745ad
 status: 승인
+merged: 488bb90c7f5d
 ---
 
 # KAN-044-3KYT2Q 검토 요청 — 불필요한 문서들 파악해서 정리하기 위한 계획 세우고 레포트 제출해라
@@ -19,10 +20,10 @@ status: 승인
 
 | 항목 | 값 |
 |---|---|
-| 브랜치 | `KAN-044-3KYT2Q` |
-| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-044-3KYT2Q` |
+| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-044-3KYT2Q` 의 끝 `488bb90c7f5d` 을 main 에 병합), 대상은 아래 고정 범위 |
+| 워크트리 | `/Users/centurio/bbangto-ui` |
 | 베이스 | `b9745ad` |
-| 변경 훑기 | `git diff b9745ad...HEAD` |
+| 변경 훑기 | `git diff b9745ad..488bb90c7f5d` |
 
 **커밋 15건**
 

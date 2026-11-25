@@ -2,10 +2,11 @@
 card: KAN-051-5HMYKT
 title: 번들 트리 셰이킹 복구 — 파일 단위 출력 + 크기 상한 게이트 (core·viz·sgc·vsgc)
 created: 2026-10-07
-branch: KAN-051-5HMYKT
-worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-051-5HMYKT
+branch: main
+worktree: /Users/centurio/bbangto-ui
 base: e41b97a
 status: 승인
+merged: 1283d045f645
 ---
 
 # KAN-051-5HMYKT 검토 요청 — 번들 트리 셰이킹 복구 — 파일 단위 출력 + 크기 상한 게이트 (core·viz·sgc·vsgc)
@@ -19,10 +20,10 @@ status: 승인
 
 | 항목 | 값 |
 |---|---|
-| 브랜치 | `KAN-051-5HMYKT` |
-| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-051-5HMYKT` |
+| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-051-5HMYKT` 의 끝 `1283d045f645` 을 main 에 병합), 대상은 아래 고정 범위 |
+| 워크트리 | `/Users/centurio/bbangto-ui` |
 | 베이스 | `e41b97a` |
-| 변경 훑기 | `git diff e41b97a...HEAD` |
+| 변경 훑기 | `git diff e41b97a..1283d045f645` |
 
 **커밋 7건**
 

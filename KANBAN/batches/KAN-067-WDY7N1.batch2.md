@@ -2,7 +2,7 @@
 card: KAN-067-WDY7N1
 batch: 2
 created: 2026-10-09
-branch: KAN-067-WDY7N1
+branch: main
 status: 계획
 steps: S4, S5, S6
 ---

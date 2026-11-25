@@ -2,7 +2,7 @@
 card: KAN-049-CWBPP6
 batch: 1
 created: 2026-10-06
-branch: KAN-049-CWBPP6
+branch: main
 status: 계획
 steps: S1, S2, S3, S4
 ---

@@ -2,10 +2,11 @@
 card: KAN-052-BYS4JN
 title: Provider 외부 글꼴 선택화 — fonts prop + 글꼴별 1회 주입 (core·viz)
 created: 2026-10-06
-branch: KAN-052-BYS4JN
-worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-052-BYS4JN
+branch: main
+worktree: /Users/centurio/bbangto-ui
 base: 11cb644
 status: 승인
+merged: 2fbe4a644f8f
 ---
 
 # KAN-052-BYS4JN 검토 요청 — Provider 외부 글꼴 선택화 — fonts prop + 글꼴별 1회 주입 (core·viz)
@@ -19,10 +20,10 @@ status: 승인
 
 | 항목 | 값 |
 |---|---|
-| 브랜치 | `KAN-052-BYS4JN` |
-| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-052-BYS4JN` |
+| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-052-BYS4JN` 의 끝 `2fbe4a644f8f` 을 main 에 병합), 대상은 아래 고정 범위 |
+| 워크트리 | `/Users/centurio/bbangto-ui` |
 | 베이스 | `11cb644` |
-| 변경 훑기 | `git diff 11cb644...HEAD` |
+| 변경 훑기 | `git diff 11cb644..2fbe4a644f8f` |
 
 **커밋 9건**
 

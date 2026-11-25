@@ -2,10 +2,11 @@
 card: KAN-047-TRYYRC
 title: 문서 정리 A — 폐기 4건 집행 (RELEASE_PLAN · sample_design · storybook README · ORDER)
 created: 2026-10-06
-branch: KAN-047-TRYYRC
-worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-047-TRYYRC
+branch: main
+worktree: /Users/centurio/bbangto-ui
 base: 11cb644
 status: 승인
+merged: fa6a7a4516d2
 ---
 
 # KAN-047-TRYYRC 검토 요청 — 문서 정리 A — 폐기 4건 집행 (RELEASE_PLAN · sample_design · storybook README · ORDER)
@@ -19,10 +20,10 @@ status: 승인
 
 | 항목 | 값 |
 |---|---|
-| 브랜치 | `KAN-047-TRYYRC` |
-| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-047-TRYYRC` |
+| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-047-TRYYRC` 의 끝 `fa6a7a4516d2` 을 main 에 병합), 대상은 아래 고정 범위 |
+| 워크트리 | `/Users/centurio/bbangto-ui` |
 | 베이스 | `11cb644` |
-| 변경 훑기 | `git diff 11cb644...HEAD` |
+| 변경 훑기 | `git diff 11cb644..fa6a7a4516d2` |
 
 **커밋 5건**
 

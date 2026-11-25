@@ -2,7 +2,7 @@
 card: KAN-065-XSHEMV
 batch: 1
 created: 2026-10-08
-branch: KAN-065-XSHEMV
+branch: main
 status: 계획
 steps: S1, S2
 ---

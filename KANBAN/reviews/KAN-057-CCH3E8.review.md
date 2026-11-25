@@ -2,10 +2,11 @@
 card: KAN-057-CCH3E8
 title: viz edge.dashPattern 토큰 정리 — 선언만 있고 읽히지 않는 커넥터 대시 토큰을 잇거나 걷기
 created: 2026-10-10
-branch: KAN-057-CCH3E8
-worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-057-CCH3E8
+branch: main
+worktree: /Users/centurio/bbangto-ui
 base: 9f187fc
 status: 검토 대기
+merged: 3deac39604c8
 ---
 
 # KAN-057-CCH3E8 검토 요청 — viz edge.dashPattern 토큰 정리 — 선언만 있고 읽히지 않는 커넥터 대시 토큰을 잇거나 걷기
@@ -19,10 +20,10 @@ status: 검토 대기
 
 | 항목 | 값 |
 |---|---|
-| 브랜치 | `KAN-057-CCH3E8` |
-| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-057-CCH3E8` |
+| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-057-CCH3E8` 의 끝 `3deac39604c8` 을 main 에 병합), 대상은 아래 고정 범위 |
+| 워크트리 | `/Users/centurio/bbangto-ui` |
 | 베이스 | `9f187fc` |
-| 변경 훑기 | `git diff 9f187fc...HEAD` |
+| 변경 훑기 | `git diff 9f187fc..3deac39604c8` |
 
 **커밋 8건**
 

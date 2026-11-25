@@ -2,10 +2,11 @@
 card: KAN-074-KAZBTF
 title: 미배포 변경 배포 — KAN-057·061·067 과 KAN-064 major 4개 (tokens 1.5.0 · core 1.2.2 · visualization·style-guide-catalog·visualization-style-guide-catalog 1.0.0 · foundations 2.0.0)
 created: 2026-10-10
-branch: KAN-074-KAZBTF
-worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-074-KAZBTF
+branch: main
+worktree: /Users/centurio/bbangto-ui
 base: 9cbd196
 status: 승인
+merged: b26485bb51ee
 ---
 
 # KAN-074-KAZBTF 검토 요청 — 미배포 변경 배포 — KAN-057·061·067 과 KAN-064 major 4개 (tokens 1.5.0 · core 1.2.2 · visualization·style-guide-catalog·visualization-style-guide-catalog 1.0.0 · foundations 2.0.0)
@@ -19,10 +20,10 @@ status: 승인
 
 | 항목 | 값 |
 |---|---|
-| 브랜치 | `KAN-074-KAZBTF` |
-| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-074-KAZBTF` |
+| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-074-KAZBTF` 의 끝 `b26485bb51ee` 을 main 에 병합), 대상은 아래 고정 범위 |
+| 워크트리 | `/Users/centurio/bbangto-ui` |
 | 베이스 | `9cbd196` |
-| 변경 훑기 | `git diff 9cbd196...HEAD` |
+| 변경 훑기 | `git diff 9cbd196..b26485bb51ee` |
 
 **커밋 2건**
 

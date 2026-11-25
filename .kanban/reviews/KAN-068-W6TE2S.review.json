@@ -2,20 +2,20 @@
  "card": "KAN-068-W6TE2S",
  "front": {
   "base": "7093fcd",
-  "branch": "KAN-068-W6TE2S",
+  "branch": "main",
   "card": "KAN-068-W6TE2S",
   "created": "2026-10-10",
   "inherits": null,
-  "merged": null,
+  "merged": "2d6f96ad3b71",
   "status": "검토 대기",
   "title": "미배포 수정분 배포 — KAN-056·060·065 를 KAN-064 major 전에 (사용자 실행 지시 후)",
-  "worktree": "/Users/centurio/orca/workspaces/bbangto-ui/KAN-068-W6TE2S"
+  "worktree": "/Users/centurio/bbangto-ui"
  },
  "inherited_md": "",
- "md_fp": "934e36bb87b427ba7be3ddd1d8ef68a26760cf75",
- "md_src_fp": "80be91f3482959be4191334db431e4ea64eca1fc",
+ "md_fp": "11639c3cdda6d692c1d400462441b412d09d8e43",
+ "md_src_fp": "b676bca23eb9304bf652722fe0c118ae56e4b7d1",
  "schema": 1,
- "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `KAN-068-W6TE2S` |\n| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-068-W6TE2S` |\n| 베이스 | `7093fcd` |\n| 변경 훑기 | `git diff 7093fcd...HEAD` |\n\n**커밋 6건**\n\n```text\ne58883a kanban: KAN-068 검토 대행(kanban-reviewer) — 항목 1 승인 · 항목 2 반려(전달 문구가 changeset 보다 넓음 · 18곳 약속 누락 · style guide 이름 없음 · export 서술 충돌) (ai · 검토자)\nb2f21ce kanban: KAN-068 검토로 이동 — 검토서(판단 항목 2: visualization 파일 나눔 차이 · 외부 앱 전달 문구) · 검토 리포트\n0f41c41 kanban: KAN-068 S2·S3 — 배포 확인(release 둘 초록 · 새 버전 6개) · 배포본 설치·import·수정 4건 확인 · 외부 앱 전달 문구\n6e09ff5 kanban: KAN-068 S2 진행 기록 — push · Version PR #10 대조·병합(adb851c), 배포 확인 대기\n1fe02e7 kanban: KAN-068 S1 — push 직전 점검 (게이트 5종 초록 · 다음 버전 표 · 나갈 커밋 126개)\n01b0efe kanban: KAN-068 진행 중으로 이동 (워크트리 착수)\n```\n\n**변경 파일 10개 (+1531 −45)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.kanban/archive.jsonl` | M | 2 | 0 |\n| `.kanban/log.md` | M | 2 | 2 |\n| `.kanban/reviews/KAN-068-W6TE2S.events.jsonl` | M | 13 | 0 |\n| `.kanban/reviews/KAN-068-W6TE2S.review.json` | M | 21 | 0 |\n| `.kanban/state.json` | M | 24 | 31 |\n| `KANBAN.board.html` | M | 2 | 2 |\n| `KANBAN.md` | M | 7 | 7 |\n| `KANBAN/cards/KAN-068-W6TE2S.md` | M | 11 | 3 |\n| `KANBAN/reviews/KAN-068-W6TE2S.review.html` | M | 1253 | 0 |\n| `KANBAN/reviews/KAN-068-W6TE2S.review.md` | M | 196 | 0 |\n\n**롤백 태그 0개** — 없음(`--tags` 를 넘기지 않았거나 아직 태그가 없습니다)",
+ "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-068-W6TE2S` 의 끝 `2d6f96ad3b71` 을 main 에 병합), 대상은 아래 고정 범위 |\n| 워크트리 | `/Users/centurio/bbangto-ui` |\n| 베이스 | `7093fcd` |\n| 변경 훑기 | `git diff 7093fcd..2d6f96ad3b71` |\n\n**커밋 6건**\n\n```text\ne58883a kanban: KAN-068 검토 대행(kanban-reviewer) — 항목 1 승인 · 항목 2 반려(전달 문구가 changeset 보다 넓음 · 18곳 약속 누락 · style guide 이름 없음 · export 서술 충돌) (ai · 검토자)\nb2f21ce kanban: KAN-068 검토로 이동 — 검토서(판단 항목 2: visualization 파일 나눔 차이 · 외부 앱 전달 문구) · 검토 리포트\n0f41c41 kanban: KAN-068 S2·S3 — 배포 확인(release 둘 초록 · 새 버전 6개) · 배포본 설치·import·수정 4건 확인 · 외부 앱 전달 문구\n6e09ff5 kanban: KAN-068 S2 진행 기록 — push · Version PR #10 대조·병합(adb851c), 배포 확인 대기\n1fe02e7 kanban: KAN-068 S1 — push 직전 점검 (게이트 5종 초록 · 다음 버전 표 · 나갈 커밋 126개)\n01b0efe kanban: KAN-068 진행 중으로 이동 (워크트리 착수)\n```\n\n**변경 파일 10개 (+1531 −45)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.kanban/archive.jsonl` | M | 2 | 0 |\n| `.kanban/log.md` | M | 2 | 2 |\n| `.kanban/reviews/KAN-068-W6TE2S.events.jsonl` | M | 13 | 0 |\n| `.kanban/reviews/KAN-068-W6TE2S.review.json` | M | 21 | 0 |\n| `.kanban/state.json` | M | 24 | 31 |\n| `KANBAN.board.html` | M | 2 | 2 |\n| `KANBAN.md` | M | 7 | 7 |\n| `KANBAN/cards/KAN-068-W6TE2S.md` | M | 11 | 3 |\n| `KANBAN/reviews/KAN-068-W6TE2S.review.html` | M | 1253 | 0 |\n| `KANBAN/reviews/KAN-068-W6TE2S.review.md` | M | 196 | 0 |\n\n**롤백 태그 0개** — 없음(`--tags` 를 넘기지 않았거나 아직 태그가 없습니다)",
  "verdicts": [
   {
    "at": "2026-10-10",

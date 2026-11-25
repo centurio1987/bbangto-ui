@@ -2,7 +2,7 @@
 card: KAN-063-Q85EET
 batch: 1
 created: 2026-10-08
-branch: KAN-063-Q85EET
+branch: main
 status: 계획
 steps: S1, S2
 ---

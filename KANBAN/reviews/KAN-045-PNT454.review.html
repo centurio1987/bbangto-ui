@@ -1,5 +1,5 @@
 <meta charset="utf-8">
-<!-- kanban-fp:e371e0c6f84e2af7d41c5e28e05a7f58bcc14ec8 -->
+<!-- kanban-fp:b3b46553ee3c30d6294d245b4a22aab3ed26f2f9 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>KAN-045-PNT454 검토 요청</title>
 <style>
@@ -43,7 +43,8 @@
    * 레일 칸)**은 「이것은 어떤 상태인가」를 말한다. 같은 값이 두 장치에 쓰이는 것은
    * 괜찮지만, 한 장치 안에서 두 뜻을 겸하면 훑는 눈이 갈라내지 못한다.
    *
-   *   --accent   (골드) 띠: 인용·주석 · 「근거」 밴드 / 그 밖: 타이틀 블록 · 포커스 링
+   *   --accent   (골드) 띠: 인용·주석 · 상세 밴드(「배경」·「정할 것」) · 선택지 표의
+   *                        추천 행 / 그 밖: 타이틀 블록 · 포커스 링
    *   --accent-2 (그린) 띠: **조작 자리 전용**. 질감이 모드를 말한다 —
    *                        단색=serve(누르면 정본에 씀) · 45° 해칭=정적(패치로 나감)
    *   --accent-3 (핑크) 띠: **승계 전용**. 상태 칩 `tag-hold` 와 레일 칸 `st-noted` 가
@@ -336,6 +337,14 @@ details[open] > summary::before { content: "\25BE\00a0"; }
 .jd-body > :last-child { margin-bottom: 0; }
 .jd-band-inh > .jd-body { border-left: 5px solid var(--accent-3); padding-left: .75rem; }
 .jd-band-ctx > .jd-body { border-left: 5px solid var(--accent); padding-left: .75rem; }
+/* 「배경」의 사실 목록 — 사실 하나가 한 칸이고, 그 근거(원문)는 칸 안에서 제 줄로 선다.
+   칸 사이 가는 선은 사실의 경계를 눈으로 가르는 자리다(줄글에서 사라지던 것). */
+.jd-facts { list-style: none; margin: 0; padding: 0; }
+.jd-facts > li { padding: .45rem 0; border-top: 1px solid var(--bg-sunken); }
+.jd-facts > li:first-child { border-top: 0; padding-top: 0; }
+.jd-facts > li::before { content: "·"; font-weight: 700; margin-right: .45rem; color: var(--fg-subtle); }
+.jd-src { display: block; margin-top: .15rem; padding-left: .9rem; font-family: var(--font-mono);
+          font-size: 12px; color: var(--fg-subtle); overflow-wrap: anywhere; }
 /* 조작 자리 띠만 테두리가 아니라 **바탕 조각**이다 — `border` 는 질감을 못 받는데, 이
    자리는 단색(serve)과 45° 해칭(정적)으로 모드를 말해야 한다(REVIEW_CSS 의 `.is-static`).
    자리·너비·색은 다른 두 띠와 똑같다. */
@@ -344,6 +353,15 @@ details[open] > summary::before { content: "\25BE\00a0"; }
 .jd-band .inh, .jd-band .rv-ops { border-left: 0; padding-left: 0; }
 /* 「쓸 수 있다는 사실까지가 인터페이스」(§4.5-3) — 0건 자리는 비우지 않고 점선으로 낸다.
    점선을 쓰는 것은 이 자리가 상태가 아니라 **빈 자리**이기 때문이다. */
+/* 「정할 것」 아래의 선택지 표. **여기(REPORT_STYLE)에 두는 이유**는 3항 본문이
+   `승계됨` 문서에도 보이기 때문이다 — REVIEW_CSS 는 판정을 내릴 수 있는 문서에만 실리므로
+   거기 두면 그 화면에서만 표가 통째로 무너진다(의뢰서 §5-10).
+   표 자체의 테두리·여백은 위의 공용 `table` 규칙이 이미 진다. 여기서 더하는 것은 밴드
+   안에서의 여백과 **추천 행의 표시**뿐이다. 추천은 새 색을 안 만들고 이미 「자리」를
+   가리키는 골드 띠를 왼쪽에 세운다 — 칩(`tag-done`)이 상태를 말하므로 겹치지 않는다. */
+.jd-tbl { margin: .6rem 0 .2rem; }
+.jd-tbl table { margin: 0; }
+.jd-rec > td:first-child { border-left: 3px solid var(--accent); }
 .jd-empty { border: 2px dashed var(--fg-subtle); color: var(--fg-subtle);
             padding: .45rem .7rem; margin: 0; font-size: 14px; }
 .jd-vs, .jd-ns { list-style: none; margin: 0; padding: 0; display: grid; gap: .3rem; }
@@ -403,6 +421,11 @@ details[open] > summary::before { content: "\25BE\00a0"; }
   .jd-g { padding-top: 0; }
   .jd-band-inh > .jd-body, .jd-band-ctx > .jd-body, .jd-band-ops > .jd-body {
     padding-left: .6rem; }
+  /* 3열 표는 이 폭에서 실제로 좁다. **열을 줄이거나 카드로 접지 않는다** — 레이아웃이
+     두 벌이 되면 검사할 자리도 두 배가 된다. 글자와 셀 여백만 줄이고 넘치는 것은
+     `.scroll` 이 자기 안에서 민다(body 는 안 밀린다). */
+  .jd-tbl table { font-size: 13px; }
+  .jd-tbl th, .jd-tbl td { padding: .35rem .45rem; }
   /* 헤더줄·접힘 줄도 두 열로 접는다 — 번호|주제 / 상태|개수 / 펴기. */
   .jd-head, .jd-fold > summary { grid-template-columns: auto minmax(0, 1fr);
                                  row-gap: .3rem; }
@@ -434,6 +457,13 @@ textarea { line-height: 1.6; resize: vertical; }
 /* 조작 자리는 의견 본문·판정 이력과 눈으로 갈라져야 한다. 안 갈라 두면 지난 판정과
    지금 누를 버튼이 한 덩어리로 읽혀서, 읽는 자리인지 쓰는 자리인지가 흐려진다.
    왼쪽 선 색만 다르게 준다 — 이미 .note/blockquote 가 쓰는 모티프다. */
+/* 의견 추가 폼의 선택지 행. **조작 자리라 REVIEW_CSS 가 진다** — 판정을 못 내리는
+   문서(`승계됨`·정적 발행본)에는 이 폼 자체가 없으므로 규칙도 갈 자리가 없다.
+   세 칸은 표의 세 열과 같은 순서다(선택지 · 대가 · 그러면) — 입력 순서와 결과 순서가
+   어긋나면 적는 쪽이 매번 머릿속에서 옮겨 앉혀야 한다. */
+.rv-opt { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: .35rem;
+          margin-bottom: .35rem; align-items: center; }
+.rv-opt .rv-rec { display: flex; align-items: center; gap: .25rem; white-space: nowrap; }
 .rv-ops { border-left: 5px solid var(--accent-2); padding: .1rem 0 .1rem .8rem;
           margin: .6rem 0 1.1rem; }
 .rv-panel { padding: 1rem 1.2rem; }
@@ -495,7 +525,7 @@ textarea { line-height: 1.6; resize: vertical; }
 .tray li.rs-no span.rs-i { color: var(--danger); }
 
 /* ─── 모드 질감 — 문구가 아니라 손끝으로 갈린다 ──────────────────────────────
- * 정적으로 연 화면과 `--serve` 로 연 화면이 문구 한 줄로만 구별됐다(의뢰서 §6-5).
+ * 정적으로 연 화면과 서버가 내준 화면이 문구 한 줄로만 구별됐다(의뢰서 §6-5).
  * 「새 색을 만들지 않는다」(§4.4·§7)를 지키면서 가를 방법은 **같은 토큰의 질감**이다 —
  * 조작 자리(그린)가 serve 면 단색, 정적이면 45° 사선 해칭이다. 해칭은 CSS 그라디언트라
  * 외부 자산이 0건이고(§5-1), `var()` 두 개로만 쓰므로 다크에서 같이 뒤집힌다
@@ -546,6 +576,9 @@ textarea { line-height: 1.6; resize: vertical; }
  * 손가락 기준 44px 은 조작 요소 **전부**에 건다. 버튼 2×2 배치는 버린 안(1c)에서 가져온
  * 유일한 것이다. */
 @media (max-width: 40rem) {
+  /* 3열 + 라디오는 이 폭에서 못 선다. 한 열로 쌓고 손가락 폭을 준다. */
+  .rv-opt { grid-template-columns: minmax(0, 1fr); gap: .3rem; }
+  .rv-opt input:not([type=radio]) { min-height: 44px; }
   .rv-ops .row { display: grid; grid-template-columns: 1fr 1fr; gap: .45rem; }
   .rv-ops .row label { grid-column: 1 / -1; }
   .rv-ops button, .rv-ops input, .rv-ops select { min-height: 44px; }
@@ -578,35 +611,36 @@ textarea { line-height: 1.6; resize: vertical; }
 <div class="wrap">
 <div class="title-block">
   <div class="tb-row">
-    <p class="meta">KAN-045-PNT454 · 검토 · 브랜치 KAN-045-PNT454</p>
+    <p class="meta">KAN-045-PNT454 · 완료 · 브랜치 main</p>
     <span class="mode-stamp">정적 · 저장 없음 · 패치로</span>
   </div>
   <h1>README는 이 레포를 설명하기에 정보가 많이 부족하다. 이 프로젝트를 활용 사례 별로 분류하고, 사례 별로 사용 방법을 자세한 절차로 서술해라. 서술 과정에서 authoring-kit skill을 이용해라. — 검토 요청</h1>
 </div>
 
+<p class="note"><strong>머지됨</strong> — 이 카드는 이미 병합됐습니다 (e048f5e15082). 검토 대상은 브랜치가 아니라 아래 고정 범위입니다.</p>
 
 
 
 <div class="dh">
   <div class="dh-cv"><span class="meta">수렴</span>
-    <b>4<i> / </i>5</b>
-    <span class="dh-sub">남은 1</span></div>
+    <b>5<i> / </i>5</b>
+    <span class="dh-sub">살아있는 항목 전부 승인</span></div>
   <div class="dh-sep"></div>
   <div class="dh-rail">
     <div class="dh-rail-head"><span class="meta">항목 레일 — 누르면 그 항목으로</span>
       <span class="meta">5칸</span></div>
-    <div class="rail"><a class="rail-c st-rejected rail-cur" href="#item-1" title="§3-1 반려 — 푸터의 이모지 한 줄을 유지할 것인가 — 유지로 두고 냈습니다">1</a><a class="rail-c st-approved" href="#item-2" title="§3-2 승인 — README 1306줄이 한 장으로 담기에 긴가 — 담는 쪽으로 두고 냈">2</a><a class="rail-c st-approved" href="#item-3" title="§3-3 승인 — 사례 7에만 「더 보기」 줄이 없는 것을 그대로 둘 것인가 — 그대로 두">3</a><a class="rail-c st-approved" href="#item-4" title="§3-4 승인 — 집필 명세가 허용하는 목소리에 ppangto 를 넣을 것인가 — 빼고 냈">4</a><a class="rail-c st-approved" href="#item-5" title="§3-5 승인 — pnpm test:unit 을 CLAUDE.md 에도 추가할 것인가 — ">5</a></div>
+    <div class="rail"><a class="rail-c st-approved" href="#item-1" title="§3-1 승인 — 푸터의 이모지 한 줄을 유지할 것인가 — 유지로 두고 냈습니다">1</a><a class="rail-c st-approved" href="#item-2" title="§3-2 승인 — README 1306줄이 한 장으로 담기에 긴가 — 담는 쪽으로 두고 냈">2</a><a class="rail-c st-approved" href="#item-3" title="§3-3 승인 — 사례 7에만 「더 보기」 줄이 없는 것을 그대로 둘 것인가 — 그대로 두">3</a><a class="rail-c st-approved" href="#item-4" title="§3-4 승인 — 집필 명세가 허용하는 목소리에 ppangto 를 넣을 것인가 — 빼고 냈">4</a><a class="rail-c st-approved" href="#item-5" title="§3-5 승인 — pnpm test:unit 을 CLAUDE.md 에도 추가할 것인가 — ">5</a></div>
   </div>
   <div class="dh-sep"></div>
   <div class="dh-act">
-    <span class="tag tag-doing">검토 대기</span>
-    <a class="dh-next" href="#item-1">다음 미해결 &#9656; 1번</a></div>
+    <span class="tag tag-done">승인</span>
+    </div>
 </div>
 <div class="dh-meta">변경 17파일 · +3192 −166 · 커밋 9 · 롤백 태그 10 · 추가 의견 4</div>
 
 
 
-<h2 class="h2-row">판단 항목 5<span class="meta">열린 것 1 · 닫힌 것 4</span></h2>
+<h2 class="h2-row">판단 항목 5<span class="meta">열린 것 0 · 닫힌 것 5</span></h2>
 <p class="note">번호는 의견 순서입니다. <b>의견마다 판정과 추가 의견이 따로 붙습니다</b> — 판정은 상태이고
 추가 의견은 말입니다. 승인/반려를 아직 안 정했어도 추가 의견만 달 수 있고, 반대로 의견 하나만 먼저 닫을 수도
 있습니다. <b>판정과 추가 의견, 의견 추가는 이 화면에서 바로 합니다</b> — 누른 것은 왼쪽 아래
@@ -628,16 +662,27 @@ python3 scripts/kanban.py review-item  &lt;project-root&gt; --card KAN-045-PNT45
   <select id="rv-by" style="width:auto"><option>유저</option><option>ai</option></select>
   <span class="meta">이 화면에서 내는 판정·추가 의견에 붙습니다 — 기본은 유저입니다</span>
 </div>
-<ol id="rv-list"><li id="item-1" class="jd"><div class="jd-head"><span class="jd-num st-rejected">1</span><span class="jd-title">푸터의 이모지 한 줄을 유지할 것인가 — 유지로 두고 냈습니다</span><span class="tag tag-danger">반려</span><span class="meta">판정 1 · 의견 2</span></div><div class="jd-band jd-band-ctx"><span class="jd-g">근거</span><span class="jd-rule"></span><div class="jd-body"><details><summary>상세 — 무엇을 근거로 정하는가</summary><p>원문은 README.md:1304 의 &#x27;Built with (하트) by the BBANGTO Team.&#x27; 이고 기존 README에서 그대로 물려받은 브랜딩 줄입니다. 이 한 줄이 문체 스캐너의 유일한 실제 적발이에요. 스캐너가 붙인 기호를 풀면 P3 — &#x27;본문 이모지&#x27;, S1 — &#x27;가장 강한 AI 문체 신호 등급&#x27; 입니다. 규칙 원문: ~/.claude/authoring/principles/L0_MACHINE_RHYTHM.md:62. 제가 실측한 것 — 이 줄을 &#x27;Built with care by&#x27; 로 바꾸면 코드블록 오탐을 걷어낸 산문 기준 등급이 C에서 A(적발 0)로 오릅니다. 브랜딩이라 임의로 지우지 않았습니다.</p></details></div></div><div class="jd-band jd-band-v"><span class="jd-g">판정 1</span><span class="jd-rule"></span><div class="jd-body"><ul class="jd-vs"><li><span class="meta">1회차</span><span class="tag tag-danger">반려</span><span><span class="meta">유저 · 2026-08-25</span> </span></li></ul></div></div><div class="jd-band jd-band-n"><span class="jd-g">의견 2</span><span class="jd-rule"></span><div class="jd-body"><ul class="jd-ns"><li><span class="meta">유저 · 2026-08-25</span> 제거해라</li><li><span class="meta">ai · 2026-08-25</span> 제거했습니다. README.md:1304 을 &#x27;Built with care by the BBANGTO Team.&#x27; 로 바꿨습니다(커밋 c53fd6b). 재측정: 코드 펜스를 걷어낸 산문 기준 등급 A·적발 0. README.md 를 직접 재면 여전히 C 인데 남은 적발 4건은 전부 코드 블록을 산문으로 센 오탐입니다(P1 2건은 CONTRAST_THRESHOLDS 주석과 useEffect 줄, P4 2건은 CSS 의 !important). V1 수치·V3 링크 재확인 통과, pnpm typecheck exit 0.</li></ul></div></div><div class="jd-band jd-band-ops is-static"><span class="jd-g">조작</span><span class="jd-rule"></span><div class="jd-body"><div class="rv-ops" data-item="1"><div class="row"><label>판정</label><button data-judge="승인">승인</button><button data-judge="반려">반려</button><button data-judge="철회">철회</button><span class="tag tag-wait" data-pending="1" hidden></span></div><div class="row"><label>추가 의견</label><input data-note placeholder="추가 의견 — 판정을 안 바꾸고 말만 남깁니다"><button data-note-add>추가 의견 달기</button></div></div></div></div></li><li id="item-2" class="jd jd-closed"><details class="jd-fold"><summary><span class="jd-num st-approved">2</span><span class="jd-title">README 1306줄이 한 장으로 담기에 긴가 — 담는 쪽으로 두고 냈습니다</span><span class="tag tag-done">승인</span><span class="meta">판정 1 · 의견 1</span><span class="meta jd-tog"></span></summary><div class="jd-band jd-band-ctx"><span class="jd-g">근거</span><span class="jd-rule"></span><div class="jd-body"><details><summary>상세 — 무엇을 근거로 정하는가</summary><p>근거는 보드에 적힌 카드 목표입니다 — KANBAN.md:21 의 &#x27;처음 온 사람이 README만 보고 자기 사례에 맞는 패키지를 골라 style guide 까지 구현할 수 있다&#x27;. 그래서 실행에 필요한 것(설치·코드·명령·게이트)은 전부 싣고 설계 근거와 이론은 링크로 넘겼습니다(README.md:1284 「함께 보기」 12건). 분량 내역 — 저작 사례 둘이 합쳐 479줄로 전체의 37%입니다(README.md:502 사례 6, README.md:941 사례 9). 줄이는 안은 그 둘을 docs/ 로 빼는 것인데, 그러면 &#x27;먼저 읽어야 할 문서&#x27;가 생겨 목표와 어긋납니다(.claude/authoring/specs/bbangto-readme/spec.md:130 「한 장 자립의 경계」).</p></details></div></div><div class="jd-band jd-band-v"><span class="jd-g">판정 1</span><span class="jd-rule"></span><div class="jd-body"><ul class="jd-vs"><li><span class="meta">1회차</span><span class="tag tag-done">승인</span><span><span class="meta">유저 · 2026-08-25</span> </span></li></ul></div></div><div class="jd-band jd-band-n"><span class="jd-g">의견 1</span><span class="jd-rule"></span><div class="jd-body"><ul class="jd-ns"><li><span class="meta">유저 · 2026-08-25</span> 얼마나 길든 신경쓰지 마라</li></ul></div></div><div class="jd-band jd-band-ops is-static"><span class="jd-g">조작</span><span class="jd-rule"></span><div class="jd-body"><div class="rv-ops" data-item="2"><div class="row"><label>판정</label><button data-judge="승인">승인</button><button data-judge="반려">반려</button><button data-judge="철회">철회</button><span class="tag tag-wait" data-pending="2" hidden></span></div><div class="row"><label>추가 의견</label><input data-note placeholder="추가 의견 — 판정을 안 바꾸고 말만 남깁니다"><button data-note-add>추가 의견 달기</button></div></div></div></div></details></li><li id="item-3" class="jd jd-closed"><details class="jd-fold"><summary><span class="jd-num st-approved">3</span><span class="jd-title">사례 7에만 「더 보기」 줄이 없는 것을 그대로 둘 것인가 — 그대로 두고 냈습니다</span><span class="tag tag-done">승인</span><span class="meta">판정 1 · 의견 0</span><span class="meta jd-tog"></span></summary><div class="jd-band jd-band-ctx"><span class="jd-g">근거</span><span class="jd-rule"></span><div class="jd-body"><details><summary>상세 — 무엇을 근거로 정하는가</summary><p>원문: README.md:775 의 &#x27;사례 7 · 로직만 가져다 쓴다&#x27; 절. 나머지 9종에는 전부 「더 보기」가 있습니다. hooks 패키지에는 넘길 만한 별도 문서가 레포에 없어서 비웠어요(packages/hooks 아래에 README도 전략 문서도 없습니다). 형식을 맞추려고 관련 없는 문서를 걸면 &#x27;링크마다 거기 가면 무엇이 있는지 한 줄을 붙인다&#x27;는 규칙이 빈 말이 됩니다(.claude/authoring/specs/bbangto-readme/spec.md:130 이하 「함께 보기」 항).</p></details></div></div><div class="jd-band jd-band-v"><span class="jd-g">판정 1</span><span class="jd-rule"></span><div class="jd-body"><ul class="jd-vs"><li><span class="meta">1회차</span><span class="tag tag-done">승인</span><span><span class="meta">유저 · 2026-08-25</span> </span></li></ul></div></div><div class="jd-band jd-band-n"><span class="jd-g">의견 0</span><span class="jd-rule"></span><div class="jd-body"><p class="jd-empty">추가 의견 없음 — <code>review-note --card KAN-045-PNT454 --item 3 --text "&lt;추가 의견&gt;"</code></p><ul class="jd-ns"></ul></div></div><div class="jd-band jd-band-ops is-static"><span class="jd-g">조작</span><span class="jd-rule"></span><div class="jd-body"><div class="rv-ops" data-item="3"><div class="row"><label>판정</label><button data-judge="승인">승인</button><button data-judge="반려">반려</button><button data-judge="철회">철회</button><span class="tag tag-wait" data-pending="3" hidden></span></div><div class="row"><label>추가 의견</label><input data-note placeholder="추가 의견 — 판정을 안 바꾸고 말만 남깁니다"><button data-note-add>추가 의견 달기</button></div></div></div></div></details></li><li id="item-4" class="jd jd-closed"><details class="jd-fold"><summary><span class="jd-num st-approved">4</span><span class="jd-title">집필 명세가 허용하는 목소리에 ppangto 를 넣을 것인가 — 빼고 냈습니다</span><span class="tag tag-done">승인</span><span class="meta">판정 1 · 의견 0</span><span class="meta jd-tog"></span></summary><div class="jd-band jd-band-ctx"><span class="jd-g">근거</span><span class="jd-rule"></span><div class="jd-body"><details><summary>상세 — 무엇을 근거로 정하는가</summary><p>원문: .claude/authoring/specs/bbangto-readme/spec.json:20 의 allowed 값이 지금 [&#x27;ppangtolab-teacher&#x27;, &#x27;ppangtolab-researcher&#x27;] 이고 기본값은 teacher 입니다. ppangto 는 레포 주인 본인 목소리라 오픈소스 README 저자성에는 맞지만, 레지스트리 정의가 preserve 입니다(~/.claude/authoring/voices/ppangto/voice.json:7 의 usage) — &#x27;사람이 쓴 글을 손볼 때 지킬 색&#x27;이지 AI 가 그 목소리로 생성하라는 뜻이 아닙니다. 넣기로 하면 고칠 곳은 그 한 줄이고, 지금 상태에서는 그 목소리로 해석을 시도하면 CONFLICT 로 막힙니다(제가 실행해 확인했습니다).</p></details></div></div><div class="jd-band jd-band-v"><span class="jd-g">판정 1</span><span class="jd-rule"></span><div class="jd-body"><ul class="jd-vs"><li><span class="meta">1회차</span><span class="tag tag-done">승인</span><span><span class="meta">유저 · 2026-08-25</span> </span></li></ul></div></div><div class="jd-band jd-band-n"><span class="jd-g">의견 0</span><span class="jd-rule"></span><div class="jd-body"><p class="jd-empty">추가 의견 없음 — <code>review-note --card KAN-045-PNT454 --item 4 --text "&lt;추가 의견&gt;"</code></p><ul class="jd-ns"></ul></div></div><div class="jd-band jd-band-ops is-static"><span class="jd-g">조작</span><span class="jd-rule"></span><div class="jd-body"><div class="rv-ops" data-item="4"><div class="row"><label>판정</label><button data-judge="승인">승인</button><button data-judge="반려">반려</button><button data-judge="철회">철회</button><span class="tag tag-wait" data-pending="4" hidden></span></div><div class="row"><label>추가 의견</label><input data-note placeholder="추가 의견 — 판정을 안 바꾸고 말만 남깁니다"><button data-note-add>추가 의견 달기</button></div></div></div></div></details></li><li id="item-5" class="jd jd-closed"><details class="jd-fold"><summary><span class="jd-num st-approved">5</span><span class="jd-title">pnpm test:unit 을 CLAUDE.md 에도 추가할 것인가 — 이 카드에서는 안 했습니다</span><span class="tag tag-done">승인</span><span class="meta">판정 1 · 의견 1</span><span class="meta jd-tog"></span></summary><div class="jd-band jd-band-ctx"><span class="jd-g">근거</span><span class="jd-rule"></span><div class="jd-body"><details><summary>상세 — 무엇을 근거로 정하는가</summary><p>원문: package.json:11 의 &#x27;test:unit&#x27;: &#x27;pnpm -r --filter=!storybook run test&#x27;. 제가 grep 으로 확인한 것 — CLAUDE.md 와 이전 README 둘 다 test:unit 이 0회 등장합니다. CLAUDE.md:32 의 「품질 게이트 실행」 절은 typecheck·build·test·storybook build 넷만 적어요. 그런데 매니페스트 바이트 동기·대비 over-claim·명명 규칙·커버리지 census 게이트가 전부 test:unit 에서만 돕니다(pnpm test 의 실체는 pnpm --filter storybook test 라 storybook 패키지만 실행). README 에는 다섯 번째 게이트로 명시했지만 CLAUDE.md 는 이 카드 scope(README.md, .claude/authoring/**) 밖이라 손대지 않았습니다. 별도 카드로 낼지 이 카드에 붙일지 정해 주십시오.</p></details></div></div><div class="jd-band jd-band-v"><span class="jd-g">판정 1</span><span class="jd-rule"></span><div class="jd-body"><ul class="jd-vs"><li><span class="meta">1회차</span><span class="tag tag-done">승인</span><span><span class="meta">유저 · 2026-08-25</span> </span></li></ul></div></div><div class="jd-band jd-band-n"><span class="jd-g">의견 1</span><span class="jd-rule"></span><div class="jd-body"><ul class="jd-ns"><li><span class="meta">유저 · 2026-08-25</span> 별도 카드로 발행해라</li></ul></div></div><div class="jd-band jd-band-ops is-static"><span class="jd-g">조작</span><span class="jd-rule"></span><div class="jd-body"><div class="rv-ops" data-item="5"><div class="row"><label>판정</label><button data-judge="승인">승인</button><button data-judge="반려">반려</button><button data-judge="철회">철회</button><span class="tag tag-wait" data-pending="5" hidden></span></div><div class="row"><label>추가 의견</label><input data-note placeholder="추가 의견 — 판정을 안 바꾸고 말만 남깁니다"><button data-note-add>추가 의견 달기</button></div></div></div></div></details></li></ol>
+<ol id="rv-list"><li id="item-1" class="jd jd-closed"><details class="jd-fold"><summary><span class="jd-num st-approved">1</span><span class="jd-title">푸터의 이모지 한 줄을 유지할 것인가 — 유지로 두고 냈습니다</span><span class="tag tag-done">승인</span><span class="meta">판정 2 · 의견 2</span><span class="meta jd-tog"></span></summary><div class="jd-band jd-band-ctx"><span class="jd-g">배경</span><span class="jd-rule"></span><div class="jd-body"><details><summary>상세 — 무엇을 근거로 정하는가</summary><p>원문은 README.md:1304 의 &#x27;Built with (하트) by the BBANGTO Team.&#x27; 이고 기존 README에서 그대로 물려받은 브랜딩 줄입니다. 이 한 줄이 문체 스캐너의 유일한 실제 적발이에요. 스캐너가 붙인 기호를 풀면 P3 — &#x27;본문 이모지&#x27;, S1 — &#x27;가장 강한 AI 문체 신호 등급&#x27; 입니다. 규칙 원문: ~/.claude/authoring/principles/L0_MACHINE_RHYTHM.md:62. 제가 실측한 것 — 이 줄을 &#x27;Built with care by&#x27; 로 바꾸면 코드블록 오탐을 걷어낸 산문 기준 등급이 C에서 A(적발 0)로 오릅니다. 브랜딩이라 임의로 지우지 않았습니다.</p></details></div></div><div class="jd-band jd-band-v"><span class="jd-g">판정 2</span><span class="jd-rule"></span><div class="jd-body"><ul class="jd-vs"><li><span class="meta">1회차</span><span class="tag tag-danger">반려</span><span><span class="meta">유저 · 2026-08-25</span> </span></li><li><span class="meta">2회차</span><span class="tag tag-done">승인</span><span><span class="meta">유저 · 2026-08-25</span> </span></li></ul></div></div><div class="jd-band jd-band-n"><span class="jd-g">의견 2</span><span class="jd-rule"></span><div class="jd-body"><ul class="jd-ns"><li><span class="meta">유저 · 2026-08-25</span> 제거해라</li><li><span class="meta">ai · 2026-08-25</span> 제거했습니다. README.md:1304 을 &#x27;Built with care by the BBANGTO Team.&#x27; 로 바꿨습니다(커밋 c53fd6b). 재측정: 코드 펜스를 걷어낸 산문 기준 등급 A·적발 0. README.md 를 직접 재면 여전히 C 인데 남은 적발 4건은 전부 코드 블록을 산문으로 센 오탐입니다(P1 2건은 CONTRAST_THRESHOLDS 주석과 useEffect 줄, P4 2건은 CSS 의 !important). V1 수치·V3 링크 재확인 통과, pnpm typecheck exit 0.</li></ul></div></div><div class="jd-band jd-band-ops is-static"><span class="jd-g">조작</span><span class="jd-rule"></span><div class="jd-body"><div class="rv-ops" data-item="1"><div class="row"><label>판정</label><button data-judge="승인">승인</button><button data-judge="반려">반려</button><button data-judge="철회">철회</button><span class="tag tag-wait" data-pending="1" hidden></span></div><div class="row"><label>추가 의견</label><input data-note placeholder="추가 의견 — 판정을 안 바꾸고 말만 남깁니다"><button data-note-add>추가 의견 달기</button></div></div></div></div></details></li><li id="item-2" class="jd jd-closed"><details class="jd-fold"><summary><span class="jd-num st-approved">2</span><span class="jd-title">README 1306줄이 한 장으로 담기에 긴가 — 담는 쪽으로 두고 냈습니다</span><span class="tag tag-done">승인</span><span class="meta">판정 1 · 의견 1</span><span class="meta jd-tog"></span></summary><div class="jd-band jd-band-ctx"><span class="jd-g">배경</span><span class="jd-rule"></span><div class="jd-body"><details><summary>상세 — 무엇을 근거로 정하는가</summary><p>근거는 보드에 적힌 카드 목표입니다 — KANBAN.md:21 의 &#x27;처음 온 사람이 README만 보고 자기 사례에 맞는 패키지를 골라 style guide 까지 구현할 수 있다&#x27;. 그래서 실행에 필요한 것(설치·코드·명령·게이트)은 전부 싣고 설계 근거와 이론은 링크로 넘겼습니다(README.md:1284 「함께 보기」 12건). 분량 내역 — 저작 사례 둘이 합쳐 479줄로 전체의 37%입니다(README.md:502 사례 6, README.md:941 사례 9). 줄이는 안은 그 둘을 docs/ 로 빼는 것인데, 그러면 &#x27;먼저 읽어야 할 문서&#x27;가 생겨 목표와 어긋납니다(.claude/authoring/specs/bbangto-readme/spec.md:130 「한 장 자립의 경계」).</p></details></div></div><div class="jd-band jd-band-v"><span class="jd-g">판정 1</span><span class="jd-rule"></span><div class="jd-body"><ul class="jd-vs"><li><span class="meta">1회차</span><span class="tag tag-done">승인</span><span><span class="meta">유저 · 2026-08-25</span> </span></li></ul></div></div><div class="jd-band jd-band-n"><span class="jd-g">의견 1</span><span class="jd-rule"></span><div class="jd-body"><ul class="jd-ns"><li><span class="meta">유저 · 2026-08-25</span> 얼마나 길든 신경쓰지 마라</li></ul></div></div><div class="jd-band jd-band-ops is-static"><span class="jd-g">조작</span><span class="jd-rule"></span><div class="jd-body"><div class="rv-ops" data-item="2"><div class="row"><label>판정</label><button data-judge="승인">승인</button><button data-judge="반려">반려</button><button data-judge="철회">철회</button><span class="tag tag-wait" data-pending="2" hidden></span></div><div class="row"><label>추가 의견</label><input data-note placeholder="추가 의견 — 판정을 안 바꾸고 말만 남깁니다"><button data-note-add>추가 의견 달기</button></div></div></div></div></details></li><li id="item-3" class="jd jd-closed"><details class="jd-fold"><summary><span class="jd-num st-approved">3</span><span class="jd-title">사례 7에만 「더 보기」 줄이 없는 것을 그대로 둘 것인가 — 그대로 두고 냈습니다</span><span class="tag tag-done">승인</span><span class="meta">판정 1 · 의견 0</span><span class="meta jd-tog"></span></summary><div class="jd-band jd-band-ctx"><span class="jd-g">배경</span><span class="jd-rule"></span><div class="jd-body"><details><summary>상세 — 무엇을 근거로 정하는가</summary><p>원문: README.md:775 의 &#x27;사례 7 · 로직만 가져다 쓴다&#x27; 절. 나머지 9종에는 전부 「더 보기」가 있습니다. hooks 패키지에는 넘길 만한 별도 문서가 레포에 없어서 비웠어요(packages/hooks 아래에 README도 전략 문서도 없습니다). 형식을 맞추려고 관련 없는 문서를 걸면 &#x27;링크마다 거기 가면 무엇이 있는지 한 줄을 붙인다&#x27;는 규칙이 빈 말이 됩니다(.claude/authoring/specs/bbangto-readme/spec.md:130 이하 「함께 보기」 항).</p></details></div></div><div class="jd-band jd-band-v"><span class="jd-g">판정 1</span><span class="jd-rule"></span><div class="jd-body"><ul class="jd-vs"><li><span class="meta">1회차</span><span class="tag tag-done">승인</span><span><span class="meta">유저 · 2026-08-25</span> </span></li></ul></div></div><div class="jd-band jd-band-n"><span class="jd-g">의견 0</span><span class="jd-rule"></span><div class="jd-body"><p class="jd-empty">추가 의견 없음 — <code>review-note --card KAN-045-PNT454 --item 3 --text "&lt;추가 의견&gt;"</code></p><ul class="jd-ns"></ul></div></div><div class="jd-band jd-band-ops is-static"><span class="jd-g">조작</span><span class="jd-rule"></span><div class="jd-body"><div class="rv-ops" data-item="3"><div class="row"><label>판정</label><button data-judge="승인">승인</button><button data-judge="반려">반려</button><button data-judge="철회">철회</button><span class="tag tag-wait" data-pending="3" hidden></span></div><div class="row"><label>추가 의견</label><input data-note placeholder="추가 의견 — 판정을 안 바꾸고 말만 남깁니다"><button data-note-add>추가 의견 달기</button></div></div></div></div></details></li><li id="item-4" class="jd jd-closed"><details class="jd-fold"><summary><span class="jd-num st-approved">4</span><span class="jd-title">집필 명세가 허용하는 목소리에 ppangto 를 넣을 것인가 — 빼고 냈습니다</span><span class="tag tag-done">승인</span><span class="meta">판정 1 · 의견 0</span><span class="meta jd-tog"></span></summary><div class="jd-band jd-band-ctx"><span class="jd-g">배경</span><span class="jd-rule"></span><div class="jd-body"><details><summary>상세 — 무엇을 근거로 정하는가</summary><p>원문: .claude/authoring/specs/bbangto-readme/spec.json:20 의 allowed 값이 지금 [&#x27;ppangtolab-teacher&#x27;, &#x27;ppangtolab-researcher&#x27;] 이고 기본값은 teacher 입니다. ppangto 는 레포 주인 본인 목소리라 오픈소스 README 저자성에는 맞지만, 레지스트리 정의가 preserve 입니다(~/.claude/authoring/voices/ppangto/voice.json:7 의 usage) — &#x27;사람이 쓴 글을 손볼 때 지킬 색&#x27;이지 AI 가 그 목소리로 생성하라는 뜻이 아닙니다. 넣기로 하면 고칠 곳은 그 한 줄이고, 지금 상태에서는 그 목소리로 해석을 시도하면 CONFLICT 로 막힙니다(제가 실행해 확인했습니다).</p></details></div></div><div class="jd-band jd-band-v"><span class="jd-g">판정 1</span><span class="jd-rule"></span><div class="jd-body"><ul class="jd-vs"><li><span class="meta">1회차</span><span class="tag tag-done">승인</span><span><span class="meta">유저 · 2026-08-25</span> </span></li></ul></div></div><div class="jd-band jd-band-n"><span class="jd-g">의견 0</span><span class="jd-rule"></span><div class="jd-body"><p class="jd-empty">추가 의견 없음 — <code>review-note --card KAN-045-PNT454 --item 4 --text "&lt;추가 의견&gt;"</code></p><ul class="jd-ns"></ul></div></div><div class="jd-band jd-band-ops is-static"><span class="jd-g">조작</span><span class="jd-rule"></span><div class="jd-body"><div class="rv-ops" data-item="4"><div class="row"><label>판정</label><button data-judge="승인">승인</button><button data-judge="반려">반려</button><button data-judge="철회">철회</button><span class="tag tag-wait" data-pending="4" hidden></span></div><div class="row"><label>추가 의견</label><input data-note placeholder="추가 의견 — 판정을 안 바꾸고 말만 남깁니다"><button data-note-add>추가 의견 달기</button></div></div></div></div></details></li><li id="item-5" class="jd jd-closed"><details class="jd-fold"><summary><span class="jd-num st-approved">5</span><span class="jd-title">pnpm test:unit 을 CLAUDE.md 에도 추가할 것인가 — 이 카드에서는 안 했습니다</span><span class="tag tag-done">승인</span><span class="meta">판정 1 · 의견 1</span><span class="meta jd-tog"></span></summary><div class="jd-band jd-band-ctx"><span class="jd-g">배경</span><span class="jd-rule"></span><div class="jd-body"><details><summary>상세 — 무엇을 근거로 정하는가</summary><p>원문: package.json:11 의 &#x27;test:unit&#x27;: &#x27;pnpm -r --filter=!storybook run test&#x27;. 제가 grep 으로 확인한 것 — CLAUDE.md 와 이전 README 둘 다 test:unit 이 0회 등장합니다. CLAUDE.md:32 의 「품질 게이트 실행」 절은 typecheck·build·test·storybook build 넷만 적어요. 그런데 매니페스트 바이트 동기·대비 over-claim·명명 규칙·커버리지 census 게이트가 전부 test:unit 에서만 돕니다(pnpm test 의 실체는 pnpm --filter storybook test 라 storybook 패키지만 실행). README 에는 다섯 번째 게이트로 명시했지만 CLAUDE.md 는 이 카드 scope(README.md, .claude/authoring/**) 밖이라 손대지 않았습니다. 별도 카드로 낼지 이 카드에 붙일지 정해 주십시오.</p></details></div></div><div class="jd-band jd-band-v"><span class="jd-g">판정 1</span><span class="jd-rule"></span><div class="jd-body"><ul class="jd-vs"><li><span class="meta">1회차</span><span class="tag tag-done">승인</span><span><span class="meta">유저 · 2026-08-25</span> </span></li></ul></div></div><div class="jd-band jd-band-n"><span class="jd-g">의견 1</span><span class="jd-rule"></span><div class="jd-body"><ul class="jd-ns"><li><span class="meta">유저 · 2026-08-25</span> 별도 카드로 발행해라</li></ul></div></div><div class="jd-band jd-band-ops is-static"><span class="jd-g">조작</span><span class="jd-rule"></span><div class="jd-body"><div class="rv-ops" data-item="5"><div class="row"><label>판정</label><button data-judge="승인">승인</button><button data-judge="반려">반려</button><button data-judge="철회">철회</button><span class="tag tag-wait" data-pending="5" hidden></span></div><div class="row"><label>추가 의견</label><input data-note placeholder="추가 의견 — 판정을 안 바꾸고 말만 남깁니다"><button data-note-add>추가 의견 달기</button></div></div></div></div></details></li></ol>
 
 <h3>의견 추가</h3>
 <section class="card rv-panel" id="rv-add">
 <p class="note">추가 의견을 반영하다 새 의견이 생기는 것은 정상 경로입니다. 새 의견은 3항
-<b>맨 뒤</b>에 붙고 앞 번호는 안 밀립니다 — 이미 달린 추가 의견·판정과 승계 참조가 안 깨집니다.</p>
+<b>맨 뒤</b>에 붙고 앞 번호는 안 밀립니다 — 이미 달린 추가 의견·판정과 승계 참조가 안 깨집니다.
+<b>카드 의도와 이어지지 않는 것</b>과 <b>지시 원본보다 낮은 레이어의 고민</b>은 여기 올릴 것이
+아닙니다 — 플래그 이름·함수 이름을 묻는 의견이 그렇습니다.</p>
 <div class="row"><label>주제</label>
   <input id="rv-q" placeholder="한 줄로 — 무엇을 정해야 하는가"></div>
-<div class="row"><label>상세</label>
-  <textarea id="rv-ctx" rows="3" placeholder="무엇을 근거로 정하는가. 원문을 `파일:줄` 로 짚으세요 — 비면 큐에 안 들어갑니다"></textarea></div>
+<div class="row"><label>배경</label>
+  <textarea id="rv-bg" rows="3" placeholder="한 줄에 사실 하나 — 줄마다 목록 항목이 됩니다. 겪는 증상으로 쓰고, 줄 끝에 `원문: 파일:줄` 을 겁니다. 도구 내부를 모르는 사람이 읽고 판정할 수 있게 — 비면 큐에 안 들어갑니다"></textarea></div>
+<div class="row"><label>정할 것</label>
+  <textarea id="rv-dec" rows="2" placeholder="정할 것 한 줄 — 무엇을 고르는가"></textarea></div>
+<div class="row"><label>선택지</label>
+  <div id="rv-opts" style="flex:1">
+    <div class="rv-opt"><input data-opt placeholder="선택지"><input data-cost placeholder="대가"><input data-what placeholder="그러면 어떻게 되는가"><label class="rv-rec"><input type="radio" name="rv-rec" checked> 추천</label></div>
+    <div class="rv-opt"><input data-opt placeholder="선택지"><input data-cost placeholder="대가"><input data-what placeholder="그러면 어떻게 되는가"><label class="rv-rec"><input type="radio" name="rv-rec"> 추천</label></div>
+  </div></div>
+<div class="row"><label></label><button id="rv-opt-add" type="button">행 추가</button>
+  <span class="meta">갈래가 없으면 비워 두세요 — 고를 것이 없는 항목도 있습니다</span></div>
 <div class="row"><label>갈래</label>
   <select id="rv-from" style="width:auto"><option value="">원 의견 없음</option><option value="1">§3-1 푸터의 이모지 한 줄을 유지할 것인가 — 유지로 두고 냈습니다</option><option value="2">§3-2 README 1306줄이 한 장으로 담기에 긴가 — 담는 쪽으</option><option value="3">§3-3 사례 7에만 「더 보기」 줄이 없는 것을 그대로 둘 것인가 —</option><option value="4">§3-4 집필 명세가 허용하는 목소리에 ppangto 를 넣을 것인가 </option><option value="5">§3-5 pnpm test:unit 을 CLAUDE.md 에도 추가할 </option></select>
   <button id="rv-add-go">의견 추가</button>
@@ -647,7 +692,7 @@ python3 scripts/kanban.py review-item  &lt;project-root&gt; --card KAN-045-PNT45
 <h2>전체 판정</h2>
 
 <section class="card rv-panel" id="rv-all">
-<p class="note"><span class="tag tag-warn">경고</span> 살아있는 항목 1개(1번)가 안 닫혀 전체 승인은 아직 안 섭니다.</p>
+
 <p class="note">문서 전체에 대한 판정입니다 — <b>항목 판정과 다른 자리</b>입니다. 전체
 승인은 살아있는 항목이 전부 승인일 때만 섭니다(철회는 분모에서 빠집니다). <b>철회는
 항목에만</b> 있습니다 — 문서 전체를 철회하는 일은 검토를 닫는 것이 아니라 카드를 닫는
@@ -706,10 +751,10 @@ V5 프로젝트 게이트 — pnpm typecheck exit 0(재실행). build·test·sto
 
 <details><summary>검토 대상 — 브랜치 · 워크트리 · 베이스 · diff 범위</summary><div class="scroll"><table>
 <tr><th>항목</th><th>값</th></tr>
-<tr><td>브랜치</td><td><code>KAN-045-PNT454</code></td></tr>
-<tr><td>워크트리</td><td><code>/Users/centurio/orca/workspaces/bbangto-ui/KAN-045-PNT454</code></td></tr>
+<tr><td>브랜치</td><td><code>main</code> — 머지됨</td></tr>
+<tr><td>워크트리</td><td><code>/Users/centurio/bbangto-ui</code></td></tr>
 <tr><td>베이스</td><td><code>2dc2543</code></td></tr>
-<tr><td>변경 훑기</td><td><code>git diff 2dc2543...HEAD</code></td></tr>
+<tr><td>변경 훑기</td><td><code>git diff 2dc2543..e048f5e15082</code></td></tr>
 </table></div></details>
 <details><summary>커밋<span class="fold-n">9건</span></summary><pre>c53fd6b docs: 푸터 이모지 제거 (검토 1번 반려 반영)
 1363a57 kanban: KAN-045 검토로 이동 + 검토서 발행(판단 항목 5)
@@ -730,7 +775,11 @@ kan/KAN-045-PNT454/S7
 kan/KAN-045-PNT454/batch1
 kan/KAN-045-PNT454/batch2
 kan/KAN-045-PNT454/batch3</pre></details>
-
+<details><summary>판정 — 문서 전체 이력<span class="fold-n">1건</span></summary><section class="card"><p><strong>판정</strong>: 승인</p>
+<p><strong>판정 이력</strong>:</p>
+<ul>
+<li>승인 · 유저 · 2026-08-25</li>
+</ul></section></details>
 
 <p class="meta">생성 근거: .kanban/reviews/KAN-045-PNT454.review.json
 · KANBAN.md · 갱신 2026-08-25</p>
@@ -745,17 +794,20 @@ kan/KAN-045-PNT454/batch3</pre></details>
   <ol id="tray-list"></ol>
   <div class="tray-foot">
     <button id="tray-save"></button>
+    
     <button id="tray-export">패치·명령 보기</button>
   </div>
 </div>
 <div class="modal" id="modal"><div class="box" id="modal-box"></div></div>
 <div class="toast" id="toast"></div>
-<script type="application/json" id="review-ops">{"card": "KAN-045-PNT454", "serve": false, "cli": {"py": "python3", "kanban": "/Users/centurio/.claude/skills/manage-kanban/scripts/kanban.py", "report": "/Users/centurio/.claude/skills/manage-kanban/scripts/report.py", "root": "/Users/centurio/orca/workspaces/bbangto-ui/KAN-045-PNT454", "card": "KAN-045-PNT454"}, "items": [{"idx": 1, "text": "푸터의 이모지 한 줄을 유지할 것인가 — 유지로 두고 냈습니다"}, {"idx": 2, "text": "README 1306줄이 한 장으로 담기에 긴가 — 담는 쪽으로 두고 냈습니다"}, {"idx": 3, "text": "사례 7에만 「더 보기」 줄이 없는 것을 그대로 둘 것인가 — 그대로 두고 냈습니다"}, {"idx": 4, "text": "집필 명세가 허용하는 목소리에 ppangto 를 넣을 것인가 — 빼고 냈습니다"}, {"idx": 5, "text": "pnpm test:unit 을 CLAUDE.md 에도 추가할 것인가 — 이 카드에서는 안 했습니다"}]}</script>
+<script type="application/json" id="review-ops">{"card": "KAN-045-PNT454", "serve": false, "token": null, "cli": {"py": "python3", "kanban": "/Users/centurio/.claude/skills/manage-kanban/scripts/kanban.py", "report": "/Users/centurio/.claude/skills/manage-kanban/scripts/report.py", "rel": "../..", "root": null, "card": "KAN-045-PNT454"}, "items": [{"idx": 1, "text": "푸터의 이모지 한 줄을 유지할 것인가 — 유지로 두고 냈습니다"}, {"idx": 2, "text": "README 1306줄이 한 장으로 담기에 긴가 — 담는 쪽으로 두고 냈습니다"}, {"idx": 3, "text": "사례 7에만 「더 보기」 줄이 없는 것을 그대로 둘 것인가 — 그대로 두고 냈습니다"}, {"idx": 4, "text": "집필 명세가 허용하는 목소리에 ppangto 를 넣을 것인가 — 빼고 냈습니다"}, {"idx": 5, "text": "pnpm test:unit 을 CLAUDE.md 에도 추가할 것인가 — 이 카드에서는 안 했습니다"}]}</script>
 <script>
 
 'use strict';
 const DATA = JSON.parse(document.getElementById('review-ops').textContent);
 const $ = s => document.querySelector(s);
+// 선택지 행은 여러 개라 목록으로 집는다. 화면 전체에서 이 한 자리만 쓴다.
+const $$ = s => Array.from(document.querySelectorAll(s));
 const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g,
   m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
 const clip = (s, n) => { s = String(s == null ? '' : s).replace(/\s+/g, ' ');
@@ -772,6 +824,10 @@ let stale = false;
 let applied = [];
 /* 첫 실패에서 멈췄는가. 그러면 `queue[0]` 이 멈춘 자리이고 그 뒤는 「안 보냄」이다. */
 let stopped = false;
+/* 저장 요청이 도는 중인가. **그동안 큐를 얼린다** — 안 얼리면 방금 보낸 묶음의 응답이
+   오면서 그 사이 들어온 op 까지 함께 지워지고, 화면은 성공이라고 말한다. 유저가 누른
+   판정이 아무 데도 안 남는 종류의 실패라 눌러 본 사람도 모른다. */
+let sending = false;
 
 /* ─── op 큐 ────────────────────────────────────────────────────────────────
    **판정만 마지막 것을 남긴다.** 판정은 상태라, 승인을 눌렀다 반려로 고친 사람이 한
@@ -780,6 +836,9 @@ let stopped = false;
    의견에 두 마디를 남기려던 검토자의 첫 마디가 소리 없이 사라진다(잘못 넣은 것은
    트레이가 낱개로 취소해 준다 — 무음 유실보다 한 번 더 누르는 쪽이 낫다). */
 function enqueue(op) {
+  // **조용히 막지 않고 말한다.** 누른 것이 아무 데도 안 남고 화면도 가만히 있으면
+  // 유저는 버튼이 고장 난 줄 안다. 저장은 보통 1초 안에 끝난다.
+  if (sending) return toast('저장 중입니다 — 끝나면 다시 누르세요.');
   if (op.op === 'judge') {
     const key = q => (q.op === 'judge' && (q.item || null) === (op.item || null));
     const at = queue.findIndex(key);
@@ -885,9 +944,9 @@ function drawTray() {
     + (stale ? ' · 검토서가 여기서 갱신됨 — 새로고침해야 태그가 맞습니다' : '');
   // 정적으로 연 화면(파일·Artifact)에서는 쓸 길이 없어 꺼진다. 숨기지 않는 것은, 저장이
   // 어디서 일어나는 일인지(터미널이 아니라 화면) 를 자리로 말해 두기 위해서다 —
-  // `report.py … --kind review --serve` 로 열면 같은 버튼이 그대로 켜진다.
+  // `report.py … --kind review` 로 열면(서버가 기본이다) 같은 버튼이 그대로 켜진다.
   $('#tray-save').textContent = DATA.serve ? '저장 (검토서에 반영)' : '저장 (서버 모드에서만)';
-  $('#tray-save').disabled = !DATA.serve;
+  busy(sending);
   $('#tray-list').innerHTML = resultRows().map(r =>
     `<li class="rs-${r.k}"><span class="rs-i">${ICON[r.k]}</span>`
     + `<span>${esc(r.t)}</span>`
@@ -895,6 +954,7 @@ function drawTray() {
     + '</li>').join('');
   $('#tray-list').querySelectorAll('[data-drop]').forEach(b =>
     b.addEventListener('click', () => {
+      if (sending) return toast('저장 중입니다 — 끝나면 다시 누르세요.');
       const i = +b.dataset.drop;
       queue.splice(i, 1);
       // 멈춘 자리를 지웠으면 그 표시도 함께 걷는다 — 없는 줄을 계속 가리키면
@@ -906,8 +966,23 @@ function drawTray() {
 function sync() { drawTray(); repaint(); }
 
 /* ─── 내보내기 — 화면이 모은 것을 터미널이 쓴다 ──────────────────────────── */
+/* 명령을 넣을 보드 = **이 화면을 연 자리**. board.py 의 cliRoot() 와 같은 규약이다 —
+   파일에는 렌더한 체크아웃의 절대경로를 박지 않고, 파일로 열었으면 이 파일의 위치에서
+   보드 루트까지의 상대경로(`rel`)를 이어 붙인다. 서버 화면은 서버가 띄운 루트이고, 둘 다
+   아니면(Artifact 등) 경로를 지어내지 않고 자리표시를 낸다. */
+function cliRoot() {
+  const c = DATA.cli || {};
+  if (c.root) return c.root;
+  if (location.protocol !== 'file:') return '<project-root>';
+  const dir = decodeURIComponent(location.pathname).replace(/\/[^\/]*$/, '');
+  const out = [];
+  for (const s of (dir + '/' + (c.rel || '.')).split('/')) {
+    if (s === '..') out.pop(); else if (s && s !== '.') out.push(s);
+  }
+  return '/' + out.join('/');
+}
 function cliLines() {
-  const {py, kanban, root, card} = DATA.cli;
+  const {py, kanban, card} = DATA.cli, root = cliRoot();
   const q = s => "'" + String(s == null ? '' : s).replace(/'/g, `'"'"'`) + "'";
   return queue.map(o => {
     const b = [py, q(kanban), '', q(root), '--card', card];
@@ -927,12 +1002,15 @@ function cliLines() {
   });
 }
 function showExport() {
-  const {py, kanban, report, root, card} = DATA.cli;
+  const {py, kanban, report, card} = DATA.cli, root = cliRoot();
   const js = JSON.stringify(queue, null, 2);
   const one = `cat <<'PATCH' | ${py} '${kanban}' review-apply '${root}' --card ${card} --patch -\n${js}\nPATCH`;
-  const rerender = `${py} '${report}' '${root}' --card ${card} --kind review`;
+  const rerender = `${py} '${report}' '${root}' --card ${card} --kind review --no-serve`;
   // 재렌더 명령을 같이 내는 이유: 반영은 **검토서(.md)** 에 되고 이 화면은 그때 낡는다.
   // 이 줄이 없으면 판정을 넣고도 화면은 그대로라, 반영이 안 된 줄 알고 다시 누른다.
+  // **`--no-serve` 를 붙인다.** `--kind review` 는 기본이 편집 서버라, 안 붙이면 이 줄이
+  // 낡은 정적 파일을 다시 그리는 대신 서버를 띄우고 터미널을 물고 있는다 — 여기서 원하는
+  // 것은 방금 붙여 넣은 반영을 **이 파일에** 반영해 두는 것이다.
   $('#modal-box').innerHTML = `
     <h2>모은 판정을 검토서에 반영하기</h2>
     <p class="note">브라우저는 파일을 못 씁니다. 아래 ①이나 ②를 터미널에 붙여 넣으면
@@ -989,30 +1067,67 @@ function partialReport(out, done, stopped) {
 
 /* 이 파일에서 바깥으로 나가는 요청은 **이 함수 하나뿐**이고, 그것도 DATA.serve 가드
    안이다. Artifact 의 CSP 와 file:// 이 요청을 전부 막으므로, 가드가 없으면 정적으로
-   연 화면에서 콘솔이 빨개지고 저장이 조용히 실패한 것처럼 보인다. `--serve` 로 연
-   화면에서만 DATA.serve 가 켜지고, 그때만 이 fetch 가 뜬다. */
-async function save() {
+   연 화면에서 콘솔이 빨개지고 저장이 조용히 실패한 것처럼 보인다. **서버가 내준 화면에서만**
+   DATA.serve 가 켜지고, 그때만 이 fetch 가 뜬다 — serve 모드가 먼저 쓰는 정적 파일까지
+   꺼진 채로 그리는 것이 그래서다(같은 명령이 낸 파일이라고 켜 두면 그 파일이 깨진다). */
+async function save(andClose) {
   if (!DATA.serve || !queue.length) return;
-  $('#tray-save').disabled = true;
+  /* **보낸 것을 집어 둔다.** 성공했다고 큐를 통째로 비우면 요청이 도는 동안 들어온 것까지
+     함께 지워진다. 위 `busy(true)` 와 `enqueue`·취소 가드가 그 사이의 입력을 막지만,
+     잠금이 한 자리에만 있으면 언젠가 새어 나온다 — 이 파일에서 `drawTray` 가 `busy` 를
+     도로 풀어 실제로 한 번 그랬다. 그래서 두 겹이다: 얼리고, 얼음이 새도 안 잃는다. */
+  const sent = queue.slice();
+  busy(true);
   try {
     const r = await fetch('/apply', {method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({card: DATA.card, patch: queue})});
+      /* 토큰은 **서버가 그린 화면에만** 실린다. 정적 파일에서는 null 이지만 그쪽은
+         애초에 이 fetch 가 안 뜬다(DATA.serve 가드). 옛 탭은 옛 토큰을 그대로 들고
+         있어 서버가 그것으로 걸러낸다. */
+      body: JSON.stringify({card: DATA.card, token: DATA.token, patch: sent,
+                            close: !!andClose})});
     const out = await r.json();
     const done = (out.applied || []).length;
     if (out.ok) {
-      queue = []; applied = []; stopped = false; sync();
+      // **길이가 아니라 동일성으로 뺀다.** 큐가 그 사이 흔들렸으면 앞에서 n 개를 자르는
+      // 것은 엉뚱한 것을 지운다.
+      queue = queue.filter(q => !sent.includes(q));
+      applied = []; stopped = false; sync();
+      if (queue.length) {
+        /* 얼음이 샜다는 뜻이다. 여기서 새로고침하면 이 큐가 메모리째 사라지므로 **하지
+           않는다** — 화면이 잠깐 낡는 것보다 유저가 누른 판정을 잃는 것이 나쁘다.
+           트레이의 「검토서가 여기서 갱신됨」이 그 낡음을 말해 준다. */
+        stale = true; sync(); busy(false);
+        return alert(`반영 ${sent.length}건이 검토서에 들어갔습니다.\n\n`
+          + `저장하는 동안 ${queue.length}건이 더 쌓였고 그것은 아직 안 보냈습니다 — `
+          + `「저장」을 한 번 더 누르세요.`);
+      }
       /* **서버가 준 out.data 로 다시 그리지 않고 통째로 새로 받는다.** 이 화면의 본문
          (상태 태그·판정 이력·수렴 KPI)은 파이썬이 그린 HTML 이라, JS 로 갱신하려면
          item_state·review_converge 의 도출 규칙을 브라우저에 복제해야 한다 — 그 순간
          리포트가 보드·validate 와 다른 말을 한다. reload 는 같은 서버가 요청마다 다시
-         그리므로, 그 사이 다른 세션이 CLI 로 낸 판정까지 함께 따라온다. */
+         그리므로, 그 사이 다른 세션이 CLI 로 낸 판정까지 함께 따라온다.
+
+         **`out.closing` 이어도 하는 일은 같다.** 그 GET 이 서버가 내는 마지막 응답이고,
+         서버는 그것을 다 보낸 뒤에 닫는다 — 먼저 닫으면 이 새로고침이 연결 거부로 깨져서
+         유저는 반영이 됐는지 못 본 채 빈 오류 화면을 받는다. */
       location.reload();
+    } else if (out.ghost) {
+      /* **유령 탭이다.** 서버가 한 줄도 안 썼고 큐도 그대로다 — 그러니 여기서 할 말은
+         「어디까지 갔는가」(partialReport)가 아니라 **큐를 어떻게 빼내는가**다.
+         새로고침이 곧 큐 소멸이라, 새로고침을 권하는 대신 명령을 눈앞에 띄운다. */
+      stopped = true;
+      sync();
+      alert(failDetail(out) + '\n\n'
+        + `대기에 남은 것 ${queue.length}건 — 한 건도 검토서에 안 들어갔습니다.\n`
+        + '이어서 뜨는 창의 명령을 터미널에 옮긴 뒤 새로고침하세요.');
+      showExport();
     } else {
-      const at = queue[done];        // 덜어내기 전에 집는다
+      const at = sent[done];         // 덜어내기 전에 집는다 — 보낸 묶음 기준이다
       if (done) {
-        applied = applied.concat(queue.slice(0, done).map(opText));
-        queue.splice(0, done);
+        const gone = sent.slice(0, done);
+        applied = applied.concat(gone.map(opText));
+        queue = queue.filter(q => !gone.includes(q));
         stale = true;
       }
       stopped = true;
@@ -1020,7 +1135,25 @@ async function save() {
       alert(partialReport(out, done, at));
     }
   } catch (e) { alert('저장 실패: ' + e); }
-  $('#tray-save').disabled = false;
+  busy(false);
+}
+
+/* 「저장」과 「저장하고 종료」는 **같은 요청**을 낸다. 하나가 도는 동안 다른 하나가 또
+   눌리면 같은 큐가 두 번 가므로, 잠그는 자리를 한 함수로 둔다. 종료 버튼은 정적 화면에
+   아예 없으므로 있을 때만 만진다. */
+function busy(on) {
+  // **진행 여부를 값으로 들고 있는다.** 잠근 직후 유저가 판정 버튼을 누르면 `sync()` →
+  // `drawTray()` 가 도는데, 거기서 무조건 풀어 주면 요청이 도는 중에 두 버튼이 다시
+  // 켜진다 — 그때 「저장하고 종료」를 누르면 첫 요청의 응답이 오기 전에 서버가 닫힌다.
+  // 그래서 `drawTray` 는 `busy(false)` 가 아니라 `busy(sending)` 을 부른다.
+  sending = on;
+  $('#tray-save').disabled = on || !DATA.serve;
+  const c = $('#tray-close');
+  if (c) c.disabled = on || !DATA.serve;
+  // 「전부 취소」는 정적 화면에서도 쓸 수 있어야 하므로 **진행 중일 때만** 잠근다.
+  // 보낸 것을 큐에서 지우면 응답이 무엇을 덜어낼지 못 정한다.
+  const cl = $('#tray-clear');
+  if (cl) cl.disabled = on;
 }
 
 let toastT = null;
@@ -1064,15 +1197,54 @@ $('#rv-add-go').addEventListener('click', () => {
   // 주제는 한 줄이다(입력칸도 한 줄짜리다). 여러 줄이면 파서가 둘째 줄부터를 상세로
   // 읽으므로, 주제와 상세를 나눠 받는 이 폼의 뜻이 무너진다.
   const q = $('#rv-q').value.trim();
-  const ctx = $('#rv-ctx').value.split('\n').map(l => l.trim()).filter(Boolean);
+  const lines = v => v.split('\n').map(l => l.trim()).filter(Boolean);
+  const bg = lines($('#rv-bg').value), dec = lines($('#rv-dec').value);
   if (!q) return toast('주제가 비었습니다.');
-  // **상세가 비면 큐에 못 들어간다.** review-item 이 종료코드 12 로 거부하는 자리를
+  // **조각이 비면 큐에 못 들어간다.** review-item 이 종료코드 12 로 거부하는 자리를
   // 화면에서 미리 막는 것이다 — 검토자는 이 카드를 수행하지 않았으므로 결론만으로는
-  // 판정할 재료가 없다는 것이 그 게이트의 이유고, 그 이유는 화면에서도 같다.
-  if (!ctx.length) return toast('상세를 적으세요 — 상세 없는 의견은 검토서가 거부합니다(종료코드 12).');
-  enqueue({op: 'item', add: q + '\n' + ctx.map(l => '  ' + l).join('\n'),
+  // 판정할 재료가 없고, 재료가 있어도 줄글 한 덩이면 필요한 부분만 골라 읽지 못한다.
+  if (!bg.length) return toast('배경을 적으세요 — 조각 없는 의견은 검토서가 거부합니다(종료코드 12).');
+  if (!dec.length) return toast('정할 것을 적으세요 — 조각 없는 의견은 검토서가 거부합니다(종료코드 12).');
+  // 선택지는 **셋이 다 찬 행만** 표로 나간다. 반쯤 적힌 행을 실으면 열이 밀려 셀이 다른
+  // 뜻으로 읽힌다(게이트가 경고하는 자리이기도 하다).
+  const rows = [];
+  $$('#rv-opts .rv-opt').forEach(el => {
+    const name = el.querySelector('[data-opt]').value.trim();
+    const cost = el.querySelector('[data-cost]').value.trim();
+    const what = el.querySelector('[data-what]').value.trim();
+    if (name && cost && what)
+      rows.push({name, cost, what, rec: el.querySelector('input[type=radio]').checked});
+  });
+  // CLI 와 **같은 문법 한 덩이**로 조립한다 — patch 스키마(`op:item`, `add`)는 한 글자도
+  // 안 바뀐다. 화면이 따로 실어 보내면 두 경로가 갈리고, 갈리면 그 순간부터 서로 다른
+  // 것을 저장한다.
+  // **배경은 목록이다** — 칸의 한 줄이 사실 하나다. `- ` 를 이미 붙여 적은 줄은 그대로 둔다.
+  // 게이트가 목록 없는 배경을 종료코드 12 로 거부하므로, 여기서 붙이지 않으면 폼으로
+  // 세운 의견이 전부 거부된다.
+  const body = ['  **배경**'].concat(bg.map(l => '  ' + (/^-\s/.test(l) ? l : '- ' + l)))
+    .concat(['  **정할 것**']).concat(dec.map(l => '  ' + l));
+  if (rows.length) {
+    body.push('  | 선택지 | 대가 | 그러면 어떻게 되는가 |');
+    rows.forEach(r => body.push('  | ' + (r.rec ? '**추천** ' : '') + r.name
+                                + ' | ' + r.cost + ' | ' + r.what + ' |'));
+  }
+  enqueue({op: 'item', add: q + '\n' + body.join('\n'),
            from_item: $('#rv-from').value || null});
-  $('#rv-q').value = ''; $('#rv-ctx').value = '';
+  $('#rv-q').value = ''; $('#rv-bg').value = ''; $('#rv-dec').value = '';
+  $$('#rv-opts .rv-opt input').forEach(i => {
+    if (i.type !== 'radio') i.value = '';
+  });
+});
+
+/* 선택지 행을 한 줄 더 연다. 행은 **비어 있어도 무해하다** — 조립이 셋 다 찬 행만
+   싣는다. 라디오는 같은 name 이라 새 행도 같은 그룹에 들어간다(추천은 언제나 하나다). */
+$('#rv-opt-add').addEventListener('click', () => {
+  const box = $('#rv-opts');
+  const row = box.firstElementChild.cloneNode(true);
+  row.querySelectorAll('input').forEach(i => {
+    if (i.type === 'radio') i.checked = false; else i.value = '';
+  });
+  box.appendChild(row);
 });
 
 /* 좁은 화면 전용 접기. 넓은 화면에서는 버튼이 안 보이므로 이 상태값도 안 쓰인다 —
@@ -1085,7 +1257,11 @@ $('#tray-toggle').addEventListener('click', () => {
 $('#tray-clear').addEventListener('click', () => {
   queue = []; applied = []; stopped = false; stale = false; sync();
 });
-$('#tray-save').addEventListener('click', save);
+/* **화살표로 감싼다.** `save` 를 그대로 걸면 이벤트 객체가 첫 인자로 들어가 `andClose`
+   가 참이 되고, 평범한 저장이 서버를 닫는다. */
+$('#tray-save').addEventListener('click', () => save(false));
+const closeEl = $('#tray-close');
+if (closeEl) closeEl.addEventListener('click', () => save(true));
 $('#tray-export').addEventListener('click', showExport);
 $('#modal').addEventListener('click', e => {
   if (e.target.id === 'modal') $('#modal').classList.remove('on');

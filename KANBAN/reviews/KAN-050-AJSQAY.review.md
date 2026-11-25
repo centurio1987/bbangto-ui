@@ -2,10 +2,11 @@
 card: KAN-050-AJSQAY
 title: 문서 정리 D — 규율 문서 실측 정합 (theme-* 부재 · 모션 5중 기재)
 created: 2026-10-07
-branch: KAN-050-AJSQAY
-worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-050-AJSQAY
+branch: main
+worktree: /Users/centurio/bbangto-ui
 base: 1c67396
 status: 승인
+merged: b4771a390cc3
 ---
 
 # KAN-050-AJSQAY 검토 요청 — 문서 정리 D — 규율 문서 실측 정합 (theme-* 부재 · 모션 5중 기재)
@@ -19,10 +20,10 @@ status: 승인
 
 | 항목 | 값 |
 |---|---|
-| 브랜치 | `KAN-050-AJSQAY` |
-| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-050-AJSQAY` |
+| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-050-AJSQAY` 의 끝 `b4771a390cc3` 을 main 에 병합), 대상은 아래 고정 범위 |
+| 워크트리 | `/Users/centurio/bbangto-ui` |
 | 베이스 | `1c67396` |
-| 변경 훑기 | `git diff 1c67396...HEAD` |
+| 변경 훑기 | `git diff 1c67396..b4771a390cc3` |
 
 **커밋 8건**
 

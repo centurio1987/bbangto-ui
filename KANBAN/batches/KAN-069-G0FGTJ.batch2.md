@@ -2,7 +2,7 @@
 card: KAN-069-G0FGTJ
 batch: 2
 created: 2026-10-10
-branch: KAN-069-G0FGTJ
+branch: main
 status: 계획
 steps: S4, S5, S6
 ---

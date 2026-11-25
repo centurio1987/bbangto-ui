@@ -2,10 +2,11 @@
 card: KAN-059-62EAKB
 title: core 키보드 포커스 표시 통일 — :focus-visible 테두리를 모든 상호작용 컴포넌트에
 created: 2026-10-07
-branch: KAN-059-62EAKB
-worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-059-62EAKB
+branch: main
+worktree: /Users/centurio/bbangto-ui
 base: f0dc035
 status: 승인
+merged: f7452844fcd1
 ---
 
 # KAN-059-62EAKB 검토 요청 — core 키보드 포커스 표시 통일 — :focus-visible 테두리를 모든 상호작용 컴포넌트에
@@ -19,10 +20,10 @@ status: 승인
 
 | 항목 | 값 |
 |---|---|
-| 브랜치 | `KAN-059-62EAKB` |
-| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-059-62EAKB` |
+| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-059-62EAKB` 의 끝 `f7452844fcd1` 을 main 에 병합), 대상은 아래 고정 범위 |
+| 워크트리 | `/Users/centurio/bbangto-ui` |
 | 베이스 | `f0dc035` |
-| 변경 훑기 | `git diff f0dc035...HEAD` |
+| 변경 훑기 | `git diff f0dc035..f7452844fcd1` |
 
 **커밋 7건**
 

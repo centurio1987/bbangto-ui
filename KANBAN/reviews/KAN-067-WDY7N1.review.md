@@ -2,10 +2,11 @@
 card: KAN-067-WDY7N1
 title: 배포 문서에 「원하는 것이 없을 때」 길 — core·viz README 확장 절 + viz 관리용 문서 배포 제외
 created: 2026-10-09
-branch: KAN-067-WDY7N1
-worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-067-WDY7N1
+branch: main
+worktree: /Users/centurio/bbangto-ui
 base: 8b64dc0
 status: 승인
+merged: 452e9ef503aa
 ---
 
 # KAN-067-WDY7N1 검토 요청 — 배포 문서에 「원하는 것이 없을 때」 길 — core·viz README 확장 절 + viz 관리용 문서 배포 제외
@@ -19,10 +20,10 @@ status: 승인
 
 | 항목 | 값 |
 |---|---|
-| 브랜치 | `KAN-067-WDY7N1` |
-| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-067-WDY7N1` |
+| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-067-WDY7N1` 의 끝 `452e9ef503aa` 을 main 에 병합), 대상은 아래 고정 범위 |
+| 워크트리 | `/Users/centurio/bbangto-ui` |
 | 베이스 | `8b64dc0` |
-| 변경 훑기 | `git diff 8b64dc0...HEAD` |
+| 변경 훑기 | `git diff 8b64dc0..452e9ef503aa` |
 
 **커밋 7건**
 

@@ -2,7 +2,7 @@
 card: KAN-061-K8V2HH
 batch: 1
 created: 2026-10-10
-branch: KAN-061-K8V2HH
+branch: main
 status: 계획
 steps: S1, S2, S3
 ---

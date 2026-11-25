@@ -2,10 +2,11 @@
 card: KAN-061-K8V2HH
 title: viz 템플릿 라벨 대비 미달 정리 — 불투명 팔레트 면 · 글자 대비 기준 목록 줄이기
 created: 2026-10-10
-branch: KAN-061-K8V2HH
-worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-061-K8V2HH
+branch: main
+worktree: /Users/centurio/bbangto-ui
 base: 4d60413bf9432192b02f46cdbdbebf8a0e08fbb5
 status: 승인
+merged: a871c7a4b19a
 ---
 
 # KAN-061-K8V2HH 검토 요청 — viz 템플릿 라벨 대비 미달 정리 — 불투명 팔레트 면 · 글자 대비 기준 목록 줄이기
@@ -19,10 +20,10 @@ status: 승인
 
 | 항목 | 값 |
 |---|---|
-| 브랜치 | `KAN-061-K8V2HH` |
-| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-061-K8V2HH` |
+| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-061-K8V2HH` 의 끝 `a871c7a4b19a` 을 main 에 병합), 대상은 아래 고정 범위 |
+| 워크트리 | `/Users/centurio/bbangto-ui` |
 | 베이스 | `4d60413bf9432192b02f46cdbdbebf8a0e08fbb5` |
-| 변경 훑기 | `git diff 4d60413bf9432192b02f46cdbdbebf8a0e08fbb5...HEAD` |
+| 변경 훑기 | `git diff 4d60413bf9432192b02f46cdbdbebf8a0e08fbb5..a871c7a4b19a` |
 
 **커밋 17건**
 

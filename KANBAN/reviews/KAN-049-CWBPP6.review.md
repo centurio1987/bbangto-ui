@@ -2,10 +2,11 @@
 card: KAN-049-CWBPP6
 title: 문서 정리 C — visualization 계열 통합 (PLAN · visualization-catalog 흡수 + SSOT 이동)
 created: 2026-10-06
-branch: KAN-049-CWBPP6
-worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-049-CWBPP6
+branch: main
+worktree: /Users/centurio/bbangto-ui
 base: 11cb644
 status: 승인
+merged: 04844ccb13c1
 ---
 
 # KAN-049-CWBPP6 검토 요청 — 문서 정리 C — visualization 계열 통합 (PLAN · visualization-catalog 흡수 + SSOT 이동)
@@ -19,10 +20,10 @@ status: 승인
 
 | 항목 | 값 |
 |---|---|
-| 브랜치 | `KAN-049-CWBPP6` |
-| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-049-CWBPP6` |
+| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-049-CWBPP6` 의 끝 `04844ccb13c1` 을 main 에 병합), 대상은 아래 고정 범위 |
+| 워크트리 | `/Users/centurio/bbangto-ui` |
 | 베이스 | `11cb644` |
-| 변경 훑기 | `git diff 11cb644...HEAD` |
+| 변경 훑기 | `git diff 11cb644..04844ccb13c1` |
 
 **커밋 14건**
 

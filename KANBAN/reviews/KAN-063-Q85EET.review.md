@@ -2,10 +2,11 @@
 card: KAN-063-Q85EET
 title: viz Paint Gate 표본을 나머지 템플릿으로 넓히기 — 리터럴 · 글자 대비 검사가 모든 템플릿을 보게
 created: 2026-10-08
-branch: KAN-063-Q85EET
-worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-063-Q85EET
+branch: main
+worktree: /Users/centurio/bbangto-ui
 base: 00773ef
 status: 승인
+merged: c945edb26afb
 ---
 
 # KAN-063-Q85EET 검토 요청 — viz Paint Gate 표본을 나머지 템플릿으로 넓히기 — 리터럴 · 글자 대비 검사가 모든 템플릿을 보게
@@ -19,10 +20,10 @@ status: 승인
 
 | 항목 | 값 |
 |---|---|
-| 브랜치 | `KAN-063-Q85EET` |
-| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-063-Q85EET` |
+| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-063-Q85EET` 의 끝 `c945edb26afb` 을 main 에 병합), 대상은 아래 고정 범위 |
+| 워크트리 | `/Users/centurio/bbangto-ui` |
 | 베이스 | `00773ef` |
-| 변경 훑기 | `git diff 00773ef...HEAD` |
+| 변경 훑기 | `git diff 00773ef..c945edb26afb` |
 
 **커밋 6건**
 

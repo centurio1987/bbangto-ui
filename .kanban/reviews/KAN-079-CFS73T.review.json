@@ -2,20 +2,20 @@
  "card": "KAN-079-CFS73T",
  "front": {
   "base": "30b92b7",
-  "branch": "KAN-079-CFS73T",
+  "branch": "main",
   "card": "KAN-079-CFS73T",
   "created": "2026-10-12",
   "inherits": null,
-  "merged": null,
+  "merged": "2815131a070f",
   "status": "검토 대기",
   "title": "미배포 변경 배포 — KAN-069·070·072·075 (tokens·visualization·visualization-style-guide-catalog 2.0.0 · core 1.2.3 · foundations 2.0.1 · style-guide-catalog 1.0.1)",
-  "worktree": "/Users/centurio/orca/workspaces/bbangto-ui/KAN-079-CFS73T"
+  "worktree": "/Users/centurio/bbangto-ui"
  },
  "inherited_md": "",
- "md_fp": "b580159a1e1183997980972317ea5b777732a14a",
- "md_src_fp": "0e10f9d3c651924af86e51447b5c8662f09e2be3",
+ "md_fp": "eb1ac0250027f6ff9cde799595d9a7c7f4788a82",
+ "md_src_fp": "62f6fd8e1471d3690a3fa9cc0520f978b2a85f26",
  "schema": 1,
- "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `KAN-079-CFS73T` |\n| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-079-CFS73T` |\n| 베이스 | `30b92b7` |\n| 변경 훑기 | `git diff 30b92b7...HEAD` |\n\n**커밋 5건**\n\n```text\n5c9bbd5 kanban: KAN-079 S3 배포본 확인 — 6개 설치·import · changeset 4건 확인 · 외부 앱 문구 기록\n5feef8e kanban: KAN-079 S2 배포 — push · Version PR #12 병합 · 새 버전 6개 publish\n4390c5b kanban: KAN-079 S1 push 직전 점검 — 게이트 5종 초록 · 버전 표 확인\nea09b75 kanban: KAN-079 실행 문서 — 전략·실행 계획(S1~S3)·검증 · 인스턴트 예외 기록\nf79a81c kanban: KAN-079 진행 중으로 이동\n```\n\n**변경 파일 6개 (+132 −27)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.kanban/archive.jsonl` | M | 1 | 0 |\n| `.kanban/log.md` | M | 1 | 1 |\n| `.kanban/state.json` | M | 33 | 22 |\n| `KANBAN.board.html` | M | 2 | 2 |\n| `KANBAN.md` | M | 3 | 2 |\n| `KANBAN/cards/KAN-079-CFS73T.md` | M | 92 | 0 |\n\n**롤백 태그 0개** — 없음(`--tags` 를 넘기지 않았거나 아직 태그가 없습니다)",
+ "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-079-CFS73T` 의 끝 `2815131a070f` 을 main 에 병합), 대상은 아래 고정 범위 |\n| 워크트리 | `/Users/centurio/bbangto-ui` |\n| 베이스 | `30b92b7` |\n| 변경 훑기 | `git diff 30b92b7..2815131a070f` |\n\n**커밋 5건**\n\n```text\n5c9bbd5 kanban: KAN-079 S3 배포본 확인 — 6개 설치·import · changeset 4건 확인 · 외부 앱 문구 기록\n5feef8e kanban: KAN-079 S2 배포 — push · Version PR #12 병합 · 새 버전 6개 publish\n4390c5b kanban: KAN-079 S1 push 직전 점검 — 게이트 5종 초록 · 버전 표 확인\nea09b75 kanban: KAN-079 실행 문서 — 전략·실행 계획(S1~S3)·검증 · 인스턴트 예외 기록\nf79a81c kanban: KAN-079 진행 중으로 이동\n```\n\n**변경 파일 6개 (+132 −27)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.kanban/archive.jsonl` | M | 1 | 0 |\n| `.kanban/log.md` | M | 1 | 1 |\n| `.kanban/state.json` | M | 33 | 22 |\n| `KANBAN.board.html` | M | 2 | 2 |\n| `KANBAN.md` | M | 3 | 2 |\n| `KANBAN/cards/KAN-079-CFS73T.md` | M | 92 | 0 |\n\n**롤백 태그 0개** — 없음(`--tags` 를 넘기지 않았거나 아직 태그가 없습니다)",
  "verdicts": [
   {
    "at": "2026-10-12",

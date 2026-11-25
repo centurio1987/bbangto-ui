@@ -2,10 +2,11 @@
 card: KAN-053-TZ86NN
 title: Drawer·Tabs·Select 키보드·포커스 지원 — Modal에서 공용 훅 추출
 created: 2026-10-06
-branch: KAN-053-TZ86NN
-worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-053-TZ86NN
+branch: main
+worktree: /Users/centurio/bbangto-ui
 base: b9f4a2f
 status: 검토 대기
+merged: b061191d013d
 ---
 
 # KAN-053-TZ86NN 검토 요청 — Drawer·Tabs·Select 키보드·포커스 지원 — Modal에서 공용 훅 추출
@@ -19,10 +20,10 @@ status: 검토 대기
 
 | 항목 | 값 |
 |---|---|
-| 브랜치 | `KAN-053-TZ86NN` |
-| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-053-TZ86NN` |
+| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-053-TZ86NN` 의 끝 `b061191d013d` 을 main 에 병합), 대상은 아래 고정 범위 |
+| 워크트리 | `/Users/centurio/bbangto-ui` |
 | 베이스 | `b9f4a2f` |
-| 변경 훑기 | `git diff b9f4a2f...HEAD` |
+| 변경 훑기 | `git diff b9f4a2f..b061191d013d` |
 
 **커밋 6건**
 

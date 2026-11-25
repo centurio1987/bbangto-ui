@@ -2,7 +2,7 @@
 card: KAN-053-TZ86NN
 batch: 2
 created: 2026-10-06
-branch: KAN-053-TZ86NN
+branch: main
 status: 계획
 steps: S3, S4
 ---

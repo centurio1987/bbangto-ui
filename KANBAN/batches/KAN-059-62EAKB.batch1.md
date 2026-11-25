@@ -2,7 +2,7 @@
 card: KAN-059-62EAKB
 batch: 1
 created: 2026-10-07
-branch: KAN-059-62EAKB
+branch: main
 status: 계획
 steps: S1, S2, S3
 ---

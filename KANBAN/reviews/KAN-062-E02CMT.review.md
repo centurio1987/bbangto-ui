@@ -2,10 +2,11 @@
 card: KAN-062-E02CMT
 title: SVG 속성 안 var() 브라우저 확인 — README 문장과 속성으로 색을 넣는 코드를 실제 동작에 맞추기
 created: 2026-10-08
-branch: KAN-062-E02CMT
-worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-062-E02CMT
+branch: main
+worktree: /Users/centurio/bbangto-ui
 base: d3d22e8
 status: 승인
+merged: fb80bebd6627
 ---
 
 # KAN-062-E02CMT 검토 요청 — SVG 속성 안 var() 브라우저 확인 — README 문장과 속성으로 색을 넣는 코드를 실제 동작에 맞추기
@@ -19,10 +20,10 @@ status: 승인
 
 | 항목 | 값 |
 |---|---|
-| 브랜치 | `KAN-062-E02CMT` |
-| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-062-E02CMT` |
+| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-062-E02CMT` 의 끝 `fb80bebd6627` 을 main 에 병합), 대상은 아래 고정 범위 |
+| 워크트리 | `/Users/centurio/bbangto-ui` |
 | 베이스 | `d3d22e8` |
-| 변경 훑기 | `git diff d3d22e8...HEAD` |
+| 변경 훑기 | `git diff d3d22e8..fb80bebd6627` |
 
 **커밋 4건**
 

@@ -2,10 +2,11 @@
 card: KAN-072-KW0G9B
 title: 루트 README 의 「컴포넌트가 없을 때」 길과 viz Provider 서술 바로잡기
 created: 2026-10-10
-branch: KAN-072-KW0G9B
-worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-072-KW0G9B
+branch: main
+worktree: /Users/centurio/bbangto-ui
 base: 74591cf
 status: 승인
+merged: b6454bb9570b
 ---
 
 # KAN-072-KW0G9B 검토 요청 — 루트 README 의 「컴포넌트가 없을 때」 길과 viz Provider 서술 바로잡기
@@ -19,10 +20,10 @@ status: 승인
 
 | 항목 | 값 |
 |---|---|
-| 브랜치 | `KAN-072-KW0G9B` |
-| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-072-KW0G9B` |
+| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-072-KW0G9B` 의 끝 `b6454bb9570b` 을 main 에 병합), 대상은 아래 고정 범위 |
+| 워크트리 | `/Users/centurio/bbangto-ui` |
 | 베이스 | `74591cf` |
-| 변경 훑기 | `git diff 74591cf...HEAD` |
+| 변경 훑기 | `git diff 74591cf..b6454bb9570b` |
 
 **커밋 20건**
 

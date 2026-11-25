@@ -2,7 +2,7 @@
 card: KAN-060-G9YKG6
 batch: 1
 created: 2026-10-08
-branch: KAN-060-G9YKG6
+branch: main
 status: 계획
 steps: S1, S2
 ---

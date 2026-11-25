@@ -2,7 +2,7 @@
 card: KAN-048-R2KW3G
 batch: 1
 created: 2026-10-06
-branch: KAN-048-R2KW3G
+branch: main
 status: 완료
 steps: S1, S2, S3, S4
 ---

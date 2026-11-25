@@ -2,10 +2,11 @@
 card: KAN-070-RCG2QV
 title: viz 연결선 대시 범위 — 어느 선이 스타일 가이드 대시를 따르는가 (Edge 밖 관계선 넷 · 실선이 뜻을 갖는 Edge 선)
 created: 2026-10-10
-branch: KAN-070-RCG2QV
-worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-070-RCG2QV
+branch: main
+worktree: /Users/centurio/bbangto-ui
 base: 0a81094
 status: 승인
+merged: 9c0597d60443
 ---
 
 # KAN-070-RCG2QV 검토 요청 — viz 연결선 대시 범위 — 어느 선이 스타일 가이드 대시를 따르는가 (Edge 밖 관계선 넷 · 실선이 뜻을 갖는 Edge 선)
@@ -19,10 +20,10 @@ status: 승인
 
 | 항목 | 값 |
 |---|---|
-| 브랜치 | `KAN-070-RCG2QV` |
-| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-070-RCG2QV` |
+| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-070-RCG2QV` 의 끝 `9c0597d60443` 을 main 에 병합), 대상은 아래 고정 범위 |
+| 워크트리 | `/Users/centurio/bbangto-ui` |
 | 베이스 | `0a81094` |
-| 변경 훑기 | `git diff 0a81094...HEAD` |
+| 변경 훑기 | `git diff 0a81094..9c0597d60443` |
 
 **커밋 11건**
 

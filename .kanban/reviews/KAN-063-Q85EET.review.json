@@ -2,20 +2,20 @@
  "card": "KAN-063-Q85EET",
  "front": {
   "base": "00773ef",
-  "branch": "KAN-063-Q85EET",
+  "branch": "main",
   "card": "KAN-063-Q85EET",
   "created": "2026-10-08",
   "inherits": null,
-  "merged": null,
+  "merged": "c945edb26afb",
   "status": "검토 대기",
   "title": "viz Paint Gate 표본을 나머지 템플릿으로 넓히기 — 리터럴 · 글자 대비 검사가 모든 템플릿을 보게",
-  "worktree": "/Users/centurio/orca/workspaces/bbangto-ui/KAN-063-Q85EET"
+  "worktree": "/Users/centurio/bbangto-ui"
  },
  "inherited_md": "",
- "md_fp": "95a150d87c095d9b3152a5914b23a4e58a15e035",
- "md_src_fp": "a5a6cc4b051592ad2e336c6a7d599d74b4acf50f",
+ "md_fp": "3a9aed52845e7078e07ccf7a4a934bc2704d9b32",
+ "md_src_fp": "b499554de6a910e4a0a769fa57d3d6fac8b75285",
  "schema": 1,
- "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `KAN-063-Q85EET` |\n| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-063-Q85EET` |\n| 베이스 | `00773ef` |\n| 변경 훑기 | `git diff 00773ef...HEAD` |\n\n**커밋 6건**\n\n```text\nbf7f344 docs(visualization): Paint Gate 가 모든 템플릿을 본다고 README 고침 (KAN-063 S5)\n249e3de test(storybook): 글자 대비 검사를 템플릿 68개로 넓힘 (KAN-063 S4)\n965ea98 test(storybook): 리터럴 색 검사를 템플릿 68개로 넓힘 (KAN-063 S3)\n513bd43 test(storybook): Paint Gate 표본 68개를 한 파일로 (KAN-063 S2)\n87109c1 test(foundations): viz Paint Gate 표본 누락 검사 — 빨강 먼저 (KAN-063 S1)\n47c748b kanban: KAN-063 진행 중으로 이동 (착수)\n```\n\n**변경 파일 12개 (+2727 −223)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.kanban/archive.jsonl` | M | 1 | 0 |\n| `.kanban/log.md` | M | 1 | 1 |\n| `.kanban/state.json` | M | 14 | 14 |\n| `KANBAN.board.html` | M | 2 | 2 |\n| `KANBAN.md` | M | 3 | 3 |\n| `KANBAN/cards/KAN-063-Q85EET.md` | M | 15 | 5 |\n| `apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx` | M | 15 | 190 |\n| `apps/storybook/src/stories/visualization/_labelContrastBaseline.ts` | M | 1342 | 4 |\n| `apps/storybook/src/stories/visualization/_paintGateFixtures.tsx` | M | 1057 | 0 |\n| `packages/foundations/src/vizPaintGateCoverage.test.ts` | M | 150 | 0 |\n| `packages/foundations/src/vizPaintGateCoverage.ts` | M | 122 | 0 |\n| `packages/visualization/README.md` | M | 5 | 4 |\n\n**롤백 태그 7개**\n\n```text\nkan/KAN-063-Q85EET/S1\nkan/KAN-063-Q85EET/S2\nkan/KAN-063-Q85EET/S3\nkan/KAN-063-Q85EET/S4\nkan/KAN-063-Q85EET/S5\nkan/KAN-063-Q85EET/batch1\nkan/KAN-063-Q85EET/batch2\n```",
+ "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-063-Q85EET` 의 끝 `c945edb26afb` 을 main 에 병합), 대상은 아래 고정 범위 |\n| 워크트리 | `/Users/centurio/bbangto-ui` |\n| 베이스 | `00773ef` |\n| 변경 훑기 | `git diff 00773ef..c945edb26afb` |\n\n**커밋 6건**\n\n```text\nbf7f344 docs(visualization): Paint Gate 가 모든 템플릿을 본다고 README 고침 (KAN-063 S5)\n249e3de test(storybook): 글자 대비 검사를 템플릿 68개로 넓힘 (KAN-063 S4)\n965ea98 test(storybook): 리터럴 색 검사를 템플릿 68개로 넓힘 (KAN-063 S3)\n513bd43 test(storybook): Paint Gate 표본 68개를 한 파일로 (KAN-063 S2)\n87109c1 test(foundations): viz Paint Gate 표본 누락 검사 — 빨강 먼저 (KAN-063 S1)\n47c748b kanban: KAN-063 진행 중으로 이동 (착수)\n```\n\n**변경 파일 12개 (+2727 −223)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.kanban/archive.jsonl` | M | 1 | 0 |\n| `.kanban/log.md` | M | 1 | 1 |\n| `.kanban/state.json` | M | 14 | 14 |\n| `KANBAN.board.html` | M | 2 | 2 |\n| `KANBAN.md` | M | 3 | 3 |\n| `KANBAN/cards/KAN-063-Q85EET.md` | M | 15 | 5 |\n| `apps/storybook/src/stories/visualization/TemplatePaintGate.stories.tsx` | M | 15 | 190 |\n| `apps/storybook/src/stories/visualization/_labelContrastBaseline.ts` | M | 1342 | 4 |\n| `apps/storybook/src/stories/visualization/_paintGateFixtures.tsx` | M | 1057 | 0 |\n| `packages/foundations/src/vizPaintGateCoverage.test.ts` | M | 150 | 0 |\n| `packages/foundations/src/vizPaintGateCoverage.ts` | M | 122 | 0 |\n| `packages/visualization/README.md` | M | 5 | 4 |\n\n**롤백 태그 7개**\n\n```text\nkan/KAN-063-Q85EET/S1\nkan/KAN-063-Q85EET/S2\nkan/KAN-063-Q85EET/S3\nkan/KAN-063-Q85EET/S4\nkan/KAN-063-Q85EET/S5\nkan/KAN-063-Q85EET/batch1\nkan/KAN-063-Q85EET/batch2\n```",
  "verdicts": [
   {
    "at": "2026-10-08",

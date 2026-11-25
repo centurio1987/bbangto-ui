@@ -2,7 +2,7 @@
 card: KAN-056-D3V1MB
 batch: 1
 created: 2026-10-07
-branch: KAN-056-D3V1MB
+branch: main
 status: 계획
 steps: S1, S2, S3, S4
 ---

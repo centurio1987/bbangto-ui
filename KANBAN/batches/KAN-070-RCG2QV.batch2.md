@@ -2,7 +2,7 @@
 card: KAN-070-RCG2QV
 batch: 2
 created: 2026-10-10
-branch: KAN-070-RCG2QV
+branch: main
 status: 계획
 steps: S5
 ---

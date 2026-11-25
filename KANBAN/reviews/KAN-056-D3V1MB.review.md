@@ -2,10 +2,11 @@
 card: KAN-056-D3V1MB
 title: viz 템플릿 13개 리터럴 색 제거 — 스타일 가이드가 기본 채움·선 색까지 칠하게
 created: 2026-10-07
-branch: KAN-056-D3V1MB
-worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-056-D3V1MB
+branch: main
+worktree: /Users/centurio/bbangto-ui
 base: a072197
 status: 검토 대기
+merged: cfee0410be9f
 ---
 
 # KAN-056-D3V1MB 검토 요청 — viz 템플릿 13개 리터럴 색 제거 — 스타일 가이드가 기본 채움·선 색까지 칠하게
@@ -19,10 +20,10 @@ status: 검토 대기
 
 | 항목 | 값 |
 |---|---|
-| 브랜치 | `KAN-056-D3V1MB` |
-| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-056-D3V1MB` |
+| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-056-D3V1MB` 의 끝 `cfee0410be9f` 을 main 에 병합), 대상은 아래 고정 범위 |
+| 워크트리 | `/Users/centurio/bbangto-ui` |
 | 베이스 | `a072197` |
-| 변경 훑기 | `git diff a072197...HEAD` |
+| 변경 훑기 | `git diff a072197..cfee0410be9f` |
 
 **커밋 13건**
 

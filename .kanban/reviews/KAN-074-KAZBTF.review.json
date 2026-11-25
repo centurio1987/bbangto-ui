@@ -2,20 +2,20 @@
  "card": "KAN-074-KAZBTF",
  "front": {
   "base": "9cbd196",
-  "branch": "KAN-074-KAZBTF",
+  "branch": "main",
   "card": "KAN-074-KAZBTF",
   "created": "2026-10-10",
   "inherits": null,
-  "merged": null,
+  "merged": "b26485bb51ee",
   "status": "검토 대기",
   "title": "미배포 변경 배포 — KAN-057·061·067 과 KAN-064 major 4개 (tokens 1.5.0 · core 1.2.2 · visualization·style-guide-catalog·visualization-style-guide-catalog 1.0.0 · foundations 2.0.0)",
-  "worktree": "/Users/centurio/orca/workspaces/bbangto-ui/KAN-074-KAZBTF"
+  "worktree": "/Users/centurio/bbangto-ui"
  },
  "inherited_md": "",
- "md_fp": "c21e7361120948d0a77674f1a5ebb74846dfe52e",
- "md_src_fp": "ecaa7126ac0b1bc450e5cbd26fa37f1e77c9808e",
+ "md_fp": "f7025c5f015c919a989d9ebcf5513278ef4c4905",
+ "md_src_fp": "3ba4b83f9cf457f8b99d35d5d4559c3fe7c1b41d",
  "schema": 1,
- "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `KAN-074-KAZBTF` |\n| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-074-KAZBTF` |\n| 베이스 | `9cbd196` |\n| 변경 훑기 | `git diff 9cbd196...HEAD` |\n\n**커밋 2건**\n\n```text\n142ea0f kanban: KAN-074 S2·S3 끝 — push 92커밋 · Version PR #11 대조·병합 · publish 6개(tokens 1.5.0 · core 1.2.2 · foundations 2.0.0 · visualization·style-guide-catalog·visualization-style-guide-catalog 1.0.0) · 배포본 변경 4건 확인 · 외부 앱 전달 문구\n0168161 kanban: KAN-074 할 일 → 진행 중 · S1 push 직전 점검 끝 — major 4개 표 · 게이트 5종 초록(test 1300/1300 · test:unit 702) · 나갈 커밋 92개\n```\n\n**변경 파일 6개 (+29 −21)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.kanban/archive.jsonl` | M | 1 | 0 |\n| `.kanban/log.md` | M | 1 | 1 |\n| `.kanban/state.json` | M | 12 | 12 |\n| `KANBAN.board.html` | M | 2 | 2 |\n| `KANBAN.md` | M | 3 | 3 |\n| `KANBAN/cards/KAN-074-KAZBTF.md` | M | 10 | 3 |\n\n**롤백 태그 0개** — 없음(`--tags` 를 넘기지 않았거나 아직 태그가 없습니다)",
+ "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-074-KAZBTF` 의 끝 `b26485bb51ee` 을 main 에 병합), 대상은 아래 고정 범위 |\n| 워크트리 | `/Users/centurio/bbangto-ui` |\n| 베이스 | `9cbd196` |\n| 변경 훑기 | `git diff 9cbd196..b26485bb51ee` |\n\n**커밋 2건**\n\n```text\n142ea0f kanban: KAN-074 S2·S3 끝 — push 92커밋 · Version PR #11 대조·병합 · publish 6개(tokens 1.5.0 · core 1.2.2 · foundations 2.0.0 · visualization·style-guide-catalog·visualization-style-guide-catalog 1.0.0) · 배포본 변경 4건 확인 · 외부 앱 전달 문구\n0168161 kanban: KAN-074 할 일 → 진행 중 · S1 push 직전 점검 끝 — major 4개 표 · 게이트 5종 초록(test 1300/1300 · test:unit 702) · 나갈 커밋 92개\n```\n\n**변경 파일 6개 (+29 −21)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.kanban/archive.jsonl` | M | 1 | 0 |\n| `.kanban/log.md` | M | 1 | 1 |\n| `.kanban/state.json` | M | 12 | 12 |\n| `KANBAN.board.html` | M | 2 | 2 |\n| `KANBAN.md` | M | 3 | 3 |\n| `KANBAN/cards/KAN-074-KAZBTF.md` | M | 10 | 3 |\n\n**롤백 태그 0개** — 없음(`--tags` 를 넘기지 않았거나 아직 태그가 없습니다)",
  "verdicts": [
   {
    "at": "2026-10-10",

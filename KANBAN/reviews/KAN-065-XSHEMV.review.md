@@ -2,10 +2,11 @@
 card: KAN-065-XSHEMV
 title: style guide 모티프 버튼 포커스 테두리 정리 — 자체 CSS 18곳 대비와 없는 semantic 변수 참조
 created: 2026-10-08
-branch: KAN-065-XSHEMV
-worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-065-XSHEMV
+branch: main
+worktree: /Users/centurio/bbangto-ui
 base: 00c525f
 status: 승인
+merged: 2f4f9c6a0fd8
 ---
 
 # KAN-065-XSHEMV 검토 요청 — style guide 모티프 버튼 포커스 테두리 정리 — 자체 CSS 18곳 대비와 없는 semantic 변수 참조
@@ -19,10 +20,10 @@ status: 승인
 
 | 항목 | 값 |
 |---|---|
-| 브랜치 | `KAN-065-XSHEMV` |
-| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-065-XSHEMV` |
+| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-065-XSHEMV` 의 끝 `2f4f9c6a0fd8` 을 main 에 병합), 대상은 아래 고정 범위 |
+| 워크트리 | `/Users/centurio/bbangto-ui` |
 | 베이스 | `00c525f` |
-| 변경 훑기 | `git diff 00c525f...HEAD` |
+| 변경 훑기 | `git diff 00c525f..2f4f9c6a0fd8` |
 
 **커밋 16건**
 

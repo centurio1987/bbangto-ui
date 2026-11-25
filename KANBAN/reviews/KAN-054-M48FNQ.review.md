@@ -2,10 +2,11 @@
 card: KAN-054-M48FNQ
 title: 나머지 컴포넌트 키보드·포커스 일괄 + 키보드 커버리지 게이트
 created: 2026-10-07
-branch: KAN-054-M48FNQ
-worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-054-M48FNQ
+branch: main
+worktree: /Users/centurio/bbangto-ui
 base: 1ebedb33b9b7e2b373d26a31297016ccb7768a67
 status: 검토 대기
+merged: 19380f90ccce
 ---
 
 # KAN-054-M48FNQ 검토 요청 — 나머지 컴포넌트 키보드·포커스 일괄 + 키보드 커버리지 게이트
@@ -19,10 +20,10 @@ status: 검토 대기
 
 | 항목 | 값 |
 |---|---|
-| 브랜치 | `KAN-054-M48FNQ` |
-| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-054-M48FNQ` |
+| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-054-M48FNQ` 의 끝 `19380f90ccce` 을 main 에 병합), 대상은 아래 고정 범위 |
+| 워크트리 | `/Users/centurio/bbangto-ui` |
 | 베이스 | `1ebedb33b9b7e2b373d26a31297016ccb7768a67` |
-| 변경 훑기 | `git diff 1ebedb33b9b7e2b373d26a31297016ccb7768a67...HEAD` |
+| 변경 훑기 | `git diff 1ebedb33b9b7e2b373d26a31297016ccb7768a67..19380f90ccce` |
 
 **커밋 20건**
 

@@ -2,20 +2,20 @@
  "card": "KAN-055-34A57K",
  "front": {
   "base": "ed53020",
-  "branch": "KAN-055-34A57K",
+  "branch": "main",
   "card": "KAN-055-34A57K",
   "created": "2026-10-08",
   "inherits": null,
-  "merged": null,
+  "merged": "8d6f9d9351ab",
   "status": "검토 대기",
   "title": "트리 셰이킹·글꼴·키보드 수정분 배포 (사용자 실행 지시 후)",
-  "worktree": "/Users/centurio/orca/workspaces/bbangto-ui/KAN-055-34A57K"
+  "worktree": "/Users/centurio/bbangto-ui"
  },
  "inherited_md": "",
- "md_fp": "17fb1d647c222bcf5c50d64b31d6c07ce3f48975",
- "md_src_fp": "e4042c7fbc6cf1c4338083320da329d74e5bd68b",
+ "md_fp": "7fa73aed08209cfc79814ee3d3c630fd13df0285",
+ "md_src_fp": "063cade30e5ebd4a8325d2ca5d7674b5816a62af",
  "schema": 1,
- "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `KAN-055-34A57K` |\n| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-055-34A57K` |\n| 베이스 | `ed53020` |\n| 변경 훑기 | `git diff ed53020...HEAD` |\n\n**커밋 5건**\n\n```text\n2971a89 kanban: KAN-055 외부 앱 전달 문구 ⑥ 정정 — KAN-060 병합 반영 · reconcile 이 카드 순서 캐시를 보드대로 맞춤\n093e03b KAN-055 S3: 배포본 확인 — 4종 크기 상한 이하(core Button 5,219B) · Node import 성공 · 외부 앱 전달 문구\ne33d5ec KAN-055 S2: 배포 — Version PR #9 병합, core 1.2.0 · viz 0.4.0 · sgc 0.3.2 · vsgc 0.3.1 publish\n58d2fff KAN-055 S1: push 직전 점검 — 버전 표 확정 · 게이트 5종 초록 · 나갈 커밋 254\n8f4f0b9 kanban: KAN-055 진행 중으로 이동 · 인스턴트 예외 동의 기록(배치·계획 리포트 생략, 유저 동의)\n```\n\n**변경 파일 6개 (+50 −40)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.kanban/archive.jsonl` | M | 1 | 0 |\n| `.kanban/log.md` | M | 1 | 1 |\n| `.kanban/state.json` | M | 13 | 13 |\n| `KANBAN.board.html` | M | 2 | 2 |\n| `KANBAN.md` | M | 21 | 21 |\n| `KANBAN/cards/KAN-055-34A57K.md` | M | 12 | 3 |\n\n**롤백 태그 3개**\n\n```text\nkan/KAN-055-34A57K/S1\nkan/KAN-055-34A57K/S2\nkan/KAN-055-34A57K/S3\n```",
+ "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-055-34A57K` 의 끝 `8d6f9d9351ab` 을 main 에 병합), 대상은 아래 고정 범위 |\n| 워크트리 | `/Users/centurio/bbangto-ui` |\n| 베이스 | `ed53020` |\n| 변경 훑기 | `git diff ed53020..8d6f9d9351ab` |\n\n**커밋 5건**\n\n```text\n2971a89 kanban: KAN-055 외부 앱 전달 문구 ⑥ 정정 — KAN-060 병합 반영 · reconcile 이 카드 순서 캐시를 보드대로 맞춤\n093e03b KAN-055 S3: 배포본 확인 — 4종 크기 상한 이하(core Button 5,219B) · Node import 성공 · 외부 앱 전달 문구\ne33d5ec KAN-055 S2: 배포 — Version PR #9 병합, core 1.2.0 · viz 0.4.0 · sgc 0.3.2 · vsgc 0.3.1 publish\n58d2fff KAN-055 S1: push 직전 점검 — 버전 표 확정 · 게이트 5종 초록 · 나갈 커밋 254\n8f4f0b9 kanban: KAN-055 진행 중으로 이동 · 인스턴트 예외 동의 기록(배치·계획 리포트 생략, 유저 동의)\n```\n\n**변경 파일 6개 (+50 −40)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.kanban/archive.jsonl` | M | 1 | 0 |\n| `.kanban/log.md` | M | 1 | 1 |\n| `.kanban/state.json` | M | 13 | 13 |\n| `KANBAN.board.html` | M | 2 | 2 |\n| `KANBAN.md` | M | 21 | 21 |\n| `KANBAN/cards/KAN-055-34A57K.md` | M | 12 | 3 |\n\n**롤백 태그 3개**\n\n```text\nkan/KAN-055-34A57K/S1\nkan/KAN-055-34A57K/S2\nkan/KAN-055-34A57K/S3\n```",
  "verdicts": [
   {
    "at": "2026-10-08",

@@ -2,20 +2,20 @@
  "card": "KAN-053-TZ86NN",
  "front": {
   "base": "b9f4a2f",
-  "branch": "KAN-053-TZ86NN",
+  "branch": "main",
   "card": "KAN-053-TZ86NN",
   "created": "2026-10-06",
   "inherits": null,
-  "merged": null,
+  "merged": "b061191d013d",
   "status": "검토 대기",
   "title": "Drawer·Tabs·Select 키보드·포커스 지원 — Modal에서 공용 훅 추출",
-  "worktree": "/Users/centurio/orca/workspaces/bbangto-ui/KAN-053-TZ86NN"
+  "worktree": "/Users/centurio/bbangto-ui"
  },
  "inherited_md": "",
- "md_fp": "1ef55cf247801701d37ff04030c7236dae1e8c10",
- "md_src_fp": "8d337e3cd0be1c918313eae6d55b0fb47e08ea31",
+ "md_fp": "c730bdde78e1a4dfee3c673475b6be3c8aacb6a7",
+ "md_src_fp": "bd90a7e5fbc58753da62545187b068e7de903eef",
  "schema": 1,
- "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `KAN-053-TZ86NN` |\n| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-053-TZ86NN` |\n| 베이스 | `b9f4a2f` |\n| 변경 훑기 | `git diff b9f4a2f...HEAD` |\n\n**커밋 6건**\n\n```text\nd6aa3fa KAN-053 S4: Select 키보드 적용 + changeset, Modal 열림 포커스 결함 수정 (게이트 5종 초록)\nf9e87c8 KAN-053 S3: Drawer·Tabs 키보드·포커스 적용 (새 테스트 초록)\n48dc248 kanban: KAN-053 배치2 착수 시점 판단 — 같은 세션에서 S3·S4 이어 감\nc56cfad KAN-053 S2: a11y 공용 훅 넷 추출 + Modal 교체 (Modal 스토리 초록)\n2cafe72 KAN-053 S1: Drawer·Tabs·Select 키보드 play 테스트 먼저 (빨강 6 · 기존 초록)\ndd9a28c kanban: KAN-053 진행 중으로 이동\n```\n\n**변경 파일 20개 (+888 −118)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.changeset/kan-053-keyboard-a11y.md` | M | 21 | 0 |\n| `.kanban/archive.jsonl` | M | 1 | 0 |\n| `.kanban/log.md` | M | 1 | 1 |\n| `.kanban/state.json` | M | 15 | 21 |\n| `KANBAN.board.html` | M | 2 | 2 |\n| `KANBAN.md` | M | 18 | 18 |\n| `KANBAN/batches/KAN-053-TZ86NN.batch2.md` | M | 5 | 1 |\n| `KANBAN/cards/KAN-053-TZ86NN.md` | M | 14 | 4 |\n| `apps/storybook/src/stories/Drawer.stories.tsx` | M | 102 | 0 |\n| `apps/storybook/src/stories/Select.stories.tsx` | M | 126 | 0 |\n| `apps/storybook/src/stories/Tabs.stories.tsx` | M | 147 | 0 |\n| `packages/core/src/a11y/index.ts` | M | 7 | 0 |\n| `packages/core/src/a11y/useEscapeKey.ts` | M | 16 | 0 |\n| `packages/core/src/a11y/useFocusTrap.ts` | M | 71 | 0 |\n| `packages/core/src/a11y/useRovingFocus.ts` | M | 61 | 0 |\n| `packages/core/src/a11y/useTypeahead.ts` | M | 46 | 0 |\n| `packages/core/src/components/Drawer.tsx` | M | 26 | 3 |\n| `packages/core/src/components/Modal.tsx` | M | 10 | 41 |\n| `packages/core/src/components/Select.tsx` | M | 122 | 15 |\n| `packages/core/src/components/Tabs.tsx` | M | 77 | 12 |\n\n**롤백 태그 6개**\n\n```text\nkan/KAN-053-TZ86NN/S1\nkan/KAN-053-TZ86NN/S2\nkan/KAN-053-TZ86NN/S3\nkan/KAN-053-TZ86NN/S4\nkan/KAN-053-TZ86NN/batch1\nkan/KAN-053-TZ86NN/batch2\n```",
+ "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-053-TZ86NN` 의 끝 `b061191d013d` 을 main 에 병합), 대상은 아래 고정 범위 |\n| 워크트리 | `/Users/centurio/bbangto-ui` |\n| 베이스 | `b9f4a2f` |\n| 변경 훑기 | `git diff b9f4a2f..b061191d013d` |\n\n**커밋 6건**\n\n```text\nd6aa3fa KAN-053 S4: Select 키보드 적용 + changeset, Modal 열림 포커스 결함 수정 (게이트 5종 초록)\nf9e87c8 KAN-053 S3: Drawer·Tabs 키보드·포커스 적용 (새 테스트 초록)\n48dc248 kanban: KAN-053 배치2 착수 시점 판단 — 같은 세션에서 S3·S4 이어 감\nc56cfad KAN-053 S2: a11y 공용 훅 넷 추출 + Modal 교체 (Modal 스토리 초록)\n2cafe72 KAN-053 S1: Drawer·Tabs·Select 키보드 play 테스트 먼저 (빨강 6 · 기존 초록)\ndd9a28c kanban: KAN-053 진행 중으로 이동\n```\n\n**변경 파일 20개 (+888 −118)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.changeset/kan-053-keyboard-a11y.md` | M | 21 | 0 |\n| `.kanban/archive.jsonl` | M | 1 | 0 |\n| `.kanban/log.md` | M | 1 | 1 |\n| `.kanban/state.json` | M | 15 | 21 |\n| `KANBAN.board.html` | M | 2 | 2 |\n| `KANBAN.md` | M | 18 | 18 |\n| `KANBAN/batches/KAN-053-TZ86NN.batch2.md` | M | 5 | 1 |\n| `KANBAN/cards/KAN-053-TZ86NN.md` | M | 14 | 4 |\n| `apps/storybook/src/stories/Drawer.stories.tsx` | M | 102 | 0 |\n| `apps/storybook/src/stories/Select.stories.tsx` | M | 126 | 0 |\n| `apps/storybook/src/stories/Tabs.stories.tsx` | M | 147 | 0 |\n| `packages/core/src/a11y/index.ts` | M | 7 | 0 |\n| `packages/core/src/a11y/useEscapeKey.ts` | M | 16 | 0 |\n| `packages/core/src/a11y/useFocusTrap.ts` | M | 71 | 0 |\n| `packages/core/src/a11y/useRovingFocus.ts` | M | 61 | 0 |\n| `packages/core/src/a11y/useTypeahead.ts` | M | 46 | 0 |\n| `packages/core/src/components/Drawer.tsx` | M | 26 | 3 |\n| `packages/core/src/components/Modal.tsx` | M | 10 | 41 |\n| `packages/core/src/components/Select.tsx` | M | 122 | 15 |\n| `packages/core/src/components/Tabs.tsx` | M | 77 | 12 |\n\n**롤백 태그 6개**\n\n```text\nkan/KAN-053-TZ86NN/S1\nkan/KAN-053-TZ86NN/S2\nkan/KAN-053-TZ86NN/S3\nkan/KAN-053-TZ86NN/S4\nkan/KAN-053-TZ86NN/batch1\nkan/KAN-053-TZ86NN/batch2\n```",
  "verdicts": [
   {
    "at": "2026-10-06",

@@ -2,7 +2,7 @@
 card: KAN-054-M48FNQ
 batch: 1
 created: 2026-10-07
-branch: KAN-054-M48FNQ
+branch: main
 status: 계획
 steps: S1, S2, S3
 ---

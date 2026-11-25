@@ -2,7 +2,7 @@
 card: KAN-057-CCH3E8
 batch: 1
 created: 2026-10-09
-branch: KAN-057-CCH3E8
+branch: main
 status: 계획
 steps: S1, S2, S3, S4
 ---

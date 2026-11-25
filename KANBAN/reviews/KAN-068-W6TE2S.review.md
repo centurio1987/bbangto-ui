@@ -2,10 +2,11 @@
 card: KAN-068-W6TE2S
 title: 미배포 수정분 배포 — KAN-056·060·065 를 KAN-064 major 전에 (사용자 실행 지시 후)
 created: 2026-10-10
-branch: KAN-068-W6TE2S
-worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-068-W6TE2S
+branch: main
+worktree: /Users/centurio/bbangto-ui
 base: 7093fcd
 status: 승인
+merged: 2d6f96ad3b71
 ---
 
 # KAN-068-W6TE2S 검토 요청 — 미배포 수정분 배포 — KAN-056·060·065 를 KAN-064 major 전에 (사용자 실행 지시 후)
@@ -19,10 +20,10 @@ status: 승인
 
 | 항목 | 값 |
 |---|---|
-| 브랜치 | `KAN-068-W6TE2S` |
-| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-068-W6TE2S` |
+| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-068-W6TE2S` 의 끝 `2d6f96ad3b71` 을 main 에 병합), 대상은 아래 고정 범위 |
+| 워크트리 | `/Users/centurio/bbangto-ui` |
 | 베이스 | `7093fcd` |
-| 변경 훑기 | `git diff 7093fcd...HEAD` |
+| 변경 훑기 | `git diff 7093fcd..2d6f96ad3b71` |
 
 **커밋 6건**
 

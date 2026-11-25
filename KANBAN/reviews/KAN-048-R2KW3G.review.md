@@ -2,10 +2,11 @@
 card: KAN-048-R2KW3G
 title: 문서 정리 B — core 카탈로그 계열 통합 (audit 44→1 · 일회성 계획 3종 흡수)
 created: 2026-10-06
-branch: KAN-048-R2KW3G
-worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-048-R2KW3G
+branch: main
+worktree: /Users/centurio/bbangto-ui
 base: 185f422
 status: 승인
+merged: e36e5bcf04cd
 ---
 
 # KAN-048-R2KW3G 검토 요청 — 문서 정리 B — core 카탈로그 계열 통합 (audit 44→1 · 일회성 계획 3종 흡수)
@@ -19,10 +20,10 @@ status: 승인
 
 | 항목 | 값 |
 |---|---|
-| 브랜치 | `KAN-048-R2KW3G` |
-| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-048-R2KW3G` |
+| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-048-R2KW3G` 의 끝 `e36e5bcf04cd` 을 main 에 병합), 대상은 아래 고정 범위 |
+| 워크트리 | `/Users/centurio/bbangto-ui` |
 | 베이스 | `185f422` |
-| 변경 훑기 | `git diff 185f422...HEAD` |
+| 변경 훑기 | `git diff 185f422..e36e5bcf04cd` |
 
 **커밋 11건**
 

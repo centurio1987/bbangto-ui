@@ -2,20 +2,20 @@
  "card": "KAN-045-PNT454",
  "front": {
   "base": "2dc2543",
-  "branch": "KAN-045-PNT454",
+  "branch": "main",
   "card": "KAN-045-PNT454",
   "created": "2026-08-25",
   "inherits": null,
-  "merged": null,
+  "merged": "e048f5e15082",
   "status": "검토 대기",
   "title": "README는 이 레포를 설명하기에 정보가 많이 부족하다. 이 프로젝트를 활용 사례 별로 분류하고, 사례 별로 사용 방법을 자세한 절차로 서술해라. 서술 과정에서 authoring-kit skill을 이용해라.",
-  "worktree": "/Users/centurio/orca/workspaces/bbangto-ui/KAN-045-PNT454"
+  "worktree": "/Users/centurio/bbangto-ui"
  },
  "inherited_md": "",
- "md_fp": "c2c726d0e12ca41e1c4301cd56c50b3aa36df3ea",
- "md_src_fp": "37beee0f196c218378e646f52d244623d4bb3373",
+ "md_fp": "8bd8a27a9cbbf0538d769fe6f7e43ddda6fd2a81",
+ "md_src_fp": "820076a743e648521353727269a0e092a350b5e4",
  "schema": 1,
- "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `KAN-045-PNT454` |\n| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-045-PNT454` |\n| 베이스 | `2dc2543` |\n| 변경 훑기 | `git diff 2dc2543...HEAD` |\n\n**커밋 9건**\n\n```text\nc53fd6b docs: 푸터 이모지 제거 (검토 1번 반려 반영)\n1363a57 kanban: KAN-045 검토로 이동 + 검토서 발행(판단 항목 5)\n2ea10c6 kanban: KAN-045 배치3 완료 — S6 조립 · S7 게이트 5종 초록\n4eb4f05 docs: README를 활용 사례 10종 구조로 재작성\nb49b243 kanban: KAN-045 배치2 완료 — 사례 10종 병렬 집필(워커 4)\n480286f kanban: KAN-045 spec에 self-check 처리 확정 — 「그다음 걸음」이 겸한다\n9e3be5f kanban: KAN-045 배치1 완료 — S1 사실 수집 · S2 사례 갈래 확정\nb6111e4 kanban: KAN-045 S3 완료 — authoring spec bbangto-readme 등록\n3afacc5 kanban: KAN-045 진행 중으로 이동(착수)\n```\n\n**변경 파일 17개 (+3192 −166)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.claude/authoring/paths.json` | M | 2 | 1 |\n| `.claude/authoring/specs/bbangto-readme/spec.json` | M | 93 | 0 |\n| `.claude/authoring/specs/bbangto-readme/spec.md` | M | 140 | 0 |\n| `.kanban/archive.jsonl` | M | 2 | 0 |\n| `.kanban/log.md` | M | 2 | 2 |\n| `.kanban/reviews/KAN-045-PNT454.events.jsonl` | M | 17 | 0 |\n| `.kanban/reviews/KAN-045-PNT454.review.json` | M | 21 | 0 |\n| `.kanban/state.json` | M | 25 | 27 |\n| `KANBAN.board.html` | M | 235 | 5 |\n| `KANBAN.md` | M | 7 | 6 |\n| `KANBAN/batches/KAN-045-PNT454.batch1.md` | M | 8 | 1 |\n| `KANBAN/batches/KAN-045-PNT454.batch2.md` | M | 37 | 19 |\n| `KANBAN/batches/KAN-045-PNT454.batch3.md` | M | 23 | 1 |\n| `KANBAN/cards/KAN-045-PNT454.md` | M | 26 | 7 |\n| `KANBAN/reviews/KAN-045-PNT454.review.html` | M | 1098 | 0 |\n| `KANBAN/reviews/KAN-045-PNT454.review.md` | M | 228 | 0 |\n| `README.md` | M | 1228 | 97 |\n\n**롤백 태그 10개**\n\n```text\nkan/KAN-045-PNT454/S1\nkan/KAN-045-PNT454/S2\nkan/KAN-045-PNT454/S3\nkan/KAN-045-PNT454/S4\nkan/KAN-045-PNT454/S5\nkan/KAN-045-PNT454/S6\nkan/KAN-045-PNT454/S7\nkan/KAN-045-PNT454/batch1\nkan/KAN-045-PNT454/batch2\nkan/KAN-045-PNT454/batch3\n```",
+ "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-045-PNT454` 의 끝 `e048f5e15082` 을 main 에 병합), 대상은 아래 고정 범위 |\n| 워크트리 | `/Users/centurio/bbangto-ui` |\n| 베이스 | `2dc2543` |\n| 변경 훑기 | `git diff 2dc2543..e048f5e15082` |\n\n**커밋 9건**\n\n```text\nc53fd6b docs: 푸터 이모지 제거 (검토 1번 반려 반영)\n1363a57 kanban: KAN-045 검토로 이동 + 검토서 발행(판단 항목 5)\n2ea10c6 kanban: KAN-045 배치3 완료 — S6 조립 · S7 게이트 5종 초록\n4eb4f05 docs: README를 활용 사례 10종 구조로 재작성\nb49b243 kanban: KAN-045 배치2 완료 — 사례 10종 병렬 집필(워커 4)\n480286f kanban: KAN-045 spec에 self-check 처리 확정 — 「그다음 걸음」이 겸한다\n9e3be5f kanban: KAN-045 배치1 완료 — S1 사실 수집 · S2 사례 갈래 확정\nb6111e4 kanban: KAN-045 S3 완료 — authoring spec bbangto-readme 등록\n3afacc5 kanban: KAN-045 진행 중으로 이동(착수)\n```\n\n**변경 파일 17개 (+3192 −166)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.claude/authoring/paths.json` | M | 2 | 1 |\n| `.claude/authoring/specs/bbangto-readme/spec.json` | M | 93 | 0 |\n| `.claude/authoring/specs/bbangto-readme/spec.md` | M | 140 | 0 |\n| `.kanban/archive.jsonl` | M | 2 | 0 |\n| `.kanban/log.md` | M | 2 | 2 |\n| `.kanban/reviews/KAN-045-PNT454.events.jsonl` | M | 17 | 0 |\n| `.kanban/reviews/KAN-045-PNT454.review.json` | M | 21 | 0 |\n| `.kanban/state.json` | M | 25 | 27 |\n| `KANBAN.board.html` | M | 235 | 5 |\n| `KANBAN.md` | M | 7 | 6 |\n| `KANBAN/batches/KAN-045-PNT454.batch1.md` | M | 8 | 1 |\n| `KANBAN/batches/KAN-045-PNT454.batch2.md` | M | 37 | 19 |\n| `KANBAN/batches/KAN-045-PNT454.batch3.md` | M | 23 | 1 |\n| `KANBAN/cards/KAN-045-PNT454.md` | M | 26 | 7 |\n| `KANBAN/reviews/KAN-045-PNT454.review.html` | M | 1098 | 0 |\n| `KANBAN/reviews/KAN-045-PNT454.review.md` | M | 228 | 0 |\n| `README.md` | M | 1228 | 97 |\n\n**롤백 태그 10개**\n\n```text\nkan/KAN-045-PNT454/S1\nkan/KAN-045-PNT454/S2\nkan/KAN-045-PNT454/S3\nkan/KAN-045-PNT454/S4\nkan/KAN-045-PNT454/S5\nkan/KAN-045-PNT454/S6\nkan/KAN-045-PNT454/S7\nkan/KAN-045-PNT454/batch1\nkan/KAN-045-PNT454/batch2\nkan/KAN-045-PNT454/batch3\n```",
  "verdicts": [
   {
    "at": "2026-08-25",

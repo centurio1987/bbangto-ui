@@ -2,10 +2,11 @@
 card: KAN-064-AC0H6M
 title: AI 채택 매니페스트 재편 — 메타 필드는 유지, 매니페스트는 얇은 색인으로 축소 + 동기화 장치 단순화
 created: 2026-10-08
-branch: KAN-064-AC0H6M
-worktree: /Users/centurio/orca/workspaces/bbangto-ui/KAN-064-AC0H6M
+branch: main
+worktree: /Users/centurio/bbangto-ui
 base: c8f6c86
 status: 승인
+merged: 492d2af71863
 ---
 
 # KAN-064-AC0H6M 검토 요청 — AI 채택 매니페스트 재편 — 메타 필드는 유지, 매니페스트는 얇은 색인으로 축소 + 동기화 장치 단순화
@@ -19,10 +20,10 @@ status: 승인
 
 | 항목 | 값 |
 |---|---|
-| 브랜치 | `KAN-064-AC0H6M` |
-| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-064-AC0H6M` |
+| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-064-AC0H6M` 의 끝 `492d2af71863` 을 main 에 병합), 대상은 아래 고정 범위 |
+| 워크트리 | `/Users/centurio/bbangto-ui` |
 | 베이스 | `c8f6c86` |
-| 변경 훑기 | `git diff c8f6c86...HEAD` |
+| 변경 훑기 | `git diff c8f6c86..492d2af71863` |
 
 **커밋 13건**
 

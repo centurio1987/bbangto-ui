@@ -2,7 +2,7 @@
 card: KAN-051-5HMYKT
 batch: 2
 created: 2026-10-07
-branch: KAN-051-5HMYKT
+branch: main
 status: 계획
 steps: S3, S4
 ---
