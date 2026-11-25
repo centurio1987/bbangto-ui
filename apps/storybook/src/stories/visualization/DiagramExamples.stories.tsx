@@ -391,14 +391,16 @@ export const CheckoutAsActivityWithLanes: Story = {
           { id: 'l-order', label: '주문 서비스', x: 200, y: 20, width: 180, height: 400 },
           { id: 'l-pay', label: '결제 게이트웨이', x: 380, y: 20, width: 180, height: 400 },
         ],
+        // 좌표는 노드 왼쪽 위다(기본 100×44). 노드가 제 스윔레인 안에 들어가게 레인 가운데(110 · 290 · 470)에 맞춘다
         nodes: [
-          { id: 'start', kind: 'start', x: 110, y: 70 },
-          { id: 'submit', kind: 'action', label: '주문 제출', x: 110, y: 130 },
-          { id: 'create', kind: 'action', label: '주문 만들기', x: 290, y: 130 },
-          { id: 'charge', kind: 'action', label: '결제 승인', x: 470, y: 210 },
-          { id: 'ok', kind: 'decision', label: '승인?', x: 290, y: 290 },
-          { id: 'done', kind: 'action', label: '완료 표시', x: 110, y: 360 },
-          { id: 'end', kind: 'end', x: 290, y: 390 },
+          { id: 'start', kind: 'start', x: 96, y: 60, width: 28, height: 28 },
+          { id: 'submit', kind: 'action', label: '주문 제출', x: 60, y: 120 },
+          { id: 'create', kind: 'action', label: '주문 만들기', x: 240, y: 120 },
+          { id: 'charge', kind: 'action', label: '결제 승인', x: 420, y: 120 },
+          { id: 'ok', kind: 'decision', label: '승인?', x: 420, y: 210 },
+          { id: 'done', kind: 'action', label: '완료 표시', x: 60, y: 300 },
+          { id: 'end-ok', kind: 'end', x: 96, y: 372, width: 28, height: 28 },
+          { id: 'end-fail', kind: 'end', x: 456, y: 300, width: 28, height: 28 },
         ],
         edges: [
           { from: 'start', to: 'submit' },
@@ -406,7 +408,8 @@ export const CheckoutAsActivityWithLanes: Story = {
           { from: 'create', to: 'charge' },
           { from: 'charge', to: 'ok' },
           { from: 'ok', to: 'done', label: '예' },
-          { from: 'ok', to: 'end', label: '아니오' },
+          { from: 'ok', to: 'end-fail', label: '아니오' },
+          { from: 'done', to: 'end-ok' },
         ],
       }}
       viewBox="0 0 580 440"
@@ -423,6 +426,13 @@ export const CheckoutAsActivityWithLanes: Story = {
     // 분기 라벨(예 · 아니오)이 선 위에 그려진다
     const labels = Array.from(svg.querySelectorAll('[data-bbangto-viz-edge-label] text')).map((t) => t.textContent);
     await expect(labels).toEqual(expect.arrayContaining(['예', '아니오']));
+    // 노드마다 제 스윔레인(가로 20~200 · 200~380 · 380~560, 세로 20~420) 안에 들어간다
+    const lanes = [20, 200, 380, 560];
+    for (const g of Array.from(svg.querySelectorAll('[data-bbangto-viz-activity-node]'))) {
+      const b = (g as SVGGElement).getBBox();
+      const inside = lanes.slice(0, 3).some((l, i) => b.x >= l && b.x + b.width <= lanes[i + 1]) && b.y >= 20 && b.y + b.height <= 420;
+      await expect({ id: g.getAttribute('data-bbangto-viz-activity-id'), inside }).toEqual({ id: g.getAttribute('data-bbangto-viz-activity-id'), inside: true });
+    }
   },
 };
 
