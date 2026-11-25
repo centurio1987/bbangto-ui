@@ -45,13 +45,6 @@
     ```text
     resume viz 기능은 상대적으로 bbangto-ui의 viz를 사용할 때보다 케이스에 맞는 유연한 시각화를 제공한다. 그 원인도 분석해서 bbangto-ui에 보완이 필요한지 말해봐라 / (제안에 대한 답) 진행해
     ```
-- `KAN-082.5-WPS4DX` viz SEI Views and Beyond 프레임 — Module·C&C·Allocation 세 뷰 슬롯 — 생성:ai · 최종:ai · 갱신:2026-11-24
-  - 상위: `KAN-082-MD50S0` (진행 중)
-  - 짧은 제목: SEI 뷰 프레임
-  - 목적: Module·C&C·Allocation 세 뷰를 슬롯으로 받는 ViewsAndBeyondFrame 을 Kruchten4Plus1View 와 같은 방식으로 더한다
-  - 이유: 원문이 든 프레임워크 셋 가운데 4+1 은 Kruchten4Plus1View, C4 는 템플릿 여섯이 있지만 SEI Views and Beyond 는 없어 ViewpointFrame 을 세 번 손으로 늘어놓아야 한다
-  - 목표: 한 시스템의 모듈 뷰·런타임(C&C) 뷰·배치(Allocation) 뷰를 한 프레임에 나란히 담고, 슬롯마다 기존 템플릿을 넣을 수 있다
-  - 메모: 새 파일만 더해 형제 카드와 파일이 겹치지 않는다. 조합 프레임이라 Kruchten4Plus1View·ViewpointFrame 처럼 typeMeta registry allowlist 대상이다
 
 ## 할 일
 - `KAN-084-QGNC19` 가이드가 적은 진한 면 글자색을 VS 구분선 · 이정표 표시 · 번호 배지에도 닿게 한다 — 생성:ai · 최종:ai · 갱신:2026-11-24
@@ -107,6 +100,13 @@
     
     위 글에 나와있는 도면 스펙을 bbangto-ui의 viz lib가 충분히 표현할 수 있는지 검토하고, 없다면 표현 가능하도록 칸반에 확장 계획을 세워라.
     ```
+- `KAN-082.5-WPS4DX` viz SEI Views and Beyond 프레임 — Module·C&C·Allocation 세 뷰 슬롯 — 생성:ai · 최종:ai · 갱신:2026-11-25
+  - 상위: `KAN-082-MD50S0` (진행 중)
+  - 짧은 제목: SEI 뷰 프레임
+  - 목적: Module·C&C·Allocation 세 뷰를 슬롯으로 받는 ViewsAndBeyondFrame 을 Kruchten4Plus1View 와 같은 방식으로 더한다
+  - 이유: 원문이 든 프레임워크 셋 가운데 4+1 은 Kruchten4Plus1View, C4 는 템플릿 여섯이 있지만 SEI Views and Beyond 는 없어 ViewpointFrame 을 세 번 손으로 늘어놓아야 한다
+  - 목표: 한 시스템의 모듈 뷰·런타임(C&C) 뷰·배치(Allocation) 뷰를 한 프레임에 나란히 담고, 슬롯마다 기존 템플릿을 넣을 수 있다
+  - 메모: 새 파일만 더해 형제 카드와 파일이 겹치지 않는다. 조합 프레임이라 Kruchten4Plus1View·ViewpointFrame 처럼 typeMeta registry allowlist 대상이다
 
 ## 검토
 - `KAN-082.1-ZFJJM6` viz 템플릿 간선 라벨·선언 필드 렌더 복구 — 받고도 안 그리는 label·technology·다중성·stereotype — 생성:ai · 최종:ai · 갱신:2026-11-25

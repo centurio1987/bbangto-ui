@@ -1,6 +1,6 @@
 {
   "next_id": 85,
-  "next_seq": 339,
+  "next_seq": 340,
   "cards": {
     "KAN-076-NHP81Z": {
       "col": "backlog",
@@ -195,12 +195,12 @@
       "parent": "KAN-082-MD50S0"
     },
     "KAN-082.5-WPS4DX": {
-      "col": "backlog",
+      "col": "doing",
       "title": "viz SEI Views and Beyond 프레임 — Module·C&C·Allocation 세 뷰 슬롯",
       "verbatim": "",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-11-24",
+      "갱신": "2026-11-25",
       "title_hash": "17ba2096a25abe4ec09cca6a93021886a26981ac",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
       "short": "SEI 뷰 프레임",
@@ -1935,7 +1935,6 @@
     "KAN-077-0YAFWG",
     "KAN-078-0TF6NT",
     "KAN-080-RN47PY",
-    "KAN-082.5-WPS4DX",
     "KAN-084-QGNC19",
     "KAN-020",
     "KAN-025",
@@ -2018,9 +2017,20 @@
     "KAN-082.1-ZFJJM6",
     "KAN-082.2-P4970X",
     "KAN-082.3-TJ665Y",
-    "KAN-082.4-FSH2T1"
+    "KAN-082.4-FSH2T1",
+    "KAN-082.5-WPS4DX"
   ],
   "recent": [
+    {
+      "seq": 339,
+      "t": "2026-11-25T16:49",
+      "a": "ai",
+      "id": "KAN-082.5-WPS4DX",
+      "op": "move",
+      "w": "9Z2X8X",
+      "from": "backlog",
+      "to": "doing"
+    },
     {
       "seq": 338,
       "t": "2026-11-25T16:49",
@@ -2643,16 +2653,6 @@
       "reason": "KAN-071 재현에서 기획 세션이 배치 라이브러리를 더하는 결론을 고치기 전 판 2/3·지금 판 1/3 냈고, README 는 「자동 배치 없음」만 적어 그것이 확장인지 이탈인지 읽을 수 없다(KAN-071 검토 항목 2 승인)",
       "goal": "에이전트가 배치 엔진을 빌려도 그리기는 bbangto-ui 로 남는다는 것을 배포 README 에서 읽고, 그 안내와 예제가 검사로 지켜진다",
       "memo": "KAN-071 검토 항목 2(2026-10-11 승인) 추천 「앱 안 확장으로 보고 README 에 안내를 더한다」. 버린 갈래: visualization geometry 에 계층 배치 함수를 넣는다. 검사 자리는 KAN-067 의 publishedDocs"
-    },
-    {
-      "seq": 292,
-      "t": "2026-10-12T14:41",
-      "a": "ai",
-      "id": "KAN-075-4K5GK3",
-      "op": "move",
-      "w": "EFXS81",
-      "from": "review",
-      "to": "done"
     }
   ],
   "waivers": [
