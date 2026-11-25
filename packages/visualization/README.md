@@ -326,12 +326,22 @@ export function DecisionSketch() {
   가이드가 `on.ink` 를 적었거나 그 색이 밑 면에서 4.5:1 에 못 미치면 숫자와 같은 글자색이 된다. 밑에 올 면이 여럿인 글자(Sankey 이름 · Venn 겹친 자리)는
   그 면 전부에서 읽히는 색을 고르고 `data-viz-ink-multi` 를 단다. 대비 검사와 `TextInkGate` 는 템플릿 표본에 패턴 스토리까지
   그린다. `useVizFoundation()` 은 데이터 없음 분기의 `return` 보다 먼저 부른다(`src/styleGuide/hookOrder.test.ts`).
+- **관계선 라벨은 데이터로 받으면 그린다.** `Edge` 는 `label` 을 그린 경로의 가운데(경로를 따라 잰 길이의 절반)에
+  바탕과 함께 그리고, `fromLabel`·`toLabel` 은 양 끝에서 경로 안쪽으로 조금 들어가 선 옆(가로선은 위, 세로선은 왼쪽)에
+  그린다. 글자 크기는 `labelFontSize` 다. 템플릿은 데이터의 라벨 칸을 `Edge` 로 넘긴다 — 관계 label, C4 관계의
+  `technology`(「설명 [기술]」 한 줄), StateDiagram 전이 라벨, Flowchart 분기 라벨, ClassDiagram 의 관계 이름 · 양 끝
+  다중성(`fromLabel`·`toLabel`) · 클래스 `stereotype`(«…»). ClassDiagram 의 포함 · 집합은 전체 쪽(`from`)에 마름모만
+  붙고 부분 쪽에는 화살촉이 없다. KAN-082 전(2.1.0 까지)에는 이 칸들을 받고도 그리지 않았으므로, 그때 채워 둔 라벨은
+  새 버전에서 그림에 나타난다. 이미 라벨을 따로 그리던 템플릿(DataFlowDiagram · C4DynamicDiagram · C4SystemLandscapeDiagram
+  등)은 자리를 그대로 둔다. `src/templates/edgeLabels.test.tsx` 가 Edge 를 쓰는 템플릿 전부를 서버 렌더해 넣은 글자가 그림에
+  정확히 한 번 나오는지 보고, 라벨 칸이 없는 템플릿은 그 파일에 이유와 함께 적는다.
 - **접근성**: 루트 `Canvas` 는 `role="img"`(`accessible="structured"` 면 `group`)와 `title`(선택 `desc`)을 갖는다.
   값은 항상 텍스트로 함께 적는다 — 그래픽만으로 값을 말하지 않는다. 노드 글리프·아이콘 배지 같은 장식은 `aria-hidden` 이다.
 - **경계 입력**: 빈 데이터는 빈 캔버스다(throw 하지 않는다). 항목 하나도 그린다. `children`·`data` 를 함께 주면 `children` 이다.
 - **지원 범위**: Sankey 는 비순환·좌→우·수동 노드 좌표. GitGraph merge 는 직선. Venn 은 2원 정밀 + 3원 대칭 근사.
   GeoMap 은 호출자가 준 region path 를 그린다(투영 없음, 고정 viewBox). 대량 데이터 최적화는 대상이 아니다.
 - **테스트는 두 갈래다.** 순수 geometry 는 `src/**/*.test.ts` 의 vitest 단위 테스트로, 컴포넌트 렌더는 Storybook `play()` 로 본다.
+  템플릿이 데이터로 받은 글자를 그리는지만은 vitest 에서 서버 렌더(`react-dom/server`)로 본다(`src/**/*.test.tsx`).
   `play()` 에서는 텍스트 bbox·computed width 를 대조하지 않는다(실행마다 흔들린다) — geometry 가 낸 값과
   attribute 정수를 ±1 로 대조한다.
 

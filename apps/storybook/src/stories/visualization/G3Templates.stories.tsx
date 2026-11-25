@@ -101,11 +101,16 @@ export const ClassDiagramDeclaredFields: Story = {
             id: 'customer', x: 20, y: 240, width: 170, height: 110, name: 'Customer',
             attributes: ['+ name: string'], methods: ['+ rename(): void'],
           },
+          {
+            id: 'product', x: 330, y: 240, width: 170, height: 110, name: 'Product',
+            attributes: ['+ sku: string'], methods: ['+ price(): Money'],
+          },
         ],
         relationships: [
           { id: 'r-comp', from: 'order', to: 'line', kind: 'composition', label: 'contains', fromLabel: '1', toLabel: '1..*' },
           { id: 'r-assoc', from: 'customer', to: 'order', kind: 'association', label: 'places', fromLabel: '1', toLabel: '0..*' },
-          { id: 'r-aggr', from: 'customer', to: 'line', kind: 'aggregation' },
+          { id: 'r-aggr', from: 'customer', to: 'product', kind: 'aggregation', label: 'wishlist', fromLabel: '1', toLabel: '0..*' },
+          { id: 'r-ref', from: 'line', to: 'product', kind: 'association', label: 'refers to', fromLabel: '0..*', toLabel: '1' },
         ],
       }}
       viewBox="0 0 520 370"
@@ -123,7 +128,7 @@ export const ClassDiagramDeclaredFields: Story = {
     await expect(stereo?.textContent).toBe('«Aggregate Root»');
 
     const edges = Array.from(svg.querySelectorAll('path[data-bbangto-viz-edge]')) as SVGPathElement[];
-    await expect(edges).toHaveLength(3);
+    await expect(edges).toHaveLength(4);
     const [comp, assoc, aggr] = edges;
 
     // 포함 · 집합 — 전체 쪽 마름모, 부분 쪽 화살촉 없음 / 연관은 화살촉 그대로
@@ -154,11 +159,11 @@ export const ClassDiagramDeclaredFields: Story = {
     const a = ends(assoc);
     await expect(dist(labelAt('places'), a.mid)).toBeLessThanOrEqual(1);
     await expect(dist(labelAt('0..*'), a.end)).toBeLessThan(dist(labelAt('0..*'), a.start));
-    // 「1」은 두 관계에 하나씩 — 각자 자기 시작 끝 근처
+    // 「1」은 네 관계 끝에 하나씩(포함 · 연관 · 집합의 시작 끝, 참조의 도착 끝) — 그중 둘은 이 두 관계의 시작 끝 근처
     const ones = Array.from(svg.querySelectorAll('[data-bbangto-viz-edge-label] text'))
       .filter((el) => el.textContent === '1')
       .map((el) => new DOMPoint(Number(el.getAttribute('x')), Number(el.getAttribute('y'))));
-    await expect(ones).toHaveLength(2);
+    await expect(ones).toHaveLength(4);
     await expect(Math.min(...ones.map((p) => dist(p, c.start)))).toBeLessThan(40);
     await expect(Math.min(...ones.map((p) => dist(p, a.start)))).toBeLessThan(40);
   },
