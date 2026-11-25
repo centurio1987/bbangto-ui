@@ -1,6 +1,6 @@
 {
   "next_id": 84,
-  "next_seq": 327,
+  "next_seq": 328,
   "cards": {
     "KAN-020": {
       "col": "done",
@@ -1882,12 +1882,12 @@
       "parent": "KAN-082-MD50S0"
     },
     "KAN-083-JSQKF4": {
-      "col": "review",
+      "col": "done",
       "title": "viz 진한 면 위 글자색 변수와 terminal-ascii Node 래퍼의 면 색 따르기 — publish-report 조립층을 bbangto 계약으로 칠하기 위한 확장",
       "verbatim": "bbangto-ui에 필요한 표현이 없으면, 자체적으로 만들지 말고, bbangto-ui에 추가 확장한 후 이용하는 방식으로 한다. 스킬이 임의로 개입하는 경계는 니가 추천한 대로 \"조립층의 색칠 방식만 bbangto 계약에 맞추고, 배치와 넘침 계산은 그대로\"로 한다.\n\n(적용 범위 답) 스킬 전체, 그리고 지금은 하나라 구분이 없을테지만, 테마별 구분도 있어야 한다. 스킬 사용 시 ui에서 테마를 설정할 수 있도록 한다. 그리고, publish-report 작업 절차에 부자연스러운 표현을 개선하는 프로세스를 포함한다.\n\n(M6-1 시작 지시) 검토 전까지 진행",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-11-24",
+      "갱신": "2026-11-25",
       "title_hash": "f37e127ff8aab4102a3e34b5517659cf475b0cd6",
       "verbatim_hash": "1684a5ba3aacaf9f161370fe1da73cde79ea71f3",
       "short": "진한 면 글자색 · 래퍼 면 색",
@@ -2000,6 +2000,16 @@
     "KAN-083-JSQKF4"
   ],
   "recent": [
+    {
+      "seq": 327,
+      "t": "2026-11-25T10:52",
+      "a": "ai",
+      "id": "KAN-083-JSQKF4",
+      "op": "move",
+      "w": "3FTH46",
+      "from": "review",
+      "to": "done"
+    },
     {
       "seq": 326,
       "t": "2026-11-24T13:34",
@@ -2619,16 +2629,6 @@
       "reason": "KAN-061 글자색 계산이 연결선 색을 먼저 골라 artdeco-luxe·synthwave·darkluxe·hud-telemetry 에서 저자가 금지한 골드·네온·시안이 칠해진다(KAN-069 검토 항목 3 반려에서 확인)",
       "goal": "가이드마다 지침 문장과 칠해지는 글자색이 맞고, 둘이 다시 어긋나면 검사가 잡는다",
       "memo": "칠해지는 색이 저자 색과 다른 가이드 15개(KAN-069 착수 때 실측 189곳). 길 셋: 문장 고치기 / on 으로 저자 색 지정 / KAN-061 계산 후보 순서에서 boundary.labelColor 를 앞으로. KAN-069 병합 뒤 착수(tagColor 가 지워진 상태 기준)"
-    },
-    {
-      "seq": 279,
-      "t": "2026-10-11T01:00",
-      "a": "ai",
-      "id": "KAN-069-G0FGTJ",
-      "op": "move",
-      "w": "8S62G0",
-      "from": "review",
-      "to": "doing"
     }
   ],
   "waivers": [

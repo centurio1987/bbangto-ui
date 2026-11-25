@@ -126,22 +126,6 @@
 ## 진행 중
 
 ## 검토
-- `KAN-083-JSQKF4` viz 진한 면 위 글자색 변수와 terminal-ascii Node 래퍼의 면 색 따르기 — publish-report 조립층을 bbangto 계약으로 칠하기 위한 확장 — 생성:ai · 최종:ai · 갱신:2026-11-24
-  - 짧은 제목: 진한 면 글자색 · 래퍼 면 색
-  - 목적: shape.stroke 로 칠한 면 위에 쓸 글자색 on 변수를 내고, terminal-ascii Node 래퍼가 넘겨받은 fill 을 따르게 한다
-  - 이유: publish-report 조립층이 색칠을 bbangto 계약으로 옮기는데 이 두 표현이 bbangto-ui 에 없어 스킬이 자체 대비 가드와 덧칠 사각형으로 메우고 있다
-  - 목표: --bbangto-viz-on-shape-stroke 가 가이드 30종에서 대비 4.5:1 을 넘고 가이드가 값을 직접 적을 수 있으며, Node 래퍼 전부가 넘겨받은 fill 로 칠한다
-  - 메모: publish-report M6-1 의 상류 일. 계획 정본은 ~/.claude/plans/publish-report-skill.md 2026-11-24 절
-  - 실행 문서: KANBAN/cards/KAN-083-JSQKF4.md (4/4 · 최근 11-24)
-  - 검토 문서: KANBAN/reviews/KAN-083-JSQKF4.review.md (승인 4/4 · 승인)
-  - 원문:
-    ```text
-    bbangto-ui에 필요한 표현이 없으면, 자체적으로 만들지 말고, bbangto-ui에 추가 확장한 후 이용하는 방식으로 한다. 스킬이 임의로 개입하는 경계는 니가 추천한 대로 "조립층의 색칠 방식만 bbangto 계약에 맞추고, 배치와 넘침 계산은 그대로"로 한다.
-    
-    (적용 범위 답) 스킬 전체, 그리고 지금은 하나라 구분이 없을테지만, 테마별 구분도 있어야 한다. 스킬 사용 시 ui에서 테마를 설정할 수 있도록 한다. 그리고, publish-report 작업 절차에 부자연스러운 표현을 개선하는 프로세스를 포함한다.
-    
-    (M6-1 시작 지시) 검토 전까지 진행
-    ```
 
 ## 완료
 - `KAN-020` visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현 — 생성:유저 · 최종:유저 · 갱신:2026-08-14
@@ -814,4 +798,20 @@
   - 원문:
     ```text
     html로 시각화된 보고서를 생성해달라고 요청할 때 ... bbangto-ui repo의 카탈로그를 이용해서 빠르고 정확하며, 일관성 있는 결과물을 얻고 싶은데 ... 해당 repo의 개정이 필요한지 / (제안에 대한 답) 진행해
+    ```
+- `KAN-083-JSQKF4` viz 진한 면 위 글자색 변수와 terminal-ascii Node 래퍼의 면 색 따르기 — publish-report 조립층을 bbangto 계약으로 칠하기 위한 확장 — 생성:ai · 최종:ai · 갱신:2026-11-25
+  - 짧은 제목: 진한 면 글자색 · 래퍼 면 색
+  - 목적: shape.stroke 로 칠한 면 위에 쓸 글자색 on 변수를 내고, terminal-ascii Node 래퍼가 넘겨받은 fill 을 따르게 한다
+  - 이유: publish-report 조립층이 색칠을 bbangto 계약으로 옮기는데 이 두 표현이 bbangto-ui 에 없어 스킬이 자체 대비 가드와 덧칠 사각형으로 메우고 있다
+  - 목표: --bbangto-viz-on-shape-stroke 가 가이드 30종에서 대비 4.5:1 을 넘고 가이드가 값을 직접 적을 수 있으며, Node 래퍼 전부가 넘겨받은 fill 로 칠한다
+  - 메모: publish-report M6-1 의 상류 일. 계획 정본은 ~/.claude/plans/publish-report-skill.md 2026-11-24 절
+  - 실행 문서: KANBAN/cards/KAN-083-JSQKF4.md (4/4 · 최근 11-24)
+  - 검토 문서: KANBAN/reviews/KAN-083-JSQKF4.review.md (승인 4/4 · 승인)
+  - 원문:
+    ```text
+    bbangto-ui에 필요한 표현이 없으면, 자체적으로 만들지 말고, bbangto-ui에 추가 확장한 후 이용하는 방식으로 한다. 스킬이 임의로 개입하는 경계는 니가 추천한 대로 "조립층의 색칠 방식만 bbangto 계약에 맞추고, 배치와 넘침 계산은 그대로"로 한다.
+    
+    (적용 범위 답) 스킬 전체, 그리고 지금은 하나라 구분이 없을테지만, 테마별 구분도 있어야 한다. 스킬 사용 시 ui에서 테마를 설정할 수 있도록 한다. 그리고, publish-report 작업 절차에 부자연스러운 표현을 개선하는 프로세스를 포함한다.
+    
+    (M6-1 시작 지시) 검토 전까지 진행
     ```
