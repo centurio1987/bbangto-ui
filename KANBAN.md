@@ -65,7 +65,7 @@
   - 이유: 2026-11-24 검토에서 템플릿 12개가 간선 라벨을 받고도 그리지 않고(6개는 서버 렌더, 6개는 코드로 확인), 범례 부품·C4 Deployment·객체 도식·커뮤니케이션 도식·SEI 프레임이 없다는 것을 확인했다
   - 목표: 여섯 도식마다 노드 종류와 화살표 의미를 데이터로 적으면 그대로 그려지고, 화살표 의미가 둘 이상이면 범례로 갈리며, 원문의 예시가 스토리로 남는다
   - 메모: 검토 표·근거·순서는 카드 문서 「전략」. KAN-080(P7·P8·P9·P11)과 같은 템플릿 파일을 고친다 — KAN-082 먼저(2026-11-24 유저 결정)
-  - 실행 문서: KANBAN/cards/KAN-082-MD50S0.md (17/19 · 최근 11-25)
+  - 실행 문서: KANBAN/cards/KAN-082-MD50S0.md (18/19 · 최근 11-25)
   - 계획 리포트: KANBAN/reports/KAN-082-MD50S0.report.html (최신 아님)
   - 원문:
     ```text
@@ -100,13 +100,6 @@
     
     위 글에 나와있는 도면 스펙을 bbangto-ui의 viz lib가 충분히 표현할 수 있는지 검토하고, 없다면 표현 가능하도록 칸반에 확장 계획을 세워라.
     ```
-- `KAN-082.5-WPS4DX` viz SEI Views and Beyond 프레임 — Module·C&C·Allocation 세 뷰 슬롯 — 생성:ai · 최종:ai · 갱신:2026-11-25
-  - 상위: `KAN-082-MD50S0` (진행 중)
-  - 짧은 제목: SEI 뷰 프레임
-  - 목적: Module·C&C·Allocation 세 뷰를 슬롯으로 받는 ViewsAndBeyondFrame 을 Kruchten4Plus1View 와 같은 방식으로 더한다
-  - 이유: 원문이 든 프레임워크 셋 가운데 4+1 은 Kruchten4Plus1View, C4 는 템플릿 여섯이 있지만 SEI Views and Beyond 는 없어 ViewpointFrame 을 세 번 손으로 늘어놓아야 한다
-  - 목표: 한 시스템의 모듈 뷰·런타임(C&C) 뷰·배치(Allocation) 뷰를 한 프레임에 나란히 담고, 슬롯마다 기존 템플릿을 넣을 수 있다
-  - 메모: 새 파일만 더해 형제 카드와 파일이 겹치지 않는다. 조합 프레임이라 Kruchten4Plus1View·ViewpointFrame 처럼 typeMeta registry allowlist 대상이다
 
 ## 검토
 - `KAN-082.1-ZFJJM6` viz 템플릿 간선 라벨·선언 필드 렌더 복구 — 받고도 안 그리는 label·technology·다중성·stereotype — 생성:ai · 최종:ai · 갱신:2026-11-25
@@ -145,6 +138,15 @@
   - 메모: ClassBox 칸 고르기(P9)는 이 카드가 맡는다 — KAN-080 P9 와 겹친다. 간선 라벨 렌더 복구 뒤에 한다(ClassDiagram·ClassBox 를 함께 고친다)
   - 실행 문서: KANBAN/cards/KAN-082.4-FSH2T1.md (3/3 · 최근 11-25)
   - 검토 문서: KANBAN/reviews/KAN-082.4-FSH2T1.review.md (승인 0/2 · 검토 대기)
+- `KAN-082.5-WPS4DX` viz SEI Views and Beyond 프레임 — Module·C&C·Allocation 세 뷰 슬롯 — 생성:ai · 최종:ai · 갱신:2026-11-25
+  - 상위: `KAN-082-MD50S0` (진행 중)
+  - 짧은 제목: SEI 뷰 프레임
+  - 목적: Module·C&C·Allocation 세 뷰를 슬롯으로 받는 ViewsAndBeyondFrame 을 Kruchten4Plus1View 와 같은 방식으로 더한다
+  - 이유: 원문이 든 프레임워크 셋 가운데 4+1 은 Kruchten4Plus1View, C4 는 템플릿 여섯이 있지만 SEI Views and Beyond 는 없어 ViewpointFrame 을 세 번 손으로 늘어놓아야 한다
+  - 목표: 한 시스템의 모듈 뷰·런타임(C&C) 뷰·배치(Allocation) 뷰를 한 프레임에 나란히 담고, 슬롯마다 기존 템플릿을 넣을 수 있다
+  - 메모: 새 파일만 더해 형제 카드와 파일이 겹치지 않는다. 조합 프레임이라 Kruchten4Plus1View·ViewpointFrame 처럼 typeMeta registry allowlist 대상이다
+  - 실행 문서: KANBAN/cards/KAN-082.5-WPS4DX.md (1/1 · 최근 11-25)
+  - 검토 문서: KANBAN/reviews/KAN-082.5-WPS4DX.review.md (승인 0/1 · 검토 대기)
 
 ## 완료
 - `KAN-020` visualization **유형(패턴/템플릿) 축** 매니페스트 + selector 인프라 구현 — 생성:유저 · 최종:유저 · 갱신:2026-08-14
