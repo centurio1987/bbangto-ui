@@ -55,14 +55,14 @@ Flowchart(VT-201)와 Process Steps(VT-202)는 `dataShape`가 똑같이 `['proces
 정해진다. 도식 하나에는 노드 종류 하나, 화살표 뜻 하나만 담고, 섞어야 하면 관계 데이터에 `kind` 를 적어 범례로 가른다
 (아래 「화살표 뜻이 섞이면 범례로 가른다」).
 
-| 도식 | 노드 | 화살표 | 템플릿 |
-| ---- | ---- | ------ | ------ |
-| 물리 대상(배포 · 토폴로지) | 서버 · VM · 컨테이너 호스트 · 네트워크 영역 | 네트워크 연결 · 배치(어디에 올라가 있나) | `UMLDeploymentDiagram` · `C4DeploymentDiagram` · `NetworkTopology` |
-| 런타임(C4 Container · C&C) | API 서버 · 워커 · DB · 큐 · 앱 | 호출 · 통신(HTTP · gRPC · 메시지) | `C4ContainerDiagram` · `UMLComponentDiagram` · `ArchitectureDiagram` |
-| 데이터 흐름(DFD · Context Diagram) | 처리 · 저장소 · 외부 엔티티 | 데이터의 이동(순서 · 분기 없음) | `DataFlowDiagram`(최상위 Context Diagram 은 처리 하나로) |
-| 코드 구조(클래스 · 객체 · C4 Component) | 클래스 · 모듈 · 객체 | 의존 · 소유 · 상속 · 참조 | `ClassDiagram` · `ObjectDiagram` · `C4ComponentDiagram` · `C4CodeDiagram` |
-| 동작(시퀀스 · 상태 · 커뮤니케이션) | 객체(수명선) · 상태 | 시간순 메시지 · 상태 전이 | `UMLSequenceDiagram` · `StateDiagram` · `CommunicationDiagram` · `C4DynamicDiagram` |
-| 플로우(플로우차트 · 액티비티 · BPMN) | 작업 단계 · 분기 | 제어 흐름(다음에 무엇을 하나) | `Flowchart` · `ActivityDiagram` · `BPMNDiagram` |
+| 도식 | 노드 | 화살표 | 시간 축 | 템플릿 |
+| ---- | ---- | ------ | ------- | ------ |
+| 물리 대상(배포 · 토폴로지) | 서버 · VM · 컨테이너 호스트 · 네트워크 영역 | 네트워크 연결 · 배치(어디에 올라가 있나) | 없음 | `UMLDeploymentDiagram` · `C4DeploymentDiagram` · `NetworkTopology` |
+| 런타임(C4 Container · C&C) | API 서버 · 워커 · DB · 큐 · 앱 | 호출 · 통신(HTTP · gRPC · 메시지) | 없음 | `C4ContainerDiagram` · `UMLComponentDiagram` · `ArchitectureDiagram` |
+| 데이터 흐름(DFD · Context Diagram) | 처리 · 저장소 · 외부 엔티티 | 데이터의 이동 | 없음(순서 · 분기 없음) | `DataFlowDiagram`(최상위 Context Diagram 은 처리 하나로) |
+| 코드 구조(클래스 · 객체 · C4 Component) | 클래스 · 모듈 · 객체 | 의존 · 소유 · 상속 · 참조 | 없음 | `ClassDiagram` · `ObjectDiagram` · `C4ComponentDiagram` · `C4CodeDiagram` |
+| 동작(시퀀스 · 상태 · 커뮤니케이션) | 객체(수명선) · 상태 | 시간순 메시지 · 상태 전이 | **있음** | `UMLSequenceDiagram` · `StateDiagram` · `CommunicationDiagram` · `C4DynamicDiagram` |
+| 플로우(플로우차트 · 액티비티 · BPMN) | 작업 단계 · 분기 | 제어 흐름(다음에 무엇을 하나) | 순서는 있음, 주체는 약함 | `Flowchart` · `ActivityDiagram` · `BPMNDiagram` |
 
 자주 헷갈리는 쌍 — **DFD vs 플로우차트**(DFD 화살표는 데이터, 플로우차트 화살표는 제어), **시퀀스 vs 액티비티**(누가 누구에게
 언제 말하나 vs 무엇을 어떤 순서로 하나, 스윔레인을 넣으면 중간쯤), **배포 vs 런타임**(EC2 하나에 API 서버와 워커가 같이 있으면
@@ -212,7 +212,7 @@ const head = sheets.map((s) => `<style id="${s.id}">${s.css}</style>`).join('');
 | 층 | 부품 |
 | --- | --- |
 | atom | `Canvas` · `Node` · `NodeLabel` · `Edge` · `EdgeLabel` · `Markers` · `Tag` · `Boundary` · `Lane` · `Lifeline` · `GridLayer` · `Axis` · `BandEdge` · `StatNumber` · `IndexBadge` · `IconBadge` · `RingSegment` · `ProportionBlock` · `PictographUnit` · `MilestoneMarker` · `PyramidLayer` · `VsDivider` · `IsoPrism` |
-| molecule | `PersonNode` · `ExternalNode` · `ContainerNode` · `DatabaseNode` · `QueueNode` · `DecisionNode` · `ProcessNode` · `C4Box` · `ClassBox` · `StateNode` · `EntityTable` · `StepConnector` · `CalloutLeader` · `StatCard` · `MockupNode` · `ActorGlyph` |
+| molecule | `PersonNode` · `ExternalNode` · `ContainerNode` · `DatabaseNode` · `QueueNode` · `DecisionNode` · `ProcessNode` · `C4Box` · `ClassBox` · `StateNode` · `EntityTable` · `StepConnector` · `CalloutLeader` · `StatCard` · `MockupNode` · `ActorGlyph` · `LegendBlock` |
 | 배치 계산(`geometry`) | `tidyTreeLayout` · `squarifyLayout` · `sankeyLayout` · `chordLayout` · `fishboneLayout` · `icebergLayout` · `hexLayout` |
 
 ### 예제 — 결정 그림
