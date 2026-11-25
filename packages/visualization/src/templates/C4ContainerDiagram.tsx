@@ -8,6 +8,8 @@ import { Boundary } from '../atoms/Boundary';
 import { PersonNode } from '../molecules/PersonNode';
 import { ExternalNode } from '../molecules/ExternalNode';
 import { C4Box } from '../molecules/C4Box';
+import { DatabaseNode } from '../molecules/DatabaseNode';
+import { QueueNode } from '../molecules/QueueNode';
 import type { C4PersonSpec, C4ContainerSpec, C4RelationshipSpec, C4BoundarySpec } from './c4Types';
 import { c4RelationshipLabel } from './c4Types';
 
@@ -20,6 +22,17 @@ export interface C4ContainerDiagramData {
   relationships?: C4RelationshipSpec[];
   /** 관계 종류가 둘 이상 쓰이면 붙는 범례의 위치 · 이름 바꾸기. `false` 면 그리지 않는다(KAN-082). */
   legend?: RelationLegendOption | false;
+}
+
+/**
+ * C4 컨테이너 하나 — 모양 칸(`shape`)에 따라 C4 상자 · 데이터베이스 · 메시지 큐 부품으로 그린다(KAN-082).
+ * C4ContainerDiagram 과 C4DeploymentDiagram 이 같이 쓴다. 템플릿 배럴에는 내지 않는다.
+ */
+export function C4ContainerNode({ spec: c }: { spec: C4ContainerSpec }) {
+  const common = { id: c.id, x: c.x, y: c.y, width: c.width, height: c.height, title: c.name, subtitle: c.technology, fill: c.fill };
+  if (c.shape === 'database') return <DatabaseNode {...common} />;
+  if (c.shape === 'queue') return <QueueNode {...common} />;
+  return <C4Box {...common} level="l2" />;
 }
 
 export interface C4ContainerDiagramProps extends Omit<CanvasProps, 'data' | 'children'> {
@@ -88,18 +101,7 @@ export function C4ContainerDiagram({
         />
       )}
       {containers.map((c) => (
-        <C4Box
-          key={c.id}
-          id={c.id}
-          x={c.x}
-          y={c.y}
-          width={c.width}
-          height={c.height}
-          level="l2"
-          title={c.name}
-          subtitle={c.technology}
-          fill={c.fill}
-        />
+        <C4ContainerNode key={c.id} spec={c} />
       ))}
       {external.map((e) =>
         e.external ? (

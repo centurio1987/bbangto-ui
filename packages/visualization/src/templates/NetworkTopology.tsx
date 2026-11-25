@@ -2,7 +2,7 @@ import React, { type ReactNode } from 'react';
 import { Canvas, type CanvasProps } from '../atoms/Canvas';
 import { Node } from '../atoms/Node';
 import { NodeLabel } from '../atoms/NodeLabel';
-import { Edge } from '../atoms/Edge';
+import { Edge, type EdgeLabelOffset } from '../atoms/Edge';
 import { LegendBlock, relationLegendBox, type RelationLegendOption } from '../molecules/LegendBlock';
 import { relationEdgeProps, usedRelationKinds, type RelationKind } from '../atoms/relationKind';
 import { vvar } from '../tokens/contract';
@@ -35,6 +35,10 @@ export type TopologyLinkKind = Extract<RelationKind, 'network' | 'dataFlow' | 'c
 export interface TopologyLink {
   from: string;
   to: string;
+  /** 링크 위 라벨(대역폭 · 프로토콜 · VPN 등). 선 가운데에 그린다(KAN-082). */
+  label?: string;
+  /** 라벨을 이만큼 옮긴다(겹칠 때 비키기). */
+  labelOffset?: EdgeLabelOffset;
   /** 관계의 뜻(KAN-082). 적으면 선 모양이 종류마다 갈리고, 둘 이상 쓰이면 범례가 붙는다. */
   kind?: TopologyLinkKind;
 }
@@ -103,7 +107,7 @@ export function NetworkTopology({
       ))}
       {/* 링크 */}
       {(data.links ?? []).map((l, i) => (
-        <Edge key={`l-${i}`} from={l.from} to={l.to} routing="orthogonal" markerEnd="none" {...relationEdgeProps(l.kind)} />
+        <Edge key={`l-${i}`} from={l.from} to={l.to} routing="orthogonal" markerEnd="none" label={l.label} labelOffset={l.labelOffset} {...relationEdgeProps(l.kind)} />
       ))}
       {/* 노드 */}
       {data.nodes.map((n) => (

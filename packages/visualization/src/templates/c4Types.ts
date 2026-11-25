@@ -30,6 +30,9 @@ export interface C4SystemSpec {
   fill?: string;
 }
 
+/** C4 컨테이너 모양 — 상자(기본) · 데이터베이스 · 메시지 큐. */
+export type C4ContainerShape = 'box' | 'database' | 'queue';
+
 export interface C4ContainerSpec {
   id: string;
   x: number;
@@ -40,6 +43,8 @@ export interface C4ContainerSpec {
   technology?: string;
   description?: string;
   fill?: string;
+  /** 컨테이너 모양. 데이터베이스 · 큐는 그 모양 부품(DatabaseNode · QueueNode)으로 그린다. 비우면 C4 상자(KAN-082). */
+  shape?: C4ContainerShape;
 }
 
 export interface C4ComponentSpec {
