@@ -3,9 +3,9 @@ import { useCanvasContext } from '../context/CanvasContext';
 import { useVizFoundation } from '../styleGuide/VisualizationStyleGuideProvider';
 import type { Point } from '../geometry/anchors';
 import { nearestAnchors, getAnchor, type AnchorSide } from '../geometry/anchors';
-import { buildPath, pathMidpoint, type EdgeRouting } from '../geometry/routing';
+import { buildPath, pathMidpoint, terminalDirections, endLabelCenter, type EdgeRouting } from '../geometry/routing';
 import { type MarkerVariant, markerRef } from './Marker';
-import { EdgeLabel } from './EdgeLabel';
+import { EdgeLabel, edgeLabelBox } from './EdgeLabel';
 import type { BBox } from '../types/data';
 
 export type { EdgeRouting, MarkerVariant, AnchorSide };
@@ -29,7 +29,13 @@ export interface EdgeProps extends Omit<React.SVGAttributes<SVGPathElement>, 'st
    * 바탕과 함께 그린다(`EdgeLabel`). 비우면 아무것도 그리지 않는다.
    */
   label?: string;
-  /** 라벨 글자 크기. 적지 않으면 `EdgeLabel` 기본값(11). */
+  /**
+   * 선 양 끝 근처에 붙는 라벨 — UML 다중성(`1` · `0..*`)이나 역할 이름. `from` 쪽 끝과 `to` 쪽 끝에서 경로
+   * 안쪽으로 조금 들어가 선 옆(가로선은 위, 세로선은 왼쪽)에 놓는다(routing.ts `endLabelCenter`).
+   */
+  fromLabel?: string;
+  toLabel?: string;
+  /** 라벨 글자 크기(label · fromLabel · toLabel 공통). 적지 않으면 `EdgeLabel` 기본값(11). */
   labelFontSize?: number;
 }
 
@@ -76,6 +82,8 @@ export const Edge = React.forwardRef<SVGPathElement, EdgeProps>(
       cornerRadius,
       waypoints,
       label,
+      fromLabel,
+      toLabel,
       labelFontSize,
       style,
       ...props
@@ -135,14 +143,21 @@ export const Edge = React.forwardRef<SVGPathElement, EdgeProps>(
         {...props}
       />
     );
-    if (!label) return path;
+    if (!label && !fromLabel && !toLabel) return path;
 
-    // 라벨은 선 뒤에 그려 선 위에 얹는다. 자리는 그린 경로의 가운데(routing.ts `pathMidpoint`).
-    const mid = pathMidpoint(fromPt, resolvedTo, routing, waypoints);
+    // 라벨은 선 뒤에 그려 선 위에 얹는다. 가운데 라벨은 그린 경로의 가운데(routing.ts `pathMidpoint`),
+    // 끝 라벨은 그린 경로의 양 끝 방향을 읽어 선과 끝 노드를 비킨 자리(`terminalDirections` · `endLabelCenter`).
+    const mid = label ? pathMidpoint(fromPt, resolvedTo, routing, waypoints) : null;
+    const dirs = fromLabel || toLabel ? terminalDirections(d) : null;
+    const endAt = (pt: Point, dir: Point, text: string) => endLabelCenter(pt, dir, edgeLabelBox(text, labelFontSize), 6);
+    const fromAt = fromLabel && dirs ? endAt(fromPt, dirs.start, fromLabel) : null;
+    const toAt = toLabel && dirs ? endAt(resolvedTo, dirs.end, toLabel) : null;
     return (
       <>
         {path}
-        <EdgeLabel x={mid.x} y={mid.y} label={label} fontSize={labelFontSize} />
+        {label && mid && <EdgeLabel x={mid.x} y={mid.y} label={label} fontSize={labelFontSize} />}
+        {fromLabel && fromAt && <EdgeLabel x={fromAt.x} y={fromAt.y} label={fromLabel} fontSize={labelFontSize} />}
+        {toLabel && toAt && <EdgeLabel x={toAt.x} y={toAt.y} label={toLabel} fontSize={labelFontSize} />}
       </>
     );
   },

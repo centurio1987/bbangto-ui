@@ -13,6 +13,14 @@ export interface EdgeLabelProps {
   padding?: number;
 }
 
+/**
+ * EdgeLabel 이 그리는 바탕 상자의 크기 — 글자 수 × 글자 폭 근사(0.6em) + 안쪽 여백.
+ * 라벨을 선 끝에 놓는 쪽(Edge 의 fromLabel · toLabel)이 상자가 선과 노드를 비키도록 같은 값을 쓴다.
+ */
+export function edgeLabelBox(label: string, fontSize = 11, padding = 3): { width: number; height: number } {
+  return { width: label.length * fontSize * 0.6 + padding * 2, height: fontSize + padding * 2 };
+}
+
 export const EdgeLabel = React.forwardRef<SVGGElement, EdgeLabelProps>(
   (
     {
@@ -31,8 +39,7 @@ export const EdgeLabel = React.forwardRef<SVGGElement, EdgeLabelProps>(
     const effectiveFill = fill ?? (bgFill === undefined ? vvar('on', 'canvas', 'bg') : vvar('edge', 'stroke'));
     const effectiveBg = bgFill ?? vvar('canvas', 'bg');
     const effectiveFont = resolveLabelFont(label, fontFamily);
-    const charWidth = fontSize * 0.6;
-    const approxWidth = label.length * charWidth + padding * 2;
+    const approxWidth = edgeLabelBox(label, fontSize, padding).width;
 
     return (
       <g ref={ref} data-bbangto-viz-edge-label>

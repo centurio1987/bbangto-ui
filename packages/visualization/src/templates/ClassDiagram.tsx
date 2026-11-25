@@ -57,8 +57,10 @@ function edgeConfig(kind: ClassRelationshipKind): EdgeConfig {
   switch (kind) {
     case 'inheritance':   return { markerEnd: 'triangleOpen' };
     case 'realization':   return { markerEnd: 'triangleOpen', strokeDasharray: '6 3' };
-    case 'composition':   return { markerStart: 'diamond' };
-    case 'aggregation':   return { markerStart: 'diamondOpen' };
+    // 포함 · 집합은 전체 쪽(from)에 마름모만 붙는다. markerEnd 를 비우면 Edge 기본값 'arrow' 가 부분 쪽에
+    // 붙어 UML 이 아닌 그림이 된다(상류 이슈 P11 ②, KAN-082).
+    case 'composition':   return { markerStart: 'diamond', markerEnd: 'none' };
+    case 'aggregation':   return { markerStart: 'diamondOpen', markerEnd: 'none' };
     case 'dependency':    return { markerEnd: 'arrowOpen', strokeDasharray: '5 3' };
     case 'association':
     default:              return { markerEnd: 'arrow' };
@@ -121,6 +123,7 @@ export function ClassDiagram({
           width={c.width}
           height={c.height}
           name={c.name}
+          stereotype={c.stereotype}
           attributes={c.attributes}
           methods={c.methods}
           fill={c.fill}
@@ -138,6 +141,10 @@ export function ClassDiagram({
             markerStart={cfg.markerStart}
             strokeDasharray={cfg.strokeDasharray}
             strokeWidth={1.5}
+            label={r.label}
+            fromLabel={r.fromLabel}
+            toLabel={r.toLabel}
+            labelFontSize={10}
           />
         );
       })}

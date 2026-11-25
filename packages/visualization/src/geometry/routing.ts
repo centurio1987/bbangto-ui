@@ -94,6 +94,60 @@ export function pathMidpoint(
   return { x: (from.x + to.x) / 2, y: (from.y + to.y) / 2 };
 }
 
+/**
+ * 경로 양 끝에서 경로 안쪽으로 향하는 단위 방향(KAN-082, 끝 라벨 자리).
+ *
+ * `buildPath` 가 낸 문자열(M · L · Q · C, 절대 좌표)에서 좌표쌍을 차례로 읽어, 시작점과 다른 첫 좌표와
+ * 끝점과 다른 마지막 좌표를 본다. L 은 다음 꼭짓점, Q · C 는 제어점이라 곡선이어도 양 끝의 접선 방향이 된다.
+ * 경로 계산을 여기에 다시 적지 않고 그린 경로를 읽으므로 그림과 어긋나지 않는다.
+ */
+export function terminalDirections(d: string): { start: Point; end: Point } {
+  const nums = (d.match(/-?\d*\.?\d+(?:e[-+]?\d+)?/gi) ?? []).map(Number);
+  const pts: Point[] = [];
+  for (let i = 0; i + 1 < nums.length; i += 2) pts.push({ x: nums[i], y: nums[i + 1] });
+  const toward = (from: Point, list: Point[]): Point => {
+    for (const p of list) {
+      const dx = p.x - from.x;
+      const dy = p.y - from.y;
+      const l = Math.hypot(dx, dy);
+      if (l > AXIS_EPSILON) return { x: dx / l, y: dy / l };
+    }
+    return { x: 1, y: 0 };
+  };
+  if (pts.length === 0) return { start: { x: 1, y: 0 }, end: { x: -1, y: 0 } };
+  const first = pts[0];
+  const last = pts[pts.length - 1];
+  return { start: toward(first, pts.slice(1)), end: toward(last, pts.slice(0, -1).reverse()) };
+}
+
+/**
+ * 선 끝 근처 라벨(다중성 같은 것)의 중심 — 끝점에서 경로 안쪽으로 조금 들어가 선 옆에 놓는다(KAN-082).
+ *
+ * 선 옆은 늘 위쪽이나 왼쪽으로 고른다(가로선은 위, 세로선은 왼쪽) — 양 끝 라벨이 같은 쪽에 있어야 읽기 쉽다.
+ * 경로를 따라 들어가는 거리는 라벨 상자가 끝 노드에 닿지 않게, 옆으로 비키는 거리는 상자가 선에 닿지 않게 잡는다.
+ *
+ * @param end 끝점 · @param dir 끝점에서 경로 안쪽으로 향하는 단위 방향(`terminalDirections`)
+ * @param box 라벨 상자 크기 · @param gap 상자와 선 · 노드 사이 여백
+ */
+export function endLabelCenter(
+  end: Point,
+  dir: Point,
+  box: { width: number; height: number },
+  gap = 4,
+): Point {
+  let px = dir.y;
+  let py = -dir.x;
+  if (py > AXIS_EPSILON || (Math.abs(py) <= AXIS_EPSILON && px > 0)) {
+    px = -px;
+    py = -py;
+  }
+  // 상자 중심에서 방향 v 로 상자 가장자리까지의 거리(축 정렬 상자의 지지 함수)
+  const reach = (vx: number, vy: number) => (Math.abs(vx) * box.width + Math.abs(vy) * box.height) / 2;
+  const along = reach(dir.x, dir.y) + gap;
+  const side = reach(px, py) + gap;
+  return { x: end.x + dir.x * along + px * side, y: end.y + dir.y * along + py * side };
+}
+
 export function buildPath(
   from: Point,
   to: Point,

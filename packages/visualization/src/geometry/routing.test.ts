@@ -1,5 +1,13 @@
 import { describe, it, expect } from 'vitest';
-import { straightPath, orthogonalPath, buildPath, pathMidpoint, MIN_TERMINAL_SEGMENT } from './routing';
+import {
+  straightPath,
+  orthogonalPath,
+  buildPath,
+  pathMidpoint,
+  terminalDirections,
+  endLabelCenter,
+  MIN_TERMINAL_SEGMENT,
+} from './routing';
 import type { Point } from './anchors';
 
 // 상류 이슈 P1(축 정렬 엣지의 화살촉이 90° 틀어진다)의 회귀 고정.
@@ -295,5 +303,94 @@ describe('pathMidpoint · 경유점', () => {
     const from = { x: 0, y: 0 };
     const to = { x: 240, y: 80 };
     expectNear(pathMidpoint(from, to, 'orthogonal', wps), measuredMidpoint(buildPath(from, to, 'orthogonal', 4, wps)));
+  });
+});
+
+// ──────────────────────────────────────────────
+// 7. 끝 라벨 자리 — 다중성 같은 라벨을 선 양 끝 근처에 놓는다 (KAN-082 S4)
+// ──────────────────────────────────────────────
+function unit(p: Point): Point {
+  const l = Math.hypot(p.x, p.y);
+  return { x: p.x / l, y: p.y / l };
+}
+
+describe('terminalDirections · 끝에서 경로 안쪽으로 향하는 방향', () => {
+  it('직선 — 시작은 끝점 쪽, 끝은 시작점 쪽', () => {
+    const d = buildPath({ x: 0, y: 0 }, { x: 30, y: 40 }, 'straight');
+    const t = terminalDirections(d);
+    expectNear(t.start, unit({ x: 30, y: 40 }), 1e-6);
+    expectNear(t.end, unit({ x: -30, y: -40 }), 1e-6);
+  });
+
+  it('직각(모서리 둥글게) — 양 끝 구간은 가로다', () => {
+    const d = buildPath({ x: 0, y: 0 }, { x: 200, y: 120 }, 'orthogonal', 12);
+    const t = terminalDirections(d);
+    expectNear(t.start, { x: 1, y: 0 }, 1e-6);
+    expectNear(t.end, { x: -1, y: 0 }, 1e-6);
+  });
+
+  it('곡선 — 양 끝의 접선(제어점 쪽)', () => {
+    const d = buildPath({ x: 0, y: 0 }, { x: 200, y: 120 }, 'curved');
+    const t = terminalDirections(d);
+    expectNear(t.start, { x: 1, y: 0 }, 1e-6);
+    expectNear(t.end, { x: -1, y: 0 }, 1e-6);
+  });
+
+  it('경유점 — 첫 구간과 마지막 구간', () => {
+    const d = buildPath({ x: 0, y: 0 }, { x: 100, y: 100 }, 'orthogonal', 4, [{ x: 0, y: 60 }, { x: 100, y: 60 }]);
+    const t = terminalDirections(d);
+    expectNear(t.start, { x: 0, y: 1 }, 1e-6);
+    expectNear(t.end, { x: 0, y: -1 }, 1e-6);
+  });
+});
+
+describe('endLabelCenter · 라벨 상자가 선과 끝 노드를 비킨다', () => {
+  const box = { width: 30, height: 16 };
+  const gap = 4;
+
+  /** 라벨 상자와 선분(끝점에서 방향으로 60) 사이 — 상자 네 변 안에 선분 표본점이 하나도 없어야 한다 */
+  function overlapsLine(c: Point, end: Point, dir: Point): boolean {
+    for (let k = 0; k <= 60; k++) {
+      const p = { x: end.x + dir.x * k, y: end.y + dir.y * k };
+      if (Math.abs(p.x - c.x) < box.width / 2 && Math.abs(p.y - c.y) < box.height / 2) return true;
+    }
+    return false;
+  }
+
+  it('오른쪽으로 나가는 가로선 — 선 위, 끝점에서 상자 반폭 이상 떨어진다', () => {
+    const end = { x: 0, y: 0 };
+    const c = endLabelCenter(end, { x: 1, y: 0 }, box, gap);
+    expect(c.y).toBeLessThan(0);
+    expect(c.x - box.width / 2).toBeGreaterThanOrEqual(gap);
+    expect(overlapsLine(c, end, { x: 1, y: 0 })).toBe(false);
+  });
+
+  it('왼쪽으로 들어오는 가로선의 끝 — 역시 선 위', () => {
+    const end = { x: 100, y: 0 };
+    const c = endLabelCenter(end, { x: -1, y: 0 }, box, gap);
+    expect(c.y).toBeLessThan(0);
+    expect(c.x + box.width / 2).toBeLessThanOrEqual(100 - gap);
+    expect(overlapsLine(c, end, { x: -1, y: 0 })).toBe(false);
+  });
+
+  it('아래로 나가는 세로선 — 선 왼쪽, 끝점에서 상자 반높이 이상 떨어진다', () => {
+    const end = { x: 0, y: 0 };
+    const c = endLabelCenter(end, { x: 0, y: 1 }, box, gap);
+    expect(c.x).toBeLessThan(0);
+    expect(c.y - box.height / 2).toBeGreaterThanOrEqual(gap);
+    expect(overlapsLine(c, end, { x: 0, y: 1 })).toBe(false);
+  });
+
+  it('위로 나가는 세로선 — 선 왼쪽', () => {
+    const end = { x: 0, y: 0 };
+    const c = endLabelCenter(end, { x: 0, y: -1 }, box, gap);
+    expect(c.x).toBeLessThan(0);
+    expect(overlapsLine(c, end, { x: 0, y: -1 })).toBe(false);
+  });
+
+  it('비스듬한 선 — 상자가 선과 겹치지 않는다', () => {
+    const end = { x: 0, y: 0 };
+    const dir = unit({ x: 3, y: 4 });
+    expect(overlapsLine(endLabelCenter(end, dir, box, gap), end, dir)).toBe(false);
   });
 });

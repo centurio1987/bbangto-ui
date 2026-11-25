@@ -80,6 +80,91 @@ export const ClassDiagramBasic: Story = {
 };
 
 // ──────────────────────────────────────────────────────────────────────
+// 1b. ClassDiagram — 선언한 칸이 그림에 나온다 (KAN-082 S4, 상류 이슈 P7 · P11 ②)
+//     stereotype 은 클래스 상자 머리에 «…» 로, 관계 이름은 선 가운데, 다중성은 선 양 끝 근처에 그린다.
+//     포함 · 집합은 전체 쪽(from)에 마름모만 붙고 부분 쪽(to)에는 화살촉이 없다.
+// ──────────────────────────────────────────────────────────────────────
+export const ClassDiagramDeclaredFields: Story = {
+  render: () => (
+    <ClassDiagram
+      data={{
+        classes: [
+          {
+            id: 'order', x: 20, y: 20, width: 170, height: 110, name: 'Order', stereotype: 'Aggregate Root',
+            attributes: ['+ id: OrderId'], methods: ['+ place(): void'],
+          },
+          {
+            id: 'line', x: 330, y: 20, width: 170, height: 110, name: 'OrderLine',
+            attributes: ['+ qty: number'], methods: ['+ total(): Money'],
+          },
+          {
+            id: 'customer', x: 20, y: 240, width: 170, height: 110, name: 'Customer',
+            attributes: ['+ name: string'], methods: ['+ rename(): void'],
+          },
+        ],
+        relationships: [
+          { id: 'r-comp', from: 'order', to: 'line', kind: 'composition', label: 'contains', fromLabel: '1', toLabel: '1..*' },
+          { id: 'r-assoc', from: 'customer', to: 'order', kind: 'association', label: 'places', fromLabel: '1', toLabel: '0..*' },
+          { id: 'r-aggr', from: 'customer', to: 'line', kind: 'aggregation' },
+        ],
+      }}
+      viewBox="0 0 520 370"
+      width={520}
+      height={370}
+      title="Class Diagram — declared fields"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const svg = canvasElement.querySelector('[data-bbangto-viz-canvas]') as SVGSVGElement;
+
+    // stereotype — 클래스 상자 머리에 «Aggregate Root»
+    const stereo = svg.querySelector('[data-bbangto-viz-class-box] [data-bbangto-viz-sysml-stereotype]');
+    await expect(stereo?.textContent).toBe('«Aggregate Root»');
+
+    const edges = Array.from(svg.querySelectorAll('path[data-bbangto-viz-edge]')) as SVGPathElement[];
+    await expect(edges).toHaveLength(3);
+    const [comp, assoc, aggr] = edges;
+
+    // 포함 · 집합 — 전체 쪽 마름모, 부분 쪽 화살촉 없음 / 연관은 화살촉 그대로
+    await expect(comp.getAttribute('marker-start')).toMatch(/-diamond\)$/);
+    await expect(comp.getAttribute('marker-end')).toBeNull();
+    await expect(aggr.getAttribute('marker-start')).toMatch(/-diamond-open\)$/);
+    await expect(aggr.getAttribute('marker-end')).toBeNull();
+    await expect(assoc.getAttribute('marker-end')).toContain('arrow');
+
+    // 관계 이름은 선 가운데, 다중성은 자기 끝 근처
+    const labelAt = (text: string): DOMPoint => {
+      const t = Array.from(svg.querySelectorAll('[data-bbangto-viz-edge-label] text')).find(
+        (el) => el.textContent === text,
+      ) as SVGTextElement | undefined;
+      return new DOMPoint(Number(t?.getAttribute('x')), Number(t?.getAttribute('y')));
+    };
+    const dist = (a: DOMPoint, b: DOMPoint) => Math.hypot(a.x - b.x, a.y - b.y);
+    const ends = (p: SVGPathElement) => ({
+      start: p.getPointAtLength(0),
+      mid: p.getPointAtLength(p.getTotalLength() / 2),
+      end: p.getPointAtLength(p.getTotalLength()),
+    });
+
+    const c = ends(comp);
+    await expect(dist(labelAt('contains'), c.mid)).toBeLessThanOrEqual(1);
+    await expect(dist(labelAt('1..*'), c.end)).toBeLessThan(dist(labelAt('1..*'), c.start));
+
+    const a = ends(assoc);
+    await expect(dist(labelAt('places'), a.mid)).toBeLessThanOrEqual(1);
+    await expect(dist(labelAt('0..*'), a.end)).toBeLessThan(dist(labelAt('0..*'), a.start));
+    // 「1」은 두 관계에 하나씩 — 각자 자기 시작 끝 근처
+    const ones = Array.from(svg.querySelectorAll('[data-bbangto-viz-edge-label] text'))
+      .filter((el) => el.textContent === '1')
+      .map((el) => new DOMPoint(Number(el.getAttribute('x')), Number(el.getAttribute('y'))));
+    await expect(ones).toHaveLength(2);
+    await expect(Math.min(...ones.map((p) => dist(p, c.start)))).toBeLessThan(40);
+    await expect(Math.min(...ones.map((p) => dist(p, a.start)))).toBeLessThan(40);
+  },
+};
+
+// ──────────────────────────────────────────────────────────────────────
 // 2. StateDiagram — start/end pseudo-states + normal + transitions
 // ──────────────────────────────────────────────────────────────────────
 export const StateDiagramBasic: Story = {
