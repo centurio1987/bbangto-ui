@@ -346,7 +346,7 @@ catalog §1-b·§2-a의 "ChartPrimitives(bar/line/pie/donut/treemap…)"와 PLAN
 catalog §1-c의 원자 갭은 유형이 아니라 구성 요소이므로 행으로 승격하지 않는다(원문: 출처 코드 `catalog` §1-c, §2-a 범례):
 Zone/Layer 밴드 · 서비스 아이콘 칩 · LegendBlock · 회전 EdgeLabel · LinkLabelChip · Fork/Join 바 · DetailCard · DashedGhostNode · TimeAxis/DateTick · 아이콘 글리프 세트 · 협업 마커.
 (2026-11-25 KAN-082.2 — LegendBlock 은 molecule `LegendBlock`(관계선 범례)으로 채웠다. 관계 종류 목록 `RELATION_KINDS` 와 선 모양 `RELATION_LINE_STYLES` 를 템플릿 선과 함께 읽는다. 유형이 아닌 구성 요소라 행으로 올리지 않는다.)
-PLAN §D G6 메타 프레임(`Kruchten4Plus1View`·`ViewpointFrame`)은 유형이 아닌 조합 프레임이라 후보 풀에 기재. (2026-07-23 KAN-015 구현 완료 — 조합 프레임 성격 불변이라 VT 유형 행으로는 미승격.)
+PLAN §D G6 메타 프레임(`Kruchten4Plus1View`·`ViewpointFrame`)은 유형이 아닌 조합 프레임이라 후보 풀에 기재. (2026-07-23 KAN-015 구현 완료 — 조합 프레임 성격 불변이라 VT 유형 행으로는 미승격.) SEI Views and Beyond 의 세 뷰(Module · C&C · Allocation) 프레임 `ViewsAndBeyondFrame` 도 같은 조합 프레임이다(2026-11-25 KAN-082.5 — registry allowlist, 유형 행으로 올리지 않는다).
 
 ### 8-c. Deprecated ID 표
 

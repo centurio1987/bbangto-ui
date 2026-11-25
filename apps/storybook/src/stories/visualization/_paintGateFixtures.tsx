@@ -39,6 +39,7 @@ import {
   C4DeploymentDiagram,
   ObjectDiagram,
   CommunicationDiagram,
+  ViewsAndBeyondFrame,
   UMLPackageDiagram,
   UMLSequenceDiagram,
   UseCaseDiagram,
@@ -1115,6 +1116,20 @@ export const PAINT_GATE_FIXTURES: PaintGateFixture[] = [
         width={430}
         height={120}
         title="Communication Diagram"
+      />
+    ),
+  },
+  // ── KAN-082.5 — SEI Views and Beyond 프레임(조합 프레임, 슬롯은 비운다) ──
+  {
+    key: 'views-and-beyond',
+    template: 'ViewsAndBeyondFrame',
+    render: () => (
+      <ViewsAndBeyondFrame
+        data={{ module: ['checkout/', 'payment/'], cc: ['api server', 'worker'], allocation: ['EC2', 'RDS'] }}
+        viewBox="0 0 900 420"
+        width={540}
+        height={252}
+        title="SEI Views and Beyond"
       />
     ),
   },

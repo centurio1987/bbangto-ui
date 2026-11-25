@@ -6,6 +6,8 @@ import {
   C4ContextDiagram,
   Kruchten4Plus1View,
   ViewpointFrame,
+  ViewsAndBeyondFrame,
+  C4ContainerDiagram,
 } from '@centurio1987/bbangto-ui-visualization';
 import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visualization-style-guide-catalog';
 import { expect } from 'storybook/test';
@@ -157,5 +159,58 @@ export const ViewpointFrameEmptyBody: Story = {
     // view 미지정 시 플레이스홀더 안내 텍스트.
     await expect(body.textContent).toContain('No view supplied');
     await expect(body.querySelector('[data-bbangto-viz-viewpoint-slot]')).toBeNull();
+  },
+};
+
+// ──────────────────────────────────────────────────────────────────────
+// SEI Views and Beyond — Module · C&C · Allocation 세 뷰 (KAN-082 .5)
+//   원문 「모든 뷰를 세 가지로 나눕니다. Module(코드 구조), C&C(런타임 구조), Allocation(물리 배치·팀 배치)」.
+//   C&C 영역에는 런타임 도식(C4 컨테이너)을 슬롯으로 넣고, 나머지는 불릿으로 채운다.
+// ──────────────────────────────────────────────────────────────────────
+const CC_SLOT = (
+  <C4ContainerDiagram
+    data={{
+      containers: [
+        { id: 'api', x: 10, y: 10, width: 110, height: 70, name: 'API', technology: 'Node.js' },
+        { id: 'worker', x: 10, y: 150, width: 110, height: 70, name: 'Worker', technology: 'Go' },
+      ],
+      relationships: [{ id: 'r1', from: 'api', to: 'worker', label: 'enqueue', kind: 'asyncMessage' }],
+    }}
+    viewBox="0 0 140 240"
+    width={140}
+    height={240}
+    title="C&C slot"
+  />
+);
+
+export const ViewsAndBeyondSEI: Story = {
+  render: () => (
+    <ViewsAndBeyondFrame
+      slots={{ cc: CC_SLOT }}
+      data={{
+        module: ['checkout/', 'payment/', 'shared/'],
+        allocation: ['EC2 — api, worker', 'RDS — order db', 'Team A — checkout'],
+      }}
+      viewBox="0 0 900 420"
+      width={900}
+      height={420}
+      title="SEI Views and Beyond"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const regions = Array.from(canvasElement.querySelectorAll('[data-bbangto-viz-vab-region]'));
+    await expect(regions.map((r) => r.getAttribute('data-bbangto-viz-vab-region-key'))).toEqual(['module', 'cc', 'allocation']);
+    const root = canvasElement.querySelector('[data-bbangto-viz-chart="views-and-beyond"]')!;
+    for (const s of ['Module views', 'Component-and-Connector views', 'Allocation views']) await expect(root.textContent).toContain(s);
+    // C&C 영역은 슬롯(중첩 도식), 나머지 둘은 불릿
+    const cc = canvasElement.querySelector('[data-bbangto-viz-vab-region-key="cc"]')!;
+    await expect(cc.querySelector('[data-bbangto-viz-vab-slot] svg')).not.toBeNull();
+    await expect(cc.textContent).toContain('Worker');
+    await expect(canvasElement.querySelectorAll('[data-bbangto-viz-vab-item]')).toHaveLength(6);
+    // 세 영역은 가로로 나란하다
+    const boxes = regions.map((r) => (r.querySelector('rect') as SVGRectElement).getBBox());
+    await expect(boxes[0].x + boxes[0].width).toBeLessThanOrEqual(boxes[1].x);
+    await expect(boxes[1].x + boxes[1].width).toBeLessThanOrEqual(boxes[2].x);
   },
 };

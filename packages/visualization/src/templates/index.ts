@@ -154,6 +154,8 @@ export type {
 } from './Kruchten4Plus1View';
 export { ViewpointFrame } from './ViewpointFrame';
 export type { ViewpointFrameProps } from './ViewpointFrame';
+export { ViewsAndBeyondFrame } from './ViewsAndBeyondFrame';
+export type { ViewsAndBeyondFrameProps, ViewsAndBeyondSlots, ViewsAndBeyondData, ViewsAndBeyondRegionKey } from './ViewsAndBeyondFrame';
 
 // geometry 트랙: 진짜 isometric 투영 씬 (KAN-028)
 export { IsometricScene } from './IsometricScene';

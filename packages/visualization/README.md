@@ -357,6 +357,9 @@ export function DecisionSketch() {
   VT-101 의 별칭 object diagram 이다. `CommunicationDiagram` 은 시퀀스 도식과 같은 상호작용을 객체 사이 링크 위에 번호
   메시지(`order` · `label` · `direction`)로 단다 — VT-108 의 별칭 communication 이다. 둘 다 ClassBox 를 다시 쓰고, ClassBox 는
   빈 칸(속성 · 연산이 없는 칸)을 그리지 않는다(`showEmptyCompartments` 로 예전처럼 세 칸, `nameUnderline` 으로 이름 밑줄).
+- **아키텍처 뷰 프레임은 셋이다.** 다른 도식을 슬롯에 담는 조합 프레임 — `Kruchten4Plus1View`(Logical · Development ·
+  Process · Physical + Scenarios), `ViewpointFrame`(ISO 42010 관점), `ViewsAndBeyondFrame`(SEI Views and Beyond 의 Module ·
+  C&C · Allocation). 영역마다 `slots` 의 도식을 먼저, 없으면 `data` 불릿을 그린다. 유형이 아니라 유형 축(registry)에는 없다.
 - **접근성**: 루트 `Canvas` 는 `role="img"`(`accessible="structured"` 면 `group`)와 `title`(선택 `desc`)을 갖는다.
   값은 항상 텍스트로 함께 적는다 — 그래픽만으로 값을 말하지 않는다. 노드 글리프·아이콘 배지 같은 장식은 `aria-hidden` 이다.
 - **경계 입력**: 빈 데이터는 빈 캔버스다(throw 하지 않는다). 항목 하나도 그린다. `children`·`data` 를 함께 주면 `children` 이다.
