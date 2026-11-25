@@ -463,11 +463,11 @@ export const BehaviorOrderStates: Story = {
     <StateDiagram
       data={{
         states: [
-          { id: 's0', x: 40, y: 75, variant: 'start' },
+          { id: 's0', x: 40, y: 71, variant: 'start' },
           { id: 'created', x: 100, y: 60, width: 120, height: 50, title: '주문됨' },
-          { id: 'paid', x: 340, y: 60, width: 120, height: 50, title: '결제됨' },
-          { id: 'shipped', x: 340, y: 200, width: 120, height: 50, title: '배송됨' },
-          { id: 'end', x: 390, y: 300, variant: 'end' },
+          { id: 'paid', x: 440, y: 60, width: 120, height: 50, title: '결제됨' },
+          { id: 'shipped', x: 440, y: 200, width: 120, height: 50, title: '배송됨' },
+          { id: 'end', x: 486, y: 300, variant: 'end' },
         ],
         transitions: [
           { id: 't0', from: 's0', to: 'created' },
@@ -476,8 +476,8 @@ export const BehaviorOrderStates: Story = {
           { id: 't3', from: 'shipped', to: 'end' },
         ],
       }}
-      viewBox="0 0 520 340"
-      width={520}
+      viewBox="0 0 600 340"
+      width={600}
       height={340}
       title="동작 — 주문 상태 머신"
     />
@@ -487,5 +487,12 @@ export const BehaviorOrderStates: Story = {
     const svg = canvasElement.querySelector('[data-bbangto-viz-canvas]')!;
     const labels = Array.from(svg.querySelectorAll('[data-bbangto-viz-edge-label] text')).map((t) => t.textContent);
     await expect(labels).toEqual(['pay() [잔액 충분] / 영수증 발행', 'ship()']);
+    // 긴 전이 라벨이 두 상태 상자와 겹치지 않는다
+    const label = (svg.querySelector('[data-bbangto-viz-edge-label] rect') as SVGRectElement).getBBox();
+    for (const id of ['created', 'paid']) {
+      const box = (svg.querySelector(`[data-bbangto-viz-state-id="${id}"]`) as SVGGElement).getBBox();
+      const apart = label.x >= box.x + box.width || label.x + label.width <= box.x;
+      await expect({ id, apart }).toEqual({ id, apart: true });
+    }
   },
 };
