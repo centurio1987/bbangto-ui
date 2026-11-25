@@ -206,18 +206,18 @@ export const DeploymentOneEc2: Story = {
     <C4DeploymentDiagram
       data={{
         nodes: [
-          { id: 'aws', x: 10, y: 10, width: 560, height: 300, name: 'AWS', technology: 'ap-northeast-2' },
+          { id: 'aws', x: 10, y: 10, width: 640, height: 300, name: 'AWS', technology: 'ap-northeast-2' },
           { id: 'ec2', x: 30, y: 60, width: 340, height: 230, name: 'EC2', technology: 'm5.large · Ubuntu 22.04', parent: 'aws' },
-          { id: 'rds', x: 400, y: 60, width: 150, height: 230, name: 'RDS', technology: 'db.t3.medium', parent: 'aws' },
+          { id: 'rds', x: 480, y: 60, width: 150, height: 230, name: 'RDS', technology: 'db.t3.medium', parent: 'aws' },
         ],
         containers: [
           { id: 'api', node: 'ec2', x: 50, y: 120, width: 140, height: 90, name: 'API 서버', technology: 'Node.js' },
           { id: 'worker', node: 'ec2', x: 210, y: 120, width: 140, height: 90, name: '워커', technology: 'Go' },
-          { id: 'db', node: 'rds', x: 415, y: 120, width: 120, height: 90, name: '주문 DB', technology: 'PostgreSQL', shape: 'database' },
+          { id: 'db', node: 'rds', x: 495, y: 120, width: 120, height: 90, name: '주문 DB', technology: 'PostgreSQL', shape: 'database' },
         ],
         relationships: [{ id: 'r1', from: 'worker', to: 'db', label: '결제 결과 쓰기', technology: 'SQL' }],
       }}
-      width={600}
+      width={680}
       height={340}
       title="배포 도식 — EC2 하나에 API 서버와 워커"
     />

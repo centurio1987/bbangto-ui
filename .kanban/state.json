@@ -1,6 +1,6 @@
 {
   "next_id": 85,
-  "next_seq": 336,
+  "next_seq": 337,
   "cards": {
     "KAN-076-NHP81Z": {
       "col": "backlog",
@@ -153,7 +153,7 @@
       "parent": "KAN-082-MD50S0"
     },
     "KAN-082.3-TJ665Y": {
-      "col": "doing",
+      "col": "review",
       "title": "viz 배치 도식 보강 — 노드 중첩·스테레오타입·artifact, C4 Deployment 템플릿, C4 컨테이너 모양, 토폴로지 링크 라벨",
       "verbatim": "",
       "생성": "ai",
@@ -2022,6 +2022,16 @@
   ],
   "recent": [
     {
+      "seq": 336,
+      "t": "2026-11-25T16:32",
+      "a": "ai",
+      "id": "KAN-082.3-TJ665Y",
+      "op": "move",
+      "w": "9Z2X8X",
+      "from": "doing",
+      "to": "review"
+    },
+    {
       "seq": 335,
       "t": "2026-11-25T16:09",
       "a": "ai",
@@ -2643,16 +2653,6 @@
       "w": "EFXS81",
       "from": "review",
       "to": "doing"
-    },
-    {
-      "seq": 289,
-      "t": "2026-10-11T16:15",
-      "a": "ai",
-      "id": "KAN-075-4K5GK3",
-      "op": "move",
-      "w": "EFXS81",
-      "from": "doing",
-      "to": "review"
     }
   ],
   "waivers": [
