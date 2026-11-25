@@ -188,7 +188,7 @@ export function UMLComponentDiagram({
         </React.Fragment>
       ))}
       {dependencies.map((d) => (
-        <Edge key={d.id} from={d.from} to={d.to} markerEnd="arrow" strokeDasharray="5 3" strokeWidth={1.5} />
+        <Edge key={d.id} from={d.from} to={d.to} markerEnd="arrow" strokeDasharray="5 3" strokeWidth={1.5} label={d.label} />
       ))}
     </Canvas>
   );

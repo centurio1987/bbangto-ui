@@ -5,6 +5,7 @@ import { Edge } from '../atoms/Edge';
 import { Boundary } from '../atoms/Boundary';
 import { C4Box } from '../molecules/C4Box';
 import type { C4ComponentSpec, C4RelationshipSpec, C4BoundarySpec } from './c4Types';
+import { c4RelationshipLabel } from './c4Types';
 
 export type { C4ComponentSpec };
 
@@ -88,7 +89,7 @@ export function C4ComponentDiagram({
         />
       ))}
       {relationships.map((r) => (
-        <Edge key={r.id} from={r.from} to={r.to} />
+        <Edge key={r.id} from={r.from} to={r.to} label={c4RelationshipLabel(r)} labelFontSize={10} />
       ))}
     </Canvas>
   );

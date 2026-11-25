@@ -7,6 +7,7 @@ import { PersonNode } from '../molecules/PersonNode';
 import { ExternalNode } from '../molecules/ExternalNode';
 import { C4Box } from '../molecules/C4Box';
 import type { C4PersonSpec, C4ContainerSpec, C4RelationshipSpec, C4BoundarySpec } from './c4Types';
+import { c4RelationshipLabel } from './c4Types';
 
 export type { C4ContainerSpec };
 
@@ -102,7 +103,7 @@ export function C4ContainerDiagram({
         ),
       )}
       {relationships.map((r) => (
-        <Edge key={r.id} from={r.from} to={r.to} />
+        <Edge key={r.id} from={r.from} to={r.to} label={c4RelationshipLabel(r)} labelFontSize={10} />
       ))}
     </Canvas>
   );

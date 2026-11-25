@@ -127,6 +127,7 @@ export function Flowchart({
           routing={e.routing ?? 'orthogonal'}
           markerEnd={e.markerEnd ?? 'arrow'}
           strokeDasharray={e.dashed ? '6 4' : solidDash}
+          label={e.label}
         />
       ))}
     </Canvas>

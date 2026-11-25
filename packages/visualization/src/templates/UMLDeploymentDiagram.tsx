@@ -122,7 +122,7 @@ export function UMLDeploymentDiagram({
         </React.Fragment>
       ))}
       {edges.map((e) => (
-        <Edge key={e.id} from={e.from} to={e.to} routing={e.routing ?? 'orthogonal'} markerEnd="arrow" />
+        <Edge key={e.id} from={e.from} to={e.to} routing={e.routing ?? 'orthogonal'} markerEnd="arrow" label={e.label} />
       ))}
     </Canvas>
   );

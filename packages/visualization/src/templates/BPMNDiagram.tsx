@@ -238,7 +238,7 @@ export function BPMNDiagram({
 
       {/* Sequence flows */}
       {flows.map((f) => (
-        <Edge key={f.id} from={f.from} to={f.to} markerEnd="arrow" strokeWidth={1.5} />
+        <Edge key={f.id} from={f.from} to={f.to} markerEnd="arrow" strokeWidth={1.5} label={f.label} />
       ))}
     </Canvas>
   );

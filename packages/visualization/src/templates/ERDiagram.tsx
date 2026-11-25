@@ -135,6 +135,7 @@ export function ERDiagram({
             markerEnd={markerEnd}
             markerStart={markerStart}
             strokeWidth={1.5}
+            label={r.label}
           />
         );
       })}

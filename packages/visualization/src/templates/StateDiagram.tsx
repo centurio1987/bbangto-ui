@@ -116,7 +116,7 @@ export function StateDiagram({
         />
       ))}
       {transitions.map((t) => (
-        <Edge key={t.id} from={t.from} to={t.to} markerEnd="arrow" strokeWidth={1.5} />
+        <Edge key={t.id} from={t.from} to={t.to} markerEnd="arrow" strokeWidth={1.5} label={t.label} />
       ))}
     </Canvas>
   );

@@ -6,6 +6,7 @@ import { ClassBox } from '../molecules/ClassBox';
 import { EntityTable } from '../molecules/EntityTable';
 import type { EntityAttribute } from '../molecules/EntityTable';
 import type { C4RelationshipSpec } from './c4Types';
+import { c4RelationshipLabel } from './c4Types';
 
 export type C4CodeElementKind = 'class' | 'entity' | 'generic';
 
@@ -109,7 +110,15 @@ export function C4CodeDiagram({
         );
       })}
       {relationships.map((r) => (
-        <Edge key={r.id} from={r.from} to={r.to} markerEnd="triangleOpen" strokeWidth={1.5} />
+        <Edge
+          key={r.id}
+          from={r.from}
+          to={r.to}
+          markerEnd="triangleOpen"
+          strokeWidth={1.5}
+          label={c4RelationshipLabel(r)}
+          labelFontSize={10}
+        />
       ))}
     </Canvas>
   );

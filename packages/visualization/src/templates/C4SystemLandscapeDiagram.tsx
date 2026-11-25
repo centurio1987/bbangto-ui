@@ -7,6 +7,7 @@ import { C4Box } from '../molecules/C4Box';
 import { PersonNode } from '../molecules/PersonNode';
 import { ExternalNode } from '../molecules/ExternalNode';
 import type { C4SystemSpec, C4PersonSpec, C4RelationshipSpec, C4BoundarySpec } from './c4Types';
+import { c4RelationshipLabel } from './c4Types';
 
 export interface C4SystemLandscapeDiagramData {
   systems: C4SystemSpec[];
@@ -60,10 +61,13 @@ export function C4SystemLandscapeDiagram({
         const to = registry.nodes.find((n) => n.id === r.to);
         const mx = from && to ? (from.x + from.width / 2 + to.x + to.width / 2) / 2 : 0;
         const my = from && to ? (from.y + from.height / 2 + to.y + to.height / 2) / 2 : 0;
+        // 라벨 자리는 예전대로 두 노드 중심의 중점이다(KAN-082 정할 것 1 — 이미 라벨을 그리던 템플릿은 자리를 두어
+        // 그림이 바뀌지 않게 한다). 글은 다른 C4 템플릿과 같은 「설명 [기술]」이다.
+        const text = c4RelationshipLabel(r);
         return (
           <g key={r.id}>
             <Edge from={r.from} to={r.to} routing="orthogonal" />
-            {r.label && <EdgeLabel x={mx} y={my} label={r.label} fontSize={10} />}
+            {text && <EdgeLabel x={mx} y={my} label={text} fontSize={10} />}
           </g>
         );
       })}

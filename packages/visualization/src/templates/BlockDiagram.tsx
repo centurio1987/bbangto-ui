@@ -109,6 +109,7 @@ export function BlockDiagram({
           to={e.to}
           routing={e.routing ?? 'orthogonal'}
           markerEnd={e.markerEnd ?? 'arrow'}
+          label={e.label}
         />
       ))}
     </Canvas>
