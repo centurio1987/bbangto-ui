@@ -119,7 +119,7 @@ export interface VisualizationFoundation {
 
   /**
    * 면 위 글자색. 선택 필드다.
-   * 면 토큰(팔레트·shape.fill·canvas.bg·c4 bgTint·node fill)마다 그 위에 쓸 글자색을
+   * 면 토큰(팔레트·shape.fill·shape.stroke·canvas.bg·c4 bgTint·node fill)마다 그 위에 쓸 글자색을
    * `--bbangto-viz-on-*` CSS 변수로 낸다(예: `palette.p1` 위 글자 → `--bbangto-viz-on-palette-p1`).
    * 적지 않은 자리는 visualization 패키지가 계산한다. 가이드 글자색 넷(`edge.stroke` →
    * `shape.stroke` → `boundary.labelColor` → `canvas.bg`) 중 처음으로 면과 4.5:1 을 넘는 것을
@@ -137,7 +137,8 @@ export interface VisualizationFoundation {
   readonly on?: {
     readonly ink?: string;
     readonly palette?: Partial<Record<'p1' | 'p2' | 'p3' | 'p4' | 'p5' | 'p6' | 'p7' | 'p8', string>>;
-    readonly shape?: { readonly fill?: string };
+    /** `stroke` 는 도형 선 색으로 칠한 진한 면이다(KAN-083) — 그 위 글자는 `--bbangto-viz-on-shape-stroke`. */
+    readonly shape?: { readonly fill?: string; readonly stroke?: string };
     readonly canvas?: { readonly bg?: string };
     readonly c4?: {
       readonly l1?: { readonly bgTint?: string };

@@ -1,0 +1,2406 @@
+<meta charset="utf-8">
+<!-- kanban-fp:997bedb5e17faaec26e2771d28a17f5c2b9b836e -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KAN-083-JSQKF4 검토 요청</title>
+<style>
+/* manage-kanban 계획 리포트 스타일 — Neobrutalism_Editorial_01 (editorial brutalism)
+ *
+ * 출처: bbangto-ui/packages/style-guide-catalog/src/neobrutalismEditorial.tsx
+ *   라이트 = foundations(semantic) · 다크 = midnightFoundations(makeColorway)
+ *
+ * **왜 사본인가.** @centurio1987/bbangto-ui-visualization 은 React 컴포넌트 + 빌드가
+ * 필요하고 사설 레지스트리(npm.pkg.github.com)에 있다. 리포트는 빌드 없이 열리는 단일
+ * HTML 이고 CSP 로 외부 로드가 막히므로, 패키지를 런타임에 쓸 수 없다. 그래서 토큰 값만
+ * 옮겼다.
+ *
+ * **토큰은 두 칸이다.** `:root` 맨 앞 「원본 사본(대조 대상)」 12줄은 위 .tsx 의 NEO
+ * 원시값을 그대로 옮긴 것이고, 그 아래 「로컬 역할 토큰(대조 밖)」은 이 스킬이 정한
+ * 이름이다(바탕 · 글 · 띠와 칩의 색 · 「방금 바뀜」 · 상태 글자색 · 별칭 · 그림자 · 움직임).
+ * 원시값은 다크에서도 안 바뀌므로, 테마를 따라 뒤집혀야 하는 자리는 로컬 이름을 쓴다
+ * (원시값은 타이틀 블록의 잉크 글처럼 일부러 고정하는 자리에만). 로컬 이름은 원본 원시값
+ * 이름과 겹치지 않게 짓는다.
+ *
+ * **drift 는 이 주석이 아니라 테스트가 막는다** — scripts/test_report.py 의 t_drift 가 위
+ * .tsx 를 파싱해 「원본 사본」 12줄과 대조하고(원본이 없는 머신에서는 skip), 두 칸이 갈려
+ * 있는지와 로컬 이름이 원시값 이름을 다시 쓰지 않는지도 본다.
+ */
+
+:root {
+  /* ─── 원본 사본(대조 대상) — NEO 원시값 12개 ────────────────────────────────
+   * t_drift 가 이 12줄을 원본과 한 줄씩 대조한다. 값은 원본에서만 바꾼다. */
+  --ink: #1C1B17;
+  --ink-hover: #2A2823;
+  --cream: #FAF2DD;
+  --paper: #FFFCF2;
+  --cream-sunken: #F3E8C9;
+  --gold: #E9C766;
+  --green: #C2D3B4;
+  --pink: #ECC3C8;
+  --muted: #4A463C;
+  --subtle: #6E6A5E;
+  --faint: #9A9483;
+  --border-width: 2px;
+
+  /* ─── 로컬 역할 토큰(대조 밖) — 여기부터 이 스킬이 정한 이름 ──────────────────
+   * 원본에 없는 이름이라 t_drift 가 값을 대조하지 않는다. 다크 전환은 이 칸의 이름을
+   * 아래 두 다크 블록에서 다시 정의해서 돈다. */
+  --bg: var(--cream);
+  --bg-elevated: var(--paper);
+  --bg-sunken: var(--cream-sunken);
+  --fg: var(--ink);
+  --fg-muted: var(--muted);
+  --fg-subtle: var(--subtle);
+  --border: var(--ink);
+  /* 상자 안 가는 칸막이(1.5px). 2px 잉크선은 상자 바깥 테두리에만 남긴다. 바탕과의 대비가
+   * 1.56(다크 1.30)이라 **장식 전용**이다 — 상태나 누를 자리의 유일한 경계로 쓰지 않는다
+   * (그 자리는 `--border` 2px 이나 글자가 진다). */
+  --line-soft: #D9CCA6;
+  /* ─── 색의 역할 — 「자리」와 「상태」를 한 색이 겸하지 않는다 ─────────────────
+   * 장치가 둘이다. **왼쪽 5px 띠**는 「이 자리는 무엇인가」를 말하고, **칩(.tag·
+   * 레일 칸)**은 「이것은 어떤 상태인가」를 말한다. 같은 값이 두 장치에 쓰이는 것은
+   * 괜찮지만, 한 장치 안에서 두 뜻을 겸하면 훑는 눈이 갈라내지 못한다.
+   *
+   *   --accent   (골드) **「사람 차례」 하나만 말한다.** 칩: 「내 차례」(별칭 `--you`) ·
+   *                        띠: 진행 중 칸 · 「정할 것」 자리 · 인용·주석 · 검토 항목의 근거
+   *                        띠(보기 · 정할 것 · 배경) / 그 밖: 타이틀 블록. 갈래 상자의 추천은
+   *                        골드가 아니라 칩 + 2px 잉크 테다. 포커스 테와 그림자는 골드가
+   *                        아니다(아래 `--focus` · `--offset`)
+   *   --accent-2 (그린) 띠: **조작 자리 전용**. 질감이 모드를 말한다 —
+   *                        단색=serve(누르면 정본에 씀) · 45° 해칭=정적(패치로 나감)
+   *   --accent-3 (핑크) 띠: **승계 전용**. 상태 칩 `tag-hold` 와 레일 칸 `st-noted` 가
+   *                        같은 값을 쓰지만 그쪽은 띠가 아니라 칩이라 안 겹친다
+   *   --bg-sunken       th · 미정 칩 · 승계 블록 바탕 · **접힌 조각 바탕**(「여기 더
+   *                        있다」의 단일 신호) · 결정 헤더 아래 모노 줄
+   *   --danger/--ok/--warn  반려 / 승인 / 경고. 상태 전용이라 띠로 안 쓴다. 칩 · 레일
+   *                        바탕에만 쓰고, 글자 · 테로 쓸 때는 `--danger-fg` · `--ok-fg`
+   *   --changed 셋     「방금 바뀜」. 상태가 아니라 **사건**이라 상태 색 다섯과 골드를
+   *                        빌리지 않고 파랑을 쓴다(빨강/그린을 못 가르는 눈에도 밝기로 갈림)
+   *   --focus    (잉크) 포커스 테 3px 실선. 골드에서 옮겼다 — 골드 바탕(타이틀 · 눌린
+   *                        단추) 위에서도 보이고, 골드가 「사람 차례」 하나만 말하게 된다
+   *   --offset · --offset-lg (잉크) 그림자 = **「지금 조작하는 자리」**. 큰 것은 타이틀 ·
+   *                        트레이 · 모달 · 결정 헤더, 작은 것(3px)은
+   *                        카드 · 항목 · KPI 같은 낱개 상자
+   *
+   * **테마마다 값이 다른 토큰은 세 블록에 함께 선다.** 「저장 전」(아직 정본이 아님)은
+   * 여전히 색이 아니라 2px 점선 + `outline-offset` 으로 말한다 — 색을 쓰면 훑는 눈이 그것을
+   * 상태로 읽는다. 점선의 색 이름은 별칭 `--pending-line` 이라 새 색이 아니다. 새로 생긴
+   * 색(칸막이 · 「방금 바뀜」 · 상태 글자색)은 테마마다 값이 다르면 이 블록과 아래 두 다크
+   * 블록에 모두 적는다 — 한 곳이라도 빠지면 다크 전환(토큰 재정의)이 그 자리만 안
+   * 뒤집는다. test_report.py 의 t_ux_css 가 세 블록을 맞대 본다. */
+  --accent: var(--gold);
+  --accent-2: var(--green);
+  --accent-3: var(--pink);
+  --danger: #C0392B;
+  --ok: #5C7A4A;
+  --warn: #B8860B;
+  /* 「방금 바뀜」 — 칩 바탕(글자는 잉크, 두 테마 같은 값) · 바뀐 것의 테 · 바탕이 한 번
+   * 잦아드는 첫 색(kb-trace). 첫 색 위의 글(본문 · muted · subtle)이 4.5:1 을 넘는다. */
+  --changed: #A9C6EA;
+  --changed-line: #2D5E9E;
+  --changed-wash: #E4EDF8;
+  /* 상태 글자 · 상태 테 — 「실패」 글 · 거부 테 · 「들어감」 글. 다크에서 `--danger` ·
+   * `--ok` 를 글자로 쓰면 4.5:1 에 못 미쳐 따로 둔다. */
+  --danger-fg: #C0392B;
+  --ok-fg: #5C7A4A;
+  /* 역할 별칭 — 새 규칙은 이 이름을 쓴다. **이 블록 안의 이름만 가리킨다** — report.py 의
+   * `_load_svg_palette` 가 이 블록의 var() 를 풀어 차트 색을 만들므로, 밖의 이름을
+   * 가리키면 import 에서 KeyError 가 난다. 다크 값은 가리키는 쪽이 바뀌면 따라온다. */
+  --you: var(--accent);
+  --focus: var(--fg);
+  --pending-line: var(--fg-subtle);
+  /* 그림자 — 잉크(`--border`)라 다크에서 함께 뒤집힌다. */
+  --offset: 3px 3px 0 var(--border);
+  --offset-lg: 5px 5px 0 var(--ink);
+  /* 움직임 — 시간과 곡선. 테마와 상관없다. 사건마다 무엇을 쓰는지는 시안 motion.md.
+   * 규칙에 숫자를 박지 않고 이 이름만 쓴다. 닫힘은 열림 시간의 0.75배로 ease-in. */
+  --t-press: 90ms;
+  --t-quick: 160ms;
+  --t-move: 240ms;
+  --t-count: 420ms;
+  --t-trace: 1600ms;
+  --t-arrive: 900ms;   /* 「다음 미해결」 · 레일로 간 항목의 잉크 링 한 번(motion.md 검토 표) */
+  --ease-out: cubic-bezier(.2, .8, .2, 1);
+  --ease-in: cubic-bezier(.5, 0, .75, 0);
+  --ease-move: cubic-bezier(.65, 0, .35, 1);
+  --ease-snap: cubic-bezier(.3, 1.35, .5, 1);
+
+  /* 결정 헤더의 높이. sticky 가 둘(결정 헤더 · 항목 헤더줄)이라 이 값이 세 자리에서
+   * 함께 움직인다 — 항목 헤더줄의 `top`, 앵커의 `scroll-margin-top`, 그리고 둘의 층 순서.
+   * 한 자리만 고치면 레일을 눌러 간 항목이 헤더 밑에 숨거나 헤더줄이 겹친다. 레일이 한 줄일 때
+   * 1280 실측 58px(KAN-021 S9) — 칸이 많아 레일이 두 줄이 되면 항목 헤더줄은 결정 헤더 밑으로 들어간다
+   * (층은 결정 헤더가 위라 가려질 뿐 겹쳐 읽히지 않는다). */
+  --dh-h: 3.6rem;
+
+  --font-sans: 'IBM Plex Sans KR', 'Apple SD Gothic Neo', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+}
+
+/* 다크는 잉크/크림을 뒤집는다(midnight colorway). 시스템 기본은 media query 가,
+ * 명시적 선택은 [data-theme] 가 이긴다 — 둘 다 정의해야 토글이 양방향으로 먹는다.
+ * 두 블록은 같은 이름 · 같은 값이다(t_ux_css 가 맞대 본다). 테마마다 값이 다른 로컬
+ * 토큰(칸막이 · 「방금 바뀜」 테와 첫 색 · 상태 글자색)도 여기 함께 적는다. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1C1B17;
+    --bg-elevated: #2A2823;
+    --bg-sunken: #141310;
+    --fg: #FAF2DD;
+    --fg-muted: #C9C2AE;
+    --fg-subtle: #9A9483;
+    --border: #FAF2DD;
+    --line-soft: #3D3A32;
+    --changed-line: #9DBEE6;
+    --changed-wash: #1E2A3C;
+    --danger-fg: #EE7A6A;
+    --ok-fg: #9CC08A;
+    --offset: 3px 3px 0 var(--border);
+    --offset-lg: 5px 5px 0 var(--border);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1C1B17;
+  --bg-elevated: #2A2823;
+  --bg-sunken: #141310;
+  --fg: #FAF2DD;
+  --fg-muted: #C9C2AE;
+  --fg-subtle: #9A9483;
+  --border: #FAF2DD;
+  --line-soft: #3D3A32;
+  --changed-line: #9DBEE6;
+  --changed-wash: #1E2A3C;
+  --danger-fg: #EE7A6A;
+  --ok-fg: #9CC08A;
+  --offset: 3px 3px 0 var(--border);
+  --offset-lg: 5px 5px 0 var(--border);
+}
+
+body {
+  margin: 0;
+  padding: 2.5rem 1.25rem 5rem;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.wrap { max-width: 62rem; margin: 0 auto; }
+
+/* 각진 모서리 · 2px 잉크선 · 하드 오프셋. 이 셋이 모티프의 전부다. */
+.card, .kpi, table, pre, .chart {
+  background: var(--bg-elevated);
+  border: var(--border-width) solid var(--border);
+  border-radius: 0;
+}
+.card { padding: 1.25rem 1.5rem; margin: 1.5rem 0; box-shadow: var(--offset); }
+
+h1, h2, h3 { font-weight: 700; margin: 2rem 0 .75rem; }
+h1 { font-size: 38px; line-height: 1.05; letter-spacing: -.01em; margin-top: 0; }
+h2 { font-size: 30px; line-height: 1.1; letter-spacing: -.01em;
+     border-bottom: var(--border-width) solid var(--border); padding-bottom: .35rem; }
+h3 { font-size: 20px; line-height: 1.3; }
+
+.meta { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em;
+        font-weight: 600; text-transform: uppercase; color: var(--fg-subtle); }
+/* 경로를 싣는 메타 줄(「생성 근거」)은 대문자로 바꾸지 않는다 — `.kanban/…` 이 `.KANBAN/…` 으로 보이면 없는
+   경로다(KAN-021 S19 대조, 시안 2.4-3 「모노는 경로에만」). */
+.meta.src { text-transform: none; letter-spacing: 0; }
+
+.title-block { border: var(--border-width) solid var(--border); background: var(--accent);
+               color: var(--ink); padding: 1.5rem; box-shadow: var(--offset-lg); }
+.title-block h1, .title-block .meta { color: var(--ink); }
+/* 타이틀 머리줄 — 왼쪽은 문서가 무엇인가, 오른쪽은 이 화면이 무엇을 할 수 있는가(모드
+   지문). 두 모드에서 **같은 자리**에 서야 「지금 어느 쪽인가」를 자리로 알 수 있다. */
+.tb-row { display: flex; justify-content: space-between; gap: .5rem 1rem;
+          align-items: baseline; flex-wrap: wrap; margin-bottom: .5rem; }
+/* 줄 자체가 아래 간격을 지므로 안의 문단은 여백을 안 갖는다 — 안 그러면 좁은 화면에서
+   지문이 아래로 접힐 때 h1 과 맞붙는다(375px 실측). */
+.tb-row > .meta { margin: 0; }
+
+.kpis { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1.5rem 0; }
+.kpi { flex: 1 1 9rem; padding: .9rem 1rem; box-shadow: var(--offset); }
+.kpi b { display: block; font-size: 30px; line-height: 1.1; }
+
+table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+th, td { border: 1px solid var(--border); padding: .5rem .7rem; text-align: left;
+         vertical-align: top; font-size: 15px; }
+th { background: var(--bg-sunken); font-weight: 700; }
+
+/* 넓은 것은 페이지가 아니라 자기 안에서 가로 스크롤한다. */
+.scroll { overflow-x: auto; }
+/* 공백 없이 이어진 긴 코드 조각은 꺾는다. 안 꺾으면 좁은 화면에서 문서 폭을 민다 — 이 카드의
+   검토서 검증 절이 375px 에서 560px 까지 밀었다(KAN-014 S8 실측). 표의 최소 폭은 안 건드리는
+   값이라 표는 지금처럼 `.scroll` 안에서 민다. */
+li, p, figcaption { overflow-wrap: break-word; }
+pre { padding: .8rem 1rem; font-family: var(--font-mono); font-size: 13px; overflow-x: auto; }
+code { font-family: var(--font-mono); font-size: .9em; }
+
+.chart { padding: 1rem; margin: 1rem 0; }
+.chart svg { display: block; width: 100%; height: auto; }
+
+/* 칩 글은 본문 글꼴이다 — 모노는 기술 정보 · 명령 · 경로에만(시안 2.4-3). 모노면 「남은 항목 없음」의 빈칸이
+   글자 폭만큼 벌어진다(KAN-021 S19 대조). */
+.tag { display: inline-block; border: var(--border-width) solid var(--border);
+       padding: 0 .4rem; font-family: var(--font-sans); font-size: 12px; font-weight: 600; }
+.tag-done { background: var(--ok); color: var(--cream); }
+.tag-doing { background: var(--accent); color: var(--ink); }
+.tag-todo { background: var(--bg-sunken); color: var(--fg-muted); }
+/* 「추가 의견」 상태. `--accent-3` 을 쓰지만 **칩이라 승계 띠와 안 겹친다** — 띠로서의
+   핑크는 승계 전용이고, 이 자리는 장치가 다르다(위 역할 주석). */
+.tag-hold { background: var(--accent-3); color: var(--ink); }
+.tag-warn { background: var(--warn); color: var(--ink); }
+.tag-danger { background: var(--danger); color: var(--cream); }
+/* 승계 칩은 판정 태그(승인·반려·미정)와 **다른 종류의 사실**이다 — 판정은 이 문서가
+ * 내린 상태이고 승계는 어디서 왔는가다. 위 여섯 중 하나를 빌려 쓰면 훑는 눈이 그것을
+ * 상태로 읽으므로, 어느 것과도 안 겹치게 잉크와 바탕을 뒤집는다. 토큰을 뒤집는 것이라
+ * 다크에서도 그대로 선다(리터럴을 박으면 그 자리만 안 뒤집힌다). */
+.tag-inh { background: var(--fg); color: var(--bg); }
+
+.note, blockquote { border-left: 5px solid var(--accent); padding-left: 1rem;
+                    color: var(--fg-muted); margin: 1rem 0; }
+ol, ul { padding-left: 1.4rem; }
+li { margin: .25rem 0; }
+
+/* ─── 승계 — 넘어온 의견임이 접기 밖에서 보여야 한다 ──────────────────────────
+ * 승계 사실은 `inherit` 값으로 이미 있었는데, 화면에는 상세(접기) 안의 텍스트 한 줄로만
+ * 있었다. 그래서 훑는 사람은 이 의견이 남의 검토서에서 넘어온 것인지 모른 채 판정한다 —
+ * 값을 가르는 것과 화면에서 드러나는 것은 다른 일이고, 이 블록이 뒤엣것이다.
+ *
+ * 왼쪽 띠는 이 스타일이 이미 쓰는 모티프다(.note·blockquote 가 accent, 검토 화면의 조작
+ * 자리가 accent-2). 승계는 남은 accent-3 을 쓴다 — 셋이 한 항목 안에 같이 서므로 자리마다
+ * 색이 달라야 "여기는 무엇을 하는 자리인가"가 색으로 읽힌다. **띠로서의 accent-3 은 승계
+ * 전용**이고, 항목이 거터 밴드로 바뀐 뒤로 이 띠는 `.jd-band-inh > .jd-body` 가 진다.
+ *
+ * 검토 화면 전용 CSS(report.py 의 REVIEW_CSS)가 아니라 여기 두는 이유: 그쪽은 **판정을
+ * 내릴 수 있는 문서**에만 실린다. 승계된 검토서(판정이 다른 문서로 넘어간 쪽)도 자기가
+ * 물려받은 의견을 그대로 들고 있어서, 거기 두면 그 화면에서만 띠가 통째로 빠진다. */
+.inh { border-left: 5px solid var(--accent-3); background: var(--bg-sunken);
+       padding: .5rem .75rem; margin: .5rem 0 .7rem; }
+/* 머리의 승계 알림은 문서 전체의 사실이라 절 사이 간격과 카드 여백을 그대로 쓴다. */
+.card.inh { padding: 1rem 1.25rem; margin: 1.5rem 0; }
+.inh-row { display: flex; flex-wrap: wrap; gap: .4rem; align-items: baseline;
+           margin: .2rem 0; }
+/* 라벨 폭을 맞춘다 — 줄이 여럿인데 값의 시작이 들쭉날쭉하면 무엇이 무엇의 값인지가
+   눈으로 안 붙는다. */
+.inh-row > .meta:first-child { margin: 0; min-width: 4.5rem; }
+.inh-val { flex: 1 1 16rem; color: var(--fg-muted); }
+/* 계보는 좁은 화면에서 페이지를 밀 수 있다. 가로 스크롤 대신 접어 내린다 — 홉이 낱개
+   조각이라 줄이 바뀌어도 읽는 순서가 안 깨진다. */
+.inh-chain { display: flex; flex-wrap: wrap; gap: .35rem; align-items: baseline; }
+.inh-arrow { color: var(--fg-subtle); }
+
+/* ─── 검토 윗부분 — 윗줄 · 한 줄 제목 · 부제(KAN-021 S9, 시안 Review · ReviewExpand) ─────────
+ * 골드 제목 블록(.title-block)은 계획 리포트 옛 렌더만 쓴다. 검토는 그 자리에 두 줄을 둔다 —
+ * 윗줄(「보드 ›」 경로 · 모드 점 + 글 · 쓰는 사람 · 「이 화면 쓰는 법」)과 한 줄 짧은 제목 + 작은
+ * 부제(긴 제목 · 검토 요청 날짜 · 항목 수 · 칸 · 문서 상태). 1280×900 첫 화면에 1번 항목 머리가
+ * 들어오게 하려는 것이다(시안 2.2-1).
+ *
+ * **여기(REPORT_STYLE)에 두는 이유**는 결정 헤더와 같다 — 승계됨 · 닫힌 마지막 화면에는 REVIEW_CSS
+ * 가 안 실리는데, 윗줄과 제목은 그 화면에도 선다. 조작 요소(쓰는 사람 고르기)만 REVIEW_CSS 가 진다. */
+body:has(.rv-top) { padding-top: .75rem; }
+/* 「다음 미해결」 · 레일로 뛰는 길을 보인다(motion.md). 움직임 줄이기면 아래 줄이기 블록이 끈다. */
+html:has(#rv-list) { scroll-behavior: smooth; }
+.rv-top { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem 1rem;
+          padding: .2rem 0 .45rem; border-bottom: 1.5px solid var(--line-soft);
+          font-size: 13px; line-height: 1.4; }
+.crumbs { display: flex; flex-wrap: wrap; align-items: baseline; gap: .1rem .4rem;
+          min-width: 0; margin-right: auto; color: var(--fg-muted); }
+.crumbs > * { min-width: 0; overflow-wrap: anywhere; }
+.crumbs a { color: var(--fg-muted); text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+.crumbs a:hover { color: var(--fg); }
+.crumbs b { color: var(--fg); }
+/* 모드 — 점 + 글. 색만으로 말하지 않는다(파일 모드는 빈 점선 점, 닫힌 화면은 빈 실선 점).
+   보드 머리와 같은 규칙이라 보드(BOARD_STYLE.css)는 이것을 그대로 쓴다. */
+.mode { display: inline-flex; align-items: center; gap: 6px; font-size: 12px;
+        color: var(--fg-muted); white-space: nowrap; }
+.mode-dot { width: 9px; height: 9px; border: 1.5px solid var(--border); background: var(--ok); }
+.mode.file .mode-dot { background: transparent; border-style: dashed; }
+.mode.closed .mode-dot { background: transparent; }
+/* 「이 화면 쓰는 법」 — 안내 네 줄과 CLI 세 줄. 윗줄 오른쪽 단추 아래에 겹쳐 열린다(ReviewExpand). */
+.howto { position: relative; margin: 0; min-width: 0; max-width: 100%; }
+.rv-top .howto > summary { display: inline-flex; align-items: center; gap: .3rem; min-height: 30px;
+                           padding: 0 .55rem; background: transparent; border: 2px solid transparent;
+                           font-family: var(--font-sans); font-size: 13px; font-weight: 600; }
+.rv-top .howto > summary:hover, .rv-top .howto[open] > summary { background: var(--bg-sunken); }
+.rv-top .howto > summary::before { content: none; }
+.rv-top .howto > summary::after { content: "\25BE"; font-size: 11px; color: var(--fg-subtle); }
+.rv-top .howto[open] > summary::after { content: "\25B4"; }
+.howto-body { position: absolute; right: 0; top: calc(100% + .4rem); z-index: 60;
+              width: min(34rem, calc(100vw - 2.5rem)); padding: .85rem 1rem;
+              background: var(--bg-elevated); border: var(--border-width) solid var(--border);
+              box-shadow: var(--offset-lg); font-size: 13px; line-height: 1.55; color: var(--fg); }
+.howto[open] > .howto-body { animation: kb-howto-in var(--t-quick) var(--ease-out) 1; }
+.howto-label { margin: 0 0 .3rem; font-size: 12.5px; font-weight: 700; color: var(--fg-muted); }
+.howto-list { margin: 0 0 .7rem; padding-left: 1.1rem; }
+.howto-list > li { margin: .2rem 0; }
+/* 명령은 판 안에서 줄을 바꿔 다 보인다 — 옆으로 밀면 카드 id 와 옵션이 판 밖에 숨는다. */
+.howto-body pre { margin: 0; font-size: 12px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.rv-title { display: flex; flex-wrap: wrap; align-items: flex-end; gap: .5rem 1rem; margin: .65rem 0 0; }
+.rv-title-text { flex: 1 1 20rem; min-width: 0; }
+.rv-title h1 { margin: 0; font-size: 28px; line-height: 1.2; letter-spacing: -.015em;
+               overflow-wrap: anywhere; }
+.rv-long { margin: .15rem 0 0; font-size: 14px; line-height: 1.45; color: var(--fg-muted); }
+.rv-sub { margin: .1rem 0 0; font-size: 13px; line-height: 1.45; color: var(--fg-subtle); }
+/* 부제 끝 「무엇을 바꿨고 무엇으로 확인했나 ↓」 — 맨 아래 근거 칸으로 가는 앵커(KAN-021 S11, 시안 Review). */
+.rv-sub a { color: var(--fg-muted); text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+.rv-sub a:hover { color: var(--fg); }
+/* 계획 리포트로 가는 단추 — 조용한 테 단추. 조작이 아니라 길이라 그림자를 안 준다. */
+.rv-btn { display: inline-flex; align-items: center; min-height: 30px; padding: 0 .7rem;
+          border: var(--border-width) solid var(--border); background: var(--bg-elevated);
+          color: var(--fg); font-size: 13px; font-weight: 600; line-height: 1.2;
+          text-decoration: none; white-space: nowrap; }
+.rv-btn:hover { background: var(--bg-sunken); }
+@keyframes kb-howto-in { 0% { opacity: 0; transform: translateY(-4px); } 100% { opacity: 1; transform: none; } }
+/* 40rem 아래 「⋯」 메뉴(KAN-023 S1, 시안 `Review375`) — 넓은 화면에서는 감싸개가 투명하고(`display: contents`) 단추 · 사본이
+   없어 윗줄 모양이 그대로다. 체크박스는 화면에서 감추되 키보드로는 닿게 둔다(포커스 테는 라벨이 진다). */
+.rv-more { display: contents; }
+.rv-more-t { position: absolute; width: 1px; height: 1px; margin: 0; opacity: 0; pointer-events: none; }
+.rv-more-b, .rv-plan-m { display: none; }
+
+/* ─── 결정 헤더 — 판정에 필요한 것만 무게를 갖는다 ───────────────────────────
+ * KPI 6~7칸이 같은 무게로 한 줄에 서던 자리다. 변경 파일 수와 수렴이 동급으로 보이면
+ * 훑는 눈이 「지금 무엇을 정해야 하는가」를 못 찾는다(의뢰서 §6-1·§6-4). 헤더에 남는 것은
+ * 셋뿐이다 — 수렴(「n / m 승인 · 반려 k」) · 항목 레일 · 다음 미해결. 문서 판정과 승계 수는 제목
+ * 아래 부제로 갔고(KAN-021 S9 · S11), 나머지 사실(변경 파일·추가/삭제·커밋·태그)은 맨 아래 「무엇을
+ * 바꿨고 무엇으로 확인했나」 칸 셋으로 내려간다(S11 — 헤더 밑 모노 한 줄 `.dh-meta` 를 갈음했다).
+ * 사실을 지우는 것이 아니라 무게를 가르는 것이다.
+ *
+ * **REVIEW_CSS(report.py)가 아니라 여기 두는 이유**: 그쪽은 판정을 내릴 수 있는 문서에만
+ * 실린다. 판정이 다른 문서로 넘어간 `승계됨` 검토서도 자기 항목과 수렴을 그대로 들고
+ * 있어서, 거기 두면 그 화면에서만 헤더와 레일이 통째로 빠진다(의뢰서 §5-10). */
+.dh { position: sticky; top: 0; z-index: 40;
+      display: grid; grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: .6rem 1.4rem; align-items: center; margin: .7rem 0 0; padding: .6rem .9rem;
+      background: var(--bg-elevated); border: var(--border-width) solid var(--border);
+      box-shadow: var(--offset-lg); }
+.dh-cv { display: flex; flex-wrap: wrap; align-items: baseline; gap: .1rem .6rem; }
+/* 숫자는 본문 글꼴의 고른 폭 숫자다(KAN-023 S4, 시안 `.conv__n`) — 모노 글꼴은 빗금 앞뒤가 넓어 「2 / 3」이 흩어졌다. */
+.dh-cv b { font-family: var(--font-sans); font-variant-numeric: tabular-nums; font-size: 30px; line-height: 1;
+           font-weight: 700; white-space: nowrap; }
+/* 빗금은 가장 흐리게 둔다. */
+.dh-cv b i { font-style: normal; color: var(--fg-subtle); }
+/* 「/ 3」은 작고 흐리게(KAN-023 S9, 검토 항목 1 · 시안 `.conv__of` 16px) — 눈이 먼저 잡을 것은 승인 수다. 분모는 화면 스크립트가
+   새 값으로 들어서게 하는 자리(`.dh-cv-d` · kb-count)라 크기만 바꾸고 칸은 그대로 둔다. */
+.dh-cv b i, .dh-cv b .dh-cv-d { font-size: 16px; font-weight: 600; }
+.dh-cv b .dh-cv-d { color: var(--fg-muted); }
+.dh-sub { font-size: 12.5px; line-height: 1.4; color: var(--fg-muted); white-space: nowrap; }
+.dh-rail { min-width: 0; }
+.dh-act { display: grid; gap: .45rem; justify-items: end; }
+/* 「다음 미해결」은 **앵커**다. 스크롤 위치 추적이나 목록 필터가 아니라 `#item-N` 으로
+   뛰는 링크라, 이 화면의 `fetch` 자리를 하나도 안 늘린다(의뢰서 §5-2). 테두리까지 폭에 넣는다 —
+   좁은 화면에서 `width: 100%` 를 받으면 안쪽 여백과 테두리만큼 헤더 상자 밖으로 넘쳤다(375 실측). */
+.dh-next { box-sizing: border-box; border: var(--border-width) solid var(--border);
+           background: var(--accent-2); color: var(--ink); box-shadow: var(--offset);
+           text-decoration: none; padding: .4rem .85rem; font-weight: 700; font-size: 15px;
+           line-height: 1.2; white-space: nowrap; }
+
+/* ─── 항목 레일 — 칸 하나가 항목 하나 ────────────────────────────────────────
+ * 수렴을 숫자로만 말하면 「아직 안 닫힌 항목으로 가는 길」이 화면에 없다(의뢰서 §6-1).
+ * 항목 8개에 판정 12건이 붙은 문서에서 실제로 그랬다. 칸 안에 「n · 상태」 글을 적는다 —
+ * 색만으로 상태를 말하지 않는다(시안 4절). 칸이 많으면 다음 줄로 넘어간다.
+ *
+ * 색은 `review-data` 가 항목마다 실어 보낸 `state` 를 **칠하기만** 한다. 도출 규칙을
+ * 여기서 다시 쓰면 화면이 보드·validate 와 다른 말을 한다(SKILL.md 5.8 마지막 줄). */
+.rail { display: flex; flex-wrap: wrap; gap: .4rem; }
+.rail-c { flex: 1 1 5.5rem; min-width: 0; max-width: 12rem; height: 34px; box-sizing: border-box;
+          display: block; padding: 0 .55rem;
+          border: var(--border-width) solid var(--border);
+          background: var(--bg-elevated); color: var(--fg); text-decoration: none;
+          font-size: 12.5px; font-weight: 700; line-height: 30px; white-space: nowrap;
+          overflow: hidden; text-overflow: ellipsis; }
+.rail-c b { font-family: var(--font-mono); font-size: 13px; }
+/* 상태 5색 — 레일 칸이 쓴다. 기하는 `.rail-c` 가 지고 색만 여기서 준다. 항목 번호 칸은 KAN-023 S2(시안 `Review`)부터
+   무색이고 항목 상태는 칩이 말한다 — 레일과 항목이 같은 항목을 다른 색으로 말할 일이 없다. */
+.st-approved { background: var(--ok); color: var(--cream); }
+.st-rejected { background: var(--danger); color: var(--cream); }
+.st-noted    { background: var(--accent-3); color: var(--ink); }
+.st-open     { background: var(--bg-sunken); color: var(--fg); }
+/* 철회는 분모에서 빠진다 — 빈 판 + 취소선이라 색 다섯 중 어느 것도 안 쓴다. */
+.st-retired  { background: var(--bg-elevated); color: var(--fg-subtle);
+               text-decoration: line-through; }
+/* 헤더의 「다음 미해결」이 가리키는 칸 — 칸 밑 4px 잉크 밑줄(시안 Review). 오프셋 그림자는 그
+   칸을 「조작 중인 상자」로 읽히게 해서 버렸다. **스크롤 위치를 좇지 않는다** — 레일은 앵커
+   장치라 그 자리를 안 늘린다. 그래서 「지금」을 버튼과 같은 칸으로 두고, 둘이 늘 같은 항목을
+   가리키게 한다. */
+.rail-cur { box-shadow: inset 0 -4px 0 var(--fg); }
+/* 도착 — 「다음 미해결」 · 레일로 간 항목에 잉크 링이 한 번 퍼졌다 사라진다(공용 `kb-arrive`).
+   CSS(`:target`)만이라 스크립트가 없는 정적 · 승계됨 문서에서도 돈다. 그 칸 밑 4px 막대는 항목마다
+   선택자가 달라 렌더러가 문서마다 적는다(report.py `arrive_css`). 다른 항목에 도착했으면 「다음
+   미해결」 칸의 밑줄은 내린다 — 「지금 여기」는 한 칸이다. 움직임 줄이기면 링은 꺼지고 막대만 남는다. */
+#rv-list > li:target { animation: kb-arrive var(--t-arrive) var(--ease-out) 1; }
+body:has(#rv-list > li:target) .rail-cur { box-shadow: none; }
+
+/* ─── 접기 — 「여기 더 있다」의 단일 신호는 --bg-sunken 하나다 ───────────────
+ * 접힌 조각의 바탕을 하나로 고정하면 훑는 눈이 그 색만 배우면 된다. 여는 줄에 개수를
+ * 적는 것은 §4.5-2 의 「접기 안에만 있으면 없는 것과 같다」를 접힌 채로 지키기 위해서다.
+ * 0건이면 애초에 안 그린다(§4.5-1) — 그 판단은 렌더러가 한다. */
+details { margin: .7rem 0; }
+details > summary { cursor: pointer; list-style: none;
+                    background: var(--bg-sunken);
+                    border: var(--border-width) solid var(--border);
+                    padding: .4rem .8rem; font-family: var(--font-mono);
+                    font-size: 13px; font-weight: 600; }
+details > summary::-webkit-details-marker { display: none; }
+details > summary::before { content: "\25B8\00a0"; }
+details[open] > summary::before { content: "\25BE\00a0"; }
+.fold-n { float: right; color: var(--fg-subtle); font-weight: 400; }
+
+/* h2 오른쪽에 집계를 다는 자리. 아래 잉크선은 h2 규칙이 그대로 준다. */
+.h2-row { display: flex; justify-content: space-between; align-items: baseline;
+          gap: 1rem; flex-wrap: wrap; }
+
+
+/* ─── 항목 하나 — 띠마다 이름을 달고, 이름 칸 오른쪽 5px 가 그 자리의 색이다 ─────────
+ * 옛 판은 승계 블록 · 상세 접기 · 판정 이력 · 의견 · 조작줄이 세로로 쌓이기만 했고,
+ * 위계는 들여쓰기와 왼쪽 띠 색으로만 있었다. 스크롤하면 지금 보는 것이 누구의 무엇인지가
+ * 흐려진다(의뢰서 §6-2). 왼쪽 76px 칸에 띠 이름을 달면 그 위계가 **읽히는 이름**을 갖는다.
+ *
+ * **띠 순서는 승계 → 보기 → 정할 것 → 판정 → 의견 → 배경이다**(KAN-021 S10, 시안 4절). 보기는
+ * 있을 때만 맨 위(그림 240px 안팎), 판정 띠가 판정 단추 · 「추가 의견 달기」 · 짧은 판정 이력을
+ * 함께 진다(따로 있던 「조작」 띠를 합쳤다). 배경은 판정 이력이 없으면 펼치고 생기면 접는다.
+ *
+ * 이름 칸은 본문 열 **밖**이다(grid 2열). 음수 마진으로 밀면 `pre`·표의 본문 폭이 그만큼
+ * 줄어 좁은 열에서 가로 스크롤이 하나 더 생긴다 — §5-7 과 싸우는 자리다. 띠 사이는 가는
+ * 칸막이(1.5px `--line-soft`)이고 2px 잉크선은 항목 상자 바깥과 머리 아래에만 남는다(S1 규칙).
+ *
+ * 색 규약은 그대로다 — 승계=핑크 · 근거(보기 · 정할 것 · 배경)=골드 · 조작(판정 띠)=그린. 판정
+ * 이력만 서는 판정 띠(승계됨 · 닫힌 화면)와 의견 띠는 색이 없다(`--bandc` 없음 = 투명). 시안은
+ * 의견 띠에 핑크를 썼지만 핑크 띠는 승계 전용이라 옮기지 않았다(위 역할 주석). */
+#rv-list { list-style: none; padding-left: 0; display: grid; gap: .9rem; margin: .75rem 0 1rem; }
+/* 앵커로 도착한 항목이 붙은 결정 헤더 밑에 숨지 않게 — 도착 링(5px)까지 보이도록 조금 더 띄운다. */
+#rv-list > li { margin: 0; scroll-margin-top: calc(var(--dh-h) + .6rem); }
+/* 항목 상자에는 그림자가 없다 — 그림자는 지금 조작하는 자리(결정 헤더 · 트레이 · 판)에만(시안 Main 1 「그림자는
+   지금 조작하는 자리에만」, KAN-021 S19 대조). 항목 사이는 테와 간격이 가른다. */
+.jd { background: var(--bg-elevated); border: var(--border-width) solid var(--border); }
+/* 띠 이름 · 항목 안 메타는 본문 글꼴이다 — 모노 대문자는 기술 정보 · 명령 · 경로에만(시안 2.4-3). */
+.jd .meta { font-family: var(--font-sans); font-size: 12.5px; letter-spacing: 0; text-transform: none;
+            font-weight: 500; }
+/* 헤더줄은 항목 안에서 sticky — 긴 항목을 스크롤해도 「누구의 무엇」이 위에 남는다.
+   결정 헤더 바로 밑에 서고 그보다 낮은 층이라 겹칠 때 헤더가 이긴다. */
+.jd-head { display: grid; grid-template-columns: auto auto auto minmax(0, 1fr) auto;
+           gap: .3rem .5rem; align-items: center; padding: .55rem .8rem;
+           background: var(--bg-elevated);
+           border-bottom: var(--border-width) solid var(--border);
+           position: sticky; top: var(--dh-h); z-index: 20; }
+/* 머리 배치(KAN-023 S2, 시안 `Review`) — 번호 칸 | 제목, 그 아래 상태 칩(+ 「방금 바뀜」 꼬리표), 그 아래 인용 · 오른쪽 위 「의견 n」.
+   마크업은 납작하게 둔다(번호 · 제목 · 칩 · 수 · 인용 차례) — 화면 스크립트가 `.jd-head > .tag` 뒤에 꼬리표를 붙이고,
+   시험이 머리를 첫 `</div>` 까지로 자른다. 자리는 격자 칸으로만 옮긴다. */
+.jd-head > .jd-num { grid-column: 1; grid-row: 1 / span 2; align-self: start; }
+.jd-head > .jd-title { grid-column: 2 / 5; grid-row: 1; }
+.jd-head > .tag { grid-column: 2; grid-row: 2; justify-self: start; }
+.jd-head > .jd-ctag { grid-column: 3; grid-row: 2; justify-self: start; }
+.jd-head > .meta { grid-column: 5; grid-row: 1; align-self: start; }
+.jd-head > .jd-quote { grid-column: 2 / -1; grid-row: 3; }
+/* 번호 칸은 무색이다 — 상태는 칩과 레일 칸이 말한다(시안 `Review` · `.item__n`). */
+.jd-num { width: 26px; height: 26px; display: grid; place-items: center;
+          border: var(--border-width) solid var(--border); background: var(--bg);
+          font-family: var(--font-mono); font-size: 13px; font-weight: 700; }
+.jd-title { font-size: 17px; font-weight: 700; line-height: 1.35; }
+.jd-head .meta { margin: 0; white-space: nowrap; }
+/* 머리 인용 — 반려 · 추가 의견 항목에 최신 추가 의견의 첫 문장을 원문 그대로(지어낸 요약이 아님).
+   주제 열부터 오른쪽 끝까지 한 줄을 쓴다. 누가 · 언제는 옅은 글로 뒤에 붙는다. */
+.jd-quote { grid-column: 2 / -1; margin: 0; font-size: 13.5px; line-height: 1.5; color: var(--fg); }
+.jd-quote q { quotes: "\300C" "\300D"; font-weight: 600; }
+.jd-who { font-size: 12px; color: var(--fg-subtle); }
+.jd-band { display: grid; grid-template-columns: 76px minmax(0, 1fr);
+           border-top: 1.5px solid var(--line-soft); }
+/* 헤더줄(또는 접힘 줄)이 이미 아래 잉크선을 그렸다 — 첫 띠가 칸막이를 또 그리면 두 겹이 된다. */
+.jd-head + .jd-band, summary + .jd-band { border-top: 0; }
+.jd-g { padding: .75rem 0 .75rem .85rem; font-size: 12px; font-weight: 700; line-height: 1.4;
+        color: var(--fg-muted); border-right: 5px solid var(--bandc, transparent); }
+.jd-body { min-width: 0; padding: .7rem 1rem .75rem; }
+.jd-body > :first-child { margin-top: 0; }
+.jd-body > :last-child { margin-bottom: 0; }
+.jd-band-inh { --bandc: var(--accent-3); }
+.jd-band-ctx { --bandc: var(--accent); }
+/* 판정 띠에 조작이 있을 때(판정할 수 있는 문서)만 그린 띠다. 정적 모드의 질감은 REVIEW_CSS 가 준다. */
+.jd-band-ops { --bandc: var(--accent-2); }
+.jd-band .inh { border-left: 0; margin: 0; }
+/* 「정할 것」 — 무엇을 고르는가 한 줄을 조금 크게, 그 아래 갈래 상자. */
+.jd-band-dec .jd-body > p { margin: 0 0 .5rem; font-size: 15px; font-weight: 600; line-height: 1.5; }
+/* 갈래 상자(KAN-021 S10) — 선택지 표의 행 하나가 상자 하나. 첫 열은 제목, 나머지 열은 머리글을 이름으로
+   단 dt/dd. 추천은 「추천」 칩 + 굵은 테(2px 잉크)이고 나머지는 가는 칸막이 테다. 폭이 모자라면 저절로
+   다음 줄로 내려가고, 40rem 아래에서는 한 열로 쌓는다(아래 좁은 화면 규칙 — 스크립트 없이).
+   **여기(REPORT_STYLE)에 두는 이유**는 정할 것이 `승계됨` 문서에도 보이기 때문이다 — REVIEW_CSS 는
+   판정을 내릴 수 있는 문서에만 실리므로 거기 두면 그 화면에서만 상자가 통째로 무너진다(§5-10). */
+.opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(13rem, 100%), 1fr));
+        gap: .6rem; margin: .1rem 0 0; }
+.opt { min-width: 0; display: flex; flex-direction: column; gap: .35rem; padding: .6rem .75rem;
+       border: 1.5px solid var(--line-soft); background: var(--bg); }
+.opt-rec { border: var(--border-width) solid var(--border); background: var(--bg-elevated); }
+.opt-t { margin: 0; font-size: 14px; font-weight: 700; line-height: 1.45; overflow-wrap: anywhere; }
+.opt-chip { margin-right: .15rem; font-family: var(--font-sans); font-weight: 600; background: transparent;
+            color: var(--fg-muted); }
+.opt dl { display: grid; grid-template-columns: fit-content(6.5em) minmax(0, 1fr); gap: .2rem .6rem;
+          margin: 0; font-size: 13px; line-height: 1.5; }
+.opt dt { color: var(--fg-subtle); font-weight: 600; }
+.opt dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+/* 「배경」 — 판정 이력이 없으면 펼치고 생기면 접는 띠(`<details>`). 여는 줄이 이름 칸과 같은 두 열이고,
+   머리 문단(없으면 첫 사실) · 「사실 n줄 · 원문 m곳」 · 접은 까닭을 적는다. 머리 문단은 펼치면 바로 아래
+   본문에 있으므로 펼친 동안 숨긴다. 전역 접기 모양(가라앉은 바탕 · 모노 · 테)은 여기서 끈다 — 띠는 접힘
+   단추가 아니라 항목의 한 칸이다. */
+details.jd-band-bg { display: block; margin: 0; }
+.jd-band-bg > summary { display: grid; grid-template-columns: 76px minmax(0, 1fr); min-height: 44px;
+                        padding: 0; background: none; border: 0; font-family: var(--font-sans);
+                        font-size: 13.5px; font-weight: 500; }
+/* 전역 표식(▸ · ▾)을 끈다. 펼친 쪽 전역 규칙(`details[open] > summary::before`)이 특이도가 더 높아
+   `[open]` 까지 함께 적는다 — 안 적으면 펼칠 때만 표식이 grid 칸 하나를 차지해 여는 줄이 무너진다. */
+.jd-band-bg > summary::before, .jd-band-bg[open] > summary::before { content: none; }
+.jd-band-bg > summary:hover { background: var(--bg-sunken); }
+.jd-sum { display: flex; align-items: center; gap: .5rem; min-width: 0; padding: .35rem 1rem; }
+.jd-sum::before { content: "\25B8"; flex: none; font-size: 11px; color: var(--fg-subtle); }
+.jd-band-bg[open] .jd-sum::before { content: "\25BE"; }
+.jd-sum-lead { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.jd-band-bg[open] .jd-sum-lead { display: none; }
+.jd-sum-n { flex: none; font-size: 12.5px; color: var(--fg-subtle); }
+.jd-band-bg > .jd-body { padding: 0 1rem .85rem calc(76px + 1rem); }
+/* 「배경」의 사실 목록 — 사실 하나가 한 칸이다. 칸 사이 가는 선은 사실의 경계를 눈으로 가르는
+   자리다(줄글에서 사라지던 것). */
+.jd-facts { list-style: none; margin: 0; padding: 0; }
+.jd-facts > li { padding: .4rem 0; border-top: 1px solid var(--bg-sunken); font-size: 14.5px; line-height: 1.6; }
+.jd-facts > li:first-child { border-top: 0; padding-top: 0; }
+.jd-facts > li::before { content: "·"; font-weight: 700; margin-right: .45rem; color: var(--fg-subtle); }
+/* 출처는 배경 끝의 「원문 자리 n곳」 접힘 하나에 모인다 — 사실을 먼저 훑고 근거는 확인할 때만 연다. */
+details.jd-srcs { margin: .55rem 0 0; }
+.jd-srcs > summary { display: inline-block; padding: .15rem .1rem; background: none; border: 0;
+                     font-family: var(--font-sans); font-size: 13px; font-weight: 600; color: var(--fg-muted); }
+.jd-src { display: block; padding: .1rem 0 .1rem 1.1rem; font-family: var(--font-mono);
+          font-size: 12px; color: var(--fg-subtle); overflow-wrap: anywhere; }
+/* 보기가 「없음」이라 띠를 안 그린 항목 — 그 이유 한 줄은 배경 끝에 남는다(지우지 않는다). */
+.jd-view-none { margin: .6rem 0 0; font-size: 13px; color: var(--fg-muted); }
+/* 「쓸 수 있다는 사실까지가 인터페이스」(§4.5-3) — 0건 자리는 비우지 않고 점선으로 낸다.
+   점선을 쓰는 것은 이 자리가 상태가 아니라 **빈 자리**이기 때문이다. */
+/* 「보기」 — 항목 맨 위, 있을 때만(KAN-026 시안 `Review` · `Review375` · `ReviewDark`, README 4~7절).
+   토큰은 새로 안 만든다. **여기(REPORT_STYLE)에 두는 이유**는 보기 띠가 `승계됨` 문서 · 닫은 뒤 화면에도
+   서기 때문이다 — 두 화면에는 REVIEW_CSS 도 스크립트도 없으므로 크기 맞추기를 CSS 만으로 한다.
+   종류 칩은 항목마다 하나, 이름 칸 「보기」 아래(좁은 화면에서는 옆)에 선다. */
+.jd-band-view > .jd-g { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+.jd-kind { background: var(--bg-elevated); color: var(--fg); font-weight: 700; white-space: nowrap; }
+.jd-view-why { margin: 0 0 .5rem; font-size: 13px; color: var(--fg-muted); }
+/* 미리보기 줄 — 그림을 **높이 240 에 맞춰 통째로** 줄여 줄지어 세우고, 넓이가 차면 다음 줄로 간다. 결과물
+   비교(`.jd-figs-cmp`)도 같은 줄이다 — 높이가 같아 나란히 읽힌다. 그림은 높이 240px(정할 것 3) — 세로
+   스크린샷을 폭에 맞추면 항목이 끝없이 길어지고 판정 단추가 첫 화면 밖으로 밀린다. */
+.jd-figs { display: flex; flex-wrap: wrap; gap: 16px 18px; align-items: flex-start; }
+/* 그림 하나 = 미리보기 + 캡션. 폭은 미리보기가 정한다(캡션은 그 폭에서 감긴다 — `width: 0` 으로 폭 계산에서
+   빠지고 `min-width: 100%` 로 그 폭을 다 쓴다). 아주 좁은 세로 그림도 캡션이 한 글자씩 감기지 않게 최소 폭을 둔다. */
+.jd-fig { display: flex; flex-direction: column; gap: 6px; margin: 0; min-width: min(12rem, 100%);
+          max-width: 100%; }
+/* 미리보기 테 2px 는 화면의 `--border` 다 — 다크에서는 크림이라 밝은 PNG 바탕과 이어져 한 장의 카드로 보인다
+   (시안 6절). PNG 는 밝은 그대로 두고 필터로 어둡게 하지 않는다. 그림 뒤 바탕은 테마를 안 따르는 크림 원시값이다
+   (그림이 모자란 자리 — 원시값을 일부러 고정하는 자리). 파랑은 그림 안의 표시에만 있다(기획 A1). */
+.jd-pv { position: relative; align-self: flex-start; max-width: 100%; box-sizing: border-box;
+         overflow: hidden; border: var(--border-width) solid var(--border); background: var(--cream); }
+.jd-pv-o, .jd-pv picture { display: block; }
+.jd-fig img, .jd-fig video { display: block; height: 240px; width: auto; max-width: 100%;
+                             object-fit: contain; }
+.jd-fig figcaption { width: 0; min-width: 100%; font-size: 13px; line-height: 1.55; color: var(--fg-muted); }
+/* 짝 그림 전체를 여는 덮개 링크와 「아래로 이어짐」 띠 — 좁은 화면에서만 선다(아래 40rem 규칙). */
+.jd-pv-n { display: none; }
+.jd-empty { border: 2px dashed var(--fg-subtle); color: var(--fg-subtle);
+            padding: .45rem .7rem; margin: 0; font-size: 14px; }
+/* 판정 띠의 짧은 판정 이력 — 「판정 이력 · 1회차 반려 유저 · 11-12」 한 줄(시안 4절). 왕복은 다 싣는다.
+   조작이 위에 있으면 가는 칸막이로 가른다. 빈 이력은 점선 상자가 아니라 같은 줄의 글이다. */
+.jd-hist { display: flex; flex-wrap: wrap; align-items: baseline; gap: .15rem .8rem; margin: 0;
+           font-size: 12.5px; line-height: 1.6; color: var(--fg-muted); }
+.rv-ops + .jd-hist { margin-top: .6rem; padding-top: .45rem; border-top: 1.5px solid var(--line-soft); }
+.jd-hist-l { font-weight: 700; }
+.jd-hist .jd-empty { border: 0; padding: 0; font-size: inherit; }
+.jd-vs, .jd-ns { list-style: none; margin: 0; padding: 0; }
+.jd-vs { display: flex; flex-wrap: wrap; gap: .15rem .9rem; }
+.jd-vs > li { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: .1rem .4rem; margin: 0; }
+.jd-vs > li > .meta { font-size: inherit; color: var(--fg-muted); }
+.jd-vs > li > .meta:first-child { font-weight: 700; color: var(--fg); }
+.jd-vs .tag { font-size: 11.5px; }
+.jd-vtext { color: var(--fg); }
+.jd-vs > li .meta, .jd-ns > li .meta { margin: 0; }
+.jd-ns { display: grid; gap: .3rem; }
+.jd-ns > li { margin: 0; border-left: 5px solid var(--accent); padding: .2rem 0 .2rem .7rem;
+              font-size: 14.5px; line-height: 1.6; }
+/* 이전 의견 접힘(KAN-023 S3, 시안 `Review` 의견 띠) — 펴 둔 최신 의견 아래 작은 글 한 줄. 띠 안의 접힘이라 전역 접기의 바탕 ·
+   테는 끈다. 모양은 시안대로(S9, 검토 항목 1) — 위에 가는 줄 하나로 최신 의견과 가르고(시안 `.note` 아래 테), 「누가 · 언제」는
+   줄 오른쪽 끝(`.sum-meta`), 펴면 지난 의견이 왼쪽 띠 없이 들여 선다(`.fold__body`). 띠는 펴 둔 의견만의 표시다. */
+.jd-ns-old { margin: .35rem 0 0; padding-top: .2rem; border-top: 1.5px solid var(--line-soft); }
+.jd-ns-old > summary { display: flex; flex-wrap: wrap; align-items: center; gap: 0 .5rem; min-height: 30px; padding: 0;
+                       background: none; border: 0; font-family: var(--font-sans); font-size: 13px; font-weight: 600; }
+.jd-ns-old > summary > .meta { margin: 0 0 0 auto; font-size: 12px; font-weight: 500; color: var(--fg-subtle); }
+.jd-ns-prev { margin-top: .3rem; padding-left: 17px; }
+.jd-ns-prev > li { font-size: 13px; border-left: 0; padding-left: 0; }
+
+/* ─── 닫힌 항목은 한 줄로 접힌다 ──────────────────────────────────────────────
+ * §4.5-1 의 「0건이면 안 그린다」를 「**닫혔으면 안 펼친다**」로 연장한 것이다. 판정이 난
+ * 항목은 다시 읽을 자리가 아니라 「이건 끝났다」만 확인하는 자리라, 번호·주제·상태·판정
+ * 수 한 줄이면 그 확인이 끝난다. 항목 8 · 판정 12 짜리 문서가 한 판에 들어오는 것이
+ * 이 규칙의 값이다(의뢰서 §6-1).
+ *
+ * **접되 지우지 않는다** — 펴면 열린 항목과 한 글자도 다르지 않은 내용이 나온다.
+ * 줄 바탕은 열린 항목 머리와 같은 흰 바탕이다(KAN-023 S4, 시안 `ReviewSaved` 닫힌 항목) — 전역 접기의 가라앉은 바탕을 덮는다. */
+.jd-fold > summary { display: grid;
+                     grid-template-columns: auto auto auto minmax(0, 1fr) auto auto;
+                     gap: .5rem; align-items: center; font-family: var(--font-sans);
+                     font-size: 15px; font-weight: 400; border: 0; background: var(--bg-elevated);
+                     border-bottom: var(--border-width) solid var(--border); }
+/* 전역 접기 표식(▸)을 여기서는 끈다 — grid 컨테이너 안의 `::before` 는 칸 하나를 차지해
+   네 칸짜리 줄을 통째로 밀어낸다. 대신 오른쪽 끝의 「펴기/접기」가 같은 말을 한다. */
+.jd-fold > summary::before, .jd-fold[open] > summary::before { content: none; }
+/* 닫힌 줄 배치(KAN-023 S2, 시안 `Review` · `.item--closed`) — 번호 · 칩 · (꼬리표) · 제목 · 「누가 · 언제」 · 펴기. 머리와 같은
+   마크업(번호 · 제목 · 칩 · 수)을 격자 칸으로 다시 놓는다. 제목은 한 줄로 줄인다. 줄은 1 로 못 박는다 — 칸만 주면
+   격자가 마크업 차례(제목 4 칸 뒤에 칩 2 칸)대로 놓다가 앞 칸으로 돌아가려고 줄을 내려, 칩이 둘째 줄로 갔다. */
+.jd-fold > summary > * { grid-row: 1; }
+.jd-fold > summary > .jd-num { grid-column: 1; }
+.jd-fold > summary > .tag { grid-column: 2; }
+.jd-fold > summary > .jd-ctag { grid-column: 3; }
+.jd-fold > summary > .jd-title { grid-column: 4; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+                                 font-size: 14.5px; color: var(--fg-muted); }
+.jd-fold > summary > .meta { grid-column: 5; }
+.jd-fold > summary > .jd-tog { grid-column: 6; }
+.jd-tog::after { content: "펴기"; }
+.jd-fold[open] .jd-tog::after { content: "접기"; }
+/* 접힌 항목은 정말 한 줄이다 — 전역 `details` 바깥 여백(.7rem)이 머리 위아래에 빈 띠를 남기고, 머리 밑줄이 항목 테와
+   겹쳐 두 줄로 보였다(KAN-021 S19 대조, 시안 Review · ReviewSaved). 펴면 머리 밑줄이 몸과 가른다. */
+.jd-fold { margin: 0; }
+.jd-fold:not([open]) > summary { border-bottom: 0; }
+
+/* ─── 검토 아랫부분 — 닫은 뒤 판 · 문서 판정 판 · 근거 칸 셋(KAN-021 S11, 시안 Review · ReviewSaved ·
+ * ReviewClosed · ReviewFileDoc) ───────────────────────────────────────────────────────────
+ * **여기(REPORT_STYLE)에 두는 이유**는 결정 헤더와 같다. 「문서가 승인되었습니다」 판과 「이 검토 화면을
+ * 닫았습니다」 판은 닫힌 마지막 화면에 서고, 근거 칸 셋은 승계됨 문서에도 선다 — 그 두 화면에는 REVIEW_CSS
+ * 가 안 실린다. 판 안의 조작(「문서 전체 승인」 단추)과 「전체 반려」 줄 · 새 항목 폼은 판정할 수 있는 문서에만
+ * 있으므로 REVIEW_CSS 가 진다. */
+/* 닫은 뒤 마지막 화면의 판 — 결정 헤더 바로 아래, 맨 위(motion.md 닫기 항목 kb-rise — 단추 이름은 「제출」). */
+.rv-closed { margin: .9rem 0 0; padding: .75rem 1rem; border: var(--border-width) solid var(--border);
+             background: var(--bg-elevated); font-size: 13.5px; line-height: 1.6;
+             animation: kb-rise var(--t-move) var(--ease-out) 1 both; }
+.rv-closed b { font-weight: 700; }
+/* 문서 전체 판정 판 — 살아 있는 항목이 모두 승인이고 문서가 아직일 때(초록 + 「문서 전체 승인」), 문서가 이미
+   승인됐을 때(상태 판). 그 밖에는 렌더러가 판을 안 그린다. 초록 바탕은 두 테마에서 같은 값이라 글도 잉크로
+   고정한다(`.dh-next` 와 같은 짝). 섬은 한 번 튀어 오른다(motion.md 「문서 전체 승인이 섬」 ease-snap). */
+.rv-allok { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1rem; margin: .9rem 0 0;
+            padding: .85rem 1rem; border: 3px solid var(--border); background: var(--accent-2);
+            color: var(--ink); box-shadow: var(--offset-lg);
+            animation: kb-rise var(--t-move) var(--ease-snap) 1 both; }
+.rv-allok-text { flex: 1 1 24rem; min-width: 0; }
+.rv-allok h3 { margin: 0; font-size: 17px; line-height: 1.35; color: var(--ink); }
+.rv-allok p { margin: .2rem 0 0; font-size: 13.5px; line-height: 1.55; color: var(--ink); }
+/* 세션에 보낼 문장 — 허브 「판정 처리」 단추가 보내는 원문 그대로. 따로 한 줄이라 그대로 골라 옮긴다. */
+.rv-allok .rv-allok-say { margin-top: .4rem; font-size: 14.5px; font-weight: 700; overflow-wrap: anywhere; }
+.rv-allok-act { display: flex; align-items: center; gap: .5rem; }
+.rv-allok .rv-btn { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+.rv-allok .rv-btn:hover { background: var(--ink-hover); }
+
+/* 「무엇을 바꿨고 무엇으로 확인했나」 — 칸 셋(검증 기준 n줄 · 실행 결과 첨부 n줄 + 마지막 줄 원문 · 바뀐 크기)이
+   접힘의 여는 줄 안에 있다. 칸을 누르면 펼친다(스크립트 없이). 칸 안 수는 형식만 센 것이고, 원문은 펼침
+   안에 있다. 전역 접기 모양(가라앉은 바탕 · 모노 · 테)은 여기서 끈다 — 여는 줄이 단추가 아니라 칸 셋이다. */
+/* 부제 끝 링크로 도착하면 붙은 결정 헤더 밑에 절 머리가 숨지 않게 띄운다(항목 앵커와 같은 토큰). */
+.ev { margin: 2.2rem 0 0; scroll-margin-top: calc(var(--dh-h) + .6rem); }
+.ev > h2 { margin: 0 0 .6rem; padding: .75rem 0 0; font-size: 20px; line-height: 1.3;
+           border-bottom: 0; border-top: 3px solid var(--border); }
+details.ev-fold { margin: 0; }
+.ev-fold > summary { display: block; padding: 0; background: none; border: 0;
+                     font-family: var(--font-sans); font-size: 14px; font-weight: 400; }
+.ev-fold > summary::before, .ev-fold[open] > summary::before { content: none; }
+.evid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .6rem; }
+.evid-cell { display: flex; flex-direction: column; gap: .2rem; min-width: 0; padding: .6rem .75rem;
+             border: 1.5px solid var(--line-soft); background: var(--bg-elevated); }
+.ev-fold > summary:hover .evid-cell { border-color: var(--border); }
+.evid-l { font-size: 12px; font-weight: 700; line-height: 1.4; color: var(--fg-muted); }
+.evid-big { font-size: 22px; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.evid-sub { font-size: 12.5px; line-height: 1.5; color: var(--fg-muted); }
+/* 마지막 줄 원문 — 칸 안에서는 세 줄까지, 넘치면 말줄임(전문은 펼침 안 「실행 결과」). */
+.evid-last { font-size: 12.5px; line-height: 1.5; color: var(--fg-muted); overflow-wrap: anywhere;
+             display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.ev-more { display: flex; flex-wrap: wrap; align-items: center; gap: .2rem .6rem; min-height: 40px;
+           margin-top: .6rem; padding: 0 .75rem; border-top: 1.5px solid var(--line-soft);
+           font-size: 14px; font-weight: 600; }
+.ev-more::before { content: "\25B8"; font-size: 11px; color: var(--fg-subtle); }
+.ev-fold[open] .ev-more::before { content: "\25BE"; }
+.ev-tog::after { content: "펼치기"; }
+.ev-fold[open] .ev-tog::after { content: "접기"; }
+.ev-meta { margin-left: auto; font-size: 12px; font-weight: 500; color: var(--fg-subtle); }
+.ev-fold > summary:hover .ev-more { background: var(--bg-sunken); }
+.ev-body { padding: .2rem 0 .4rem; }
+.ev-part h3 { margin: 1.1rem 0 .4rem; font-size: 15px; }
+.ev-n { margin-left: .4rem; font-size: 12.5px; font-weight: 500; color: var(--fg-subtle); }
+/* 실행 결과는 제 상자 안에서 가로로 민다 — 문서 폭을 밀지 않는다(375 넘침 0). */
+.ev-run { margin: 0; max-width: 100%; font-size: 12px; line-height: 1.6; white-space: pre; overflow-x: auto; }
+
+@media (max-width: 40rem) {
+  h1 { font-size: 30px; } h2 { font-size: 24px; }
+  body { padding: 1.5rem .75rem 3rem; }
+
+  /* ─── 40rem 이하 — 375px 에서 실제로 판정할 수 있는가 ──────────────────────
+   * **sticky 를 끈다.** 결정 헤더는 이 폭에서 세로로 쌓여 150px 안팎이고(수렴 · 레일 · 「다음
+   * 미해결」 세 줄), 그 밑에 항목 머리줄(긴 주제 · 머리 인용)이 또 180px 안팎으로 붙는다 — 둘을 붙여
+   * 두면 812px 뷰포트의 40% 가 고정되어 판정할 것이 절반 남짓만 남는다(KAN-019.19 375×812 실측 149px ·
+   * 184px, KAN-021 S14. 옛 헤더는 400px 을 넘었다). `--dh-h` 를 0 으로 덮으면 `top` 과
+   * `scroll-margin-top` 이 함께 따라온다 — 토큰 하나로 묶어 둔 값이 여기서 값을 한다. */
+  :root { --dh-h: 0rem; }
+  .dh { grid-template-columns: minmax(0, 1fr); gap: .6rem; position: static; }
+  .dh-sub { white-space: normal; }
+  /* 「다음 미해결」만 손가락 폭으로 늘린다 — 헤더 상자 안에서(`box-sizing` 은 위 규칙). */
+  .dh-act { justify-items: stretch; }
+  .dh-next { display: grid; place-items: center; min-height: 44px; text-align: center;
+             width: 100%; }
+  .jd-head { position: static; }
+
+  /* 레일 칸은 「n · 상태」 글이 들어가는 폭으로 줄바꿈한다. */
+  .rail-c { flex-basis: 4.75rem; height: 32px; line-height: 28px; }
+
+  /* 윗줄 — 경로는 「‹ <레포> 보드」 하나로 줄인다(시안 `Review375`). 카드 이름은 바로 아래 제목이 같은 말이고,
+     「검토」는 부제 첫 낱말이 말한다 — 지우는 것이 아니라 이 폭에서만 접는다. 그러면 경로 · 모드가 한 줄,
+     쓰는 사람 · 「이 화면 쓰는 법」이 다음 한 줄이다. 「이 화면 쓰는 법」은 겹쳐 열지 않고 그 자리에서 아래로
+     펼친다 — 오른쪽에 붙여 겹치면 줄이 바뀐 단추 밑에서 화면 왼쪽 밖으로 나간다. */
+  .crumbs > :not(:first-child) { display: none; }
+  .crumbs > :first-child::before { content: "\2039\00a0"; }
+  .crumbs a { display: inline-flex; align-items: center; min-height: 44px; }
+  .rv-top .howto > summary, .rv-btn { min-height: 44px; }
+  .howto[open] { flex: 1 1 100%; }
+  .howto-body { position: static; width: auto; margin-top: .4rem; }
+  .rv-title h1 { font-size: 22px; }
+  /* 「⋯」 메뉴(KAN-023 S1) — 경로 · 모드 · 「⋯」 한 줄. 쓰는 사람 · 「이 화면 쓰는 법」 · 계획 리포트는 메뉴 안이고, 긴 제목과
+     부제 뒤쪽(칸 · 문서 상태 · 근거 앵커)은 이 폭에서만 접는다. 부제는 「검토 요청 · 날짜 · 항목 n」 한 줄이다. */
+  .rv-more-b { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px;
+               border: var(--border-width) solid var(--border); background: var(--bg-elevated);
+               font-size: 18px; font-weight: 700; line-height: 1; cursor: pointer; }
+  .rv-more-t:checked + .rv-more-b { background: var(--bg-sunken); }
+  .rv-more-t:focus-visible + .rv-more-b { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .rv-more { display: none; }
+  .rv-more-t:checked ~ .rv-more { display: flex; flex-direction: column; align-items: flex-start; gap: .4rem;
+                                  flex: 1 1 100%; padding: .2rem 0 .1rem; }
+  .rv-plan-m { display: inline-flex; }
+  .rv-title > .rv-btn, .rv-long, .rv-sub-rest, .crumb-proj { display: none; }
+
+  /* **이름 칸이 사라지고 띠 이름이 머리글로 올라간다**(시안 `Review375`). 76px 을 유지하면 본문 열이
+     눌려 `pre` 와 상자가 저마다 가로 스크롤을 하나씩 더 만든다 — §5-7 이 막으려는 것이 바로 그
+     상태다. 이름은 위로 올라가고, 띠 색은 이름 앞 12×5px 막대가 진다(사라지지 않는다). */
+  .jd-band { grid-template-columns: minmax(0, 1fr); }
+  .jd-g { display: flex; align-items: center; gap: 6px; padding: .6rem .75rem 0; border-right: 0; }
+  .jd-g::before { content: ""; flex: none; width: 12px; height: 5px; background: var(--bandc, transparent); }
+  .jd-body { padding: .4rem .75rem .65rem; }
+  .jd-band-bg > summary { grid-template-columns: auto minmax(0, 1fr); }
+  .jd-band-bg > summary .jd-g { padding-bottom: .6rem; }
+  .jd-sum { padding: .35rem .75rem .35rem .25rem; }
+  .jd-band-bg > .jd-body { padding: 0 .75rem .7rem; }
+  /* 「원문 자리 n곳」 접힘도 누를 자리다 — 44px(KAN-021 S14). 글 줄 높이는 그대로 두고 여는 줄만 키운다. */
+  .jd-srcs > summary { display: inline-flex; align-items: center; min-height: 44px; }
+  /* 갈래 상자는 한 열로 쌓는다 — 정적 문서라 스크립트 없이 CSS 한 줄로(시안 `Review375`). 상자 안
+     이름|값 두 열은 그대로 둔다 — 값이 한 줄 아래로 내려가면 갈래 하나가 화면 절반을 먹는다. */
+  .opts { grid-template-columns: minmax(0, 1fr); }
+  .opt-t { font-size: 13.5px; }
+  /* 헤더줄·접힘 줄도 두 열로 접는다 — 번호|주제 / 상태|개수 / 인용 / 펴기. */
+  /* 375 머리(KAN-023 S2, 시안 `Review375`) — 번호 · 칩 · (꼬리표) · 오른쪽 「의견 n」이 한 줄, 그 아래 제목, 그 아래 인용. */
+  .jd-head, .jd-fold > summary { grid-template-columns: auto auto auto minmax(0, 1fr) auto; row-gap: .3rem; }
+  .jd-head > .jd-num, .jd-fold > summary > .jd-num { grid-row: 1; }
+  .jd-head > .tag, .jd-fold > summary > .tag { grid-column: 2; grid-row: 1; }
+  .jd-head > .jd-ctag, .jd-fold > summary > .jd-ctag { grid-column: 3; grid-row: 1; }
+  .jd-head > .meta, .jd-fold > summary > .meta { grid-column: 5; grid-row: 1; justify-self: end; }
+  .jd-head > .jd-title, .jd-fold > summary > .jd-title { grid-column: 1 / -1; grid-row: 2; }
+  .jd-head > .jd-quote { grid-column: 1 / -1; grid-row: 3; }
+  .jd-fold > summary > .jd-tog { grid-column: 1 / -1; grid-row: 3; justify-self: start; }
+  .jd-ns-old > summary { min-height: 44px; }
+
+  /* 근거 칸 셋은 한 열로 쌓고(시안 `Review375` 규칙), 판 안의 글과 단추도 세로로. */
+  .evid { grid-template-columns: minmax(0, 1fr); }
+  .ev-meta { margin-left: 0; }
+  /* 펼침 안의 접힘(커밋 · 롤백 태그 · 기술 정보 · 문서 판정 이력)도 여는 줄이 44px 이다. */
+  .ev-body > details > summary { padding-top: .6rem; padding-bottom: .6rem; }
+  .rv-allok { flex-direction: column; align-items: stretch; }
+  .rv-allok-text { flex-basis: auto; }
+  .rv-allok .rv-btn { min-height: 44px; justify-content: center; }
+
+  /* 「보기」(KAN-026 시안 `Review375`) — 종류 칩은 「보기」 옆, 미리보기는 세로로 쌓여 띠 폭을 다 쓴다. */
+  .jd-band-view > .jd-g { flex-direction: row; align-items: center; gap: 6px; }
+  .jd-figs { flex-direction: column; flex-wrap: nowrap; align-items: stretch; }
+  .jd-fig { width: 100%; }
+  .jd-pv { align-self: stretch; }
+  /* 짝 그림이 없으면 원본을 지금처럼 띠 폭 · 높이 240 안에(비율은 `contain`). */
+  .jd-fig img, .jd-fig video { width: 100%; height: auto; max-height: 240px; }
+  /* 짝 그림(폭 360, `<picture>` 가 고른다)은 띠 폭에 맞춰 **위에서 300 까지**(테 포함). 더 있으면 잉크 띠가 선다 —
+     띠를 미리보기 위 270px(300 − 테 4 − 띠 26)에 두므로, 그림이 그보다 짧으면 미리보기 밖이라 잘려 안 보인다
+     (스크립트 없이 「넘칠 때만」). 띠는 PNG 위에 놓이므로 테마를 안 따르는 잉크 · 크림 원시값이다. 누르면 짝 그림
+     전체가 열린다(미리보기를 덮는 링크). */
+  .jd-fig-n .jd-pv { max-height: 300px; }
+  .jd-fig-n img { max-height: none; }
+  .jd-pv-n { display: block; position: absolute; inset: 0; }
+  .jd-more { position: absolute; left: 0; right: 0; top: 270px; height: 26px; display: flex;
+             align-items: center; justify-content: center; background: var(--ink); color: var(--cream);
+             font-size: 12px; font-weight: 700; }
+}
+
+/* ─── 움직임 — 세 화면이 함께 쓰는 키프레임 ─────────────────────────────────
+ * 화면 배치에 묶인 것(서랍이 들어옴 · 결과판이 내려옴)은 그 화면의 CSS 가 진다. 시간과
+ * 곡선은 위 움직임 토큰으로만 준다. 되풀이하는 움직임은 없다 — 모두 한 번.
+ *
+ *   kb-trace     「방금 바뀜」 바탕이 한 번 잦아듦(첫 색 `--changed-wash`)
+ *   kb-land      위 6px 에서 내려앉음(새 카드 · 유령)
+ *   kb-arrive    잉크 링 5px 이 퍼졌다 사라짐(「다음 미해결」로 도착)
+ *   kb-snapback  오른쪽 28px 에서 제자리로(완료로 옮기기 거부)
+ *   kb-rise      아래 10px 에서 올라오며 나타남(트레이 · 판 · 375 시트)
+ *   kb-count     숫자가 위에서 새 값으로(수렴 · 칸 숫자) */
+@keyframes kb-trace { 0% { background-color: var(--changed-wash); } 100% { background-color: var(--bg-elevated); } }
+@keyframes kb-land { 0% { transform: translateY(-6px); } 100% { transform: none; } }
+@keyframes kb-arrive { 0% { box-shadow: 0 0 0 0 var(--fg), var(--offset-lg); } 30% { box-shadow: 0 0 0 5px var(--fg); } 100% { box-shadow: 0 0 0 0 transparent; } }
+@keyframes kb-snapback { 0% { transform: translateX(28px); } 100% { transform: none; } }
+@keyframes kb-rise { 0% { transform: translateY(10px); opacity: 0; } 100% { transform: none; opacity: 1; } }
+@keyframes kb-count { 0% { transform: translateY(-40%); opacity: 0; } 100% { transform: none; opacity: 1; } }
+
+/* 움직임 줄이기 — **이 파일 한 곳에만 둔다.** 보드(BOARD_STYLE.css)와 검토(REVIEW_CSS)가 이
+ * 파일을 먼저 싣고 그 위에 얹으므로 여기 하나로 세 화면이 다 꺼진다. `!important` 라 뒤에
+ * 오는 규칙의 전환도 이긴다. Web Animations API(`el.animate`)는 CSS 로 안 꺼지므로 스크립트가
+ * matchMedia 로 따로 막는다. 움직임 대신 남는 표시(바뀐 것의 테 · 「방금 바뀜」 꼬리표 ·
+ * 저장 전 점선)는 그대로 남는다. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto !important; }
+}
+
+body:has(#item-1:target) .rail-c[href="#item-1"],
+body:has(#item-2:target) .rail-c[href="#item-2"],
+body:has(#item-3:target) .rail-c[href="#item-3"],
+body:has(#item-4:target) .rail-c[href="#item-4"] { box-shadow: inset 0 -4px 0 var(--fg); }
+
+/* width:100% 인 폼 요소가 테두리까지 안고 있어야 .row 안에서 줄이 안 터진다.
+   전역에 걸지 않는 것은 기존 .kpi/.card 의 폭 계산을 건드리지 않기 위해서다. */
+input, select, textarea, button { box-sizing: border-box; }
+/* 이 화면은 읽는 문서가 아니라 조작하는 도구다 — 키보드로 짚은 자리가 보여야 한다.
+   잉크 3px(`--focus`) — 골드 바탕(타이틀 · 단추 호버) 위에서도 보인다. */
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+/* .tag 가 display:inline-block 이라 hidden 속성만으로는 안 숨는다. 이 한 줄이 없으면
+   제출 전 꼬리표가 빈 네모로 항상 떠 있다(속성은 걸려 있는데 화면은 그대로인 부류의 버그). */
+[hidden] { display: none !important; }
+button { font-family: inherit; font-size: 14px; color: var(--fg); cursor: pointer;
+         background: var(--bg-elevated); border: var(--border-width) solid var(--border);
+         border-radius: 0; padding: .25rem .7rem; }
+button:hover { background: var(--accent); color: var(--ink); }
+button:disabled { opacity: .45; cursor: not-allowed; }
+input, select, textarea { font-family: inherit; font-size: 14px; color: var(--fg);
+  background: var(--bg-elevated); border: var(--border-width) solid var(--border);
+  border-radius: 0; padding: .25rem .5rem; width: 100%; }
+textarea { line-height: 1.6; resize: vertical; }
+.row { display: flex; gap: .4rem; flex-wrap: wrap; align-items: center; margin: .45rem 0; }
+.row > input, .row > textarea { flex: 1 1 14rem; width: auto; }
+/* 긴 선택지가 상자를 키워 문서 폭까지 민다 — 375px 에서 65px 넘치던 원인이다(KAN-014 실측). */
+.row > select { max-width: 100%; min-width: 0; }
+.row label { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em;
+             text-transform: uppercase; color: var(--fg-subtle); min-width: 3rem; }
+/* ─── 「+ 새 항목 올리기」 — 항목 목록 끝의 접힘(KAN-021 S11, 시안 ReviewExpand) ──────────────────
+ * **조작 자리라 REVIEW_CSS 가 진다** — 판정을 못 내리는 문서(`승계됨` · 닫힌 마지막 화면)에는 이 폼 자체가
+ * 없으므로 규칙도 갈 자리가 없다. 접힌 동안은 조용한 단추 한 줄이고, 펴면 그 자리에서 상자가 열린다(머리
+ * 「새 항목 올리기」 + 오른쪽 「접기」). 칸은 이름 76px | 입력 — 항목 띠의 이름 칸과 같은 폭이다. */
+.rv-add { margin: .6rem 0 0; }
+.rv-add > summary { display: inline-flex; align-items: center; gap: .45rem; min-height: 30px;
+                    padding: 0 .55rem; background: transparent; border: 2px solid transparent;
+                    font-family: var(--font-sans); font-size: 13px; font-weight: 600; }
+.rv-add > summary::before, .rv-add[open] > summary::before { content: none; }
+.rv-add > summary:hover { background: var(--bg-sunken); }
+.rv-add-x { display: none; }
+.rv-add[open] { border: var(--border-width) solid var(--border); background: var(--bg-elevated); }
+.rv-add[open] > summary { display: flex; min-height: 44px; padding: .45rem 1rem; border: 0; }
+.rv-add[open] .rv-add-t { font-size: 15px; font-weight: 700; }
+.rv-add[open] .rv-add-plus { display: none; }
+.rv-add[open] .rv-add-x { display: inline; margin-left: auto; font-size: 13px; font-weight: 600;
+                          color: var(--fg-muted); }
+/* 「그 자리에서 쓴다」 — 단추 자리에서 위부터 드러난다(motion.md 「+ 새 항목 올리기」 펼침). 높이를 보간하지
+   않고 잘라 드러내므로 둘레 배치가 한 번에 자리 잡는다. 움직임 줄이기면 REPORT_STYLE 한 곳이 끈다. */
+.rv-add[open] > .rv-add-body { animation: kb-unfold var(--t-move) var(--ease-out) 1; }
+@keyframes kb-unfold { 0% { clip-path: inset(0 0 100% 0); opacity: 0; } 100% { clip-path: inset(0); opacity: 1; } }
+.rv-add-body { display: grid; gap: .65rem; padding: 0 1rem 1rem; }
+.rv-add-lead { margin: 0; font-size: 12.5px; line-height: 1.6; color: var(--fg-muted); }
+.rv-fld { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: .25rem .6rem; align-items: start;
+          font-size: 13px; }
+.rv-fld > label, .rv-fld-l { padding-top: .45rem; font-size: 12.5px; font-weight: 700; line-height: 1.4;
+                             color: var(--fg-muted); }
+.rv-fld > input, .rv-fld > textarea, .rv-fld > select { min-height: 34px; font-size: 13px; }
+.rv-fld > select { max-width: 100%; min-width: 0; }
+.rv-hint { grid-column: 2; margin: 0; font-size: 12px; line-height: 1.5; color: var(--fg-subtle); }
+.rv-opts-box, #rv-opts { display: grid; gap: .35rem; min-width: 0; }
+.rv-opt-more { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem .6rem; }
+.rv-opt-more > button { background: transparent; border-color: transparent; font-size: 13px; font-weight: 600; }
+.rv-opt-more > button:hover { background: var(--bg-sunken); color: var(--fg); }
+.rv-add-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem;
+               padding-top: .6rem; border-top: 1.5px solid var(--line-soft); }
+#rv-add-go { background: var(--fg); color: var(--bg); font-weight: 700; min-height: 34px; }
+#rv-add-go:hover { background: var(--fg-muted); color: var(--bg); }
+/* 선택지 행 — 세 칸은 표의 세 열과 같은 순서다(선택지 · 대가 · 그러면). 입력 순서와 결과 순서가 어긋나면 적는
+   쪽이 매번 머릿속에서 옮겨 앉혀야 한다. 라디오는 폼 공통 규칙(`width: 100%`)을 안 받는다. */
+.rv-opt { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr) auto;
+          gap: .35rem; align-items: center; }
+.rv-opt .rv-rec { display: flex; align-items: center; gap: .25rem; white-space: nowrap; font-size: 12.5px; }
+.rv-rec input { width: auto; }
+
+/* ─── 문서 전체 판정의 조작 — 초록 판 안 「문서 전체 승인」 · 목록 끝 「전체 반려」(KAN-021 S11) ──────────
+ * 판(`.rv-allok`)은 닫힌 마지막 화면에도 서서 REPORT_STYLE 이 지고, 단추만 여기다. 판이 두 테마에서 같은 색이라
+ * 단추도 잉크 고정이다. 「전체 반려」는 반려 항목이 있을 때만 서는 **조용한** 줄이다 — 승계 경로가 쓰는 자리라
+ * 지우지 않되, 판정 단추보다 무게를 갖지 않는다(시안 `.docjudge`). */
+.rv-allok button { min-height: 40px; padding: 0 1rem; font-weight: 700; background: var(--ink);
+                   color: var(--cream); border-color: var(--ink); }
+.rv-allok button:hover { background: var(--ink-hover); color: var(--cream); }
+.rv-allok .tag-wait { color: var(--ink); border-color: var(--ink); }
+.rv-docjudge { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem .7rem; margin: .6rem 0 0;
+               padding: .3rem .75rem; border: 1.5px dashed var(--line-soft); font-size: 13px; line-height: 1.5;
+               color: var(--fg-muted); }
+.rv-docjudge > span:first-child { flex: 1 1 18rem; min-width: 0; }
+.rv-docjudge button { min-height: 30px; background: transparent; border-color: transparent; font-size: 13px;
+                      font-weight: 600; }
+.rv-docjudge button:hover { background: var(--bg-sunken); color: var(--fg); }
+/* 판정 띠 안의 조작 자리(KAN-021 S10) — 판정 셋 · 짧은 안내 · 「추가 의견 달기」가 한 줄이다(제출 전 꼬리표는 S12 에서
+   항목 상자 위로 옮겼다 — `.jd-ptag`).
+   띠 색(그린)은 이름 칸이 진다(REPORT_STYLE `.jd-band-ops`). 조작 자리는 판정 이력과 눈으로 갈라져야
+   한다 — 안 갈라 두면 지난 판정과 지금 누를 단추가 한 덩어리로 읽힌다. 그래서 이력은 조작 아래 가는
+   칸막이 밑 한 줄이다(REPORT_STYLE `.rv-ops + .jd-hist`). 판정 단추는 폭을 맞춰 셋이 같은 무게로
+   선다(시안 `.btn--verdict`). 「추가 의견 달기」는 줄 오른쪽 접힘이고, 펴면 입력 칸이 그 아래 한 줄을
+   다 쓴다. */
+.rv-ops { margin: 0; }
+/* 고르기(KAN-025) — 판정 셋을 걷은 자리다. 판정 띠에는 안내 한 줄만 남고, 고르는 자리는 바로 위 「정할 것」의
+   갈래 무리다(맨 끝이 「직접 적기」). */
+.jd-judge { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem; }
+.jd-hint { font-size: 12.5px; line-height: 1.4; color: var(--fg-muted); }
+/* 「정할 것」 무리(KAN-025 검토 1회차) — 상자 하나가 고르는 자리 하나다. 상자 아무 데나 누르면 그 갈래가 골리고
+   (label 안의 radio), 맨 끝 「직접 적기」 상자는 글 칸을 품는다. 고른 상자는 테가 점선이 된다 — 제출 전이라는
+   뜻이고 색이 아니라 모양이다. */
+.opts-pick { align-items: stretch; }
+.opts-pick > .opt { cursor: pointer; }
+.opts-pick .opt-t > input[type="radio"] { width: 17px; height: 17px; margin: 0 .35rem 0 0; vertical-align: -3px;
+                                          accent-color: var(--fg); }
+.opts-pick > .opt:has(input:checked) { border-style: dashed; border-color: var(--pending-line); }
+.opt-d { margin: 0; font-size: 13px; line-height: 1.5; color: var(--fg-muted); }
+.opt-own { gap: .45rem; }
+.opt-own textarea { width: 100%; min-height: 3.4em; resize: vertical; font: inherit; font-size: 13.5px; }
+/* h2 의 기본 위 여백 2rem 이 모달 안에서는 상자 위에 빈 띠로 남는다 — 문서에서는 절
+   사이 간격이지만 여기서는 절 사이가 아니다. */
+.modal .box > h2:first-child { margin-top: 0; }
+/* ─── 제출 전 트레이 — 오른쪽 아래, 저장 뒤에는 같은 자리가 결과판(KAN-021 S12, 시안 ReviewPending · ReviewStopped) ──
+ * 화면에 붙어 있어야 한다 — 의견 20개를 스크롤하며 판정하는 동안 「몇 건이 쌓였나」가 문서 맨 아래에 있으면 그것을
+ * 보러 가는 사람이 없다. 보드 트레이와 **같은 규약**이다(BOARD_STYLE `.tray` — 줄마다 「취소」 · 「모두 취소」 · 머리
+ * 「반영 대상」 · 결과판 들어감 · 실패 · 안 보냄). 자리는 시안대로 오른쪽 아래다.
+ *
+ * 테가 점선인 것은 「아직 정본이 아님」을 모양으로 말하는 것이다(아래 제출 전 절과 같은 말). 결과판이 되면 실선이다 —
+ * 들어간 것은 더 이상 제출 전이 아니다. 머리에 색을 깔지 않는다 — 보드 트레이와 같다(골드는 「내 차례」, 그린은 판정
+ * 띠의 이름 칸이 진다). 상태 글은 들어감 `--ok-fg` · 실패 `--danger-fg`(다크에서도 4.5:1, 시안 7절) · 안 보냄은 흐린 글. */
+/* 상자 높이 상한 = 화면 아래 여백(KAN-033 S2 규칙 1). 보드 트레이(BOARD_STYLE.css)와 같은 값 · 같은 변수다 —
+   둘이 같아서 상자가 아무리 차도 맨 아래 근거 칸은 스크롤로 상자 위까지 올라온다. 상자는 머리 · 가운데(#tray-body)
+   · 단추 줄이고 세로로 스크롤되는 곳은 가운데 하나다 — 목록 · 명령 글에 따로 세로 상한을 두지 않는다. */
+body { --tray-max: min(24rem, 50vh); }
+.tray { position: fixed; right: 1.5rem; bottom: 1.1rem; z-index: 70;
+        width: min(27.5rem, calc(100vw - 2rem)); max-height: var(--tray-max); box-sizing: border-box;
+        background: var(--bg-elevated);
+        border: var(--border-width) dashed var(--pending-line); box-shadow: var(--offset-lg);
+        display: none; flex-direction: column; }
+/* 처음 쌓이면 아래 10px 에서 올라온다(kb-rise) — 닫혀 있던(display:none) 트레이가 설 때만 돈다. 한 줄 띠였으면
+   띠가 숨고 트레이가 그 자리에서 올라온다(motion.md 「판정 누름」). */
+.tray.on { display: flex; animation: kb-rise var(--t-move) var(--ease-out) 1 backwards; }
+.tray.result { border-style: solid; border-color: var(--border); }
+.tray-on .wrap { padding-bottom: var(--tray-max); }
+.tray-head { flex: none; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; padding: 10px 12px; }
+.tray-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+.tray-body:focus-visible { outline: 2px solid var(--border); outline-offset: -2px; }
+/* 접힘 — 머리와 단추 줄만 남는다. 접은 채로도 「제출」 · 「명령 복사」를 누른다(S2 규칙 3). */
+.tray.folded .tray-body { display: none; }
+.tray-head h3 { margin: 0; padding: 0; border: 0; font-size: 14px; line-height: 1.3; }
+.tray-sub { margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--fg-subtle); }
+.tray-target { margin: 0; padding: 0 12px 9px; font-size: 12px; line-height: 1.5; color: var(--fg-muted);
+               overflow-wrap: anywhere; }
+.tray-target .mono { font-family: var(--font-mono); color: var(--fg); }
+.tray-why { margin: 0; padding: 0 12px 9px; font-size: 12.5px; line-height: 1.5; color: var(--danger-fg);
+            white-space: pre-line; overflow-wrap: anywhere; }
+.tray ol { margin: 0; padding: 0; list-style: none; border-top: 1.5px solid var(--line-soft); }
+.tray-row { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto auto; gap: 8px;
+            align-items: center; margin: 0; padding: 7px 12px; font-size: 13px; line-height: 1.45;
+            border-bottom: 1.5px solid var(--line-soft); }
+.tray-row:last-child { border-bottom: 0; }
+.tray-row .tn { font-family: var(--font-mono); font-size: 12px; color: var(--fg-subtle);
+                font-variant-numeric: tabular-nums; }
+.tray-row .tb { min-width: 0; overflow-wrap: anywhere; }
+.tray-row .tw { color: var(--fg-muted); }
+.tray-row .st { font-size: 12.5px; font-weight: 600; white-space: nowrap; }
+/* 실패 사유는 원문 그대로 — 사유 · 교정 두 줄이 그대로 줄바꿈된다(failDetail). */
+.tray-row .why { grid-column: 2 / -1; margin: 0; font-size: 12.5px; color: var(--fg); white-space: pre-line;
+                 overflow-wrap: anywhere; }
+.tray-row.in .st { color: var(--ok-fg); }
+.tray-row.fail { background: color-mix(in srgb, var(--danger) 9%, transparent); }
+.tray-row.fail .st { color: var(--danger-fg); font-weight: 700; }
+.tray-row.unsent, .tray-row.unsent .tw { color: var(--fg-subtle); }
+/* 글자 단추 — 줄마다 「취소」 · 「다른 형식 — patch JSON」. 상자 단추가 줄마다 서면 무게가 「저장」과 같아진다. */
+.tray .link { min-height: 0; padding: 0; background: none; border: 0; color: var(--fg); font-size: 12.5px;
+              font-weight: 600; text-decoration: underline; text-underline-offset: 3px;
+              text-decoration-thickness: 1.5px; }
+.tray .link:hover { background: none; color: var(--fg-muted); }
+/* 파일 모드 · 유령 탭의 명령 상자 — 「명령 복사」가 복사하는 것과 같은 글. 명령 한 줄은 꺾지 않고 상자 안에서 민다
+   (줄이 어디서 끝나는지가 흐려지지 않게, 시안 `.copyblock`). */
+.tray-cmd { display: grid; gap: 6px; margin: 0; padding: 8px 12px 10px; border-top: 1.5px solid var(--line-soft); }
+.tray-cmd pre { margin: 0; padding: 8px 10px; overflow-x: auto; white-space: pre;
+                font-size: 11.5px; line-height: 1.55; background: var(--bg); border: 1.5px solid var(--line-soft);
+                box-shadow: none; }
+.tray-note { margin: 0; padding: 0 12px 8px; font-size: 12.5px; line-height: 1.5; color: var(--fg-muted); }
+.tray-note:empty { display: none; }
+.tray-foot { flex: none; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 10px 12px;
+             border-top: 1.5px solid var(--line-soft); }
+.tray .spacer, .tray-idle .spacer { flex: 1 1 auto; }
+.tray-foot button { min-height: 32px; font-size: 13px; font-weight: 600; }
+.tray-foot button.quiet { background: transparent; border-color: transparent; }
+.tray-foot button.quiet:hover { background: var(--bg-sunken); color: var(--fg); }
+.tray-foot button.primary { background: var(--fg); color: var(--bg); border-color: var(--fg); font-weight: 700; }
+.tray-foot button.primary:hover { background: var(--fg-muted); color: var(--bg); }
+/* 접기 단추 — 머리 오른쪽 끝, 모든 폭에서 뜬다(KAN-033 — 넓은 화면에도 접기가 필요했다). 글자 ▾(펼침) · ▴(접힘),
+   읽는 이름은 「목록 접기」 · 「목록 펼치기」. 보드 트레이와 같은 단추다. */
+.tray-toggle { margin-left: auto; align-self: center; min-width: 32px; min-height: 28px; padding: 0 6px;
+               font-size: 16px; line-height: 1; }
+/* 허브 화면의 「제출 전 없음 · 제출」 한 줄 띠 — 제출 전이 0건이어도 닫는 길은 늘 보여야 한다(「0건이면
+   안 그림」의 예외, 시안 README 2.2-6). 저장할 것이 없으니 조용한 띠다 — 점선도 그림자도 없다(시안 `.rv-tray--idle`). */
+.tray-idle { position: fixed; right: 1.5rem; bottom: 1.1rem; z-index: 70; display: flex; align-items: center;
+             gap: 10px; min-width: 18.75rem; padding: 8px 10px 8px 14px; background: var(--bg-elevated);
+             border: 1.5px solid var(--line-soft); font-size: 12.5px; color: var(--fg-subtle); }
+.tray-idle button { min-height: 30px; font-size: 13px; font-weight: 600; }
+.modal { position: fixed; inset: 0; z-index: 90; background: rgba(0,0,0,.55);
+         display: none; align-items: center; justify-content: center; padding: 1.5rem; }
+.modal.on { display: flex; }
+.modal .box { background: var(--bg); border: var(--border-width) solid var(--border);
+              box-shadow: var(--offset-lg); max-width: 56rem; width: 100%;
+              max-height: 88vh; overflow-y: auto; padding: 1.2rem 1.4rem 1.6rem; }
+.modal pre { white-space: pre-wrap; word-break: break-all; max-height: 20rem;
+             overflow-y: auto; }
+.toast { position: fixed; left: 50%; bottom: 1.2rem; transform: translateX(-50%);
+         background: var(--ink); color: var(--cream); padding: .5rem 1rem; z-index: 95;
+         border: var(--border-width) solid var(--border); font-size: 14px; display: none;
+         max-width: 90vw; }
+.toast.on { display: block; }
+/* 트레이(또는 한 줄 띠)가 오른쪽 아래에 떠 있으면 알림은 그 바로 위에 선다 — 「제출 · n건」을 가리지 않게. 높이는
+   JS 가 잰다(`--tray-h`, trayHeight). */
+.tray-on .toast { left: auto; right: 1.5rem; transform: none; bottom: calc(var(--tray-h, 0px) + 1.7rem);
+                  max-width: min(27.5rem, calc(100vw - 2rem)); }
+
+/* ─── 모드 질감 — 문구가 아니라 손끝으로 갈린다 ──────────────────────────────
+ * 정적으로 연 화면과 서버가 내준 화면이 문구 한 줄로만 구별됐다(의뢰서 §6-5).
+ * 「새 색을 만들지 않는다」(§4.4·§7)를 지키면서 가를 방법은 **같은 토큰의 질감**이다 —
+ * 조작 자리(그린)가 serve 면 단색, 정적이면 45° 사선 해칭이다. 해칭은 CSS 그라디언트라
+ * 외부 자산이 0건이고(§5-1), `var()` 두 개로만 쓰므로 다크에서 같이 뒤집힌다
+ * (§5-3 의 리터럴 강제는 SVG 한정이다 — CSS 는 `var()` 를 푼다).
+ *
+ * **정적 모드에서 버튼을 비활성화하지 않는다.** 그 버튼들은 진짜로 작동한다 — 패치 큐에
+ * 쌓이고 트레이의 「명령 복사」로 나간다. 비활성은 거짓말이다. */
+/* 판정 띠의 질감은 띠 바탕 전체에 옅게 깐다(시안 `band--judge.is-file`) — 판정 이력 글이 같은 띠 안에
+   서므로, 옛 판처럼 그린 사선을 진하게 깔면 그 글이 안 읽힌다. 이름 칸의 그린 띠는 두 모드에서 같다. */
+.jd-band-ops.is-static {
+  background-image: repeating-linear-gradient(45deg,
+      var(--bg-elevated) 0 7px, var(--line-soft) 7px 8.5px); }
+/* 트레이 머리도 같은 질감이다 — 파일로 연 화면의 트레이는 머리에 판정 띠와 같은 옅은 사선이 깔린다. 그린을 쓰지
+   않는 것은 트레이 머리에 색을 깔지 않기로 해서다(위 트레이 절). */
+.tray-head.is-static { background-image: repeating-linear-gradient(45deg,
+      var(--bg-elevated) 0 7px, var(--line-soft) 7px 8.5px); }
+/* 모드 글은 윗줄 오른쪽 「모드 점 + 글」(`.mode`, REPORT_STYLE.css)이 진다 — 닫힌 마지막 화면에도
+   서야 해서 그쪽 몫이다(KAN-021 S9). 여기는 윗줄의 조작 요소 하나 — 쓰는 사람 고르기 — 만 진다.
+   위의 폼 공통 규칙(`width: 100%`)을 그대로 받으면 윗줄을 통째로 차지하므로 폭을 글에 맞춘다. */
+.rv-who { display: inline-flex; align-items: center; gap: .4rem; font-size: 12.5px;
+          color: var(--fg-subtle); white-space: nowrap; }
+.rv-who select { width: auto; font-size: 13px; padding: .1rem .3rem; }
+
+/* ─── 제출 전 — 「아직 정본이 아님」은 상태가 아니다 ─────────────────────────────
+ * 큐에 든 것을 상태 칩·수렴에 미리 반영하지 않는다(§3.4·§6-3). 그러려면 도출 규칙을
+ * 브라우저에 복제해야 하고, 그 순간 화면이 보드·validate 와 다른 말을 한다. 그래서 제출 전은
+ * **색을 안 쓰는 표시**로만 말한다 — 점선 테 · 꼬리표 · 빈 원. 판정 칩 6종을 하나도
+ * 안 빌리므로 훑는 눈이 제출 전을 상태로 읽을 수 없다(§4.4). 낱말은 「대기」에서 「제출 전」으로 바꿨다(KAN-021
+ * 정할 것 4) — 클래스 이름(`tag-wait` · `is-pending` · `rail-pending`)은 시험 선택자라 그대로 둔다.
+ *
+ * 반투명은 버렸다 — 잉크선 정체성이 사라지고 「비활성」으로 읽힌다. 점선은 밝기를 안
+ * 건드리므로 다크에서도 그대로 선다(`--pending-line` 은 `--fg-subtle` 의 별칭이라 같이 뒤집힌다).
+ *
+ * 여기가 `REVIEW_CSS` 인 이유: 큐는 판정을 내릴 수 있는 문서에만 있다. `승계됨` 문서에는
+ * 조작 자리 자체가 없어서 이 규칙이 걸릴 요소가 하나도 없다(§5-10). */
+/* 꼬리표 글은 본문 글꼴이다 — 회색 모노 줄이 「제출 전 · 승인」 꼬리표로 바뀌었다(시안 4절 「대기」 줄). */
+.tag-wait { background: var(--bg); color: var(--fg-muted); font-family: var(--font-sans); font-weight: 500;
+            border: 1.5px dashed var(--pending-line); }
+/* 항목 상자 위에 걸친 꼬리표(시안 `.tag`, 보드 카드의 `.ptag` 와 같은 꼴). 결정 헤더(z 40) 밑, 항목 머리(z 20) 위. */
+.jd-ptag { position: absolute; top: -11px; left: 10px; z-index: 25; display: inline-flex; align-items: center;
+           height: 20px; max-width: calc(100% - 20px); padding: 0 6px; overflow: hidden; font-size: 11.5px;
+           line-height: 1; white-space: nowrap; text-overflow: ellipsis; }
+/* 항목 상자 테가 점선이 된다 — 테 굵기는 그대로라 제출 전이 켜질 때 줄이 안 흔들린다. */
+.jd.is-pending { position: relative; border-style: dashed; border-color: var(--pending-line); }
+/* 누른 단추 — 테가 점선, 안쪽에 점선색 한 겹(시안 `.btn--verdict[aria-pressed]`). 색이 아니라 모양이다. */
+.rv-allok button[aria-pressed="true"],
+.rv-docjudge button[aria-pressed="true"] {
+  border-style: dashed; background: var(--bg-elevated); color: var(--fg);
+  box-shadow: inset 0 0 0 2px var(--bg), inset 0 0 0 4px var(--pending-line); }
+/* 레일 칸 오른쪽 「제출 전」 겹침(시안 `.rail2 a.is-pending::after`). 칸 색(상태)은 그대로다. */
+.rail-c.rail-pending { position: relative; }
+.rail-c.rail-pending::after { content: "제출 전"; position: absolute; right: 4px; top: 4px; bottom: 4px;
+  display: flex; align-items: center; padding: 0 5px; background: var(--bg-elevated); color: var(--fg-muted);
+  border: 1.5px dashed var(--pending-line); font-family: var(--font-sans); font-size: 11px; font-weight: 500;
+  line-height: 1; }
+/* 유령 줄 — 판정 이력·의견 목록 **끝**에 붙는 「제출 전」. 이미 적힌 줄과 같은 자리에
+   서되 테두리가 점선이고 글자가 회색이라 눈으로 갈린다. */
+.jd-vs > li.jd-ghost { border: 1.5px dashed var(--pending-line); padding: 0 .35rem;
+                       color: var(--fg-subtle); }
+.jd-ns > li.jd-ghost { border-left-style: dashed; border-left-color: var(--fg-subtle);
+                       color: var(--fg-subtle); }
+.jd-o { font-family: var(--font-mono); font-weight: 700; }
+
+/* ─── 방금 바뀜 — 저장해 새로 받은 화면에서만(KAN-021 S13, 시안 ReviewSaved · ReviewStopped · motion.md 검토 표) ──
+ * 스크립트가 저장 직전에 떠 둔 항목 상태 · 추가 의견 수 · 수렴(세션 저장소)과 다시 받은 화면의 같은 값을 견줘 붙인다
+ * (REVIEW_JS `noteChanges`). 상태가 아니라 **사건**이라 상태 색을 빌리지 않는다 — 레일 칸은 파란 바깥 테, 항목은
+ * 파란 테 + 상태 칩 옆 꼬리표 「방금 바뀜 · 반려 → 승인」. 꼬리표 바탕 `--changed` 는 두 테마에서 같은 밝은 값이라
+ * 글자는 늘 잉크다(README 7절 9.81:1, 보드 `.ctag` 와 같은 짝). 여기가 REVIEW_CSS 인 이유: 견줄 값을 떠 두는
+ * 스크립트가 판정할 수 있는 문서에만 실린다(승계됨 · 닫힌 마지막 화면에는 스크립트가 없다).
+ *
+ * 제출 전 덧칠과 같은 항목에 서면 **테는 제출 전 점선이 이긴다**(아직 안 들어간 것이 있다는 말이 먼저다). 꼬리표는
+ * 서로 다른 사실이라 둘 다 선다 — 제출 전은 상자 위(`.jd-ptag`), 방금 바뀜은 상태 칩 옆. 레일 칸도 같다(바깥 테 +
+ * 안쪽 「제출 전」 겹침). */
+.rail-c.changed { outline: 3px solid var(--changed-line); outline-offset: 2px; }
+.jd.changed { border-color: var(--changed-line); box-shadow: inset 0 0 0 1.5px var(--changed-line); }
+.jd.changed.is-pending { border-color: var(--pending-line); box-shadow: var(--offset); }
+.jd-ctag { background: var(--changed); color: var(--ink); border: 1.5px solid var(--changed-line);
+           font-family: var(--font-sans); font-size: 11.5px; font-weight: 600; white-space: nowrap; }
+/* 꼬리표는 상태 칩 바로 뒤 칸이다(시안 `chip--changed`) — 머리줄 · 접힘 줄 grid 에 칸 하나를 더한다. 꼬리표가 없는
+   항목은 칸 수가 그대로라 줄이 안 흔들린다. */
+/* 꼬리표 칸은 머리 · 접힘 줄 격자에 늘 비어 있는 칸으로 있다(REPORT_STYLE `.jd-head > .jd-ctag`) — 칸 수를 바꾸지 않는다(KAN-023 S2). */
+/* 새로 달린 추가 의견 줄 앞 「새」 — 움직임 줄이기일 때 바탕이 잦아드는 대신 남는 표시(motion.md 「추가 의견이 달림」). */
+.jd-new { margin-right: .35rem; background: var(--changed); color: var(--ink); border: 1.5px solid var(--changed-line);
+          font-family: var(--font-sans); font-size: 11px; font-weight: 600; }
+/* 차례(motion.md 「저장 → 다시 그림」) — ① 레일 칸 테(t-quick) ② 수렴 숫자(t-count) ③ 항목 · 새 의견 줄 바탕이 한 번
+   잦아듦(t-trace). 차례는 지연으로 잇는다 — 앞 사건의 시간만큼 늦게 시작하고, 기다리는 동안은 첫 모양이다(`backwards`).
+   ④ 「400ms 뒤 승인 · 철회 항목이 한 줄로 접힘」은 하지 않는다 — 서버가 이미 접힌 채로 그린다(이 화면은 요청마다
+   파이썬이 다시 그린다). 펼쳐 그렸다가 접으려면 높이를 스크립트로 보간해야 해서 CSS 만으로 안 된다.
+   클래스는 **새로 바뀐 것이 있을 때 한 번만** 스크립트가 붙인다 — 같은 화면을 다시 열면(새로고침) 테 · 꼬리표만
+   남고 움직임은 없다(원칙 2). 움직임 줄이기면 REPORT_STYLE 한 곳이 끄고, 스크립트도 붙이지 않는다. */
+.rail-c.fx-ring { animation: kb-outline-in var(--t-quick) var(--ease-out) 1 backwards; }
+.dh-cv b > span.fx-count { display: inline-block;
+  animation: kb-count var(--t-count) var(--ease-snap) var(--t-quick) 1 backwards; }
+.jd.fx-trace, .jd.fx-trace > .jd-head, .jd-ns > li.fx-trace {
+  animation: kb-trace var(--t-trace) var(--ease-out) calc(var(--t-quick) + var(--t-count)) 1 backwards; }
+/* 닫힌 항목의 접힘 줄은 끝 색을 제 바탕으로 둔다(kb-trace 는 `--bg-elevated` 에서 끝난다). 지금 그 바탕도 흰색이지만
+   (KAN-023 S4) 접힘 줄 바탕이 바뀌어도 잦아든 뒤 색이 어긋나지 않게 제 바탕을 따른다. */
+.jd.fx-trace > .jd-fold > summary {
+  animation: kb-wash var(--t-trace) var(--ease-out) calc(var(--t-quick) + var(--t-count)) 1 backwards; }
+@keyframes kb-outline-in { 0% { outline-color: transparent; } }
+@keyframes kb-wash { 0% { background-color: var(--changed-wash); } }
+/* 문서 전체 승인이 **선 순간**만 초록 판이 올라온다(motion.md 「문서 전체 승인이 섬」). 판의 기본 규칙(REPORT_STYLE)은
+   그릴 때마다 올라오므로, 판정할 수 있는 문서에서는 스크립트가 「지난 화면에 없던 판」을 알아챘을 때(`fx-rise`)만
+   남긴다 — 새로고침마다 같은 판이 다시 튀어 오르지 않게. 견줄 값이 없으면(처음 연 화면 · 파일로 연 화면) 판은 그냥 선다. */
+.rv-allok:not(.fx-rise) { animation: none; }
+.rv-allok.fx-rise { animation: kb-rise var(--t-move) var(--ease-snap) 1 both; }
+
+/* ─── 40rem 이하 — 조작줄 · 트레이 · 모달 ─────────────────────────────────────
+ * 의뢰서 §6-6 이 「확인 안 함」으로 남긴 자리다. 셋 다 넓은 화면 전제로 세워져 있었다 —
+ * 버튼이 한 줄로 늘어서고, 트레이가 좌하단 카드로 본문을 덮고, 모달이 좌우 여백을 갖는다.
+ *
+ * 손가락 기준 44px 은 조작 요소 **전부**에 건다. 버튼 2×2 배치는 버린 안(1c)에서 가져온
+ * 유일한 것이다. */
+@media (max-width: 40rem) {
+  /* 3열 + 라디오는 이 폭에서 못 선다. 한 열로 쌓고 손가락 폭을 준다. */
+  .rv-opt { grid-template-columns: minmax(0, 1fr); gap: .3rem; }
+  .rv-opt input:not([type=radio]) { min-height: 44px; }
+  /* 「정할 것」 무리의 상자는 그 자체가 누르는 자리라 44px 를 넘는다. 글 칸도 손가락 높이를 준다(KAN-025). */
+  .rv-ops .jd-hint { font-size: 13px; line-height: 1.5; }
+  .opts-pick > .opt { min-height: 44px; }
+  .opt-own textarea { min-height: 44px; }
+  /* 새 항목 폼은 이름을 위로 올려 한 열로 쌓는다 — 76px 이름 칸이 375 에서 입력을 눌러 줄이 터진다. */
+  .rv-fld { grid-template-columns: minmax(0, 1fr); }
+  .rv-fld > label, .rv-fld-l { padding-top: 0; }
+  .rv-hint { grid-column: auto; }
+  .rv-add button, .rv-add input:not([type=radio]), .rv-add select, .rv-add textarea, .rv-add > summary,
+  .rv-docjudge button, .rv-allok button, .rv-who select, #rv-add-go { min-height: 44px; }
+  .rv-allok-act, .rv-allok button { width: 100%; }
+  /* 방금 바뀜 꼬리표가 더한 칸도 좁은 화면에서는 두 열로 접는다 — 번호|주제 / 상태|개수 / 펴기 / 꼬리표. 꼬리표를 상태
+     옆 칸에 두면 개수가 번호 열로 밀려 그 열이 넓어지므로(375 실측), 맨 아래 제 줄에 둔다. */
+  .jd-ctag { white-space: normal; }
+
+  /* 트레이는 오른쪽 아래 상자 → **하단 전폭 바**. 접기 규칙은 넓은 화면과 같다(KAN-033) — 기본은 펼침이고 상한
+     --tray-max(812px 화면에서 384px) 안에서 가운데만 스크롤된다. 예전에는 여기서만 접힘으로 시작하고 접으면 단추
+     줄까지 감췄다. 결과판은 펴서 선다(showResult). 한 줄 띠도 전폭이다. */
+  .tray { left: 0; right: 0; bottom: 0; width: auto;
+          border-width: var(--border-width) 0 0; box-shadow: none; }
+  .tray-toggle { min-height: 44px; min-width: 44px; }
+  .tray-foot button { flex: 1 1 auto; min-height: 44px; }
+  .tray .tx { min-height: 44px; padding: 0 6px; }
+  /* 명령 상자의 「다른 형식 — patch JSON」도 누를 자리다(복사가 막히면 여기서 고른다). */
+  .tray-cmd button.link { display: inline-flex; align-items: center; min-height: 44px; }
+  .tray-idle { left: 0; right: 0; bottom: 0; min-width: 0; border-width: 1.5px 0 0; }
+  .tray-idle button { min-height: 44px; }
+  .tray-on .toast { left: 12px; right: 12px; max-width: none; bottom: calc(var(--tray-h, 0px) + 10px);
+                    text-align: center; }
+
+  /* 모달은 **전폭 시트** — 좌우 여백 0, 상단 2px 잉크선, 닫기 44px. */
+  .modal { padding: 0; align-items: flex-end; }
+  .modal .box { max-height: 92vh; padding: 1rem .9rem 1.4rem;
+                border-width: var(--border-width) 0 0; box-shadow: none; }
+  .modal .box button { min-height: 44px; }
+  #x-close { width: 100%; }
+}
+
+/* 움직임 줄이기 규칙은 REPORT_STYLE.css 한 곳이 진다 — 이 블록은 그 파일 뒤에 실린다. */
+
+</style>
+<div class="wrap">
+<header class="rv-top">
+  <nav class="crumbs" aria-label="위치"><a href="../../KANBAN.board.html"><span class="crumb-proj">bbangto-ui </span>보드</a><span aria-hidden="true">›</span><span>진한 면 글자색 · 래퍼 면 색</span><span aria-hidden="true">›</span><b>검토</b></nav>
+  <span class="mode file"><span class="mode-dot" aria-hidden="true"></span>파일로 엶 · 제출은 명령 복사로</span>
+  <input type="checkbox" id="rv-more" class="rv-more-t" aria-label="쓰는 사람 · 이 화면 쓰는 법 · 계획 리포트 메뉴"><label for="rv-more" class="rv-more-b" aria-hidden="true" title="쓰는 사람 · 이 화면 쓰는 법 · 계획 리포트">⋯</label><div class="rv-more"><label class="rv-who" title="이 화면에서 내는 판정 · 추가 의견에 붙습니다 — 기본은 유저입니다"><span>쓰는 사람</span><select id="rv-by"><option>유저</option><option>ai</option></select></label><details class="howto"><summary>이 화면 쓰는 법</summary>
+<div class="howto-body" role="region" aria-label="이 화면 쓰는 법">
+<p class="howto-label">이 화면에서 하는 일</p>
+<ul class="howto-list">
+<li>번호는 항목 순서입니다. 항목마다 선택지를 고르거나 추가 의견을 답니다 — 고른 순간 그 항목은 승인이고, 의견만 단 항목은 열린 채 남습니다. 반려 · 철회는 이 화면에 없고 터미널의 <code>review-judge</code> 에만 있습니다.</li>
+<li>「정할 것」에서 선택지 하나를 고르거나(표가 없는 항목은 <b>승인</b>), 마음에 드는 선택지가 없으면 의견을 적습니다. 누른 것은 오른쪽 아래 「제출 전」 트레이에 쌓입니다. 브라우저는 파일을 못 쓰므로 트레이의 <b>명령 복사</b>가 터미널에 붙여 넣을 명령을 내주고(끝 줄이 이 화면을 다시 그립니다), 그 명령을 실행해야 들어갑니다. 그 전에는 상태 칩 · 레일 · 승인 수가 바뀌지 않습니다.</li>
+<li>문서 전체 승인은 살아 있는 항목이 모두 승인일 때만 섭니다. 철회한 항목은 분모에서 빠집니다.</li>
+<li>내보낸 검토서(<code>.review.md</code>)에 직접 적지 않습니다. 검토서 기록(<code>.kanban/reviews/</code>)에 없는 줄이라 다음 내보내기가 거부하고, 다시 내보내면 사라집니다.</li>
+</ul>
+<p class="howto-label">터미널로 할 때 · 번호 대신 주제의 문구 일부도 받습니다</p>
+<pre>python3 scripts/kanban.py review-choose &lt;project-root&gt; --card KAN-083-JSQKF4 --item &lt;번호&gt; --choice &lt;번호|이름&gt;
+python3 scripts/kanban.py review-note  &lt;project-root&gt; --card KAN-083-JSQKF4 --item &lt;번호&gt; --text "&lt;추가 의견&gt;"
+python3 scripts/kanban.py review-item  &lt;project-root&gt; --card KAN-083-JSQKF4 --add "&lt;새 주제&gt;
+  &lt;상세&gt;"</pre>
+</div></details></div>
+</header>
+<div class="rv-title">
+  <div class="rv-title-text">
+    <h1>진한 면 글자색 · 래퍼 면 색</h1>
+    <p class="rv-long">viz 진한 면 위 글자색 변수와 terminal-ascii Node 래퍼의 면 색 따르기 — publish-report 조립층을 bbangto 계약으로 칠하기 위한 확장</p>
+    <p class="rv-sub">검토 요청 · 11-24 · 항목 4<span class="rv-sub-rest"> · 완료 칸 · 문서 승인됨 · <a href="#evidence">무엇을 바꿨고 무엇으로 확인했나 ↓</a></span></p>
+  </div>
+  
+</div>
+<p class="note"><strong>머지됨</strong> — 이 카드는 이미 병합됐습니다 (496911e3ef8d). 검토 대상은 브랜치가 아니라 아래 고정 범위입니다.</p>
+
+
+
+<div class="dh" role="region" aria-label="결정 헤더">
+  <div class="dh-cv"><b><span class="dh-cv-n">4</span><i> / </i><span class="dh-cv-d">4</span></b>
+    <span class="dh-sub">승인 · 살아 있는 항목 기준</span></div>
+  <nav class="dh-rail" aria-label="항목 — 누르면 그 항목으로">
+    <div class="rail"><a class="rail-c st-approved" href="#item-1" title="§3-1 승인 — 새 버전을 tokens · visualization 은 기능 추가(min"><b>1</b><span>&nbsp;· 승인</span></a><a class="rail-c st-approved" href="#item-2" title="§3-2 승인 — neon-gradient-dark 노드는 넘겨받은 색이 대표 색이 아니면"><b>2</b><span>&nbsp;· 승인</span></a><a class="rail-c st-approved" href="#item-3" title="§3-3 승인 — 가이드가 적은 진한 면 글자색이 세 부품(VS 구분선 · 이정표 표시 ·"><b>3</b><span>&nbsp;· 승인</span></a><a class="rail-c st-approved" href="#item-4" title="§3-4 승인 — 진한 면 위 글자색은 계산값을 그대로 쓸까요 — 가이드 30종의 프리셋까"><b>4</b><span>&nbsp;· 승인</span></a></div>
+  </nav>
+  <div class="dh-act"><span class="tag tag-done">남은 항목 없음</span></div>
+</div>
+
+<section class="rv-allok is-done" aria-label="문서 전체 판정"><div class="rv-allok-text"><h3>문서가 승인되었습니다</h3></div></section>
+
+
+
+<ol id="rv-list" aria-label="항목"><li id="item-1" class="jd jd-closed"><span class="tag tag-wait jd-ptag" data-pending="1" hidden></span><details class="jd-fold"><summary><span class="jd-num">1</span><span class="jd-title">새 버전을 tokens · visualization 은 기능 추가(minor), 시각화 카탈로그는 버그 수정(patch)으로 낼까요 — 새 칸과 새 변수는 기능 추가이고, 넘겨받은 색을 버리던 것은 버그라서입니다</span><span class="tag tag-done">승인</span><span class="meta">유저 · 11-24</span><span class="meta jd-tog"></span></summary><div class="jd-band jd-band-ctx jd-band-view"><span class="jd-g">보기<span class="tag jd-kind">설계</span></span><div class="jd-body"><div class="jd-figs"><figure class="jd-fig jd-fig-n"><div class="jd-pv"><a class="jd-pv-o" href="KAN-083-JSQKF4.assets/fd992618ea40.png" target="_blank" rel="noopener"><picture><source media="(max-width: 40rem)" srcset="KAN-083-JSQKF4.assets/fd992618ea40.narrow.png"><img src="KAN-083-JSQKF4.assets/fd992618ea40.png" alt="추천 · tokens · visualization minor, 시각화 카탈로그 patch — pnpm changeset status 로 잰 오를 버전과 함께 오르는 패키지 셋" loading="lazy"></picture></a><a class="jd-pv-n" href="KAN-083-JSQKF4.assets/fd992618ea40.narrow.png" target="_blank" rel="noopener" aria-label="짝 그림 전체 열기 — 추천 · tokens · visualization minor, 시각화 카탈로그 patch — pnpm changeset status 로 잰 오를 버전과 함께 오르는 패키지 셋"><span class="jd-more">아래로 이어짐 · 누르면 전체</span></a></div><figcaption>추천 · tokens · visualization minor, 시각화 카탈로그 patch — pnpm changeset status 로 잰 오를 버전과 함께 오르는 패키지 셋</figcaption></figure></div></div></div><div class="jd-band jd-band-ctx jd-band-dec"><span class="jd-g">정할 것</span><div class="jd-body"><p>버전을 어떻게 올릴까요?</p><div class="opts opts-pick" role="radiogroup" aria-label="1번 — 하나를 고릅니다"><label class="opt opt-rec opt-picked"><p class="opt-t"><input type="radio" name="pick-1" value="tokens · visualization minor, 시각화 카탈로그 patch" data-choose="tokens · visualization minor, 시각화 카탈로그 patch"> <span class="tag opt-chip">추천</span> <span class="tag tag-done opt-pick">고름</span> tokens · visualization minor, 시각화 카탈로그 patch</p><dl><dt>대가</dt><dd>버전 숫자가 패키지마다 다르게 오릅니다</dd><dt>그러면 어떻게 되는가</dt><dd>받는 쪽이 새로 쓸 수 있는 것이 생겼다는 것을 버전 숫자로 알아봅니다</dd></dl></label><label class="opt"><p class="opt-t"><input type="radio" name="pick-1" value="셋 다 patch" data-choose="셋 다 patch"> 셋 다 patch</p><dl><dt>대가</dt><dd>새 칸과 새 변수가 버그 수정처럼 보입니다</dd><dt>그러면 어떻게 되는가</dt><dd>새 변수가 있는 버전을 받는 범위(^2.2.0)로 고르지 못하고 끝자리까지 맞춰야 합니다</dd></dl></label><label class="opt opt-own"><p class="opt-t"><input type="radio" name="pick-1" value="" data-own> 직접 적기</p><textarea data-note rows="2" aria-label="1번 — 직접 적기" placeholder="마음에 드는 길이 없으면 여기에 적습니다"></textarea></label></div></div></div><div class="jd-band jd-band-v jd-band-ops is-static"><span class="jd-g">판정</span><div class="jd-body"><div class="rv-ops" data-item="1"><div class="jd-judge"><span class="jd-hint">「정할 것」에서 하나를 고릅니다. 마음에 드는 길이 없으면 「직접 적기」에 적습니다</span></div></div><div class="jd-hist"><span class="jd-hist-l">판정 이력</span><ul class="jd-vs"><li><span class="meta">1번째</span><span class="tag tag-done">승인</span><span class="meta">유저 · 11-24</span><span class="jd-vtext">고름: tokens · visualization minor, 시각화 카탈로그 patch</span></li></ul></div></div></div><div class="jd-band jd-band-n"><span class="jd-g">의견</span><div class="jd-body"><p class="jd-empty">추가 의견 없음</p><ul class="jd-ns"></ul></div></div><details class="jd-band jd-band-ctx jd-band-bg"><summary><span class="jd-g">배경</span><span class="jd-sum"><span class="jd-sum-lead">이 카드는 publish-report 가 자체 색칠을 멈추고 bbangto-ui 의 색 규칙으로 칠할 수 있도록, bbangto-ui 에 없던 표현 둘을 더했습니다.</span><span class="jd-sum-n">사실 5줄 · 원문 5곳 · 판정 이력이 있어 접음</span></span></summary><div class="jd-body"><ul class="jd-facts"><li><span class="jd-fact">이 카드는 publish-report 가 자체 색칠을 멈추고 bbangto-ui 의 색 규칙으로 칠할 수 있도록, bbangto-ui 에 없던 표현 둘을 더했습니다.</span></li><li><span class="jd-fact">tokens 에는 가이드가 진한 면 위 글자색을 직접 적는 칸이 생겼습니다. 선택 칸이라 지금 가이드는 고치지 않아도 그대로 돕니다.</span></li><li><span class="jd-fact">visualization 은 그 글자색을 CSS 변수 하나로 냅니다.</span></li><li><span class="jd-fact">시각화 카탈로그는 두 프리셋(terminal-ascii · neon-gradient-dark)이 넘겨받은 면 색을 버리던 것을 고쳤습니다.</span></li><li><span class="jd-fact">배포하면 코드 변경이 없는 core · foundations · style-guide-catalog 도 patch 로 함께 오릅니다. tokens 를 받는 패키지라 저장소 설정이 그렇게 정해 둡니다.</span></li></ul><details class="jd-srcs"><summary>원문 위치 5곳</summary><span class="jd-src" title="이 카드는 publish-report 가 자체 색칠을 멈추고 bbangto-ui 의 색 규칙으로 칠할 수 있">~/.claude/plans/publish-report-skill.md (2026-11-24 절)</span><span class="jd-src" title="tokens 에는 가이드가 진한 면 위 글자색을 직접 적는 칸이 생겼습니다. 선택 칸이라 지금 가이드는 고치">packages/tokens/src/visualization.ts:141</span><span class="jd-src" title="visualization 은 그 글자색을 CSS 변수 하나로 냅니다.">packages/visualization/src/tokens/onInk.ts:114</span><span class="jd-src" title="시각화 카탈로그는 두 프리셋(terminal-ascii · neon-gradient-dark)이 넘겨받은 면">packages/visualization-style-guide-catalog/src/terminalAscii.tsx:195</span><span class="jd-src" title="배포하면 코드 변경이 없는 core · foundations · style-guide-catalog 도 pa">.changeset/config.json:9</span></details></div></details></details></li><li id="item-2" class="jd jd-closed"><span class="tag tag-wait jd-ptag" data-pending="2" hidden></span><details class="jd-fold"><summary><span class="jd-num">2</span><span class="jd-title">neon-gradient-dark 노드는 넘겨받은 색이 대표 색이 아니면 그 색으로 칠할까요 — 지금 그렇게 고쳤고, 카탈로그 그림은 바뀌지 않았습니다</span><span class="tag tag-done">승인</span><span class="meta">유저 · 11-24</span><span class="meta jd-tog"></span></summary><div class="jd-band jd-band-ctx jd-band-view"><span class="jd-g">보기<span class="tag jd-kind">결과물</span></span><div class="jd-body"><div class="jd-figs jd-figs-cmp"><figure class="jd-fig jd-fig-n"><div class="jd-pv"><a class="jd-pv-o" href="KAN-083-JSQKF4.assets/411d272616c0.png" target="_blank" rel="noopener"><picture><source media="(max-width: 40rem)" srcset="KAN-083-JSQKF4.assets/411d272616c0.narrow.png"><img src="KAN-083-JSQKF4.assets/411d272616c0.png" alt="추천 · 넘긴 색을 따른다 — Storybook 1280 에서 neon 쇼케이스(왼쪽, 색 없음 · 대표 색)와 #123456 을 넘긴 시험 화면(오른쪽)을 나란히. 「늘 그라디언트」를 고르면 오른쪽도 왼쪽처럼 됩니다" loading="lazy"></picture></a><a class="jd-pv-n" href="KAN-083-JSQKF4.assets/411d272616c0.narrow.png" target="_blank" rel="noopener" aria-label="짝 그림 전체 열기 — 추천 · 넘긴 색을 따른다 — Storybook 1280 에서 neon 쇼케이스(왼쪽, 색 없음 · 대표 색)와 #123456 을 넘긴 시험 화면(오른쪽)을 나란히. 「늘 그라디언트」를 고르면 오른쪽도 왼쪽처럼 됩니다"><span class="jd-more">아래로 이어짐 · 누르면 전체</span></a></div><figcaption>추천 · 넘긴 색을 따른다 — Storybook 1280 에서 neon 쇼케이스(왼쪽, 색 없음 · 대표 색)와 #123456 을 넘긴 시험 화면(오른쪽)을 나란히. 「늘 그라디언트」를 고르면 오른쪽도 왼쪽처럼 됩니다</figcaption></figure><figure class="jd-fig"><div class="jd-pv"><a class="jd-pv-o" href="KAN-083-JSQKF4.assets/489972b6ad2f.png" target="_blank" rel="noopener"><img src="KAN-083-JSQKF4.assets/489972b6ad2f.png" alt="추천 · 넘긴 색을 따른다 — 가이드 30종 노드에 같은 면 색 #123456 · 선 색 #654321 을 넘긴 시험 화면. 모든 가이드가 넘긴 색으로 칠합니다" loading="lazy"></a></div><figcaption>추천 · 넘긴 색을 따른다 — 가이드 30종 노드에 같은 면 색 #123456 · 선 색 #654321 을 넘긴 시험 화면. 모든 가이드가 넘긴 색으로 칠합니다</figcaption></figure></div></div></div><div class="jd-band jd-band-ctx jd-band-dec"><span class="jd-g">정할 것</span><div class="jd-body"><p>neon 노드에 다른 색을 넘기면 어떻게 칠할까요?</p><div class="opts opts-pick" role="radiogroup" aria-label="2번 — 하나를 고릅니다"><label class="opt opt-rec opt-picked"><p class="opt-t"><input type="radio" name="pick-2" value="넘긴 색을 따른다(지금)" data-choose="넘긴 색을 따른다(지금)"> <span class="tag opt-chip">추천</span> <span class="tag tag-done opt-pick">고름</span> 넘긴 색을 따른다(지금)</p><dl><dt>대가</dt><dd>색을 넘긴 노드에서는 neon 다운 그라디언트가 빠집니다</dd><dt>그러면 어떻게 되는가</dt><dd>덧칠이 없어지고 가이드 30종 노드가 같은 규칙으로 칠해집니다</dd></dl></label><label class="opt"><p class="opt-t"><input type="radio" name="pick-2" value="늘 그라디언트로 되돌린다" data-choose="늘 그라디언트로 되돌린다"> 늘 그라디언트로 되돌린다</p><dl><dt>대가</dt><dd>neon 만 규칙 밖에 남아 새 시험에서 예외로 빼야 합니다</dd><dt>그러면 어떻게 되는가</dt><dd>publish-report 는 neon 에서만 덧칠을 계속합니다</dd></dl></label><label class="opt"><p class="opt-t"><input type="radio" name="pick-2" value="넘긴 색으로 그라디언트를 만든다" data-choose="넘긴 색으로 그라디언트를 만든다"> 넘긴 색으로 그라디언트를 만든다</p><dl><dt>대가</dt><dd>색 하나에서 그라디언트 두 끝을 정하는 규칙을 새로 세워야 해 이 카드 범위를 넘습니다</dd><dt>그러면 어떻게 되는가</dt><dd>별도 카드로 올려 설계합니다</dd></dl></label><label class="opt opt-own"><p class="opt-t"><input type="radio" name="pick-2" value="" data-own> 직접 적기</p><textarea data-note rows="2" aria-label="2번 — 직접 적기" placeholder="마음에 드는 길이 없으면 여기에 적습니다"></textarea></label></div></div></div><div class="jd-band jd-band-v jd-band-ops is-static"><span class="jd-g">판정</span><div class="jd-body"><div class="rv-ops" data-item="2"><div class="jd-judge"><span class="jd-hint">「정할 것」에서 하나를 고릅니다. 마음에 드는 길이 없으면 「직접 적기」에 적습니다</span></div></div><div class="jd-hist"><span class="jd-hist-l">판정 이력</span><ul class="jd-vs"><li><span class="meta">1번째</span><span class="tag tag-done">승인</span><span class="meta">유저 · 11-24</span><span class="jd-vtext">고름: 넘긴 색을 따른다(지금)</span></li></ul></div></div></div><div class="jd-band jd-band-n"><span class="jd-g">의견</span><div class="jd-body"><p class="jd-empty">추가 의견 없음</p><ul class="jd-ns"></ul></div></div><details class="jd-band jd-band-ctx jd-band-bg"><summary><span class="jd-g">배경</span><span class="jd-sum"><span class="jd-sum-lead">neon-gradient-dark 는 노드를 늘 그라디언트로 칠하고 넘겨받은 면 색을 버렸습니다. bbangto-ui 구현 규칙의 「명시한 색이 이긴다」와 맞지 않았습니다.</span><span class="jd-sum-n">사실 5줄 · 원문 5곳 · 판정 이력이 있어 접음</span></span></summary><div class="jd-body"><ul class="jd-facts"><li><span class="jd-fact">neon-gradient-dark 는 노드를 늘 그라디언트로 칠하고 넘겨받은 면 색을 버렸습니다. bbangto-ui 구현 규칙의 「명시한 색이 이긴다」와 맞지 않았습니다.</span></li><li><span class="jd-fact">그래서 publish-report 처럼 칸마다 색을 골라 칠하는 쪽은 이 프리셋에서 사각형을 한 겹 덧칠해야 했고, 덧칠은 프리셋 모양을 덮습니다.</span></li><li><span class="jd-fact">이제 색을 넘기지 않거나 노드 종류의 면이나 가이드 대표 색을 넘기면 그라디언트를 그대로 그리고, 그 밖의 색을 넘기면 그 색으로 칠합니다.</span></li><li><span class="jd-fact">카탈로그 쇼케이스는 색을 안 넘기거나 대표 색만 넘기므로 그림이 바뀌지 않습니다. 기존 Storybook 시험 1,314건이 그대로 통과했습니다.</span></li><li><span class="jd-fact">처음 고쳤을 때는 대표 색도 보통 색으로 보아 쇼케이스 시험 하나가 깨졌습니다. 대표 색을 그라디언트 요청으로 보게 고쳐 다시 통과시켰습니다.</span></li></ul><details class="jd-srcs"><summary>원문 위치 5곳</summary><span class="jd-src" title="neon-gradient-dark 는 노드를 늘 그라디언트로 칠하고 넘겨받은 면 색을 버렸습니다. bbang">packages/visualization/README.md:250</span><span class="jd-src" title="그래서 publish-report 처럼 칸마다 색을 골라 칠하는 쪽은 이 프리셋에서 사각형을 한 겹 덧칠해야">~/.claude/skills/publish-report/engine/compose/parts.tsx</span><span class="jd-src" title="이제 색을 넘기지 않거나 노드 종류의 면이나 가이드 대표 색을 넘기면 그라디언트를 그대로 그리고, 그 밖의 ">packages/visualization-style-guide-catalog/src/neonGradientDark.tsx:218</span><span class="jd-src" title="카탈로그 쇼케이스는 색을 안 넘기거나 대표 색만 넘기므로 그림이 바뀌지 않습니다. 기존 Storybook 시">apps/storybook/src/stories/_vizCatalogStory.tsx:211</span><span class="jd-src" title="처음 고쳤을 때는 대표 색도 보통 색으로 보아 쇼케이스 시험 하나가 깨졌습니다. 대표 색을 그라디언트 요청으">KANBAN/cards/KAN-083-JSQKF4.md (수행 내역 12:11)</span></details></div></details></details></li><li id="item-3" class="jd jd-closed"><span class="tag tag-wait jd-ptag" data-pending="3" hidden></span><details class="jd-fold"><summary><span class="jd-num">3</span><span class="jd-title">가이드가 적은 진한 면 글자색이 세 부품(VS 구분선 · 이정표 표시 · 번호 배지)에는 닿지 않습니다 — 별도 카드로 고칠까요</span><span class="tag tag-done">승인</span><span class="meta">유저 · 11-24</span><span class="meta jd-tog"></span></summary><div class="jd-band jd-band-ctx jd-band-view"><span class="jd-g">보기<span class="tag jd-kind">설계</span></span><div class="jd-body"><div class="jd-figs"><figure class="jd-fig jd-fig-n"><div class="jd-pv"><a class="jd-pv-o" href="KAN-083-JSQKF4.assets/32700c2b0711.png" target="_blank" rel="noopener"><picture><source media="(max-width: 40rem)" srcset="KAN-083-JSQKF4.assets/32700c2b0711.narrow.png"><img src="KAN-083-JSQKF4.assets/32700c2b0711.png" alt="추천 · 별도 카드 — 가이드 칸에서 CSS 변수를 거쳐 조립층까지 닿는 경로와, 세 부품이 면 색에서 따로 계산하는 경로" loading="lazy"></picture></a><a class="jd-pv-n" href="KAN-083-JSQKF4.assets/32700c2b0711.narrow.png" target="_blank" rel="noopener" aria-label="짝 그림 전체 열기 — 추천 · 별도 카드 — 가이드 칸에서 CSS 변수를 거쳐 조립층까지 닿는 경로와, 세 부품이 면 색에서 따로 계산하는 경로"><span class="jd-more">아래로 이어짐 · 누르면 전체</span></a></div><figcaption>추천 · 별도 카드 — 가이드 칸에서 CSS 변수를 거쳐 조립층까지 닿는 경로와, 세 부품이 면 색에서 따로 계산하는 경로</figcaption></figure></div></div></div><div class="jd-band jd-band-ctx jd-band-dec"><span class="jd-g">정할 것</span><div class="jd-body"><p>세 부품을 어떻게 할까요?</p><div class="opts opts-pick" role="radiogroup" aria-label="3번 — 하나를 고릅니다"><label class="opt opt-rec opt-picked"><p class="opt-t"><input type="radio" name="pick-3" value="별도 카드로 할 일에 올린다" data-choose="별도 카드로 할 일에 올린다"> <span class="tag opt-chip">추천</span> <span class="tag tag-done opt-pick">고름</span> 별도 카드로 할 일에 올린다</p><dl><dt>대가</dt><dd>그 카드가 끝날 때까지 가이드가 적은 값이 세 부품에 닿지 않습니다</dd><dt>그러면 어떻게 되는가</dt><dd>이 카드는 지금 범위로 닫히고 publish-report 쪽 작업이 기다리지 않습니다</dd></dl></label><label class="opt"><p class="opt-t"><input type="radio" name="pick-3" value="이 카드에서 함께 고친다" data-choose="이 카드에서 함께 고친다"> 이 카드에서 함께 고친다</p><dl><dt>대가</dt><dd>범위가 바뀌어 겹침 용인을 다시 받고 검토를 한 번 더 돌립니다</dd><dt>그러면 어떻게 되는가</dt><dd>배포가 그만큼 늦어집니다</dd></dl></label><label class="opt"><p class="opt-t"><input type="radio" name="pick-3" value="그대로 둔다" data-choose="그대로 둔다"> 그대로 둔다</p><dl><dt>대가</dt><dd>값을 적는 가이드가 생기면 세 부품만 글자색이 다릅니다</dd><dt>그러면 어떻게 되는가</dt><dd>테마별 글자색이 부품마다 갈릴 수 있습니다</dd></dl></label><label class="opt opt-own"><p class="opt-t"><input type="radio" name="pick-3" value="" data-own> 직접 적기</p><textarea data-note rows="2" aria-label="3번 — 직접 적기" placeholder="마음에 드는 길이 없으면 여기에 적습니다"></textarea></label></div></div></div><div class="jd-band jd-band-v jd-band-ops is-static"><span class="jd-g">판정</span><div class="jd-body"><div class="rv-ops" data-item="3"><div class="jd-judge"><span class="jd-hint">「정할 것」에서 하나를 고릅니다. 마음에 드는 길이 없으면 「직접 적기」에 적습니다</span></div></div><div class="jd-hist"><span class="jd-hist-l">판정 이력</span><ul class="jd-vs"><li><span class="meta">1번째</span><span class="tag tag-done">승인</span><span class="meta">유저 · 11-24</span><span class="jd-vtext">고름: 별도 카드로 할 일에 올린다</span></li></ul></div></div></div><div class="jd-band jd-band-n"><span class="jd-g">의견</span><div class="jd-body"><p class="jd-empty">추가 의견 없음</p><ul class="jd-ns"></ul></div></div><details class="jd-band jd-band-ctx jd-band-bg"><summary><span class="jd-g">배경</span><span class="jd-sum"><span class="jd-sum-lead">이 카드로 각 테마(가이드)가 진한 면 위 글자색을 직접 정할 수 있게 됐습니다. 지시 「테마별 구분도 있어야 한다」를 받은 칸입니다.</span><span class="jd-sum-n">사실 4줄 · 원문 4곳 · 판정 이력이 있어 접음</span></span></summary><div class="jd-body"><ul class="jd-facts"><li><span class="jd-fact">이 카드로 각 테마(가이드)가 진한 면 위 글자색을 직접 정할 수 있게 됐습니다. 지시 「테마별 구분도 있어야 한다」를 받은 칸입니다.</span></li><li><span class="jd-fact">VS 구분선 · 이정표 표시 · 번호 배지는 그 글자색을 새 변수에서 읽지 않고 면 색에서 직접 계산합니다.</span></li><li><span class="jd-fact">계산 방법이 같아서 지금은 색이 같습니다. 아직 값을 적은 가이드가 없기 때문이고, 값을 적는 가이드가 생기면 세 부품만 다른 색이 됩니다.</span></li><li><span class="jd-fact">세 부품의 폴더를 이 카드 범위에 넣으면 KAN-082(시각화 도식 표현력 확장) 카드와의 범위 겹침 용인을 다시 받아야 합니다. 용인은 지금 범위에 묶여 있습니다.</span></li></ul><details class="jd-srcs"><summary>원문 위치 4곳</summary><span class="jd-src" title="이 카드로 각 테마(가이드)가 진한 면 위 글자색을 직접 정할 수 있게 됐습니다. 지시 「테마별 구분도 있어">packages/tokens/src/visualization.ts:141</span><span class="jd-src" title="VS 구분선 · 이정표 표시 · 번호 배지는 그 글자색을 새 변수에서 읽지 않고 면 색에서 직접 계산합니다.">packages/visualization/src/atoms/VsDivider.tsx:21 · MilestoneMarker.tsx:25 · IndexBadge.tsx:26</span><span class="jd-src" title="계산 방법이 같아서 지금은 색이 같습니다. 아직 값을 적은 가이드가 없기 때문이고, 값을 적는 가이드가 생기">packages/visualization/src/tokens/onInk.ts:107</span><span class="jd-src" title="세 부품의 폴더를 이 카드 범위에 넣으면 KAN-082(시각화 도식 표현력 확장) 카드와의 범위 겹침 용인을">.kanban/state.json (waivers 의 KAN-082 · KAN-083 쌍)</span></details></div></details></details></li><li id="item-4" class="jd jd-closed"><span class="tag tag-wait jd-ptag" data-pending="4" hidden></span><details class="jd-fold"><summary><span class="jd-num">4</span><span class="jd-title">진한 면 위 글자색은 계산값을 그대로 쓸까요 — 가이드 30종의 프리셋까지 62개 조합 모두 대비 4.5:1 을 넘습니다</span><span class="tag tag-done">승인</span><span class="meta">유저 · 11-24</span><span class="meta jd-tog"></span></summary><div class="jd-band jd-band-ctx jd-band-view"><span class="jd-g">보기<span class="tag jd-kind">동작</span></span><div class="jd-body"><div class="jd-figs"><figure class="jd-fig"><div class="jd-pv"><a class="jd-pv-o" href="KAN-083-JSQKF4.assets/a9506e6ff638.png" target="_blank" rel="noopener"><img src="KAN-083-JSQKF4.assets/a9506e6ff638.png" alt="Storybook 1280 에서 진한 면 글자 시험 화면 — 가이드 · 프리셋 62개 조합마다 진한 면 위에 계산된 글자색으로 쓴 「진한 면 글자」" loading="lazy"></a></div><figcaption>Storybook 1280 에서 진한 면 글자 시험 화면 — 가이드 · 프리셋 62개 조합마다 진한 면 위에 계산된 글자색으로 쓴 「진한 면 글자」</figcaption></figure></div></div></div><div class="jd-band jd-band-ctx jd-band-dec"><span class="jd-g">정할 것</span><div class="jd-body"><p>가이드마다 글자색을 따로 적을까요?</p><div class="opts opts-pick" role="radiogroup" aria-label="4번 — 하나를 고릅니다"><label class="opt opt-rec opt-picked"><p class="opt-t"><input type="radio" name="pick-4" value="계산값을 쓴다" data-choose="계산값을 쓴다"> <span class="tag opt-chip">추천</span> <span class="tag tag-done opt-pick">고름</span> 계산값을 쓴다</p><dl><dt>대가</dt><dd>테마마다 글자색이 다른 까닭이 면 색뿐입니다</dd><dt>그러면 어떻게 되는가</dt><dd>새 가이드도 따로 할 일 없이 4.5:1 을 넘고, 값은 필요한 가이드가 그때 적습니다</dd></dl></label><label class="opt"><p class="opt-t"><input type="radio" name="pick-4" value="지금 가이드마다 값을 적는다" data-choose="지금 가이드마다 값을 적는다"> 지금 가이드마다 값을 적는다</p><dl><dt>대가</dt><dd>30종마다 색을 골라야 하고 이 카드 범위가 카탈로그 가이드 파일 전부로 넓어집니다</dd><dt>그러면 어떻게 되는가</dt><dd>테마 성격에 맞춘 글자색을 지금 고를 수 있습니다</dd></dl></label><label class="opt opt-own"><p class="opt-t"><input type="radio" name="pick-4" value="" data-own> 직접 적기</p><textarea data-note rows="2" aria-label="4번 — 직접 적기" placeholder="마음에 드는 길이 없으면 여기에 적습니다"></textarea></label></div></div></div><div class="jd-band jd-band-v jd-band-ops is-static"><span class="jd-g">판정</span><div class="jd-body"><div class="rv-ops" data-item="4"><div class="jd-judge"><span class="jd-hint">「정할 것」에서 하나를 고릅니다. 마음에 드는 길이 없으면 「직접 적기」에 적습니다</span></div></div><div class="jd-hist"><span class="jd-hist-l">판정 이력</span><ul class="jd-vs"><li><span class="meta">1번째</span><span class="tag tag-done">승인</span><span class="meta">유저 · 11-24</span><span class="jd-vtext">고름: 계산값을 쓴다</span></li></ul></div></div></div><div class="jd-band jd-band-n"><span class="jd-g">의견</span><div class="jd-body"><p class="jd-empty">추가 의견 없음</p><ul class="jd-ns"></ul></div></div><details class="jd-band jd-band-ctx jd-band-bg"><summary><span class="jd-g">배경</span><span class="jd-sum"><span class="jd-sum-lead">publish-report 는 진한 칸의 글자를 바탕색으로 칠하고 대비를 스킬 안에서 따로 쟀습니다. 이제 그 글자는 bbangto-ui 가 내는 변수 하나로 칠합니다.</span><span class="jd-sum-n">사실 4줄 · 원문 3곳 · 판정 이력이 있어 접음</span></span></summary><div class="jd-body"><ul class="jd-facts"><li><span class="jd-fact">publish-report 는 진한 칸의 글자를 바탕색으로 칠하고 대비를 스킬 안에서 따로 쟀습니다. 이제 그 글자는 bbangto-ui 가 내는 변수 하나로 칠합니다.</span></li><li><span class="jd-fact">글자색은 다른 면과 같은 규칙으로 고릅니다. 가이드가 이 면에 적은 값, 가이드 공통 글자색, 가이드 색 넷, 검정 · 흰색 순으로 보고 4.5:1 을 넘는 첫 색을 씁니다.</span></li><li><span class="jd-fact">브라우저가 실제로 계산한 색으로 62개 조합을 모두 재서 통과했습니다.</span></li><li><span class="jd-fact">지금은 어느 가이드도 이 면에 값을 적지 않았습니다. 테마마다 글자색이 다른 것은 면 색이 달라서입니다.</span></li></ul><details class="jd-srcs"><summary>원문 위치 3곳</summary><span class="jd-src" title="publish-report 는 진한 칸의 글자를 바탕색으로 칠하고 대비를 스킬 안에서 따로 쟀습니다. 이제 ">~/.claude/plans/publish-report-skill.md (2026-11-24 절)</span><span class="jd-src" title="글자색은 다른 면과 같은 규칙으로 고릅니다. 가이드가 이 면에 적은 값, 가이드 공통 글자색, 가이드 색 넷">packages/visualization/src/tokens/onInk.ts:88</span><span class="jd-src" title="브라우저가 실제로 계산한 색으로 62개 조합을 모두 재서 통과했습니다.">apps/storybook/src/stories/visualization/NodeWrapperFillGate.stories.tsx:87</span></details></div></details></details></li></ol>
+
+<details class="rv-add" id="rv-add">
+<summary><span class="rv-add-t"><span class="rv-add-plus" aria-hidden="true">+ </span>새 항목 올리기</span>
+  <span class="tag tag-wait" data-pending="+" hidden></span><span class="rv-add-x">접기</span></summary>
+<div class="rv-add-body" role="region" aria-label="새 항목 올리기">
+<p class="rv-add-lead">추가 의견을 반영하다 새 항목이 생기는 것은 정상 경로입니다. 새 항목은 맨 뒤(5번)에
+붙고 앞 번호는 밀리지 않습니다 — 이미 달린 추가 의견 · 판정과 승계 참조가 깨지지 않습니다. 카드 의도와 이어지지
+않는 것, 지시 원본보다 낮은 레이어의 고민(플래그 이름 · 함수 이름을 묻는 것)은 여기 올리지 않습니다.</p>
+<div class="rv-fld"><label for="rv-q">주제</label>
+  <input id="rv-q" placeholder="한 줄로 — 무엇을 정해야 하는가"></div>
+<div class="rv-fld"><label for="rv-bg">배경</label>
+  <textarea id="rv-bg" rows="3" placeholder="한 줄에 사실 하나 — 줄마다 목록 항목이 됩니다. 겪는 증상으로 쓰고, 줄 끝에 「원문: 파일:줄」을 겁니다"></textarea>
+  <p class="rv-hint">비면 올라가지 않습니다 — 정할 것도 같습니다</p></div>
+<div class="rv-fld"><label for="rv-dec">정할 것</label>
+  <textarea id="rv-dec" rows="2" placeholder="정할 것 한 줄 — 무엇을 고르는가"></textarea></div>
+<div class="rv-fld"><span class="rv-fld-l" id="rv-opts-l">선택지</span>
+  <div class="rv-opts-box" role="group" aria-labelledby="rv-opts-l">
+  <div id="rv-opts">
+    <div class="rv-opt"><input data-opt aria-label="선택지" placeholder="선택지"><input data-cost aria-label="대가" placeholder="대가"><input data-what aria-label="그러면 어떻게 되는가" placeholder="그러면 어떻게 되는가"><label class="rv-rec"><input type="radio" name="rv-rec" checked> 추천</label></div>
+    <div class="rv-opt"><input data-opt aria-label="선택지" placeholder="선택지"><input data-cost aria-label="대가" placeholder="대가"><input data-what aria-label="그러면 어떻게 되는가" placeholder="그러면 어떻게 되는가"><label class="rv-rec"><input type="radio" name="rv-rec"> 추천</label></div>
+  </div>
+  <div class="rv-opt-more"><button id="rv-opt-add" type="button">+ 행 추가</button>
+    <span class="rv-hint">고를 것이 없는 항목이면 비워 둡니다</span></div>
+  </div></div>
+<div class="rv-fld"><label for="rv-from">나온 항목</label>
+  <select id="rv-from"><option value="">없음 — 새로 올림</option><option value="1">1 · 새 버전을 tokens · visualization 은 기능 …</option><option value="2">2 · neon-gradient-dark 노드는 넘겨받은 색이 대표 …</option><option value="3">3 · 가이드가 적은 진한 면 글자색이 세 부품(VS 구분선 · 이정…</option><option value="4">4 · 진한 면 위 글자색은 계산값을 그대로 쓸까요 — 가이드 30종…</option></select>
+  <p class="rv-hint">다른 항목의 추가 의견에서 갈라져 나왔으면 고릅니다 — 상세 첫 줄에 출처가 붙습니다</p></div>
+<div class="rv-add-foot"><span class="rv-hint">올리면 제출 전 목록에 쌓이고, 명령을 터미널에 붙여 넣어야 들어갑니다</span>
+  <button id="rv-add-go" type="button">항목 올리기</button></div>
+</div></details>
+
+
+<section class="ev" id="evidence" aria-labelledby="ev-h">
+<h2 id="ev-h">무엇을 바꿨고 무엇으로 확인했나</h2>
+<details class="ev-fold">
+<summary><span class="evid"><span class="evid-cell"><span class="evid-l">검증 기준</span><span class="evid-big">5줄</span><span class="evid-sub">카드 문서 「검증」 절의 사본 · 펼치면 원문</span></span><span class="evid-cell"><span class="evid-l">실행 결과 첨부</span><span class="evid-big">69줄</span><span class="evid-last">마지막 줄 — 「- [x] document · window 직접 접근 없음(play 의 getComputedStyle 만), 새 런타임 의존성 없음, any 없음」</span></span><span class="evid-cell"><span class="evid-l">바뀐 크기</span><span class="evid-big">16파일</span><span class="evid-sub">+243 −38 · 커밋 7</span></span></span>
+<span class="ev-more"><span class="ev-tog"></span><span class="ev-meta">기준 원문 · 실행 결과 69줄 · 변경 파일 16 · 커밋 7 · 롤백 태그 5 · 기술 정보 · 판정 이력 1</span></span></summary>
+<div class="ev-body">
+<section class="ev-part"><h3>검증 기준 <span class="ev-n">카드 문서 「검증」 절의 사본</span></h3>
+<ul>
+<li><code>pnpm test:unit</code> — viz <code>src/tokens/onInk.test.ts</code>, 카탈로그 <code>src/onInk.test.ts</code> · <code>src/textInk.test.ts</code>(가이드 30종 × <code>shape.stroke</code> 면 4.5:1)가 통과한다</li>
+<li><code>pnpm test</code> — Storybook <code>VISUALIZATION/Templates/Node Wrapper Fill Gate</code> 의 두 play 가 통과한다. 하나는 가이드 30종 Node 래퍼에 넘긴 fill · stroke 가 계산값으로 칠해지는지, 다른 하나는 preset 전부에서 진한 면 글자가 4.5:1 을 넘는지 잰다. 기존 시험 전부도 함께 통과한다</li>
+<li><code>pnpm typecheck</code> · <code>pnpm build</code>(끝의 번들 크기 게이트 포함) · <code>pnpm --filter storybook build</code> 가 초록이다</li>
+<li>고치기 전 커밋에서 S1 · S3 시험이 빨갛게 실패한 기록이 수행 내역에 있다</li>
+<li><code>QUALITY_CHECKLIST.md</code> 의 B(컴포넌트 수정) · C(토큰/테마 변경) · E(Story 추가) 절을 채워 검토서 검증 절과 PR 본문에 붙인다</li>
+</ul></section>
+<section class="ev-part"><h3>실행 결과 <span class="ev-n">일한 쪽이 이미 돌린 출력 그대로</span></h3>
+<pre class="ev-run">게이트 다섯 — 2026-11-24 12:09~12:11 실행(scratchpad k83-gates/summary.txt). 코드는 커밋 56e0f1c 와 같고 그 뒤 커밋은 칸반 기록뿐입니다.
+START typecheck 12:09:40
+END typecheck exit=0 12:09:53
+START build 12:09:53
+END build exit=0 12:10:10
+START test 12:10:10
+END test exit=0 12:11:00
+START sbbuild 12:11:00
+END sbbuild exit=0 12:11:08
+START unit 12:11:08
+END unit exit=0 12:11:14
+DONE
+
+[pnpm build — 끝의 번들 크기 게이트]
+ Test Files  1 passed (1)
+      Tests  23 passed (23)
+[pnpm test — Storybook · Playwright chromium]
+ Test Files  198 passed (198)
+      Tests  1314 passed (1314)
+[pnpm --filter storybook build]
+└  Storybook build completed successfully
+[pnpm test:unit]
+packages/hooks test:  Test Files  30 passed (30)
+packages/hooks test:       Tests  115 passed (115)
+packages/foundations test:  Test Files  10 passed (10)
+packages/foundations test:       Tests  143 passed (143)
+packages/visualization test:  Test Files  29 passed (29)
+packages/visualization test:       Tests  304 passed (304)
+packages/style-guide-catalog test:  Test Files  6 passed (6)
+packages/style-guide-catalog test:       Tests  116 passed (116)
+.../visualization-style-guide-catalog test:  Test Files  7 passed (7)
+.../visualization-style-guide-catalog test:       Tests  85 passed (85)
+
+[고치기 전 실패 — 카드 수행 내역]
+S1 12:01 — viz 시험 3건 undefined, 카탈로그 가이드 전부 「변수 없음」으로 실패
+S3 12:06 — terminal-ascii · neon-gradient-dark 가 넘긴 fill 을 버려 Node Wrapper Fill Gate 실패
+
+[pnpm changeset status --verbose]
+🦋  info Packages to be bumped at patch
+🦋  - @centurio1987/bbangto-ui-visualization-style-guide-catalog 2.1.1
+🦋    - .changeset/kan-083-strong-face-ink.md
+🦋  - @centurio1987/bbangto-ui-core 1.3.1
+🦋  - @centurio1987/bbangto-ui-foundations 2.0.2
+🦋  - @centurio1987/bbangto-ui-style-guide-catalog 1.1.1
+🦋  ---
+🦋  info Packages to be bumped at minor
+🦋  - @centurio1987/bbangto-ui-tokens 2.1.0
+🦋    - .changeset/kan-083-strong-face-ink.md
+🦋  - @centurio1987/bbangto-ui-visualization 2.2.0
+🦋    - .changeset/kan-083-strong-face-ink.md
+🦋  ---
+🦋  info Running release would release NO packages as a major
+
+[품질 체크리스트 — QUALITY_CHECKLIST.md B · C · E 절과 공통 금지 사항]
+B. 컴포넌트 수정 (terminal-ascii · neon-gradient-dark Node 래퍼)
+- [x] props API 그대로. fill 을 넘기지 않으면 DOM 도 같다. neon 에 대표 색이 아닌 fill 을 넘기면 그라디언트 defs 가 빠지고 그 색으로 칠한다(이 카드가 의도한 변경)
+- [x] 영향받는 foundation 파일 — 해당 없음(값 변경 없음)
+- [x] 기존 story · play 전부 통과(198 파일 1,314건), 의존 story(가이드 30종 Wrapper Components 쇼케이스) 포함
+C. 토큰/테마 변경 (on.shape.stroke · --bbangto-viz-on-shape-stroke)
+- [x] 타입 먼저 — S1 시험 뒤 S2 에서 tokens 타입과 구현
+- [x] BbangtoFoundation 파일 전부 — 해당 없음. 바뀐 것은 시각화 가이드 타입의 선택 칸이고 typecheck 통과
+- [x] 기존 컴포넌트 호환 — 선택 칸 · 변수 추가뿐
+- [x] story play 의 CSS 변수 검증 — Strong Face Ink Gate 가 변수가 있는지와 4.5:1 을 잰다
+E. Story 추가 (NodeWrapperFillGate.stories.tsx)
+- [x] 위치 apps/storybook/src/stories/visualization/, 이름 Node Wrapper Fill Gate · Strong Face Ink Gate, play 포함. args 없음(렌더 전용 검사 화면)
+- [ ] addon-a11y — 이 검사 화면은 a11y 시험을 끔. TemplatePaintGate.stories.tsx 와 같은 방식이고, 같은 모양 그림 30장이라 axe 로 더 알 것이 없다고 봄
+공통 금지 사항
+- [x] 하드코딩 색은 시험 입력값(#123456 · #654321)뿐, 컴포넌트 코드에는 없음
+- [x] document · window 직접 접근 없음(play 의 getComputedStyle 만), 새 런타임 의존성 없음, any 없음</pre></section>
+<section class="ev-part"><h3>변경 규모</h3>
+<div class="chart"><svg viewBox="0 0 860 478" role="img" aria-label="파일별 변경 규모"><text x="16" y="28" font-size="12" fill="#6E6A5E">파일 16개 중 규모 상위 16개 · 초록 추가 · 빨강 삭제</text><text x="16" y="57" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">…lization/NodeWrapperFillGate.stories.tsx</text><rect x="316.0" y="46" width="528.0" height="14" fill="#5C7A4A" stroke="#1C1B17" stroke-width="2"/><text x="852.0" y="58" font-size="11" fill="#6E6A5E">+127 −0</text><text x="16" y="83" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">…e-guide-catalog/src/neonGradientDark.tsx</text><rect x="316.0" y="72" width="103.9" height="14" fill="#5C7A4A" stroke="#1C1B17" stroke-width="2"/><rect x="419.9" y="72" width="33.3" height="14" fill="#C0392B" stroke="#1C1B17" stroke-width="2"/><text x="461.2" y="84" font-size="11" fill="#6E6A5E">+25 −8</text><text x="16" y="109" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">KANBAN/cards/KAN-083-JSQKF4.md</text><rect x="316.0" y="98" width="91.5" height="14" fill="#5C7A4A" stroke="#1C1B17" stroke-width="2"/><rect x="407.5" y="98" width="24.9" height="14" fill="#C0392B" stroke="#1C1B17" stroke-width="2"/><text x="440.4" y="110" font-size="11" fill="#6E6A5E">+22 −6</text><text x="16" y="135" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">.kanban/state.json</text><rect x="316.0" y="124" width="49.9" height="14" fill="#5C7A4A" stroke="#1C1B17" stroke-width="2"/><rect x="365.9" y="124" width="49.9" height="14" fill="#C0392B" stroke="#1C1B17" stroke-width="2"/><text x="423.8" y="136" font-size="11" fill="#6E6A5E">+12 −12</text><text x="16" y="161" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">…s/visualization/src/tokens/onInk.test.ts</text><rect x="316.0" y="150" width="99.8" height="14" fill="#5C7A4A" stroke="#1C1B17" stroke-width="2"/><text x="423.8" y="162" font-size="11" fill="#6E6A5E">+24 −0</text><text x="16" y="187" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">.changeset/kan-083-strong-face-ink.md</text><rect x="316.0" y="176" width="54.0" height="14" fill="#5C7A4A" stroke="#1C1B17" stroke-width="2"/><text x="378.0" y="188" font-size="11" fill="#6E6A5E">+13 −0</text><text x="16" y="213" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">KANBAN.md</text><rect x="316.0" y="202" width="12.5" height="14" fill="#5C7A4A" stroke="#1C1B17" stroke-width="2"/><rect x="328.5" y="202" width="12.5" height="14" fill="#C0392B" stroke="#1C1B17" stroke-width="2"/><text x="348.9" y="214" font-size="11" fill="#6E6A5E">+3 −3</text><text x="16" y="239" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">packages/tokens/src/visualization.ts</text><rect x="316.0" y="228" width="12.5" height="14" fill="#5C7A4A" stroke="#1C1B17" stroke-width="2"/><rect x="328.5" y="228" width="8.3" height="14" fill="#C0392B" stroke="#1C1B17" stroke-width="2"/><text x="344.8" y="240" font-size="11" fill="#6E6A5E">+3 −2</text><text x="16" y="265" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">…ckages/visualization/src/tokens/onInk.ts</text><rect x="316.0" y="254" width="12.5" height="14" fill="#5C7A4A" stroke="#1C1B17" stroke-width="2"/><rect x="328.5" y="254" width="8.3" height="14" fill="#C0392B" stroke="#1C1B17" stroke-width="2"/><text x="344.8" y="266" font-size="11" fill="#6E6A5E">+3 −2</text><text x="16" y="291" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">KANBAN.board.html</text><rect x="316.0" y="280" width="8.3" height="14" fill="#5C7A4A" stroke="#1C1B17" stroke-width="2"/><rect x="324.3" y="280" width="8.3" height="14" fill="#C0392B" stroke="#1C1B17" stroke-width="2"/><text x="340.6" y="292" font-size="11" fill="#6E6A5E">+2 −2</text><text x="16" y="317" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">…tyle-guide-catalog/src/terminalAscii.tsx</text><rect x="316.0" y="306" width="8.3" height="14" fill="#5C7A4A" stroke="#1C1B17" stroke-width="2"/><rect x="324.3" y="306" width="4.2" height="14" fill="#C0392B" stroke="#1C1B17" stroke-width="2"/><text x="336.5" y="318" font-size="11" fill="#6E6A5E">+2 −1</text><text x="16" y="343" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">packages/visualization/README.md</text><rect x="316.0" y="332" width="8.3" height="14" fill="#5C7A4A" stroke="#1C1B17" stroke-width="2"/><rect x="324.3" y="332" width="4.2" height="14" fill="#C0392B" stroke="#1C1B17" stroke-width="2"/><text x="336.5" y="344" font-size="11" fill="#6E6A5E">+2 −1</text><text x="16" y="369" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">.kanban/log.md</text><rect x="316.0" y="358" width="4.2" height="14" fill="#5C7A4A" stroke="#1C1B17" stroke-width="2"/><rect x="320.2" y="358" width="4.2" height="14" fill="#C0392B" stroke="#1C1B17" stroke-width="2"/><text x="332.3" y="370" font-size="11" fill="#6E6A5E">+1 −1</text><text x="16" y="395" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">…on-style-guide-catalog/src/onInk.test.ts</text><rect x="316.0" y="384" width="8.3" height="14" fill="#5C7A4A" stroke="#1C1B17" stroke-width="2"/><text x="332.3" y="396" font-size="11" fill="#6E6A5E">+2 −0</text><text x="16" y="421" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">.kanban/archive.jsonl</text><rect x="316.0" y="410" width="4.2" height="14" fill="#5C7A4A" stroke="#1C1B17" stroke-width="2"/><text x="328.2" y="422" font-size="11" fill="#6E6A5E">+1 −0</text><text x="16" y="447" font-size="12" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace" fill="#4A463C">…-style-guide-catalog/src/textInk.test.ts</text><rect x="316.0" y="436" width="4.2" height="14" fill="#5C7A4A" stroke="#1C1B17" stroke-width="2"/><text x="328.2" y="448" font-size="11" fill="#6E6A5E">+1 −0</text></svg></div>
+<div class="scroll"><table>
+<tr><th>파일</th><th>상태</th><th>추가</th><th>삭제</th></tr><tr><td><code>.changeset/kan-083-strong-face-ink.md</code></td><td>M</td><td>13</td><td>0</td></tr><tr><td><code>.kanban/archive.jsonl</code></td><td>M</td><td>1</td><td>0</td></tr><tr><td><code>.kanban/log.md</code></td><td>M</td><td>1</td><td>1</td></tr><tr><td><code>.kanban/state.json</code></td><td>M</td><td>12</td><td>12</td></tr><tr><td><code>KANBAN.board.html</code></td><td>M</td><td>2</td><td>2</td></tr><tr><td><code>KANBAN.md</code></td><td>M</td><td>3</td><td>3</td></tr><tr><td><code>KANBAN/cards/KAN-083-JSQKF4.md</code></td><td>M</td><td>22</td><td>6</td></tr><tr><td><code>apps/storybook/src/stories/visualization/NodeWrapperFillGate.stories.tsx</code></td><td>M</td><td>127</td><td>0</td></tr><tr><td><code>packages/tokens/src/visualization.ts</code></td><td>M</td><td>3</td><td>2</td></tr><tr><td><code>packages/visualization-style-guide-catalog/src/neonGradientDark.tsx</code></td><td>M</td><td>25</td><td>8</td></tr><tr><td><code>packages/visualization-style-guide-catalog/src/onInk.test.ts</code></td><td>M</td><td>2</td><td>0</td></tr><tr><td><code>packages/visualization-style-guide-catalog/src/terminalAscii.tsx</code></td><td>M</td><td>2</td><td>1</td></tr><tr><td><code>packages/visualization-style-guide-catalog/src/textInk.test.ts</code></td><td>M</td><td>1</td><td>0</td></tr><tr><td><code>packages/visualization/README.md</code></td><td>M</td><td>2</td><td>1</td></tr><tr><td><code>packages/visualization/src/tokens/onInk.test.ts</code></td><td>M</td><td>24</td><td>0</td></tr><tr><td><code>packages/visualization/src/tokens/onInk.ts</code></td><td>M</td><td>3</td><td>2</td></tr>
+</table></div></section>
+<details><summary>커밋<span class="fold-n">7건</span></summary><pre>8a5221b kanban: KAN-083-JSQKF4 검증 절을 실제 시험 이름 · 체크리스트 줄로 고침
+cfd1f8e kanban: KAN-083-JSQKF4 검토 이동 전 멈춤 기록
+56e0f1c chore: 변경셋 kan-083 · neon 대표 hex 를 그라디언트 요청으로 · 게이트 다섯 통과 (KAN-083 S4)
+bd0133f fix(visualization-style-guide-catalog): terminal-ascii · neon-gradient-dark Node 래퍼가 넘겨받은 fill 을 따른다 + 게이트 스토리 둘 (KAN-083 S3)
+b902c5b feat(visualization): 진한 면(shape.stroke) 위 글자색 --bbangto-viz-on-shape-stroke · tokens on.shape.stroke 칸 (KAN-083 S2)
+102c0ec test(visualization): 진한 면(shape.stroke) 위 글자색 on 변수 시험 — 구현 전 실패 (KAN-083 S1)
+0ce18aa kanban: KAN-083-JSQKF4 진행 중으로 이동</pre></details>
+<details><summary>롤백 태그<span class="fold-n">5개</span></summary><pre>kan/KAN-083-JSQKF4/S1
+kan/KAN-083-JSQKF4/S2
+kan/KAN-083-JSQKF4/S3
+kan/KAN-083-JSQKF4/S4
+kan/KAN-083-JSQKF4/batch1</pre></details>
+<details><summary>기술 정보 — 카드 · 브랜치 · 워크트리 · 베이스 · diff 범위</summary><div class="scroll"><table>
+<tr><th>항목</th><th>값</th></tr>
+<tr><td>카드</td><td><code>KAN-083-JSQKF4</code></td></tr>
+<tr><td>브랜치</td><td><code>main</code> — 머지됨</td></tr>
+<tr><td>워크트리</td><td><code>/Users/centurio/bbangto-ui</code></td></tr>
+<tr><td>베이스</td><td><code>9e1d345</code></td></tr>
+<tr><td>변경 훑기</td><td><code>git diff 9e1d345..496911e3ef8d</code></td></tr>
+</table></div></details>
+<details><summary>문서 판정 이력<span class="fold-n">1건</span></summary><section class="card"><p><strong>판정</strong>: 승인</p>
+<p><strong>판정 이력</strong>:</p>
+<ul>
+<li>승인 · 유저 · 2026-11-25</li>
+</ul></section></details>
+</div></details>
+</section>
+
+<p class="meta src">생성 근거: .kanban/reviews/KAN-083-JSQKF4.review.json
+· KANBAN.md · 갱신 2026-11-25</p>
+</div>
+
+<section class="tray" id="tray" aria-label="제출 전 판정">
+  <div class="tray-head is-static"><h3 id="tray-title"></h3><span class="tray-sub" id="tray-sub"></span>
+    <button class="tray-toggle" id="tray-toggle" aria-expanded="true" aria-controls="tray-body"
+            aria-label="목록 접기">&#9662;</button></div>
+  <div class="tray-body" id="tray-body" tabindex="0" role="region" aria-label="제출 전 목록">
+  <p class="tray-target" id="tray-target"></p>
+  <p class="tray-why" id="tray-why" hidden></p>
+  <ol id="tray-list"></ol>
+  <div class="tray-cmd" id="tray-cmd" hidden>
+    <p class="tray-sub" id="tray-cmd-cap"></p>
+    <pre id="x1"></pre>
+    <p class="tray-sub"><button class="link" id="tray-export" type="button">다른 형식 — patch JSON</button>
+      · 경로는 이 화면을 연 곳에서 계산한 절대경로입니다</p>
+  </div>
+  <p class="tray-note" id="tray-note"></p>
+  </div>
+  <div class="tray-foot">
+    <button class="quiet" id="tray-clear">모두 취소</button>
+    <button class="quiet" id="tray-fold" hidden>결과 접기</button>
+    <span class="spacer"></span>
+    <button class="primary" id="tray-copy" hidden></button>
+    
+  </div>
+</section>
+
+<div class="modal" id="modal"><div class="box" id="modal-box"></div></div>
+<div class="toast" id="toast" role="status"></div>
+<script type="application/json" id="review-ops">{"card": "KAN-083-JSQKF4", "serve": false, "hub": false, "closing": false, "token": null, "cli": {"py": "python3", "kanban": "/Users/centurio/.claude/skills/manage-kanban/scripts/kanban.py", "report": "/Users/centurio/.claude/skills/manage-kanban/scripts/report.py", "rel": "../..", "home": "KANBAN/reviews/KAN-083-JSQKF4.review.html", "root": null, "branch": null, "card": "KAN-083-JSQKF4"}, "items": [{"idx": 1, "text": "새 버전을 tokens · visualization 은 기능 추가(minor), 시각화 카탈로그는 버그 수정(patch)으로 낼까요 — 새 칸과 새 변수는 기능 추가이고, 넘겨받은 색을 버리던 것은 버그라서입니다", "state": "승인", "notes": 0}, {"idx": 2, "text": "neon-gradient-dark 노드는 넘겨받은 색이 대표 색이 아니면 그 색으로 칠할까요 — 지금 그렇게 고쳤고, 카탈로그 그림은 바뀌지 않았습니다", "state": "승인", "notes": 0}, {"idx": 3, "text": "가이드가 적은 진한 면 글자색이 세 부품(VS 구분선 · 이정표 표시 · 번호 배지)에는 닿지 않습니다 — 별도 카드로 고칠까요", "state": "승인", "notes": 0}, {"idx": 4, "text": "진한 면 위 글자색은 계산값을 그대로 쓸까요 — 가이드 30종의 프리셋까지 62개 조합 모두 대비 4.5:1 을 넘습니다", "state": "승인", "notes": 0}], "converge": {"approved": 4, "live": 4}}</script>
+<script>
+
+'use strict';
+const DATA = JSON.parse(document.getElementById('review-ops').textContent);
+const $ = s => document.querySelector(s);
+// 선택지 행은 여러 개라 목록으로 집는다. 화면 전체에서 이 한 자리만 쓴다.
+const $$ = s => Array.from(document.querySelectorAll(s));
+const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g,
+  m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const clip = (s, n) => { s = String(s == null ? '' : s).replace(/\s+/g, ' ');
+                         return s.length > n ? s.slice(0, n - 1) + '…' : s; };
+
+let queue = [];        // 아직 검토서에 안 쓰인 op 목록 — 화면 낱말로는 「제출 전」이다
+/* 저장 결과판. null 이면 트레이는 제출 전 목록이다. 저장이 다 들어가지 못했을 때만 선다 — `{rows, general}`.
+   줄마다 상태(`st`)는 **응답 값으로** 정해 둔다(showResult): in 들어감 · fail 실패 · unsent 안 보냄. 사유 문장을
+   문자열로 뒤져 갈래 짓지 않는다 — 그 문구를 한 글자 고치는 순간 화면이 조용히 다른 길로 샌다. */
+let result = null;
+// 트레이 접힘 기억(KAN-033) — 쓰는 곳은 아래 applyTrayOpen · toggleTray 다.
+const TRAY_KEY = 'kanban-tray:review:' + DATA.card;
+let trayMemo = null;          // 저장소가 막혔을 때 이 화면 안에서만 쓰는 기억
+let trayResultFold = null;    // {res, open} — 결과판에서 사람이 누른 값
+/* 저장이 **일부만** 들어간 뒤 켜진다. 그 순간부터 화면의 상태 칩 · 수렴은 검토서와 다른 말을 한다 —
+   들어간 것을 화면에 미리 반영하지 않기로 했기 때문이다. 그 어긋남을 말 없이 두면 유저는 판정이 안 들어간 줄
+   알고 같은 것을 다시 누른다. 트레이 아래 한 줄(`#tray-note`)이 그것을 말한다. */
+let stale = false;
+/* 유령 탭 — 서버가 이 탭의 저장을 받지 않는다(`ghost: true` 응답, report.py `refused_reply`). 그때부터 이 탭은
+   파일로 연 화면처럼 **명령으로** 나간다. 큐는 그대로 둔다 — 새로고침을 권하지 않는다(새로고침이 곧 큐 소멸이다). */
+let ghost = false;
+/* 저장 요청이 도는 중인가. **그동안 큐를 얼린다** — 안 얼리면 방금 보낸 묶음의 응답이
+   오면서 그 사이 들어온 op 까지 함께 지워지고, 화면은 성공이라고 말한다. 유저가 누른
+   판정이 아무 데도 안 남는 종류의 실패라 눌러 본 사람도 모른다. */
+let sending = false;
+// 명령으로 나가는 화면인가 — 파일로 연 화면(서버 없음)과 유령 탭(서버가 안 받음).
+const cmdMode = () => !DATA.serve || ghost;
+
+/* 허브 탭은 같은 워크스페이스의 다른 검토 화면으로 옮겨 갈 수 있다. 아직 안 보낸 판정이 그때 사라지지
+   않게 이 탭의 저장소에 둔다. 옛 서버와 정적 파일의 탭은 옮겨 가지 않으므로 쓰지 않는다. */
+const QKEY = 'kanban-review-queue:' + DATA.card;
+function keepQueue() {
+  if (!DATA.hub) return;
+  try { sessionStorage.setItem(QKEY, JSON.stringify(queue)); } catch (e) { /* 못 써도 화면은 돈다 */ }
+  keepStop();
+}
+function restoreQueue() {
+  if (!DATA.hub || DATA.closing) return;
+  try { queue = JSON.parse(sessionStorage.getItem(QKEY) || '[]'); } catch (e) { queue = []; }
+  if (!Array.isArray(queue)) queue = [];
+}
+
+/* ─── 방금 바뀜(KAN-021 S13 · motion.md 검토 표 「저장 → 다시 그림」 · 시안 ReviewSaved) ─────────────────────
+   **저장해 새로 받은 화면에서만 붙는다.** 이 화면의 본문은 서버가 요청마다 다시 그리는 HTML 이라, 무엇이 바뀌었는지를
+   화면 모형으로 되감지 않는다. 새로 받기 직전에 항목마다 서버가 실어 준 상태 · 추가 의견 수와 수렴을 이 탭의 세션
+   저장소에 떠 두고(`keepSeen`), 다시 받은 화면의 같은 값과 견준다(`noteChanges`). 견주기만 하므로 도출 규칙을
+   복제하지 않는다. 바뀐 항목은 파란 테 + 상태 칩 옆 「방금 바뀜 · 반려 → 승인」, 그 레일 칸은 파란 바깥 테, 새로 달린
+   추가 의견 줄은 바탕이 한 번 잦아든다(움직임 줄이기면 줄 앞 「새」).
+   표시는 다음에 무엇이 바뀔 때까지 남는다 — 새로고침해도 테 · 꼬리표는 그대로이고 움직임은 없다. 다음 저장이 무엇을
+   바꾸면 그 묶음으로 갈아 끼운다(보드는 세션 동안 쌓지만, 검토의 「방금」은 마지막 저장이다).
+   파일로 연 화면에는 붙이지 않는다(시안 ReviewFileDoc) — 명령을 붙여 넣고 다시 연 파일이 이 탭의 마지막 화면과
+   이어진다고 볼 근거가 없다. 저장소를 못 쓰면 표시 없이 그린다 — 읽기 · 쓰기 · 지우기 모두 try/catch 다. */
+const SEEN_KEY = 'kanban-review-seen:' + DATA.card;
+const STOP_KEY = 'kanban-review-stop:' + DATA.card;
+const seenOn = () => !!DATA.serve && !DATA.closing;
+function stGet(k) {
+  try { const s = window.sessionStorage.getItem(k); return s ? JSON.parse(s) : null; } catch (e) { return null; }
+}
+function stSet(k, v) {
+  try { window.sessionStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; }
+}
+function stDel(k) { try { window.sessionStorage.removeItem(k); } catch (e) { /* 못 지워도 화면은 돈다 */ } }
+const isObj = x => !!x && typeof x === 'object' && !Array.isArray(x);
+const isCount = x => Number.isInteger(x) && x >= 0;
+const STATES = ['승인', '반려', '추가 의견', '미정', '철회'];
+let MARKS = {};      // 항목 번호 → {st: [전, 후], n: 새로 달린 추가 의견 수, fresh: 새 항목}
+// 초록 판 — 서버가 그린 판의 종류(살아 있는 항목이 모두 승인 · 문서 승인됨). 판이 서는 조건을 여기서 다시 세지 않는다.
+const panelNow = () => { const p = $('.rv-allok'); return p ? (p.classList.contains('is-done') ? 'done' : 'ok') : ''; };
+function seenNow() {
+  const c = DATA.converge || {};
+  return {v: 1, items: Object.fromEntries(DATA.items.map(x => [String(x.idx), {st: x.state, n: x.notes}])),
+          cv: {a: c.approved, l: c.live}, panel: panelNow(), marks: MARKS};
+}
+function keepSeen() { if (seenOn()) stSet(SEEN_KEY, seenNow()); }
+// 저장소의 값은 모양을 믿지 않는다(다른 판 · 손으로 고친 값). 항목 값 하나라도 꼴이 틀리면 통째로 버린다 — 반쯤 깨진
+// 판과 견주면 멀쩡한 항목이 모두 「새 항목」으로 보인다.
+const validSeen = s => isObj(s) && isObj(s.items) && isObj(s.cv) &&
+  Object.values(s.items).every(v => isObj(v) && STATES.includes(v.st) && isCount(v.n));
+// 되살린 표시는 지금 화면과 맞는 것만 남긴다 — 꼬리표의 「→ 후」가 지금 상태여야 하고, 새 의견 수가 지금 수를 못 넘는다.
+function validMarks(ms) {
+  const out = {};
+  if (!isObj(ms)) return out;
+  for (const x of DATA.items) {
+    const k = String(x.idx), m = ms[k];
+    if (!isObj(m)) continue;
+    const st = Array.isArray(m.st) && m.st.length === 2 && STATES.includes(m.st[0]) && m.st[1] === x.state
+      && m.st[0] !== m.st[1] ? m.st : null;
+    const n = Number.isInteger(m.n) && m.n > 0 && m.n <= x.notes ? m.n : 0;
+    if (m.fresh === true) out[k] = {fresh: true};
+    else if (st || n) out[k] = Object.assign({}, st ? {st} : {}, n ? {n} : {});
+  }
+  return out;
+}
+/* 떠 둔 값(old)과 지금 값을 견준다. 돌려주는 것은 이번에 새로 바뀐 것 — 항목 표시 · 수렴의 분자 · 분모 · 초록 판. */
+function noteChanges(old) {
+  const marks = {};
+  for (const x of DATA.items) {
+    const k = String(x.idx), was = old.items[k];
+    if (!was) { marks[k] = {fresh: true}; continue; }
+    const m = {};
+    if (was.st !== x.state) m.st = [was.st, x.state];
+    if (x.notes > was.n) m.n = x.notes - was.n;
+    if (m.st || m.n) marks[k] = m;
+  }
+  const c = DATA.converge || {}, p = panelNow();
+  return {marks, any: Object.keys(marks).length > 0,
+          a: c.approved !== old.cv.a, l: c.live !== old.cv.l, panel: !!p && p !== old.panel};
+}
+// 꼬리표 — 「방금 바뀜 · 반려 → 승인 · 추가 의견 1」. 제출 전 꼬리표(`pendingText`)와 같은 꼴이다.
+function chgText(m) {
+  if (m.fresh) return '방금 바뀜 · 새 항목';
+  return '방금 바뀜 · ' + [m.st ? `${m.st[0]} → ${m.st[1]}` : '', m.n ? `추가 의견 ${m.n}` : '']
+    .filter(Boolean).join(' · ');
+}
+const itemEl = k => document.getElementById('item-' + k);
+const railEl = k => document.querySelector(`.rail-c[href="#item-${k}"]`);
+// 새로 달린 추가 의견 줄 — 의견은 덧붙기만 하므로 펴 둔 목록 끝 n 줄이다(제출 전 유령 줄은 뺀다). 접힘 안에 든
+// 새 줄은 그 전에 `liftNotes` 가 꺼내 둔다.
+function newNotes(li, n) {
+  const ls = li ? [...li.querySelectorAll('.jd-band-n .jd-ns:not(.jd-ns-prev) > li:not([data-ghost])')] : [];
+  return n > 0 ? ls.slice(-n) : [];
+}
+// 새 의견은 접힘 밖에 선다(KAN-023 S3) — 펴 둔 줄은 최신 하나뿐이라, 한 번에 둘 이상 달리면 나머지 새 줄이
+// 「이전 의견」 안에 든다. 그 줄들을 펴 둔 목록 앞으로 차례 그대로 꺼내고, 접힘의 수와 「누가 · 언제」를 고친다.
+function liftNotes(li, n) {
+  const fold = li && li.querySelector('.jd-band-n .jd-ns-old');
+  if (!fold || n < 2) return;
+  const prev = fold.querySelector('.jd-ns-prev');
+  li.querySelector('.jd-band-n .jd-ns:not(.jd-ns-prev)').prepend(...[...prev.children].slice(-(n - 1)));
+  const left = prev.children.length, tail = prev.lastElementChild;
+  if (!left) { fold.remove(); return; }
+  fold.querySelector('.jd-ns-old-n').textContent = `이전 의견 ${left}개`;
+  fold.querySelector('summary > .meta').textContent = tail.querySelector('.meta')?.textContent || '';
+}
+/* 표시 — 테 · 꼬리표 · 레일 바깥 테. 움직임과 상관없이 남는다(움직임 줄이기여도 같다). 줄이기면 새 의견 줄 앞에 「새」가
+   선다 — 바탕이 잦아드는 대신 남는 표시다. 레일 칸의 title 에도 같은 말을 붙인다(칸 안 글은 「n · 상태」뿐이다). */
+function paintChanged() {
+  for (const [k, m] of Object.entries(MARKS)) {
+    const li = itemEl(k), rail = railEl(k), t = chgText(m);
+    if (!li) continue;
+    li.classList.add('changed');
+    liftNotes(li, m.n || 0);
+    const chip = li.querySelector('.jd-head > .tag') || li.querySelector('.jd-fold > summary > .tag');
+    if (chip) chip.insertAdjacentHTML('afterend', `<span class="tag jd-ctag">${esc(t)}</span>`);
+    if (rail) { rail.classList.add('changed'); rail.title = (rail.title ? rail.title + ' · ' : '') + t; }
+    if (reduced()) newNotes(li, m.n).forEach(e => e.insertAdjacentHTML('afterbegin', '<span class="tag jd-new">새</span> '));
+  }
+}
+/* 움직임 — **이번에 새로 바뀐 것이 있을 때 한 번만** 클래스를 붙인다. 차례(레일 → 수렴 숫자 → 항목 바탕)는 CSS 지연이
+   잇는다(REVIEW_CSS). 움직임 줄이기면 하나도 안 붙인다 — 테 · 꼬리표는 위 paintChanged 가 이미 그렸다. */
+const fx = (el, cls) => { if (el && !reduced()) el.classList.add(cls); };
+function arrive(plan) {
+  if (!plan || !plan.any || reduced()) return;
+  Object.entries(plan.marks).forEach(([k, m]) => {
+    fx(railEl(k), 'fx-ring');
+    fx(itemEl(k), 'fx-trace');
+    newNotes(itemEl(k), m.n).forEach(e => fx(e, 'fx-trace'));
+  });
+  if (plan.a) fx($('.dh-cv-n'), 'fx-count');
+  if (plan.l) fx($('.dh-cv-d'), 'fx-count');
+  // 문서 전체 승인이 **선 순간** — 지난 화면에 없던 판이면 한 번 올라온다(motion.md 「문서 전체 승인이 섬」).
+  if (plan.panel) fx($('.rv-allok'), 'fx-rise');
+}
+/* 처음 그리기 — 떠 둔 값이 있으면 견줘 표시를 정하고, 지금 값을 다시 떠 둔다. 같은 화면을 다시 열면 바뀐 것이 0 이라
+   움직임 없이 지난 표시만 되살아난다. 없거나 · 못 읽거나 · 꼴이 틀리면 표시 없이 그린다. */
+function noticeChanges() {
+  if (!seenOn()) return null;
+  const old = stGet(SEEN_KEY);
+  let plan = null;
+  if (validSeen(old)) {
+    plan = noteChanges(old);
+    MARKS = plan.any ? plan.marks : validMarks(old.marks);
+  }
+  keepSeen();
+  return plan;
+}
+
+/* ─── 저장이 중간에서 멈춤(KAN-021 S13 · motion.md 「저장이 중간에서 멈춤」 · 시안 ReviewStopped) ──────────────
+   허브 화면은 결과판을 이 탭에 남기고 **화면을 새로 받는다** — 들어간 것은 새 화면에 「방금 바뀜」으로 서고, 실패 ·
+   안 보냄은 제출 전 목록(QKEY)에 그대로 남아 결과판이 다시 선다. 들어간 줄은 op 그대로, 남은 줄은 제출 전 목록 안
+   자리(qi)로 적는다 — 되살린 결과판 줄과 제출 전 목록이 같은 것을 가리켜야 줄 취소가 둘을 함께 지운다. 결과판은
+   접거나(「결과 접기」) 새로 누를 때까지 남는다(그 사이 새로고침해도 다시 선다). 들어간 것이 없는 결과판(유령 탭 ·
+   서버에 안 닿음)은 남기지 않는다 — 새로 받은 화면에서는 그 사유가 더 맞지 않는다. 옛 전용 서버는 큐를 탭에 두지
+   않으므로 새로고침하지 않고 지금처럼 「그 전 판」이라고 말한다. */
+function stopRecord() {
+  if (!result || !result.rows.some(r => r.st === 'in')) return null;
+  return {v: 1, general: result.general || '',
+          rows: result.rows.map(r => r.st === 'in' ? {st: 'in', q: r.q}
+                                                   : {st: r.st, why: r.why || '', qi: queue.indexOf(r.q)})};
+}
+function keepStop() {
+  const s = stopRecord();
+  if (s) stSet(STOP_KEY, s); else stDel(STOP_KEY);
+}
+function restoreStop() {
+  if (!DATA.hub || DATA.closing) return null;
+  const s = stGet(STOP_KEY);
+  if (!isObj(s) || !Array.isArray(s.rows)) return null;
+  const rows = [], used = new Set();
+  s.rows.forEach(r => {
+    if (!isObj(r)) return;
+    if (r.st === 'in' && isObj(r.q) && typeof r.q.op === 'string') rows.push({q: r.q, st: 'in'});
+    else if ((r.st === 'fail' || r.st === 'unsent') && Number.isInteger(r.qi) && queue[r.qi] && !used.has(r.qi)) {
+      used.add(r.qi);
+      rows.push(Object.assign({q: queue[r.qi], st: r.st},
+                              r.st === 'fail' && typeof r.why === 'string' ? {why: r.why} : {}));
+    }
+  });
+  // 제출 전 목록에 있는데 결과판 줄이 없는 것 — 안 보냄으로 함께 선다(줄을 잃지 않는다).
+  queue.forEach((q, i) => { if (!used.has(i)) rows.push({q, st: 'unsent'}); });
+  if (!rows.some(r => r.st === 'in')) return null;
+  return {rows, general: typeof s.general === 'string' ? s.general : ''};
+}
+/* 새로고침 전에 제출 전 목록 · 결과판 · 견줄 값을 적고 **읽어 맞춰 본다.** 하나라도 못 적었으면 새로고침하지 않는다 —
+   여기서 새로고침은 곧 제출 전 목록의 소멸이라서다(SKILL 5.8 「거부하되 유저가 친 것을 삼키지 않는다」). 그때는 지금처럼
+   이 화면에 결과판을 세우고 「그 전 판」이라고 말한다. */
+function holdStop() {
+  keepQueue(); keepSeen();
+  const q = stGet(QKEY), s = stGet(STOP_KEY);
+  return Array.isArray(q) && q.length === queue.length && isObj(s) && Array.isArray(s.rows)
+    && s.rows.length === result.rows.length;
+}
+
+/* ─── op 큐 ────────────────────────────────────────────────────────────────
+   **판정만 마지막 것을 남긴다.** 판정은 상태라, 승인을 눌렀다 반려로 고친 사람이 한
+   일은 반려 하나다 — 두 줄로 보내면 검토서에 왕복이 없는데도 왕복 이력이 생긴다.
+   추가 의견과 새 항목은 **덧붙이는 것**이라 겹쳐 쌓는다. 여기서 추가 의견까지 덮어쓰면 한
+   의견에 두 마디를 남기려던 검토자의 첫 마디가 소리 없이 사라진다(잘못 넣은 것은
+   트레이가 낱개로 취소해 준다 — 무음 유실보다 한 번 더 누르는 쪽이 낫다).
+   결과판이 서 있는 동안 새로 누르면 결과판을 접고 제출 전 목록으로 돌아간다 — 남은 것(실패 · 안 보냄)과
+   새로 누른 것이 한 목록에 선다. */
+function enqueue(op) {
+  // **조용히 막지 않고 말한다.** 누른 것이 아무 데도 안 남고 화면도 가만히 있으면
+  // 유저는 버튼이 고장 난 줄 안다. 저장은 보통 1초 안에 끝난다.
+  if (sending) return toast('제출 중입니다 — 끝나면 다시 누르세요.');
+  result = null;
+  if (op.op === 'judge') {
+    const key = q => (q.op === 'judge' && (q.item || null) === (op.item || null));
+    const at = queue.findIndex(key);
+    if (at >= 0) { queue[at] = op; return sync(); }
+  }
+  if (op.op === 'choose' || op.own) {
+    // 한 항목의 「정할 것」은 한 무리다 — 갈래 하나를 고르거나 「직접 적기」에 적거나 둘 중 하나다(KAN-025 검토
+    // 1회차 「의견을 다는 것이 … 정할 것의 한 가지로 포함되어야 한다」). 그 항목의 지난 고르기 · 직접 적기를
+    // 같은 줄에서 갈아 끼운다 — 다시 고른 사람이 한 일은 마지막 하나다.
+    const at = queue.findIndex(q => isPick(q) && String(q.item) === String(op.item));
+    if (at >= 0) { queue[at] = op; queue = queue.filter((q, i) => i === at || !(isPick(q) && String(q.item) === String(op.item))); return sync(); }
+  }
+  queue.push(op);
+  sync();
+}
+const ITEM = Object.fromEntries(DATA.items.map(x => [String(x.idx), x.text]));
+// 「정할 것」 무리에서 고른 것 — 갈래 고르기(choose) 또는 「직접 적기」(own 표시가 붙은 note).
+const isPick = q => q.op === 'choose' || (q.op === 'note' && !!q.own);
+// 보내는 꼴 — own 은 화면 안에서만 쓰는 표시라 패치 · 명령에는 안 싣는다.
+const wire = q => { const {own, ...r} = q; return r; };
+/* 「직접 적기」를 거둔다 — 글을 다 지웠거나 다른 갈래를 골랐을 때. */
+function dropOwn(item) {
+  const n = queue.length;
+  queue = queue.filter(q => !(q.own && String(q.item) === String(item)));
+  if (queue.length !== n) sync();
+}
+/* 트레이 줄의 이름 — 「n번 · 승인」 꼴(시안 ReviewPending)에 주제 앞부분을 흐린 글로 붙인다. 번호만 두면 여덟 건
+   쌓인 뒤 「3번이 뭐였지」가 되고, 주제만 두면 닮은 항목 둘이 안 갈린다. 새 항목은 S11 의 폼 이름(「+ 새 항목
+   올리기」)과 같은 낱말이다. [이름, 덧말] 을 돌려준다. */
+function opParts(q) {
+  const topic = n => clip(ITEM[String(n)] || '', 18);
+  if (q.op === 'judge') return q.item ? [`${q.item}번 · ${q.verdict}`, topic(q.item)]
+                                      : [`문서 전체 ${q.verdict}`, ''];
+  if (q.op === 'note') return [`${q.item}번 · ${q.own ? '직접 적기' : '추가 의견'}`, '「' + clip(q.text, 22) + '」'];
+  if (q.op === 'choose') return q.choice ? [`${q.item}번 · 고름`, '「' + clip(q.choice, 22) + '」']
+                                         : [`${q.item}번 · 승인`, topic(q.item)];
+  if (q.op === 'item') return ['새 항목', clip(String(q.add).split('\n')[0], 24)];
+  return [String(q.op), ''];
+}
+const opText = q => opParts(q).filter(Boolean).join(' ');
+
+/* board.py 의 reapply() 자리다. 다만 여기서는 **되감을 화면 모형이 없다** — 큐에 든 op
+   를 항목 상태 칩이나 수렴에 미리 반영하지 않기로 했기 때문이다. 그러려면 상태·
+   수렴 도출 규칙을 브라우저에 복제해야 하고, 그 순간 리포트가 보드·validate 와 다른
+   말을 한다. 그래서 취소·추가 뒤에 다시 그리는 것은 **모양뿐**이다 — 항목 꼬리표 「제출 전 · 승인」,
+   누른 단추의 점선(`aria-pressed`), 항목 상자의 점선 테, 레일 칸 오른쪽 「제출 전」 겹침, 유령 줄. 상태 칩 ·
+   레일 색 · 수렴 숫자는 그대로다(KAN-021 S12, motion.md 「판정 누름」). */
+const PRESSED = () => cmdMode()
+  ? '눌렀습니다 — 명령으로 복사해 터미널에 붙여 넣으면 들어갑니다'
+  : '눌렀습니다 — 제출하면 들어갑니다. 그 전에는 상태가 바뀌지 않습니다';
+function pendingText(k, p) {
+  const pick = p.chose ? (p.choice ? '고름: ' + clip(p.choice, 14) : '승인') : p.own ? '직접 적기' : '';
+  const bits = k === '*' ? ['문서 전체 ' + p.verdict]
+    : k === '+' ? ['새 항목 ' + p.adds]
+    : [pick, p.verdict, p.notes ? '추가 의견 ' + p.notes : ''].filter(Boolean);
+  return '제출 전 · ' + bits.join(' · ');
+}
+function repaint() {
+  const per = {};
+  for (const q of queue) {
+    const k = q.op === 'item' ? '+' : (q.item ? String(q.item) : '*');
+    const p = per[k] || (per[k] = {verdict: '', notes: 0, adds: 0, chose: false, choice: '', own: ''});
+    if (q.op === 'judge') p.verdict = q.verdict;
+    else if (q.op === 'choose') { p.chose = true; p.choice = q.choice || ''; }
+    else if (q.op === 'note' && q.own) { p.own = q.text; continue; }
+    else if (q.op === 'note') p.notes++;
+    else if (q.op === 'item') p.adds++;
+  }
+  document.querySelectorAll('[data-pending]').forEach(b => {
+    const p = per[b.dataset.pending];
+    b.textContent = p ? pendingText(b.dataset.pending, p) : '';
+    b.hidden = !p;
+  });
+  /* 항목 상자와 레일 칸 둘 다에 건다 — 레일만 훑다가 「어디에 쌓였더라」를 다시 찾게 하지 않기 위해서다. */
+  document.querySelectorAll('#rv-list > li').forEach(li => {
+    li.classList.toggle('is-pending', !!per[li.id.replace('item-', '')]);
+  });
+  document.querySelectorAll('.rail-c').forEach(a => {
+    a.classList.toggle('rail-pending',
+      !!per[(a.getAttribute('href') || '').replace('#item-', '')]);
+  });
+  // 고른 상자 — 테가 점선이 된다(CSS `.opt:has(input:checked)`). 한 무리에서 하나만 남으므로 골린 상자도
+  // 하나다. 제출 전 목록이 비면 고른 표시도 풀린다 — 「직접 적기」에 글을 쓰는 중이면 그 상자는 둔다.
+  document.querySelectorAll('#rv-list > li').forEach(li => {
+    const p = per[li.id.replace('item-', '')];
+    const own = li.querySelector('input[data-own]'), ta = li.querySelector('textarea[data-note]');
+    li.querySelectorAll('input[data-choose]').forEach(r => { r.checked = !!(p && p.chose && p.choice === r.dataset.choose); });
+    if (own) {
+      const typing = ta && document.activeElement === ta;
+      own.checked = !!(p && p.own) || (typing && !(p && p.chose));
+      // 글 칸은 저장 전 목록을 따른다 — 「직접 적기」 줄이 없으면(다른 갈래를 골랐거나 줄을 취소했으면) 비운다.
+      if (ta && !typing) ta.value = p && p.own ? p.own : '';
+    }
+    const h = li.querySelector('.rv-ops .jd-hint');
+    if (!h) return;
+    if (h.dataset.idle == null) h.dataset.idle = h.textContent;
+    h.textContent = p && (p.chose || p.own || p.verdict) ? PRESSED() : h.dataset.idle;
+  });
+  document.querySelectorAll('[data-judge-all]').forEach(b =>
+    b.setAttribute('aria-pressed', String(!!(per['*'] && per['*'].verdict === b.dataset.judgeAll))));
+  drawGhosts();
+}
+
+/* ─── 유령 줄 ──────────────────────────────────────────────────────────────
+   판정 이력·의견 목록 끝에 「누르기는 했는데 아직 안 적힌 것」을 한 줄로 붙인다. 이것이
+   §6-3 의 답이다 — 화면 모형을 되감지 않으면서 제출 전을 보여 주는 유일한 방법은 **이미
+   적힌 것 옆에 안 적힌 것을 따로 세우는 것**이다.
+
+   회차 번호는 DOM 에 이미 그려진 줄을 세어 낸다(도출 규칙 복제가 아니라 세기다). 판정은
+   `enqueue` 가 항목마다 마지막 하나만 남기므로 유령 판정 줄도 항목당 하나다. */
+function drawGhosts() {
+  document.querySelectorAll('[data-ghost]').forEach(g => g.remove());
+  document.querySelectorAll('.jd-empty').forEach(e => { e.hidden = false; });
+  const how = cmdMode() ? '명령을 넣으면' : '제출하면';
+  for (const q of queue) {
+    if (!q.item) continue;                    // 전체 판정은 어느 항목에도 안 붙는다
+    const li = document.getElementById('item-' + q.item);
+    if (!li) continue;
+    const ul = li.querySelector(q.op === 'judge' || q.op === 'choose' ? '.jd-band-v .jd-vs'
+                                : q.op === 'note' ? '.jd-band-n .jd-ns:not(.jd-ns-prev)' : null);
+    if (!ul) continue;
+    if (q.op === 'judge' || q.op === 'choose') {
+      const r = ul.querySelectorAll('li:not([data-ghost])').length + 1;
+      const what = q.op === 'judge' ? `${esc(q.verdict)} 을 눌렀습니다`
+        : q.choice ? `「${esc(clip(q.choice, 30))}」 를 골랐습니다` : '승인을 눌렀습니다';
+      ul.insertAdjacentHTML('beforeend',
+        `<li class="jd-ghost" data-ghost><span class="meta">${r}회차</span>`
+        + `<span class="jd-o">○</span><span>${what} — `
+        + `${how} 검토서에 들어갑니다 · <b>제출 전</b></span></li>`);
+    } else {
+      ul.insertAdjacentHTML('beforeend',
+        `<li class="jd-ghost" data-ghost><span class="jd-o">○</span> `
+        + `<span class="meta">제출 전</span> ${esc(clip(q.text, 60))}</li>`);
+    }
+    // 「판정 없음」 자리와 유령 줄이 같이 서면 화면이 스스로와 모순된다.
+    const em = ul.parentElement.querySelector('.jd-empty');
+    if (em) em.hidden = true;
+  }
+}
+
+/* ─── 제출 전 트레이 — 오른쪽 아래, 저장 뒤에는 같은 자리가 결과판(KAN-021 S12) ────────────
+   보드 트레이와 같은 규약이다(board.py `drawTray`) — 줄마다 「취소」, 아래 「모두 취소」, 머리 「반영 대상」.
+   서버로 연 화면은 「제출 · n건」 하나(KAN-025), 파일로 연 화면 · 유령 탭은 「명령 복사 · n건」과
+   그 명령 상자다. 허브 화면은 제출 전이 0건이면 같은 자리에 「제출 전 없음 · 제출」 한 줄 띠가 선다 —
+   닫는 길은 늘 보여야 한다. */
+const ST_WORD = {q: '제출 전', in: '들어감', fail: '실패 · 여기서 멈춤', unsent: '안 보냄'};
+function trayTarget() {
+  const c = DATA.cli || {};
+  if (DATA.serve) {
+    // 서버 화면만 경로 · 브랜치를 낸다. 저장이 곧바로 그 체크아웃에 쓰이므로 어느 워크트리 · 브랜치의 서버인지가
+    // 보여야 한다. 정적 파일에는 그 값이 아예 없다(report.py `load_data` · t_global).
+    return c.root ? `반영 대상 <span class="mono">${esc(c.root)}</span>${
+      c.branch ? ` (브랜치 ${esc(c.branch)})` : ''}` : '';
+  }
+  return cliRoot() === '<project-root>'
+    ? '반영 대상을 알 수 없습니다 — 이 화면이 로컬 파일로 열리지 않았습니다. 명령의 ' +
+      '<code>&lt;project-root&gt;</code> 를 <code>KANBAN.md</code> 가 있는 폴더로 바꿔 넣으세요.'
+    : '반영 대상 — 이 화면 파일이 있는 체크아웃. 복사하는 명령에 그 경로가 들어갑니다';
+}
+function rowHtml(r, i) {
+  const [name, extra] = opParts(r.q);
+  const x = r.st !== 'in';                    // 들어간 줄은 되돌리지 않는다 — 취소가 없다
+  return `<li class="tray-row ${r.st}"><span class="tn">${i + 1}</span>` +
+    `<span class="tb"><b>${esc(name)}</b>${extra ? ` <span class="tw">${esc(extra)}</span>` : ''}</span>` +
+    `<span class="st">${ST_WORD[r.st]}</span>` +
+    (x ? `<button class="link tx" data-drop="${i}" aria-label="${i + 1}번 줄 취소 — ${esc(name)}">취소</button>` : '') +
+    (r.why ? `<p class="why">${esc(r.why)}</p>` : '') + '</li>';
+}
+function noteLine(rows) {
+  const n = k => rows.filter(r => r.st === k).length;
+  if (result && n('in') && !result.rows.some(r => r.st === 'fail') && !result.general && n('unsent'))
+    return `들어간 ${n('in')}건은 되돌리지 않았습니다. 제출하는 동안 쌓인 ${n('unsent')}건은 아직 안 보냈습니다.`;
+  // 멈춘 저장 뒤 새로 받은 화면(허브, `restoreStop`)은 이미 들어간 것을 반영한 판이다 — 「그 전 판」이 아니다.
+  // 결과판이 들어간 줄을 가졌는데 낡지 않았으면(stale 은 결과판이 이 화면에 선 순간 켜진다) 그 경우뿐이다.
+  if (result && n('in') && !stale)
+    return `들어간 ${n('in')}건은 되돌리지 않았고, 이 화면은 그것을 반영해 새로 그렸습니다` +
+      (Object.keys(MARKS).length ? ' — 바뀐 곳에 「방금 바뀜」이 붙어 있습니다.' : '.');
+  if (result && n('in')) return `들어간 ${n('in')}건은 되돌리지 않았습니다 — 이 화면의 상태 칩 · 레일 · 승인 수는 그 전 화면입니다.`;
+  if (stale && queue.length) return '먼저 들어간 것이 있어 이 화면의 상태 칩 · 레일 · 승인 수는 그 전 화면입니다 — 남은 것을 제출하면 들어가고 화면이 닫힙니다.';
+  return '';
+}
+function drawTray() {
+  const rows = result ? result.rows : queue.map(q => ({q, st: 'q'}));
+  const on = rows.length > 0;
+  const t = $('#tray');
+  t.classList.toggle('on', on);
+  t.classList.toggle('result', !!result);
+  // 트레이가 떠 있으면 본문 아래를 늘린다 — 맨 아래 근거 칸도 트레이 위까지 올려 읽을 수 있게.
+  const idle = $('#tray-idle');
+  if (idle) idle.hidden = on || cmdMode();
+  document.body.classList.toggle('tray-on', on || !!(idle && !idle.hidden));
+  const n = k => rows.filter(r => r.st === k).length;
+  const stop = rows.findIndex(r => r.st === 'fail');
+  if (result) {
+    $('#tray-title').textContent = '제출 결과' + (stop >= 0 ? ` — ${stop + 1}번에서 멈춤` : '');
+    $('#tray-sub').textContent = ['in', 'fail', 'unsent'].filter(k => n(k))
+      .map(k => `${ST_WORD[k].split(' · ')[0]} ${n(k)}`).join(' · ')
+      + (stop >= 0 ? ' · 멈춘 곳이라 닫지 않습니다' : '');
+  } else {
+    $('#tray-title').textContent = `제출 전 ${rows.length}건`;
+    $('#tray-sub').textContent = ghost ? '이 탭은 제출을 받지 않아 명령으로 나갑니다'
+      : DATA.serve ? '제출하면 들어가고 이 화면이 닫힙니다' : '제출할 서버가 없어 명령으로 나갑니다';
+  }
+  $('#tray-target').innerHTML = trayTarget();
+  $('#tray-target').hidden = !$('#tray-target').innerHTML;
+  $('#tray-why').textContent = result && result.general ? result.general : '';
+  $('#tray-why').hidden = !(result && result.general);
+  $('#tray-list').innerHTML = rows.map(rowHtml).join('');
+  $('#tray-list').querySelectorAll('[data-drop]').forEach(b =>
+    b.addEventListener('click', () => {
+      if (sending) return toast('제출 중입니다 — 끝나면 다시 누르세요.');
+      const r = rows[+b.dataset.drop];
+      if (r) cancelRow(b.closest('li'), r.q);
+    }));
+  // 명령 상자 — 「명령 복사」가 복사하는 것과 같은 글이다(복사가 막히면 여기서 고른다).
+  const cmd = cmdMode() && queue.length > 0;
+  $('#tray-cmd').hidden = !cmd;
+  if (cmd) { $('#tray-cmd-cap').textContent = cmdCaption(); $('#x1').textContent = chain(); }
+  // 바닥 — 제출 전: 모두 취소 · 제출(파일은 명령 복사). 결과판: 결과 접기 · 남은 것 다시 제출(KAN-025).
+  // 단추는 「제출」 하나다 — 모두 반영한 뒤 화면을 닫는다. **부분 실패에서는 닫지 않는다**(서버가 닫기를 미룬다) —
+  // 멈춘 자리를 띄워 놓고 닫으면 어디까지 갔는지 본 채로 이어 갈 길이 없다. 그래서 결과판에서는 같은 단추가
+  // 남은 것을 다시 보내는 이름으로 선다. 성공하면 그때 닫힌다.
+  $('#tray-clear').hidden = !!result;
+  $('#tray-fold').hidden = !result;
+  $('#tray-copy').hidden = !cmd;
+  $('#tray-copy').textContent = `명령 복사 · ${queue.length}건`;
+  const c = $('#tray-close');
+  if (c) {
+    c.hidden = cmdMode() || !queue.length;
+    c.textContent = !result ? `제출 · ${queue.length}건`
+      : stop >= 0 ? `실패한 것부터 다시 제출 · ${queue.length}건` : `남은 ${queue.length}건 제출`;
+  }
+  $('#tray-note').textContent = noteLine(rows);
+  busy(sending);
+  applyTrayOpen();
+}
+// 40rem 아래 트레이는 화면 아래 전체 폭 띠다 — 알림은 그 바로 위에 떠서 트레이를 가리지 않는다(CSS 가 이 높이를
+// 읽는다). 넓은 화면은 알림이 왼쪽 아래로 비켜 서므로 이 값을 안 쓴다.
+function trayHeight() {
+  const t = $('#tray'), i = $('#tray-idle');
+  const h = t.classList.contains('on') ? t.getBoundingClientRect().height
+    : i && !i.hidden ? i.getBoundingClientRect().height : 0;
+  document.documentElement.style.setProperty('--tray-h', Math.round(h) + 'px');
+}
+function sync() { keepQueue(); drawTray(); repaint(); }
+
+/* ─── 움직임 — 줄 취소(motion.md 검토 표 「제출 전 줄 하나 취소」) ───────────────────────────
+   트레이 줄이 높이 접힘 + 흐림으로 빠지고, 마지막 줄이면 트레이째 내려간다(그 뒤 허브는 한 줄 띠). 값이 그때
+   정해지는 움직임이라 Web Animations API 다. **움직임 줄이기면 부르지 않는다** — CSS 의 `animation: none` 은
+   `el.animate()` 를 못 멈춘다. 그때는 바로 뺀다(같은 결과, 전환 없이). */
+function reduced() {
+  try { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); }
+  catch (e) { return false; }
+}
+const canAnimate = () => !reduced() && typeof Element.prototype.animate === 'function';
+const TOKEN_MS = {'--t-quick': 160, '--t-move': 240};
+function tok(name) {
+  let v = '';
+  try { v = getComputedStyle(document.documentElement).getPropertyValue(name).trim(); } catch (e) {}
+  if (name in TOKEN_MS) {
+    const m = /^([\d.]+)(ms|s)$/.exec(v);
+    return m ? +m[1] * (m[2] === 's' ? 1000 : 1) : TOKEN_MS[name];
+  }
+  return v || 'ease-in';
+}
+function anim(el, frames, ms, ease) {
+  if (!el || !canAnimate()) return null;
+  try { return el.animate(frames, {duration: ms, easing: ease, fill: 'forwards'}); } catch (e) { return null; }
+}
+function dropOp(q) {
+  queue = queue.filter(x => x !== q);
+  if (result) {
+    result.rows = result.rows.filter(r => r.q !== q);
+    if (!result.rows.length) result = null;
+  }
+  if (stale && !queue.length && !result) return reloadFresh();
+  sync();
+}
+function cancelRow(li, q) {
+  const last = !result && queue.length === 1;
+  const box = last ? $('#tray') : li;
+  if (!last && li) li.style.overflow = 'hidden';
+  const a = anim(box, last
+    ? [{transform: 'none', opacity: 1}, {transform: 'translateY(10px)', opacity: 0}]
+    : [{opacity: 1, height: li.offsetHeight + 'px'}, {opacity: 0, height: '0px', paddingTop: '0px', paddingBottom: '0px'}],
+    tok('--t-quick'), tok('--ease-in'));
+  if (!a) return dropOp(q);
+  if (li) li.querySelectorAll('button').forEach(b => { b.disabled = true; });
+  let done = false;
+  const go = () => { if (done) return; done = true; try { a.cancel(); } catch (e) {} dropOp(q); };
+  (a.finished || Promise.resolve()).then(go, go);
+}
+// 「모두 취소」 — 트레이가 내려간 뒤 비운다(마지막 줄 취소와 같은 길).
+function clearAll() {
+  if (sending) return;
+  const done = () => {
+    queue = []; result = null;
+    if (stale) return reloadFresh();
+    sync();
+  };
+  const a = $('#tray').classList.contains('on') && anim($('#tray'),
+    [{transform: 'none', opacity: 1}, {transform: 'translateY(10px)', opacity: 0}], tok('--t-quick'), tok('--ease-in'));
+  if (!a) return done();
+  let once = false;
+  const go = () => { if (once) return; once = true; try { a.cancel(); } catch (e) {} done(); };
+  (a.finished || Promise.resolve()).then(go, go);
+}
+/* 서버가 다시 그린 화면을 받는다 — 저장이 다 들어갔거나, 먼저 들어간 것이 있는데(stale) 남은 것이 0건이 됐다. 받기
+   **직전에** 지금 화면의 항목 상태 · 추가 의견 수 · 수렴을 떠 둔다 — 새 화면이 그것과 견줘 「방금 바뀜」을 붙인다. */
+function reloadFresh() { keepQueue(); keepSeen(); location.reload(); }
+
+/* ─── 명령 — 화면이 모은 것을 터미널이 쓴다 ──────────────────────────── */
+/* 명령을 넣을 보드 = **이 화면을 연 자리**. board.py 의 cliRoot() 와 같은 규약이다 —
+   파일에는 렌더한 체크아웃의 절대경로를 박지 않고, 파일로 열었으면 이 파일의 위치에서
+   보드 루트까지의 상대경로(`rel`)를 이어 붙인다. 서버 화면은 서버가 띄운 루트이고, 둘 다
+   아니면(Artifact 등) 경로를 지어내지 않고 자리표시를 낸다. */
+function cliRoot() {
+  const c = DATA.cli || {};
+  if (c.root) return c.root;
+  if (location.protocol !== 'file:') return '<project-root>';
+  const dir = decodeURIComponent(location.pathname).replace(/\/[^\/]*$/, '');
+  const out = [];
+  for (const s of (dir + '/' + (c.rel || '.')).split('/')) {
+    if (s === '..') out.pop(); else if (s && s !== '.') out.push(s);
+  }
+  return '/' + out.join('/');
+}
+const shq = s => "'" + String(s == null ? '' : s).replace(/'/g, `'"'"'`) + "'";
+function cliLines() {
+  const {py, kanban, card} = DATA.cli, root = cliRoot();
+  const q = shq;
+  return queue.map(o => {
+    const b = [py, q(kanban), '', q(root), '--card', card];
+    if (o.op === 'judge') {
+      b[2] = 'review-judge';
+      if (o.item) b.push('--item', q(o.item));       // 없으면 문서 전체 판정이다
+      b.push('--verdict', o.verdict, '--by', o.by);
+    } else if (o.op === 'note') {
+      b[2] = 'review-note';
+      b.push('--item', q(o.item), '--text', q(o.text), '--by', o.by);   // 「직접 적기」도 추가 의견이다
+    } else if (o.op === 'choose') {
+      b[2] = 'review-choose';
+      b.push('--item', q(o.item));
+      if (o.choice) b.push('--choice', q(o.choice));   // 없으면 표 없는 의견의 승인이다
+      b.push('--by', o.by);
+    } else {
+      b[2] = 'review-item';
+      b.push('--add', q(o.add));
+      if (o.from_item) b.push('--from-item', q(o.from_item));
+    }
+    return b.join(' ');
+  });
+}
+/* 반영 뒤 이 화면을 다시 그리는 줄. 반영은 **검토서(.md)** 에 되고 이 화면은 그때 낡는다 — 이 줄이 없으면 판정을
+   넣고도 화면은 그대로라, 반영이 안 된 줄 알고 다시 누른다. **`--no-serve` 를 붙인다.** `--kind review` 는 기본이
+   편집 서버라, 안 붙이면 이 줄이 낡은 정적 파일을 다시 그리는 대신 서버를 띄우고 터미널을 물고 있는다.
+   기본 자리(`home`) 밖에 그린 사본이면 `--out` 으로 그 자리를 다시 그린다(board.py `redrawLine` 과 같은 규약). */
+function rerenderLine() {
+  const {py, report, card, home} = DATA.cli, root = cliRoot();
+  const here = location.protocol === 'file:' ? decodeURIComponent(location.pathname) : '';
+  const out = here && home && here !== root + '/' + home ? ' --out ' + shq(here) : '';
+  return `${py} ${shq(report)} ${shq(root)} --card ${card} --kind review --no-serve${out}`;
+}
+/* 「명령 복사」가 복사하는 한 덩어리 — 항목별 명령을 `&&` 로 잇고 끝에 다시 그리는 줄(시안 ReviewFile). `&&` 라
+   하나가 거부되면 거기서 멈추고 뒤는 안 들어간다 — 화면 저장의 「첫 실패에서 멈춤」과 같은 모양이다. */
+const chain = () => cliLines().concat([rerenderLine()]).join(' \\\n  && ');
+function cmdCaption() {
+  const c = {judge: 0, doc: 0, note: 0, item: 0, choose: 0, own: 0};
+  queue.forEach(q => { c[q.op === 'judge' ? (q.item ? 'judge' : 'doc') : q.own ? 'own' : q.op]++; });
+  const bits = [c.choose && `고르기 ${c.choose}건`, c.own && `직접 적기 ${c.own}건`, c.judge && `판정 ${c.judge}건`,
+                c.doc && '문서 전체 판정(항목 번호 없음)',
+                c.note && `추가 의견 ${c.note}건`, c.item && `새 항목 ${c.item}건`].filter(Boolean);
+  return `터미널에 붙여 넣을 명령 · ${bits.join(' · ')}, 끝에 이 화면 다시 그리기`;
+}
+function copyText(t, done, fail) {
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done, fail);
+    else fail();
+  } catch (e) { fail(); }
+}
+function copyCommands() {
+  if (!queue.length) return;
+  copyText(chain(),
+    () => toast(`명령을 복사했습니다 — 터미널에 붙여 넣으면 ${queue.length}건이 들어가고 이 화면이 다시 그려집니다.`),
+    () => { // 접혀 있으면 명령 상자가 안 보인다 — 펼쳐서 보인다(기억은 바꾸지 않는다, 보드 트레이와 같다).
+      if ($('#tray').classList.contains('folded')) { $('#tray').classList.remove('folded'); trayHeight(); }
+      toast('복사가 막혔습니다 — 트레이의 명령을 직접 골라 복사하세요.'); });
+}
+/* 「다른 형식 — patch JSON」 — 트레이 명령과 같은 것을 다른 꼴로 낸다. 한 번에 넣는 길(review-apply)과 낱개 명령이
+   같은 결과를 내야 한다는 것이 이 화면의 계약이다. */
+function showExport() {
+  const {py, kanban, card} = DATA.cli, root = cliRoot();
+  const js = JSON.stringify(queue.map(wire), null, 2);
+  const one = `cat <<'PATCH' | ${py} '${kanban}' review-apply '${root}' --card ${card} --patch - && ${rerenderLine()}\n${js}\nPATCH`;
+  $('#modal-box').innerHTML = `
+    <h2>다른 형식 — patch JSON · 낱개 명령</h2>
+    <p class="note">트레이의 「명령 복사」와 같은 것을 다른 형식으로 냅니다. 어느 것을 터미널에 붙여 넣어도
+      검토서에 같은 것이 들어가고, 끝 줄이 이 화면을 다시 그립니다.</p>
+    <h3>① 한 번에 — review-apply 에 patch JSON 을 실음</h3>
+    <pre id="m1">${esc(one)}</pre><button data-copy="m1">복사</button>
+    <h3>② patch JSON</h3>
+    <pre id="m2">${esc(js)}</pre><button data-copy="m2">복사</button>
+    <h3>③ 낱개 명령 ${queue.length}줄 — 한 줄씩 붙여 넣어도 같은 결과입니다</h3>
+    <pre id="m3">${esc(cliLines().join('\n')) || '(제출 전이 없습니다)'}</pre><button data-copy="m3">복사</button>
+    <h3>④ 반영 뒤 이 화면 다시 그리기</h3>
+    <pre id="m4">${esc(rerenderLine())}</pre><button data-copy="m4">복사</button>
+    <div class="row"><button id="x-close">닫기</button></div>`;
+  $('#modal').classList.add('on');
+  $('#modal-box').querySelectorAll('[data-copy]').forEach(b =>
+    b.addEventListener('click', () => copyText(document.getElementById(b.dataset.copy).textContent,
+      () => toast('복사했습니다.'), () => toast('복사가 막혔습니다 — 직접 선택해 복사하세요.'))));
+  $('#x-close').addEventListener('click', () => $('#modal').classList.remove('on'));
+  $('#x-close').focus();
+}
+
+/* `kanban.py die()` 는 사유·교정을 JSON 한 줄로 낸다. 그 줄을 그대로 실으면 중괄호와 따옴표가 본문을 덮어 무엇이
+   막혔는지가 안 읽힌다 — 그래서 여기서 편다. 못 펴면 원문을 그대로 낸다: 모양이 예상과 달랐다고 사유를 삼키면,
+   화면은 "실패"만 말하고 유저는 터미널로 가서 같은 명령을 다시 쳐야 한다. */
+function failDetail(out) {
+  const f = out.failed || {};
+  const raw = String(f.detail || out.reason || '').trim();
+  if (!raw) return '';
+  try {
+    const j = JSON.parse(raw.split('\n').pop());
+    return [j.reason, j.remediation].filter(Boolean).join('\n') || raw;
+  } catch (e) { return raw; }
+}
+
+/* **어디까지 갔는지 같은 트레이가 말한다**(결과판, 시안 ReviewStopped). `review-apply` 는 첫 실패에서 멈추고, 앞선
+   op 는 이미 이벤트로 커밋된 전진이라 되돌아가지 않는다. "저장 실패"로 뭉뚱그리면 유저는 검토서를 다시 읽어 무엇이
+   들어갔는지 맞춰야 하고, 모르는 채 다시 누르면 들어간 것이 두 번 들어간다. 그래서 줄마다 갈라 적는다 —
+   보낸 묶음 앞에서부터 `applied` 수만큼 들어감, `failed.op` 가 있으면 그다음 줄이 실패(사유 원문 · 여기서 멈춤),
+   나머지는 안 보냄. 패치 전체가 못 갔으면(유령 탭 · 다른 카드 · 서버에 안 닿음) 사유는 머리 아래 한 줄이고 줄은
+   모두 안 보냄이다. 들어간 op 는 제출 전 목록에서 빠지고, 실패 · 안 보냄은 남는다 — 남은 것을 고쳐 다시 누르는
+   것이 그대로 이어짐이 되게. 대화 상자(alert · confirm)는 쓰지 않는다. */
+function showResult(out, sent) {
+  out = out || {};
+  const done = (out.applied || []).length;
+  const f = out.failed || null;
+  const perOp = !out.ok && !out.ghost && !!(f && f.op);
+  const general = out.ok || perOp ? '' : (failDetail(out) || '이유가 오지 않았습니다.');
+  if (out.ghost) ghost = true;
+  const why = perOp ? failDetail(out) + (f.code ? `\n(종료코드 ${f.code})` : '') : '';
+  const rows = sent.map((q, i) => (general ? {q, st: 'unsent'}
+    : i < done ? {q, st: 'in'}
+    : perOp && i === done ? {q, st: 'fail', why: why}
+    : {q, st: 'unsent'}));
+  // 보내는 사이 새로 쌓인 것(얼음이 샌 경우)은 보내지 않았다 — 안 보냄으로 함께 선다.
+  queue.forEach(q => { if (!sent.includes(q)) rows.push({q, st: 'unsent'}); });
+  const gone = rows.filter(r => r.st === 'in').map(r => r.q);
+  queue = queue.filter(q => !gone.includes(q));
+  result = {rows, general};
+  /* 허브 — 들어간 것이 있으면 결과판 · 남은 것 · 견줄 값을 이 탭에 남기고 새 화면을 받는다(KAN-021 S13). 새 화면에서
+     들어간 것만 「방금 바뀜」으로 서고 결과판이 다시 선다(`restoreStop`). 못 남겼으면 새로고침하지 않는다(`holdStop`). */
+  if (gone.length && DATA.hub && holdStop()) return location.reload();
+  if (gone.length) stale = true;
+  // 40rem 아래 접혀 있던 트레이도 결과판은 펴서 보인다 — 멈춘 자리가 접힘 안에 숨으면 없는 것과 같다.
+  setOpen(true);
+  sync();
+}
+
+/* 이 파일에서 바깥으로 나가는 요청은 **이 함수 하나뿐**이고, 그것도 DATA.serve 가드
+   안이다. Artifact 의 CSP 와 file:// 이 요청을 전부 막으므로, 가드가 없으면 정적으로
+   연 화면에서 콘솔이 빨개지고 저장이 조용히 실패한 것처럼 보인다. **서버가 내준 화면에서만**
+   DATA.serve 가 켜지고, 그때만 이 요청이 뜬다 — serve 모드가 먼저 쓰는 정적 파일까지
+   꺼진 채로 그리는 것이 그래서다(같은 명령이 낸 파일이라고 켜 두면 그 파일이 깨진다).
+   유령 탭은 서버가 받지 않으므로 보내지 않는다. 제출 전이 0건이어도 닫기(허브의 한 줄 띠)는 보낸다 — 빈 묶음을
+   반영하고 닫는다. */
+async function save(andClose) {
+  if (!DATA.serve || ghost || !queue.length && !andClose) return;
+  /* **보낸 것을 집어 둔다.** 성공했다고 큐를 통째로 비우면 요청이 도는 동안 들어온 것까지
+     함께 지워진다. 위 `busy(true)` 와 `enqueue`·취소 가드가 그 사이의 입력을 막지만,
+     잠금이 한 자리에만 있으면 언젠가 새어 나온다 — 이 파일에서 `drawTray` 가 `busy` 를
+     도로 풀어 실제로 한 번 그랬다. 그래서 두 겹이다: 얼리고, 얼음이 새도 안 잃는다. */
+  const sent = queue.slice();
+  busy(true);
+  let out;
+  try {
+    /* 저장 주소는 화면 주소 기준이다. 옛 서버는 `/`, 허브는 `/r/<레포>/<카드>/` 에서 이 화면을 낸다. */
+    const r = await fetch('apply', {method: 'POST',
+      headers: {'Content-Type': 'application/json', 'X-Kanban-Hub-Token': DATA.token || ''},
+      /* 토큰은 **서버가 그린 화면에만** 실린다. 정적 파일에서는 null 이지만 그쪽은
+         애초에 이 요청이 안 뜬다(DATA.serve 가드). 옛 탭은 옛 토큰을 그대로 들고
+         있어 서버가 그것으로 걸러낸다. */
+      body: JSON.stringify({card: DATA.card, token: DATA.token, patch: sent.map(wire),
+                            close: !!andClose})});
+    out = await r.json();
+  } catch (e) {
+    out = {ok: false, applied: [], failed: {detail: '제출 요청이 서버에 닿지 않았습니다 — ' + e}};
+  }
+  busy(false);
+  if (out.ok && queue.every(q => sent.includes(q))) {
+    /* 다 들어갔고 그 사이 쌓인 것도 없다. **길이가 아니라 동일성으로 뺀다** — 큐가 그 사이 흔들렸으면 앞에서 n 개를
+       자르는 것은 엉뚱한 것을 지운다. 그리고 **서버가 준 out.data 로 다시 그리지 않고 통째로 새로 받는다.** 이 화면의
+       본문(상태 칩 · 판정 이력 · 수렴)은 파이썬이 그린 HTML 이라, JS 로 갱신하려면 도출 규칙을 브라우저에 복제해야
+       한다. reload 는 같은 서버가 요청마다 다시 그리므로 그 사이 다른 세션이 CLI 로 낸 판정까지 함께 따라온다.
+       **`out.closing` 이어도 하는 일은 같다.** 그 GET 이 서버가 내는 마지막 화면이다. */
+    queue = queue.filter(q => !sent.includes(q));
+    result = null;
+    return reloadFresh();
+  }
+  showResult(out, sent);
+}
+
+/* 저장과 닫기 버튼은 **같은 요청**을 낸다. 하나가 도는 동안 다른 하나가 또
+   눌리면 같은 큐가 두 번 가므로, 잠그는 자리를 한 함수로 둔다. 닫기 버튼(트레이의 것 · 한 줄 띠의 것)은 정적
+   화면에 아예 없으므로 있을 때만 만진다. */
+function busy(on) {
+  // **진행 여부를 값으로 들고 있는다.** 잠근 직후 유저가 판정 버튼을 누르면 `sync()` →
+  // `drawTray()` 가 도는데, 거기서 무조건 풀어 주면 요청이 도는 중에 두 버튼이 다시
+  // 켜진다 — 그때 닫기 버튼을 누르면 첫 요청의 응답이 오기 전에 서버가 닫힌다.
+  // 그래서 `drawTray` 는 `busy(false)` 가 아니라 `busy(sending)` 을 부른다.
+  sending = on;
+  const c = $('#tray-close');
+  if (c) c.disabled = on || !DATA.serve;
+  const ic = $('#tray-idle-close');
+  if (ic) ic.disabled = on;
+  // 「모두 취소」는 정적 화면에서도 쓸 수 있어야 하므로 **진행 중일 때만** 잠근다.
+  // 보낸 것을 큐에서 지우면 응답이 무엇을 덜어낼지 못 정한다.
+  const cl = $('#tray-clear');
+  if (cl) cl.disabled = on;
+}
+
+let toastT = null;
+function toast(msg) {
+  trayHeight();
+  const t = $('#toast'); t.textContent = msg; t.classList.add('on');
+  clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), 3000);
+}
+
+/* ─── 조작 ─────────────────────────────────────────────────────────────────
+   의견마다 리스너를 거는 대신 목록 하나에 위임한다. 의견은 `review-item` 으로 늘어나는 것이라, 늘어난
+   의견에만 리스너가 안 걸리는 실패가 실제로 가능하다 — 그 실패는 화면이 멀쩡해 보이므로 눌러 봐야 안다.
+   항목마다 누르던 판정 단추 · 「추가 의견 달기」는 없다(KAN-025) — 고르는 일은 아래 「정할 것」 무리가 받는다. */
+/* 「정할 것」 무리 — 갈래를 고르면(radio change) 그 갈래의 choose 가, 「직접 적기」에 글을 쓰면 그 글의
+   추가 의견이 제출 전 목록에 한 줄로 선다. 한 항목에서 둘 중 하나만 남는다(enqueue). 이름이 빈 갈래는 표 없는
+   항목의 「승인」이다 — choice 키를 아예 안 넣는다(빈 이름을 선택지로 읽을 여지를 안 둔다). */
+const pickItem = el => { const li = el.closest('#rv-list > li'); return li ? li.id.replace('item-', '') : null; };
+$('#rv-list').addEventListener('change', e => {
+  const r = e.target;
+  if (!(r instanceof HTMLInputElement) || r.type !== 'radio') return;
+  const item = pickItem(r);
+  if (!item) return;
+  if (r.dataset.choose !== undefined) {
+    enqueue(Object.assign({op: 'choose', item: item, by: $('#rv-by').value},
+                          r.dataset.choose ? {choice: r.dataset.choose} : {}));
+  } else if (r.dataset.own !== undefined) {
+    const ta = r.closest('.opt-own').querySelector('textarea[data-note]');
+    const text = ta.value.trim();
+    if (text) enqueue({op: 'note', item: item, text: text, by: $('#rv-by').value, own: true});
+    else { queue = queue.filter(q => !(q.op === 'choose' && String(q.item) === String(item))); sync(); ta.focus(); }
+  }
+});
+$('#rv-list').addEventListener('input', e => {
+  const ta = e.target;
+  if (!(ta instanceof HTMLTextAreaElement) || ta.dataset.note === undefined) return;
+  const item = pickItem(ta);
+  if (!item) return;
+  const text = ta.value.trim();
+  if (text) enqueue({op: 'note', item: item, text: text, by: $('#rv-by').value, own: true});
+  else dropOwn(item);
+});
+/* 문서 전체 판정 — 초록 판의 「문서 전체 승인」과 항목 목록 끝의 「전체 반려」. 둘 다 그 조건일 때만 그려지므로
+   (KAN-021 S11) 자리에 걸지 않고 문서에 건다 — 없는 자리에 바로 걸면 로드 중에 스크립트가 죽어 판정 · 트레이가
+   통째로 안 뜬다(`#tray-close` 와 같은 함정). */
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-judge-all]');
+  if (!b) return;
+  // item 키를 **아예 안 넣는다** — 비워 넣으면 받는 쪽이 "0번 의견"으로 읽을 여지가 있다.
+  enqueue({op: 'judge', verdict: b.dataset.judgeAll, by: $('#rv-by').value});
+});
+$('#rv-add-go').addEventListener('click', () => {
+  // 주제는 한 줄이다(입력칸도 한 줄짜리다). 여러 줄이면 파서가 둘째 줄부터를 상세로
+  // 읽으므로, 주제와 상세를 나눠 받는 이 폼의 뜻이 무너진다.
+  const q = $('#rv-q').value.trim();
+  const lines = v => v.split('\n').map(l => l.trim()).filter(Boolean);
+  const bg = lines($('#rv-bg').value), dec = lines($('#rv-dec').value);
+  if (!q) return toast('주제가 비었습니다.');
+  // **조각이 비면 큐에 못 들어간다.** review-item 이 종료코드 12 로 거부하는 자리를
+  // 화면에서 미리 막는 것이다 — 검토자는 이 카드를 수행하지 않았으므로 결론만으로는
+  // 판정할 재료가 없고, 재료가 있어도 줄글 한 덩이면 필요한 부분만 골라 읽지 못한다.
+  if (!bg.length) return toast('배경을 적으세요 — 배경이 없는 의견은 검토서가 받지 않습니다(종료코드 12).');
+  if (!dec.length) return toast('정할 것을 적으세요 — 정할 것이 없는 의견은 검토서가 받지 않습니다(종료코드 12).');
+  // 선택지는 **셋이 다 찬 행만** 표로 나간다. 반쯤 적힌 행을 실으면 열이 밀려 셀이 다른
+  // 뜻으로 읽힌다(게이트가 경고하는 자리이기도 하다).
+  const rows = [];
+  $$('#rv-opts .rv-opt').forEach(el => {
+    const name = el.querySelector('[data-opt]').value.trim();
+    const cost = el.querySelector('[data-cost]').value.trim();
+    const what = el.querySelector('[data-what]').value.trim();
+    if (name && cost && what)
+      rows.push({name, cost, what, rec: el.querySelector('input[type=radio]').checked});
+  });
+  // CLI 와 **같은 문법 한 덩이**로 조립한다 — patch 스키마(`op:item`, `add`)는 한 글자도
+  // 안 바뀐다. 화면이 따로 실어 보내면 두 경로가 갈리고, 갈리면 그 순간부터 서로 다른
+  // 것을 저장한다.
+  // **배경은 목록이다** — 칸의 한 줄이 사실 하나다. `- ` 를 이미 붙여 적은 줄은 그대로 둔다.
+  // 게이트가 목록 없는 배경을 종료코드 12 로 거부하므로, 여기서 붙이지 않으면 폼으로
+  // 세운 의견이 전부 거부된다.
+  const body = ['  **배경**'].concat(bg.map(l => '  ' + (/^-\s/.test(l) ? l : '- ' + l)))
+    .concat(['  **정할 것**']).concat(dec.map(l => '  ' + l));
+  if (rows.length) {
+    body.push('  | 선택지 | 대가 | 그러면 어떻게 되는가 |');
+    rows.forEach(r => body.push('  | ' + (r.rec ? '**추천** ' : '') + r.name
+                                + ' | ' + r.cost + ' | ' + r.what + ' |'));
+  }
+  enqueue({op: 'item', add: q + '\n' + body.join('\n'),
+           from_item: $('#rv-from').value || null});
+  $('#rv-q').value = ''; $('#rv-bg').value = ''; $('#rv-dec').value = '';
+  $$('#rv-opts .rv-opt input').forEach(i => {
+    if (i.type !== 'radio') i.value = '';
+  });
+});
+
+/* 선택지 행을 한 줄 더 연다. 행은 **비어 있어도 무해하다** — 조립이 셋 다 찬 행만
+   싣는다. 라디오는 같은 name 이라 새 행도 같은 그룹에 들어간다(추천은 언제나 하나다). */
+$('#rv-opt-add').addEventListener('click', () => {
+  const box = $('#rv-opts');
+  const row = box.firstElementChild.cloneNode(true);
+  row.querySelectorAll('input').forEach(i => {
+    if (i.type === 'radio') i.checked = false; else i.value = '';
+  });
+  box.appendChild(row);
+});
+
+/* 접기 · 펼치기(KAN-033 S2 규칙 표 — 카드 문서 「전략」 「동작 규칙」). 보드 트레이(board.py)와 같은 규칙이다.
+   기본은 펼침, 사람이 누른 값은 탭의 세션 저장소에 이 카드 열쇠로 기억한다(막히면 이 화면 안에서만). 결과판이 서면
+   늘 펼치고(showResult · 새로 받은 화면의 restoreStop), 결과판에서 다시 접은 값은 그 결과판 동안 지킨다. */
+function trayMemOpen() {
+  let v = null;
+  try { v = window.sessionStorage.getItem(TRAY_KEY); } catch (e) { v = null; }
+  if (v === '0') return false;
+  if (v === '1') return true;
+  return trayMemo == null ? true : trayMemo;
+}
+function trayOpenNow() {
+  if (result) return trayResultFold && trayResultFold.res === result ? trayResultFold.open : true;
+  return trayMemOpen();
+}
+function applyTrayOpen() {
+  const on = trayOpenNow(), t = $('#tray'), b = $('#tray-toggle');
+  t.classList.toggle('folded', !on);
+  b.setAttribute('aria-expanded', on ? 'true' : 'false');
+  b.setAttribute('aria-label', on ? '목록 접기' : '목록 펼치기');
+  b.innerHTML = on ? '&#9662;' : '&#9652;';
+  trayHeight();
+}
+// 결과판을 펴서 세운다 — 사람이 그 결과판에서 누른 값을 버린다(새 결과판은 다시 펼침으로 시작한다).
+function setOpen(on) {
+  if (on && result) trayResultFold = null;
+  applyTrayOpen();
+}
+function toggleTray() {
+  const on = $('#tray').classList.contains('folded');
+  trayMemo = on;
+  try { window.sessionStorage.setItem(TRAY_KEY, on ? '1' : '0'); } catch (e) { /* 이 화면 안에서만 기억한다 */ }
+  if (result) trayResultFold = {res: result, open: on};
+  // 감춰지는 가운데에 포커스가 있었으면 접기 단추로 옮긴다 — 키보드 사용자가 길을 잃지 않게.
+  if (!on && $('#tray-body').contains(document.activeElement)) $('#tray-toggle').focus();
+  applyTrayOpen();
+}
+$('#tray-toggle').addEventListener('click', toggleTray);
+$('#tray-clear').addEventListener('click', clearAll);
+/* **화살표로 감싼다.** `save` 를 그대로 걸면 이벤트 객체가 첫 인자로 들어가 `andClose`
+   가 참이 되고, 평범한 저장이 서버를 닫는다. 닫기 단추 둘(트레이 · 한 줄 띠)은 서버 화면에만 있으므로
+   있을 때만 건다 — 없는 자리에 바로 걸면 로드 중에 스크립트가 죽어 판정 · 트레이가 통째로 안 뜬다. */
+const closeEl = $('#tray-close');
+if (closeEl) closeEl.addEventListener('click', () => save(true));
+const idleEl = $('#tray-idle-close');
+if (idleEl) idleEl.addEventListener('click', () => save(true));
+$('#tray-copy').addEventListener('click', copyCommands);
+// 「결과 접기」 — 남은 것(실패 · 안 보냄)이 다시 제출 전 줄로 선다. 남은 것이 없으면 새로 그린 화면을 받는다.
+$('#tray-fold').addEventListener('click', () => {
+  result = null;
+  if (stale && !queue.length) return reloadFresh();
+  sync();
+});
+$('#tray-export').addEventListener('click', showExport);
+$('#modal').addEventListener('click', e => {
+  if (e.target.id === 'modal') $('#modal').classList.remove('on');
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && $('#modal').classList.contains('on'))
+    $('#modal').classList.remove('on');
+});
+/* 「이 화면 쓰는 법」은 겹쳐 열리는 판이라 바깥을 누르거나 Esc 로 닫는다(시안 ReviewExpand).
+   스크립트가 없는 승계됨 · 닫힌 화면에서는 단추를 다시 누르면 닫힌다(`<details>` 기본 동작). */
+document.addEventListener('click', e => {
+  const h = document.querySelector('.howto[open]');
+  if (h && !h.contains(e.target)) h.open = false;
+});
+document.addEventListener('keydown', e => {
+  const h = document.querySelector('.howto[open]');
+  if (e.key === 'Escape' && h) { h.open = false; h.querySelector('summary').focus(); }
+});
+
+restoreQueue();
+// 멈춘 저장 뒤 새로 받은 화면이면 결과판이 다시 선다(허브). 견줄 값이 있으면 표시를 붙이고, 움직임은 그린 뒤 한 번.
+result = restoreStop();
+if (result) setOpen(true);
+const PLAN0 = noticeChanges();
+paintChanged();
+sync();
+arrive(PLAN0);
+
+</script>

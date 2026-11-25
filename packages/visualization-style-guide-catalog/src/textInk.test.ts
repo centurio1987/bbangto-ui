@@ -48,6 +48,7 @@ function faces(f: VisualizationFoundation): Array<[string, string, string]> {
   for (const [k, v] of Object.entries(f.palette)) out.push([`palette.${k}`, v, `--bbangto-viz-on-palette-${k}`]);
   out.push(['shape.fill', f.shape.fill, '--bbangto-viz-on-shape-fill']);
   out.push(['canvas.bg', f.canvas.bg, '--bbangto-viz-on-canvas-bg']);
+  out.push(['shape.stroke', f.shape.stroke, '--bbangto-viz-on-shape-stroke']); // KAN-083 진한 면
   for (const l of ['l1', 'l2', 'l3'] as const) out.push([`c4.${l}.bgTint`, f.c4[l].bgTint, `--bbangto-viz-on-c4-${l}-bg-tint`]);
   for (const [kind, s] of Object.entries(f.node)) out.push([`node.${kind}.fill`, s.fill, `--bbangto-viz-on-node-${kind}-fill`]);
   return out;

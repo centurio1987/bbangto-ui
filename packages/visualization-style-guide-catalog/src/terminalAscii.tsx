@@ -191,7 +191,8 @@ function TerminalNode(props: NodeProps) {
   const cy = props.y + props.height - size - 4;
   return (
     <>
-      <Node {...props} fill="none" strokeWidth={props.strokeWidth ?? HAIR} />
+      {/* 기본은 무채움이다. 넘겨받은 fill 은 따른다 — 명시한 prop 이 이긴다(viz README 구현 규약, KAN-083). */}
+      <Node {...props} fill={props.fill ?? 'none'} strokeWidth={props.strokeWidth ?? HAIR} />
       <rect
         x={cx}
         y={cy}

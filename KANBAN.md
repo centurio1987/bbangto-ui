@@ -52,6 +52,7 @@
   - 목표: 여섯 도식마다 노드 종류와 화살표 의미를 데이터로 적으면 그대로 그려지고, 화살표 의미가 둘 이상이면 범례로 갈리며, 원문의 예시가 스토리로 남는다
   - 메모: 검토 표·근거·순서는 카드 문서 「전략」. KAN-080(P7·P8·P9·P11)과 같은 템플릿 파일을 고친다 — KAN-082 먼저(2026-11-24 유저 결정)
   - 실행 문서: KANBAN/cards/KAN-082-MD50S0.md (0/16 · 최근 11-24)
+  - 계획 리포트: KANBAN/reports/KAN-082-MD50S0.report.html (최신 아님)
   - 원문:
     ```text
     **핵심: 도식은 "노드가 무엇인가"와 "화살표가 무엇을 뜻하는가"로 구분하면 됩니다.**
@@ -122,21 +123,6 @@
   - 메모: 새 파일만 더해 형제 카드와 파일이 겹치지 않는다. 조합 프레임이라 Kruchten4Plus1View·ViewpointFrame 처럼 typeMeta registry allowlist 대상이다
 
 ## 할 일
-- `KAN-083-JSQKF4` viz 진한 면 위 글자색 변수와 terminal-ascii Node 래퍼의 면 색 따르기 — publish-report 조립층을 bbangto 계약으로 칠하기 위한 확장 — 생성:ai · 최종:ai · 갱신:2026-11-24
-  - 짧은 제목: 진한 면 글자색 · 래퍼 면 색
-  - 목적: shape.stroke 로 칠한 면 위에 쓸 글자색 on 변수를 내고, terminal-ascii Node 래퍼가 넘겨받은 fill 을 따르게 한다
-  - 이유: publish-report 조립층이 색칠을 bbangto 계약으로 옮기는데 이 두 표현이 bbangto-ui 에 없어 스킬이 자체 대비 가드와 덧칠 사각형으로 메우고 있다
-  - 목표: --bbangto-viz-on-shape-stroke 가 가이드 30종에서 대비 4.5:1 을 넘고 가이드가 값을 직접 적을 수 있으며, Node 래퍼 전부가 넘겨받은 fill 로 칠한다
-  - 메모: publish-report M6-1 의 상류 일. 계획 정본은 ~/.claude/plans/publish-report-skill.md 2026-11-24 절
-  - 실행 문서: KANBAN/cards/KAN-083-JSQKF4.md (0/4 · 최근 11-24)
-  - 원문:
-    ```text
-    bbangto-ui에 필요한 표현이 없으면, 자체적으로 만들지 말고, bbangto-ui에 추가 확장한 후 이용하는 방식으로 한다. 스킬이 임의로 개입하는 경계는 니가 추천한 대로 "조립층의 색칠 방식만 bbangto 계약에 맞추고, 배치와 넘침 계산은 그대로"로 한다.
-    
-    (적용 범위 답) 스킬 전체, 그리고 지금은 하나라 구분이 없을테지만, 테마별 구분도 있어야 한다. 스킬 사용 시 ui에서 테마를 설정할 수 있도록 한다. 그리고, publish-report 작업 절차에 부자연스러운 표현을 개선하는 프로세스를 포함한다.
-    
-    (M6-1 시작 지시) 검토 전까지 진행
-    ```
 - `KAN-084-QGNC19` 가이드가 적은 진한 면 글자색을 VS 구분선 · 이정표 표시 · 번호 배지에도 닿게 한다 — 생성:ai · 최종:ai · 갱신:2026-11-24
   - 짧은 제목: 세 부품 진한 면 글자색
   - 목적: VsDivider · MilestoneMarker · IndexBadge 가 진한 면 글자색을 --bbangto-viz-on-shape-stroke 에서 읽게 한다
@@ -823,4 +809,20 @@
   - 원문:
     ```text
     html로 시각화된 보고서를 생성해달라고 요청할 때 ... bbangto-ui repo의 카탈로그를 이용해서 빠르고 정확하며, 일관성 있는 결과물을 얻고 싶은데 ... 해당 repo의 개정이 필요한지 / (제안에 대한 답) 진행해
+    ```
+- `KAN-083-JSQKF4` viz 진한 면 위 글자색 변수와 terminal-ascii Node 래퍼의 면 색 따르기 — publish-report 조립층을 bbangto 계약으로 칠하기 위한 확장 — 생성:ai · 최종:ai · 갱신:2026-11-25
+  - 짧은 제목: 진한 면 글자색 · 래퍼 면 색
+  - 목적: shape.stroke 로 칠한 면 위에 쓸 글자색 on 변수를 내고, terminal-ascii Node 래퍼가 넘겨받은 fill 을 따르게 한다
+  - 이유: publish-report 조립층이 색칠을 bbangto 계약으로 옮기는데 이 두 표현이 bbangto-ui 에 없어 스킬이 자체 대비 가드와 덧칠 사각형으로 메우고 있다
+  - 목표: --bbangto-viz-on-shape-stroke 가 가이드 30종에서 대비 4.5:1 을 넘고 가이드가 값을 직접 적을 수 있으며, Node 래퍼 전부가 넘겨받은 fill 로 칠한다
+  - 메모: publish-report M6-1 의 상류 일. 계획 정본은 ~/.claude/plans/publish-report-skill.md 2026-11-24 절
+  - 실행 문서: KANBAN/cards/KAN-083-JSQKF4.md (4/4 · 최근 11-24)
+  - 검토 문서: KANBAN/reviews/KAN-083-JSQKF4.review.md (승인 4/4 · 승인)
+  - 원문:
+    ```text
+    bbangto-ui에 필요한 표현이 없으면, 자체적으로 만들지 말고, bbangto-ui에 추가 확장한 후 이용하는 방식으로 한다. 스킬이 임의로 개입하는 경계는 니가 추천한 대로 "조립층의 색칠 방식만 bbangto 계약에 맞추고, 배치와 넘침 계산은 그대로"로 한다.
+    
+    (적용 범위 답) 스킬 전체, 그리고 지금은 하나라 구분이 없을테지만, 테마별 구분도 있어야 한다. 스킬 사용 시 ui에서 테마를 설정할 수 있도록 한다. 그리고, publish-report 작업 절차에 부자연스러운 표현을 개선하는 프로세스를 포함한다.
+    
+    (M6-1 시작 지시) 검토 전까지 진행
     ```
