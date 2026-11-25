@@ -1,6 +1,6 @@
 {
   "next_id": 85,
-  "next_seq": 332,
+  "next_seq": 333,
   "cards": {
     "KAN-076-NHP81Z": {
       "col": "backlog",
@@ -111,7 +111,7 @@
       ]
     },
     "KAN-082.1-ZFJJM6": {
-      "col": "doing",
+      "col": "review",
       "title": "viz 템플릿 간선 라벨·선언 필드 렌더 복구 — 받고도 안 그리는 label·technology·다중성·stereotype",
       "verbatim": "",
       "생성": "ai",
@@ -2022,6 +2022,16 @@
   ],
   "recent": [
     {
+      "seq": 332,
+      "t": "2026-11-25T15:49",
+      "a": "ai",
+      "id": "KAN-082.1-ZFJJM6",
+      "op": "move",
+      "w": "9Z2X8X",
+      "from": "doing",
+      "to": "review"
+    },
+    {
       "seq": 331,
       "t": "2026-11-25T15:19",
       "a": "ai",
@@ -2643,16 +2653,6 @@
       "w": "EFXS81",
       "from": "review",
       "to": "doing"
-    },
-    {
-      "seq": 285,
-      "t": "2026-10-11T01:47",
-      "a": "ai",
-      "id": "KAN-075-4K5GK3",
-      "op": "move",
-      "w": "EFXS81",
-      "from": "doing",
-      "to": "review"
     }
   ],
   "waivers": [
