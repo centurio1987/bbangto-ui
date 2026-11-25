@@ -3,7 +3,7 @@
   "detail": "manifest/{id}.json",
   "columns": ["id","name","kind","category","exportNames","aliases","summary","tags","metaStatus"],
   "rows": [
-    ["VT-101","UML Class Diagram","template","engineering",["ClassDiagram"],["object diagram","C4 code-level class"],"클래스·속성·연산과 관계 구조",["diagram","standard"],"authored"],
+    ["VT-101","UML Class Diagram","template","engineering",["ClassDiagram","ObjectDiagram"],["object diagram","C4 code-level class"],"클래스·속성·연산과 관계 구조",["diagram","standard"],"authored"],
     ["VT-102","UML Package Diagram","template","engineering",["UMLPackageDiagram"],[],"패키지 그룹화와 의존 관계",["diagram","standard"],"authored"],
     ["VT-103","UML Component Diagram","template","engineering",["UMLComponentDiagram"],["composite structure diagram"],"컴포넌트·인터페이스 배선",["diagram","standard"],"authored"],
     ["VT-104","UML Deployment Diagram","template","engineering",["UMLDeploymentDiagram","C4DeploymentDiagram"],["C4 deployment"],"아티팩트의 실행 노드 배치",["diagram","standard"],"authored"],

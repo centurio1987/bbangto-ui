@@ -28,7 +28,8 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
   {
     id: 'VT-101',
     name: 'UML Class Diagram',
-    exportNames: ['ClassDiagram'],
+    // ObjectDiagram 은 별칭 「object diagram」을 실제 export 로 만든 것(KAN-082.4) — 유형 행은 그대로다
+    exportNames: ['ClassDiagram', 'ObjectDiagram'],
     kind: 'template',
     meta: {
       category: 'engineering',

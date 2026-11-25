@@ -37,6 +37,7 @@ import {
   TimelineDiagram,
   UMLDeploymentDiagram,
   C4DeploymentDiagram,
+  ObjectDiagram,
   UMLPackageDiagram,
   UMLSequenceDiagram,
   UseCaseDiagram,
@@ -1073,6 +1074,26 @@ export const PAINT_GATE_FIXTURES: PaintGateFixture[] = [
         width={390}
         height={200}
         title="C4 Deployment"
+      />
+    ),
+  },
+  // ── KAN-082.4 — Object Diagram(VT-101 별칭) ───────────────────────────
+  {
+    key: 'object-diagram',
+    template: 'ObjectDiagram',
+    render: () => (
+      <ObjectDiagram
+        data={{
+          objects: [
+            { id: 'o1', x: 20, y: 20, width: 150, height: 80, name: 'order1', classifier: 'Order', slots: [{ name: 'status', value: 'PAID' }] },
+            { id: 'c1', x: 230, y: 20, width: 150, height: 60, classifier: 'Customer' },
+          ],
+          links: [{ id: 'l1', from: 'c1', to: 'o1', label: 'places' }],
+        }}
+        viewBox="0 0 400 120"
+        width={400}
+        height={120}
+        title="Object Diagram"
       />
     ),
   },

@@ -3,6 +3,7 @@ import {
   Canvas,
   VisualizationStyleGuideProvider,
   ClassDiagram,
+  ObjectDiagram,
   StateDiagram,
   ERDiagram,
 } from '@centurio1987/bbangto-ui-visualization';
@@ -166,6 +167,48 @@ export const ClassDiagramDeclaredFields: Story = {
     await expect(ones).toHaveLength(4);
     await expect(Math.min(...ones.map((p) => dist(p, c.start)))).toBeLessThan(40);
     await expect(Math.min(...ones.map((p) => dist(p, a.start)))).toBeLessThan(40);
+  },
+};
+
+// ──────────────────────────────────────────────────────────────────────
+// 1c. ObjectDiagram — 위 클래스 도식의 인스턴스 스냅샷 (KAN-082 .4)
+//     클래스 도식이 타입 수준이면 객체 도식은 어떤 순간의 인스턴스다. 머리는 밑줄 친 「이름 : 클래스」, 칸은 「속성 = 값」
+//     하나이고, 링크는 방향 없는 선에 이름 · 역할 이름을 단다.
+// ──────────────────────────────────────────────────────────────────────
+export const ObjectDiagramSnapshot: Story = {
+  render: () => (
+    <ObjectDiagram
+      data={{
+        objects: [
+          { id: 'order1', x: 20, y: 20, width: 190, height: 90, name: 'order1', classifier: 'Order', slots: [{ name: 'id', value: 'A-1024' }, { name: 'status', value: 'PAID' }] },
+          { id: 'line1', x: 330, y: 20, width: 170, height: 70, name: 'line1', classifier: 'OrderLine', slots: [{ name: 'qty', value: '2' }] },
+          { id: 'kim', x: 20, y: 220, width: 190, height: 70, classifier: 'Customer', slots: [{ name: 'name', value: '김빵토' }] },
+        ],
+        links: [
+          { id: 'l1', from: 'order1', to: 'line1', label: 'contains' },
+          { id: 'l2', from: 'kim', to: 'order1', label: 'places', fromLabel: 'buyer', toLabel: 'order' },
+        ],
+      }}
+      viewBox="0 0 520 310"
+      width={520}
+      height={310}
+      title="Object Diagram — order1 스냅샷"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const svg = canvasElement.querySelector('[data-bbangto-viz-canvas]')!;
+    // 머리는 밑줄 친 「이름 : 클래스」, 이름 없는 객체는 「: 클래스」
+    const heads = Array.from(svg.querySelectorAll('text[text-decoration="underline"]')).map((t) => t.textContent);
+    await expect(heads).toEqual(['order1 : Order', 'line1 : OrderLine', ': Customer']);
+    // 슬롯 칸 하나 — 연산 칸은 없다
+    await expect(svg.querySelectorAll('[data-bbangto-viz-class-section="methods"]')).toHaveLength(0);
+    await expect(svg.textContent).toContain('status = PAID');
+    // 링크는 화살촉이 없다
+    for (const p of Array.from(svg.querySelectorAll('path[data-viz-part="connector"]'))) await expect(p.getAttribute('marker-end')).toBeNull();
+    await expect(Array.from(svg.querySelectorAll('[data-bbangto-viz-edge-label] text')).map((t) => t.textContent)).toEqual(
+      expect.arrayContaining(['contains', 'places', 'buyer', 'order']),
+    );
   },
 };
 

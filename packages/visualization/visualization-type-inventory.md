@@ -89,7 +89,7 @@
 
 | ID | 이름 | aliases | 한 줄 정의 | 대표 용도 | 프리미티브 | 소스(티어) | 상태 | 매핑 | tags | P |
 |---|---|---|---|---|---|---|---|---|---|---|
-| VT-101 | UML Class Diagram | object diagram, C4 code-level class | 클래스·속성·연산과 관계 구조 | 도메인/코드 모델 | node,edge,tree | X01(T1) | ✅ | `ClassDiagram`(template) | related:VT-112 | — |
+| VT-101 | UML Class Diagram | object diagram, C4 code-level class | 클래스·속성·연산과 관계 구조 | 도메인/코드 모델 | node,edge,tree | X01(T1) | ✅ | `ClassDiagram`(template) · `ObjectDiagram`(template, 별칭 object diagram — KAN-082.4) | related:VT-112 | — |
 | VT-102 | UML Package Diagram | — | 패키지 그룹화와 의존 관계 | 모듈 구조 관리 | node,edge,boundary | X01(T1) | ✅ | `UMLPackageDiagram`(template) | folder shape 신규 | — |
 | VT-103 | UML Component Diagram | composite structure diagram | 컴포넌트·인터페이스 배선 | 모듈 아키텍처 | node,edge,port | X01(T1) | ✅ | `UMLComponentDiagram`(template) | — | — |
 | VT-104 | UML Deployment Diagram | C4 deployment | 아티팩트의 실행 노드 배치 | 인프라·배포 구성 | node,edge,boundary | X01(T1) | ✅ | `UMLDeploymentDiagram`(template) · `C4DeploymentDiagram`(template, 별칭 C4 deployment — KAN-082.3) | — | — |
@@ -227,6 +227,7 @@ catalog §1-b·§2-a의 "ChartPrimitives(bar/line/pie/donut/treemap…)"와 PLAN
 | `RequirementDiagram` | template | VT-118 |
 | `KanbanBoard` | template | VT-204 |
 | `ClassDiagram` | template | VT-101 |
+| `ObjectDiagram` | template | VT-101 (별칭 object diagram, KAN-082.4) |
 | `StateDiagram` | template | VT-107 |
 | `ERDiagram` | template | VT-117 |
 | `C4ContextDiagram` | template | VT-109 |

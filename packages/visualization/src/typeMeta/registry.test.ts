@@ -56,10 +56,10 @@ const UNMAPPED_ALLOWLIST = new Set(['IsometricScene', 'Kruchten4Plus1View', 'Vie
 const registryExportNames = new Set(vizTypeRegistry.flatMap((e) => e.exportNames));
 
 describe('vizTypeRegistry — 정적 스캔 커버리지', () => {
-  it('배럴 스캔이 91개 value export를 잡는다(69 템플릿 + 22 패턴 — KAN-082.3 C4DeploymentDiagram)', () => {
-    expect(templateExports.length).toBe(69);
+  it('배럴 스캔이 92개 value export를 잡는다(70 템플릿 + 22 패턴 — KAN-082.3 C4DeploymentDiagram · .4 ObjectDiagram)', () => {
+    expect(templateExports.length).toBe(70);
     expect(patternExports.length).toBe(22);
-    expect(scanned.size).toBe(91);
+    expect(scanned.size).toBe(92);
   });
 
   it('allowlist를 제외한 모든 배럴 export가 ≥1 엔트리에 매핑된다(역방향 drift 게이트)', () => {
@@ -79,9 +79,9 @@ describe('vizTypeRegistry — 정적 스캔 커버리지', () => {
     expect(leaked).toEqual([]);
   });
 
-  it('커버된 export 합집합 = 정확히 88(91 − allowlist 3)', () => {
-    expect(registryExportNames.size).toBe(88);
-    expect(scanned.size - UNMAPPED_ALLOWLIST.size).toBe(88);
+  it('커버된 export 합집합 = 정확히 89(92 − allowlist 3)', () => {
+    expect(registryExportNames.size).toBe(89);
+    expect(scanned.size - UNMAPPED_ALLOWLIST.size).toBe(89);
   });
 });
 

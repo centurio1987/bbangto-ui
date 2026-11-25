@@ -14,6 +14,8 @@ export type { KanbanBoardProps, KanbanColumnSpec, KanbanCardSpec } from './Kanba
 // G3: class / state / ER
 export { ClassDiagram } from './ClassDiagram';
 export type { ClassDiagramProps, ClassDiagramData, ClassSpec, ClassRelationshipSpec, ClassRelationshipKind } from './ClassDiagram';
+export { ObjectDiagram } from './ObjectDiagram';
+export type { ObjectDiagramProps, ObjectDiagramData, ObjectSpec, ObjectSlotSpec, ObjectLinkSpec } from './ObjectDiagram';
 export { StateDiagram } from './StateDiagram';
 export type { StateDiagramProps, StateDiagramData, StateSpec, TransitionSpec } from './StateDiagram';
 export { ERDiagram } from './ERDiagram';

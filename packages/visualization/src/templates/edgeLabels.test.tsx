@@ -486,6 +486,22 @@ const CASES: Record<string, Case> = {
     ),
     marks: { 'relationship.label': 'C4P_label', 'relationship.technology': 'C4P_tech' },
   },
+  ObjectDiagram: {
+    file: 'ObjectDiagram',
+    el: React.createElement(
+      (Index as unknown as Record<string, React.ComponentType<{ data: unknown }>>).ObjectDiagram ?? 'g',
+      {
+        data: {
+          objects: [
+            { id: 'a', x: 20, y: 20, width: 140, height: 70, name: 'Aa', classifier: 'A' },
+            { id: 'b', x: 360, y: 20, width: 140, height: 70, name: 'Bb', classifier: 'B' },
+          ],
+          links: [{ id: 'l1', from: 'a', to: 'b', label: 'OBJ_label', fromLabel: 'OBJ_from', toLabel: 'OBJ_to' }],
+        },
+      },
+    ),
+    marks: { 'link.label': 'OBJ_label', 'link.fromLabel': 'OBJ_from', 'link.toLabel': 'OBJ_to' },
+  },
   UMLSequenceDiagram: {
     file: 'UMLSequenceDiagram',
     el: (
@@ -528,7 +544,7 @@ describe('템플릿이 라벨 계열 칸을 그린다 (KAN-082)', () => {
   it('Edge 를 쓰는 템플릿은 모두 CASES 나 NO_FIELD 에 있다', () => {
     const covered = new Set([...Object.values(CASES).map((c) => c.file), ...Object.keys(NO_FIELD)]);
     const files = filesUsingEdge();
-    expect(files.length).toBe(34);
+    expect(files.length).toBe(35);
     expect(files.filter((f) => !covered.has(f))).toEqual([]);
     expect([...covered].filter((f) => !files.includes(f)).sort()).toEqual([]);
   });
