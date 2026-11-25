@@ -29,7 +29,9 @@ import {
   UMLDeploymentDiagram,
   UMLPackageDiagram,
   UMLSequenceDiagram,
+  NetworkTopology,
 } from './index';
+import * as Index from './index';
 import { edgeLabelBox } from '../atoms/EdgeLabel';
 
 // KAN-082 S1 — 템플릿이 데이터로 받은 라벨 계열 칸을 그림에 그리는가.
@@ -450,6 +452,40 @@ const CASES: Record<string, Case> = {
     ),
     marks: { 'dependency.label': 'PKG_label' },
   },
+  NetworkTopology: {
+    file: 'NetworkTopology',
+    el: (
+      <NetworkTopology
+        data={{
+          zones: [],
+          nodes: [
+            { id: 'a', x: 40, y: 40, label: 'Aa' },
+            { id: 'b', x: 320, y: 40, label: 'Bb' },
+          ],
+          // label 칸은 KAN-082.3(S10)이 연다 — 그 전에는 타입에 없다
+          links: [{ from: 'a', to: 'b', label: 'TOP_label' }] as unknown as { from: string; to: string }[],
+        }}
+      />
+    ),
+    marks: { 'link.label': 'TOP_label' },
+  },
+  C4DeploymentDiagram: {
+    file: 'C4DeploymentDiagram',
+    el: React.createElement(
+      (Index as unknown as Record<string, React.ComponentType<{ data: unknown }>>).C4DeploymentDiagram ?? 'g',
+      {
+        data: {
+          nodes: [{ id: 'host', x: 10, y: 10, width: 560, height: 160, name: 'Host' }],
+          containers: [
+            { id: 'a', node: 'host', x: 30, y: 50, width: 120, height: 60, name: 'Aa' },
+            { id: 'b', node: 'host', x: 400, y: 50, width: 120, height: 60, name: 'Bb' },
+          ],
+          relationships: [{ id: 'r1', from: 'a', to: 'b', label: 'C4P_label', technology: 'C4P_tech' }],
+        },
+      },
+    ),
+    marks: { 'relationship.label': 'C4P_label', 'relationship.technology': 'C4P_tech' },
+  },
   UMLSequenceDiagram: {
     file: 'UMLSequenceDiagram',
     el: (
@@ -474,7 +510,6 @@ const NO_FIELD: Record<string, string> = {
   DMNDiagram: '요구 관계는 kind 만 받는다(DMNRequirementSpec)',
   Mindmap: '가지는 from · to 만 받는다(MindmapEdgeSpec)',
   NetworkGraph: '간선은 from · to 만 받는다(GraphEdge)',
-  NetworkTopology: '링크는 from · to 만 받는다(TopologyLink) — 라벨 칸은 KAN-082.3 이 연다',
   RequirementDiagram: '관계는 kind 만 받는다(RequirementEdgeSpec)',
   UseCaseDiagram: '링크는 kind 만 받는다(UseCaseLink) — include · extend 는 이미 «kind» 로 그린다',
 };
@@ -493,7 +528,7 @@ describe('템플릿이 라벨 계열 칸을 그린다 (KAN-082)', () => {
   it('Edge 를 쓰는 템플릿은 모두 CASES 나 NO_FIELD 에 있다', () => {
     const covered = new Set([...Object.values(CASES).map((c) => c.file), ...Object.keys(NO_FIELD)]);
     const files = filesUsingEdge();
-    expect(files.length).toBe(33);
+    expect(files.length).toBe(34);
     expect(files.filter((f) => !covered.has(f))).toEqual([]);
     expect([...covered].filter((f) => !files.includes(f)).sort()).toEqual([]);
   });
