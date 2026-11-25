@@ -53,9 +53,9 @@ export function Markers({
         id={mkId(uid, 'arrow')}
         markerWidth={size}
         markerHeight={size}
-        refX={size - 1}
+        refX={size}
         refY={hw}
-        orient="auto"
+        orient="auto-start-reverse"
         markerUnits="userSpaceOnUse"
       >
         <path
@@ -69,9 +69,9 @@ export function Markers({
         id={mkId(uid, 'arrow-open')}
         markerWidth={size}
         markerHeight={size}
-        refX={size - 1}
+        refX={size - 0.25}
         refY={hw}
-        orient="auto"
+        orient="auto-start-reverse"
         markerUnits="userSpaceOnUse"
       >
         <path
@@ -87,7 +87,7 @@ export function Markers({
         markerHeight={size}
         refX={size}
         refY={hw}
-        orient="auto"
+        orient="auto-start-reverse"
         markerUnits="userSpaceOnUse"
       >
         <path
@@ -101,9 +101,9 @@ export function Markers({
         id={mkId(uid, 'diamond-open')}
         markerWidth={size}
         markerHeight={size}
-        refX={size}
+        refX={size + 0.75}
         refY={hw}
-        orient="auto"
+        orient="auto-start-reverse"
         markerUnits="userSpaceOnUse"
       >
         <path
@@ -119,7 +119,7 @@ export function Markers({
         markerHeight={size}
         refX={hw}
         refY={hw}
-        orient="auto"
+        orient="auto-start-reverse"
         markerUnits="userSpaceOnUse"
       >
         <circle cx={hw} cy={hw} r={hw - 1} style={{ fill: circleFill, stroke: 'none' }} />
@@ -132,7 +132,7 @@ export function Markers({
         markerHeight={size}
         refX={hw}
         refY={hw}
-        orient="auto"
+        orient="auto-start-reverse"
         markerUnits="userSpaceOnUse"
       >
         <path
@@ -146,9 +146,9 @@ export function Markers({
         id={mkId(uid, 'triangle-open')}
         markerWidth={size}
         markerHeight={size}
-        refX={size - 1}
+        refX={size + 0.75}
         refY={hw}
-        orient="auto"
+        orient="auto-start-reverse"
         markerUnits="userSpaceOnUse"
       >
         <path
@@ -164,7 +164,7 @@ export function Markers({
         markerHeight={erH}
         refX={erW}
         refY={erHw}
-        orient="auto"
+        orient="auto-start-reverse"
         markerUnits="userSpaceOnUse"
       >
         <line x1={6} y1={0} x2={6} y2={erH} style={{ stroke: lineStroke, strokeWidth: 1.5 }} />
@@ -176,13 +176,13 @@ export function Markers({
         id={mkId(uid, 'er-many')}
         markerWidth={erW}
         markerHeight={erH}
-        refX={erW}
+        refX={erW + 0.75}
         refY={erHw}
-        orient="auto"
+        orient="auto-start-reverse"
         markerUnits="userSpaceOnUse"
       >
         <path
-          d={`M ${erW} ${erHw} L 0 0 M ${erW} ${erHw} L 0 ${erHw} M ${erW} ${erHw} L 0 ${erH}`}
+          d={`M 4 ${erHw} L ${erW} 0 M 4 ${erHw} L ${erW} ${erHw} M 4 ${erHw} L ${erW} ${erH}`}
           style={{ fill: 'none', stroke: lineStroke, strokeWidth: 1.5 }}
         />
       </marker>
@@ -194,7 +194,7 @@ export function Markers({
         markerHeight={erH}
         refX={erW}
         refY={erHw}
-        orient="auto"
+        orient="auto-start-reverse"
         markerUnits="userSpaceOnUse"
       >
         <circle cx={3} cy={erHw} r={3} fill="none" style={{ stroke: lineStroke, strokeWidth: 1.5 }} />
@@ -206,14 +206,14 @@ export function Markers({
         id={mkId(uid, 'er-one-or-many')}
         markerWidth={erW}
         markerHeight={erH}
-        refX={erW}
+        refX={erW + 0.75}
         refY={erHw}
-        orient="auto"
+        orient="auto-start-reverse"
         markerUnits="userSpaceOnUse"
       >
-        <line x1={4} y1={0} x2={4} y2={erH} style={{ stroke: lineStroke, strokeWidth: 1.5 }} />
+        <line x1={3} y1={0} x2={3} y2={erH} style={{ stroke: lineStroke, strokeWidth: 1.5 }} />
         <path
-          d={`M ${erW} ${erHw} L 4 0 M ${erW} ${erHw} L 4 ${erHw} M ${erW} ${erHw} L 4 ${erH}`}
+          d={`M 6 ${erHw} L ${erW} 0 M 6 ${erHw} L ${erW} ${erHw} M 6 ${erHw} L ${erW} ${erH}`}
           style={{ fill: 'none', stroke: lineStroke, strokeWidth: 1.5 }}
         />
       </marker>
@@ -223,14 +223,14 @@ export function Markers({
         id={mkId(uid, 'er-zero-or-many')}
         markerWidth={erW}
         markerHeight={erH}
-        refX={erW}
+        refX={erW + 0.75}
         refY={erHw}
-        orient="auto"
+        orient="auto-start-reverse"
         markerUnits="userSpaceOnUse"
       >
         <circle cx={3} cy={erHw} r={3} fill="none" style={{ stroke: lineStroke, strokeWidth: 1.5 }} />
         <path
-          d={`M ${erW} ${erHw} L 6 0 M ${erW} ${erHw} L 6 ${erHw} M ${erW} ${erHw} L 6 ${erH}`}
+          d={`M 7 ${erHw} L ${erW} 0 M 7 ${erHw} L ${erW} ${erHw} M 7 ${erHw} L ${erW} ${erH}`}
           style={{ fill: 'none', stroke: lineStroke, strokeWidth: 1.5 }}
         />
       </marker>
