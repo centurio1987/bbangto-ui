@@ -423,3 +423,4 @@
 {"seq": 288, "t": "2026-10-11T10:11", "a": "ai", "id": "KAN-075-4K5GK3", "op": "move", "w": "EFXS81", "from": "review", "to": "doing"}
 {"seq": 289, "t": "2026-10-11T16:15", "a": "ai", "id": "KAN-075-4K5GK3", "op": "move", "w": "EFXS81", "from": "doing", "to": "review"}
 {"seq": 290, "t": "2026-10-11T16:30", "a": "ai", "id": "KAN-075-4K5GK3", "op": "move", "w": "EFXS81", "from": "review", "to": "doing"}
+{"seq": 291, "t": "2026-10-11T16:34", "a": "ai", "id": "KAN-075-4K5GK3", "op": "move", "w": "EFXS81", "from": "doing", "to": "review"}
