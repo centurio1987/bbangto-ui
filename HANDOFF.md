@@ -95,9 +95,10 @@ pnpm --filter storybook exec playwright install chromium   # pnpm test(브라우
 - 칸반 작업은 `~/.claude/skills/manage-kanban` 스킬이 있어야 합니다. 이 스킬은 이 저장소가 아니라 `~/.claude` 설정 저장소에 들어 있으므로, 다른 머신에도 그 설정을 먼저 받아 둡니다.
 - 로컬 게이트에 필요한 환경 변수는 찾지 못했습니다(루트와 storybook 의 package.json 스크립트만 봤습니다). 배포 워크플로(`.github/workflows/release.yml`)는 CI 에서 `NODE_AUTH_TOKEN` 을 씁니다.
 
+롤백 태그: 이 카드의 태그 26개(`kan/KAN-082-MD50S0/*` 등, 단계 · 묶음마다 하나)를 포함해 `kan/*` 태그 237개를 2026-11-26 에 원격에 올렸습니다. 브랜치를 받은 뒤 `git fetch --tags` 를 한 번 하면 다른 머신에서도 태그 이름으로 롤백 기준점을 찾을 수 있습니다.
+
 이 머신에만 있고 원격에 없는 것:
 
-- 롤백 태그 26개(`kan/KAN-082-MD50S0/*` 등, 단계 · 묶음마다 하나). 이 저장소는 `kan/*` 태그를 원격에 올리지 않아 왔습니다. 다른 머신에서는 롤백 기준점을 커밋 해시로 찾아야 합니다.
 - 세션 기록: `~/.claude/projects/-Users-centurio-bbangto-ui/` 아래 `a99ab1fa-…jsonl`(실행 세션), `188aa49d-…jsonl` · `ab8bb43c-…jsonl`(계획 세션). `~/.claude` 설정 저장소에서도 git 이 무시하는 파일이라 이 머신에만 있습니다.
 - 커밋하지 않은 파일은 없습니다(인수인계 시점 `git status` 깨끗함).
 
