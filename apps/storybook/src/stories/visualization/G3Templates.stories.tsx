@@ -65,9 +65,9 @@ export const ClassDiagramBasic: Story = {
     const boxes = canvasElement.querySelectorAll('[data-bbangto-viz-class-box]');
     await expect(boxes.length).toBe(3);
 
-    // Each box has 3 sections
+    // 칸 — Animal · Dog 은 세 칸, 연산이 빈 Owner 는 빈 칸을 숨겨 두 칸(KAN-082 S12, 바깥 보고서 P9)
     const sections = canvasElement.querySelectorAll('[data-bbangto-viz-class-section]');
-    await expect(sections.length).toBe(9); // 3 × 3
+    await expect(sections.length).toBe(8); // 3 + 3 + 2
 
     // 2 edges
     const edges = canvasElement.querySelectorAll('[data-bbangto-viz-edge]');
