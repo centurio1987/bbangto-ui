@@ -1,6 +1,6 @@
 {
   "next_id": 85,
-  "next_seq": 334,
+  "next_seq": 335,
   "cards": {
     "KAN-076-NHP81Z": {
       "col": "backlog",
@@ -132,7 +132,7 @@
       "parent": "KAN-082-MD50S0"
     },
     "KAN-082.2-P4970X": {
-      "col": "doing",
+      "col": "review",
       "title": "viz 화살표 종류 구분과 범례 — 관계선 종류 데이터 + 도식 범례 부품",
       "verbatim": "",
       "생성": "ai",
@@ -2022,6 +2022,16 @@
   ],
   "recent": [
     {
+      "seq": 334,
+      "t": "2026-11-25T16:07",
+      "a": "ai",
+      "id": "KAN-082.2-P4970X",
+      "op": "move",
+      "w": "9Z2X8X",
+      "from": "doing",
+      "to": "review"
+    },
+    {
       "seq": 333,
       "t": "2026-11-25T15:50",
       "a": "ai",
@@ -2643,16 +2653,6 @@
       "w": "EFXS81",
       "from": "review",
       "to": "doing"
-    },
-    {
-      "seq": 287,
-      "t": "2026-10-11T07:07",
-      "a": "ai",
-      "id": "KAN-075-4K5GK3",
-      "op": "move",
-      "w": "EFXS81",
-      "from": "doing",
-      "to": "review"
     }
   ],
   "waivers": [
