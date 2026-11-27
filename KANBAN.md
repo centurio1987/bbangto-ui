@@ -114,7 +114,7 @@
   - 메모: 검토 표·근거·순서는 카드 문서 「전략」. KAN-080(P7·P8·P9·P11)과 같은 템플릿 파일을 고친다 — KAN-082 먼저(2026-11-24 유저 결정)
   - 실행 문서: KANBAN/cards/KAN-082-MD50S0.md (19/19 · 최근 11-25)
   - 계획 리포트: KANBAN/reports/KAN-082-MD50S0.report.html (최신 아님)
-  - 검토 문서: KANBAN/reviews/KAN-082-MD50S0.review.md (승인 0/1 · 검토 대기)
+  - 검토 문서: KANBAN/reviews/KAN-082-MD50S0.review.md (승인 1/1 · 검토 대기)
   - 원문:
     ```text
     **핵심: 도식은 "노드가 무엇인가"와 "화살표가 무엇을 뜻하는가"로 구분하면 됩니다.**
