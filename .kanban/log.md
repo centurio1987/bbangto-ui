@@ -1,6 +1,7 @@
 # KANBAN 변경 이력
 > 최근 50건. 이보다 오래된 이력은 archive.jsonl 로 압축 보관한다.
 
+- #342 2026-11-27 13:33 · ai · KAN-082.1-ZFJJM6 이동 검토 → 완료
 - #341 2026-11-25 17:22 · ai · KAN-082-MD50S0 이동 진행 중 → 검토
 - #340 2026-11-25 16:55 · ai · KAN-082.5-WPS4DX 이동 진행 중 → 검토
 - #339 2026-11-25 16:49 · ai · KAN-082.5-WPS4DX 이동 백로그 → 진행 중
@@ -50,4 +51,3 @@
 - #298 2026-10-12 15:50 · ai · KAN-076-NHP81Z 수정 메모
 - #297 2026-10-12 15:50 · ai · KAN-076-NHP81Z serialize
 - #296 2026-10-12 14:59 · ai · KAN-079-CFS73T 생성 "미배포 변경 배포 — KAN-069·070·072·075 (tokens·visualization·visualization-style-guide-catalog 2.0.0 · core 1.2.3 · foundations 2.0.1 · style-guide-catalog 1.0.1)" → 할 일
-- #295 2026-10-12 14:56 · ai · KAN-078-0TF6NT 생성 "노출 없는 재시험 — 하네스를 고쳐 기획 세션을 다시 돌려 README 수정 전후 효과 확인" → 백로그
