@@ -1,6 +1,6 @@
 {
   "next_id": 85,
-  "next_seq": 345,
+  "next_seq": 346,
   "cards": {
     "KAN-076-NHP81Z": {
       "col": "backlog",
@@ -174,12 +174,12 @@
       "parent": "KAN-082-MD50S0"
     },
     "KAN-082.4-FSH2T1": {
-      "col": "review",
+      "col": "done",
       "title": "viz 객체 도식·커뮤니케이션 도식 — 인스턴스 스냅샷과 링크 위 번호 메시지",
       "verbatim": "",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-11-25",
+      "갱신": "2026-11-27",
       "title_hash": "ea3dfd653d1590483d42b534b9513497335672c8",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
       "short": "객체·커뮤니케이션 도식",
@@ -1936,7 +1936,6 @@
     "KAN-078-0TF6NT",
     "KAN-080-RN47PY",
     "KAN-084-QGNC19",
-    "KAN-082.4-FSH2T1",
     "KAN-082.5-WPS4DX",
     "KAN-082-MD50S0",
     "KAN-020",
@@ -2018,9 +2017,20 @@
     "KAN-083-JSQKF4",
     "KAN-082.1-ZFJJM6",
     "KAN-082.2-P4970X",
-    "KAN-082.3-TJ665Y"
+    "KAN-082.3-TJ665Y",
+    "KAN-082.4-FSH2T1"
   ],
   "recent": [
+    {
+      "seq": 345,
+      "t": "2026-11-27T13:35",
+      "a": "ai",
+      "id": "KAN-082.4-FSH2T1",
+      "op": "move",
+      "w": "CN8DDC",
+      "from": "review",
+      "to": "done"
+    },
     {
       "seq": 344,
       "t": "2026-11-27T13:34",
@@ -2614,17 +2624,6 @@
       "field": "memo",
       "before": "비용 API 환산 약 150달러·약 2시간(KAN-071 실측). 하네스와 함정은 저장소 밖 ~/.local/share/bbangto-ui-agent-repro/KAN-071/harness 와 메모리 agent-repro-harness. 노출은 analyze.py 의 exposure 로 센다",
       "after": "비용 API 환산 약 150달러·약 2시간(KAN-071 실측). 하네스와 함정은 저장소 밖 ~/.local/share/bbangto-ui-agent-repro/KAN-071/harness 와 메모리 agent-repro-harness. 노출은 analyze.py 의 exposure 로 센다 · 직렬: 이 카드가 KAN-076(viz 배치 엔진 안내)보다 먼저다 — 076 이 README 를 바꾸면 「지금 판」 조건이 달라진다(2026-10-12 유저 지시). 착수 때 scope 를 정하면 직렬 기록이 자동으로 풀리므로 dep-serialize 를 다시 건다"
-    },
-    {
-      "seq": 298,
-      "t": "2026-10-12T15:50",
-      "a": "ai",
-      "id": "KAN-076-NHP81Z",
-      "op": "edit",
-      "w": "S7030N",
-      "field": "memo",
-      "before": "KAN-071 검토 항목 2(2026-10-11 승인) 추천 「앱 안 확장으로 보고 README 에 안내를 더한다」. 버린 갈래: visualization geometry 에 계층 배치 함수를 넣는다. 검사 자리는 KAN-067 의 publishedDocs",
-      "after": "KAN-071 검토 항목 2(2026-10-11 승인) 추천 「앱 안 확장으로 보고 README 에 안내를 더한다」. 버린 갈래: visualization geometry 에 계층 배치 함수를 넣는다. 검사 자리는 KAN-067 의 publishedDocs · 직렬: KAN-078(노출 없는 재시험) 완료 뒤 전략을 다시 세우고 착수(2026-10-12 유저 지시). 착수 때 scope 를 정하면 직렬 기록이 자동으로 풀리므로 dep-serialize 를 다시 건다"
     }
   ],
   "waivers": [

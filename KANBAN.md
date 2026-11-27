@@ -61,15 +61,6 @@
 ## 진행 중
 
 ## 검토
-- `KAN-082.4-FSH2T1` viz 객체 도식·커뮤니케이션 도식 — 인스턴스 스냅샷과 링크 위 번호 메시지 — 생성:ai · 최종:ai · 갱신:2026-11-25
-  - 상위: `KAN-082-MD50S0` (검토)
-  - 짧은 제목: 객체·커뮤니케이션 도식
-  - 목적: 인스턴스 스냅샷을 그리는 ObjectDiagram(밑줄 친 「이름 : 타입」 머리·속성 값 칸·링크)과 객체 사이 링크 위에 번호 메시지를 다는 CommunicationDiagram 을 더한다
-  - 이유: 유형 목록은 object·communication 을 VT-101·VT-108 별칭으로 구현 완료 처리했지만, 인스턴스 표기도 링크 위 메시지 배치도 없다
-  - 목표: 같은 객체들을 시퀀스 도식(시간축)과 커뮤니케이션 도식(링크 위 번호)으로 각각 그릴 수 있고, 유형 목록의 구현 표시가 실제 export 를 가리킨다
-  - 메모: ClassBox 칸 고르기(P9)는 이 카드가 맡는다 — KAN-080 P9 와 겹친다. 간선 라벨 렌더 복구 뒤에 한다(ClassDiagram·ClassBox 를 함께 고친다)
-  - 실행 문서: KANBAN/cards/KAN-082.4-FSH2T1.md (3/3 · 최근 11-25)
-  - 검토 문서: KANBAN/reviews/KAN-082.4-FSH2T1.review.md (승인 2/2 · 승인)
 - `KAN-082.5-WPS4DX` viz SEI Views and Beyond 프레임 — Module·C&C·Allocation 세 뷰 슬롯 — 생성:ai · 최종:ai · 갱신:2026-11-25
   - 상위: `KAN-082-MD50S0` (검토)
   - 짧은 제목: SEI 뷰 프레임
@@ -837,3 +828,12 @@
   - 메모: .1 뒤에 한다(UMLDeploymentDiagram·c4Types 공유). 새 export 는 유형 목록 §6 과 typeMeta 등록을 함께 — VT-104 별칭을 실제 export 로
   - 실행 문서: KANBAN/cards/KAN-082.3-TJ665Y.md (3/3 · 최근 11-25)
   - 검토 문서: KANBAN/reviews/KAN-082.3-TJ665Y.review.md (승인 2/2 · 추가 의견 총 2 · 승인)
+- `KAN-082.4-FSH2T1` viz 객체 도식·커뮤니케이션 도식 — 인스턴스 스냅샷과 링크 위 번호 메시지 — 생성:ai · 최종:ai · 갱신:2026-11-27
+  - 상위: `KAN-082-MD50S0` (검토)
+  - 짧은 제목: 객체·커뮤니케이션 도식
+  - 목적: 인스턴스 스냅샷을 그리는 ObjectDiagram(밑줄 친 「이름 : 타입」 머리·속성 값 칸·링크)과 객체 사이 링크 위에 번호 메시지를 다는 CommunicationDiagram 을 더한다
+  - 이유: 유형 목록은 object·communication 을 VT-101·VT-108 별칭으로 구현 완료 처리했지만, 인스턴스 표기도 링크 위 메시지 배치도 없다
+  - 목표: 같은 객체들을 시퀀스 도식(시간축)과 커뮤니케이션 도식(링크 위 번호)으로 각각 그릴 수 있고, 유형 목록의 구현 표시가 실제 export 를 가리킨다
+  - 메모: ClassBox 칸 고르기(P9)는 이 카드가 맡는다 — KAN-080 P9 와 겹친다. 간선 라벨 렌더 복구 뒤에 한다(ClassDiagram·ClassBox 를 함께 고친다)
+  - 실행 문서: KANBAN/cards/KAN-082.4-FSH2T1.md (3/3 · 최근 11-25)
+  - 검토 문서: KANBAN/reviews/KAN-082.4-FSH2T1.review.md (승인 2/2 · 승인)
