@@ -36,6 +36,10 @@ import {
   SysMLBlockDiagram,
   TimelineDiagram,
   UMLDeploymentDiagram,
+  C4DeploymentDiagram,
+  ObjectDiagram,
+  CommunicationDiagram,
+  ViewsAndBeyondFrame,
   UMLPackageDiagram,
   UMLSequenceDiagram,
   UseCaseDiagram,
@@ -1051,6 +1055,81 @@ export const PAINT_GATE_FIXTURES: PaintGateFixture[] = [
         width={416}
         height={304}
         title="Isometric scene"
+      />
+    ),
+  },
+  // ── KAN-082.3 — C4 Deployment(VT-104 별칭) ─────────────────────────────
+  {
+    key: 'c4-deployment',
+    template: 'C4DeploymentDiagram',
+    render: () => (
+      <C4DeploymentDiagram
+        data={{
+          nodes: [{ id: 'ec2', x: 10, y: 10, width: 360, height: 170, name: 'EC2', technology: 'Ubuntu 22.04' }],
+          containers: [
+            { id: 'api', node: 'ec2', x: 30, y: 60, width: 140, height: 90, name: 'API', technology: 'Node.js' },
+            { id: 'db', node: 'ec2', x: 210, y: 60, width: 140, height: 100, name: 'DB', technology: 'PostgreSQL', shape: 'database' },
+          ],
+          relationships: [{ id: 'r1', from: 'api', to: 'db', label: 'reads', technology: 'SQL' }],
+        }}
+        viewBox="0 0 390 200"
+        width={390}
+        height={200}
+        title="C4 Deployment"
+      />
+    ),
+  },
+  // ── KAN-082.4 — Object Diagram(VT-101 별칭) ───────────────────────────
+  {
+    key: 'object-diagram',
+    template: 'ObjectDiagram',
+    render: () => (
+      <ObjectDiagram
+        data={{
+          objects: [
+            { id: 'o1', x: 20, y: 20, width: 150, height: 80, name: 'order1', classifier: 'Order', slots: [{ name: 'status', value: 'PAID' }] },
+            { id: 'c1', x: 230, y: 20, width: 150, height: 60, classifier: 'Customer' },
+          ],
+          links: [{ id: 'l1', from: 'c1', to: 'o1', label: 'places' }],
+        }}
+        viewBox="0 0 400 120"
+        width={400}
+        height={120}
+        title="Object Diagram"
+      />
+    ),
+  },
+  // ── KAN-082.4 — Communication Diagram(VT-108 별칭) ────────────────────
+  {
+    key: 'communication-diagram',
+    template: 'CommunicationDiagram',
+    render: () => (
+      <CommunicationDiagram
+        data={{
+          objects: [
+            { id: 'ui', x: 20, y: 50, width: 150, height: 50, name: 'ui', classifier: 'Page' },
+            { id: 'svc', x: 260, y: 50, width: 150, height: 50, classifier: 'Service' },
+          ],
+          links: [{ id: 'l1', from: 'ui', to: 'svc', messages: [{ order: '1', label: 'place()' }] }],
+        }}
+        viewBox="0 0 430 120"
+        width={430}
+        height={120}
+        title="Communication Diagram"
+      />
+    ),
+  },
+  // ── KAN-082.5 — SEI Views and Beyond 프레임(조합 프레임, 슬롯은 비운다) ──
+  {
+    key: 'views-and-beyond',
+    template: 'ViewsAndBeyondFrame',
+    render: () => (
+      <ViewsAndBeyondFrame
+        data={{ module: ['checkout/', 'payment/'], cc: ['api server', 'worker'], allocation: ['EC2', 'RDS'] }}
+        viewBox="0 0 900 420"
+        width={540}
+        height={252}
+        title="SEI Views and Beyond"
       />
     ),
   },

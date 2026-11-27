@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react';
 import { Canvas } from '../atoms/Canvas';
 import type { CanvasProps } from '../atoms/Canvas';
-import { Edge } from '../atoms/Edge';
+import { Edge, type EdgeLabelOffset } from '../atoms/Edge';
 import { StateNode } from '../molecules/StateNode';
 import type { StateVariant } from '../molecules/StateNode';
 
@@ -26,6 +26,8 @@ export interface TransitionSpec {
   from: string;
   to: string;
   label?: string;
+  /** 선 가운데 라벨을 이만큼 옮긴다(겹칠 때 비키기, KAN-082). */
+  labelOffset?: EdgeLabelOffset;
 }
 
 export interface StateDiagramData {
@@ -116,7 +118,7 @@ export function StateDiagram({
         />
       ))}
       {transitions.map((t) => (
-        <Edge key={t.id} from={t.from} to={t.to} markerEnd="arrow" strokeWidth={1.5} />
+        <Edge key={t.id} from={t.from} to={t.to} markerEnd="arrow" strokeWidth={1.5} label={t.label} labelOffset={t.labelOffset} />
       ))}
     </Canvas>
   );

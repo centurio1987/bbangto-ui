@@ -14,6 +14,10 @@ import {
   EntityTable,
   C4Box,
   MockupNode,
+  LegendBlock,
+  RELATION_KINDS,
+  RELATION_KIND_NAMES,
+  RELATION_LINE_STYLES,
 } from '@centurio1987/bbangto-ui-visualization';
 import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visualization-style-guide-catalog';
 import { expect } from 'storybook/test';
@@ -251,5 +255,39 @@ export const MockupNodeVariants: Story = {
     const mocks = canvasElement.querySelectorAll('[data-bbangto-viz-mockup-node]');
     await expect(mocks.length).toBe(2);
     await expect(canvasElement.textContent).toContain('Home');
+  },
+};
+
+// ── LegendBlock (관계선 범례, KAN-082 .2) ──────────────────────────────
+// 관계 종류 열 가지를 모두 세운 범례. 견본 선은 Edge 로 그려 템플릿 선과 같은 마커 · 대시를 쓴다 —
+// 견본마다 대시와 화살촉이 RELATION_LINE_STYLES 와 같은지, 이름이 RELATION_KIND_NAMES 와 같은지 본다.
+export const LegendBlockAllKinds: Story = {
+  render: () => (
+    <Canvas viewBox="0 0 220 240" width={220} height={240} title="Relation legend">
+      <LegendBlock x={10} y={10} kinds={RELATION_KINDS} />
+    </Canvas>
+  ),
+  play: async ({ canvasElement }) => {
+    const legend = canvasElement.querySelector('[data-bbangto-viz-legend]');
+    await expect(legend).not.toBeNull();
+    const items = Array.from(legend!.querySelectorAll('[data-bbangto-viz-legend-item]'));
+    await expect(items.map((g) => g.getAttribute('data-bbangto-viz-legend-item'))).toEqual([...RELATION_KINDS]);
+    for (const g of items) {
+      const kind = g.getAttribute('data-bbangto-viz-legend-item') as (typeof RELATION_KINDS)[number];
+      await expect(g.querySelector('text')?.textContent).toBe(RELATION_KIND_NAMES[kind]);
+      const line = g.querySelector('path[data-viz-part="connector"]') as SVGPathElement;
+      const want = RELATION_LINE_STYLES[kind];
+      // 대시 — 실선은 none, 나머지는 「6 4」 · 「2 4」
+      const dash = getComputedStyle(line).strokeDasharray.replace(/px/g, '').replace(/,\s*/g, ' ');
+      await expect({ kind, dash }).toEqual({ kind, dash: want.strokeDasharray });
+      // 화살촉 — 없으면 속성이 없다
+      const end = line.getAttribute('marker-end');
+      const start = line.getAttribute('marker-start');
+      await expect({ kind, end: want.markerEnd === 'none' ? end === null : !!end, start: want.markerStart ? !!start : start === null }).toEqual({
+        kind,
+        end: true,
+        start: true,
+      });
+    }
   },
 };

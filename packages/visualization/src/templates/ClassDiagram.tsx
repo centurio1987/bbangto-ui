@@ -1,8 +1,8 @@
 import { type ReactNode } from 'react';
 import { Canvas } from '../atoms/Canvas';
 import type { CanvasProps } from '../atoms/Canvas';
-import { Edge } from '../atoms/Edge';
-import type { MarkerVariant } from '../atoms/Marker';
+import { Edge, type EdgeLabelOffset } from '../atoms/Edge';
+import { classRelationshipLineStyle, type ClassRelationshipKind } from '../atoms/relationKind';
 import { ClassBox } from '../molecules/ClassBox';
 
 export interface ClassSpec {
@@ -19,13 +19,8 @@ export interface ClassSpec {
   stroke?: string;
 }
 
-export type ClassRelationshipKind =
-  | 'inheritance'
-  | 'composition'
-  | 'aggregation'
-  | 'association'
-  | 'dependency'
-  | 'realization';
+// 관계 종류와 선 모양 매핑은 atoms/relationKind.ts 가 낸다(바깥 보고서 P11 ① — 소비자가 같은 매핑을 쓰게).
+export type { ClassRelationshipKind };
 
 export interface ClassRelationshipSpec {
   id: string;
@@ -33,6 +28,8 @@ export interface ClassRelationshipSpec {
   to: string;
   kind?: ClassRelationshipKind;
   label?: string;
+  /** 선 가운데 라벨을 이만큼 옮긴다(겹칠 때 비키기, KAN-082). */
+  labelOffset?: EdgeLabelOffset;
   fromLabel?: string;
   toLabel?: string;
 }
@@ -45,24 +42,6 @@ export interface ClassDiagramData {
 export interface ClassDiagramProps extends Omit<CanvasProps, 'data' | 'children'> {
   children?: ReactNode;
   data?: ClassDiagramData;
-}
-
-interface EdgeConfig {
-  markerEnd?: MarkerVariant;
-  markerStart?: MarkerVariant;
-  strokeDasharray?: string;
-}
-
-function edgeConfig(kind: ClassRelationshipKind): EdgeConfig {
-  switch (kind) {
-    case 'inheritance':   return { markerEnd: 'triangleOpen' };
-    case 'realization':   return { markerEnd: 'triangleOpen', strokeDasharray: '6 3' };
-    case 'composition':   return { markerStart: 'diamond' };
-    case 'aggregation':   return { markerStart: 'diamondOpen' };
-    case 'dependency':    return { markerEnd: 'arrowOpen', strokeDasharray: '5 3' };
-    case 'association':
-    default:              return { markerEnd: 'arrow' };
-  }
 }
 
 /**
@@ -121,6 +100,7 @@ export function ClassDiagram({
           width={c.width}
           height={c.height}
           name={c.name}
+          stereotype={c.stereotype}
           attributes={c.attributes}
           methods={c.methods}
           fill={c.fill}
@@ -128,7 +108,7 @@ export function ClassDiagram({
         />
       ))}
       {relationships.map((r) => {
-        const cfg = edgeConfig(r.kind ?? 'association');
+        const cfg = classRelationshipLineStyle(r.kind ?? 'association');
         return (
           <Edge
             key={r.id}
@@ -138,6 +118,10 @@ export function ClassDiagram({
             markerStart={cfg.markerStart}
             strokeDasharray={cfg.strokeDasharray}
             strokeWidth={1.5}
+            label={r.label} labelOffset={r.labelOffset}
+            fromLabel={r.fromLabel}
+            toLabel={r.toLabel}
+            labelFontSize={10}
           />
         );
       })}

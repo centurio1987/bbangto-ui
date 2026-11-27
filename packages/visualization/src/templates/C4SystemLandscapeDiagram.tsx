@@ -1,18 +1,23 @@
 import { type ReactNode } from 'react';
 import { Canvas, type CanvasProps } from '../atoms/Canvas';
 import { Edge } from '../atoms/Edge';
+import { LegendBlock, relationLegendBox, type RelationLegendOption } from '../molecules/LegendBlock';
+import { relationEdgeProps, usedRelationKinds } from '../atoms/relationKind';
 import { EdgeLabel } from '../atoms/EdgeLabel';
 import { Boundary } from '../atoms/Boundary';
 import { C4Box } from '../molecules/C4Box';
 import { PersonNode } from '../molecules/PersonNode';
 import { ExternalNode } from '../molecules/ExternalNode';
 import type { C4SystemSpec, C4PersonSpec, C4RelationshipSpec, C4BoundarySpec } from './c4Types';
+import { c4RelationshipLabel } from './c4Types';
 
 export interface C4SystemLandscapeDiagramData {
   systems: C4SystemSpec[];
   people?: C4PersonSpec[];
   boundaries?: C4BoundarySpec[];
   relationships: C4RelationshipSpec[];
+  /** 관계 종류가 둘 이상 쓰이면 붙는 범례의 위치 · 이름 바꾸기. `false` 면 그리지 않는다(KAN-082). */
+  legend?: RelationLegendOption | false;
 }
 
 export interface C4SystemLandscapeDiagramProps extends Omit<CanvasProps, 'data' | 'children'> {
@@ -50,6 +55,9 @@ export function C4SystemLandscapeDiagram({
     ],
   };
 
+  // 범례 — viewBox 를 받는 그대로 쓰는 템플릿이라 넓히지 않는다. 가린다면 data.legend 로 옮긴다.
+  const legend = relationLegendBox(registry.nodes, usedRelationKinds(relationships), data.legend);
+
   return (
     <Canvas viewBox={viewBox} title={title} data={registry} data-bbangto-viz-chart="c4-landscape" {...canvasProps}>
       {boundaries.map((b, i) => (
@@ -60,10 +68,13 @@ export function C4SystemLandscapeDiagram({
         const to = registry.nodes.find((n) => n.id === r.to);
         const mx = from && to ? (from.x + from.width / 2 + to.x + to.width / 2) / 2 : 0;
         const my = from && to ? (from.y + from.height / 2 + to.y + to.height / 2) / 2 : 0;
+        // 라벨 자리는 예전대로 두 노드 중심의 중점이다(KAN-082 정할 것 1 — 이미 라벨을 그리던 템플릿은 자리를 두어
+        // 그림이 바뀌지 않게 한다). 글은 다른 C4 템플릿과 같은 「설명 [기술]」이다.
+        const text = c4RelationshipLabel(r);
         return (
           <g key={r.id}>
-            <Edge from={r.from} to={r.to} routing="orthogonal" />
-            {r.label && <EdgeLabel x={mx} y={my} label={r.label} fontSize={10} />}
+            <Edge from={r.from} to={r.to} routing="orthogonal" {...relationEdgeProps(r.kind)} />
+            {text && <EdgeLabel x={mx + (r.labelOffset?.x ?? 0)} y={my + (r.labelOffset?.y ?? 0)} label={text} fontSize={10} />}
           </g>
         );
       })}
@@ -81,6 +92,7 @@ export function C4SystemLandscapeDiagram({
           <PersonNode key={p.id} id={p.id} x={p.x} y={p.y} width={p.width} height={p.height} title={p.name} />
         ),
       )}
+      {legend && <LegendBlock {...legend} />}
     </Canvas>
   );
 }

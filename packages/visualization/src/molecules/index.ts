@@ -24,6 +24,8 @@ export type { C4BoxProps, C4Level } from './C4Box';
 
 export { StepConnector } from './StepConnector';
 export type { StepConnectorProps, StepConnectorVariant } from './StepConnector';
+export { LegendBlock, legendBlockSize, relationLegendBox } from './LegendBlock';
+export type { LegendBlockProps, RelationLegendOption } from './LegendBlock';
 export { CalloutLeader } from './CalloutLeader';
 export type { CalloutLeaderProps } from './CalloutLeader';
 export { StatCard } from './StatCard';

@@ -1,0 +1,27 @@
+{
+ "card": "KAN-082.4-FSH2T1",
+ "front": {
+  "base": "92f7f44",
+  "branch": "main",
+  "card": "KAN-082.4-FSH2T1",
+  "created": "2026-11-25",
+  "inherits": null,
+  "merged": "9298cfaecd7e",
+  "status": "검토 대기",
+  "title": "viz 객체 도식·커뮤니케이션 도식 — 인스턴스 스냅샷과 링크 위 번호 메시지",
+  "worktree": "/home/centurio/bbangto-ui"
+ },
+ "inherited_md": "",
+ "md_fp": "226c46c22c577e1db73708decbf946770e542479",
+ "md_src_fp": "bc0b1aabc7cd300f2032f53c429d97d43621098e",
+ "schema": 1,
+ "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-082-MD50S0` 의 끝 `9298cfaecd7e` 을 main 에 병합), 대상은 아래 고정 범위 |\n| 워크트리 | `/home/centurio/bbangto-ui` |\n| 베이스 | `92f7f44` |\n| 변경 훑기 | `git diff 92f7f44..9298cfaecd7e` |\n\n**커밋 5건**\n\n```text\ndc9bb25 fix(visualization): CommunicationDiagram 세로 링크의 메시지를 링크를 따라 쌓아 글이 겹치지 않게 (KAN-082 S14)\n69342ea feat(visualization): CommunicationDiagram — 링크 위 번호 메시지 · 방향, VT-108 별칭으로 등록 + 객체 · 커뮤니케이션 README · 변경셋 (KAN-082 S14)\nd369ac0 feat(visualization): ObjectDiagram — 인스턴스 스냅샷(밑줄 이름 · 슬롯 · 링크), VT-101 별칭으로 등록 (KAN-082 S13)\n5544e58 feat(visualization): ClassBox 가 빈 칸을 숨긴다 + showEmptyCompartments · nameUnderline (KAN-082 S12, 상류 이슈 P9)\n9691081 kanban: KAN-082 묶음 4 끝(태그 batch4) + 묶음 5 착수 시점 판단(객체 상자는 ClassBox 재사용) + KAN-082.4 진행 중으로\n```\n\n**변경 파일 26개 (+828 −59)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.changeset/kan-082-object-communication.md` | M | 13 | 0 |\n| `.kanban/archive.jsonl` | M | 1 | 0 |\n| `.kanban/log.md` | M | 1 | 1 |\n| `.kanban/state.json` | M | 15 | 15 |\n| `KANBAN.board.html` | M | 2 | 2 |\n| `KANBAN.md` | M | 8 | 8 |\n| `KANBAN/batches/KAN-082-MD50S0.batch5.md` | M | 6 | 0 |\n| `KANBAN/cards/KAN-082-MD50S0.md` | M | 6 | 2 |\n| `apps/storybook/src/stories/visualization/DiagramExamples.stories.tsx` | M | 91 | 0 |\n| `apps/storybook/src/stories/visualization/G3Templates.stories.tsx` | M | 45 | 2 |\n| `apps/storybook/src/stories/visualization/_paintGateFixtures.tsx` | M | 42 | 0 |\n| `packages/foundations/src/vizPaintGateCoverage.test.ts` | M | 2 | 2 |\n| `packages/visualization/README.md` | M | 5 | 0 |\n| `packages/visualization/src/molecules/ClassBox.test.tsx` | M | 63 | 0 |\n| `packages/visualization/src/molecules/ClassBox.tsx` | M | 24 | 12 |\n| `packages/visualization/src/templates/CommunicationDiagram.tsx` | M | 180 | 0 |\n| `packages/visualization/src/templates/ObjectDiagram.tsx` | M | 129 | 0 |\n| `packages/visualization/src/templates/communicationDiagram.test.tsx` | M | 84 | 0 |\n| `packages/visualization/src/templates/edgeLabels.test.tsx` | M | 33 | 1 |\n| `packages/visualization/src/templates/index.ts` | M | 4 | 0 |\n| `packages/visualization/src/templates/objectDiagram.test.tsx` | M | 56 | 0 |\n| `packages/visualization/src/typeMeta/jsdoc.test.ts` | M | 2 | 2 |\n| `packages/visualization/src/typeMeta/registry.test.ts` | M | 6 | 6 |\n| `packages/visualization/src/typeMeta/registry.ts` | M | 4 | 2 |\n| `packages/visualization/type.manifest.json` | M | 2 | 2 |\n| `packages/visualization/visualization-type-inventory.md` | M | 4 | 2 |\n\n**롤백 태그 21개**\n\n```text\nkan/KAN-082-MD50S0/S1\nkan/KAN-082-MD50S0/S10\nkan/KAN-082-MD50S0/S11\nkan/KAN-082-MD50S0/S12\nkan/KAN-082-MD50S0/S13\nkan/KAN-082-MD50S0/S17\nkan/KAN-082-MD50S0/S18\nkan/KAN-082-MD50S0/S19\nkan/KAN-082-MD50S0/S2\nkan/KAN-082-MD50S0/S3\nkan/KAN-082-MD50S0/S4\nkan/KAN-082-MD50S0/S5\nkan/KAN-082-MD50S0/S6\nkan/KAN-082-MD50S0/S7\nkan/KAN-082-MD50S0/S8\nkan/KAN-082-MD50S0/S9\nkan/KAN-082-MD50S0/batch1\nkan/KAN-082-MD50S0/batch2\nkan/KAN-082-MD50S0/batch3\nkan/KAN-082-MD50S0/batch4\nkan/KAN-082-MD50S0/batch7\n```",
+ "verdicts": [
+  {
+   "at": "2026-11-27",
+   "by": "유저",
+   "verdict": "승인"
+  }
+ ],
+ "verify_md": "<!-- 기준은 카드 실행 문서 「검증」 절의 사본이다. 원본은 KANBAN/cards/KAN-082.4-FSH2T1.md 이므로\n     기준이 바뀌면 그쪽을 고치고 review-init --refresh 로 이 항만 다시 만든다.\n     결과는 작업한 쪽이 이미 돌린 것이다 — 검토자에게 다시 돌리라고 시키지 않는다.\n     **다시 돌려 아래와 다르게 나오면 그 자체가 반려할 이유다.** -->\n\n**기준**\n\n- ClassBox 시험(vitest): `packages/visualization/src/molecules/ClassBox.test.tsx` — 빈 칸 숨기기 · showEmptyCompartments · nameUnderline.\n- 템플릿 시험(vitest): `objectDiagram.test.tsx` · `communicationDiagram.test.tsx`(번호 메시지 · 방향 · 링크에 화살촉 없음 · VT-108), `edgeLabels.test.tsx` 의 두 템플릿.\n- 유형 축 시험: registry(템플릿 71 · export 90) · jsdoc(90) · manifest(유형 87).\n- Storybook play: `Templates/G3` ObjectDiagramSnapshot · `Templates/Diagram Examples` CheckoutAsSequence · CheckoutAsCommunication(메시지 글끼리 · 링크와 겹치지 않음), Paint Gate · Dash Gate.\n- 품질 게이트 다섯이 초록이다: `pnpm typecheck` · `pnpm build` · `pnpm test` · `pnpm --filter storybook build` · `pnpm test:unit`.\n\n**실행 결과**\n\n```text\n게이트 다섯 (2026-11-25, 워크트리 KAN-082-MD50S0, 커밋 dc9bb25 시점)\npnpm typecheck            → rc=0\npnpm build                → rc=0 · 번들 크기 게이트 Tests 23 passed (23)\npnpm test                 → rc=0 · Test Files 199 passed (199) · Tests 1325 passed (1325)\npnpm --filter storybook build → rc=0 (그 앞 한 번은 CommunicationDiagram 의 삼항 속 화살표 함수를 문서 플러그인이 못 읽어 실패 → if 로 고침)\npnpm test:unit            → rc=0 · foundations 143 · visualization 467 (hooks 115 · style-guide-catalog 116 · viz catalog 85)\n\nClassBox 시험 6 건(고치기 전 4 빨강) · objectDiagram 5 · communicationDiagram 6 통과\nCheckoutAsCommunication play 의 「메시지 글끼리 겹치지 않는다」 — 고치기 전 빨강, 고친 뒤 초록\na11y: DiagramExamples · G3Templates 를 test:'error' 로 임시 강제 → 12 건 위반 0\n```"
+}

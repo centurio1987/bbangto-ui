@@ -1,6 +1,6 @@
 {
   "next_id": 85,
-  "next_seq": 330,
+  "next_seq": 348,
   "cards": {
     "KAN-076-NHP81Z": {
       "col": "backlog",
@@ -83,12 +83,12 @@
       "memo_hash": "d3f7ae4ebcc0b2cb28bb02924c1b93959b9201e7"
     },
     "KAN-082-MD50S0": {
-      "col": "backlog",
+      "col": "done",
       "title": "viz 도식 스펙 표현력 확장 — 노드 종류·화살표 의미로 가른 여섯 도식과 세 프레임워크, 범례",
       "verbatim": "**핵심: 도식은 \"노드가 무엇인가\"와 \"화살표가 무엇을 뜻하는가\"로 구분하면 됩니다.**\n\n이 두 가지가 정해지면 도식 종류는 거의 저절로 정해집니다. 말씀하신 여섯 가지를 표준 명칭에 대응시키면 다음과 같습니다.\n\n| 말씀하신 도식 | 표준 명칭 | 노드(박스) | 화살표의 의미 | 시간 축 |\n|---|---|---|---|---|\n| 물리적 대상 중심 시스템 개념도 | 배포 다이어그램(UML Deployment), 인프라·네트워크 토폴로지, C4 Deployment | 서버, VM, 컨테이너 호스트, VPC·서브넷 같은 네트워크 영역 | 네트워크 연결, 배치 관계(어디에 올라가 있나) | 없음 |\n| 런타임 중심 시스템 개념도 | C4 Container 다이어그램, 4+1의 Process View, C&C(Component-and-Connector) 뷰 | 독립적으로 실행되는 단위(API 서버, 워커, DB, 큐, 프론트엔드 앱) | 호출·통신(HTTP, gRPC, 메시지 발행) | 없음 |\n| 데이터 플로우 기준 개념도 | DFD(Data Flow Diagram), 최상위 레벨은 Context Diagram | 처리 과정, 데이터 저장소, 외부 엔티티 | 데이터의 이동(무엇이 어디로 흐르나) | 없음(순서·분기 없음) |\n| 코드베이스 내 인스턴스들의 역할 | 클래스 다이어그램(타입 수준), 객체 다이어그램(인스턴스 스냅샷), C4 Component | 클래스, 모듈, 객체 | 의존, 소유, 상속, 참조 | 없음 |\n| 동작을 나타내는 개념도 | 시퀀스 다이어그램, 상태 머신 다이어그램, 커뮤니케이션 다이어그램 | 시퀀스는 객체(라이프라인), 상태 머신은 상태 | 시간순 메시지 / 상태 전이 | **있음** |\n| 플로우를 나타내는 개념도 | 플로우차트, 액티비티 다이어그램, BPMN(업무 프로세스) | 작업 단계, 분기 | 제어 흐름(다음에 무엇을 하나) | 순서는 있음, 주체는 약함 |\n\n**자주 헷갈리는 쌍 세 가지**\n\n- **DFD vs 플로우차트:** DFD의 화살표는 데이터고, 플로우차트의 화살표는 제어입니다. 그래서 DFD에는 if 분기나 순서가 없습니다. \"주문 정보가 결제 처리로 간다\"는 DFD이고, \"결제 성공이면 배송, 실패면 재시도\"는 플로우차트입니다.\n- **시퀀스 vs 액티비티:** 시퀀스는 *누가* 누구에게 언제 말하는지가 중심이고(가로축이 객체, 세로축이 시간), 액티비티는 *무엇을* 어떤 순서로 하는지가 중심입니다. 액티비티에 스윔레인을 넣으면 두 도식의 중간쯤이 됩니다.\n- **배포 vs 런타임:** 하나의 EC2 위에 API 서버와 워커가 같이 떠 있다면, 배포 도식에서는 박스 하나고 런타임 도식에서는 박스 두 개입니다. \"몇 대에 어떻게 나뉘어 있나\"는 배포 도식, \"무엇이 서로 통신하나\"는 런타임 도식이 답합니다.\n\n**체계적으로 정리된 프레임워크**\n\n말씀하신 분류를 이미 정리해 둔 프레임워크가 세 가지 있습니다.\n\n- **Kruchten 4+1 View:** Logical(역할·클래스), Process(런타임), Development(코드·패키지 구조), Physical(배포)의 네 뷰에 Scenarios(동작을 보여주는 시퀀스)를 더한 구성입니다. 질문하신 분류와 거의 그대로 맞습니다.\n- **C4 Model:** Context → Container → Component → Code 순서로 줌인하는 정적 구조 도식 네 단계에, 보조 도식으로 Deployment와 Dynamic이 있습니다. 요즘 실무에서 가장 많이 씁니다.\n- **SEI Views and Beyond:** 모든 뷰를 세 가지로 나눕니다. Module(코드 구조), C&C(런타임 구조), Allocation(물리 배치·팀 배치)입니다.\n\n**실무 규칙:** 도식 하나에는 노드 종류 하나, 화살표 의미 하나만 담습니다. 서버 박스 안에 클래스 이름이 있고 화살표가 데이터 이동이기도 하고 호출이기도 한 그림이 가장 흔한 실수입니다. 섞어야 한다면 범례로 화살표 종류를 구분해 표시하는 게 좋습니다.\n\n위 글에 나와있는 도면 스펙을 bbangto-ui의 viz lib가 충분히 표현할 수 있는지 검토하고, 없다면 표현 가능하도록 칸반에 확장 계획을 세워라.",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-11-24",
+      "갱신": "2026-11-27",
       "title_hash": "297e3faf79b517a0c002ab52149ca21c31ea6dc4",
       "verbatim_hash": "67e8adf978c817fbb8faf35a9181f114be5aaacd",
       "short": "도식 스펙 표현력 확장",
@@ -111,12 +111,12 @@
       ]
     },
     "KAN-082.1-ZFJJM6": {
-      "col": "backlog",
+      "col": "done",
       "title": "viz 템플릿 간선 라벨·선언 필드 렌더 복구 — 받고도 안 그리는 label·technology·다중성·stereotype",
       "verbatim": "",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-11-24",
+      "갱신": "2026-11-27",
       "title_hash": "420707d589ca3c01156f0f5830e7eecd24deaef0",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
       "short": "간선 라벨 렌더 복구",
@@ -132,12 +132,12 @@
       "parent": "KAN-082-MD50S0"
     },
     "KAN-082.2-P4970X": {
-      "col": "backlog",
+      "col": "done",
       "title": "viz 화살표 종류 구분과 범례 — 관계선 종류 데이터 + 도식 범례 부품",
       "verbatim": "",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-11-24",
+      "갱신": "2026-11-27",
       "title_hash": "aa55ac9bf7d3fb7b2d1618b22939f5b49f47ca5c",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
       "short": "화살표 종류·범례",
@@ -153,12 +153,12 @@
       "parent": "KAN-082-MD50S0"
     },
     "KAN-082.3-TJ665Y": {
-      "col": "backlog",
+      "col": "done",
       "title": "viz 배치 도식 보강 — 노드 중첩·스테레오타입·artifact, C4 Deployment 템플릿, C4 컨테이너 모양, 토폴로지 링크 라벨",
       "verbatim": "",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-11-24",
+      "갱신": "2026-11-27",
       "title_hash": "b3beb3e621fdc11387bd3f9307a7e4fbedaf0ad3",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
       "short": "배치 도식·C4 Deployment",
@@ -174,12 +174,12 @@
       "parent": "KAN-082-MD50S0"
     },
     "KAN-082.4-FSH2T1": {
-      "col": "backlog",
+      "col": "done",
       "title": "viz 객체 도식·커뮤니케이션 도식 — 인스턴스 스냅샷과 링크 위 번호 메시지",
       "verbatim": "",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-11-24",
+      "갱신": "2026-11-27",
       "title_hash": "ea3dfd653d1590483d42b534b9513497335672c8",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
       "short": "객체·커뮤니케이션 도식",
@@ -195,12 +195,12 @@
       "parent": "KAN-082-MD50S0"
     },
     "KAN-082.5-WPS4DX": {
-      "col": "backlog",
+      "col": "done",
       "title": "viz SEI Views and Beyond 프레임 — Module·C&C·Allocation 세 뷰 슬롯",
       "verbatim": "",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-11-24",
+      "갱신": "2026-11-27",
       "title_hash": "17ba2096a25abe4ec09cca6a93021886a26981ac",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
       "short": "SEI 뷰 프레임",
@@ -1935,12 +1935,6 @@
     "KAN-077-0YAFWG",
     "KAN-078-0TF6NT",
     "KAN-080-RN47PY",
-    "KAN-082-MD50S0",
-    "KAN-082.1-ZFJJM6",
-    "KAN-082.2-P4970X",
-    "KAN-082.3-TJ665Y",
-    "KAN-082.4-FSH2T1",
-    "KAN-082.5-WPS4DX",
     "KAN-084-QGNC19",
     "KAN-020",
     "KAN-025",
@@ -2018,9 +2012,195 @@
     "KAN-071-FK1W8K",
     "KAN-079-CFS73T",
     "KAN-081-33245K",
-    "KAN-083-JSQKF4"
+    "KAN-083-JSQKF4",
+    "KAN-082.1-ZFJJM6",
+    "KAN-082.2-P4970X",
+    "KAN-082.3-TJ665Y",
+    "KAN-082.4-FSH2T1",
+    "KAN-082.5-WPS4DX",
+    "KAN-082-MD50S0"
   ],
   "recent": [
+    {
+      "seq": 347,
+      "t": "2026-11-27T13:35",
+      "a": "ai",
+      "id": "KAN-082-MD50S0",
+      "op": "move",
+      "w": "CN8DDC",
+      "from": "review",
+      "to": "done"
+    },
+    {
+      "seq": 346,
+      "t": "2026-11-27T13:35",
+      "a": "ai",
+      "id": "KAN-082.5-WPS4DX",
+      "op": "move",
+      "w": "CN8DDC",
+      "from": "review",
+      "to": "done"
+    },
+    {
+      "seq": 345,
+      "t": "2026-11-27T13:35",
+      "a": "ai",
+      "id": "KAN-082.4-FSH2T1",
+      "op": "move",
+      "w": "CN8DDC",
+      "from": "review",
+      "to": "done"
+    },
+    {
+      "seq": 344,
+      "t": "2026-11-27T13:34",
+      "a": "ai",
+      "id": "KAN-082.3-TJ665Y",
+      "op": "move",
+      "w": "CN8DDC",
+      "from": "review",
+      "to": "done"
+    },
+    {
+      "seq": 343,
+      "t": "2026-11-27T13:33",
+      "a": "ai",
+      "id": "KAN-082.2-P4970X",
+      "op": "move",
+      "w": "CN8DDC",
+      "from": "review",
+      "to": "done"
+    },
+    {
+      "seq": 342,
+      "t": "2026-11-27T13:33",
+      "a": "ai",
+      "id": "KAN-082.1-ZFJJM6",
+      "op": "move",
+      "w": "CN8DDC",
+      "from": "review",
+      "to": "done"
+    },
+    {
+      "seq": 341,
+      "t": "2026-11-25T17:22",
+      "a": "ai",
+      "id": "KAN-082-MD50S0",
+      "op": "move",
+      "w": "9Z2X8X",
+      "from": "doing",
+      "to": "review"
+    },
+    {
+      "seq": 340,
+      "t": "2026-11-25T16:55",
+      "a": "ai",
+      "id": "KAN-082.5-WPS4DX",
+      "op": "move",
+      "w": "9Z2X8X",
+      "from": "doing",
+      "to": "review"
+    },
+    {
+      "seq": 339,
+      "t": "2026-11-25T16:49",
+      "a": "ai",
+      "id": "KAN-082.5-WPS4DX",
+      "op": "move",
+      "w": "9Z2X8X",
+      "from": "backlog",
+      "to": "doing"
+    },
+    {
+      "seq": 338,
+      "t": "2026-11-25T16:49",
+      "a": "ai",
+      "id": "KAN-082.4-FSH2T1",
+      "op": "move",
+      "w": "9Z2X8X",
+      "from": "doing",
+      "to": "review"
+    },
+    {
+      "seq": 337,
+      "t": "2026-11-25T16:33",
+      "a": "ai",
+      "id": "KAN-082.4-FSH2T1",
+      "op": "move",
+      "w": "9Z2X8X",
+      "from": "backlog",
+      "to": "doing"
+    },
+    {
+      "seq": 336,
+      "t": "2026-11-25T16:32",
+      "a": "ai",
+      "id": "KAN-082.3-TJ665Y",
+      "op": "move",
+      "w": "9Z2X8X",
+      "from": "doing",
+      "to": "review"
+    },
+    {
+      "seq": 335,
+      "t": "2026-11-25T16:09",
+      "a": "ai",
+      "id": "KAN-082.3-TJ665Y",
+      "op": "move",
+      "w": "9Z2X8X",
+      "from": "backlog",
+      "to": "doing"
+    },
+    {
+      "seq": 334,
+      "t": "2026-11-25T16:07",
+      "a": "ai",
+      "id": "KAN-082.2-P4970X",
+      "op": "move",
+      "w": "9Z2X8X",
+      "from": "doing",
+      "to": "review"
+    },
+    {
+      "seq": 333,
+      "t": "2026-11-25T15:50",
+      "a": "ai",
+      "id": "KAN-082.2-P4970X",
+      "op": "move",
+      "w": "9Z2X8X",
+      "from": "backlog",
+      "to": "doing"
+    },
+    {
+      "seq": 332,
+      "t": "2026-11-25T15:49",
+      "a": "ai",
+      "id": "KAN-082.1-ZFJJM6",
+      "op": "move",
+      "w": "9Z2X8X",
+      "from": "doing",
+      "to": "review"
+    },
+    {
+      "seq": 331,
+      "t": "2026-11-25T15:19",
+      "a": "ai",
+      "id": "KAN-082.1-ZFJJM6",
+      "op": "move",
+      "w": "9Z2X8X",
+      "from": "backlog",
+      "to": "doing"
+    },
+    {
+      "seq": 330,
+      "t": "2026-11-25T15:18",
+      "a": "ai",
+      "id": "KAN-082-MD50S0",
+      "op": "move",
+      "w": "9Z2X8X",
+      "from": "backlog",
+      "to": "doing"
+    },
     {
       "seq": 329,
       "t": "2026-11-25T15:18",
@@ -2443,216 +2623,6 @@
       "w": "451TXT",
       "from": "doing",
       "to": "review"
-    },
-    {
-      "seq": 300,
-      "t": "2026-10-12T15:51",
-      "a": "ai",
-      "id": "KAN-079-CFS73T",
-      "op": "move",
-      "w": "451TXT",
-      "from": "todo",
-      "to": "doing"
-    },
-    {
-      "seq": 299,
-      "t": "2026-10-12T15:50",
-      "a": "ai",
-      "id": "KAN-078-0TF6NT",
-      "op": "edit",
-      "w": "S7030N",
-      "field": "memo",
-      "before": "비용 API 환산 약 150달러·약 2시간(KAN-071 실측). 하네스와 함정은 저장소 밖 ~/.local/share/bbangto-ui-agent-repro/KAN-071/harness 와 메모리 agent-repro-harness. 노출은 analyze.py 의 exposure 로 센다",
-      "after": "비용 API 환산 약 150달러·약 2시간(KAN-071 실측). 하네스와 함정은 저장소 밖 ~/.local/share/bbangto-ui-agent-repro/KAN-071/harness 와 메모리 agent-repro-harness. 노출은 analyze.py 의 exposure 로 센다 · 직렬: 이 카드가 KAN-076(viz 배치 엔진 안내)보다 먼저다 — 076 이 README 를 바꾸면 「지금 판」 조건이 달라진다(2026-10-12 유저 지시). 착수 때 scope 를 정하면 직렬 기록이 자동으로 풀리므로 dep-serialize 를 다시 건다"
-    },
-    {
-      "seq": 298,
-      "t": "2026-10-12T15:50",
-      "a": "ai",
-      "id": "KAN-076-NHP81Z",
-      "op": "edit",
-      "w": "S7030N",
-      "field": "memo",
-      "before": "KAN-071 검토 항목 2(2026-10-11 승인) 추천 「앱 안 확장으로 보고 README 에 안내를 더한다」. 버린 갈래: visualization geometry 에 계층 배치 함수를 넣는다. 검사 자리는 KAN-067 의 publishedDocs",
-      "after": "KAN-071 검토 항목 2(2026-10-11 승인) 추천 「앱 안 확장으로 보고 README 에 안내를 더한다」. 버린 갈래: visualization geometry 에 계층 배치 함수를 넣는다. 검사 자리는 KAN-067 의 publishedDocs · 직렬: KAN-078(노출 없는 재시험) 완료 뒤 전략을 다시 세우고 착수(2026-10-12 유저 지시). 착수 때 scope 를 정하면 직렬 기록이 자동으로 풀리므로 dep-serialize 를 다시 건다"
-    },
-    {
-      "seq": 297,
-      "t": "2026-10-12T15:50",
-      "a": "ai",
-      "id": "KAN-076-NHP81Z",
-      "op": "serialize",
-      "w": "S7030N",
-      "with_": "KAN-078-0TF6NT",
-      "reason": "KAN-078 은 README 수정 전후로 기획 세션 결론이 바뀌는지 재고, KAN-076 은 visualization README 에 배치 엔진 안내를 더한다. 076 이 먼저 들어가면 078 의 「지금 판」 조건이 바뀌므로 078 을 먼저 한다(2026-10-12 유저 지시 「직렬 설정해」)"
-    },
-    {
-      "seq": 296,
-      "t": "2026-10-12T14:59",
-      "a": "ai",
-      "id": "KAN-079-CFS73T",
-      "op": "create",
-      "w": "S7030N",
-      "col": "todo",
-      "title": "미배포 변경 배포 — KAN-069·070·072·075 (tokens·visualization·visualization-style-guide-catalog 2.0.0 · core 1.2.3 · foundations 2.0.1 · style-guide-catalog 1.0.1)",
-      "verbatim": "71 완료 했을 때 시점에서, npm package는 재배포해야 할 필요가 없는지 확인해 줘\n방금 071 끝났으니 만들어라 (앞 질문 「배포 카드를 지금 만들까요? (만들어도 push·배포는 따로 지시를 받은 뒤에 합니다)」에 대한 답)",
-      "parent": null,
-      "short": "viz major 배포",
-      "purpose": "main 에 쌓인 changeset 네 장(KAN-069·070·072·075)으로 패키지 6개 버전을 올려 GitHub Packages 에 배포한다",
-      "reason": "KAN-074 배포(PR #11) 뒤 병합된 069·070·072·075 가 레지스트리에 없고, 외부 앱은 배포된 버전만 받는다. KAN-071 은 패키지 파일을 바꾸지 않아 범위에 더할 것이 없다(2026-10-12 확인)",
-      "goal": "레지스트리에 새 버전 6개가 올라가고, 배포본에서 changeset 마다 변경이 확인되며, 외부 앱에 major 업그레이드 안내(지운 토큰 필드와 대신 쓸 것)가 남는다",
-      "memo": "절차는 KAN-074 와 같다(S1 점검 → S2 push·Version PR 대조·병합 → S3 배포본 확인과 전달). push 하면 main 로컬 커밋 전부와 release.yml 이 나간다. 버전은 2026-10-12 pnpm changeset status 계산값"
-    },
-    {
-      "seq": 295,
-      "t": "2026-10-12T14:56",
-      "a": "ai",
-      "id": "KAN-078-0TF6NT",
-      "op": "create",
-      "w": "S7030N",
-      "col": "backlog",
-      "title": "노출 없는 재시험 — 하네스를 고쳐 기획 세션을 다시 돌려 README 수정 전후 효과 확인",
-      "verbatim": "카드로 만들어 (앞 답변 「후속 후보 — visualization 배치 안내 · 고친 판에서 나온 요청 목록을 모아 실제 결함만 가려내기 · ④ 하네스를 고쳐 기획 세션을 다시 돌리기. 「카드로 만들어 달라」고 하시면 main에 백로그 카드로 올리겠습니다」에 대한 답)",
-      "parent": null,
-      "short": "노출 없는 재시험",
-      "purpose": "작업 폴더를 시험 이름 없는 임시 경로로 옮기고 시험 폴더 읽기를 막은 하네스로, 기획 세션을 세 판(고치기 전·가운데·지금) × 3회 다시 돌린다",
-      "reason": "KAN-071 의 21회는 모두 작업 폴더 경로로 재현 시험이 드러났고 9회는 시험 폴더를 더 들여다봤으며 1회는 원래 결론까지 읽어, README 수정 전후 효과를 확인하지 못했다(KAN-071 마무리 결정, 2026-10-12)",
-      "goal": "시험 환경 노출이 0건인 표본으로 루트·배포 README 수정 전후에 기획 세션의 결론(저장소 기여 · 배치 라이브러리 · 절 인용)이 바뀌는지 기록된다",
-      "memo": "비용 API 환산 약 150달러·약 2시간(KAN-071 실측). 하네스와 함정은 저장소 밖 ~/.local/share/bbangto-ui-agent-repro/KAN-071/harness 와 메모리 agent-repro-harness. 노출은 analyze.py 의 exposure 로 센다"
-    },
-    {
-      "seq": 294,
-      "t": "2026-10-12T14:56",
-      "a": "ai",
-      "id": "KAN-077-0YAFWG",
-      "op": "create",
-      "w": "S7030N",
-      "col": "backlog",
-      "title": "bbangto-ui 요청 목록 가르기 — 결함을 고친 판의 분해 작업자가 낸 요청을 실제 결함과 앱 쪽 취향으로 나누기",
-      "verbatim": "카드로 만들어 (앞 답변 「후속 후보 — visualization 배치 안내 · 고친 판에서 나온 요청 목록을 모아 실제 결함만 가려내기 · ④ 하네스를 고쳐 기획 세션을 다시 돌리기. 「카드로 만들어 달라」고 하시면 main에 백로그 카드로 올리겠습니다」에 대한 답)",
-      "parent": null,
-      "short": "요청 목록 결함 가르기",
-      "purpose": "KAN-071 재현에서 결함을 고친 판의 분해 작업자 6회가 낸 bbangto-ui 요청(수십 건)을 모아, 실제 결함인지 앱 쪽 취향인지 가른다",
-      "reason": "고친 판에서도 요청이 칸 0~8건·목록 8~11건씩 나왔고 접근성 결함으로 따로 꼽힌 것도 있다. 실제 결함이면 다음 앱에서도 같은 요청이 되풀이된다(KAN-071 검토 항목 3 승인)",
-      "goal": "요청마다 「결함 → 후속 카드」 또는 「앱 쪽 → 원하는 것이 없을 때 절」이 정해지고, 결함은 재현 근거와 함께 카드로 올라간다",
-      "memo": "원본은 저장소 밖 비공개 시험 기록(~/.local/share/bbangto-ui-agent-repro/KAN-071/runs 의 분해 T1·T2 실행). 공개 카드에는 비공개 앱 이름·원문을 옮기지 않고 bbangto-ui 쪽 말로 다시 쓴다"
-    },
-    {
-      "seq": 293,
-      "t": "2026-10-12T14:56",
-      "a": "ai",
-      "id": "KAN-076-NHP81Z",
-      "op": "create",
-      "w": "S7030N",
-      "col": "backlog",
-      "title": "viz 배치 엔진 안내 — 계층 그래프의 좌표 계산은 앱에서 배치 엔진을 빌려도 되고 그리기는 bbangto-ui atom 으로 (README 「원하는 것이 없을 때」)",
-      "verbatim": "카드로 만들어 (앞 답변 「후속 후보 — visualization 배치 안내 · 고친 판에서 나온 요청 목록을 모아 실제 결함만 가려내기 · ④ 하네스를 고쳐 기획 세션을 다시 돌리기. 「카드로 만들어 달라」고 하시면 main에 백로그 카드로 올리겠습니다」에 대한 답)",
-      "parent": null,
-      "short": "viz 배치 엔진 안내",
-      "purpose": "visualization README 「원하는 것이 없을 때」 절에, 계층 그래프의 노드 좌표는 앱이 elkjs·dagre 같은 배치 엔진으로 계산해도 되고 그리기는 atom 으로 한다는 안내를 더한다",
-      "reason": "KAN-071 재현에서 기획 세션이 배치 라이브러리를 더하는 결론을 고치기 전 판 2/3·지금 판 1/3 냈고, README 는 「자동 배치 없음」만 적어 그것이 확장인지 이탈인지 읽을 수 없다(KAN-071 검토 항목 2 승인)",
-      "goal": "에이전트가 배치 엔진을 빌려도 그리기는 bbangto-ui 로 남는다는 것을 배포 README 에서 읽고, 그 안내와 예제가 검사로 지켜진다",
-      "memo": "KAN-071 검토 항목 2(2026-10-11 승인) 추천 「앱 안 확장으로 보고 README 에 안내를 더한다」. 버린 갈래: visualization geometry 에 계층 배치 함수를 넣는다. 검사 자리는 KAN-067 의 publishedDocs"
-    },
-    {
-      "seq": 292,
-      "t": "2026-10-12T14:41",
-      "a": "ai",
-      "id": "KAN-075-4K5GK3",
-      "op": "move",
-      "w": "EFXS81",
-      "from": "review",
-      "to": "done"
-    },
-    {
-      "seq": 291,
-      "t": "2026-10-11T16:34",
-      "a": "ai",
-      "id": "KAN-075-4K5GK3",
-      "op": "move",
-      "w": "EFXS81",
-      "from": "doing",
-      "to": "review"
-    },
-    {
-      "seq": 290,
-      "t": "2026-10-11T16:30",
-      "a": "ai",
-      "id": "KAN-075-4K5GK3",
-      "op": "move",
-      "w": "EFXS81",
-      "from": "review",
-      "to": "doing"
-    },
-    {
-      "seq": 289,
-      "t": "2026-10-11T16:15",
-      "a": "ai",
-      "id": "KAN-075-4K5GK3",
-      "op": "move",
-      "w": "EFXS81",
-      "from": "doing",
-      "to": "review"
-    },
-    {
-      "seq": 288,
-      "t": "2026-10-11T10:11",
-      "a": "ai",
-      "id": "KAN-075-4K5GK3",
-      "op": "move",
-      "w": "EFXS81",
-      "from": "review",
-      "to": "doing"
-    },
-    {
-      "seq": 287,
-      "t": "2026-10-11T07:07",
-      "a": "ai",
-      "id": "KAN-075-4K5GK3",
-      "op": "move",
-      "w": "EFXS81",
-      "from": "doing",
-      "to": "review"
-    },
-    {
-      "seq": 286,
-      "t": "2026-10-11T06:38",
-      "a": "ai",
-      "id": "KAN-075-4K5GK3",
-      "op": "move",
-      "w": "EFXS81",
-      "from": "review",
-      "to": "doing"
-    },
-    {
-      "seq": 285,
-      "t": "2026-10-11T01:47",
-      "a": "ai",
-      "id": "KAN-075-4K5GK3",
-      "op": "move",
-      "w": "EFXS81",
-      "from": "doing",
-      "to": "review"
-    },
-    {
-      "seq": 284,
-      "t": "2026-10-11T01:33",
-      "a": "ai",
-      "id": "KAN-075-4K5GK3",
-      "op": "move",
-      "w": "EFXS81",
-      "from": "backlog",
-      "to": "doing"
-    },
-    {
-      "seq": 283,
-      "t": "2026-10-11T01:32",
-      "a": "ai",
-      "id": "KAN-075-4K5GK3",
-      "op": "serialize",
-      "w": "S7030N",
-      "with_": "KAN-069-G0FGTJ",
-      "reason": "전략 재수립 완료"
     }
   ],
   "waivers": [
@@ -2918,7 +2888,8 @@
       "reason": "같은 viz 템플릿 파일(P7·P8·P9·P11)을 고친다 — 2026-11-24 유저 결정 「KAN-082 먼저」. KAN-082 시작 때 기록",
       "created": "2026-11-25T15:18",
       "by": "ai",
-      "restrategy_required": false
+      "restrategy_required": true,
+      "restrategy_since": "2026-11-27T13:35"
     }
   ]
 }

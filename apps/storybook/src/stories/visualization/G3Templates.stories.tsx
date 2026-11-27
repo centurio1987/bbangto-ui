@@ -3,6 +3,7 @@ import {
   Canvas,
   VisualizationStyleGuideProvider,
   ClassDiagram,
+  ObjectDiagram,
   StateDiagram,
   ERDiagram,
 } from '@centurio1987/bbangto-ui-visualization';
@@ -65,9 +66,9 @@ export const ClassDiagramBasic: Story = {
     const boxes = canvasElement.querySelectorAll('[data-bbangto-viz-class-box]');
     await expect(boxes.length).toBe(3);
 
-    // Each box has 3 sections
+    // 칸 — Animal · Dog 은 세 칸, 연산이 빈 Owner 는 빈 칸을 숨겨 두 칸(KAN-082 S12, 바깥 보고서 P9)
     const sections = canvasElement.querySelectorAll('[data-bbangto-viz-class-section]');
-    await expect(sections.length).toBe(9); // 3 × 3
+    await expect(sections.length).toBe(8); // 3 + 3 + 2
 
     // 2 edges
     const edges = canvasElement.querySelectorAll('[data-bbangto-viz-edge]');
@@ -76,6 +77,138 @@ export const ClassDiagramBasic: Story = {
     // inheritance edge has triangleOpen marker
     const inheritEdge = edges[0] as SVGPathElement;
     await expect(inheritEdge.getAttribute('marker-end')).toContain('triangle-open');
+  },
+};
+
+// ──────────────────────────────────────────────────────────────────────
+// 1b. ClassDiagram — 선언한 칸이 그림에 나온다 (KAN-082 S4, 상류 이슈 P7 · P11 ②)
+//     stereotype 은 클래스 상자 머리에 «…» 로, 관계 이름은 선 가운데, 다중성은 선 양 끝 근처에 그린다.
+//     포함 · 집합은 전체 쪽(from)에 마름모만 붙고 부분 쪽(to)에는 화살촉이 없다.
+// ──────────────────────────────────────────────────────────────────────
+export const ClassDiagramDeclaredFields: Story = {
+  render: () => (
+    <ClassDiagram
+      data={{
+        classes: [
+          {
+            id: 'order', x: 20, y: 20, width: 170, height: 110, name: 'Order', stereotype: 'Aggregate Root',
+            attributes: ['+ id: OrderId'], methods: ['+ place(): void'],
+          },
+          {
+            id: 'line', x: 330, y: 20, width: 170, height: 110, name: 'OrderLine',
+            attributes: ['+ qty: number'], methods: ['+ total(): Money'],
+          },
+          {
+            id: 'customer', x: 20, y: 240, width: 170, height: 110, name: 'Customer',
+            attributes: ['+ name: string'], methods: ['+ rename(): void'],
+          },
+          {
+            id: 'product', x: 330, y: 240, width: 170, height: 110, name: 'Product',
+            attributes: ['+ sku: string'], methods: ['+ price(): Money'],
+          },
+        ],
+        relationships: [
+          { id: 'r-comp', from: 'order', to: 'line', kind: 'composition', label: 'contains', fromLabel: '1', toLabel: '1..*' },
+          { id: 'r-assoc', from: 'customer', to: 'order', kind: 'association', label: 'places', fromLabel: '1', toLabel: '0..*' },
+          { id: 'r-aggr', from: 'customer', to: 'product', kind: 'aggregation', label: 'wishlist', fromLabel: '1', toLabel: '0..*' },
+          { id: 'r-ref', from: 'line', to: 'product', kind: 'association', label: 'refers to', fromLabel: '0..*', toLabel: '1' },
+        ],
+      }}
+      viewBox="0 0 520 370"
+      width={520}
+      height={370}
+      title="Class Diagram — declared fields"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const svg = canvasElement.querySelector('[data-bbangto-viz-canvas]') as SVGSVGElement;
+
+    // stereotype — 클래스 상자 머리에 «Aggregate Root»
+    const stereo = svg.querySelector('[data-bbangto-viz-class-box] [data-bbangto-viz-sysml-stereotype]');
+    await expect(stereo?.textContent).toBe('«Aggregate Root»');
+
+    const edges = Array.from(svg.querySelectorAll('path[data-bbangto-viz-edge]')) as SVGPathElement[];
+    await expect(edges).toHaveLength(4);
+    const [comp, assoc, aggr] = edges;
+
+    // 포함 · 집합 — 전체 쪽 마름모, 부분 쪽 화살촉 없음 / 연관은 화살촉 그대로
+    await expect(comp.getAttribute('marker-start')).toMatch(/-diamond\)$/);
+    await expect(comp.getAttribute('marker-end')).toBeNull();
+    await expect(aggr.getAttribute('marker-start')).toMatch(/-diamond-open\)$/);
+    await expect(aggr.getAttribute('marker-end')).toBeNull();
+    await expect(assoc.getAttribute('marker-end')).toContain('arrow');
+
+    // 관계 이름은 선 가운데, 다중성은 자기 끝 근처
+    const labelAt = (text: string): DOMPoint => {
+      const t = Array.from(svg.querySelectorAll('[data-bbangto-viz-edge-label] text')).find(
+        (el) => el.textContent === text,
+      ) as SVGTextElement | undefined;
+      return new DOMPoint(Number(t?.getAttribute('x')), Number(t?.getAttribute('y')));
+    };
+    const dist = (a: DOMPoint, b: DOMPoint) => Math.hypot(a.x - b.x, a.y - b.y);
+    const ends = (p: SVGPathElement) => ({
+      start: p.getPointAtLength(0),
+      mid: p.getPointAtLength(p.getTotalLength() / 2),
+      end: p.getPointAtLength(p.getTotalLength()),
+    });
+
+    const c = ends(comp);
+    await expect(dist(labelAt('contains'), c.mid)).toBeLessThanOrEqual(1);
+    await expect(dist(labelAt('1..*'), c.end)).toBeLessThan(dist(labelAt('1..*'), c.start));
+
+    const a = ends(assoc);
+    await expect(dist(labelAt('places'), a.mid)).toBeLessThanOrEqual(1);
+    await expect(dist(labelAt('0..*'), a.end)).toBeLessThan(dist(labelAt('0..*'), a.start));
+    // 「1」은 네 관계 끝에 하나씩(포함 · 연관 · 집합의 시작 끝, 참조의 도착 끝) — 그중 둘은 이 두 관계의 시작 끝 근처
+    const ones = Array.from(svg.querySelectorAll('[data-bbangto-viz-edge-label] text'))
+      .filter((el) => el.textContent === '1')
+      .map((el) => new DOMPoint(Number(el.getAttribute('x')), Number(el.getAttribute('y'))));
+    await expect(ones).toHaveLength(4);
+    await expect(Math.min(...ones.map((p) => dist(p, c.start)))).toBeLessThan(40);
+    await expect(Math.min(...ones.map((p) => dist(p, a.start)))).toBeLessThan(40);
+  },
+};
+
+// ──────────────────────────────────────────────────────────────────────
+// 1c. ObjectDiagram — 위 클래스 도식의 인스턴스 스냅샷 (KAN-082 .4)
+//     클래스 도식이 타입 수준이면 객체 도식은 어떤 순간의 인스턴스다. 머리는 밑줄 친 「이름 : 클래스」, 칸은 「속성 = 값」
+//     하나이고, 링크는 방향 없는 선에 이름 · 역할 이름을 단다.
+// ──────────────────────────────────────────────────────────────────────
+export const ObjectDiagramSnapshot: Story = {
+  render: () => (
+    <ObjectDiagram
+      data={{
+        objects: [
+          { id: 'order1', x: 20, y: 20, width: 190, height: 90, name: 'order1', classifier: 'Order', slots: [{ name: 'id', value: 'A-1024' }, { name: 'status', value: 'PAID' }] },
+          { id: 'line1', x: 330, y: 20, width: 170, height: 70, name: 'line1', classifier: 'OrderLine', slots: [{ name: 'qty', value: '2' }] },
+          { id: 'kim', x: 20, y: 220, width: 190, height: 70, classifier: 'Customer', slots: [{ name: 'name', value: '김빵토' }] },
+        ],
+        links: [
+          { id: 'l1', from: 'order1', to: 'line1', label: 'contains' },
+          { id: 'l2', from: 'kim', to: 'order1', label: 'places', fromLabel: 'buyer', toLabel: 'order' },
+        ],
+      }}
+      viewBox="0 0 520 310"
+      width={520}
+      height={310}
+      title="Object Diagram — order1 스냅샷"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const svg = canvasElement.querySelector('[data-bbangto-viz-canvas]')!;
+    // 머리는 밑줄 친 「이름 : 클래스」, 이름 없는 객체는 「: 클래스」
+    const heads = Array.from(svg.querySelectorAll('text[text-decoration="underline"]')).map((t) => t.textContent);
+    await expect(heads).toEqual(['order1 : Order', 'line1 : OrderLine', ': Customer']);
+    // 슬롯 칸 하나 — 연산 칸은 없다
+    await expect(svg.querySelectorAll('[data-bbangto-viz-class-section="methods"]')).toHaveLength(0);
+    await expect(svg.textContent).toContain('status = PAID');
+    // 링크는 화살촉이 없다
+    for (const p of Array.from(svg.querySelectorAll('path[data-viz-part="connector"]'))) await expect(p.getAttribute('marker-end')).toBeNull();
+    await expect(Array.from(svg.querySelectorAll('[data-bbangto-viz-edge-label] text')).map((t) => t.textContent)).toEqual(
+      expect.arrayContaining(['contains', 'places', 'buyer', 'order']),
+    );
   },
 };
 

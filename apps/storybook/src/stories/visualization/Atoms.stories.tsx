@@ -304,6 +304,83 @@ export const EdgeAxisAlignedMarkers: Story = {
 };
 
 // ──────────────────────────────────────────────
+// 5b-2. Edge 라벨 — 선 가운데에 바탕과 함께 그린다 (KAN-082, 상류 이슈 P8)
+//     예전에는 Edge 가 label 을 받고 버렸다. 이제 경로를 따라 잰 길이의 절반 지점에 EdgeLabel 을 놓는다.
+//     네 경로 방식(직선 · 직각 · 곡선 · 경유점)마다 라벨 글자의 중심이 실제로 그려진 선의 가운데
+//     (getPointAtLength(전체 길이 / 2))에 있는지 브라우저에서 잰다. 라벨이 없는 Edge 는 라벨을 그리지 않는다.
+// ──────────────────────────────────────────────
+const LABEL_EDGE_CASES = [
+  { id: 'lbl-straight', label: '주문 정보', from: 'la', to: 'lb', routing: 'straight' as const },
+  { id: 'lbl-orthogonal', label: 'HTTP 호출', from: 'la', to: 'lc', routing: 'orthogonal' as const },
+  { id: 'lbl-curved', label: 'async', from: 'lb', to: 'ld', routing: 'curved' as const },
+  {
+    id: 'lbl-waypoints',
+    label: '재시도',
+    from: 'lc',
+    to: 'la',
+    routing: 'orthogonal' as const,
+    fromSide: 'left' as const,
+    toSide: 'left' as const,
+    waypoints: [
+      { x: 16, y: 230 },
+      { x: 16, y: 60 },
+    ],
+  },
+];
+
+export const EdgeLabelAtMidpoint: Story = {
+  render: () => (
+    <Canvas viewBox="0 0 520 320" width={520} height={320} title="Edge label at midpoint">
+      <Node id="la" x={40} y={30} width={120} height={60} shape="rounded" />
+      <Node id="lb" x={360} y={30} width={120} height={60} shape="rounded" />
+      <Node id="lc" x={40} y={200} width={120} height={60} shape="rounded" />
+      <Node id="ld" x={360} y={200} width={120} height={60} shape="rounded" />
+      {LABEL_EDGE_CASES.map((c) => (
+        <Edge
+          key={c.id}
+          id={c.id}
+          from={c.from}
+          to={c.to}
+          routing={c.routing}
+          fromSide={'fromSide' in c ? c.fromSide : undefined}
+          toSide={'toSide' in c ? c.toSide : undefined}
+          waypoints={'waypoints' in c ? c.waypoints : undefined}
+          label={c.label}
+        />
+      ))}
+      <Edge id="lbl-none" from="lc" to="ld" routing="straight" />
+    </Canvas>
+  ),
+  play: async ({ canvasElement }) => {
+    const svg = canvasElement.querySelector('[data-bbangto-viz-canvas]') as SVGSVGElement;
+    // 라벨을 준 Edge 넷만 라벨을 그린다
+    await expect(svg.querySelectorAll('[data-bbangto-viz-edge-label]')).toHaveLength(LABEL_EDGE_CASES.length);
+    const none = svg.querySelector('[data-bbangto-viz-edge-id="lbl-none"]')!;
+    await expect(none.nextElementSibling?.hasAttribute('data-bbangto-viz-edge-label') ?? false).toBe(false);
+
+    for (const c of LABEL_EDGE_CASES) {
+      const path = svg.querySelector(`[data-bbangto-viz-edge-id="${c.id}"]`) as SVGPathElement;
+      // 라벨은 자기 선 바로 뒤에 온다 — 선 위에 그려져 선에 가리지 않는다
+      const group = path.nextElementSibling as SVGGElement;
+      await expect(group.getAttribute('data-bbangto-viz-edge-label')).not.toBeNull();
+      const text = group.querySelector('text')!;
+      await expect(text.textContent).toBe(c.label);
+      await expect(text).toBeVisible();
+      // 바탕 사각형이 글자 뒤에 깔린다
+      await expect(group.querySelector('rect')).not.toBeNull();
+
+      const mid = path.getPointAtLength(path.getTotalLength() / 2);
+      const at = { x: Number(text.getAttribute('x')), y: Number(text.getAttribute('y')) };
+      await expect({ id: c.id, dx: Math.abs(at.x - mid.x) <= 1, dy: Math.abs(at.y - mid.y) <= 1 }).toEqual({
+        id: c.id,
+        dx: true,
+        dy: true,
+      });
+    }
+  },
+};
+
+// ──────────────────────────────────────────────
 // 5c. Boundary 라벨과 프레임 스트로크의 여유 실측 — 상류 이슈 P3
 //     라벨 y는 `rect.y - fontSize/2` + dominantBaseline="central" 이라
 //     프레임 상단선까지 여유가 폰트 크기 비례로 고정돼 있다.

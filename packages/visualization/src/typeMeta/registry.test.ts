@@ -51,15 +51,15 @@ const scanned = new Set([...templateExports, ...patternExports]);
  *  - IsometricScene: KAN-028 geometry 트랙 신규 템플릿 — inventory §6 역방향 표에 아직 미편입.
  * 이들을 selectable 유형으로 만들려면 먼저 inventory에 VT 행을 추가해야 한다(후속 백필/유지보수 과제).
  */
-const UNMAPPED_ALLOWLIST = new Set(['IsometricScene', 'Kruchten4Plus1View', 'ViewpointFrame']);
+const UNMAPPED_ALLOWLIST = new Set(['IsometricScene', 'Kruchten4Plus1View', 'ViewpointFrame', 'ViewsAndBeyondFrame']);
 
 const registryExportNames = new Set(vizTypeRegistry.flatMap((e) => e.exportNames));
 
 describe('vizTypeRegistry — 정적 스캔 커버리지', () => {
-  it('배럴 스캔이 90개 value export를 잡는다(68 템플릿 + 22 패턴)', () => {
-    expect(templateExports.length).toBe(68);
+  it('배럴 스캔이 94개 value export를 잡는다(72 템플릿 + 22 패턴 — KAN-082 C4DeploymentDiagram · ObjectDiagram · CommunicationDiagram · ViewsAndBeyondFrame)', () => {
+    expect(templateExports.length).toBe(72);
     expect(patternExports.length).toBe(22);
-    expect(scanned.size).toBe(90);
+    expect(scanned.size).toBe(94);
   });
 
   it('allowlist를 제외한 모든 배럴 export가 ≥1 엔트리에 매핑된다(역방향 drift 게이트)', () => {
@@ -79,9 +79,9 @@ describe('vizTypeRegistry — 정적 스캔 커버리지', () => {
     expect(leaked).toEqual([]);
   });
 
-  it('커버된 export 합집합 = 정확히 87(90 − allowlist 3)', () => {
-    expect(registryExportNames.size).toBe(87);
-    expect(scanned.size - UNMAPPED_ALLOWLIST.size).toBe(87);
+  it('커버된 export 합집합 = 정확히 90(94 − allowlist 4)', () => {
+    expect(registryExportNames.size).toBe(90);
+    expect(scanned.size - UNMAPPED_ALLOWLIST.size).toBe(90);
   });
 });
 

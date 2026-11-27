@@ -49,6 +49,27 @@ selectVizTypes(vizTypeRegistry, {
 Flowchart(VT-201)와 Process Steps(VT-202)는 `dataShape`가 똑같이 `['process']`다.
 둘을 가르는 것은 `branching`뿐이다 — 분기가 있는 파이프라인을 직선 스텝으로 그리는 사고가 여기서 갈린다.
 
+## 도식 고르기 — 노드가 무엇인가 · 화살표가 무엇을 뜻하는가
+
+아키텍처 · 소프트웨어 도식은 **노드가 무엇인가**와 **화살표가 무엇을 뜻하는가**로 고른다. 둘이 정해지면 도식이 거의 저절로
+정해진다. 도식 하나에는 노드 종류 하나, 화살표 뜻 하나만 담고, 섞어야 하면 관계 데이터에 `kind` 를 적어 범례로 가른다
+(아래 「화살표 뜻이 섞이면 범례로 가른다」).
+
+| 도식 | 노드 | 화살표 | 시간 축 | 템플릿 |
+| ---- | ---- | ------ | ------- | ------ |
+| 물리 대상(배포 · 토폴로지) | 서버 · VM · 컨테이너 호스트 · 네트워크 영역 | 네트워크 연결 · 배치(어디에 올라가 있나) | 없음 | `UMLDeploymentDiagram` · `C4DeploymentDiagram` · `NetworkTopology` |
+| 런타임(C4 Container · C&C) | API 서버 · 워커 · DB · 큐 · 앱 | 호출 · 통신(HTTP · gRPC · 메시지) | 없음 | `C4ContainerDiagram` · `UMLComponentDiagram` · `ArchitectureDiagram` |
+| 데이터 흐름(DFD · Context Diagram) | 처리 · 저장소 · 외부 엔티티 | 데이터의 이동 | 없음(순서 · 분기 없음) | `DataFlowDiagram`(최상위 Context Diagram 은 처리 하나로) |
+| 코드 구조(클래스 · 객체 · C4 Component) | 클래스 · 모듈 · 객체 | 의존 · 소유 · 상속 · 참조 | 없음 | `ClassDiagram` · `ObjectDiagram` · `C4ComponentDiagram` · `C4CodeDiagram` |
+| 동작(시퀀스 · 상태 · 커뮤니케이션) | 객체(수명선) · 상태 | 시간순 메시지 · 상태 전이 | **있음** | `UMLSequenceDiagram` · `StateDiagram` · `CommunicationDiagram` · `C4DynamicDiagram` |
+| 플로우(플로우차트 · 액티비티 · BPMN) | 작업 단계 · 분기 | 제어 흐름(다음에 무엇을 하나) | 순서는 있음, 주체는 약함 | `Flowchart` · `ActivityDiagram` · `BPMNDiagram` |
+
+자주 헷갈리는 쌍 — **DFD vs 플로우차트**(DFD 화살표는 데이터, 플로우차트 화살표는 제어), **시퀀스 vs 액티비티**(누가 누구에게
+언제 말하나 vs 무엇을 어떤 순서로 하나, 스윔레인을 넣으면 중간쯤), **배포 vs 런타임**(EC2 하나에 API 서버와 워커가 같이 있으면
+배포 도식은 상자 하나, 런타임 도식은 상자 둘). 뷰를 묶는 프레임은 `Kruchten4Plus1View` · `ViewsAndBeyondFrame` · `ViewpointFrame`
+이고, C4 는 템플릿 여섯(`C4ContextDiagram` · Container · Component · Code · Dynamic · Deployment)과 시스템 지형이다.
+예시는 Storybook `VISUALIZATION/Templates/Diagram Examples` 에 모여 있다(KAN-082).
+
 ## 정본은 셋, 전부 같은 데이터다
 
 | 경로 | 언제 쓰나 |
@@ -191,7 +212,7 @@ const head = sheets.map((s) => `<style id="${s.id}">${s.css}</style>`).join('');
 | 층 | 부품 |
 | --- | --- |
 | atom | `Canvas` · `Node` · `NodeLabel` · `Edge` · `EdgeLabel` · `Markers` · `Tag` · `Boundary` · `Lane` · `Lifeline` · `GridLayer` · `Axis` · `BandEdge` · `StatNumber` · `IndexBadge` · `IconBadge` · `RingSegment` · `ProportionBlock` · `PictographUnit` · `MilestoneMarker` · `PyramidLayer` · `VsDivider` · `IsoPrism` |
-| molecule | `PersonNode` · `ExternalNode` · `ContainerNode` · `DatabaseNode` · `QueueNode` · `DecisionNode` · `ProcessNode` · `C4Box` · `ClassBox` · `StateNode` · `EntityTable` · `StepConnector` · `CalloutLeader` · `StatCard` · `MockupNode` · `ActorGlyph` |
+| molecule | `PersonNode` · `ExternalNode` · `ContainerNode` · `DatabaseNode` · `QueueNode` · `DecisionNode` · `ProcessNode` · `C4Box` · `ClassBox` · `StateNode` · `EntityTable` · `StepConnector` · `CalloutLeader` · `StatCard` · `MockupNode` · `ActorGlyph` · `LegendBlock` |
 | 배치 계산(`geometry`) | `tidyTreeLayout` · `squarifyLayout` · `sankeyLayout` · `chordLayout` · `fishboneLayout` · `icebergLayout` · `hexLayout` |
 
 ### 예제 — 결정 그림
@@ -326,12 +347,50 @@ export function DecisionSketch() {
   가이드가 `on.ink` 를 적었거나 그 색이 밑 면에서 4.5:1 에 못 미치면 숫자와 같은 글자색이 된다. 밑에 올 면이 여럿인 글자(Sankey 이름 · Venn 겹친 자리)는
   그 면 전부에서 읽히는 색을 고르고 `data-viz-ink-multi` 를 단다. 대비 검사와 `TextInkGate` 는 템플릿 표본에 패턴 스토리까지
   그린다. `useVizFoundation()` 은 데이터 없음 분기의 `return` 보다 먼저 부른다(`src/styleGuide/hookOrder.test.ts`).
+- **관계선 라벨은 데이터로 받으면 그린다.** `Edge` 는 `label` 을 그린 경로의 가운데(경로를 따라 잰 길이의 절반)에
+  바탕과 함께 그리고, `fromLabel`·`toLabel` 은 양 끝에서 경로 안쪽으로 조금 들어가 선 옆(가로선은 위, 세로선은 왼쪽)에
+  그린다. 글자 크기는 `labelFontSize` 다. 가운데 라벨이 노드나 다른 라벨과 겹치면 `labelOffset: { x, y }` 만큼 옮긴다 —
+  라벨을 넘기는 템플릿의 관계 데이터도 같은 칸을 받는다. 템플릿은 데이터의 라벨 칸을 `Edge` 로 넘긴다 — 관계 label, C4 관계의
+  `technology`(「설명 [기술]」 한 줄), StateDiagram 전이 라벨, Flowchart 분기 라벨, ClassDiagram 의 관계 이름 · 양 끝
+  다중성(`fromLabel`·`toLabel`) · 클래스 `stereotype`(«…»). ClassDiagram 의 포함 · 집합은 전체 쪽(`from`)에 마름모만
+  붙고 부분 쪽에는 화살촉이 없다. KAN-082 전(2.1.0 까지)에는 이 칸들을 받고도 그리지 않았으므로, 그때 채워 둔 라벨은
+  새 버전에서 그림에 나타난다. 이미 라벨을 따로 그리던 템플릿(DataFlowDiagram · C4DynamicDiagram · C4SystemLandscapeDiagram
+  등)은 자리를 그대로 둔다. `src/templates/edgeLabels.test.tsx` 가 Edge 를 쓰는 템플릿 전부를 서버 렌더해 넣은 글자가 그림에
+  정확히 한 번 나오는지 보고, 라벨 칸이 없는 템플릿은 그 파일에 이유와 함께 적는다.
+- **화살표 뜻이 섞이면 범례로 가른다.** 관계선의 뜻은 고정 목록 `RELATION_KINDS` 열 가지다 — 호출(`call`) · 비동기
+  메시지(`asyncMessage`) · 데이터 이동(`dataFlow`) · 제어 흐름(`controlFlow`) · 배치(`deployment`) · 네트워크 연결(`network`) ·
+  의존(`dependency`) · 상속(`inheritance`) · 포함(`composition`) · 집합(`aggregation`). 종류마다 선 모양(`RELATION_LINE_STYLES` —
+  대시와 양 끝 화살촉의 짝)이 모두 다르고, 실선 종류는 `strokeDasharray: none` 으로 고정해 가이드의 연결선 대시가 뜻을
+  바꾸지 않는다. C4 다섯 · UML 컴포넌트 · UML 배포 · 아키텍처 · 네트워크 토폴로지는 관계 데이터에 `kind` 를 받고(템플릿마다
+  쓰는 종류만 — `C4RelationKind` 등), 쓰인 종류가 둘 이상이면 노드 아래에 `LegendBlock` 범례를 붙인다. 범례 위치 · 이름은
+  데이터 `legend: { x, y, title, names }` 로 바꾸고 `legend: false` 면 그리지 않는다. 범례 견본 선은 `Edge` 로 그려 템플릿 선과
+  같은 매핑을 읽는다. 종류가 붙은 선에는 공개 훅 `data-bbangto-viz-relation-kind` 가 달린다. `kind` 를 안 적은 관계는 예전 선
+  모양 그대로다. 표기법 템플릿의 매핑도 낸다 — `classRelationshipLineStyle`(ClassDiagram) · `erCardinalityMarker`(ERDiagram).
+  선 라벨 바탕 상자는 한글 · 한자 · 가나를 1em 으로 어림한다(`edgeLabelBox`).
+- **배치 도식은 노드를 겹쳐 담는다.** UMLDeploymentDiagram 노드는 `parent` 로 다른 노드 안에 들어가고(좌표는 데이터가 준다 —
+  자동 배치 없음, 부모를 먼저 그리고 자식이 있는 노드의 이름은 위쪽), `kind`(«device» · «executionEnvironment») ·
+  `stereotype` · `artifacts`(노드 위에 놓인 파일) 를 그린다. C4 의 배포 도식은 `C4DeploymentDiagram` 이다 — 배포 노드
+  (`nodes`, `parent` 로 중첩 · `instances` 로 「×N」) 위에 컨테이너 인스턴스(`containers`, `node` 로 올라간 노드)를 놓는다.
+  C4 컨테이너는 `shape: 'database' | 'queue'` 로 DB · 큐 모양이 된다. 원문 예 「EC2 하나에 API 서버와 워커」는 배포 도식에서
+  상자 하나 안의 둘이고 런타임 도식(C4ContainerDiagram)에서 상자 둘이다(Storybook `Templates/Diagram Examples`).
+  두 배포 도식은 그리기 전에 상자를 맞춘다 — 자식이 부모 밖으로 나가거나 부모의 이름 글자 띠 안으로 들어와도 부모 상자가
+  자식을 담도록 커지고, 이름 · 스테레오타입 · artifact 칩이 자식과 겹치지 않는다. 데이터가 이미 맞으면 상자는 그대로이고,
+  형제 상자끼리 겹치는 것은 옮기지 않는다(Storybook `Templates/G2` 의 「좌표가 어긋난 데이터」 두 예시).
+- **인스턴스 · 상호작용 도식.** `ObjectDiagram` 은 클래스 도식의 인스턴스 스냅샷이다 — 머리는 밑줄 친 「이름 : 클래스」
+  (`name` 을 비우면 「: 클래스」), 칸은 슬롯(「속성 = 값」) 하나, 링크는 화살촉 없는 선에 이름 · 역할 이름이다. 유형 축에서는
+  VT-101 의 별칭 object diagram 이다. `CommunicationDiagram` 은 시퀀스 도식과 같은 상호작용을 객체 사이 링크 위에 번호
+  메시지(`order` · `label` · `direction`)로 단다 — VT-108 의 별칭 communication 이다. 둘 다 ClassBox 를 다시 쓰고, ClassBox 는
+  빈 칸(속성 · 연산이 없는 칸)을 그리지 않는다(`showEmptyCompartments` 로 예전처럼 세 칸, `nameUnderline` 으로 이름 밑줄).
+- **아키텍처 뷰 프레임은 셋이다.** 다른 도식을 슬롯에 담는 조합 프레임 — `Kruchten4Plus1View`(Logical · Development ·
+  Process · Physical + Scenarios), `ViewpointFrame`(ISO 42010 관점), `ViewsAndBeyondFrame`(SEI Views and Beyond 의 Module ·
+  C&C · Allocation). 영역마다 `slots` 의 도식을 먼저, 없으면 `data` 불릿을 그린다. 유형이 아니라 유형 축(registry)에는 없다.
 - **접근성**: 루트 `Canvas` 는 `role="img"`(`accessible="structured"` 면 `group`)와 `title`(선택 `desc`)을 갖는다.
   값은 항상 텍스트로 함께 적는다 — 그래픽만으로 값을 말하지 않는다. 노드 글리프·아이콘 배지 같은 장식은 `aria-hidden` 이다.
 - **경계 입력**: 빈 데이터는 빈 캔버스다(throw 하지 않는다). 항목 하나도 그린다. `children`·`data` 를 함께 주면 `children` 이다.
 - **지원 범위**: Sankey 는 비순환·좌→우·수동 노드 좌표. GitGraph merge 는 직선. Venn 은 2원 정밀 + 3원 대칭 근사.
   GeoMap 은 호출자가 준 region path 를 그린다(투영 없음, 고정 viewBox). 대량 데이터 최적화는 대상이 아니다.
 - **테스트는 두 갈래다.** 순수 geometry 는 `src/**/*.test.ts` 의 vitest 단위 테스트로, 컴포넌트 렌더는 Storybook `play()` 로 본다.
+  템플릿이 데이터로 받은 글자를 그리는지만은 vitest 에서 서버 렌더(`react-dom/server`)로 본다(`src/**/*.test.tsx`).
   `play()` 에서는 텍스트 bbox·computed width 를 대조하지 않는다(실행마다 흔들린다) — geometry 가 낸 값과
   attribute 정수를 ±1 로 대조한다.
 

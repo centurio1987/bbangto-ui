@@ -2,11 +2,16 @@ import { type ReactNode } from 'react';
 import { Canvas } from '../atoms/Canvas';
 import type { CanvasProps } from '../atoms/Canvas';
 import { Edge } from '../atoms/Edge';
+import { LegendBlock, relationLegendBox, type RelationLegendOption } from '../molecules/LegendBlock';
+import { relationEdgeProps, usedRelationKinds } from '../atoms/relationKind';
 import { Boundary } from '../atoms/Boundary';
 import { PersonNode } from '../molecules/PersonNode';
 import { ExternalNode } from '../molecules/ExternalNode';
 import { C4Box } from '../molecules/C4Box';
+import { DatabaseNode } from '../molecules/DatabaseNode';
+import { QueueNode } from '../molecules/QueueNode';
 import type { C4PersonSpec, C4ContainerSpec, C4RelationshipSpec, C4BoundarySpec } from './c4Types';
+import { c4RelationshipLabel } from './c4Types';
 
 export type { C4ContainerSpec };
 
@@ -15,6 +20,19 @@ export interface C4ContainerDiagramData {
   containers?: C4ContainerSpec[];
   external?: (C4PersonSpec & { external?: boolean })[];
   relationships?: C4RelationshipSpec[];
+  /** 관계 종류가 둘 이상 쓰이면 붙는 범례의 위치 · 이름 바꾸기. `false` 면 그리지 않는다(KAN-082). */
+  legend?: RelationLegendOption | false;
+}
+
+/**
+ * C4 컨테이너 하나 — 모양 칸(`shape`)에 따라 C4 상자 · 데이터베이스 · 메시지 큐 부품으로 그린다(KAN-082).
+ * C4ContainerDiagram 과 C4DeploymentDiagram 이 같이 쓴다. 템플릿 배럴에는 내지 않는다.
+ */
+export function C4ContainerNode({ spec: c }: { spec: C4ContainerSpec }) {
+  const common = { id: c.id, x: c.x, y: c.y, width: c.width, height: c.height, title: c.name, subtitle: c.technology, fill: c.fill };
+  if (c.shape === 'database') return <DatabaseNode {...common} />;
+  if (c.shape === 'queue') return <QueueNode {...common} />;
+  return <C4Box {...common} level="l2" />;
 }
 
 export interface C4ContainerDiagramProps extends Omit<CanvasProps, 'data' | 'children'> {
@@ -55,10 +73,12 @@ export function C4ContainerDiagram({
     ...external.map((e) => ({ id: e.id, x: e.x, y: e.y, width: e.width, height: e.height })),
   ];
 
+  const legend = relationLegendBox(allNodes, usedRelationKinds(relationships), data?.legend);
+
   const autoViewBox = viewBox ?? (() => {
     if (!allNodes.length) return '0 0 600 400';
-    const maxX = Math.max(...allNodes.map((n) => n.x + n.width)) + 20;
-    const maxY = Math.max(...allNodes.map((n) => n.y + n.height)) + 30;
+    const maxX = Math.max(...allNodes.map((n) => n.x + n.width), legend ? legend.x + legend.width : 0) + 20;
+    const maxY = Math.max(...allNodes.map((n) => n.y + n.height), legend ? legend.y + legend.height : 0) + 30;
     return `0 0 ${maxX} ${maxY}`;
   })();
 
@@ -81,18 +101,7 @@ export function C4ContainerDiagram({
         />
       )}
       {containers.map((c) => (
-        <C4Box
-          key={c.id}
-          id={c.id}
-          x={c.x}
-          y={c.y}
-          width={c.width}
-          height={c.height}
-          level="l2"
-          title={c.name}
-          subtitle={c.technology}
-          fill={c.fill}
-        />
+        <C4ContainerNode key={c.id} spec={c} />
       ))}
       {external.map((e) =>
         e.external ? (
@@ -102,8 +111,9 @@ export function C4ContainerDiagram({
         ),
       )}
       {relationships.map((r) => (
-        <Edge key={r.id} from={r.from} to={r.to} />
+        <Edge key={r.id} from={r.from} to={r.to} label={c4RelationshipLabel(r)} labelOffset={r.labelOffset} labelFontSize={10} {...relationEdgeProps(r.kind)} />
       ))}
+      {legend && <LegendBlock {...legend} />}
     </Canvas>
   );
 }

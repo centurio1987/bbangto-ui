@@ -40,9 +40,9 @@ describe('viz paint gate coverage — 실제 repo', () => {
     expect(auditPaintGateCoverage(input)).toEqual([]);
   });
 
-  it('템플릿 이름을 68개 읽는다 — ArchiMate 한 줄의 넷과 메타 프레임까지', () => {
+  it('템플릿 이름을 72개 읽는다 — ArchiMate 한 줄의 넷과 메타 프레임까지(KAN-082 C4DeploymentDiagram · ObjectDiagram · CommunicationDiagram · ViewsAndBeyondFrame 더함)', () => {
     const names = templateExports(input.templatesIndex);
-    expect(names).toHaveLength(68);
+    expect(names).toHaveLength(72);
     expect(names).toEqual(
       expect.arrayContaining([
         'ArchiMateDiagram',

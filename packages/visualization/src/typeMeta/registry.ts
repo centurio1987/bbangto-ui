@@ -28,7 +28,8 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
   {
     id: 'VT-101',
     name: 'UML Class Diagram',
-    exportNames: ['ClassDiagram'],
+    // ObjectDiagram 은 별칭 「object diagram」을 실제 export 로 만든 것(KAN-082.4) — 유형 행은 그대로다
+    exportNames: ['ClassDiagram', 'ObjectDiagram'],
     kind: 'template',
     meta: {
       category: 'engineering',
@@ -100,7 +101,8 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
   {
     id: 'VT-104',
     name: 'UML Deployment Diagram',
-    exportNames: ['UMLDeploymentDiagram'],
+    // C4DeploymentDiagram 은 별칭 「C4 deployment」를 실제 export 로 만든 것(KAN-082.3) — 유형 행은 그대로다
+    exportNames: ['UMLDeploymentDiagram', 'C4DeploymentDiagram'],
     kind: 'template',
     meta: {
       category: 'engineering',
@@ -197,7 +199,8 @@ export const vizTypeRegistry: readonly VizTypeRegistryEntry[] = [
     id: 'VT-108',
     name: 'UML Sequence Diagram',
     // 다-export 유형: UML 상호작용 4종 투영을 3 export가 실현.
-    exportNames: ['SequenceDiagram', 'UMLSequenceDiagram', 'ZenUMLDiagram'],
+    // CommunicationDiagram 은 별칭 「communication」을 실제 export 로 만든 것(KAN-082.4) — 유형 행은 그대로다
+    exportNames: ['SequenceDiagram', 'UMLSequenceDiagram', 'ZenUMLDiagram', 'CommunicationDiagram'],
     kind: 'template',
     meta: {
       category: 'engineering',

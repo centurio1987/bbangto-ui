@@ -89,14 +89,14 @@
 
 | ID | 이름 | aliases | 한 줄 정의 | 대표 용도 | 프리미티브 | 소스(티어) | 상태 | 매핑 | tags | P |
 |---|---|---|---|---|---|---|---|---|---|---|
-| VT-101 | UML Class Diagram | object diagram, C4 code-level class | 클래스·속성·연산과 관계 구조 | 도메인/코드 모델 | node,edge,tree | X01(T1) | ✅ | `ClassDiagram`(template) | related:VT-112 | — |
+| VT-101 | UML Class Diagram | object diagram, C4 code-level class | 클래스·속성·연산과 관계 구조 | 도메인/코드 모델 | node,edge,tree | X01(T1) | ✅ | `ClassDiagram`(template) · `ObjectDiagram`(template, 별칭 object diagram — KAN-082.4) | related:VT-112 | — |
 | VT-102 | UML Package Diagram | — | 패키지 그룹화와 의존 관계 | 모듈 구조 관리 | node,edge,boundary | X01(T1) | ✅ | `UMLPackageDiagram`(template) | folder shape 신규 | — |
 | VT-103 | UML Component Diagram | composite structure diagram | 컴포넌트·인터페이스 배선 | 모듈 아키텍처 | node,edge,port | X01(T1) | ✅ | `UMLComponentDiagram`(template) | — | — |
-| VT-104 | UML Deployment Diagram | C4 deployment | 아티팩트의 실행 노드 배치 | 인프라·배포 구성 | node,edge,boundary | X01(T1) | ✅ | `UMLDeploymentDiagram`(template) | — | — |
+| VT-104 | UML Deployment Diagram | C4 deployment | 아티팩트의 실행 노드 배치 | 인프라·배포 구성 | node,edge,boundary | X01(T1) | ✅ | `UMLDeploymentDiagram`(template) · `C4DeploymentDiagram`(template, 별칭 C4 deployment — KAN-082.3) | — | — |
 | VT-105 | UML Use Case Diagram | usecase | 액터-유스케이스 기능 관계 | 요구 범위 정의 | node,edge,boundary | X01(T1) | ✅ | `UseCaseDiagram`(template) | ActorGlyph molecule 신규 | — |
 | VT-106 | UML Activity Diagram | swimlane diagram, activity | 제어 흐름·병행·레인 절차 모델 | 업무 절차/알고리즘 | node,edge,lane | X01(T1) | ✅ | `ActivityDiagram`(template) | related:VT-201·🔶→✅ 전용 승격 | — |
 | VT-107 | UML State Machine | statechart, stateDiagram-v2 | 상태·이벤트 전이 모델 | 수명주기/프로토콜 | node,edge | X01(T1) | ✅ | `StateDiagram`(template) | — | — |
-| VT-108 | UML Sequence Diagram | communication, interaction overview, timing, ZenUML | 수명선 간 시간순 메시지 교환 | API·시나리오 설계 | lifeline,edge,lane | X01(T1) | ✅ | `SequenceDiagram`·`UMLSequenceDiagram`·`ZenUMLDiagram`(template) | UML 상호작용 4종 투영 흡수 | — |
+| VT-108 | UML Sequence Diagram | communication, interaction overview, timing, ZenUML | 수명선 간 시간순 메시지 교환 | API·시나리오 설계 | lifeline,edge,lane | X01(T1) | ✅ | `SequenceDiagram`·`UMLSequenceDiagram`·`ZenUMLDiagram`(template) · `CommunicationDiagram`(template, 별칭 communication — KAN-082.4) | UML 상호작용 4종 투영 흡수 | — |
 | VT-109 | C4 System Context | context diagram | 시스템 블랙박스와 외부 관계 | 범위 합의 | node,edge,boundary | X02(T1) | ✅ | `C4ContextDiagram`(template) | — | — |
 | VT-110 | C4 Container | — | 배포 단위(앱·DB)와 기술 구성 | 기술 스택 개관 | node,edge,boundary | X02(T1) | ✅ | `C4ContainerDiagram`(template) | — | — |
 | VT-111 | C4 Component | — | 컨테이너 내부 컴포넌트 책임 | 상세 설계 진입 | node,edge,boundary | X02(T1) | ✅ | `C4ComponentDiagram`(template) | — | — |
@@ -216,7 +216,7 @@ catalog §1-b·§2-a의 "ChartPrimitives(bar/line/pie/donut/treemap…)"와 PLAN
 
 ## 6. 역방향 매핑 체크 테이블 (코드 export → VT ID)
 
-`src/templates/index.ts` 컴포넌트 export 65종 + `src/patterns/index.ts` 22종 전수(ORD-012 후). 각 export는 1개 이상 VT 행에 매핑되어야 한다.
+`src/templates/index.ts` 컴포넌트 export 72종 + `src/patterns/index.ts` 22종 전수(KAN-082 후 — ORD-012 때 65종). 각 export는 1개 이상 VT 행에 매핑되어야 한다. 예외는 조합 프레임 셋(`Kruchten4Plus1View` · `ViewpointFrame` · `ViewsAndBeyondFrame`)과 `IsometricScene` 이다(registry allowlist).
 
 | export | 종류 | VT ID |
 |---|---|---|
@@ -227,6 +227,7 @@ catalog §1-b·§2-a의 "ChartPrimitives(bar/line/pie/donut/treemap…)"와 PLAN
 | `RequirementDiagram` | template | VT-118 |
 | `KanbanBoard` | template | VT-204 |
 | `ClassDiagram` | template | VT-101 |
+| `ObjectDiagram` | template | VT-101 (별칭 object diagram, KAN-082.4) |
 | `StateDiagram` | template | VT-107 |
 | `ERDiagram` | template | VT-117 |
 | `C4ContextDiagram` | template | VT-109 |
@@ -236,9 +237,11 @@ catalog §1-b·§2-a의 "ChartPrimitives(bar/line/pie/donut/treemap…)"와 PLAN
 | `ArchitectureDiagram` | template | VT-115 |
 | `UMLComponentDiagram` | template | VT-103 |
 | `UMLDeploymentDiagram` | template | VT-104 |
+| `C4DeploymentDiagram` | template | VT-104 (별칭 C4 deployment, KAN-082.3) |
 | `UMLSequenceDiagram` | template | VT-108 |
 | `SequenceDiagram` | template | VT-108 |
 | `ZenUMLDiagram` | template | VT-108 |
+| `CommunicationDiagram` | template | VT-108 (별칭 communication, KAN-082.4) |
 | `BPMNDiagram` | template | VT-122 (+VT-123·VT-106 근사) |
 | `ArchiMateDiagram` | template | VT-120 |
 | `ArchiMateBusinessDiagram` | template | VT-120 |
@@ -323,6 +326,7 @@ catalog §1-b·§2-a의 "ChartPrimitives(bar/line/pie/donut/treemap…)"와 PLAN
 | G. 개념 프레임워크 | 10 | 10 | 0 | 0 | 0 | 0 | 0 | 0 |
 | **계** | **90** | **87** | **0** | **0** | **3** | **0** | **0** | **0** |
 
+> KAN-082(2026-11-25) 뒤: 유형 행 수는 그대로(90 · 구현 87)이고, 별칭이던 셋을 실제 export 로 만들었다 — `C4DeploymentDiagram`(VT-104 C4 deployment) · `ObjectDiagram`(VT-101 object diagram) · `CommunicationDiagram`(VT-108 communication). 조합 프레임 `ViewsAndBeyondFrame` 을 더해 템플릿 export 는 72, registry 에 매핑된 export 는 90 이다.
 > ORD-012 완료 후 커버리지: 구현(✅) **97%(87/90)** — 범위 외 ⛔ 3(VT-520 Data Table·VT-610 Infographic Resume·VT-611 Scrollytelling)을 제외한 **채택 유형 전량 구현(87/87 = 100%)**. A 엔지니어링 100%(29/29)·E 데이터 차트 95%(19/20, ⛔ 1)·F 인포그래픽 82%(9/11, ⛔ 2)·G 개념 프레임워크 100%(10/10).
 > **P1·P2·P3 잔여 0** — ORD-012에서 P3 11건(📋 9 + 🔶 승격 2: VT-123 BPMN Collaboration·VT-307 WBS) 전량 구현. 신규 순수 geometry 4(`boxplot`/`chord`/`iceberg`/`hexgrid`, vitest 단위) + `tree.wbsNumbering`·신규 shape `folder`(+DMN inline path 헬퍼). 전부 공통 계약(`README.md` 「구현 규약」, 구 PLAN §C-2) 준수 — 신규 paint 채널 0. **인벤토리 백로그 소진 완료.**
 
@@ -342,7 +346,8 @@ catalog §1-b·§2-a의 "ChartPrimitives(bar/line/pie/donut/treemap…)"와 PLAN
 
 catalog §1-c의 원자 갭은 유형이 아니라 구성 요소이므로 행으로 승격하지 않는다(원문: 출처 코드 `catalog` §1-c, §2-a 범례):
 Zone/Layer 밴드 · 서비스 아이콘 칩 · LegendBlock · 회전 EdgeLabel · LinkLabelChip · Fork/Join 바 · DetailCard · DashedGhostNode · TimeAxis/DateTick · 아이콘 글리프 세트 · 협업 마커.
-PLAN §D G6 메타 프레임(`Kruchten4Plus1View`·`ViewpointFrame`)은 유형이 아닌 조합 프레임이라 후보 풀에 기재. (2026-07-23 KAN-015 구현 완료 — 조합 프레임 성격 불변이라 VT 유형 행으로는 미승격.)
+(2026-11-25 KAN-082.2 — LegendBlock 은 molecule `LegendBlock`(관계선 범례)으로 채웠다. 관계 종류 목록 `RELATION_KINDS` 와 선 모양 `RELATION_LINE_STYLES` 를 템플릿 선과 함께 읽는다. 유형이 아닌 구성 요소라 행으로 올리지 않는다.)
+PLAN §D G6 메타 프레임(`Kruchten4Plus1View`·`ViewpointFrame`)은 유형이 아닌 조합 프레임이라 후보 풀에 기재. (2026-07-23 KAN-015 구현 완료 — 조합 프레임 성격 불변이라 VT 유형 행으로는 미승격.) SEI Views and Beyond 의 세 뷰(Module · C&C · Allocation) 프레임 `ViewsAndBeyondFrame` 도 같은 조합 프레임이다(2026-11-25 KAN-082.5 — registry allowlist, 유형 행으로 올리지 않는다).
 
 ### 8-c. Deprecated ID 표
 

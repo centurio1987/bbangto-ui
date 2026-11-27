@@ -14,6 +14,8 @@ export type { KanbanBoardProps, KanbanColumnSpec, KanbanCardSpec } from './Kanba
 // G3: class / state / ER
 export { ClassDiagram } from './ClassDiagram';
 export type { ClassDiagramProps, ClassDiagramData, ClassSpec, ClassRelationshipSpec, ClassRelationshipKind } from './ClassDiagram';
+export { ObjectDiagram } from './ObjectDiagram';
+export type { ObjectDiagramProps, ObjectDiagramData, ObjectSpec, ObjectSlotSpec, ObjectLinkSpec } from './ObjectDiagram';
 export { StateDiagram } from './StateDiagram';
 export type { StateDiagramProps, StateDiagramData, StateSpec, TransitionSpec } from './StateDiagram';
 export { ERDiagram } from './ERDiagram';
@@ -22,6 +24,7 @@ export type { ERDiagramProps, ERDiagramData, EREntitySpec, ERRelationshipSpec, E
 // G2: C4 / Architecture / UML family
 export { C4ContextDiagram } from './C4ContextDiagram';
 export type { C4ContextDiagramProps, C4ContextDiagramData } from './C4ContextDiagram';
+export type { C4RelationKind, C4ContainerShape } from './c4Types';
 export { C4ContainerDiagram } from './C4ContainerDiagram';
 export type { C4ContainerDiagramProps, C4ContainerDiagramData } from './C4ContainerDiagram';
 export { C4ComponentDiagram } from './C4ComponentDiagram';
@@ -29,11 +32,13 @@ export type { C4ComponentDiagramProps, C4ComponentDiagramData } from './C4Compon
 export { C4CodeDiagram } from './C4CodeDiagram';
 export type { C4CodeDiagramProps, C4CodeDiagramData, C4CodeElementSpec, C4CodeElementKind } from './C4CodeDiagram';
 export { ArchitectureDiagram } from './ArchitectureDiagram';
-export type { ArchitectureDiagramProps, ArchitectureDiagramData, ArchServiceSpec, ArchGroupSpec, ArchEdgeSpec } from './ArchitectureDiagram';
+export type { ArchitectureDiagramProps, ArchitectureDiagramData, ArchServiceSpec, ArchGroupSpec, ArchEdgeSpec, ArchRelationKind } from './ArchitectureDiagram';
 export { UMLComponentDiagram } from './UMLComponentDiagram';
-export type { UMLComponentDiagramProps, UMLComponentDiagramData, UMLComponentSpec, UMLInterfaceSpec, UMLDependencySpec } from './UMLComponentDiagram';
+export type { UMLComponentDiagramProps, UMLComponentDiagramData, UMLComponentSpec, UMLInterfaceSpec, UMLDependencySpec, UMLComponentRelationKind } from './UMLComponentDiagram';
 export { UMLDeploymentDiagram } from './UMLDeploymentDiagram';
-export type { UMLDeploymentDiagramProps, UMLDeploymentDiagramData, UMLDeploymentNodeSpec, UMLDeploymentEnvironmentSpec, UMLDeploymentEdgeSpec } from './UMLDeploymentDiagram';
+export { C4DeploymentDiagram } from './C4DeploymentDiagram';
+export type { C4DeploymentDiagramProps, C4DeploymentDiagramData, C4DeploymentNodeSpec, C4DeploymentContainerSpec } from './C4DeploymentDiagram';
+export type { UMLDeploymentDiagramProps, UMLDeploymentDiagramData, UMLDeploymentNodeSpec, UMLDeploymentEnvironmentSpec, UMLDeploymentEdgeSpec, UMLDeploymentRelationKind, UMLDeploymentNodeKind } from './UMLDeploymentDiagram';
 export { UMLSequenceDiagram } from './UMLSequenceDiagram';
 export type { UMLSequenceDiagramProps, UMLSequenceDiagramData, SequenceParticipantSpec, SequenceMessageSpec, SequenceMessageKind } from './UMLSequenceDiagram';
 
@@ -42,6 +47,8 @@ export { SequenceDiagram } from './SequenceDiagram';
 export type { SequenceDiagramProps, SequenceDiagramData, SeqParticipantSpec, SeqMessageSpec, SeqActivationSpec, SeqFragmentSpec, SeqMessageKind, SeqFragmentKind } from './SequenceDiagram';
 export { ZenUMLDiagram } from './ZenUMLDiagram';
 export type { ZenUMLDiagramProps, ZenUMLDiagramData } from './ZenUMLDiagram';
+export { CommunicationDiagram } from './CommunicationDiagram';
+export type { CommunicationDiagramProps, CommunicationDiagramData, CommunicationObjectSpec, CommunicationLinkSpec, CommunicationMessageSpec } from './CommunicationDiagram';
 export { BPMNDiagram } from './BPMNDiagram';
 export type { BPMNDiagramProps, BPMNDiagramData, BPMNEventSpec, BPMNTaskSpec, BPMNGatewaySpec, BPMNLaneSpec, BPMNFlowSpec, BPMNEventKind, BPMNGatewayKind } from './BPMNDiagram';
 export { ArchiMateDiagram, ArchiMateBusinessDiagram, ArchiMateApplicationDiagram, ArchiMateTechnologyDiagram } from './ArchiMateDiagram';
@@ -77,7 +84,7 @@ export type { GitGraphProps, GitBranchSpec, GitCommitSpec, GitMergeSpec } from '
 export { PacketDiagram } from './PacketDiagram';
 export type { PacketDiagramProps, PacketField } from './PacketDiagram';
 export { NetworkTopology } from './NetworkTopology';
-export type { NetworkTopologyProps, TopologyZone, TopologyNode, TopologyLink } from './NetworkTopology';
+export type { NetworkTopologyProps, TopologyZone, TopologyNode, TopologyLink, TopologyLinkKind } from './NetworkTopology';
 export { DataLineage } from './DataLineage';
 export type { DataLineageProps, LineageNode, LineageEdge } from './DataLineage';
 export { SitemapTree } from './SitemapTree';
@@ -147,6 +154,8 @@ export type {
 } from './Kruchten4Plus1View';
 export { ViewpointFrame } from './ViewpointFrame';
 export type { ViewpointFrameProps } from './ViewpointFrame';
+export { ViewsAndBeyondFrame } from './ViewsAndBeyondFrame';
+export type { ViewsAndBeyondFrameProps, ViewsAndBeyondSlots, ViewsAndBeyondData, ViewsAndBeyondRegionKey } from './ViewsAndBeyondFrame';
 
 // geometry 트랙: 진짜 isometric 투영 씬 (KAN-028)
 export { IsometricScene } from './IsometricScene';
