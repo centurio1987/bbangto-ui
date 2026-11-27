@@ -373,6 +373,9 @@ export function DecisionSketch() {
   (`nodes`, `parent` 로 중첩 · `instances` 로 「×N」) 위에 컨테이너 인스턴스(`containers`, `node` 로 올라간 노드)를 놓는다.
   C4 컨테이너는 `shape: 'database' | 'queue'` 로 DB · 큐 모양이 된다. 원문 예 「EC2 하나에 API 서버와 워커」는 배포 도식에서
   상자 하나 안의 둘이고 런타임 도식(C4ContainerDiagram)에서 상자 둘이다(Storybook `Templates/Diagram Examples`).
+  두 배포 도식은 그리기 전에 상자를 맞춘다 — 자식이 부모 밖으로 나가거나 부모의 이름 글자 띠 안으로 들어와도 부모 상자가
+  자식을 담도록 커지고, 이름 · 스테레오타입 · artifact 칩이 자식과 겹치지 않는다. 데이터가 이미 맞으면 상자는 그대로이고,
+  형제 상자끼리 겹치는 것은 옮기지 않는다(Storybook `Templates/G2` 의 「좌표가 어긋난 데이터」 두 예시).
 - **인스턴스 · 상호작용 도식.** `ObjectDiagram` 은 클래스 도식의 인스턴스 스냅샷이다 — 머리는 밑줄 친 「이름 : 클래스」
   (`name` 을 비우면 「: 클래스」), 칸은 슬롯(「속성 = 값」) 하나, 링크는 화살촉 없는 선에 이름 · 역할 이름이다. 유형 축에서는
   VT-101 의 별칭 object diagram 이다. `CommunicationDiagram` 은 시퀀스 도식과 같은 상호작용을 객체 사이 링크 위에 번호

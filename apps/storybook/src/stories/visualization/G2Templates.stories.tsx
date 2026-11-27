@@ -10,6 +10,7 @@ import {
   UMLComponentDiagram,
   UMLDeploymentDiagram,
   UMLSequenceDiagram,
+  C4DeploymentDiagram,
 } from '@centurio1987/bbangto-ui-visualization';
 import { blueprintTechnical01VizStyleGuide } from '@centurio1987/bbangto-ui-visualization-style-guide-catalog';
 import { expect } from 'storybook/test';
@@ -320,6 +321,96 @@ export const UMLDeploymentDiagramBasic: Story = {
 
     const edge = canvasElement.querySelector('[data-bbangto-viz-edge]');
     await expect(edge).not.toBeNull();
+  },
+};
+
+// ──────────────────────────────────────────────────────────────────────
+// 7-b. 배포 도식 — 좌표가 어긋난 데이터도 상자가 깨지거나 겹치지 않는다(KAN-082.3 검토 2번)
+//   「추천대로(좌표는 데이터가 준다), 그러나 레이아웃 깨짐, 글자, 도식 겹침 등이 발생하지 않도록 해야 한다」
+//   자식이 부모 이름 띠 안으로 들어오고(api · ec2) 부모 밖으로 나간(worker) 데이터를 그대로 넘긴다.
+// ──────────────────────────────────────────────────────────────────────
+
+type DeployBox = { x: number; y: number; width: number; height: number };
+const deployBox = (g: Element): DeployBox => {
+  const [x, y, width, height] = (g.getAttribute('data-bbangto-viz-box') ?? '').split(' ').map(Number);
+  return { x, y, width, height };
+};
+const within = (c: DeployBox, p: DeployBox) =>
+  c.x >= p.x - 0.5 && c.y >= p.y - 0.5 && c.x + c.width <= p.x + p.width + 0.5 && c.y + c.height <= p.y + p.height + 0.5;
+const disjoint = (a: DeployBox, b: DeployBox) =>
+  a.x + a.width <= b.x + 0.5 || b.x + b.width <= a.x + 0.5 || a.y + a.height <= b.y + 0.5 || b.y + b.height <= a.y + 0.5;
+
+/** 부모 노드마다 — 자식이 부모 안에 있고, 부모의 글자 · artifact 칩이 어느 자식과도 겹치지 않는다(실제 글자 폭으로 잰다) */
+async function expectDeployFits(svg: Element, innerOf: (b: DeployBox) => DeployBox) {
+  const nodes = Array.from(svg.querySelectorAll('[data-bbangto-viz-deploy-node]'));
+  const kidsOf = (id: string) => [
+    ...Array.from(svg.querySelectorAll(`[data-bbangto-viz-deploy-parent="${id}"]`)).map(deployBox),
+    ...(Array.from(svg.querySelectorAll(`[data-bbangto-viz-container-node="${id}"]`)) as SVGGElement[]).map((g) => g.getBBox()),
+  ];
+  for (const g of nodes) {
+    const id = g.getAttribute('data-bbangto-viz-deploy-node')!;
+    const own = deployBox(g);
+    const kids = kidsOf(id);
+    for (const k of kids) await expect({ id, kid: k, inside: within(k, innerOf(own)) }).toEqual({ id, kid: k, inside: true });
+    const marks = [
+      ...(Array.from(g.querySelectorAll(':scope > text, [data-bbangto-viz-node-label] text')) as SVGTextElement[]).map((t) => t.getBBox()),
+      ...Array.from(g.querySelectorAll('[data-bbangto-viz-artifact]')).map(deployBox),
+    ];
+    for (const m of marks) {
+      await expect({ id, mark: m, inOwn: within(m, own) }).toEqual({ id, mark: m, inOwn: true });
+      for (const k of kids) await expect({ id, mark: m, kid: k, apart: disjoint(m, k) }).toEqual({ id, mark: m, kid: k, apart: true });
+    }
+  }
+}
+
+export const UMLDeploymentDiagramFitsChildren: Story = {
+  render: () => (
+    <UMLDeploymentDiagram
+      data={{
+        nodes: [
+          { id: 'ec2', x: 20, y: 20, width: 220, height: 120, name: 'EC2 m5.large', kind: 'device', artifacts: ['agent.deb'] },
+          { id: 'api', x: 40, y: 30, width: 150, height: 110, name: 'API 서버', parent: 'ec2', kind: 'executionEnvironment', artifacts: ['api.jar'] },
+          { id: 'worker', x: 210, y: 60, width: 150, height: 100, name: '워커', parent: 'ec2', stereotype: 'container' },
+        ],
+      }}
+      width={460}
+      height={320}
+      title="UML 배포 도식 — 어긋난 좌표도 깨지지 않는다"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const svg = canvasElement.querySelector('[data-bbangto-viz-canvas]')!;
+    // 큐브 앞면 안(오른쪽 · 위 깊이 14 를 뺀 곳)에 자식이 담긴다
+    await expectDeployFits(svg, (b) => ({ x: b.x, y: b.y + 14, width: b.width - 14, height: b.height - 14 }));
+    // 자식 좌표는 데이터 그대로다
+    await expect(deployBox(svg.querySelector('[data-bbangto-viz-deploy-node="worker"]')!)).toEqual({ x: 210, y: 60, width: 150, height: 100 });
+  },
+};
+
+export const C4DeploymentDiagramFitsChildren: Story = {
+  render: () => (
+    <C4DeploymentDiagram
+      data={{
+        nodes: [
+          { id: 'aws', x: 10, y: 30, width: 300, height: 200, name: 'AWS', technology: 'ap-northeast-2' },
+          { id: 'ec2', x: 30, y: 40, width: 260, height: 150, name: 'EC2 Auto Scaling Group', technology: 'm5.large · Ubuntu 22.04 LTS', parent: 'aws', instances: 2 },
+        ],
+        containers: [
+          { id: 'api', node: 'ec2', x: 50, y: 90, width: 140, height: 90, name: 'API 서버', technology: 'Node.js' },
+          { id: 'worker', node: 'ec2', x: 210, y: 100, width: 140, height: 90, name: '워커', technology: 'Go' },
+        ],
+        relationships: [{ id: 'r1', from: 'api', to: 'worker', label: '작업 넣기', technology: 'SQS' }],
+      }}
+      width={460}
+      height={320}
+      title="C4 배포 도식 — 어긋난 좌표도 깨지지 않는다"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await expectVizPaintResolved(canvasElement);
+    const svg = canvasElement.querySelector('[data-bbangto-viz-canvas]')!;
+    await expectDeployFits(svg, (b) => b);
   },
 };
 

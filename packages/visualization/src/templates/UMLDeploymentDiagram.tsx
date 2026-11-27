@@ -11,6 +11,8 @@ import type { EdgeRouting } from '../geometry/routing';
 import { vvar } from '../tokens/contract';
 import { resolveLabelFont } from '../tokens/labelFont';
 import { labelTextWidth } from '../atoms/EdgeLabel';
+import { estimateWidth, wrapText } from '../geometry/text';
+import { fitNestedBoxes, type NestBox, type NestRoom } from '../geometry/nesting';
 
 export interface UMLDeploymentNodeSpec {
   id: string;
@@ -70,6 +72,42 @@ export interface UMLDeploymentDiagramData {
 
 /** artifact 칩 한 줄 높이 */
 const ART_H = 20;
+/** 이름 글자 크기 · 줄 높이(NodeLabel 은 글자 크기의 1.25배로 줄을 쌓는다) */
+const NAME_FS = 12;
+const NAME_LH = NAME_FS * 1.25;
+/** 큐브 옆면 · 윗면 깊이의 최대값(cubeDepth) — 글자와 자식은 앞면 안에 둔다 */
+const CUBE_D = 14;
+
+/** 글자 폭 — 한글을 1em 로 보는 어림과 NodeLabel 이 줄을 나눌 때 쓰는 어림 중 넓은 쪽 */
+const textW = (s: string, fs: number) => Math.max(labelTextWidth(s, fs), estimateWidth(s, fs));
+const chipW = (a: string) => labelTextWidth(a, 10) + 22;
+/** 이름이 폭 안에서 몇 줄로 나뉘는가(NodeLabel 과 같은 규칙 — 줄 수 제한 없이) */
+const nameLines = (name: string, width: number) => wrapText(name, width - 8, NAME_FS).length;
+
+/**
+ * 노드 하나가 비워 둘 여백(KAN-082.3 검토 2번). 좌표는 데이터 그대로이고, 상자만 이 여백을 지키게 커진다.
+ * 자식이 있으면 위쪽에 스테레오타입 · 이름 띠, 아래쪽에 artifact 칩 띠를 남기고, 오른쪽은 큐브 옆면 깊이만큼 더 띄운다.
+ * 자식이 없으면 스테레오타입 · 이름 · 칩이 앞면 안에 들어갈 높이를 둔다.
+ */
+function umlRoom(n: UMLDeploymentNodeSpec, hasKids: boolean): NestRoom {
+  const stereo = n.stereotype ?? n.kind;
+  const arts = n.artifacts ?? [];
+  const nl = nameLines(n.name, n.width);
+  const longestWord = Math.max(0, ...n.name.split(/\s+/).map((w) => textW(w, NAME_FS)));
+  const minWidth = Math.max(stereo ? textW(`«${stereo}»`, 9) : 0, longestWord, ...arts.map((a) => chipW(a) + 12)) + 8 + CUBE_D;
+  if (hasKids) {
+    return {
+      top: (stereo ? 32.5 : 14.5) + nl * NAME_LH + 6,
+      left: 6,
+      right: CUBE_D + 6,
+      bottom: arts.length ? 14 + arts.length * ART_H : 6,
+      minWidth,
+    };
+  }
+  const topNeed = stereo ? 47 + nl * NAME_LH : 20 + nl * NAME_LH;
+  const bottomNeed = arts.length ? 40 + nl * NAME_LH + 2 * arts.length * ART_H : 20 + nl * NAME_LH;
+  return { minWidth, minHeight: Math.max(topNeed, bottomNeed) };
+}
 
 export interface UMLDeploymentDiagramProps extends Omit<CanvasProps, 'data' | 'children'> {
   children?: ReactNode;
@@ -105,8 +143,6 @@ export function UMLDeploymentDiagram({
   const nodes = data?.nodes ?? [];
   const edges = data?.edges ?? [];
 
-  const allNodes = nodes.map((n) => ({ id: n.id, x: n.x, y: n.y, width: n.width, height: n.height }));
-
   // 부모를 자식보다 먼저 그린다 — 깊이(부모를 몇 번 거슬러 오르는가) 순, 같은 깊이는 데이터 순서
   const byId = new Map(nodes.map((n) => [n.id, n]));
   const depth = (n: UMLDeploymentNodeSpec): number => {
@@ -117,14 +153,22 @@ export function UMLDeploymentDiagram({
   const ordered = nodes.map((n, i) => ({ n, i, d: depth(n) })).sort((a, b) => a.d - b.d || a.i - b.i).map((x) => x.n);
   const parents = new Set(nodes.map((n) => n.parent).filter((p): p is string => !!p));
 
+  // 상자를 맞춘다 — 자식을 담고 글자 · 칩 띠를 비워 둔다. 좌표는 데이터 그대로이고, 데이터가 이미 맞으면 상자도 그대로다(KAN-082.3 검토 2번)
+  const fitted = fitNestedBoxes(nodes, (it, hasKids) => umlRoom(byId.get(it.id)!, hasKids));
+  const boxOf = (n: UMLDeploymentNodeSpec): NestBox => fitted.get(n.id) ?? n;
+  const allNodes = nodes.map((n) => ({ id: n.id, ...boxOf(n) }));
+
   const legend = relationLegendBox([...environments, ...allNodes], usedRelationKinds(edges), data?.legend);
 
   const autoViewBox = viewBox ?? (() => {
-    const all = [...environments, ...nodes];
+    const all = [...environments, ...allNodes];
     if (!all.length) return '0 0 600 400';
+    // 상자가 위 · 왼쪽으로 커져 0 밖으로 나가면 그만큼 보이는 곳을 넓힌다(그 밖에는 예전처럼 0 에서 시작)
+    const minX = Math.min(0, ...all.map((n) => (n.x < 0 ? n.x - 20 : 0)));
+    const minY = Math.min(0, ...all.map((n) => (n.y < 0 ? n.y - 20 : 0)));
     const maxX = Math.max(...all.map((n) => n.x + n.width), legend ? legend.x + legend.width : 0) + 20;
     const maxY = Math.max(...all.map((n) => n.y + n.height), legend ? legend.y + legend.height : 0) + 20;
-    return `0 0 ${maxX} ${maxY}`;
+    return `${minX} ${minY} ${maxX - minX} ${maxY - minY}`;
   })();
 
   return (
@@ -151,20 +195,29 @@ export function UMLDeploymentDiagram({
       {ordered.map((n) => {
         const hasKids = parents.has(n.id);
         const stereo = n.stereotype ?? n.kind;
+        const b = boxOf(n);
         // 면 위 글자는 그 면의 글자색 — fill 을 직접 주면 그 면은 계산할 수 없어 연결선 색이다(KAN-075 규칙)
         const ink = n.fill === undefined ? vvar('on', 'shape', 'fill') : vvar('edge', 'stroke');
-        // 자식이 있으면 이름을 위쪽에, 없으면 예전처럼 가운데에
-        const nameY = hasKids ? n.y + (stereo ? 34 : 22) : n.y + n.height / 2 + 6;
-        const stereoY = hasKids ? n.y + 16 : nameY - 16;
+        // 이름이 폭 안에서 나뉘는 줄 수 — 줄을 자르지 않고 다 그린다(줄이 늘면 상자가 그만큼 커져 있다)
+        const nl = nameLines(n.name, b.width);
+        // 자식이 있으면 이름을 위쪽에, 없으면 예전처럼 가운데에. 위쪽 스테레오타입은 큐브 윗면과 앞면 사이 선(깊이 14)에
+        // 걸치지 않게 앞면 안에 둔다(KAN-082.3 검토 2번 — 예전에는 y+16 이라 선 위에 글자가 걸쳤다)
+        const nameY = hasKids ? b.y + (stereo ? 32.5 : 14.5) + (nl * NAME_LH) / 2 : b.y + b.height / 2 + 6;
+        const stereoY = hasKids ? b.y + 23 : nameY - (nl * NAME_LH) / 2 - 8.5;
         const arts = n.artifacts ?? [];
         return (
-          <g key={n.id} data-bbangto-viz-deploy-node={n.id} data-bbangto-viz-deploy-parent={n.parent}>
+          <g
+            key={n.id}
+            data-bbangto-viz-deploy-node={n.id}
+            data-bbangto-viz-deploy-parent={n.parent}
+            data-bbangto-viz-box={`${b.x} ${b.y} ${b.width} ${b.height}`}
+          >
             <Node
               id={n.id}
-              x={n.x}
-              y={n.y}
-              width={n.width}
-              height={n.height}
+              x={b.x}
+              y={b.y}
+              width={b.width}
+              height={b.height}
               shape="cube"
               fill={n.fill}
               stroke={n.stroke}
@@ -173,7 +226,7 @@ export function UMLDeploymentDiagram({
             {stereo && (
               <text
                 data-bbangto-viz-deploy-stereotype
-                x={n.x + n.width / 2}
+                x={b.x + b.width / 2}
                 y={stereoY}
                 textAnchor="middle"
                 dominantBaseline="central"
@@ -184,13 +237,13 @@ export function UMLDeploymentDiagram({
                 {`«${stereo}»`}
               </text>
             )}
-            <NodeLabel x={n.x} y={nameY} width={n.width} title={n.name} fontSize={12} />
+            <NodeLabel x={b.x} y={nameY} width={b.width} title={n.name} fontSize={NAME_FS} maxLines={Math.max(3, nl)} />
             {arts.map((a, i) => {
-              const w = labelTextWidth(a, 10) + 22;
-              const ay = n.y + n.height - 10 - (arts.length - i) * ART_H;
-              const ax = n.x + 10;
+              const w = chipW(a);
+              const ay = b.y + b.height - 10 - (arts.length - i) * ART_H;
+              const ax = b.x + 10;
               return (
-                <g key={a} data-bbangto-viz-artifact={a}>
+                <g key={a} data-bbangto-viz-artifact={a} data-bbangto-viz-box={`${ax} ${ay} ${w} ${ART_H - 4}`}>
                   <path
                     d={`M ${ax} ${ay} L ${ax + w - 6} ${ay} L ${ax + w} ${ay + 6} L ${ax + w} ${ay + ART_H - 4} L ${ax} ${ay + ART_H - 4} Z`}
                     style={{ fill: vvar('canvas', 'bg'), stroke: vvar('shape', 'stroke'), strokeWidth: 1 }}
