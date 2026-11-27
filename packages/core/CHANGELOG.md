@@ -1,5 +1,12 @@
 # @centurio1987/core
 
+## 1.3.1
+
+### Patch Changes
+
+- Updated dependencies [56e0f1c]
+  - @centurio1987/bbangto-ui-tokens@2.1.0
+
 ## 1.3.0
 
 ### Minor Changes
