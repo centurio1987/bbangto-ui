@@ -87,7 +87,7 @@
   - 목표: 원문의 예 「EC2 하나에 API 서버와 워커」를 배포 도식에서는 상자 하나 안의 둘로, 런타임 도식에서는 DB·큐 모양이 다른 상자 둘로 그릴 수 있다
   - 메모: .1 뒤에 한다(UMLDeploymentDiagram·c4Types 공유). 새 export 는 유형 목록 §6 과 typeMeta 등록을 함께 — VT-104 별칭을 실제 export 로
   - 실행 문서: KANBAN/cards/KAN-082.3-TJ665Y.md (3/3 · 최근 11-25)
-  - 검토 문서: KANBAN/reviews/KAN-082.3-TJ665Y.review.md (승인 1/2 · 추가 의견 1 · 추가 의견 총 1 · 검토 대기)
+  - 검토 문서: KANBAN/reviews/KAN-082.3-TJ665Y.review.md (승인 1/2 · 추가 의견 1 · 추가 의견 총 2 · 검토 대기)
 - `KAN-082.4-FSH2T1` viz 객체 도식·커뮤니케이션 도식 — 인스턴스 스냅샷과 링크 위 번호 메시지 — 생성:ai · 최종:ai · 갱신:2026-11-25
   - 상위: `KAN-082-MD50S0` (검토)
   - 짧은 제목: 객체·커뮤니케이션 도식
