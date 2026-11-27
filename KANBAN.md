@@ -96,7 +96,7 @@
   - 목표: 같은 객체들을 시퀀스 도식(시간축)과 커뮤니케이션 도식(링크 위 번호)으로 각각 그릴 수 있고, 유형 목록의 구현 표시가 실제 export 를 가리킨다
   - 메모: ClassBox 칸 고르기(P9)는 이 카드가 맡는다 — KAN-080 P9 와 겹친다. 간선 라벨 렌더 복구 뒤에 한다(ClassDiagram·ClassBox 를 함께 고친다)
   - 실행 문서: KANBAN/cards/KAN-082.4-FSH2T1.md (3/3 · 최근 11-25)
-  - 검토 문서: KANBAN/reviews/KAN-082.4-FSH2T1.review.md (승인 0/2 · 검토 대기)
+  - 검토 문서: KANBAN/reviews/KAN-082.4-FSH2T1.review.md (승인 2/2 · 검토 대기)
 - `KAN-082.5-WPS4DX` viz SEI Views and Beyond 프레임 — Module·C&C·Allocation 세 뷰 슬롯 — 생성:ai · 최종:ai · 갱신:2026-11-25
   - 상위: `KAN-082-MD50S0` (검토)
   - 짧은 제목: SEI 뷰 프레임
