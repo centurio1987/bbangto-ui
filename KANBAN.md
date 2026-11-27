@@ -78,7 +78,7 @@
   - 목표: 한 도식에 HTTP 호출과 메시지 발행처럼 뜻이 다른 화살표를 섞어도 선 모양으로 구분되고, 범례 한 줄로 그 뜻을 읽을 수 있다
   - 메모: 간선 라벨 렌더 복구 뒤에 한다. 유형 목록 §8-b 의 LegendBlock(프리미티브 수준 빈칸)을 채운다. P11 ①(관계 매핑 export)도 이 카드
   - 실행 문서: KANBAN/cards/KAN-082.2-P4970X.md (3/3 · 최근 11-25)
-  - 검토 문서: KANBAN/reviews/KAN-082.2-P4970X.review.md (승인 2/2 · 검토 대기)
+  - 검토 문서: KANBAN/reviews/KAN-082.2-P4970X.review.md (승인 2/2 · 승인)
 - `KAN-082.3-TJ665Y` viz 배치 도식 보강 — 노드 중첩·스테레오타입·artifact, C4 Deployment 템플릿, C4 컨테이너 모양, 토폴로지 링크 라벨 — 생성:ai · 최종:ai · 갱신:2026-11-25
   - 상위: `KAN-082-MD50S0` (검토)
   - 짧은 제목: 배치 도식·C4 Deployment
