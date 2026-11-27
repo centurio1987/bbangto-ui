@@ -1,5 +1,76 @@
 # @centurio1987/bbangto-ui-visualization
 
+## 2.2.0
+
+### Minor Changes
+
+- a1e7c80: 배치 도식 보강 — 노드 중첩 · 종류 · artifact, C4 Deployment, C4 컨테이너 모양, 토폴로지 링크 라벨(KAN-082.3).
+
+  - `UMLDeploymentDiagram` — 노드가 `parent`(품는 노드 id) · `kind`(`device` · `executionEnvironment` → «device» · «executionEnvironment») · `stereotype` · `artifacts`(노드 위 파일 이름, 문서 모양 칩)를 받는다. 부모를 자식보다 먼저 그리고 자식이 있는 노드의 이름은 위쪽에 둔다. 좌표는 데이터가 준 그대로다(자동 배치 없음).
+  - `C4DeploymentDiagram` — 새 템플릿. 배포 노드(`nodes` — `technology` · `parent` 중첩 · `instances` 「×N」) 위에 컨테이너 인스턴스(`containers` — 올라간 노드 `node`)를 놓고, 관계는 다른 C4 도식과 같다(「설명」 아래 「[기술]」, `kind` · 범례). 유형 축에서는 VT-104(배포 도식)의 별칭 「C4 deployment」로 찾힌다 — 유형 수는 87 그대로다.
+  - C4 컨테이너 — `shape: 'database' | 'queue'` 면 DatabaseNode · QueueNode 모양으로 그린다(`C4ContainerShape`). 비우면 지금 C4 상자 그대로다.
+  - `NetworkTopology` — 링크가 `label` · `labelOffset` 을 받아 선 가운데에 그린다.
+  - 배포 도식 두 템플릿(`UMLDeploymentDiagram` · `C4DeploymentDiagram`)은 그리기 전에 상자를 맞춘다. 좌표는 데이터가 준 그대로이고, 자식(C4 는 올라간 컨테이너 포함)이 부모 밖으로 나가거나 부모의 이름 · 스테레오타입 · 기술 글자 띠 안으로 들어오면 부모 상자가 자식을 여백과 함께 담도록 커진다. artifact 칩은 자식 아래에 놓이고, 상자 폭은 이름 · 칩 · 인스턴스 수(×N) 글자보다 좁아지지 않으며, 긴 이름은 줄 수를 자르지 않고 다 그린다. 데이터가 이미 맞으면 상자는 그대로다. 형제 상자끼리 겹치는 것은 옮기지 않는다(KAN-082.3 검토 2번).
+
+  **바뀌는 그림**: 새 칸을 안 쓰면 그대로다. 다만 자식이 있는 UML 배포 노드의 스테레오타입 · 이름은 큐브 윗면 모서리 선에 걸치지 않도록 7 · 6 아래로 내려 그린다.
+
+  시험: `src/templates/deployment.test.tsx` · `src/geometry/nesting.test.ts` · `src/typeMeta/registry.test.ts`(템플릿 69 · export 88) · Storybook `Templates/Diagram Examples` 의 배포 · 런타임 짝 · `Templates/G2` 의 「좌표가 어긋난 데이터」 두 예시.
+
+- b2836cf: 관계선 라벨을 그린다 — 템플릿이 데이터로 받고도 버리던 라벨 칸이 그림에 나온다(KAN-082.1, 상류 이슈 P7 · P8 · P11 ②).
+
+  - `Edge` — `label` 을 그린 경로의 가운데(경로를 따라 잰 길이의 절반)에 `EdgeLabel` 바탕과 함께 그린다. 예전에는 받고 버렸다. `fromLabel` · `toLabel` 을 새로 받아 선 양 끝 근처(가로선은 위, 세로선은 왼쪽)에 그리고, `labelFontSize` 로 글자 크기를, `labelOffset: { x, y }` 로 가운데 라벨 위치를 고른다(타입 `EdgeLabelOffset`).
+  - 템플릿 — 아키텍처 · 블록 · BPMN 둘 · C4 다섯 · ER · Flowchart · State · UML 컴포넌트 · 배포 · Class 가 라벨 칸을 넘긴다. C4 관계선은 「설명 [기술]」 한 줄이다. 이 템플릿들의 관계 데이터는 `labelOffset` 도 받는다(라벨을 따로 그리는 C4SystemLandscapeDiagram · BPMN 메시지 흐름도 같다).
+  - ClassDiagram — 클래스 `stereotype` 을 «…» 로, 관계 이름과 양 끝 다중성(`fromLabel` · `toLabel`)을 그린다. 포함 · 집합은 전체 쪽(`from`)에 마름모만 붙고 부분 쪽 화살촉이 없어졌다.
+  - Flowchart — 선 데이터가 붙을 변(`fromSide` · `toSide`)과 꺾는 점(`waypoints`)을 받는다. 돌아가는 선을 정방향 선과 겹치지 않게 그릴 수 있다(KAN-082.1 검토).
+  - `EdgeLabel` — 바탕 상자 크기를 재는 `edgeLabelBox` 를 함께 낸다. 라벨 글에 줄바꿈(`\n`)이 있으면 줄마다 그린다. C4 관계선 글은 「설명」 아래 「[기술]」 두 줄이다(KAN-082.1 검토에서 고름).
+  - 마커 — 모든 마커가 `orient="auto-start-reverse"` 다. 시작 끝(markerStart)의 마름모 · ER 카디널리티가 노드 안에 그려지던 것을 노드 바깥으로 고쳤다. 화살촉 기준점(refX)을 그린 끝에 맞추고, 선 끝은 노드 테두리 굵기 2.5 까지 그 바깥에 오게 했다 — 화살촉이 노드 테두리를 파고들지 않는다. ER 까마귀발(many · oneOrMany · zeroOrMany)은 갈래가 엔티티 쪽으로 벌어지게 바로잡았다(예전에는 반대로 벌어져 화살촉처럼 보였다).
+
+  **바뀌는 그림**: 이 칸들을 채워 두었던 소비자는 새 버전에서 그 글자가 그림에 나타난다. 포함 · 집합 관계의 부분 쪽 화살촉이 사라진다. 선 끝이 노드 테두리에서 0.5 안팎 더 떨어지고 화살촉이 끝에 딱 맞는다. ER 시작 쪽 카디널리티가 엔티티 바깥으로 나오고 까마귀발 방향이 바뀐다. 이미 라벨을 따로 그리던 템플릿(DataFlowDiagram · C4DynamicDiagram · C4SystemLandscapeDiagram 등)은 자리가 그대로다.
+
+  시험: `src/templates/edgeLabels.test.tsx`(Edge 를 쓰는 템플릿 33개 서버 렌더) · `src/geometry/routing.test.ts`(가운데 · 끝 라벨 자리) · Storybook `VISUALIZATION/Atoms` EdgeLabelAtMidpoint · `Templates/G3` ClassDiagramDeclaredFields · `Templates/Diagram Examples`.
+
+- 69342ea: 객체 도식 · 커뮤니케이션 도식과 ClassBox 빈 칸 숨기기(KAN-082.4, 상류 이슈 P9).
+
+  - `ClassBox` — 속성 · 연산이 빈 칸은 그리지 않고 그 높이를 이름 칸이 가진다(UML 칸 억제). 예전처럼 늘 세 칸을 그리려면 `showEmptyCompartments`. 객체 도식용으로 `nameUnderline`(이름 밑줄)을 더했다.
+  - `ObjectDiagram` — 새 템플릿. 인스턴스(`objects` — `name` · `classifier` · `slots`)를 밑줄 친 「이름 : 클래스」와 「속성 = 값」 칸으로, 링크(`links`)를 화살촉 없는 선과 이름 · 역할 이름으로 그린다. 유형 축에서 VT-101 의 별칭 object diagram 으로 찾힌다.
+  - `CommunicationDiagram` — 새 템플릿. 객체 사이 링크 위에 번호 메시지(`order` · `label` · `direction: 'forward' | 'backward'`)와 방향 화살표를 단다. 유형 축에서 VT-108 의 별칭 communication 으로 찾힌다.
+
+  **바뀌는 그림**: ClassDiagram · C4CodeDiagram · SysMLBlockDiagram 에서 속성이나 연산을 비운 상자는 그 칸이 사라지고 이름 칸이 커진다. 예전 모양은 `showEmptyCompartments`(ClassBox 를 직접 쓸 때)로 돌린다.
+
+  유형 수는 87 그대로다(export 90 · 템플릿 71). 시험: `src/molecules/ClassBox.test.tsx` · `src/templates/objectDiagram.test.tsx` · `src/templates/communicationDiagram.test.tsx` · Storybook `Templates/G3` ObjectDiagramSnapshot · `Templates/Diagram Examples` CheckoutAsSequence · CheckoutAsCommunication.
+
+- 0cab764: 화살표 종류와 범례 — 한 도식에 뜻이 다른 화살표를 섞으면 선 모양으로 갈리고 범례 한 줄로 그 뜻을 읽는다(KAN-082.2, 상류 이슈 P11 ①).
+
+  - `RELATION_KINDS` — 관계선의 뜻 열 가지(호출 · 비동기 메시지 · 데이터 이동 · 제어 흐름 · 배치 · 네트워크 연결 · 의존 · 상속 · 포함 · 집합). `RELATION_LINE_STYLES` 가 종류마다 대시와 양 끝 화살촉을 정하고(열 가지가 모두 다르다, 실선은 `none` 으로 고정), `RELATION_KIND_NAMES` 가 범례 이름이다. `relationEdgeProps(kind)` 는 Edge 에 넘길 속성과 공개 훅 `data-bbangto-viz-relation-kind` 를 낸다.
+  - `LegendBlock` — 관계선 범례 molecule. 견본 선을 Edge 로 그려 템플릿 선과 같은 매핑을 읽는다. `legendBlockSize` · `relationLegendBox` 로 템플릿이 범례를 놓는다.
+  - 템플릿 — C4 다섯(컨텍스트 · 컨테이너 · 컴포넌트 · 코드 · 시스템 지형) · UMLComponentDiagram · UMLDeploymentDiagram · ArchitectureDiagram · NetworkTopology 의 관계 데이터가 `kind` 를 받는다(템플릿마다 쓰는 종류만 — `C4RelationKind` · `UMLComponentRelationKind` · `UMLDeploymentRelationKind` · `ArchRelationKind` · `TopologyLinkKind`). 쓰인 종류가 둘 이상이면 노드 아래에 범례를 붙이고, 데이터 `legend` 로 위치 · 이름을 바꾸거나 `false` 로 끈다. 자동 viewBox 를 쓰는 템플릿은 범례까지 담도록 넓어진다.
+  - 상류 이슈 P11 ① — `classRelationshipLineStyle`(ClassDiagram 관계 매핑) · `erCardinalityMarker`(ERDiagram 카디널리티 마커)를 낸다. 두 템플릿이 그것을 쓴다.
+  - `EdgeLabel` — 바탕 상자 폭이 한글 · 한자 · 가나를 1em 으로 어림한다(예전에는 모든 글자 0.6em 이라 한글 라벨 양 끝에 선이 비쳤다).
+
+  **바뀌는 그림**: `kind` 를 안 적은 관계는 그대로다. 한글 선 라벨의 바탕 상자가 글자 폭만큼 넓어진다.
+
+  시험: `src/atoms/relationKind.test.tsx`(목록 · 매핑 · 템플릿 아홉의 견본 선 = 템플릿 선) · Storybook `VISUALIZATION/Molecules` LegendBlockAllKinds · `Templates/Diagram Examples` RuntimeMixedArrowsWithLegend.
+
+- da5a38f: SEI Views and Beyond 프레임 `ViewsAndBeyondFrame` 을 더한다(KAN-082.5).
+
+  - Module(코드 구조) · Component-and-Connector(런타임 구조) · Allocation(물리 배치 · 팀 배치) 세 영역을 가로로 놓는다. 영역마다 `slots` 의 중첩 도식을 먼저, 없으면 `data` 불릿을 그린다(Kruchten4Plus1View 와 같은 쓰는 법).
+  - 유형이 아니라 다른 도식을 담는 조합 프레임이라 유형 축(registry)에는 넣지 않는다 — Kruchten4Plus1View · ViewpointFrame 과 같다. 유형 수는 87 그대로다.
+
+  시험: `src/templates/viewsAndBeyond.test.tsx` · `src/typeMeta/registry.test.ts`(allowlist 4) · Storybook `Templates/G6-MetaFrames` ViewsAndBeyondSEI.
+
+- 56e0f1c: 진한 면(도형 선 색 `shape.stroke` 로 칠한 면) 위 글자색을 낸다 — `--bbangto-viz-on-shape-stroke`(KAN-083).
+
+  - tokens — `VisualizationFoundation.on.shape.stroke`(선택). 가이드가 진한 면 위 글자색을 직접 적는 칸이다.
+  - visualization — `deriveOnInk` 가 `shape.stroke` 면의 글자색을 계산해 `--bbangto-viz-on-shape-stroke` 로 낸다. 면 위 글자는 `vvar('on', 'shape', 'stroke')` 를 쓴다. 계산 규칙은 다른 면과 같다(`on.ink` → 가이드 글자색 넷 → 검정 · 흰색, 4.5:1).
+  - visualization-style-guide-catalog — terminal-ascii · neon-gradient-dark 의 Node 래퍼가 넘겨받은 `fill` 을 따른다. 넘기지 않으면 지금처럼 무채움 · 그라디언트다. neon 은 node 종류 면(`vvar('node', kind, 'fill')` 이나 그 대표 hex)을 넘겨도 그라디언트다. 템플릿은 래퍼를 거치지 않고 쇼케이스는 node 대표색만 넘기므로 카탈로그 그림은 바뀌지 않는다.
+
+  Storybook `VISUALIZATION/Templates/Node Wrapper Fill Gate` 가 가이드 30종의 Node 래퍼에 fill · stroke 를 넘겨 계산값을 재고, 진한 면 글자의 대비를 preset 전부에서 잰다.
+
+### Patch Changes
+
+- Updated dependencies [56e0f1c]
+  - @centurio1987/bbangto-ui-tokens@2.1.0
+
 ## 2.1.0
 
 ### Minor Changes
