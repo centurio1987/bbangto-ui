@@ -1,6 +1,6 @@
 {
   "next_id": 85,
-  "next_seq": 346,
+  "next_seq": 347,
   "cards": {
     "KAN-076-NHP81Z": {
       "col": "backlog",
@@ -195,12 +195,12 @@
       "parent": "KAN-082-MD50S0"
     },
     "KAN-082.5-WPS4DX": {
-      "col": "review",
+      "col": "done",
       "title": "viz SEI Views and Beyond 프레임 — Module·C&C·Allocation 세 뷰 슬롯",
       "verbatim": "",
       "생성": "ai",
       "최종": "ai",
-      "갱신": "2026-11-25",
+      "갱신": "2026-11-27",
       "title_hash": "17ba2096a25abe4ec09cca6a93021886a26981ac",
       "verbatim_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
       "short": "SEI 뷰 프레임",
@@ -1936,7 +1936,6 @@
     "KAN-078-0TF6NT",
     "KAN-080-RN47PY",
     "KAN-084-QGNC19",
-    "KAN-082.5-WPS4DX",
     "KAN-082-MD50S0",
     "KAN-020",
     "KAN-025",
@@ -2018,9 +2017,20 @@
     "KAN-082.1-ZFJJM6",
     "KAN-082.2-P4970X",
     "KAN-082.3-TJ665Y",
-    "KAN-082.4-FSH2T1"
+    "KAN-082.4-FSH2T1",
+    "KAN-082.5-WPS4DX"
   ],
   "recent": [
+    {
+      "seq": 346,
+      "t": "2026-11-27T13:35",
+      "a": "ai",
+      "id": "KAN-082.5-WPS4DX",
+      "op": "move",
+      "w": "CN8DDC",
+      "from": "review",
+      "to": "done"
+    },
     {
       "seq": 345,
       "t": "2026-11-27T13:35",
@@ -2613,17 +2623,6 @@
       "w": "451TXT",
       "from": "todo",
       "to": "doing"
-    },
-    {
-      "seq": 299,
-      "t": "2026-10-12T15:50",
-      "a": "ai",
-      "id": "KAN-078-0TF6NT",
-      "op": "edit",
-      "w": "S7030N",
-      "field": "memo",
-      "before": "비용 API 환산 약 150달러·약 2시간(KAN-071 실측). 하네스와 함정은 저장소 밖 ~/.local/share/bbangto-ui-agent-repro/KAN-071/harness 와 메모리 agent-repro-harness. 노출은 analyze.py 의 exposure 로 센다",
-      "after": "비용 API 환산 약 150달러·약 2시간(KAN-071 실측). 하네스와 함정은 저장소 밖 ~/.local/share/bbangto-ui-agent-repro/KAN-071/harness 와 메모리 agent-repro-harness. 노출은 analyze.py 의 exposure 로 센다 · 직렬: 이 카드가 KAN-076(viz 배치 엔진 안내)보다 먼저다 — 076 이 README 를 바꾸면 「지금 판」 조건이 달라진다(2026-10-12 유저 지시). 착수 때 scope 를 정하면 직렬 기록이 자동으로 풀리므로 dep-serialize 를 다시 건다"
     }
   ],
   "waivers": [

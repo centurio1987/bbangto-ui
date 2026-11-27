@@ -61,15 +61,6 @@
 ## 진행 중
 
 ## 검토
-- `KAN-082.5-WPS4DX` viz SEI Views and Beyond 프레임 — Module·C&C·Allocation 세 뷰 슬롯 — 생성:ai · 최종:ai · 갱신:2026-11-25
-  - 상위: `KAN-082-MD50S0` (검토)
-  - 짧은 제목: SEI 뷰 프레임
-  - 목적: Module·C&C·Allocation 세 뷰를 슬롯으로 받는 ViewsAndBeyondFrame 을 Kruchten4Plus1View 와 같은 방식으로 더한다
-  - 이유: 원문이 든 프레임워크 셋 가운데 4+1 은 Kruchten4Plus1View, C4 는 템플릿 여섯이 있지만 SEI Views and Beyond 는 없어 ViewpointFrame 을 세 번 손으로 늘어놓아야 한다
-  - 목표: 한 시스템의 모듈 뷰·런타임(C&C) 뷰·배치(Allocation) 뷰를 한 프레임에 나란히 담고, 슬롯마다 기존 템플릿을 넣을 수 있다
-  - 메모: 새 파일만 더해 형제 카드와 파일이 겹치지 않는다. 조합 프레임이라 Kruchten4Plus1View·ViewpointFrame 처럼 typeMeta registry allowlist 대상이다
-  - 실행 문서: KANBAN/cards/KAN-082.5-WPS4DX.md (1/1 · 최근 11-25)
-  - 검토 문서: KANBAN/reviews/KAN-082.5-WPS4DX.review.md (승인 1/1 · 승인)
 - `KAN-082-MD50S0` viz 도식 스펙 표현력 확장 — 노드 종류·화살표 의미로 가른 여섯 도식과 세 프레임워크, 범례 — 생성:ai · 최종:ai · 갱신:2026-11-25
   - 짧은 제목: 도식 스펙 표현력 확장
   - 목적: 배포·런타임·DFD·클래스와 객체·동작·플로우 여섯 도식과 4+1·C4·SEI 세 프레임워크, 화살표 범례를 viz 템플릿 데이터만으로 그릴 수 있게 한다
@@ -837,3 +828,12 @@
   - 메모: ClassBox 칸 고르기(P9)는 이 카드가 맡는다 — KAN-080 P9 와 겹친다. 간선 라벨 렌더 복구 뒤에 한다(ClassDiagram·ClassBox 를 함께 고친다)
   - 실행 문서: KANBAN/cards/KAN-082.4-FSH2T1.md (3/3 · 최근 11-25)
   - 검토 문서: KANBAN/reviews/KAN-082.4-FSH2T1.review.md (승인 2/2 · 승인)
+- `KAN-082.5-WPS4DX` viz SEI Views and Beyond 프레임 — Module·C&C·Allocation 세 뷰 슬롯 — 생성:ai · 최종:ai · 갱신:2026-11-27
+  - 상위: `KAN-082-MD50S0` (검토)
+  - 짧은 제목: SEI 뷰 프레임
+  - 목적: Module·C&C·Allocation 세 뷰를 슬롯으로 받는 ViewsAndBeyondFrame 을 Kruchten4Plus1View 와 같은 방식으로 더한다
+  - 이유: 원문이 든 프레임워크 셋 가운데 4+1 은 Kruchten4Plus1View, C4 는 템플릿 여섯이 있지만 SEI Views and Beyond 는 없어 ViewpointFrame 을 세 번 손으로 늘어놓아야 한다
+  - 목표: 한 시스템의 모듈 뷰·런타임(C&C) 뷰·배치(Allocation) 뷰를 한 프레임에 나란히 담고, 슬롯마다 기존 템플릿을 넣을 수 있다
+  - 메모: 새 파일만 더해 형제 카드와 파일이 겹치지 않는다. 조합 프레임이라 Kruchten4Plus1View·ViewpointFrame 처럼 typeMeta registry allowlist 대상이다
+  - 실행 문서: KANBAN/cards/KAN-082.5-WPS4DX.md (1/1 · 최근 11-25)
+  - 검토 문서: KANBAN/reviews/KAN-082.5-WPS4DX.review.md (승인 1/1 · 승인)
