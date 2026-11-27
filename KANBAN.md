@@ -61,15 +61,6 @@
 ## 진행 중
 
 ## 검토
-- `KAN-082.3-TJ665Y` viz 배치 도식 보강 — 노드 중첩·스테레오타입·artifact, C4 Deployment 템플릿, C4 컨테이너 모양, 토폴로지 링크 라벨 — 생성:ai · 최종:ai · 갱신:2026-11-25
-  - 상위: `KAN-082-MD50S0` (검토)
-  - 짧은 제목: 배치 도식·C4 Deployment
-  - 목적: 배포 노드 중첩(VPC › 서브넷 › EC2 › 컨테이너)·스테레오타입·artifact, C4 Deployment 템플릿, C4 컨테이너 모양, 토폴로지 링크 라벨을 더한다
-  - 이유: 배포 도식의 화살표는 「어디에 올라가 있나」인데 노드가 평평한 cube 하나뿐이고, C4 도식 여섯 가운데 Deployment 만 없다
-  - 목표: 원문의 예 「EC2 하나에 API 서버와 워커」를 배포 도식에서는 상자 하나 안의 둘로, 런타임 도식에서는 DB·큐 모양이 다른 상자 둘로 그릴 수 있다
-  - 메모: .1 뒤에 한다(UMLDeploymentDiagram·c4Types 공유). 새 export 는 유형 목록 §6 과 typeMeta 등록을 함께 — VT-104 별칭을 실제 export 로
-  - 실행 문서: KANBAN/cards/KAN-082.3-TJ665Y.md (3/3 · 최근 11-25)
-  - 검토 문서: KANBAN/reviews/KAN-082.3-TJ665Y.review.md (승인 2/2 · 추가 의견 총 2 · 승인)
 - `KAN-082.4-FSH2T1` viz 객체 도식·커뮤니케이션 도식 — 인스턴스 스냅샷과 링크 위 번호 메시지 — 생성:ai · 최종:ai · 갱신:2026-11-25
   - 상위: `KAN-082-MD50S0` (검토)
   - 짧은 제목: 객체·커뮤니케이션 도식
@@ -837,3 +828,12 @@
   - 메모: 간선 라벨 렌더 복구 뒤에 한다. 유형 목록 §8-b 의 LegendBlock(프리미티브 수준 빈칸)을 채운다. P11 ①(관계 매핑 export)도 이 카드
   - 실행 문서: KANBAN/cards/KAN-082.2-P4970X.md (3/3 · 최근 11-25)
   - 검토 문서: KANBAN/reviews/KAN-082.2-P4970X.review.md (승인 2/2 · 승인)
+- `KAN-082.3-TJ665Y` viz 배치 도식 보강 — 노드 중첩·스테레오타입·artifact, C4 Deployment 템플릿, C4 컨테이너 모양, 토폴로지 링크 라벨 — 생성:ai · 최종:ai · 갱신:2026-11-27
+  - 상위: `KAN-082-MD50S0` (검토)
+  - 짧은 제목: 배치 도식·C4 Deployment
+  - 목적: 배포 노드 중첩(VPC › 서브넷 › EC2 › 컨테이너)·스테레오타입·artifact, C4 Deployment 템플릿, C4 컨테이너 모양, 토폴로지 링크 라벨을 더한다
+  - 이유: 배포 도식의 화살표는 「어디에 올라가 있나」인데 노드가 평평한 cube 하나뿐이고, C4 도식 여섯 가운데 Deployment 만 없다
+  - 목표: 원문의 예 「EC2 하나에 API 서버와 워커」를 배포 도식에서는 상자 하나 안의 둘로, 런타임 도식에서는 DB·큐 모양이 다른 상자 둘로 그릴 수 있다
+  - 메모: .1 뒤에 한다(UMLDeploymentDiagram·c4Types 공유). 새 export 는 유형 목록 §6 과 typeMeta 등록을 함께 — VT-104 별칭을 실제 export 로
+  - 실행 문서: KANBAN/cards/KAN-082.3-TJ665Y.md (3/3 · 최근 11-25)
+  - 검토 문서: KANBAN/reviews/KAN-082.3-TJ665Y.review.md (승인 2/2 · 추가 의견 총 2 · 승인)
