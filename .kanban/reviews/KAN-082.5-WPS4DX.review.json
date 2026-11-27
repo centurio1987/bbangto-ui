@@ -2,20 +2,20 @@
  "card": "KAN-082.5-WPS4DX",
  "front": {
   "base": "64dc999",
-  "branch": "KAN-082-MD50S0",
+  "branch": "main",
   "card": "KAN-082.5-WPS4DX",
   "created": "2026-11-25",
   "inherits": null,
-  "merged": null,
+  "merged": "9298cfaecd7e",
   "status": "검토 대기",
   "title": "viz SEI Views and Beyond 프레임 — Module·C&C·Allocation 세 뷰 슬롯",
-  "worktree": "/Users/centurio/orca/workspaces/bbangto-ui/KAN-082-MD50S0"
+  "worktree": "/home/centurio/bbangto-ui"
  },
  "inherited_md": "",
- "md_fp": "6960d0bf53a4d43c40f6e410ac4787d7b5deaac1",
- "md_src_fp": "b9f61d6eb7c18d61354c46c88c86128210ef1df4",
+ "md_fp": "51ba7aabe61962a2329a639716d8797ebe85e454",
+ "md_src_fp": "4f3a54dae2fa9e6751d7065e03a642b638f03ea1",
  "schema": 1,
- "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `KAN-082-MD50S0` |\n| 워크트리 | `/Users/centurio/orca/workspaces/bbangto-ui/KAN-082-MD50S0` |\n| 베이스 | `64dc999` |\n| 변경 훑기 | `git diff 64dc999...HEAD` |\n\n**커밋 1건**\n\n```text\nda5a38f feat(visualization): ViewsAndBeyondFrame — SEI Module · C&C · Allocation 세 뷰 조합 프레임 (KAN-082 S15)\n```\n\n**변경 파일 10개 (+279 −8)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.changeset/kan-082-views-and-beyond.md` | M | 10 | 0 |\n| `apps/storybook/src/stories/visualization/G6MetaFrames.stories.tsx` | M | 55 | 0 |\n| `apps/storybook/src/stories/visualization/_paintGateFixtures.tsx` | M | 15 | 0 |\n| `packages/foundations/src/vizPaintGateCoverage.test.ts` | M | 2 | 2 |\n| `packages/visualization/README.md` | M | 3 | 0 |\n| `packages/visualization/src/templates/ViewsAndBeyondFrame.tsx` | M | 140 | 0 |\n| `packages/visualization/src/templates/index.ts` | M | 2 | 0 |\n| `packages/visualization/src/templates/viewsAndBeyond.test.tsx` | M | 46 | 0 |\n| `packages/visualization/src/typeMeta/registry.test.ts` | M | 5 | 5 |\n| `packages/visualization/visualization-type-inventory.md` | M | 1 | 1 |\n\n**롤백 태그 23개**\n\n```text\nkan/KAN-082-MD50S0/S1\nkan/KAN-082-MD50S0/S10\nkan/KAN-082-MD50S0/S11\nkan/KAN-082-MD50S0/S12\nkan/KAN-082-MD50S0/S13\nkan/KAN-082-MD50S0/S14\nkan/KAN-082-MD50S0/S17\nkan/KAN-082-MD50S0/S18\nkan/KAN-082-MD50S0/S19\nkan/KAN-082-MD50S0/S2\nkan/KAN-082-MD50S0/S3\nkan/KAN-082-MD50S0/S4\nkan/KAN-082-MD50S0/S5\nkan/KAN-082-MD50S0/S6\nkan/KAN-082-MD50S0/S7\nkan/KAN-082-MD50S0/S8\nkan/KAN-082-MD50S0/S9\nkan/KAN-082-MD50S0/batch1\nkan/KAN-082-MD50S0/batch2\nkan/KAN-082-MD50S0/batch3\nkan/KAN-082-MD50S0/batch4\nkan/KAN-082-MD50S0/batch5\nkan/KAN-082-MD50S0/batch7\n```",
+ "target_md": "| 항목 | 값 |\n|---|---|\n| 브랜치 | `main` — **머지됨**(카드 브랜치 `KAN-082-MD50S0` 의 끝 `9298cfaecd7e` 을 main 에 병합), 대상은 아래 고정 범위 |\n| 워크트리 | `/home/centurio/bbangto-ui` |\n| 베이스 | `64dc999` |\n| 변경 훑기 | `git diff 64dc999..9298cfaecd7e` |\n\n**커밋 1건**\n\n```text\nda5a38f feat(visualization): ViewsAndBeyondFrame — SEI Module · C&C · Allocation 세 뷰 조합 프레임 (KAN-082 S15)\n```\n\n**변경 파일 10개 (+279 −8)**\n\n| 파일 | 상태 | 추가 | 삭제 |\n|---|:--:|---:|---:|\n| `.changeset/kan-082-views-and-beyond.md` | M | 10 | 0 |\n| `apps/storybook/src/stories/visualization/G6MetaFrames.stories.tsx` | M | 55 | 0 |\n| `apps/storybook/src/stories/visualization/_paintGateFixtures.tsx` | M | 15 | 0 |\n| `packages/foundations/src/vizPaintGateCoverage.test.ts` | M | 2 | 2 |\n| `packages/visualization/README.md` | M | 3 | 0 |\n| `packages/visualization/src/templates/ViewsAndBeyondFrame.tsx` | M | 140 | 0 |\n| `packages/visualization/src/templates/index.ts` | M | 2 | 0 |\n| `packages/visualization/src/templates/viewsAndBeyond.test.tsx` | M | 46 | 0 |\n| `packages/visualization/src/typeMeta/registry.test.ts` | M | 5 | 5 |\n| `packages/visualization/visualization-type-inventory.md` | M | 1 | 1 |\n\n**롤백 태그 23개**\n\n```text\nkan/KAN-082-MD50S0/S1\nkan/KAN-082-MD50S0/S10\nkan/KAN-082-MD50S0/S11\nkan/KAN-082-MD50S0/S12\nkan/KAN-082-MD50S0/S13\nkan/KAN-082-MD50S0/S14\nkan/KAN-082-MD50S0/S17\nkan/KAN-082-MD50S0/S18\nkan/KAN-082-MD50S0/S19\nkan/KAN-082-MD50S0/S2\nkan/KAN-082-MD50S0/S3\nkan/KAN-082-MD50S0/S4\nkan/KAN-082-MD50S0/S5\nkan/KAN-082-MD50S0/S6\nkan/KAN-082-MD50S0/S7\nkan/KAN-082-MD50S0/S8\nkan/KAN-082-MD50S0/S9\nkan/KAN-082-MD50S0/batch1\nkan/KAN-082-MD50S0/batch2\nkan/KAN-082-MD50S0/batch3\nkan/KAN-082-MD50S0/batch4\nkan/KAN-082-MD50S0/batch5\nkan/KAN-082-MD50S0/batch7\n```",
  "verdicts": [
   {
    "at": "2026-11-27",
